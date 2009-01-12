@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+<!--
+@package      jcommunity
+@subpackage   
+@author       Laurent Jouanneau <laurent@xulfr.org>
+@contributor
+@copyright    2008 Laurent Jouanneau
+@link         http://jelix.org
+@licence      http://www.gnu.org/licenses/gpl.html GNU General Public Licence, see LICENCE file
+-->
+   <input ref="nickname" required="true">
+      <label locale="account.form.nickname"/>
+   </input>
+
+   <input ref="email"  required="true" type="email">
+       <label locale="account.form.email"/>
+   </input>
+
+   <input ref="member_birth" type="date">
+       <label locale="havefnubb~members.birthday"/>
+   </input>
+
+   <input ref="member_firstname">
+       <label locale="havefnubb~members.firstname"/>
+   </input>
+
+   <input ref="member_town">
+       <label locale="havefnubb~members.town"/>
+   </input>
+   
+   <menulist ref="member_country">
+      <label locale="havefnubb~members.country"/>
+      <datasource class="havefnubb~flags" />
+   </menulist>
+
+   <htmleditor ref="member_comment">
+       <label locale="havefnubb~members.comments"/>
+   </htmleditor>
+
+   <input ref="member_xfire">
+       <label locale="havefnubb~members.xfire"/>
+   </input>
+   
+   <input ref="member_steam_id">
+       <label locale="havefnubb~members.steamid"/>
+   </input>
+   
+   <input ref="member_connection">
+       <label locale="havefnubb~members.connection"/>
+   </input>
+
+   <input ref="member_os">
+       <label locale="havefnubb~members.os"/>
+   </input>
+
+   <input ref="member_proc">
+       <label locale="havefnubb~members.processor"/>
+   </input>
+
+   <input ref="member_ram">
+       <label locale="havefnubb~members.ram"/>
+   </input>
+
+   <input ref="member_display">
+       <label locale="havefnubb~members.display"/>
+   </input>
+
+   <input ref="member_screen">
+       <label locale="havefnubb~members.screen"/>
+   </input>
+
+   <input ref="member_mouse">
+       <label locale="havefnubb~members.mouse"/>
+   </input>
+
+   <input ref="member_keyb">
+       <label locale="havefnubb~members.keyb"/>
+   </input>
+
+   <input ref="member_mb">
+       <label locale="havefnubb~members.motherboard"/>
+   </input>
+   
+   <input ref="member_card">
+       <label locale="havefnubb~members.card"/>
+   </input>
+   
+   <input ref="member_weapon">
+       <label locale="havefnubb~members.pref.weapon"/>
+   </input>
+
+   <input ref="member_map">
+       <label locale="havefnubb~members.pref.map"/>
+   </input>
+
+   <input ref="member_skin_ct">
+       <label locale="havefnubb~members.pref.skin.ct"/>
+   </input>
+
+   <input ref="member_skin_terro">
+       <label locale="havefnubb~members.pref.skin.t"/>
+   </input>
+
+   <submit ref="acc_submit">
+       <label locale="account.form.submit" />
+   </submit>
+</form>

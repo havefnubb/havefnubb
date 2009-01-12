@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<forms xmlns="http://jelix.org/ns/forms/1.0">
+<!--
+@package      jcommunity
+@subpackage   
+@author       Laurent Jouanneau <laurent@xulfr.org>
+@contributor
+@copyright    2007-2008 Laurent Jouanneau
+@link         http://jelix.org
+@licence      http://www.gnu.org/licenses/gpl.html GNU General Public Licence, see LICENCE file
+-->
+   <input ref="reg_login" required="true">
+      <label locale="register.form.create.login"/>
+   </input>
+
+   <input ref="reg_email"  required="true" type="email">
+       <label locale="register.form.create.email"/>
+   </input>
+
+   <submit ref="reg_submit">
+       <label locale="register.form.create.submit" />
+   </submit>
+</forms>

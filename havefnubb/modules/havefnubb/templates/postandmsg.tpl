@@ -1,0 +1,1 @@
+<span class="smalltext">{$nb_msg} {@forum.messages@}<br/>{$nb_thread} {@forum.threads@}</span>

@@ -1,0 +1,63 @@
+/* En-tete / header */
+div#brdtitle { position: relative; }
+p#prelude {
+	position: absolute;
+	top: 0.3em;
+	right: 0.3em;
+	font-size: 0.8em;
+}
+
+/* Colone à gauche / Column on left */
+div#puntal_main {
+	width: 100%;
+	float: right;
+	margin-left: -22em;
+}
+div#puntal_content {
+	margin-left: 22em;
+	padding-left: 1ex;
+}
+div#puntal_sidebar {
+	width: 21em;
+	float: left;
+}
+
+/* Styles for collapse icon and text */
+div.block h2 img.icon {
+	vertical-align: text-bottom;
+}
+div.block h2 a {
+	text-decoration: none;
+}
+
+/* Listes colone latérale / Lateral column list */
+div#puntal_sidebar li {
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+}
+div#puntal_sidebar li.active {
+	font-weight: bold;
+}
+
+
+/* Sous-menu téléchargements / Downloads sub-menu */
+#sousmenu ul, #sousmenu li {
+	list-style-type: none;
+	display: inline;
+}
+#sousmenu li { margin-right: 12px; }
+#sousmenu a:link, #sousmenu a:visited{ text-decoration: none; }
+#sousmenu a:hover { text-decoration: underline; }
+
+/* Boite bloc édito / Edito block box */
+#box_edito div.box { border-width: 1px; }
+#box_edito div.box p {
+	line-height: 150%;
+	letter-spacing: 0.08em;
+}
+
+/* Boite bloc RSS reader / RSS reader block box */
+#box_rssreader h3 {
+    margin-top: 1em;
+    font-weight: bold;
+}

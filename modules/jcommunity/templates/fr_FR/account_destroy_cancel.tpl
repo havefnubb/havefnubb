@@ -1,0 +1,1 @@
+<p>Impossible de supprimer votre compte. Contacter le responsable du site.</p>

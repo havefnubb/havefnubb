@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<urls xmlns="http://jelix.org/ns/urls/1.0">
+    <classicentrypoint name="index" default="true">
+
+        <!-- all urls for the jcommunity module -->
+
+        <url pathinfo="/auth/login" module="main" action="login:index">
+        </url>
+        <url pathinfo="/auth/dologin" module="jcommunity" action="login:in">
+        </url>
+        <url pathinfo="/auth/logout" module="jcommunity" action="login:out">
+        </url>
+
+        <url pathinfo="/users" module="jcommunity" action="default:index">
+        </url>
+        <url pathinfo="/users/:user" module="jcommunity" action="account:show">
+            <param name="user" />
+        </url>
+        <url pathinfo="/users/:user/edit" module="jcommunity" action="account:edit" actionoverride="account:prepareedit,account:save">
+            <param name="user" />
+        </url>
+        <url pathinfo="/users/:user/destroy" module="jcommunity" action="account:destroy" actionoverride="account:dodestroy">
+            <param name="user" />
+        </url>
+
+        <url pathinfo="/registration" module="jcommunity" action="registration:index">
+        </url>
+        <url pathinfo="/registration/save" module="jcommunity" action="registration:save">
+        </url>
+        <url pathinfo="/registration/confirm" module="jcommunity" action="registration:confirm">
+        </url>
+        <url pathinfo="/registration/confirmform" module="jcommunity" action="registration:confirmform">
+        </url>
+        <url pathinfo="/registration/confirmok" module="jcommunity" action="registration:confirmok">
+        </url>
+
+        <url pathinfo="/registration/password" module="jcommunity" action="password:index">
+        </url>
+        <url pathinfo="/registration/password/send" module="jcommunity" action="password:send">
+        </url>
+        <url pathinfo="/registration/password/confirm" module="jcommunity" action="password:confirm">
+        </url>
+        <url pathinfo="/registration/password/confirmform" module="jcommunity" action="password:confirmform">
+        </url>
+        <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok">
+        </url>
+
+    </classicentrypoint>
+
+</urls>

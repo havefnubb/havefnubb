@@ -1,0 +1,59 @@
+Installing the jCommunity Module
+
+
+Copying files
+-------------
+
+Copy the jcommunity module in your application or anywhere. Verify that the module repository where it is installed is declared into modulePath property in the general configuration of your application.
+
+
+About the jauth module
+----------------------
+
+You should nothing about it, you can deactivate it. You don't have to install the sql script provided by this module
+
+
+General configuration
+---------------------
+
+in the defaultconfig.ini.php:
+- if you have checkTrustedModules=on, you should add jcommunity module in trustedModules.
+- Configure all parameters in the mailer section. jCommunity needs to send mail to users.
+
+if you use significant urls, you have an example of urls setting into the urls_example.xml. Copy its content
+into the urls.xml file of your application.
+
+execute the install.mysql.sql script on your database. It creates a `community_users` table. If you have already a table of users, you can add new fields of community_users in your table. You should then override all DAOs of the jcommunity module to change the fieldname and the table.
+
+Activation of the auth coordplugin
+----------------------------------
+
+You must activate the auth coordplugin in your configuration. Inside your config.ini.php:
+
+    [coordplugins]
+    auth = auth.coord.ini.php
+
+And copy the lib/jelix/plugins/coord/auth/auth.coord.ini.php.dist file into yourapp/var/config/auth.coord.ini.php.
+
+In this ini file, you should at least change the values of this properties : 
+
+    driver = Db
+    on_error_action = "jcommunity~login:out"
+    bad_ip_action = "jcommunity~login:out"
+    persistant_enable=on
+    persistant_crypt_key=  "INSERT HERE A SENTENCE"
+    [Db]
+    dao = "jcommunity~user"
+
+
+Integration into your application
+---------------------------------
+
+You can integrate the "status" zone into your main template (directly into the template or via your main response).
+  $response->body->assignZone('STATUS', 'jcommunity~status');
+
+It show links to the login form, the register form if the user isn't authenticated, or to the logout page and account page if he is authenticated.
+
+
+
+

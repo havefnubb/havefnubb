@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+   <datasources>
+      <primarytable name="usr" realname="member" primarykey="member_login" />
+   </datasources>
+   <record>        
+      <property name="id" fieldname="id_user" datatype="autoincrement"/>
+       
+      <property name="login" fieldname="member_login"
+          required="yes" datatype="string"  maxlength="50" />
+
+      <property name="password" fieldname="member_password" datatype="string"
+                maxlength="50" selectpattern="%s" updatepattern="" insertpattern="%s" />
+      
+      <property name="status" fieldname="member_status" datatype="integer" />
+      <!-- status :
+           -2 deleted
+           -1 deactivate
+           0 new user, invalid account
+           1 modified user, invalid account
+           2 account ok
+           -->
+      <property name="email" fieldname="member_email" datatype="string" required="yes" maxlength="255" />
+      <property name="nickname" fieldname="member_nickname" datatype="string" required="yes" maxlength="50" />
+      <property name="keyactivate" fieldname="member_keyactivate"  datatype="string" required="yes" maxlength="10" />
+      <property name="request_date" fieldname="member_request_date" datatype="datetime" />
+      
+      <property name="member_xfire" fieldname="member_xfire" datatype="string" default="" maxlength="80"/>
+      <property name="member_country" fieldname="member_country" datatype="string" default="" maxlength="80"/>
+      <property name="member_proc" fieldname="member_proc" datatype="string" default="" maxlength="40"/>
+      <property name="member_mb" fieldname="member_mb" datatype="string" default="" maxlength="40"/>
+      <property name="member_card" fieldname="member_card" datatype="string" default="" maxlength="40"/>
+      <property name="member_ram" fieldname="member_ram" datatype="string" default="" maxlength="40"/>
+      <property name="member_display" fieldname="member_display" datatype="string" default="" maxlength="40"/>
+      <property name="member_screen" fieldname="member_screen" datatype="string" default="" maxlength="40"/>
+      <property name="member_mouse" fieldname="member_mouse" datatype="string" default="" maxlength="40"/>
+      <property name="member_keyb" fieldname="member_keyb" datatype="string" default="" maxlength="40"/>
+      <property name="member_os" fieldname="member_os" datatype="string" default="" maxlength="40"/>
+      <property name="member_connection" fieldname="member_connection" datatype="string" default="" maxlength="40"/>
+      <property name="member_map" fieldname="member_map" datatype="string" default="" maxlength="40"/>
+      <property name="member_weapon" fieldname="member_weapon" datatype="string" default="" maxlength="40"/>
+      <property name="member_skin_ct" fieldname="member_skin_ct" datatype="string" default="" maxlength="40"/>
+      <property name="member_skin_terro" fieldname="member_skin_terro" datatype="string" default="" maxlength="40"/>
+      <property name="member_steam_id" fieldname="member_steam_id" datatype="string" default="" maxlength="40"/>
+      <property name="member_firstname" fieldname="member_firstname" datatype="string" default="" maxlength="40"/>
+      <property name="member_birth" fieldname="member_birth" datatype="date" required="true" default="1980-01-01"/>
+      <property name="member_town" fieldname="member_town" datatype="string" required="true" maxlength="100"/>
+      <property name="member_comment" fieldname="member_comment" datatype="string" required="true" maxlength="255"/>
+ 	  <property name="member_avatar" fieldname="member_avatar" datatype="int" />
+      
+   </record>
+   <factory>
+     <method name="getByLoginPassword" type="selectfirst">
+         <parameter name="login" />
+         <parameter name="password" />
+
+         <conditions>
+             <eq property="login" expr="$login" />
+             <eq property="password" expr="$password" />
+         </conditions>
+     </method>
+
+     <method name="getByLogin" type="selectfirst">
+         <parameter name="login" />
+
+         <conditions>
+             <eq property="login" expr="$login" />
+         </conditions>
+     </method>
+
+     <method name="verifyNickname" type="selectfirst">
+         <parameter name="login" />
+         <parameter name="nickname" />
+         <conditions>
+             <neq property="login" expr="$login" />
+             <eq property="nickname" expr="$nickname" />
+         </conditions>
+     </method>
+     
+     <method name="updatePassword" type="update">
+         <parameter name="login" />
+         <parameter name="password" />
+
+         <values>
+             <value property="password" expr="$password"/>
+         </values>
+         <conditions>
+             <eq property="login" expr="$login" />
+         </conditions>
+     </method>
+
+     <method name="deleteByLogin" type="delete">
+         <parameter name="login" />
+         <conditions>
+             <eq property="login" expr="$login" />
+         </conditions>
+     </method>
+
+     <method name="findByLogin" type="select">
+         <parameter name="pattern" />
+         <conditions>
+             <like property="login" expr="$pattern" />
+         </conditions>
+         <order>
+             <orderitem property="login" way="asc" />
+          </order>
+     </method>
+     <method name="findAll" type="select">
+         <order>
+             <orderitem property="login" way="asc" />
+         </order>
+     </method>
+   </factory>
+</dao>

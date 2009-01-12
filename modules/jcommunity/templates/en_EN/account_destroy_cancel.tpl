@@ -1,0 +1,1 @@
+<p>Impossible to delete your account. Contact the webmaster.</p>
