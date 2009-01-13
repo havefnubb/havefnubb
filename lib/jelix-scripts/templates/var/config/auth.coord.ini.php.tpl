@@ -86,6 +86,14 @@ profile = ""
 ; name of the php function to crypt the password in the database
 password_crypt_function = md5
 
+
+; name of the form for the jauthdb_admin module
+form = ""
+
+; path of the directory where to store files uploaded by the form (jauthdb_admin module)
+; should be related to the var directory of the application
+uploadsDirectory= ""
+
 ;------- parameters for the "Class" driver
 [Class]
 ; selector of the class

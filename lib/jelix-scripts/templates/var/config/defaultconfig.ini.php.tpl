@@ -10,7 +10,7 @@ timeZone = "%%default_timezone%%"
 
 theme = default
 
-pluginsPath = lib:jelix-plugins/,app:plugins/
+pluginsPath = app:plugins/
 
 modulesPath = lib:jelix-modules/,app:modules/
 
@@ -108,9 +108,6 @@ simple_urlengine_https =
 ;   @r       -> for all actions for the request of type "r"
 
 index = "@classic"
-xmlrpc = "@xmlrpc"
-jsonrpc = "@jsonrpc"
-rdf = "@rdf"
 
 
 [basic_significant_urlengine_entrypoints]

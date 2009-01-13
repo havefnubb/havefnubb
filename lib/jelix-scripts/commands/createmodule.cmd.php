@@ -44,8 +44,10 @@ class createmoduleCommand extends JelixScriptCommand {
 
     public function run(){
         jxs_init_jelix_env();
-        
-        if(preg_match('/([^\w\_0-9])/', $this->_parameters['module'])) {
+
+        // note: since module name are used for name of generated name,
+        // only this characters are allowed
+        if(preg_match('/([^a-zA-Z_0-9])/', $this->_parameters['module'])) {
             throw new Exception("the name '".$this->_parameters['module']."' is not valid for a module");
         }
         
@@ -94,6 +96,8 @@ class createmoduleCommand extends JelixScriptCommand {
                         );
         $isdefault = $this->getOption('-defaultmodule');
         foreach($inifiles as $k=> $filename) {
+            if(!file_exists($filename))
+                continue;
             try {
                 $ini = new jIniFileModifier($filename);
                 if ($isdefault && $k == 0) {
@@ -103,7 +107,9 @@ class createmoduleCommand extends JelixScriptCommand {
                 else if ($ini->getValue('startModule') == '')
                     $ini->setValue('startModule', $this->_parameters['module']);
                 $ini->save();
-            }catch(Exception $e){}
+            }catch(Exception $e){
+                echo "Error during the modification of an ini file: ".$e->getMessage()."\n";
+            }
         }
     }
 }
