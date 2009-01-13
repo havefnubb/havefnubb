@@ -41,10 +41,15 @@ class postsCtrl extends jController {
         
         $dao = jDao::get('forum');
         $forum = $dao->get($posts_forum->id_forum);
+
+		$daoCategory = jDao::get('category');
+        // find category name for the current forum
+		$category = $daoCategory->get($forum->id_cat);
         
         $tpl = new jTpl();
         $tpl->assign('posts',$posts);
         $tpl->assign('forum',$forum);
+        $tpl->assign('category',$category);
         
         $rep = $this->getResponse('html');
         $rep->title = $post->subject;

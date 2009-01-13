@@ -4,17 +4,22 @@
 
 <!-- #top -->
 <div id="top">
+	
     <h1>{$TITLE}</h1>
 	<h1><span>{$DESC}</span></h1>
 </div>
 <!-- #top -->
+
+<!-- #login-status -->
+{zone 'jcommunity~status'}
+<!-- #login-status -->
+
+<div id="navbar">
+	<ul><li>{@main.home@}</li></ul>
+</div>
+
 <!-- #maincontent -->
 <div id="maincontent">
-	<!-- #breadcrumbtop -->
-	<div id="breadcrumbtop">		
-	{breadcrumb 5, ' > '}
-	</div>
-	<!-- #breadcrumbtop -->
 	{$MAIN}
 	<!-- #breadcrumbbottom -->
 	<div id="breadcrumbbottom">

@@ -30,8 +30,7 @@
             <conditions>
                 <eq property="id_cat" expr="$id_cat" />
             </conditions>            
-        </method>        
-        
+        </method>                
         <method name="findIt" type="select">
             <parameter name="id_forum" />
             <conditions>

@@ -1,3 +1,6 @@
+<div id="breadcrumbtop">
+    <h3><a href="{jurl 'havefnubb~default:index'}" title="{@main.home@}">{@main.home@}</a> > <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat)}" title="{$category->cat_name}">{$category->cat_name|eschtml}</a> > {$forum->forum_name|eschtml}</h3>
+</div>
 <div class="linkpages">
 {pagelinks 'forum:view', array('id'=>$id),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>

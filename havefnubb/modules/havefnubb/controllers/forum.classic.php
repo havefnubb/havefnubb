@@ -29,7 +29,11 @@ class forumCtrl extends jController {
         $daoForum = jDao::get('forum');
         // find info for the current forum
         $forum = $daoForum->get($id);
-        
+
+		$daoCategory = jDao::get('category');
+        // find category name for the current forum
+		$category = $daoCategory->get($forum->id_cat);
+		        
         // let's build the pagelink var
         // A Preparing / Collecting datas
         // 0- the properties of the pager
@@ -65,10 +69,12 @@ class forumCtrl extends jController {
         // B- Using the collected datas
         $tpl->assign('tableclass','forumView');
         // 1- the posts 
-        $tpl->assign('posts',$posts);
-        // 2- the forum
+        $tpl->assign('posts',$posts);		
+        // 2- the forum		
         $tpl->assign('forum',$forum);
-        // 3- vars for pagelinks
+		// 3 - the category
+		$tpl->assign('category',$category);
+        // 4- vars for pagelinks
         // see A-1 / A-2 / A-3
         $tpl->assign('page',$page);                
         $tpl->assign('nbPostPerPage',$nbPostPerPage);

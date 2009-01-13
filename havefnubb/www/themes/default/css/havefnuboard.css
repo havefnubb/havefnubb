@@ -24,6 +24,7 @@ h4 {
 	margin-left: 20px;
 	background-color:#f1f1e5;
 }
+
 .smalltext
 {
 	font-size: x-small;
@@ -87,6 +88,85 @@ code, pre {
 	color: #060;
 }
 
+
+/* user */
+#login-status {
+	width: 90%;
+	position: relative;
+	margin: auto;
+	height: 30px;
+	color: #232320;
+    vertical-align: bottom;
+    background-color:#f1f1e5;
+    background-position:center;
+    padding-left:10px;
+    padding-right:0px;
+    -moz-border-radius:10px 10px 10px  10px ;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px; 
+    border-radius:10px 10px 0px  0px ;
+    -moz-box-shadow: gray 3px 5px 5px 0px;
+    -webkit-box-shadow: gray 3px 5px 5px 0px;
+    box-shadow: gray 0px 3px 5px 0px;
+    z-index:50;	
+}
+
+#login-status li {
+	list-style-type: none;
+    display:inline;
+    padding:1px;
+    list-style-type:none;
+    list-style-position:outside;	
+}
+
+#loginbox {
+	width: 90%;
+	position: relative;
+	margin: auto;
+	height: 30px;
+	color: #232320;
+    vertical-align: bottom;
+    background-color:#f1f1e5;
+    background-position:center;
+    padding-left:10px;
+    padding-right:0px;
+    -moz-border-radius:10px 10px 10px  10px ;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px; 
+    border-radius:10px 10px 0px  0px ;
+    -moz-box-shadow: gray 3px 5px 5px 0px;
+    -webkit-box-shadow: gray 3px 5px 5px 0px;
+    box-shadow: gray 0px 3px 5px 0px;
+    z-index:50;		
+}
+/* navbar */
+/* user */
+#navbar {
+	width: 90%;
+	margin: auto;
+	color: #232320;
+    vertical-align: bottom;
+    background-color:#f1f1e5;
+    background-position:center;
+    padding-left:10px;
+    padding-right:0px;
+    -moz-border-radius:10px 10px 10px  10px ;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px; 
+    border-radius:10px 10px 0px  0px ;
+    -moz-box-shadow: gray 3px 5px 5px 0px;
+    -webkit-box-shadow: gray 3px 5px 5px 0px;
+    box-shadow: gray 0px 3px 5px 0px;
+    z-index:50;	
+}
+
+#navbar li {
+	list-style-type: none;
+    display:inline;
+    padding:1px;
+    list-style-type:none;
+    list-style-position:outside;	
+}
 /* Forum Layout */
 
 #maincontent
@@ -106,7 +186,6 @@ code, pre {
     z-index:50;
 }
 
-
 #breadcrumbtop {
 	margin: auto;	
 	background-color:#8dc192;
@@ -116,6 +195,16 @@ code, pre {
     border-radius:10px 10px 0px 0px;	
 	border-bottom: 1px solid;
 	vertical-align: middle;
+}
+
+#breadcrumbtop h3 {
+	list-style-type: none;
+    display:inline;
+    padding:1px;
+    list-style-type:none;
+    list-style-position:outside;
+	background-color:#8dc192;
+	margin-left: 20px;
 }
 
 #breadcrumbbottom {
@@ -129,9 +218,9 @@ code, pre {
 	vertical-align: middle;
 }
 
-#breadcrumbtop li,#breadcrumbbottom li {
+#breadcrumbbottom li {	
 	list-style-type: none;
-	font-size: medium;
+	font-size: x-small;
     display:inline;
     padding:1px;
     list-style-type:none;
