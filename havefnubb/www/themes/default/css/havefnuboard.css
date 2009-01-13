@@ -14,6 +14,12 @@ body {
     padding-right:1em;
 }
 
+#hfbody {
+	width: 98%;
+	border-color: #232320;
+	margin: auto;
+}
+
 
 h4 {
 	font-size: 1.2em;
@@ -58,7 +64,7 @@ code, pre {
 /* En-tête
 ----------------------------------------------------------*/
 #top {
-	width: 90%;
+	width: 100%;
 	position: relative;
 	margin: auto;
 	height: 100px;
@@ -66,11 +72,11 @@ code, pre {
     vertical-align: bottom;
     background-color:#f1f1e5;
     background-position:center;
-    padding-left:10px;
+    padding-left:0px;
     padding-right:0px;
-    -moz-border-radius:10px 10px 10px  10px ;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px; 
+    -moz-border-radius:0px 0px 10px  10px ;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-top-left-radius: 0px;
     border-radius:10px 10px 0px  0px ;
     -moz-box-shadow: gray 3px 5px 5px 0px;
     -webkit-box-shadow: gray 3px 5px 5px 0px;
@@ -88,22 +94,26 @@ code, pre {
 	color: #060;
 }
 
+#top #title {
+ width: 70%;	
+}
 
 /* user */
 #login-status {
-	width: 90%;
-	position: relative;
+	width: 30%;
+	top: 10px;
+	right: 40px;
+	position: absolute;
 	margin: auto;
-	height: 30px;
 	color: #232320;
     vertical-align: bottom;
     background-color:#f1f1e5;
     background-position:center;
-    padding-left:10px;
+    padding-left: 0px;
     padding-right:0px;
-    -moz-border-radius:10px 10px 10px  10px ;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px; 
+    -moz-border-radius:0px 0px 10px  10px ;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-top-left-radius: 0px;
     border-radius:10px 10px 0px  0px ;
     -moz-box-shadow: gray 3px 5px 5px 0px;
     -webkit-box-shadow: gray 3px 5px 5px 0px;
@@ -119,61 +129,84 @@ code, pre {
     list-style-position:outside;	
 }
 
-#loginbox {
-	width: 90%;
-	position: relative;
-	margin: auto;
-	height: 30px;
-	color: #232320;
-    vertical-align: bottom;
-    background-color:#f1f1e5;
-    background-position:center;
-    padding-left:10px;
-    padding-right:0px;
-    -moz-border-radius:10px 10px 10px  10px ;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px; 
-    border-radius:10px 10px 0px  0px ;
-    -moz-box-shadow: gray 3px 5px 5px 0px;
-    -webkit-box-shadow: gray 3px 5px 5px 0px;
-    box-shadow: gray 0px 3px 5px 0px;
-    z-index:50;		
-}
 /* navbar */
 /* user */
 #navbar {
-	width: 90%;
-	margin: auto;
+	width: 100%;	
+	position: relative;
+	
 	color: #232320;
+	height:34px;
+	margin:0;
+	padding:0;
+	display:block;
+	font-weight: bold;
+	
     vertical-align: bottom;
-    background-color:#f1f1e5;
+    background-color:#e1e1cd;
     background-position:center;
-    padding-left:10px;
-    padding-right:0px;
-    -moz-border-radius:10px 10px 10px  10px ;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px; 
+    -moz-border-radius:0px 0px 10px  10px ;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-top-left-radius: 0px;
     border-radius:10px 10px 0px  0px ;
     -moz-box-shadow: gray 3px 5px 5px 0px;
     -webkit-box-shadow: gray 3px 5px 5px 0px;
     box-shadow: gray 0px 3px 5px 0px;
-    z-index:50;	
+    z-index:50;
+	
 }
 
 #navbar li {
-	list-style-type: none;
-    display:inline;
-    padding:1px;
-    list-style-type:none;
-    list-style-position:outside;	
+	margin:0;
+	padding:0;
+	float:left;
+	list-style-type:none;	
+	background-color:#e1e1cd;
 }
+
+#navbar a {
+    float: left;
+}
+
+#navbar a {	
+	color:#232320;
+	font-size:11px;
+	text-decoration:none;	
+	display:block;
+	margin:0 3px 0 0;
+	padding:6px 10px;
+	border: 1px solid;
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	background: #e1e1cd;				
+}
+#navbar a:link, #navbar a:visited {
+    color: #4D5431; 
+}
+
+#navbar a:hover, #navbar a:focus, #navbar a:active
+{ 
+    cursor: pointer;
+	color:#f90;
+	background-color: #f1f1e5;
+	border:1px solid;
+	border-color:#acac9c #acac9c #f1f1e5 #acac9c;	
+}
+
+* html #navbar { 
+    display: inline-block;
+}
+*:first-child+html #navbar { 
+    display: inline-block;
+}
+
+
 /* Forum Layout */
 
 #maincontent
 {
-	width: 90%;
+	width: 100%;
 	margin: auto;
-	margin-top: 20px;
+	margin-top: 50px;
 	background-color: #f1f1e5;
 	background-position:center;
     -moz-border-radius:10px 10px 8px 8px;
@@ -187,6 +220,7 @@ code, pre {
 }
 
 #breadcrumbtop {
+	height: 30px;
 	margin: auto;	
 	background-color:#8dc192;
     -moz-border-radius:10px 10px 0px 0px;
@@ -349,12 +383,8 @@ table
 /* Skin */
 
 .ui-tabs-nav {
-/*    list-style: none;
-    margin: 0;
-    padding: 0 0 0 3px;*/
-	
-	/*background-color:#ffffff;*/
-	height:27px;
+
+	height:34px;
 	margin:0;
 	padding:0;
 	display:block;
@@ -430,7 +460,7 @@ table
 /* Pied de page
 ----------------------------------------------------------*/
 #footer {
-	width: 90%;
+	width: 100%;
 	position: relative;
 	margin: auto;
 	margin-top: 20px;
@@ -439,9 +469,9 @@ table
     vertical-align: middle;
     background-color:#f1f1e5;
     background-position:center;
-    padding-left:10px;
+    padding-left:0px;
     padding-right:0px;
-    -moz-border-radius:10px 10px 10px  10px ;
+    -moz-border-radius:10px 10px 0px  0px ;
     -webkit-border-top-right-radius: 10px;
     -webkit-border-top-left-radius: 10px; 
     border-radius:10px 10px 0px  0px ;

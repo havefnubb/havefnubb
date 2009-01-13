@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="sc_tags_tagged" realname="sc_tags_tagged" primarykey="tt_id" />
+        <foreigntable name="sc_tags" realname="sc_tags" primarykey="tag_id" onforeignkey="tag_id" />
+        
+    </datasources>
+    <record>
+
+
+        
+    <property name="tt_id" fieldname="tt_id" datatype="autoincrement"/>
+    <property name="tag_id" fieldname="tag_id" datatype="int" required="true"/>
+    <property name="tt_scope_id" fieldname="tt_scope_id" datatype="string" required="true" maxlength="50"/>
+    <property name="tt_subject_id" fieldname="tt_subject_id" datatype="int" required="true"/>
+
+    <property name="tag_name" fieldname="tag_name" datatype="string" table="sc_tags"/>
+
+
+    <!--<property name="" fieldname="" datatype="string/int/float/autoincrement/date"
+        required="yes"
+        maxlength="" minlength="" regexp=""
+        sequence=""
+        updatepattern="" insertpattern="" selectpattern=""
+    />-->
+    </record>
+    <factory>
+         <!-- <method name="findAllSnippets" type="select">
+             <conditions>
+                 <eq property="tt_scope_id" expr="snippet" />
+             </conditions>
+             <order>
+                 <orderitem property="date_ajout" way="desc" />
+            </order>
+             <limit offset="0" count="10" />
+         </method> -->
+
+         <method name="tagsBySubject" type="select">
+             <parameter name="scope" />
+             <parameter name="id" />
+             <conditions>
+                 <eq property="tt_subject_id" expr="$id" />
+                 <eq property="tt_scope_id" expr="$scope" />
+             </conditions>
+             <!-- <limit offset="0" count="10" /> -->
+         </method>
+
+         <method name="subjectsByTag" type="select">
+             <parameter name="tag" />
+             <conditions>
+                 <eq property="tag_name" expr="$tag" />
+             </conditions>
+             <!-- <limit offset="0" count="10" /> -->
+         </method>         
+	     
+         <!-- <method name="countByCat" type="count">
+             <parameter name="cat" />
+             <conditions>
+                 <eq property="idmat" expr="$cat" />
+             </conditions>
+         </method> -->
+	     
+    </factory>
+    <!--<factory>
+        <method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>
+    </factory>-->
+</dao>

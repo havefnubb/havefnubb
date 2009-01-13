@@ -1,0 +1,36 @@
+jTags...
+
+svn co http://forge.jelix.org/svn/sharecode/trunk/sharecode/modules/jtags
+
+
+HOW TO USE : 
+
+
+
+1/ add tags to an object
+
+// add in your formulaire : 
+<textarea ref="tags" rows="2" cols="60">
+	<label>Choisis tes tags</label>
+</textarea>
+
+
+// add in your controller :
+protected function _create($form, $resp, $tpl) {
+    jClasses::getService("jtags~tags")->setResponsesHeaders();;
+}
+
+2/ display tags cloud 
+$this->_tpl->assignZone("tagscloud", "jtags~tagscloud");
+// or
+{zone "jtags~tagscloud"}
+
+3/ get tags of an object
+$tags = $srv_tags->getTagsByObject($scope, $id);
+
+4/ get all objects marked with tags
+$tags = $this->param("tag", false);
+if ($tags) {
+    $srv_tags = jClasses::getService("jtags~tags");
+    $cond->addCondition('sn_id', '=', $srv_tags->getObjectsByTags($tags, "snippet"));
+}

@@ -1,15 +1,16 @@
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
 `id_cat` INT( 12 ) NOT NULL AUTO_INCREMENT ,
 `cat_name` VARCHAR( 255 ) NOT NULL ,
 `cat_order` INT( 4 ) NOT NULL ,
 PRIMARY KEY ( `id_cat` )
-) Type = MYISAM ;
+) ;
 
 INSERT INTO `category` (`id_cat`, `cat_name`, `cat_order`) VALUES
 (1, 'My First Forum', 1),
 (2, 'My Second forum', 2);
 
-
+DROP TABLE IF EXISTS `forum`;
 CREATE TABLE `forum` (
 `id_forum` INT( 12 ) NOT NULL AUTO_INCREMENT ,
 `forum_name` VARCHAR( 255 ) NOT NULL,
@@ -18,32 +19,16 @@ CREATE TABLE `forum` (
 `forum_order` INT( 4 ) NOT NULL ,
 PRIMARY KEY ( `id_forum` ) ,
 INDEX ( `id_cat` )
-) Type = MYISAM ;
-
-INSERT INTO `havefnu`.`forum` (
-`id_forum` ,
-`forum_name` ,
-`id_cat` ,
-`forum_desc` ,
-`forum_order`
-)
-VALUES (
-NULL , 'My Forum is Fun', '1', 'Everything is Fnu', '1'
-), (
-NULL , 'My Forum is Fast', '1', 'Goooooooooooooooood', '1'
-);
-INSERT INTO `havefnu`.`forum` (
-`id_forum` ,
-`forum_name` ,
-`id_cat` ,
-`forum_desc` ,
-`forum_order`
-)
-VALUES (
-NULL , 'Light', '2', 'Soo light', '1'
 );
 
+INSERT INTO `forum` (`id_forum` ,`forum_name` ,`id_cat` ,`forum_desc` ,`forum_order`)
+VALUES 
+(NULL , 'My Forum is Fun', '1', 'Everything is Fnu', '1'), 
+(NULL , 'My Forum is Fast', '1', 'Goooooooooooooooood', '1');
 
+INSERT INTO `havefnu`.`forum` (`id_forum` ,`forum_name` ,`id_cat` ,`forum_desc` ,`forum_order`)VALUES (NULL , 'Light', '2', 'Soo light', '1');
+
+DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
 `id_post` INT( 12 ) NOT NULL AUTO_INCREMENT ,
 `id_user` INT( 12 ) NOT NULL ,
@@ -57,10 +42,10 @@ CREATE TABLE `posts` (
 `viewed` INT( 12 ) NOT NULL,
 PRIMARY KEY ( `id_post` ) ,
 INDEX ( `id_user` , `id_forum` , `parent_id` , `status`)
-) Type = MYISAM ;
+);
 
 
- INSERT INTO `havefnu`.`posts` (
+ INSERT INTO `posts` (
 `id_post` ,
 `id_user` ,
 `id_forum` ,
@@ -74,7 +59,7 @@ INDEX ( `id_user` , `id_forum` , `parent_id` , `status`)
 )
 VALUES (
 NULL , '1', '1', '1', '1', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 0
-) 
+);
 
 --
 -- Structure de la table `jacl2_group`
@@ -87,7 +72,7 @@ CREATE TABLE `jacl2_group` (
   `grouptype` tinyint(4) NOT NULL DEFAULT '0',
   `ownerlogin` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_aclgrp`)
-) TYPE=MyISAM  AUTO_INCREMENT=9 ;
+) AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `jacl2_group`
@@ -95,7 +80,7 @@ CREATE TABLE `jacl2_group` (
 INSERT INTO `jacl2_group` (`id_aclgrp`, `name`, `grouptype`, `ownerlogin`) VALUES
 (1, 'admins', 0, NULL),
 (2, 'users', 0, NULL),
-(8, 'havefnu', 2, 'havefnu');
+(3, 'havefnu', 2, 'havefnu');
 
 --
 -- Structure de la table `jacl2_rights`
@@ -107,7 +92,7 @@ CREATE TABLE `jacl2_rights` (
   `id_aclgrp` int(11) NOT NULL DEFAULT '0',
   `id_aclres` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_aclsbj`,`id_aclgrp`,`id_aclres`)
-) TYPE=MyISAM;
+) ;
 
 --
 -- Contenu de la table `jacl2_rights`
@@ -132,7 +117,7 @@ CREATE TABLE `jacl2_subject` (
   `id_aclsbj` varchar(100) NOT NULL DEFAULT '',
   `label_key` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_aclsbj`)
-) TYPE=MyISAM;
+) ;
 
 --
 -- Contenu de la table `jacl2_subject`
@@ -156,7 +141,7 @@ CREATE TABLE `jacl2_user_group` (
   `login` varchar(50) NOT NULL DEFAULT '',
   `id_aclgrp` int(11) NOT NULL DEFAULT '0',
   KEY `login` (`login`,`id_aclgrp`)
-) TYPE=MyISAM;
+) ;
 
 --
 -- Contenu de la table `jacl2_user_group`
@@ -192,7 +177,7 @@ CREATE TABLE `member` (
   `member_last_connect` DATETIME NULL,
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
-) TYPE=MyISAM;
+) ;
 
 --
 -- Contenu de la table `member`
