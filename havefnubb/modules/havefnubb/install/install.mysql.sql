@@ -5,6 +5,11 @@ CREATE TABLE `category` (
 PRIMARY KEY ( `id_cat` )
 ) Type = MYISAM ;
 
+INSERT INTO `category` (`id_cat`, `cat_name`, `cat_order`) VALUES
+(1, 'My First Forum', 1),
+(2, 'My Second forum', 2);
+
+
 CREATE TABLE `forum` (
 `id_forum` INT( 12 ) NOT NULL AUTO_INCREMENT ,
 `forum_name` VARCHAR( 255 ) NOT NULL,
@@ -14,6 +19,30 @@ CREATE TABLE `forum` (
 PRIMARY KEY ( `id_forum` ) ,
 INDEX ( `id_cat` )
 ) Type = MYISAM ;
+
+INSERT INTO `havefnu`.`forum` (
+`id_forum` ,
+`forum_name` ,
+`id_cat` ,
+`forum_desc` ,
+`forum_order`
+)
+VALUES (
+NULL , 'My Forum is Fun', '1', 'Everything is Fnu', '1'
+), (
+NULL , 'My Forum is Fast', '1', 'Goooooooooooooooood', '1'
+);
+INSERT INTO `havefnu`.`forum` (
+`id_forum` ,
+`forum_name` ,
+`id_cat` ,
+`forum_desc` ,
+`forum_order`
+)
+VALUES (
+NULL , 'Light', '2', 'Soo light', '1'
+);
+
 
 CREATE TABLE `posts` (
 `id_post` INT( 12 ) NOT NULL AUTO_INCREMENT ,
@@ -31,7 +60,21 @@ INDEX ( `id_user` , `id_forum` , `parent_id` , `status`)
 ) Type = MYISAM ;
 
 
-
+ INSERT INTO `havefnu`.`posts` (
+`id_post` ,
+`id_user` ,
+`id_forum` ,
+`parent_id` ,
+`status` ,
+`subject` ,
+`message` ,
+`date_created` ,
+`date_modified` ,
+`viewed`
+)
+VALUES (
+NULL , '1', '1', '1', '1', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 0
+) 
 
 --
 -- Structure de la table `jacl2_group`
@@ -137,6 +180,7 @@ CREATE TABLE `member` (
   `member_password` varchar(50) NOT NULL,
   `member_email` varchar(255) NOT NULL,
   `member_nickname` varchar(50) DEFAULT NULL,
+  `member_website` VARCHAR( 255 ) NULL,  
   `member_status` tinyint(4) NOT NULL DEFAULT '0',
   `member_keyactivate` varchar(10) DEFAULT NULL,
   `member_request_date` datetime DEFAULT NULL,
@@ -145,8 +189,7 @@ CREATE TABLE `member` (
   `member_town` varchar(100) NOT NULL,
   `member_comment` varchar(255) NOT NULL,
   `member_avatar` varchar(255) NOT NULL,
-  `member_last_connect` DATETIME NOT NULL,
-  `member_website` VARCHAR( 255 ) NOT NULL
+  `member_last_connect` DATETIME NULL,
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
 ) TYPE=MyISAM;
@@ -161,22 +204,26 @@ INSERT INTO `member`
 `member_password`,
 `member_email`,
 `member_nickname`,
+`member_website`,
 `member_status`,
 `member_keyactivate`,
 `member_firstname`,
 `member_birth`,
 `member_town`,
 `member_comment`,
-`member_avatar`) VALUES
+`member_avatar`,
+`member_last_connect`) VALUES
 (1,
 'havefnu',
 '0dc12261c353a4c2dfa1b6e01ded9bed',
 'havefnu@foxmask.info',
 'havefnu',
+'',
 1,
 NULL,
 NULL,
 '1969-12-26',
 '',
 '',
-'');
+'',
+CURRENT_TIMESTAMP());
