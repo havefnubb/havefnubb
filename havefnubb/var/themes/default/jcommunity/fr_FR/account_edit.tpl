@@ -7,18 +7,19 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
-<h2>Edition de votre profil</h2>
+<div id="profile">
+<h2 class="profile">Edition de votre profil</h2>
 {form $form, 'jcommunity~account:save', array('user'=>$username)}
 <div id="container">
 	<ul>
-		<li><a href="#member-identity"><span>{@havefnubb~members.identity@}</span></a></li>
-		<li><a href="#member-hardware"><span>{@havefnubb~members.hardware@}</span></a></li>
-		<li><a href="#member-pref"><span>{@havefnubb~members.game.pref@}</span></a></li>
+		<li><a href="#member-identity"><span>{@havefnubb~member.identity@}</span></a></li>
+		<li><a href="#member-pref"><span>{@havefnubb~member.pref@}</span></a></li>
+		<li><a href="#member-hardware"><span>{@havefnubb~member.hardware@}</span></a></li>		
 	</ul>    
     <div class="box">
         <div id="member-identity">
             <fieldset>
-                <legend>{@havefnubb~members.identity@}</legend>
+                <legend>{@havefnubb~member.identity@}</legend>
                 <div class="two-cols">
                     <p class="col">
                         <label><strong>{ctrl_label 'nickname'}</strong></label><br />{ctrl_control 'nickname'}
@@ -29,22 +30,10 @@ $(document).ready(function(){
                 </div>
                 <div class="two-cols">
                     <p class="col">
-                        <label><strong>{ctrl_label 'member_firstname'}</strong></label><br />{ctrl_control 'member_firstname'}
-                    </p>
-                    <p class="col">
                         <label><strong>{ctrl_label 'member_birth'}</strong></label><br />{ctrl_control 'member_birth'}
                     </p>
                 </div>
-
-                <div class="two-cols">
-                    <p class="col">                
-                        <label><strong>{ctrl_label 'member_xfire'}</strong></label><br />{ctrl_control 'member_xfire'}
-                    </p>
-                    <p class="col">                        
-                        <label><strong>{ctrl_label 'member_steam_id'}</strong></label><br />{ctrl_control 'member_steam_id'}
-                    </p>                    
-                </div>
-                    
+                   
                 <div class="two-cols">
                     <p class="col">                
                         <label><strong>{ctrl_label 'member_town'}</strong></label><br />{ctrl_control 'member_town'}
@@ -53,16 +42,30 @@ $(document).ready(function(){
                         <label><strong>{ctrl_label 'member_country'}</strong></label><br />{ctrl_control 'member_country'}
                     </p>
                 </div>                    
+            </fieldset>
+        </div>
+        <div id="member-pref">
+            <fieldset>
+                <legend>{@havefnubb~member.pref@}</legend>
                 <div>
                     <p>
                         <label><strong>{ctrl_label 'member_comment'}</strong></label><br />{ctrl_control 'member_comment'}
                     </p>
                 </div>
+                <div class="two-cols">
+                    <p class="col">
+
+                    </p>
+                    <p class="col">
+
+                    </p>
+                </div>
             </fieldset>
         </div>
+		
         <div id="member-hardware">
             <fieldset>
-                <legend>{@havefnubb~members.hardware@}</legend>
+                <legend>{@havefnubb~member.hardware@}</legend>
                 <div class="two-cols">
                     <p class="col">                 
                         <label><strong>{ctrl_label 'member_connection'}</strong></label><br />{ctrl_control 'member_connection'}
@@ -105,29 +108,9 @@ $(document).ready(function(){
                 </div>
             </fieldset>
         </div>
-        <div id="member-pref">
-            <fieldset>
-                <legend>{@havefnubb~members.game.pref@}</legend>
-                <div class="two-cols">
-                    <p class="col">                
-                        <label><strong>{ctrl_label 'member_weapon'}</strong></label>     <br />{ctrl_control 'member_weapon'}
-                    </p>
-                    <p class="col">                
-                        <label><strong>{ctrl_label 'member_map'}</strong></label>        <br />{ctrl_control 'member_map'}
-                    </p>
-                </div>
-                <div class="two-cols">
-                    <p class="col">
-                        <label><strong>{ctrl_label 'member_skin_ct'}</strong></label>    <br />{ctrl_control 'member_skin_ct'}
-                    </p>
-                    <p class="col">
-                        <label><strong>{ctrl_label 'member_skin_terro'}</strong></label> <br />{ctrl_control 'member_skin_terro'}
-                    </p>
-                </div>
-            </fieldset>
-        </div>
 	</div>                
 	{formsubmit}
 </div>
 
 {/form}
+</div>

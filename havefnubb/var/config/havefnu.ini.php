@@ -11,3 +11,4 @@ webmaster_email =
 admin_email =
 mailing_list =
 posts_per_page = 25
+members_per_page = 25

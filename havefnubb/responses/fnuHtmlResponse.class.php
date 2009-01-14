@@ -12,7 +12,7 @@ require_once (JELIX_LIB_CORE_PATH.'response/jResponseHtml.class.php');
 
 class fnuHtmlResponse extends jResponseHtml {
 
-    public $bodyTpl = 'main';
+    public $bodyTpl = 'havefnubb~main';
 
     function __construct() {
         parent::__construct();

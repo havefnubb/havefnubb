@@ -18,90 +18,66 @@
    </input>
 
    <input ref="member_birth" type="date">
-       <label locale="havefnubb~members.birthday"/>
+       <label locale="havefnubb~member.birthday"/>
    </input>
 
    <input ref="member_firstname">
-       <label locale="havefnubb~members.firstname"/>
+       <label locale="havefnubb~member.firstname"/>
    </input>
 
    <input ref="member_town">
-       <label locale="havefnubb~members.town"/>
+       <label locale="havefnubb~member.town"/>
    </input>
    
    <menulist ref="member_country">
-      <label locale="havefnubb~members.country"/>
+      <label locale="havefnubb~member.country"/>
       <datasource class="havefnubb~flags" />
    </menulist>
 
    <htmleditor ref="member_comment">
-       <label locale="havefnubb~members.comments"/>
+       <label locale="havefnubb~member.comments"/>
    </htmleditor>
 
-   <input ref="member_xfire">
-       <label locale="havefnubb~members.xfire"/>
-   </input>
-   
-   <input ref="member_steam_id">
-       <label locale="havefnubb~members.steamid"/>
-   </input>
    
    <input ref="member_connection">
-       <label locale="havefnubb~members.connection"/>
+       <label locale="havefnubb~member.connection"/>
    </input>
 
    <input ref="member_os">
-       <label locale="havefnubb~members.os"/>
+       <label locale="havefnubb~member.os"/>
    </input>
 
    <input ref="member_proc">
-       <label locale="havefnubb~members.processor"/>
+       <label locale="havefnubb~member.proc"/>
    </input>
 
    <input ref="member_ram">
-       <label locale="havefnubb~members.ram"/>
+       <label locale="havefnubb~member.ram"/>
    </input>
 
    <input ref="member_display">
-       <label locale="havefnubb~members.display"/>
+       <label locale="havefnubb~member.display"/>
    </input>
 
    <input ref="member_screen">
-       <label locale="havefnubb~members.screen"/>
+       <label locale="havefnubb~member.screen"/>
    </input>
 
    <input ref="member_mouse">
-       <label locale="havefnubb~members.mouse"/>
+       <label locale="havefnubb~member.mouse"/>
    </input>
 
    <input ref="member_keyb">
-       <label locale="havefnubb~members.keyb"/>
+       <label locale="havefnubb~member.keyb"/>
    </input>
 
    <input ref="member_mb">
-       <label locale="havefnubb~members.motherboard"/>
+       <label locale="havefnubb~member.mb"/>
    </input>
    
    <input ref="member_card">
-       <label locale="havefnubb~members.card"/>
+       <label locale="havefnubb~member.card"/>
    </input>
-   
-   <input ref="member_weapon">
-       <label locale="havefnubb~members.pref.weapon"/>
-   </input>
-
-   <input ref="member_map">
-       <label locale="havefnubb~members.pref.map"/>
-   </input>
-
-   <input ref="member_skin_ct">
-       <label locale="havefnubb~members.pref.skin.ct"/>
-   </input>
-
-   <input ref="member_skin_terro">
-       <label locale="havefnubb~members.pref.skin.t"/>
-   </input>
-
    <submit ref="acc_submit">
        <label locale="account.form.submit" />
    </submit>

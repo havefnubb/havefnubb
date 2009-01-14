@@ -63,6 +63,7 @@ code, pre {
 
 /* En-tête
 ----------------------------------------------------------*/
+
 #top {
 	width: 100%;
 	position: relative;
@@ -97,12 +98,12 @@ code, pre {
 #top #title {
  width: 70%;	
 }
-
+															
 /* user */
 #login-status {
 	width: 30%;
-	top: 10px;
-	right: 40px;
+	top: 30px;
+	right: 30px;
 	position: absolute;
 	margin: auto;
 	color: #232320;
@@ -111,26 +112,30 @@ code, pre {
     background-position:center;
     padding-left: 0px;
     padding-right:0px;
-    -moz-border-radius:0px 0px 10px  10px ;
-    -webkit-border-top-right-radius: 0px;
-    -webkit-border-top-left-radius: 0px;
-    border-radius:10px 10px 0px  0px ;
-    -moz-box-shadow: gray 3px 5px 5px 0px;
-    -webkit-box-shadow: gray 3px 5px 5px 0px;
-    box-shadow: gray 0px 3px 5px 0px;
-    z-index:50;	
 }
 
 #login-status li {
-	list-style-type: none;
     display:inline;
     padding:1px;
     list-style-type:none;
     list-style-position:outside;	
 }
 
+#loginbox h2, h2.profile  {
+	height: 30px;
+	margin: auto;
+	padding-left: 20px;
+	color: #4D5431;
+	background-color:#8dc192;
+    -moz-border-radius:10px 10px 0px 0px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px; 
+    border-radius:10px 10px 0px 0px;	
+	border-bottom: 1px solid;
+	vertical-align: middle;
+}
+
 /* navbar */
-/* user */
 #navbar {
 	width: 100%;	
 	position: relative;
@@ -303,10 +308,13 @@ table
 	empty-cells: show;
 }
 
-.forumList {
+table td {
+	padding: 1px;	
+}
+.forumList, membersList, .forumView {
 	width: 100%;
 }
-
+	
 .colmain
 {
 	padding: 0.5em;
@@ -336,6 +344,7 @@ table
 
 .colnum {
 	text-align: center;
+	width: 6%;
 	background-color: #c9c9a7;
 }
 
@@ -345,6 +354,7 @@ table
 }
 
 .colposter{
+	width: 20%;
 	padding: 0.7em;
 	background-color: #e1e1cd;
 }
@@ -352,9 +362,10 @@ table
 .coldate {
 	padding: 0.7em;
 	background-color: #e1e1cd;
+	width: 20%;
 }
 
-.forumlistheader {
+.forumlistheader, .memberlistheader {
 	background-color: #baba9b;
     -moz-border-radius:2px 2px 0px 0px;
     -webkit-border-top-right-radius: 2px;
@@ -364,7 +375,7 @@ table
     box-shadow: gray 0px 3px 5px 0px;	
 }
 
-.forumlistline {
+.forumlistline, .memberlistline {
 	background-color: #e1e1cd;
 }
 
@@ -501,3 +512,35 @@ table
 	overflow: hidden
 }
 
+.two-cols { position: static; }
+.two-cols .col {
+	width: 49%;
+	margin-left: 1%;
+	float: left;
+}
+.two-cols .col:first-child {
+	width: 50%;
+	margin-left: 0;
+}
+
+.three-cols { position: static; }
+.three-cols .col {
+	width: 32.3%;
+	float: left;
+	margin-left: 1%;
+}
+.three-cols .col:first-child {
+	width: 33.3%;
+	margin-left: 0;
+}
+
+.four-cols { position: static; }
+.four-cols .col {
+	width: 24%;
+	float: left;
+	margin-left: 1%;
+}
+.four-cols .col:first-child {
+	width: 25%;
+	margin-left: 0;
+}

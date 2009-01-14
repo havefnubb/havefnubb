@@ -14,11 +14,11 @@
 	
 	<div id="navbar">
 		<ul>
-			<li><a href="{jurl 'default:index'}" title="{@main.home@}">{@main.home@}</a></li>
-			<li><a href="{jurl 'member:list'}" title="{@main.member.list@}">{@main.member.list@}</a></li>
-			<li><a href="{jurl 'search:index'}" title="{@main.search@}">{@main.search@}</a></li>
+			<li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a></li>
+			<li><a href="{jurl 'havefnubb~members:index'}" title="{@havefnubb~main.member.list@}">{@havefnubb~main.member.list@}</a></li>
+			<li><a href="{jurl 'havefnubb~search:index'}" title="{@havefnubb~main.search@}">{@havefnubb~main.search@}</a></li>
 			{ifacl2 'hfnu.admin.index'}
-			<li><a href="">{@main.admin.panel@}</a></li>
+			<li><a href="">{@havefnubb~main.admin.panel@}</a></li>
 			{/ifacl2}
 		</ul>
 	</div>

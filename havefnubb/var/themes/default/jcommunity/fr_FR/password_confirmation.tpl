@@ -1,3 +1,4 @@
+<div id="loginbox">
 <h2>Activation de votre nouveau mot de passe</h2>
 
 <p>Un mail vous a été envoyé, contenant une clé d'activation. Pour valider
@@ -15,3 +16,4 @@ mot de passe dans le formulaire suivant.</p>
 </fieldset>
 <p>{formsubmit}</p>
 {/form}
+</div>

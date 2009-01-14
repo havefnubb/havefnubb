@@ -1,9 +1,13 @@
 <div id="login-status" class="smalltext">
-{ifuserconnected}    
+{ifuserconnected}
     <ul>
-        <li>Bienvenue {$login}.<a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">votre compte</a></li>
-        <li><a href="{jurl 'jcommunity~login:out'}">déconnexion</a></li>        
+        <li>Bienvenue {$login}.</li>
     </ul>
+    <ul>
+        <li><a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$login)}">votre compte</a></li>
+        <li><a href="{jurl 'jcommunity~login:out'}">déconnexion</a></li>
+    </ul>
+    
 {else}
 
 <ul>

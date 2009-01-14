@@ -31,6 +31,8 @@
       <property name="member_comment" fieldname="member_comment" datatype="string" required="true" maxlength="255"/>
  	  <property name="member_avatar" fieldname="member_avatar" datatype="int" />
 	  <property name="member_website" fieldname="member_website" datatype="int" />
+	  <property name="member_last_connect" fieldname="member_last_connect" datatype="string" />
+	  <property name="member_country" fieldname="member_country" datatype="string" />
 
    </record>
    <factory>
@@ -100,5 +102,21 @@
              <orderitem property="login" way="asc" />
          </order>
      </method>
+     <method name="findAllActivatedMember" type="select">
+		<parameter name="offset" default="0" />
+		<parameter name="count" default="200" />		
+         <conditions>
+             <eq property="status" value="1" />
+         </conditions>		
+         <order>
+             <orderitem property="login" way="asc" />
+         </order>
+         <limit offset="$offset" count="$count"/>		 
+     </method>
+     <method name="countAllActivatedMember" type="count">
+         <conditions>
+             <eq property="status" value="1" />
+         </conditions>		
+     </method>	 	 
    </factory>
 </dao>

@@ -1,3 +1,4 @@
+<div id="loginbox">
 <h2>Création d'un compte</h2>
 
 <p>Pour pouvoir profiter au mieux des services du site, inscrivez-vous
@@ -13,3 +14,4 @@ en remplissant le formulaire suivant.</p>
 et ensuite pouvoir vous identifier sur le site.</p>
 <p>{formsubmit}</p>
 {/form}
+</div>

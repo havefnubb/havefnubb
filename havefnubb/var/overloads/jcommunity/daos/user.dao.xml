@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
-   <datasources>
-      <primarytable name="usr" realname="member" primarykey="member_login" />
-   </datasources>
-   <record>        
-      <property name="id" fieldname="id_user" datatype="autoincrement"/>
+    <datasources>
+        <primarytable name="usr" realname="member" primarykey="member_login" />
+    </datasources>
+    <record>        
+    <property name="id" fieldname="id_user" datatype="autoincrement"/>
        
       <property name="login" fieldname="member_login"
           required="yes" datatype="string"  maxlength="50" />
@@ -24,8 +24,14 @@
       <property name="nickname" fieldname="member_nickname" datatype="string" required="yes" maxlength="50" />
       <property name="keyactivate" fieldname="member_keyactivate"  datatype="string" required="yes" maxlength="10" />
       <property name="request_date" fieldname="member_request_date" datatype="datetime" />
-      
-      <property name="member_xfire" fieldname="member_xfire" datatype="string" default="" maxlength="80"/>
+
+      <property name="member_firstname" fieldname="member_firstname" datatype="string" default="" maxlength="40"/>
+      <property name="member_birth" fieldname="member_birth" datatype="date" required="true" default="1980-01-01"/>
+      <property name="member_town" fieldname="member_town" datatype="string" required="true" maxlength="100"/>
+      <property name="member_comment" fieldname="member_comment" datatype="string" required="true" maxlength="255"/>
+ 	  <property name="member_avatar" fieldname="member_avatar" datatype="int" />
+	  <property name="member_website" fieldname="member_website" datatype="int" />
+
       <property name="member_country" fieldname="member_country" datatype="string" default="" maxlength="80"/>
       <property name="member_proc" fieldname="member_proc" datatype="string" default="" maxlength="40"/>
       <property name="member_mb" fieldname="member_mb" datatype="string" default="" maxlength="40"/>
@@ -37,17 +43,9 @@
       <property name="member_keyb" fieldname="member_keyb" datatype="string" default="" maxlength="40"/>
       <property name="member_os" fieldname="member_os" datatype="string" default="" maxlength="40"/>
       <property name="member_connection" fieldname="member_connection" datatype="string" default="" maxlength="40"/>
-      <property name="member_map" fieldname="member_map" datatype="string" default="" maxlength="40"/>
-      <property name="member_weapon" fieldname="member_weapon" datatype="string" default="" maxlength="40"/>
-      <property name="member_skin_ct" fieldname="member_skin_ct" datatype="string" default="" maxlength="40"/>
-      <property name="member_skin_terro" fieldname="member_skin_terro" datatype="string" default="" maxlength="40"/>
-      <property name="member_steam_id" fieldname="member_steam_id" datatype="string" default="" maxlength="40"/>
-      <property name="member_firstname" fieldname="member_firstname" datatype="string" default="" maxlength="40"/>
-      <property name="member_birth" fieldname="member_birth" datatype="date" required="true" default="1980-01-01"/>
-      <property name="member_town" fieldname="member_town" datatype="string" required="true" maxlength="100"/>
-      <property name="member_comment" fieldname="member_comment" datatype="string" required="true" maxlength="255"/>
- 	  <property name="member_avatar" fieldname="member_avatar" datatype="int" />
-      
+
+	  
+	  
    </record>
    <factory>
      <method name="getByLoginPassword" type="selectfirst">
