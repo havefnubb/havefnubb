@@ -14,7 +14,6 @@ class defaultCtrl extends jController {
     */
     public $pluginParams = array(
         '*'		=> array('auth.required'=>false),
-        //'*'     => array('history.add'=>false),
 		'index' => array('history.add'=>true, 'history.label'=>'Accueil', 'history.title'=>'Aller vers la page d\'accueil')
     );
     
@@ -24,6 +23,7 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
 		
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title));
+		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto.homepage'));
 		
         $rep->body->assignZone('MAIN', 'category');
         return $rep;

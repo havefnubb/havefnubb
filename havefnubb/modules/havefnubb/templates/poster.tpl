@@ -1,1 +1,1 @@
-{$user->login|eschtml}
+<a href="{jurl '',array('user'=>$user->login)}" title="{$user->login|eschtml}">{$user->login|eschtml}</a>

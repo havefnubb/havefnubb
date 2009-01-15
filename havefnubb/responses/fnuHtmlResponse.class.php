@@ -36,10 +36,13 @@ class fnuHtmlResponse extends jResponseHtml {
             $this->title = htmlentities($title . ' - ' . $this->title);        
         else
             $this->title = htmlentities($title);
-            
+        
         $this->body->assignIfNone('TITLE',htmlentities($title));
         $this->body->assignIfNone('DESC',htmlentities($description));
         $this->body->assignIfNone('BOARD_TITLE',htmlentities($title));
+        
+        // let says where we are , everywhere arround the application
+        $this->body->assign('HfnuCurrentAction',$GLOBALS['gJCoord']->action->toString());
         
     }
 }

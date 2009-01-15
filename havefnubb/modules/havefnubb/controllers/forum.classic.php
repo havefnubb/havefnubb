@@ -57,13 +57,13 @@ class forumCtrl extends jController {
         $posts = $daoPost->findByIdForum($id,$page,$nbPostPerPage);
 
         // change the label of the breadcrumb
-		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name) . ' - ' . jLocale::get('forum.page') . ' ' .($page+1));
+		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name) . ' - ' . jLocale::get('havefnubb~forum.page') . ' ' .($page+1));
 		
         $rep = $this->getResponse('html');
         if ($page == 0)
             $rep->title = $forum->forum_name;
         else
-            $rep->title = $forum->forum_name . ' - ' . jLocale::get('forum.page') . ' ' .($page+1) ;
+            $rep->title = $forum->forum_name . ' - ' . jLocale::get('havenfubb~forum.page') . ' ' .($page+1) ;
         $tpl = new jTpl();
         
         // B- Using the collected datas

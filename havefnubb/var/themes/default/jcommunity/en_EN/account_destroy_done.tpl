@@ -1,1 +1,0 @@
-<p>Your account is now deleted. You are deconnected.</p>

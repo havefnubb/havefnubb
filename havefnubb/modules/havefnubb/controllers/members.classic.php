@@ -28,12 +28,12 @@ class membersCtrl extends jController {
 		
 		// change the label of the breadcrumb
         if ($page == 0) {		
-			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.members.list')) ;
-			$rep->title .= ' - ' . jLocale::get('havefnubb~member.members.list');
+			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list')) ;
+			$rep->title .= ' - ' . jLocale::get('havefnubb~member.memberlist.members.list');
 		}
 		else {
 			$rep->title .= ' - ' . jLocale::get('havefnubb~member.members.list') . ' ' .($page+1) ;			
-			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.members.list') . ' ' .($page+1));		
+			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));		
 		}
 		
         $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page));

@@ -61,6 +61,12 @@ code, pre {
 	color: #666;
 }
 
+
+.headbox {
+	height:34px;
+	padding-left: 20px;	
+}
+
 /* En-tête
 ----------------------------------------------------------*/
 
@@ -100,9 +106,12 @@ code, pre {
 }
 															
 /* user */
+.loginbox-links {
+	text-align: center;
+}
 #login-status {
 	width: 30%;
-	top: 30px;
+	top: 3px;
 	right: 30px;
 	position: absolute;
 	margin: auto;
@@ -121,10 +130,40 @@ code, pre {
     list-style-position:outside;	
 }
 
-#loginbox h2, h2.profile  {
+.formbg  {
+	background-color:#f1f1e5;
+}
+
+#loginembed, #loginbox  {
+	background-color: #f1f1e5;
+	background-position:center;
+    -moz-border-radius:10px 10px 8px 8px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px; 
+    border-radius:10px 10px 8px 8px;
+    -moz-box-shadow: gray 3px 5px 5px 0px;
+    -webkit-box-shadow: gray 3px 5px 5px 0px;
+    box-shadow: gray 0px 3px 5px 0px;
+    z-index:50;
+	vertical-align: middle;
+}
+
+#loginembed ul, #loginbox ul {
 	height: 30px;
+	background-color:#f1f1e5;	
+}
+#loginembed li, #loginbox li {	
+	padding-left:20px;
+	padding-right:20px;
+	float:left;
+	list-style-type:none;	
+	background-color:#f1f1e5;
+}
+
+
+#loginembed h3, #loginbox h3, #profile h3 {
+	text-align: left;
 	margin: auto;
-	padding-left: 20px;
 	color: #4D5431;
 	background-color:#8dc192;
     -moz-border-radius:10px 10px 0px 0px;
@@ -132,7 +171,11 @@ code, pre {
     -webkit-border-top-left-radius: 10px; 
     border-radius:10px 10px 0px 0px;	
 	border-bottom: 1px solid;
-	vertical-align: middle;
+
+}
+#loginembed-links {
+	width: 100%;
+	text-align: center;
 }
 
 /* navbar */
@@ -225,7 +268,6 @@ code, pre {
 }
 
 #breadcrumbtop {
-	height: 30px;
 	margin: auto;	
 	background-color:#8dc192;
     -moz-border-radius:10px 10px 0px 0px;
@@ -319,6 +361,7 @@ table td {
 {
 	padding: 0.5em;
 	background-color:#e1e1cd;
+	
 }
 
 .colstats {
@@ -348,35 +391,30 @@ table td {
 	background-color: #c9c9a7;
 }
 
-.coltitle {
+.coltitle, .colrank {
 	padding: 0.7em;
-	background-color: #c9c9a7;
+	background-color: #e1e1cd;
 }
 
-.colposter{
+.colposter, .coldate {
 	width: 20%;
 	padding: 0.7em;
 	background-color: #e1e1cd;
 }
 
-.coldate {
-	padding: 0.7em;
-	background-color: #e1e1cd;
-	width: 20%;
-}
-
-.forumlistheader, .memberlistheader {
-	background-color: #baba9b;
-    -moz-border-radius:2px 2px 0px 0px;
-    -webkit-border-top-right-radius: 2px;
-    -webkit-border-top-left-radius: 2px; 	
-    -moz-box-shadow: gray 3px 5px 5px 0px;
-    -webkit-box-shadow: gray 3px 5px 5px 0px;
-    box-shadow: gray 0px 3px 5px 0px;	
+.forumlistcol, .memberlistcol {
+	border: 1px solid;
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	background: #baba9b;
+	display: table-cell;
 }
 
 .forumlistline, .memberlistline {
 	background-color: #e1e1cd;
+}
+
+.linkincell:hover {
+	background-color: #f1f1e5;
 }
 
 /* posts */
@@ -394,13 +432,11 @@ table td {
 /* Skin */
 
 .ui-tabs-nav {
-
 	height:34px;
 	margin:0;
 	padding:0;
 	display:block;
 	font-weight: bold;
-
 }
 
 .ui-tabs-nav li {
@@ -409,22 +445,21 @@ table td {
 	float:left;
 	list-style-type:none;	
 	background-color:#dedec1;
-
-
 }
+
 .ui-tabs-nav a, .ui-tabs-nav a span {
     float: left; /* fixes dir=ltr problem and other quirks IE */
 }
-.ui-tabs-nav abackup {
 
+.ui-tabs-nav abackup {
     margin: 5px 0 0; /* position: relative makes opacity fail for disabled tab in IE */
     padding-left: 0;
     background-position: 100% 0;
     text-decoration: none;
     white-space: nowrap; /* @ IE 6 */
     outline: 0; /* @ Firefox, prevent dotted border after click */    
-	
 }
+
 .ui-tabs-nav a {	
 	color:#4D5431;
 	font-size:11px;
@@ -436,22 +471,22 @@ table td {
 	border-color:#dedec1 #dedec1 #acac9c #dedec1;
 	background: #dedec1;				
 }
+
 .ui-tabs-nav a:link, .ui-tabs-nav a:visited {
     color: #4D5431; 
-
 }
 
 .ui-tabs-nav .ui-tabs-selected a:link, .ui-tabs-nav .ui-tabs-selected a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
     cursor: text;
 }
+
 .ui-tabs-nav a:hover, .ui-tabs-nav a:focus, .ui-tabs-nav a:active,
 .ui-tabs-nav .ui-tabs-unselect a:hover, .ui-tabs-nav .ui-tabs-unselect a:focus, .ui-tabs-nav .ui-tabs-unselect a:active { /* @ Opera, we need to be explicit again here now... */
     cursor: pointer;
 	color:#232320;
 	background: #f1f1e5;
 	border:1px solid;
-	border-color:#acac9c #acac9c #f1f1e5 #acac9c;	
-	
+	border-color:#acac9c #acac9c #f1f1e5 #acac9c;		
 }
 
 .ui-tabs-panel {
@@ -464,6 +499,7 @@ table td {
 * html .ui-tabs-nav { /* auto clear @ IE 6 & IE 7 Quirks Mode */
     display: inline-block;
 }
+
 *:first-child+html .ui-tabs-nav  { /* auto clear @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
     display: inline-block;
 }
@@ -534,7 +570,7 @@ table td {
 	margin-left: 0;
 }
 
-.four-cols { position: static; }
+.four-cols { position: static;}
 .four-cols .col {
 	width: 24%;
 	float: left;
