@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+<hidden ref="id_post"/>
+<hidden ref="id_user"/>
+<hidden ref="id_parent"/>
+<hidden ref="id_forum"/>
+
+<input ref="subject" type="string" required="true" size="80">
+	<label locale="havefnubb~post.form.subject"/>
+</input>
+
+<textarea ref="message" required="true"  rows="20" cols="80">
+	<label locale="havefnubb~post.form.message"/>
+</textarea>
+
+<submit ref="validate">
+  <label>Veuillez valider</label>
+  <item value="preview" locale="havefnubb~post.form.previewBt"/>
+  <item value="save" locale="havefnubb~post.form.saveBt"/>
+</submit>
+</form>

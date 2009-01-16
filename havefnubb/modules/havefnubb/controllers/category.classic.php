@@ -13,8 +13,8 @@ class categoryCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'=>array('auth.required'=>false),
-		'view' => array('history.add'=>true)
+        '*'		=>	array('auth.required'=>false),
+		'view' 	=> 	array('history.add'=>true)
     );
     
     function view() {

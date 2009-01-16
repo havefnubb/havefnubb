@@ -14,7 +14,9 @@ class membersCtrl extends jController {
     */
     public $pluginParams = array(
         '*'		=> array('auth.required'=>true),
-		'index' => array('history.add'=>true, 'history.label'=>'Accueil', 'history.title'=>'Aller vers la page d\'accueil')
+		'index' => array('history.add'=>true,
+						 'history.label'=>'Accueil',
+						 'history.title'=>'Aller vers la page d\'accueil')
     );
     
     function index() {

@@ -1,6 +1,6 @@
 {if $action == 'index'}
     <div id="breadcrumbtop" class="headbox">
-        <h3><a href="{jurl 'havefnubb~default:index'}" title="{@main.home@}">{@main.home@}</a></h3>
+        <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a></h3>
     </div>
 {foreach $categories as $category}
     <div class="forumcat">
@@ -10,7 +10,7 @@
 {/foreach}
 {elseif $action == 'view'}
     <div id="breadcrumbtop"  class="headbox">
-        <h3><a href="{jurl 'havefnubb~default:index'}" title="{@main.home@}">{@main.home@}</a> > {$category->cat_name|eschtml}</h3>
+        <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {$category->cat_name|eschtml}</h3>
     </div>
     {zone 'forum',array('id_cat'=>$category->id_cat)}   
 {/if}

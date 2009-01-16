@@ -314,6 +314,17 @@ code, pre {
 	background-color:#f1f1e5;
 	border-color: #f1f1e5;
 }
+
+.newmessage {
+	text-align: right;
+	margin-right: 10px;
+	margin-top: -15px;
+}
+
+.newmessage a {
+	text-align: left;
+}
+
 .linkpages {
 	font-weight: bold;
 }
