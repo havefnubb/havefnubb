@@ -33,7 +33,7 @@ class postlcZone extends jZone {
         if ($userPost)
             $user = $dao->getById($userPost->id_user);
         else
-            $noMsg = jLocale::get('forum.no.msg');
+            $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
             
         $this->_tpl->assign('user',$user);
         $this->_tpl->assign('post',$userPost);

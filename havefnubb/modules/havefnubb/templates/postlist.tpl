@@ -10,7 +10,7 @@
 <tr class="{$class}">
     <td></td>
     <td></td>    
-    <td class="coltitle"><a href="{jurl 'posts:view',array('id_post'=>$post->id_post)}" title="{@havefnubb~forum.view.this.subject@}">{$post->subject|eschtml}</a></td>
+    <td class="coltitle"><a href="{jurl 'posts:view',array('id_post'=>$post->id_post)}" title="{@havefnubb~forum.postlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
     <td class="colposter">{zone 'poster',array('id_user'=>$post->id_user)}</td>
     <td class="colnum">{zone 'responsettl',array('id_post'=>$post->id_post)}</td>
     <td class="colnum">{zone 'viewedttl',array('id_post'=>$post->id_post)}</td>

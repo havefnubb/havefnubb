@@ -8,16 +8,16 @@
         <tr>
             <th colspan="2" class="forumlistcol">
             </th>
-            <th class="forumlistcol">{@forum.title@}</th>
-            <th class="forumlistcol">{@member.common.author@}</th>
-            <th class="forumlistcol">{@forum.responses@}</th>
-            <th class="forumlistcol">{@forum.views@}</th>
-            <th class="forumlistcol">{@forum.last.comments@}</th>        
+            <th class="forumlistcol">{@havefnubb~forum.forumlist.title@}</th>
+            <th class="forumlistcol">{@havefnubb~member.common.author@}</th>
+            <th class="forumlistcol">{@havefnubb~forum.forumlist.responses@}</th>
+            <th class="forumlistcol">{@havefnubb~forum.forumlist.views@}</th>
+            <th class="forumlistcol">{@havefnubb~forum.forumlist.last.comments@}</th>        
         </tr>
         {foreach $posts as $post}
         <tr>
             <td class="forumlistline" colspan="2"></td>
-            <td class="coltitle linkincell"><a href="{jurl 'posts:view',array('id_post'=>$post->id_post)}" title="{@forum.view.this.subject@}">{$post->subject|eschtml}</a></td>
+            <td class="coltitle linkincell"><a href="{jurl 'posts:view',array('id_post'=>$post->id_post)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
             <td class="colposter linkincell">{zone 'poster',array('id_user'=>$post->id_user)}</td>
             <td class="colnum">{zone 'responsettl',array('id_post'=>$post->id_post)}</td>
             <td class="colnum">{zone 'viewedttl',array('id_post'=>$post->id_post)}</td>
