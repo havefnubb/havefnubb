@@ -16,10 +16,10 @@ class postsignatureZone extends jZone {
         if (!$id_post) return;
 
         $dao = jDao::get('posts');      
-        $user_post = $dao->findIdUserByIdPost($id_post);
+        $userPost = $dao->findIdUserByIdPost($id_post);
         
         $dao = jDao::get('member');
-        $sig = $dao->getById($user_post->id_user);
+        $sig = $dao->getById($userPost->id_user);
 
         $this->_tpl->assign('sig',$sig->member_comment);
     }

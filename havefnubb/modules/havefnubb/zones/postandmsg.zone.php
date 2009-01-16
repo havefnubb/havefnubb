@@ -21,10 +21,10 @@ class postandmsgZone extends jZone {
         $nb_msg = 0;
         $nb_thread = 0;
         
-        $nb_msg = $dao->findNbOfMessages($id_forum);
-        $nb_thread = $dao->findNbOfThreads($id_forum);
+        $nbMsg = $dao->findNbOfMessages($id_forum);
+        $nbThread = $dao->findNbOfThreads($id_forum);
         
-        $this->_tpl->assign('nb_msg',$nb_msg);
-        $this->_tpl->assign('nb_thread',$nb_thread);
+        $this->_tpl->assign('nbMsg',$nbMsg);
+        $this->_tpl->assign('nbThread',$nbThread);
     }
 }

@@ -13,9 +13,14 @@
         </tr>
         {foreach $members as $member}
         <tr>
-            <td class="memberlistline"><a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}" title="{$member->login|eschtml}">{$member->login|eschtml}</a></td>
+            <td class="memberlistline">
+                <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
+                   title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->login)}">
+                {$member->login|eschtml}
+                </a>
+            </td>
             <td class="colrank"></td>
-            <td class="coldate"></td>
+            <td class="coldate">{$member->request_date|jdatetime:'db_datetime':'lang_datetime'}</td>
             <td class="colnum"></td>
         </tr>
         {/foreach}

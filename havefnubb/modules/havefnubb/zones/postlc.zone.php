@@ -19,24 +19,24 @@ class postlcZone extends jZone {
         
         $dao = jDao::get('posts');
         if ($id_post) {        
-            $user_post = $dao->getUserLastCommentOnPosts($id_post);
+            $userPost = $dao->getUserLastCommentOnPosts($id_post);
         }
         
         if ($id_forum) {        
-            $user_post = $dao->getUserLastCommentOnForums($id_forum);
+            $userPost = $dao->getUserLastCommentOnForums($id_forum);
         }
 
         $user = '';
-        $no_msg = '';
+        $noMsg = '';
         
         $dao = jDao::get('member');        
-        if ($user_post)
-            $user = $dao->getById($user_post->id_user);
+        if ($userPost)
+            $user = $dao->getById($userPost->id_user);
         else
-            $no_msg = jLocale::get('forum.no.msg');
+            $noMsg = jLocale::get('forum.no.msg');
             
         $this->_tpl->assign('user',$user);
-        $this->_tpl->assign('post',$user_post);
-        $this->_tpl->assign('msg',$no_msg);
+        $this->_tpl->assign('post',$userPost);
+        $this->_tpl->assign('msg',$noMsg);
     }
 }

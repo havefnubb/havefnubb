@@ -15,7 +15,7 @@ class accountCtrl extends jController {
 
     public $pluginParams = array(
       '*'=>array('auth.required'=>true),
-      'show'=>array('auth.required'=>false)
+      'show'=>array('auth.required'=>true)
     );
 
     /**

@@ -1,1 +1,1 @@
-<span class="smalltext">{$nb_msg} {@havefnubb~forum.messages@}<br/>{$nb_thread} {@havefnubb~forum.threads@}</span>
+<span class="smalltext">{$nbMsg} {@havefnubb~forum.messages@}<br/>{$nbThread} {@havefnubb~forum.threads@}</span>

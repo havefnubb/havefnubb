@@ -237,7 +237,8 @@ code, pre {
 	color:#f90;
 	background-color: #f1f1e5;
 	border:1px solid;
-	border-color:#acac9c #acac9c #f1f1e5 #acac9c;	
+	/*border-color:#acac9c #acac9c #f1f1e5 #acac9c;	*/
+	border-color:#f1f1e5 #acac9c #acac9c #acac9c;	
 }
 
 * html #navbar { 
@@ -309,6 +310,10 @@ code, pre {
 	background-color:#8dc192;
 }
 
+#member-identity fieldset, #member-pref fieldset, #member-hardware fieldset {
+	background-color:#f1f1e5;
+	border-color: #f1f1e5;
+}
 .linkpages {
 	font-weight: bold;
 }
@@ -444,7 +449,7 @@ table td {
 	padding:0;
 	float:left;
 	list-style-type:none;	
-	background-color:#dedec1;
+	background-color:#f1f1e5;
 }
 
 .ui-tabs-nav a, .ui-tabs-nav a span {
@@ -468,8 +473,10 @@ table td {
 	margin:0 3px 0 0;
 	padding:6px 10px;
 	border: 1px solid;
-	border-color:#dedec1 #dedec1 #acac9c #dedec1;
-	background: #dedec1;				
+	/*border-color:#dedec1 #dedec1 #acac9c #dedec1;
+	background: #dedec1;*/
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	background: #e1e1cd;	
 }
 
 .ui-tabs-nav a:link, .ui-tabs-nav a:visited {
@@ -486,7 +493,7 @@ table td {
 	color:#232320;
 	background: #f1f1e5;
 	border:1px solid;
-	border-color:#acac9c #acac9c #f1f1e5 #acac9c;		
+	border-color:#acac9c #acac9c #f1f1e5 #acac9c;	
 }
 
 .ui-tabs-panel {
