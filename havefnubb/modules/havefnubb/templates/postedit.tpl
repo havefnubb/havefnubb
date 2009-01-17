@@ -9,7 +9,7 @@
 {/if}
 
 <h1>{$heading}</h1>
-{form $form, 'havefnubb~posts:save', array('id_post'=>$id_post)}
+{form $form, $submitAction, array('id_post'=>$id_post)}
 
 <fieldset>
 <p>{ctrl_label 'subject'} </p>
@@ -18,5 +18,5 @@
 <p>{ctrl_control 'message'} </p>
 </fieldset>
  
-<div>{formsubmit 'validate'}</div>
+<div>{formsubmit 'validate'} {formreset 'cancel'}</div>
 {/form}

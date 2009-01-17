@@ -16,7 +16,10 @@
 
 <submit ref="validate">
   <label>Veuillez valider</label>
-  <item value="preview" locale="havefnubb~post.form.previewBt"/>
+  <item value="preview" locale="havefnubb~post.form.previewBt"/>  
   <item value="save" locale="havefnubb~post.form.saveBt"/>
 </submit>
+<reset ref="cancel">
+	<label locale="havefnubb~post.form.cancelBt"/>
+</reset>
 </form>

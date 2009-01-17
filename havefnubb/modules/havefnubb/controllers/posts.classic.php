@@ -9,9 +9,13 @@
 */
 
 class postsCtrl extends jController {
+// class postsCtrl extends jControllerDaoCrud  {
     /**
     *
     */
+	protected $dao = 'havefnubb~posts';
+	protected $form = 'havefnubb~posts';
+	
     public $pluginParams = array(
         '*'		=>array('auth.required'=>false),
         'add'	=>array('auth.required'=>true),
@@ -62,6 +66,8 @@ class postsCtrl extends jController {
     function add () {
 		
 		$id_forum = (int) $this->param('id_forum');
+		$id_post = (int) $this->param('id_post');
+				
 		// invalid forum id
 		if ($id_forum == 0) {
             $rep 		 = $this->getResponse('redirect');
@@ -69,9 +75,19 @@ class postsCtrl extends jController {
             return $rep;
 		}
 		
+		
+		// if $id_post = 0 then its 'first' post
+		// if $id_post > 0 then its a response post		
+		if ($id_post > 0 ) {
+			// lets get the 10 last post
+			// display them
+			// add a response form at the bottom
+		}
+
+		
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-		
+		// get info to display them in the breadcrumb
         $daoForum = jDao::get('havefnubb~forum');
         // find info for the current forum
         $forum = $daoForum->get($id_forum);
@@ -103,18 +119,18 @@ class postsCtrl extends jController {
 		$tpl->assign('id_post', 0);
 		$tpl->assign('category', $category);		
 		$tpl->assign('heading',jLocale::get('havefnubb~post.form.new.message'));
-        $rep->body->assign('MAIN', $tpl->fetch('post'));
+		$tpl->assign('submitAction','havefnubb~posts:save');
+        $rep->body->assign('MAIN', $tpl->fetch('postedit'));
         return $rep;		
     }
 
     function edit () {
 		
-		$id_forum = (int) $this->param('id_forum');
+		//$id_forum = (int) $this->param('id_forum');
 		$id_post = (int) $this->param('id_post');
-		$id_user = (int) $this->param('id_user');
+		// $id_user = (int) $this->param('id_user');
 		
-		// invalid forum id
-		if ($id_forum == 0 or $id_post == 0 or $id_user == 0 ) {
+		if ($id_post == 0 ) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
             return $rep;
@@ -123,9 +139,13 @@ class postsCtrl extends jController {
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
 		
+		$daoPost = jDao::get('havefnubb~posts');
+		$post = $daoPost->get($id_post);
+		
+		// get info to display them in the breadcrumb
         $daoForum = jDao::get('havefnubb~forum');
         // find info for the current forum
-        $forum = $daoForum->get($id_forum);
+        $forum = $daoForum->get($post->id_forum);
 
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
@@ -137,8 +157,8 @@ class postsCtrl extends jController {
         // find category name for the current forum
 		$category = $daoCategory->get($forum->id_cat);
 		
-		$form = jForms::get('havefnubb~posts',$id_forum);
-		$form->setData('id_forum',$id_forum);
+		$form = jForms::get('havefnubb~posts');
+		$form->setData('id_forum',$post->id_forum);
 		$form->setData('id_user',$user->id);
 		$form->setData('id_post',$id_post);
 		
@@ -153,7 +173,8 @@ class postsCtrl extends jController {
 		$tpl->assign('id_post', 0);
 		$tpl->assign('category', $category);		
 		$tpl->assign('heading',jLocale::get('havefnubb~post.form.edit.message'));
-        $rep->body->assign('MAIN', $tpl->fetch('post'));
+		$tpl->assign('submitAction','havefnubb~posts:save');		
+        $rep->body->assign('MAIN', $tpl->fetch('postedit'));
         return $rep;	
     }
     
@@ -164,6 +185,12 @@ class postsCtrl extends jController {
 		$id_post 	= (int) $this->param('id_post');
 		$id_user 	= (int) $this->param('id_user');
 		
+		if ($id_forum == 0 or $id_user == 0 ) {
+			$rep 		 = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';	
+            return $rep;
+		}
+		
 		#check the datas / form ...
 		if ($id_post == 0)
 			$form = jForms::fill('havefnubb~posts');
@@ -171,12 +198,6 @@ class postsCtrl extends jController {
 			$form = jForms::fill('havefnubb~posts',$id_post);
 
 		$submit = $form->getData('validate');
-		
-		if($submit == 'cancel') {
-			$rep 		 = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';	
-            return $rep;
-		}
 
 		#.. if the data are not ok, return to the form and display errors messages form
 		if (!$form->check()) {            
@@ -186,8 +207,8 @@ class postsCtrl extends jController {
 		}
 
 		#.. if the data are ok ; we get them !
-		$subject	= $form->getData('subject');
-		$message 	= $form->getData('message');
+		$subject	= htmlentities($form->getData('subject'));
+		$message 	= htmlentities($form->getData('message'));
 		
         #we click on Save : so we record the datas
         if ($submit == 'save' ) {
@@ -195,15 +216,27 @@ class postsCtrl extends jController {
             $dao = jDao::get('havefnubb~posts');
             $record = jDao::createRecord('havefnubb~posts');
             
+			$record->id_post  	= $id_post;
+			$record->id_user 	= $id_user;
+			$record->id_forum 	= $id_forum;
             $record->subject	= $subject;
             $record->message	= $message;
-            
+			$record->parent_id  = 0;
+			$record->status		= 1;
+			$record->date_created = date('Y-m-d H:i:s');
+			$record->date_modified = date('Y-m-d H:i:s');
+			$record->viewed		= 0;
+
             # store the datas		
             #we never 'update' a page ; we always add one and 'version'ing it.
             $dao->insert($record);
+			
+			$record->parent_id = $record->id_post;
+			$dao->update($record);
+			
 			$rep 		 = $this->getResponse('redirect');
 			$rep->params = array('id'=>$id_forum);
-			$rep->action ='havefnubb~forum:index';
+			$rep->action ='havefnubb~forum:view';
 			return $rep;
         }
         
@@ -222,17 +255,72 @@ class postsCtrl extends jController {
             $rep = $this->getResponse('html');
             $rep->title = jLocale::get('havefnubb~post.form.edit.message');
 			$tpl->assign('heading',jLocale::get('havefnubb~post.form.edit.message'));
-            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~post'));
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~postedit'));
             return $rep;            
         }		
+	}
+	
+    function quote() {
+		//$id_forum = (int) $this->param('id_forum');
+		$id_post = (int) $this->param('id_post');
+		// $id_user = (int) $this->param('id_user');
+		
+		if ($id_post == 0 ) {
+            $rep 		 = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+            return $rep;
+		}
+		
+		$daoUser = jDao::get('havefnubb~member');
+		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+		
+		$daoPost = jDao::get('havefnubb~posts');
+		$post = $daoPost->get($id_post);
+		
+		// get info to display them in the breadcrumb
+        $daoForum = jDao::get('havefnubb~forum');
+        // find info for the current forum
+        $forum = $daoForum->get($post->id_forum);
+
+		if (! $forum) {
+            $rep 		 = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+            return $rep;			
+		}
+
+		$daoCategory = jDao::get('havefnubb~category');
+        // find category name for the current forum
+		$category = $daoCategory->get($forum->id_cat);
+		
+		$form = jForms::get('havefnubb~posts');
+		$form->setData('id_forum',$post->id_forum);
+		$form->setData('id_user',$user->id);
+		$form->setData('id_post',$id_post);
+		
+        $rep = $this->getResponse('html');
+
+		$rep->title = jLocale::get('havefnubb~post.form.quote.message');
+		#set the needed parameters to the template      
+        $tpl = new jTpl();
+        $tpl->assign('id_post', null);
+        $tpl->assign('previewtext', null);
+		$tpl->assign('form', $form);
+		$tpl->assign('forum', $forum);
+		$tpl->assign('id_post', 0);
+		$tpl->assign('category', $category);		
+		$tpl->assign('heading',jLocale::get('havefnubb~post.form.quote.message'));
+		$tpl->assign('submitAction','havefnubb~posts:quotesave');
+        $rep->body->assign('MAIN', $tpl->fetch('postedit'));
+        return $rep;	
+    }
+	
+	function quotesave() {
+		
 	}
 	
     function delete() {
         
     }
-    
-    function quote() {
-        
-    }
+    	
 }
 
