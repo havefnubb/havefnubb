@@ -128,7 +128,7 @@ mailerType = mail
 ; Sets the hostname to use in Message-Id and Received headers
 ; and as default HELO string. If empty, the value returned
 ; by SERVER_NAME is used or 'localhost.localdomain'.
-hostname =
+hostname = 
 sendmailPath = "/usr/sbin/sendmail"
 
 ; if mailer = smtp , fill the following parameters
@@ -136,13 +136,13 @@ sendmailPath = "/usr/sbin/sendmail"
 ; SMTP hosts.  All hosts must be separated by a semicolon : "smtp1.example.com:25;smtp2.example.com"
 smtpHost = "localhost"
 ; default SMTP server port
-smtpPort = 25
+smtpPort = 
 ; SMTP HELO of the message (Default is hostname)
 smtpHelo =
 ; SMTP authentication
 smtpAuth = off
-smtpUsername =
-smtpPassword =
+smtpUsername = 
+smtpPassword = 
 ; SMTP server timeout in seconds
 smtpTimeout = 10
 

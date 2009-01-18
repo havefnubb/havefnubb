@@ -21,12 +21,11 @@ PRIMARY KEY ( `id_forum` ) ,
 INDEX ( `id_cat` )
 );
 
-INSERT INTO `forum` (`id_forum` ,`forum_name` ,`id_cat` ,`forum_desc` ,`forum_order`)
-VALUES 
-(NULL , 'My Forum is Fun', '1', 'Everything is Fnu', '1'), 
-(NULL , 'My Forum is Fast', '1', 'Goooooooooooooooood', '1');
+INSERT INTO `forum` (`id_forum`, `forum_name`, `id_cat`, `forum_desc`, `forum_order`) VALUES
+(1, 'My Forum is Fun', 1, 'Everything is Fnu', 1),
+(2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1),
+(3, 'Light', 2, 'Soo light', 1);
 
-INSERT INTO `havefnu`.`forum` (`id_forum` ,`forum_name` ,`id_cat` ,`forum_desc` ,`forum_order`)VALUES (NULL , 'Light', '2', 'Soo light', '1');
 
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
@@ -159,104 +158,56 @@ INSERT INTO `jacl2_user_group` (`login`, `id_aclgrp`) VALUES
 --
 
 DROP TABLE IF EXISTS `member`;
-CREATE TABLE `member` (
-  `id_user`         int(12) NOT NULL AUTO_INCREMENT,
-  `member_login`    varchar(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `member` (
+  `id_user` int(12) NOT NULL AUTO_INCREMENT,
+  `member_login` varchar(50) NOT NULL,
   `member_password` varchar(50) NOT NULL,
-  `member_email`    varchar(255) NOT NULL,
+  `member_email` varchar(255) NOT NULL,
   `member_nickname` varchar(50) DEFAULT NULL,
-  `member_website`  VARCHAR( 255 ) NULL,  
   `member_status` tinyint(4) NOT NULL DEFAULT '0',
   `member_keyactivate` varchar(10) DEFAULT NULL,
   `member_request_date` datetime DEFAULT NULL,
-  
+  `member_website` varchar(255) DEFAULT NULL,  
   `member_firstname` varchar(40) DEFAULT NULL,
-  `member_birth`    date NOT NULL DEFAULT '1980-01-01',
-  `member_country`  varchar(100) NOT NULL,
-  `member_town`     varchar(100) NOT NULL,
-  `member_comment`  varchar(255) NOT NULL,
-  `member_avatar`   varchar(255) NOT NULL,
-  
-  `member_xfire`      varchar(80) null,
-  `member_icq`        varchar(80) null,
-  `member_hotmail`    varchar(255) null,
-  `member_yim`        varchar(255) null,
-  `member_gtalk`      varchar(255) null,
-  `member_jabber`     varchar(255) null,
-
-  `member_proc`       varchar(40) NULL,
-  `member_mb`         varchar(40) NULL,
-  `member_card`       varchar(40) NULL,
-  `member_ram`        varchar(40) NULL,
-  `member_display`    varchar(40) NULL,
-  `member_screen`     varchar(40) NULL,
-  `member_mouse`      varchar(40) NULL,
-  `member_keyb`       varchar(40) NULL,
-  `member_os`         varchar(40) NULL,
-  `member_connection` varchar(40) NULL,
-  
-  
-  `member_last_connect` DATETIME NULL,
+  `member_birth` date NOT NULL DEFAULT '1980-01-01',
+  `member_country` varchar(100) DEFAULT NULL,
+  `member_town` varchar(100) DEFAULT NULL,
+  `member_comment` varchar(255) DEFAULT NULL,
+  `member_avatar` varchar(255) DEFAULT NULL,
+  `member_xfire` varchar(80) DEFAULT NULL,
+  `member_icq` varchar(80) DEFAULT NULL,
+  `member_hotmail` varchar(255) DEFAULT NULL,
+  `member_yim` varchar(255) DEFAULT NULL,
+  `member_gtalk` varchar(255) DEFAULT NULL,
+  `member_jabber` varchar(255) DEFAULT NULL,
+  `member_proc` varchar(40) DEFAULT NULL,
+  `member_mb` varchar(40) DEFAULT NULL,
+  `member_card` varchar(40) DEFAULT NULL,
+  `member_ram` varchar(40) DEFAULT NULL,
+  `member_display` varchar(40) DEFAULT NULL,
+  `member_screen` varchar(40) DEFAULT NULL,
+  `member_mouse` varchar(40) DEFAULT NULL,
+  `member_keyb` varchar(40) DEFAULT NULL,
+  `member_os` varchar(40) DEFAULT NULL,
+  `member_connection` varchar(40) DEFAULT NULL,
+  `member_last_connect` datetime DEFAULT NULL,
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
-) ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Contenu de la table `member`
 --
 
 INSERT INTO `member`
-(`id_user`,
-`member_login`,
-`member_password`,
-`member_email`,
-`member_nickname`,
-`member_website`,
-`member_status`,
-`member_keyactivate`,
-`member_request_date`,
-`member_firstname`,
-`member_birth`,
-`member_country`,
-`member_town`,
-`member_comment`,
-`member_avatar`,
-
-`member_xfire`    ,
-`member_icq`      ,
-`member_hotmail`  ,
-`member_yim`      ,
-`member_gtalk`    ,
-`member_jabber`   ,
-
-`member_proc`     ,
-`member_mb`       ,
-`member_card`     ,
-`member_ram`      ,
-`member_display`  ,
-`member_screen`    ,
-`member_mouse`     ,
-`member_keyb`      ,
-`member_os`        ,
-`member_connection`,
-
+(`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`,
+`member_website`, `member_status`, `member_keyactivate`, `member_request_date`,
+`member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`,
+`member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_gtalk`,
+`member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`,
+`member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`,
 `member_last_connect`) VALUES
-(1,
-'havefnu',
-'0dc12261c353a4c2dfa1b6e01ded9bed',
-'havefnu@foxmask.info',
-'havefnu',
-'',
-1,
-CURRENT_TIMESTAMP(),
-NULL,
-NULL,
-'1969-12-26',
-'France',
-'',
-'',
-'',
-NULL,NULL,NULL,NULL,NULL,
-NULL,NULL,NULL,NULL,NULL,
-NULL,NULL,NULL,NULL,NULL,NULL,
+(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 'http://forge.jelix.org/projects/havefnubb', 1,
+NULL, CURRENT_TIMESTAMP(), NULL, '1969-01-14', 'France', 'Paris', '', '0', NULL, NULL, NULL,
+NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 CURRENT_TIMESTAMP());
