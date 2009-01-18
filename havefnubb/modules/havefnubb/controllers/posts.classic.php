@@ -13,6 +13,9 @@ class postsCtrl extends jController {
     /**
     *
     */
+	
+	
+	
 	protected $dao = 'havefnubb~posts';
 	protected $form = 'havefnubb~posts';
 	
@@ -120,7 +123,7 @@ class postsCtrl extends jController {
 		$tpl->assign('category', $category);		
 		$tpl->assign('heading',jLocale::get('havefnubb~post.form.new.message'));
 		$tpl->assign('submitAction','havefnubb~posts:save');
-        $rep->body->assign('MAIN', $tpl->fetch('postedit'));
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~postedit'));
         return $rep;		
     }
 
@@ -174,10 +177,12 @@ class postsCtrl extends jController {
 		$tpl->assign('category', $category);		
 		$tpl->assign('heading',jLocale::get('havefnubb~post.form.edit.message'));
 		$tpl->assign('submitAction','havefnubb~posts:save');		
-        $rep->body->assign('MAIN', $tpl->fetch('postedit'));
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~postedit'));
         return $rep;	
     }
     
+	// @TODO :
+	// refactoring the code to be lighter.
 	
 	function save() {
 		
@@ -202,7 +207,8 @@ class postsCtrl extends jController {
 		#.. if the data are not ok, return to the form and display errors messages form
 		if (!$form->check()) {            
 			$rep 		 = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';	
+            $rep->action = 'havefnubb~forum:view';
+			$rep->param = array('id'=>$id_forum);
 			return $rep;
 		}
 
@@ -245,13 +251,26 @@ class postsCtrl extends jController {
         #1) we parse the submitted text
         #2) we return to the page to show the render of the given text
         else {
-
+			$daoUser = jDao::get('havefnubb~member');
+			$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+			// get info to display them in the breadcrumb
+			$daoForum = jDao::get('havefnubb~forum');
+			// find info for the current forum
+			$forum = $daoForum->get($id_forum);
+		
+			$daoCategory = jDao::get('havefnubb~category');
+			// find category name for the current forum
+			$category = $daoCategory->get($forum->id_cat);
+			
             #set the needed parameters to the template
             $tpl = new jTpl();
             $tpl->assign('id_post', $id_post);
-            $tpl->assign('previewsubject', htmlentities($form->getData('subject')));
-			$tpl->assign('previewtext', htmlentities($form->getData('message')));
-            
+            $tpl->assign('previewsubject', $form->getData('subject'));
+			$tpl->assign('previewtext', $form->getData('message'));
+			$tpl->assign('form', $form);
+			$tpl->assign('forum', $forum);
+			$tpl->assign('category', $category);
+            $tpl->assign('submitAction','havefnubb~posts:save');
             $rep = $this->getResponse('html');
             $rep->title = jLocale::get('havefnubb~post.form.edit.message');
 			$tpl->assign('heading',jLocale::get('havefnubb~post.form.edit.message'));
@@ -260,6 +279,7 @@ class postsCtrl extends jController {
         }		
 	}
 	
+	// @TODO : to test
     function quote() {
 		//$id_forum = (int) $this->param('id_forum');
 		$id_post = (int) $this->param('id_post');
