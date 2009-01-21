@@ -9,7 +9,7 @@
 */
 
 class memberlistZone extends jZone {
-    protected $_tplname='memberlist';
+    protected $_tplname='zone.memberlist';
 
     protected function _prepareTpl(){
         global $HfnuConfig;

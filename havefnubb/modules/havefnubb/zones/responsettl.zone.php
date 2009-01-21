@@ -9,7 +9,7 @@
 */
 // class that manages the display of the information of the last comment !
 class responsettlZone extends jZone {
-    protected $_tplname='responsettl';
+    protected $_tplname='zone.responsettl';
 
     protected function _prepareTpl(){
         

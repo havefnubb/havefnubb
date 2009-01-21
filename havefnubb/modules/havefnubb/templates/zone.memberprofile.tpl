@@ -7,7 +7,7 @@
         <li class="memberstatus"><span>Ici Online/Offline</span></li>
     </ul>
     <ul class="member-info">
-        <li class="membersnbposts">{@havefnubb~member.nb.messages@}: {zone 'membernbmsg', array('id_user'=>$user->id)}</li>
+        <li class="membersnbposts">{@havefnubb~member.nb.messages@}: {zone 'havefnubb~membernbmsg', array('id_user'=>$user->id)}</li>
         <li class="membercontacts"><span class="memberemail"><a href="mailto:{$user->email}">{@havefnubb~member.email@}</a></span> - <span class="memberwebsite"><a href="{$user->member_website}" title="{@member.website@}">{@member.website@}</a></span>
     </ul>
 </div>

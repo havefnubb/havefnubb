@@ -12,7 +12,7 @@
 
 class loginembedZone extends jZone {
 
-    protected $_tplname='loginembed';
+    protected $_tplname='zone.loginembed';
 
     protected function _prepareTpl(){
         

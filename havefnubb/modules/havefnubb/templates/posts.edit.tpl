@@ -3,9 +3,21 @@
 </div>
 {if $previewsubject !== null}
 <h1>{@havefnubb~post.form.title.preview.page@}</h1>
-{$previewsubject|eschtml}
-
-{$previewtext|wiki:"wr3_to_xhtml"}
+<div class="post">
+    <div class="posthead">
+        <h3>{$j_datenow} {$j_timenow} {@havefnubb~main.by@} {zone 'havefnubb~poster', array('id_user'=>$id_user)}</h3>
+    </div>
+    <div class="postbody">
+        {zone 'havefnubb~memberprofile',array('id'=>$id_user)}
+        <div class="post-entry">
+            <h4 class="message-title">{$previewsubject|eschtml}</h4>
+            <div class="message-content">
+            {$previewtext|wiki:$wr_engine}
+            {zone 'havefnubb~membersignature',array('id'=>$id_user)}
+            </div>
+        </div>        
+    </div>
+</div> 
 {/if}
 
 <h1>{$heading}</h1>

@@ -88,7 +88,7 @@ code, pre {
     -moz-box-shadow: gray 3px 5px 5px 0px;
     -webkit-box-shadow: gray 3px 5px 5px 0px;
     box-shadow: gray 0px 3px 5px 0px;
-    z-index:50;	
+    /*z-index:50;	*/
 }
 
 #top h1 {
@@ -315,13 +315,13 @@ code, pre {
 	border-color: #f1f1e5;
 }
 
-.newmessage {
+.newmessage, .replymessage {
 	text-align: right;
 	margin-right: 10px;
 	margin-top: -15px;
 }
 
-.newmessage a {
+.newmessage a, .replymessage a {
 	text-align: left;
 }
 

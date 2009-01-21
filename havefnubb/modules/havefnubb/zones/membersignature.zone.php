@@ -8,13 +8,16 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-class categoryZone extends jZone {
-    protected $_tplname='zone.category';
+class membersignatureZone extends jZone {
+    protected $_tplname='zone.membersignature';
 
     protected function _prepareTpl(){
-        $dao = jDao::get('category');
-        $categories = $dao->findAll();
-        $this->_tpl->assign('action','index');
-        $this->_tpl->assign('categories',$categories);
+        $id = $this->param('id');
+        if (!$id) return;
+
+        $dao = jDao::get('havefnubb~member');      
+        $sig = $dao->getById($id);
+
+        $this->_tpl->assign('sig',$sig->member_comment);
     }
 }

@@ -9,7 +9,7 @@
 */
 
 class membernbmsgZone extends jZone {
-    protected $_tplname='membernbmsg';
+    protected $_tplname='zone.membernbmsg';
 
     protected function _prepareTpl(){
         $id_user = $this->param('id_user');

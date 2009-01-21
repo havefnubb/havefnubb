@@ -12,3 +12,4 @@ admin_email =
 mailing_list =
 posts_per_page = 25
 members_per_page = 25
+forum_post_render = wr3_to_xhtml

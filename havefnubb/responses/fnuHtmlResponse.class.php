@@ -33,16 +33,18 @@ class fnuHtmlResponse extends jResponseHtml {
         $description = $HfnuConfig->getValue('description','board');
 
         if ($this->title)
-            $this->title = htmlentities($title . ' - ' . $this->title);        
+            $this->title = $title . ' - ' . $this->title;        
         else
-            $this->title = htmlentities($title);
+            $this->title = $title;
         
-        $this->body->assignIfNone('TITLE',htmlentities($title));
-        $this->body->assignIfNone('DESC',htmlentities($description));
-        $this->body->assignIfNone('BOARD_TITLE',htmlentities($title));
+       
         
-        // let says where we are , everywhere arround the application
-        $this->body->assign('HfnuCurrentAction',$GLOBALS['gJCoord']->action->toString());
+        $this->body->assignIfNone('TITLE',$title);
+        $this->body->assignIfNone('DESC',$description);
+        $this->body->assignIfNone('BOARD_TITLE',$title);
+        
+        // let says where we are in the main.tpl template
+        $this->body->assign('HfnuCurrentAction',$GLOBALS['gJCoord']->action->toString());               
         
     }
 }

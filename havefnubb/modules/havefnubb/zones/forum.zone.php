@@ -9,10 +9,11 @@
 */
 
 class forumZone extends jZone {
-    protected $_tplname='forumindex';
+    protected $_tplname='zone.forumindex';
 
     protected function _prepareTpl(){
         $id_cat = $this->param('id_cat');
+        if (! $id_cat ) return;
         
         $dao = jDao::get('forum');
         

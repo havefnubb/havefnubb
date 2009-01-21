@@ -19,10 +19,10 @@
         <tr>
             <td class="forumlistline" colspan="2"></td>
             <td class="coltitle linkincell"><a href="{jurl 'posts:view',array('id_post'=>$post->id_post)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
-            <td class="colposter linkincell">{zone 'poster',array('id_user'=>$post->id_user)}</td>
-            <td class="colnum">{zone 'responsettl',array('id_post'=>$post->id_post)}</td>
-            <td class="colnum">{zone 'viewedttl',array('id_post'=>$post->id_post)}</td>
-            <td class="coldate linkincell">{zone 'postlc',array('id_post'=>$post->id_post)}</td>
+            <td class="colposter linkincell">{zone 'havefnubb~poster',array('id_user'=>$post->id_user)}</td>
+            <td class="colnum">{zone 'havefnubb~responsettl',array('id_post'=>$post->id_post)}</td>
+            <td class="colnum">{zone 'havefnubb~viewedttl',array('id_post'=>$post->id_post)}</td>
+            <td class="coldate linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}</td>
         </tr>
         {/foreach}
     </table>

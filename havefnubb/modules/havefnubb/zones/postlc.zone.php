@@ -9,7 +9,7 @@
 */
 // class that manages the display of the information of the last comment !
 class postlcZone extends jZone {
-    protected $_tplname='postlc';
+    protected $_tplname='zone.postlc';
 
     protected function _prepareTpl(){
         

@@ -9,7 +9,7 @@
 */
 // class that manages the display of the information of the last comment !
 class viewedttlZone extends jZone {
-    protected $_tplname='viewedttl';
+    protected $_tplname='zone.viewedttl';
 
     protected function _prepareTpl(){
         

@@ -9,7 +9,7 @@
 */
 
 class posterZone extends jZone {
-    protected $_tplname='poster';
+    protected $_tplname='zone.poster';
 
     protected function _prepareTpl(){
         $id_user = $this->param('id_user');

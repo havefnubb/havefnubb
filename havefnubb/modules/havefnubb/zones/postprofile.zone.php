@@ -9,7 +9,7 @@
 */
 
 class postprofileZone extends jZone {
-    protected $_tplname='postprofile';
+    protected $_tplname='zone.postprofile';
 
     protected function _prepareTpl(){
         $id_post = $this->param('id_post');

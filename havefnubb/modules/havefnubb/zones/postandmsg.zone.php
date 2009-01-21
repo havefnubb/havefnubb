@@ -9,7 +9,7 @@
 */
 
 class postandmsgZone extends jZone {
-    protected $_tplname='postandmsg';
+    protected $_tplname='zone.postandmsg';
 
     protected function _prepareTpl(){
         
