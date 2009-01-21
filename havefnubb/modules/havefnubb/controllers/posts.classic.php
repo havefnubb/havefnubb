@@ -516,9 +516,9 @@ class postsCtrl extends jController {
             return $rep;			
 		}
 
-        /*require_once(JELIX_LIB_UTILS_PATH.'jWiki.class.php');    
-        $wr = new jWiki($HfnuConfig->getValue('forum_post_render','board'));
-        echo $wr->quote($post->message);*/
+        //$wr = new jWiki($HfnuConfig->getValue('forum_post_render','board'));
+		
+        //echo $wr->quote($post->message);
         
 
 		
