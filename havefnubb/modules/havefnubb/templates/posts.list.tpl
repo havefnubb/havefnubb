@@ -3,7 +3,7 @@
     <div class="newmessage"><a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a></div>
 </div>
 <div class="linkpages">
-{pagelinks 'forum:view', array('id'=>$id),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+{pagelinks 'posts:lists', array('id'=>$id),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
     <table width="100%">
         <tr>
@@ -27,5 +27,5 @@
         {/foreach}
     </table>
 <div class="linkpages">
-{pagelinks 'forum:view', array('id'=>$id),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+{pagelinks 'posts:lists', array('id'=>$id),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>

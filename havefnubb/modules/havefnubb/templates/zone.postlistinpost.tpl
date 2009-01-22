@@ -1,4 +1,7 @@
 <div class="postlist">
+    <div class="linkpages">
+    {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
+    </div>    
 {foreach $posts as $post}
 <div class="post">
     <div class="posthead">
@@ -18,9 +21,12 @@
         <p class="post-actions">
             <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post)}" title="{@main.delete@}">{@havefnubb~main.delete@}</a> | </span>
             <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@main.edit@}">{@havefnubb~main.edit@}</a> | </span>
-            <span class="postquote"><a href="{jurl 'posts:quote' ,array('id_post'=>$post->id_post)}" title="{@main.quote@}">{@havefnubb~main.quote@}</a></span>
+            <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@main.quote@}">{@havefnubb~main.quote@}</a></span>
         </p>
     </div>
 </div>    
 {/foreach}
+    <div class="linkpages">
+    {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
+    </div>
 </div>

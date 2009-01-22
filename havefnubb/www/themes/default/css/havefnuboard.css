@@ -418,7 +418,7 @@ table td {
 	background-color: #e1e1cd;
 }
 
-.forumlistcol, .memberlistcol {
+.forumlistcol, .memberlistcol  {
 	border: 1px solid;
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
 	background: #baba9b;
@@ -434,7 +434,15 @@ table td {
 }
 
 /* posts */
-
+.posthead  {
+	border: 1px solid;
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	background: #baba9b;
+}
+.message-content blockquote {
+	border: 1px solid;
+	background: #e1e1cd;
+}
 
 /* Tab */
 

@@ -4,4 +4,4 @@
     title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a></div>    
 </div>
 
-{zone 'postlistinpost',array('id_post'=>$id_post)}
+{zone 'postlistinpost',array('id_post'=>$id_post,'page'=>$page)}
