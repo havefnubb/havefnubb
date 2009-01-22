@@ -2,6 +2,7 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="posts" realname="posts" primarykey="id_post" />
+        <foreigntable name="usr" realname="member" primarykey="id_user" onforeignkey="id_user" />        
     </datasources>
     <record>
         
@@ -23,6 +24,16 @@
     <property name="date_created" fieldname="date_created" datatype="datetime" required="true"/>
     <property name="date_modified" fieldname="date_modified" datatype="datetime" required="true"/>
     <property name="viewed" fieldname="viewed" datatype="int" required="true"/> 
+
+    <property name="id" fieldname="id_user" datatype="int" table="usr"/>
+    <property name="email" fieldname="member_email" datatype="string" table="usr" maxlength="255" />
+	<property name="login" fieldname="member_login" table="usr"
+                            required="yes" datatype="string"  maxlength="50" />
+    <property name="member_comment" fieldname="member_comment" datatype="string"
+                                                    table="usr" maxlength="255"/>
+    <property name="member_town" fieldname="member_town" datatype="string" table="usr" maxlength="100"/>
+    <property name="member_avatar" fieldname="member_avatar" datatype="string" table="usr" maxlength="255"/>
+    <property name="member_website" fieldname="member_website" datatype="string" table="usr" maxlength="255"/>	  
 
     </record>
     <factory>        

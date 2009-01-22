@@ -421,15 +421,15 @@ class postsCtrl extends jController {
 			
 			//set the needed parameters to the template
 			$tpl = new jTpl();
-            $tpl->assign('wr_engine',$HfnuConfig->getValue('forum_post_render','board'));
-			$tpl->assign('id_post', 0);
-            $tpl->assign('parent_id', $parent_id);
-			$tpl->assign('id_forum', $id_forum);
+            $tpl->assign('wr_engine',	$HfnuConfig->getValue('forum_post_render','board'));
+			$tpl->assign('id_post', 	0);
+            $tpl->assign('parent_id', 	$parent_id);
+			$tpl->assign('id_forum', 	$id_forum);
 			$tpl->assign('previewsubject', $form->getData('subject'));
 			$tpl->assign('previewtext', $form->getData('message'));
-			$tpl->assign('form', $form);
-			$tpl->assign('forum', $forum);
-			$tpl->assign('category', $category);
+			$tpl->assign('form', 		$form);
+			$tpl->assign('forum', 		$forum);
+			$tpl->assign('category', 	$category);
 			
 			$rep = $this->getResponse('html');
 			$rep->title = jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject');
@@ -496,7 +496,7 @@ class postsCtrl extends jController {
 
 		
 	}    
-	// @TODO 
+	// quote message
     function quote() {       
         global $HfnuConfig;
         $parent_id = (int) $this->param('parent_id');
@@ -545,25 +545,26 @@ class postsCtrl extends jController {
         
 		//set the needed parameters to the template              
         $tpl = new jTpl();        
-        $tpl->assign('forum',$forum);
-        $tpl->assign('id_post',0);
-        $tpl->assign('parent_id',$parent_id);
-        $tpl->assign('category',$category);
-		$tpl->assign('id_forum', $forum->id_forum);
+        $tpl->assign('forum',		$forum);
+        $tpl->assign('id_post',		0);
+        $tpl->assign('parent_id',	$parent_id);
+        $tpl->assign('category',	$category);
+		$tpl->assign('id_forum', 	$forum->id_forum);
         $tpl->assign('previewtext', null);
 		$tpl->assign('previewsubject',null);
-		$tpl->assign('form', $form);
-		$tpl->assign('forum', $forum);
-		$tpl->assign('category', $category);		
-		$tpl->assign('heading',jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject);
+		$tpl->assign('form', 		$form);
+		$tpl->assign('forum', 		$forum);
+		$tpl->assign('category', 	$category);		
+		$tpl->assign('heading',		jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject);
 		$tpl->assign('submitAction','havefnubb~posts:savereply');
         
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject;                
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.reply'));
         return $rep;		
-    }    
+    }
 	
+	// @TODO
     function delete() {
         
     }
