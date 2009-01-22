@@ -104,7 +104,7 @@ code, pre {
 #top #title {
  width: 70%;	
 }
-															
+
 /* user */
 .loginbox-links {
 	text-align: center;
@@ -317,11 +317,43 @@ code, pre {
 .newmessage, .replymessage {
 	text-align: right;
 	margin-right: 10px;
-	margin-top: -15px;
+	margin-top: 15px;
 }
 
 .newmessage a, .replymessage a {
+	border: 1px solid;
+	cursor: pointer;
 	text-align: left;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius:3px;
+	padding : 2px 2px;
+	color:#4D5431;
+	font-size:11px;
+	text-decoration:none;
+	font-weight: bold;
+	background-color:#e1e1cd;
+	
+}
+
+.newmessage a:hover,.newmessage a:focus,.newmessage a:active,
+.replymessage a:hover,.replymessage a:focus,.replymessage a:active {
+
+    cursor: pointer;
+	color:#f90;
+	background-color: #f1f1e5;
+	border:1px solid;
+	border-color:#f1f1e5 #f1f1e5 #acac9c #acac9c;		
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius:3px;
+	padding : 2px 2px;
+	
+	text-align: left;
+	font-size:11px;
+	text-decoration:none;
+	font-weight: bold;
+
 }
 
 .linkpages {
@@ -486,19 +518,53 @@ table td {
 
 .postfoot {
 	border: 1px solid;
-	/*border-color:#dedec1 #acac9c #acac9c #dedec1;*/
 	border-color :#dedec1 #dedec1 #acac9c  #dedec1;
 	border-left-style: solid;
 	border-left-width: 1px;
 	
 	position: relative;
-	padding: 0.5em 1.5em 0 1em;
+	padding: 0.5em;
 
 	background-color: #e1e1cd;
 	clear: both;
 	text-align: right;
-}	
+}
 
+.postfoot .post-actions {
+		margin-right: 10px;
+}
+.postfoot a {
+	border: 1px solid;
+	cursor: pointer;
+	text-align: left;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius:3px;
+	padding : 2px 2px;
+	color:#4D5431;
+	font-size:11px;
+	text-decoration:none;
+	font-weight: bold;
+	background-color:#f1f1e5;	
+	
+}
+.postfoot a:hover, .postfoot a:focus, .postfoot a:active  {
+	cursor: pointer;
+	text-align: left;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius:3px;
+	padding : 2px 2px;
+	color:#f90;
+	font-size:11px;
+	text-decoration:none;
+	font-weight: bold;
+	background-color:#e1e1cd;
+	
+	border:1px solid;
+	border-color:#f1f1e5 #f1f1e5 #acac9c #acac9c;		
+	
+}
 
 /* Tab */
 
