@@ -1,16 +1,17 @@
+<div class="linkpages">
+{pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
+</div>    
+
 <div class="postlist">
-    <div class="linkpages">
-    {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
-    </div>    
 {foreach $posts as $post}
 <div class="post">
     <div class="posthead">
-        <h3>{$post->date_created|jdatetime:'db_datetime':'lang_datetime'} {@havefnubb~main.by@} {zone 'havefnubb~poster', array('id_user'=>$post->id_user)}</h3>
+        <h4 class="posthead-title">{$post->subject|eschtml}</h4>
+        <div class="posthead-date">{$post->date_created|jdatetime:'db_datetime':'lang_datetime'} {@havefnubb~main.by@} {zone 'havefnubb~poster', array('id_user'=>$post->id_user)}</div>
     </div>
     <div class="postbody">
         {zone 'havefnubb~postprofile',array('id_post'=>$post->id_post)}
         <div class="post-entry">
-            <h4 class="message-title">{$post->subject|eschtml}</h4>
             <div class="message-content">
             {$post->message|wiki:$wr_engine}
             {zone 'havefnubb~postsignature',array('id_post'=>$post->id_post)}
@@ -26,7 +27,8 @@
     </div>
 </div>    
 {/foreach}
-    <div class="linkpages">
-    {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
-    </div>
+</div>
+
+<div class="linkpages">
+{pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>

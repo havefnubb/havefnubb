@@ -1,4 +1,5 @@
 <div class="signature-content">
-    <hr/>
-    {$sig}    
+    {if $sig != ''}<hr/>
+    {$sig}
+    {/if}
 </div>

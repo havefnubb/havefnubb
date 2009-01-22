@@ -127,6 +127,7 @@ class postsCtrl extends jController {
         $tpl->assign('forum',$forum);
 		$tpl->assign('category',$category);
         $tpl->assign('page',$page);
+        $tpl->assign('subject',$post->subject);
         $rep->title = $post->subject;                
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));
         return $rep;

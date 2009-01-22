@@ -34,9 +34,9 @@
       <datasource class="havefnubb~flags" />
    </menulist>
 
-   <htmleditor ref="member_comment">
+   <textarea ref="member_comment" rows="7" cols="80">
        <label locale="havefnubb~member.comments"/>
-   </htmleditor>
+   </textarea>
 
    
    <input ref="member_connection">

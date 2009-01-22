@@ -22,7 +22,7 @@ body {
 
 
 h4 {
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 .forumcat {
@@ -237,7 +237,6 @@ code, pre {
 	color:#f90;
 	background-color: #f1f1e5;
 	border:1px solid;
-	/*border-color:#acac9c #acac9c #f1f1e5 #acac9c;	*/
 	border-color:#f1f1e5 #acac9c #acac9c #acac9c;	
 }
 
@@ -437,12 +436,69 @@ table td {
 .posthead  {
 	border: 1px solid;
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
-	background: #baba9b;
+	background-color: #baba9b;	
 }
-.message-content blockquote {
+.posthead  h4, .posthead .posthead-date {
+	margin-left: 18em ;
+	padding-left: 12px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.posthead  .posthead-date {
+	font-size: small;
+	
+}
+
+
+.postbody .post-author {
+   float: left;
+   width: 15.5em;
+   position: relative;
+   display: inline;
+   padding: 0 1em 0.5em 1.5em;
+   overflow: hidden;
+   
+   border-right-style: dotted;
+   border-color: #baba9b;
+   border-right-width: thin;
+}
+	
+	
+.postbody .post-author ul {
+	margin: 0;
+	padding: 0 0 0.5em 0;
+	list-style: none;
+}
+
+.postbody .message-content {
+	margin-left: 18em;
+	padding-left : 12px;
+}
+
+.postbody .message-content blockquote {
+	margin-left: 1em;
+	padding-left : 10px;
 	border: 1px solid;
-	background: #e1e1cd;
+	border-color:#f1f1e5 #acac9c #acac9c #f1f1e5;
+	background-color: #e1e1cd;
 }
+
+.postfoot {
+	border: 1px solid;
+	/*border-color:#dedec1 #acac9c #acac9c #dedec1;*/
+	border-color :#dedec1 #dedec1 #acac9c  #dedec1;
+	border-left-style: solid;
+	border-left-width: 1px;
+	
+	position: relative;
+	padding: 0.5em 1.5em 0 1em;
+
+	background-color: #e1e1cd;
+	clear: both;
+	text-align: right;
+}	
+
 
 /* Tab */
 
