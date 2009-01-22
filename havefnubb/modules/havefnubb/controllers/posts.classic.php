@@ -501,12 +501,13 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
             return $rep;
 		}
-		
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-		
+
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);
+		
+		$daoUser = jDao::get('havefnubb~member');
+		$me = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+		$author = $daoUser->getById( $post->id_user );
 
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);		
@@ -515,21 +516,22 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
             return $rep;			
 		}
-
-        //$wr = new jWiki($HfnuConfig->getValue('forum_post_render','board'));
-		
-        //echo $wr->quote($post->message);
-        
-
-		
+     		
 		$form = jForms::create('havefnubb~posts',$id_post);
 		$form->initFromDao("havefnubb~posts");
-				
+
+		$quoteMessage = $author->login.' ' .
+						jLocale::get('havefnubb~post.form.author.said').
+						"\n".
+						">".
+						"\n".
+						$post->message);
+
+		
 		$form->setData('id_forum',$post->id_forum);
-		$form->setData('id_user',$user->id);
+		$form->setData('id_user',$me->id);
 		$form->setData('id_post',$id_post);
-        //$form->setData('message','^^'.$post->message.'^^');
-        
+        $form->setData('message',$quoteMessage);
 		
         $rep = $this->getResponse('html');		
 		$rep->title = jLocale::get("havefnubb~post.form.quote.message");		
@@ -537,7 +539,7 @@ class postsCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('id_post', $id_post);
 		$tpl->assign('id_forum',$post->id_forum);
-        $tpl->assign('id_user',$user->id);
+        $tpl->assign('id_user',$me->id);
         $tpl->assign('previewtext', null);
 		$tpl->assign('previewsubject', null);
 		$tpl->assign('form', $form);
