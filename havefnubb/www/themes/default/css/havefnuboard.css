@@ -82,9 +82,9 @@ code, pre {
     padding-left:0px;
     padding-right:0px;
     -moz-border-radius:0px 0px 10px  10px ;
-    -webkit-border-top-right-radius: 0px;
-    -webkit-border-top-left-radius: 0px;
-    border-radius:10px 10px 0px  0px ;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    border-radius: 0px 0px 10px  10px ;
     -moz-box-shadow: gray 3px 5px 5px 0px;
     -webkit-box-shadow: gray 3px 5px 5px 0px;
     box-shadow: gray 0px 3px 5px 0px;
@@ -134,7 +134,7 @@ code, pre {
 	background-color:#f1f1e5;
 }
 
-#loginembed, #loginbox  {
+#loginbox  {
 	background-color: #f1f1e5;
 	background-position:center;
     -moz-border-radius:10px 10px 8px 8px;
@@ -148,11 +148,11 @@ code, pre {
 	vertical-align: middle;
 }
 
-#loginembed ul, #loginbox ul {
+#loginbox ul {
 	height: 30px;
 	background-color:#f1f1e5;	
 }
-#loginembed li, #loginbox li {	
+#loginbox li {	
 	padding-left:20px;
 	padding-right:20px;
 	float:left;
@@ -161,7 +161,7 @@ code, pre {
 }
 
 
-#loginembed h3, #loginbox h3, #profile h3 {
+#loginbox h3, #profile h3 {
 	text-align: left;
 	margin: auto;
 	color: #4D5431;
@@ -172,10 +172,6 @@ code, pre {
     border-radius:10px 10px 0px 0px;	
 	border-bottom: 1px solid;
 
-}
-#loginembed-links {
-	width: 100%;
-	text-align: center;
 }
 
 /* navbar */
@@ -194,9 +190,9 @@ code, pre {
     background-color:#e1e1cd;
     background-position:center;
     -moz-border-radius:0px 0px 10px  10px ;
-    -webkit-border-top-right-radius: 0px;
-    -webkit-border-top-left-radius: 0px;
-    border-radius:10px 10px 0px  0px ;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    border-radius:0px 0px 10px  10px ;
     -moz-box-shadow: gray 3px 5px 5px 0px;
     -webkit-box-shadow: gray 3px 5px 5px 0px;
     box-shadow: gray 0px 3px 5px 0px;
@@ -292,8 +288,8 @@ code, pre {
 	margin: auto;	
 	background-color:#8dc192;
     -moz-border-radius:0px 0px 7px 7px;
-    -webkit-border-top-right-radius: 7px;
-    -webkit-border-top-left-radius: 7px; 
+    -webkit-border-bottom-right-radius: 7px;
+    -webkit-border-bottom-left-radius: 7px; 
     border-radius:0px 0px 7px 7px;
 	border-top: 1px solid;
 	vertical-align: middle;
@@ -361,7 +357,7 @@ code, pre {
 }
 
 .pagelinks {
-	margin: auto;	
+	margin: 1px;
 	background-color:#f1f1e5;
     -moz-border-radius:0px 0px 0px 0px;
     -webkit-border-top-right-radius: 0px;
@@ -433,7 +429,8 @@ table td {
 }
 
 .colnum {
-	text-align: center;
+	text-align: right;
+	padding: 10px;
 	width: 6%;
 	background-color: #c9c9a7;
 }
@@ -456,8 +453,12 @@ table td {
 	display: table-cell;
 }
 
-.forumlistline, .memberlistline {
+table .forumlistline, table .memberlistline {
 	background-color: #e1e1cd;
+}
+table .memberlistline {
+	background-color: #e1e1cd;
+	padding: 10px;
 }
 
 .linkincell:hover {

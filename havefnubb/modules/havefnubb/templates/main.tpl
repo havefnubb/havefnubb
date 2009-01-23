@@ -36,7 +36,6 @@
 	<!-- #breadcrumbbottom -->
 </div>
 <!-- #maincontent -->
-{if $HfnuCurrentAction == 'havefnubb~default:index@classic'}{zone 'havefnubb~loginembed'}{/if}
 <div id="footer">
     <p><span>{@havefnubb~main.poweredby@} <a href="http://forge.jelix.org/projects/havefnubb" title="HaveFnu!">HaveFnu!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a></span></p>
 </div><!-- #footer -->

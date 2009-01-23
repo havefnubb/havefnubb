@@ -2,7 +2,7 @@
     <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@havefnubb~member.memberlist.members.list@}</h3>
 </div>
 <div class="linkpages">
-{pagelinks 'members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
     <table width="100%">
         <tr>
@@ -21,10 +21,10 @@
             </td>
             <td class="colrank"></td>
             <td class="coldate">{$member->request_date|jdatetime:'db_datetime':'lang_datetime'}</td>
-            <td class="colnum"></td>
+            <td class="colnum">{zone 'havefnubb~membernbmsg',array('id_user'=>$member->id)}</td>
         </tr>
         {/foreach}
     </table>
 <div class="linkpages">
-{pagelinks 'members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
