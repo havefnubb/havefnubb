@@ -304,6 +304,11 @@ code, pre {
 	background-color:#8dc192;
 }
 
+
+#statsinfos h2 {
+	text-align: center;
+}
+
 #stats, #lastposts{
 	margin: auto;	
 	background-color:#f1f1e5;
@@ -313,6 +318,13 @@ code, pre {
 #stats h3, #lastposts h3 {
     padding:1px;
 	background-color:#8dc192;
+	border-top: 1px solid;
+	border-left: 1px solid;
+	border-right: 2px solid;
+	border-bottom: 2px solid;
+	border-color: #83a686;
+	box-shadow: gray 0px 3px 5px 0px;
+	/* border-color:red #acac9c #acac9c red;	*/
 }
 #stats h3 span, #stats p, #lastposts h3 span {
     margin-left: 20px;

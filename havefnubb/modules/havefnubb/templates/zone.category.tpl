@@ -8,8 +8,7 @@
     </div>
     {zone 'havefnubb~forum',array('id_cat'=>$category->id_cat)}    
 {/foreach}
-    {zone 'havefnubb~lastposts'}
-    {zone 'havefnubb~stats'}
+    {zone 'havefnubb~statsinfos'}
 {elseif $action == 'view'}
     <div id="breadcrumbtop"  class="headbox">
         <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {$category->cat_name|eschtml}</h3>
