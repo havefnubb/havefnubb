@@ -14,3 +14,4 @@ posts_per_page = 25
 replies_per_page = 10
 members_per_page = 25
 forum_post_render = wr3_to_xhtml
+stats_nb_of_lastpost=5

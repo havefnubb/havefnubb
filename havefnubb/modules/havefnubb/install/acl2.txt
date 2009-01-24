@@ -1,0 +1,50 @@
+SUJETS :
+//Category
+hfnu.category.view
+hfnu.category.list
+//Forum
+hfnu.forum.view
+hfnu.forum.list
+// Membres
+hfnu.member.view
+hfnu.member.list
+hfnu.member.search
+//Search
+hfnu.search
+// Post
+hfnu.posts.view
+hfnu.posts.list
+hfnu.posts.create
+hfnu.posts.edit
+hfnu.posts.delete
+hfnu.posts.report
+hfnu.posts.reply
+hfnu.posts.quote
+hfnu.posts.moderate
+// Admin
+hfnu.admin.index
+// ... config
+hfnu.admin.config.view
+hfnu.admin.config.edit
+// ... forum
+hfnu.admin.forum.create
+hfnu.admin.forum.edit
+hfnu.admin.forum.delete
+// ... category
+hfnu.admin.category.create
+hfnu.admin.category.edit
+hfnu.admin.category.delete
+// ... member
+hfnu.admin.member.create
+hfnu.admin.member.edit
+hfnu.admin.member.delete
+hfnu.admin.member.ban
+// ... rang
+hfnu.admin.rank.create
+hfnu.admin.rank.edit
+hfnu.admin.rank.delete
+// ... Signalement
+hfnu.admin.report.list
+hfnu.admin.report.delete
+
+Groupes et Droits gérés pas jAcl2

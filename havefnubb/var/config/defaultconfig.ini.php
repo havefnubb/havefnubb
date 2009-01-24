@@ -2,72 +2,73 @@
 ;for security reasons , don't remove or modify the first line
 ;this file doesn't list all possible properties. See lib/jelix/core/defaultconfig.ini.php for that
 
-locale = "fr_FR"
-charset = "UTF-8"
+locale=fr_FR
+charset=UTF-8
 
 ; see http://www.php.net/manual/en/timezones.php for supported values
-timeZone = "Europe/Paris"
+timeZone="Europe/Paris"
 
-checkTrustedModules = off
+checkTrustedModules=off
 
 ; list of modules : module,module,module
-trustedModules =
+trustedModules=
 
-pluginsPath = lib:jelix-plugins/,app:plugins/
-modulesPath = lib:jelix-modules/,app:modules/,app:../modules/
+pluginsPath="lib:jelix-plugins/,app:plugins/"
+modulesPath="lib:jelix-modules/,app:modules/,app:../modules/"
 
-theme = default
+theme=default
 
 
 [coordplugins]
-auth = auth.coord.ini.php
-history = history.coord.ini.php
+auth=auth.coord.ini.php
+jacl2=jacl2.coord.ini.php
+history=history.coord.ini.php
 
 [tplplugins]
-defaultJformsBuilder = html
+defaultJformsBuilder=html
 
 [responses]
 html=fnuHtmlResponse
 
 [error_handling]
-messageLogFormat = "%date%\t[%code%]\t%msg%\t%file%\t%line%\n"
-logFile = error.log
-email = root@localhost
-emailHeaders = "Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
+messageLogFormat="%date%\t[%code%]\t%msg%\t%file%\t%line%\n"
+logFile=error.log
+email="root@localhost"
+emailHeaders="Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
 quietMessage="Une erreur technique est survenue. Désolé pour ce désagrément."
 
 ; mots clés que vous pouvez utiliser : ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
-default      = ECHO EXIT
-error        = ECHO EXIT
-warning      = ECHO
-notice       = ECHO
-strict       = ECHO
+default="ECHO EXIT"
+error="ECHO EXIT"
+warning=ECHO
+notice=ECHO
+strict=ECHO
 ; pour les exceptions, il y a implicitement un EXIT
-exception    = ECHO
+exception=ECHO
 
 
 
 [compilation]
-checkCacheFiletime  = on
-force  = off
+checkCacheFiletime=on
+force=off
 
 [urlengine]
 ; name of url engine :  "simple" or "significant"
-engine        = simple
+engine=simple
 
 ; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
 ; because the jelix-www directory is outside the yourapp/www/ directory, you should create a link to
 ; jelix-www, or copy its content in yourapp/www/ (with a name like 'jelix' for example)
 ; so you should indicate the relative path of this link/directory to the basePath, or an absolute path.
-jelixWWWPath = "jelix/"
+jelixWWWPath="jelix/"
 
 
 ; enable the parsing of the url. Set it to off if the url is already parsed by another program
 ; (like mod_rewrite in apache), if the rewrite of the url corresponds to a simple url, and if
 ; you use the significant engine. If you use the simple url engine, you can set to off.
-enableParser = on
+enableParser=on
 
-multiview = off
+multiview=off
 
 ; basePath corresponds to the path to the base directory of your application.
 ; so if the url to access to your application is http://foo.com/aaa/bbb/www/index.php, you should
@@ -77,20 +78,20 @@ multiview = off
 ; entry points which are not in the same directory (ex: you have two entry point : http://foo.com/aaa/index.php
 ; and http://foo.com/aaa/bbb/other.php ), you MUST set the basePath (ex here, the higher entry point is index.php so
 ; : basePath="/aaa/" )
-basePath = ""
+basePath=
 
 
-defaultEntrypoint= index
+defaultEntrypoint=index
 
-entrypointExtension= .php
+entrypointExtension=.php
 
 ; leave empty to have jelix error messages
-notfoundAct =
+notfoundAct=
 ;notfoundAct = "jelix~error:notfound"
 
 ; list of actions which require https protocol for the simple url engine
 ; syntax of the list is the same as explained in the simple_urlengine_entrypoints
-simple_urlengine_https =
+simple_urlengine_https=
 
 [simple_urlengine_entrypoints]
 ; parameters for the simple url engine. This is the list of entry points
@@ -102,58 +103,60 @@ simple_urlengine_https =
 ;   m~*@r    -> for all actions of the module "m" and for the request of type "r"
 ;   @r       -> for all actions for the request of type "r"
 
-index = "@classic"
-xmlrpc = "@xmlrpc"
-jsonrpc = "@jsonrpc"
-rdf = "@rdf"
+index="@classic"
+xmlrpc="@xmlrpc"
+jsonrpc="@jsonrpc"
+rdf="@rdf"
 
 
+hfnuadmin="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic"
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name
 ; should be include in the url or not
-index = on
-xmlrpc = on
-jsonrpc = on
-rdf = on
+index=on
+xmlrpc=on
+jsonrpc=on
+rdf=on
 
+hfnuadmin=1
 [logfiles]
 default=messages.log
 
 [mailer]
-webmasterEmail = root@localhost
-webmasterName =
+webmasterEmail="root@localhost"
+webmasterName=
 
 ; how to send mail : "mail" (mail()), "sendmail" (call sendmail), or "smtp" (send directly to a smtp)
-mailerType = mail
+mailerType=mail
 ; Sets the hostname to use in Message-Id and Received headers
 ; and as default HELO string. If empty, the value returned
 ; by SERVER_NAME is used or 'localhost.localdomain'.
-hostname = 
-sendmailPath = "/usr/sbin/sendmail"
+hostname=
+sendmailPath="/usr/sbin/sendmail"
 
 ; if mailer = smtp , fill the following parameters
 
 ; SMTP hosts.  All hosts must be separated by a semicolon : "smtp1.example.com:25;smtp2.example.com"
-smtpHost = "localhost"
+smtpHost=localhost
 ; default SMTP server port
-smtpPort = 
+smtpPort=
 ; SMTP HELO of the message (Default is hostname)
-smtpHelo =
+smtpHelo=
 ; SMTP authentication
-smtpAuth = off
-smtpUsername = 
-smtpPassword = 
+smtpAuth=off
+smtpUsername=
+smtpPassword=
 ; SMTP server timeout in seconds
-smtpTimeout = 10
+smtpTimeout=10
 
 
 [acl]
-driver = db
+driver=db
 
 
 [sessions]
 ; to disable sessions, set the following parameter to 0
-start = 1
+start=1
 ; You can change the session name by setting the following parameter (only accepts alpha-numeric chars) :
 ; name = "mySessionName"
 ; Use alternative storage engines for sessions
@@ -172,11 +175,11 @@ start = 1
 
 [forms]
 ; define input type for datetime widgets : "textboxes" or "menulists"
-controls.datetime.input = "menulists"
+controls.datetime.input=menulists
 ; define the way month labels are displayed widgets: "numbers", "names" or "shortnames"
-controls.datetime.months.labels = "names"
+controls.datetime.months.labels=names
 ; define the default config for datepickers in jforms
-datepicker = default
+datepicker=default
 
 [datepickers]
-default = jelix/js/jforms/datepickers/default/init.js
+default="jelix/js/jforms/datepickers/default/init.js"
