@@ -16,7 +16,7 @@ class postandmsgZone extends jZone {
         $id_forum = $this->param('id_forum');        
         if (!$id_forum) return;
         
-        $dao = jDao::get('posts');
+        $dao = jDao::get('havefnubb~posts');
         
         $nb_msg = 0;
         $nb_thread = 0;

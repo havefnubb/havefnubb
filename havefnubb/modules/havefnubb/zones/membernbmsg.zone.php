@@ -15,7 +15,7 @@ class membernbmsgZone extends jZone {
         $id_user = $this->param('id_user');
         if (!$id_user) return;
 
-        $dao = jDao::get('posts');      
+        $dao = jDao::get('havefnubb~posts');      
         $total = $dao->findNbMsgByIdUser($id_user);
 
         $this->_tpl->assign('total',$total);

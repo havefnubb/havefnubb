@@ -120,7 +120,7 @@
 		<parameter name="offset" default="0" />
 		<parameter name="count" default="200" />		
          <conditions>
-             <eq property="status" value="1" />
+             <eq property="status" value="2" />
          </conditions>		
          <order>
              <orderitem property="login" way="asc" />
@@ -129,7 +129,7 @@
      </method>
      <method name="countAllActivatedMember" type="count">
          <conditions>
-             <eq property="status" value="1" />
+             <eq property="status" value="2" />
          </conditions>		
      </method>
      <method name="getById" type="selectfirst">
@@ -138,6 +138,15 @@
          <conditions>
              <eq property="id" expr="$id" />
          </conditions>
-     </method>	 
+     </method>
+       <!-- for stats purpose -->
+        <method name="findLastActiveMember" type="selectfirst">
+            <conditions>
+                <eq property="status" value="2" />
+            </conditions>            						
+            <order>
+                <orderitem property="request_date" way="desc" />
+            </order>            
+        </method>    	   
    </factory>
 </dao>

@@ -15,7 +15,7 @@ class forumZone extends jZone {
         $id_cat = $this->param('id_cat');
         if (! $id_cat ) return;
         
-        $dao = jDao::get('forum');
+        $dao = jDao::get('havefnubb~forum');
         
         if ($id_cat > 0) {
             $forums = $dao->findByCatId($id_cat);

@@ -17,7 +17,7 @@ class postlcZone extends jZone {
         $id_forum = $this->param('id_forum');        
         if (!$id_post and !$id_forum) return;
         
-        $dao = jDao::get('posts');
+        $dao = jDao::get('havefnubb~posts');
         if ($id_post) {        
             $userPost = $dao->getUserLastCommentOnPosts($id_post);
         }
@@ -29,7 +29,7 @@ class postlcZone extends jZone {
         $user = '';
         $noMsg = '';
         
-        $dao = jDao::get('member');        
+        $dao = jDao::get('havefnubb~member');        
         if ($userPost)
             $user = $dao->getById($userPost->id_user);
         else

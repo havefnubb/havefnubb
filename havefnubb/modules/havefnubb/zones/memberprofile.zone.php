@@ -15,7 +15,7 @@ class memberprofileZone extends jZone {
         $id = $this->param('id');
         if (!$id) return;
 
-        $dao = jDao::get('member');
+        $dao = jDao::get('havefnubb~member');
         $user = $dao->getById($id);
 
         $this->_tpl->assign('user',$user);

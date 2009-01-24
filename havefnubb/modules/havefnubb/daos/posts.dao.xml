@@ -140,6 +140,28 @@
                 <orderitem property="id_post" way="asc" />
             </order>            
         </method>        
-        
+       <!-- for stats purpose -->
+        <method name="countAllPosts" type="count">
+        </method>
+        <method name="countAllThreads" type="count">
+            <conditions>
+                <eq property="id_post" expr="parent_id" />
+            </conditions>            
+        </method>
+        <method name="findLastPost" type="selectfirst">
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>            
+        </method>
+        <method name="getLastPosts" type="select">
+            <parameter name="count" default="5" />
+           <conditions>
+                <eq property="id_post" expr="parent_id" />
+            </conditions>            
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+            <limit offset="0" count="$count"/>    
+        </method>        
     </factory>
 </dao>

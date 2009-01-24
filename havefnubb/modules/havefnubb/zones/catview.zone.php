@@ -16,7 +16,7 @@ class catviewZone extends jZone {
 		$title = title::board();
         
         $id_cat = $this->param('id_cat');
-        $dao = jDao::get('category');        
+        $dao = jDao::get('havefnubb~category');        
         $category = $dao->get($id_cat);
         
         $this->title = $title . ' - '. htmlentities($category->cat_name);

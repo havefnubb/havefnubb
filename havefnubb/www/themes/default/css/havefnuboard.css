@@ -106,9 +106,10 @@ code, pre {
 }
 
 /* user */
-.loginbox-links {
+.loginbox-links, .loginbox-form {
 	text-align: center;
 }
+
 #login-status {
 	width: 30%;
 	top: 3px;
@@ -264,7 +265,6 @@ code, pre {
 }
 
 #breadcrumbtop {
-	margin: auto;	
 	background-color:#8dc192;
     -moz-border-radius:10px 10px 0px 0px;
     -webkit-border-top-right-radius: 10px;
@@ -292,11 +292,10 @@ code, pre {
     -webkit-border-bottom-left-radius: 7px; 
     border-radius:0px 0px 7px 7px;
 	border-top: 1px solid;
-	vertical-align: middle;
+	vertical-align: baseline;
 }
 
 #breadcrumbbottom li {	
-	list-style-type: none;
 	font-size: x-small;
     display:inline;
     padding:1px;
@@ -304,6 +303,38 @@ code, pre {
     list-style-position:outside;
 	background-color:#8dc192;
 }
+
+#stats, #lastposts{
+	margin: auto;	
+	background-color:#f1f1e5;
+	vertical-align: middle;
+}
+
+#stats h3, #lastposts h3 {
+    padding:1px;
+	background-color:#8dc192;
+}
+#stats h3 span, #stats p, #lastposts h3 span {
+    margin-left: 20px;
+}
+
+#lastposts ul{
+	margin-right: 20px;
+}
+
+#lastposts li {
+	list-style-type:none;	
+}
+
+#lastposts li.left {
+	float: left;
+}
+
+#lastposts li.right {
+	text-align: right;
+}
+
+
 
 #member-identity fieldset, #member-pref fieldset, #member-hardware fieldset {
 	background-color:#f1f1e5;

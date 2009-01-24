@@ -8,13 +8,14 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-class categoryZone extends jZone {
-    protected $_tplname='zone.category';
+class lastpostsZone extends jZone {
+    protected $_tplname='zone.lastposts';
 
     protected function _prepareTpl(){
-        $dao = jDao::get('havefnubb~category');
-        $categories = $dao->findAll();
-        $this->_tpl->assign('action','index');
-        $this->_tpl->assign('categories',$categories);
+        
+        $dao = jDao::get('havefnubb~posts');
+        //last posts
+        $lastPost   = $dao->getLastPosts();        
+        $this->_tpl->assign('lastPost',$lastPost);        
     }
 }
