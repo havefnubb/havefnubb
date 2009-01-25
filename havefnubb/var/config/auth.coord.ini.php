@@ -97,5 +97,3 @@ password_crypt_function = md5
 
 ;------- parameters for the "LDS" driver
 [LDS]
-
-

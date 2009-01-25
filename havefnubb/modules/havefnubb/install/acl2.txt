@@ -1,50 +1,87 @@
 SUJETS :
 //Category
-hfnu.category.view
-hfnu.category.list
+php jelix.php acl2right subject_create "hfnu.category.view" "hfnu~acl2.category.view"
+php jelix.php acl2right subject_create "hfnu.category.list" "hfnu~acl2.category.list"
 //Forum
-hfnu.forum.view
-hfnu.forum.list
+php jelix.php acl2right subject_create "hfnu.forum.view" "hfnu~acl2.forum.view"
+php jelix.php acl2right subject_create "hfnu.forum.list" "hfnu~acl2.forum.list"
 // Membres
-hfnu.member.view
-hfnu.member.list
-hfnu.member.search
+php jelix.php acl2right subject_create "hfnu.member.view" "hfnu~acl2.member.view"
+php jelix.php acl2right subject_create "hfnu.member.list" "hfnu~acl2.member.list"
+php jelix.php acl2right subject_create "hfnu.member.search" "hfnu~acl2.member.search"
 //Search
-hfnu.search
+php jelix.php acl2right subject_create "hfnu.search" "hfnu~acl2.search"
 // Post
-hfnu.posts.view
-hfnu.posts.list
-hfnu.posts.create
-hfnu.posts.edit
-hfnu.posts.delete
-hfnu.posts.report
-hfnu.posts.reply
-hfnu.posts.quote
-hfnu.posts.moderate
+php jelix.php acl2right subject_create "hfnu.posts.view" "hfnu~acl2.posts.view" 
+php jelix.php acl2right subject_create "hfnu.posts.list" "hfnu~acl2.posts.list" 
+php jelix.php acl2right subject_create "hfnu.posts.create" "hfnu~acl2.posts.create"
+php jelix.php acl2right subject_create "hfnu.posts.edit" "hfnu~acl2.posts.edit"
+php jelix.php acl2right subject_create "hfnu.posts.delete" "hfnu~acl2.posts.delete" 
+php jelix.php acl2right subject_create "hfnu.posts.report" "hfnu~acl2.posts.report"
+php jelix.php acl2right subject_create "hfnu.posts.reply" "hfnu~acl2.posts.reply" 
+php jelix.php acl2right subject_create "hfnu.posts.quote" "hfnu~acl2.posts.quote"
+php jelix.php acl2right subject_create "hfnu.posts.moderate" "hfnu~acl2.posts.moderate"
 // Admin
-hfnu.admin.index
+php jelix.php acl2right subject_create "hfnu.admin.index" "hfnu~acl2.admin.index"
 // ... config
-hfnu.admin.config.view
-hfnu.admin.config.edit
+php jelix.php acl2right subject_create "hfnu.admin.config.view" "hfnu~acl2.admin.config.view"
+php jelix.php acl2right subject_create "hfnu.admin.config.edit" "hfnu~acl2.admin.config.edit" 
 // ... forum
-hfnu.admin.forum.create
-hfnu.admin.forum.edit
-hfnu.admin.forum.delete
+php jelix.php acl2right subject_create "hfnu.admin.forum.create" "hfnu~acl2.admin.forum.create" 
+php jelix.php acl2right subject_create "hfnu.admin.forum.edit" "hfnu~acl2.admin.forum.edit"
+php jelix.php acl2right subject_create "hfnu.admin.forum.delete" "hfnu~acl2.admin.forum.delete"
 // ... category
-hfnu.admin.category.create
-hfnu.admin.category.edit
-hfnu.admin.category.delete
+php jelix.php acl2right subject_create "hfnu.admin.category.create" "hfnu~acl2.admin.category.create"
+php jelix.php acl2right subject_create "hfnu.admin.category.edit" "hfnu~acl2.admin.category.edit"
+php jelix.php acl2right subject_create "hfnu.admin.category.delete" "hfnu~acl2.admin.category.delete"
 // ... member
-hfnu.admin.member.create
-hfnu.admin.member.edit
-hfnu.admin.member.delete
-hfnu.admin.member.ban
+php jelix.php acl2right subject_create "hfnu.admin.member.create" "hfnu~acl2.admin.member.create" 
+php jelix.php acl2right subject_create "hfnu.admin.member.edit" "hfnu~acl2.admin.member.edit" 
+php jelix.php acl2right subject_create "hfnu.admin.member.delete" "hfnu~acl2.admin.member.delete"
+php jelix.php acl2right subject_create "hfnu.admin.member.ban" "hfnu~acl2.admin.member.ban"
 // ... rang
-hfnu.admin.rank.create
-hfnu.admin.rank.edit
-hfnu.admin.rank.delete
+php jelix.php acl2right subject_create "hfnu.admin.rank.create" "hfnu~acl2.admin.rank.create"
+php jelix.php acl2right subject_create "hfnu.admin.rank.edit" "hfnu~acl2.admin.rank.edit"
+php jelix.php acl2right subject_create "hfnu.admin.rank.delete" "hfnu~acl2.admin.rank.delete"
 // ... Signalement
-hfnu.admin.report.list
-hfnu.admin.report.delete
+php jelix.php acl2right subject_create "hfnu.admin.report.list" "hfnu~acl2.admin.report.list"
+php jelix.php acl2right subject_create "hfnu.admin.report.delete" "hfnu~acl2.admin.report.delete"
 
-Groupes et Droits gérés pas jAcl2
+Groupes et Droits gérés par jAcl2
+
+
+php jelix.php acl2right add 1 "hfnu.category.view" 
+php jelix.php acl2right add 1 "hfnu.category.list" 
+php jelix.php acl2right add 1 "hfnu.forum.view" 
+php jelix.php acl2right add 1 "hfnu.forum.list" 
+php jelix.php acl2right add 1 "hfnu.member.view" 
+php jelix.php acl2right add 1 "hfnu.member.list" 
+php jelix.php acl2right add 1 "hfnu.member.search" 
+php jelix.php acl2right add 1 "hfnu.search" 
+php jelix.php acl2right add 1 "hfnu.posts.view" 
+php jelix.php acl2right add 1 "hfnu.posts.list" 
+php jelix.php acl2right add 1 "hfnu.posts.create" 
+php jelix.php acl2right add 1 "hfnu.posts.edit" 
+php jelix.php acl2right add 1 "hfnu.posts.delete"
+php jelix.php acl2right add 1 "hfnu.posts.report" 
+php jelix.php acl2right add 1 "hfnu.posts.reply" 
+php jelix.php acl2right add 1 "hfnu.posts.quote" 
+php jelix.php acl2right add 1 "hfnu.posts.moderate" 
+php jelix.php acl2right add 1 "hfnu.admin.index" 
+php jelix.php acl2right add 1 "hfnu.admin.config.view" 
+php jelix.php acl2right add 1 "hfnu.admin.config.edit" 
+php jelix.php acl2right add 1 "hfnu.admin.forum.create" 
+php jelix.php acl2right add 1 "hfnu.admin.forum.edit" 
+php jelix.php acl2right add 1 "hfnu.admin.forum.delete" 
+php jelix.php acl2right add 1 "hfnu.admin.category.create" 
+php jelix.php acl2right add 1 "hfnu.admin.category.edit" 
+php jelix.php acl2right add 1 "hfnu.admin.category.delete" 
+php jelix.php acl2right add 1 "hfnu.admin.member.create" 
+php jelix.php acl2right add 1 "hfnu.admin.member.edit" 
+php jelix.php acl2right add 1 "hfnu.admin.member.delete" 
+php jelix.php acl2right add 1 "hfnu.admin.member.ban" 
+php jelix.php acl2right add 1 "hfnu.admin.rank.create" 
+php jelix.php acl2right add 1 "hfnu.admin.rank.edit" 
+php jelix.php acl2right add 1 "hfnu.admin.rank.delete" 
+php jelix.php acl2right add 1 "hfnu.admin.report.list"
+php jelix.php acl2right add 1 "hfnu.admin.report.delete"
