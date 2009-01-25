@@ -20,7 +20,6 @@ class defaultCtrl extends jController {
     function config() {
         global $HfnuConfig ;        
         $rep = $this->getResponse('html');
-         //$form = jForms::destroy('hfnuadmin~config');
 		$submit = $this->param('validate');
         
 		if ($submit == jLocale::get('hfnuadmin~config.saveBt') ) {
@@ -69,25 +68,30 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN',$tpl->fetch('config'));
         return $rep;
     }
+    
     function categories() {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', '');
         return $rep;
     }
+    
     function forums() {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', '');
         return $rep;
     }
+    
     function reporting() {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', '');
         return $rep;
     }
+    
     function ranks() {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', '');
         return $rep;
+    
     }    
     function ban() {
         $rep = $this->getResponse('html');
