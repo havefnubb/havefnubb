@@ -60,38 +60,42 @@ VALUES (
 NULL , '1', '1', '1', '1', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), 0
 );
 
+
 --
 -- Structure de la table `jacl2_group`
 --
 
 DROP TABLE IF EXISTS `jacl2_group`;
-CREATE TABLE `jacl2_group` (
+CREATE TABLE IF NOT EXISTS `jacl2_group` (
   `id_aclgrp` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL DEFAULT '',
   `grouptype` tinyint(4) NOT NULL DEFAULT '0',
   `ownerlogin` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_aclgrp`)
-) AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=6 ;
 
 --
 -- Contenu de la table `jacl2_group`
 --
+
 INSERT INTO `jacl2_group` (`id_aclgrp`, `name`, `grouptype`, `ownerlogin`) VALUES
 (1, 'admins', 0, NULL),
 (2, 'users', 0, NULL),
 (3, 'havefnu', 2, 'havefnu');
+
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `jacl2_rights`
 --
 
 DROP TABLE IF EXISTS `jacl2_rights`;
-CREATE TABLE `jacl2_rights` (
+CREATE TABLE IF NOT EXISTS `jacl2_rights` (
   `id_aclsbj` varchar(100) NOT NULL DEFAULT '',
   `id_aclgrp` int(11) NOT NULL DEFAULT '0',
   `id_aclres` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_aclsbj`,`id_aclgrp`,`id_aclres`)
-) ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `jacl2_rights`
@@ -103,20 +107,67 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('acl.group.modify', 1, ''),
 ('acl.group.view', 1, ''),
 ('acl.user.modify', 1, ''),
-('acl.user.view', 1, '');
+('acl.user.view', 1, ''),
+('auth.user.change.password', 1, ''),
+('auth.user.change.password', 2, ''),
+('auth.user.modify', 1, ''),
+('auth.user.modify', 2, ''),
+('auth.user.view', 1, ''),
+('auth.user.view', 2, ''),
+('auth.users.change.password', 1, ''),
+('auth.users.create', 1, ''),
+('auth.users.delete', 1, ''),
+('auth.users.list', 1, ''),
+('auth.users.modify', 1, ''),
+('auth.users.view', 1, ''),
+('hfnu.admin.category.create', 1, ''),
+('hfnu.admin.category.delete', 1, ''),
+('hfnu.admin.category.edit', 1, ''),
+('hfnu.admin.config.edit', 1, ''),
+('hfnu.admin.config.view', 1, ''),
+('hfnu.admin.forum.create', 1, ''),
+('hfnu.admin.forum.delete', 1, ''),
+('hfnu.admin.forum.edit', 1, ''),
+('hfnu.admin.index', 1, ''),
+('hfnu.admin.member.ban', 1, ''),
+('hfnu.admin.member.create', 1, ''),
+('hfnu.admin.member.delete', 1, ''),
+('hfnu.admin.member.edit', 1, ''),
+('hfnu.admin.rank.create', 1, ''),
+('hfnu.admin.rank.delete', 1, ''),
+('hfnu.admin.rank.edit', 1, ''),
+('hfnu.admin.report.delete', 1, ''),
+('hfnu.admin.report.list', 1, ''),
+('hfnu.category.list', 1, ''),
+('hfnu.category.view', 1, ''),
+('hfnu.forum.list', 1, ''),
+('hfnu.forum.view', 1, ''),
+('hfnu.member.list', 1, ''),
+('hfnu.member.search', 1, ''),
+('hfnu.member.view', 1, ''),
+('hfnu.posts.create', 1, ''),
+('hfnu.posts.delete', 1, ''),
+('hfnu.posts.edit', 1, ''),
+('hfnu.posts.list', 1, ''),
+('hfnu.posts.moderate', 1, ''),
+('hfnu.posts.quote', 1, ''),
+('hfnu.posts.reply', 1, ''),
+('hfnu.posts.report', 1, ''),
+('hfnu.posts.view', 1, ''),
+('hfnu.search', 1, '');
 
-
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `jacl2_subject`
 --
 
 DROP TABLE IF EXISTS `jacl2_subject`;
-CREATE TABLE `jacl2_subject` (
+CREATE TABLE IF NOT EXISTS `jacl2_subject` (
   `id_aclsbj` varchar(100) NOT NULL DEFAULT '',
   `label_key` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_aclsbj`)
-) ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `jacl2_subject`
@@ -128,19 +179,64 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('acl.group.modify', 'jelix~acl2db.acl.group.modify'),
 ('acl.group.create', 'jelix~acl2db.acl.group.create'),
 ('acl.group.delete', 'jelix~acl2db.acl.group.delete'),
-('acl.group.view', 'jelix~acl2db.acl.group.view');
+('acl.group.view', 'jelix~acl2db.acl.group.view'),
+('auth.users.list', 'jelix~auth.acl.users.list'),
+('auth.users.view', 'jelix~auth.acl.users.view'),
+('auth.users.modify', 'jelix~auth.acl.users.modify'),
+('auth.users.create', 'jelix~auth.acl.users.create'),
+('auth.users.delete', 'jelix~auth.acl.users.delete'),
+('auth.users.change.password', 'jelix~auth.acl.users.change.password'),
+('auth.user.view', 'jelix~auth.acl.user.view'),
+('auth.user.modify', 'jelix~auth.acl.user.modify'),
+('auth.user.change.password', 'jelix~auth.acl.user.change.password'),
+('hfnu.category.view', 'hfnu~acl2.category.view'),
+('hfnu.category.list', 'hfnu~acl2.category.list'),
+('hfnu.forum.view', 'hfnu~acl2.forum.view'),
+('hfnu.forum.list', 'hfnu~acl2.forum.list'),
+('hfnu.member.view', 'hfnu~acl2.member.view'),
+('hfnu.member.list', 'hfnu~acl2.member.list'),
+('hfnu.member.search', 'hfnu~acl2.member.search'),
+('hfnu.search', 'hfnu~acl2.search'),
+('hfnu.posts.view', 'hfnu~acl2.posts.view'),
+('hfnu.posts.list', 'hfnu~acl2.posts.list'),
+('hfnu.posts.create', 'hfnu~acl2.posts.create'),
+('hfnu.posts.edit', 'hfnu~acl2.posts.edit'),
+('hfnu.posts.delete', 'hfnu~acl2.posts.delete'),
+('hfnu.posts.report', 'hfnu~acl2.posts.report'),
+('hfnu.posts.reply', 'hfnu~acl2.posts.reply'),
+('hfnu.posts.quote', 'hfnu~acl2.posts.quote'),
+('hfnu.posts.moderate', 'hfnu~acl2.posts.moderate'),
+('hfnu.admin.index', 'hfnu~acl2.admin.index'),
+('hfnu.admin.config.view', 'hfnu~acl2.admin.config.view'),
+('hfnu.admin.config.edit', 'hfnu~acl2.admin.config.edit'),
+('hfnu.admin.forum.create', 'hfnu~acl2.admin.forum.create'),
+('hfnu.admin.forum.delete', 'hfnu~acl2.admin.forum.delete'),
+('hfnu.admin.forum.edit', 'hfnu~acl2.admin.forum.edit'),
+('hfnu.admin.category.create', 'hfnu~acl2.admin.category.create'),
+('hfnu.admin.category.edit', 'hfnu~acl2.admin.category.edit'),
+('hfnu.admin.category.delete', 'hfnu~acl2.admin.category.delete'),
+('hfnu.admin.member.create', 'hfnu~acl2.admin.member.create'),
+('hfnu.admin.member.edit', 'hfnu~acl2.admin.member.edit'),
+('hfnu.admin.member.delete', 'hfnu~acl2.admin.member.delete'),
+('hfnu.admin.member.ban', 'hfnu~acl2.admin.member.ban'),
+('hfnu.admin.rank.create', 'hfnu~acl2.admin.rank.create'),
+('hfnu.admin.rank.edit', 'hfnu~acl2.admin.rank.edit'),
+('hfnu.admin.rank.delete', 'hfnu~acl2.admin.rank.delete'),
+('hfnu.admin.report.list', 'hfnu~acl2.admin.report.list'),
+('hfnu.admin.report.delete', 'hfnu~acl2.admin.report.delete');
 
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `jacl2_user_group`
 --
 
 DROP TABLE IF EXISTS `jacl2_user_group`;
-CREATE TABLE `jacl2_user_group` (
+CREATE TABLE IF NOT EXISTS `jacl2_user_group` (
   `login` varchar(50) NOT NULL DEFAULT '',
   `id_aclgrp` int(11) NOT NULL DEFAULT '0',
   KEY `login` (`login`,`id_aclgrp`)
-) ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `jacl2_user_group`
@@ -148,7 +244,7 @@ CREATE TABLE `jacl2_user_group` (
 
 INSERT INTO `jacl2_user_group` (`login`, `id_aclgrp`) VALUES
 ('havefnu', 1),
-('havefnu', 8);
+('havefnu', 3);
 
 -- --------------------------------------------------------
 
