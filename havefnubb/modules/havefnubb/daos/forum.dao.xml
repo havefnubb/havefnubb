@@ -28,17 +28,9 @@
                 <orderitem property="forum_order" way="asc" />
             </order>
         </method>
-        
-        <method name="hasChild" type="count">
-            <parameter name="id_forum" />
-            <conditions>
-                <eq property="parent_id" expr="$id_forum" />
-            </conditions>            
-        </method>        
-        
         <method name="findChild" type="select">
-            <parameter name="lvl" />
             <parameter name="id_forum" />
+            <parameter name="lvl" />            
             <conditions>
                 <eq property="parent_id" expr="$id_forum" />
                 <eq property="child_level" expr="$lvl" />

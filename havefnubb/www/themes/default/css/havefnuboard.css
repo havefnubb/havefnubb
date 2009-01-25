@@ -25,7 +25,7 @@ h4 {
 	font-size: 1em;
 }
 
-.forumcat {
+.forumcat, .subforum {
 	margin: auto;
 	margin-left: 20px;
 	background-color:#f1f1e5;
@@ -312,6 +312,12 @@ code, pre {
    border-color: #8dc192;
 }
 
+.child:hover {
+   border-top: dotted;
+   border-top-width: 1px;
+   border-color: #e1e1cd;
+}
+
 .child li {
 	padding: 1px;
     display:inline;
@@ -453,6 +459,7 @@ table
 table td {
 	padding: 1px;	
 }
+
 .forumList, membersList, .forumView {
 	width: 100%;
 }
@@ -493,7 +500,7 @@ table td {
 }
 
 .coltitle, .colrank {
-	padding: 0.7em;
+	padding: 1px;
 	background-color: #e1e1cd;
 }
 
@@ -512,10 +519,15 @@ table td {
 
 table .forumlistline, table .memberlistline {
 	background-color: #e1e1cd;
+	
 }
+
 table .memberlistline {
-	background-color: #e1e1cd;
 	padding: 10px;
+}
+
+table .line {
+	line-height: 90%;
 }
 
 .linkincell:hover {

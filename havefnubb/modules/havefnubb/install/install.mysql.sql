@@ -315,7 +315,7 @@ INSERT INTO `member`
 `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`,
 `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`,
 `member_last_connect`) VALUES
-(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 'http://forge.jelix.org/projects/havefnubb', 1,
+(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 'http://forge.jelix.org/projects/havefnubb', 2,
 NULL, CURRENT_TIMESTAMP(), NULL, '1969-01-14', 'France', 'Paris', '', '0', NULL, NULL, NULL,
 NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
 CURRENT_TIMESTAMP());

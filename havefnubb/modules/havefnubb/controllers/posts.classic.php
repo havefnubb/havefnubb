@@ -86,6 +86,7 @@ class postsCtrl extends jController {
         $tpl->assign('nbPostPerPage',$nbPostPerPage);
         $tpl->assign('nbPosts',$nbPosts);
         $tpl->assign('id',$id);
+		$tpl->assign('lvl',$forum->child_level);
         $tpl->assign('properties',$properties);
         
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));

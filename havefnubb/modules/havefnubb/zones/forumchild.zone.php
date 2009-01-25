@@ -15,17 +15,18 @@ class forumchildZone extends jZone {
         
         $id_forum   = $this->param('id_forum');
         $lvl        = $this->param('lvl');
+        $calledFrom = $this->param('calledFrom');
         
         if (! $id_forum ) return;
         if (! $lvl ) return;
-        
+        if (! $calledFrom ) return;
+
         $dao = jDao::get('havefnubb~forum');
-        
+
         $forumChilds = $dao->findChild($id_forum,$lvl);
-        
-        
+
         $this->_tpl->assign('childs',$forumChilds->rowCount());
-        
+        $this->_tpl->assign('calledFrom',$calledFrom);
         $this->_tpl->assign('lvl',$lvl);
         $this->_tpl->assign('forumChilds',$forumChilds);
     }

@@ -13,15 +13,15 @@
         </tr>
         {foreach $members as $member}
         <tr>
-            <td class="memberlistline">
+            <td class="line linkincell memberlistline">
                 <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
                    title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->login)}">
                 {$member->login|eschtml}
                 </a>
             </td>
-            <td class="colrank"></td>
-            <td class="coldate">{$member->request_date|jdatetime:'db_datetime':'lang_datetime'}</td>
-            <td class="colnum">{zone 'havefnubb~membernbmsg',array('id_user'=>$member->id)}</td>
+            <td class="line colrank"></td>
+            <td class="line coldate">{$member->request_date|jdatetime:'db_datetime':'lang_datetime'}</td>
+            <td class="line colnum">{zone 'havefnubb~membernbmsg',array('id_user'=>$member->id)}</td>
         </tr>
         {/foreach}
     </table>
