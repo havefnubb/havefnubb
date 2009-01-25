@@ -11,6 +11,9 @@
     <property name="id_cat" fieldname="id_cat" datatype="int" required="true"/>
     <property name="forum_desc" fieldname="forum_desc" datatype="string" required="true" maxlength="255"/>
     <property name="forum_order" fieldname="forum_order" datatype="int" required="true"/>
+    
+    <property name="parent_id" fieldname="parent_id" datatype="int" required="true"/>
+    <property name="child_level" fieldname="child_level" datatype="int" required="true"/>
 
     <property name="cat_name" fieldname="cat_name" datatype="string" required="true" maxlength="255"
               table="category" />
@@ -19,18 +22,45 @@
 
     </record>
     <factory>
-        <method name="findAll" type="select">
+        <method name="findAll" type="select">           
             <order>
                 <orderitem property="cat_order" way="asc" />
                 <orderitem property="forum_order" way="asc" />
             </order>
         </method>
+        
+        <method name="hasChild" type="count">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="parent_id" expr="$id_forum" />
+            </conditions>            
+        </method>        
+        
+        <method name="findChild" type="select">
+            <parameter name="lvl" />
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="parent_id" expr="$id_forum" />
+                <eq property="child_level" expr="$lvl" />
+            </conditions>             
+            <order>
+                <orderitem property="cat_order" way="asc" />
+                <orderitem property="forum_order" way="asc" />
+            </order>
+        </method>        
         <method name="findByCatId" type="select">
             <parameter name="id_cat" />
             <conditions>
                 <eq property="id_cat" expr="$id_cat" />
             </conditions>            
-        </method>                
+        </method>
+        <method name="findParentByCatId" type="select">
+            <parameter name="id_cat" />
+            <conditions>
+                <eq property="id_cat" expr="$id_cat" />
+                <eq property="parent_id" value="0"/>
+            </conditions>            
+        </method>                        
         <method name="findIt" type="select">
             <parameter name="id_forum" />
             <conditions>

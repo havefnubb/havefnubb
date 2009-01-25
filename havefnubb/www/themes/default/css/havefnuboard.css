@@ -305,6 +305,20 @@ code, pre {
 }
 
 
+
+.child {
+   border-top: dotted;
+   border-top-width: 1px;
+   border-color: #8dc192;
+}
+
+.child li {
+	padding: 1px;
+    display:inline;
+    list-style-type:none;
+}
+
+
 #statsinfos h2 {
 	text-align: center;
 }

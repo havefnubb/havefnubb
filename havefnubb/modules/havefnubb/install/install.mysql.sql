@@ -10,22 +10,34 @@ INSERT INTO `category` (`id_cat`, `cat_name`, `cat_order`) VALUES
 (1, 'My First Forum', 1),
 (2, 'My Second forum', 2);
 
+
+--
+-- Structure de la table `forum`
+--
+
 DROP TABLE IF EXISTS `forum`;
-CREATE TABLE `forum` (
-`id_forum` INT( 12 ) NOT NULL AUTO_INCREMENT ,
-`forum_name` VARCHAR( 255 ) NOT NULL,
-`id_cat` INT( 12 ) NOT NULL ,
-`forum_desc` VARCHAR( 255 ) NOT NULL ,
-`forum_order` INT( 4 ) NOT NULL ,
-PRIMARY KEY ( `id_forum` ) ,
-INDEX ( `id_cat` )
-);
+CREATE TABLE IF NOT EXISTS `forum` (
+  `id_forum` int(12) NOT NULL AUTO_INCREMENT,
+  `forum_name` varchar(255) NOT NULL,
+  `id_cat` int(12) NOT NULL,
+  `forum_desc` varchar(255) NOT NULL,
+  `forum_order` int(4) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `child_level` int(4) NOT NULL,
+  PRIMARY KEY (`id_forum`),
+  KEY `id_cat` (`id_cat`),
+  KEY `parent_id` (`parent_id`),
+  KEY `child_level` (`child_level`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
-INSERT INTO `forum` (`id_forum`, `forum_name`, `id_cat`, `forum_desc`, `forum_order`) VALUES
-(1, 'My Forum is Fun', 1, 'Everything is Fnu', 1),
-(2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1),
-(3, 'Light', 2, 'Soo light', 1);
+--
+-- Contenu de la table `forum`
+--
 
+INSERT INTO `forum` (`id_forum`, `forum_name`, `id_cat`, `forum_desc`, `forum_order`, `parent_id`, `child_level`) VALUES
+(1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0),
+(2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0),
+(3, 'Light', 2, 'Soo light', 1, 0, 0);
 
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
