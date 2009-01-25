@@ -1,0 +1,53 @@
+<?php
+/**
+* @package   havefnubb
+* @subpackage hfnuadmin
+* @author    FoxMaSk
+* @copyright 2008 FoxMaSk
+* @link      http://forge.jelix.org/projects/havefnubb
+* @license    All right reserved
+*/
+
+// class that list the themes directory.
+class themes implements jIFormDatasource
+{
+    protected $formId = 0;
+    
+    protected $data = array();
+    
+    function __construct($id)
+    {
+        $dir = JELIX_APP_WWW_PATH . DIRECTORY_SEPARATOR . 'themes';
+        $data = array();
+
+        if (is_dir($dir)) {
+            if ($dh = opendir($dir)) {
+                while (($file = readdir($dh)) !== false) {
+                    if ($file != "." && $file != ".." && $file != ".svn" && $file !='.cvs') {
+                        if (is_dir(JELIX_APP_WWW_PATH . DIRECTORY_SEPARATOR . 'themes'. DIRECTORY_SEPARATOR.$file))
+                            $data[$file] = $file;
+                    }
+                }
+                closedir($dh);
+            }
+        }
+        
+        $this->formId = $id;
+        $this->data = $data;
+    }
+ 
+    public function getData($form)
+    {
+        return ($this->data);
+    }
+ 
+    public function getLabel($key)
+    {
+        if(isset($this->data[$key]))
+          return $this->data[$key];
+        else
+          return null;
+    }
+ 
+}
+?>

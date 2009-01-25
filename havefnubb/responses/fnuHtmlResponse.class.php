@@ -29,8 +29,8 @@ class fnuHtmlResponse extends jResponseHtml {
         $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
         $this->addCssLink($chemin.'css/havefnuboard.css');        
 
-        $title = $HfnuConfig->getValue('title','board');
-        $description = $HfnuConfig->getValue('description','board');
+        $title = stripslashes($HfnuConfig->getValue('title'));
+        $description = stripslashes($HfnuConfig->getValue('description'));
 
         if ($this->title)
             $this->title = $title . ' - ' . $this->title;        

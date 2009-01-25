@@ -21,7 +21,7 @@ class defaultCtrl extends jController {
     
     function index() {
 		global $HfnuConfig;
-        $title = $HfnuConfig->getValue('title','board');
+        $title = stripslashes($HfnuConfig->getValue('title'));
         $rep = $this->getResponse('html');
 		
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title));

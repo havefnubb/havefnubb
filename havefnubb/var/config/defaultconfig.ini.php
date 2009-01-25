@@ -108,7 +108,8 @@ index="@classic"
 xmlrpc="@xmlrpc"
 jsonrpc="@jsonrpc"
 rdf="@rdf"
-hfnuadmin="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~*@classic"
+; hfnuadmin="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~@classic"
+hfnuadmin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~*@classic"
 
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name

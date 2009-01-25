@@ -15,7 +15,7 @@ class memberlistZone extends jZone {
         global $HfnuConfig;
         $page = $this->param('page');
         
-        $nbMembersPerPage = $HfnuConfig->getValue('members_per_page','board');
+        $nbMembersPerPage = (int) $HfnuConfig->getValue('members_per_page','board');
 
         $dao = jDao::get('havefnubb~member');
         $members = $dao->findAllActivatedMember($page,$nbMembersPerPage);        

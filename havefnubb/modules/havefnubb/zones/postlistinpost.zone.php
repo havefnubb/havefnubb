@@ -27,7 +27,7 @@ class postlistinpostZone extends jZone {
                       'area-size'   => 5);
         
         $nbRepliesPerPage = 0;
-        $nbRepliesPerPage = $HfnuConfig->getValue('replies_per_page','board');
+        $nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page');
               
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts
@@ -35,7 +35,7 @@ class postlistinpostZone extends jZone {
         // 4- get the posts of the current forum, limited by point 1 and 2
         $posts = $daoPost->findByIdParent($id_post,$page,$nbRepliesPerPage);
         
-        $this->_tpl->assign('wr_engine',$HfnuConfig->getValue('forum_post_render','board'));
+        $this->_tpl->assign('wr_engine',(int) $HfnuConfig->getValue('forum_post_render'));
         $this->_tpl->assign('posts',$posts);
         $this->_tpl->assign('page',$page);
         $this->_tpl->assign('id_post',$id_post);

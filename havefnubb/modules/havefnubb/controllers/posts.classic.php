@@ -54,7 +54,7 @@ class postsCtrl extends jController {
             $page = (int) $this->param('page');
         // 2- limit per page 
         $nbPostPerPage = 0;
-        $nbPostPerPage = $HfnuConfig->getValue('posts_per_page','board');
+        $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page');
               
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts
@@ -255,7 +255,7 @@ class postsCtrl extends jController {
 			
 			//set the needed parameters to the template
 			$tpl = new jTpl();
-            $tpl->assign('wr_engine',$HfnuConfig->getValue('forum_post_render','board'));
+            $tpl->assign('wr_engine',(int) $HfnuConfig->getValue('forum_post_render'));
 			$tpl->assign('id_post', $id_post);
 			$tpl->assign('id_forum', $id_forum);
             $tpl->assign('id_user', $user->id);
@@ -421,7 +421,7 @@ class postsCtrl extends jController {
 			
 			//set the needed parameters to the template
 			$tpl = new jTpl();
-            $tpl->assign('wr_engine',	$HfnuConfig->getValue('forum_post_render','board'));
+            $tpl->assign('wr_engine',	(int) $HfnuConfig->getValue('forum_post_render'));
 			$tpl->assign('id_post', 	0);
             $tpl->assign('parent_id', 	$parent_id);
 			$tpl->assign('id_forum', 	$id_forum);
