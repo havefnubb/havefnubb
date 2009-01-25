@@ -18,7 +18,7 @@
 			<li><a href="{jurl 'havefnubb~members:index'}" title="{@havefnubb~main.member.list@}">{@havefnubb~main.member.list@}</a></li>
 			<li><a href="{jurl 'havefnubb~search:index'}" title="{@havefnubb~main.search@}">{@havefnubb~main.search@}</a></li>
 			{ifacl2 'hfnu.admin.index'}
-			<li><a href="">{@havefnubb~main.admin.panel@}</a></li>
+			<li><a href="{jurl 'hfnuadmin~default:index'}" title="{@havefnubb~main.admin.panel@}">{@havefnubb~main.admin.panel@}</a></li>
 			{/ifacl2}
 		</ul>
 	</div>

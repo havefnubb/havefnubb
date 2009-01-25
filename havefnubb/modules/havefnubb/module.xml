@@ -13,6 +13,6 @@
         <updateURL>http://forge.jelix.org/projects/havefnubb/update.xml</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1RC2" maxversion="1.1RC2" />
+        <jelix minversion="1.1RC3" maxversion="1.1RC3" />
     </dependencies>
 </module>
