@@ -108,7 +108,7 @@ index="@classic"
 xmlrpc="@xmlrpc"
 jsonrpc="@jsonrpc"
 rdf="@rdf"
-; hfnuadmin="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~@classic"
+
 hfnuadmin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~*@classic"
 
 [basic_significant_urlengine_entrypoints]
@@ -120,6 +120,7 @@ jsonrpc=on
 rdf=on
 
 hfnuadmin=1
+toto=1
 [logfiles]
 default=messages.log
 
@@ -184,3 +185,4 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+

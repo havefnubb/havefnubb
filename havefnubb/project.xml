@@ -13,7 +13,7 @@
         <updateURL>http://forge.jelix.org/projects/havefnubb/update.xml</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1RC2" maxversion="1.1RC2"/>
+        <jelix minversion="1.1RC3" maxversion="1.1RC3"/>
     </dependencies>
     <directories>
         <config/>
@@ -24,5 +24,6 @@
     </directories>
     <entrypoints>
         <entry file="index.php" config="index/config.ini.php"/>
-    <entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/></entrypoints>
+    <entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/>
+	</entrypoints>
 </project>

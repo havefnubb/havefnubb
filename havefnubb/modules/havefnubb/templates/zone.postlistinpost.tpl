@@ -20,15 +20,15 @@
             </ul>
             <ul class="member-info">
                 <li class="membersnbposts">{@havefnubb~member.nb.messages@}: {zone 'havefnubb~membernbmsg', array('id_user'=>$post->id_user)}</li>
-                <li class="membercontacts"><span class="memberemail"><a href="mailto:{$post->email}">{@havefnubb~member.email@}</a></span> - <span class="memberwebsite"><a href="{$post->member_website}" title="{@member.website@}">{@member.website@}</a></span>
+                <li class="membercontacts"><span class="memberemail"><a href="mailto:{$post->email}">{@havefnubb~member.email@}</a></span> - <span class="memberwebsite"><a href="{$post->member_website}" title="{@member.website@}">{@member.website@}</a></span></li>
             </ul>
         </div>
         <div class="post-entry">
             <div class="message-content">
-                {$post->message|wiki:$wr_engine}
+                {$post->message|wiki:$wr_engine|stripslashes}
                 <div class="signature-content">
                     {if $post->member_comment != ''}<hr/>
-                    {$post->member_comment|eschtml}
+                    {$post->member_comment|eschtml|stripslashes}
                     {/if}
                 </div>            
             </div>
@@ -36,9 +36,19 @@
     </div>
     <div class="postfoot">
         <div class="post-actions">
-            <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post)}" title="{@main.delete@}">{@havefnubb~main.delete@}</a> </span>
-            <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@main.edit@}">{@havefnubb~main.edit@}</a> </span>
-            <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@main.quote@}">{@havefnubb~main.quote@}</a></span>
+            {ifacl2 'hfnu.posts.notify'}
+            <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
+             {/ifacl2}
+            {ifacl2 'hfnu.posts.delete'}             
+            <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.delete@}">{@havefnubb~main.delete@}</a> </span>
+            {/ifacl2}
+            {ifacl2 'hfnu.posts.edit'}           
+            <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
+            {/ifacl2}
+            {ifacl2 'hfnu.posts.quote'}            
+            <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
+            {/ifacl2}
+            
         </div>
     </div>
 </div>    

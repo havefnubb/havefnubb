@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `forum` (
   KEY `id_cat` (`id_cat`),
   KEY `parent_id` (`parent_id`),
   KEY `child_level` (`child_level`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ;
 
 --
 -- Contenu de la table `forum`
@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS `forum` (
 INSERT INTO `forum` (`id_forum`, `forum_name`, `id_cat`, `forum_desc`, `forum_order`, `parent_id`, `child_level`) VALUES
 (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0),
 (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0),
-(3, 'Light', 2, 'Soo light', 1, 0, 0);
+(3, 'Light', 2, 'Soo light', 1, 0, 0),
+(4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1);
 
 DROP TABLE IF EXISTS `posts`;
 CREATE TABLE `posts` (
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `jacl2_group` (
   `grouptype` tinyint(4) NOT NULL DEFAULT '0',
   `ownerlogin` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_aclgrp`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=6 ;
+) ;
 
 --
 -- Contenu de la table `jacl2_group`
@@ -107,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `jacl2_rights` (
   `id_aclgrp` int(11) NOT NULL DEFAULT '0',
   `id_aclres` varchar(100) NOT NULL DEFAULT '',
   PRIMARY KEY (`id_aclsbj`,`id_aclgrp`,`id_aclres`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Contenu de la table `jacl2_rights`
@@ -148,8 +149,8 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.admin.rank.create', 1, ''),
 ('hfnu.admin.rank.delete', 1, ''),
 ('hfnu.admin.rank.edit', 1, ''),
-('hfnu.admin.report.delete', 1, ''),
-('hfnu.admin.report.list', 1, ''),
+('hfnu.admin.notify.delete', 1, ''),
+('hfnu.admin.notify.list', 1, ''),
 ('hfnu.category.list', 1, ''),
 ('hfnu.category.view', 1, ''),
 ('hfnu.forum.list', 1, ''),
@@ -164,7 +165,7 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.posts.moderate', 1, ''),
 ('hfnu.posts.quote', 1, ''),
 ('hfnu.posts.reply', 1, ''),
-('hfnu.posts.report', 1, ''),
+('hfnu.posts.notify', 1, ''),
 ('hfnu.posts.view', 1, ''),
 ('hfnu.search', 1, '');
 
@@ -179,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `jacl2_subject` (
   `id_aclsbj` varchar(100) NOT NULL DEFAULT '',
   `label_key` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_aclsbj`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Contenu de la table `jacl2_subject`
@@ -214,7 +215,7 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('hfnu.posts.create', 'hfnu~acl2.posts.create'),
 ('hfnu.posts.edit', 'hfnu~acl2.posts.edit'),
 ('hfnu.posts.delete', 'hfnu~acl2.posts.delete'),
-('hfnu.posts.report', 'hfnu~acl2.posts.report'),
+('hfnu.posts.notify', 'hfnu~acl2.posts.notify'),
 ('hfnu.posts.reply', 'hfnu~acl2.posts.reply'),
 ('hfnu.posts.quote', 'hfnu~acl2.posts.quote'),
 ('hfnu.posts.moderate', 'hfnu~acl2.posts.moderate'),
@@ -234,8 +235,8 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('hfnu.admin.rank.create', 'hfnu~acl2.admin.rank.create'),
 ('hfnu.admin.rank.edit', 'hfnu~acl2.admin.rank.edit'),
 ('hfnu.admin.rank.delete', 'hfnu~acl2.admin.rank.delete'),
-('hfnu.admin.report.list', 'hfnu~acl2.admin.report.list'),
-('hfnu.admin.report.delete', 'hfnu~acl2.admin.report.delete');
+('hfnu.admin.notify.list', 'hfnu~acl2.admin.notify.list'),
+('hfnu.admin.notify.delete', 'hfnu~acl2.admin.notify.delete');
 
 -- --------------------------------------------------------
 
@@ -248,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `jacl2_user_group` (
   `login` varchar(50) NOT NULL DEFAULT '',
   `id_aclgrp` int(11) NOT NULL DEFAULT '0',
   KEY `login` (`login`,`id_aclgrp`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ;
 
 --
 -- Contenu de la table `jacl2_user_group`
@@ -301,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `member_last_connect` datetime DEFAULT NULL,
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ;
 
 --
 -- Contenu de la table `member`

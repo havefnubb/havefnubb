@@ -1,4 +1,4 @@
 <div class="signature-content">
     <hr/>
-    {$sig}    
+    {$sig|stripslashes}    
 </div>
