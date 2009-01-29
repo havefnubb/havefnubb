@@ -120,7 +120,7 @@ jsonrpc=on
 rdf=on
 
 hfnuadmin=1
-toto=1
+
 [logfiles]
 default=messages.log
 

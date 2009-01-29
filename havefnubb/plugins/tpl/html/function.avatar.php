@@ -29,7 +29,8 @@ function jtpl_function_html_avatar($tpl, $src='', $alt='') {
     elseif (file_exists(JELIX_APP_WWW_PATH.$src.'.png')) {
         $ext = ".png";
  
-    }    
-    
-    echo '<img src="'.$src.$ext.'" height="'.$max_height.'" width="'.$max_width.'" alt="'.htmlentities($alt).'"/>';
+    }
+    if ($ext != '')
+        echo '<img src="'.$src.$ext.'" height="'.$max_height.'" width="'.$max_width.'" alt="'.htmlentities($alt).'"/>';
+        
 }
