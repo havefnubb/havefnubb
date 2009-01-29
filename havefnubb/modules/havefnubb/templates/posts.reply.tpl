@@ -22,4 +22,4 @@
 {/form}
 
 
-{zone 'postlistinpost',array('id_post'=>$parent_id)}
+{zone 'havefnubb~postlistinpost',array('id_post'=>$parent_id)}

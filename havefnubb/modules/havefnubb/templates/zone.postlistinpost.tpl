@@ -4,6 +4,8 @@
 
 <div class="postlist">
 {foreach $posts as $post}
+{assign $parent_id = $post->id_post}
+{assign $id_forum = $post->id_forum}
 <div class="post">
     <div class="posthead">
         <h4 class="posthead-title">{$post->subject|eschtml}</h4>
@@ -40,7 +42,7 @@
             <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
              {/ifacl2}
             {ifacl2 'hfnu.posts.delete'}             
-            <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.delete@}">{@havefnubb~main.delete@}</a> </span>
+            <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
             {/ifacl2}
             {ifacl2 'hfnu.posts.edit'}           
             <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
@@ -54,6 +56,8 @@
 </div>    
 {/foreach}
 </div>
+
+{zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
 
 <div class="linkpages">
 {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}

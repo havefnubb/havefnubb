@@ -3,6 +3,7 @@
 </div>
 {zone 'havefnubb~forumchild', array('id_forum'=>$id,'lvl'=>$lvl+1,'calledFrom'=>'posts.list')}
 {ifacl2 'hfnu.posts.create'}
+{jMessage}
 <div class="newmessage"><a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a></div>
 {/ifacl2}
 <div class="linkpages">

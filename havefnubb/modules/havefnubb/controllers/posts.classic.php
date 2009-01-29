@@ -14,19 +14,21 @@ class postsCtrl extends jController {
     */	
 	
     public $pluginParams = array(
-        '*'		=>array('auth.required'=>false),
-        'lists'	=>array('auth.required'=>false),
-		'add'	=>array('auth.required'=>true),
-		'edit'	=>array('auth.required'=>true),
-        'delete'=>array('auth.required'=>true),
-        'quote'	=>array('auth.required'=>true),
-        'reply'	=>array('auth.required'=>true),
-        'savereply'	=>array('auth.required'=>true),        
-        'save'	=>array('auth.required'=>true),
-        
-        'lists'	=>array('history.add'=>true),
-        'view' 	=>array('history.add'=>true)
-    );
+        '*'		=> array( 'auth.required'=>false),
+        'lists'	=> array( 'jacl2.right'=>'hfnu.posts.lists'),
+		'add' 	=> array( 'jacl2.right'=>'hfnu.posts.edit'),		
+		'edit' 	=> array( 'jacl2.right'=>'hfnu.posts.edit'),
+        'delete'=> array( 'jacl2.right'=>'hfnu.posts.delete'),		
+		'quote' => array( 'jacl2.right'=>'hfnu.posts.quote'),
+		'reply' => array( 'jacl2.right'=>'hfnu.posts.reply'),
+		'save'  => array( 'jacl2.right'=>'hfnu.posts.edit'),			
+		'savereply'	=> array( 'jacl2.right'=>'hfnu.posts.reply','hfnu.posts.quote'),
+		
+        'lists'	=> array( 'history.add'=>true),
+        'view' 	=> array( 'history.add'=>true),		
+
+		
+   );	
 	
 	// main list of all posts of a given forum ($id)	
     function lists() {
@@ -70,7 +72,7 @@ class postsCtrl extends jController {
             $rep->title = $forum->forum_name;
         else
             $rep->title = $forum->forum_name . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1) ;
-			
+		
         $tpl = new jTpl();        
         // B- Using the collected datas
         $tpl->assign('tableclass','forumView');
@@ -104,10 +106,37 @@ class postsCtrl extends jController {
         
         // let's update the viewed counter
         $dao = jDao::get('havefnubb~posts'); 
-        $post = $dao->get($id_post);   
-        $post->viewed = $post->viewed +1;
-        $dao->update($post);
-        
+        $post = $dao->get($id_post);
+
+		// we cant display a reply without its father post,
+		// let's check it
+		if ($post->id_post != $post->parent_id)  {
+			$post = $dao->get($post->parent_id);
+			// parent id not found ; so go away
+			if ($post === false) {
+				$rep = $this->getResponse('redirect');
+				$rep->action = 'default:index';
+				return $rep;
+			}
+			// found it ! redirect to it
+			else {
+				$rep = $this->getResponse('redirect');
+				$rep->action = 'posts:view';
+				$rep->params = array('id_post'=>$post->id_post);
+				return $rep;
+			}
+		}
+		
+		// access to an invalid post id ?
+		if ($post === false) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+			return $rep;			
+		}
+		
+		$post->viewed = $post->viewed +1;
+		$dao->update($post);
+		
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', $post->subject );        
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);
@@ -129,6 +158,7 @@ class postsCtrl extends jController {
 		$tpl->assign('category',$category);
         $tpl->assign('page',$page);
         $tpl->assign('subject',$post->subject);
+		
         $rep->title = $post->subject;                
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));
         return $rep;
@@ -335,7 +365,10 @@ class postsCtrl extends jController {
 			// update as we store the last insert id in the parent_id column
 			$dao->update($record);
 			jForms::destroy('havefnubb~posts', $id_post);
-			$rep->params = array('id_post'=>$id_post);
+			
+			jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'public_message');
+			//after editing, returning to the parent_id post !
+			$rep->params = array('id_post'=>$parent_id);
 			$rep->action ='havefnubb~posts:view';
 			return $rep;			
 		}
@@ -485,6 +518,9 @@ class postsCtrl extends jController {
 			$dao->insert($record);
 			
 			jForms::destroy('havefnubb~posts', $parent_id);
+			
+			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'public_message');
+			
 			$rep->params = array('id_post'=>$parent_id);
 			$rep->action ='havefnubb~posts:view';
 			return $rep;			
@@ -564,11 +600,29 @@ class postsCtrl extends jController {
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.reply'));
         return $rep;		
     }
+
+	
+    function delete() {
+		
+		$id_post = (integer) $this->param('id_post');
+		$id_forum = (integer) $this->param('id_forum');
+		
+		$dao = jDao::get('havefnubb~posts');
+        $dao->delete($id_post);
+        jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'public_message');
+        $rep = $this->getResponse('redirect');
+        $rep->action='havefnubb~posts:lists';
+		$rep->params=array('id'=>$id_forum);
+        return $rep;		
+    }
 	
 	// @TODO
-    function delete() {
-        
-    }
+    function notify() {
+        $rep = $this->getResponse('html');
+        $rep->title = jLocale::get("havefnubb~post.form.notify.message") ;
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.notify'));
+        return $rep;        
+    }	
 
 	private function getCrumbs($id_forum) {
 		

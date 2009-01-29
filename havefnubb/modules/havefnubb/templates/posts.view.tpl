@@ -5,5 +5,5 @@
     title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a></div>
     {/ifacl2}
 </div>
-
+{jMessage}
 {zone 'postlistinpost',array('id_post'=>$id_post,'page'=>$page)}
