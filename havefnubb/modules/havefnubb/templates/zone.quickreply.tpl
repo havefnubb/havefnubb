@@ -1,5 +1,5 @@
 <div id="quickreply">
-    <h3>{@havefnubb~post.quickreply.quickreply@}</h3>
+    <h3><span>{@havefnubb~post.quickreply.quickreply@}</span></h3>
 
     {form $form, 'havefnubb~posts:savereply', array('id_post'=>$id_post)}
     

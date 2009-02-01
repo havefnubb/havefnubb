@@ -16,7 +16,8 @@ class jumptoZone extends jZone {
         $id_forum = $this->param('id_forum');
         if (!$id_forum) return;
        
-        $form = jForms::create('havefnubb~jumpto',$id_forum);        
+        $form = jForms::create('havefnubb~jumpto',$id_forum);
+		$form->setData('dont_jump_here',$id_forum);
         $this->_tpl->assign('form',$form);
 
     }

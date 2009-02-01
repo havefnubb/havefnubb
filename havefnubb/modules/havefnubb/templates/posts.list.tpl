@@ -7,7 +7,7 @@
 <div class="newmessage"><a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a></div>
 {/ifacl2}
 <div class="linkpages">
-{pagelinks 'posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
     <table width="100%">
         <tr>
@@ -32,9 +32,9 @@
         </tr>
         {/foreach}
     </table>
-{ifuserconnected}
-{zone 'havefnubb~jumpto',array('id_forum'=>$id_forum)}
-{/ifuserconnected}	
+
+{zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
+
 <div class="linkpages">
-{pagelinks 'posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>

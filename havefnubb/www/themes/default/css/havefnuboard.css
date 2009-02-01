@@ -329,13 +329,13 @@ code, pre {
 	text-align: center;
 }
 
-#stats, #lastposts{
+#stats, #lastposts, #jumpto, #quickreply {
 	margin: auto;	
 	background-color:#f1f1e5;
 	vertical-align: middle;
 }
 
-#stats h3, #lastposts h3 {
+#stats h3, #lastposts h3, #jumpto h3, #quickreply h3 {
     padding:1px;
 	background-color:#8dc192;
 	border-top: 1px solid;
@@ -346,7 +346,7 @@ code, pre {
 	box-shadow: gray 0px 3px 5px 0px;
 	/* border-color:red #acac9c #acac9c red;	*/
 }
-#stats h3 span, #stats p, #lastposts h3 span {
+#stats h3 span, #stats p, #lastposts h3 span, #jumpto h3 span, #quickreply h3 span {
     margin-left: 20px;
 }
 

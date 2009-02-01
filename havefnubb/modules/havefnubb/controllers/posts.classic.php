@@ -16,7 +16,7 @@ class postsCtrl extends jController {
     public $pluginParams = array(
         '*'		=> array( 'auth.required'=>false),
         'lists'	=> array( 'jacl2.right'=>'hfnu.posts.lists'),
-		'add' 	=> array( 'jacl2.right'=>'hfnu.posts.edit'),		
+		'add' 	=> array( 'jacl2.right'=>'hfnu.posts.create'),		
 		'edit' 	=> array( 'jacl2.right'=>'hfnu.posts.edit'),
         'delete'=> array( 'jacl2.right'=>'hfnu.posts.delete'),		
 		'quote' => array( 'jacl2.right'=>'hfnu.posts.quote'),
