@@ -1,1 +1,1 @@
-<p>Votre compte est maintenant supprimé et vous êtes déconnecté.</p>
+<p>{@havefnubb~member.destroy.account.deletion.done@}</p>

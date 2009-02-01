@@ -1,1 +1,1 @@
-<p>Impossible de supprimer votre compte. Contacter le responsable du site.</p>
+<p>{@havefnubb~member.destroy.account.aborted@}</p>

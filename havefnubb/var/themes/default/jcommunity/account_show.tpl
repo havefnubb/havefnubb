@@ -8,7 +8,7 @@ $(document).ready(function(){
 </script>
 {/literal}
 <div id="profile">
-<h2 class="profile">Profil de {$user->login|eschtml}</h2>
+<h2 class="profile">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h2>
 {avatar $j_basepath .'images/avatars/'.$user->id}
 <div id="container">
 	<ul>
@@ -113,7 +113,7 @@ $(document).ready(function(){
 </div>
 {if $himself}
 <ul>
-    <li><a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">Editer votre profil</a></li>
+    <li><a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a></li>
 </ul>
 {/if}
 </div>

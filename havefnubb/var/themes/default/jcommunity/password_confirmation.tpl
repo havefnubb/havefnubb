@@ -1,13 +1,11 @@
 <div id="loginbox">
-<h2>Activation de votre nouveau mot de passe</h2>
+<h2>{@havefnubb~member.password.confirmation.activation.of.your.password@}</h2>
 
-<p>Un mail vous a été envoyé, contenant une clé d'activation. Pour valider
-le changement de mot de passe, indiquez la clé et un nouveau
-mot de passe dans le formulaire suivant.</p>
+<p>{@havefnubb~member.password.confirmation.activation.description@}</p>
 
 {form $form,'jcommunity~password:confirm', array()}
 <fieldset>
-    <legend>Activation</legend>
+    <legend>{@havefnubb~member.registration.confirmation.activation@}</legend>
     <ul>
     {formcontrols}
     <li>{ctrl_label} : {ctrl_control}</li>
@@ -16,4 +14,5 @@ mot de passe dans le formulaire suivant.</p>
 </fieldset>
 <p>{formsubmit}</p>
 {/form}
+
 </div>

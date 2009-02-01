@@ -1,14 +1,13 @@
 <div id="profile">
-<h3>Activation de votre compte</h3>
+<h3>{@havefnubb~member.registration.confirmation.activation.of.your.account@}</h3>
 
-<p>Avant de pouvoir vous identifier sur le site, vous devez activer votre compte.
-Pour cela, <strong>un email vous a été envoyé</strong>, contenant une clé (un mot avec des chiffres et des lettres).</p>
+<p>{@havefnubb~member.registration.confirmation.activation.description@}</p>
 
-<p>Pour activer votre compte, indiquez la clé ci dessous, et choisissez un mot de passe.</p>
+<p>{@havefnubb~member.registration.confirmation.activation.description.line2@}</p>
 
 {form $form,'jcommunity~registration:confirm', array()}
 <fieldset>
-    <legend>Activation</legend>
+    <legend>{@havefnubb~member.registration.confirmation.activation@}</legend>
     <ul>
     {formcontrols}
     <li>{ctrl_label} : {ctrl_control}</li>

@@ -8,7 +8,7 @@ $(document).ready(function(){
 </script>
 {/literal}
 <div id="profile">
-<h3 class="headbox">Edition de votre profil</h3>
+<h3 class="headbox">{@havefnubb~member.edit.account.header@}</h3>
 {form $form, 'jcommunity~account:save', array('user'=>$username)}
 <div id="container" class="formbg">
 	<ul>
