@@ -58,6 +58,15 @@
             <conditions>
                 <eq property="id_forum" expr="$id_forum" />
             </conditions>            
-        </method>        
+        </method>
+        <method name="findAllExceptOne" type="select">
+            <parameter name="id_forum" />
+            <conditions>
+                <neq property="id_forum" expr="$id_forum" />
+            </conditions>
+            <order>
+               <orderitem property="parent_id" way="asc" />
+            </order>            
+        </method>
     </factory>
 </dao>

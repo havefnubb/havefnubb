@@ -57,8 +57,10 @@
 {/foreach}
 </div>
 
+{ifuserconnected}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
-
+{zone 'havefnubb~jumpto',array('id_forum'=>$id_forum)}
+{/ifuserconnected}
 <div class="linkpages">
 {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
