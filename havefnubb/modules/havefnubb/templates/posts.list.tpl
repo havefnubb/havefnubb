@@ -1,13 +1,13 @@
 <div id="breadcrumbtop" class="headbox">
     <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat)}" title="{$category->cat_name}">{$category->cat_name|eschtml}</a> > {$forum->forum_name|eschtml}</h3>
 </div>
-{zone 'havefnubb~forumchild', array('id_forum'=>$id,'lvl'=>$lvl+1,'calledFrom'=>'posts.list')}
+{zone 'havefnubb~forumchild', array('id_forum'=>$id_forum,'lvl'=>$lvl+1,'calledFrom'=>'posts.list')}
 {ifacl2 'hfnu.posts.create'}
 {jMessage}
 <div class="newmessage"><a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a></div>
 {/ifacl2}
 <div class="linkpages">
-{pagelinks 'posts:lists', array('id'=>$id),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+{pagelinks 'posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
     <table width="100%">
         <tr>
@@ -32,6 +32,9 @@
         </tr>
         {/foreach}
     </table>
+{ifuserconnected}
+{zone 'havefnubb~jumpto',array('id_forum'=>$id_forum)}
+{/ifuserconnected}	
 <div class="linkpages">
-{pagelinks 'posts:lists', array('id'=>$id),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+{pagelinks 'posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>

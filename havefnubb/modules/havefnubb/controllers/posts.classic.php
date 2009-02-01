@@ -30,17 +30,17 @@ class postsCtrl extends jController {
 		
    );	
 	
-	// main list of all posts of a given forum ($id)	
+	// main list of all posts of a given forum ($id_forum)	
     function lists() {
         global $HfnuConfig;
-        $id = (int) $this->param('id');
-        if ($id == 0 ) {
+        $id_forum = (int) $this->param('id_forum');
+        if ($id_forum == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
         }
 
 		// crumbs infos
-		list($forum,$category) = $this->getCrumbs($id);
+		list($forum,$category) = $this->getCrumbs($id_forum);
 		        
         // let's build the pagelink var
         // A Preparing / Collecting datas
@@ -60,9 +60,9 @@ class postsCtrl extends jController {
               
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts
-        $nbPosts = $daoPost->findNbOfPostByForumId($id);
+        $nbPosts = $daoPost->findNbOfPostByForumId($id_forum);
         // 4- get the posts of the current forum, limited by point 1 and 2
-        $posts = $daoPost->findByIdForum($id,$page,$nbPostPerPage);
+        $posts = $daoPost->findByIdForum($id_forum,$page,$nbPostPerPage);
 
         // change the label of the breadcrumb
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', $forum->forum_name . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
@@ -87,7 +87,7 @@ class postsCtrl extends jController {
         $tpl->assign('page',$page);                
         $tpl->assign('nbPostPerPage',$nbPostPerPage);
         $tpl->assign('nbPosts',$nbPosts);
-        $tpl->assign('id',$id);
+        $tpl->assign('id_forum',$id_forum);
 		$tpl->assign('lvl',$forum->child_level);
         $tpl->assign('properties',$properties);
         
@@ -368,7 +368,7 @@ class postsCtrl extends jController {
 			
 			jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'public_message');
 			//after editing, returning to the parent_id post !
-			$rep->params = array('id_post'=>$parent_id);
+			$rep->params = array('id_post'=>$id_post);
 			$rep->action ='havefnubb~posts:view';
 			return $rep;			
 		}

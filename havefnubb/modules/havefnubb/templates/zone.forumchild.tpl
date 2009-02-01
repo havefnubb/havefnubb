@@ -3,7 +3,7 @@
 <ul class="child">
     <li>{@havefnubb~forum.forumchild.subforum@} :</li>
 {foreach $forumChilds as $forum}
-    <li><a href="{jurl 'havefnubb~posts:lists',array('id'=>$forum->id_forum)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></li>
+    <li><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></li>
 {/foreach}
 </ul>
 {else}
@@ -14,7 +14,7 @@
 {foreach $forumChilds as $forum}
     <tr>
         <td class="line colleft"></td>
-        <td class="line colmain linkincell"><h4><a href="{jurl 'havefnubb~posts:lists',array('id'=>$forum->id_forum)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4>{$forum->forum_desc|eschtml}</td>
+        <td class="line colmain linkincell"><h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4>{$forum->forum_desc|eschtml}</td>
         <td class="line colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum)}</td>
         <td class="line colright linkincell"><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
         {zone 'havefnubb~postlc',array('id_forum'=>$forum->id_forum)}</span></td>
