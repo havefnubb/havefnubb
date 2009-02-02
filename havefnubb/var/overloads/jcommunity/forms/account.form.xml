@@ -38,6 +38,20 @@
        <label locale="havefnubb~member.comments"/>
    </textarea>
 
+    <radiobuttons ref="member_show_email">
+        <label locale="havefnubb~member.account.edit.show.your.email" />
+        <item value="Y" locale="havefnubb~main.common.yes"/>
+        <item value="N" locale="havefnubb~main.common.no"/>
+    </radiobuttons>
+
+   <menulist ref="member_language">
+      <label locale="havefnubb~main.common.language"/>
+      <datasource class="havefnubb~language" />
+   </menulist>
+    
+   <textarea ref="member_comment" rows="7" cols="80">
+       <label locale="havefnubb~member.comments"/>
+   </textarea>
    
    <input ref="member_connection">
        <label locale="havefnubb~member.connection"/>

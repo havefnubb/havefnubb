@@ -54,10 +54,10 @@ $(document).ready(function(){
                 </div>
                 <div class="two-cols">
                     <p class="col">
-
+                        <label><strong>{ctrl_label 'member_language'}</strong></label><br />{ctrl_control 'member_language'}
                     </p>
                     <p class="col">
-
+                        <label><strong>{ctrl_label 'member_show_email'}</strong></label><br />{ctrl_control 'member_show_email'}
                     </p>
                 </div>
             </fieldset>

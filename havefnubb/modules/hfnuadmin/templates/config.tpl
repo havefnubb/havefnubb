@@ -10,6 +10,7 @@
 //]]>
 </script>
 {/literal}
+<h1>{@hfnuadmin~admin.config@}</h1>
 {form $form, 'hfnuadmin~default:config'}
 <div id="hfnuadmin-config">
 <ul>

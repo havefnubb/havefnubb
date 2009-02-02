@@ -1,4 +1,4 @@
-;<?php die(''); ?>
+;;<?php die(''); ?>
 ;for security reasons , don't remove or modify the first line
 
 ;============= Main parameters
@@ -33,10 +33,10 @@ on_error=2
 error_message="jauth~autherror.notlogged"
 
 ; action to execute on a missing authentification when on_error=2
-on_error_action = "jcommunity~login:index"
+on_error_action = "jauth~login:out"
 
 ; action to execute when a bad ip is checked with secure_with_ip=1 and on_error=2
-bad_ip_action = "jcommunity~login:out"
+bad_ip_action = "jauth~login:out"
 
 
 ;=========== Parameters for jauth module
@@ -45,11 +45,13 @@ bad_ip_action = "jcommunity~login:out"
 on_error_sleep=3
 
 ; action to redirect after the login
-after_login="master_admin~default:index"
+; after_login="master_admin~default:index"
+after_login="hfnuadmin~default:index"
 
 
 ; action to redirect after a logout
-after_logout="jauth~login:form"
+; after_logout="jauth~login:form"
+after_logout="havefnubb~default:index"
 
 ; says if after_login can be overloaded by a "auth_url_return" parameter in the url/form for the login
 enable_after_login_override=off
@@ -63,7 +65,7 @@ enable_after_logout_override=off
 persistant_enable=off
 
 ; key to use to crypt the password in the cookie. replace it by your own words !
-persistant_crypt_key=HaV3FnUw1thY0uRw3bs1t3
+persistant_crypt_key=HaV3FnUw1thY0uRw3bs1t34dfm1n
 
 ; the name of the cookie which is used to store data for the authentification
 persistant_cookie_name=jelixAuthentificationCookie

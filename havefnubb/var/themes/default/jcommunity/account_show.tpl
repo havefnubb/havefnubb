@@ -8,7 +8,7 @@ $(document).ready(function(){
 </script>
 {/literal}
 <div id="profile">
-<h2 class="profile">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h2>
+<h3 class="profile">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h3>
 {avatar $j_basepath .'images/avatars/'.$user->id}
 <div id="container">
 	<ul>
@@ -68,42 +68,42 @@ $(document).ready(function(){
                 <legend>{@havefnubb~member.hardware@}</legend>
                 <div class="two-cols">
                     <p class="col">                 
-                        <label><strong>{@havefnubb~member.connection@}</strong></label><br />{$user->member_connection}
+                        <label><strong>{@havefnubb~member.connection@}</strong></label><br />{$user->member_connection|eschtml}
                     </p>
                     <p class="col">                                
-                        <label><strong>{@havefnubb~member.os@}</strong></label>      <br />{$user->member_os}
+                        <label><strong>{@havefnubb~member.os@}</strong></label>      <br />{$user->member_os|eschtml}
                     </p>
                 </div>                
                 <div class="two-cols">
                     <p class="col">                 
-                        <label><strong>{@havefnubb~member.proc@}</strong></label>    <br />{$user->member_proc}
+                        <label><strong>{@havefnubb~member.proc@}</strong></label>    <br />{$user->member_proc|eschtml}
                     </p>
                     <p class="col">                                
-                        <label><strong>{@havefnubb~member.mb@}</strong></label>      <br />{$user->member_mb}
+                        <label><strong>{@havefnubb~member.mb@}</strong></label>      <br />{$user->member_mb|eschtml}
                     </p>
                 </div>                
                 <div class="two-cols">
                     <p class="col">                 
-                        <label><strong>{@havefnubb~member.card@}</strong></label>    <br />{$user->member_card}
+                        <label><strong>{@havefnubb~member.card@}</strong></label>    <br />{$user->member_card|eschtml}
                     </p>
                     <p class="col">                                
-                        <label><strong>{@havefnubb~member.ram@}</strong></label>     <br />{$user->member_ram}
+                        <label><strong>{@havefnubb~member.ram@}</strong></label>     <br />{$user->member_ram|eschtml}
                     </p>
                 </div>            
                 <div class="two-cols">
                     <p class="col">                 
-                        <label><strong>{@havefnubb~member.display@}</strong></label> <br />{$user->member_display}
+                        <label><strong>{@havefnubb~member.display@}</strong></label> <br />{$user->member_display|eschtml}
                     </p>
                     <p class="col">                                
-                        <label><strong>{@havefnubb~member.screen@}</strong></label>  <br />{$user->member_screen}
+                        <label><strong>{@havefnubb~member.screen@}</strong></label>  <br />{$user->member_screen|eschtml}
                     </p>
                 </div>            
                 <div class="two-cols">
                     <p class="col">                 
-                        <label><strong>{@havefnubb~member.mouse@}</strong></label>   <br />{$user->member_mouse}
+                        <label><strong>{@havefnubb~member.mouse@}</strong></label>   <br />{$user->member_mouse|eschtml}
                     </p>
                     <p class="col">                                
-                        <label><strong>{@havefnubb~member.keyb@}</strong></label>    <br />{$user->member_keyb}
+                        <label><strong>{@havefnubb~member.keyb@}</strong></label>    <br />{$user->member_keyb|eschtml}
                     </p>
                 </div>
             </fieldset>

@@ -12,11 +12,16 @@ class defaultCtrl extends jController {
     /**
     *
     */
+    public $pluginParams = array(
+        '*'		=> array('auth.required'=>true),
+    );
+    
     function index() {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', '');
         return $rep;
     }
+    
     function config() {
         global $HfnuConfig ;        
         $rep = $this->getResponse('html');
@@ -81,7 +86,7 @@ class defaultCtrl extends jController {
         return $rep;
     }
     
-    function reporting() {
+    function notifying() {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', '');
         return $rep;
@@ -97,7 +102,5 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', '');
         return $rep;
-    }
-    
-}
-
+   }
+}   

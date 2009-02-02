@@ -11,11 +11,6 @@
 function jtpl_function_html_age($tpl, $date)
 {
     $year_in_secondes = (365 * 24 * 60 * 60);
-    $today = time();
-    
-    list($d_y,$d_m,$d_d) = split("[/.-]",$date);
-    $birth_time = mktime(0,0,0,$d_m,$d_d,$d_y); 
-    $age = floor ( ($today - $birth_time) / $year_in_secondes );
-    
-    echo $age;
+	
+	echo floor( (time() - strtotime($date) ) / $year_in_secondes);
 }

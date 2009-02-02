@@ -1,4 +1,14 @@
-
+#hfnuadmin-general, #hfnuadmin-messages, #hfnuadmin-members {
+    background-color:#eff4f6;
+    border: 1px solid #B0C4CB;
+}	
+	
+#hfnuadmin-general fieldset, #hfnuadmin-messages fieldset, #hfnuadmin-members  fieldset {
+    background-color:#eff4f6;
+    border: 1px solid #B0C4CB;
+}	
+	
+	
 /* Tab */
 
 /* Caution! Ensure accessibility in print and other media types... */

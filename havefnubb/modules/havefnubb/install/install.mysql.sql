@@ -287,6 +287,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `member_icq` varchar(80) DEFAULT NULL,
   `member_hotmail` varchar(255) DEFAULT NULL,
   `member_yim` varchar(255) DEFAULT NULL,
+  `member_aol` varchar(255) DEFAULT NULL,
   `member_gtalk` varchar(255) DEFAULT NULL,
   `member_jabber` varchar(255) DEFAULT NULL,
   `member_proc` varchar(40) DEFAULT NULL,
@@ -300,6 +301,9 @@ CREATE TABLE IF NOT EXISTS `member` (
   `member_os` varchar(40) DEFAULT NULL,
   `member_connection` varchar(40) DEFAULT NULL,
   `member_last_connect` datetime DEFAULT NULL,
+  `member_show_email` varchar(1) DEFAULT 'N',
+  `member_language` varchar(40) DEFAULT 'fr_FR',
+ 
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
 ) ;
@@ -312,11 +316,11 @@ INSERT INTO `member`
 (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`,
 `member_website`, `member_status`, `member_keyactivate`, `member_request_date`,
 `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`,
-`member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_gtalk`,
+`member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`,`member_aol`, `member_gtalk`,
 `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`,
 `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`,
-`member_last_connect`) VALUES
+`member_last_connect`,`member_time_zone`,`member_language` ) VALUES
 (1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 'http://forge.jelix.org/projects/havefnubb', 2,
 NULL, CURRENT_TIMESTAMP(), NULL, '1969-01-14', 'France', 'Paris', '', '0', NULL, NULL, NULL,
-NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-CURRENT_TIMESTAMP());
+NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+CURRENT_TIMESTAMP(),'N','fr_FR');

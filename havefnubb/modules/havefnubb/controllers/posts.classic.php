@@ -15,6 +15,7 @@ class postsCtrl extends jController {
 	
     public $pluginParams = array(
         '*'		=> array( 'auth.required'=>false),
+        'goto'	=> array( 'jacl2.right'=>'hfnu.posts.lists'),
         'lists'	=> array( 'jacl2.right'=>'hfnu.posts.lists'),
 		'add' 	=> array( 'jacl2.right'=>'hfnu.posts.create'),		
 		'edit' 	=> array( 'jacl2.right'=>'hfnu.posts.edit'),
@@ -26,7 +27,6 @@ class postsCtrl extends jController {
 		
         'lists'	=> array( 'history.add'=>true),
         'view' 	=> array( 'history.add'=>true),		
-
 		
    );	
 	
@@ -320,7 +320,7 @@ class postsCtrl extends jController {
 			//.. if the data are not ok, return to the form and display errors messages form
 			if (!$form->check()) {            
 				$rep->action = 'havefnubb~posts:lists';
-				$rep->param = array('id'=>$id_forum);
+				$rep->param = array('id_forum'=>$id_forum);
 				return $rep;
 			}
 	
@@ -489,7 +489,7 @@ class postsCtrl extends jController {
 			//.. if the data are not ok, return to the form and display errors messages form
 			if (!$form->check()) {            
 				$rep->action = 'havefnubb~posts:lists';
-				$rep->param = array('id'=>$id_forum);
+				$rep->param = array('id_forum'=>$id_forum);
 				return $rep;
 			}
 	
@@ -612,8 +612,20 @@ class postsCtrl extends jController {
         jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'public_message');
         $rep = $this->getResponse('redirect');
         $rep->action='havefnubb~posts:lists';
-		$rep->params=array('id'=>$id_forum);
+		$rep->params=array('id_forum'=>$id_forum);
         return $rep;		
+    }
+
+    function goto() {
+        $id_forum = (int) $this->param('id_forum');
+        if ($id_forum == 0 ) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+        }
+        $rep = $this->getResponse('redirect');
+        $rep->action='havefnubb~posts:lists';
+		$rep->params=array('id_forum'=>$id_forum);  
+        return $rep;        
     }
 	
 	// @TODO
