@@ -8,7 +8,7 @@ $(document).ready(function(){
 </script>
 {/literal}
 <div id="profile">
-<h3 class="profile">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h3>
+<h3 class="headbox">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h3>
 {avatar $j_basepath .'images/avatars/'.$user->id}
 <div id="container">
 	<ul>
@@ -23,17 +23,21 @@ $(document).ready(function(){
                 <div class="two-cols">
                     <p class="col">
                         <label><strong>{@havefnubb~member.nickname@}</strong></label><br />{$user->nickname|eschtml}
-                    </p>
+                    </p>                   
                     <p class="col">
+{if $user->member_show_email == 'Y'}                                             
                         <label><strong>{@havefnubb~member.email@}</strong></label><br />{$user->email|eschtml}
-                    </p>
+{/if}                        
+                    </p>                    
                 </div>
-                <div class="two-cols">
+                <div>
                     <p class="col">
                         <label><strong>{@havefnubb~member.age@}</strong></label><br />{age $user->member_birth}
                     </p>
-                </div>
-                   
+                </div>                
+            </fieldset>                
+            <fieldset>
+                <legend>{@havefnubb~member.common.location@}</legend>                  
                 <div class="two-cols">
                     <p class="col">                
                         <label><strong>{@havefnubb~member.town@}</strong></label><br />{$user->member_town|eschtml}
@@ -41,7 +45,23 @@ $(document).ready(function(){
                     <p class="col">
                         <label><strong>{@havefnubb~member.country@}</strong></label><br />{$user->member_country|eschtml}
                     </p>
-                </div>                    
+                </div>
+                <div>
+                    <p class="col">                
+                        <label><strong>{@havefnubb~member.website@}</strong></label><br /><a href="{$user->member_website|eschtml}" title="{@havefnubb~member.website@}">{$user->member_website|eschtml}</a>
+                    </p>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>{@havefnubb~member.common.stats@}</legend>
+                <div class="two-cols">                    
+                    <p class="col">                
+                        <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><br />{$user->request_date|jdatetime}</a>
+                    </p>
+                    <p class="col">                
+                        <label><strong>{@havefnubb~member.common.last.connection@}</strong></label><br />{$user->member_last_connect|jdatetime}</a>
+                    </p>                    
+                </div>                 
             </fieldset>
         </div>
         <div id="member-pref">
@@ -49,17 +69,12 @@ $(document).ready(function(){
                 <legend>{@havefnubb~member.pref@}</legend>
                 <div>
                     <p>
-                        <label><strong>{@havefnubb~member.comment@}</strong></label><br />{$user->member_comment}
+                        <label><strong>{@havefnubb~member.common.language@}</strong></label> {$user->member_language}
+                    </p>              
+                    <p>
+                        <label><strong>{@havefnubb~member.common.account.signature@}</strong></label><br />{$user->member_comment|wiki:'wr3_to_xhtml'|stripslashes}
                     </p>
-                </div>
-                <div class="two-cols">
-                    <p class="col">
-
-                    </p>
-                    <p class="col">
-
-                    </p>
-                </div>
+                </div>                
             </fieldset>
         </div>
 		

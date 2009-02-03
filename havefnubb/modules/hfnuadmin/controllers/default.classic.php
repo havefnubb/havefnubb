@@ -13,7 +13,9 @@ class defaultCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'		=> array('auth.required'=>true),
+		'config' 	=> array( 'jacl2.right'=>'hfnu.admin.config.edit'),
+        'phpinfo' 	=> array( 'jacl2.right'=>'hfnu.admin.server.info'),        
+        'check_upgrade'=> array( 'jacl2.right'=>'hfnu.admin.config.view'),		
     );
     
     function index() {
@@ -103,4 +105,41 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN', '');
         return $rep;
    }
+   
+    public function check_upgrade() {
+        
+        global $HfnuConfig;
+        $url = $HfnuConfig->getValue('url_check_version');
+
+        if (!ini_get('allow_url_fopen'))
+            jMessage::add('Impossible de vérifier les mises à jour tant que \'allow_url_fopen\' est désactivé sur ce système.');
+        else {   
+            $fp = @fopen($url, 'r');
+            $latestVersion = trim(@fread($fp, 16));
+            @fclose($fp);
+        
+            if ($latestVersion == '')
+                jMessage::add('La vérification de mise à jour a échouée pour une raison inconnue.');
+            else {  
+                $curVersion = str_replace(array('.', 'dev', 'beta', ' '), '', strtolower($HfnuConfig->getValue('version')));
+                $curVersion = (strlen($curVersion) == 2) ? intval($curVersion) * 10 : intval($curVersion);
+            
+                $latestVersion = str_replace('.', '', strtolower($latestVersion));
+                $latestVersion = (strlen($latestVersion) == 2) ? intval($latestVersion) * 10 : intval($latestVersion);
+            
+                if ($curVersion >= $latestVersion)
+                    jMessage::add('Vous utilisez la dernière version de HaveFnuBB.');
+                else
+                    jMessage::add('Une nouvelle version de HaveFnuBB est disponible ! Vous pouvez télécharger cette dernière version sur <a href="http://forge.jelix.org/projects/havefnubb/">HaveFnuBB!</a>.');
+            }
+        }
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'default:index';
+        return $rep;
+        
+    }
+    
+    public function phpinfo() {
+        phpinfo();
+    }
 }   

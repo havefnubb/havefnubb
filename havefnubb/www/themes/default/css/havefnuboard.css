@@ -535,6 +535,43 @@ table .line {
 }
 
 /* posts */
+
+#post-message {}
+
+#post-message .jelix-msg {
+    background-color:#eff4f6;
+    border: 1px solid #B0C4CB;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+#post-message .jelix-msg li {
+    padding:3px 19px;
+    margin:0;
+}
+
+#post-message .jelix-msg li.jelix-msg-item-warning {
+    background-color: #F6B1B1;
+    background-image: url(../images/exclamation.png);
+}
+#post-message .jelix-msg li.jelix-msg-item-warning {
+    background-color: #F6CAB1;
+    background-image: url(../images/error.png);
+}
+
+#post-message .jelix-msg li.jelix-msg-item-ok,
+#post-message .jelix-msg li.jelix-msg-item-notice {
+    background-color: #E5F6D4;
+    background-image: url(../images/information.png);
+	background-repeat: no-repeat;	
+}
+
+
 .posthead  {
 	border: 1px solid;
 	border-color:#dedec1 #acac9c #acac9c #dedec1;

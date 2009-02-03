@@ -12,7 +12,7 @@
         <div class="post-entry">
             <h4 class="message-title">{$previewsubject|eschtml}</h4>
             <div class="message-content">
-            {$previewtext|wiki:$wr_engine}
+            {$previewtext|wiki:'wr3_to_xhtml'}
             {zone 'havefnubb~membersignature',array('id'=>$id_user)}
             </div>
         </div>        

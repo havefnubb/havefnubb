@@ -3,7 +3,9 @@
 </div>
 {zone 'havefnubb~forumchild', array('id_forum'=>$id_forum,'lvl'=>$lvl+1,'calledFrom'=>'posts.list')}
 {ifacl2 'hfnu.posts.create'}
-{jMessage}
+
+<div id="post-message">{jMessage}</div>
+
 <div class="newmessage"><a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a></div>
 {/ifacl2}
 <div class="linkpages">
@@ -33,8 +35,8 @@
         {/foreach}
     </table>
 
-{zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
-
 <div class="linkpages">
 {pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
+
+{zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}

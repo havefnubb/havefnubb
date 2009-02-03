@@ -1,4 +1,4 @@
 <div class="signature-content">
     <hr/>
-    {$sig|stripslashes}    
+    {$sig|wiki:'wr3_to_xhtml'|stripslashes}    
 </div>

@@ -28,12 +28,14 @@ $(document).ready(function(){
                         <label><strong>{ctrl_label 'email'}</strong></label><br />{ctrl_control 'email'}
                     </p>
                 </div>
-                <div class="two-cols">
+                <div>
                     <p class="col">
                         <label><strong>{ctrl_label 'member_birth'}</strong></label><br />{ctrl_control 'member_birth'}
                     </p>
                 </div>
-                   
+            </fieldset>                
+            <fieldset>
+                <legend>{@havefnubb~member.common.location@}</legend>                   
                 <div class="two-cols">
                     <p class="col">                
                         <label><strong>{ctrl_label 'member_town'}</strong></label><br />{ctrl_control 'member_town'}
@@ -48,18 +50,20 @@ $(document).ready(function(){
             <fieldset>
                 <legend>{@havefnubb~member.pref@}</legend>
                 <div>
+                    <p class="col">
+                        <label><strong>{ctrl_label 'member_language'}</strong></label> {ctrl_control 'member_language'}<br/>
+                        {@havefnubb~member.account.edit.language.description@}
+                    </p>
+                    <p class="col">
+                        <label><strong>{ctrl_label 'member_show_email'}</strong></label> {ctrl_control 'member_show_email'}<br/>
+                        {@havefnubb~member.account.edit.show.your.email.description@}
+                    </p>
+                </div>
+                <div>
                     <p>
                         <label><strong>{ctrl_label 'member_comment'}</strong></label><br />{ctrl_control 'member_comment'}
                     </p>
-                </div>
-                <div class="two-cols">
-                    <p class="col">
-                        <label><strong>{ctrl_label 'member_language'}</strong></label><br />{ctrl_control 'member_language'}
-                    </p>
-                    <p class="col">
-                        <label><strong>{ctrl_label 'member_show_email'}</strong></label><br />{ctrl_control 'member_show_email'}
-                    </p>
-                </div>
+                </div>                
             </fieldset>
         </div>
 		

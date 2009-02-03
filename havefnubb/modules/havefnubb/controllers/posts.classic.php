@@ -15,7 +15,7 @@ class postsCtrl extends jController {
 	
     public $pluginParams = array(
         '*'		=> array( 'auth.required'=>false),
-        'goto'	=> array( 'jacl2.right'=>'hfnu.posts.lists'),
+        'goto'	=> array( 'jacl2.right'=>'hfnu.forum.goto'),
         'lists'	=> array( 'jacl2.right'=>'hfnu.posts.lists'),
 		'add' 	=> array( 'jacl2.right'=>'hfnu.posts.create'),		
 		'edit' 	=> array( 'jacl2.right'=>'hfnu.posts.edit'),
@@ -97,7 +97,6 @@ class postsCtrl extends jController {
 
 	//display the thread of the given post 
     function view() {
-        global $HfnuConfig;
         $id_post = (int) $this->param('id_post');
         if ($id_post == 0 ) {
             $rep = $this->getResponse('redirect');
@@ -261,7 +260,6 @@ class postsCtrl extends jController {
     
     // Save the data submitted from add/edit form
 	function save() {
-        global $HfnuConfig;
 		$id_forum = (int) $this->param('id_forum');
 		$id_post = (int) $this->param('id_post');
         
@@ -286,7 +284,6 @@ class postsCtrl extends jController {
 			
 			//set the needed parameters to the template
 			$tpl = new jTpl();
-            $tpl->assign('wr_engine',(int) $HfnuConfig->getValue('forum_post_render'));
 			$tpl->assign('id_post', $id_post);
 			$tpl->assign('id_forum', $id_forum);
             $tpl->assign('id_user', $user->id);
@@ -366,7 +363,7 @@ class postsCtrl extends jController {
 			$dao->update($record);
 			jForms::destroy('havefnubb~posts', $id_post);
 			
-			jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'public_message');
+			jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'ok');
 			//after editing, returning to the parent_id post !
 			$rep->params = array('id_post'=>$id_post);
 			$rep->action ='havefnubb~posts:view';
@@ -381,7 +378,6 @@ class postsCtrl extends jController {
 	
 	//reply to a given post (from the parent_id)
     function reply() {
-        global $HfnuConfig;
         $parent_id = (int) $this->param('id_post');
         $id_post = (int) $this->param('id_post');
         if ($parent_id == 0 ) {
@@ -431,7 +427,6 @@ class postsCtrl extends jController {
 
     // save the datas posted from the reply form
 	function savereply() {
-        global $HfnuConfig;
 		$id_forum   = (int) $this->param('id_forum');
 		$id_post    = (int) $this->param('id_post');       
         $parent_id  = (int) $this->param('parent_id');
@@ -455,7 +450,6 @@ class postsCtrl extends jController {
 			
 			//set the needed parameters to the template
 			$tpl = new jTpl();
-            $tpl->assign('wr_engine',	(int) $HfnuConfig->getValue('forum_post_render'));
 			$tpl->assign('id_post', 	0);
             $tpl->assign('parent_id', 	$parent_id);
 			$tpl->assign('id_forum', 	$id_forum);
@@ -519,7 +513,7 @@ class postsCtrl extends jController {
 			
 			jForms::destroy('havefnubb~posts', $parent_id);
 			
-			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'public_message');
+			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
 			
 			$rep->params = array('id_post'=>$parent_id);
 			$rep->action ='havefnubb~posts:view';
@@ -535,7 +529,6 @@ class postsCtrl extends jController {
 	}    
 	// quote message
     function quote() {       
-        global $HfnuConfig;
         $parent_id = (int) $this->param('parent_id');
         $id_post = (int) $this->param('id_post');
         if ($parent_id == 0 ) {
@@ -609,7 +602,7 @@ class postsCtrl extends jController {
 		
 		$dao = jDao::get('havefnubb~posts');
         $dao->delete($id_post);
-        jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'public_message');
+        jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'ok');
         $rep = $this->getResponse('redirect');
         $rep->action='havefnubb~posts:lists';
 		$rep->params=array('id_forum'=>$id_forum);

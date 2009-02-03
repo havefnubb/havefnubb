@@ -27,10 +27,10 @@
         </div>
         <div class="post-entry">
             <div class="message-content">
-                {$post->message|wiki:$wr_engine|stripslashes}
+                {$post->message|wiki:'wr3_to_xhtml'|stripslashes}
                 <div class="signature-content">
                     {if $post->member_comment != ''}<hr/>
-                    {$post->member_comment|eschtml|stripslashes}
+                    {$post->member_comment|wiki:'wr3_to_xhtml'|stripslashes}
                     {/if}
                 </div>            
             </div>
@@ -57,10 +57,10 @@
 {/foreach}
 </div>
 
+<div class="linkpages">
+{pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
+</div>
 {ifuserconnected}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
 {/ifuserconnected}
 {zone 'havefnubb~jumpto',array('id_forum'=>$id_forum)}
-<div class="linkpages">
-{pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
-</div>

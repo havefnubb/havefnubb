@@ -35,7 +35,7 @@
    </menulist>
 
    <textarea ref="member_comment" rows="7" cols="80">
-       <label locale="havefnubb~member.comments"/>
+       <label locale="havefnubb~member.common.account.signature"/>
    </textarea>
 
     <radiobuttons ref="member_show_email">
@@ -45,13 +45,9 @@
     </radiobuttons>
 
    <menulist ref="member_language">
-      <label locale="havefnubb~main.common.language"/>
+      <label locale="havefnubb~member.common.language"/>
       <datasource class="havefnubb~language" />
    </menulist>
-    
-   <textarea ref="member_comment" rows="7" cols="80">
-       <label locale="havefnubb~member.comments"/>
-   </textarea>
    
    <input ref="member_connection">
        <label locale="havefnubb~member.connection"/>

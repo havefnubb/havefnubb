@@ -5,7 +5,7 @@
 <h1>{@havefnubb~post.form.title.preview.page@}</h1>
 {$previewsubject|eschtml}
 
-{$previewtext|wiki:$wr_engine}
+{$previewtext|wiki:'wr3_to_xhtml'}
 {/if}
 
 <h1>{$heading}</h1>

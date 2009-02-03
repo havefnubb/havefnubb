@@ -53,6 +53,8 @@
 	<property name="member_connection" fieldname="member_connection" datatype="string" default="" maxlength="40"/>
 
 	<property name="member_last_connect" fieldname="member_last_connect" datatype="string" />
+    <property name="member_language" fieldname="member_language" datatype="string" maxlenght="40"/>    
+    <property name="member_show_email" fieldname="member_show_email" datatype="string" maxlenght="1"/>    
 
    </record>
    <factory>
