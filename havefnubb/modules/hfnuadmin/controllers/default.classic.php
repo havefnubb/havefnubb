@@ -93,17 +93,9 @@ class defaultCtrl extends jController {
     function forums() {
     
         $form = jForms::create('hfnuadmin~category_list');
-        
-        $dao = jDao::get('havefnubb~category');
-        $cats = $dao->findAll();
-        
-        $dao = jDao::get('havefnubb~forum');
-        $forums = $dao->findAll(); 
-        
         $tpl = new jTpl();        
         $rep = $this->getResponse('html');
-        $tpl->assign('cats',$cats);
-        $tpl->assign('forums',$forums);
+
         $tpl->assign('form',$form);
         
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~forum_index'));

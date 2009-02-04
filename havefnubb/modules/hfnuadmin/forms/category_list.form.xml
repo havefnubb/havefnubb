@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
-<menulist ref="cat_name">
-	<label locale="hfnuadmin~category.category_name"/>
-  <datasource dao="havefnubb~category" method="findAll" 
-              labelproperty="cat_name" labelseparator=" = " valueproperty="id_cat"/>   
-</menulist>
+<choice ref="forum">
+	<label locale="hfnuadmin~forum.forum.will.be"/>
+	<item value="childof">
+		<label locale="hfnuadmin~forum.order.child.of"/>
+		<menulist ref="put_childof" required="true">
+			<label>...</label>
+			<datasource dao="havefnubb~forum" method="findAll" 
+					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
+		</menulist>
+	</item>
+	<item value="before">
+		<label locale="hfnuadmin~forum.order.before"/>
+		<menulist ref="put_before" required="true">
+			<label>...</label>
+			<datasource dao="havefnubb~forum" method="findAll" 
+					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
+		</menulist>
+	</item>
+	<item value="after">
+		<label locale="hfnuadmin~forum.order.after"/>
+		<menulist ref="put_after" required="true">
+			<label>...</label>
+			<datasource dao="havefnubb~forum" method="findAll" 
+					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
+		</menulist>
+	</item>
+</choice>
 
 <submit ref="validate">
   <label>Veuillez valider</label>
