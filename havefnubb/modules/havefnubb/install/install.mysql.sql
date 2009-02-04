@@ -376,6 +376,22 @@ CREATE TABLE IF NOT EXISTS `posts` (
 INSERT INTO `posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`) VALUES
 (1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', '2009-02-03 10:28:51', '2009-02-03 10:28:51', 0);
 
+
+
+--
+-- Table structure for table `rank`
+--
+
+DROP TABLE IF EXISTS `rank`;
+CREATE TABLE IF NOT EXISTS `rank` (
+  `id_rank` int(12) NOT NULL AUTO_INCREMENT,
+  `rank_name` varchar(40) NOT NULL,
+  `rank_limit` int(9) NOT NULL,
+  PRIMARY KEY (`id_rank`)
+) ;
+
+
+
 -- --------------------------------------------------------
 
 --

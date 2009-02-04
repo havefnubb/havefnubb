@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+<menulist ref="cat_name">
+	<label locale="hfnuadmin~category.category_name"/>
+  <datasource dao="havefnubb~category" method="findAll" 
+              labelproperty="cat_name" labelseparator=" = " valueproperty="id_cat"/>   
+</menulist>
+
+<submit ref="validate">
+  <label>Veuillez valider</label>
+  <item value="createBt" locale="hfnuadmin~forum.createBt"/>
+</submit>
+</form>

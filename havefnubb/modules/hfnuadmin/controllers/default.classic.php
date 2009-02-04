@@ -14,6 +14,10 @@ class defaultCtrl extends jController {
     */
     public $pluginParams = array(
 		'config' 	=> array( 'jacl2.right'=>'hfnu.admin.config.edit'),
+        'category' 	=> array( 'jacl2.right'=>'hfnu.admin.index'),
+        'forum' 	=> array( 'jacl2.right'=>'hfnu.admin.index'),
+        'notify' 	=> array( 'jacl2.right'=>'hfnu.admin.index'),        
+        'rank' 	    => array( 'jacl2.right'=>'hfnu.admin.index'),
         'phpinfo' 	=> array( 'jacl2.right'=>'hfnu.admin.server.info'),        
         'check_upgrade'=> array( 'jacl2.right'=>'hfnu.admin.config.view'),		
     );
@@ -77,15 +81,33 @@ class defaultCtrl extends jController {
     }
     
     function categories() {
+        $dao = jDao::get('havefnubb~category');
+        $categories = $dao->findAll();
+        $tpl = new jTpl();        
         $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN', '');
-        return $rep;
+        $tpl->assign('categories',$categories);
+        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~category_index'));
+        return $rep; 
     }
     
     function forums() {
+    
+        $form = jForms::create('hfnuadmin~category_list');
+        
+        $dao = jDao::get('havefnubb~category');
+        $cats = $dao->findAll();
+        
+        $dao = jDao::get('havefnubb~forum');
+        $forums = $dao->findAll(); 
+        
+        $tpl = new jTpl();        
         $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN', '');
-        return $rep;
+        $tpl->assign('cats',$cats);
+        $tpl->assign('forums',$forums);
+        $tpl->assign('form',$form);
+        
+        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~forum_index'));
+        return $rep; 
     }
     
     function notifying() {
@@ -95,11 +117,15 @@ class defaultCtrl extends jController {
     }
     
     function ranks() {
+        $dao = jDao::get('havefnubb~ranks');
+        $ranks = $dao->findAll();
+        $tpl = new jTpl();        
         $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN', '');
-        return $rep;
-    
+        $tpl->assign('ranks',$ranks);
+        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~ranks_index'));
+        return $rep;    
     }    
+    
     function ban() {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', '');
