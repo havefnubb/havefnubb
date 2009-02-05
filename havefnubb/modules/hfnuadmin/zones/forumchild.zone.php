@@ -18,12 +18,18 @@ class forumchildZone extends jZone {
         
         if (! $id_forum ) return;
         if (! $lvl ) return;
-
+        
+        $lvl = (int) $lvl;
+        $id_forum = (int) $id_forum;
+        
         $dao = jDao::get('havefnubb~forum');
 
-        $forumChilds = $dao->findChild($id_forum,$lvl);
+        $forumChildren = $dao->findChild($id_forum,$lvl);
+        $arrow = '';
+        $arrow = str_pad($arrow,$lvl,'-') . '>';
 
         $this->_tpl->assign('lvl',$lvl);
-        $this->_tpl->assign('forumChilds',$forumChilds);
+        $this->_tpl->assign('arrow',$arrow);
+        $this->_tpl->assign('forumChildren',$forumChildren);
     }
 }

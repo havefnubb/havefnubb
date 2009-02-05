@@ -3,14 +3,6 @@
 
 <choice ref="forum">
 	<label locale="hfnuadmin~forum.forum.will.be"/>
-	<item value="in_cat">
-		<label locale="hfnuadmin~forum.in.category"/>
-		<menulist ref="put_in_cat" required="true">
-			<label>...</label>
-			<datasource dao="havefnubb~category" method="findAll" 
-					  labelproperty="cat_name" labelseparator=" = " valueproperty="id_cat"/>   
-		</menulist>
-	</item>	
 	<item value="childof">
 		<label locale="hfnuadmin~forum.order.child.of"/>
 		<menulist ref="put_childof" required="true">

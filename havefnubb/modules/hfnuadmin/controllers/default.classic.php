@@ -23,11 +23,9 @@ class defaultCtrl extends jController {
     );
     
     function index() {
-        $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN', '');
-        return $rep;
-    }
-    
+		$rep = $this->getResponse('html');
+		return $rep;
+	}
     function config() {
         global $HfnuConfig ;        
         $rep = $this->getResponse('html');
