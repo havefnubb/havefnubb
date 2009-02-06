@@ -13,11 +13,18 @@ class banCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        'create'    => array( 'jacl2.right'=>'hfnu.admin.ban.create'),
-        'edit'      => array( 'jacl2.right'=>'hfnu.admin.ban.edit'),
-        'delete'    => array( 'jacl2.right'=>'hfnu.admin.ban.delete'),
+        'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.ban.create',
+														'hfnu.admin.ban.edit')
+							),
+        'delete'   => array( 'jacl2.right'=>'hfnu.admin.ban.delete'),
     );
     
+    function index() {
+        $tpl = new jTpl();
+        $rep = $this->getResponse('html');
+        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~bans_index'));
+        return $rep;	
+    }
 
     function create () {
     

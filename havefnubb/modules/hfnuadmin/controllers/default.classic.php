@@ -77,50 +77,6 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN',$tpl->fetch('config'));
         return $rep;
     }
-    
-    function categories() {
-        $dao = jDao::get('havefnubb~category');
-        $categories = $dao->findAll();
-        $tpl = new jTpl();        
-        $rep = $this->getResponse('html');
-        $tpl->assign('categories',$categories);
-        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~category_index'));
-        return $rep; 
-    }
-    
-    function forums() {
-    
-        $form = jForms::create('hfnuadmin~category_list');
-        $tpl = new jTpl();        
-        $rep = $this->getResponse('html');
-
-        $tpl->assign('form',$form);
-        
-        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~forum_index'));
-        return $rep; 
-    }
-    
-    function notifying() {
-        $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN', '');
-        return $rep;
-    }
-    
-    function ranks() {
-        $dao = jDao::get('havefnubb~ranks');
-        $ranks = $dao->findAll();
-        $tpl = new jTpl();        
-        $rep = $this->getResponse('html');
-        $tpl->assign('ranks',$ranks);
-        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~ranks_index'));
-        return $rep;    
-    }    
-    
-    function ban() {
-        $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN', '');
-        return $rep;
-   }
    
     public function check_upgrade() {
         

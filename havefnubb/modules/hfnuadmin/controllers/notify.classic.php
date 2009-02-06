@@ -13,10 +13,16 @@ class notifyCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        'create'    => array( 'jacl2.right'=>'hfnu.admin.notify.create'),
-        'edit'      => array( 'jacl2.right'=>'hfnu.admin.notify.edit'),
-        'delete'    => array( 'jacl2.right'=>'hfnu.admin.notify.delete'),
+        'index'    => array( 'jacl2.right'=>'hfnu.admin.notify.list'),
+        'delete'   => array( 'jacl2.right'=>'hfnu.admin.notify.delete'),
     );
+    
+    function index() {
+        $tpl = new jTpl();
+        $rep = $this->getResponse('html');
+        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~notify_index'));
+        return $rep;	
+    }
     
 
     function create () {

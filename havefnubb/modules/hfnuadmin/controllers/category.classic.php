@@ -13,29 +13,35 @@ class categoryCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        'create'    => array( 'jacl2.right'=>'hfnu.admin.category.create'),
-        'edit'      => array( 'jacl2.right'=>'hfnu.admin.category.edit'),
-        'delete'    => array( 'jacl2.right'=>'hfnu.admin.category.delete'),
+        'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.category.create',
+														'hfnu.admin.category.edit')
+							),
+        'delete'   => array( 'jacl2.right'=>'hfnu.admin.category.delete'),
     );
     
-
-    function create () {
-        $form = jForms::create('hfnuadmin~category');
-        $rep = $this->getResponse('html');
+    function index() {
         $tpl = new jTpl();
-        $tpl->assign('form', $form);
-        $tpl->assign('action','hfnuadmin~category:savecreate');
-        $tpl->assign('category_heading',jLocale::get('hfnuadmin~category.create.a.category'));
-        $rep->body->assign('MAIN',$tpl->fetch('category_edit'));
-        return $rep;        
-    }
+		
+		$form = jForms::create('hfnuadmin~category');
 
+        $dao = jDao::get('havefnubb~category');
+        $categories = $dao->findAll();
+		
+        $tpl->assign('form', $form);
+        $tpl->assign('categories',$categories);
+		
+        $rep = $this->getResponse('html');
+        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~category_index'));
+        return $rep;
+	
+    }
+	
     function savecreate () {
         $form = jForms::get('hfnuadmin~category');
         if ($form->check()) {
             jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:categories';
+            $rep->action='hfnuadmin~category:index';
             return $rep;
         }
                
@@ -52,39 +58,11 @@ class categoryCtrl extends jController {
             $dao->insert($record);
             
             jMessage::add(jLocale::get('hfnuadmin~category.category.added'),'ok');
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:categories';
-            return $rep;
         }
-        else {
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:categories';
-            return $rep;
-        }        
-    }
+        $rep = $this->getResponse('redirect');
+        $rep->action='hfnuadmin~category:index';
+        return $rep;
 
-    function edit () {
-        $id_cat = (int) $this->param('id_cat');
-        
-        if ($id_cat == 0) {
-            jMessage::add(jLocale::get('hfnuadmin~category.unknown.category'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:categories';
-            return $rep;                 
-        }      
-
-		$form = jForms::create('hfnuadmin~category',$id_cat);
-		$form->initFromDao("havefnubb~category");
-				
-		$form->setData('id_cat',$id_cat);
-            
-        $rep = $this->getResponse('html');
-        $tpl = new jTpl();
-        $tpl->assign('form', $form);
-        $tpl->assign('action','hfnuadmin~category:saveedit');
-        $tpl->assign('category_heading',jLocale::get('hfnuadmin~category.edit.this.category'));
-        $rep->body->assign('MAIN',$tpl->fetch('category_edit'));
-        return $rep;        
     }
 
     function saveedit () {
@@ -93,7 +71,7 @@ class categoryCtrl extends jController {
         if ($id_cat == 0) {
             jMessage::add(jLocale::get('hfnuadmin~category.unknown.category'),'error');
             $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:categories';
+            $rep->action='hfnuadmin~category:index';
             return $rep;                 
         } 
         
@@ -102,34 +80,39 @@ class categoryCtrl extends jController {
         if (!$form->check()) {
             jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:categories';
+            $rep->action='hfnuadmin~category:index';
             return $rep;
         }
         
         $dao = jDao::get('havefnubb~category');
         
-        $record = $dao->get($id_cat);
-        $record->cat_name = $form->getData('cat_name');
-        $record->cat_order = $form->getData('cat_order');
+        $record 			= $dao->get($id_cat);
+        $record->cat_name 	= $form->getData('cat_name');
+        $record->cat_order 	= $form->getData('cat_order');
         
         $dao->update($record);
         
         jMessage::add(jLocale::get('hfnuadmin~category.category.modified'),'ok');
         $rep = $this->getResponse('redirect');
-        $rep->action='hfnuadmin~default:categories';
+        $rep->action='hfnuadmin~category:index';
         return $rep;
     }
 
     function delete() {
 		$id_cat = (integer) $this->param('id_cat');
-	
-		$dao = jDao::get('havefnubb~category');        
-        $dao->delete($id_cat);
+		if ($id_cat == 0) {
+			jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
+		} else {		
+			//@TODO : check if there is existing Forum linked to this category
+			// if so, ask the user if he wants to remove the forum and all the linked posts !
+			$dao = jDao::get('havefnubb~category');        
+			$dao->delete($id_cat);
         
-        jMessage::add(jLocale::get('hfnuadmin~category.category.deleted'),'ok');
-        
+	        jMessage::add(jLocale::get('hfnuadmin~category.category.deleted'),'ok');
+		}
+		
         $rep = $this->getResponse('redirect');
-        $rep->action='hfnuadmin~default:categories';
+        $rep->action='hfnuadmin~category:index';
         return $rep;        
     }   
     

@@ -13,11 +13,23 @@ class forumCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        'create'    => array( 'jacl2.right'=>'hfnu.admin.forum.create'),
-        'edit'      => array( 'jacl2.right'=>'hfnu.admin.forum.edit'),
+        'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.forum.create',
+														'hfnu.admin.forum.edit')
+							),		        
         'delete'    => array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
     );
     
+
+    function index() {
+        $form = jForms::create('hfnuadmin~category_list');
+        $tpl = new jTpl();        
+        $rep = $this->getResponse('html');
+
+        $tpl->assign('form',$form);
+        
+        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~forum_index'));
+        return $rep;     
+    }
 
     function create () {
         $possibleActions = array('in_cat','before','after','childof');

@@ -19,6 +19,13 @@
         updatepattern="" insertpattern="" selectpattern=""
     />-->
     </record>
+    <factory>
+        <method name="findAll">
+            <order>
+                <orderitem property="cat_order" way="asc" />
+            </order>            
+        </method>
+    </factory>
     <!--<factory>
         <method name="findByStage" type="select/selectfirst/delete/update/php">
             <parameter name="" />

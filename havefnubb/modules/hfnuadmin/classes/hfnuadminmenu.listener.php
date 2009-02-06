@@ -35,27 +35,27 @@ class hfnuadminmenuListener extends jEventListener{
 											  'havefnubb'));
 		  $event->add(new masterAdminMenuItem('category',
 											  jLocale::get('hfnuadmin~admin.categories'),
-											  jUrl::get('hfnuadmin~default:categories'),
+											  jUrl::get('hfnuadmin~category:index'),
 											  202,
 											  'havefnubb'));
 		  $event->add(new masterAdminMenuItem('forum',
 											  jLocale::get('hfnuadmin~admin.forum'),
-											  jUrl::get('hfnuadmin~default:forums'),
+											  jUrl::get('hfnuadmin~forum:index'),
 											  203,
 											  'havefnubb'));
 		  $event->add(new masterAdminMenuItem('notifying',
 											  jLocale::get('hfnuadmin~admin.notifying'),
-											  jUrl::get('hfnuadmin~default:notifying'),
+											  jUrl::get('hfnuadmin~notify:index'),
 											  205,
 											  'havefnubb'));	
 		  $event->add(new masterAdminMenuItem('rank',
 											  jLocale::get('hfnuadmin~admin.rank'),
-											  jUrl::get('hfnuadmin~default:ranks'),
+											  jUrl::get('hfnuadmin~ranks:index'),
 											  206,
 											  'havefnubb'));
 		  $event->add(new masterAdminMenuItem('ban',
 											  jLocale::get('hfnuadmin~admin.ban'),
-											  jUrl::get('hfnuadmin~default:ban'),
+											  jUrl::get('hfnuadmin~ban:index'),
 											  207,
 											  'havefnubb'));		
 		}

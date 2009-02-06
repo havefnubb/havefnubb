@@ -1,19 +1,27 @@
 <h1>{@havefnubb~rank.the.ranks@}</h1>
-<ul>
-<li><a href="{jurl 'hfnuadmin~ranks:create'}" title="{@hfnuadmin~rank.create.a.rank@}">{@hfnuadmin~rank.create.a.rank@}</a></li>
-</ul>
+{ifacl2 'hfnu.admin.rank.create'}
+<h2>{@hfnuadmin~rank.create.a.rank@}</h2>
+{formfull $form, 'hfnuadmin~ranks:savecreate'}
+<br/>
+{@hfnuadmin~rank.create.a.rank.description@}
+{/ifacl2}
+<h2>{@hfnuadmin~rank.list.of.ranks@}</h2>
 <table width="100%">
     <tr>
-        <th class="forumlistcol">{@havefnubb~rank.rank_name@}</th>
-        <th class="forumlistcol">{@havefnubb~rank.rank_limit@}</th>
-        <th class="forumlistcol">{@hfnuadmin~rank.actions@}</th>
+        <th>{@havefnubb~rank.rank_name@}</th>
+        <th>{@havefnubb~rank.rank_limit@}</th>
+{ifacl2 'hfnu.admin.rank.edit'}               
+        <th>{@hfnuadmin~rank.actions@}</th>
+{/ifacl2}         
     </tr>
     {foreach $ranks as $rank}
+    {ifacl2 'hfnu.admin.rank.edit'}
+    {zone 'hfnuadmin~ranks_edit_inline',array('id_rank'=>$rank->id_rank)}
+    {else}
     <tr>
-        <td class="line coltitle linkincell"><a href="{jurl 'hfnuadmin~ranks:edit',array('id_rank'=>$rank->id_rank)}" title="{@hfnuadmin~rank.edit.this.rank@}">{$rank->rank_name|eschtml}</a></td>
-        <td class="line coldate linkincell">{$rank->rank_limit}</td>
-        <td class="line coldate linkincell"><a href="{jurl 'hfnuadmin~ranks:delete',array('id_rank'=>$rank->id_rank)}" title="{@hfnuadmin~rank.delete.this.rank@}" onclick="return confirm('{jLocale 'hfnuadmin~rank.confirm.deletion',array($rank->rank_name)}')">{@hfnuadmin~rank.delete.this.rank@}</a> - 
-        <a href="{jurl 'hfnuadmin~ranks:edit',array('id_rank'=>$rank->id_rank)}" title="{@hfnuadmin~rank.edit.this.rank@}">{@hfnuadmin~rank.edit.this.rank@}</a></td>
+        <td>{$rank->rank_name|eschtml}</td>
+        <td>{$rank->rank_limit}</td>
     </tr>
-    {/foreach}
+    {/ifacl2}
+    {/foreach}    
 </table>

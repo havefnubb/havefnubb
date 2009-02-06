@@ -1,11 +1,14 @@
+{ifacl2 'hfnu.posts.view'}
 <div class="linkpages">
 {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>    
+{/ifacl2}
 
 <div class="postlist">
 {foreach $posts as $post}
 {assign $parent_id = $post->id_post}
 {assign $id_forum = $post->id_forum}
+{ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post">
     <div class="posthead">
         <h4 class="posthead-title">{$post->subject|eschtml}</h4>
@@ -41,26 +44,28 @@
             {ifacl2 'hfnu.posts.notify'}
             <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
              {/ifacl2}
-            {ifacl2 'hfnu.posts.delete'}             
+            {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
             <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
             {/ifacl2}
-            {ifacl2 'hfnu.posts.edit'}           
+            {ifacl2 'hfnu.posts.create','forum'.$id_forum}
             <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
-            {/ifacl2}
-            {ifacl2 'hfnu.posts.quote'}            
             <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
             {/ifacl2}
             
         </div>
     </div>
-</div>    
+</div>
+{/ifacl2}
 {/foreach}
 </div>
-
+{ifacl2 'hfnu.posts.view'}
 <div class="linkpages">
 {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
-{ifuserconnected}
+{/ifacl2}
+{ifacl2 'hfnu.posts.create','forum'.$id_forum}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
-{/ifuserconnected}
+{/ifacl2}
+{ifacl2 'hfnu.forum.list'}
 {zone 'havefnubb~jumpto',array('id_forum'=>$id_forum)}
+{/ifacl2}

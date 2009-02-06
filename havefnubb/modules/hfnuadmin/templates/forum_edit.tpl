@@ -48,7 +48,7 @@
 {assign $line = true}
     {foreach $rights as $subject=>$right}
     <tr class="{if $line}odd{else}even{/if}">
-        <th>{$subject}</th>
+        <th>{jlocale "hfnuadmin~forum.".$subject}</th>
         {foreach $right as $group=>$r}
         <td><input type="checkbox" name="rights[{$group}][{$subject}]" {if $r}checked="checked"{/if} /></td>
         {/foreach}
