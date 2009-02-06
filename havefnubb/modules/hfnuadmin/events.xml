@@ -3,7 +3,7 @@
    <listener name="hfnuadminmenu">
 		<event name="masteradminGetMenuContent" />
    </listener>
-   <listener name="havefnubbdashboard">
+   <listener name="hfnuadmindashboard">
 		<event name="masterAdminGetDashboardWidget"/>
-   </listener>
+   </listener>   
 </events>

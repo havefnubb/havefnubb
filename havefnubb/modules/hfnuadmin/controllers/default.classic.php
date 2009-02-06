@@ -5,7 +5,7 @@
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://forge.jelix.org/projects/havefnubb
-* @license    All right reserved
+* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
 class defaultCtrl extends jController {
@@ -106,12 +106,8 @@ class defaultCtrl extends jController {
             }
         }
         $rep = $this->getResponse('redirect');
-        $rep->action = 'default:index';
+        $rep->action = 'hfnuadmin~default:index';
         return $rep;
         
-    }
-    
-    public function phpinfo() {
-        phpinfo();
     }
 }   

@@ -8,12 +8,12 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-class server_infoZone extends jZone {
-    protected $_tplname='zone.server_info';
+class hfnuaboutZone extends jZone {
+    protected $_tplname='zone.hfnuabout';
 
     protected function _prepareTpl(){
-		
-		$srvinfos = jClasses::getService("hfnuadmin~serverinfos");
+/*		
+		$srvinfos = jClasses::getService("servinfo~serverinfos");
 
 		$this->_tpl->assign('LOADS_AVG',$srvinfos->loadsAvg());
 		$this->_tpl->assign('CACHE_ENGINE',$srvinfos->cacheEngine());
@@ -22,6 +22,6 @@ class server_infoZone extends jZone {
 		$this->_tpl->assign('DB_VERSION',$srvinfos->dbVersion());
 		$this->_tpl->assign('DB_SIZE',$srvinfos->dbSize());
 		$this->_tpl->assign('DB_RECORDS',$srvinfos->dbRecords());
-
+*/
     }
 }
