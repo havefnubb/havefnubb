@@ -6,7 +6,7 @@
 {/ifacl2}
 
 {ifacl2 'hfnu.posts.create'}
-<div id="post-message">{jMessage}</div>
+<div id="post-message">{jmessage}</div>
 {/ifacl2}
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 <div class="newmessage"><a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a></div>
