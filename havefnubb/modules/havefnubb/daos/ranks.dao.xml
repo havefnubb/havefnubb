@@ -16,5 +16,11 @@
              <orderitem property="rank_limit" way="asc" />
          </order>
      </method>
+        <method name="getMyRank" type="selectfirst">
+            <parameter name="nb_msg" />
+            <conditions>
+                <lteq property="rank_limit" expr="$nb_msg" />
+            </conditions>
+        </method>        
     </factory>
 </dao>

@@ -8,16 +8,14 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-class membersignatureZone extends jZone {
-    protected $_tplname='zone.membersignature';
+class what_is_my_rankZone extends jZone {
+    protected $_tplname='zone.what_is_my_rank';
 
     protected function _prepareTpl(){
-        $id = $this->param('id');
-        if (!$id) return;
-
-        $dao = jDao::get('havefnubb~member');      
-        $sig = $dao->getById($id);
-
-        $this->_tpl->assign('sig',$sig->member_comment);
+		$nbMsg = $this->param('nbMsg');
+		if (!$nbMsg ) return;		
+        $dao = jDao::get('havefnubb~ranks');
+        $myRank = $dao->getMyRank($nbMsg);
+        $this->_tpl->assign('myRank',$myRank);                
     }
 }

@@ -56,8 +56,10 @@
 	<property name="member_last_connect" fieldname="member_last_connect" datatype="string" />
     
 	<property name="member_show_email" fieldname="member_show_email" datatype="string" maxlength="1"/>    
-    <property name="member_language" fieldname="member_language" datatype="string" />    
-
+    <property name="member_language" fieldname="member_language" datatype="string" />
+	
+	<property name="nb_msg" fieldname="nb_msg" datatype="integer" />
+	
    </record>
    <factory>
      <method name="getByLoginPassword" type="selectfirst">
@@ -151,6 +153,17 @@
             <order>
                 <orderitem property="request_date" way="desc" />
             </order>            
-        </method>    	   
+        </method>
+       <!-- for stats purpose -->
+        <method name="updateNbMsg" type="update">
+			<parameter name="id"/>
+			<parameter name="nb_msg"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+			<values>
+				<value property="nb_msg" expr="$nb_msg"/>
+			</values>
+        </method> 		
    </factory>
 </dao>

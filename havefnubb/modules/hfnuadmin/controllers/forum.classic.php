@@ -44,7 +44,7 @@ class forumCtrl extends jController {
         if ($id_forum == 0 or ! in_array($choice,$possibleActions) ) {
             jMessage::add(jLocale::get('hfnuadmin~forum.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:forums';
+            $rep->action='hfnuadmin~forum:index';
             return $rep;
         }
                
@@ -100,12 +100,12 @@ class forumCtrl extends jController {
             
             jMessage::add(jLocale::get('hfnuadmin~forum.forum.added'),'ok');
             $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:forums';
+            $rep->action='hfnuadmin~forum:index';
             return $rep;
         }
         else {
             $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:forums';
+            $rep->action='hfnuadmin~forum:index';
             return $rep;
         }    
     }
@@ -116,7 +116,7 @@ class forumCtrl extends jController {
         if ($id_forum == 0 ) {
             jMessage::add(jLocale::get('hfnuadmin~forum.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:forums';
+            $rep->action='hfnuadmin~forum:index';
             return $rep;
         }
         $dao = jDao::get('havefnubb~forum');
@@ -167,7 +167,7 @@ class forumCtrl extends jController {
         if ($id_forum == 0) {
             jMessage::add(jLocale::get('hfnuadmin~forum.unknown.forum'),'error');
             $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~default:forums';
+            $rep->action='hfnuadmin~forum:index';
             return $rep;                 
         }
         $error = '';
@@ -216,7 +216,7 @@ class forumCtrl extends jController {
         /**************/
         
         $rep = $this->getResponse('redirect');
-        $rep->action='hfnuadmin~default:forums';
+        $rep->action='hfnuadmin~forum:index';
         return $rep;   
     }
     
@@ -229,7 +229,7 @@ class forumCtrl extends jController {
         jMessage::add(jLocale::get('hfnuadmin~forum.forum.deleted'),'ok');
         
         $rep = $this->getResponse('redirect');
-        $rep->action='hfnuadmin~default:forums';
+        $rep->action='hfnuadmin~forum:index';
         return $rep;         
     }
 

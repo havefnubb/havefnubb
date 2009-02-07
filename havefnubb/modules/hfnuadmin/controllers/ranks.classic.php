@@ -67,32 +67,35 @@ class ranksCtrl extends jController {
     }
 
     function saveedit () {
-        $id_rank = (int) $this->param('id_rank');
-        
-        if ($id_rank == 0) {
-            jMessage::add(jLocale::get('hfnuadmin~rank.unknown.rank'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~ranks:index';
-            return $rep;                 
-        } 
-        
-        
-        $form = jForms::fill('hfnuadmin~ranks',$id_rank);
-        if (!$form->check()) {
-            jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~ranks:index';
-            return $rep;
-        }
-        
-        $dao = jDao::get('havefnubb~ranks');
-        
-        $record = $dao->get($id_rank);
-        $record->rank_name = $form->getData('rank_name');
-        $record->rank_limit = $form->getData('rank_limit');
-        
-        $dao->update($record);
-        jMessage::add(jLocale::get('hfnuadmin~rank.rank.modified'),'ok');
+        $id_rank 	= $this->param('id_rank');
+		$rank_name 	= $this->param('rank_name');
+		$rank_limit = $this->param('rank_limit');
+
+		if ($this->param('saveBt')== jLocale::get('hfnuadmin~rank.saveBt')) {
+		
+			if (count($id_rank) == 0) {
+				jMessage::add(jLocale::get('hfnuadmin~rank.unknown.rank'),'error');
+				$rep = $this->getResponse('redirect');
+				$rep->action='hfnuadmin~ranks:index';
+				return $rep;                 
+			} 
+	
+			$dao = jDao::get('havefnubb~ranks');
+			
+			foreach ($id_rank as $thisId) {
+				$record 			= $dao->get( (int) $id_rank[$thisId]);
+				$record->rank_name 	= (string) $rank_name[$id_rank[$thisId]];
+				$record->rank_limit = (int) $rank_limit[$id_rank[$thisId]];
+				
+				$dao->update($record);
+			}
+			
+			jMessage::add(jLocale::get('hfnuadmin~rank.rank.modified'),'ok');
+		}
+		else {
+			jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
+		}
+		
         $rep = $this->getResponse('redirect');
         $rep->action='hfnuadmin~ranks:index';
         return $rep;
@@ -115,4 +118,4 @@ class ranksCtrl extends jController {
         return $rep;        
     }   
     
-}   
+}

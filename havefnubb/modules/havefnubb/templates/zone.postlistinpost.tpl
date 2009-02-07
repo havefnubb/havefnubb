@@ -20,11 +20,11 @@
                 <li class="membername"><a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a></li>        
                 <li class="memberavatar">{avatar 'images/avatars/'.$post->id_user}</li>
                 <li class="membertown">{@havefnubb~member.town@} : {$post->member_town|eschtml}</li>
-                <li class="membertitle"><span>Ici le rang</span></li>        
-                <li class="memberstatus"><span>Ici Online/Offline</span></li>
+                <li class="membertitle"><span>{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$post->nb_msg)}</span></li>        
+                <li class="memberstatus"><span>{zone 'havefnubb~online_offline',array('userId'=>$post->id_user)}</span></li>
             </ul>
             <ul class="member-info">
-                <li class="membersnbposts">{@havefnubb~member.nb.messages@}: {zone 'havefnubb~membernbmsg', array('id_user'=>$post->id_user)}</li>
+                <li class="membersnbposts">{@havefnubb~member.nb.messages@}: {$post->nb_msg}</li>
                 <li class="membercontacts"><span class="memberemail"><a href="mailto:{$post->email}">{@havefnubb~member.email@}</a></span> - <span class="memberwebsite"><a href="{$post->member_website}" title="{@member.website@}">{@member.website@}</a></span></li>
             </ul>
         </div>

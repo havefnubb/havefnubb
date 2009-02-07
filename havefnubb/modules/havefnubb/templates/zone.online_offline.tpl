@@ -1,0 +1,1 @@
+{@havefnubb~member.status.online@} : {$status}

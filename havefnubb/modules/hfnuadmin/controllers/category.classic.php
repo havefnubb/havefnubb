@@ -66,33 +66,35 @@ class categoryCtrl extends jController {
     }
 
     function saveedit () {
-        $id_cat = (int) $this->param('id_cat');
+        $id_cat 	= $this->param('id_cat');
+		$cat_name 	= $this->param('cat_name');
+		$cat_order  = $this->param('cat_order');		
+
+		if ($this->param('saveBt')== jLocale::get('hfnuadmin~category.saveBt')) {
+			
+			if (count($id_cat) == 0) {
+				jMessage::add(jLocale::get('hfnuadmin~category.unknown.category'),'error');
+				$rep = $this->getResponse('redirect');
+				$rep->action='hfnuadmin~category:index';
+				return $rep;                 
+			} 			
+			
+			$dao = jDao::get('havefnubb~category');
+
+			foreach ($id_cat as $thisId) {
+				$record 			= $dao->get( (int) $id_cat[$thisId]);
+				$record->cat_name 	= (string) $cat_name[$id_cat[$thisId]];
+				$record->cat_order 	= (int) $cat_order[$id_cat[$thisId]];
+				
+				$dao->update($record);
+			}
         
-        if ($id_cat == 0) {
-            jMessage::add(jLocale::get('hfnuadmin~category.unknown.category'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~category:index';
-            return $rep;                 
-        } 
-        
-        
-        $form = jForms::fill('hfnuadmin~category',$id_cat);
-        if (!$form->check()) {
-            jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~category:index';
-            return $rep;
-        }
-        
-        $dao = jDao::get('havefnubb~category');
-        
-        $record 			= $dao->get($id_cat);
-        $record->cat_name 	= $form->getData('cat_name');
-        $record->cat_order 	= $form->getData('cat_order');
-        
-        $dao->update($record);
-        
-        jMessage::add(jLocale::get('hfnuadmin~category.category.modified'),'ok');
+			jMessage::add(jLocale::get('hfnuadmin~category.category.modified'),'ok');
+		}
+		else {
+			jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');			
+		}
+		
         $rep = $this->getResponse('redirect');
         $rep->action='hfnuadmin~category:index';
         return $rep;

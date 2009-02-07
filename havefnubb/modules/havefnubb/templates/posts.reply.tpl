@@ -6,6 +6,12 @@
 {$previewsubject|eschtml}
 
 {$previewtext|wiki:'wr3_to_xhtml'}
+
+<div class="signature-content">
+    {if $signature != ''}<hr/>
+    {$signature|wiki:'wr3_to_xhtml'|stripslashes}
+    {/if}
+</div>
 {/if}
 
 <h1>{$heading}</h1>

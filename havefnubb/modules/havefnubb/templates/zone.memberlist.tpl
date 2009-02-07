@@ -21,7 +21,7 @@
             </td>
             <td class="line colrank"></td>
             <td class="line coldate">{$member->request_date|jdatetime:'db_datetime':'lang_datetime'}</td>
-            <td class="line colnum">{zone 'havefnubb~membernbmsg',array('id_user'=>$member->id)}</td>
+            <td class="line colnum">{$member->nb_msg}</td>
         </tr>
         {/foreach}
     </table>

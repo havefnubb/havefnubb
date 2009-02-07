@@ -559,7 +559,7 @@ table .line {
     background-color: #F6B1B1;
     background-image: url(../images/exclamation.png);
 }
-#post-message .jelix-msg li.jelix-msg-item-warning {
+#post-message .jelix-msg li.jelix-msg-item-error {
     background-color: #F6CAB1;
     background-image: url(../images/error.png);
 }

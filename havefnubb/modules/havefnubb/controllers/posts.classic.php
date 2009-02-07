@@ -287,6 +287,7 @@ class postsCtrl extends jController {
 			$tpl->assign('id_post', $id_post);
 			$tpl->assign('id_forum', $id_forum);
             $tpl->assign('id_user', $user->id);
+			$tpl->assign('signature', $user->member_comment);
 			$tpl->assign('previewsubject', $form->getData('subject'));
 			$tpl->assign('previewtext', $form->getData('message'));
 			$tpl->assign('form', $form);
@@ -348,11 +349,17 @@ class postsCtrl extends jController {
 				$record->status		= 1;
 				$record->date_created = date('Y-m-d H:i:s');
 				$record->date_modified = date('Y-m-d H:i:s');
+				
 				$record->viewed		= 0;
 				
 				$dao->insert($record);
 				$record->parent_id = $record->id_post;
 				$id_post = $record->id_post;
+
+				// let's update the counter of posts in member table
+				$daoUser = jDao::get('havefnubb~member');			
+				// increment the nb_msg of the poster
+				$daoUser->updateNbMsg($user->id,$user->nb_msg +1);
 				
 			} else {
 				$record->date_modified = date('Y-m-d H:i:s');
@@ -458,6 +465,7 @@ class postsCtrl extends jController {
 			$tpl->assign('form', 		$form);
 			$tpl->assign('forum', 		$forum);
 			$tpl->assign('category', 	$category);
+			$tpl->assign('signature',	$user->member_comment);
 			
 			$rep = $this->getResponse('html');
 			$rep->title = jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject');
@@ -508,8 +516,12 @@ class postsCtrl extends jController {
 			$record->date_created = date('Y-m-d H:i:s');
 			$record->date_modified = date('Y-m-d H:i:s');
 			$record->viewed		= 0;
-				
 			$dao->insert($record);
+
+			// let's update the counter of posts in member table
+			$daoUser = jDao::get('havefnubb~member');			
+			// increment the nb_msg of the poster
+			$daoUser->updateNbMsg($user->id,$user->nb_msg +1);
 			
 			jForms::destroy('havefnubb~posts', $parent_id);
 			

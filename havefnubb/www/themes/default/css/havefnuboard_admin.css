@@ -1,3 +1,27 @@
+#admin-message .jelix-msg li {
+    padding:3px 19px;
+    margin:0;
+}
+
+#admin-message .jelix-msg li.jelix-msg-item-warning {
+    background-color: #F6B1B1;
+    background-image: url(../images/exclamation.png);
+	background-repeat: no-repeat;		
+}
+#admin-message .jelix-msg li.jelix-msg-item-error {
+    background-color: #F6CAB1;
+    background-image: url(../images/error.png);
+	background-repeat: no-repeat;		
+}
+
+#admin-message .jelix-msg li.jelix-msg-item-ok,
+#admin-message .jelix-msg li.jelix-msg-item-notice {
+    background-color: #E5F6D4;
+    background-image: url(../images/information.png);
+	background-repeat: no-repeat;	
+}
+
+
 #hfnuadmin-general, #hfnuadmin-messages, #hfnuadmin-members {
     background-color:#eff4f6;
     border: 1px solid #B0C4CB;
@@ -8,6 +32,31 @@
     border: 1px solid #B0C4CB;
 }	
 	
+	
+table.records-list thead th.records-list-forum-category {
+	border: 1px solid #d7d7d7;
+	border-bottom-color: #999;
+	font-size: 11px;
+	font-weight: bold;
+	padding: 2px .5em;
+	vertical-align: middle;
+	text-align:left;
+	color: #DD7070;
+}
+
+table.records-list thead th.records-list-forum-name,
+table.records-list thead th.records-list-rank-name{
+	width: 70%;
+}
+table.records-list thead th.records-list-forum-action,
+table.records-list thead th.records-list-rank-limit {	
+	width: 20%
+}
+
+table.records-list thead th.records-list-forum-order,
+table.records-list thead th.records-list-rank-action {
+	width: 10%;
+}
 	
 /* Tab */
 
