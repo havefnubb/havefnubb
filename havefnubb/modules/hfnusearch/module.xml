@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="hfnusearch@forge.jelix.org" name="hfnusearch" createdate="2009-02-08">
+        <version stability="pre-alpha" date="">0.1pre</version>
+        <label lang="fr_FR">hfnusearch</label>
+        <description lang="fr_FR"></description>
+        <license URL="">All right reserved</license>
+        <copyright>2008 FoxMaSk</copyright>
+        <creator name="FoxMaSk" email="foxmask@foxmask.info" active="true" />
+        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
+        <homepageURL>http://forge.jelix.org/projects/havefnubb</homepageURL>
+        <!--<updateURL>http://forge.jelix.org/projects/havefnubb/update.xml</updateURL>-->
+    </info>
+    <dependencies>
+        <jelix minversion="1.1RC3" maxversion="1.1RC3" />
+    </dependencies>
+</module>
