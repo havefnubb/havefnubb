@@ -5,30 +5,25 @@ html, body {
 
 body {
 	background-color: #fff;
-	color: #232320;
-    margin:0;
-	line-height: 160%;
+	color: #4d5431;
 	font-family: Verdana, helvetica, "Bitstream Vera Sans", sans-serif;
-    font-size:0.8em;
-    padding-left:1em;
-    padding-right:1em;
 }
 
 #hfbody {
 	width: 98%;
-	border-color: #232320;
+	border-color: #4d5431;
 	margin: auto;
+	font-size: 11px;
+	line-height: normal
 }
 
 
-h4 {
-	font-size: 1em;
-}
+h2, h4 {font-size: 1em}
+h3 {font-size: 1.1em}
 
 .forumcat, .subforum {
 	margin: auto;
 	margin-left: 20px;
-	background-color:#f1f1e5;
 }
 
 .smalltext
@@ -61,10 +56,13 @@ code, pre {
 	color: #666;
 }
 
+.up-and-down {
+	height:28px;
+}
 
 .headbox {
-	height:34px;
-	padding-left: 20px;	
+	padding-left: 20px;
+	background-color:#8dc192;
 }
 
 /* En-tête
@@ -75,7 +73,6 @@ code, pre {
 	position: relative;
 	margin: auto;
 	height: 100px;
-	color: #232320;
     vertical-align: bottom;
     background-color:#f1f1e5;
     background-position:center;
@@ -118,7 +115,6 @@ code, pre {
 	margin: auto;
 	color: #232320;
     vertical-align: bottom;
-    background-color:#f1f1e5;
     background-position:center;
     padding-left: 0px;
     padding-right:0px;
@@ -131,12 +127,11 @@ code, pre {
     list-style-position:outside;	
 }
 
-.formbg  {
+/*.formbg  {
 	background-color:#f1f1e5;
-}
+}*/
 
 #loginbox  {
-	background-color: #f1f1e5;
 	background-position:center;
     -moz-border-radius:10px 10px 8px 8px;
     -webkit-border-top-right-radius: 10px;
@@ -151,28 +146,23 @@ code, pre {
 
 #loginbox ul {
 	height: 30px;
-	background-color:#f1f1e5;	
 }
 #loginbox li {	
 	padding-left:20px;
 	padding-right:20px;
 	float:left;
 	list-style-type:none;	
-	background-color:#f1f1e5;
 }
 
 
 #loginbox h3, #profile h3 {
 	text-align: left;
 	margin: auto;
-	color: #4D5431;
-	background-color:#8dc192;
     -moz-border-radius:10px 10px 0px 0px;
     -webkit-border-top-right-radius: 10px;
     -webkit-border-top-left-radius: 10px; 
     border-radius:10px 10px 0px 0px;	
 	border-bottom: 1px solid;
-
 }
 
 /* navbar */
@@ -180,16 +170,12 @@ code, pre {
 	width: 100%;	
 	position: relative;
 	
-	color: #232320;
-	height:34px;
-	margin:0;
-	padding:0;
 	display:block;
 	font-weight: bold;
 	
-    vertical-align: bottom;
     background-color:#e1e1cd;
     background-position:center;
+	
     -moz-border-radius:0px 0px 10px  10px ;
     -webkit-border-bottom-right-radius: 10px;
     -webkit-border-bottom-left-radius: 10px;
@@ -202,8 +188,6 @@ code, pre {
 }
 
 #navbar li {
-	margin:0;
-	padding:0;
 	float:left;
 	list-style-type:none;	
 	background-color:#e1e1cd;
@@ -214,15 +198,13 @@ code, pre {
 }
 
 #navbar a {	
-	color:#232320;
-	font-size:11px;
 	text-decoration:none;	
 	display:block;
 	margin:0 3px 0 0;
 	padding:6px 10px;
 	border: 1px solid;
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
-	background: #e1e1cd;				
+	
 }
 #navbar a:link, #navbar a:visited {
     color: #4D5431; 
@@ -232,8 +214,8 @@ code, pre {
 { 
     cursor: pointer;
 	color:#f90;
-	background-color: #f1f1e5;
 	border:1px solid;
+	background-color:#f1f1e5;
 	border-color:#f1f1e5 #acac9c #acac9c #acac9c;	
 }
 
@@ -251,8 +233,8 @@ code, pre {
 {
 	width: 100%;
 	margin: auto;
-	margin-top: 50px;
-	background-color: #f1f1e5;
+	margin-top: 35px;
+	background-color: #f1f1e5;	
 	background-position:center;
     -moz-border-radius:10px 10px 8px 8px;
     -webkit-border-top-right-radius: 10px;
@@ -264,44 +246,31 @@ code, pre {
     z-index:50;
 }
 
-#breadcrumbtop {
+.breadcrumb {
 	background-color:#8dc192;
+}
+
+#breadcrumbtop {
     -moz-border-radius:10px 10px 0px 0px;
     -webkit-border-top-right-radius: 10px;
     -webkit-border-top-left-radius: 10px; 
     border-radius:10px 10px 0px 0px;	
 	border-bottom: 1px solid;
-	vertical-align: middle;
-}
-
-#breadcrumbtop h3 {
-	list-style-type: none;
-    display:inline;
-    padding:1px;
-    list-style-type:none;
-    list-style-position:outside;
-	background-color:#8dc192;
-	margin-left: 20px;
 }
 
 #breadcrumbbottom {
-	margin: auto;	
-	background-color:#8dc192;
     -moz-border-radius:0px 0px 7px 7px;
     -webkit-border-bottom-right-radius: 7px;
     -webkit-border-bottom-left-radius: 7px; 
     border-radius:0px 0px 7px 7px;
 	border-top: 1px solid;
-	vertical-align: baseline;
 }
 
-#breadcrumbbottom li {	
+#breadcrumbbottom li {
 	font-size: x-small;
     display:inline;
-    padding:1px;
     list-style-type:none;
-    list-style-position:outside;
-	background-color:#8dc192;
+/*    list-style-position:outside;*/
 }
 
 
@@ -331,7 +300,6 @@ code, pre {
 
 #stats, #lastposts, #jumpto, #quickreply {
 	margin: auto;	
-	background-color:#f1f1e5;
 	vertical-align: middle;
 }
 
@@ -369,14 +337,14 @@ code, pre {
 
 
 #member-identity fieldset, #member-pref fieldset, #member-hardware fieldset {
-	background-color:#f1f1e5;
+	
 	border-color: #f1f1e5;
 }
 
 .newmessage, .replymessage {
 	text-align: right;
 	margin-right: 10px;
-	margin-top: 15px;
+	margin-top: 20px;
 }
 
 .newmessage a, .replymessage a {
@@ -400,7 +368,6 @@ code, pre {
 
     cursor: pointer;
 	color:#f90;
-	background-color: #f1f1e5;
 	border:1px solid;
 	border-color:#f1f1e5 #f1f1e5 #acac9c #acac9c;		
 	-webkit-border-radius: 3px;
@@ -417,11 +384,11 @@ code, pre {
 
 .linkpages {
 	font-weight: bold;
+	margin: 1px;
 }
 
 .pagelinks {
-	margin: 1px;
-	background-color:#f1f1e5;
+	margin: 3px;
     -moz-border-radius:0px 0px 0px 0px;
     -webkit-border-top-right-radius: 0px;
     -webkit-border-top-left-radius: 0px; 
@@ -435,7 +402,6 @@ code, pre {
     padding:1px;
     list-style-type:none;
     list-style-position:outside;
-	background-color:#f1f1e5;
 	font-weight: normal;
 }
 li.pagelinks-current  {
@@ -685,16 +651,12 @@ table .line {
 /* Skin */
 
 .ui-tabs-nav {
-	height:34px;
-	margin:0;
-	padding:0;
+	height:28px;
 	display:block;
 	font-weight: bold;
 }
 
 .ui-tabs-nav li {
-	margin:0;
-	padding:0;
 	float:left;
 	list-style-type:none;	
 	background-color:#f1f1e5;
@@ -715,7 +677,6 @@ table .line {
 
 .ui-tabs-nav a {	
 	color:#4D5431;
-	font-size:11px;
 	text-decoration:none;	
 	display:block;
 	margin:0 3px 0 0;
@@ -724,7 +685,7 @@ table .line {
 	/*border-color:#dedec1 #dedec1 #acac9c #dedec1;
 	background: #dedec1;*/
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
-	background: #e1e1cd;	
+	background-color: #e1e1cd;	
 }
 
 .ui-tabs-nav a:link, .ui-tabs-nav a:visited {
@@ -738,8 +699,7 @@ table .line {
 .ui-tabs-nav a:hover, .ui-tabs-nav a:focus, .ui-tabs-nav a:active,
 .ui-tabs-nav .ui-tabs-unselect a:hover, .ui-tabs-nav .ui-tabs-unselect a:focus, .ui-tabs-nav .ui-tabs-unselect a:active { /* @ Opera, we need to be explicit again here now... */
     cursor: pointer;
-	color:#232320;
-	background: #f1f1e5;
+	background-color: #f1f1e5;
 	border:1px solid;
 	border-color:#acac9c #acac9c #f1f1e5 #acac9c;	
 }
@@ -766,9 +726,6 @@ table .line {
 	position: relative;
 	margin: auto;
 	margin-top: 20px;
-	height: 40px;
-	color: #232320;
-    vertical-align: middle;
     background-color:#f1f1e5;
     background-position:center;
     padding-left:0px;
@@ -786,7 +743,7 @@ table .line {
 #footer p {
 	text-align: center;
 	margin-bottom: 0;
-	color: #232320;
+    vertical-align: middle;
 }
 #footer span  { font-weight: bold; }
 #footer a:link, #footer a:visited, #footer a:active{

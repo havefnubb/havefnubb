@@ -1,4 +1,4 @@
-<div id="breadcrumbtop" class="headbox">
+<div id="breadcrumbtop" class="up-and-down">
     <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@havefnubb~member.memberlist.members.list@}</h3>
 </div>
 <div class="linkpages">

@@ -1,6 +1,6 @@
 <div id="loginbox">
 {ifuserconnected}
-    <h3 class="headbox">{@havefnubb~member.identity@}</h3>
+    <h3 class="up-and-down headbox">{@havefnubb~member.identity@}</h3>
     {jlocale 'havefnubb~member.login.welcome', array($login)}
 
     <div class="loginbox-links">
@@ -8,7 +8,7 @@
         <a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">{@havefnubb~member.login.your.account@}</a>)
     </div>
 {else}
-    <h3 class="headbox">{@havefnubb~main.login.connection@}</h3>
+    <h3 class="up-and-down headbox">{@havefnubb~main.login.connection@}</h3>
     {form $form, 'jcommunity~login:in'}
     <ul>
         <li>
@@ -26,7 +26,7 @@
             {formsubmit}
         </li>
         {if $url_return}
-            <input type="hidden" name="auth_url_return" value="{$url_return|eschtml}" />
+            <li><input type="hidden" name="auth_url_return" value="{$url_return|eschtml}" /></li>
         {/if}        
     </ul>    
     {/form}

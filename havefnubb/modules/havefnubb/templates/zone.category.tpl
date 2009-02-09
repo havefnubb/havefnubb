@@ -1,5 +1,5 @@
 {if $action == 'index'}
-    <div id="breadcrumbtop" class="headbox">
+    <div id="breadcrumbtop" class="headbox up-and-down">
         <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a></h3>
     </div>
 {foreach $categories as $category}
@@ -12,7 +12,7 @@
 {/foreach}
     {zone 'havefnubb~statsinfos'}
 {elseif $action == 'view'}
-    <div id="breadcrumbtop"  class="headbox">
+    <div id="breadcrumbtop" class="headbox up-and-down">
         <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {$category->cat_name|eschtml}</h3>
     </div>
     {ifacl2 'hfnu.forum.view'}

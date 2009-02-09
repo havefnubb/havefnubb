@@ -1,5 +1,5 @@
 <div id="loginbox">
-<h3 class="headbox">{@havefnubb~member.registration.account.creation@}</h3>
+<h3  class="up-and-down headbox">{@havefnubb~member.registration.account.creation@}</h3>
 
 <p>{@havefnubb~member.registration.account.service.description@}</p>
 
