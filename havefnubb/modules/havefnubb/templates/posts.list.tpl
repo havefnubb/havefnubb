@@ -1,4 +1,4 @@
-<div id="breadcrumbtop" class="up-and-down headbox">
+<div id="breadcrumbtop" class="headbox">
     <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat)}" title="{$category->cat_name}">{$category->cat_name|eschtml}</a> > {$forum->forum_name|eschtml}</h3>
 </div>
 {ifacl2 'hfnu.forum.list','forum'.$id_forum}
@@ -35,7 +35,7 @@
             </td>
             <td class="line colnum">{zone 'havefnubb~responsettl',array('id_post'=>$post->id_post)}</td>
             <td class="line colnum">{zone 'havefnubb~viewedttl',array('id_post'=>$post->id_post)}</td>
-            <td class="line coldate linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}</td>
+            <td class="colright linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}</td>
         </tr>
         {/foreach}
     </table>
@@ -45,6 +45,6 @@
 </div>
 {/ifacl2}
 
-{ifacl2 'hfnu.forum.list'}
+{ifacl2 'hfnu.forum.goto'}
 {zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
 {/ifacl2}

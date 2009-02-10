@@ -1,6 +1,7 @@
-<div id="quickreply">
+<div class="headings">
     <h3><span>{@havefnubb~post.quickreply.quickreply@}</span></h3>
-
+</div>
+<div id="quickreply">
     {form $form, 'havefnubb~posts:savereply', array('id_post'=>$id_post)}
     
     <fieldset>

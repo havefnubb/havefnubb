@@ -17,7 +17,6 @@ body {
 	line-height: normal
 }
 
-
 h2, h4 {font-size: 1em}
 h3 {font-size: 1.1em}
 
@@ -73,7 +72,6 @@ code, pre {
 	position: relative;
 	margin: auto;
 	height: 100px;
-    vertical-align: bottom;
     background-color:#f1f1e5;
     background-position:center;
     padding-left:0px;
@@ -105,6 +103,7 @@ code, pre {
 /* user */
 .loginbox-links, .loginbox-form {
 	text-align: center;
+	padding: 5px;
 }
 
 #login-status {
@@ -114,7 +113,6 @@ code, pre {
 	position: absolute;
 	margin: auto;
 	color: #232320;
-    vertical-align: bottom;
     background-position:center;
     padding-left: 0px;
     padding-right:0px;
@@ -127,42 +125,21 @@ code, pre {
     list-style-position:outside;	
 }
 
-/*.formbg  {
+.formbg  {
 	background-color:#f1f1e5;
-}*/
-
-#loginbox  {
-	background-position:center;
-    -moz-border-radius:10px 10px 8px 8px;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px; 
-    border-radius:10px 10px 8px 8px;
-    -moz-box-shadow: gray 3px 5px 5px 0px;
-    -webkit-box-shadow: gray 3px 5px 5px 0px;
-    box-shadow: gray 0px 3px 5px 0px;
-    z-index:50;
-	vertical-align: middle;
 }
 
-#loginbox ul {
-	height: 30px;
+#loginbox p {
+	padding-left: 20px;
 }
-#loginbox li {	
-	padding-left:20px;
+#loginbox ul , #profile ul{
+	height: 16px;
+}
+
+#loginbox li{	
 	padding-right:20px;
 	float:left;
 	list-style-type:none;	
-}
-
-
-#loginbox h3, #profile h3 {
-	text-align: left;
-	margin: auto;
-    -moz-border-radius:10px 10px 0px 0px;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px; 
-    border-radius:10px 10px 0px 0px;	
-	border-bottom: 1px solid;
 }
 
 /* navbar */
@@ -255,7 +232,9 @@ code, pre {
     -webkit-border-top-right-radius: 10px;
     -webkit-border-top-left-radius: 10px; 
     border-radius:10px 10px 0px 0px;	
-	border-bottom: 1px solid;
+	border-bottom: 1px solid; 
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 #breadcrumbbottom {
@@ -264,13 +243,14 @@ code, pre {
     -webkit-border-bottom-left-radius: 7px; 
     border-radius:0px 0px 7px 7px;
 	border-top: 1px solid;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
 
 #breadcrumbbottom li {
 	font-size: x-small;
     display:inline;
-    list-style-type:none;
-/*    list-style-position:outside;*/
+    list-style-type:none;    
 }
 
 
@@ -293,33 +273,35 @@ code, pre {
     list-style-type:none;
 }
 
-
-#statsinfos h2 {
-	text-align: center;
+.headings {
+    padding-top:0.1px;
+    padding-bottom:0.1px;
+    padding-left: 20px;
+    background-color:#baba9b;    
 }
 
-#stats, #lastposts, #jumpto, #quickreply {
-	margin: auto;	
-	vertical-align: middle;
+#statsinfos-headings {
+	margin-top: 20px;
+    padding-top:1px;
+    padding-bottom:1px;
+    padding-left: 20px;
+    background-color:#8dc192;    
+    text-align: center;    
 }
 
-#stats h3, #lastposts h3, #jumpto h3, #quickreply h3 {
-    padding:1px;
-	background-color:#8dc192;
-	border-top: 1px solid;
-	border-left: 1px solid;
-	border-right: 2px solid;
-	border-bottom: 2px solid;
-	border-color: #83a686;
-	box-shadow: gray 0px 3px 5px 0px;
-	/* border-color:red #acac9c #acac9c red;	*/
+#stats, #lastposts, #jumpto, #quickreply, #postreply, #postadd {
+	margin: auto;
+	padding-left: 20px;
+	padding-right: 20px;
 }
-#stats h3 span, #stats p, #lastposts h3 span, #jumpto h3 span, #quickreply h3 span {
-    margin-left: 20px;
+
+#stats p {
+	padding-left: 20px;
 }
 
 #lastposts ul{
 	margin-right: 20px;
+	padding-left: 20px;
 }
 
 #lastposts li {
@@ -347,7 +329,14 @@ code, pre {
 	margin-top: 20px;
 }
 
-.newmessage a, .replymessage a {
+
+.jforms-submit, .jforms-reset {
+	padding-left: 20px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.newmessage a, .replymessage a, .jforms-submit, .jforms-reset {
 	border: 1px solid;
 	cursor: pointer;
 	text-align: left;
@@ -439,7 +428,6 @@ table td {
 
 .colstats {
 	width: 12ex;
-	vertical-align: middle;
 	text-align: center;
 	padding: 0.5em;
 	background-color: #baba9b;
@@ -453,7 +441,6 @@ table td {
 
 .colright {
 	width: 22%;
-	vertical-align: middle;
 	padding: 0.5em;
 	background-color:#e1e1cd;	
 }
@@ -466,6 +453,7 @@ table td {
 }
 
 .coltitle, .colrank {
+	width: 20%;
 	padding: 1px;
 	background-color: #e1e1cd;
 }
@@ -537,18 +525,34 @@ table .line {
 	background-repeat: no-repeat;	
 }
 
-
+#postadd {
+	margin-left: 20px;
+}
 .posthead  {
 	border: 1px solid;
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
-	background-color: #baba9b;	
+	background-color: #baba9b;
+    height: 35px;
 }
-.posthead  h4, .posthead .posthead-date {
-	margin-left: 18em ;
+
+.posthead-title{
+	margin-left: 18em ; 
 	padding-left: 12px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 	margin-top: 0;
 	margin-bottom: 0;
 }
+
+.posthead-date {
+	margin-left: 15em ; 
+	padding-left: 12px;
+	margin-top: 0;
+	margin-bottom: 0;
+    padding-bottom: 1px;
+    padding-top: 1px;
+}
+
 
 .posthead  .posthead-date {
 	font-size: small;
@@ -724,10 +728,11 @@ table .line {
 #footer {
 	width: 100%;
 	position: relative;
-	margin: auto;
 	margin-top: 20px;
     background-color:#f1f1e5;
     background-position:center;
+    height: 34px;
+    padding-top: 1px;
     padding-left:0px;
     padding-right:0px;
     -moz-border-radius:10px 10px 0px  0px ;
@@ -742,8 +747,6 @@ table .line {
 }
 #footer p {
 	text-align: center;
-	margin-bottom: 0;
-    vertical-align: middle;
 }
 #footer span  { font-weight: bold; }
 #footer a:link, #footer a:visited, #footer a:active{

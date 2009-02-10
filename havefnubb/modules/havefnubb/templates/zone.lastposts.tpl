@@ -1,5 +1,7 @@
+<div class="headings">
+    <h3><span>{@havefnubb~main.last.messages@}</span></h3>
+</div>
 <div id="lastposts">
-<h3><span>{@havefnubb~main.last.messages@}</span></h3>
 <ul>    
 {foreach $lastPost as $post}
     <li class="left"><a href="{jurl 'posts:view',array('id_post'=>$post->id_post)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>

@@ -7,10 +7,12 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
+<div id="breadcrumbtop" class="headbox">
+    <h3>{@havefnubb~member.edit.account.header@}</h3>
+</div>
 <div id="profile">
-<h3 class="headbox">{@havefnubb~member.edit.account.header@}</h3>
 {form $form, 'jcommunity~account:save', array('user'=>$username)}
-<div id="container" class="formbg">
+	<div id="container" class="formbg">
 	<ul>
 		<li><a href="#member-identity"><span>{@havefnubb~member.identity@}</span></a></li>
 		<li><a href="#member-pref"><span>{@havefnubb~member.pref@}</span></a></li>
@@ -112,9 +114,7 @@ $(document).ready(function(){
                 </div>
             </fieldset>
         </div>
-        
-	{formsubmit}
-</div>
-
+	</div>
+	<p>{formsubmit}</p>
 {/form}
 </div>

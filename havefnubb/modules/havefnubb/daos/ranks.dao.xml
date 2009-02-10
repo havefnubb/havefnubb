@@ -19,7 +19,7 @@
         <method name="getMyRank" type="selectfirst">
             <parameter name="nb_msg" />
             <conditions>
-                <lteq property="rank_limit" expr="$nb_msg" />
+                <gteq property="rank_limit" expr="$nb_msg" />
             </conditions>
         </method>        
     </factory>

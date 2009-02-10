@@ -157,6 +157,10 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.category.view', 1, ''),
 ('hfnu.category.view', 2, ''),
 ('hfnu.category.view', 3, ''),
+('hfnu.forum.goto', 0, ''),
+('hfnu.forum.goto', 1, ''),
+('hfnu.forum.goto', 2, ''),
+('hfnu.forum.goto', 3, ''),
 ('hfnu.forum.list', 0, ''),
 ('hfnu.forum.list', 1, ''),
 ('hfnu.forum.list', 2, ''),
@@ -247,6 +251,9 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('hfnu.admin.forum.delete', 'hfnu~acl2.admin.forum.delete'),
 ('hfnu.admin.forum.edit', 'hfnu~acl2.admin.forum.edit'),
 ('hfnu.admin.index', 'hfnu~acl2.admin.index'),
+('hfnu.admin.ban.create', 'hfnu~acl2.admin.ban.create'),
+('hfnu.admin.ban.delete', 'hfnu~acl2.admin.ban.delete'),
+('hfnu.admin.ban.edit', 'hfnu~acl2.admin.ban.edit'),
 ('hfnu.admin.member.ban', 'hfnu~acl2.admin.member.ban'),
 ('hfnu.admin.member.create', 'hfnu~acl2.admin.member.create'),
 ('hfnu.admin.member.delete', 'hfnu~acl2.admin.member.delete'),
@@ -260,6 +267,7 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('hfnu.category.list', 'hfnu~acl2.category.list'),
 ('hfnu.category.view', 'hfnu~acl2.category.view'),
 ('hfnu.forum.list', 'hfnu~acl2.forum.list'),
+('hfnu.forum.goto', 'hfnu~acl2.forum.goto'),
 ('hfnu.forum.view', 'hfnu~acl2.forum.view'),
 ('hfnu.member.list', 'hfnu~acl2.member.list'),
 ('hfnu.member.search', 'hfnu~acl2.member.search'),
@@ -339,6 +347,7 @@ CREATE TABLE IF NOT EXISTS `member` (
   `member_last_connect` datetime DEFAULT NULL,
   `member_show_email` varchar(1) DEFAULT 'N',
   `member_language` varchar(40) DEFAULT 'fr_FR',
+  `member_nb_msg` INT(12) DEFAULT '0',
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
 );
@@ -347,8 +356,8 @@ CREATE TABLE IF NOT EXISTS `member` (
 -- Contenu de la table `member`
 --
 
-INSERT INTO `member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`) VALUES
-(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-03 22:21:54', 'N', 'fr_FR');
+INSERT INTO `member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`, `member_nb_msg`) VALUES
+(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-03 22:21:54', 'N', 'fr_FR', '1');
 
 -- --------------------------------------------------------
 
@@ -393,27 +402,10 @@ CREATE TABLE IF NOT EXISTS `rank` (
   PRIMARY KEY (`id_rank`)
 ) ;
 
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `sc_tags`
---
-
-DROP TABLE IF EXISTS `sc_tags`;
-CREATE TABLE IF NOT EXISTS `sc_tags` (
-  `tag_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tag_name` varchar(50) NOT NULL,
-  `nbuse` int(11) DEFAULT '0',
-  PRIMARY KEY (`tag_id`),
-  UNIQUE KEY `uk_tag` (`tag_name`)
-);
-
---
--- Contenu de la table `sc_tags`
---
-
+INSERT INTO `rank` (`id_rank`, `rank_name`, `rank_limit`) VALUES
+(1, 'new member', 10),
+(2, 'member', 40),
+(3, 'active member', 100);
 
 -- --------------------------------------------------------
 
@@ -437,12 +429,26 @@ CREATE TABLE IF NOT EXISTS `sc_tags_tagged` (
 --
 
 
---
--- Contraintes pour les tables exportées
---
+ 
+  -- --------------------------------------------------------
 
 --
--- Contraintes pour la table `sc_tags_tagged`
+-- Structure de la table `sc_tags`
 --
-ALTER TABLE `sc_tags_tagged`
+
+DROP TABLE IF EXISTS `sc_tags`;
+CREATE TABLE IF NOT EXISTS `sc_tags` (
+  `tag_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tag_name` varchar(50) NOT NULL,
+  `nbuse` int(11) DEFAULT '0',
+  PRIMARY KEY (`tag_id`),
+  UNIQUE KEY `uk_tag` (`tag_name`)
+);
+
+--
+-- Contenu de la table `sc_tags`
+--
+
+
+ALTER TABLE `sc_tags_tagged`  
   ADD CONSTRAINT `fk_tt_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `sc_tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE;

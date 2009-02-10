@@ -1,5 +1,7 @@
+<div class="headings">
+    <h3><span>{@havefnubb~main.stats@}</span></h3>
+</div>
 <div id="stats">
-<h3><span>{@havefnubb~main.stats@}</span></h3>
 <p>
 {$posts} {@havefnubb~main.messages@} {jlocale 'havefnubb~main.in.threads', array($threads)} 
 {jlocale 'havefnubb~main.posted.by.members' , array($members)}<br/>

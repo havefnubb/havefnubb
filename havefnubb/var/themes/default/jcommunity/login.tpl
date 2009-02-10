@@ -1,14 +1,19 @@
-<div id="loginbox">
 {ifuserconnected}
-    <h3 class="up-and-down headbox">{@havefnubb~member.identity@}</h3>
-    {jlocale 'havefnubb~member.login.welcome', array($login)}
-
+<div id="breadcrumbtop" class="headbox">
+    <h3>{@havefnubb~member.identity@}</h3>    
+</div>
+<div id="loginbox">
+    <p>{jlocale 'havefnubb~member.login.welcome', array($login)}</p>
     <div class="loginbox-links">
         (<a href="{jurl 'jcommunity~login:out'}">{@havefnubb~member.login.logout@}</a>,
         <a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">{@havefnubb~member.login.your.account@}</a>)
     </div>
+</div>
 {else}
-    <h3 class="up-and-down headbox">{@havefnubb~main.login.connection@}</h3>
+<div id="breadcrumbtop" class="headbox">
+    <h3>{@havefnubb~main.login.connection@}</h3>
+</div>
+<div id="loginbox"> 
     {form $form, 'jcommunity~login:in'}
     <ul>
         <li>
@@ -34,5 +39,5 @@
         (<a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.login.register@}</a>, 
         <a href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.login.forgotten.password@}</a>)
     </div>
-{/ifuserconnected}
 </div>
+{/ifuserconnected}

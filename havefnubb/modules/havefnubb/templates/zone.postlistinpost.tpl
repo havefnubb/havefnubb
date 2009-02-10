@@ -15,19 +15,7 @@
         <div class="posthead-date">{$post->date_created|jdatetime:'db_datetime':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</div>
     </div>
     <div class="postbody">
-        <div class="post-author">
-            <ul class="member-ident">
-                <li class="membername"><a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a></li>        
-                <li class="memberavatar">{avatar 'images/avatars/'.$post->id_user}</li>
-                <li class="membertown">{@havefnubb~member.town@} : {$post->member_town|eschtml}</li>
-                <li class="membertitle"><span>{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$post->nb_msg)}</span></li>        
-                <li class="memberstatus"><span>{zone 'havefnubb~online_offline',array('userId'=>$post->id_user)}</span></li>
-            </ul>
-            <ul class="member-info">
-                <li class="membersnbposts">{@havefnubb~member.nb.messages@}: {$post->nb_msg}</li>
-                <li class="membercontacts"><span class="memberemail"><a href="mailto:{$post->email}">{@havefnubb~member.email@}</a></span> - <span class="memberwebsite"><a href="{$post->member_website}" title="{@member.website@}">{@member.website@}</a></span></li>
-            </ul>
-        </div>
+        {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}        
         <div class="post-entry">
             <div class="message-content">
                 {$post->message|wiki:'wr3_to_xhtml'|stripslashes}
@@ -66,6 +54,6 @@
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
 {/ifacl2}
-{ifacl2 'hfnu.forum.list'}
+{ifacl2 'hfnu.forum.goto'}
 {zone 'havefnubb~jumpto',array('id_forum'=>$id_forum)}
 {/ifacl2}

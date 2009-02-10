@@ -7,8 +7,10 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
+<div id="breadcrumbtop" class="headbox">
+    <h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h3>
+</div>
 <div id="profile">
-<h3 class="headbox">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h3>
 {avatar $j_basepath .'images/avatars/'.$user->id}
 <div id="container">
 	<ul>

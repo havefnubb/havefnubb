@@ -1,6 +1,7 @@
+<div id="breadcrumbtop" class="headbox">
+    <h3>{@havefnubb~member.password.confirmation.activation.of.your.password@}</h3>    
+</div>
 <div id="loginbox">
-<h2>{@havefnubb~member.password.confirmation.activation.of.your.password@}</h2>
-
 <p>{@havefnubb~member.password.confirmation.activation.description@}</p>
 
 {form $form,'jcommunity~password:confirm', array()}

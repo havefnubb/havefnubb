@@ -34,7 +34,7 @@
     <property name="member_town" fieldname="member_town" datatype="string" table="usr" maxlength="100"/>
     <property name="member_avatar" fieldname="member_avatar" datatype="string" table="usr" maxlength="255"/>
     <property name="member_website" fieldname="member_website" datatype="string" table="usr" maxlength="255"/>	  
-    <property name="nb_msg" fieldname="nb_msg"  table="usr" datatype="integer" />
+    <property name="nb_msg" fieldname="member_nb_msg" table="usr" datatype="integer" />
     </record>
     <factory>        
         <!-- get the posts to be displayed on the index of the forum page -->

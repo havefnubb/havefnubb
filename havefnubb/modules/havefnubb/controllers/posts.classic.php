@@ -206,6 +206,7 @@ class postsCtrl extends jController {
 		$tpl->assign('category', $category);		
 		$tpl->assign('heading',jLocale::get('havefnubb~post.form.new.message'));
 		$tpl->assign('submitAction','havefnubb~posts:save');
+		$tpl->assign('reply',0);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
         return $rep;		
     }
@@ -286,7 +287,7 @@ class postsCtrl extends jController {
 			$tpl = new jTpl();
 			$tpl->assign('id_post', $id_post);
 			$tpl->assign('id_forum', $id_forum);
-            $tpl->assign('id_user', $user->id);
+            $tpl->assign('user', $user);
 			$tpl->assign('signature', $user->member_comment);
 			$tpl->assign('previewsubject', $form->getData('subject'));
 			$tpl->assign('previewtext', $form->getData('message'));
@@ -427,8 +428,9 @@ class postsCtrl extends jController {
 		$tpl->assign('submitAction','havefnubb~posts:savereply');
         
         $rep = $this->getResponse('html');
-        $rep->title = jLocale::get("havefnubb~post.form.reply.message") . ' ' . $post->subject;                
-        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.reply'));
+        $rep->title = jLocale::get("havefnubb~post.form.reply.message") . ' ' . $post->subject;
+		$tpl->assign('reply',1);
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
         return $rep;		
     }
 

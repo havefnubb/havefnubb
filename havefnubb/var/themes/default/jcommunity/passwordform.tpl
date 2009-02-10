@@ -1,6 +1,7 @@
+<div id="breadcrumbtop" class="headbox">
+    <h3>{@havefnubb~member.passwordform.header@}</h3>    
+</div>
 <div id="loginbox">
-<h3  class="up-and-down headbox">{@havefnubb~member.passwordform.header@}</h3>
-
 <p>{@havefnubb~member.passwordform.description@}</p>
 
 {form $form,'jcommunity~password:send', array()}

@@ -1,1 +1,1 @@
-{@havefnubb~rank.rank_name@} : {$myRank->rank_name|eschtml}
+{$myRank->rank_name|eschtml}

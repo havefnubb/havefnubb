@@ -1,6 +1,7 @@
+<div id="breadcrumbtop" class="headbox">
+    <h3>{@havefnubb~member.registration.confirmation.activation.of.your.account@}</h3>    
+</div>
 <div id="profile">
-<h3>{@havefnubb~member.registration.confirmation.activation.of.your.account@}</h3>
-
 <p>{@havefnubb~member.registration.confirmation.activation.description@}</p>
 
 <p>{@havefnubb~member.registration.confirmation.activation.description.line2@}</p>

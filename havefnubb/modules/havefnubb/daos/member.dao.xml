@@ -58,7 +58,7 @@
 	<property name="member_show_email" fieldname="member_show_email" datatype="string" maxlength="1"/>    
     <property name="member_language" fieldname="member_language" datatype="string" />
 	
-	<property name="nb_msg" fieldname="nb_msg" datatype="integer" />
+	<property name="nb_msg" fieldname="member_nb_msg" datatype="integer" />
 	
    </record>
    <factory>
