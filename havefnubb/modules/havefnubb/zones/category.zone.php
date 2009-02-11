@@ -12,8 +12,8 @@ class categoryZone extends jZone {
     protected $_tplname='zone.category';
 
     protected function _prepareTpl(){
-        $dao = jDao::get('havefnubb~category');
-        $categories = $dao->findAll();
+        $dao = jDao::get('havefnubb~forum');
+        $categories = $dao->findAllWithFathers();
         $this->_tpl->assign('action','index');
         $this->_tpl->assign('categories',$categories);
     }

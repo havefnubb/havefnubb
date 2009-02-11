@@ -68,5 +68,10 @@
                <orderitem property="parent_id" way="asc" />
             </order>            
         </method>
+        <method name="findAllWithFathers" type="select" groupby="id_cat">
+            <conditions>
+                <eq property="parent_id" value="0"/>
+            </conditions>            
+        </method>		
     </factory>
 </dao>
