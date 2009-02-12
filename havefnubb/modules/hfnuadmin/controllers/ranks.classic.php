@@ -26,7 +26,12 @@ class ranksCtrl extends jController {
 		
         $dao = jDao::get('havefnubb~ranks');
         $ranks = $dao->findAll();
-		
+
+        //initializing of the Token
+        $token = jClasses::getService("havefnubb~hfnutoken");
+        $token->setHfnuToken();
+        
+        $tpl->assign('hfnutoken',$token->getHfnuToken());			
         $tpl->assign('form', $form);
         $tpl->assign('ranks',$ranks);
 				
@@ -70,7 +75,11 @@ class ranksCtrl extends jController {
         $id_rank 	= $this->param('id_rank');
 		$rank_name 	= $this->param('rank_name');
 		$rank_limit = $this->param('rank_limit');
-
+        $hfnutoken  = (string) $this->param('hfnutoken');
+        
+        //let's check if we have a valid token in our form
+        $token = jClasses::getService("havefnubb~hfnutoken"); 
+        
 		if ($this->param('saveBt')== jLocale::get('hfnuadmin~rank.saveBt')) {
 		
 			if (count($id_rank) == 0) {

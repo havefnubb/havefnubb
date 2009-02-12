@@ -40,5 +40,6 @@
 <div class="jforms-submit-buttons">
 {formurlparam 'hfnuadmin~ranks:saveedit'}    
     <input type="submit" name="saveBt" id="jforms_hfnuadmin_rank_validate_saveBt" class="jforms-submit" value="{@hfnuadmin~rank.saveBt@}"/>
+    <input type="hidden" name="hfnutoken" value="{$hfnutoken}"/>    
 </div>
 </form>

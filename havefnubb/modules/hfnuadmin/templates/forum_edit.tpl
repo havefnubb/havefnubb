@@ -33,7 +33,8 @@
 <h2>{@hfnuadmin~forum.group.title@}</h2>
 <fieldset><legend>{@hfnuadmin~forum.groups.rights@}</legend>
 <div>{formurlparam 'hfnuadmin~forum:saveedit'}
-<input type="hidden" name="id_forum" value="{$forum->id_forum}"/></div>
+<input type="hidden" name="id_forum" value="{$forum->id_forum}"/>
+<input type="hidden" name="hfnutoken" value="{$hfnutoken}"/></div>
 
 <table class="records-list jacl2-list">
 <thead>

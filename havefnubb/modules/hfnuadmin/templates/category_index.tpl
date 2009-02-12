@@ -40,5 +40,6 @@
 <div class="jforms-submit-buttons">
 {formurlparam 'hfnuadmin~category:saveedit'}    
     <input type="submit" name="saveBt" id="jforms_hfnuadmin_category_validate_saveBt2" class="jforms-submit" value="{@hfnuadmin~category.saveBt@}"/>
+    <input type="hidden" name="hfnutoken" value="{$hfnutoken}"/>
 </div>
 </form>

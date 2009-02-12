@@ -26,7 +26,12 @@ class categoryCtrl extends jController {
 
         $dao = jDao::get('havefnubb~category');
         $categories = $dao->findAll();
-		
+
+        //initializing of the Token
+        $token = jClasses::getService("havefnubb~hfnutoken");
+        $token->setHfnuToken();
+        
+        $tpl->assign('hfnutoken',$token->getHfnuToken());		
         $tpl->assign('form', $form);
         $tpl->assign('categories',$categories);
 		
@@ -69,7 +74,12 @@ class categoryCtrl extends jController {
         $id_cat 	= $this->param('id_cat');
 		$cat_name 	= $this->param('cat_name');
 		$cat_order  = $this->param('cat_order');		
-
+        $hfnutoken  = (string) $this->param('hfnutoken');
+        
+        //let's check if we have a valid token in our form
+        $token = jClasses::getService("havefnubb~hfnutoken");       
+        $token->checkHfnuToken($hfnutoken);        
+        
 		if ($this->param('saveBt')== jLocale::get('hfnuadmin~category.saveBt')) {
 			
 			if (count($id_cat) == 0) {

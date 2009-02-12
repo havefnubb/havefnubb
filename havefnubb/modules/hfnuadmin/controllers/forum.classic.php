@@ -153,9 +153,13 @@ class forumCtrl extends jController {
             $rights[$rec->id_aclsbj][$rec->id_aclgrp] = true;
         }
 
-        $tpl->assign(compact('groups', 'rights'));
-
+        //initializing of the Token
+        $token = jClasses::getService("havefnubb~hfnutoken");
+        $token->setHfnuToken();
+        
+        $tpl->assign('hfnutoken',$token->getHfnuToken());
         $tpl->assign('forum',$forum);
+        $tpl->assign(compact('groups', 'rights'));        
         $rep->body->assign('MAIN',$tpl->fetch('forum_edit'));
         return $rep;        
     }
@@ -163,6 +167,11 @@ class forumCtrl extends jController {
 
     function saveedit () {
         $id_forum = (int) $this->param('id_forum');
+        $hfnutoken = (string) $this->param('hfnutoken');
+        
+        //let's check if we have a valid token in our form
+        $token = jClasses::getService("havefnubb~hfnutoken");       
+        $token->checkHfnuToken($hfnutoken);
         
         if ($id_forum == 0) {
             jMessage::add(jLocale::get('hfnuadmin~forum.unknown.forum'),'error');
