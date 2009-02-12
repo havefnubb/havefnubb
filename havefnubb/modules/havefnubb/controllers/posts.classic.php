@@ -537,10 +537,10 @@ class postsCtrl extends jController {
 			$rep = $this->getResponse('redirect');
 			$rep->action ='havefnubb~default:index';
 			return $rep;						
-		}
-
-		
-	}    
+		}		
+	}
+	
+	
 	// quote message
     function quote() {       
         $parent_id = (int) $this->param('parent_id');
@@ -634,14 +634,109 @@ class postsCtrl extends jController {
 		$rep->params=array('id_forum'=>$id_forum);  
         return $rep;        
     }
-	
-	// @TODO
+
+	//notify something from a given post (from the parent_id)	
     function notify() {
+        $id_post = (int) $this->param('id_post');
+        if ($id_post == 0 ) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+        }
+        //get the info of the current user who's notifying
+		$daoUser = jDao::get('havefnubb~member');
+		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+        
+		$daoPost = jDao::get('havefnubb~posts');
+		$post = $daoPost->get($id_post);              
+		// crumbs infos
+		list($forum,$category) = $this->getCrumbs($post->id_forum);
+		if (! $forum) {
+            $rep 		 = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+            return $rep;			
+		}
+        
+        $form = jForms::create('havefnubb~notify',$id_post);
+		$form->setData('id_user',$user->id);
+		$form->setData('id_post',$id_post);
+        
+		//set the needed parameters to the template              
+        $tpl = new jTpl();        
+        $tpl->assign('forum',$forum);
+        $tpl->assign('id_post',$id_post);
+        $tpl->assign('category',$category);
+		$tpl->assign('form', $form);
+		$tpl->assign('forum', $forum);
+		$tpl->assign('category', $category);		
+		$tpl->assign('heading',jLocale::get("havefnubb~post.form.notify.message") . ' - ' . $post->subject);
+		$tpl->assign('submitAction','havefnubb~posts:savenotify');
+        
         $rep = $this->getResponse('html');
-        $rep->title = jLocale::get("havefnubb~post.form.notify.message") ;
+        $rep->title = jLocale::get("havefnubb~post.form.notify.message") . ' - ' . $post->subject;
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.notify'));
-        return $rep;        
+        return $rep;		
     }	
+
+    // save the datas posted from the notify form
+	function savenotify() {
+		$id_post    = (int) $this->param('id_post');
+		
+		$daoUser = jDao::get('havefnubb~member');
+		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+
+		$submit = $this->param('validate');
+        if ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
+			$rep = $this->getResponse('redirect');
+			
+			if ($id_post ==  0 or $user->id == 0 ) {			
+				$rep->action = 'havefnubb~default:index';	
+				return $rep;
+			}
+			
+			$form = jForms::fill('havefnubb~notify',$id_post);
+	
+			//.. if the data are not ok, return to the form and display errors messages form
+			if (!$form->check()) {            
+				$rep->action = 'havefnubb~default:index';
+				return $rep;
+			}
+	
+			//.. if the data are ok ; we get them !
+			$subject	= $form->getData('subject');
+			$message 	= $form->getData('message');
+			
+			//CreateRecord object
+			$dao = jDao::get('havefnubb~notify');		
+			$record = jDao::createRecord('havefnubb~notify');
+			
+            // let's create the record of this reply
+			$record->subject	= $subject;
+			$record->message	= $message;			
+
+			$record->id_post  	= $id_post;
+			$record->id_user 	= $user->id;
+
+			$record->date_created = date('Y-m-d H:i:s');
+			$record->date_modified = date('Y-m-d H:i:s');
+
+			$dao->insert($record);
+
+			// let's update the counter of posts in member table
+			$daoUser = jDao::get('havefnubb~member');			
+			
+			jForms::destroy('havefnubb~notify', $id_post);
+			
+			jMessage::add(jLocale::get('havefnubb~main.common.notify.added'),'ok');
+		}
+		
+		$rep = $this->getResponse('redirect');
+		$rep->action ='havefnubb~default:index';
+		return $rep;						
+
+	}
+
+
+
 
 	private function getCrumbs($id_forum) {
 		

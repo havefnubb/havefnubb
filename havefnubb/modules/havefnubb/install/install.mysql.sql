@@ -452,3 +452,18 @@ CREATE TABLE IF NOT EXISTS `sc_tags` (
 
 ALTER TABLE `sc_tags_tagged`  
   ADD CONSTRAINT `fk_tt_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `sc_tags` (`tag_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+DROP TABLE IF EXISTS `notify`;
+CREATE TABLE IF NOT EXISTS `notify` (
+  `id_notify` int(12) NOT NULL AUTO_INCREMENT,
+  `id_user` int(12) NOT NULL,
+  `id_post` int(12) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`id_notify`),
+  KEY `id_user` (`id_user`),
+  KEY `id_post` (`id_post`)
+);

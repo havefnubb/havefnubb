@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="notify" realname="notify" primarykey="id_notify" />
+    </datasources>
+    <record>
+        
+		<property name="id_notify" fieldname="id_notify" datatype="autoincrement"/>
+		<property name="id_user" fieldname="id_user" datatype="int" required="true"/>
+		<property name="id_post" fieldname="id_post" datatype="int" required="true"/>
+		
+		<property name="subject" fieldname="subject" datatype="string" required="true" maxlength="255"/>
+		<property name="message" fieldname="message" datatype="text" required="true"/>
+		<property name="date_created" fieldname="date_created" datatype="datetime" required="true"/>
+		<property name="date_modified" fieldname="date_modified" datatype="datetime" required="true"/>
+
+    </record>
+    <factory>        
+        <method name="findAll" type="select">
+            <order>
+                <orderitem property="date_created" way="asc" />
+            </order>
+        </method>
+    </factory>
+</dao>

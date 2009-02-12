@@ -25,10 +25,9 @@
 
 </div>
 <!-- #top -->
-
 <!-- #maincontent -->
-<div id="maincontent">
-	{$MAIN}	
+<div id="maincontent">	
+	{$MAIN}
 	<!-- .breadcrumb #bottom -->
 	<div class="breadcrumb" id="breadcrumbbottom">
 	{breadcrumb 5, ' > '}
