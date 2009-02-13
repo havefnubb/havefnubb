@@ -10,9 +10,12 @@
 {assign $id_forum = $post->id_forum}
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post">
-    <div class="posthead">
+    <div class="posthead">       
         <h4 class="posthead-title">{$post->subject|eschtml}</h4>
         <div class="posthead-date">{$post->date_created|jdatetime:'db_datetime':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</div>
+        {if $tags !== false}
+        <div class="posthead-tags"><ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul></div>
+        {/if}        
     </div>
     <div class="postbody">
         {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}        

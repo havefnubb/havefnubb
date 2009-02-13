@@ -18,8 +18,7 @@
 </div>
     <table width="100%">
         <tr>
-            <th colspan="2" class="forumlistcol">
-            </th>
+            <th class="forumlistcol"> </th>
             <th class="forumlistcol">{@havefnubb~forum.forumlist.title@}</th>
             <th class="forumlistcol">{@havefnubb~member.common.author@}</th>
             <th class="forumlistcol">{@havefnubb~forum.forumlist.responses@}</th>
@@ -28,14 +27,22 @@
         </tr>
         {foreach $posts as $post}
         <tr>
-            <td class="line forumlistline" colspan="2"></td>
-            <td class="line coltitle linkincell"><a href="{jurl 'posts:view',array('id_post'=>$post->id_post)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
-            <td class="line colposter linkincell">
+            <td class="colicone" ></td>
+            <td class="coltitle linkincell">
+                <a href="{jurl 'posts:view',array('id_post'=>$post->id_post)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
+            </td>
+            <td class="colposter linkincell">
                 <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>
             </td>
-            <td class="line colnum">{zone 'havefnubb~responsettl',array('id_post'=>$post->id_post)}</td>
-            <td class="line colnum">{zone 'havefnubb~viewedttl',array('id_post'=>$post->id_post)}</td>
-            <td class="colright linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}</td>
+            <td class="colnum">
+                {zone 'havefnubb~responsettl',array('id_post'=>$post->id_post)}
+            </td>
+            <td class="colnum">
+                {zone 'havefnubb~viewedttl',array('id_post'=>$post->id_post)}
+            </td>
+            <td
+                class="colright linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}
+            </td>
         </tr>
         {/foreach}
     </table>

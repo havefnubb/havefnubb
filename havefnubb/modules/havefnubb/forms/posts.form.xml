@@ -14,6 +14,10 @@
 	<label locale="havefnubb~post.form.message"/>
 </textarea>
 
+<textarea ref="tags" rows="2" cols="60">
+	<label>Choisis tes tags</label>
+</textarea>    
+
 <submit ref="validate">
   <label>Veuillez valider</label>
   <item value="preview" locale="havefnubb~post.form.previewBt"/>  

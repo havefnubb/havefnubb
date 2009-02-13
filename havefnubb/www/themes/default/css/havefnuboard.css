@@ -280,7 +280,7 @@ code, pre {
     background-color:#baba9b;    
 }
 
-#statsinfos-headings {
+#statsinfos-headings, #cloud-headings {
 	margin-top: 20px;
     padding-top:1px;
     padding-bottom:1px;
@@ -316,7 +316,10 @@ code, pre {
 	text-align: right;
 }
 
-
+#tagscloud {
+	padding-left: 20px;
+	padding-right: 20px;
+}
 
 #member-identity fieldset, #member-pref fieldset, #member-hardware fieldset {
 	
@@ -452,15 +455,22 @@ table td {
 	background-color: #c9c9a7;
 }
 
-.coltitle, .colrank {
-	width: 20%;
-	padding: 1px;
+.colicone {
+	text-align: center;
+	padding: 5px;
+	width: 3%;
+	background-color: #c9c9a7;
+}
+
+.coltitle {
+	width: 30%;
+	padding-left: 10px;
 	background-color: #e1e1cd;
 }
 
-.colposter, .coldate {
+.colrank, .colposter, .coldate {
 	width: 20%;
-	padding: 0.7em;
+	padding-left: 10px;
 	background-color: #e1e1cd;
 }
 
@@ -469,6 +479,7 @@ table td {
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
 	background: #baba9b;
 	display: table-cell;
+	padding: 5px;
 }
 
 table .forumlistline, table .memberlistline {
@@ -479,11 +490,11 @@ table .forumlistline, table .memberlistline {
 table .memberlistline {
 	padding: 10px;
 }
-
+/*
 table .line {
 	line-height: 90%;
 }
-
+ */
 .linkincell:hover {
 	background-color: #f1f1e5;
 }
@@ -535,7 +546,7 @@ table .line {
     height: 35px;
 }
 
-.posthead-title{
+.posthead-title {
 	margin-left: 18em ; 
 	padding-left: 12px;
     padding-top: 1px;
@@ -553,6 +564,26 @@ table .line {
     padding-top: 1px;
 }
 
+.posthead-tags {
+	text-align: right;
+	color: #fff;
+	font-weight: bold;
+	width: 50%;
+	float: right;
+	margin-top: -30px;
+
+}
+
+.posthead-tags li {
+	list-style: none;
+    display:inline;
+    padding-left:15px;
+    list-style-type:none;
+    list-style-position:outside;
+	background-image: url('../../../images/others/tag_green.png');
+	background-color: #baba9b;
+	background-repeat: no-repeat;
+}
 
 .posthead  .posthead-date {
 	font-size: small;

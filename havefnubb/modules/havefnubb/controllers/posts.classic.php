@@ -29,7 +29,7 @@ class postsCtrl extends jController {
         'view' 	=> array( 'history.add'=>true),		
 		
    );	
-	
+
 	// main list of all posts of a given forum ($id_forum)	
     function lists() {
         global $HfnuConfig;
@@ -174,7 +174,7 @@ class postsCtrl extends jController {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
             return $rep;
-		}
+		}		
 		
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
@@ -263,6 +263,7 @@ class postsCtrl extends jController {
 	function save() {
 		$id_forum = (int) $this->param('id_forum');
 		$id_post = (int) $this->param('id_post');
+		$tags = $this->param("tags", false);
         
         $parent_id = (int) $this->param('parent_id');
 		
@@ -360,8 +361,7 @@ class postsCtrl extends jController {
 				// let's update the counter of posts in member table
 				$daoUser = jDao::get('havefnubb~member');			
 				// increment the nb_msg of the poster
-				$daoUser->updateNbMsg($user->id,$user->nb_msg +1);
-				
+				$daoUser->updateNbMsg($user->id,$user->nb_msg +1);			
 			} else {
 				$record->date_modified = date('Y-m-d H:i:s');
 			}
@@ -369,6 +369,12 @@ class postsCtrl extends jController {
 			// in all case we have to
 			// update as we store the last insert id in the parent_id column
 			$dao->update($record);
+			
+			$tags = explode(",", $form->getData("tags"));
+			var_dump($tags);
+
+			jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
+			
 			jForms::destroy('havefnubb~posts', $id_post);
 			
 			jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'ok');

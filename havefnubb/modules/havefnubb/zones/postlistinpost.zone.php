@@ -17,6 +17,9 @@ class postlistinpostZone extends jZone {
         $page = (int) $this->param('page');
         if (!$id_post) return;
         
+        $srv_tags = jClasses::getService("jtags~tags");
+        $tags = $srv_tags->getTagsBySubject('forumscope', $id_post);
+        
         // let's build the pagelink var
         // A Preparing / Collecting datas
         // 0- the properties of the pager
@@ -36,6 +39,7 @@ class postlistinpostZone extends jZone {
         $posts = $daoPost->findByIdParent($id_post,$page,$nbRepliesPerPage);
         
         $this->_tpl->assign('posts',$posts);
+        $this->_tpl->assign('tags',$tags);
         $this->_tpl->assign('page',$page);
         $this->_tpl->assign('id_post',$id_post);
         $this->_tpl->assign('nbRepliesPerPage',$nbRepliesPerPage);

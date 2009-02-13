@@ -12,6 +12,7 @@
     {/ifacl2}
 {/foreach}
     {zone 'havefnubb~statsinfos'}
+	{zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}    
 {elseif $action == 'view'}
     <div id="breadcrumbtop" class="headbox">
         <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {$category->cat_name|eschtml}</h3>
