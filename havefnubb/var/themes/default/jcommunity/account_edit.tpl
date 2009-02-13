@@ -14,14 +14,15 @@ $(document).ready(function(){
 {form $form, 'jcommunity~account:save', array('user'=>$username)}
 	<div id="container" class="formbg">
 	<ul>
-		<li><a href="#member-identity"><span>{@havefnubb~member.identity@}</span></a></li>
+		<li><a href="#member-general"><span>{@havefnubb~member.general@}</span></a></li>		
 		<li><a href="#member-pref"><span>{@havefnubb~member.pref@}</span></a></li>
-		<li><a href="#member-hardware"><span>{@havefnubb~member.hardware@}</span></a></li>		
+		<li><a href="#member-messenger"><span>{@havefnubb~member.instant.messenger@}</span></a></li>	
+		<li><a href="#member-hardware"><span>{@havefnubb~member.hardware@}</span></a></li>	
 	</ul>    
 
-        <div id="member-identity">
+        <div id="member-general">
             <fieldset>
-                <legend>{@havefnubb~member.identity@}</legend>
+                <legend>{@havefnubb~member.general@}</legend>
                 <div class="two-cols">
                     <p class="col">
                         <label><strong>{ctrl_label 'nickname'}</strong></label><br />{ctrl_control 'nickname'}
@@ -48,6 +49,43 @@ $(document).ready(function(){
                 </div>                    
             </fieldset>
         </div>
+        <div id="member-messenger">
+            <fieldset>
+                <legend>{@havefnubb~member.instant.messenger@}</legend>
+                <div class="two-cols">
+                    <p class="col">
+                        <label><strong>{ctrl_label 'member_xfire'}</strong></label><br />{ctrl_control 'member_xfire'}
+                    </p>                   
+                    <p class="col">
+                        <label><strong>{ctrl_label 'member_icq'}</strong></label><br />{ctrl_control 'member_icq'}
+                    </p>                   
+                </div>
+                 <div class="two-cols">
+                    <p class="col">
+						<label><strong>{ctrl_label 'member_yim'}</strong></label><br />{ctrl_control 'member_yim'}
+                    </p>                   
+                    <p class="col">
+                        <label><strong>{ctrl_label 'member_hotmail'}</strong></label><br />{ctrl_control 'member_hotmail'}
+                    </p>                   
+                </div>
+                 <div class="two-cols">
+                    <p class="col">
+						<label><strong>{ctrl_label 'member_aol'}</strong></label><br />{ctrl_control 'member_aol'}
+                    </p>                   
+                    <p class="col">
+						<label><strong>{ctrl_label 'member_gtalk'}</strong></label><br />{ctrl_control 'member_gtalk'}						
+                    </p>                   
+                </div>                    
+                 <div class="two-cols">
+                    <p class="col">
+						<label><strong>{ctrl_label 'member_jabber'}</strong></label><br />{ctrl_control 'member_jabber'}							
+                    </p>                   
+                    <p class="col">                        
+                    </p>                   
+                </div>                    
+					
+            </fieldset>
+        </div>		
         <div id="member-pref">
             <fieldset>
                 <legend>{@havefnubb~member.pref@}</legend>

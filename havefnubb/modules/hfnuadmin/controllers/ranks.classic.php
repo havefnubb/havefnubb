@@ -61,6 +61,8 @@ class ranksCtrl extends jController {
             $record->rank_limit = $form->getData('rank_limit');
             
             $dao->insert($record);
+
+			jForms::destroy('havefnubb~ranks');
             
             jMessage::add(jLocale::get('hfnuadmin~rank.rank.added'),'ok');
         }
@@ -98,10 +100,11 @@ class ranksCtrl extends jController {
 				
 				$dao->update($record);
 			}
-			
+			jForms::destroy('havefnubb~ranks');
 			jMessage::add(jLocale::get('hfnuadmin~rank.rank.modified'),'ok');
 		}
 		else {
+			jForms::destroy('havefnubb~ranks');			
 			jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
 		}
 		

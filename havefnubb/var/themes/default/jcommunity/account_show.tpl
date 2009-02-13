@@ -10,18 +10,20 @@ $(document).ready(function(){
 <div id="breadcrumbtop" class="headbox">
     <h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h3>
 </div>
+<div id="post-message">{jmessage}</div>
 <div id="profile">
 {avatar $j_basepath .'images/avatars/'.$user->id}
 <div id="container">
 	<ul>
-		<li><a href="#member-identity"><span>{@havefnubb~member.identity@}</span></a></li>
+		<li><a href="#member-general"><span>{@havefnubb~member.general@}</span></a></li>		
 		<li><a href="#member-pref"><span>{@havefnubb~member.pref@}</span></a></li>
+		<li><a href="#member-messenger"><span>{@havefnubb~member.instant.messenger@}</span></a></li>	
 		<li><a href="#member-hardware"><span>{@havefnubb~member.hardware@}</span></a></li>		
 	</ul>    
     <div class="box">
-        <div id="member-identity">
+        <div id="member-general">
             <fieldset>
-                <legend>{@havefnubb~member.identity@}</legend>
+                <legend>{@havefnubb~member.general@}</legend>
                 <div class="two-cols">
                     <p class="col">
                         <label><strong>{@havefnubb~member.nickname@}</strong></label><br />{$user->nickname|eschtml}
@@ -66,6 +68,44 @@ $(document).ready(function(){
                 </div>                 
             </fieldset>
         </div>
+        <div id="member-messenger">
+            <fieldset>
+                <legend>{@havefnubb~member.instant.messenger@}</legend>
+                <div class="two-cols">
+                    <p class="col">
+                        <label><strong>{@havefnubb~member.xfire@}</strong></label><br />{$user->member_xfire|eschtml}
+                    </p>                   
+                    <p class="col">
+                        <label><strong>{@havefnubb~member.icq@}</strong></label><br />{$user->member_icq|eschtml}
+                    </p>                   
+                </div>
+                 <div class="two-cols">
+                    <p class="col">
+                        <label><strong>{@havefnubb~member.yim@}</strong></label><br />{$user->member_yim|eschtml}
+                    </p>                   
+                    <p class="col">
+                        <label><strong>{@havefnubb~member.hotmail@}</strong></label><br />{$user->member_hotmail|eschtml}
+                    </p>                   
+                </div>
+                 <div class="two-cols">
+                    <p class="col">
+                        <label><strong>{@havefnubb~member.aol@}</strong></label><br />{$user->member_aol|eschtml}
+                    </p>                   
+                    <p class="col">
+                        <label><strong>{@havefnubb~member.gtalk@}</strong></label><br />{$user->member_gtalk|eschtml}
+                    </p>                   
+                </div>                    
+                 <div class="two-cols">
+                    <p class="col">
+                        <label><strong>{@havefnubb~member.jabber@}</strong></label><br />{$user->member_jabber|eschtml}
+                    </p>                   
+                    <p class="col">                        
+                    </p>                   
+                </div>                    
+					
+            </fieldset>
+        </div>
+		
         <div id="member-pref">
             <fieldset>
                 <legend>{@havefnubb~member.pref@}</legend>

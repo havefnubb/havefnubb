@@ -208,6 +208,8 @@ class forumCtrl extends jController {
         $record->forum_order = $this->param('forum_order');
         
         $dao->update($record);
+
+		jForms::destroy('havefnubb~forum');
         
         jMessage::add(jLocale::get('hfnuadmin~forum.forum.modified'),'ok');
         

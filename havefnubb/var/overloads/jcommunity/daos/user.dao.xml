@@ -38,6 +38,7 @@
 	<property name="member_icq" fieldname="member_icq" datatype="string" maxlength="80"/>
 	<property name="member_hotmail" fieldname="member_hotmail" datatype="string" maxlength="255"/>
 	<property name="member_yim" fieldname="member_yim" datatype="string" maxlength="255"/>
+    <property name="member_aol" fieldname="member_aol" datatype="string" maxlength="255"/>
 	<property name="member_gtalk" fieldname="member_gtalk" datatype="string" maxlength="255"/>
 	<property name="member_jabber" fieldname="member_jabber" datatype="string" maxlength="255"/>
 
