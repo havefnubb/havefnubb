@@ -55,6 +55,18 @@
 <p>{ctrl_label 'stats_nb_of_lastpost'} </p>
 <p>{ctrl_control 'stats_nb_of_lastpost'} </p>
 <p>{@hfnuadmin~config.stats_nb_of_lastpost.description@}</p>
+
+<p>{ctrl_label 'elapsed_time_between_two_post_by_same_ip'} </p>
+<p>{ctrl_control 'elapsed_time_between_two_post_by_same_ip'} </p>
+<p>{@hfnuadmin~config.elapsed_time_between_two_post_by_same_ip.description@}</p>
+
+<p>{ctrl_label 'elapsed_time_after_posting_before_editing'} </p>
+<p>{ctrl_control 'elapsed_time_after_posting_before_editing'} </p>
+<p>{@hfnuadmin~config.elapsed_time_after_posting_before_editing.description@}</p>
+
+<p>{ctrl_label 'post_max_size'} </p>
+<p>{ctrl_control 'post_max_size'} </p>
+<p>{@hfnuadmin~config.post_max_size.description@}</p>
 </fieldset>
 </div>
 

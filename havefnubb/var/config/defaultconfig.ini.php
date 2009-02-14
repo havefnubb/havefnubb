@@ -23,6 +23,7 @@ theme=default
 auth=auth.coord.ini.php
 jacl2=jacl2.coord.ini.php
 history=history.coord.ini.php
+flood=flood.coord.ini.php
 
 [tplplugins]
 defaultJformsBuilder=html

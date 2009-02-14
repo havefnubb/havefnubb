@@ -348,6 +348,8 @@ CREATE TABLE IF NOT EXISTS `member` (
   `member_show_email` varchar(1) DEFAULT 'N',
   `member_language` varchar(40) DEFAULT 'fr_FR',
   `member_nb_msg` INT(12) DEFAULT '0',
+  `member_last_post` INT(12) DEFAULT '0',
+  KEY `member_last_post` (`member_last_post`)  
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
 );
@@ -356,8 +358,8 @@ CREATE TABLE IF NOT EXISTS `member` (
 -- Contenu de la table `member`
 --
 
-INSERT INTO `member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`, `member_nb_msg`) VALUES
-(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-03 22:21:54', 'N', 'fr_FR', '1');
+INSERT INTO `member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`, `member_nb_msg`, `member_last_post`) VALUES
+(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-01-01 00:00:00', 'N', 'fr_FR', '1', '0');
 
 -- --------------------------------------------------------
 
@@ -377,8 +379,10 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
   `viewed` int(12) NOT NULL,
+  `poster_ip` varchar(15) default NULL,
   PRIMARY KEY (`id_post`),
-  KEY `id_user` (`id_user`,`id_forum`,`parent_id`,`status`)
+  KEY `id_user` (`id_user`,`id_forum`,`parent_id`,`status`),
+  KEY `poster_ip` (`poster_ip`)
 );
 
 --
@@ -386,7 +390,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
 --
 
 INSERT INTO `posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`) VALUES
-(1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', '2009-02-03 10:28:51', '2009-02-03 10:28:51', 0);
+(1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', '2009-02-03 10:28:51', '2009-02-03 10:28:51', 0, '127.0.0.1');
 
 
 

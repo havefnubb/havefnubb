@@ -59,6 +59,7 @@
     <property name="member_language" fieldname="member_language" datatype="string" />
 	
 	<property name="nb_msg" fieldname="member_nb_msg" datatype="integer" />
+	<property name="member_last_post" fieldname="member_last_post" datatype="integer" />
 	
    </record>
    <factory>
@@ -164,6 +165,16 @@
 			<values>
 				<value property="nb_msg" expr="$nb_msg"/>
 			</values>
-        </method> 		
+        </method>
+		<method name="updateLastPostedMsg" type="update">
+			<parameter name="id"/>
+			<parameter name="time"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+			<values>
+				<value property="member_last_post" expr="$time"/>
+			</values>			
+		</method>
    </factory>
 </dao>

@@ -29,7 +29,7 @@ class defaultCtrl extends jController {
 		
         $rep->body->assignZone('MAIN', 'category');
         return $rep;
-    }    
-    
+    }
+
 }
 

@@ -77,6 +77,34 @@
 	<item value="10">10</item>
 </menulist>
 
+<menulist ref="elapsed_time_between_two_post_by_same_ip"  required="true">
+	<label locale="hfnuadmin~config.elapsed_time_between_two_post_by_same_ip"/>
+	<item value="0">0</item>	
+	<item value="30">30</item>	
+	<item value="60">60</item>
+	<item value="90">90</item>
+	<item value="120">120</item>
+	<item value="150">150</item>
+	<item value="180">180</item>
+	<item value="210">210</item>
+</menulist>
+
+<menulist ref="elapsed_time_after_posting_before_editing"  required="true">
+	<label locale="hfnuadmin~config.elapsed_time_after_posting_before_editing"/>
+	<item value="0">0</item>	
+	<item value="30">30</item>	
+	<item value="60">60</item>
+	<item value="90">90</item>
+	<item value="120">120</item>
+	<item value="150">150</item>
+	<item value="180">180</item>
+	<item value="210">210</item>
+</menulist>
+
+<input ref="post_max_size" type="integer" required="true" size="4">
+	<label locale="hfnuadmin~config.post_max_size"/>
+</input>
+
 <submit ref="validate">
   <label>Veuillez valider</label>
   <item value="save" locale="hfnuadmin~config.saveBt"/>

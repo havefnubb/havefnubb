@@ -24,7 +24,8 @@
     <property name="date_created" fieldname="date_created" datatype="datetime" required="true"/>
     <property name="date_modified" fieldname="date_modified" datatype="datetime" required="true"/>
     <property name="viewed" fieldname="viewed" datatype="int" required="true"/> 
-
+    <property name="poster_ip" fieldname="poster_ip" datatype="string" required="true"/>
+    
     <property name="id" fieldname="id_user" datatype="int" table="usr"/>
     <property name="email" fieldname="member_email" datatype="string" table="usr" maxlength="255" />
 	<property name="login" fieldname="member_login" table="usr"
@@ -35,6 +36,7 @@
     <property name="member_avatar" fieldname="member_avatar" datatype="string" table="usr" maxlength="255"/>
     <property name="member_website" fieldname="member_website" datatype="string" table="usr" maxlength="255"/>	  
     <property name="nb_msg" fieldname="member_nb_msg" table="usr" datatype="integer" />
+    <property name="member_last_post" fieldname="member_last_post" table="usr"  datatype="integer" />
     </record>
     <factory>        
         <!-- get the posts to be displayed on the index of the forum page -->
@@ -162,6 +164,15 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
             <limit offset="0" count="$count"/>    
-        </method>        
+        </method>
+        <method name="findMyLastEditedPost" type="selectfirst">
+            <parameter name="id_user" />
+           <conditions>
+                <eq property="id_user" expr="$id_user" />
+            </conditions>            
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>    
     </factory>
 </dao>

@@ -25,6 +25,11 @@ class postsCtrl extends jController {
 		'save'  => array( 'jacl2.right'=>'hfnu.posts.edit'),			
 		'savereply'	=> array( 'jacl2.right'=>'hfnu.posts.reply','hfnu.posts.quote'),
 		
+		'add'	=> array('flood.same.ip'=>true),
+		'edit'	=> array('flood.editing'=>true),
+		'quote'	=> array('flood.editing'=>true),
+		'reply'	=> array('flood.editing'=>true),
+		
         'lists'	=> array( 'history.add'=>true),
         'view' 	=> array( 'history.add'=>true),		
 		
@@ -178,7 +183,7 @@ class postsCtrl extends jController {
 		
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-			
+		
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($id_forum);
 		if (! $forum) {
@@ -212,7 +217,9 @@ class postsCtrl extends jController {
     }
 
     // display the edit form with the corresponding selected post
-    function edit () {		
+    function edit () {
+		global $HfnConfig;
+		
 		$id_post = (int) $this->param('id_post');
 		
 		if ($id_post == 0 ) {
@@ -226,7 +233,7 @@ class postsCtrl extends jController {
 		
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);
-
+				
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);		
 		if (! $forum) {
@@ -350,9 +357,9 @@ class postsCtrl extends jController {
 				$record->parent_id  = 0;
 				$record->status		= 1;
 				$record->date_created = date('Y-m-d H:i:s');
-				$record->date_modified = date('Y-m-d H:i:s');
-				
+				$record->date_modified = date('Y-m-d H:i:s');				
 				$record->viewed		= 0;
+				$record->poster_ip = $_SERVER['REMOTE_ADDR'];
 				
 				$dao->insert($record);
 				$record->parent_id = $record->id_post;
@@ -361,9 +368,14 @@ class postsCtrl extends jController {
 				// let's update the counter of posts in member table
 				$daoUser = jDao::get('havefnubb~member');			
 				// increment the nb_msg of the poster
-				$daoUser->updateNbMsg($user->id,$user->nb_msg +1);			
+				$daoUser->updateNbMsg($user->id,$user->nb_msg +1);
+				// let's update the last time the user "touch" a post
+				$daoUser->updateLastPostedMsg($user->id,time());
 			} else {
 				$record->date_modified = date('Y-m-d H:i:s');
+				// let's update the last time the user "touch" a post
+				$daoUser = jDao::get('havefnubb~member');
+				$daoUser->updateLastPostedMsg($user->id,time());
 			}
 			// otherwise it's an update
 			// in all case we have to
@@ -524,12 +536,15 @@ class postsCtrl extends jController {
 			$record->date_created = date('Y-m-d H:i:s');
 			$record->date_modified = date('Y-m-d H:i:s');
 			$record->viewed		= 0;
+			$record->poster_ip = $_SERVER['REMOTE_ADDR'];
 			$dao->insert($record);
 
 			// let's update the counter of posts in member table
 			$daoUser = jDao::get('havefnubb~member');			
 			// increment the nb_msg of the poster
 			$daoUser->updateNbMsg($user->id,$user->nb_msg +1);
+			// let's update the last time the user "touch" a post
+			$daoUser->updateLastPostedMsg($user->id,time());
 			
 			jForms::destroy('havefnubb~posts', $parent_id);
 			
