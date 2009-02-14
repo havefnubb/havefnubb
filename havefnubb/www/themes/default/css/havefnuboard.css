@@ -462,6 +462,13 @@ table td {
 	background-color: #c9c9a7;
 }
 
+.coltag {
+	text-align: center;
+	padding: 5px;
+	width: 8%;
+	background-color: #c9c9a7;
+}
+
 .coltitle {
 	width: 30%;
 	padding-left: 10px;

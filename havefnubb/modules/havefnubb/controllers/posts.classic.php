@@ -191,7 +191,7 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
             return $rep;			
 		}
-		
+				
 		$form = jForms::create('havefnubb~posts',$id_post);
 		$form->setData('id_forum',$id_forum);
 		$form->setData('id_user',$user->id);
@@ -338,10 +338,16 @@ class postsCtrl extends jController {
 			//CreateRecord object
 			$dao = jDao::get('havefnubb~posts');
 			
-			if ($id_post == 0) 
+			
+			
+			if ($id_post == 0) {
+				jEvent::notify('HfnuPostBeforeSave',array($id_post));
 				$record = jDao::createRecord('havefnubb~posts');
-			else
+			}
+			else {
+				jEvent::notify('HfnuPostBeforeUpdate',array($id_post));
 				$record = $dao->get($id_post);
+			}
 			
 			$record->subject	= $subject;
 			$record->message	= $message;
@@ -364,7 +370,9 @@ class postsCtrl extends jController {
 				$dao->insert($record);
 				$record->parent_id = $record->id_post;
 				$id_post = $record->id_post;
-
+				
+				jEvent::notify('HfnuPostAfterInsert',array($id_post));
+				
 				// let's update the counter of posts in member table
 				$daoUser = jDao::get('havefnubb~member');			
 				// increment the nb_msg of the poster
@@ -382,8 +390,9 @@ class postsCtrl extends jController {
 			// update as we store the last insert id in the parent_id column
 			$dao->update($record);
 			
+			jEvent::notify('HfnuPostAfterSave',array($id_post));
+			
 			$tags = explode(",", $form->getData("tags"));
-			var_dump($tags);
 
 			jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
 			
@@ -519,6 +528,8 @@ class postsCtrl extends jController {
 			$subject	= $form->getData('subject');
 			$message 	= $form->getData('message');
 			
+			jEvent::notify('HfnuPostBeforeSaveReply',array($id_post));
+			
 			//CreateRecord object
 			$dao = jDao::get('havefnubb~posts');		
 			$record = jDao::createRecord('havefnubb~posts');
@@ -538,7 +549,9 @@ class postsCtrl extends jController {
 			$record->viewed		= 0;
 			$record->poster_ip = $_SERVER['REMOTE_ADDR'];
 			$dao->insert($record);
-
+			
+			jEvent::notify('HfnuPostAfterSaveReply',array($id_post));
+			
 			// let's update the counter of posts in member table
 			$daoUser = jDao::get('havefnubb~member');			
 			// increment the nb_msg of the poster
@@ -635,8 +648,13 @@ class postsCtrl extends jController {
 		$id_post = (integer) $this->param('id_post');
 		$id_forum = (integer) $this->param('id_forum');
 		
+		jEvent::notify('HfnuPostBeforeDelete',array($id_post));
+		
 		$dao = jDao::get('havefnubb~posts');
         $dao->delete($id_post);
+		
+		jEvent::notify('HfnuPostAfterDelete',array($id_post));
+		
         jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'ok');
         $rep = $this->getResponse('redirect');
         $rep->action='havefnubb~posts:lists';
@@ -649,7 +667,7 @@ class postsCtrl extends jController {
         if ($id_forum == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
-        }
+        }		
         $rep = $this->getResponse('redirect');
         $rep->action='havefnubb~posts:lists';
 		$rep->params=array('id_forum'=>$id_forum);  
@@ -675,7 +693,7 @@ class postsCtrl extends jController {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
             return $rep;			
-		}
+		}		
         
         $form = jForms::create('havefnubb~notify',$id_post);
 		$form->setData('id_user',$user->id);
@@ -728,6 +746,8 @@ class postsCtrl extends jController {
 			$subject	= $form->getData('subject');
 			$message 	= $form->getData('message');
 			
+			jEvent::notify('HfnuPostBeforeSaveNotify',array($id_post));
+			
 			//CreateRecord object
 			$dao = jDao::get('havefnubb~notify');		
 			$record = jDao::createRecord('havefnubb~notify');
@@ -744,7 +764,9 @@ class postsCtrl extends jController {
 			$record->date_modified = date('Y-m-d H:i:s');
 
 			$dao->insert($record);
-
+			
+			jEvent::notify('HfnuPostAfterSaveNotify',array($id_post));
+			
 			// let's update the counter of posts in member table
 			$daoUser = jDao::get('havefnubb~member');			
 			

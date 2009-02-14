@@ -27,9 +27,23 @@ class defaultCtrl extends jController {
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title));
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto.homepage'));
 		
-        $rep->body->assignZone('MAIN', 'category');
+        $rep->body->assignZone('MAIN', 'havefnubb~category');
         return $rep;
     }
+	
+	function cloud () {
+		$tag = $this->param('tag');
+		
+		global $HfnuConfig;
+        $title = stripslashes($HfnuConfig->getValue('title'));
+        $rep = $this->getResponse('html');
+		
+		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~main.cloud'));
+		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.cloud'));
+		
+        $rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));
+        return $rep;		
+	}
 
 }
 
