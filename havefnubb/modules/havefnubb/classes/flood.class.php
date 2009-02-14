@@ -13,6 +13,10 @@ class flood {
     function __construct() {}
     
     public static function check($action,$value) {
+        //we are never sure enough of the datas we get :P
+        if (! in_array($action,array('same_ip','editing'))) {
+            die("");
+        }
         //check if the user is member of Admins (groupid 0) / Moderators (groupid 3)
         // if so, no need to stop the action of this group of users        
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) 
