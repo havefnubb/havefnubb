@@ -665,6 +665,7 @@ class postsCtrl extends jController {
         $form = jForms::create('havefnubb~notify',$id_post);
 		$form->setData('id_user',$user->id);
 		$form->setData('id_post',$id_post);
+		$form->setData('id_forum',$post->id_forum);
         
 		//set the needed parameters to the template              
         $tpl = new jTpl();        
@@ -686,6 +687,7 @@ class postsCtrl extends jController {
     // save the datas posted from the notify form
 	function savenotify() {
 		$id_post    = (int) $this->param('id_post');
+		$id_forum   = (int) $this->param('id_forum');
 		
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
@@ -694,7 +696,7 @@ class postsCtrl extends jController {
         if ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
 			$rep = $this->getResponse('redirect');
 			
-			if ($id_post ==  0 or $user->id == 0 ) {			
+			if ($id_post ==  0 or $user->id == 0  or $id_forum == 0) {			
 				$rep->action = 'havefnubb~default:index';	
 				return $rep;
 			}
@@ -720,6 +722,7 @@ class postsCtrl extends jController {
 			$record->message	= $message;			
 
 			$record->id_post  	= $id_post;
+			$record->id_forum  	= $id_forum;
 			$record->id_user 	= $user->id;
 
 			$record->date_created = date('Y-m-d H:i:s');

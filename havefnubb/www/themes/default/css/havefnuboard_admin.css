@@ -57,7 +57,19 @@ table.records-list thead th.records-list-forum-order,
 table.records-list thead th.records-list-rank-action {
 	width: 10%;
 }
-	
+
+th.records-list-notify-forum {	
+	width: 20%
+}
+th.records-list-notify-subject {	
+	width: 20%
+}
+th.records-list-notify-author {	
+	width: 20%
+}
+td.td-notify-message {
+	text-align: right;
+}
 /* Tab */
 
 /* Caution! Ensure accessibility in print and other media types... */

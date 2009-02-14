@@ -459,6 +459,7 @@ CREATE TABLE IF NOT EXISTS `notify` (
   `id_notify` int(12) NOT NULL AUTO_INCREMENT,
   `id_user` int(12) NOT NULL,
   `id_post` int(12) NOT NULL,
+  `id_forum` int(12) NOT NULL,
   `subject` varchar(255) NOT NULL,
   `message` text NOT NULL,
   `date_created` datetime NOT NULL,
