@@ -1,7 +1,14 @@
+<div id="breadcrumbtop" class="headbox">
+    <h3>{@hfnusearch~search.results@}</h3>    
+</div>
+<div id="result">
 {if $count == 0}
 No Result
 {else}
-{foreach $datas as $data}
-Subjet : {$data->subject|eschtml}<br/>Message : {$data->message|eschtml}<hr/>
+{for $i = 0 ; $i < count($datas) ; $i++}
+{foreach $datas[$i] as $subject => $message}
+{$subject|eschtml}
 {/foreach}
+{/for}
 {/if}
+</div>

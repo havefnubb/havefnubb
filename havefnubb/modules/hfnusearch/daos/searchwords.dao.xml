@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="searchwords" realname="search_words" primarykey="id" />
+    </datasources>
+    <record>        
+        <property name="id"     fieldname="id"      datatype="int"/>
+        <property name="words"  fieldname="words"   datatype="string" maxlength="255"/>
+        <property name="weight" fieldname="weight"  datatype="int"/>
+    </record>
+    <factory>
+        <method name="findAll">
+            <order>
+                <orderitem property="weight" way="asc" />
+            </order>            
+        </method>
+    </factory>    
+</dao>

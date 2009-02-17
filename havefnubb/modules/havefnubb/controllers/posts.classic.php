@@ -341,11 +341,11 @@ class postsCtrl extends jController {
 			
 			
 			if ($id_post == 0) {
-				jEvent::notify('HfnuPostBeforeSave',array($id_post));
+				jEvent::notify('HfnuPostBeforeSave',array('id_post'=>$id_post));
 				$record = jDao::createRecord('havefnubb~posts');
 			}
 			else {
-				jEvent::notify('HfnuPostBeforeUpdate',array($id_post));
+				jEvent::notify('HfnuPostBeforeUpdate',array('id_post'=>$id_post));
 				$record = $dao->get($id_post);
 			}
 			
@@ -371,7 +371,7 @@ class postsCtrl extends jController {
 				$record->parent_id = $record->id_post;
 				$id_post = $record->id_post;
 				
-				jEvent::notify('HfnuPostAfterInsert',array($id_post));
+				jEvent::notify('HfnuPostAfterInsert',array('id_post'=>$id_post));
 				
 				// let's update the counter of posts in member table
 				$daoUser = jDao::get('havefnubb~member');			
@@ -390,7 +390,7 @@ class postsCtrl extends jController {
 			// update as we store the last insert id in the parent_id column
 			$dao->update($record);
 			
-			jEvent::notify('HfnuPostAfterSave',array($id_post));
+			jEvent::notify('HfnuPostAfterSave',array('id_post'=>$id_post));
 			
 			$tags = explode(",", $form->getData("tags"));
 
@@ -528,7 +528,7 @@ class postsCtrl extends jController {
 			$subject	= $form->getData('subject');
 			$message 	= $form->getData('message');
 			
-			jEvent::notify('HfnuPostBeforeSaveReply',array($id_post));
+			jEvent::notify('HfnuPostBeforeSaveReply',array('id_post'=>$id_post));
 			
 			//CreateRecord object
 			$dao = jDao::get('havefnubb~posts');		
@@ -550,7 +550,7 @@ class postsCtrl extends jController {
 			$record->poster_ip = $_SERVER['REMOTE_ADDR'];
 			$dao->insert($record);
 			
-			jEvent::notify('HfnuPostAfterSaveReply',array($id_post));
+			jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$record->id_post));
 			
 			// let's update the counter of posts in member table
 			$daoUser = jDao::get('havefnubb~member');			
@@ -648,12 +648,12 @@ class postsCtrl extends jController {
 		$id_post = (integer) $this->param('id_post');
 		$id_forum = (integer) $this->param('id_forum');
 		
-		jEvent::notify('HfnuPostBeforeDelete',array($id_post));
+		jEvent::notify('HfnuPostBeforeDelete',array('id_post'=>$id_post));
 		
 		$dao = jDao::get('havefnubb~posts');
         $dao->delete($id_post);
 		
-		jEvent::notify('HfnuPostAfterDelete',array($id_post));
+		jEvent::notify('HfnuPostAfterDelete',array('id_post'=>$id_post));
 		
         jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'ok');
         $rep = $this->getResponse('redirect');
@@ -746,7 +746,7 @@ class postsCtrl extends jController {
 			$subject	= $form->getData('subject');
 			$message 	= $form->getData('message');
 			
-			jEvent::notify('HfnuPostBeforeSaveNotify',array($id_post));
+			jEvent::notify('HfnuPostBeforeSaveNotify',array('id_post'=>$id_post));
 			
 			//CreateRecord object
 			$dao = jDao::get('havefnubb~notify');		
@@ -765,7 +765,7 @@ class postsCtrl extends jController {
 
 			$dao->insert($record);
 			
-			jEvent::notify('HfnuPostAfterSaveNotify',array($id_post));
+			jEvent::notify('HfnuPostAfterSaveNotify',array('id_post'=>$id_post));
 			
 			// let's update the counter of posts in member table
 			$daoUser = jDao::get('havefnubb~member');			
