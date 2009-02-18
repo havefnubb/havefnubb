@@ -16,18 +16,7 @@ class hfnuadminmenuListener extends jEventListener{
 	function onmasteradminGetMenuContent ($event) {
       if ( jAcl2::check('hfnu.admin.index'))    {
 		  $event->add(new masterAdminMenuItem('havefnubb','HaveFnu BB!', '', 20));
-
-		  $event->add(new masterAdminMenuItem('portal',
-											  jLocale::get('hfnuadmin~admin.back.to.havefnubb'),
-											  jUrl::get('havefnubb~default:index'),
-											  100,
-											  'havefnubb'));
 		  
-		  $event->add(new masterAdminMenuItem('config',
-											  jLocale::get('hfnuadmin~admin.index'),
-											  jUrl::get('hfnuadmin~default:index'),
-											  200,
-											  'havefnubb'));
 		  $event->add(new masterAdminMenuItem('config',
 											  jLocale::get('hfnuadmin~admin.config'),
 											  jUrl::get('hfnuadmin~default:config'),

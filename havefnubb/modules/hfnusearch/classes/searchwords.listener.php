@@ -13,43 +13,76 @@ class searchwordsListener extends jEventListener{
    * updating the search_words table for each of the following event
    */
    
-   /* action to do (updateSearchIndex) when occurs each of the following event :
-   * - onHfnuPostAfterSave, 
-   * - onHfnuPostAfterInsert, 
-   * - onHfnuPostAfterSaveReply
-   */
-   function onHfnuPostAfterSave ($event) {
-        $id = $event->getParam('id_post');
-		$this->updateSearchIndex($id);
-    }
-
-   function onHfnuPostAfterInsert ($event) {
-        $id = $event->getParam('id_post');
-		$this->updateSearchIndex($id);        
-   }
-   
-   function onHfnuPostAfterSaveReply ($event) {
-		$id = $event->getParam('id_post');
-		$this->updateSearchIndex($id);
-    }
-   
-   function onHfnuPostAfterDelete ($event) {
-        $id = $event->getParam('id_post');
-        
-        $service = jClasses::getService('hfnusearch~search_index');
-        $service->delete($id);
-   }
-   
-   private function updateSearchIndex($id) {
-		if ($id == 0) die("no!");
-		//get the post !
-        $dao = jDao::get('havefnubb~posts');
+   function onHfnuSearchEngineAddContent ($event) {
+        $id = $event->getParam('id');
+		if ($id == 0) return;
+		
+		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
+		//in the config, get the dao we need to use to get the content to
+		// populate the table of the search engine
+        $dao = jDao::get($HfnuSearchConfig->getValue('dao'));
         $rec = $dao->get($id);
         // update the SearchWords table !
         jClasses::inc('hfnusearch~search_index');
         $service = new search_index();
         $service->subject = $rec->subject;
         $service->message = $rec->message;
-        $service->updateIndex($id);   
+        $service->searchEngineUpdate($id);
+		
+    }
+	
+   function onHfnuSearchEngineDeleteContent ($event) {
+        $id = $event->getParam('id');
+        if ($id == 0) return ;
+        $service = jClasses::getService('hfnusearch~search_index');
+        $service->searchEngineDelete($id);
    }
+   
+   function onHfnuSearchEngineRun ($event) {
+	  
+	  $cleaner = jClasses::getService('hfnusearch~cleaner');
+	  $words = $cleaner->stemPhrase($event->getParam('string'));
+	  $nb_words = count($words);
+
+	  // no words ; go back with nothing :P
+	  if (!$words) {
+		return array('count'=>0,'result'=>array());
+	  }
+	  
+	  //$words = array_map('stripslashes',$words);
+  
+	  // watch in search_words ...
+	  $cnx = jDb::getConnection();
+	  $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, message, member_login, date_created FROM search_words';
+	  $strQuery .= ' LEFT JOIN posts  ON posts.id_post  = search_words.id ';
+	  $strQuery .= ' LEFT JOIN member ON member.id_user = posts.id_user   ';
+	  $strQuery .= ' WHERE (';
+	  $counter=0;
+	  foreach ($words as $word) {
+		  if ($counter > 0 ) $strQuery .= ' OR ';
+		  $strQuery .= " words  = '". $word."'";
+		  $counter++;
+	  }
+	  
+	  $strQuery .= ') GROUP BY id_post ';
+
+	  // AND query?
+	  
+	  $exact = false;
+	  if ($exact)
+	  {
+		$strQuery .= ' HAVING nb = '.$nb_words;
+	  }
+	 
+	  $strQuery .= ' ORDER BY nb DESC, total_weight DESC';        
+	  
+	  $rs = $cnx->query($strQuery);
+	  $result='';
+	  
+	  while($record = $rs->fetch()){		 
+		 $event->Add(array('SearchEngineResult'=>$record));
+	  }
+	  
+ }
+
 }

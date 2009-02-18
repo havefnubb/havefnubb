@@ -5,10 +5,10 @@
 {if $count == 0}
 No Result
 {else}
-{for $i = 0 ; $i < count($datas) ; $i++}
-{foreach $datas[$i] as $subject => $message}
-{$subject|eschtml}
-{/foreach}
+{for $i = 0 ; $i < count($datas) ; $i++ }
+<h3 class="result-header">{$datas[$i]['subject']|eschtml}</a></h3>
+<span class="result-author">posted by {$datas[$i]['member_login']}</span> - {$datas[$i]['date_created']|jdatetime:'db_datetime':'lang_datetime'} <br/>
+<p class="result-msg">{$datas[$i]['message']|eschtml}</p>
 {/for}
 {/if}
 </div>

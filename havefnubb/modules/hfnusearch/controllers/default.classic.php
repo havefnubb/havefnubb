@@ -27,6 +27,10 @@ class defaultCtrl extends jController {
             $rep->action = 'hfnusearch~default:index';
             return $rep;
         } else {
+            //@TODO : display a page that tells to the user to wait a moment
+            // thus, if the request take too many time :
+            // 1) we avoid to see the user submit his request once again before the end of the first one
+            // 2) we avoid to display a blank page during the waiting time.
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnusearch~default:submit_query';
             $rep->params = array('string'=>$string);
@@ -36,51 +40,26 @@ class defaultCtrl extends jController {
     
     function submit_query() {
         $string = $this->param('string');
-        
-        // split phrase in words
-        $words = str_word_count(strtolower($string),1);
-        $nb_words = count($words);
-        // cleanning the phrase of unuseful words
-        $cleaner = jClasses::getService('hfnusearch~cleaner');                      
-        $words = $cleaner->removeStopwords($words);
-        
-        $words = array_map('stripslashes',$words);
-   
-        
-        // watch in search_words ...
-        $cnx = jDb::getConnection();
-		// @TODO : 'JOIN' member table to know which member did the post
-        $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, message FROM search_words';
-        $strQuery .= ' LEFT JOIN posts ON posts.id_post = search_words.id ';
-        $strQuery .= ' WHERE (';
-        $counter=0;
-        foreach ($words as $word) {
-            if ($counter > 0 ) $strQuery .= ' OR ';
-            $strQuery .= " words  = '". $word."'";
-            $counter++;
+
+        if ($string == '') {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'hfnusearch~default:index';
+            return $rep;            
         }
         
-        $strQuery .= ') GROUP BY id_post ';
-
-        // AND query?
+        $eventresp = jEvent::notify('HfnuSearchEngineRun', array('string'=>$string) );
         
-        $exact = false;
-        if ($exact)
-        {
-          $strQuery .= ' HAVING nb = '.$nb_words;
+        $result = array();        
+        foreach($eventresp->getResponse() as $rep){
+            if(!isset($rep['SearchEngineResult']) )
+                return false;
+            else {
+                $result[] = (array) $rep['SearchEngineResult'];
+            }
         }
-       
-        $strQuery .= ' ORDER BY nb DESC, total_weight DESC';        
-        
-        $rs = $cnx->query($strQuery);
-        $result='';
-        $count=0;
-        while($record = $rs->fetch()){
-		
-            $result[][$record->subject] = $record->message;
-            $count++;
-        }        
 
+        $count = 1;
+        
         $tpl = new jTpl();
         $tpl->assign('count',$count);
         $tpl->assign('datas',$result);

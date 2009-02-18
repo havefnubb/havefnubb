@@ -7,10 +7,14 @@
 * @link      http://forge.jelix.org/projects/havefnubb
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 class Cleaner {
-
-	function removeStopwords($words) {
+	
+	/*
+	 * remove unuseful words for the index
+	 * @param array $words list of words to analyze
+	 * @return array without the stopwords
+	 */
+	public static function removeStopwords($words) {
 		global $gJConfig;
 
 		$stopwords = (array) @file(dirname(__FILE__).'/'.$gJConfig->locale.'/'.'stopwords.txt');
@@ -18,7 +22,31 @@ class Cleaner {
 		
 		return array_diff($words, $stopwords);
 		
-
 	}
+	
+	public static function stemPhrase($phrase)
+	{
+		// split into words
+		$words = str_word_count(strtolower($phrase), 1);
+	
+		// ignore stop words
+		$words = self::removeStopwords($words);
+	
+		// stem words
+		$stemmedWords = array();
+		foreach ($words as $word)
+		{
+		  // ignore 1 and 2 letter words
+		  if (strlen($word) <= 2) 	{
+			continue;
+		  }
+	  
+		  $stem = jClasses::getService('hfnusearch~PorterStemmer');
+		  $stemmedWords[] = $stem->Stem($word, true);
+		}
+	  
+		return $stemmedWords;
+	}
+	
 	
 }
