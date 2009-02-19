@@ -13,8 +13,9 @@ checkTrustedModules=off
 ; list of modules : module,module,module
 trustedModules=
 
-pluginsPath="lib:jelix-plugins/,app:plugins/"
-modulesPath="lib:jelix-modules/,app:modules/,app:../modules/"
+pluginsPath = app:plugins/
+
+modulesPath = lib:jelix-modules/,app:modules/,app:../modules/
 
 theme=default
 

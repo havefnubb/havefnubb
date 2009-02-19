@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+<input ref="hfnu_q" type="string" size="80">
+	<label locale="hfnusearch~search.hfnu_q.search"/>
+	<hint locale="hfnusearch~forum.search.in.a.particular.forum"/>
+	<help locale="hfnusearch~forum.search.in.a.particular.forum"/>		
+</input>
+
+<menulist ref="id_forum">
+  <datasource dao="havefnubb~forum" method="findAll" 
+              labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>
+	<label locale="hfnusearch~forum.search.forum_name"/>
+</menulist>
+
+<submit ref="validate">
+  <label>Veuillez valider</label>
+  <item value="save" locale="hfnusearch~forum.search.okBt"/>
+</submit>
+
+</form>

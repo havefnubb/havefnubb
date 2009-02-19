@@ -58,7 +58,7 @@ class defaultCtrl extends jController {
             }
         }
 
-        $count = 1;
+        $count = count($result);
         
         $tpl = new jTpl();
         $tpl->assign('count',$count);

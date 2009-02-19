@@ -9,11 +9,10 @@
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@foxmask.info" active="true" />
-        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
         <homepageURL>http://forge.jelix.org/projects/havefnubb</homepageURL>
-        <!--<updateURL>http://forge.jelix.org/projects/havefnubb/update.xml</updateURL>-->
+        <updateURL>http://forge.jelix.org/projects/havefnubb/update.php?module=hfnuadmin</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1RC3" maxversion="1.1RC3" />
+        <jelix minversion="1.1" maxversion="1.1" />
     </dependencies>
 </module>
