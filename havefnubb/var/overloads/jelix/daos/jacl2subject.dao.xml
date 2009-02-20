@@ -20,7 +20,11 @@
                 <eq property="id_aclsbj" value="hfnu.posts.create" />
                 <eq property="id_aclsbj" value="hfnu.posts.edit" />
                 <eq property="id_aclsbj" value="hfnu.posts.delete" />
-                <eq property="id_aclsbj" value="hfnu.posts.delete" />                                
+                <eq property="id_aclsbj" value="hfnu.posts.list" />
+                <eq property="id_aclsbj" value="hfnu.posts.reply" />
+                <eq property="id_aclsbj" value="hfnu.posts.quote" />
+                <eq property="id_aclsbj" value="hfnu.posts.notify" />
+                <eq property="id_aclsbj" value="hfnu.posts.view" />
             </conditions>            
            <order>
               <orderitem property="id_aclsbj" way="asc" />

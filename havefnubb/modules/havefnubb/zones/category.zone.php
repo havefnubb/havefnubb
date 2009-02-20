@@ -14,7 +14,15 @@ class categoryZone extends jZone {
     protected function _prepareTpl(){
         $dao = jDao::get('havefnubb~forum');
         $categories = $dao->findAllWithFathers();
+        $data = array();
+        
+        foreach ($categories as $cat) {
+        
+            if ( jAcl2::check('hfnu.forum.list','forum'.$cat->id_forum) )
+                $data[] = $cat;
+        }
+
         $this->_tpl->assign('action','index');
-        $this->_tpl->assign('categories',$categories);
+        $this->_tpl->assign('categories',$data);
     }
 }

@@ -7,7 +7,7 @@
     <div class="forumcat">
         <h3><a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat)}" title="{$category->cat_name|eschtml}">{$category->cat_name|eschtml}</a></h3>
     </div>
-    {ifacl2 'hfnu.forum.list'}
+    {ifacl2 'hfnu.forum.list','forum'.$category->id_forum}
     {zone 'havefnubb~forum',array('id_cat'=>$category->id_cat)}
     {/ifacl2}
 {/foreach}

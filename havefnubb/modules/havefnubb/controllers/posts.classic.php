@@ -16,7 +16,7 @@ class postsCtrl extends jController {
     public $pluginParams = array(
         '*'		=> array( 'auth.required'=>false),
         'goto'	=> array( 'jacl2.right'=>'hfnu.forum.goto'),
-        'lists'	=> array( 'jacl2.right'=>'hfnu.posts.lists'),
+        'lists'	=> array( 'jacl2.right'=>'hfnu.posts.list'),
 		'add' 	=> array( 'jacl2.right'=>'hfnu.posts.create'),		
 		'edit' 	=> array( 'jacl2.right'=>'hfnu.posts.edit'),
         'delete'=> array( 'jacl2.right'=>'hfnu.posts.delete'),		
@@ -39,6 +39,12 @@ class postsCtrl extends jController {
     function lists() {
         global $HfnuConfig;
         $id_forum = (int) $this->param('id_forum');
+		
+		if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
+		
         if ($id_forum == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -103,6 +109,12 @@ class postsCtrl extends jController {
 	//display the thread of the given post 
     function view() {
         $id_post = (int) $this->param('id_post');
+		
+		if ( ! jAcl2::check('hfnu.posts.view','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
+		
         if ($id_post == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -172,6 +184,11 @@ class postsCtrl extends jController {
     function add () {		
 		$id_forum = (int) $this->param('id_forum');
 		
+		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
+		
 		$id_post = 0;
 
 		// invalid forum id
@@ -219,6 +236,13 @@ class postsCtrl extends jController {
     // display the edit form with the corresponding selected post
     function edit () {
 		global $HfnConfig;
+
+
+		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
+
 		
 		$id_post = (int) $this->param('id_post');
 		
@@ -269,6 +293,14 @@ class postsCtrl extends jController {
     // Save the data submitted from add/edit form
 	function save() {
 		$id_forum = (int) $this->param('id_forum');
+
+		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) or *
+			 ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum)
+			) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
+		
 		$id_post = (int) $this->param('id_post');
 		$tags = $this->param("tags", false);
         
@@ -428,7 +460,14 @@ class postsCtrl extends jController {
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
         
 		$daoPost = jDao::get('havefnubb~posts');
-		$post = $daoPost->get($parent_id);              
+		$post = $daoPost->get($parent_id);
+
+		if ( ! jAcl2::check('hfnu.posts.create','forum'.$post->id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
+
+		
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);
 		if (! $forum) {
@@ -436,6 +475,7 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
             return $rep;			
 		}
+		
         
         $form = jForms::create('havefnubb~posts',$parent_id);
 		$form->setData('id_forum',$post->id_forum);
@@ -468,6 +508,12 @@ class postsCtrl extends jController {
     // save the datas posted from the reply form
 	function savereply() {
 		$id_forum   = (int) $this->param('id_forum');
+		
+		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
+		
 		$id_post    = (int) $this->param('id_post');       
         $parent_id  = (int) $this->param('parent_id');
 		
@@ -582,7 +628,7 @@ class postsCtrl extends jController {
 	
 	
 	// quote message
-    function quote() {       
+    function quote() {  
         $parent_id = (int) $this->param('parent_id');
         $id_post = (int) $this->param('id_post');
         if ($parent_id == 0 ) {
@@ -596,6 +642,12 @@ class postsCtrl extends jController {
         
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);
+
+		if ( ! jAcl2::check('hfnu.posts.create','forum'.$post->id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
+		
         if (!$post) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -653,6 +705,11 @@ class postsCtrl extends jController {
 		
 		$id_post = (integer) $this->param('id_post');
 		$id_forum = (integer) $this->param('id_forum');
+
+		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
 		
 		jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));
 		

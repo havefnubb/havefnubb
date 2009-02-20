@@ -3,8 +3,7 @@
 
 <hidden ref="dont_jump_here"/>
 <menulist ref="id_forum">
-  <datasource dao="havefnubb~forum" method="findAllExceptOne" criteriafrom="dont_jump_here"
-              labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>
+  <datasource class="havefnubb~hfnuforumaccess"/>
 	<label locale="havefnubb~forum.jumpto.go.to.this.forum">jumpto forum :</label>	
 </menulist>
 

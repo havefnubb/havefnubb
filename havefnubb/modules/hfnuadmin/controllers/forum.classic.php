@@ -129,12 +129,14 @@ class forumCtrl extends jController {
         $gid=array(0);
         $o = new StdClass;
         $o->id_aclgrp ='0';
-        $o->name = jLocale::get('jacl2_admin~acl2.anonymous.group.name');
+        $o->name = jLocale::get('jacl2db_admin~acl2.anonymous.group.name');
         $o->grouptype=0;
         $groups=array($o);
         $grouprights=array(0=>false);
         
-        $dao = jDao::get('jelix~jacl2group',jAcl2Db::getProfile())->findAllPublicGroupExceptAdmins();
+        //$dao = jDao::get('jelix~jacl2group',jAcl2Db::getProfile())->findAllPublicGroupExceptAdmins();
+        $dao = jDao::get('jelix~jacl2group',jAcl2Db::getProfile())->findAllPublicGroup();
+        
         foreach($dao as $grp) {
             $gid[]=$grp->id_aclgrp;
             $groups[]=$grp;
