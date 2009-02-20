@@ -14,14 +14,17 @@ class hfnuforumaccess implements jIFormDatasource
   protected $formId = 0; 
   protected $data = array();  
 
-  function __construct($id)
+  function __construct($id)  
   {
+    // " jump to " will display all the forum except :
+    // 1) the current one
+    // 2) the ones the access are not granted
     $data = array();
     $dao = jDao::get('havefnubb~forum');
     $recs = $dao->findAll();
     foreach ($recs as $rec) {
-      if ( jAcl2::check('hfnu.forum.view') ) {
-          $data[$rec->id_forum] = $rec->forum_name;
+      if ( $rec->id_forum != $id and jAcl2::check('hfnu.forum.view','forum'.$rec->id_forum) ) {
+            $data[$rec->id_forum] = $rec->forum_name;
       }
     }
     $this->formId = $id;

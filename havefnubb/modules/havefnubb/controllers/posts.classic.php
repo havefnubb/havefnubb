@@ -23,7 +23,7 @@ class postsCtrl extends jController {
 		'quote' => array( 'jacl2.right'=>'hfnu.posts.quote'),
 		'reply' => array( 'jacl2.right'=>'hfnu.posts.reply'),
 		'save'  => array( 'jacl2.right'=>'hfnu.posts.edit'),			
-		'savereply'	=> array( 'jacl2.right'=>'hfnu.posts.reply','hfnu.posts.quote'),
+		//'savereply'	=> array( 'jacl2.right'=>'hfnu.posts.reply','hfnu.posts.quote'),
 		
 		'add'	=> array('flood.same.ip'=>true),
 		'edit'	=> array('flood.editing'=>true),
@@ -101,7 +101,7 @@ class postsCtrl extends jController {
         $tpl->assign('id_forum',$id_forum);
 		$tpl->assign('lvl',$forum->child_level);
         $tpl->assign('properties',$properties);
-        
+			
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));
         return $rep;        
     }        
@@ -109,11 +109,6 @@ class postsCtrl extends jController {
 	//display the thread of the given post 
     function view() {
         $id_post = (int) $this->param('id_post');
-		
-		if ( ! jAcl2::check('hfnu.posts.view','forum'.$id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-		}
 		
         if ($id_post == 0 ) {
             $rep = $this->getResponse('redirect');
@@ -123,6 +118,11 @@ class postsCtrl extends jController {
         // let's update the viewed counter
         $dao = jDao::get('havefnubb~posts'); 
         $post = $dao->get($id_post);
+
+		if ( ! jAcl2::check('hfnu.posts.view','forum'.$post->id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
 
 		// we cant display a reply without its father post,
 		// let's check it
@@ -237,7 +237,6 @@ class postsCtrl extends jController {
     function edit () {
 		global $HfnConfig;
 
-
 		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -294,7 +293,7 @@ class postsCtrl extends jController {
 	function save() {
 		$id_forum = (int) $this->param('id_forum');
 
-		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) or *
+		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) or 
 			 ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum)
 			) {
 			$rep = $this->getResponse('redirect');
@@ -466,7 +465,6 @@ class postsCtrl extends jController {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 		}
-
 		
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);
@@ -474,8 +472,7 @@ class postsCtrl extends jController {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
             return $rep;			
-		}
-		
+		}		
         
         $form = jForms::create('havefnubb~posts',$parent_id);
 		$form->setData('id_forum',$post->id_forum);
@@ -509,7 +506,8 @@ class postsCtrl extends jController {
 	function savereply() {
 		$id_forum   = (int) $this->param('id_forum');
 		
-		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) or
+			 ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 		}

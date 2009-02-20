@@ -38,11 +38,14 @@
             {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
             <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
             {/ifacl2}
-            {ifacl2 'hfnu.posts.create','forum'.$id_forum}
+            {ifacl2 'hfnu.posts.edit','forum'.$id_forum}
+            {* if $post->login == $current_user *}
             <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
-            <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
+            {* /if *}
             {/ifacl2}
-            
+            {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
+            <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
+            {/ifacl2}            
         </div>
     </div>
 </div>

@@ -37,6 +37,12 @@ class postlistinpostZone extends jZone {
         $nbReplies = $daoPost->findNbOfResponse($id_post);
         // 4- get the posts of the current forum, limited by point 1 and 2
         $posts = $daoPost->findByIdParent($id_post,$page,$nbRepliesPerPage);
+
+		if(jAuth::isConnected()) 
+			$this->_tpl->assign('current_user',jAuth::getUserSession ()->login);
+		else
+			$this->_tpl->assign('current_user','');
+
         
         $this->_tpl->assign('posts',$posts);
         $this->_tpl->assign('tags',$tags);

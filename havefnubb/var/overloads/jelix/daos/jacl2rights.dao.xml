@@ -32,12 +32,16 @@
                 <eq property="id_aclres" expr="$resources"/>
                 <in property="id_aclgrp" expr="$groups" />            
                 <conditions logic="OR">
-                    <eq property="id_aclsbj" value="hfnu.forum.view" />
                     <eq property="id_aclsbj" value="hfnu.forum.list" />
+                    <eq property="id_aclsbj" value="hfnu.forum.view" />
                     <eq property="id_aclsbj" value="hfnu.posts.create" />
+                    <eq property="id_aclsbj" value="hfnu.posts.delete" />
                     <eq property="id_aclsbj" value="hfnu.posts.edit" />
-                    <eq property="id_aclsbj" value="hfnu.posts.delete" />
-                    <eq property="id_aclsbj" value="hfnu.posts.delete" />
+                    <eq property="id_aclsbj" value="hfnu.posts.view" />
+                    <eq property="id_aclsbj" value="hfnu.posts.list" />
+                    <eq property="id_aclsbj" value="hfnu.posts.reply" />
+                    <eq property="id_aclsbj" value="hfnu.posts.quote" />
+                    <eq property="id_aclsbj" value="hfnu.posts.notify" />
                 </conditions>
             </conditions>            
         </method>        

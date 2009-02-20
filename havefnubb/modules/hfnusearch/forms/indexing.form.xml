@@ -4,7 +4,7 @@
 <radiobuttons ref="confirm" required="true">
     <label>Confirmation:</label>
     <item value="Y" locale="hfnusearch~search.admin.yes"/>
-    <item value="N" locale="hfnusearch~search.admin.no"/>
+    <item value="N" locale="hfnusearch~search.admin.no" selected="true"/>
     <help locale="hfnusearch~search.admin.description"/>
     <hint locale="hfnusearch~search.admin.description"/>
 </radiobuttons>
