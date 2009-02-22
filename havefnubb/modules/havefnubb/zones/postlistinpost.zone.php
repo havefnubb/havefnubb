@@ -42,7 +42,6 @@ class postlistinpostZone extends jZone {
 			$this->_tpl->assign('current_user',jAuth::getUserSession ()->login);
 		else
 			$this->_tpl->assign('current_user','');
-
         
         $this->_tpl->assign('posts',$posts);
         $this->_tpl->assign('tags',$tags);

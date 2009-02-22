@@ -8,5 +8,8 @@
    </listener>
    <listener name="hfnuadmininfobox">
          <event name="masteradminGetInfoBoxContent"/>
-   </listener>   
+   </listener>
+   <listener name="hfnumanageuser">
+		 <event name="AuthNewUser" />
+   </listener>
 </events>

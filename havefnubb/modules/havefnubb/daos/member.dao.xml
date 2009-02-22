@@ -176,5 +176,15 @@
 				<value property="member_last_post" expr="$time"/>
 			</values>			
 		</method>
+		<method name="updateNbMsgAfterCreatingAccount" type="update">
+			<parameter name="id"/>
+			<parameter name="nbPost" default="0"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+			<values>
+				<value property="nb_msg" expr="$nbPost"/>
+			</values>			
+		</method>
    </factory>
 </dao>
