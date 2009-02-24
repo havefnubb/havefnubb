@@ -3,11 +3,11 @@
 </div>
 <div id="result">
 {if $count == 0}
-No Result
+{@hfnusearch~search.no.result@}
 {else}
 {for $i = 0 ; $i < count($datas) ; $i++ }
-<h3 class="result-header">{$datas[$i]['subject']|eschtml}</a></h3>
-<span class="result-author">posted by {$datas[$i]['member_login']}</span> - {$datas[$i]['date_created']|jdatetime:'db_datetime':'lang_datetime'} <br/>
+<h4 class="result-header"><a href="{jurl 'havefnubb~posts:view',array('id_post'=>$datas[$i]['id_post'])}">{$datas[$i]['subject']|eschtml}</a></h4>
+<span class="result-author">posted by {$datas[$i]['member_login']}</span> - <span class="result-date">{$datas[$i]['date_created']|jdatetime:'db_datetime':'lang_datetime'}</span> <br/>
 <p class="result-msg">{$datas[$i]['message']|eschtml}</p>
 {/for}
 {/if}

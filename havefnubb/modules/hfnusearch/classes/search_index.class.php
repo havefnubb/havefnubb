@@ -31,7 +31,7 @@ class search_index {
         $stemmedWords = $cleaner->stemPhrase($longText);
         
         $words = array_count_values($stemmedWords);
-        
+
         return $words;        
     }
     
@@ -42,7 +42,7 @@ class search_index {
 	* @param integer $id to update
 	*/
     function searchEngineUpdate($id) {
-        if ($id == 0 ) die ("no!");
+        if ($id == 0 ) return;
         // 1) remove all the words of the current post in the table of the search engine
         $dao = jDao::get('hfnusearch~searchwords');
         $dao->delete($id);
@@ -62,7 +62,7 @@ class search_index {
 	* @param integer $id to delete
 	*/
     function searchEngineDelete($id) {
-        if ($id == 0 ) die ("no!");
+        if ($id == 0 ) return;
         // 1) remove all the words of the current post in the table of the search engine
         $dao = jDao::get('hfnusearch~searchwords');
         $dao->delete($id);
@@ -75,11 +75,11 @@ class search_index {
 		
 		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
         $dao = jDao::get($HfnuSearchConfig->getValue('dao'));
-		$records = $dao->findAll();
-		foreach ($records as $rec ) {
-			$this->searchEngineUpdate($rec->id_post);
+		$records = $dao->findAll();	
+		foreach ($records as $rec ) {			
 			$this->message = $rec->message;
 			$this->subject = $rec->subject;
+			$this->searchEngineUpdate($rec->id_post);
 		}
 		return $records->rowCount();
 	}
