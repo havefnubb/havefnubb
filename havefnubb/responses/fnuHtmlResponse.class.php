@@ -4,7 +4,7 @@
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
-* @link      http://www.havefnu.com
+* @link      http://forge.jelix.org/projects/havefnubb
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
@@ -35,9 +35,7 @@ class fnuHtmlResponse extends jResponseHtml {
         if ($this->title)
             $this->title = $title . ' - ' . $this->title;        
         else
-            $this->title = $title;
-        
-       
+            $this->title = $title;       
         
         $this->body->assignIfNone('TITLE',$title);
         $this->body->assignIfNone('DESC',$description);

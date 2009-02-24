@@ -159,12 +159,44 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.forum.goto', 1, ''),
 ('hfnu.forum.goto', 2, ''),
 ('hfnu.forum.goto', 3, ''),
+('hfnu.forum.list', 0, 'forum1'),
+('hfnu.forum.list', 0, 'forum2'),
+('hfnu.forum.list', 0, 'forum3'),
+('hfnu.forum.list', 0, 'forum4'),
 ('hfnu.forum.list', 1, ''),
+('hfnu.forum.list', 1, 'forum1'),
+('hfnu.forum.list', 1, 'forum2'),
+('hfnu.forum.list', 1, 'forum3'),
+('hfnu.forum.list', 1, 'forum4'),
 ('hfnu.forum.list', 2, ''),
+('hfnu.forum.list', 2, 'forum1'),
+('hfnu.forum.list', 2, 'forum2'),
+('hfnu.forum.list', 2, 'forum3'),
+('hfnu.forum.list', 2, 'forum4'),
 ('hfnu.forum.list', 3, ''),
+('hfnu.forum.list', 3, 'forum1'),
+('hfnu.forum.list', 3, 'forum2'),
+('hfnu.forum.list', 3, 'forum3'),
+('hfnu.forum.list', 3, 'forum4'),
+('hfnu.forum.view', 0, 'forum1'),
+('hfnu.forum.view', 0, 'forum2'),
+('hfnu.forum.view', 0, 'forum3'),
+('hfnu.forum.view', 0, 'forum4'),
 ('hfnu.forum.view', 1, ''),
+('hfnu.forum.view', 1, 'forum1'),
+('hfnu.forum.view', 1, 'forum2'),
+('hfnu.forum.view', 1, 'forum3'),
+('hfnu.forum.view', 1, 'forum4'),
 ('hfnu.forum.view', 2, ''),
+('hfnu.forum.view', 2, 'forum1'),
+('hfnu.forum.view', 2, 'forum2'),
+('hfnu.forum.view', 2, 'forum3'),
+('hfnu.forum.view', 2, 'forum4'),
 ('hfnu.forum.view', 3, ''),
+('hfnu.forum.view', 3, 'forum1'),
+('hfnu.forum.view', 3, 'forum2'),
+('hfnu.forum.view', 3, 'forum3'),
+('hfnu.forum.view', 3, 'forum4'),
 ('hfnu.member.list', 1, ''),
 ('hfnu.member.list', 2, ''),
 ('hfnu.member.list', 3, ''),
@@ -175,32 +207,124 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.member.view', 2, ''),
 ('hfnu.member.view', 3, ''),
 ('hfnu.posts.create', 1, ''),
+('hfnu.posts.create', 1, 'forum1'),
+('hfnu.posts.create', 1, 'forum2'),
+('hfnu.posts.create', 1, 'forum3'),
+('hfnu.posts.create', 1, 'forum4'),
 ('hfnu.posts.create', 2, ''),
+('hfnu.posts.create', 2, 'forum1'),
+('hfnu.posts.create', 2, 'forum2'),
+('hfnu.posts.create', 2, 'forum3'),
+('hfnu.posts.create', 2, 'forum4'),
 ('hfnu.posts.create', 3, ''),
+('hfnu.posts.create', 3, 'forum1'),
+('hfnu.posts.create', 3, 'forum2'),
+('hfnu.posts.create', 3, 'forum3'),
+('hfnu.posts.create', 3, 'forum4'),
 ('hfnu.posts.delete', 1, ''),
+('hfnu.posts.delete', 1, 'forum1'),
+('hfnu.posts.delete', 1, 'forum2'),
+('hfnu.posts.delete', 1, 'forum3'),
+('hfnu.posts.delete', 1, 'forum4'),
 ('hfnu.posts.delete', 3, ''),
 ('hfnu.posts.edit', 1, ''),
+('hfnu.posts.edit', 1, 'forum1'),
+('hfnu.posts.edit', 1, 'forum2'),
+('hfnu.posts.edit', 1, 'forum3'),
+('hfnu.posts.edit', 1, 'forum4'),
 ('hfnu.posts.edit', 2, ''),
 ('hfnu.posts.edit', 3, ''),
+('hfnu.posts.edit', 3, 'forum1'),
+('hfnu.posts.edit', 3, 'forum2'),
+('hfnu.posts.edit', 3, 'forum3'),
+('hfnu.posts.edit', 3, 'forum4'),
 ('hfnu.posts.edit.own', 1, ''),
 ('hfnu.posts.edit.own', 3, ''),
+('hfnu.posts.list', 0, 'forum1'),
+('hfnu.posts.list', 0, 'forum2'),
+('hfnu.posts.list', 0, 'forum3'),
+('hfnu.posts.list', 0, 'forum4'),
 ('hfnu.posts.list', 1, ''),
+('hfnu.posts.list', 1, 'forum1'),
+('hfnu.posts.list', 1, 'forum2'),
+('hfnu.posts.list', 1, 'forum3'),
+('hfnu.posts.list', 1, 'forum4'),
 ('hfnu.posts.list', 2, ''),
+('hfnu.posts.list', 2, 'forum1'),
+('hfnu.posts.list', 2, 'forum2'),
+('hfnu.posts.list', 2, 'forum3'),
+('hfnu.posts.list', 2, 'forum4'),
 ('hfnu.posts.list', 3, ''),
+('hfnu.posts.list', 3, 'forum1'),
+('hfnu.posts.list', 3, 'forum2'),
+('hfnu.posts.list', 3, 'forum3'),
+('hfnu.posts.list', 3, 'forum4'),
 ('hfnu.posts.moderate', 1, ''),
 ('hfnu.posts.moderate', 3, ''),
 ('hfnu.posts.notify', 1, ''),
+('hfnu.posts.notify', 1, 'forum1'),
+('hfnu.posts.notify', 1, 'forum2'),
+('hfnu.posts.notify', 1, 'forum3'),
+('hfnu.posts.notify', 1, 'forum4'),
 ('hfnu.posts.notify', 2, ''),
+('hfnu.posts.notify', 2, 'forum1'),
+('hfnu.posts.notify', 2, 'forum2'),
+('hfnu.posts.notify', 2, 'forum3'),
+('hfnu.posts.notify', 2, 'forum4'),
 ('hfnu.posts.notify', 3, ''),
+('hfnu.posts.notify', 3, 'forum1'),
+('hfnu.posts.notify', 3, 'forum2'),
+('hfnu.posts.notify', 3, 'forum3'),
+('hfnu.posts.notify', 3, 'forum4'),
 ('hfnu.posts.quote', 1, ''),
+('hfnu.posts.quote', 1, 'forum1'),
+('hfnu.posts.quote', 1, 'forum2'),
+('hfnu.posts.quote', 1, 'forum3'),
+('hfnu.posts.quote', 1, 'forum4'),
 ('hfnu.posts.quote', 2, ''),
+('hfnu.posts.quote', 2, 'forum1'),
+('hfnu.posts.quote', 2, 'forum2'),
+('hfnu.posts.quote', 2, 'forum3'),
+('hfnu.posts.quote', 2, 'forum4'),
 ('hfnu.posts.quote', 3, ''),
+('hfnu.posts.quote', 3, 'forum1'),
+('hfnu.posts.quote', 3, 'forum2'),
+('hfnu.posts.quote', 3, 'forum3'),
+('hfnu.posts.quote', 3, 'forum4'),
 ('hfnu.posts.reply', 1, ''),
+('hfnu.posts.reply', 1, 'forum1'),
+('hfnu.posts.reply', 1, 'forum2'),
+('hfnu.posts.reply', 1, 'forum3'),
+('hfnu.posts.reply', 1, 'forum4'),
 ('hfnu.posts.reply', 2, ''),
+('hfnu.posts.reply', 2, 'forum1'),
+('hfnu.posts.reply', 2, 'forum2'),
+('hfnu.posts.reply', 2, 'forum3'),
+('hfnu.posts.reply', 2, 'forum4'),
 ('hfnu.posts.reply', 3, ''),
+('hfnu.posts.reply', 3, 'forum1'),
+('hfnu.posts.reply', 3, 'forum2'),
+('hfnu.posts.reply', 3, 'forum3'),
+('hfnu.posts.reply', 3, 'forum4'),
+('hfnu.posts.view', 0, 'forum1'),
+('hfnu.posts.view', 0, 'forum2'),
+('hfnu.posts.view', 0, 'forum3'),
+('hfnu.posts.view', 0, 'forum4'),
 ('hfnu.posts.view', 1, ''),
+('hfnu.posts.view', 1, 'forum1'),
+('hfnu.posts.view', 1, 'forum2'),
+('hfnu.posts.view', 1, 'forum3'),
+('hfnu.posts.view', 1, 'forum4'),
 ('hfnu.posts.view', 2, ''),
+('hfnu.posts.view', 2, 'forum1'),
+('hfnu.posts.view', 2, 'forum2'),
+('hfnu.posts.view', 2, 'forum3'),
+('hfnu.posts.view', 2, 'forum4'),
 ('hfnu.posts.view', 3, ''),
+('hfnu.posts.view', 3, 'forum1'),
+('hfnu.posts.view', 3, 'forum2'),
+('hfnu.posts.view', 3, 'forum3'),
+('hfnu.posts.view', 3, 'forum4'),
 ('hfnu.search', 1, ''),
 ('hfnu.search', 2, ''),
 ('hfnu.search', 3, '');
@@ -345,17 +469,17 @@ CREATE TABLE IF NOT EXISTS `member` (
   `member_show_email` varchar(1) DEFAULT 'N',
   `member_language` varchar(40) DEFAULT 'fr_FR',
   `member_nb_msg` int(12) DEFAULT '0',
-  `member_last_post` int(12) NULL,
+  `member_last_post` int(12) DEFAULT NULL,
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `member`
 --
 
 INSERT INTO `member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`, `member_nb_msg`, `member_last_post`) VALUES
-(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', '123456Toto', 'abscde', 'tata@live.fr', 'toto@yahoo.com', 'truc@aol.com', 'tata@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-22 23:02:13', 'N', 'fr_FR', 51, 1234960470);
+(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', '123456Toto', 'abscde', 'tata@live.fr', 'toto@yahoo.com', 'truc@aol.com', 'tata@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-24 16:30:55', 'N', 'fr_FR', 51, 1234960470);
 
 -- --------------------------------------------------------
 
@@ -378,7 +502,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `poster_ip` varchar(15) NOT NULL,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`,`id_forum`,`parent_id`,`status`)
-)  DEFAULT CHARSET=utf8 ;
+) DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `posts`
@@ -399,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `rank` (
   `rank_name` varchar(40) NOT NULL,
   `rank_limit` int(9) NOT NULL,
   PRIMARY KEY (`id_rank`)
-)  DEFAULT CHARSET=utf8 ;
+) DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `rank`
@@ -423,7 +547,7 @@ CREATE TABLE IF NOT EXISTS `sc_tags` (
   `nbuse` int(11) DEFAULT '0',
   PRIMARY KEY (`tag_id`),
   UNIQUE KEY `uk_tag` (`tag_name`)
-) DEFAULT CHARSET=utf8 ;
+) DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `sc_tags`
@@ -445,7 +569,7 @@ CREATE TABLE IF NOT EXISTS `sc_tags_tagged` (
   PRIMARY KEY (`tt_id`),
   KEY `idx1_tt` (`tt_scope_id`,`tt_subject_id`),
   KEY `idx2_tt` (`tag_id`)
-)DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `sc_tags_tagged`

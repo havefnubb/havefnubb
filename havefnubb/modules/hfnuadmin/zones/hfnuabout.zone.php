@@ -11,6 +11,13 @@
 class hfnuaboutZone extends jZone {
     protected $_tplname='zone.hfnuabout';
 
+    //@TODO : notify an event that will "respond"
+    // "i am the module xxx here is my description"
+    
     protected function _prepareTpl(){
+        
+        // $data will contain the complet content of
+        // module.xml of each module that will respond
+        $data = jEvent::notify('HfnuAboutModule');        
     }
 }
