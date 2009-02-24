@@ -19,8 +19,8 @@ class posts_repliesZone extends jZone {
 
 		if ($page < 0 ) $page = 0;
         
-        $srv_tags = jClasses::getService("jtags~tags");
-        $tags = $srv_tags->getTagsBySubject('forumscope', $id_post);
+        $srvTags = jClasses::getService("jtags~tags");
+        $tags = $srvTags->getTagsBySubject('forumscope', $id_post);
         
         // let's build the pagelink var
         // A Preparing / Collecting datas

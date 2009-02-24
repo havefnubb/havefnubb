@@ -240,14 +240,16 @@ class postsCtrl extends jController {
     // display the edit form with the corresponding selected post
     function edit () {
 		global $HfnConfig;
-
-		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-		}
 		
 		$id_post = (int) $this->param('id_post');
-		
+
+        $srvTags = jClasses::getService("jtags~tags");
+        $tagsArray = $srvTags->getTagsBySubject('forumscope', $id_post);
+		$tags= '';
+		for ($i = 0; $i < count($tagsArray) ; $i ++) {			
+			$tags .= $tagsArray[$i] . ',';
+		}
+			
 		if ($id_post == 0 ) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
@@ -259,6 +261,11 @@ class postsCtrl extends jController {
 		
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);
+
+		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}
 				
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);		
@@ -274,6 +281,7 @@ class postsCtrl extends jController {
 		$form->setData('id_forum',$post->id_forum);
 		$form->setData('id_user',$user->id);
 		$form->setData('id_post',$id_post);
+		$form->setData('tags', $tags);		
 		
         $rep = $this->getResponse('html');		
 		$rep->title = jLocale::get("havefnubb~post.form.edit.message");		

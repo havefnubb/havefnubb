@@ -4,20 +4,9 @@
         <primarytable name="category" realname="category" primarykey="id_cat" />
     </datasources>
     <record>
-
-
-        
-    <property name="id_cat" fieldname="id_cat" datatype="autoincrement"/>
-    <property name="cat_name" fieldname="cat_name" datatype="string" required="true" maxlength="255"/>
-    <property name="cat_order" fieldname="cat_order" datatype="int" required="true"/>
-
-
-    <!--<property name="" fieldname="" datatype="string/int/float/autoincrement/date"
-        required="yes"
-        maxlength="" minlength="" regexp=""
-        sequence=""
-        updatepattern="" insertpattern="" selectpattern=""
-    />-->
+        <property name="id_cat" fieldname="id_cat" datatype="autoincrement"/>
+        <property name="cat_name" fieldname="cat_name" datatype="string" required="true" maxlength="255"/>
+        <property name="cat_order" fieldname="cat_order" datatype="int" required="true"/>    
     </record>
     <factory>
         <method name="findAll">
@@ -26,21 +15,4 @@
             </order>            
         </method>
     </factory>
-    <!--<factory>
-        <method name="findByStage" type="select/selectfirst/delete/update/php">
-            <parameter name="" />
-            <values>
-                <value property="" value="" />
-            </values>
-            <conditions logic="and/or">
-                <eq property="" value="" />
-            </conditions>
-            <order>
-                <orderitem property="" way="asc/desc" />
-            </order>
-            <limit offset="" count=""/>
-            <body><![CDATA[
-            ]]></body>
-        </method>
-    </factory>-->
 </dao>

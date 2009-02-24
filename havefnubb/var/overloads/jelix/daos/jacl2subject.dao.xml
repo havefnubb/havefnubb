@@ -25,6 +25,7 @@
                 <eq property="id_aclsbj" value="hfnu.posts.quote" />
                 <eq property="id_aclsbj" value="hfnu.posts.notify" />
                 <eq property="id_aclsbj" value="hfnu.posts.view" />
+                <eq property="id_aclsbj" value="hfnu.posts.edit.own" />
             </conditions>            
            <order>
               <orderitem property="id_aclsbj" way="asc" />

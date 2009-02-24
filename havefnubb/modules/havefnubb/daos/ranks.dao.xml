@@ -5,9 +5,9 @@
     </datasources>
     <record>
         
-    <property name="id_rank" fieldname="id_rank" datatype="autoincrement"/>
-    <property name="rank_name" fieldname="rank_name" datatype="string" required="true" maxlength="40"/>
-    <property name="rank_limit" fieldname="rank_limit" datatype="int" required="true" maxlength="9"/>
+        <property name="id_rank" fieldname="id_rank" datatype="autoincrement"/>
+        <property name="rank_name" fieldname="rank_name" datatype="string" required="true" maxlength="40"/>
+        <property name="rank_limit" fieldname="rank_limit" datatype="int" required="true" maxlength="9"/>
     
     </record>
     <factory>

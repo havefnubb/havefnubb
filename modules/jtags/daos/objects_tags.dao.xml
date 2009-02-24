@@ -53,6 +53,15 @@
              <!-- <limit offset="0" count="10" /> -->
          </method>         
 	     
+
+        <method name="tagAndsubjectExists" type="selectfirst">
+             <parameter name="tag_id" />
+             <parameter name="subject_id" />
+             <conditions>
+				<eq property="tag_id" expr="$tag_id" />
+                <eq property="tt_subject_id" expr="$subject_id" />
+             </conditions>
+        </method>		 
          <!-- <method name="countByCat" type="count">
              <parameter name="cat" />
              <conditions>

@@ -44,13 +44,17 @@ class tags {
                 $idTag = $this->createTag($t);
             }
 
-            // insertion dans objects_tags
-            $snippets_tag = jDao::createRecord($this->dao_object_tags);
-            $snippets_tag->tag_id = $idTag;
-            $snippets_tag->tt_scope_id = $scope;
-            $snippets_tag->tt_subject_id = $id;
-
-            $factory_objects_tags->insert($snippets_tag); 
+            $objectTags = jDao::get($this->dao_object_tags);
+            if ( ! $objectTags->tagAndsubjectExists($idTag,$id)) {
+                
+                // insertion dans objects_tags
+                $snippets_tag = jDao::createRecord($this->dao_object_tags);
+                $snippets_tag->tag_id = $idTag;
+                $snippets_tag->tt_scope_id = $scope;
+                $snippets_tag->tt_subject_id = $id;
+    
+                $factory_objects_tags->insert($snippets_tag);
+            }
         }
         jZone::clear("jtags~tagscloud");
         jZone::clear("jtags~tagsbyobject", array("scope"=>$scope, "id"=>$id));

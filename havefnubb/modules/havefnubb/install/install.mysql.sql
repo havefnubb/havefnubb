@@ -83,9 +83,6 @@ INSERT INTO `jacl2_group` (`id_aclgrp`, `name`, `grouptype`, `ownerlogin`) VALUE
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `jacl2_rights`
---
 
 DROP TABLE IF EXISTS `jacl2_rights`;
 CREATE TABLE IF NOT EXISTS `jacl2_rights` (
@@ -121,6 +118,7 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.admin.ban.create', 1, ''),
 ('hfnu.admin.ban.delete', 1, ''),
 ('hfnu.admin.ban.edit', 1, ''),
+('hfnu.admin.cache.clear', 1, ''),
 ('hfnu.admin.category.create', 1, ''),
 ('hfnu.admin.category.delete', 1, ''),
 ('hfnu.admin.category.edit', 1, ''),
@@ -239,7 +237,19 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.posts.edit', 3, 'forum3'),
 ('hfnu.posts.edit', 3, 'forum4'),
 ('hfnu.posts.edit.own', 1, ''),
+('hfnu.posts.edit.own', 1, 'forum1'),
+('hfnu.posts.edit.own', 1, 'forum2'),
+('hfnu.posts.edit.own', 1, 'forum3'),
+('hfnu.posts.edit.own', 1, 'forum4'),
+('hfnu.posts.edit.own', 2, 'forum1'),
+('hfnu.posts.edit.own', 2, 'forum2'),
+('hfnu.posts.edit.own', 2, 'forum3'),
+('hfnu.posts.edit.own', 2, 'forum4'),
 ('hfnu.posts.edit.own', 3, ''),
+('hfnu.posts.edit.own', 3, 'forum1'),
+('hfnu.posts.edit.own', 3, 'forum2'),
+('hfnu.posts.edit.own', 3, 'forum3'),
+('hfnu.posts.edit.own', 3, 'forum4'),
 ('hfnu.posts.list', 0, 'forum1'),
 ('hfnu.posts.list', 0, 'forum2'),
 ('hfnu.posts.list', 0, 'forum3'),
@@ -328,6 +338,7 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.search', 1, ''),
 ('hfnu.search', 2, ''),
 ('hfnu.search', 3, '');
+
 
 -- --------------------------------------------------------
 

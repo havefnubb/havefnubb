@@ -61,7 +61,8 @@ class forumCtrl extends jController {
             // now check what choice has been done :
             switch ($choice) {
                 // my parent is the selected forum so i add one level to child_level
-                case 'childof' : $parent_id      = $forum->id_forum;
+                case 'childof' :
+							$parent_id      = $forum->id_forum;
                             $child_level    = $forum->child_level +1;
                             $forum_order    = 0;
                             $id_cat         = $forum->id_cat;
@@ -72,12 +73,14 @@ class forumCtrl extends jController {
                             $forum_order    = ($forum_order -1 < 0) ? 0 : $forum_order -1;
                             $id_cat         = $forum->id_cat;
                             break;
-                case 'after' :   $parent_id      = $forum->parent_id;
+                case 'after' :   
+							$parent_id      = $forum->parent_id;
                             $child_level    = $forum->child_level;
                             $forum_order    = $forum->forum_order +1;
                             $id_cat         = $forum->id_cat;
                             break;
-                case 'in_cat' : $parent_id = 0;
+                case 'in_cat' :
+							$parent_id = 0;
                             $child_level = 0;
                             $forum_order = 0;
 /***********************************************************************************
@@ -134,7 +137,6 @@ class forumCtrl extends jController {
         $groups=array($o);
         $grouprights=array(0=>false);
         
-        //$dao = jDao::get('jelix~jacl2group',jAcl2Db::getProfile())->findAllPublicGroupExceptAdmins();
         $dao = jDao::get('jelix~jacl2group',jAcl2Db::getProfile())->findAllPublicGroup();
         
         foreach($dao as $grp) {
@@ -165,7 +167,6 @@ class forumCtrl extends jController {
         $rep->body->assign('MAIN',$tpl->fetch('forum_edit'));
         return $rep;        
     }
-
 
     function saveedit () {
         $id_forum = (int) $this->param('id_forum');
@@ -245,8 +246,6 @@ class forumCtrl extends jController {
         $rep->action='hfnuadmin~forum:index';
         return $rep;         
     }
-
-
 
     /**
      * set rights on the given group. old rights are removed
