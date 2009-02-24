@@ -46,7 +46,12 @@ class hfnuadminmenuListener extends jEventListener{
 											  jLocale::get('hfnuadmin~admin.ban'),
 											  jUrl::get('hfnuadmin~ban:index'),
 											  207,
-											  'havefnubb'));		
+											  'havefnubb'));
+		  $event->add(new masterAdminMenuItem('cache',
+											  jLocale::get('hfnuadmin~admin.cache'),
+											  jUrl::get('hfnuadmin~cache:index'),
+											  208,
+											  'havefnubb'));		  
 		}
 	} 
 }

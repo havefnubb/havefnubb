@@ -594,3 +594,18 @@ CREATE TABLE IF NOT EXISTS `search_words` (
 -- Contenu de la table `search_words`
 --
 
+
+DROP TABLE IF EXISTS `notify`; 
+CREATE TABLE IF NOT EXISTS `notify` ( 
+  `id_notify` int(12) NOT NULL AUTO_INCREMENT, 
+  `id_user` int(12) NOT NULL, 
+  `id_post` int(12) NOT NULL,
+  `id_forum` int(12) NOT NULL,  
+  `subject` varchar(255) NOT NULL, 
+  `message` text NOT NULL, 
+  `date_created` datetime NOT NULL, 
+  `date_modified` datetime NOT NULL, 
+  PRIMARY KEY (`id_notify`), 
+  KEY `id_user` (`id_user`), 
+  KEY `id_post` (`id_post`) 
+); 
