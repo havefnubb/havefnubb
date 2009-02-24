@@ -23,7 +23,8 @@ class postsCtrl extends jController {
 		'quote' => array( 'jacl2.right'=>'hfnu.posts.quote'),
 		'reply' => array( 'jacl2.right'=>'hfnu.posts.reply'),
 		'save'  => array( 'jacl2.right'=>'hfnu.posts.edit'),			
-		//'savereply'	=> array( 'jacl2.right'=>'hfnu.posts.reply','hfnu.posts.quote'),
+		'savereply'	=> array( 'jacl2.right'=>'hfnu.posts.reply','hfnu.posts.quote'),
+		'savenotify'=> array( 'jacl2.right'=>'hfnu.posts.notify'),
 		
 		'add'	=> array('flood.same.ip'=>true),
 		'edit'	=> array('flood.editing'=>true),
@@ -65,16 +66,25 @@ class postsCtrl extends jController {
         $page = 0;
         if ( $this->param('page') > 0 )
             $page = (int) $this->param('page');
+		
+		if ($page < 0) $page = 0;
+		
         // 2- limit per page 
         $nbPostPerPage = 0;
         $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page');
               
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts
-        $nbPosts = $daoPost->findNbOfPostByForumId($id_forum);
+        $nbPosts = $daoPost->countPostsByForumId($id_forum);
         // 4- get the posts of the current forum, limited by point 1 and 2
         $posts = $daoPost->findByIdForum($id_forum,$page,$nbPostPerPage);
 
+		// check if we have found record ; 
+		if ($posts->rowCount() == 0) {
+			$posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);
+			$page = 0;
+		}
+		
         // change the label of the breadcrumb
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', $forum->forum_name . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
 		
@@ -106,52 +116,44 @@ class postsCtrl extends jController {
         return $rep;        
     }        
 
-	//display the thread of the given post 
+	//display the thread of the given post
+	// Method 1 : default usage : list all messages of a thread (id_post known)
+	// Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
     function view() {
-        $id_post = (int) $this->param('id_post');
-		
-        if ($id_post == 0 ) {
+		global $HfnuConfig;
+        $id_post 	= (int) $this->param('id_post');
+		$parent_id 	= (int) $this->param('parent_id');
+                
+        $dao = jDao::get('havefnubb~posts'); 
+        $post = $dao->get($id_post);		
+
+        if ($id_post == 0 or $post === false) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
         }
-        
-        // let's update the viewed counter
-        $dao = jDao::get('havefnubb~posts'); 
-        $post = $dao->get($id_post);
-
+		
 		if ( ! jAcl2::check('hfnu.posts.view','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 		}
-
-		// we cant display a reply without its father post,
-		// let's check it
-		if ($post->id_post != $post->parent_id)  {
-			$post = $dao->get($post->parent_id);
-			// parent id not found ; so go away
-			if ($post === false) {
-				$rep = $this->getResponse('redirect');
-				$rep->action = 'default:index';
-				return $rep;
-			}
-			// found it ! redirect to it
-			else {
-				$rep = $this->getResponse('redirect');
-				$rep->action = 'posts:view';
-				$rep->params = array('id_post'=>$post->id_post);
-				return $rep;
-			}
-		}
 		
-		// access to an invalid post id ?
-		if ($post === false) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-			return $rep;			
-		}
+		$goto = 0;
+		if ($parent_id > 0) {
+			// the number of post between the current post_id and the parent_id
+			$child = (int) $dao->countReplies($post->id_post,$post->parent_id);
+	
+			$nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page');			
+			// calculate the offset of this id_post
+			$goto = (ceil ($child/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
+			if ($goto < 0 ) $goto = 0;
+			// replacing the id_post by parent_id for the posts_replies.zones.php
+			$id_post = $parent_id;	
+		}		
 		
+		// let's update the viewed counter
 		$post->viewed = $post->viewed +1;
-		$dao->update($post);
+		$dao->update($post);	
 		
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', $post->subject );        
 		// crumbs infos
@@ -167,7 +169,9 @@ class postsCtrl extends jController {
         $page = 0;
         if ( $this->param('page') )
             $page = (int) $this->param('page');
-            
+			
+        if ($goto > 0 ) $page = $goto;
+		
         $tpl = new jTpl();				
         $tpl->assign('id_post',$id_post);
         $tpl->assign('forum',$forum);
@@ -241,7 +245,6 @@ class postsCtrl extends jController {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 		}
-
 		
 		$id_post = (int) $this->param('id_post');
 		
@@ -300,10 +303,9 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
 		}
 		
-		$id_post = (int) $this->param('id_post');
-		$tags = $this->param("tags", false);
-        
-        $parent_id = (int) $this->param('parent_id');
+		$id_post 	= (int) $this->param('id_post');
+		$parent_id 	= (int) $this->param('parent_id');		
+		$tags 		= $this->param("tags", false);                
 		
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
@@ -367,9 +369,7 @@ class postsCtrl extends jController {
 			$message 	= $form->getData('message');
 			
 			//CreateRecord object
-			$dao = jDao::get('havefnubb~posts');
-			
-			
+			$dao = jDao::get('havefnubb~posts');						
 			
 			if ($id_post == 0) {
 				jEvent::notify('HfnuPostBeforeSave',array('id'=>$id_post));
@@ -401,6 +401,7 @@ class postsCtrl extends jController {
 				$dao->insert($record);
 				$record->parent_id = $record->id_post;
 				$id_post = $record->id_post;
+				$parent_id = $record->parent_id;
 				
 				jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));
 				
@@ -435,7 +436,7 @@ class postsCtrl extends jController {
 			
 			jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'ok');
 			//after editing, returning to the parent_id post !
-			$rep->params = array('id_post'=>$id_post);
+			$rep->params = array('id_post'=>$id_post,'parent_id'=>$parent_id);
 			$rep->action ='havefnubb~posts:view';
 			return $rep;			
 		}
@@ -448,12 +449,14 @@ class postsCtrl extends jController {
 	
 	//reply to a given post (from the parent_id)
     function reply() {
-        $parent_id = (int) $this->param('id_post');
-        $id_post = (int) $this->param('id_post');
+        $parent_id 	= (int) $this->param('id_post');
+        $id_post 	= (int) $this->param('id_post');
+		
         if ($parent_id == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
         }
+		
         //get the info of the current user who's replying
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
@@ -613,7 +616,7 @@ class postsCtrl extends jController {
 			
 			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
 			
-			$rep->params = array('id_post'=>$parent_id);
+			$rep->params = array('id_post'=>$record->id_post,'parent_id'=>$record->parent_id);
 			$rep->action ='havefnubb~posts:view';
 			return $rep;			
 		}
@@ -629,14 +632,15 @@ class postsCtrl extends jController {
     function quote() {  
         $parent_id = (int) $this->param('parent_id');
         $id_post = (int) $this->param('id_post');
+		
         if ($parent_id == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
         }
+		
         //get the info of the current user who's replying
 		$daoUser = jDao::get('havefnubb~member');
-		$me = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-        
+		$me = $daoUser->getByLogin( jAuth::getUserSession ()->login);        
         
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);
@@ -666,8 +670,7 @@ class postsCtrl extends jController {
 		$form->setData('id_user',$me->id);
 		$form->setData('id_post',0);
         $form->setData('parent_id',$parent_id);
-        
-        
+                
         $newMessage = ">".preg_replace("/\\n/","\n>",$post->message);
         
 		$quoteMessage = ">".$author->login.' ' .
@@ -845,9 +848,6 @@ class postsCtrl extends jController {
 		return $rep;						
 
 	}
-
-
-
 
 	private function getCrumbs($id_forum) {
 		

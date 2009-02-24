@@ -18,7 +18,7 @@ class statsZone extends jZone {
         $posts      = $dao->countAllPosts();        
         $threads    = $dao->countAllThreads();
         //last posts
-        $lastPost   = $dao->findLastPost();
+        $lastPost   = $dao->getLastPost();
         
         $dao = jDao::get('havefnubb~member');
         //members

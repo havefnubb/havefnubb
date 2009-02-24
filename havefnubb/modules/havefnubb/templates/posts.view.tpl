@@ -9,5 +9,5 @@
 title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a></div>
 {/ifacl2}
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
-{zone 'postlistinpost',array('id_post'=>$id_post,'page'=>$page)}
+{zone 'havefnubb~posts_replies',array('id_post'=>$id_post,'page'=>$page)}
 {/ifacl2}

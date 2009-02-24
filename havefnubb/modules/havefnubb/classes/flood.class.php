@@ -28,7 +28,7 @@ class flood {
     
     public static function same_ip($value) {
         $dao = jDao::get('havefnubb~posts');        
-        $rec = $dao->findMyLastEditedPost(  jAuth::getUserSession()->id );
+        $rec = $dao->getMyLastEditedPost(  jAuth::getUserSession()->id );
         if ($rec->member_last_post + $value < time() and $rec->poster_ip == $_SERVER['REMOTE_ADDR'] )
             return true;
         else
@@ -37,7 +37,7 @@ class flood {
     
     public static function editing($value) {
         $dao = jDao::get('havefnubb~posts');
-        $rec = $dao->findMyLastEditedPost( jAuth::getUserSession()->id );
+        $rec = $dao->getMyLastEditedPost( jAuth::getUserSession()->id );
         if ($rec->member_last_post + $value < time() )
             return true;
         else

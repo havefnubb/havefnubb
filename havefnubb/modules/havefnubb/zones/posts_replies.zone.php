@@ -8,14 +8,16 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-class postlistinpostZone extends jZone {
-    protected $_tplname='zone.postlistinpost';
+class posts_repliesZone extends jZone {
+    protected $_tplname='zone.posts_replies';
 
     protected function _prepareTpl(){
         global $HfnuConfig;
         $id_post = $this->param('id_post');
         $page = (int) $this->param('page');
         if (!$id_post) return;
+
+		if ($page < 0 ) $page = 0;
         
         $srv_tags = jClasses::getService("jtags~tags");
         $tags = $srv_tags->getTagsBySubject('forumscope', $id_post);
@@ -34,9 +36,15 @@ class postlistinpostZone extends jZone {
               
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts
-        $nbReplies = $daoPost->findNbOfResponse($id_post);
+        $nbReplies = $daoPost->countResponse($id_post);
         // 4- get the posts of the current forum, limited by point 1 and 2
         $posts = $daoPost->findByIdParent($id_post,$page,$nbRepliesPerPage);
+
+		// check if we have found record ; 
+		if ($posts->rowCount() == 0) {
+			$posts = $daoPost->findByIdParent($id_post,0,$nbRepliesPerPage);
+			$page = 0;
+		}
 
 		if(jAuth::isConnected()) 
 			$this->_tpl->assign('current_user',jAuth::getUserSession ()->login);

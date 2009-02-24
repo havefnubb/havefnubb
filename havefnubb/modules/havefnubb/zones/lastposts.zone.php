@@ -16,7 +16,7 @@ class lastpostsZone extends jZone {
         $dao = jDao::get('havefnubb~posts');
         
         //last 'x' posts
-        $lastPost  = $dao->getLastPosts( (int) $HfnuConfig->getValue('stats_nb_of_lastpost'));
+        $lastPost  = $dao->findLastPosts( (int) $HfnuConfig->getValue('stats_nb_of_lastpost'));
         $this->_tpl->assign('lastPost',$lastPost);        
     }
 }

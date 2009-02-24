@@ -11,7 +11,7 @@
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post">
     <div class="posthead">       
-        <h4 class="posthead-title">{$post->subject|eschtml}</h4>
+        <h4 class="posthead-title"><a href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id)}" >{$post->subject|eschtml}</a></h4>
         <div class="posthead-date">{$post->date_created|jdatetime:'db_datetime':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</div>
         {if $tags !== false}
         <div class="posthead-tags"><ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul></div>
@@ -45,7 +45,7 @@
             {else}
                 {ifacl2 'hfnu.posts.edit','forum'.$id_forum}
             <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
-                {/iflac2}
+                {/ifacl2}
             {/if}
             {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
             <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>

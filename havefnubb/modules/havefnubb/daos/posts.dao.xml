@@ -38,6 +38,13 @@
     <property name="nb_msg" fieldname="member_nb_msg" table="usr" datatype="integer" />
     <property name="member_last_post" fieldname="member_last_post" table="usr"  datatype="integer" />
     </record>
+	
+	
+	<!-- naming convention :
+		findXXX uses type="select"
+		getXXX uses type="selectfirst"
+		countXXX uses type="count"		
+	-->
     <factory>        
         <!-- get the posts to be displayed on the index of the forum page -->
         <method name="findByIdForum" type="select">
@@ -83,65 +90,55 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
-        <method name="findNbOfMessages" type="count">
+        <method name="countMessages" type="count">
             <parameter name="id_forum" />
             <conditions>
                 <eq property="id_forum" expr="$id_forum" />
             </conditions>            
         </method>
-        <method name="findNbOfResponse" type="count">
+        <method name="countResponse" type="count">
             <parameter name="id_post" />
             <conditions>
                 <eq property="parent_id" expr="$id_post" />
             </conditions>           
         </method>
-        <method name="findNbOfViewed" type="selectfirst">
+        <method name="countReplies" type="count">
+            <parameter name="id_post" />
+			<parameter name="parent_id" />
+            <conditions>
+                <eq property="parent_id" expr="$parent_id" />
+				<lteq property="id_post" expr="$id_post" />
+            </conditions>
+            <order>
+                <orderitem property="id_post" way="asc" />
+            </order>	
+        </method>	
+        <method name="getNbOfViewed" type="selectfirst">
             <parameter name="id_post" />
             <conditions>
                 <eq property="id_post" expr="$id_post" />
             </conditions>            
         </method>
-        <method name="findNbOfPostByForumId" type="count">
+        <method name="countPostsByForumId" type="count">
             <parameter name="id_forum" />
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_post" expr="parent_id" />
             </conditions>            
         </method>    
-        <method name="findNbOfThreads" type="count">
+        <method name="countThreads" type="count">
             <parameter name="id_forum" />
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_post" expr="parent_id" />
             </conditions>            
         </method>
-        <method name="findIdUserByIdPost" type="selectfirst">
-            <parameter name="id_post" />
-            <conditions>
-                <eq property="id_post" expr="$id_post" />
-            </conditions>            
-        </method>
-        <method name="findNbMsgByIdUser" type="count">
+        <method name="countMsgsByIdUser" type="count">
             <parameter name="id_user" />
             <conditions>
                 <eq property="id_user" expr="$id_user" />
             </conditions>            
-        </method>
-        <method name="findForumByIdPost" type="selectfirst">
-            <parameter name="id_post" />
-            <conditions>
-                <eq property="id_post" expr="$id_post" />
-            </conditions>            
-        </method>
-        <method name="findChildByIdPost" type="select">
-            <parameter name="id_post" />
-            <conditions>
-                <eq property="parent_id" expr="$id_post" />
-            </conditions>
-            <order>
-                <orderitem property="id_post" way="asc" />
-            </order>            
-        </method>        
+        </method>      
        <!-- for stats purpose -->
         <method name="countAllPosts" type="count">
         </method>
@@ -150,12 +147,12 @@
                 <eq property="id_post" expr="parent_id" />
             </conditions>            
         </method>
-        <method name="findLastPost" type="selectfirst">
+        <method name="getLastPost" type="selectfirst">
             <order>
                 <orderitem property="date_modified" way="desc" />
             </order>            
         </method>
-        <method name="getLastPosts" type="select">
+        <method name="findLastPosts" type="select">
             <parameter name="count" default="5" />
            <conditions>
                 <eq property="id_post" expr="parent_id" />
@@ -165,7 +162,7 @@
             </order>
             <limit offset="0" count="$count"/>    
         </method>
-        <method name="findMyLastEditedPost" type="selectfirst">
+        <method name="getMyLastEditedPost" type="selectfirst">
             <parameter name="id_user" />
            <conditions>
                 <eq property="id_user" expr="$id_user" />

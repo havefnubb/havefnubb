@@ -17,7 +17,7 @@ class viewedttlZone extends jZone {
         if (!$id_post) return;
         
         $dao = jDao::get('havefnubb~posts');       
-        $viewedttl = $dao->findNbOfViewed($id_post);
+        $viewedttl = $dao->getNbOfViewed($id_post);
 
         $this->_tpl->assign('viewedttl',$viewedttl->viewed);
     }

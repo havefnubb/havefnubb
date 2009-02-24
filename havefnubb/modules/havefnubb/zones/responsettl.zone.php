@@ -17,7 +17,7 @@ class responsettlZone extends jZone {
         if (!$id_post) return;
         
         $dao = jDao::get('havefnubb~posts');       
-        $responsettl = $dao->findNbOfResponse($id_post);
+        $responsettl = $dao->countResponse($id_post);
 
         $this->_tpl->assign('responsettl',$responsettl);
     }

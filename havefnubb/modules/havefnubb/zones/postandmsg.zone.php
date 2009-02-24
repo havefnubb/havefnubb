@@ -21,8 +21,8 @@ class postandmsgZone extends jZone {
         $nb_msg = 0;
         $nb_thread = 0;
         
-        $nbMsg = $dao->findNbOfMessages($id_forum);
-        $nbThread = $dao->findNbOfThreads($id_forum);
+        $nbMsg = $dao->countMessages($id_forum);
+        $nbThread = $dao->countThreads($id_forum);
         
         $this->_tpl->assign('nbMsg',$nbMsg);
         $this->_tpl->assign('nbThread',$nbThread);
