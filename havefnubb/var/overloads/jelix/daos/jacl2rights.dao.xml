@@ -42,6 +42,7 @@
                     <eq property="id_aclsbj" value="hfnu.posts.reply" />
                     <eq property="id_aclsbj" value="hfnu.posts.quote" />
                     <eq property="id_aclsbj" value="hfnu.posts.notify" />
+                    <eq property="id_aclsbj" value="hfnu.posts.edit.own" />
                 </conditions>
             </conditions>            
         </method>        

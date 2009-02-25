@@ -13,13 +13,9 @@ class defaultCtrl extends jController {
     *
     */
     public $pluginParams = array(
-		'config' 	=> array( 'jacl2.right'=>'hfnu.admin.config.edit'),
-        'category' 	=> array( 'jacl2.right'=>'hfnu.admin.index'),
-        'forum' 	=> array( 'jacl2.right'=>'hfnu.admin.index'),
-        'notify' 	=> array( 'jacl2.right'=>'hfnu.admin.index'),        
-        'rank' 	    => array( 'jacl2.right'=>'hfnu.admin.index'),
-        'phpinfo' 	=> array( 'jacl2.right'=>'hfnu.admin.server.info'),        
-        'check_upgrade'=> array( 'jacl2.right'=>'hfnu.admin.config.view'),		
+		'index' 	=> array( 'jacl2.right'=>'hfnu.admin.index'),
+		'config' 	=> array( 'jacl2.right'=>'hfnu.admin.config'),
+		'check_upgrade'=> array( 'jacl2.right'=>'hfnu.admin.config'),				
     );
     
     function index() {

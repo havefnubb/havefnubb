@@ -13,12 +13,9 @@ class forumCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.forum.create',
-														'hfnu.admin.forum.edit')
-							),		        
-        'delete'    => array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
-    );
-    
+		'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+        'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
+    );    
 
     function index() {
         $form = jForms::create('hfnuadmin~category_list');

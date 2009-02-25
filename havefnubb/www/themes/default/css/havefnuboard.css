@@ -528,12 +528,14 @@ table .line {
 }
 
 #post-message .jelix-msg li.jelix-msg-item-warning {
-    background-color: #F6B1B1;
+    background-color: #f8e794;
     background-image: url(../images/exclamation.png);
+	background-repeat: no-repeat;
 }
 #post-message .jelix-msg li.jelix-msg-item-error {
     background-color: #F6CAB1;
     background-image: url(../images/error.png);
+	background-repeat: no-repeat;
 }
 
 #post-message .jelix-msg li.jelix-msg-item-ok,

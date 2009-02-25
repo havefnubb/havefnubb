@@ -168,6 +168,17 @@
             <order>
                 <orderitem property="date_modified" way="desc" />
             </order>
-        </method>    
+        </method>
+        <method name="findByAuthor" type="select">
+			<parameter name="login"/>
+            <parameter name="count" default="25" />
+           <conditions>
+                <eq property="login" expr="$login" />
+            </conditions>            
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+            <limit offset="0" count="$count"/>    
+        </method>	
     </factory>
 </dao>

@@ -13,9 +13,7 @@ class banCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.ban.create',
-														'hfnu.admin.ban.edit')
-							),
+        'index'    => array( 'jacl2.right'=>'hfnu.admin.member'),
         'delete'   => array( 'jacl2.right'=>'hfnu.admin.ban.delete'),
     );
     

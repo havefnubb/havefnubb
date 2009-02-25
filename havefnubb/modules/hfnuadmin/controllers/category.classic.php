@@ -13,10 +13,8 @@ class categoryCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.category.create',
-														'hfnu.admin.category.edit')
-							),
-        'delete'   => array( 'jacl2.right'=>'hfnu.admin.category.delete'),
+		'index'	=> array( 'jacl2.right'=>'hfnu.admin.category'),		
+        'delete'=> array( 'jacl2.right'=>'hfnu.admin.category.delete'),
     );
     
     function index() {

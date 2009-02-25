@@ -12,6 +12,10 @@ class defaultCtrl extends jController {
     /**
     *
     */
+    public $pluginParams = array(
+        'index' => array( 'jacl2.right' =>'hfnu.search'),
+        'query' => array( 'jacl2.right' =>'hfnu.search'),
+    );
 
     function index() {
         $rep = $this->getResponse('html');
@@ -22,43 +26,38 @@ class defaultCtrl extends jController {
     
     function query() {
         $string = $this->param('hfnu_q');
-        if ($string == '') {
+        
+        $additionnalParam = '';
+        if ( $this->param('param') != '' )  {
+            $additionnalParam = $this->param('param');
+        }
+        
+        $HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
+        
+        // get the list of authorized function we will find in the search_in "service" below        
+        $authorizedSearch = explode(',', $HfnuSearchConfig->getValue('perform_search_in'));
+        
+        if (! in_array($this->param('perform_search_in'),$authorizedSearch) or $string == '' or strlen($string) < 3) {
+            jMessage::add(jLocale::get('hfnusearch~search.query.too.short'),'warning');
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnusearch~default:index';
             return $rep;
-        } else {
-            //@TODO : display a page that tells to the user to wait a moment
-            // thus, if the request take too many time :
-            // 1) we avoid to see the user submit his request once again before the end of the first one
-            // 2) we avoid to display a blank page during the waiting time.
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'hfnusearch~default:submit_query';
-            $rep->params = array('string'=>$string);
-            return $rep;            
         }
-    }
-    
-    function submit_query() {
-        $string = $this->param('string');
+        // let's build the appropriate service to call 
+        $function = 'searchIn'.ucfirst($this->param('perform_search_in'));        
+        
+        $perform = jClasses::getService('hfnusearch~search_in');
+        
+        $result = $perform->$function($string,$additionnalParam);
 
-        if ($string == '') {
+        $count = count($result);
+        
+        if ($count == 0 ) {
+            jMessage::add(jLocale::get('hfnusearch~search.no.result'),'ok');
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnusearch~default:index';
             return $rep;            
         }
-        
-        $eventresp = jEvent::notify('HfnuSearchEngineRun', array('string'=>$string) );
-        
-        $result = array();        
-        foreach($eventresp->getResponse() as $rep){
-            if(!isset($rep['SearchEngineResult']) )
-                return false;
-            else {
-                $result[] = (array) $rep['SearchEngineResult'];
-            }
-        }
-
-        $count = count($result);
         
         $tpl = new jTpl();
         $tpl->assign('count',$count);
@@ -66,6 +65,8 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN',$tpl->fetch('hfnusearch~result'));
         return $rep;
+
     }
+    
 }
 

@@ -6,7 +6,9 @@
 {@hfnuadmin~category.create.a.category.description@}
 {/ifacl2}
 <h2>{@hfnuadmin~category.list.of.categories@}</h2>
+{ifacl2 'hfnu.admin.category.edit'}
 <form action="{formurl 'hfnuadmin~category:saveedit'}" method="post">
+{/ifacl2}
 <table width="100%" class="records-list">
 <thead>  
     <tr>
@@ -36,10 +38,11 @@
     {/foreach}
 </tbody>    
 </table>
-
+{ifacl2 'hfnu.admin.category.edit'}    
 <div class="jforms-submit-buttons">
 {formurlparam 'hfnuadmin~category:saveedit'}    
     <input type="submit" name="saveBt" id="jforms_hfnuadmin_category_validate_saveBt2" class="jforms-submit" value="{@hfnuadmin~category.saveBt@}"/>
     <input type="hidden" name="hfnutoken" value="{$hfnutoken}"/>
 </div>
 </form>
+{/ifacl2}

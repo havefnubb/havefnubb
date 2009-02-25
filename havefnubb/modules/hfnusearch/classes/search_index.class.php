@@ -82,7 +82,5 @@ class search_index {
 			$this->searchEngineUpdate($rec->id_post);
 		}
 		return $records->rowCount();
-	}
-	
-	
+	}	
 }

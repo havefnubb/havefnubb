@@ -22,9 +22,9 @@ class postsCtrl extends jController {
         'delete'=> array( 'jacl2.right'=>'hfnu.posts.delete'),		
 		'quote' => array( 'jacl2.right'=>'hfnu.posts.quote'),
 		'reply' => array( 'jacl2.right'=>'hfnu.posts.reply'),
-		'save'  => array( 'jacl2.right'=>'hfnu.posts.edit'),			
-		'savereply'	=> array( 'jacl2.right'=>'hfnu.posts.reply','hfnu.posts.quote'),
-		'savenotify'=> array( 'jacl2.right'=>'hfnu.posts.notify'),
+		/*'save'  => array( 'jacl2.right'=>'hfnu.posts.edit'),			*/
+		/*'savereply'	=> array( 'jacl2.right'=>'hfnu.posts.reply','hfnu.posts.quote'),
+		'savenotify'=> array( 'jacl2.right'=>'hfnu.posts.notify'),*/
 		
 		'add'	=> array('flood.same.ip'=>true),
 		'edit'	=> array('flood.editing'=>true),
@@ -517,10 +517,13 @@ class postsCtrl extends jController {
 	function savereply() {
 		$id_forum   = (int) $this->param('id_forum');
 		
-		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) or
+		if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) or
+			 ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) or
+			 ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) or
 			 ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
 		$id_post    = (int) $this->param('id_post');       
@@ -795,6 +798,12 @@ class postsCtrl extends jController {
 	function savenotify() {
 		$id_post    = (int) $this->param('id_post');
 		$id_forum   = (int) $this->param('id_forum');
+
+		if ( ! jAcl2::check('hfnu.posts.notify','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+			return $rep;
+		}
 		
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);

@@ -28,7 +28,6 @@ class searchwordsListener extends jEventListener{
         $service->subject = $rec->subject;
         $service->message = $rec->message;
         $service->searchEngineUpdate($id);
-		
     }
 	
    function onHfnuSearchEngineDeleteContent ($event) {
@@ -43,28 +42,34 @@ class searchwordsListener extends jEventListener{
 	  $cleaner = jClasses::getService('hfnusearch~cleaner');
 	  $words = $cleaner->stemPhrase($event->getParam('string'));
 	  $nb_words = count($words);
-
 	  // no words ; go back with nothing :P
 	  if (!$words) {
 		return array('count'=>0,'result'=>array());
 	  }
-	  
-	  //$words = array_map('stripslashes',$words);
+
+	  $id_forum = 0;
+	  if ($event->getParam('id_forum') > 0) 
+		 $id_forum = (int) $event->getParam('id_forum');	  
   
 	  // watch in search_words ...
 	  $cnx = jDb::getConnection();
-	  $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, message, member_login, date_created FROM search_words';
+	  $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, message, member_login, date_created, id_forum FROM search_words';
 	  $strQuery .= ' LEFT JOIN posts  ON posts.id_post  = search_words.id ';
 	  $strQuery .= ' LEFT JOIN member ON member.id_user = posts.id_user   ';
 	  $strQuery .= ' WHERE (';
 	  $counter=0;
 	  foreach ($words as $word) {
 		  if ($counter > 0 ) $strQuery .= ' OR ';
-		  $strQuery .= " words  = '". $word."'";
+		  $strQuery .= " words  = '". addslashes($word)."'";
 		  $counter++;
 	  }
 	  
-	  $strQuery .= ') GROUP BY id_post ';
+	  $strQuery .= ') ';
+	  
+	  if ($id_forum > 0)
+		 $strQuery .= " AND id_forum = '".$id_forum."' ";
+		 
+	  $strQuery .= ' GROUP BY id_post ';
 
 	  // AND query?
 	  
@@ -75,14 +80,15 @@ class searchwordsListener extends jEventListener{
 	  }
 	 
 	  $strQuery .= ' ORDER BY nb DESC, total_weight DESC';        
-	  
+
 	  $rs = $cnx->query($strQuery);
 	  $result='';
 	  
-	  while($record = $rs->fetch()){		 
-		 $event->Add(array('SearchEngineResult'=>$record));
-	  }
-	  
+	  while($record = $rs->fetch()){
+		 //let check if the current user can access to the posts we found earlier above
+		 if (jAcl2::check('hfnu.forum.view','forum'.$record->id_forum))
+			$event->Add(array('SearchEngineResult'=>$record));
+	  }	  
  }
 
 }
