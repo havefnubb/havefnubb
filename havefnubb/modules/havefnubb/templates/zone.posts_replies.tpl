@@ -32,14 +32,14 @@
     </div>
     <div class="postfoot">
         <div class="post-actions">
-            {ifacl2 'hfnu.posts.notify'}
+            {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
             <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
              {/ifacl2}
             {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
             <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
             {/ifacl2}
             {if $post->login == $current_user}
-                {ifacl2 'hfnu.posts.edit.own'}
+                {ifacl2 'hfnu.posts.edit.own','forum'.$id_forum}
             <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
                 {/ifacl2}
             {else}
