@@ -53,7 +53,7 @@ class searchwordsListener extends jEventListener{
   
 	  // watch in search_words ...
 	  $cnx = jDb::getConnection();
-	  $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, message, member_login, date_created, id_forum FROM search_words';
+	  $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, message, member_login as login, date_created, id_forum FROM search_words';
 	  $strQuery .= ' LEFT JOIN posts  ON posts.id_post  = search_words.id ';
 	  $strQuery .= ' LEFT JOIN member ON member.id_user = posts.id_user   ';
 	  $strQuery .= ' WHERE (';
