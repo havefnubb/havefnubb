@@ -24,23 +24,36 @@ class membersCtrl extends jController {
         $title = stripslashes($HfnuConfig->getValue('title'));
         $rep = $this->getResponse('html');
 
-		$page = 0;
-		
+		$page = 0;		
 		$page = (int) $this->param('page');
+		
+		// get the group name of the group id we request
+		$grpid = (int) $this->param('grpid');
+		$groupname = jLocale::get('havefnubb~member.memberlist.allgroups');
+		if ($grpid > 0 ) {
+			echo "$grpid";
+			$dao = jDao::get('jelix~jacl2group');
+			$conditions = jDao::createConditions();
+			$conditions->addCondition('id_aclgrp','=',$grpid);
+			$grpnames = $dao->findBy($conditions);
+			foreach ($grpnames as $grpname)
+				$groupname = $grpname->name;
+		}
+		
 		
 		// change the label of the breadcrumb
         if ($page == 0) {		
 			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list')) ;
-			$rep->title .= ' - ' . jLocale::get('havefnubb~member.memberlist.members.list');
+			$rep->title .= ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname;
 		}
 		else {
-			$rep->title .= ' - ' . jLocale::get('havefnubb~member.members.list') . ' ' .($page+1) ;			
+			$rep->title .= ' - ' . jLocale::get('havefnubb~member.members.list') . ' - ' . $groupname . ' ' .($page+1) ;
 			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));		
 		}
 		
-        $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page));
+        $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page,'grpid'=>$grpid));
         return $rep;
-    }    
-    
+    }
+	    
 }
 

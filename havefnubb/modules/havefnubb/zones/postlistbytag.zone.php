@@ -12,5 +12,17 @@ class postlistbytagZone extends jZone {
     protected $_tplname='zone.postlistbytag';
 
     protected function _prepareTpl(){
+        $tag = $this->param('tag');
+       
+        $srvTags = jClasses::getService("jtags~tags");
+        $tags = $srvTags->getSubjectsByTags($tag, "forumscope");
+        
+        $posts = '';
+        $dao = jDao::get('havefnubb~posts');
+        // We check the rights access to the posts in the template
+        for ($i = 0 ; $i < count($tags) ; $i++) {            
+            $posts[] = (array) $dao->get($tags[$i]);            
+        }
+        $this->_tpl->assign(compact('posts'));
     }
 }

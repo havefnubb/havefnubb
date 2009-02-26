@@ -1,6 +1,21 @@
 <div id="breadcrumbtop" class="headbox">
     <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@havefnubb~member.memberlist.members.list@}</h3>
 </div>
+<div class="group">
+
+<form action="{formurl 'havefnubb~members:index'}" method="post">
+<fieldset><legend>{@havefnubb~member.memberlist.thegroups@}</legend>
+{formurlparam 'havefnubb~members:index'}
+    <select name="grpid">
+    {foreach $groups as $group}
+        {if  $group->id_aclgrp != 0}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
+    {/foreach}
+     </select>
+    <input type="submit" value="Rechercher" />
+</fieldset>
+</form>
+
+</div>
 <div class="linkpages">
 {pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
