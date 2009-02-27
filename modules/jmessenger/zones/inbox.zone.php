@@ -24,6 +24,10 @@ class inboxZone extends jZone {
         
         $dao = jDao::get($this->dao);
         $msg = $dao->getRecus($id);
+        
+        if(jAuth::isConnected()) {
+            $this->_tpl->assign('login',jAuth::getUserSession ()->login);
+        }        
 
         $this->_tpl->assign(compact('msg', 'id', 'title'));
     }

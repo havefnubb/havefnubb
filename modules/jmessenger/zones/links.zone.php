@@ -17,6 +17,9 @@ class linksZone extends jZone {
 
 
     protected function _prepareTpl(){
+        if(jAuth::isConnected()) {
+            $this->_tpl->assign('login',jAuth::getUserSession ()->login);
+        }        
         
     }
 }

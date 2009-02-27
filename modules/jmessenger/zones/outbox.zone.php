@@ -25,6 +25,10 @@ class outboxZone extends jZone {
         $dao = jDao::get($this->dao);
         $msg = $dao->getSend($id);
         $send = true;
+        
+        if(jAuth::isConnected()) {
+            $this->_tpl->assign('login',jAuth::getUserSession ()->login);
+        }        
 
         $this->_tpl->assign(compact('msg', 'id', 'title', 'send'));
     }
