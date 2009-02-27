@@ -4,4 +4,7 @@
       <event name="AuthLogin" />
       <event name="jcommunity_save_account" />
    </listener>
+   <listener name="hfnumenu">
+      <event name="hfnuGetMenuContent" />
+   </listener>
 </events>

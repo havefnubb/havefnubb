@@ -23,9 +23,7 @@ class flags implements jIFormDatasource
      
         if ( strpos($file_complet,".") > 2) {
             list($file) = split(".gif",$file_complet);
-
             $data[$file] = $file;
-
         }
     }
     

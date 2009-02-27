@@ -19,10 +19,11 @@ class postlistbytagZone extends jZone {
         
         $posts = '';
         $dao = jDao::get('havefnubb~posts');
+        $count = count($tags);
         // We check the rights access to the posts in the template
-        for ($i = 0 ; $i < count($tags) ; $i++) {            
+        for ($i = 0 ; $i < $count ; $i++) {            
             $posts[] = (array) $dao->get($tags[$i]);            
         }
-        $this->_tpl->assign(compact('posts'));
+        $this->_tpl->assign(compact('posts','count'));
     }
 }

@@ -3,8 +3,7 @@
 </div>
 <div id="search">
 <div id="post-message">{jmessage}</div>
-<form action="{formurl 'hfnusearch~default:query'}" method="post">
-  
+<form action="{formurl 'hfnusearch~default:query'}" method="post">  
   <fieldset><legend>{@hfnusearch~search.in.all.forums@}</legend>
   <div>
     {formurlparam 'hfnusearch~default:query'}

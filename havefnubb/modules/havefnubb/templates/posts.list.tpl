@@ -29,7 +29,7 @@
         <tr>
             <td class="colicone" ></td>
             <td class="coltitle linkincell">
-                <a href="{jurl 'posts:view',array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
+                <a href="{jurl 'posts:view',array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject,'ftitle'=>$forum->forum_name)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
             </td>
             <td class="colposter linkincell">
                 <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>

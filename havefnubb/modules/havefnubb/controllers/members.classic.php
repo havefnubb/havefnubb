@@ -31,7 +31,6 @@ class membersCtrl extends jController {
 		$grpid = (int) $this->param('grpid');
 		$groupname = jLocale::get('havefnubb~member.memberlist.allgroups');
 		if ($grpid > 0 ) {
-			echo "$grpid";
 			$dao = jDao::get('jelix~jacl2group');
 			$conditions = jDao::createConditions();
 			$conditions->addCondition('id_aclgrp','=',$grpid);

@@ -2,7 +2,8 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="posts" realname="posts" primarykey="id_post" />
-        <foreigntable name="usr" realname="member" primarykey="id_user" onforeignkey="id_user" />        
+        <foreigntable name="usr" realname="member" primarykey="id_user" onforeignkey="id_user" />
+		<foreigntable name="forum" realname="forum" primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>        
 		<property name="id_post" fieldname="id_post" datatype="autoincrement"/>
@@ -10,6 +11,7 @@
 		<property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
 		<property name="parent_id" fieldname="parent_id" datatype="int" required="true"/>
 		<property name="status" fieldname="status" datatype="int" required="true"/>
+		
 		<!--
 		1=opened/ouvert
 		2=closed/fermé
@@ -25,6 +27,7 @@
 		<property name="viewed" fieldname="viewed" datatype="int" required="true"/> 
 		<property name="poster_ip" fieldname="poster_ip" datatype="string" required="true"/>
 		
+		<!-- properties from member table -->
 		<property name="id" fieldname="id_user" datatype="int" table="usr"/>
 		<property name="email" fieldname="member_email" datatype="string" table="usr" maxlength="255" />
 		<property name="login" fieldname="member_login" table="usr"
@@ -36,6 +39,10 @@
 		<property name="member_website" fieldname="member_website" datatype="string" table="usr" maxlength="255"/>	  
 		<property name="nb_msg" fieldname="member_nb_msg" table="usr" datatype="integer" />
 		<property name="member_last_post" fieldname="member_last_post" table="usr"  datatype="integer" />
+		
+		<!-- properties from forum table -->
+		<property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
+		<property name="forum_name" fieldname="forum_name" table="forum" datatype="int" required="true"/>
     </record>	
 	
 	<!-- naming convention :
@@ -51,7 +58,7 @@
             <parameter name="count" default="200" />
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="parent_id" />
+                <eq property="id_post" expr="posts.parent_id" />
             </conditions>            
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -121,14 +128,14 @@
             <parameter name="id_forum" />
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="parent_id" />
+                <eq property="id_post" expr="posts.parent_id" />
             </conditions>            
         </method>    
         <method name="countThreads" type="count">
             <parameter name="id_forum" />
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="parent_id" />
+                <eq property="id_post" expr="posts.parent_id" />
             </conditions>            
         </method>
         <method name="countMsgsByIdUser" type="count">
@@ -142,7 +149,7 @@
         </method>
         <method name="countAllThreads" type="count">
             <conditions>
-                <eq property="id_post" expr="parent_id" />
+                <eq property="id_post" expr="posts.parent_id" />
             </conditions>            
         </method>
         <method name="getLastPost" type="selectfirst">
@@ -153,7 +160,7 @@
         <method name="findLastPosts" type="select">
             <parameter name="count" default="5" />
            <conditions>
-                <eq property="id_post" expr="parent_id" />
+                <eq property="id_post" expr="posts.parent_id" />
             </conditions>            
             <order>
                 <orderitem property="date_modified" way="desc" />

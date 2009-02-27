@@ -21,7 +21,7 @@ class authhavefnubbListener extends jEventListener{
         
         $user = $dao->getByLogin($login);
         if (!$user) {
-         die("");
+            die("");
         }
         // put the current date
         $user->member_last_connect = date("Y-m-d H:i:s");

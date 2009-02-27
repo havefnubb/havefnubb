@@ -11,35 +11,32 @@
 
 class language implements jIFormDatasource
 {
-  protected $formId = 0; 
-  protected $data = array();  
-
-  function __construct($id)
-  {
-    $data = array();
-    $dir = JELIX_APP_PATH.'modules'.DIRECTORY_SEPARATOR.'havefnubb'.DIRECTORY_SEPARATOR.'locales';
-    $dh = opendir($dir);
-     while (($file = readdir($dh)) !== false) {
+    protected $formId = 0; 
+    protected $data = array();  
+    
+    function __construct($id) {
+        $data = array();
+        $dir = JELIX_APP_PATH.'modules'.DIRECTORY_SEPARATOR.'havefnubb'.DIRECTORY_SEPARATOR.'locales';
+        $dh = opendir($dir);
+        while (($file = readdir($dh)) !== false) {
             if ( $file != '.' and $file != '..')
                 $data[$file] = $file;
+        }
+    
+        $this->formId = $id;
+        $this->data = $data;
+    
     }
     
-    $this->formId = $id;
-    $this->data = $data;
-        
-  }
- 
-  public function getData($form)
-  {
+    public function getData($form)    {
     return ($this->data);
-  }
- 
-  public function getLabel($key)
-  {
-    if(isset($this->data[$key]))
-      return $this->data[$key];
-    else
-      return null;
-  }
- 
+    }
+    
+    public function getLabel($key)    {
+        if(isset($this->data[$key]))
+            return $this->data[$key];
+        else
+            return null;
+    }
+    
 }

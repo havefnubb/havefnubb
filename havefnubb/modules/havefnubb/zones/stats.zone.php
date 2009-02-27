@@ -19,6 +19,8 @@ class statsZone extends jZone {
         $threads    = $dao->countAllThreads();
         //last posts
         $lastPost   = $dao->getLastPost();
+        $dao = jDao::get('havefnubb~forum');
+        $forum = $dao->get($lastPost->id_forum);
         
         $dao = jDao::get('havefnubb~member');
         //members
@@ -29,6 +31,7 @@ class statsZone extends jZone {
         $this->_tpl->assign('posts',$posts);
         $this->_tpl->assign('threads',$threads);
         $this->_tpl->assign('lastPost',$lastPost);
+        $this->_tpl->assign('forum',$forum);
         
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('lastMember',$lastMember);
