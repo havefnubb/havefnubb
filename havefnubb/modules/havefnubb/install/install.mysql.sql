@@ -8,8 +8,8 @@
 -- Structure de la table `category`
 --
 
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
+DROP TABLE IF EXISTS `hf_category`;
+CREATE TABLE IF NOT EXISTS `hf_category` (
   `id_cat` int(12) NOT NULL AUTO_INCREMENT,
   `cat_name` varchar(255) NOT NULL,
   `cat_order` int(4) NOT NULL,
@@ -30,8 +30,8 @@ INSERT INTO `category` (`id_cat`, `cat_name`, `cat_order`) VALUES
 -- Structure de la table `forum`
 --
 
-DROP TABLE IF EXISTS `forum`;
-CREATE TABLE IF NOT EXISTS `forum` (
+DROP TABLE IF EXISTS `hf_forum`;
+CREATE TABLE IF NOT EXISTS `hf_forum` (
   `id_forum` int(12) NOT NULL AUTO_INCREMENT,
   `forum_name` varchar(255) NOT NULL,
   `id_cat` int(12) NOT NULL,
@@ -61,8 +61,8 @@ INSERT INTO `forum` (`id_forum`, `forum_name`, `id_cat`, `forum_desc`, `forum_or
 -- Structure de la table `jacl2_group`
 --
 
-DROP TABLE IF EXISTS `jacl2_group`;
-CREATE TABLE IF NOT EXISTS `jacl2_group` (
+DROP TABLE IF EXISTS `hf_jacl2_group`;
+CREATE TABLE IF NOT EXISTS `hf_jacl2_group` (
   `id_aclgrp` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL DEFAULT '',
   `grouptype` tinyint(4) NOT NULL DEFAULT '0',
@@ -82,8 +82,8 @@ INSERT INTO `jacl2_group` (`id_aclgrp`, `name`, `grouptype`, `ownerlogin`) VALUE
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `jacl2_rights`;
-CREATE TABLE IF NOT EXISTS `jacl2_rights` (
+DROP TABLE IF EXISTS `hf_jacl2_rights`;
+CREATE TABLE IF NOT EXISTS `hf_jacl2_rights` (
   `id_aclsbj` varchar(100) NOT NULL DEFAULT '',
   `id_aclgrp` int(11) NOT NULL DEFAULT '0',
   `id_aclres` varchar(100) NOT NULL DEFAULT '',
@@ -315,8 +315,8 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 -- Table structure for table `jacl2_subject`
 --
 
-DROP TABLE IF EXISTS `jacl2_subject`;
-CREATE TABLE IF NOT EXISTS `jacl2_subject` (
+DROP TABLE IF EXISTS `hf_jacl2_subject`;
+CREATE TABLE IF NOT EXISTS `hf_jacl2_subject` (
   `id_aclsbj` varchar(100) NOT NULL DEFAULT '',
   `label_key` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_aclsbj`)
@@ -397,8 +397,8 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 -- Structure de la table `jacl2_user_group`
 --
 
-DROP TABLE IF EXISTS `jacl2_user_group`;
-CREATE TABLE IF NOT EXISTS `jacl2_user_group` (
+DROP TABLE IF EXISTS `hf_jacl2_user_group`;
+CREATE TABLE IF NOT EXISTS `hf_jacl2_user_group` (
   `login` varchar(50) NOT NULL DEFAULT '',
   `id_aclgrp` int(11) NOT NULL DEFAULT '0',
   KEY `login` (`login`,`id_aclgrp`)
@@ -418,8 +418,8 @@ INSERT INTO `jacl2_user_group` (`login`, `id_aclgrp`) VALUES
 -- Structure de la table `member`
 --
 
-DROP TABLE IF EXISTS `member`;
-CREATE TABLE IF NOT EXISTS `member` (
+DROP TABLE IF EXISTS `hf_member`;
+CREATE TABLE IF NOT EXISTS `hf_member` (
   `id_user` int(12) NOT NULL AUTO_INCREMENT,
   `member_login` varchar(50) NOT NULL,
   `member_password` varchar(50) NOT NULL,
@@ -474,8 +474,8 @@ INSERT INTO `member` (`id_user`, `member_login`, `member_password`, `member_emai
 -- Structure de la table `posts`
 --
 
-DROP TABLE IF EXISTS `posts`;
-CREATE TABLE IF NOT EXISTS `posts` (
+DROP TABLE IF EXISTS `hf_posts`;
+CREATE TABLE IF NOT EXISTS `hf_posts` (
   `id_post` int(12) NOT NULL AUTO_INCREMENT,
   `id_user` int(12) NOT NULL,
   `id_forum` int(12) NOT NULL,
@@ -504,8 +504,8 @@ INSERT INTO `posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `s
 -- Structure de la table `rank`
 --
 
-DROP TABLE IF EXISTS `rank`;
-CREATE TABLE IF NOT EXISTS `rank` (
+DROP TABLE IF EXISTS `hf_rank`;
+CREATE TABLE IF NOT EXISTS `hf_rank` (
   `id_rank` int(12) NOT NULL AUTO_INCREMENT,
   `rank_name` varchar(40) NOT NULL,
   `rank_limit` int(9) NOT NULL,
@@ -527,8 +527,8 @@ INSERT INTO `rank` (`id_rank`, `rank_name`, `rank_limit`) VALUES
 -- Structure de la table `sc_tags`
 --
 
-DROP TABLE IF EXISTS `sc_tags`;
-CREATE TABLE IF NOT EXISTS `sc_tags` (
+DROP TABLE IF EXISTS `hf_sc_tags`;
+CREATE TABLE IF NOT EXISTS `hf_sc_tags` (
   `tag_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tag_name` varchar(50) NOT NULL,
   `nbuse` int(11) DEFAULT '0',
@@ -549,8 +549,8 @@ INSERT INTO `sc_tags` (`tag_id`, `tag_name`, `nbuse`) VALUES
 -- Structure de la table `sc_tags_tagged`
 --
 
-DROP TABLE IF EXISTS `sc_tags_tagged`;
-CREATE TABLE IF NOT EXISTS `sc_tags_tagged` (
+DROP TABLE IF EXISTS `hf_sc_tags_tagged`;
+CREATE TABLE IF NOT EXISTS `hf_sc_tags_tagged` (
   `tt_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tag_id` int(10) unsigned NOT NULL,
   `tt_scope_id` varchar(50) NOT NULL,
@@ -572,8 +572,8 @@ INSERT INTO `sc_tags_tagged` (`tt_id`, `tag_id`, `tt_scope_id`, `tt_subject_id`)
 -- --------------------------------------------------------
 
 
-DROP TABLE IF EXISTS `search_words`;
-CREATE TABLE IF NOT EXISTS `search_words` (
+DROP TABLE IF EXISTS `hf_search_words`;
+CREATE TABLE IF NOT EXISTS `hf_search_words` (
   `id` int(12) NOT NULL,
   `words` varchar(255) NOT NULL,
   `weight` int(4) NOT NULL,
@@ -605,8 +605,8 @@ INSERT INTO `search_words` (`id`, `words`, `weight`) VALUES
 
 
 
-DROP TABLE IF EXISTS `notify`; 
-CREATE TABLE IF NOT EXISTS `notify` ( 
+DROP TABLE IF EXISTS `hf_notify`; 
+CREATE TABLE IF NOT EXISTS `hf_notify` ( 
   `id_notify` int(12) NOT NULL AUTO_INCREMENT, 
   `id_user` int(12) NOT NULL, 
   `id_post` int(12) NOT NULL,
@@ -619,3 +619,19 @@ CREATE TABLE IF NOT EXISTS `notify` (
   KEY `id_user` (`id_user`), 
   KEY `id_post` (`id_post`) 
 ); 
+
+
+--
+-- Structure de la table `hf_bans`
+--
+
+DROP TABLE IF EXISTS `hf_bans`;
+CREATE TABLE IF NOT EXISTS `hf_bans` (
+  `ban_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ban_username` varchar(200) DEFAULT NULL,
+  `ban_ip` varchar(255) DEFAULT NULL,
+  `ban_email` varchar(50) DEFAULT NULL,
+  `ban_message` varchar(255) DEFAULT NULL,
+  `ban_expire` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`ban_id`)
+) DEFAULT CHARSET=utf8;
