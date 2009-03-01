@@ -78,8 +78,7 @@ INSERT INTO `jacl2_group` (`id_aclgrp`, `name`, `grouptype`, `ownerlogin`) VALUE
 (1, 'admins', 0, NULL),
 (2, 'users', 0, NULL),
 (3, 'moderators', 0, NULL),
-(4, 'havefnu', 2, 'havefnu'),
-(5, 'foxmask', 2, 'foxmask');
+(4, 'havefnu', 2, 'havefnu');
 
 -- --------------------------------------------------------
 
@@ -467,7 +466,7 @@ CREATE TABLE IF NOT EXISTS `member` (
 --
 
 INSERT INTO `member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`, `member_nb_msg`, `member_last_post`) VALUES
-(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', '123456Toto', 'abscde', 'tata@live.fr', 'toto@yahoo.com', 'truc@aol.com', 'tata@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-24 16:30:55', 'N', 'fr_FR', 51, 1234960470);
+(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', '123456Toto', 'abscde', 'tata@live.fr', 'toto@yahoo.com', 'truc@aol.com', 'tata@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-24 16:30:55', 'N', 'fr_FR', 1, 1234960470);
 
 -- --------------------------------------------------------
 
@@ -518,7 +517,7 @@ CREATE TABLE IF NOT EXISTS `rank` (
 --
 
 INSERT INTO `rank` (`id_rank`, `rank_name`, `rank_limit`) VALUES
-(1, 'new member', 10),
+(1, 'new member', 0),
 (2, 'member', 40),
 (3, 'active member', 100);
 
@@ -541,6 +540,8 @@ CREATE TABLE IF NOT EXISTS `sc_tags` (
 -- Contenu de la table `sc_tags`
 --
 
+INSERT INTO `sc_tags` (`tag_id`, `tag_name`, `nbuse`) VALUES
+(1, 'install', 1);
 
 -- --------------------------------------------------------
 
@@ -563,12 +564,13 @@ CREATE TABLE IF NOT EXISTS `sc_tags_tagged` (
 -- Contenu de la table `sc_tags_tagged`
 --
 
+INSERT INTO `sc_tags_tagged` (`tt_id`, `tag_id`, `tt_scope_id`, `tt_subject_id`) VALUES
+(1, 1, 'forumscope', 1);
+
+
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `search_words`
---
 
 DROP TABLE IF EXISTS `search_words`;
 CREATE TABLE IF NOT EXISTS `search_words` (
@@ -576,11 +578,31 @@ CREATE TABLE IF NOT EXISTS `search_words` (
   `words` varchar(255) NOT NULL,
   `weight` int(4) NOT NULL,
   KEY `words` (`words`)
-) DEFAULT CHARSET=utf8;
+)DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `search_words`
 --
+
+INSERT INTO `search_words` (`id`, `words`, `weight`) VALUES
+(1, 'first', 1),
+(1, 'life', 2),
+(1, 'new', 2),
+(1, 'start', 2),
+(1, 'and', 2),
+(1, 'remov', 2),
+(1, 'now', 2),
+(1, 'complet', 2),
+(1, 'instal', 2),
+(1, 'your', 2),
+(1, 'that', 2),
+(1, 'conclud', 2),
+(1, 'can', 4),
+(1, 'post', 5),
+(1, 'thi', 4),
+(1, 'read', 2),
+(1, 'you', 6);
+
 
 
 DROP TABLE IF EXISTS `notify`; 

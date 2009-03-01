@@ -15,7 +15,8 @@ class hfnumanageuserListener extends jEventListener{
     public function onAuthNewUser($event) {
         $id = $event->getParam('user')->id;      
         if (! $id or $id == 0) return;
+        $request_date = date('Y-m-d H:i:s');
         $dao = jDao::get('havefnubb~member');
-        $dao->updateNbMsgAfterCreatingAccount($id);        
+        $dao->updateNbMsgAfterCreatingAccount($id,$request_date);
     }
 }

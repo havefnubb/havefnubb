@@ -178,12 +178,14 @@
 		</method>
 		<method name="updateNbMsgAfterCreatingAccount" type="update">
 			<parameter name="id"/>
-			<parameter name="nbPost" default="0"/>
+			<parameter name="request_date"/>
+			<parameter name="nbPost" default="0"/>			
             <conditions>
                 <eq property="id" expr="$id" />
             </conditions>
 			<values>
 				<value property="nb_msg" expr="$nbPost"/>
+				<value property="request_date" expr="$request_date"/>
 			</values>			
 		</method>
    </factory>
