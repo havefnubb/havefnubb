@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `hf_category` (
 -- Contenu de la table `category`
 --
 
-INSERT INTO `category` (`id_cat`, `cat_name`, `cat_order`) VALUES
+INSERT INTO `hf_category` (`id_cat`, `cat_name`, `cat_order`) VALUES
 (1, 'My First Forum', 1),
 (2, 'My Second forum', 2);
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `hf_forum` (
 -- Contenu de la table `forum`
 --
 
-INSERT INTO `forum` (`id_forum`, `forum_name`, `id_cat`, `forum_desc`, `forum_order`, `parent_id`, `child_level`) VALUES
+INSERT INTO `hf_forum` (`id_forum`, `forum_name`, `id_cat`, `forum_desc`, `forum_order`, `parent_id`, `child_level`) VALUES
 (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0),
 (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0),
 (3, 'Light', 2, 'Soo light', 1, 0, 0),
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `hf_jacl2_group` (
 -- Contenu de la table `jacl2_group`
 --
 
-INSERT INTO `jacl2_group` (`id_aclgrp`, `name`, `grouptype`, `ownerlogin`) VALUES
+INSERT INTO `hf_jacl2_group` (`id_aclgrp`, `name`, `grouptype`, `ownerlogin`) VALUES
 (1, 'admins', 0, NULL),
 (2, 'users', 0, NULL),
 (3, 'moderators', 0, NULL),
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `hf_jacl2_rights` (
 -- Dumping data for table `jacl2_rights`
 --
 
-INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
+INSERT INTO `hf_jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('acl.group.create', 1, ''),
 ('acl.group.delete', 1, ''),
 ('acl.group.modify', 1, ''),
@@ -113,9 +113,6 @@ INSERT INTO `jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('auth.users.list', 1, ''),
 ('auth.users.modify', 1, ''),
 ('auth.users.view', 1, ''),
-('hfnu.admin.ban.create', 1, ''),
-('hfnu.admin.ban.delete', 1, ''),
-('hfnu.admin.ban.edit', 1, ''),
 ('hfnu.admin.cache', 1, ''),
 ('hfnu.admin.cache', 3, ''),
 ('hfnu.admin.cache.clear', 1, ''),
@@ -326,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `hf_jacl2_subject` (
 -- Dumping data for table `jacl2_subject`
 --
 
-INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
+INSERT INTO `hf_jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('acl.group.create', 'jelix~acl2db.acl.group.create'),
 ('acl.group.delete', 'jelix~acl2db.acl.group.delete'),
 ('acl.group.modify', 'jelix~acl2db.acl.group.modify'),
@@ -342,54 +339,51 @@ INSERT INTO `jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('auth.users.list', 'jelix~auth.acl.users.list'),
 ('auth.users.modify', 'jelix~auth.acl.users.modify'),
 ('auth.users.view', 'jelix~auth.acl.users.view'),
-('hfnu.admin.ban.create', 'hfnu~acl2.admin.ban.create'),
-('hfnu.admin.ban.delete', 'hfnu~acl2.admin.ban.delete'),
-('hfnu.admin.ban.edit', 'hfnu~acl2.admin.ban.edit'),
-('hfnu.admin.category.create', 'hfnu~acl2.admin.category.create'),
-('hfnu.admin.category.delete', 'hfnu~acl2.admin.category.delete'),
-('hfnu.admin.category.edit', 'hfnu~acl2.admin.category.edit'),
-('hfnu.admin.config.edit', 'hfnu~acl2.admin.config.edit'),
-('hfnu.admin.category', 'hfnu~jacl2.admin.category'),
-('hfnu.admin.forum.create', 'hfnu~acl2.admin.forum.create'),
-('hfnu.admin.forum.delete', 'hfnu~acl2.admin.forum.delete'),
-('hfnu.admin.forum.edit', 'hfnu~acl2.admin.forum.edit'),
-('hfnu.admin.index', 'hfnu~acl2.admin.index'),
-('hfnu.admin.member.ban', 'hfnu~acl2.admin.member.ban'),
-('hfnu.admin.member.create', 'hfnu~acl2.admin.member.create'),
-('hfnu.admin.member.delete', 'hfnu~acl2.admin.member.delete'),
-('hfnu.admin.member.edit', 'hfnu~acl2.admin.member.edit'),
-('hfnu.admin.notify.delete', 'hfnu~acl2.admin.notify.delete'),
-('hfnu.admin.notify.list', 'hfnu~acl2.admin.notify.list'),
-('hfnu.admin.rank.create', 'hfnu~acl2.admin.rank.create'),
-('hfnu.admin.rank.delete', 'hfnu~acl2.admin.rank.delete'),
-('hfnu.admin.rank.edit', 'hfnu~acl2.admin.rank.edit'),
-('hfnu.admin.server.info', 'hfnu~acl2.admin.server.info'),
-('hfnu.category.list', 'hfnu~acl2.category.list'),
-('hfnu.category.view', 'hfnu~acl2.category.view'),
-('hfnu.forum.goto', 'hfnu~acl2.forum.goto'),
-('hfnu.forum.list', 'hfnu~acl2.forum.list'),
-('hfnu.forum.view', 'hfnu~acl2.forum.view'),
-('hfnu.member.list', 'hfnu~acl2.member.list'),
-('hfnu.member.search', 'hfnu~acl2.member.search'),
-('hfnu.member.view', 'hfnu~acl2.member.view'),
-('hfnu.posts.create', 'hfnu~acl2.posts.create'),
-('hfnu.posts.delete', 'hfnu~acl2.posts.delete'),
-('hfnu.posts.edit', 'hfnu~acl2.posts.edit'),
-('hfnu.posts.list', 'hfnu~acl2.posts.list'),
-('hfnu.posts.moderate', 'hfnu~acl2.posts.moderate'),
-('hfnu.posts.notify', 'hfnu~acl2.posts.notify'),
-('hfnu.posts.quote', 'hfnu~acl2.posts.quote'),
-('hfnu.posts.reply', 'hfnu~acl2.posts.reply'),
-('hfnu.posts.view', 'hfnu~acl2.posts.view'),
-('hfnu.search', 'hfnu~acl2.search'),
-('hfnu.posts.edit.own', 'hfnu~acl2.posts.edit.own'),
-('hfnu.admin.cache.clear', 'hfnu~jacl2.admin.cache.clear'),
-('hfnu.admin.search', 'hfnu~jacl2.admin.search'),
-('hfnu.admin.cache', 'hfnu~jacl2.admin.cache'),
-('hfnu.admin.config', 'hfnu~jacl2.admin.config'),
-('hfnu.admin.forum', 'hfnu~jacl2.admin.forum'),
-('hfnu.admin.member', 'hfnu~jacl2.admin.member'),
-('hfnu.admin.post', 'hfnu~jacl2.admin.post');
+('hfnu.admin.category.create', 'havefnubb~acl2.admin.category.create'),
+('hfnu.admin.category.delete', 'havefnubb~acl2.admin.category.delete'),
+('hfnu.admin.category.edit', 'havefnubb~acl2.admin.category.edit'),
+('hfnu.admin.config.edit', 'havefnubb~acl2.admin.config.edit'),
+('hfnu.admin.category', 'havefnubb~acl2.admin.category'),
+('hfnu.admin.forum.create', 'havefnubb~acl2.admin.forum.create'),
+('hfnu.admin.forum.delete', 'havefnubb~acl2.admin.forum.delete'),
+('hfnu.admin.forum.edit', 'havefnubb~acl2.admin.forum.edit'),
+('hfnu.admin.index', 'havefnubb~acl2.admin.index'),
+('hfnu.admin.member.ban', 'havefnubb~acl2.admin.member.ban'),
+('hfnu.admin.member.create', 'havefnubb~acl2.admin.member.create'),
+('hfnu.admin.member.delete', 'havefnubb~acl2.admin.member.delete'),
+('hfnu.admin.member.edit', 'havefnubb~acl2.admin.member.edit'),
+('hfnu.admin.notify.delete', 'havefnubb~acl2.admin.notify.delete'),
+('hfnu.admin.notify.list', 'havefnubb~acl2.admin.notify.list'),
+('hfnu.admin.rank.create', 'havefnubb~acl2.admin.rank.create'),
+('hfnu.admin.rank.delete', 'havefnubb~acl2.admin.rank.delete'),
+('hfnu.admin.rank.edit', 'havefnubb~acl2.admin.rank.edit'),
+('hfnu.admin.server.info', 'havefnubb~acl2.admin.server.info'),
+('hfnu.category.list', 'havefnubb~acl2.category.list'),
+('hfnu.category.view', 'havefnubb~acl2.category.view'),
+('hfnu.forum.goto', 'havefnubb~acl2.forum.goto'),
+('hfnu.forum.list', 'havefnubb~acl2.forum.list'),
+('hfnu.forum.view', 'havefnubb~acl2.forum.view'),
+('hfnu.member.list', 'havefnubb~acl2.member.list'),
+('hfnu.member.search', 'havefnubb~acl2.member.search'),
+('hfnu.member.view', 'havefnubb~acl2.member.view'),
+('hfnu.posts.create', 'havefnubb~acl2.posts.create'),
+('hfnu.posts.delete', 'havefnubb~acl2.posts.delete'),
+('hfnu.posts.edit', 'havefnubb~acl2.posts.edit'),
+('hfnu.posts.list', 'havefnubb~acl2.posts.list'),
+('hfnu.posts.moderate', 'havefnubb~acl2.posts.moderate'),
+('hfnu.posts.notify', 'havefnubb~acl2.posts.notify'),
+('hfnu.posts.quote', 'havefnubb~acl2.posts.quote'),
+('hfnu.posts.reply', 'havefnubb~acl2.posts.reply'),
+('hfnu.posts.view', 'havefnubb~acl2.posts.view'),
+('hfnu.search', 'havefnubb~acl2.search'),
+('hfnu.posts.edit.own', 'havefnubb~acl2.posts.edit.own'),
+('hfnu.admin.cache.clear', 'havefnu~acl2.admin.cache.clear'),
+('hfnu.admin.search', 'havefnubb~acl2.admin.search'),
+('hfnu.admin.cache', 'havefnubb~acl2.admin.cache'),
+('hfnu.admin.config', 'havefnubb~acl2.admin.config'),
+('hfnu.admin.forum', 'havefnubb~acl2.admin.forum'),
+('hfnu.admin.member', 'havefnubb~acl2.admin.member'),
+('hfnu.admin.post', 'havefnubb~acl2.admin.post');
 
 -- --------------------------------------------------------
 
@@ -408,7 +402,7 @@ CREATE TABLE IF NOT EXISTS `hf_jacl2_user_group` (
 -- Contenu de la table `jacl2_user_group`
 --
 
-INSERT INTO `jacl2_user_group` (`login`, `id_aclgrp`) VALUES
+INSERT INTO `hf_jacl2_user_group` (`login`, `id_aclgrp`) VALUES
 ('havefnu', 1),
 ('havefnu', 4);
 
@@ -465,7 +459,7 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
 -- Contenu de la table `member`
 --
 
-INSERT INTO `member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`, `member_nb_msg`, `member_last_post`) VALUES
+INSERT INTO `hf_member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`, `member_nb_msg`, `member_last_post`) VALUES
 (1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', '123456Toto', 'abscde', 'tata@live.fr', 'toto@yahoo.com', 'truc@aol.com', 'tata@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-24 16:30:55', 'N', 'fr_FR', 1, 1234960470);
 
 -- --------------------------------------------------------
@@ -495,7 +489,7 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
 -- Contenu de la table `posts`
 --
 
-INSERT INTO `posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`) VALUES
+INSERT INTO `hf_posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`) VALUES
 (1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', '2009-02-03 10:28:51', '2009-02-03 10:28:51', 26, '');
 
 -- --------------------------------------------------------
@@ -516,7 +510,7 @@ CREATE TABLE IF NOT EXISTS `hf_rank` (
 -- Contenu de la table `rank`
 --
 
-INSERT INTO `rank` (`id_rank`, `rank_name`, `rank_limit`) VALUES
+INSERT INTO `hf_rank` (`id_rank`, `rank_name`, `rank_limit`) VALUES
 (1, 'new member', 0),
 (2, 'member', 40),
 (3, 'active member', 100);
@@ -540,7 +534,7 @@ CREATE TABLE IF NOT EXISTS `hf_sc_tags` (
 -- Contenu de la table `sc_tags`
 --
 
-INSERT INTO `sc_tags` (`tag_id`, `tag_name`, `nbuse`) VALUES
+INSERT INTO `hf_sc_tags` (`tag_id`, `tag_name`, `nbuse`) VALUES
 (1, 'install', 1);
 
 -- --------------------------------------------------------
@@ -564,7 +558,7 @@ CREATE TABLE IF NOT EXISTS `hf_sc_tags_tagged` (
 -- Contenu de la table `sc_tags_tagged`
 --
 
-INSERT INTO `sc_tags_tagged` (`tt_id`, `tag_id`, `tt_scope_id`, `tt_subject_id`) VALUES
+INSERT INTO `hf_sc_tags_tagged` (`tt_id`, `tag_id`, `tt_scope_id`, `tt_subject_id`) VALUES
 (1, 1, 'forumscope', 1);
 
 
@@ -584,7 +578,7 @@ CREATE TABLE IF NOT EXISTS `hf_search_words` (
 -- Contenu de la table `search_words`
 --
 
-INSERT INTO `search_words` (`id`, `words`, `weight`) VALUES
+INSERT INTO `hf_search_words` (`id`, `words`, `weight`) VALUES
 (1, 'first', 1),
 (1, 'life', 2),
 (1, 'new', 2),
