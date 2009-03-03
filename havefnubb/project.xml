@@ -14,6 +14,9 @@
     </info>
     <dependencies>
         <jelix minversion="1.1.1" maxversion="1.1.1"/>
+		<jcommunity minversion="trunk"  maxversion="trunk" />
+		<jtags minversion="trunk"  maxversion="trunk" />
+		<jmessenger minversion="trunk"  maxversion="trunk" />
     </dependencies>
     <directories>
         <config/>
