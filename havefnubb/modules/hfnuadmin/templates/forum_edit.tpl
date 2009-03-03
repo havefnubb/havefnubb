@@ -65,3 +65,15 @@
 
 </fieldset>
 </form>
+
+<form action="{formurl 'hfnuadmin~forum:defaultrights'}" method="post">
+<div>{formurlparam 'hfnuadmin~forum:defaultrights'}
+<input type="hidden" name="id_forum" value="{$forum->id_forum}"/>
+<input type="hidden" name="hfnutoken" value="{$hfnutoken}"/></div>
+<fieldset><legend>{@hfnuadmin~forum.groups.rights@}</legend>
+<div class="jforms-submit-buttons">
+    {@hfnuadmin~forum.restorerights.description@}<br/>
+    <input type="submit" name="validate" id="jforms_hfnuadmin_forum_restore_rightsBt" class="jforms-submit" value="{@hfnuadmin~forum.restorerightsBt@}"/><br/>    
+</div>
+</fieldset>
+</form>

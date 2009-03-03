@@ -216,7 +216,6 @@ class forumCtrl extends jController {
         /**************/
         
         $rights = $this->param('rights',array());
-
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
             $id = intval($grp->id_aclgrp);
             self::setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
@@ -258,7 +257,83 @@ class forumCtrl extends jController {
               jAcl2DbManager::addRight($group,$sbj,$resource);
         }
         jAcl2::clearCache();
-    }
 
-    
+    }
+	
+	function defaultrights() {
+		
+        $id_forum = (int) $this->param('id_forum');
+        $hfnutoken = (string) $this->param('hfnutoken');
+        
+        //let's check if we have a valid token in our form
+        $token = jClasses::getService("havefnubb~hfnutoken");       
+        $token->checkHfnuToken($hfnutoken);
+        
+        if ($id_forum == 0) {
+            jMessage::add(jLocale::get('hfnuadmin~forum.unknown.forum'),'error');
+            $rep = $this->getResponse('redirect');
+            $rep->action='hfnuadmin~forum:index';
+            return $rep;                 
+        }
+		
+		$resource = 'forum'.$id_forum;
+		// default 'normal' rights for a given forum.
+        $rights = array(
+					//anonymous
+					'0'=>array('hfnu.forum.list'=>'on',
+							   'hfnu.forum.view'=>'on',
+							   'hfnu.posts.list'=>'on',
+							   'hfnu.posts.view'=>'on'),
+					//admins
+					'1'=>array('hfnu.forum.list'=>'on',
+							   'hfnu.forum.view'=>'on',
+							   'hfnu.posts.create'=>'on',
+							   'hfnu.posts.delete'=>'on',
+							   'hfnu.posts.edit'=>'on',
+							   'hfnu.posts.edit.own'=>'on',
+							   'hfnu.posts.list'=>'on',
+							   'hfnu.posts.notify'=>'on',
+							   'hfnu.posts.reply'=>'on',
+							   'hfnu.posts.quote'=>'on',
+							   'hfnu.posts.view'=>'on'
+							   ),
+					//moderators
+					'3'=>array('hfnu.forum.list'=>'on',
+							   'hfnu.forum.view'=>'on',
+							   'hfnu.posts.create'=>'on',
+							   'hfnu.posts.edit'=>'on',
+							   'hfnu.posts.edit.own'=>'on',							   
+							   'hfnu.posts.list'=>'on',
+							   'hfnu.posts.notify'=>'on',
+							   'hfnu.posts.reply'=>'on',
+							   'hfnu.posts.quote'=>'on',
+							   'hfnu.posts.view'=>'on'
+							  ),
+					//members
+					'2'=>array('hfnu.forum.list'=>'on',
+							   'hfnu.forum.view'=>'on',
+							   'hfnu.posts.create'=>'on',
+							   'hfnu.posts.edit.own'=>'on',							   
+							   'hfnu.posts.list'=>'on',
+							   'hfnu.posts.notify'=>'on',
+							   'hfnu.posts.reply'=>'on',
+							   'hfnu.posts.quote'=>'on',
+							   'hfnu.posts.view'=>'on'
+							  ),
+						);
+		
+        foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
+            $id = intval($grp->id_aclgrp);
+            self::setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
+        }
+
+        self::setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
+       
+        
+        jMessage::add(jLocale::get('hfnuadmin~forum.forum.rights.restored'),'ok');
+        $rep = $this->getResponse('redirect');
+		$rep->params = array('id_forum'=>$id_forum);
+        $rep->action='hfnuadmin~forum:edit';
+        return $rep;  
+	}
 }   
