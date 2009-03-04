@@ -13,32 +13,52 @@ class banCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        'index'    => array( 'jacl2.right'=>'hfnu.admin.member'),
-        'delete'   => array( 'jacl2.right'=>'hfnu.admin.ban.delete'),
+        'index'    => array( 'jacl2.right'=>'hfnu.admin.ban'),
     );
-    
+ 
     function index() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~bans_index'));
+		$form = jForms::create('hfnuadmin~bans');
+		$tpl->assign('form',$form);		
+		$dao = jDao::get('havefnubb~bans');
+		$bans = $dao->findAll();
+		$tpl->assign('bans',$bans);
+        $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~bans_edit'));
         return $rep;	
     }
 
-    function create () {
+    function saveban () {
+		$username = $this->param('ban_username');
+		$ip = $this->param('ban_ip');
+		$mail = $this->param('ban_email');
+		$expire = $this->param('ban_expire');
+		$message = $this->param('ban_message');
+		
+		
+		if ($username == '' and $ip == '' and $mail == ''
+			and $expire['day'] == '' and $expire['month'] == '' and $expire['year'] == '' 
+			and $message == '' ) {
+			jMessage::add(jLocale::get('hfnuadmin.ban.you.have.to.fill.one.field.at.least'));
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'hfnuadmin~ban:index';
+			return $rep;
+		}
+		
+		$submit = $this->param('validate');
+        if ($submit == jLocale::get('hfnuadmin~ban.saveBt') ) {
+			
+			$dao 	= jDao::get('havefnubb~bans');
+			$form 	= jForms::fill('hfnuadmin~bans');
+			$form->saveToDao('havefnubb~bans');
+			
+			jMessage::add(jLocale::get('hfnuadmin.ban.added'));
+			
+			$rep = $this->getResponse('redirect');
+			$rep->action='hfnuadmin~ban:index';
+			return $rep;
+		}
     
     }
-
-    function savecreate () {
-    
-    }
-
-    function edit () {
-    
-    }
-
-    function saveedit () {
-    
-    }
-
     
 }   

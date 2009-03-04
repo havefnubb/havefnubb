@@ -10,25 +10,7 @@
         <property name="ban_email" fieldname="ban_email" datatype="string" default="" maxlength="50"/>
         <property name="ban_message" fieldname="ban_message" datatype="string" default="" maxlength="255"/>
         <property name="ban_expire" fieldname="ban_expire" datatype="int" default=""/>
-        <!--<property name="" fieldname="" datatype="string/int/float/date"
-        required="yes" maxlength="" minlength="" regexp="" sequence=""
-        updatepattern="" insertpattern="" selectpattern=""/>-->
     </record>
     <factory>
-        <!--<method name="findByStage" type="select/selectfirst/delete/update/php">
-            <parameter name="" />
-            <values>
-                <value property="" value="" />
-            </values>
-            <conditions logic="and/or">
-                <eq property="" value="" />
-            </conditions>
-            <order>
-                <orderitem property="" way="asc/desc" />
-            </order>
-            <limit offset="" count=""/>
-            <body><![CDATA[
-            ]]></body>
-        </method>-->
     </factory>
 </dao>
