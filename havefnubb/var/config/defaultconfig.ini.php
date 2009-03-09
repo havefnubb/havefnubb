@@ -112,6 +112,7 @@ jsonrpc="@jsonrpc"
 rdf="@rdf"
 
 hfnuadmin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~*@classic, servinfo~default@classic, hfnusearch~admin@classic"
+install="hfnuinstall~*@classic"
 
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name
@@ -122,6 +123,7 @@ jsonrpc=on
 rdf=on
 
 hfnuadmin=1
+install=on
 
 [logfiles]
 default=messages.log

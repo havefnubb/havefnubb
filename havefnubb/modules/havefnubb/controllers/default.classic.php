@@ -44,6 +44,5 @@ class defaultCtrl extends jController {
         $rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));
         return $rep;		
 	}
-
 }
 

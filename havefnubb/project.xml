@@ -14,9 +14,12 @@
     </info>
     <dependencies>
         <jelix minversion="1.1.1" maxversion="1.1.1"/>
-		<jcommunity minversion="trunk"  maxversion="trunk" />
-		<jtags minversion="trunk"  maxversion="trunk" />
-		<jmessenger minversion="trunk"  maxversion="trunk" />
+		<module id="jcommunity@jelix.org" maxversion="1.0" minversion="0.9" name="jcommunity" />		
+		<module id="jtags@jelix.org" maxversion="1.0" minversion="0.9" name="jtags" />
+		<module id="jmessenger@jelix.org" maxversion="1.0" minversion="0.9" name="jmessenger" />
+		<module id="hfnuadmin@forge.jelix.org" maxversion="1.0" minversion="0.9" name="hfnuadmin" />
+		<module id="hfnusearch@forge.jelix.org" maxversion="1.0" minversion="0.9" name="hfnusearch" />
+		<module id="servinfo@forge.jelix.org" maxversion="1.0" minversion="0.9" name="servinfo" />		
     </dependencies>
     <directories>
         <config/>
@@ -28,5 +31,6 @@
     <entrypoints>
         <entry file="index.php" config="index/config.ini.php"/>
 		<entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/>
+		<entry file="install.php" config="install/config.ini.php"/>
 	</entrypoints>
 </project>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+    
+<hidden ref="step"/>
+
+<input ref="title" type="string" required="true" size="80">
+	<label locale="hfnuinstall~install.config.title"/>
+</input>
+
+<input ref="description" type="string" required="true" size="80">
+	<label locale="hfnuinstall~install.config.description"/>
+</input>
+
+<menulist ref="theme" required="true">
+	<label locale="hfnuinstall~install.config.themes"/>
+	<datasource class="hfnuadmin~themes" />
+</menulist>
+
+<textarea ref="rules" required="false" cols="60">
+	<label locale="hfnuinstall~install.config.rules"/>
+</textarea>
+
+<input ref="webmaster_email" type="email" required="true" size="80">
+	<label locale="hfnuinstall~install.config.webmaster_email"/>
+</input>
+
+<input ref="admin_email" type="email" required="true" size="80">
+	<label locale="hfnuinstall~install.config.admin_email"/>
+</input>
+
+<submit ref="validate">
+  <label>Veuillez valider</label>
+  <item value="save" locale="hfnuinstall~install.config.saveConfigBt"/>
+</submit>
+
+<reset ref="cancel">
+	<label locale="hfnuinstall~install.config.cancelConfigBt"/>
+</reset>
+</form>

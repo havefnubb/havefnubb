@@ -6,7 +6,7 @@ startAction="default:index"
 
 modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules/"
 [coordplugins]
-;nom = file_ini_name or 1
+autolocale = autolocale.coord.ini.php
 
 auth="hfnuadmin/auth.coord.ini.php"
 jacl2="hfnuadmin/jacl2.coord.ini.php"
