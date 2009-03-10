@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<plugin name="flood">
+<plugin name="hfnuinstalled">
    <version major="" minor="" status="" copixversion=""  date="" />
    <author name="foxmask" email="foxmask@gmail.com" website="http://www.foxmask.info" role="creator" />
-   <description>Coord to avoid the flood between each post action</description>
+   <description>Check if the forum is still installed</description>
    <infos />
 </plugin>

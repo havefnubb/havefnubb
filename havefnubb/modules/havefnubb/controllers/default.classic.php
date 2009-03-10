@@ -14,7 +14,9 @@ class defaultCtrl extends jController {
     */
     public $pluginParams = array(
         '*'		=> array('auth.required'=>false),
-		'index' => array('history.add'=>true,
+		'cloud'	=> array('hfnu.check.installed'=>true),
+		'index' => array('hfnu.check.installed'=>true,
+						 'history.add'=>true,
 						 'history.label'=>'Accueil',
 						 'history.title'=>'Aller vers la page d\'accueil')
     );
@@ -42,6 +44,13 @@ class defaultCtrl extends jController {
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.cloud'));
 		
         $rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));
+        return $rep;		
+	}
+	
+	function notinstalled() {
+        $rep = $this->getResponse('html');
+		$tpl = new jTpl();
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~notinstalled'));
         return $rep;		
 	}
 }

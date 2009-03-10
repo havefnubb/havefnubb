@@ -26,9 +26,10 @@ class defaultCtrl extends jController {
         
         $tpl = new jTpl();
 
-        if ($step == '')
-        
+        if ($step == '') {
+
             $step = 'home';
+		}
             
         else {
             
@@ -137,7 +138,7 @@ class defaultCtrl extends jController {
                         $dbProfile->setValue('host',$this->param('host'),'havefnubb');
                         $dbProfile->setValue('user',$this->param('user'),'havefnubb');
                         $dbProfile->setValue('password',$this->param('password'),'havefnubb');
-                        $dbProfile->setValue('persistente',$this->param('persistente'),'havefnubb');
+                        $dbProfile->setValue('persistent',$this->param('persistent'),'havefnubb');
                         $dbProfile->setValue('table_prefix',$this->param('table_prefix'),'havefnubb');
 
                         $dbProfile->save();                        
@@ -159,7 +160,7 @@ class defaultCtrl extends jController {
                             $dbProfile->setValue('host','','havefnubb');
                             $dbProfile->setValue('user','','havefnubb');
                             $dbProfile->setValue('password','','havefnubb');
-                            $dbProfile->setValue('persistente','','havefnubb');
+                            $dbProfile->setValue('persistent','','havefnubb');
                             $dbProfile->setValue('table_prefix','','havefnubb');
     
                             $dbProfile->save();
@@ -204,7 +205,7 @@ class defaultCtrl extends jController {
 				 case 'end':
                     $HfnuConfig->setValue('installed',true);
                     $HfnuConfig->save();
-                    break;
+                    break;				
             }            
             
         }
@@ -215,4 +216,3 @@ class defaultCtrl extends jController {
         return $rep;		
 	}    
 }
-

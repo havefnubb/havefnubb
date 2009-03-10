@@ -44,6 +44,9 @@ class installHtmlResponse extends jResponseHtml {
         if (!empty($GLOBALS['gJCoord']->request->params)) {
             $params = $GLOBALS['gJCoord']->request->params;
    
+            if (!array_key_exists('step',$params))
+                $this->body->assign('step','home');
+            else   
             switch($params['step']) {
                  case 'check':
                     $this->body->assign('step','check');

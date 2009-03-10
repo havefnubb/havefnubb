@@ -14,7 +14,9 @@ class postsCtrl extends jController {
     */	
 	
     public $pluginParams = array(
-        '*'		=> array( 'auth.required'=>false),
+        '*'		=> array( 'auth.required'=>false,
+						  'hfnu.check.installed'=>true),
+		
         'goto'	=> array( 'jacl2.right'=>'hfnu.forum.goto'),
         'lists'	=> array( 'jacl2.right'=>'hfnu.posts.list'),
 		'add' 	=> array( 'jacl2.right'=>'hfnu.posts.create'),		

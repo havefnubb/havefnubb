@@ -67,6 +67,12 @@
 {/form}
 {/if}
 {if $step =='end'}
-Fin
+<div id="end">
+<fieldset>
+    <legend>{@hfnuinstall~install.end.general@}</legend>
+    <p>{@hfnuinstall~install.end.general.description@}</p>
+    <p><a href="{jurl 'havefnubb~default:index'}">{@hfnuinstall~install.goto.forum@}</a></p>
+</fieldset>
+</div>
 {/if}
 </div>

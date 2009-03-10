@@ -25,6 +25,8 @@ class fnuHtmlResponse extends jResponseHtml {
         // main template, the settings of the response etc..
         global $gJConfig;
         global $HfnuConfig;
+        
+        if ($HfnuConfig->getValue('installed') == 0) $this->bodyTpl = 'havefnubb~main_not_installed';
 
         $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
         $this->addCssLink($chemin.'css/havefnuboard.css');        

@@ -19,25 +19,19 @@ database=havefnu
 host=localhost
 user=havefnu
 password=havefnu
-persistent=on
+persistent=yes
 ; when you have charset issues, enable force_encoding so the connection will be
 ; made with the charset indicated in jelix config
 ;force_encoding = on
 ; with the following parameter, you can specify a table prefix which will be
 ; applied to DAOs automatically. For manual jDb requests, please use method
 ; jDbConnection::prefixTable().
-table_prefix=toto_
+table_prefix=hf_
 
 ; For pdo :
 ;driver=pdo
 ;dsn=mysql:host=localhost;dbname=test
 ;user=
 ;password=
-
-
-
-
-
-
 
 

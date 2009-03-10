@@ -13,7 +13,9 @@ class categoryCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'		=>	array('auth.required'=>false),
+        '*'		=>	array('auth.required'=>false,
+						  'hfnu.check.installed'=>true,		
+					),
 		'view' 	=> 	array('history.add'=>true)
     );
     
