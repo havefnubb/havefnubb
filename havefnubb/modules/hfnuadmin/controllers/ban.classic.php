@@ -39,7 +39,7 @@ class banCtrl extends jController {
 		if ($username == '' and $ip == '' and $mail == ''
 			and $expire['day'] == '' and $expire['month'] == '' and $expire['year'] == '' 
 			and $message == '' ) {
-			jMessage::add(jLocale::get('hfnuadmin.ban.you.have.to.fill.one.field.at.least'));
+			jMessage::add(jLocale::get('hfnuadmin~ban.you.have.to.fill.one.field.at.least'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'hfnuadmin~ban:index';
 			return $rep;
@@ -52,7 +52,7 @@ class banCtrl extends jController {
 			$form 	= jForms::fill('hfnuadmin~bans');
 			$form->saveToDao('havefnubb~bans');
 			
-			jMessage::add(jLocale::get('hfnuadmin.ban.added'));
+			jMessage::add(jLocale::get('hfnuadmin~ban.added'),'ok');
 			
 			$rep = $this->getResponse('redirect');
 			$rep->action='hfnuadmin~ban:index';

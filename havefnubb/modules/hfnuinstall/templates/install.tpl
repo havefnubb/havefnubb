@@ -1,5 +1,5 @@
 <div id="body">
-{jmessage}
+<div id="msg-install">{jmessage}</div>
 {if $step == 'home'}    
 <h2>{@hfnuinstall~install.home.welcome@}</h2>
 <p>{@hfnuinstall~install.home.process.description@}</p>
@@ -7,7 +7,7 @@
 {/if}
 {if $step == 'check'}
     {if $continue}
-<p><a href="{jurl 'hfnuinstall~default:index', array('step'=>'config')}">{@hfnuinstall~install.next@}</a></p>
+<p><a class="submit-next"  href="{jurl 'hfnuinstall~default:index', array('step'=>'config')}">{@hfnuinstall~install.next@}</a></p>
     {else}
 <p>{@hfnuinstall~install.check.the.prerequisites.are.not.satisfying@}</p>
     {/if}
@@ -38,7 +38,6 @@
 </div>
 <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
 {/form}
-<p><a href="{jurl 'hfnuinstall~default:index', array('step'=>'db')}">{@hfnuinstall~install.next@}</a></p>
 {/if}
 {if $step == 'dbconfig'}
 {form $form, 'hfnuinstall~default:index'}

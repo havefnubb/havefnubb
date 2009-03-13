@@ -14,7 +14,9 @@ url_check_version="http://forge.jelix.org/projects/havefnubb/last_version"
 elapsed_time_between_two_post_by_same_ip=60
 elapsed_time_after_posting_before_editing=60
 post_max_size=1000
-installed=0
+installed=1
+
+
 
 
 

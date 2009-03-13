@@ -211,3 +211,37 @@ code, pre {
 }
 #footer a:hover { color: #232320; }
 
+#msg-install .jelix-msg li {
+    padding:3px 19px;
+    margin:0;
+}
+#msg-install .jelix-msg li.jelix-msg-item-ok {
+    background-color: #e5f6d4;
+    background-image: url(../images/information.png);
+	background-repeat: no-repeat;			
+}
+#msg-install .jelix-msg li.jelix-msg-item-warning {
+    background-color: #f8e794;
+    background-image: url(../images/exclamation.png);
+	background-repeat: no-repeat;		
+}
+#msg-install .jelix-msg li.jelix-msg-item-error {
+    background-color: #f6cab1;
+    background-image: url(../images/error.png);
+	background-repeat: no-repeat;		
+}
+
+.submit-next, .jforms-submit, .jforms-reset {
+	border: 1px solid;
+	cursor: pointer;
+	text-align: left;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius:3px;
+	padding : 2px 2px;
+	color:#4D5431;
+	font-size:11px;
+	text-decoration:none;
+	font-weight: bold;
+	background-color:#e1e1cd;	
+}
