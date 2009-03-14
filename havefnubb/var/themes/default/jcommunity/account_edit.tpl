@@ -8,7 +8,7 @@ $(document).ready(function(){
 </script>
 {/literal}
 <div id="breadcrumbtop" class="headbox">
-    <h3>{@havefnubb~member.edit.account.header@} - <a href="{jurl 'jmessenger~jmessenger:index'}" >{@havefnubb~member.internal.messenger@}</a></h3>
+    <h3>{@havefnubb~member.edit.account.header@} - <a href="{jurl 'havefnubb~members:mail'}" >{@havefnubb~member.internal.messenger@}</a></h3>
 </div>
 <div id="profile">
 {form $form, 'jcommunity~account:save', array('user'=>$username)}

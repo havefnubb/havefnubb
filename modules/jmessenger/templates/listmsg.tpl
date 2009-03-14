@@ -14,7 +14,7 @@
 {foreach $msg as $m}
     <tr id="{$m->id}" class="{if $m->isSeen == 0 && !isset($send)}new{/if}">
         <td><input class='msg_select' type='checkbox' value="{$m->id}" name='msg_select[]'/></td>
-        <td><a href="{jurl 'jmessenger~jmessenger:view', array('id'=>$m->id)}">{$m->title}</a> {if $m->isSeen == 0 && !isset($send)}(NEW !){/if}</td>
+        <td><a href="{jurl 'jmessenger~jmessenger:view', array('id'=>$m->id)}">{$m->title}</a> {if $m->isSeen == 0 && !isset($send)}({@jmessenger~message.new@} !){/if}</td>
         <td>{if isset($send)}
                         <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFor}</a>
                     {else}

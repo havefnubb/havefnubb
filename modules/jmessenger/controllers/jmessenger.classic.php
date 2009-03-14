@@ -13,6 +13,9 @@ class jmessengerCtrl extends jControllerDaoCrud {
 
 	protected $dao = 'jmessenger~jmessenger';
     protected $form = 'jmessenger~jmessenger';
+	protected $viewTemplate = 'jmessenger~view';
+	protected $editTemplate = 'jmessenger~new';
+	protected $listTemplate = 'jmessenger~listmsg';    
     protected $dbProfil = '';
 		
 		

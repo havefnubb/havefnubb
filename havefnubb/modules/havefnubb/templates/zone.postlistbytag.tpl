@@ -11,8 +11,8 @@
         {ifacl2 'hfnu.posts.view','forum'.$posts[$i]['id_forum']}
     </tr>
         <tr>
-            <td class="coltitle linkincell"><a href="{jurl 'havefnubb~posts:view',array('id_post'=>$posts[$i]['id_post'],'parent_id'=>$posts[$i]['parent_id'],'ptitle'=>$posts[$i]['subject'],'ftitle'=>$posts[$i]['forum_name'])}">{$posts[$i]['subject']|eschtml}</a></td>
-            <td class="colright linkincell"><a href="{jurl 'havefnubb~member:view',array('id_post'=>$posts[$i]['id_user'])}">{$posts[$i]['login']|eschtml}</a>, <a href="{jurl 'havefnubb~member:view',array('id_post'=>$posts[$i]['id_user'])}">{$posts[$i]['date_modified']|jdatetime:'db_datetime':'lang_datetime'}</a></td>
+            <td class="coltitle linkincell"><a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$posts[$i]['id_forum'],'id_post'=>$posts[$i]['id_post'],'parent_id'=>$posts[$i]['parent_id'],'ptitle'=>$posts[$i]['subject'],'ftitle'=>$posts[$i]['forum_name'])}">{$posts[$i]['subject']|eschtml}</a></td>
+            <td class="colright linkincell"><a href="{jurl 'jcommunity~account:show',array('user'=>$posts[$i]['login'])}">{$posts[$i]['login']|eschtml}</a>, <a href="{jurl 'jcommunity~account:show',array('user'=>$posts[$i]['login'])}">{$posts[$i]['date_modified']|jdatetime:'db_datetime':'lang_datetime'}</a></td>
         </tr>
         {/ifacl2}
     {/for}

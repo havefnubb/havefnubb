@@ -56,6 +56,11 @@ class membersCtrl extends jController {
         $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page,'grpid'=>$grpid));
         return $rep;
     }
-	    
+	
+	function mail() {
+		$rep = $this->getResponse('html');
+		$rep->body->assignZone('MAIN', 'jmessenger~links');
+		return $rep;
+	}
 }
 

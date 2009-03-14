@@ -14,8 +14,6 @@ class nbNewMessageZone extends jZone {
 
     protected $_tplname = "jmessenger~nbNewMessage";
     protected $_tplOuputType = "html";
-    // protected $_useCache = true;
-    
 
     protected function _prepareTpl(){
         $this->_tpl->assign('nb', jClasses::getService("jmessenger~jmessenger")->getLibelleNewMessage());
