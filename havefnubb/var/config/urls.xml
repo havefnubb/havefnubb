@@ -4,6 +4,12 @@
         
         <url pathinfo="/404" module="jelix" action="error:notfound"/>
         
+        <!-- rss posts management -->
+        <url pathinfo="/rss/:id_forum-:ftitle" module="havefnubb" action="posts:rss">
+           <param name="id_forum" type="number"/>
+           <param name="ftitle"  type="string" escape="true" />
+        </url>
+        
         <!-- categories management -->
         <url pathinfo="/" module="havefnubb" action="default:index"/>
         
@@ -91,7 +97,6 @@
         <url pathinfo="/registration/password/confirm" module="jcommunity" action="password:confirm"/>
         <url pathinfo="/registration/password/confirmform" module="jcommunity" action="password:confirmform"/>
         <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
-
         
     </classicentrypoint>
     

@@ -91,6 +91,13 @@ class postsCtrl extends jController {
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', $forum->forum_name . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
 		
         $rep = $this->getResponse('html');
+		
+		//build the rss link in the header of the html page
+		$url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$forum->forum_name,
+													'id_forum'=>$forum->id_forum	));
+		$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.$url.'" />');
+		// end rss link 
+			
         if ($page == 0)
             $rep->title = $forum->forum_name;
         else
@@ -883,5 +890,74 @@ class postsCtrl extends jController {
 		$info = array($forum,$category);
 		
 		return $info;
+	}
+	
+	public function rss() {
+        global $HfnuConfig;
+        $id_forum = (int) $this->param('id_forum');
+		
+		/*if ( ! jAcl2::check('hfnu.posts.rss','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+		}*/
+        if ($id_forum == 0 ) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+			return $rep;
+        }
+			
+		$rep = $this->getResponse('rss2.0');
+		
+		// entete du flux rss
+		$rep->infos->title = $HfnuConfig->getValue('title');
+		$rep->infos->webSiteUrl= $_SERVER['HTTP_HOST'];
+		$rep->infos->copyright = $HfnuConfig->getValue('title');
+		$rep->infos->description = $HfnuConfig->getValue('description');
+		$rep->infos->updated = date('Y-m-d H:i:s');
+		$rep->infos->published = date('Y-m-d H:i:s');
+		$rep->infos->ttl=60;
+
+		$dao = jDao::get('havefnubb~forum');
+		$forum = $dao->get($id_forum);
+		
+        // 1- limit of posts 
+        $nbPostPerPage = 0;
+        $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page');
+              
+        $daoPost = jDao::get('havefnubb~posts');
+        // 2- get the posts of the current forum, limited by point 1
+        $posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);		
+		$first = true;
+		foreach($posts as $post){
+		
+		  if($first){
+			  // le premier enregistrement permet de connaitre
+			  // la date du channel
+			  $rep->infos->updated = $post->date_created;
+			  $rep->infos->published = $post->date_created;
+			  $first=false;
+		  }
+		
+		  $url = jUrl::get('havefnubb~posts:view', array('id_post'=>$post->id_post,
+														 'parent_id'=>$post->parent_id,
+														 'ftitle'=>$post->forum_name,
+														 'id_forum'=>$post->id_forum,
+														 'ptitle'=>$post->subject,
+														 ));
+				
+		  $item = $rep->createItem($post->subject, $url, $post->date_created);
+		
+		  $item->authorName = $post->login;	
+
+		  $item->content = $post->message;
+		  $item->contentType='html';
+		
+		  $item->idIsPermalink = true;
+		
+		  // on ajoute l'item dans le fil RSS
+		  $rep->addItem($item);
+				
+		}
+		return $rep;
 	}
 }
