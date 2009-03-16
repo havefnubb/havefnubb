@@ -586,6 +586,9 @@ class postsCtrl extends jController {
 				return $rep;
 			}
 			
+			$daoForum = jDao::get('havefnubb~forum');			
+			$forum = $daoForum->get($id_forum);
+			
 			$form = jForms::fill('havefnubb~posts',$parent_id);
 	
 			//.. if the data are not ok, return to the form and display errors messages form
@@ -636,7 +639,11 @@ class postsCtrl extends jController {
 			
 			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
 			
-			$rep->params = array('id_post'=>$record->id_post,'parent_id'=>$record->parent_id);
+			$rep->params = array('ftitle'=>$forum->forum_name,
+								 'ptitle'=>$subject,
+								 'id_forum'=>$id_forum,
+								 'id_post'=>$record->id_post,
+								 'parent_id'=>$record->parent_id);
 			$rep->action ='havefnubb~posts:view';
 			return $rep;			
 		}

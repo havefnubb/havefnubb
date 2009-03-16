@@ -33,7 +33,24 @@
            <param name="id_post" type="number"/>
            <param name="ptitle"  type="string" escape="true" />           
         </url>
- 
+
+        <url pathinfo="/post/notify/:id_post" module="havefnubb" action="posts:notify">
+            <param name="id_post" type="number"/>
+        </url>
+        
+        <url pathinfo="/post/edit/:id_post" module="havefnubb" action="posts:edit">
+            <param name="id_post" type="number"/>
+        </url>
+
+        <url pathinfo="/post/quote/:id_post/:parent_id" module="havefnubb" action="posts:quote">
+            <param name="id_post" type="number"/>
+            <param name="parent_id" type="number"/>
+        </url>
+        
+        <url pathinfo="/post/delete/:id_post/:id_forum" module="havefnubb" action="posts:delete">
+            <param name="id_post" type="number"/>
+            <param name="id_forum" type="number"/>
+        </url>
  
          <!-- members management -->
         <url pathinfo="/members" module="havefnubb" action="members:index"/>
@@ -98,6 +115,10 @@
         <url pathinfo="/registration/password/confirmform" module="jcommunity" action="password:confirmform"/>
         <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
         
+    </classicentrypoint>
+    
+    <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
+        <url pathinfo="/admin/index" module="hfnuadmin" action="hfnuadmin:index" />
     </classicentrypoint>
     
     <xmlrpcentrypoint name="xmlrpc" default="true" />

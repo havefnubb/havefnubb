@@ -39,6 +39,7 @@ class fnuHtmlResponse extends jResponseHtml {
         else
             $this->title = $title;       
         
+        $this->body->assignIfNone('MAIN','');
         $this->body->assignIfNone('TITLE',$title);
         $this->body->assignIfNone('DESC',$description);
         $this->body->assignIfNone('BOARD_TITLE',$title);

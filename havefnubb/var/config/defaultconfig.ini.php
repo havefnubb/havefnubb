@@ -13,11 +13,11 @@ checkTrustedModules=off
 ; list of modules : module,module,module
 trustedModules=
 
-pluginsPath = app:plugins/
+pluginsPath="app:plugins/"
 
-modulesPath = lib:jelix-modules/,app:modules/,app:../modules/
+modulesPath="lib:jelix-modules/,app:modules/,app:../modules/"
 
-theme=default
+theme=ocean
 
 
 [coordplugins]
@@ -191,4 +191,5 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
 

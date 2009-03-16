@@ -23,7 +23,10 @@ class defaultCtrl extends jController {
 		return $rep;
 	}
     function config() {
-        global $HfnuConfig ;        
+        global $HfnuConfig;
+		
+		$defaultConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+		
         $rep = $this->getResponse('html');
 		$submit = $this->param('validate');
         
@@ -39,6 +42,11 @@ class defaultCtrl extends jController {
             
             $HfnuConfig->setValue('title',htmlentities($this->param('title')));
             $HfnuConfig->setValue('description',htmlentities($this->param('description')));
+			
+			$defaultConfig->setValue('theme',htmlentities($this->param('theme')));
+			$defaultConfig->save();
+			
+			
             $HfnuConfig->setValue('theme',htmlentities($this->param('theme')));
             $HfnuConfig->setValue('rules',htmlentities($this->param('rules')));
             $HfnuConfig->setValue('webmaster_email',htmlentities($this->param('webmaster_email')));

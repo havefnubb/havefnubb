@@ -2,7 +2,7 @@
 title="HaveFnu BB!"
 description="Where Everything is Fnu"
 version=1.0
-theme=default
+theme=ocean
 rules=
 webmaster_email="havefnu@foobar.com"
 admin_email="admin@foobar.com"
@@ -15,3 +15,5 @@ elapsed_time_between_two_post_by_same_ip=60
 elapsed_time_after_posting_before_editing=60
 post_max_size=1000
 installed=1
+
+
