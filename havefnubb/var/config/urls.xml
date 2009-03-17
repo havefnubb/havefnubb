@@ -119,7 +119,6 @@
         
     </classicentrypoint>
     
-<!--
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
 
         <url pathinfo="/admin/board" module="master_admin" action="default:index" />
@@ -190,7 +189,6 @@
             <parameter name="user" type="string"/>        
         </url>
         
-
         <url pathinfo="/admin/jacl2db_admin/groups"             module="jacl2db_admin" action="groups:index"/>
         <url pathinfo="/admin/jacl2db_admin/groups/setdefault"  module="jacl2db_admin" action="groups:setdefault"/>
         <url pathinfo="/admin/jacl2db_admin/groups/changename"  module="jacl2db_admin" action="groups:changename"/>
@@ -198,10 +196,9 @@
         <url pathinfo="/admin/jacl2db_admin/groups/newgroup"    module="jacl2db_admin" action="groups:newgroup"/>
         <url pathinfo="/admin/jacl2db_admin/groups/delgroup"    module="jacl2db_admin" action="groups:delgroup"/>
         <url pathinfo="/admin/jacl2db_admin/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>
-        
-        
+                
     </classicentrypoint>
--->
+
     
     <xmlrpcentrypoint name="xmlrpc" default="true" />
     <jsonrpcentrypoint name="jsonrpc" default="true" />

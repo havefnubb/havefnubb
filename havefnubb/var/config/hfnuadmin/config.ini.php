@@ -8,9 +8,6 @@ modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../mod
 [coordplugins]
 autolocale = autolocale.coord.ini.php
 
-[urlengine]
-engine=simple
-
 auth="hfnuadmin/auth.coord.ini.php"
 jacl2="hfnuadmin/jacl2.coord.ini.php"
 [responses]

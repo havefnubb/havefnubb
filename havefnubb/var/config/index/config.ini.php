@@ -9,8 +9,7 @@ autolocale = autolocale.coord.ini.php
 
 [responses]
 
-[urlengine]
-engine=significant
+
 
 
 

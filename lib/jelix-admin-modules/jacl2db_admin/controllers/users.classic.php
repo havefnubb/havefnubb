@@ -55,15 +55,14 @@ class usersCtrl extends jController {
 
         } elseif($grpid == -1) {
             $cnx = jDb::getConnection($p);
-            $prefix = array_key_exists('table_prefix',$cnx->profile) ? $cnx->profile['table_prefix'] : '';
             //only those who have no groups
             if($cnx->dbms != 'pgsql') { 
                 // with MYSQL 4.0.12, you must use an alias with the count to use it with HAVING 
-                $sql = 'SELECT login, count(id_aclgrp) as nbgrp FROM '.$prefix .'jacl2_user_group
+                $sql = 'SELECT login, count(id_aclgrp) as nbgrp FROM '.$cnx->prefixTable('')  .'jacl2_user_group
                         GROUP BY login HAVING nbgrp < 2 ORDER BY login';
             } else { 
                 // But PgSQL doesn't support the HAVING structure with an alias. 
-                $sql = 'SELECT login, count(id_aclgrp) as nbgrp FROM '.$prefix .'jacl2_user_group
+                $sql = 'SELECT login, count(id_aclgrp) as nbgrp FROM '.$cnx->prefixTable('') .'jacl2_user_group
                         GROUP BY login HAVING count(id_aclgrp) < 2 ORDER BY login';
             }
 
