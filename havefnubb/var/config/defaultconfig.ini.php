@@ -57,8 +57,8 @@ force=off
 
 [urlengine]
 ; name of url engine :  "simple" or "significant"
-; engine=simple
-engine=significant
+engine=simple
+; engine=basic_significant
 
 ; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
 ; because the jelix-www directory is outside the yourapp/www/ directory, you should create a link to
@@ -191,5 +191,6 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
 
 

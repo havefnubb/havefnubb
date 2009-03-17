@@ -82,44 +82,126 @@
             <param id="id" type="number"/>
         </url>
 
+        <!-- jauth -->
+        <url pathinfo="/auth/dologout" module="jauth" action="login:out"/>
  
         <!--  jcommunity  -->
-        <url pathinfo="/auth/login" module="jcommunity" action="login:index"/>
-        <url pathinfo="/auth/dologin" module="jcommunity" action="login:in"/>
-        <url pathinfo="/auth/dologout" module="jcommunity" action="login:out"/>
+        <url pathinfo="/auth/login"     module="jcommunity" action="login:index"/>
+        <url pathinfo="/auth/dologin"   module="jcommunity" action="login:in"/>
+        <url pathinfo="/auth/dologout"  module="jcommunity" action="login:out"/>
         
         <url pathinfo="/users" module="jcommunity" action="default:index"/>
-        <url pathinfo="/users/:user" module="jcommunity" action="account:prepareedit">
+        <url pathinfo="/users/prepareedit/:user" module="jcommunity" action="account:prepareedit">
             <param name="user" />
         </url>
         
-        <url pathinfo="/users/:user" module="jcommunity" action="account:show">
+        <url pathinfo="/users/:user"            module="jcommunity" action="account:show">
             <param name="user" />
         </url>
-        <url pathinfo="/users/:user/edit" module="jcommunity" action="account:edit" actionoverride="account:save">
+        <url pathinfo="/users/edit/:user"       module="jcommunity" action="account:edit" actionoverride="account:save">
             <param name="user" />
         </url>
-        <url pathinfo="/users/:user/destroy" module="jcommunity" action="account:destroy" actionoverride="account:dodestroy">
+        <url pathinfo="/users/:user/destroy"    module="jcommunity" action="account:destroy" actionoverride="account:dodestroy">
             <param name="user" />
         </url>
         
-        <url pathinfo="/registration" module="jcommunity" action="registration:index"/>
-        <url pathinfo="/registration/save" module="jcommunity" action="registration:save"/>
-        <url pathinfo="/registration/confirm" module="jcommunity" action="registration:confirm"/>
-        <url pathinfo="/registration/confirmform" module="jcommunity" action="registration:confirmform"/>
-        <url pathinfo="/registration/confirmok" module="jcommunity" action="registration:confirmok"/>
+        <url pathinfo="/registration"                   module="jcommunity" action="registration:index"/>
+        <url pathinfo="/registration/save"              module="jcommunity" action="registration:save"/>
+        <url pathinfo="/registration/confirm"           module="jcommunity" action="registration:confirm"/>
+        <url pathinfo="/registration/confirmform"       module="jcommunity" action="registration:confirmform"/>
+        <url pathinfo="/registration/confirmok"         module="jcommunity" action="registration:confirmok"/>
         
-        <url pathinfo="/registration/password" module="jcommunity" action="password:index" />
-        <url pathinfo="/registration/password/send" module="jcommunity" action="password:send"/>
-        <url pathinfo="/registration/password/confirm" module="jcommunity" action="password:confirm"/>
+        <url pathinfo="/registration/password"          module="jcommunity" action="password:index" />
+        <url pathinfo="/registration/password/send"     module="jcommunity" action="password:send"/>
+        <url pathinfo="/registration/password/confirm"  module="jcommunity" action="password:confirm"/>
         <url pathinfo="/registration/password/confirmform" module="jcommunity" action="password:confirmform"/>
         <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
         
     </classicentrypoint>
     
+<!--
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
-        <url pathinfo="/admin/index" module="hfnuadmin" action="hfnuadmin:index" />
+
+        <url pathinfo="/admin/board" module="master_admin" action="default:index" />
+
+        <url pathinfo="/admin"          module="hfnuadmin" action="default:index" />
+        <url pathinfo="/admin/config"   module="hfnuadmin" action="default:config" />
+        <url pathinfo="/admin/category" module="hfnuadmin" action="category:index" />
+        <url pathinfo="/admin/forum"    module="hfnuadmin" action="forum:index" />
+        <url pathinfo="/admin/ranks"    module="hfnuadmin" action="ranks:index" />
+        <url pathinfo="/admin/notify"   module="hfnuadmin" action="notify:index" />
+        <url pathinfo="/admin/cache"    module="hfnuadmin" action="cache:index" />
+        <url pathinfo="/admin/ban"      module="hfnuadmin" action="ban:index" />
+        <url pathinfo="/admin/search"   module="hfnusearch" action="admin:index" />
+        
+
+        <url pathinfo="/admin/category/delete/:id_cat" module="hfnuadmin" action="category:delete">
+            <param name="id_cat" type="number"/>
+        </url>
+        
+
+        <url pathinfo="/admin/forum/delete/:id_forum" module="hfnuadmin" action="forum:delete">
+            <param name="id_forum" type="number"/>
+        </url>
+        <url pathinfo="/admin/forum/edit/:id_forum" module="hfnuadmin" action="forum:edit">
+            <param name="id_forum" type="number"/>
+        </url>
+        
+
+        <url pathinfo="/admin/ranks/delete/:id_rank" module="hfnuadmin" action="ranks:delete">
+            <param name="id_rank" type="number"/>
+        </url>        
+        
+
+        <url pathinfo="/admin/jauthdb_admin/user/:id"            module="jauthdb_admin" action="user:index">
+            <param name="id" type="string"/>
+        </url>
+        <url pathinfo="/admin/jauthdb_admin"            module="jauthdb_admin" action="default:index"/>
+        <url pathinfo="/admin/jauthdb_admin/precreate"  module="jauthdb_admin" action="default:precreate"/>
+        <url pathinfo="/admin/jauthdb_admin/create"     module="jauthdb_admin" action="default:create"/>
+        <url pathinfo="/admin/jauthdb_admin/savecreate" module="jauthdb_admin" action="default:savecreate"/>
+        <url pathinfo="/admin/jauthdb_admin/view/:id"       module="jauthdb_admin" action="default:view">
+            <param name="id" type="string"/>
+        </url>        
+        <url pathinfo="/admin/jauthdb_admin/preupdate/:id"  module="jauthdb_admin" action="default:preupdate">
+            <param name="id" type="string"/>
+        </url>
+        <url pathinfo="/admin/jauthdb_admin/preupdate/:id"  module="jauthdb_admin" action="user:preupdate">
+            <param name="id" type="string"/>
+        </url>
+        
+        <url pathinfo="/admin/jauthdb_admin/editupdate"  module="jauthdb_admin" action="default:editupdate"/>
+        <url pathinfo="/admin/jauthdb_admin/saveupdate"  module="jauthdb_admin" action="default:saveupdate"/>
+        <url pathinfo="/admin/jauthdb_admin/password/:id"  module="jauthdb_admin" action="password:index">
+            <param name="id" type="string"/>
+        </url>
+        <url pathinfo="/admin/jauthdb_admin/passwordupd"  module="jauthdb_admin" action="password:update"/>
+        <url pathinfo="/admin/jauthdb_admin/confirmdelete/:id"  module="jauthdb_admin" action="default:confirmdelete">
+            <param name="id" type="string"/>
+        </url>
+        <url pathinfo="/admin/jauthdb_admin/delete"  module="jauthdb_admin" action="default:delete"/>
+
+        <url pathinfo="/admin/jacl2db_admin/users"              module="jacl2db_admin" action="users:index"/>                
+        <url pathinfo="/admin/jacl2db_admin/users/saverights"   module="jacl2db_admin" action="users:saverights"/>
+        <url pathinfo="/admin/jacl2db_admin/users/:grpid"       module="jauthdb_admin" action="users:index">
+            <parameter name="grpid" type="number"/>
+        </url>        
+        <url pathinfo="/admin/jacl2db_admin/users/rights/:user" module="jacl2db_admin" action="users:rights">
+            <parameter name="user" type="string"/>        
+        </url>
+        
+
+        <url pathinfo="/admin/jacl2db_admin/groups"             module="jacl2db_admin" action="groups:index"/>
+        <url pathinfo="/admin/jacl2db_admin/groups/setdefault"  module="jacl2db_admin" action="groups:setdefault"/>
+        <url pathinfo="/admin/jacl2db_admin/groups/changename"  module="jacl2db_admin" action="groups:changename"/>
+        <url pathinfo="/admin/jacl2db_admin/groups/rights"      module="jacl2db_admin" action="groups:rights"/>
+        <url pathinfo="/admin/jacl2db_admin/groups/newgroup"    module="jacl2db_admin" action="groups:newgroup"/>
+        <url pathinfo="/admin/jacl2db_admin/groups/delgroup"    module="jacl2db_admin" action="groups:delgroup"/>
+        <url pathinfo="/admin/jacl2db_admin/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>
+        
+        
     </classicentrypoint>
+-->
     
     <xmlrpcentrypoint name="xmlrpc" default="true" />
     <jsonrpcentrypoint name="jsonrpc" default="true" />
