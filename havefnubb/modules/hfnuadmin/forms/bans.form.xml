@@ -2,9 +2,15 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <hidden ref="ban_id"/>
-<input ref="ban_username" type="string">
+
+<menulist ref="ban_username">
+      <datasource dao="havefnubb~member" method="findAll"
+                  labelproperty="login" valueproperty="login"/>
     <label locale="hfnuadmin~ban.username"/>
-</input>
+    <hint locale="hfnuadmin~ban.username.description"/>
+    <help locale="hfnuadmin~ban.username.description"/>    
+</menulist>
+
 <input ref="ban_ip" type="string">
     <label locale="hfnuadmin~ban.ip"/>
     <hint locale="hfnuadmin~ban.ip.description"/>
@@ -15,7 +21,7 @@
     <hint locale="hfnuadmin~ban.email.description"/>
     <help locale="hfnuadmin~ban.email.description"/>
 </input>    
-<textarea ref="ban_message" rows="3" cols="30">
+<textarea ref="ban_message" rows="3" cols="30" required="true">
     <label locale="hfnuadmin~ban.message"/>
     <hint locale="hfnuadmin~ban.message.description"/>
     <help locale="hfnuadmin~ban.message.description"/>    
