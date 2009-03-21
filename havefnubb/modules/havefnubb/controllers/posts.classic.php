@@ -745,14 +745,13 @@ class postsCtrl extends jController {
 
 	
     function delete() {
-
+	
+		$id_post 	= (integer) $this->param('id_post');
+		$id_forum 	= (integer) $this->param('id_forum');
 		if ( ! jAcl2::check('hfnu.posts.delete','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 		}
-		
-		$id_post 	= (integer) $this->param('id_post');
-		$id_forum 	= (integer) $this->param('id_forum');
 		
 		jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));
 		
