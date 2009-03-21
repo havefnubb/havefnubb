@@ -245,10 +245,6 @@ class postsCtrl extends jController {
 
     // display the edit form with the corresponding selected post
     function edit () {
-		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-		}
 		
 		global $HfnConfig;
 		
