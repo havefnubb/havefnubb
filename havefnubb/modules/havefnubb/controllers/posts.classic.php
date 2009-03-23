@@ -471,7 +471,7 @@ class postsCtrl extends jController {
 	
 	//reply to a given post (from the parent_id)
     function reply() {
-		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+		if ( ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 		}
@@ -537,9 +537,7 @@ class postsCtrl extends jController {
 		$id_forum   = (int) $this->param('id_forum');
 		
 		if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) or
-			 ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) or
-			 ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) or
-			 ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
+			 ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 			return $rep;
@@ -667,10 +665,6 @@ class postsCtrl extends jController {
 	
 	// quote message
     function quote() {
-		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-		}
 		
         $parent_id 	= (int) $this->param('parent_id');
         $id_post 	= (int) $this->param('id_post');
@@ -748,6 +742,7 @@ class postsCtrl extends jController {
 	
 		$id_post 	= (integer) $this->param('id_post');
 		$id_forum 	= (integer) $this->param('id_forum');
+		
 		if ( ! jAcl2::check('hfnu.posts.delete','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -777,10 +772,12 @@ class postsCtrl extends jController {
         if ($id_forum == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
-        }		
+        }
+		$dao = jDao::get('havefnubb~forum');
+		$forum = $dao->get($id_forum);
         $rep = $this->getResponse('redirect');
         $rep->action='havefnubb~posts:lists';
-		$rep->params=array('id_forum'=>$id_forum);  
+		$rep->params=array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name);  
         return $rep;        
     }
 
