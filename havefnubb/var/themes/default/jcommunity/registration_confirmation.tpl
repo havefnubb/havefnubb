@@ -9,11 +9,9 @@
 {form $form,'jcommunity~registration:confirm', array()}
 <fieldset>
     <legend>{@havefnubb~member.registration.confirmation.activation@}</legend>
-    <ul>
     {formcontrols}
-    <li>{ctrl_label} : {ctrl_control}</li>
+    <p>{ctrl_label} : {ctrl_control}</p>
     {/formcontrols}
-    </ul>
 </fieldset>
 <p>{formsubmit}</p>
 {/form}

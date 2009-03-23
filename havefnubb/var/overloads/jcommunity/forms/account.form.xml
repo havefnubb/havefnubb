@@ -17,9 +17,9 @@
        <label locale="account.form.email"/>
    </input>
 
-   <input ref="member_birth" type="date">
+   <date ref="member_birth" mindate="1910-01-01">
        <label locale="havefnubb~member.birthday"/>
-   </input>
+   </date>
 
    <input ref="member_firstname">
        <label locale="havefnubb~member.firstname"/>
