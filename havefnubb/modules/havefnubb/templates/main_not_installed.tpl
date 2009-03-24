@@ -9,9 +9,9 @@
 <!-- #top -->
 <!-- #maincontent -->
 <div id="maincontent">
-	<div class="breadcrumb" id="breadcrumbtop">
-		<p></p>
-	</div>	
+    <div id="breadcrumbtop" class="headbox up-and-down">   
+        <p></p>        
+    </div>    
 	{$MAIN}
 	<div class="breadcrumb" id="breadcrumbbottom">
 		<p></p>
@@ -19,6 +19,6 @@
 </div>
 <!-- #maincontent -->
 <div id="footer" class="up-and-down">
-    <p><span>{@havefnubb~main.poweredby@} <a href="http://forge.jelix.org/projects/havefnubb" title="HaveFnu!">HaveFnu!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a></span></p>
+    <p><span>{@havefnubb~main.poweredby@} <a href="http://forge.jelix.org/projects/havefnubb" title="HaveFnu BB!">HaveFnu BB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a></span></p>
 </div><!-- #footer -->
 </div>

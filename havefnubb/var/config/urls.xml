@@ -119,6 +119,11 @@
         
     </classicentrypoint>
     
+    
+    <classicentrypoint name="hfnuinstall" default="false" noentrypoint="true">
+        <url pathinfo="/install" module="hfnuinstall" action="default:index"/>
+    </classicentrypoint>
+    
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
 
         <url pathinfo="/admin/board" module="master_admin" action="default:index" />

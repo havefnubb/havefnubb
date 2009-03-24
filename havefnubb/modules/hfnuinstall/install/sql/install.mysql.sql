@@ -76,9 +76,8 @@ CREATE TABLE IF NOT EXISTS `hf_jacl2_group` (
 
 INSERT INTO `hf_jacl2_group` (`id_aclgrp`, `name`, `grouptype`, `ownerlogin`) VALUES
 (1, 'admins', 0, NULL),
-(2, 'users', 0, NULL),
-(3, 'moderators', 0, NULL),
-(4, 'havefnu', 2, 'havefnu');
+(2, 'users', 1, NULL),
+(3, 'moderators', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -401,14 +400,6 @@ CREATE TABLE IF NOT EXISTS `hf_jacl2_user_group` (
   KEY `login` (`login`,`id_aclgrp`)
 ) DEFAULT CHARSET=utf8;
 
---
--- Contenu de la table `jacl2_user_group`
---
-
-INSERT INTO `hf_jacl2_user_group` (`login`, `id_aclgrp`) VALUES
-('havefnu', 1),
-('havefnu', 4);
-
 -- --------------------------------------------------------
 
 --
@@ -457,13 +448,6 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
 ) DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `member`
---
-
-INSERT INTO `hf_member` (`id_user`, `member_login`, `member_password`, `member_email`, `member_nickname`, `member_status`, `member_keyactivate`, `member_request_date`, `member_website`, `member_firstname`, `member_birth`, `member_country`, `member_town`, `member_comment`, `member_avatar`, `member_xfire`, `member_icq`, `member_hotmail`, `member_yim`, `member_aol`, `member_gtalk`, `member_jabber`, `member_proc`, `member_mb`, `member_card`, `member_ram`, `member_display`, `member_screen`, `member_mouse`, `member_keyb`, `member_os`, `member_connection`, `member_last_connect`, `member_show_email`, `member_language`, `member_nb_msg`, `member_last_post`) VALUES
-(1, 'havefnu', '0dc12261c353a4c2dfa1b6e01ded9bed', 'havefnu@foxmask.info', 'havefnu', 2, NULL, '2009-02-03 10:28:51', 'http://forge.jelix.org/projects/havefnubb', NULL, '1969-01-14', 'France', 'Paris', '', '0', '123456Toto', 'abscde', 'tata@live.fr', 'toto@yahoo.com', 'truc@aol.com', 'tata@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2009-02-24 16:30:55', 'N', 'fr_FR', 1, 1234960470);
 
 -- --------------------------------------------------------
 

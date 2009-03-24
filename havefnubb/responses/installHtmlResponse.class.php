@@ -60,7 +60,9 @@ class installHtmlResponse extends jResponseHtml {
                  case 'installdb':
                     $this->body->assign('step','installdb');
                     break;
-                
+                 case 'adminaccount':
+                    $this->body->assign('step','adminaccount');
+                    break;                
                  case 'end':
                     $this->body->assign('step','end');
                     break;                                

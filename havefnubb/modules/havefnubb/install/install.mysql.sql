@@ -1,4 +1,5 @@
 --
+-- This script is use for testing purpose, this will avoid to run the automatic install and create a default user named havefnu with password havefnu
 -- Base de données: `havefnu`
 --
 

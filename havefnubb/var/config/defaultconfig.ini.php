@@ -17,7 +17,7 @@ pluginsPath="app:plugins/"
 
 modulesPath="lib:jelix-modules/,app:modules/,app:../modules/"
 
-theme=ocean
+theme=default
 
 
 [coordplugins]
@@ -131,8 +131,8 @@ install=on
 default=messages.log
 
 [mailer]
-webmasterEmail="root@localhost"
-webmasterName=
+webmasterEmail="toto@tata.com"
+webmasterName=foxmask
 
 ; how to send mail : "mail" (mail()), "sendmail" (call sendmail), or "smtp" (send directly to a smtp)
 mailerType=mail
@@ -191,6 +191,10 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
+
+
+
 
 
 

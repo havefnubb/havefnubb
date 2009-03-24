@@ -17,23 +17,9 @@
 <div id="config">
 <fieldset>
     <legend>{@hfnuinstall~install.config.general@}</legend>
-    <p>{ctrl_label 'title'} </p>
-    <p>{ctrl_control 'title'} </p>
-    
-    <p>{ctrl_label 'description'} </p>
-    <p>{ctrl_control 'description'} </p>
-    
-    <p>{ctrl_label 'theme'} </p>
-    <p>{ctrl_control 'theme'} </p>
-    
-    <p>{ctrl_label 'rules'} </p>
-    <p>{ctrl_control 'rules'} </p>
-    
-    <p>{ctrl_label 'webmaster_email'} </p>
-    <p>{ctrl_control 'webmaster_email'} </p>
-    
-    <p>{ctrl_label 'admin_email'} </p>
-    <p>{ctrl_control 'admin_email'} </p>
+    {formcontrols}
+    <p>{ctrl_label}<br/> {ctrl_control} </p>
+    {/formcontrols}        
 </fieldset>
 </div>
 <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
@@ -57,6 +43,19 @@
 <div id="installdb">
 <fieldset>
     <legend>{@hfnuinstall~install.installdb.general@}</legend>
+    {formcontrols}
+    <p>{ctrl_label}<br/> {ctrl_control} </p>
+    {/formcontrols}
+<div>{formsubmit 'validate'} {formreset 'cancel'}</div>    
+</fieldset>
+</div>
+{/form}
+{/if}
+{if $step =='adminaccount'}
+{form $form, 'hfnuinstall~default:index'}
+<div id="installdb">
+<fieldset>
+    <legend>{@hfnuinstall~install.adminaccount.general@}</legend>
     {formcontrols}
     <p>{ctrl_label}<br/> {ctrl_control} </p>
     {/formcontrols}

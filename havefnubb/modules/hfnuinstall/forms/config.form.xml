@@ -20,12 +20,57 @@
 	<label locale="hfnuinstall~install.config.rules"/>
 </textarea>
 
-<input ref="webmaster_email" type="email" required="true" size="80">
-	<label locale="hfnuinstall~install.config.webmaster_email"/>
+<input ref="webmasterEmail" type="email" required="true" size="80">
+	<label locale="hfnuinstall~install.config.webmasterEmail"/>
 </input>
 
-<input ref="admin_email" type="email" required="true" size="80">
-	<label locale="hfnuinstall~install.config.admin_email"/>
+<input ref="webmasterName" type="string" required="true" size="80">
+	<label locale="hfnuinstall~install.config.webmasterName"/>
+</input>
+
+<menulist ref="mailerType" required="true">
+	<label locale="hfnuinstall~install.config.mailerType"/>
+    <item value="mail">Mail</item>
+    <item value="sendmail">Sendmail</item>
+    <item value="smtp">Smtp</item>
+</menulist>
+
+<input ref="hostname" type="string" size="80">
+	<label locale="hfnuinstall~install.config.hostname"/>
+</input>
+
+<input ref="sendmailPath" type="string"  size="80">
+	<label locale="hfnuinstall~install.config.sendmailPath"/>
+    <help locale="hfnuinstall~install.config.sendmailPath.description"/>
+    <hint locale="hfnuinstall~install.config.sendmailPath.description"/>
+</input>
+
+<input ref="smtpHost" type="string"  size="80">
+	<label locale="hfnuinstall~install.config.smtpHost"/>
+    <help locale="hfnuinstall~install.config.smtpHost.description"/>
+    <hint locale="hfnuinstall~install.config.smtpHost.description"/>
+</input>
+
+<input ref="smtpPort" type="integer"  size="4">
+	<label locale="hfnuinstall~install.config.smtpPort"/>
+</input>
+
+<radiobuttons ref="smtpAuth" required="true">
+	<label locale="hfnuinstall~install.config.smtpAuth"/>
+    <item value="off" selected="true">Off</item>
+    <item value="on">On</item>
+</radiobuttons>
+
+<input ref="smtpUsername" type="string" size="80">
+	<label locale="hfnuinstall~install.config.smtpUsername"/>
+</input>
+
+<input ref="smtpPassword" type="string" size="80">
+	<label locale="hfnuinstall~install.config.smtpPassword"/>
+</input>
+
+<input ref="smtpTimeout" type="integer"  size="4">
+	<label locale="hfnuinstall~install.config.smtpTimeout"/>
 </input>
 
 <submit ref="validate">

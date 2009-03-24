@@ -9,3 +9,6 @@ autolocale = autolocale.coord.ini.php
 
 [responses]
 html = installHtmlResponse
+
+[simple_urlengine_entrypoints]
+install="hfnuinstall~*@classic"
