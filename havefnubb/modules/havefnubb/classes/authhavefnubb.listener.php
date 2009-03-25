@@ -31,5 +31,27 @@ class authhavefnubbListener extends jEventListener{
    function onjcommunity_save_account ($event) {
       jMessage::add(jLocale::get('havefnubb~member.profile.updated'),'ok');
    }
+   
+   // send a mail to the admin when a user register
+   function onAuthNewUser ($event) {
+         global $HfnuConfig, $gJConfig;
+
+         $user = $event->getParam('user');
+         
+         $mail = new jMailer();
+         $mail->From       = $gJConfig->mailer['webmasterEmail'];
+         $mail->FromName   = $gJConfig->mailer['webmasterName'];
+         $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+         $mail->Subject    = jLocale::get('havefnubb~member.registration.new.member.registered');
+         
+         $tpl = new jTpl();
+         $tpl->assign('login',$user->login);
+         $tpl->assign('server',$_SERVER['SERVER_NAME']);
+         $mail->Body = $tpl->fetch('havefnubb~warn_new_registration', 'text');
+         
+         $mail->AddAddress($HfnuConfig->getValue('admin_email'));
+         //$mail->SMTPDebug = true;
+         $mail->Send();    
+   }
 }
 ?>

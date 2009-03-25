@@ -94,6 +94,7 @@ class defaultCtrl extends jController {
                         $HfnuConfig->setValue('description',htmlentities($this->param('description')));
                         $HfnuConfig->setValue('theme',      htmlentities($this->param('theme')));
                         $HfnuConfig->setValue('rules',      htmlentities($this->param('rules')));
+						$HfnuConfig->setValue('admin_email',htmlentities($this->param('admin_email')));
                                                 
                         $HfnuConfig->save();                        
                         

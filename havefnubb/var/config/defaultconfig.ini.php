@@ -131,8 +131,8 @@ install=on
 default=messages.log
 
 [mailer]
-webmasterEmail="toto@tata.com"
-webmasterName=foxmask
+webmasterEmail="root@localhost.com"
+webmasterName=webmaster
 
 ; how to send mail : "mail" (mail()), "sendmail" (call sendmail), or "smtp" (send directly to a smtp)
 mailerType=mail
