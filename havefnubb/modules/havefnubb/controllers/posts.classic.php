@@ -37,6 +37,7 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
         if ($id_forum == 0 ) {
@@ -137,6 +138,7 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.view','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
 		$goto = 0;
@@ -190,6 +192,7 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
 		$id_forum = (int) $this->param('id_forum');
@@ -197,6 +200,7 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
 		$id_post = 0;
@@ -272,8 +276,9 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
-				
+
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);		
 		if (! $forum) {
@@ -317,6 +322,7 @@ class postsCtrl extends jController {
 			) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
 		$id_post 	= (int) $this->param('id_post');
@@ -471,11 +477,7 @@ class postsCtrl extends jController {
 	
 	//reply to a given post (from the parent_id)
     function reply() {
-		if ( ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-		}
-		
+	
         $parent_id 	= (int) $this->param('id_post');
         $id_post 	= (int) $this->param('id_post');
 		
@@ -491,9 +493,10 @@ class postsCtrl extends jController {
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($parent_id);
 
-		if ( ! jAcl2::check('hfnu.posts.create','forum'.$post->id_forum) ) {
+		if ( ! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
 		// crumbs infos
@@ -684,6 +687,7 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.create','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
         if (!$post) {
@@ -746,6 +750,7 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.delete','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
 		jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));
@@ -806,6 +811,7 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.notify','forum'.$forum->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
         $form = jForms::create('havefnubb~notify',$id_post);
