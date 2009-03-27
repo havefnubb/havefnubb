@@ -13,6 +13,7 @@ class cacheCtrl extends jController {
     *
     */
     public $pluginParams = array(
+		'*'		=> array( 'auth.required'=>true),		
         'index' => array( 'jacl2.right' =>'hfnu.admin.cache.clear'),
         'clear' => array( 'jacl2.right' =>'hfnu.admin.cache.clear')
     );

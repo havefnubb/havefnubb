@@ -19,10 +19,10 @@ class postsCtrl extends jController {
 		
         'goto'	=> array( 'jacl2.right'=>'hfnu.forum.goto'),
 		
-		'add'	=> array('flood.same.ip'=>true),
-		'edit'	=> array('flood.editing'=>true),
-		'quote'	=> array('flood.editing'=>true),
-		'reply'	=> array('flood.editing'=>true),
+		'add'	=> array('auth.required'=>true,'flood.same.ip'=>true),
+		'edit'	=> array('auth.required'=>true,'flood.editing'=>true),
+		'quote'	=> array('auth.required'=>true,'flood.editing'=>true),
+		'reply'	=> array('auth.required'=>true,'flood.editing'=>true),
 		
         'lists'	=> array( 'history.add'=>true),
         'view' 	=> array( 'history.add'=>true),		
@@ -189,11 +189,6 @@ class postsCtrl extends jController {
     
     // display the add 'blank' form 
     function add () {
-		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-			return $rep;
-		}
 		
 		$id_forum = (int) $this->param('id_forum');
 		
@@ -253,32 +248,32 @@ class postsCtrl extends jController {
 		global $HfnConfig;
 		
 		$id_post = (int) $this->param('id_post');
-
-        $srvTags = jClasses::getService("jtags~tags");
-        $tagsArray = $srvTags->getTagsBySubject('forumscope', $id_post);
-		$tags= '';
-		for ($i = 0; $i < count($tagsArray) ; $i ++) {			
-			$tags .= $tagsArray[$i] . ',';
-		}
 			
 		if ($id_post == 0 ) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
             return $rep;
 		}
-		
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-		
+				
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);
-
+        
 		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 			return $rep;
 		}
 
+		$daoUser = jDao::get('havefnubb~member');
+		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);    
+        
+        $srvTags = jClasses::getService("jtags~tags");
+        $tagsArray = $srvTags->getTagsBySubject('forumscope', $id_post);
+		$tags= '';
+		for ($i = 0; $i < count($tagsArray) ; $i ++) {			
+			$tags .= $tagsArray[$i] . ',';
+		}     
+        
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);		
 		if (! $forum) {
@@ -485,10 +480,6 @@ class postsCtrl extends jController {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
         }
-		
-        //get the info of the current user who's replying
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
         
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($parent_id);
@@ -498,6 +489,10 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
 			return $rep;
 		}
+		
+        //get the info of the current user who's replying
+		$daoUser = jDao::get('havefnubb~member');
+		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
 		
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);
@@ -677,23 +672,25 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
         }
 		
-        //get the info of the current user who's replying
-		$daoUser = jDao::get('havefnubb~member');
-		$me = $daoUser->getByLogin( jAuth::getUserSession ()->login);        
-        
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);
-
+        
+        if (!$post) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+            return $rep;
+        } 
+        
 		if ( ! jAcl2::check('hfnu.posts.create','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 			return $rep;
 		}
 		
-        if (!$post) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-        } 
+        //get the info of the current user who's replying
+		$daoUser = jDao::get('havefnubb~member');
+		$me = $daoUser->getByLogin( jAuth::getUserSession ()->login);                
+        
         $author = $daoUser->getById( $post->id_user);
         
 		// crumbs infos
@@ -793,6 +790,7 @@ class postsCtrl extends jController {
         if ($id_post == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+            return $rep;
         }
         //get the info of the current user who's notifying
 		$daoUser = jDao::get('havefnubb~member');
@@ -800,19 +798,19 @@ class postsCtrl extends jController {
         
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);              
+        
+		if ( ! jAcl2::check('hfnu.posts.notify','forum'.$post->id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+			return $rep;
+		}        
 		// crumbs infos
 		list($forum,$category) = $this->getCrumbs($post->id_forum);
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
             return $rep;			
-		}
-		
-		if ( ! jAcl2::check('hfnu.posts.notify','forum'.$forum->id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-			return $rep;
-		}
+		}		
 		
         $form = jForms::create('havefnubb~notify',$id_post);
 		$form->setData('id_user',$user->id);
@@ -928,7 +926,8 @@ class postsCtrl extends jController {
 	public function rss() {
         global $HfnuConfig;
         $id_forum = (int) $this->param('id_forum');
-		
+		// TODO : create this Subject hfnu.posts.rss
+        // this is necessary to avoid to publish "pirvate" post/forum
 		/*if ( ! jAcl2::check('hfnu.posts.rss','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';

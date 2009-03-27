@@ -13,6 +13,7 @@ class forumCtrl extends jController {
     *
     */
     public $pluginParams = array(
+		'*'		=> array( 'auth.required'=>true),		
 		'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
         'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
     );    

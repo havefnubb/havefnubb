@@ -13,8 +13,9 @@ class defaultCtrl extends jController {
     *
     */
     public $pluginParams = array(
-		'index' 	=> array( 'jacl2.right'=>'hfnu.admin.index'),
-		'config' 	=> array( 'jacl2.right'=>'hfnu.admin.config'),
+		'*'		=> array( 'auth.required'=>true),
+		'index' => array( 'jacl2.right'=>'hfnu.admin.index'),
+		'config'=> array( 'jacl2.right'=>'hfnu.admin.config'),
 		'check_upgrade'=> array( 'jacl2.right'=>'hfnu.admin.config'),				
     );
     
