@@ -8,44 +8,52 @@
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <div id="post-message">{jmessage}</div>
 {/ifacl2}
-{ifacl2 'hfnu.posts.create','forum'.$id_forum}
-<div class="newmessage"><a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a></div>
+<div class="newmessage">
+{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
-
+</div>
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
 <div class="linkpages">
 {pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
-    <table width="100%">
-        <tr>
-            <th class="forumlistcol"> </th>
-            <th class="forumlistcol">{@havefnubb~forum.forumlist.title@}</th>
-            <th class="forumlistcol">{@havefnubb~member.common.author@}</th>
-            <th class="forumlistcol">{@havefnubb~forum.forumlist.responses@}</th>
-            <th class="forumlistcol">{@havefnubb~forum.forumlist.views@}</th>
-            <th class="forumlistcol">{@havefnubb~forum.forumlist.last.comments@}</th>        
-        </tr>
-        {foreach $posts as $post}
-        <tr>
-            <td class="colicone" ></td>
-            <td class="coltitle linkincell">
-                <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
-            </td>
-            <td class="colposter linkincell">
-                <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>
-            </td>
-            <td class="colnum">
-                {zone 'havefnubb~responsettl',array('id_post'=>$post->id_post)}
-            </td>
-            <td class="colnum">
-                {zone 'havefnubb~viewedttl',array('id_post'=>$post->id_post)}
-            </td>
-            <td
-                class="colright linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}
-            </td>
-        </tr>
-        {/foreach}
-    </table>
+<table width="100%">
+    <tr>
+        <th class="forumlistcol"> </th>
+        <th class="forumlistcol">{@havefnubb~forum.forumlist.title@}</th>
+        <th class="forumlistcol">{@havefnubb~member.common.author@}</th>
+        <th class="forumlistcol">{@havefnubb~forum.forumlist.responses@}</th>
+        <th class="forumlistcol">{@havefnubb~forum.forumlist.views@}</th>
+        <th class="forumlistcol">{@havefnubb~forum.forumlist.last.comments@}</th>        
+    </tr>
+    {foreach $posts as $post}
+    <tr>
+        <td class="colicone" ></td>
+        <td class="coltitle linkincell">
+            <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
+        </td>
+        <td class="colposter linkincell">
+            <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>
+        </td>
+        <td class="colnum">
+            {zone 'havefnubb~responsettl',array('id_post'=>$post->id_post)}
+        </td>
+        <td class="colnum">
+            {zone 'havefnubb~viewedttl',array('id_post'=>$post->id_post)}
+        </td>
+        <td
+            class="colright linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}
+        </td>
+    </tr>
+    {/foreach}
+</table>
+
+<div class="newmessage">
+{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{/ifacl2}
+</div>
+
 
 <div class="linkpages">
 {pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}

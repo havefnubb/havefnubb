@@ -14,8 +14,10 @@ class posts_repliesZone extends jZone {
     protected function _prepareTpl(){
         global $HfnuConfig;
         $id_post = $this->param('id_post');
+		$id_forum = $this->param('id_forum');
         $page = (int) $this->param('page');
         if (!$id_post) return;
+		if (!$id_forum) return;
 
 		if ($page < 0 ) $page = 0;
         
@@ -30,10 +32,10 @@ class posts_repliesZone extends jZone {
                       'next-label'  => '',
                       'end-label'   => jLocale::get("havefnubb~main.common.pagelinks.end"),
                       'area-size'   => 5);
-        
+        // 1- get the nb of replies per page
         $nbRepliesPerPage = 0;
         $nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page');
-              
+        // 2- get the post
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts
         $nbReplies = $daoPost->countResponse($id_post);
@@ -52,6 +54,7 @@ class posts_repliesZone extends jZone {
 			$this->_tpl->assign('current_user','');
         
         $this->_tpl->assign('posts',$posts);
+		$this->_tpl->assign('id_forum',$id_forum);
         $this->_tpl->assign('tags',$tags);
         $this->_tpl->assign('page',$page);
         $this->_tpl->assign('id_post',$id_post);

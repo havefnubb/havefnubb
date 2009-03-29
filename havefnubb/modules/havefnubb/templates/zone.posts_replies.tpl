@@ -4,6 +4,15 @@
 </div>    
 {/ifacl2}
 
+<div class="newmessage">
+{ifacl2 'hfnu.posts.create','forum'.$id_forum}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{/ifacl2}
+{ifacl2 'hfnu.posts.reply','forum'.$id_forum}
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+{/ifacl2}
+</div>
+
 <div class="postlist">
 {foreach $posts as $post}
 {assign $parent_id = $post->id_post}
@@ -56,6 +65,15 @@
 {/ifacl2}
 {/foreach}
 </div>
+<div class="newmessage">
+{ifacl2 'hfnu.posts.create','forum'.$id_forum}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{/ifacl2}
+{ifacl2 'hfnu.posts.reply','forum'.$id_forum}
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+{/ifacl2}
+</div>
+
 {ifacl2 'hfnu.posts.view'}
 <div class="linkpages">
 {pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}

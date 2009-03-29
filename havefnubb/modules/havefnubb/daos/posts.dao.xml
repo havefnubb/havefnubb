@@ -74,6 +74,7 @@
             </conditions>            
             <order>
                 <orderitem property="parent_id" way="desc" />
+				<orderitem property="id_post" way="asc" />
             </order>
             <limit offset="$offset" count="$count"/>
         </method>    

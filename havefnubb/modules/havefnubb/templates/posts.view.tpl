@@ -4,10 +4,10 @@
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <div id="post-message">{jmessage}</div>
 {/ifacl2}
-{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-<div class="replymessage"><a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" 
-title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a></div>
-{/ifacl2}
+
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
-{zone 'havefnubb~posts_replies',array('id_post'=>$id_post,'page'=>$page)}
+{zone 'havefnubb~posts_replies',array('id_post'=>$id_post,'id_forum'=>$forum->id_forum,'page'=>$page)}
 {/ifacl2}
+
+
+

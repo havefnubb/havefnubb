@@ -117,7 +117,7 @@ class postsCtrl extends jController {
         return $rep;        
     }        
 
-	//display the thread of the given post
+	// display the first post + call zone posts_replies in template to display all the thread
 	// Method 1 : default usage : list all messages of a thread (id_post known)
 	// Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
     function view() {
@@ -125,7 +125,7 @@ class postsCtrl extends jController {
 		global $HfnuConfig;
         $id_post 	= (int) $this->param('id_post');
 		$parent_id 	= (int) $this->param('parent_id');
-                
+
         $dao = jDao::get('havefnubb~posts'); 
         $post = $dao->get($id_post);		
 
@@ -134,7 +134,7 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
 			return $rep;
         }
-		
+                		
 		if ( ! jAcl2::check('hfnu.posts.view','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
