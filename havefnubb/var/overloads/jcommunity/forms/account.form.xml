@@ -16,6 +16,12 @@
    <input ref="email"  required="true" type="email">
        <label locale="account.form.email"/>
    </input>
+   
+   <secret ref="password">
+       <label locale="register.form.confirm.password.label"/>
+       <hint locale="register.form.confirm.password.hint"/>
+       <confirm locale="register.form.confirm.password2.label" />
+   </secret>
 
    <date ref="member_birth" mindate="1910-01-01">
        <label locale="havefnubb~member.birthday"/>

@@ -85,3 +85,11 @@
 {ifacl2 'hfnu.forum.goto'}
 {zone 'havefnubb~jumpto',array('id_forum'=>$id_forum)}
 {/ifacl2}
+{ifacl2 'hfnu.admin.post'}
+<div class="headings">    
+    <h3><span>{@havefnubb~post.status.change.the.status.of.the.post@}</span></h3>
+</div>
+<fieldset><legend>{@havefnubb~post.status.change.the.status.of.the.post@}</legend>
+{formfull $formStatus, 'havefnubb~posts:status',array('id_post'=>$parent_id)}
+</fieldset>
+{/ifacl2}

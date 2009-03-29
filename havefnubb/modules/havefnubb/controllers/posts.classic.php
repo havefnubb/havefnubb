@@ -906,6 +906,13 @@ class postsCtrl extends jController {
 
 	}
 
+
+	//TODO
+	function status () {
+		// mettre à jour le status du post et retourner au post consulté
+		
+	}
+	
 	private function getCrumbs($id_forum) {
 		
 		// get info to display them in the breadcrumb

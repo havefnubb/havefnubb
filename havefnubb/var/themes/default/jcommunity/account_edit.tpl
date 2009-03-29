@@ -31,10 +31,14 @@ $(document).ready(function(){
                         <label><strong>{ctrl_label 'email'}</strong></label><br />{ctrl_control 'email'}
                     </p>
                 </div>
-                <div>
+                <div class="two-cols">
                     <p class="col">
                         <label><strong>{ctrl_label 'member_birth'}</strong></label><br />{ctrl_control 'member_birth'}
                     </p>
+                    <p class="col">
+                        <label><strong>{ctrl_label 'password'}</strong></label><br />{ctrl_control 'password'}
+						<label><strong>{ctrl_label 'confirm'}</strong></label><br />{ctrl_control 'confirm'}
+                    </p>					
                 </div>
             </fieldset>                
             <fieldset>

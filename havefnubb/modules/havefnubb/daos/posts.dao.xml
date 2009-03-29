@@ -59,12 +59,24 @@
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_post" expr="posts.parent_id" />
+				<neq property="status" value="3" />
             </conditions>            
             <order>
                 <orderitem property="date_modified" way="desc" />
             </order>
             <limit offset="$offset" count="$count"/>
         </method>
+        <method name="findPinedPostByIdForum" type="select">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <eq property="id_post" expr="posts.parent_id" />
+				<eq property="status" value="3" />
+            </conditions>            
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>		
         <method name="findByIdParent" type="select">
             <parameter name="parent_id" />
             <parameter name="offset" default="0" />

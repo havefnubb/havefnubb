@@ -26,10 +26,11 @@
         <th class="forumlistcol">{@havefnubb~forum.forumlist.views@}</th>
         <th class="forumlistcol">{@havefnubb~forum.forumlist.last.comments@}</th>        
     </tr>
+    {zone 'havefnubb~pinedposts', array('id_forum'=>$id_forum)}
     {foreach $posts as $post}
     <tr>
-        <td class="colicone" ></td>
-        <td class="coltitle linkincell">
+        <td class="colicone {if $post->status == '2'}closed{/if}" ></td>
+        <td class="coltitle linkincell {if $post->status == '2'}closed{/if}">
             <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
         </td>
         <td class="colposter linkincell">
@@ -53,7 +54,6 @@
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 </div>
-
 
 <div class="linkpages">
 {pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}

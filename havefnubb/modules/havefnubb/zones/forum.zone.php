@@ -13,7 +13,9 @@ class forumZone extends jZone {
 
     protected function _prepareTpl(){
         $id_cat = $this->param('id_cat');
+        $action = $this->param('action');        
         if (! $id_cat ) return;
+        if (! $action ) return;        
         
         $dao = jDao::get('havefnubb~forum');
         
