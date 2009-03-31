@@ -43,6 +43,7 @@
                     <eq property="id_aclsbj" value="hfnu.posts.quote" />
                     <eq property="id_aclsbj" value="hfnu.posts.notify" />
                     <eq property="id_aclsbj" value="hfnu.posts.edit.own" />
+                    <eq property="id_aclsbj" value="hfnu.posts.rss" />
                 </conditions>
             </conditions>            
         </method>        

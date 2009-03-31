@@ -12,13 +12,16 @@ class forumCtrl extends jController {
     /**
     *
     */
+
     public $pluginParams = array(
 		'*'		=> array( 'auth.required'=>true),		
 		'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
         'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
     );    
 
+	
     function index() {
+		//get list of cagetory in which we can create a forum
         $form = jForms::create('hfnuadmin~category_list');
         $tpl = new jTpl();        
         $rep = $this->getResponse('html');
@@ -28,9 +31,17 @@ class forumCtrl extends jController {
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~forum_index'));
         return $rep;     
     }
-
+	
+	// creation of Forum
     function create () {
+		// let's define the possible actions we can do :
+		// where to add a forum :
+		// 1) in a category
+		// 2) before a given forum
+		// 3) after a given forum
+		// 4) a sub-forum
         $possibleActions = array('in_cat','before','after','childof');
+		
         // the choice is ?
         $choice = (string) $this->param('forum');
         // build the next param to check
@@ -86,8 +97,7 @@ class forumCtrl extends jController {
  ***********************************************************************************/
                             $id_cat = $id_forum; 
                             break;
-            }
-            
+            }            
             
             $record = jDao::createRecord('havefnubb~forum');        
             $record->forum_name = jLocale::get('hfnuadmin~forum.new.forum');
@@ -98,6 +108,9 @@ class forumCtrl extends jController {
             $record->forum_desc = jLocale::get('hfnuadmin~forum.new.forum');
             
             $dao->insert($record);
+			
+            // create default rights with the lastInsertId of the forum we've just created
+            jClasses::getService("hfnuadmin~hfnuadminrights")->resetRights($record->id_forum);
             
             jMessage::add(jLocale::get('hfnuadmin~forum.forum.added'),'ok');
             $rep = $this->getResponse('redirect');
@@ -154,7 +167,7 @@ class forumCtrl extends jController {
         foreach($rs as $rec){
             $rights[$rec->id_aclsbj][$rec->id_aclgrp] = true;
         }
-
+        
         //initializing of the Token
         $token = jClasses::getService("havefnubb~hfnutoken");
         $token->setHfnuToken();
@@ -219,10 +232,10 @@ class forumCtrl extends jController {
         $rights = $this->param('rights',array());
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
             $id = intval($grp->id_aclgrp);
-            self::setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
+            jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
         }
 
-        self::setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
+        jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
        
         /**************/
         
@@ -244,22 +257,7 @@ class forumCtrl extends jController {
         return $rep;         
     }
 
-    /**
-     * set rights on the given group. old rights are removed
-     * @param int    $group the group id.
-     * @param array  $rights, list of rights key=subject, value=true
-     *  @param string  $resource, the resource corresponding to the "forum" string + id_forum
-     */
-    public static function setRightsOnForum($group, $rights, $resource){
-        $dao = jDao::get('jelix~jacl2rights', jAcl2Db::getProfile());
-        $dao->deleteHfnuByGroup($group,$resource);
-        foreach($rights as $sbj=>$val){
-            if($val != '')
-              jAcl2DbManager::addRight($group,$sbj,$resource);
-        }
-        jAcl2::clearCache();
 
-    }
 	
 	function defaultrights() {
 		
@@ -277,64 +275,14 @@ class forumCtrl extends jController {
             return $rep;                 
         }
 		
-		$resource = 'forum'.$id_forum;
-		// default 'normal' rights for a given forum.
-        $rights = array(
-					//anonymous
-					'0'=>array('hfnu.forum.list'=>'on',
-							   'hfnu.forum.view'=>'on',
-							   'hfnu.posts.list'=>'on',
-							   'hfnu.posts.view'=>'on'),
-					//admins
-					'1'=>array('hfnu.forum.list'=>'on',
-							   'hfnu.forum.view'=>'on',
-							   'hfnu.posts.create'=>'on',
-							   'hfnu.posts.delete'=>'on',
-							   'hfnu.posts.edit'=>'on',
-							   'hfnu.posts.edit.own'=>'on',
-							   'hfnu.posts.list'=>'on',
-							   'hfnu.posts.notify'=>'on',
-							   'hfnu.posts.reply'=>'on',
-							   'hfnu.posts.quote'=>'on',
-							   'hfnu.posts.view'=>'on'
-							   ),
-					//moderators
-					'3'=>array('hfnu.forum.list'=>'on',
-							   'hfnu.forum.view'=>'on',
-							   'hfnu.posts.create'=>'on',
-							   'hfnu.posts.edit'=>'on',
-							   'hfnu.posts.edit.own'=>'on',							   
-							   'hfnu.posts.list'=>'on',
-							   'hfnu.posts.notify'=>'on',
-							   'hfnu.posts.reply'=>'on',
-							   'hfnu.posts.quote'=>'on',
-							   'hfnu.posts.view'=>'on'
-							  ),
-					//members
-					'2'=>array('hfnu.forum.list'=>'on',
-							   'hfnu.forum.view'=>'on',
-							   'hfnu.posts.create'=>'on',
-							   'hfnu.posts.edit.own'=>'on',							   
-							   'hfnu.posts.list'=>'on',
-							   'hfnu.posts.notify'=>'on',
-							   'hfnu.posts.reply'=>'on',
-							   'hfnu.posts.quote'=>'on',
-							   'hfnu.posts.view'=>'on'
-							  ),
-						);
-		
-        foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
-            $id = intval($grp->id_aclgrp);
-            self::setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
-        }
-
-        self::setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
-       
+        jClasses::getService("hfnuadmin~hfnuadminrights")->resetRights($id_forum);           
         
         jMessage::add(jLocale::get('hfnuadmin~forum.forum.rights.restored'),'ok');
         $rep = $this->getResponse('redirect');
 		$rep->params = array('id_forum'=>$id_forum);
         $rep->action='hfnuadmin~forum:edit';
         return $rep;  
-	}
+	}   
+    
+
 }   

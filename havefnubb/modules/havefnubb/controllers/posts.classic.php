@@ -933,12 +933,14 @@ class postsCtrl extends jController {
 	public function rss() {
         global $HfnuConfig;
         $id_forum = (int) $this->param('id_forum');
-		// TODO : create this Subject hfnu.posts.rss
-        // this is necessary to avoid to publish "pirvate" post/forum
-		/*if ( ! jAcl2::check('hfnu.posts.rss','forum'.$id_forum) ) {
+		
+		// if the forum is accessible by anonymous then the rss will be available
+		// otherwise NO RSS will be available
+		if ( ! jAcl2::check('hfnu.posts.rss','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
-		}*/
+		}
+		
         if ($id_forum == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
