@@ -36,9 +36,7 @@ $(document).ready(function(){
                         <label><strong>{ctrl_label 'member_birth'}</strong></label><br />{ctrl_control 'member_birth'}
                     </p>
                     <p class="col">
-                        <label><strong>{ctrl_label 'password'}</strong></label><br />{ctrl_control 'password'}
-						<label><strong>{ctrl_label 'confirm'}</strong></label><br />{ctrl_control 'confirm'}
-                    </p>					
+					</p>					
                 </div>
             </fieldset>                
             <fieldset>
@@ -157,6 +155,6 @@ $(document).ready(function(){
             </fieldset>
         </div>
 	</div>
-	<p>{formsubmit}</p>
+	<p class="formsubmit">{formsubmit}</p>
 {/form}
 </div>

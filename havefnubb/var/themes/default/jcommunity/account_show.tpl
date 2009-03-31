@@ -8,7 +8,11 @@ $(document).ready(function(){
 </script>
 {/literal}
 <div id="breadcrumbtop" class="headbox">
-    <h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</h3>
+    <h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)} 
+{if $himself}
+> <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a></li>
+{/if}		
+	</h3>	
 </div>
 <div id="post-message">{jmessage}</div>
 <div id="profile">
@@ -167,10 +171,4 @@ $(document).ready(function(){
         </div>
 	</div>                
 </div>
-</div>
-{if $himself}
-<ul>
-    <li><a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a></li>
-</ul>
-{/if}
 </div>

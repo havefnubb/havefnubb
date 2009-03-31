@@ -332,6 +332,9 @@ code, pre {
 	margin-top: 20px;
 }
 
+.formsubmit {
+	padding-left: 20px;
+}
 
 .jforms-submit, .jforms-reset {
 	padding-left: 20px;
@@ -725,8 +728,6 @@ table .line {
 	margin:0 3px 0 0;
 	padding:6px 10px;
 	border: 1px solid;
-	/*border-color:#dedec1 #dedec1 #acac9c #dedec1;
-	background: #dedec1;*/
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
 	background-color: #e1e1cd;	
 }
@@ -748,9 +749,20 @@ table .line {
 }
 
 .ui-tabs-panel {
-    border: 1px solid #dedec1;
-    padding: 10px;
-    background: #fff; /* declare background color for container to avoid distorted fonts in IE while fading */
+    padding: 20px;
+    background: #f1f1e5; /* declare background color for container to avoid distorted fonts in IE while fading */
+}
+.ui-tabs-panel fieldset legend {
+	padding: 2px;
+	color:#4D5431;
+	background: #f1f1e5;
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	background-color: #f1f1e5;
+	font-weight: bold;
+}
+.ui-tabs-panel fieldset {
+	padding-top: 3px;
+	background: #e1e1cd;
 }
 
 /* Additional IE specific bug fixes... */
