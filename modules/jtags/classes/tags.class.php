@@ -1,13 +1,13 @@
 <?php
 /**
-    * @package      sharecode
-    * @subpackage   jTags
-    * @author       Bastien Jaillot
-    * @copyright    2008 Bastien Jaillot
-    * @link         http://forge.jelix.org/projects/sharecode/
+* @package      sharecode
+* @subpackage   jTags
+* @author       Bastien Jaillot
+* @copyright    2008 Bastien Jaillot
+* @link         http://forge.jelix.org/projects/sharecode/
 * @licence      http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 *
-    */
+*/
 
 class tags {
 
@@ -32,6 +32,34 @@ class tags {
         $factory_tags = jDao::get($this->dao_tags);
         $factory_objects_tags = jDao::get($this->dao_object_tags);
 
+        // each time we submit a form we :
+        // 1) get all the sc_tags_tagged records of the corresponding id
+        // 2) check if the tag is still use  in sc_tags (nbuse > 1)
+        // 2.1) if yes ; then nbuse-- of this tag
+        // 2.2) if no ; remove the tag from sc_tags + sc_tags_tagged
+        
+        $cond = jDao::createConditions();
+        //find all subject id 
+        $cond->addCondition('tt_subject_id','=',$id);
+        // 1)
+        $tagsToDelete = $factory_objects_tags->findBy($cond);
+        foreach($tagsToDelete as $delete) {
+            //2)
+            $myTag = $factory_tags->get($delete->tag_id);
+            
+            if ($myTag->nbuse > 1) {
+                // 2.1)
+                // delete the tag from the tag_id found earlier
+                $myTag->nbuse--;
+                $factory_tags->update($myTag);
+            }
+                // 2.2)
+            else {
+                $factory_tags->delete($delete->tag_id);
+                $factory_objects_tags->delete($delete->tt_id);
+            }
+        }        
+        
         foreach($tags as $t) {
             $t = trim($t);
             if ($t == "")  continue;                      
@@ -147,4 +175,3 @@ class tags {
     }
 }
 
-        ?>

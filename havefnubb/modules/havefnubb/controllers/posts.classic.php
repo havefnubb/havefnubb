@@ -444,7 +444,7 @@ class postsCtrl extends jController {
 			jEvent::notify('HfnuPostAfterSave',array('id'=>$id_post));
 			
 			jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
-			
+
 			$tags = explode(",", $form->getData("tags"));
 
 			jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
@@ -460,7 +460,7 @@ class postsCtrl extends jController {
 								 'id_forum'=>$post->id_forum,
 								 'ftitle'=>$post->forum_name,
 								 'ptitle'=>$post->subject);
-			$rep->action ='havefnubb~posts:view';
+			$rep->action ='havefnubb~posts:view';			
 			return $rep;			
 		}
 		else {
@@ -762,6 +762,7 @@ class postsCtrl extends jController {
 		
 		jEvent::notify('HfnuSearchEngineDeleteContent',array('id'=>$id_post));
 		
+		//@TODO remove the tag from this post into the tag tables
         jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'ok');
         $rep = $this->getResponse('redirect');		
         $rep->action='havefnubb~posts:lists';
@@ -907,7 +908,7 @@ class postsCtrl extends jController {
 	}
 
 
-	//TODO
+	//@TODO
 	function status () {
 		// mettre à jour le status du post et retourner au post consulté
 		
