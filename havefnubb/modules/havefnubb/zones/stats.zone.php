@@ -19,9 +19,20 @@ class statsZone extends jZone {
         $threads    = $dao->countAllThreads();
         //last posts
         $lastPost   = $dao->getLastPost();
-        $dao = jDao::get('havefnubb~forum');
-        $forum = $dao->get($lastPost->id_forum);
         
+        // if lastPost is "false" the forum is empty !
+        if ( $lastPost === false ) {
+            $forum = new StdClass;
+            $forum->forum_name = '';
+            $lastPost = new StdClass;
+            $lastPost->parent_id = '';
+            $lastPost->subject = '';
+            $lastPost->id_forum = '';
+        }
+        else {
+            $dao = jDao::get('havefnubb~forum');            
+            $forum = $dao->get($lastPost->id_forum);
+        }
         $dao = jDao::get('havefnubb~member');
         //members
         $members    = $dao->countAllActivatedMember();
