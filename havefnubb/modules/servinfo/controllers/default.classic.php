@@ -9,17 +9,17 @@
 */
 
 class defaultCtrl extends jController {
-    /**
-    *
-    */
-    function index() {
-        $rep = $this->getResponse('html');
 
-        return $rep;
-    }
+    public $pluginParams = array(
+        '*'	=> array('auth.required'=>true),
+        '*'	=> array('jacl2.right'=>'hfnu.admin.serverinfo'),
+    );    
     
     public function phpinfo() {
-        phpinfo();
+        $rep = $this->getResponse('html');        
+        $tpl = new jTpl();
+        $rep->body->assign('MAIN',$tpl->fetch('servinfo~phpinfo'));
+        return $rep;
     }    
 }
 

@@ -135,7 +135,11 @@
     
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
 
+
+        <url pathinfo="/admin/checkupgrade" module="hfnuadmin" action="default:check_upgrade" />
         <url pathinfo="/admin/board" module="master_admin" action="default:index" />
+        
+        <url pathinfo="/admin/phpinfo" module="servinfo" action="default:phpinfo" />
 
         <url pathinfo="/admin"          module="hfnuadmin" action="default:index" />
         <url pathinfo="/admin/config"   module="hfnuadmin" action="default:config" />

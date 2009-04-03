@@ -114,6 +114,7 @@ INSERT INTO `hf_jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('auth.users.list', 1, ''),
 ('auth.users.modify', 1, ''),
 ('auth.users.view', 1, ''),
+('hfnu.admin.serverinfo',1,''),
 ('hfnu.admin.ban', 1, ''),
 ('hfnu.admin.ban', 3, ''),
 ('hfnu.admin.cache', 1, ''),
@@ -406,7 +407,8 @@ INSERT INTO `hf_jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('hfnu.admin.forum', 'havefnubb~acl2.admin.forum'),
 ('hfnu.admin.member', 'havefnubb~acl2.admin.member'),
 ('hfnu.admin.post', 'havefnubb~acl2.admin.post'),
-('hfnu.admin.ban', 'havefnubb~acl2.admin.ban');
+('hfnu.admin.ban', 'havefnubb~acl2.admin.ban'),
+('hfnu.admin.serverinfo', 'havefnubb~acl2.admin.serverinfo');
 
 -- --------------------------------------------------------
 

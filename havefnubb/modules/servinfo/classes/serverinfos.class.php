@@ -1,15 +1,14 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage havefnubb
+* @subpackage servinfo
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://forge.jelix.org/projects/havefnubb
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-class ServerInfos {
-    
+class ServerInfos {    
     
     public static function loadsAvg() {
 		// Get the server load averages (if possible)
@@ -42,14 +41,17 @@ class ServerInfos {
         return $phpAccelerator;
     }
 
+    //@TODO
 	public static function dbVersion() {
 		return 0;
 	}
 	
+    //@TODO
 	public static function dbSize() {
 		return 0;
 	}
 
+    //@TODO
 	public static function dbRecords() {
 		return 0;
 	}    
