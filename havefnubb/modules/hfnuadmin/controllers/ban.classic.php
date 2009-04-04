@@ -13,7 +13,10 @@ class banCtrl extends jController {
     *
     */
     public $pluginParams = array(
-		'*'		=> array( 'auth.required'=>true),
+        '*'		=>	array('auth.required'=>true,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+					),		
         'index' => array( 'jacl2.right'=>'hfnu.admin.ban'),		
     );
  
@@ -59,17 +62,20 @@ class banCtrl extends jController {
 			if ($mail != '') {
 				$validMail = false;
 				// ban one given domain
-				if (  preg_match('/^\w.[a-zA-Z]{3}$/',$mail)) {
+				echo "mail : $mail";
+				if (  preg_match('/^[a-zA-Z0-9]+\.[a-zA-Z]{3}$/',$mail)) {
 					$validMail = true;
-				}
+				}else {
 				// ban one member email
-				$validMail = jFilter::isEmail($mail);
+					$validMail = jFilter::isEmail($mail);
+				}
 				if ( $validMail  === false ) {
-					jMessage::add(jLocale::get('hfnuadmin~ban.mail.invalid'),'warning');
+					jMessage::add(jLocale::get('hfnuadmin~ban.mail.invalid') . ' ' . $mail,'warning');
 					$rep = $this->getResponse('redirect');
 					$rep->action='hfnuadmin~ban:index';
 					return $rep;											
 				}
+				
 				
 			}
 			
@@ -81,12 +87,17 @@ class banCtrl extends jController {
 				$expire['day'] 		= (int) $expire['day'];
 				$expire['month'] 	= (int) $expire['month'];
 				$expire['year'] 	= (int) $expire['year'];
-				
-				
-				$now = mktime(0,0,0,date('m'), date('d'),date('Y'));
-				$expiry = mktime($expire['hour'],$expire['minute'],$expire['second'],$expire['month'] ,$expire['day'],$expire['year']);
-				
-				if ($expiry <= $now ) {
+
+				$now = 0;
+				// we made a permanent ban !
+				if ($expire['day'] == 0 and $expire['month'] == 0 and $expire['year'] == 0 ) {
+					$expiry = 0;
+				}
+				else {
+					$now = mktime(0,0,0,date('m'), date('d'),date('Y'));
+					$expiry = mktime($expire['hour'],$expire['minute'],$expire['second'],$expire['month'] ,$expire['day'],$expire['year']);				
+				}
+				if ($expiry <= $now and $expiry > 0) {
 					jMessage::add(jLocale::get('hfnuadmin~ban.expiry.invalid'),'warning');
 					$rep = $this->getResponse('redirect');
 					$rep->action='hfnuadmin~ban:index';

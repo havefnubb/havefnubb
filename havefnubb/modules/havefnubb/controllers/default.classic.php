@@ -13,7 +13,9 @@ class defaultCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'		=> array('auth.required'=>false),
+        '*'		=> array('auth.required'=>false,
+						 'banuser.check'=>true
+						 ),
 		'cloud'	=> array('hfnu.check.installed'=>true),
 		'index' => array('hfnu.check.installed'=>true,
 						 'history.add'=>true,

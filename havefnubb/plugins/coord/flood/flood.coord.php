@@ -34,15 +34,18 @@ class floodCoordPlugin implements jICoordPlugin {
         $floodok = true;
         $error_message = '';
         $on_error_action = '';
-        
         if(isset($params['flood.same.ip'])) {
+            
             if ($this->config['elapsed_time_between_two_post_by_same_ip'] > 0) {
+                
                 $error_message = jLocale::get("havefnubb~flood.elapsed_time_between_two_post_by_same_ip");
                 $on_error_action = 'on_error_action_same_ip';
                 $floodok = flood::check('same_ip',$this->config['elapsed_time_between_two_post_by_same_ip']);
             }
 
-        }elseif(isset($params['flood.editing'])) {
+        }
+        if(isset($params['flood.editing'])) {
+
             if ($this->config['elapsed_time_after_posting_before_editing'] > 0) {
                 $error_message = jLocale::get("havefnubb~flood.elapsed_time_after_posting_before_editing");
                 $on_error_action = 'on_error_action_editing';

@@ -13,10 +13,11 @@ class membersCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'		=> array('hfnu.check.installed'=>true,
-						  'auth.required'=>true,
-						
-						),
+
+        '*'		=>	array('auth.required'=>true,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+					),		
 		'index' => array('history.add'=>true,
 						 'history.label'=>'Accueil',
 						 'history.title'=>'Aller vers la page d\'accueil')

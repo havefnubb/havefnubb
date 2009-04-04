@@ -26,6 +26,7 @@ jacl2=jacl2.coord.ini.php
 history=history.coord.ini.php
 flood=flood.coord.ini.php
 hfnuinstalled=hfnuinstalled.coord.ini.php
+banuser=banuser.coord.ini.php
 
 [tplplugins]
 defaultJformsBuilder=html

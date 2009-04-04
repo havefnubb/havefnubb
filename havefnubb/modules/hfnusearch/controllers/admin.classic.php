@@ -12,7 +12,13 @@ class adminCtrl extends jController {
     /**
     *
     */
-
+    public $pluginParams = array(
+        '*'		=>	array('auth.required'=>true,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+					),
+        );
+        
     function index() {
         $rep = $this->getResponse('html');
         $form = jForms::create('hfnusearch~indexing');

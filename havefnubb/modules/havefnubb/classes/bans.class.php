@@ -14,13 +14,85 @@ class bans
 
     function __construct() {
     }
-    // @TODO
+    
+	//get the Bans
     public static function getBans() {
-		
+		self::checkExpiry();		
+		$dao = jDao::get('havefnubb~bans');
+		$bans = $dao->findAll();
+		return $bans;
     }
-	//@TODO  
+	
+	//remove bans that are expired
 	public static function checkExpiry() {
-		
+		$dao = jDao::get('havefnubb~bans');
+		$dao->deleteExpiry(time());
+	}
+	
+	// does this user banned ?
+	public static function check() {
+		$return = false;
+		$bans = self::getBans();
+		foreach ($bans as $ban) {
+			if ($ban->ban_username != '') {
+				$return = self::bannedUserName($ban->ban_username);
+				if ($return === true)  return true;
+			}
+			if ($ban->ban_email != '') {
+				$return = self::bannedDomain($ban->ban_email);
+				if ($return === true)  return true;
+			}
+			if ($ban->ban_ip) {
+				return self::bannedIp($ban->ban_ip);
+			}
+		}
+		return $return;
+	}
+	
+	// does this user banned ?
+	public static function bannedUserName($userName) {
+		return ($userName == jAuth::getUserSession()->login);
+	}
+	
+	// does this email banned ?
+	public static function bannedDomain($email) {
+		if (strpos('@',$email) == 0 )
+			list($unused,$userEmail) = split('@',jAuth::getUserSession()->email);
+		else
+			$userEmail = jAuth::getUserSession()->email;
+		return ($userEmail == $email);
+	}
+	
+	// does this IP banned ?
+	public static function bannedIp($banIp) {
+        //is this IP one of them ?
+		if (strpos($banIp,',') > 0 ) {
+            $list = split(',',$banIp);			
+            foreach ($list as $item) {
+				if  ($item == $_SERVER['REMOTE_ADDR']) return true;
+            }
+        }
+        // is this IP in this range ?
+        elseif (strpos($banIp,'-')> 0 ) {
+			// ip is xxx.yyy.zzz-aaa
+            $list = split('-',$banIp);
+			// find xxx.yyy.
+			$pos = strrpos($list[0],'.');
+			// start is xxx.yyy.zzz
+			$start = $list[0];
+			// end is xxx.yyy.aaa
+			$end = substr($list[0],0,$pos) . '.'.$list[1];
+			// validate each of them
+			
+            if ($start >=  $_SERVER['REMOTE_ADDR'] and $_SERVER['REMOTE_ADDR'] <= $end ) 
+				return true;
+        }
+		// is this IP the same ?
+        else {
+            return ($banIp == $_SERVER['REMOTE_ADDR']);
+        }
+        //otherwise no ban by ip!
+        return false;
 	}
 	
     public static function checkIp($ip) {
@@ -35,7 +107,7 @@ class bans
 		elseif (strpos($ip,',') > 0 ) {
             $list = split(',',$ip);
             foreach ($list as $item) {
-                $validIp = jFilter::isIPv4($ip);
+                $validIp = jFilter::isIPv4($item);
                 if ($validIp === false) {
 					jMessage::add(jLocale::get('hfnuadmin~ban.invalid.list.of.ip'));
                     return false;
@@ -44,14 +116,23 @@ class bans
         }
         //2) range of IP with -
         elseif (strpos($ip,'-')> 0 ) {
+			// ip is xxx.yyy.zzz-aaa
             $list = split('-',$ip);
-            foreach ($list as $item) {
-                $validIp = jFilter::isIPv4($ip);
-                if ($validIp === false) {
-                    jMessage::add(jLocale::get('hfnuadmin~ban.invalid.range.of.ip'));
+			// find xxx.yyy.
+			$pos = strrpos($list[0],'.');
+			// start is xxx.yyy.zzz
+			$start = $list[0];
+			// end is xxx.yyy.aaa
+			$end = substr($list[0],0,$pos) . '.'.$list[1];
+			// validate each of them
+			
+            $validIp1 = jFilter::isIPv4($start);
+			$validIp2 = jFilter::isIPv4($end);
+            if ($validIp1 === false or $validIp2 === false) {
+                    jMessage::add(jLocale::get('hfnuadmin~ban.invalid.range.of.ip'). ' end '.$end.' start '.$start);
                     return false;
-                }
-            }            
+            }
+			else return true;
         }
         else {
             $validIp = jFilter::isIPv4($ip);

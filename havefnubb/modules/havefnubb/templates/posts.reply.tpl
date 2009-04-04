@@ -24,4 +24,4 @@
     {/form}
 </div>
 
-{zone 'havefnubb~posts_replies',array('id_post'=>$parent_id)}
+{zone 'havefnubb~posts_replies',array('id_post'=>$parent_id,'id_forum'=>$id_forum)}

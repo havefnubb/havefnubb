@@ -11,8 +11,13 @@
 class defaultCtrl extends jController {
 
     public $pluginParams = array(
-        '*'	=> array('auth.required'=>true),
+
         '*'	=> array('jacl2.right'=>'hfnu.admin.serverinfo'),
+
+        '*'		=>	array('auth.required'=>true,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+					),        
     );    
     
     public function phpinfo() {

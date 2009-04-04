@@ -15,14 +15,19 @@ class postsCtrl extends jController {
 	
     public $pluginParams = array(
         '*'		=> array( 'auth.required'=>false,
-						  'hfnu.check.installed'=>true),
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true
+						  ),
 		
         'goto'	=> array( 'jacl2.right'=>'hfnu.forum.goto'),
 		
-		'add'	=> array('auth.required'=>true,'flood.same.ip'=>true),
-		'edit'	=> array('auth.required'=>true,'flood.editing'=>true),
-		'quote'	=> array('auth.required'=>true,'flood.editing'=>true),
-		'reply'	=> array('auth.required'=>true,'flood.editing'=>true),
+		'add'	=> array('auth.required'=>true),
+		'edit'	=> array('auth.required'=>true),
+		'quote'	=> array('auth.required'=>true),
+		'reply'	=> array('auth.required'=>true),
+		
+		'save'		=> array('flood.editing'=>true,'flood.same.ip'=>true),
+		'savereply'	=> array('flood.editing'=>true,'flood.same.ip'=>true),
 		
         'lists'	=> array( 'history.add'=>true),
         'view' 	=> array( 'history.add'=>true),		

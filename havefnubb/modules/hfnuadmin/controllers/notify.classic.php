@@ -13,7 +13,10 @@ class notifyCtrl extends jController {
     *
     */
     public $pluginParams = array(
-		'*'		=> array( 'auth.required'=>true),        
+        '*'		=>	array('auth.required'=>true,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+					),  
         'index'    => array( 'jacl2.right'=>'hfnu.admin.notify.list'),
         'delete'   => array( 'jacl2.right'=>'hfnu.admin.notify.delete'),
     );

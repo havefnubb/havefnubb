@@ -14,6 +14,7 @@ class flood {
     
     public static function check($action,$value) {
         //we are never sure enough of the datas we get :P
+        
         if (! in_array($action,array('same_ip','editing'))) {
             die("");
         }
@@ -22,7 +23,6 @@ class flood {
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) 
             if ( $grp->id_aclgrp == 1 or $grp->id_aclgrp == 3)
                 return true;
-            
         return self::$action($value);
     }
     
@@ -38,7 +38,7 @@ class flood {
     public static function editing($value) {
         $dao = jDao::get('havefnubb~posts');
         $rec = $dao->getMyLastEditedPost( jAuth::getUserSession()->id );
-        if ($rec->member_last_post + $value < time() )
+        if ($rec->member_last_post + $value < time() )        
             return true;
         else
             return false;

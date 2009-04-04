@@ -15,6 +15,11 @@ class defaultCtrl extends jController {
     public $pluginParams = array(
         'index' => array( 'jacl2.right' =>'hfnu.search'),
         'query' => array( 'jacl2.right' =>'hfnu.search'),
+    
+        '*'		=>	array('auth.required'=>true,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+					),        
     );
 
     function index() {

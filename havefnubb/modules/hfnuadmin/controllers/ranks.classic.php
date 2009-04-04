@@ -13,7 +13,10 @@ class ranksCtrl extends jController {
     *
     */
     public $pluginParams = array(
-		'*'		=> array( 'auth.required'=>true),		
+        '*'		=>	array('auth.required'=>true,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+					),
         'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.rank.create',
 														'hfnu.admin.rank.edit')
 							),		
