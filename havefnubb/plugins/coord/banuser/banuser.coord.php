@@ -40,6 +40,9 @@ class banuserCoordPlugin implements jICoordPlugin {
         }
 
         if($banok){
+            // disconnect the user if he was connected
+            jAuth::logout();
+            
             if($this->config['on_error'] == 1 
                 || !$GLOBALS['gJCoord']->request->isAllowedResponse('jResponseRedirect')){
                 throw new jException($error_message);
