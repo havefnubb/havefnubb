@@ -11,7 +11,6 @@
 /**
  *
  */
-require(JELIX_APP_PATH.'modules/havefnubb/classes/bans.class.php');
 
 /**
 * @package    jelix
@@ -36,6 +35,7 @@ class banuserCoordPlugin implements jICoordPlugin {
         $on_error_action = 'on_error_action';
         
         if(isset($params['banuser.check'])) {            
+			jClasses::inc('havefnubb~bans');
             $banok = bans::check();
         }
 

@@ -11,7 +11,6 @@
 /**
  *
  */
-require(JELIX_APP_PATH.'modules/havefnubb/classes/flood.class.php');
 
 /**
 * @package    jelix
@@ -34,6 +33,7 @@ class floodCoordPlugin implements jICoordPlugin {
         $floodok = true;
         $error_message = '';
         $on_error_action = '';
+		jClasses::inc('havefnubb~flood');
         if(isset($params['flood.same.ip'])) {
             
             if ($this->config['elapsed_time_between_two_post_by_same_ip'] > 0) {
