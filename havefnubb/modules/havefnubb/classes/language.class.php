@@ -16,7 +16,7 @@ class language implements jIFormDatasource
     
     function __construct($id) {
         $data = array();
-        $dir = JELIX_APP_PATH.'modules'.DIRECTORY_SEPARATOR.'havefnubb'.DIRECTORY_SEPARATOR.'locales';
+        $dir = dirname(__FILE__) . '/../locales';
         $dh = opendir($dir);
         while (($file = readdir($dh)) !== false) {
             if ( $file != '.' and $file != '..')
