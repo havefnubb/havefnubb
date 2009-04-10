@@ -8,7 +8,7 @@ driver=Db
 
 ;============ Parameters for the plugin
 ; session variable name
-session_name=HFNU_ADMIN
+session_name=HFNUBB
 
 ; Says if there is a check on the ip address : verify if the ip
 ; is the same when the user has been connected
