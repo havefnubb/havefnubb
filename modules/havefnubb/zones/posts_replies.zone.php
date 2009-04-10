@@ -44,6 +44,13 @@ class posts_repliesZone extends jZone {
         // 4- get the posts of the current forum, limited by point 1 and 2
         $posts = $daoPost->findByIdParent($id_post,$page,$nbRepliesPerPage);
 
+		// id_post is the parent_id ; we need to know
+		// the status of it to determine if the member can
+		// reply to the current thread
+		$parentPost = $daoPost->get($id_post);
+
+		$groups = jAcl2DbUserGroup::getGroupList(jAuth::getUserSession ()->login);
+
 		// check if we have found record ; 
 		if ($posts->rowCount() == 0) {
 			$posts = $daoPost->findByIdParent($id_post,0,$nbRepliesPerPage);
@@ -67,5 +74,7 @@ class posts_repliesZone extends jZone {
         $this->_tpl->assign('nbRepliesPerPage',$nbRepliesPerPage);
         $this->_tpl->assign('nbReplies',$nbReplies);        
         $this->_tpl->assign('properties',$properties);
+		$this->_tpl->assign('parentStatus',$parentPost->status);
+		$this->_tpl->assign('groups',$groups);
     }
 }

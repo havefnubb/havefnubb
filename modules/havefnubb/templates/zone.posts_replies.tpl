@@ -9,7 +9,15 @@
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$id_forum}
+    {if $parentStatus != 2}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+    {else}
+        {foreach $groups as $group}
+            {if $group->id_aclgrp == 1 or $group->id_aclgrp == 3}
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+            {/if}
+        {/foreach}    
+    {/if}
 {/ifacl2}
 </div>
 
@@ -70,7 +78,15 @@
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$id_forum}
+    {if $parentStatus != 2}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+    {else}
+        {foreach $groups as $group}
+            {if $group->id_aclgrp == 1 or $group->id_aclgrp == 3}
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+            {/if}
+        {/foreach}    
+    {/if}
 {/ifacl2}
 </div>
 
