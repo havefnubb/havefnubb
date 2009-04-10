@@ -13,9 +13,11 @@ class posts_repliesZone extends jZone {
 
     protected function _prepareTpl(){
         global $HfnuConfig;
-        $id_post = $this->param('id_post');
-		$id_forum = $this->param('id_forum');
-        $page = (int) $this->param('page');
+		
+        $id_post 	= (int) $this->param('id_post');
+		$id_forum 	= (int) $this->param('id_forum');
+        $page 		= (int) $this->param('page');
+		
         if (!$id_post) return;
 		if (!$id_forum) return;
 
@@ -64,6 +66,6 @@ class posts_repliesZone extends jZone {
         $this->_tpl->assign('id_post',$id_post);
         $this->_tpl->assign('nbRepliesPerPage',$nbRepliesPerPage);
         $this->_tpl->assign('nbReplies',$nbReplies);        
-        $this->_tpl->assign('properties',$properties);        
+        $this->_tpl->assign('properties',$properties);
     }
 }

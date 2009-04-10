@@ -199,6 +199,16 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
             <limit offset="0" count="$count"/>    
-        </method>	
+        </method>
+        <method name="updateStatusByIdParent" type="update">
+			<parameter name="parent_id"/>
+			<parameter name="status"/>
+           <conditions>
+                <eq property="parent_id" expr="$parent_id" />
+            </conditions>            
+            <values>
+				<value property="status" expr="$status" />
+			</values>
+        </method>		
     </factory>
 </dao>

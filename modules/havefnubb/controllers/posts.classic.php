@@ -913,10 +913,33 @@ class postsCtrl extends jController {
 	}
 
 
-	//@TODO
 	function status () {
-		// mettre à jour le status du post et retourner au post consulté
+
+		$parent_id 	= (int) $this->param('parent_id');
+		$status 	= (int) $this->param('status');
 		
+		$rep = $this->getResponse('redirect');
+		
+		if ($status < 1 and $status > 3 ) {
+			jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
+		}
+		else {
+			$dao = jDao::get('havefnubb~posts');
+			$post = $dao->get($parent_id);
+			
+			if ( $dao->updateStatusByIdParent($parent_id,$status) )
+				jMessage::add(jLocale::get('havefnubb~post.status.'.$status),'ok');		
+		
+			$rep->action = 'havefnubb~posts:view';		
+			$rep->params = array('id_post'=>$post->id_post,
+								 'parent_id'=>$parent_id,
+								 'id_forum'=>$post->id_forum,
+								 'ftitle'=>$post->forum_name,
+								 'ptitle'=>$post->subject);
+			return $rep;
+		}
+		$rep->action = 'havefnubb~default:index';		
+		return $rep;
 	}
 	
 	private function getCrumbs($id_forum) {

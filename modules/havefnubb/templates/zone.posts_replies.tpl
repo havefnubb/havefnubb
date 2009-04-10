@@ -15,12 +15,12 @@
 
 <div class="postlist">
 {foreach $posts as $post}
-{assign $parent_id = $post->id_post}
+{assign $parent_id = $post->parent_id}
 {assign $id_forum = $post->id_forum}
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post">
     <div class="posthead">       
-        <h4 class="posthead-title"><a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
+        <h4 class="posthead-title"><span class="post-status">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> {image 'images/others/'.$post->status.'.png'} <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
         <div class="posthead-date">{$post->date_created|jdatetime:'db_datetime':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</div>
         {if $tags !== false}
         <div class="posthead-tags"><ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul></div>
@@ -90,6 +90,6 @@
     <h3><span>{@havefnubb~post.status.change.the.status.of.the.post@}</span></h3>
 </div>
 <fieldset><legend>{@havefnubb~post.status.change.the.status.of.the.post@}</legend>
-{formfull $formStatus, 'havefnubb~posts:status',array('id_post'=>$parent_id)}
+{formfull $formStatus, 'havefnubb~posts:status',array('parent_id'=>$parent_id)}
 </fieldset>
 {/ifacl2}
