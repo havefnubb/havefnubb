@@ -15,10 +15,10 @@ default=havefnubb
 
 ; For the most of drivers:
 driver=mysql
-database=havefnu
+database=hfnu
 host=localhost
-user=havefnu
-password=havefnu
+user=hfnu
+password=hfnu
 persistent=yes
 ; when you have charset issues, enable force_encoding so the connection will be
 ; made with the charset indicated in jelix config
@@ -33,6 +33,8 @@ table_prefix=hf_
 ;dsn=mysql:host=localhost;dbname=test
 ;user=
 ;password=
+
+
 
 
 

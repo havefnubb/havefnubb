@@ -68,7 +68,7 @@ class searchwordsListener extends jEventListener{
 	  $strQuery .= ') ';
 	  
 	  if ($id_forum > 0)
-		 $strQuery .= " AND id_forum = '".$id_forum."' ";
+		 $strQuery .= " AND forum.id_forum = '".$id_forum."' ";
 		 
 	  $strQuery .= ' GROUP BY id_post ';
 

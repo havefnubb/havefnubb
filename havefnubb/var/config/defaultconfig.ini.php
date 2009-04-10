@@ -13,9 +13,9 @@ checkTrustedModules=off
 ; list of modules : module,module,module
 trustedModules=
 
-pluginsPath="app:plugins/"
+pluginsPath="app:../plugins/"
 
-modulesPath="lib:jelix-modules/,app:modules/,app:../modules/"
+modulesPath="lib:jelix-modules/,app:../modules/"
 
 theme=default
 
@@ -91,7 +91,7 @@ defaultEntrypoint=index
 entrypointExtension=.php
 
 ; leave empty to have jelix error messages
-notfoundAct= "havefnubb~error:notfound"
+notfoundAct="havefnubb~error:notfound"
 ;notfoundAct = "jelix~error:notfound"
 
 ; list of actions which require https protocol for the simple url engine
@@ -192,6 +192,8 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
+
 
 
 

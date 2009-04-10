@@ -8,7 +8,7 @@ driver = Db
 
 ;============ Parameters for the plugin
 ; session variable name
-session_name = "JELIX_USER"
+session_name = "HFNUBB"
 
 ; Says if there is a check on the ip address : verify if the ip
 ; is the same when the user has been connected
@@ -66,10 +66,10 @@ persistant_enable=on
 persistant_crypt_key=HaV3FnUw1thY0uRw3bs1t3
 
 ; the name of the cookie which is used to store data for the authentification
-persistant_cookie_name=jelixAuthentificationCookie
+persistant_cookie_name=HFNUAuthentificationCookie
 
 ; duration of the validity of the cookie (in days). default is 1 day.
-persistant_duration = 1
+persistant_duration = 15
 
 ; base path for the cookie. If empty, it uses the basePath value from the main configuration.
 persistant_cookie_path =
