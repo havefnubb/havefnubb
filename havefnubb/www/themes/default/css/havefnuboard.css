@@ -457,7 +457,7 @@ table td {
 	background-color: #c9c9a7;
 }
 
-.colicone {
+.colicone-closed, .colicone-opened, .colicone-pined, .colicone-closed-pined { 
 	text-align: center;
 	padding: 5px;
 	width: 3%;
@@ -506,6 +506,64 @@ table .line {
  */
 .linkincell:hover {
 	background-color: #f1f1e5;
+}
+
+.colicone-opened, .post-status-icon-opened {
+	background-image: url('../../../images/posts/opened.png');
+	background-repeat: no-repeat;
+}
+.colicone-opened {
+	background-position: center;
+}
+
+.post-status-icon-opened {
+	background-position: left;
+	padding: 10px;	
+}
+
+.colicone-closed, .post-status-icon-closed {
+	background-image: url('../../../images/posts/closed.png');
+	background-repeat: no-repeat;
+}
+.colicone-closed {
+	background-position: center;
+}
+.post-status-icon-closed {
+	background-position: left;
+	padding: 10px;	
+}
+
+.colicone-pined, .post-status-icon-pined {
+	background-image: url('../../../images/posts/pined.png');
+	background-repeat: no-repeat;
+}
+.colicone-pined {
+	background-position: center;	
+}
+.post-status-icon-pined {
+	background-position: left;
+	padding: 10px;		
+}
+.colicone-pinedclosed, .post-status-icon-pinedclosed {
+	background-image: url('../../../images/posts/pined-closed.png');
+	background-repeat: no-repeat;
+}
+.colicone-pinedclosed {
+	background-position: center;	
+}
+.post-status-icon-pinedclosed {
+	background-position: left;
+	padding: 10px;	
+}
+
+.closed a:link, .closed a:visited, .closed a:active { 
+	text-decoration: underline;
+	color: #a09898;
+}
+
+.closed a:hover { 
+	color: #f90; 
+	text-decoration: none;
 }
 
 /* posts */
@@ -591,7 +649,7 @@ table .line {
     padding-left:15px;
     list-style-type:none;
     list-style-position:outside;
-	background-image: url('../../../images/others/tag_green.png');
+	background-image: url('../../../images/posts/tag_green.png');
 	background-color: #baba9b;
 	background-repeat: no-repeat;
 }

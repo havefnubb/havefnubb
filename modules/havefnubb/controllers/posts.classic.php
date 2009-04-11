@@ -414,7 +414,7 @@ class postsCtrl extends jController {
 				$record->id_forum 	= $id_forum;
 
 				$record->parent_id  = 0;
-				$record->status		= 1;
+				$record->status		= 'opened';
 				$record->date_created = date('Y-m-d H:i:s');
 				$record->date_modified = date('Y-m-d H:i:s');				
 				$record->viewed		= 0;
@@ -628,7 +628,7 @@ class postsCtrl extends jController {
 			$record->id_forum 	= $id_forum;
 
 			$record->parent_id  = $parent_id;
-			$record->status		= 1;
+			$record->status		= 'opened';
 			$record->date_created = date('Y-m-d H:i:s');
 			$record->date_modified = date('Y-m-d H:i:s');
 			$record->viewed		= 0;
@@ -916,19 +916,25 @@ class postsCtrl extends jController {
 	function status () {
 
 		$parent_id 	= (int) $this->param('parent_id');
-		$status 	= (int) $this->param('status');
+		$status 	= $this->param('status');
+		
+		$statusAvailable = array('opened','closed','pined','pinedclosed');
 		
 		$rep = $this->getResponse('redirect');
 		
-		if ($status < 1 and $status > 3 ) {
+		if (! in_array($status,$statusAvailable)) {
 			jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
 		}
 		else {
 			$dao = jDao::get('havefnubb~posts');
 			$post = $dao->get($parent_id);
 			
-			if ( $dao->updateStatusByIdParent($parent_id,$status) )
+			if ( $dao->updateStatusByIdParent($parent_id,$status) ) {
+				
+				jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$parent_id,'status'=>$status));
+				
 				jMessage::add(jLocale::get('havefnubb~post.status.'.$status),'ok');		
+			}
 		
 			$rep->action = 'havefnubb~posts:view';		
 			$rep->params = array('id_post'=>$post->id_post,

@@ -2,9 +2,10 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <menulist ref="status">
-  <item value="1" locale="havefnubb~post.status.1"/>
-  <item value="2" locale="havefnubb~post.status.2"/>
-  <item value="3" locale="havefnubb~post.status.3"/>
+  <item value="opened" locale="havefnubb~post.status.opened"/> <!-- opened -->
+  <item value="closed" locale="havefnubb~post.status.closed"/> <!-- closed -->
+  <item value="pined" locale="havefnubb~post.status.pined"/> <!-- pined -->
+  <item value="pinedclosed" locale="havefnubb~post.status.pinedclosed"/> <!-- closed and pined -->
   <label locale="havefnubb~post.change.status">Status :</label>	
 </menulist>
 

@@ -434,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
   `member_password` varchar(50) NOT NULL,
   `member_email` varchar(255) NOT NULL,
   `member_nickname` varchar(50) DEFAULT NULL,
-  `member_status` tinyint(4) NOT NULL DEFAULT '0',
+  `member_status` varchar(12) NOT NULL DEFAULT 'opened',
   `member_keyactivate` varchar(10) DEFAULT NULL,
   `member_request_date` datetime DEFAULT NULL,
   `member_website` varchar(255) DEFAULT NULL,

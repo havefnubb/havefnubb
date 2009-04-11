@@ -10,16 +10,8 @@
 		<property name="id_user" fieldname="id_user" datatype="int" required="true"/>
 		<property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
 		<property name="parent_id" fieldname="parent_id" datatype="int" required="true"/>
-		<property name="status" fieldname="status" datatype="int" required="true"/>
+		<property name="status" fieldname="status" datatype="string" required="true"/>
 		
-		<!--
-		1=opened/ouvert
-		2=closed/fermé
-		3=moved/deplacé
-		11=pinned+opened/épinglé+ouvert
-		12=closed+opened/épinglé+fermé
-		13=moved+opened/épinglé+deplacé
-		-->
 		<property name="subject" fieldname="subject" datatype="string" required="true" maxlength="255"/>
 		<property name="message" fieldname="message" datatype="text" required="true"/>
 		<property name="date_created" fieldname="date_created" datatype="datetime" required="true"/>
@@ -59,7 +51,8 @@
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_post" expr="posts.parent_id" />
-				<neq property="status" value="3" />
+				<neq property="status" value="pined" />
+				<neq property="status" value="pinedclosed" />
             </conditions>            
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -71,7 +64,10 @@
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_post" expr="posts.parent_id" />
-				<eq property="status" value="3" />
+				<conditions logic="OR">
+					<eq property="status" value="pined" />
+					<eq property="status" value="pinedclosed" />
+				</conditions>
             </conditions>            
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -209,6 +205,6 @@
             <values>
 				<value property="status" expr="$status" />
 			</values>
-        </method>		
+        </method>
     </factory>
 </dao>

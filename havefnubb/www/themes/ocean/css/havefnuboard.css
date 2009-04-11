@@ -475,7 +475,7 @@ table td {
 	background-color: #d2d5d7;
 }
 
-.colicone {
+.colicone-closed, .colicone-opened, .colicone-pined, .colicone-closed-pined{
 	text-align: center;
 	padding: 5px;
 	width: 3%;
@@ -526,6 +526,8 @@ table .line {
 .linkincell:hover {
 	background-color: #f1f1e5;
 }
+
+
 
 /* posts */
 
@@ -610,7 +612,7 @@ table .line {
     padding-left:15px;
     list-style-type:none;
     list-style-position:outside;
-	background-image: url('../../../images/others/tag_green.png');
+	background-image: url('../../../images/posts/tag_green.png');
 	background-color: #8ba7bc;
 	background-repeat: no-repeat;
 }

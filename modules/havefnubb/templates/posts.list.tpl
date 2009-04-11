@@ -29,8 +29,8 @@
     {zone 'havefnubb~pinedposts', array('id_forum'=>$id_forum)}
     {foreach $posts as $post}
     <tr>
-        <td class="colicone {if $post->status == '2'}closed{/if}" >{image 'images/others/'.$post->status.'.png'}</td>
-        <td class="coltitle linkincell {if $post->status == '2'}closed{/if}">
+        <td class="colicone-{$post->status}" > </td>
+        <td class="coltitle linkincell {$post->status}">
             <span class="post-status">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
         </td>
         <td class="colposter linkincell">
