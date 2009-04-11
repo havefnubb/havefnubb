@@ -457,7 +457,7 @@ table td {
 	background-color: #c9c9a7;
 }
 
-.colicone-closed, .colicone-opened, .colicone-pined, .colicone-closed-pined { 
+.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed { 
 	text-align: center;
 	padding: 5px;
 	width: 3%;
