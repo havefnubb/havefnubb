@@ -17,20 +17,26 @@ class hfnumenuListener extends jEventListener{
 	  
 		  $event->add(new hfnuMenuItem('home',
 											  jLocale::get('havefnubb~main.home'),
-											  jUrl::get('havefnubb~default:index'),
+											  jUrl::get('hfnuportal~default:index'),
 											  1,
+											  'main'));
+
+		  $event->add(new hfnuMenuItem('community',
+											  jLocale::get('havefnubb~main.community'),
+											  jUrl::get('havefnubb~default:index'),
+											  2,
 											  'main'));
 	  
 		  $event->add(new hfnuMenuItem('member',
 											  jLocale::get('havefnubb~main.member.list'),
 											  jUrl::get('havefnubb~members:index'),
-											  2,
+											  3,
 											  'main'));
 	  	  
 		  $event->add(new hfnuMenuItem('search',
 											  jLocale::get('havefnubb~main.search'),
 											  jUrl::get('hfnusearch~default:index'),
-											  3,
+											  4,
 											  'main'));
 		  
       if ( jAcl2::check('hfnu.admin.index'))    {	  

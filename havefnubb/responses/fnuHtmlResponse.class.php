@@ -42,10 +42,6 @@ class fnuHtmlResponse extends jResponseHtml {
         $this->body->assignIfNone('MAIN','');
         $this->body->assignIfNone('TITLE',$title);
         $this->body->assignIfNone('DESC',$description);
-        $this->body->assignIfNone('BOARD_TITLE',$title);
-        
-        // let says where we are in the main.tpl template
-        $this->body->assign('HfnuCurrentAction',$GLOBALS['gJCoord']->action->toString());               
-        
+        $this->body->assignIfNone('BOARD_TITLE',$title);        
     }
 }

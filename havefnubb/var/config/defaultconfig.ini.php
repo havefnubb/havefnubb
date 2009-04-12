@@ -32,7 +32,7 @@ banuser=banuser.coord.ini.php
 defaultJformsBuilder=html
 
 [responses]
-html=fnuHtmlResponse
+
 
 [error_handling]
 messageLogFormat="%date%\t[%code%]\t%msg%\t%file%\t%line%\n"
@@ -125,7 +125,7 @@ xmlrpc=on
 jsonrpc=on
 rdf=on
 
-hfnuadmin=1
+hfnuadmin=on
 install=on
 
 [logfiles]

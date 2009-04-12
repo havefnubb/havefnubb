@@ -73,6 +73,18 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>		
+        <method name="findAllPinedPost" type="select">
+            <conditions>
+                <eq property="id_post" expr="posts.parent_id" />
+				<conditions logic="OR">
+					<eq property="status" value="pined" />
+					<eq property="status" value="pinedclosed" />
+				</conditions>
+            </conditions>            
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>		
         <method name="findByIdParent" type="select">
             <parameter name="parent_id" />
             <parameter name="offset" default="0" />
