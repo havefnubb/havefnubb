@@ -19,5 +19,11 @@
              <neq property="ban_expire" value="0" />
          </conditions>
      </method>
+     <method name="findAllDomains" type="select">
+         <conditions>        
+             <neq property="ban_email" value="" />
+         </conditions>
+     </method>
+     
     </factory>
 </dao>

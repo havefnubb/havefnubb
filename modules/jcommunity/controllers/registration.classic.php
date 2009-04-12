@@ -61,6 +61,17 @@ class registrationCtrl extends jController {
         $user->status = JCOMMUNITY_STATUS_NEW;
         $user->request_date = date('Y-m-d H:i:s');
         $user->keyactivate = $key;
+        
+        $ev = jEvent::notify('jcommunity_check_before_save_registration', array('user'=>$user));
+        $responses = $ev->getResponse();
+        
+        foreach ($responses as $response) {            
+            if ($response['why'] != '' and $response['canregister'] === false) {
+                jMessage::add( $response['why'],'error');
+                return $rep;
+            }
+        }
+        
         jAuth::saveNewUser($user);
 
         $mail = new jMailer();

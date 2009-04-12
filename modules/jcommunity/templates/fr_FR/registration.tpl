@@ -2,7 +2,7 @@
 
 <p>Pour pouvoir profiter au mieux des services du site, inscrivez-vous
 en remplissant le formulaire suivant.</p>
-
+{jmessage}
 {form $form,'jcommunity~registration:save', array()}
 <fieldset>
     <legend>Informations</legend>

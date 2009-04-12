@@ -5,6 +5,7 @@
       <event name="AuthNewUser" />
       <event name="jcommunity_save_account" />
       <event name="jcommunity_check_before_save_account" />
+      <event name="jcommunity_check_before_save_registration"/>
    </listener>
    <listener name="hfnumenu">
       <event name="hfnuGetMenuContent" />

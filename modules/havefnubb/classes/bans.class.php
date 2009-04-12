@@ -22,6 +22,14 @@ class bans
 		$bans = $dao->findAll();
 		return $bans;
     }
+
+	//get the Banned Domain
+    public static function getBannedDomains() {
+		self::checkExpiry();		
+		$dao = jDao::get('havefnubb~bans');
+		$bans = $dao->findAllDomains();
+		return $bans;
+    }
 	
 	//remove bans that are expired
 	public static function checkExpiry() {
@@ -48,6 +56,25 @@ class bans
 		}
 		return $return;
 	}
+
+	// does this user banned ?
+	public static function checkDomain($email) {
+		$return = false;
+		$bans = self::getBannedDomains();
+		foreach ($bans as $ban) {
+			if (strpos('@',$ban->ban_email) > 0 )
+				list($bannedAddress,$bannedDomain) = split('@',$ban->ban_email);
+			else
+				$bannedDomain = $ban->ban_email;
+			
+			list($userAddress,$userDomain) = split('@',$email);
+
+			if ( $bannedDomain == $userDomain ) {
+				return $ban->ban_message;
+			}			
+		}
+		return $return;
+	}
 	
 	// does this user banned ?
 	public static function bannedUserName($userName) {
@@ -56,6 +83,7 @@ class bans
 	
 	// does this email banned ?
 	public static function bannedDomain($email) {
+		if (! jAuth::isConnected() ) return false;
 		if (strpos('@',$email) == 0 )
 			list($unused,$userEmail) = split('@',jAuth::getUserSession()->email);
 		else

@@ -1,6 +1,7 @@
 <div id="breadcrumbtop" class="headbox">
     <h3>{@havefnubb~member.registration.account.creation@}</h3>    
 </div>
+<div id="post-message">{jmessage}</div>
 <div id="loginbox">
 
 <p>{@havefnubb~member.registration.account.service.description@}</p>

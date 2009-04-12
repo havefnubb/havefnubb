@@ -1,7 +1,7 @@
 <h2>Creating an account</h2>
 
 <p>To access to the web site services, register yourself by filling the following form.</p>
-
+{jmessage}
 {form $form,'jcommunity~registration:save', array()}
 <fieldset>
     <legend>Informations</legend>
