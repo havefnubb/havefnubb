@@ -376,119 +376,140 @@ code, pre {
 }
 
 
-#mouse {
+#user-birthday {
+	background-image: url('../images/users/cake.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+
+#user-website {
+	background-image: url('../images/users/world.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+#user-stats {
+	background-image: url('../images/users/chart_bar.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;	
+}
+#user-mouse {
 	background-image: url('../images/users/mouse.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#keyboard {
+#user-keyboard {
 	background-image: url('../images/users/keyboard.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#connect {
+#user-connect {
 	background-image: url('../images/users/connect.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#display {
+#user-display {
 	background-image: url('../images/users/display.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#processor {
+#user-processor {
 	background-image: url('../images/users/processor.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#screen {
+#user-screen {
 	background-image: url('../images/users/screen.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#motherboard {
+#user-motherboard {
 	background-image: url('../images/users/motherboard.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#card {
+#user-card {
 	background-image: url('../images/users/card.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#ram {
+#user-ram {
 	background-image: url('../images/users/ram.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#os {
+#user-os {
 	background-image: url('../images/users/os.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#xfire {
+#user-xfire {
 	background-image: url('../images/users/xfire.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#icq {
+#user-icq {
 	background-image: url('../images/users/icq.gif');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#yim {
+#user-yim {
 	background-image: url('../images/users/yim.gif');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#aim {
+#user-aim {
 	background-image: url('../images/users/aim.gif');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#msn {
+#user-msn {
 	background-image: url('../images/users/msn.gif');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#gtalk {
+#user-gtalk {
 	background-image: url('../images/users/gtalk.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
-#jabber {
+#user-jabber {
 	background-image: url('../images/users/jabber.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
@@ -592,7 +613,13 @@ table td {
 .forumList, membersList, .forumView {
 	width: 100%;
 }
-	
+#member-group {
+	background-image: url('../images/users/group.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;		
+}
+
 .colmain
 {
 	padding: 0.5em;
@@ -664,7 +691,31 @@ table .forumlistline, table .memberlistline {
 	background-color: #e1e1cd;
 	
 }
+table th.member {
+	background-image: url('../images/users/user_suit.png');
+	background-repeat: no-repeat;
+	background-position: left;
+}	
 
+table th.member-since {
+	background-image: url('../images/users/member_since.png');
+	background-repeat: no-repeat;
+	background-position: left;
+}	
+
+table th.member-rank {
+	background-image: url('../images/users/member_rank.png');
+	background-repeat: no-repeat;
+	background-position: left;
+}	
+
+table th.member-posts {
+	background-image: url('../images/users/member_posts.png');
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left: 18px;
+}	
+	
 table .memberlistline {
 	padding: 10px;
 }

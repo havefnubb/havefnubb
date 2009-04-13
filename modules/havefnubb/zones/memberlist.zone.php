@@ -60,6 +60,12 @@ class memberlistZone extends jZone {
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
             $groups[]=$grp;
         }
+
+
+		
+		for ($i = 0 ; $i < 26 ; $i ++) {
+			$letters[] = chr(97 + $i);
+		}
         
         // let's build the pagelink var
         // A Preparing / Collecting datas
@@ -77,5 +83,6 @@ class memberlistZone extends jZone {
         $this->_tpl->assign('properties',$properties);
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('nbMembers',$nbMembers);
+        $this->_tpl->assign('letters',$letters);
     }
 }

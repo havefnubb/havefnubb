@@ -29,6 +29,10 @@
        <label locale="havefnubb~member.town"/>
    </input>
    
+   <input ref="member_website" type="url">
+       <label locale="havefnubb~member.website"/>
+   </input>   
+   
    <menulist ref="member_country">
       <label locale="havefnubb~member.country"/>
       <datasource class="havefnubb~flags" />

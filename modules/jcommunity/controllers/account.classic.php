@@ -127,7 +127,6 @@ class accountCtrl extends jController {
         return $rep;
     }
 
-
     function destroy() {
         $user = $this->param('user');
         if($user == '' || !jAuth::isConnected() || jAuth::getUserSession()->login != $user) {

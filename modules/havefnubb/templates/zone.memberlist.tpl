@@ -1,5 +1,5 @@
 <div id="breadcrumbtop" class="headbox">
-    <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@havefnubb~member.memberlist.members.list@}</h3>
+    <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <span id="member-group">{@havefnubb~member.memberlist.members.list@}</span></h3>
 </div>
 
 <div id="group">
@@ -14,6 +14,17 @@
         <input type="submit" value="{@havefnubb~member.memberlist.filter@}" />
     </fieldset>
     </form>
+    <form action="{formurl 'havefnubb~members:index'}" method="post">
+    <fieldset><legend>{@havefnubb~member.memberlist.initial.nickname@}</legend>
+    {formurlparam 'havefnubb~members:index'}
+        <select name="letter">
+        {foreach $letters as $letter}
+            <option value="{$letter}">{$letter}</option>
+        {/foreach}
+         </select>
+        <input type="submit" value="{@havefnubb~member.memberlist.filter@}" />
+    </fieldset>
+    </form>    
 </div>
 
 <div class="linkpages">
@@ -22,10 +33,10 @@
 
 <table width="100%">
     <tr>
-        <th class="memberlistcol">{@havefnubb~member.memberlist.username@}</th>
-        <th class="memberlistcol">{@havefnubb~member.common.rank@}</th>
-        <th class="memberlistcol">{@havefnubb~member.memberlist.member.since@}</th>
-        <th class="memberlistcol">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
+        <th class="memberlistcol member">{@havefnubb~member.memberlist.username@}</th>
+        <th class="memberlistcol member-rank">{@havefnubb~member.common.rank@}</th>
+        <th class="memberlistcol member-since">{@havefnubb~member.memberlist.member.since@}</th>
+        <th class="memberlistcol member-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
     </tr>
     {foreach $members as $member}
     <tr>

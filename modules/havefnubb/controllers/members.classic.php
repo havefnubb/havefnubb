@@ -43,7 +43,6 @@ class membersCtrl extends jController {
 				$groupname = $grpname->name;
 		}
 		
-		
 		// change the label of the breadcrumb
         if ($page == 0) {		
 			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list')) ;
