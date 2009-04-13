@@ -509,7 +509,7 @@ table .line {
 }
 
 .colicone-opened, .post-status-icon-opened {
-	background-image: url('../../../images/posts/opened.png');
+	background-image: url('../../../themes/default/images/posts/opened.png');
 	background-repeat: no-repeat;
 }
 .colicone-opened {
@@ -522,7 +522,7 @@ table .line {
 }
 
 .colicone-closed, .post-status-icon-closed {
-	background-image: url('../../../images/posts/closed.png');
+	background-image: url('../../../themes/default/images/posts/closed.png');
 	background-repeat: no-repeat;
 }
 .colicone-closed {
@@ -534,7 +534,7 @@ table .line {
 }
 
 .colicone-pined, .post-status-icon-pined {
-	background-image: url('../../../images/posts/pined.png');
+	background-image: url('../../../themes/default/images/posts/pined.png');
 	background-repeat: no-repeat;
 }
 .colicone-pined {
@@ -545,7 +545,7 @@ table .line {
 	padding: 10px;		
 }
 .colicone-pinedclosed, .post-status-icon-pinedclosed {
-	background-image: url('../../../images/posts/pined-closed.png');
+	background-image: url('../../../themes/default/images/posts/pined-closed.png');
 	background-repeat: no-repeat;
 }
 .colicone-pinedclosed {
@@ -649,7 +649,7 @@ table .line {
     padding-left:15px;
     list-style-type:none;
     list-style-position:outside;
-	background-image: url('../../../images/posts/tag_green.png');
+	background-image: url('../../../themes/default/images/posts/tag_green.png');
 	background-color: #baba9b;
 	background-repeat: no-repeat;
 }
