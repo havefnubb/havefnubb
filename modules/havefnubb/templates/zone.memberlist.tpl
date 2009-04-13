@@ -4,26 +4,28 @@
 
 <div id="group">
     <form action="{formurl 'havefnubb~members:index'}" method="post">
-    <fieldset><legend>{@havefnubb~member.memberlist.thegroups@}</legend>
-    {formurlparam 'havefnubb~members:index'}
+    <div class="filter_description">
+        <p>{@havefnubb~member.memberlist.filter.description@}</p>
+    </div>
+    <fieldset>
+        <legend>{@havefnubb~member.memberlist.filter@}</legend>
+        {@havefnubb~member.memberlist.thegroups@} :
+        {formurlparam 'havefnubb~members:index'}
         <select name="grpid">
         {foreach $groups as $group}
             {if  $group->id_aclgrp != 0}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
         {/foreach}
          </select>
-        <input type="submit" value="{@havefnubb~member.memberlist.filter@}" />
-    </fieldset>
-    </form>
-    <form action="{formurl 'havefnubb~members:index'}" method="post">
-    <fieldset><legend>{@havefnubb~member.memberlist.initial.nickname@}</legend>
-    {formurlparam 'havefnubb~members:index'}
+        -
+        {@havefnubb~member.memberlist.initial.nickname@} :
         <select name="letter">
         {foreach $letters as $letter}
             <option value="{$letter}">{$letter}</option>
         {/foreach}
          </select>
-        <input type="submit" value="{@havefnubb~member.memberlist.filter@}" />
+        <input type="submit" value="{@havefnubb~member.memberlist.filter@}" />    
     </fieldset>
+    
     </form>    
 </div>
 

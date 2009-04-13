@@ -1,3 +1,12 @@
+/**
+* @package   havefnubb
+* @subpackage havefnubb
+* @author    FoxMaSk
+* @copyright 2008 FoxMaSk
+* @link      http://forge.jelix.org/projects/havefnubb
+* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*/
+
 html, body {
 	margin: 0;
 	padding: 0;
@@ -1143,4 +1152,8 @@ table .line {
 #result .result-msg {
 	color: #666;
 	
+}
+
+.filter_description {
+	padding-left: 20px;
 }

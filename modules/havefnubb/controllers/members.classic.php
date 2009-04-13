@@ -27,7 +27,10 @@ class membersCtrl extends jController {
 		global $HfnuConfig;
         $title = stripslashes($HfnuConfig->getValue('title'));
         $rep = $this->getResponse('html');
-
+		
+		$letter = $this->param('letter');
+		$id_rank = (int) $this->param('id_rank');
+		
 		$page = 0;		
 		$page = (int) $this->param('page');
 		
@@ -53,7 +56,9 @@ class membersCtrl extends jController {
 			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));		
 		}
 		
-        $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page,'grpid'=>$grpid));
+        $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page,
+														  'grpid'=>$grpid,
+														  'letter'=>$letter));
         return $rep;
     }
 	

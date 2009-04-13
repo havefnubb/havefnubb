@@ -42,7 +42,23 @@
                 <orderitem property="login" way="$ordre" />
             </order>
             <limit offset="$offset" count="$count" />
-        </method>        
+        </method>
+        <method name="getPublicUsersByLetterGroupLimit" type="select">
+            <parameter name="grp" />
+            <parameter name="offset" />
+            <parameter name="count" />
+            <parameter name="letter" />            
+            <parameter name="ordre" default="asc" />
+            <conditions>
+                <eq property="id_aclgrp" expr="$grp" />
+                <eq property="status" value="2"/>
+                <like property="login" expr="$letter"/>
+            </conditions>
+            <order>
+                <orderitem property="login" way="$ordre" />
+            </order>
+            <limit offset="$offset" count="$count" />            
+        </method>
         <method name="getUsersGroupLimit" type="select">
             <parameter name="grp" />
             <parameter name="offset" />

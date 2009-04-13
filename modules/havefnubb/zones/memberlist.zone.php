@@ -13,7 +13,10 @@ class memberlistZone extends jZone {
 
     protected function _prepareTpl(){
         global $HfnuConfig;
-        $page = (int) $this->param('page');
+        $page   = (int) $this->param('page');
+        
+        $letter = $this->param('letter');
+        if ($letter < chr(97) or $letter > chr(123) ) $letter = '';
         
         $grpid = -2;
         if ($this->param('grpid')) 
@@ -25,17 +28,25 @@ class memberlistZone extends jZone {
 
         if($grpid == -2) {
             //all users
+            
             $dao = jDao::get('jelix~jacl2groupsofuser',$p);
             $cond = jDao::createConditions();
             $cond->addCondition('grouptype', '=', 2);
             $cond->addCondition('status', '=', 2);
+            if ($letter != '')  {
+                $cond->addCondition('login', 'like', $letter . '%');    
+            }
             $rs = $dao->findBy($cond,$page,$nbMembersPerPage);
             $nbMembers = $dao->countBy($cond);
 
         } else {
             //in a specific group
             $dao = jDao::get('jelix~jacl2usergroup',$p);
-            $rs = $dao->getPublicUsersGroupLimit($grpid, $page, $nbMembersPerPage);
+            if ($letter == '')
+                $rs = $dao->getPublicUsersGroupLimit($grpid, $page, $nbMembersPerPage);
+            else
+                $rs = $dao->getPublicUsersByLetterGroupLimit($grpid, $page, $nbMembersPerPage,$letter.'%');
+                
             $nbMembers = $dao->getUsersGroupCount($grpid);
         }
         $members=array();
@@ -60,12 +71,14 @@ class memberlistZone extends jZone {
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
             $groups[]=$grp;
         }
-
-
 		
+        $letters[] = '';
 		for ($i = 0 ; $i < 26 ; $i ++) {
 			$letters[] = chr(97 + $i);
 		}
+
+        $daoRank = jDao::get('havefnubb~ranks');
+        $ranks = $daoRank->findAll();
         
         // let's build the pagelink var
         // A Preparing / Collecting datas
@@ -84,5 +97,6 @@ class memberlistZone extends jZone {
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('nbMembers',$nbMembers);
         $this->_tpl->assign('letters',$letters);
+        $this->_tpl->assign('ranks',$ranks);
     }
 }
