@@ -3,6 +3,9 @@
         <li class="user-name"><a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{$user->login|eschtml}">{$user->login|eschtml}</a></li>        
         <li class="user-avatar">{avatar 'images/avatars/'.$user->id}</li>
         <li class="user-town">{@havefnubb~member.town@} : {$user->member_town|eschtml}</li>
+        {if $user->member_country != ''}
+        <li class="user-country">{image 'images/flags/'.$user->member_country.'.gif'}  {$user->member_country|eschtml}</li>
+        {/if}
         <li class="user-rank"><span>{@havefnubb~rank.rank_name@} : {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}</span></li>        
     </ul>
     <ul class="member-info">

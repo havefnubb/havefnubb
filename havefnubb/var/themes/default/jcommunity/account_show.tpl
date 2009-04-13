@@ -51,7 +51,7 @@ $(document).ready(function(){
                         <label class="user-town"><strong>{@havefnubb~member.town@}</strong></label><br />{$user->member_town|eschtml}
                     </p>
                     <p class="col">
-                        <label><strong>{@havefnubb~member.country@}</strong></label><br />{$user->member_country|eschtml}
+                        <label><strong>{@havefnubb~member.country@}</strong></label><br />{image 'images/flags/'.$user->member_country.'.gif'} {$user->member_country|eschtml}
                     </p>
                 </div>
                 <div>
