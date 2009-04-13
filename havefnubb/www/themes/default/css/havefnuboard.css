@@ -136,6 +136,55 @@ code, pre {
 	height: 16px;
 }
 
+#user {
+	background-image: url('../images/users/user_edit.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+#user-private-message {
+	background-image: url('../images/users/email.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+#user-edit-password {
+	background-image: url('../images/users/user_key.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;	
+}
+
+#user-general {
+	background-image: url('../images/users/user_suit.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+#user-pref {
+	background-image: url('../images/users/user_pref.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+#user-messenger {
+	background-image: url('../images/users/email_go.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+#user-hw {
+	background-image: url('../images/users/computer.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
 #loginbox li{	
 	padding-right:20px;
 	float:left;
@@ -324,6 +373,126 @@ code, pre {
 #member-identity fieldset, #member-pref fieldset, #member-hardware fieldset {
 	
 	border-color: #f1f1e5;
+}
+
+
+#mouse {
+	background-image: url('../images/users/mouse.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#keyboard {
+	background-image: url('../images/users/keyboard.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#connect {
+	background-image: url('../images/users/connect.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#display {
+	background-image: url('../images/users/display.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#processor {
+	background-image: url('../images/users/processor.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#screen {
+	background-image: url('../images/users/screen.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#motherboard {
+	background-image: url('../images/users/motherboard.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#card {
+	background-image: url('../images/users/card.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#ram {
+	background-image: url('../images/users/ram.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#os {
+	background-image: url('../images/users/os.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#xfire {
+	background-image: url('../images/users/xfire.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#icq {
+	background-image: url('../images/users/icq.gif');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#yim {
+	background-image: url('../images/users/yim.gif');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#aim {
+	background-image: url('../images/users/aim.gif');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#msn {
+	background-image: url('../images/users/msn.gif');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#gtalk {
+	background-image: url('../images/users/gtalk.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+#jabber {
+	background-image: url('../images/users/jabber.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
 }
 
 .newmessage, .replymessage {
