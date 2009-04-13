@@ -145,6 +145,7 @@ code, pre {
 	height: 16px;
 }
 
+/* profile */
 #user {
 	background-image: url('../images/users/user_edit.png');
 	background-repeat: no-repeat;
@@ -152,42 +153,249 @@ code, pre {
 	height: 16px;
 }
 
-#user-private-message {
+#user-group {
+	background-image: url('../images/users/group.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;		
+}
+
+.member, th.member {
+	background-image: url('../images/users/user_suit.png');
+	background-repeat: no-repeat;
+	background-position: left;
+}	
+
+
+.user-name {
+	background-image: url('../images/users/user.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+
+.user-town {
+	background-image: url('../images/users/house.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+
+.user-birthday {
+	background-image: url('../images/users/cake.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+
+#user-location {
+	background-image: url('../images/users/world.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+
+.user-website {
+	background-image: url('../images/users/world_link.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+.user-email {
 	background-image: url('../images/users/email.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	height: 16px;
 }
 
-#user-edit-password {
+
+#user-stats {
+	background-image: url('../images/users/chart_bar.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;	
+}
+.user-mouse {
+	background-image: url('../images/users/mouse.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-keyboard {
+	background-image: url('../images/users/keyboard.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-connect {
+	background-image: url('../images/users/connect.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-display {
+	background-image: url('../images/users/display.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-processor {
+	background-image: url('../images/users/processor.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-screen {
+	background-image: url('../images/users/screen.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-motherboard {
+	background-image: url('../images/users/motherboard.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-card {
+	background-image: url('../images/users/card.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-ram {
+	background-image: url('../images/users/ram.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-os {
+	background-image: url('../images/users/os.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-xfire {
+	background-image: url('../images/users/xfire.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-icq {
+	background-image: url('../images/users/icq.gif');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-yim {
+	background-image: url('../images/users/yim.gif');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-aim {
+	background-image: url('../images/users/aim.gif');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-msn {
+	background-image: url('../images/users/msn.gif');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-gtalk {
+	background-image: url('../images/users/gtalk.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-jabber {
+	background-image: url('../images/users/jabber.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 6px;	
+}
+
+.user-since, th.user-since {
+	background-image: url('../images/users/member_since.png');
+	background-repeat: no-repeat;
+	background-position: left;
+}	
+
+.user-rank, th.user-rank {
+	background-image: url('../images/users/member_rank.png');
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 18px;
+	padding-left: 20px;
+}	
+
+.user-posts, th.user-posts {
+	background-image: url('../images/users/member_posts.png');
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left: 18px;
+	height: 20px;
+}	
+.user-private-message {
+	background-image: url('../images/users/email.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+.user-edit-password {
 	background-image: url('../images/users/user_key.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	height: 16px;	
 }
 
-#user-general {
+.user-general {
 	background-image: url('../images/users/user_suit.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	height: 16px;
 }
 
-#user-pref {
+.user-pref {
 	background-image: url('../images/users/user_pref.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	height: 16px;
 }
 
-#user-messenger {
+.user-messenger {
 	background-image: url('../images/users/email_go.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	height: 16px;
 }
 
-#user-hw {
+.user-hw {
 	background-image: url('../images/users/computer.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
@@ -384,147 +592,7 @@ code, pre {
 	border-color: #f1f1e5;
 }
 
-
-#user-birthday {
-	background-image: url('../images/users/cake.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 4px;
-	height: 16px;
-}
-
-#user-website {
-	background-image: url('../images/users/world.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 4px;
-	height: 16px;
-}
-#user-stats {
-	background-image: url('../images/users/chart_bar.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	height: 16px;	
-}
-#user-mouse {
-	background-image: url('../images/users/mouse.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-keyboard {
-	background-image: url('../images/users/keyboard.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-connect {
-	background-image: url('../images/users/connect.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-display {
-	background-image: url('../images/users/display.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-processor {
-	background-image: url('../images/users/processor.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-screen {
-	background-image: url('../images/users/screen.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-motherboard {
-	background-image: url('../images/users/motherboard.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-card {
-	background-image: url('../images/users/card.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-ram {
-	background-image: url('../images/users/ram.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-os {
-	background-image: url('../images/users/os.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-xfire {
-	background-image: url('../images/users/xfire.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-icq {
-	background-image: url('../images/users/icq.gif');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-yim {
-	background-image: url('../images/users/yim.gif');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-aim {
-	background-image: url('../images/users/aim.gif');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-msn {
-	background-image: url('../images/users/msn.gif');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-gtalk {
-	background-image: url('../images/users/gtalk.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
-#user-jabber {
-	background-image: url('../images/users/jabber.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;	
-}
-
+/* message */
 .newmessage, .replymessage {
 	text-align: right;
 	margin-right: 10px;
@@ -622,12 +690,6 @@ table td {
 .forumList, membersList, .forumView {
 	width: 100%;
 }
-#member-group {
-	background-image: url('../images/users/group.png');
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	padding-top: 6px;		
-}
 
 .colmain
 {
@@ -700,30 +762,7 @@ table .forumlistline, table .memberlistline {
 	background-color: #e1e1cd;
 	
 }
-table th.member {
-	background-image: url('../images/users/user_suit.png');
-	background-repeat: no-repeat;
-	background-position: left;
-}	
 
-table th.member-since {
-	background-image: url('../images/users/member_since.png');
-	background-repeat: no-repeat;
-	background-position: left;
-}	
-
-table th.member-rank {
-	background-image: url('../images/users/member_rank.png');
-	background-repeat: no-repeat;
-	background-position: left;
-}	
-
-table th.member-posts {
-	background-image: url('../images/users/member_posts.png');
-	background-repeat: no-repeat;
-	background-position: left;
-	padding-left: 18px;
-}	
 	
 table .memberlistline {
 	padding: 10px;
@@ -736,7 +775,7 @@ table .line {
 .linkincell:hover {
 	background-color: #f1f1e5;
 }
-
+/* posts status */
 .colicone-opened, .post-status-icon-opened {
 	background-image: url('../../../themes/default/images/posts/opened.png');
 	background-repeat: no-repeat;

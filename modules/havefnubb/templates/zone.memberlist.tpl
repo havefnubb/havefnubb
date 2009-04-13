@@ -1,5 +1,6 @@
 <div id="breadcrumbtop" class="headbox">
-    <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <span id="member-group">{@havefnubb~member.memberlist.members.list@}</span></h3>
+    <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >
+        <span id="user-group">{@havefnubb~member.memberlist.members.list@}</span></h3>
 </div>
 
 <div id="group">
@@ -36,9 +37,9 @@
 <table width="100%">
     <tr>
         <th class="memberlistcol member">{@havefnubb~member.memberlist.username@}</th>
-        <th class="memberlistcol member-rank">{@havefnubb~member.common.rank@}</th>
-        <th class="memberlistcol member-since">{@havefnubb~member.memberlist.member.since@}</th>
-        <th class="memberlistcol member-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
+        <th class="memberlistcol user-rank">{@havefnubb~member.common.rank@}</th>
+        <th class="memberlistcol user-since">{@havefnubb~member.memberlist.member.since@}</th>
+        <th class="memberlistcol user-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
     </tr>
     {foreach $members as $member}
     <tr>

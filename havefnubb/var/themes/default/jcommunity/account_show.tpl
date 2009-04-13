@@ -19,36 +19,36 @@ $(document).ready(function(){
 {avatar $j_basepath .'images/avatars/'.$user->id}
 <div id="container">
 	<ul>
-		<li><a href="#member-general"><span id="user-general">{@havefnubb~member.general@}</span></a></li>
-		<li><a href="#member-pref"><span id="user-pref">{@havefnubb~member.pref@}</span></a></li>
-		<li><a href="#member-messenger"><span id="user-messenger">{@havefnubb~member.instant.messenger@}</span></a></li>	
-		<li><a href="#member-hardware"><span id="user-hw">{@havefnubb~member.hardware@}</span></a></li>
+		<li><a href="#member-general"><span class="user-general">{@havefnubb~member.general@}</span></a></li>
+		<li><a href="#member-pref"><span class="user-pref">{@havefnubb~member.pref@}</span></a></li>
+		<li><a href="#member-messenger"><span class="user-messenger">{@havefnubb~member.instant.messenger@}</span></a></li>	
+		<li><a href="#member-hardware"><span class="user-hw">{@havefnubb~member.hardware@}</span></a></li>
 	</ul> 	
     <div class="box">
         <div id="member-general">
             <fieldset>
-                <legend>{@havefnubb~member.general@}</legend>
+                <legend id="user-general">{@havefnubb~member.general@}</legend>
                 <div class="two-cols">
                     <p class="col">
-                        <label><strong>{@havefnubb~member.nickname@}</strong></label><br />{$user->nickname|eschtml}
+                        <label class="user-name"><strong>{@havefnubb~member.nickname@}</strong></label><br />{$user->nickname|eschtml}
                     </p>                   
                     <p class="col">
 {if $user->member_show_email == 'Y'}                                             
-                        <label><strong>{@havefnubb~member.email@}</strong></label><br />{$user->email|eschtml}
+                        <label class="user-email"><strong>{@havefnubb~member.email@}</strong></label><br />{$user->email|eschtml}
 {/if}                        
                     </p>                    
                 </div>
                 <div>
                     <p class="col">
-                        <label id="user-birthday"><strong>{@havefnubb~member.age@}</strong></label><br />{age $user->member_birth}
+                        <label class="user-birthday"><strong>{@havefnubb~member.age@}</strong></label><br />{age $user->member_birth}
                     </p>
                 </div>                
             </fieldset>                
             <fieldset>
-                <legend>{@havefnubb~member.common.location@}</legend>                  
+                <legend id="user-location">{@havefnubb~member.common.location@}</legend>                  
                 <div class="two-cols">
                     <p class="col">                
-                        <label><strong>{@havefnubb~member.town@}</strong></label><br />{$user->member_town|eschtml}
+                        <label class="user-town"><strong>{@havefnubb~member.town@}</strong></label><br />{$user->member_town|eschtml}
                     </p>
                     <p class="col">
                         <label><strong>{@havefnubb~member.country@}</strong></label><br />{$user->member_country|eschtml}
@@ -56,7 +56,7 @@ $(document).ready(function(){
                 </div>
                 <div>
                     <p class="col">                
-                        <label id="user-website"><strong>{@havefnubb~member.website@}</strong></label><br /><a href="{$user->member_website|eschtml}" title="{@havefnubb~member.website@}">{$user->member_website|eschtml}</a>
+                        <label class="user-website"><strong>{@havefnubb~member.website@}</strong></label><br /><a href="{$user->member_website|eschtml}" title="{@havefnubb~member.website@}">{$user->member_website|eschtml}</a>
                     </p>
                 </div>
             </fieldset>
@@ -77,31 +77,31 @@ $(document).ready(function(){
                 <legend>{@havefnubb~member.instant.messenger@}</legend>
                 <div class="two-cols">
                     <p class="col">
-                        <label id="user-xfire"><strong>{@havefnubb~member.xfire@}</strong></label><br />{$user->member_xfire|eschtml}
+                        <label class="user-xfire"><strong>{@havefnubb~member.xfire@}</strong></label><br />{$user->member_xfire|eschtml}
                     </p>                   
                     <p class="col">
-                        <label id="user-icq"><strong>{@havefnubb~member.icq@}</strong></label><br />{$user->member_icq|eschtml}
-                    </p>                   
-                </div>
-                 <div class="two-cols">
-                    <p class="col">
-                        <label id="user-yim"><strong>{@havefnubb~member.yim@}</strong></label><br />{$user->member_yim|eschtml}
-                    </p>                   
-                    <p class="col">
-                        <label id="user-msn"><strong>{@havefnubb~member.hotmail@}</strong></label><br />{$user->member_hotmail|eschtml}
+                        <label class="user-icq"><strong>{@havefnubb~member.icq@}</strong></label><br />{$user->member_icq|eschtml}
                     </p>                   
                 </div>
                  <div class="two-cols">
                     <p class="col">
-                        <label id="user-aim"><strong>{@havefnubb~member.aol@}</strong></label><br />{$user->member_aol|eschtml}
+                        <label class="user-yim"><strong>{@havefnubb~member.yim@}</strong></label><br />{$user->member_yim|eschtml}
                     </p>                   
                     <p class="col">
-                        <label id="user-gtalk"><strong>{@havefnubb~member.gtalk@}</strong></label><br />{$user->member_gtalk|eschtml}
+                        <label class="user-msn"><strong>{@havefnubb~member.hotmail@}</strong></label><br />{$user->member_hotmail|eschtml}
+                    </p>                   
+                </div>
+                 <div class="two-cols">
+                    <p class="col">
+                        <label class="user-aim"><strong>{@havefnubb~member.aol@}</strong></label><br />{$user->member_aol|eschtml}
+                    </p>                   
+                    <p class="col">
+                        <label class="user-gtalk"><strong>{@havefnubb~member.gtalk@}</strong></label><br />{$user->member_gtalk|eschtml}
                     </p>                   
                 </div>                    
                  <div class="two-cols">
                     <p class="col">
-                        <label id="user-jabber"><strong>{@havefnubb~member.jabber@}</strong></label><br />{$user->member_jabber|eschtml}
+                        <label class="user-jabber"><strong>{@havefnubb~member.jabber@}</strong></label><br />{$user->member_jabber|eschtml}
                     </p>                   
                     <p class="col">                        
                     </p>                   
@@ -129,42 +129,42 @@ $(document).ready(function(){
                 <legend>{@havefnubb~member.hardware@}</legend>
                 <div class="two-cols">
                     <p class="col">                 
-                        <label id="user-connect"><strong>{@havefnubb~member.connection@}</strong></label><br />{$user->member_connection|eschtml}
+                        <label class="user-connect"><strong>{@havefnubb~member.connection@}</strong></label><br />{$user->member_connection|eschtml}
                     </p>
                     <p class="col">                                
-                        <label id="user-os"><strong>{@havefnubb~member.os@}</strong></label>      <br />{$user->member_os|eschtml}
+                        <label class="user-os"><strong>{@havefnubb~member.os@}</strong></label>      <br />{$user->member_os|eschtml}
                     </p>
                 </div>                
                 <div class="two-cols">
                     <p class="col">                 
-                        <label id="user-processor""><strong>{@havefnubb~member.proc@}</strong></label>    <br />{$user->member_proc|eschtml}
+                        <label class="user-processor""><strong>{@havefnubb~member.proc@}</strong></label>    <br />{$user->member_proc|eschtml}
                     </p>
                     <p class="col">                                
-                        <label id="user-motherboard"><strong>{@havefnubb~member.mb@}</strong></label>      <br />{$user->member_mb|eschtml}
+                        <label class="user-motherboard"><strong>{@havefnubb~member.mb@}</strong></label>      <br />{$user->member_mb|eschtml}
                     </p>
                 </div>                
                 <div class="two-cols">
                     <p class="col">                 
-                        <label id="user-card"><strong>{@havefnubb~member.card@}</strong></label>    <br />{$user->member_card|eschtml}
+                        <label class="user-card"><strong>{@havefnubb~member.card@}</strong></label>    <br />{$user->member_card|eschtml}
                     </p>
                     <p class="col">                                
-                        <label id="user-ram"><strong>{@havefnubb~member.ram@}</strong></label>     <br />{$user->member_ram|eschtml}
+                        <label class="user-ram"><strong>{@havefnubb~member.ram@}</strong></label>     <br />{$user->member_ram|eschtml}
                     </p>
                 </div>            
                 <div class="two-cols">
                     <p class="col">                 
-                        <label id="user-display"><strong>{@havefnubb~member.display@}</strong></label> <br />{$user->member_display|eschtml}
+                        <label class="user-display"><strong>{@havefnubb~member.display@}</strong></label> <br />{$user->member_display|eschtml}
                     </p>
                     <p class="col">                                
-                        <label id="user-screen"><strong>{@havefnubb~member.screen@}</strong></label>  <br />{$user->member_screen|eschtml}
+                        <label class="user-screen"><strong>{@havefnubb~member.screen@}</strong></label>  <br />{$user->member_screen|eschtml}
                     </p>
                 </div>            
                 <div class="two-cols">
                     <p class="col">                 
-                        <label id="user-mouse"><strong>{@havefnubb~member.mouse@}</strong></label>   <br />{$user->member_mouse|eschtml}
+                        <label class="user-mouse"><strong>{@havefnubb~member.mouse@}</strong></label>   <br />{$user->member_mouse|eschtml}
                     </p>
                     <p class="col">                                
-                        <label id="user-keyboard"><strong>{@havefnubb~member.keyb@}</strong></label>    <br />{$user->member_keyb|eschtml}
+                        <label class="user-keyboard"><strong>{@havefnubb~member.keyb@}</strong></label>    <br />{$user->member_keyb|eschtml}
                     </p>
                 </div>
             </fieldset>
