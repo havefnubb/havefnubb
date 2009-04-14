@@ -214,6 +214,26 @@ code, pre {
 	height: 16px;
 }
 
+.user-email-add {
+	background-image: url('../images/users/email_add.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;	
+}
+
+.user-email-inbox {
+	background-image: url('../images/users/email_inbox.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;	
+}
+
+.user-email-outbox {
+	background-image: url('../images/users/email_outbox.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;	
+}
 
 #user-stats {
 	background-image: url('../images/users/chart_bar.png');
@@ -250,11 +270,12 @@ code, pre {
 }
 
 .user-processor {
-	background-image: url('../images/users/processor.png');
+	background-image: url('../images/users/computer.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
+
 
 .user-screen {
 	background-image: url('../images/users/screen.png');
@@ -271,21 +292,21 @@ code, pre {
 }
 
 .user-card {
-	background-image: url('../images/users/card.png');
+	background-image: url('../images/users/computer.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
 .user-ram {
-	background-image: url('../images/users/ram.png');
+	background-image: url('../images/users/computer.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
 .user-os {
-	background-image: url('../images/users/os.png');
+	background-image: url('../images/users/computer.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
@@ -327,14 +348,14 @@ code, pre {
 }
 
 .user-gtalk {
-	background-image: url('../images/users/gtalk.png');
+	background-image: url('../images/users/email_go.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
 }
 
 .user-jabber {
-	background-image: url('../images/users/jabber.png');
+		background-image: url('../images/users/email_go.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	padding-top: 6px;	
@@ -401,6 +422,30 @@ code, pre {
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	height: 16px;
+}
+
+.user-language {
+	background-image: url('../images/users/emoticon_tongue.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+	padding-top: 5px;	
+}
+
+.user-signature {
+	background-image: url('../images/users/vcard.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+	padding-top: 5px;	
+}
+
+.user-show-email {
+	background-image: url('../images/users/eye.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+	padding-top: 5px;		
 }
 
 #loginbox li{	
@@ -776,9 +821,42 @@ table .line {
 .linkincell:hover {
 	background-color: #f1f1e5;
 }
+
+/* category */
+.forumcat {
+	background-image: url('../images/posts/category.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+.forumicone {
+	background-image: url('../images/posts/folder.png');
+	background-repeat: no-repeat;
+	background-position: center;	
+}
+
+.subforum {
+	background-image: url('../images/posts/book.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+.subforum-home {
+	background-image: url('../images/posts/book_next.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+	
+}
+ul.subforum-home li {
+	list-style: none;
+}
+
 /* posts status */
 .colicone-opened, .post-status-icon-opened {
-	background-image: url('../../../themes/default/images/posts/opened.png');
+	background-image: url('../images/posts/opened.png');
 	background-repeat: no-repeat;
 }
 .colicone-opened {
@@ -791,7 +869,7 @@ table .line {
 }
 
 .colicone-closed, .post-status-icon-closed {
-	background-image: url('../../../themes/default/images/posts/closed.png');
+	background-image: url('../images/posts/closed.png');
 	background-repeat: no-repeat;
 }
 .colicone-closed {
@@ -803,7 +881,7 @@ table .line {
 }
 
 .colicone-pined, .post-status-icon-pined {
-	background-image: url('../../../themes/default/images/posts/pined.png');
+	background-image: url('../images/posts/pined.png');
 	background-repeat: no-repeat;
 }
 .colicone-pined {
@@ -814,7 +892,7 @@ table .line {
 	padding: 10px;		
 }
 .colicone-pinedclosed, .post-status-icon-pinedclosed {
-	background-image: url('../../../themes/default/images/posts/pined-closed.png');
+	background-image: url('../images/posts/pined-closed.png');
 	background-repeat: no-repeat;
 }
 .colicone-pinedclosed {

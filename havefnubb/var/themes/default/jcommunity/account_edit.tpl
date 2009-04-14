@@ -101,17 +101,17 @@ $(document).ready(function(){
                 <legend>{@havefnubb~member.pref@}</legend>
                 <div>
                     <p class="col">
-                        <label><strong>{ctrl_label 'member_language'}</strong></label> {ctrl_control 'member_language'}<br/>
+                        <label class="user-language"><strong>{ctrl_label 'member_language'}</strong></label> {ctrl_control 'member_language'}<br/>
                         {@havefnubb~member.account.edit.language.description@}
                     </p>
                     <p class="col">
-                        <label><strong>{ctrl_label 'member_show_email'}</strong></label> {ctrl_control 'member_show_email'}<br/>
+                        <label class="user-show-email"><strong>{ctrl_label 'member_show_email'}</strong></label> {ctrl_control 'member_show_email'}<br/>
                         {@havefnubb~member.account.edit.show.your.email.description@}
                     </p>
                 </div>
                 <div class="two-cols">
                     <p class="col">        
-                        <label><strong>{ctrl_label 'member_comment'}</strong></label><br />{ctrl_control 'member_comment'}
+                        <label class="user-signature"><strong>{ctrl_label 'member_comment'}</strong></label><br />{ctrl_control 'member_comment'}
                     </p>
                     <p class="col">                        
                     </p>                   					

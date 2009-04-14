@@ -1,15 +1,18 @@
 {ifuserconnected}
 <div id="breadcrumbtop" class="headbox">
-    <h3><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a> - {@havefnubb~member.internal.messenger@}</h3>
+    <h3 id="user"><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a> - <span class="user-email">{@havefnubb~member.internal.messenger@}</span>
+{ifacl2 'auth.users.change.password'}
+> <a class="user-edit-password" href="{jurl 'havefnubb~members:changepwd', array('user'=>$login)}">{@havefnubb~member.pwd.change.of.password@}</a>
+{/ifacl2}    
+    
+    </h3>
 </div>
-
-<h3>{@jmessenger~message.title@}</h3>
 
 <p>{zone 'jmessenger~nbNewMessage'}</p>
 
 <ul>
-    <li><a href="{jurl 'jmessenger~jmessenger:inbox'}">{@jmessenger~message.msg.inbox@}</a></li>
-    <li><a href="{jurl 'jmessenger~jmessenger:outbox'}">{@jmessenger~message.msg.outbox@}</a></li>
-    <li><a href="{jurl 'jmessenger~jmessenger:precreate'}">{@jmessenger~message.title.new@}</a></li>
+    <li class="user-email-inbox"><a href="{jurl 'jmessenger~jmessenger:inbox'}">{@jmessenger~message.msg.inbox@}</a></li>
+    <li class="user-email-outbox"><a href="{jurl 'jmessenger~jmessenger:outbox'}">{@jmessenger~message.msg.outbox@}</a></li>
+    <li class="user-email-add"><a href="{jurl 'jmessenger~jmessenger:precreate'}">{@jmessenger~message.title.new@}</a></li>
 </ul>
 {/ifuserconnected}
