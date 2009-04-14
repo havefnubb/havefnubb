@@ -508,6 +508,7 @@ class postsCtrl extends jController {
 		}		
         
         $form = jForms::create('havefnubb~posts',$parent_id);
+		$form->setData('subject',$post->subject);
 		$form->setData('id_forum',$post->id_forum);
 		$form->setData('id_user',$user->id);
 		$form->setData('id_post',0);
