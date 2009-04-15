@@ -22,19 +22,19 @@
    </date>
 
    <input ref="member_firstname">
-       <label locale="havefnubb~member.firstname"/>
+       <label locale="havefnubb~member.common.firstname"/>
    </input>
 
    <input ref="member_town">
-       <label locale="havefnubb~member.town"/>
+       <label locale="havefnubb~member.common.town"/>
    </input>
    
    <input ref="member_website" type="url">
-       <label locale="havefnubb~member.website"/>
+       <label locale="havefnubb~member.common.website"/>
    </input>   
    
    <menulist ref="member_country">
-      <label locale="havefnubb~member.country"/>
+      <label locale="havefnubb~member.common.country"/>
       <datasource class="havefnubb~flags" />
    </menulist>
 

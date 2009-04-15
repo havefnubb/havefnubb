@@ -44,20 +44,16 @@ $(document).ready(function(){
             </fieldset>                
             <fieldset>
                 <legend id="user-location">{@havefnubb~member.common.location@}</legend>                   
-                <div class="two-cols">
+                <div class="three-cols">
                     <p class="col">                
                         <label class="user-town"><strong>{ctrl_label 'member_town'}</strong></label><br />{ctrl_control 'member_town'}
                     </p>
                     <p class="col">
                         <label class="user-country"><strong>{ctrl_label 'member_country'}</strong></label><br />{ctrl_control 'member_country'}<br/>
                     </p>
-                </div>
-                <div>
-                    <p>
+                    <p class="col">
 						<label class="user-website"><strong>{ctrl_label 'member_website'}</strong></label><br />{ctrl_control 'member_website'}
                     </p>
-					<p class="col">                        
-                    </p> 
                 </div>				
             </fieldset>
         </div>

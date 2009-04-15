@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urls xmlns="http://jelix.org/ns/urls/1.0">
-
   
     <classicentrypoint name="index" default="true" noentrypoint="true">
         <!--url pathinfo="/" module="hfnuportal" action="default:index"/-->
@@ -29,7 +28,6 @@
            <param name="id_forum" type="number"/>
            <param name="ftitle"  type="string" escape="true" />
         </url>
-
 
         <!-- posts management -->
         <url pathinfo="/forum/:id_forum-:ftitle/posts/:id_post-:parent_id-:ptitle" module="havefnubb" action="posts:view">
@@ -69,7 +67,6 @@
          <!-- members management -->
         <url pathinfo="/members" module="havefnubb" action="members:index"/>
  
-
         <!-- hfnusearch -->
         <url pathinfo="/search" module="hfnusearch" action="default:index"/>
  
@@ -77,6 +74,13 @@
         <url pathinfo="/tag/:tag"  module="havefnubb" action="default:cloud">
             <param name="tag" type="string" escape="true" />
         </url>
+        
+        <!-- change password -->
+        <url pathinfo="/users/changepwd/:user" module="havefnubb" action="members:changepwd">
+            <param name="user" />
+        </url>
+        <!-- preivate messaging access -->
+        <url pathinfo="/users/pm" module="havefnubb" action="members:mail"/>
 
         <!-- jmessenger -->
         <url pathinfo="/messages"  module="jmessenger" action="jmessenger:index"/>
@@ -139,7 +143,6 @@
     
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
 
-
         <url pathinfo="/admin/checkupgrade" module="hfnuadmin" action="default:check_upgrade" />
         <url pathinfo="/admin/board" module="master_admin" action="default:index" />
         
@@ -153,35 +156,32 @@
         <url pathinfo="/admin/notify"   module="hfnuadmin" action="notify:index" />
         <url pathinfo="/admin/cache"    module="hfnuadmin" action="cache:index" />
         <url pathinfo="/admin/ban"      module="hfnuadmin" action="ban:index" />
-        <url pathinfo="/admin/search"   module="hfnusearch" action="admin:index" />
-        
+        <url pathinfo="/admin/search"   module="hfnusearch" action="admin:index" />        
 
-        <url pathinfo="/admin/category/delete/:id_cat" module="hfnuadmin" action="category:delete">
+        <url pathinfo="/admin/category/delete/:id_cat"  module="hfnuadmin" action="category:delete">
             <param name="id_cat" type="number"/>
         </url>
         
-
-        <url pathinfo="/admin/forum/delete/:id_forum" module="hfnuadmin" action="forum:delete">
+        <url pathinfo="/admin/forum/delete/:id_forum"   module="hfnuadmin" action="forum:delete">
             <param name="id_forum" type="number"/>
         </url>
-        <url pathinfo="/admin/forum/edit/:id_forum" module="hfnuadmin" action="forum:edit">
+        <url pathinfo="/admin/forum/edit/:id_forum"     module="hfnuadmin" action="forum:edit">
             <param name="id_forum" type="number"/>
-        </url>
-        
-
-        <url pathinfo="/admin/ranks/delete/:id_rank" module="hfnuadmin" action="ranks:delete">
-            <param name="id_rank" type="number"/>
         </url>        
-        
 
-        <url pathinfo="/admin/jauthdb_admin/user/:id"            module="jauthdb_admin" action="user:index">
+        <url pathinfo="/admin/ranks/delete/:id_rank"    module="hfnuadmin" action="ranks:delete">
+            <param name="id_rank" type="number"/>
+        </url>                
+
+        <url pathinfo="/admin/jauthdb_admin/user/:id"   module="jauthdb_admin" action="user:index">
             <param name="id" type="string"/>
         </url>
+        
         <url pathinfo="/admin/jauthdb_admin"            module="jauthdb_admin" action="default:index"/>
         <url pathinfo="/admin/jauthdb_admin/precreate"  module="jauthdb_admin" action="default:precreate"/>
         <url pathinfo="/admin/jauthdb_admin/create"     module="jauthdb_admin" action="default:create"/>
         <url pathinfo="/admin/jauthdb_admin/savecreate" module="jauthdb_admin" action="default:savecreate"/>
-        <url pathinfo="/admin/jauthdb_admin/view/:id"       module="jauthdb_admin" action="default:view">
+        <url pathinfo="/admin/jauthdb_admin/view/:id"   module="jauthdb_admin" action="default:view">
             <param name="id" type="string"/>
         </url>        
         <url pathinfo="/admin/jauthdb_admin/preupdate/:id"  module="jauthdb_admin" action="default:preupdate">
@@ -217,10 +217,8 @@
         <url pathinfo="/admin/jacl2db_admin/groups/rights"      module="jacl2db_admin" action="groups:rights"/>
         <url pathinfo="/admin/jacl2db_admin/groups/newgroup"    module="jacl2db_admin" action="groups:newgroup"/>
         <url pathinfo="/admin/jacl2db_admin/groups/delgroup"    module="jacl2db_admin" action="groups:delgroup"/>
-        <url pathinfo="/admin/jacl2db_admin/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>
-                
+        <url pathinfo="/admin/jacl2db_admin/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>                
     </classicentrypoint>
-
     
     <xmlrpcentrypoint name="xmlrpc" default="true" />
     <jsonrpcentrypoint name="jsonrpc" default="true" />

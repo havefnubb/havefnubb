@@ -26,8 +26,9 @@ body {
 	line-height: normal
 }
 
-h2, h4 {font-size: 1em}
+h2{font-size: 1em}
 h3 {font-size: 1.1em}
+h4 {font-size: 1em}
 
 .forumcat, .subforum {
 	margin: auto;
@@ -739,22 +740,22 @@ table td {
 
 .colmain
 {
-	padding: 0.5em;
+	/*padding: 0.5em;*/
 	background-color:#e1e1cd;
 	
 }
 
 .colstats {
-	width: 12ex;
+	width: 18ex;
 	text-align: center;
 	padding: 0.5em;
 	background-color: #baba9b;
 }
 
 .colleft {
-	 width: 6%;
+	 width: 3%;
 	 padding: 0.5em;
-	 background-color: #baba9b;
+	 background-color: #c9c9a7;
 }
 
 .colright {
@@ -794,6 +795,10 @@ table td {
 	width: 20%;
 	padding-left: 10px;
 	background-color: #e1e1cd;
+}
+
+.forumtitle, .forumdesc {
+    padding-left: 8px;
 }
 
 .forumlistcol, .memberlistcol  {
@@ -851,7 +856,8 @@ table .line {
 	
 }
 ul.subforum-home li {
-	list-style: none;
+	float:left;
+	list-style-type:none;	
 }
 
 /* posts status */

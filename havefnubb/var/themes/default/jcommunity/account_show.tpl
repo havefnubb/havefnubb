@@ -11,7 +11,11 @@ $(document).ready(function(){
     <h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)} 
 {if $himself}
 > <a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a></li>
-{/if}		
+{ifacl2 'auth.users.change.password'}
+> <a class="user-edit-password" href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a>
+{/ifacl2}        
+{/if}
+
 	</h3>	
 </div>
 <div id="post-message">{jmessage}</div>
@@ -40,23 +44,21 @@ $(document).ready(function(){
                 </div>
                 <div>
                     <p class="col">
-                        <label class="user-birthday"><strong>{@havefnubb~member.age@}</strong></label><br />{age $user->member_birth}
+                        <label class="user-birthday"><strong>{@havefnubb~member.common.age@}</strong></label><br />{age $user->member_birth}
                     </p>
                 </div>                
             </fieldset>                
             <fieldset>
                 <legend id="user-location">{@havefnubb~member.common.location@}</legend>                  
-                <div class="two-cols">
+                <div class="three-cols">
                     <p class="col">                
-                        <label class="user-town"><strong>{@havefnubb~member.town@}</strong></label><br />{$user->member_town|eschtml}
+                        <label class="user-town"><strong>{@havefnubb~member.common.town@}</strong></label><br />{$user->member_town|eschtml}
                     </p>
                     <p class="col">
-                        <label><strong>{@havefnubb~member.country@}</strong></label><br />{image 'images/flags/'.$user->member_country.'.gif'} {$user->member_country|eschtml}
+                        <label><strong>{@havefnubb~member.common.country@}</strong></label><br />{image 'images/flags/'.$user->member_country.'.gif'} {$user->member_country|eschtml}
                     </p>
-                </div>
-                <div>
                     <p class="col">                
-                        <label class="user-website"><strong>{@havefnubb~member.website@}</strong></label><br /><a href="{$user->member_website|eschtml}" title="{@havefnubb~member.website@}">{$user->member_website|eschtml}</a>
+                        <label class="user-website"><strong>{@havefnubb~member.common.website@}</strong></label><br /><a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>
                     </p>
                 </div>
             </fieldset>
