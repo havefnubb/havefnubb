@@ -62,12 +62,6 @@ class membersCtrl extends jController {
         return $rep;
     }
 	
-	function mail() {
-		$rep = $this->getResponse('html');
-		$rep->body->assignZone('MAIN', 'jmessenger~links');
-		return $rep;
-	}	
-
 	// The user want to change his password
     function changepwd() {
         $login = $this->param('user');
@@ -137,5 +131,17 @@ class membersCtrl extends jController {
         return $rep;
     }
 
+
+	function mail() {
+		$rep = $this->getResponse('html');
+		$rep->body->assignZone('MAIN', 'jmessenger~links');
+		return $rep;
+	}	
+
+	function sendmail() {
+		$rep = $this->getResponse('html');
+		$rep->body->assign('MAIN', 'Feature Coming Soon');
+		return $rep;		
+	}
 }
 
