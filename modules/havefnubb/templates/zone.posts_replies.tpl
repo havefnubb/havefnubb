@@ -105,7 +105,9 @@
 <div class="headings">    
     <h3><span>{@havefnubb~post.status.change.the.status.of.the.post@}</span></h3>
 </div>
-<fieldset><legend>{@havefnubb~post.status.change.the.status.of.the.post@}</legend>
-{formfull $formStatus, 'havefnubb~posts:status',array('parent_id'=>$parent_id)}
-</fieldset>
+<div id="post-status">
+{form $formStatus, 'havefnubb~posts:status',array('parent_id'=>$parent_id)}
+<p>{ctrl_label 'status'} : {ctrl_control 'status'} {formsubmit 'validate'}</p>
+{/form}
+</div>
 {/ifacl2}

@@ -639,6 +639,10 @@ CREATE TABLE IF NOT EXISTS `hf_bans` (
 ) DEFAULT CHARSET=utf8;
 
 
+--
+-- Structure de la table `hf_jmessenger`
+--
+
 DROP TABLE IF EXISTS `hf_jmessenger`;
 CREATE TABLE IF NOT EXISTS `hf_jmessenger` (
   `id` int(11) NOT NULL auto_increment,
@@ -652,4 +656,18 @@ CREATE TABLE IF NOT EXISTS `hf_jmessenger` (
   `isReceived` tinyint(4) NOT NULL,
   `isSend` tinyint(4) NOT NULL,
   PRIMARY KEY  (`id`)
+) DEFAULT CHARSET=utf8;
+
+
+--
+-- Structure de la table `hf_connected`
+-- table utilisée pour conserver l'activité des utilisateurs : (non-)connecté / (in)actif
+--
+
+DROP TABLE IF EXISTS `hf_connected`;
+CREATE TABLE `hf_connected` (
+    `id_user` int(12) NOT NULL DEFAULT '1',
+    member_ip VARCHAR(200) NOT NULL DEFAULT '',
+    connected INT(10) UNSIGNED NOT NULL DEFAULT 0,
+    idle TINYINT(1) NOT NULL DEFAULT 0
 ) DEFAULT CHARSET=utf8;

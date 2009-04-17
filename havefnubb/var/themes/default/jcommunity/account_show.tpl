@@ -21,28 +21,31 @@ $(document).ready(function(){
 <div id="post-message">{jmessage}</div>
 <div id="profile">
 {avatar $j_basepath .'images/avatars/'.$user->id}
-<div id="container">
-	<ul>
-		<li><a href="#member-general"><span class="user-general">{@havefnubb~member.general@}</span></a></li>
-		<li><a href="#member-pref"><span class="user-pref">{@havefnubb~member.pref@}</span></a></li>
-		<li><a href="#member-messenger"><span class="user-messenger">{@havefnubb~member.instant.messenger@}</span></a></li>	
-		<li><a href="#member-hardware"><span class="user-hw">{@havefnubb~member.hardware@}</span></a></li>
-	</ul> 	
-    <div class="box">
+    <div id="container">
+        <ul>
+            <li><a href="#member-general"><span class="user-general">{@havefnubb~member.general@}</span></a></li>
+            <li><a href="#member-pref"><span class="user-pref">{@havefnubb~member.pref@}</span></a></li>
+            <li><a href="#member-messenger"><span class="user-messenger">{@havefnubb~member.instant.messenger@}</span></a></li>	
+            <li><a href="#member-hardware"><span class="user-hw">{@havefnubb~member.hardware@}</span></a></li>
+        </ul>
         <div id="member-general">
             <fieldset>
                 <legend id="user-general">{@havefnubb~member.general@}</legend>
-                <div class="two-cols">
+{if $user->member_show_email == 'Y'}
+{assign $class="three-cols"}
+{else}
+{assign $class="two-cols"}
+{/if}
+                <div class="{$class}">
                     <p class="col">
                         <label class="user-name"><strong>{@havefnubb~member.nickname@}</strong></label><br />{$user->nickname|eschtml}
                     </p>                   
+
+{if $user->member_show_email == 'Y'}
                     <p class="col">
-{if $user->member_show_email == 'Y'}                                             
                         <label class="user-email"><strong>{@havefnubb~member.email@}</strong></label><br />{$user->email|eschtml}
-{/if}                        
-                    </p>                    
-                </div>
-                <div>
+                    </p>                                   
+{/if}                                
                     <p class="col">
                         <label class="user-birthday"><strong>{@havefnubb~member.common.age@}</strong></label><br />{age $user->member_birth}
                     </p>
@@ -171,6 +174,5 @@ $(document).ready(function(){
                 </div>
             </fieldset>
         </div>
-	</div>                
-</div>
+    </div>
 </div>

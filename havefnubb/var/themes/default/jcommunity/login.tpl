@@ -13,29 +13,22 @@
 <div id="breadcrumbtop" class="headbox">
     <h3>{@havefnubb~main.login.connection@}</h3>
 </div>
-<div id="loginbox"> 
+<div id="loginbox">
+    <div id="loginbox-form">
     {form $form, 'jcommunity~login:in'}
-    <ul>
-        <li>
-            {ctrl_label 'auth_login'} {ctrl_control 'auth_login'}
-        </li>
-        <li>
-            {ctrl_label 'auth_password'} {ctrl_control 'auth_password'}
-        </li>
+<p>            {ctrl_label 'auth_login'} {ctrl_control 'auth_login'} - {ctrl_label 'auth_password'} {ctrl_control 'auth_password'} - 
+
         {if $persistance_ok}
-        <li>
-            {ctrl_label 'auth_remember_me'} {ctrl_control 'auth_remember_me'}
-        </li>
+            {ctrl_label 'auth_remember_me'} {ctrl_control 'auth_remember_me'} - 
         {/if}
-        <li>
-            {formsubmit}
-        </li>
+        {formsubmit}
         {if $url_return}
-            <li><input type="hidden" name="auth_url_return" value="{$url_return|eschtml}" /></li>
+            <input type="hidden" name="auth_url_return" value="{$url_return|eschtml}" />
         {/if}        
-    </ul>    
+</p>
     {/form}
-    <div class="loginbox-links">
+    </div>
+    <div id="loginbox-links">
         (<a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.login.register@}</a>, 
         <a href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.login.forgotten.password@}</a>)
     </div>

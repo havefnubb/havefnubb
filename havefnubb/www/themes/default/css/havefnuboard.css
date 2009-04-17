@@ -53,6 +53,10 @@ a:hover {
 a.imglink:link, a.imglink:visited, 
 a.imglink:active, a.imglink:hover { text-decoration: none; }
 
+fieldset legend {
+    color: #f90; 
+}
+    
 
 p { margin: 1em 0; }
 table p { margin: 0; }
@@ -110,10 +114,15 @@ code, pre {
  width: 70%;	
 }
 
-/* user */
-.loginbox-links, .loginbox-form {
+/* login form */
+#loginbox p {
+	padding-left: 20px;
+}
+
+#loginbox-links, #loginbox-form {
 	text-align: center;
 	padding: 5px;
+    vertical-align: bottom;
 }
 
 #login-status {
@@ -139,19 +148,20 @@ code, pre {
 	background-color:#f1f1e5;
 }
 
-#loginbox p {
-	padding-left: 20px;
-}
-#loginbox ul , #profile ul{
-	height: 16px;
-}
 
 /* profile */
+#member-general, #member-messenger, #member-hardware, #member-pref {
+    padding-top: 0px;    
+}
+
 #user {
 	background-image: url('../images/users/user_edit.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
-	height: 16px;
+    /* IE 7 begin */
+	padding-bottom: 0px;
+    padding-top: 0px;
+    /* IE 7 end */
 }
 
 #user-group {
@@ -449,17 +459,11 @@ code, pre {
 	padding-top: 5px;		
 }
 
-#loginbox li{	
-	padding-right:20px;
-	float:left;
-	list-style-type:none;	
-}
 
 /* navbar */
 #navbar {
 	width: 100%;	
 	position: relative;
-	
 	display:block;
 	font-weight: bold;
 	
@@ -491,7 +495,11 @@ code, pre {
 	text-decoration:none;	
 	display:block;
 	margin:0 3px 0 0;
-	padding:6px 10px;
+	padding-top:6px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:6px;
+    
 	border: 1px solid;
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
 	
@@ -586,10 +594,11 @@ code, pre {
     list-style-type:none;
 }
 
-.headings {
-    padding-top:0.1px;
-    padding-bottom:0.1px;
+.headings {   
+    padding-top:1px;
+    padding-bottom:1px;        
     padding-left: 20px;
+    height: 30px;
     background-color:#baba9b;    
 }
 
@@ -599,10 +608,11 @@ code, pre {
     padding-bottom:1px;
     padding-left: 20px;
     background-color:#8dc192;    
-    text-align: center;    
+    text-align: center;
+    height: 30px;
 }
 
-#stats, #lastposts, #jumpto, #quickreply, #postreply, #postadd {
+#stats, #lastposts, #jumpto, #quickreply, #postreply, #postadd, #post-status {
 	margin: auto;
 	padding-left: 20px;
 	padding-right: 20px;
@@ -612,8 +622,7 @@ code, pre {
 	padding-left: 20px;
 }
 
-#lastposts ul{
-	margin-right: 20px;
+#lastposts ul{	
 	padding-left: 20px;
 }
 
@@ -644,6 +653,7 @@ code, pre {
 	text-align: right;
 	margin-right: 10px;
 	margin-top: 20px;
+    padding-bottom: 4px;
 }
 
 .formsubmit {
@@ -653,22 +663,25 @@ code, pre {
 .jforms-submit, .jforms-reset {
 	padding-left: 20px;
 	margin-top: 5px;
-	margin-bottom: 5px;
+	margin-bottom: 5px;    
 }
 
 .newmessage a, .replymessage a, .jforms-submit, .jforms-reset {
 	border: 1px solid;
-	cursor: pointer;
-	text-align: left;
+    border-radius:3px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
-	border-radius:3px;
-	padding : 2px 2px;
+	
+	padding: 2px;
 	color:#4D5431;
-	font-size:11px;
+
 	text-decoration:none;
+	text-align: center;    
 	font-weight: bold;
-	background-color:#e1e1cd;	
+    font-size: 11px;
+	background-color:#e1e1cd;
+    
+	cursor: pointer;    
 }
 
 .newmessage a:hover,.newmessage a:focus,.newmessage a:active,

@@ -27,6 +27,7 @@ history=history.coord.ini.php
 flood=flood.coord.ini.php
 hfnuinstalled=hfnuinstalled.coord.ini.php
 banuser=banuser.coord.ini.php
+timeout=timeout.coord.ini.php
 
 [tplplugins]
 defaultJformsBuilder=html
