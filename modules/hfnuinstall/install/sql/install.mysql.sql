@@ -498,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
 --
 
 INSERT INTO `hf_posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`) VALUES
-(1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', 'NOW()', 'NOW()', 1, '127.0.0.1');
+(1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1');
 
 -- --------------------------------------------------------
 
