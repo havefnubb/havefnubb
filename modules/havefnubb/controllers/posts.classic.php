@@ -415,8 +415,8 @@ class postsCtrl extends jController {
 
 				$record->parent_id  = 0;
 				$record->status		= 'opened';
-				$record->date_created = date('Y-m-d H:i:s');
-				$record->date_modified = date('Y-m-d H:i:s');				
+				$record->date_created = time();
+				$record->date_modified = time();
 				$record->viewed		= 0;
 				$record->poster_ip = $_SERVER['REMOTE_ADDR'];
 				
@@ -429,17 +429,9 @@ class postsCtrl extends jController {
 				
 				jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
 				
-				// let's update the counter of posts in member table
-				$daoUser = jDao::get('havefnubb~member');			
-				// increment the nb_msg of the poster
-				$daoUser->updateNbMsg($user->id,$user->nb_msg +1);
-				// let's update the last time the user "touch" a post
-				$daoUser->updateLastPostedMsg($user->id,time());
 			} else {
 				$record->date_modified = date('Y-m-d H:i:s');
-				// let's update the last time the user "touch" a post
-				$daoUser = jDao::get('havefnubb~member');
-				$daoUser->updateLastPostedMsg($user->id,time());
+				jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
 			}
 			// otherwise it's an update
 			// in all case we have to
@@ -630,8 +622,8 @@ class postsCtrl extends jController {
 
 			$record->parent_id  = $parent_id;
 			$record->status		= 'opened';
-			$record->date_created = date('Y-m-d H:i:s');
-			$record->date_modified = date('Y-m-d H:i:s');
+			$record->date_created = time();
+			$record->date_modified = time();
 			$record->viewed		= 0;
 			$record->poster_ip = $_SERVER['REMOTE_ADDR'];
 			$dao->insert($record);
@@ -639,13 +631,6 @@ class postsCtrl extends jController {
 			jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$record->id_post));
 			
 			jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
-			
-			// let's update the counter of posts in member table
-			$daoUser = jDao::get('havefnubb~member');			
-			// increment the nb_msg of the poster
-			$daoUser->updateNbMsg($user->id,$user->nb_msg +1);
-			// let's update the last time the user "touch" a post
-			$daoUser->updateLastPostedMsg($user->id,time());
 			
 			jForms::destroy('havefnubb~posts', $parent_id);
 			
@@ -890,8 +875,8 @@ class postsCtrl extends jController {
 			$record->id_forum  	= $id_forum;
 			$record->id_user 	= $user->id;
 
-			$record->date_created = date('Y-m-d H:i:s');
-			$record->date_modified = date('Y-m-d H:i:s');
+			$record->date_created = time();
+			$record->date_modified = time();
 
 			$dao->insert($record);
 			
@@ -1010,8 +995,8 @@ class postsCtrl extends jController {
 		  if($first){
 			  // le premier enregistrement permet de connaitre
 			  // la date du channel
-			  $rep->infos->updated = $post->date_created;
-			  $rep->infos->published = $post->date_created;
+			  $rep->infos->updated = date('Y-m-d H:i:s',$post->date_created);
+			  $rep->infos->published = date('Y-m-d H:i:s',$post->date_created);
 			  $first=false;
 		  }
 		
@@ -1022,7 +1007,7 @@ class postsCtrl extends jController {
 														 'ptitle'=>$post->subject,
 														 ));
 				
-		  $item = $rep->createItem($post->subject, $url, $post->date_created);
+		  $item = $rep->createItem($post->subject, $url, date('Y-m-d H:i:s',$post->date_created));
 		
 		  $item->authorName = $post->login;	
 

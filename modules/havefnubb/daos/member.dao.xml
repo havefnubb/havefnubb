@@ -164,12 +164,11 @@
        <!-- for stats purpose -->
         <method name="updateNbMsg" type="update">
 			<parameter name="id"/>
-			<parameter name="nb_msg"/>
             <conditions>
                 <eq property="id" expr="$id" />
             </conditions>
 			<values>
-				<value property="nb_msg" expr="$nb_msg"/>
+				<value property="nb_msg" expr="member_nb_msg +1"/>
 			</values>
         </method>
 		<method name="updateLastPostedMsg" type="update">

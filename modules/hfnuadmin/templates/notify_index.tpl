@@ -14,7 +14,7 @@
     
     <tr class="{if $line}odd{else}even{/if}">
         <td>{$notif->member_login|eschtml}</td>
-        <td>{$notif->date_created|jdatetime:'db_datetime':'lang_datetime'}</td>
+        <td>{$notif->date_created|jdatetime:'timestamp':'lang_datetime'}</td>
         <td><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$notif->id_forum)}" >{$notif->forum_name|eschtml}</a></td>
         <td>{@hfnuadmin~notify.subject@}: <a href="{jurl 'havefnubb~posts:view',array('id_post'=>$notif->id_post)}" >{$notif->subject|eschtml}</a></td>
     </tr>

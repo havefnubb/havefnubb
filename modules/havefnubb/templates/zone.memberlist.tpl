@@ -50,7 +50,7 @@
             </a>
         </td>
         <td class="line colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>
-        <td class="line coldate">{$member->request_date|jdatetime:'db_datetime':'lang_datetime'}</td>
+        <td class="line coldate">{$member->request_date|jdatetime:'timestamp':'lang_datetime'}</td>
         <td class="line colnum">{$member->nb_msg}</td>
     </tr>
     {/foreach}

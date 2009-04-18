@@ -9,4 +9,9 @@
    <listener name="hfnumenu">
       <event name="hfnuGetMenuContent" />
    </listener>
+   <listener name="postStuff">
+      <event name="HfnuPostAfterInsert"/>
+      <event name="HfnuPostAfterUpdate"/>
+      <event name="HfnuPostAfterSaveReply"/>
+   </listener>
 </events>

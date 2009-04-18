@@ -485,8 +485,8 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
   `status` int(2) NOT NULL DEFAULT '1',
   `subject` varchar(255) NOT NULL,
   `message` text NOT NULL,
-  `date_created` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
+  `date_created` int(12) NOT NULL,
+  `date_modified` int(12) NOT NULL,
   `viewed` int(12) NOT NULL,
   `poster_ip` varchar(15) NOT NULL,
   PRIMARY KEY (`id_post`),
@@ -498,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
 --
 
 INSERT INTO `hf_posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`) VALUES
-(1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', '2009-02-03 10:28:51', '2009-02-03 10:28:51', 26, '');
+(1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', 'NOW()', 'NOW()', 1, '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -615,8 +615,8 @@ CREATE TABLE IF NOT EXISTS `hf_notify` (
   `id_forum` int(12) NOT NULL,  
   `subject` varchar(255) NOT NULL, 
   `message` text NOT NULL, 
-  `date_created` datetime NOT NULL, 
-  `date_modified` datetime NOT NULL, 
+  `date_created` int(12) NOT NULL,
+  `date_modified` int(12) NOT NULL,
   PRIMARY KEY (`id_notify`), 
   KEY `id_user` (`id_user`), 
   KEY `id_post` (`id_post`) 

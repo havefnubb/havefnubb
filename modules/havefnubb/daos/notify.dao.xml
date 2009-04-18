@@ -14,8 +14,8 @@
 		
 		<property name="subject" fieldname="subject" datatype="string" required="true" maxlength="255"/>
 		<property name="message" fieldname="message" datatype="text" required="true"/>
-		<property name="date_created" fieldname="date_created" datatype="datetime" required="true"/>
-		<property name="date_modified" fieldname="date_modified" datatype="datetime" required="true"/>
+		<property name="date_created" fieldname="date_created" datatype="int" required="true"/>
+		<property name="date_modified" fieldname="date_modified" datatype="int" required="true"/>
 		
 		<property name="member_login" fiedname="member_login" datatype="string" table="member"/>
 		<property name="forum_name" fieldname="forum_name" datatype="string" table="forum"/>

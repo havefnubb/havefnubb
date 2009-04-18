@@ -433,7 +433,7 @@ class jDateTime {
      */
     public function compareTo($dt){
         $fields=array('year','month','day','hour','minute','second');
-        foreach($fields as $field){
+        foreach($fields as $field){;
             if($dt->$field > $this->$field)
                 return -1;
             if($dt->$field < $this->$field)

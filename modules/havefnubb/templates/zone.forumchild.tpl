@@ -13,7 +13,7 @@
 <table class="forumList" width="100%">
 {foreach $forumChilds as $forum}
     <tr>
-        <td class="line colleft forumicone"></td>
+        <td class="line colleft {zone 'havefnubb~newestposts',array('id_forum'=>$forum->id_forum)}"></td>
         <td class="line colmain linkincell"><h4 class="forumtitle"><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
         <td class="line colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum)}</td>
         <td class="line colright linkincell"><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
