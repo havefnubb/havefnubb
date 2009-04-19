@@ -748,7 +748,6 @@ code, pre {
 	font-size: medium;
     display:inline;
     padding:1px;
-    list-style-type:none;
     list-style-position:outside;
 	font-weight: normal;
 }
@@ -894,6 +893,7 @@ table .line {
 	height: 16px;
 	
 }
+
 ul.subforum-home li {
 	float:left;
 	list-style-type:none;	
@@ -1309,4 +1309,8 @@ ul.subforum-home li {
 
 .filter_description {
 	padding-left: 20px;
+}
+
+#currently-online li, #online-today li {
+	list-style-type:none;	
 }

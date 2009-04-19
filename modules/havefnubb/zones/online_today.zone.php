@@ -16,7 +16,9 @@ class online_todayZone extends jZone {
         $dao = jDao::get('havefnubb~member');        
         $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));        
         $members = $dao->findOnlineToday($today);
+        $nbMembers = $members->rowCount();       
         $this->_tpl->assign('members',$members);
+        $this->_tpl->assign('nbMembers',$nbMembers);
 
     }
 }

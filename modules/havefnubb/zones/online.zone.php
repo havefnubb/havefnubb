@@ -14,7 +14,9 @@ class onlineZone extends jZone {
     protected function _prepareTpl(){
         
         $dao = jDao::get('havefnubb~member');
-        $members = $dao->findAllConnected(time());        
+        $members = $dao->findAllConnected(time());
+        $nbMembers = $members->rowCount();
         $this->_tpl->assign('members',$members);
+        $this->_tpl->assign('nbMembers',$nbMembers);
     }
 }
