@@ -24,7 +24,7 @@ class authhavefnubbListener extends jEventListener{
           die("");
       }
       // put the current date
-      $user->member_last_connect = date("Y-m-d H:i:s");
+      $user->member_last_connect = time();
       $user->connected = time();
       
       $dao->update($user);

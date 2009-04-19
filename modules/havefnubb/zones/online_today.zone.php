@@ -13,11 +13,8 @@ class online_todayZone extends jZone {
 
     protected function _prepareTpl(){
         
-        $dao = jDao::get('havefnubb~member');
-        
-        $todayTs  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
-        $today = date('Y-m-d h:i:s',$todayTs);
-        
+        $dao = jDao::get('havefnubb~member');        
+        $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));        
         $members = $dao->findOnlineToday($today);
         $this->_tpl->assign('members',$members);
 

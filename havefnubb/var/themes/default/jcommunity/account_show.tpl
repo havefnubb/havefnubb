@@ -72,7 +72,7 @@ $(document).ready(function(){
                         <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><br />{$user->request_date|jdatetime}</a>
                     </p>
                     <p class="col">                
-                        <label><strong>{@havefnubb~member.common.last.connection@}</strong></label><br />{$user->member_last_connect|jdatetime}</a>
+                        <label><strong>{@havefnubb~member.common.last.connection@}</strong></label><br />{$user->member_last_connect|jdatetime:'timestamp'}</a>
                     </p>                    
                 </div>                 
             </fieldset>

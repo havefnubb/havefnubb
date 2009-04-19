@@ -34,7 +34,7 @@ class timeout
                 //get the member by its PK
                 $user = $daoM->getById($online->id);
                 //put the current date
-                $user->member_last_connect = date("Y-m-d H:i:s");
+                $user->member_last_connect = time();
                 $user->connected = time();
                 //update the Member 
                 $daoM->update($user);
