@@ -186,10 +186,35 @@ code, pre {
 	height: 16px;
 }
 
+.user-status-online {
+	background-image: url('../images/users/online.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+
+.user-status-offline {
+	background-image: url('../images/users/offline.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;	
+}
+
+.user-status {
+	display:none;
+}
+
 .user-town {
 	background-image: url('../images/users/house.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
+	padding-top: 4px;
+	height: 16px;
+}
+
+.user-country {
 	padding-top: 4px;
 	height: 16px;
 }
@@ -223,6 +248,7 @@ code, pre {
 	background-repeat: no-repeat;
 	padding-left: 20px;
 	height: 16px;
+	padding-top: 4px;
 }
 
 .user-email-add {
@@ -383,6 +409,7 @@ code, pre {
 	background-repeat: no-repeat;
 	background-position: left;
 	height: 18px;
+	padding-top: 4px;
 	padding-left: 20px;
 }	
 

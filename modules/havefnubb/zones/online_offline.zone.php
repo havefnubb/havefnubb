@@ -15,21 +15,13 @@ class online_offlineZone extends jZone {
 		$userId = $this->param('userId');
 		if (!$userId ) return;
 		
-        $dao = jDao::get('havefnubb~member');
-        $user = $dao->getById($userId);
+        $dao = jDao::get('havefnubb~timeout');
+        $user = $dao->getConnectedByIdUser(time(),$userId);
 		
-		$dt = new jDateTime();
-		$dt->setFromString($user->member_last_connect,jDateTime::DB_DTFORMAT);
-
-		$dt2 = new jDateTime();
-		$dt2->setFromString(date('Y-m-d H:i:s'),jDateTime::DB_DTFORMAT);
-		
-		$duration = $dt->durationTo($dt2);
-
-		if ( $duration->seconds <= 300 )
-			$status = jLocale::get('havefnubb~main.common.yes');
+		if ( $user === false )
+			$status = 'offline';
 		else
-			$status = jLocale::get('havefnubb~main.common.no');					
+			$status = 'online';
 		
         $this->_tpl->assign('status',$status);                
     }

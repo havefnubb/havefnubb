@@ -1,12 +1,12 @@
 <div class="post-author">
     <ul class="member-ident">
-        <li class="user-name"><a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->login)}">{$user->login|eschtml}</a></li>        
+        <li class="user-name">{zone 'online_offline',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->login)}">{$user->login|eschtml}</a></li>        
         <li class="user-avatar">{avatar 'images/avatars/'.$user->id}</li>
         {if $user->member_town != ''}
         <li class="user-town">{@havefnubb~member.common.town@} : {$user->member_town|eschtml}</li>
-        {/if}
+        {/if}        
         {if $user->member_country != ''}
-        <li class="user-country">{image 'images/flags/'.$user->member_country.'.gif'}  {$user->member_country|eschtml}</li>
+        <li class="user-country">{image 'images/flags/'.$user->member_country.'.gif',array('alt'=>$user->member_country)}  {$user->member_country|eschtml}</li>
         {/if}
         <li class="user-rank"><span>{@havefnubb~rank.rank_name@} : {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}</span></li>        
     </ul>

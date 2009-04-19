@@ -192,6 +192,19 @@
 				<value property="nb_msg" expr="$nbPost"/>
 				<value property="request_date" expr="$request_date"/>
 			</values>			
+		</method>		
+		<method name="findOnlineToday" type="select">
+			<parameter name="today" />
+			<conditions>
+				<gteq property="connected" expr="$today" />
+			</conditions>
 		</method>
+		<method name="findAllConnected" type="select">
+			<parameter name="time" />
+			<conditions>
+				<lt property="connected" expr="$time" />
+			</conditions>
+		</method>
+	 
    </factory>
 </dao>
