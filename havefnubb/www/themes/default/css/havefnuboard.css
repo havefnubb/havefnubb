@@ -30,6 +30,10 @@ h2{font-size: 1em}
 h3 {font-size: 1.1em}
 h4 {font-size: 1em}
 
+li {
+	list-style-type: none;
+}
+
 .forumcat, .subforum {
 	margin: auto;
 	margin-left: 20px;
@@ -627,6 +631,10 @@ code, pre {
     padding-left: 20px;
     height: 30px;
     background-color:#baba9b;    
+}
+
+li.headings  {   
+	list-style-type:none;
 }
 
 #statsinfos-headings, #cloud-headings {

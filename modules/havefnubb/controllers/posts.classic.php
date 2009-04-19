@@ -1011,7 +1011,8 @@ class postsCtrl extends jController {
 		
 		  $item->authorName = $post->login;	
 
-		  $item->content = $post->message;
+		  $render = new jWiki();
+		  $item->content = $render->render($post->message);
 		  $item->contentType='html';
 		
 		  $item->idIsPermalink = true;
