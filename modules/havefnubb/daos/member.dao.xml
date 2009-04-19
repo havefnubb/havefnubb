@@ -196,7 +196,7 @@
 		<method name="findOnlineToday" type="select">
 			<parameter name="today" />
 			<conditions>
-				<gteq property="connected" expr="$today" />
+				<gteq property="member_last_connect" expr="$today" />
 			</conditions>
 		</method>
 		<method name="findAllConnected" type="select">
@@ -204,7 +204,6 @@
 			<conditions>
 				<lt property="connected" expr="$time" />
 			</conditions>
-		</method>
-	 
+		</method>	 
    </factory>
 </dao>
