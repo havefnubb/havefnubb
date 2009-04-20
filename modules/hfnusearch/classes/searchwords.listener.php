@@ -53,10 +53,11 @@ class searchwordsListener extends jEventListener{
   
 	  // watch in search_words ...
 	  $cnx = jDb::getConnection();
-	  $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, posts.parent_id, message, member_login as login, date_created, forum.id_forum, forum_name FROM '.$cnx->prefixTable('search_words');
+	  $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, posts.parent_id, message, member_login as login, date_created, forum.id_forum, forum_name, cat_name, category.id_cat FROM '.$cnx->prefixTable('search_words');
 	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('posts') .' AS posts  ON posts.id_post  = '.$cnx->prefixTable('search_words').'.id ';
 	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('member') .' AS member ON member.id_user = posts.id_user ';
-	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('forum') .' AS forum ON forum.id_forum = posts.id_forum ';	  
+	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('forum') .' AS forum ON forum.id_forum = posts.id_forum ';
+	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('category') .' AS category ON category.id_cat = forum.id_cat ';	  
 	  $strQuery .= ' WHERE (';
 	  $counter=0;
 	  foreach ($words as $word) {
@@ -80,7 +81,7 @@ class searchwordsListener extends jEventListener{
 		$strQuery .= ' HAVING nb = '.$nb_words;
 	  }
 	 
-	  $strQuery .= ' ORDER BY nb DESC, total_weight DESC';        
+	  $strQuery .= ' ORDER BY cat_name ASC, nb DESC, total_weight DESC';        
 
 	  $rs = $cnx->query($strQuery);
 	  $result='';
