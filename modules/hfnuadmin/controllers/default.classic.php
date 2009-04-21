@@ -48,12 +48,13 @@ class defaultCtrl extends jController {
             $HfnuConfig->setValue('description',htmlentities($this->param('description')));
 			
 			$defaultConfig->setValue('theme',htmlentities($this->param('theme')));
+			$defaultConfig->setValue('webmasterEmail',htmlentities($this->param('webmaster_email')),'mailer');
 			$defaultConfig->save();
 			
 			
             $HfnuConfig->setValue('theme',htmlentities($this->param('theme')));
             $HfnuConfig->setValue('rules',htmlentities($this->param('rules')));
-            $HfnuConfig->setValue('webmaster_email',htmlentities($this->param('webmaster_email')));
+            
             $HfnuConfig->setValue('admin_email',htmlentities($this->param('admin_email')));
             
             $HfnuConfig->setValue('posts_per_page',htmlentities($this->param('posts_per_page')));
@@ -80,7 +81,7 @@ class defaultCtrl extends jController {
         $form->setData('description',     stripslashes($HfnuConfig->getValue('description')));
         $form->setData('theme',           stripslashes($HfnuConfig->getValue('theme')));
         $form->setData('rules',           stripslashes($HfnuConfig->getValue('rules')));
-        $form->setData('webmaster_email', stripslashes($HfnuConfig->getValue('webmaster_email')));
+        $form->setData('webmaster_email', stripslashes($defaultConfig->getValue('webmasterEmail','mailer')));
         $form->setData('admin_email',     stripslashes($HfnuConfig->getValue('admin_email')));
         $form->setData('posts_per_page',  (int) $HfnuConfig->getValue('posts_per_page'));
         $form->setData('replies_per_page',(int) $HfnuConfig->getValue('replies_per_page'));

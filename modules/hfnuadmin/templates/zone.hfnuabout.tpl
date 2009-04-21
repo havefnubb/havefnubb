@@ -1,11 +1,7 @@
-<div class="inbox">
-    <dl>
-        <dt>HavefnuBB! version</dt>
-        <dd>
-            HavefnuBB v 1.0 beta1<br/>
-            <a href="{jurl 'hfnuadmin~default:check_upgrade'}">{@hfnuadmin~admin.check.official.version@}</a>
-        </dd>
-    </dl>
+<h2>HavefnuBB!</h2>
+<h3> version 1.0 beta1</h3>
+<div>
+    <a href="{jurl 'hfnuadmin~default:check_upgrade'}">{@hfnuadmin~admin.check.official.version@}</a>
 </div>
 {ifacl2 'hfnu.admin.server.info'}		
 {zone 'servinfo~server_info'}

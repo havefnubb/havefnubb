@@ -12,6 +12,10 @@ class server_infoZone extends jZone {
     protected $_tplname='zone.server_info';
 
     protected function _prepareTpl(){
+
+        $dao = jDao::get('havefnubb~member');
+        $members = $dao->findAllConnected(time());
+        $nbMembers = $members->rowCount();
 		
 		$srvinfos = jClasses::getService("servinfo~serverinfos");
 
@@ -22,6 +26,7 @@ class server_infoZone extends jZone {
 		$this->_tpl->assign('DB_VERSION',$srvinfos->dbVersion());
 		$this->_tpl->assign('DB_SIZE',$srvinfos->dbSize());
 		$this->_tpl->assign('DB_RECORDS',$srvinfos->dbRecords());
+		$this->_tpl->assign('ONLINE_USERS',$nbMembers);
 
     }
 }

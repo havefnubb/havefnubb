@@ -41,9 +41,11 @@ class ServerInfos {
         return $phpAccelerator;
     }
 
-    //@TODO
+ 
 	public static function dbVersion() {
-		return 0;
+		$profile = jDb::getProfile();
+		
+		return $profile['driver'];
 	}
 	
     //@TODO

@@ -20,6 +20,7 @@ modulesPath="lib:jelix-modules/,app:../modules/"
 theme=default
 
 
+webmasterEmail=
 [coordplugins]
 auth=auth.coord.ini.php
 jacl2=jacl2.coord.ini.php
@@ -133,7 +134,7 @@ install=on
 default=messages.log
 
 [mailer]
-webmasterEmail="root@localhost.com"
+webmasterEmail="webmaster@havefnubb.org"
 webmasterName=webmaster
 
 ; how to send mail : "mail" (mail()), "sendmail" (call sendmail), or "smtp" (send directly to a smtp)
@@ -193,6 +194,8 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
+
 
 
 

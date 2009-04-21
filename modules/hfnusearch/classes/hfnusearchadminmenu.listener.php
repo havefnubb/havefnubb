@@ -14,13 +14,16 @@ class hfnusearchadminmenuListener extends jEventListener{
    *
    */
 	function onmasteradminGetMenuContent ($event) {
+	  global $gJConfig;
+	  $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';	  
       if ( jAcl2::check('hfnu.admin.search'))    {
-
-		  $event->add(new masterAdminMenuItem('searchengine',
+		 $item = new masterAdminMenuItem('searchengine',
 											  jLocale::get('hfnusearch~search.admin.search.engine'),
 											  jUrl::get('hfnusearch~admin:index'),
 											  400,
-											  'havefnubb'));
+											  'havefnubb');
+         $item->icon = $chemin . 'images/admin/search_engine.png';			
+         $event->add($item);		 
 		}
 	} 
 }
