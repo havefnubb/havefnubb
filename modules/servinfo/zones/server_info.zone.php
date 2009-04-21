@@ -19,13 +19,15 @@ class server_infoZone extends jZone {
 		
 		$srvinfos = jClasses::getService("servinfo~serverinfos");
 
+		list($records,$size)=$srvinfos->dbSize();
+
 		$this->_tpl->assign('LOADS_AVG',$srvinfos->loadsAvg());
 		$this->_tpl->assign('CACHE_ENGINE',$srvinfos->cacheEngine());
 		$this->_tpl->assign('PHP_VERSION',phpversion());
 		$this->_tpl->assign('PHP_OS',PHP_OS);
 		$this->_tpl->assign('DB_VERSION',$srvinfos->dbVersion());
-		$this->_tpl->assign('DB_SIZE',$srvinfos->dbSize());
-		$this->_tpl->assign('DB_RECORDS',$srvinfos->dbRecords());
+		$this->_tpl->assign('DB_SIZE',$size);
+		$this->_tpl->assign('DB_RECORDS',$records);
 		$this->_tpl->assign('ONLINE_USERS',$nbMembers);
 
     }

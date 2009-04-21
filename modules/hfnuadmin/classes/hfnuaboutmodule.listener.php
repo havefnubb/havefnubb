@@ -9,9 +9,19 @@
 */
 
 class hfnuaboutmoduleListener extends jEventListener{
-
-    //@TODO : return the content of module.xml file    
+    
     public function onHfnuAboutModule($event) {
-        return array();
+        global $gJConfig;
+        $modulexml = jClasses::getService('havefnubb~modulexml');
+        
+        $modulesList = $gJConfig->_modulesPathList;
+
+        foreach($modulesList as $k=>$path) {
+            //echo "path $path<br/>";
+            if (  preg_match('#/havefnubb/$#',$path,$m) ) 
+                if (file_exists($path.'/module.xml')) 
+                    $moduleInfos = $modulexml->parse($path.'/module.xml','version');
+        }
+        $event->Add(array('moduleInfos'=>$moduleInfos));
     }
 }

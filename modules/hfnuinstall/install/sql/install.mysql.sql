@@ -671,3 +671,11 @@ CREATE TABLE `hf_connected` (
     connected INT(10) UNSIGNED NOT NULL DEFAULT 0,
     idle TINYINT(1) NOT NULL DEFAULT 0
 ) DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `hf_subscription`;
+CREATE TABLE `hf_subscription` (
+	id_user int unsigned NOT NULL default '0',
+	id_forum int unsigned NOT NULL default '0',
+	id_post int unsigned NOT NULL default '0',
+	PRIMARY KEY ( id_user, id_forum, id_post )
+) DEFAULT CHARSET=utf8;

@@ -18,6 +18,9 @@ class hfnuaboutZone extends jZone {
         
         // $data will contain the complet content of
         // module.xml of each module that will respond
-        $data = jEvent::notify('HfnuAboutModule');        
+        $ev = jEvent::notify('HfnuAboutModule');
+        
+        $moduleInfos = $ev->getResponse();
+        $this->_tpl->assign('version',$moduleInfos[0]['moduleInfos']['version']);
     }
 }

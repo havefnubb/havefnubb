@@ -6,6 +6,8 @@
         <dd id="accelerator">{@servinfo~servinfo.server.infos.php.accelerator@} : {$CACHE_ENGINE}</dd>
         <dt id="database">{@servinfo~servinfo.server.infos.database@}</dt>
         <dd>{$DB_VERSION}</dd>
+        <dd>{@servinfo~servinfo.server.infos.database.rows@}: {$DB_RECORDS}</dd>
+        <dd>{@servinfo~servinfo.server.infos.database.size@}: {$DB_SIZE}</dd>
         <dt id="user-online">{@servinfo~servinfo.server.infos.online.users@}</dt>
         <dd>{$ONLINE_USERS}</dd>        
     </dl>

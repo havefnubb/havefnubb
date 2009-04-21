@@ -44,17 +44,31 @@ class ServerInfos {
  
 	public static function dbVersion() {
 		$profile = jDb::getProfile();
-		
-		return $profile['driver'];
+		$tools = jDb::getTools();
+		$version = $tools->dbVersion();
+		return $profile['driver'] . ' ' . $version;
 	}
 	
-    //@TODO
 	public static function dbSize() {
-		return 0;
+		$profile = jDb::getProfile();
+		$con = jDb::getConnection();
+		$totalRecords = $totalSize = 0;
+		
+		if ($profile['driver'] == 'mysql' or $profile['driver'] == 'mysqli') {
+			$results = $con->query('SHOW TABLE STATUS FROM `'.$profile['database'].'`');			
+			foreach($results as $status) {
+				$totalRecords += $status->Rows;
+				$totalSize += $status->Data_length + $status->Index_length;
+			}
+		
+			$totalSize = $totalSize / 1024;
+		
+			if ($totalSize > 1024)
+				$totalSize = round($totalSize / 1024, 2).' MB';
+			else
+				$totalSize = round($totalSize, 2).' KB';
+		}
+		return  array($totalRecords,$totalSize);
 	}
-
-    //@TODO
-	public static function dbRecords() {
-		return 0;
-	}    
+    
 }
