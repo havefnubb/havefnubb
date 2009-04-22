@@ -54,7 +54,7 @@ class ServerInfos {
 		$con = jDb::getConnection();
 		$totalRecords = $totalSize = 0;
 		
-		if ($profile['driver'] == 'mysql' or $profile['driver'] == 'mysqli') {
+		if ($profile['driver'] == 'mysql') {
 			$results = $con->query('SHOW TABLE STATUS FROM `'.$profile['database'].'`');			
 			foreach($results as $status) {
 				$totalRecords += $status->Rows;

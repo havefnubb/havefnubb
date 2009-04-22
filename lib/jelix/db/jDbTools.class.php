@@ -300,8 +300,10 @@ abstract class jDbTools {
         }
         return $nbCmd;
    }
+    /**
+    * get the Version of the database
+    * @return   string    current RDBMS database version
+    */
+   abstract public function dbVersion() ;
 
-   public function dbVersion() {
-      return $this->_dbVersion();
-   }
 }

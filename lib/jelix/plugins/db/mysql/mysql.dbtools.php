@@ -328,11 +328,13 @@ class mysqlDbTools extends jDbTools {
         return $queries;
     }
 
-    public function _dbVersion() {
-        $rs = $this->_conn->query ('SELECT VERSION() as VERSION');
-		foreach ($rs as $vers)
-				$version = $vers->VERSION;
-        return $version;
+    /*
+    * get the version of the mysql of the current database
+    * @return string    the current version of the database
+    */
+
+    public function dbVersion() {
+        return mysql_get_server_info();
     }
 }
 
