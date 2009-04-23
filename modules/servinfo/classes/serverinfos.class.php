@@ -44,8 +44,14 @@ class ServerInfos {
  
 	public static function dbVersion() {
 		$profile = jDb::getProfile();
+		//@TODO get the current dbLink to give it to each RDBMS function
+		/*
 		$tools = jDb::getTools();
-		$version = $tools->dbVersion();
+		$version = $tools->dbVersion();*/
+		if ($profile['driver'] == 'pgsql') $version = pg_version();
+		elseif ($profile['driver'] == 'mysql') $version = mysql_get_server_info();
+		elseif ($profile['driver'] == 'sqlite') $version = sqlite_version();
+		
 		return $profile['driver'] . ' ' . $version;
 	}
 	
@@ -54,7 +60,7 @@ class ServerInfos {
 		$con = jDb::getConnection();
 		$totalRecords = $totalSize = 0;
 		
-		if ($profile['driver'] == 'mysql') {
+		if ($profile['driver'] == 'mysql' or $profile['driver'] == 'mysqli') {
 			$results = $con->query('SHOW TABLE STATUS FROM `'.$profile['database'].'`');			
 			foreach($results as $status) {
 				$totalRecords += $status->Rows;

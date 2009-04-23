@@ -188,11 +188,4 @@ class ociDbTools extends jDbTools {
         return preg_replace(array('/\*tbName\*/', '/\*clName\*/'), array(strtoupper($tbName), strtoupper($clName)), $this->_conn->profile['sequence_AI_pattern']);
     }
 
-    /*
-    * get the version of the oracle of the current database
-    * @return string    the current version of the database
-    */    
-	public function dbVersion() {
-        return oci_server_version();
-    }
 }

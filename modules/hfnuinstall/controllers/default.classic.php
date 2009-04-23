@@ -43,28 +43,11 @@ class defaultCtrl extends jController {
                     }
                     else
                         jMessage::add(jLocale::get('hfnuinstall~install.check.php.version.is.requied',array(phpversion())),'error');
-
-                    $dbSupported = false;
-                    if ( function_exists('mysql_connect') ) {
-                        $dbSupported = true;
-                        jMessage::add(jLocale::get('hfnuinstall~install.check.module.is.present',array('MySQL')),'ok') ;
-                    }
-                    else
-                        jMessage::add(jLocale::get('hfnuinstall~install.check.module.is.not.present',array('MySQL')),'warning') ;
-                                      
-                    if ( function_exists('pg_connect') ) {
-                        $dbSupported = true;
-                        jMessage::add(jLocale::get('hfnuinstall~install.check.module.is.present',array('PostGresql')),'ok') ;
-                    }
-                    else
-                        jMessage::add(jLocale::get('hfnuinstall~install.check.module.is.not.present',array('PostGresql')),'warning') ;
-
-                    if ( function_exists('sqlite_connect') ) {
-                        $dbSupported = true;
-                        jMessage::add(jLocale::get('hfnuinstall~install.check.module.is.present',array('SQLite')),'ok') ;
-                    }
-                    else
-                        jMessage::add(jLocale::get('hfnuinstall~install.check.module.is.not.present',array('SQLite')),'warning') ;
+					
+					$d = jClasses::getService('hfnuinstall~supported_drivers');
+					
+					$dbSupported = false;
+					$dbSupported = $d->check();
                         
                     $continue = false;
                     if ($dbSupported === true and $phpSupported === true) $continue = true;

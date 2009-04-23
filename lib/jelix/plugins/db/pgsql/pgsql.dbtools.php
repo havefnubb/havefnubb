@@ -198,14 +198,5 @@ class pgsqlDbTools extends jDbTools {
         $this->_conn->query ($sqlQueries);
     }
 
-    /*
-    * get the version of the postgresql of the current database
-    * @return string    the current version of the database
-    */    
-    public function dbVersion() {
-        $version = pg_version($this->_conn);
-        
-        return $version['client'];
-    }
 }
 

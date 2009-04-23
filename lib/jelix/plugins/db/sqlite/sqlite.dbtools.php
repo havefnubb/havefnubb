@@ -170,12 +170,5 @@ class sqliteDbTools extends jDbTools {
         return $results;
     }
 
-    /*
-    * get the version of the sqlite of the current database
-    * @return string    the current version of the database
-    */
-    public function dbVersion() {
-        return sqlite_libversion();
-    }    
 }
 

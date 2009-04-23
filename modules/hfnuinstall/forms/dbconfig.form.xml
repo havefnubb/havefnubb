@@ -9,9 +9,7 @@
 
 <menulist ref="driver" required="true">
 	<label locale="hfnuinstall~install.dbconfig.driver"/>      
-    <item value="mysql">MySQL</item>
-    <item value="pgsql">PostgreSQL</item>
-    <item value="sqlite">SQLite</item>
+	<datasource class="hfnuinstall~driver" />
 </menulist>
 
 <input ref="host" required="true">

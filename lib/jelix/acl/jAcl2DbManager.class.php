@@ -71,11 +71,21 @@ class jAcl2DbManager {
      */
     public static function setRightsOnGroup($group, $rights){
         $dao = jDao::get('jelix~jacl2rights', jAcl2Db::getProfile());
-        $dao->deleteByGroup($group);
-        foreach($rights as $sbj=>$val){
-            if($val != '')
-              self::addRight($group,$sbj);
+        $rightsToNotRemove = array();
+        foreach($rights as $sbj=>$val) {
+            if ($val != '' || $val == true) {
+               $rightsToNotRemove[] = $sbj;
+               self::addRight($group,$sbj);
+            }
         }
+
+        if (count($rightsToNotRemove)) {
+            $dao->deleteByGroupAndExceptSubjects($group, $rightsToNotRemove);
+        }
+        else {
+            $dao->deleteByGroup($group);
+        }
+        
         jAcl2::clearCache();
     }
 
