@@ -434,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
   `member_password` varchar(50) NOT NULL,
   `member_email` varchar(255) NOT NULL,
   `member_nickname` varchar(50) DEFAULT NULL,
-  `member_status` varchar(12) NOT NULL DEFAULT 'opened',
+  `member_status` tinyint(4) NOT NULL default '0',  
   `member_keyactivate` varchar(10) DEFAULT NULL,
   `member_request_date` datetime DEFAULT NULL,
   `member_website` varchar(255) DEFAULT NULL,
@@ -482,7 +482,7 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
   `id_user` int(12) NOT NULL,
   `id_forum` int(12) NOT NULL,
   `parent_id` int(12) NOT NULL,
-  `status` int(2) NOT NULL DEFAULT '1',
+  `status` varchar(12) NOT NULL DEFAULT 'opened',  
   `subject` varchar(255) NOT NULL,
   `message` text NOT NULL,
   `date_created` int(12) NOT NULL,
@@ -498,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
 --
 
 INSERT INTO `hf_posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`) VALUES
-(1, 1, 1, 1, 1, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1');
+(1, 1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1');
 
 -- --------------------------------------------------------
 
@@ -669,7 +669,8 @@ CREATE TABLE `hf_connected` (
     `id_user` int(12) NOT NULL DEFAULT '1',
     member_ip VARCHAR(200) NOT NULL DEFAULT '',
     connected INT(10) UNSIGNED NOT NULL DEFAULT 0,
-    idle TINYINT(1) NOT NULL DEFAULT 0
+    idle TINYINT(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id_user`)
 ) DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `hf_subscription`;

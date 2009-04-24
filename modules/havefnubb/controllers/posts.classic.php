@@ -50,8 +50,10 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
         }
 
+        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+        
 		// crumbs infos
-		list($forum,$category) = $this->getCrumbs($id_forum);
+		list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
 		        
         // let's build the pagelink var
         // A Preparing / Collecting datas
@@ -71,19 +73,10 @@ class postsCtrl extends jController {
         // 2- limit per page 
         $nbPostPerPage = 0;
         $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page');
-              
-        $daoPost = jDao::get('havefnubb~posts');
-        // 3- total number of posts
-        $nbPosts = $daoPost->countPostsByForumId($id_forum);
-        // 4- get the posts of the current forum, limited by point 1 and 2
-        $posts = $daoPost->findByIdForum($id_forum,$page,$nbPostPerPage);
-
-		// check if we have found record ; 
-		if ($posts->rowCount() == 0) {
-			$posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);
-			$page = 0;
-		}
-		
+        
+        // get all the posts of the current Forum by its Id
+        list($page,$nbPosts,$posts) = $hfnuposts->getPostsByIdForum($id_forum,$page,$nbPostPerPage);
+        		
         // change the label of the breadcrumb
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', $forum->forum_name . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
 		
@@ -130,42 +123,21 @@ class postsCtrl extends jController {
 		global $HfnuConfig;
         $id_post 	= (int) $this->param('id_post');
 		$parent_id 	= (int) $this->param('parent_id');
-
-        $dao = jDao::get('havefnubb~posts'); 
-        $post = $dao->get($id_post);		
-
-        if ($id_post == 0 or $post === false) {
+        
+        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+        
+        list($post,$goto) = $hfnuposts->view($id_post,$parent_id);
+        
+        if ($post === null and $goto == null) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 			return $rep;
-        }
-                		
-		if ( ! jAcl2::check('hfnu.posts.view','forum'.$post->id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-			return $rep;
-		}
-		
-		$goto = 0;
-		if ($parent_id > 0) {
-			// the number of post between the current post_id and the parent_id
-			$child = (int) $dao->countReplies($post->id_post,$post->parent_id);
-	
-			$nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page');			
-			// calculate the offset of this id_post
-			$goto = (ceil ($child/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
-			if ($goto < 0 ) $goto = 0;
-			// replacing the id_post by parent_id for the posts_replies.zones.php
-			$id_post = $parent_id;	
-		}		
-		
-		// let's update the viewed counter
-		$post->viewed = $post->viewed +1;
-		$dao->update($post);	
+        }        
 		
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', $post->subject );        
 		// crumbs infos
-		list($forum,$category) = $this->getCrumbs($post->id_forum);
+        
+		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
@@ -196,7 +168,7 @@ class postsCtrl extends jController {
     function add () {
 		
 		$id_forum = (int) $this->param('id_forum');
-		
+
 		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -214,9 +186,10 @@ class postsCtrl extends jController {
 		
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-		
+        
+		$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 		// crumbs infos
-		list($forum,$category) = $this->getCrumbs($id_forum);
+		list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
@@ -279,8 +252,9 @@ class postsCtrl extends jController {
 			$tags .= $tagsArray[$i] . ',';
 		}     
         
+        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 		// crumbs infos
-		list($forum,$category) = $this->getCrumbs($post->id_forum);		
+		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);		
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
@@ -335,7 +309,8 @@ class postsCtrl extends jController {
 		$submit = $this->param('validate');
 		// preview ?
 		if ($submit == jLocale::get('havefnubb~post.form.previewBt') ) {
-			list($forum,$category) = $this->getCrumbs($id_forum);
+            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+			list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
             
 			$form = jForms::fill('havefnubb~posts',$id_post);
 	
@@ -376,82 +351,22 @@ class postsCtrl extends jController {
 				$rep->action = 'havefnubb~default:index';	
 				return $rep;
 			}
-			
-			$form = jForms::fill('havefnubb~posts',$id_post);
-	
-			//.. if the data are not ok, return to the form and display errors messages form
-			if (!$form->check()) {            
-				$rep->action = 'havefnubb~posts:lists';
-				$rep->param = array('id_forum'=>$id_forum);
-				return $rep;
-			}
-	
-			//.. if the data are ok ; we get them !
-			$subject	= $form->getData('subject');
-			$message 	= $form->getData('message');
-			
-			//CreateRecord object
-			$dao = jDao::get('havefnubb~posts');						
-			
-			if ($id_post == 0) {
-				jEvent::notify('HfnuPostBeforeSave',array('id'=>$id_post));
-				$record = jDao::createRecord('havefnubb~posts');
-			}
-			else {
-				jEvent::notify('HfnuPostBeforeUpdate',array('id'=>$id_post));
-				$record = $dao->get($id_post);
-			}
-			
-			$record->subject	= $subject;
-			$record->message	= $message;
-			
-			// store the datas
-			// if id_post = 0 then
-			// it's an adding 			
-			if ($id_post == 0 ) {			
-				$record->id_post  	= $id_post;
-				$record->id_user 	= $user->id;
-				$record->id_forum 	= $id_forum;
-
-				$record->parent_id  = 0;
-				$record->status		= 'opened';
-				$record->date_created = time();
-				$record->date_modified = time();
-				$record->viewed		= 0;
-				$record->poster_ip = $_SERVER['REMOTE_ADDR'];
-				
-				$dao->insert($record);
-				$record->parent_id = $record->id_post;
-				$id_post = $record->id_post;
-				$parent_id = $record->parent_id;
-				
-				jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));
-				
-				jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
-				
-			} else {
-				$record->date_modified = date('Y-m-d H:i:s');
-				jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
-			}
-			// otherwise it's an update
-			// in all case we have to
-			// update as we store the last insert id in the parent_id column
-			$dao->update($record);
-			
-			jEvent::notify('HfnuPostAfterSave',array('id'=>$id_post));
-			
-			jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
-
-			$tags = explode(",", $form->getData("tags"));
-
-			jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
-			
-			jForms::destroy('havefnubb~posts', $id_post);
+            //let's save the post 
+            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
+            $result = $hfnuposts->save($user,$id_forum,$id_post);
+            
+            if ($result === false) {
+                $rep->action = 'havefnubb~posts:lists';
+                $rep->param = array('id_forum'=>$id_forum);
+                return $rep;        
+            }
+            else $id_post = $result;
 			
 			jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'ok');
 			//after editing, returning to the parent_id post !
 			$daoPost = jDao::get('havefnubb~posts');
 			$post = $daoPost->get($id_post);
+            
 			$rep->params = array('id_post'=>$id_post,
 								 'parent_id'=>$parent_id,
 								 'id_forum'=>$post->id_forum,
@@ -491,8 +406,9 @@ class postsCtrl extends jController {
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
 		
+        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 		// crumbs infos
-		list($forum,$category) = $this->getCrumbs($post->id_forum);
+		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
@@ -548,7 +464,8 @@ class postsCtrl extends jController {
 		$submit = $this->param('validate');
 		// preview ?
 		if ($submit == jLocale::get('havefnubb~post.form.previewBt') ) {
-			list($forum,$category) = $this->getCrumbs($id_forum);
+            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
+			list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
             
 			$form = jForms::fill('havefnubb~posts',$parent_id);
 	
@@ -584,60 +501,30 @@ class postsCtrl extends jController {
         // save ?
         elseif ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
 			$rep = $this->getResponse('redirect');
-			
-			if ($id_forum == 0 or $user->id == 0 ) {			
-				$rep->action = 'havefnubb~default:index';	
-				return $rep;
-			}
-			
-			$daoForum = jDao::get('havefnubb~forum');			
-			$forum = $daoForum->get($id_forum);
-			
-			$form = jForms::fill('havefnubb~posts',$parent_id);
-	
-			//.. if the data are not ok, return to the form and display errors messages form
-			if (!$form->check()) {            
-				$rep->action = 'havefnubb~posts:lists';
-				$rep->param = array('id_forum'=>$id_forum);
-				return $rep;
-			}
-	
-			//.. if the data are ok ; we get them !
-			$subject	= $form->getData('subject');
-			$message 	= $form->getData('message');
-			
-			jEvent::notify('HfnuPostBeforeSaveReply',array('id'=>$id_post));
-			
-			//CreateRecord object
-			$dao = jDao::get('havefnubb~posts');		
-			$record = jDao::createRecord('havefnubb~posts');
-			
-            // let's create the record of this reply
-			$record->subject	= $subject;
-			$record->message	= $message;			
 
-			$record->id_post  	= 0;
-			$record->id_user 	= $user->id;
-			$record->id_forum 	= $id_forum;
+            if ($id_forum == 0 or $user->id == 0 ) {
+                $rep->action = 'havefnubb~default:index';	
+                return $rep;        
+            }
 
-			$record->parent_id  = $parent_id;
-			$record->status		= 'opened';
-			$record->date_created = time();
-			$record->date_modified = time();
-			$record->viewed		= 0;
-			$record->poster_ip = $_SERVER['REMOTE_ADDR'];
-			$dao->insert($record);
-			
-			jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$record->id_post));
-			
-			jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
-			
-			jForms::destroy('havefnubb~posts', $parent_id);
-			
+            //let's save the reply
+            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
+            $result = $hfnuposts->savereply($user,$id_forum,$parent_id,$id_post);
+            
+            if ($result === false ) {
+                $rep->action = 'havefnubb~posts:lists';
+                $rep->param = array('id_forum'=>$id_forum);
+                return $rep;                
+            } else {
+                $record = $result;
+            }
+
+            $daoForum = jDao::get('havefnubb~forum');			
+            $forum = $daoForum->get($id_forum);			
 			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
 			
 			$rep->params = array('ftitle'=>$forum->forum_name,
-								 'ptitle'=>$subject,
+								 'ptitle'=>$record->subject,
 								 'id_forum'=>$id_forum,
 								 'id_post'=>$record->id_post,
 								 'parent_id'=>$record->parent_id);
@@ -678,14 +565,15 @@ class postsCtrl extends jController {
 			return $rep;
 		}
 		
-        //get the info of the current user who's replying
+        //get the info of the current user who's quoting
 		$daoUser = jDao::get('havefnubb~member');
 		$me = $daoUser->getByLogin( jAuth::getUserSession ()->login);                
         
         $author = $daoUser->getById( $post->id_user);
         
+        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');        
 		// crumbs infos
-		list($forum,$category) = $this->getCrumbs($post->id_forum);
+		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
@@ -729,7 +617,7 @@ class postsCtrl extends jController {
         return $rep;		
     }
 
-	
+	// delete a post
     function delete() {
 	
 		$id_post 	= (integer) $this->param('id_post');
@@ -740,27 +628,30 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
 			return $rep;
 		}
+
+        $dao = jDao::get('havefnubb~forum');
+        $forum = $dao->get($id_forum);
 		
-		jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));
+		jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));       
 		
-		$dao = jDao::get('havefnubb~posts');
-        $dao->delete($id_post);
-		
-		$dao = jDao::get('havefnubb~forum');
-		$forum = $dao->get($id_forum);
-		
-		jEvent::notify('HfnuPostAfterDelete',array('id'=>$id_post));
-		
-		jEvent::notify('HfnuSearchEngineDeleteContent',array('id'=>$id_post));
-		
-		//@TODO remove the tag from this post into the tag tables
-        jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'ok');
+        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+        $result = $hfnuposts->delete($id_post);
+		if ($result === true) {                
+            
+            jEvent::notify('HfnuPostAfterDelete',array('id'=>$id_post));
+            
+            jEvent::notify('HfnuSearchEngineDeleteContent',array('id'=>$id_post));
+            
+            //@TODO remove the tag from this post into the tag tables
+            jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'ok');
+        }
         $rep = $this->getResponse('redirect');		
         $rep->action='havefnubb~posts:lists';
 		$rep->params=array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name);
         return $rep;		
     }
 
+	// goto another forum
     function goto() {
         $id_forum = (int) $this->param('id_forum');
         if ($id_forum == 0 ) {
@@ -775,7 +666,7 @@ class postsCtrl extends jController {
         return $rep;        
     }
 
-	//notify something from a given post (from the parent_id)	
+	//notify something from a given post (from the parent_id) to the admin
     function notify() {
 		
         $id_post = (int) $this->param('id_post');
@@ -795,9 +686,11 @@ class postsCtrl extends jController {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 			return $rep;
-		}        
+		}
+
+        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 		// crumbs infos
-		list($forum,$category) = $this->getCrumbs($post->id_forum);
+		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
@@ -849,46 +742,14 @@ class postsCtrl extends jController {
 				return $rep;
 			}
 			
-			$form = jForms::fill('havefnubb~notify',$id_post);
-	
-			//.. if the data are not ok, return to the form and display errors messages form
-			if (!$form->check()) {            
-				$rep->action = 'havefnubb~default:index';
-				return $rep;
-			}
-	
-			//.. if the data are ok ; we get them !
-			$subject	= $form->getData('subject');
-			$message 	= $form->getData('message');
-			
-			jEvent::notify('HfnuPostBeforeSaveNotify',array('id'=>$id_post));
-			
-			//CreateRecord object
-			$dao = jDao::get('havefnubb~notify');		
-			$record = jDao::createRecord('havefnubb~notify');
-			
-            // let's create the record of this reply
-			$record->subject	= $subject;
-			$record->message	= $message;			
-
-			$record->id_post  	= $id_post;
-			$record->id_forum  	= $id_forum;
-			$record->id_user 	= $user->id;
-
-			$record->date_created = time();
-			$record->date_modified = time();
-
-			$dao->insert($record);
-			
-			jEvent::notify('HfnuPostAfterSaveNotify',array('id'=>$id_post));
-			
-			jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
-			
-			// let's update the counter of posts in member table
-			$daoUser = jDao::get('havefnubb~member');			
-			
-			jForms::destroy('havefnubb~notify', $id_post);
-			
+            //let's save the post 
+            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
+            $result = $hfnuposts->savenotify($user,$id_forum,$id_post);
+            if ($result === false) {
+                $rep->action = 'havefnubb~default:index';
+                return $rep;               
+            }
+            
 			jMessage::add(jLocale::get('havefnubb~main.common.notify.added'),'ok');
 		}
 		
@@ -898,7 +759,7 @@ class postsCtrl extends jController {
 
 	}
 
-
+	// change the status of the post
 	function status () {
 
 		$parent_id 	= (int) $this->param('parent_id');
@@ -912,15 +773,16 @@ class postsCtrl extends jController {
 			jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
 		}
 		else {
-			$dao = jDao::get('havefnubb~posts');
-			$post = $dao->get($parent_id);
-			
-			if ( $dao->updateStatusByIdParent($parent_id,$status) ) {
-				
-				jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$parent_id,'status'=>$status));
-				
+            
+            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+            $result = $hfnuposts->switchStatus($parent_id,$status);
+            
+            if ($result === true) {                			
 				jMessage::add(jLocale::get('havefnubb~post.status.'.$status),'ok');		
 			}
+            else {
+                $post = $result;
+            }
 		
 			$rep->action = 'havefnubb~posts:view';		
 			$rep->params = array('id_post'=>$post->id_post,
@@ -934,23 +796,7 @@ class postsCtrl extends jController {
 		return $rep;
 	}
 	
-	private function getCrumbs($id_forum) {
-		
-		// get info to display them in the breadcrumb
-        $daoForum = jDao::get('havefnubb~forum');
-        // find info for the current forum
-        $forum = $daoForum->get($id_forum);
-		
-		
-		$daoCategory = jDao::get('havefnubb~category');
-		// find category name for the current forum
-		$category = $daoCategory->get($forum->id_cat);
-		
-		$info = array($forum,$category);
-		
-		return $info;
-	}
-	
+	// provide a rss feeds for each forum
 	public function rss() {
         global $HfnuConfig;
         $id_forum = (int) $this->param('id_forum');

@@ -7,15 +7,8 @@
 * @copyright  2008 foxmask
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
-/**
- *
- */
-
-/**
-* @package    jelix
-* @subpackage coord_plugin
-* @since 1.0.1
+/*
+* class that manages the timeout of the connection of the user 
 */
 class timeoutCoordPlugin implements jICoordPlugin {
     public $config;
@@ -28,6 +21,9 @@ class timeoutCoordPlugin implements jICoordPlugin {
         $selector = null;
         
         $now = time();
+        // mainly used in install process which does not requier to check that behavior
+        if(isset($params['hfnu.timeout.do.not.check'])) 
+            return;
         
         $daoConnected       =  $this->config['dao_connected'];
         $daoMember          =  $this->config['dao_member'];

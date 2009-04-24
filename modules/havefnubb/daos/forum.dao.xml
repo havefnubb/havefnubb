@@ -51,7 +51,10 @@
             <conditions>
                 <eq property="id_cat" expr="$id_cat" />
                 <eq property="parent_id" value="0"/>
-            </conditions>            
+            </conditions>
+            <order>
+                <orderitem property="id_forum" way="asc" />
+            </order>            
         </method>                        
         <method name="findIt" type="select">
             <parameter name="id_forum" />
@@ -68,10 +71,5 @@
                <orderitem property="parent_id" way="asc" />
             </order>            
         </method>
-        <method name="findAllWithFathers" type="select" groupby="id_cat">
-            <conditions>
-                <eq property="parent_id" value="0"/>
-            </conditions>            
-        </method>		
     </factory>
 </dao>

@@ -49,14 +49,12 @@ class timeout
         }
         
        if (jAuth::isConnected()) {
-            $daoM = jDao::get($daoMember);
-            $user = $daoM->getByLogin(jAuth::getUserSession()->login);
             $daoC = jDao::get($daoConnected);
-            $rec = $daoC->get($user->id);
+            $rec = $daoC->get(jAuth::getUserSession()->id);
 			// the user id not in registered as online
             if ( $rec === false) {
                 $record = jDao::createRecord($daoConnected);                    
-                $record->id_user = $user->id;
+                $record->id = jAuth::getUserSession()->id;
                 $record->connected = time();
                 $record->member_ip = $_SERVER['REMOTE_ADDR'];
                 $record->idle = 0;

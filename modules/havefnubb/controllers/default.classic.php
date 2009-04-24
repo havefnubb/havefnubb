@@ -56,4 +56,3 @@ class defaultCtrl extends jController {
         return $rep;		
 	}
 }
-

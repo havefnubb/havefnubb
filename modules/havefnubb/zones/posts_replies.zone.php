@@ -53,7 +53,7 @@ class posts_repliesZone extends jZone {
 
 		// check if we have found record ; 
 		if ($posts->rowCount() == 0) {
-			$posts = $daoPost->findByIdParent($id_post,0,$nbRepliesPerPage);
+			$posts = $daoPost->findByIdParent($parentPost->parent_id,0,$nbRepliesPerPage);
 			$page = 0;
 		}
 
@@ -64,7 +64,6 @@ class posts_repliesZone extends jZone {
         
 		$formStatus = jForms::create('havefnubb~posts_status');
 
-		
 		$this->_tpl->assign('formStatus',$formStatus);
         $this->_tpl->assign('posts',$posts);
 		$this->_tpl->assign('id_forum',$id_forum);

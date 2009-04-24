@@ -22,9 +22,31 @@
             <parameter name="groups" />
             <conditions >
                 <eq property="id_aclres" expr="''"/>
-                <in property="id_aclgrp" expr="$groups" />
-            </conditions>
+                <in property="id_aclgrp" expr="$groups" />            
+            </conditions>            
         </method>
+        <method name="getHfnuRightsByGroups" type="select">
+            <parameter name="groups" />
+            <parameter name="resources" />
+            <conditions >
+                <eq property="id_aclres" expr="$resources"/>
+                <in property="id_aclgrp" expr="$groups" />            
+                <conditions logic="OR">
+                    <eq property="id_aclsbj" value="hfnu.forum.list" />
+                    <eq property="id_aclsbj" value="hfnu.forum.view" />
+                    <eq property="id_aclsbj" value="hfnu.posts.create" />
+                    <eq property="id_aclsbj" value="hfnu.posts.delete" />
+                    <eq property="id_aclsbj" value="hfnu.posts.edit" />
+                    <eq property="id_aclsbj" value="hfnu.posts.view" />
+                    <eq property="id_aclsbj" value="hfnu.posts.list" />
+                    <eq property="id_aclsbj" value="hfnu.posts.reply" />
+                    <eq property="id_aclsbj" value="hfnu.posts.quote" />
+                    <eq property="id_aclsbj" value="hfnu.posts.notify" />
+                    <eq property="id_aclsbj" value="hfnu.posts.edit.own" />
+                    <eq property="id_aclsbj" value="hfnu.posts.rss" />
+                </conditions>
+            </conditions>            
+        </method>        
         <method name="getRightWithRes" type="selectfirst">
            <parameter name="subject" />
            <parameter name="groups" />
@@ -64,6 +86,14 @@
               <eq property="id_aclgrp" expr="$group" />
            </conditions>
         </method>
+        <method name="deleteHfnuByGroup" type="delete">
+           <parameter name="group" />
+           <parameter name="res" />
+           <conditions >
+              <eq property="id_aclgrp" expr="$group" />
+              <eq property="id_aclres" expr="$res" />
+           </conditions>
+        </method>        
         <method name="deleteBySubjRes" type="delete">
            <parameter name="subject" />
            <parameter name="res" />
@@ -78,43 +108,5 @@
               <eq property="id_aclsbj" expr="$subject" />
            </conditions>
         </method>
-        <method name="deleteByGroupAndExceptSubjects" type="delete">
-           <parameter name="group" />
-           <parameter name="subjects" />
-           <conditions>
-              <eq property="id_aclgrp" expr="$group" />
-              <notin property="id_aclsbj" expr="$subjects" />
-           </conditions>
-        </method>
-        <method name="getHfnuRightsByGroups" type="select">
-            <parameter name="groups" />
-            <parameter name="resources" />
-            <conditions >
-                <eq property="id_aclres" expr="$resources"/>
-                <in property="id_aclgrp" expr="$groups" />            
-                <conditions logic="OR">
-                    <eq property="id_aclsbj" value="hfnu.forum.list" />
-                    <eq property="id_aclsbj" value="hfnu.forum.view" />
-                    <eq property="id_aclsbj" value="hfnu.posts.create" />
-                    <eq property="id_aclsbj" value="hfnu.posts.delete" />
-                    <eq property="id_aclsbj" value="hfnu.posts.edit" />
-                    <eq property="id_aclsbj" value="hfnu.posts.view" />
-                    <eq property="id_aclsbj" value="hfnu.posts.list" />
-                    <eq property="id_aclsbj" value="hfnu.posts.reply" />
-                    <eq property="id_aclsbj" value="hfnu.posts.quote" />
-                    <eq property="id_aclsbj" value="hfnu.posts.notify" />
-                    <eq property="id_aclsbj" value="hfnu.posts.edit.own" />
-                    <eq property="id_aclsbj" value="hfnu.posts.rss" />
-                </conditions>
-            </conditions>            
-        </method>        
-        <method name="deleteHfnuByGroup" type="delete">
-           <parameter name="group" />
-           <parameter name="res" />
-           <conditions >
-              <eq property="id_aclgrp" expr="$group" />
-              <eq property="id_aclres" expr="$res" />
-           </conditions>
-        </method> 
     </factory>
 </dao>
