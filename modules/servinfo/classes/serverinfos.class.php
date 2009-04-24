@@ -20,7 +20,7 @@ class ServerInfos {
 			@fclose($fh);
 		
 			$loadAverages = @explode(' ', $loadAverages);
-			$server_load = isset($loadAverages[2]) ? $loadAverages[0].' '.$loadAverages[1].' '.$loadAverages[2] : jLocale::get('hfnuadmin~admin.server.infos.unavailable');;
+			$serverLoad = isset($loadAverages[2]) ? $loadAverages[0].' '.$loadAverages[1].' '.$loadAverages[2] : jLocale::get('hfnuadmin~admin.server.infos.unavailable');;
 		}
 		else if (!in_array(PHP_OS, array('WINNT', 'WIN32')) && preg_match('/averages?: ([0-9\.]+),[\s]+([0-9\.]+),[\s]+([0-9\.]+)/i', @exec('uptime'), $load_averages))
 			$serverLoad = $loadAverages[1].' '.$loadAverages[2].' '.$loadAverages[3];
