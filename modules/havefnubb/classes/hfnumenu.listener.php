@@ -17,7 +17,7 @@ class hfnumenuListener extends jEventListener{
 	  
 		  $event->add(new hfnuMenuItem('home',
 											  jLocale::get('havefnubb~main.home'),
-											  jUrl::get('hfnuportal~default:index'),
+											  jUrl::get('havefnubb~default:index'),
 											  1,
 											  'main'));
 

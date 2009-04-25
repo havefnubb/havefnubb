@@ -30,6 +30,8 @@ class defaultCtrl extends jController {
         global $HfnuConfig;
 		
 		$defaultConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+		$floodConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
+		$timeoutConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
 		
         $rep = $this->getResponse('html');
 		$submit = $this->param('validate');
@@ -44,32 +46,34 @@ class defaultCtrl extends jController {
                 return $rep;
             }
             
-            $HfnuConfig->setValue('title',htmlentities($this->param('title')));
-            $HfnuConfig->setValue('description',htmlentities($this->param('description')));
+            $HfnuConfig->setValue('title',				htmlentities($this->param('title')),'main');
+            $HfnuConfig->setValue('description',		htmlentities($this->param('description')),'main');
 			
-			$defaultConfig->setValue('theme',htmlentities($this->param('theme')));
-			$defaultConfig->setValue('webmasterEmail',htmlentities($this->param('webmaster_email')),'mailer');
+			$defaultConfig->setValue('theme',			htmlentities($this->param('theme')));
+			$defaultConfig->setValue('webmasterEmail',	htmlentities($this->param('webmaster_email')),'mailer');
 			$defaultConfig->save();
 			
-			
-            $HfnuConfig->setValue('theme',htmlentities($this->param('theme')));
-            $HfnuConfig->setValue('rules',htmlentities($this->param('rules')));
+            $HfnuConfig->setValue('rules',				htmlentities($this->param('rules')),'main');
             
-            $HfnuConfig->setValue('admin_email',htmlentities($this->param('admin_email')));
+            $HfnuConfig->setValue('admin_email',		htmlentities($this->param('admin_email')),'main');
             
-            $HfnuConfig->setValue('posts_per_page',htmlentities($this->param('posts_per_page')));
-            $HfnuConfig->setValue('replies_per_page',htmlentities($this->param('replies_per_page')));
-            $HfnuConfig->setValue('members_per_page',htmlentities($this->param('members_per_page')));
-            $HfnuConfig->setValue('stats_nb_of_lastpost',htmlentities($this->param('stats_nb_of_lastpost')));            
-            
-            $HfnuConfig->setValue('elapsed_time_after_posting_before_editing',
-                                  htmlentities($this->param('elapsed_time_after_posting_before_editing')));            
-            $HfnuConfig->setValue('elapsed_time_between_two_post_by_same_ip',
-                                  htmlentities($this->param('elapsed_time_between_two_post_by_same_ip')));
-            $HfnuConfig->setValue('post_max_size',
-                                  htmlentities($this->param('post_max_size')));
-            
+            $HfnuConfig->setValue('posts_per_page',		htmlentities($this->param('posts_per_page')),'messages');
+            $HfnuConfig->setValue('replies_per_page',	htmlentities($this->param('replies_per_page')),'messages');
+            $HfnuConfig->setValue('members_per_page',	htmlentities($this->param('members_per_page')),'messages');
+            $HfnuConfig->setValue('stats_nb_of_lastpost',htmlentities($this->param('stats_nb_of_lastpost')),'messages');
+            $HfnuConfig->setValue('post_max_size',		htmlentities($this->param('post_max_size')),'messages');
             $HfnuConfig->save();
+            
+            $floodConfig->setValue('elapsed_time_after_posting_before_editing',
+                                  htmlentities($this->param('elapsed_time_after_posting_before_editing')));            
+            $floodConfig->setValue('elapsed_time_between_two_post_by_same_ip',
+                                  htmlentities($this->param('elapsed_time_between_two_post_by_same_ip')));
+            $floodConfig->save();
+						
+			$timeoutConfig->setValue('timeout_connected',(int) htmlentities($this->param('timeout_connected')));
+			$timeoutConfig->setValue('timeout_visit',(int) htmlentities($this->param('timeout_visit')));
+			$timeoutConfig->save();
+			
 			jForms::destroy('hfnuadmin~config');
 			$rep->action ='hfnuadmin~default:config';
 			return $rep;            
@@ -77,19 +81,23 @@ class defaultCtrl extends jController {
         else 
             $form = jForms::create('hfnuadmin~config');
 
-        $form->setData('title',           stripslashes($HfnuConfig->getValue('title')));
-        $form->setData('description',     stripslashes($HfnuConfig->getValue('description')));
-        $form->setData('theme',           stripslashes($HfnuConfig->getValue('theme')));
-        $form->setData('rules',           stripslashes($HfnuConfig->getValue('rules')));
+        $form->setData('title',           stripslashes($HfnuConfig->getValue('title','main')));
+        $form->setData('description',     stripslashes($HfnuConfig->getValue('description','main')));
+        $form->setData('theme',           stripslashes($defaultConfig->getValue('theme')));
+        $form->setData('rules',           stripslashes($HfnuConfig->getValue('rules','main')));
         $form->setData('webmaster_email', stripslashes($defaultConfig->getValue('webmasterEmail','mailer')));
-        $form->setData('admin_email',     stripslashes($HfnuConfig->getValue('admin_email')));
-        $form->setData('posts_per_page',  (int) $HfnuConfig->getValue('posts_per_page'));
-        $form->setData('replies_per_page',(int) $HfnuConfig->getValue('replies_per_page'));
-        $form->setData('members_per_page',(int) $HfnuConfig->getValue('members_per_page'));
-        $form->setData('stats_nb_of_lastpost',(int) $HfnuConfig->getValue('stats_nb_of_lastpost'));
-        $form->setData('elapsed_time_after_posting_before_editing',(int) $HfnuConfig->getValue('elapsed_time_after_posting_before_editing'));
-        $form->setData('elapsed_time_between_two_post_by_same_ip',(int) $HfnuConfig->getValue('elapsed_time_between_two_post_by_same_ip'));
-        $form->setData('post_max_size',(int) $HfnuConfig->getValue('post_max_size'));
+        $form->setData('admin_email',     stripslashes($HfnuConfig->getValue('admin_email','main')));
+        $form->setData('posts_per_page',  (int) $HfnuConfig->getValue('posts_per_page','messages'));
+        $form->setData('replies_per_page',(int) $HfnuConfig->getValue('replies_per_page','messages'));
+        $form->setData('members_per_page',(int) $HfnuConfig->getValue('members_per_page','messages'));
+        $form->setData('stats_nb_of_lastpost',(int) $HfnuConfig->getValue('stats_nb_of_lastpost','messages'));
+        $form->setData('elapsed_time_after_posting_before_editing',(int) $floodConfig->getValue('elapsed_time_after_posting_before_editing'));
+        $form->setData('elapsed_time_between_two_post_by_same_ip',(int) $floodConfig->getValue('elapsed_time_between_two_post_by_same_ip'));
+
+        $form->setData('timeout_connected',(int) $timeoutConfig->getValue('timeout_connected'));
+        $form->setData('timeout_visit',(int) $timeoutConfig->getValue('timeout_visit'));
+		
+        $form->setData('post_max_size',(int) $HfnuConfig->getValue('post_max_size','messages'));
                               
         $tpl = new jTpl();
         $tpl->assign('form', $form);
@@ -100,7 +108,7 @@ class defaultCtrl extends jController {
     public function check_upgrade() {
         
         global $HfnuConfig;
-        $url = $HfnuConfig->getValue('url_check_version');
+        $url = $HfnuConfig->getValue('url_check_version','main');
 
         if (!ini_get('allow_url_fopen'))
             jMessage::add('Impossible de vérifier les mises à jour tant que \'allow_url_fopen\' est désactivé sur ce système.');
@@ -112,7 +120,7 @@ class defaultCtrl extends jController {
             if ($latestVersion == '')
                 jMessage::add('La vérification de mise à jour a échouée pour une raison inconnue.');
             else {  
-                $curVersion = str_replace(array('.', 'dev', 'beta', ' '), '', strtolower($HfnuConfig->getValue('version')));
+                $curVersion = str_replace(array('.', 'dev', 'beta', ' '), '', strtolower($HfnuConfig->getValue('version','main')));
                 $curVersion = (strlen($curVersion) == 2) ? intval($curVersion) * 10 : intval($curVersion);
             
                 $latestVersion = str_replace('.', '', strtolower($latestVersion));

@@ -29,8 +29,8 @@ class installHtmlResponse extends jResponseHtml {
         $chemin = $gJConfig->urlengine['basePath'].'themes/install/';
         $this->addCssLink($chemin.'css/install.css');        
 
-        $title = stripslashes($HfnuConfig->getValue('title'));
-        $description = stripslashes($HfnuConfig->getValue('description'));
+        $title = stripslashes($HfnuConfig->getValue('title','main'));
+        $description = stripslashes($HfnuConfig->getValue('description','main'));
 
         if ($this->title)
             $this->title = $title . ' - ' . $this->title;        

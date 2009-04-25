@@ -38,7 +38,7 @@ class authhavefnubbListener extends jEventListener{
    function onAuthNewUser ($event) {
       global $HfnuConfig, $gJConfig;
 
-	  $toEmail = ($HfnuConfig->getValue('admin_email') != '') ? $HfnuConfig->getValue('admin_email') : $gJConfig->mailer['webmasterEmail'];
+	  $toEmail = ($HfnuConfig->getValue('admin_email','main') != '') ? $HfnuConfig->getValue('admin_email','main') : $gJConfig->mailer['webmasterEmail'];
 	  
 	  if ($toEmail == '') {
 		 throw new jException('havefnubb~mail.email.config.not.done.properly');		 
@@ -46,7 +46,7 @@ class authhavefnubbListener extends jEventListener{
 	  // send an email only if the forum is installed
 	  // this avoid to send an email when the forum is installing
 	  // and send an email to the admin after creating his account
-	  if ( $HfnuConfig->getValue('installed') == 1 ) {
+	  if ( $HfnuConfig->getValue('installed','main') == 1 ) {
 		 $user = $event->getParam('user');
 		 
 		 $mail = new jMailer();

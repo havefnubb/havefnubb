@@ -22,7 +22,7 @@ class memberlistZone extends jZone {
         if ($this->param('grpid')) 
             $grpid =  intval($this->param('grpid'));
         
-        $nbMembersPerPage = (int) $HfnuConfig->getValue('members_per_page');
+        $nbMembersPerPage = (int) $HfnuConfig->getValue('members_per_page','messages');
         
         $p = jAcl2Db::getProfile();
 

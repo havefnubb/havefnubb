@@ -72,7 +72,7 @@ class postsCtrl extends jController {
 		
         // 2- limit per page 
         $nbPostPerPage = 0;
-        $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page');
+        $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page','messages');
         
         // get all the posts of the current Forum by its Id
         list($page,$nbPosts,$posts) = $hfnuposts->getPostsByIdForum($id_forum,$page,$nbPostPerPage);
@@ -817,10 +817,10 @@ class postsCtrl extends jController {
 		$rep = $this->getResponse('rss2.0');
 		
 		// entete du flux rss
-		$rep->infos->title = $HfnuConfig->getValue('title');
+		$rep->infos->title = $HfnuConfig->getValue('title','main');
 		$rep->infos->webSiteUrl= $_SERVER['HTTP_HOST'];
-		$rep->infos->copyright = $HfnuConfig->getValue('title');
-		$rep->infos->description = $HfnuConfig->getValue('description');
+		$rep->infos->copyright = $HfnuConfig->getValue('title','main');
+		$rep->infos->description = $HfnuConfig->getValue('description','main');
 		$rep->infos->updated = date('Y-m-d H:i:s');
 		$rep->infos->published = date('Y-m-d H:i:s');
 		$rep->infos->ttl=60;
@@ -830,7 +830,7 @@ class postsCtrl extends jController {
 		
         // 1- limit of posts 
         $nbPostPerPage = 0;
-        $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page');
+        $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page','messages');
               
         $daoPost = jDao::get('havefnubb~posts');
         // 2- get the posts of the current forum, limited by point 1

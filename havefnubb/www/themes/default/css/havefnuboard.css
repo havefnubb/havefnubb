@@ -490,6 +490,13 @@ code, pre {
 	padding-top: 5px;		
 }
 
+.user-currently-online li , .user-online-today li  {
+    display:inline;
+    padding:1px;
+    list-style-type:none;
+    list-style-position:outside;		
+}
+
 
 /* navbar */
 #navbar {

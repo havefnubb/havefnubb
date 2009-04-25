@@ -14,7 +14,7 @@ class floodCtrl extends jController {
     */
     function sameip() {
 		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title'));
+        $title = stripslashes($HfnuConfig->getValue('title','main'));
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title));
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto.homepage'));
 		$rep = $this->getResponse('html');		
@@ -26,7 +26,7 @@ class floodCtrl extends jController {
  
     function editing() {
 		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title'));
+        $title = stripslashes($HfnuConfig->getValue('title','main'));
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title));
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto.homepage'));
 		$rep = $this->getResponse('html');		

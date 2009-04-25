@@ -36,7 +36,7 @@ class posts_repliesZone extends jZone {
                       'area-size'   => 5);
         // 1- get the nb of replies per page
         $nbRepliesPerPage = 0;
-        $nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page');
+        $nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page','messages');
         // 2- get the post
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts

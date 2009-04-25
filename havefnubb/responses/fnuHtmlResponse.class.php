@@ -26,13 +26,13 @@ class fnuHtmlResponse extends jResponseHtml {
         global $gJConfig;
         global $HfnuConfig;
         
-        if ($HfnuConfig->getValue('installed') == 0) $this->bodyTpl = 'havefnubb~main_not_installed';
+        if ($HfnuConfig->getValue('installed','main') == 0) $this->bodyTpl = 'havefnubb~main_not_installed';
 
         $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
         $this->addCssLink($chemin.'css/havefnuboard.css');        
 
-        $title = stripslashes($HfnuConfig->getValue('title'));
-        $description = stripslashes($HfnuConfig->getValue('description'));
+        $title = stripslashes($HfnuConfig->getValue('title','main'));
+        $description = stripslashes($HfnuConfig->getValue('description','main'));
 
         if ($this->title)
             $this->title = $title . ' - ' . $this->title;        

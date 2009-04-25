@@ -25,7 +25,7 @@ class membersCtrl extends jController {
     
     function index() {
 		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title'));
+        $title = stripslashes($HfnuConfig->getValue('title','main'));
         $rep = $this->getResponse('html');
 		
 		$letter = $this->param('letter');

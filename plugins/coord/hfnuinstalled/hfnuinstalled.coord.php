@@ -37,7 +37,7 @@ class hfnuinstalledCoordPlugin implements jICoordPlugin {
         $on_error_action = '';
         
         if(isset($params['hfnu.check.installed'])) {
-            if ($HfnuConfig->getValue('installed') == 1)
+            if ($HfnuConfig->getValue('installed','main') == 1)
                 $ok = true;
             else {
                 $on_error_action = 'on_error_action';

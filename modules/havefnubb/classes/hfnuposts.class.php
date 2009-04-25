@@ -89,7 +89,7 @@ class hfnuposts {
 			// the number of post between the current post_id and the parent_id
 			$child = (int) $dao->countReplies($post->id_post,$post->parent_id);
 	
-			$nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page');			
+			$nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page','messages');			
 			// calculate the offset of this id_post
 			$goto = (ceil ($child/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
 			if ($goto < 0 ) $goto = 0;
@@ -104,6 +104,7 @@ class hfnuposts {
     }
         
     public function save($user,$id_forum,$id_post=0) {
+		global $HfnuConfig;
         $form = jForms::fill('havefnubb~posts',$id_post);
 
         //.. if the data are not ok, return to the form and display errors messages form
@@ -114,6 +115,11 @@ class hfnuposts {
         //.. if the data are ok ; we get them !
         $subject	= $form->getData('subject');
         $message 	= $form->getData('message');
+		
+		if ( count($message) > $HfnuConfig->getValue('post_max_size','messages') and  $HfnuConfig->getValue('post_max_size','messages') > 0) {
+			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size', array($HfnuConfig->getValue('post_max_size','messages'))),'error');
+			return false;
+		}
         
         //CreateRecord object
         $dao = jDao::get('havefnubb~posts');						
@@ -180,7 +186,7 @@ class hfnuposts {
     }
     
     public function savereply($user,$id_forum,$parent_id,$id_post) {
-        
+		global $HfnuConfig;        
         $form = jForms::create('havefnubb~posts',$parent_id);
 		$form->initFromRequest();
 
@@ -192,6 +198,12 @@ class hfnuposts {
         //.. if the data are ok ; we get them !
         $subject	= $form->getData('subject');
         $message 	= $form->getData('message');
+
+		if ( strlen($message) > $HfnuConfig->getValue('post_max_size','messages') and  $HfnuConfig->getValue('post_max_size','messages') > 0) {
+			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size', array($HfnuConfig->getValue('post_max_size','messages'))),'error');
+			return false;
+		}
+		
         
         jEvent::notify('HfnuPostBeforeSaveReply',array('id'=>$id_post));
         

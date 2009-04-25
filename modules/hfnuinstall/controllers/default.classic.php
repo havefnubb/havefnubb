@@ -10,13 +10,14 @@
 
 class defaultCtrl extends jController {
     public $pluginParams = array(
-        '*'		=>	array('auth.required'=>false)
+        '*'		=>	array('auth.required'=>false,
+						  'hfnu.timeout.do.not.check'=>true)
     );
     function index() {
         global $HfnuConfig, $gJConfig;
         
         // is the install still done ?
-        if ($HfnuConfig->getValue('installed') == 1) {            
+        if ($HfnuConfig->getValue('installed','main') == 1) {            
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
             return $rep;            
@@ -73,10 +74,10 @@ class defaultCtrl extends jController {
                             return $rep;
                         }
                         
-                        $HfnuConfig->setValue('title',      htmlentities($this->param('title')));
-                        $HfnuConfig->setValue('description',htmlentities($this->param('description')));
-                        $HfnuConfig->setValue('theme',      htmlentities($this->param('theme')));
-                        $HfnuConfig->setValue('rules',      htmlentities($this->param('rules')));
+                        $HfnuConfig->setValue('title',      htmlentities($this->param('title')),'main');
+                        $HfnuConfig->setValue('description',htmlentities($this->param('description')),'main');
+                        $HfnuConfig->setValue('theme',      htmlentities($this->param('theme')),'main');
+                        $HfnuConfig->setValue('rules',      htmlentities($this->param('rules')),'main');
                                                 
                         $HfnuConfig->save();                        
                         
@@ -101,9 +102,9 @@ class defaultCtrl extends jController {
                     }
                     else  {
                         $form = jForms::create('hfnuinstall~config');                            
-                        $form->setData('title',         stripslashes($HfnuConfig->getValue('title')));
-                        $form->setData('description',   stripslashes($HfnuConfig->getValue('description')));
-                        $form->setData('theme',         stripslashes($HfnuConfig->getValue('theme')));
+                        $form->setData('title',         stripslashes($HfnuConfig->getValue('title','main')));
+                        $form->setData('description',   stripslashes($HfnuConfig->getValue('description','main')));
+                        $form->setData('theme',         stripslashes($mainConfig->getValue('theme')));
                         $form->setData('rules',         stripslashes($HfnuConfig->getValue('rules')));
                         $form->setData('webmasterEmail',stripslashes($mainConfig->getValue('webmasterEmail','mailer')));
                         $form->setData('webmasterName', stripslashes($mainConfig->getValue('webmasterName','mailer')));
@@ -261,7 +262,7 @@ class defaultCtrl extends jController {
                     }
                     break;				
 				 case 'end':
-                    $HfnuConfig->setValue('installed',true);
+                    $HfnuConfig->setValue('installed',true,'main');
                     $HfnuConfig->save();
                     break;				
             }            

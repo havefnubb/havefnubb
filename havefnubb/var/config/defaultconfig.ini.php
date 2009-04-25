@@ -17,10 +17,8 @@ pluginsPath="app:../plugins/"
 
 modulesPath="lib:jelix-modules/,app:../modules/"
 
-theme=default
+theme=default_portal
 
-
-webmasterEmail=
 [coordplugins]
 auth=auth.coord.ini.php
 jacl2=jacl2.coord.ini.php
@@ -194,23 +192,6 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

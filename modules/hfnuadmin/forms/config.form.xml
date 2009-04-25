@@ -105,6 +105,26 @@
 	<label locale="hfnuadmin~config.post_max_size"/>
 </input>
 
+<menulist ref="timeout_visit"  required="true">
+	<label locale="hfnuadmin~config.timeout_visit"/>
+	<item value="60">60</item>
+	<item value="120">120</item>
+	<item value="180">180</item>
+	<item value="240">240</item>
+	<item value="300">300</item>
+	<item value="600">600</item>	
+</menulist>
+
+<menulist ref="timeout_connected"  required="true">
+	<label locale="hfnuadmin~config.timeout_connected"/>
+	<item value="60">60</item>
+	<item value="120">120</item>
+	<item value="180">180</item>
+	<item value="240">240</item>
+	<item value="300">300</item>
+	<item value="600">600</item>
+</menulist>
+
 <submit ref="validate">
   <label>Veuillez valider</label>
   <item value="save" locale="hfnuadmin~config.saveBt"/>

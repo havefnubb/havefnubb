@@ -25,7 +25,7 @@ class defaultCtrl extends jController {
     
     function index() {
 		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title'));
+        $title = stripslashes($HfnuConfig->getValue('title','main'));
         $rep = $this->getResponse('html');
 		
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title));
@@ -39,7 +39,7 @@ class defaultCtrl extends jController {
 		$tag = $this->param('tag');
 		
 		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title'));
+        $title = stripslashes($HfnuConfig->getValue('title','main'));
         $rep = $this->getResponse('html');
 		
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~main.cloud'));
