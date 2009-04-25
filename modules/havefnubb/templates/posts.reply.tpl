@@ -23,5 +23,5 @@
     <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
     {/form}
 </div>
-
+{zone 'havefnubb~syntax_wiki'}
 {zone 'havefnubb~posts_replies',array('id_post'=>$parent_id,'id_forum'=>$id_forum)}

@@ -1329,3 +1329,113 @@ ul.subforum-home li {
 #currently-online li, #online-today li {
 	list-style-type:none;	
 }
+
+#syntax_wiki {
+	padding-left: 40px;
+}
+
+#syntax_wiki li.italic {
+	background-image: url('../images/wiki/text_italic.png');
+	background-repeat: no-repeat;
+	padding-left: 20px;	
+	height: 20px;	
+}
+
+#syntax_wiki li.bold {
+	background-image: url('../images/wiki/text_bold.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;	
+}
+
+#syntax_wiki  li.list{
+	background-image: url('../images/wiki/text_list_numbers.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.source{
+	background-image: url('../images/wiki/text_source.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.link {
+	background-image: url('../images/wiki/text_link.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.quote {
+	background-image: url('../images/wiki/text_quote.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.para {
+	background-image: url('../images/wiki/text_para.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+
+#syntax_wiki  li.def {
+	background-image: url('../images/wiki/text_def.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.full_link {
+	background-image: url('../images/wiki/text_full_link.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.carriage_return {
+	background-image: url('../images/wiki/text_carriage_return.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.image {
+	background-image: url('../images/wiki/text_image.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.code {
+	background-image: url('../images/wiki/text_code.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.quoting {
+	background-image: url('../images/wiki/text_quoting.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.ref {
+	background-image: url('../images/wiki/text_ref.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}
+
+#syntax_wiki  li.acronym {
+	background-image: url('../images/wiki/text_acronym.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+}

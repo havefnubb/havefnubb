@@ -26,3 +26,4 @@
     <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
     {/form}
 </div>
+{zone 'havefnubb~syntax_wiki'}
