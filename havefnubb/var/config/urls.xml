@@ -68,8 +68,9 @@
         <url pathinfo="/members" module="havefnubb" action="members:index"/>
  
         <!-- hfnusearch -->
-        <url pathinfo="/search" module="hfnusearch" action="default:index"/>
- 
+        <url pathinfo="/search" module="hfnusearch" action="default:index"/>        
+        <url pathinfo="/search/results" module="hfnusearch" action="default:query" />
+        
         <!-- jtag -->
         <url pathinfo="/tag/:tag"  module="havefnubb" action="default:cloud">
             <param name="tag" type="string" escape="true" />
