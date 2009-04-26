@@ -86,6 +86,7 @@
         <url pathinfo="/messages"  module="jmessenger" action="jmessenger:index"/>
         <url pathinfo="/messages"  module="jmessenger" action="jmessenger:inbox"/>
         <url pathinfo="/messages/outbox"  module="jmessenger" action="jmessenger:outbox"/>
+        <url pathinfo="/messages/new"  module="jmessenger" action="jmessenger:create"/>        
         <url pathinfo="/messages/new"  module="jmessenger" action="jmessenger:precreate"/>
         <url pathinfo="/messages/edit/:id"  module="jmessenger" action="jmessenger:preupdate">
             <param id="id" type="number"/>

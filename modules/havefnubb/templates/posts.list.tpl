@@ -42,8 +42,7 @@
         <td class="colnum">
             {zone 'havefnubb~viewedttl',array('id_post'=>$post->id_post)}
         </td>
-        <td
-            class="colright linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}
+        <td class="colright linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}
         </td>
     </tr>
     {/foreach}
