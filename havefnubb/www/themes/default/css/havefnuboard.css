@@ -164,7 +164,7 @@ code, pre {
 	padding-left: 20px;
     /* IE 7 begin */
 	padding-bottom: 0px;
-    padding-top: 0px;
+    padding-top: 4px;
     /* IE 7 end */
 }
 
@@ -435,7 +435,8 @@ code, pre {
 	background-image: url('../images/users/user_key.png');
 	background-repeat: no-repeat;
 	padding-left: 20px;
-	height: 16px;	
+	height: 16px;
+	padding-top: 4px;
 }
 
 .user-general {
@@ -1449,7 +1450,9 @@ ul.subforum-home li {
 	background-image: url('../images/mail/email_delete.png');
 	background-repeat: no-repeat;	
 	padding-left: 20px;
-	height: 16px;	
+	height: 16px;
+	margin-left: 4px;
+	padding-top: 4px;	
 }
 
 .messenger-email-answer {
@@ -1457,4 +1460,16 @@ ul.subforum-home li {
 	background-repeat: no-repeat;	
 	padding-left: 20px;
 	height: 16px;
+	margin-left: 4px;
+	padding-top: 4px;	
+}
+
+
+.jforms-help {
+	background-image: url('../images/help.png');
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 16px;
+	margin-left: 4px;
+	padding-top: 4px;
 }
