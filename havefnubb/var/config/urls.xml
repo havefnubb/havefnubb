@@ -136,6 +136,24 @@
         <url pathinfo="/registration/password/confirm"  module="jcommunity" action="password:confirm"/>
         <url pathinfo="/registration/password/confirmform" module="jcommunity" action="password:confirmform"/>
         <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
+
+        <!-- downloads module -->
+		<url pathinfo="/downloads/:dir" module="downloads" action="default:index">
+			<param name="dir" type="string" />
+		</url>               
+		<url pathinfo="/downloads/dl/:id" module="downloads" action="default:dl">
+			<param name="id" type="integer" />
+		</url>
+		<url pathinfo="/downloads/:dir/:url" module="downloads" action="default:view">
+			<param name="dir" type="string" />
+			<param name="url" type="string" />
+		</url>
+		<url pathinfo="/downloads/feeds/lastest/:dir" module="downloads" action="feeds:lastest">
+			<param name="dir" type="string" />
+		</url>		
+		<url pathinfo="/downloads/feeds/mostpopular/:dir" module="downloads" action="feeds:mostpopular">
+			<param name="dir" type="string" />
+		</url>
         
     </classicentrypoint>
         
@@ -219,7 +237,36 @@
         <url pathinfo="/admin/jacl2db_admin/groups/rights"      module="jacl2db_admin" action="groups:rights"/>
         <url pathinfo="/admin/jacl2db_admin/groups/newgroup"    module="jacl2db_admin" action="groups:newgroup"/>
         <url pathinfo="/admin/jacl2db_admin/groups/delgroup"    module="jacl2db_admin" action="groups:delgroup"/>
-        <url pathinfo="/admin/jacl2db_admin/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>                
+        <url pathinfo="/admin/jacl2db_admin/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>
+
+        <!-- downloads module -->
+		<url pathinfo="/downloads/manage" module="downloads" action="mgr:manage"/>
+		<url pathinfo="/downloads/manage/:id" module="downloads" action="mgr:manage">
+			<param name="id" type="integer" />
+		</url>		
+		<url pathinfo="/downloads" module="downloads" action="mgr:index"/>
+		<url pathinfo="/downloads/dls" module="downloads" action="mgr:dls"/>
+		<url pathinfo="/downloads/config" module="downloads" action="mgr:config"/>
+		
+		<url pathinfo="/downloads/delete/:id" module="downloads" action="mgr:delete">
+			<param name="id" type="integer" />
+		</url>
+		<url pathinfo="/downloads/onblock/:id" module="downloads" action="mgr:dl_on_block">
+			<param name="id" type="integer" />
+		</url>
+		<url pathinfo="/downloads/notonblock/:id" module="downloads" action="mgr:dl_not_on_block">
+			<param name="id" type="integer" />
+		</url>
+		<url pathinfo="/downloads/enable/:id" module="downloads" action="mgr:dl_enable">
+			<param name="id" type="integer" />
+		</url>
+		<url pathinfo="/downloads/disable/:id" module="downloads" action="mgr:dl_disable">
+			<param name="id" type="integer" />
+		</url>
+
+
+
+        
     </classicentrypoint>
     
     <xmlrpcentrypoint name="xmlrpc" default="true" />

@@ -21,7 +21,8 @@ class adminHtmlResponse extends jResponseHtml {
         $this->addCSSLink($GLOBALS['gJConfig']->urlengine['jelixWWWPath'].'design/master_admin.css');
 
         $chemin = $GLOBALS['gJConfig']->urlengine['basePath'].'themes/'.$GLOBALS['gJConfig']->theme.'/';
-        $this->addCssLink($chemin.'css/havefnuboard_admin.css');              
+        $this->addCssLink($chemin.'css/havefnuboard_admin.css');
+		$this->addCSSLink($chemin.'css/downloads.css');		
     }
 
     protected function doAfterActions() {

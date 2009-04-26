@@ -114,8 +114,9 @@ xmlrpc="@xmlrpc"
 jsonrpc="@jsonrpc"
 rdf="@rdf"
 
-hfnuadmin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~*@classic, servinfo~default@classic, hfnusearch~admin@classic"
+hfnuadmin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~*@classic, servinfo~default@classic, hfnusearch~admin@classic, downloads~mgr:index@classic, downloads~mgr:manage@classic, downloads~mgr:config@classic, downloads~mgr:dls@classic"
 install="hfnuinstall~*@classic"
+
 
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name
@@ -192,6 +193,7 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
 
 
 

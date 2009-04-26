@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Donwloads Manager 1.3.0</title>
+</head>
+<body>
+
+	<h1>Downloads : Gestionnaire de Téléchargements</h1>
+	<div id="version">
+		<dl>
+			<dt>Version :</dt><dd>1.3.0</dd>
+			<dt>Auteur :</dt><dd> FoxMaSk</dd>
+			<dt>Date :</dt><dd>14/01/2009</dd>
+		</dl>
+	</div>
+	<div id="desc">
+		<h2>Description</h2>
+		<p>
+		Basiquement, ce module permet de mettre en téléchargement des fichiers.<br/>
+		Mais au delà de cela, il convient très bien à des sites hébergeant plusieurs projets.<br/>
+		En effet les auteurs de projets peuvent utiliser ce module pour mettre en téléchargement les nouvelles versions de leur création.<br/>
+		Chaque auteur peut décider d'autoriser des visiteurs à télécharger ses fichiers ou bien uniquement les membres de son site.<br/>
+		Il peut également permettre (ou non) de télécharger ses fichiers depuis un site distant.
+		</p>
+	</div>
+		
+	<h2>PréRequis</h2>
+	<ol>
+		<li>Jelix 1.1RC3 installé</li>
+		<li>jAcl2 module installé</li>
+		<li>master_module installé</li>
+	</ol>
+
+	<h2>Nouveauté de la 1.3.0</h2>
+	<ol>
+		<li>todo</li>
+	</ol>
+	
+	<h2>Nouveauté de la 1.2.0</h2>
+	<ol>
+		<li>requiert maintenant le module master_module</li>
+		<li>disparition de la zone adminmenu au profit du module master_module.</li>
+		<li>apparition du listener downloads pour générer le menu d'admin du module.</li>
+	</ol>
+	
+	<h2>Recommandé</h2>
+	<ol>
+		<li>jCommunity 0.1 ou plus</li>
+	</ol>
+	
+	<h2>Remerciements</h2>
+	<p>A tous les contributeurs et staff Jelix pour l'aide apportée!</p>
+	
+	<h2>Installation </h2>
+	
+	<h3>0) Structure du répertoire downloads</h3>
+	<h4>classes</h4>
+	  <ol>
+		<li>download_config.class.php : classe lisant le fichier de configuration du module</li>
+		<li>download_files.class.php : classe gerant l'accès aux fichiers</li>
+		<li>listdir.class.php : classe listant les répertoires autorisés à un utilisateur</li>
+		<li>readmodule.class.php : classe lisant le fichier module.xml</li>
+		<li>downloads.listener.php : classe generant le menu d'admin du module downloads</li>
+	  </ol>
+
+	<h4>controllers</h4>
+	  <ol>
+		<li>default.classic.php : contrôleur pour l'accès publique </li>
+		<li>feeds.classic.php : contrôleur générant les flux RSS</li>
+		<li>mgr.classic.php : contrôleur de l'accès admin, gestion du module.</li>
+	  </ol>
+		
+	<h4>daos</h4>
+	  <ol>
+		<li>downloads.dao.xml : DAO de la table Downloads</li>
+		<li>downloads_cat.dao.xml : DAO de la table Downloads Cat</li>
+	  </ol>
+	<h4>forms</h4>
+	  <ol>
+		<li>config.form.xml : formulaire de configuration du module downloads</li>
+		<li>edit.form.xml : formulaire d'edition/ajout de downloads</li>
+	  </ol>
+	<h4>install</h4>
+	  <ol>
+		<li>files : dossier contenant les fichiers téléchargeables (cf plus bas)</li>
+		<li>themes : dossier contenant images et css du module (cf plus bas)</li>
+		<li>INSTALL-1.3.0.html : ce fichier ;)</li>
+		<li>downloads.module.ini.php.dist : fichier de configuration (d'exemple) du module</li>
+		<li>urls.xml : fichier contenant les urls à utiliser quand vous utilisez le moteur d'url significant</li>
+	  </ol>
+	<h4>locales</h4>
+	  <ol>
+		<li>en_EN : traductions anglaise du module</li>
+		<li>fr_FR : "V.O" du module ;)</li>
+	  </ol>
+	<h4>templates</h4>
+	  <ol>
+		<li>en_EN : template en version anglaise </li>
+		<li>fr_FR : template en "V.O" du module ;)</li>
+	  </ol>
+	<h4>zones</h4>
+	<ol>
+		<li>admin.zone.php : zone affichant le contenu du fichier module.xml </li>
+		<li>admin_list.zone.php : zone affichant la liste des fichiers téléchargeables</li>
+		<li>admincat.zone.php : zone affichant la liste catégories de téléchargements</li>
+		<li>adminconfig.zone.php : zone affichant le formulaire de configuration du module</li>
+		<li>block.zone.php : zone affichant les derniers téléchargements ajoutés</li>
+		<li>list.zone.php : zone affichant la liste des téléchargements </li>
+		<li>view.zone.php : zone affichant UN téléchargement</li>
+	</ol>
+	<h4>autres</h4>
+	<ol>
+		<li>module.xml : fichier de définition du module au format jelix</li>
+		<li>events.xml : fichier de gestion des evenements (necesasire pour le module master_module)</li>
+	</ol>
+	
+	<h3>1) Fichiers</h3>
+	<ul>
+		<li>1.1) Décompresser l'archive dans le dossier modules</li>
+		<li>1.2) Copier les dossiers "install/themes" et "install/files" dans votre dossier www</li>
+		<li>1.3) Copier le fichier install/downloads.module.ini.php.dist dans le dossier var/config/ sous le nom downloads.module.ini.php<br/>
+	</li>		
+	</ul>
+		
+	<h3>2) Paramètrage : </h3>
+	   
+	<ul>
+	<li>2.1) fichier defaultconfig.ini.php</li>
+	
+	<li>2.1.1) Assurez vous que le module downloads soit bien dans le modulePath 
+	(cf paramètre modulesPath dans var/config/defaultconfig.ini.php) </li>
+	
+	<li>2.1.2) dans le paragraphe [simple_urlengine_entrypoints], ajouter ce qui suit :<br/>
+	<pre>downloadsmanager="master_admin~*@classic downloads~mgr:index@classic downloads~mgr:manage@classic downloads~mgr:config@classic downloads~mgr:dls@classic jacl2db_admin~*@classic"</pre>
+	créer le point d'entrée <i>downloadsmanager</i>en tapant :
+	<pre>php jelix.php initadmin downloadsmanager</pre>
+    toute fois si vous avez déjà un point d'entrée pour le module master_module, alors remaplcer downloadsmanager dans le fichier urls.xml par le nom de votre entry point.<br/><br/>
+	</li>
+	<li>2.1.3) moteur d'urls<br/>
+	- si vous souhaitez utiliser le moteur d'urls "significant"  (<a href="http://jelix.org/articles/fr/manuel-1.1/urls/significant" title="documentation Jelix">URL Significant</a>)
+	ajouter dans votre fichier www/.htaccess les lignes suivantes :<br/>
+	<pre>	
+	&lt;IfModule mod_rewrite.c&gt;
+		RewriteEngine On
+		RewriteBase /
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+	&lt;/IfModule&gt;
+	</pre>
+	et copier le fichier install/urls.xml dans le dossier var/config/<br/>
+    et enfin ajouter la ligne 
+    <pre>
+    Options +Multiviews
+    </pre>
+    dans la config de votre serveur apache.
+	</li>
+	
+
+	<li>
+	2.2) CSS 'admin' ajouter dans le fichier response/adminHtmlResponse.class.php la ligne suivante :<br/>
+	<pre>
+	$this->addCSSLink($GLOBALS['gJConfig']->urlengine['basePath'].'themes/'.$GLOBALS['gJConfig']->theme.'/css/downloads.css');
+	</pre>
+	apres la ligne
+	<pre>
+	$this->addCSSLink($GLOBALS['gJConfig']->urlengine['jelixWWWPath'].'design/master_admin.css');
+	</pre>
+	</li>
+	<li>
+	2.3) CSS  'publique'<br/>
+	ajouter les lignes suivantes dans votre fichier de reponse par défaut.	<br/>
+	apres cette ligne
+	<pre>
+    protected function doAfterActions() {
+	</pre>	
+	ajouter
+	<pre>
+        global $gJConfig;	
+        $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
+        $this->addCssLink($chemin.'css/downloads_main.css');         
+	</pre>
+	</li>
+	</ul>
+	
+	<h3>3) Base de données :</h3>
+	<p>éxécuter le script downloads.create-table.sql</p>
+	
+	<h3>4) jAcl2 :</h3>
+	<p>Installer jAcl2 comme suit <a href="http://jelix.org/articles/fr/manuel-1.1/droits2/utilisation" title="documentation Jelix">jAcl2 - Utilisation</a></p>
+	<ul>
+	<li>4.1) Ajouter les sujets suivants à votre installation via l'invite de commandes :<br/>
+	<pre>
+	php jelix.php acl2right subject_create "downloads.manage" "downloads~acl2.downloads.manage"
+	php jelix.php acl2right subject_create "downloads.config" "downloads~acl2.downloads.config"
+	php jelix.php acl2right subject_create "downloads.delete" "downloads~acl2.downloads.delete"
+	php jelix.php acl2right subject_create "downloads.index" "downloads~acl2.downloads.index"
+	php jelix.php acl2right subject_create "downloads.list" "downloads~acl2.downloads.list"
+	</pre>
+	</li>
+	<li>4.2) lié les sujets au groupe "admins"<br/>
+	rattacher les sujets au groupe admins (groupe par defaut créer par jAcl2)<br/>
+	<pre>
+	php jelix.php acl2right add 1 "downloads.manage"
+	php jelix.php acl2right add 1 "downloads.config"
+	php jelix.php acl2right add 1 "downloads.delete"
+	php jelix.php acl2right add 1 "downloads.index"
+	php jelix.php acl2right add 1 "downloads.list"
+	</pre>
+	</li>
+	<li>4.3) créer un utilisateur :<br/>
+	<pre>php jelix.php --app1 acl2group createuser foxmask</pre>
+	</li>
+	<li>4.4) ajouter l'utilisateur au groupe "admins":<br/>
+	<pre>php jelix.php --app1 acl2group adduser 1 foxmask</pre>
+	</li>
+	</ul>
+	
+	<h3>5) Accéder au module :</h3>
+	<ul>
+	<li>5.1) Accédez à la partie publique du module comme suit :</li>	
+	<li>5.1.1) avec le moteur d'urls simple :<br/>
+	<pre>http://votresite/index.php?module=downloads&amp;dir=files</pre>
+	</li>
+	<li>5.1.2) avec le moteur d'urls significant :<br/>
+	<pre>http://votresite/index/downloads/files</pre>
+	</li>
+	<li>5.2) Accédez à la partie administration : </li>
+	<li>5.2.1) avec le moteur d'urls simple :<br/>
+	<pre>http://votresite/downloadsmanager.php</pre>
+	</li>
+	<li>5.2.2) avec le moteur d'urls significant :<br/>
+	<pre>http://votresite/downloadsmanager</pre>
+	</li>
+	</ul>
+	<h3>6) Fils RSS</h3>
+	<p>
+	dans le fichier downloads.module.ini.php, modifiez manuellement les paramètres suivants
+	avec les valeurs qui vous concernent :
+	</p>
+	<pre>
+	website.url=http://votresite.downloads/
+	website.copyright=FoxMaSk 2008
+	website.description=FoxMaSk 0wnZ
+	website.author=FoxMaSk
+	website.ttl=60
+	</pre>
+	
+	<h3>7) Autres </h3>
+	<p>
+	Par ailleurs le module downloads fourni un zone block permettant l'affichage, sur la partie publique, 
+	de téléchargements dans un "boite" sur votre portail par exemple.
+	pour l'utiliser dans votre template main.tpl par exemple mettez :
+	</p>
+	<pre>{zone 'downloads~block','XXX')} </pre>
+	<p>
+	où XXX est le nom du repertoire de stockage de vos fichiers
+	</p>
+	
+</body>
+</html>
