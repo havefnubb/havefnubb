@@ -1,0 +1,14 @@
+in the template search, comment the line 
+
+{zone 'hfnusearch~searchForum'}
+{zone 'hfnusearch~searchAuthor'}
+
+like this 
+
+{* zone 'hfnusearch~searchForum' *}
+{* zone 'hfnusearch~searchAuthor' *}
+
+or remove those lines 
+
+
+all of this to avoid to display error about unexisting DAO, DAO that are specifics to HaveFnu where this module come from.
