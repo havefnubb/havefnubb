@@ -1,7 +1,7 @@
 <div id="breadcrumbtop" class="headbox">
     <h3>{@hfnusearch~search.search.perform@}</h3>    
 </div>
-<div id="search">
+<div id="hfnusearch">
 <div id="post-message">{jmessage}</div>
 <form action="{formurl 'hfnusearch~default:query'}" method="post">  
   <fieldset><legend>{@hfnusearch~search.in.all.forums@}</legend>
