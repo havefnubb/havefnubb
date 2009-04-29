@@ -9,9 +9,18 @@
 */
 class search_index {
     
-    public $message = '';
-    public $subject = '';    
+    public $message 	= '';
+    public $subject 	= '';
+	public $id 			= '';
+	public $dataSource 	= '';
 
+
+	public function __construct($id='',$dataSource='',$subject='',$message='') {
+		$this->id 			= $id;
+		$this->dataSource 	= $dataSource;		
+		$this->message 		= $message;
+		$this->subject 		= $subject;
+	}
 	/* 
 	* split the search request sentence in several words
 	* and add the weight for each case
@@ -26,7 +35,7 @@ class search_index {
     
         // title
         $longText .= str_repeat(' '.$this->subject, $HfnuSearchConfig->getValue('search_subject_weight'));
-                
+		 
         $cleaner = jClasses::getService('hfnusearch~cleaner'); 
         $stemmedWords = $cleaner->stemPhrase($longText);
         
@@ -41,17 +50,18 @@ class search_index {
 	*
 	* @param integer $id to update
 	*/
-    function searchEngineUpdate($id) {
-        if ($id == 0 ) return;
-        // 1) remove all the words of the current post in the table of the search engine
-        $dao = jDao::get('hfnusearch~searchwords');
-        $dao->delete($id);
+    function searchEngineUpdate() {
+        if ($this->id == '' or $this->dataSource == '') return;
+        // 1) remove all the words of the current datasource in the table of the search engine		
+        $dao = jDao::get('hfnusearch~searchwords');		
+        $dao->deleteByIdDataSource($this->id,$this->dataSource);	
         // 2) add all the words of the current post
         foreach ($this->getWords() as $word => $weight) {
             $record = jDao::createRecord('hfnusearch~searchwords');
-            $record->id     = $id;
+            $record->id     = $this->id;
             $record->words  = $word;
             $record->weight = $weight;
+			$record->datasource = $this->dataSource;
             $dao->insert($record);
         }        
     }
@@ -61,26 +71,47 @@ class search_index {
 	*
 	* @param integer $id to delete
 	*/
-    function searchEngineDelete($id) {
-        if ($id == 0 ) return;
+    function searchEngineDelete() {
+        if ($this->id == '' or $this->dataSource == '') return;	
         // 1) remove all the words of the current post in the table of the search engine
         $dao = jDao::get('hfnusearch~searchwords');
-        $dao->delete($id);
+        $dao->deleteByIdDataSource($this->id,$this->dataSource);
     }
 	
 	/*
-	* reindexing of the search engine
+	* reindexing of the search engine from the Daos define in the search config file
 	*/
 	function searchEngineReindexing() {
-		
+		//1) open the config file
 		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
-        $dao = jDao::get($HfnuSearchConfig->getValue('dao'));
-		$records = $dao->findAll();	
-		foreach ($records as $rec ) {			
-			$this->message = $rec->message;
-			$this->subject = $rec->subject;
-			$this->searchEngineUpdate($rec->id_post);
+		//2) get the dao we want to read
+		$dataSource = $HfnuSearchConfig->getValue('dao');
+		//3) build an array with each one
+		$dataSources = split(',',$dataSource);
+		foreach ($dataSources as $ds) {
+			// due to a bug in jelix parser of ini file, we drop the ~ for nothing and
+			// will be able to find the datasource in our config file			
+			$dsCfg = str_replace('~','',$ds);
+			//4) get a factory of the current DAO
+			$dao = jDao::get($ds);
+			//5) get all the record
+			$records = $dao->findAll();	
+			foreach ($records as $rec ) {
+				//6) get the columns we want to read and inject their data in the engine
+				$indexSubject = $HfnuSearchConfig->getValue('index_subject',$dsCfg);
+				$indexMessage = $HfnuSearchConfig->getValue('index_message',$dsCfg);
+				$subject = $indexSubject != '' ? $rec->$indexSubject : '';
+				$message = $indexMessage != '' ? $rec->$indexMessage : '';
+				
+				$this->message 	= $subject;
+				$this->subject 	= $message;
+				$this->id 		= $rec->id;
+				//7) lets update the engine !
+				$this->searchEngineUpdate();
+			}
 		}
 		return $records->rowCount();
 	}	
+
+	function searchEngineRun ($event) {}
 }

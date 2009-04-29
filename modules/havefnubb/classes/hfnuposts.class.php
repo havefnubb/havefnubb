@@ -140,8 +140,8 @@ class hfnuposts {
         
         // store the datas
         // if id_post = 0 then
-        // it's an adding 			
-        if ($id_post == 0 ) {			
+        // it's an adding
+        if ($id_post == 0 ) {
             $record->id_post  	= $id_post;
             $record->id_user 	= $user->id;
             $record->id_forum 	= $id_forum;
@@ -158,22 +158,20 @@ class hfnuposts {
             $id_post = $record->id_post;
             $parent_id = $record->parent_id;
             
-            jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));
-            
-            jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
-            
+            jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));                        
         } else {
             $record->date_modified = time();
             jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
-        }
+        }		
+		
         // otherwise it's an update
         // in all case we have to
         // update as we store the last insert id in the parent_id column
         $dao->update($record);
         
         jEvent::notify('HfnuPostAfterSave',array('id'=>$id_post));
-        
-        jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
+
+        jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
 
         $tags = explode(",", $form->getData("tags"));
 
@@ -227,9 +225,10 @@ class hfnuposts {
         $record->poster_ip = $_SERVER['REMOTE_ADDR'];
         $dao->insert($record);
         
-        jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$record->id_post));
+		$id_post = $record->id_post;
+        jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
         
-        jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));
+        jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
         
         jForms::destroy('havefnubb~posts', $parent_id);
         
@@ -272,7 +271,7 @@ class hfnuposts {
         
         jEvent::notify('HfnuPostAfterSaveNotify',array('id'=>$id_post));
         
-        jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post));        
+        jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));        
         
         jForms::destroy('havefnubb~notify', $id_post);
         

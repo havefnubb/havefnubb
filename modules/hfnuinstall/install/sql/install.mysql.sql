@@ -576,10 +576,12 @@ INSERT INTO `hf_sc_tags_tagged` (`tt_id`, `tag_id`, `tt_scope_id`, `tt_subject_i
 
 DROP TABLE IF EXISTS `hf_search_words`;
 CREATE TABLE IF NOT EXISTS `hf_search_words` (
-  `id` int(12) NOT NULL,
+  `id` varchar(30) NOT NULL,
+  `datasource` varchar(40),
   `words` varchar(255) NOT NULL,
   `weight` int(4) NOT NULL,
-  KEY `words` (`words`)
+  KEY `words` (`words`),
+  PRIMARY KEY source_id (id,datasource,words)
 )DEFAULT CHARSET=utf8;
 
 --

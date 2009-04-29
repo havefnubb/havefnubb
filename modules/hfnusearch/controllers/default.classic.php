@@ -63,25 +63,10 @@ class defaultCtrl extends jController {
             $rep->action = 'hfnusearch~default:index';
             return $rep;            
         }
-
-		$id_cat = '';
-		$js = '<script type="text/javascript">'."\n";
-		$js .= '$(document).ready(function(){'."\n";
-		
-		for ($i =0; $i < count($result) ; $i++) {
-			if ($id_cat != $result[$i]['id_cat']) {
-				$js .= '$("#cat'.$result[$i]['id_cat'].'").accordion({ autoHeight: false });'."\n";
-				$id_cat = $result[$i]['id_cat'];
-			}
-		}
-		$js .= '});'."\n";
-		$js .= '</script>'."\n";
-
         
         $tpl = new jTpl();
         $tpl->assign('count',$count);
         $tpl->assign('datas',$result);
-		$tpl->assign('js',$js);
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN',$tpl->fetch('hfnusearch~result'));
         return $rep;

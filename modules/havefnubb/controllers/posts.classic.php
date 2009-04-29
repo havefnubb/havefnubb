@@ -457,7 +457,7 @@ class postsCtrl extends jController {
 		
 		$id_post    = (int) $this->param('id_post');       
         $parent_id  = (int) $this->param('parent_id');
-		
+
 		$daoUser = jDao::get('havefnubb~member');
 		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
 
@@ -640,7 +640,7 @@ class postsCtrl extends jController {
             
             jEvent::notify('HfnuPostAfterDelete',array('id'=>$id_post));
             
-            jEvent::notify('HfnuSearchEngineDeleteContent',array('id'=>$id_post));
+            jEvent::notify('HfnuSearchEngineDeleteContent',array('id'=>$id_post,'havefnubb~forum'));
             
             //@TODO remove the tag from this post into the tag tables
             jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'ok');

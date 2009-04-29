@@ -14,83 +14,73 @@ class searchwordsListener extends jEventListener{
    */
    
    function onHfnuSearchEngineAddContent ($event) {
-        $id = $event->getParam('id');
-		if ($id == 0) return;
-		
-		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
-		//in the config, get the dao we need to use to get the content to
-		// populate the table of the search engine
-        $dao = jDao::get($HfnuSearchConfig->getValue('dao'));
-        $rec = $dao->get($id);
-        // update the SearchWords table !
-        jClasses::inc('hfnusearch~search_index');
-        $service = new search_index();
-        $service->subject = $rec->subject;
-        $service->message = $rec->message;
-        $service->searchEngineUpdate($id);
-    }
+	  $id 			= $event->getParam('id');
+	  $dataSource 	= $event->getParam('datasource');
+
+	  $strId = '';
+	  if (is_array($id)) {
+		 
+		 for ($i = 0 ; $i < count($id) ; $i ++)
+			$strId .= $id[$i];
+	  }
+	  else $strId = $id;
+	  
+	  // due to a bug in jelix parser of ini file, we drop the ~ for nothing and
+	  // will be able to find the datasource in our config file
+	  $dataSourceCfg = str_replace('~','',$dataSource);	  
+	  
+	  // 1) get the column definition we whish to index in the search engine
+	  $HfnuSearchConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
+   
+	  $indexSubject = $HfnuSearchConfig->getValue('index_subject',$dataSourceCfg);
+	  $indexMessage = $HfnuSearchConfig->getValue('index_message',$dataSourceCfg);
+   
+	  // 2) get the Datas we just added
+	  $dao = jDao::get($dataSource);	  
+	  $rec = $dao->get($id);
+   
+	  $subject = $indexSubject != '' ? $rec->$indexSubject : '';
+	  $message = $indexMessage != '' ? $rec->$indexMessage : '';
+   
+	  // 3) get the service and initialize the needed properties
+	  jClasses::inc('hfnusearch~search_index');
+	  $service = new search_index( $strId, $dataSource, $subject, $message);
+   
+	  // update the SearchWords table !		 
+	  $service->searchEngineUpdate();
+   }
 	
    function onHfnuSearchEngineDeleteContent ($event) {
-        $id = $event->getParam('id');
-        if ($id == 0) return ;
-        $service = jClasses::getService('hfnusearch~search_index');
-        $service->searchEngineDelete($id);
+	  $id = $event->getParam('id');
+	  $dataSource = $event->getParam('datasource');		
+	  if ($id == '' or $dataSource == '') return;
+	  
+	  $strId = '';
+	  if (is_array($id)) {
+		 
+		 for ($i = 0 ; $i < count($id) ; $i ++)
+			$strId .= $id[$i];
+	  }
+	  else $strId = $id;
+	  
+      jClasses::inc('hfnusearch~search_index');
+	  $service = new search_index( $strId, $dataSource);
+      $service->searchEngineDelete();
    }
    
-   function onHfnuSearchEngineRun ($event) {
+    function onHfnuSearchEngineRun ($event) {
+	  $HfnuSearchConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
 	  
 	  $cleaner = jClasses::getService('hfnusearch~cleaner');
 	  $words = $cleaner->stemPhrase($event->getParam('string'));
 	  $nb_words = count($words);
 	  // no words ; go back with nothing :P
 	  if (!$words) {
-		return array('count'=>0,'result'=>array());
-	  }
-
-	  $id_forum = 0;
-	  if ($event->getParam('id_forum') > 0) 
-		 $id_forum = (int) $event->getParam('id_forum');	  
-  
-	  // watch in search_words ...
-	  $cnx = jDb::getConnection();
-	  $strQuery = 'SELECT DISTINCT id_post, COUNT(*) as nb, SUM(weight) as total_weight, subject, posts.parent_id, message, member_login as login, date_created, forum.id_forum, forum_name, cat_name, category.id_cat FROM '.$cnx->prefixTable('search_words');
-	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('posts') .' AS posts  ON posts.id_post  = '.$cnx->prefixTable('search_words').'.id ';
-	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('member') .' AS member ON member.id_user = posts.id_user ';
-	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('forum') .' AS forum ON forum.id_forum = posts.id_forum ';
-	  $strQuery .= ' LEFT JOIN ' . $cnx->prefixTable('category') .' AS category ON category.id_cat = forum.id_cat ';	  
-	  $strQuery .= ' WHERE (';
-	  $counter=0;
-	  foreach ($words as $word) {
-		  if ($counter > 0 ) $strQuery .= ' OR ';
-		  $strQuery .= " words  = '". addslashes($word)."'";
-		  $counter++;
+		  return array('count'=>0,'result'=>array());
 	  }
 	  
-	  $strQuery .= ') ';
-	  
-	  if ($id_forum > 0)
-		 $strQuery .= " AND forum.id_forum = '".$id_forum."' ";
-		 
-	  $strQuery .= ' GROUP BY id_post ';
+	  $service = jClasses::getService($HfnuSearchConfig->getValue('classToPerformSearchEngine'));
+	  $result = $service->searchEngineRun($event);
+   }
 
-	  // AND query?
-	  
-	  $exact = false;
-	  if ($exact)
-	  {
-		$strQuery .= ' HAVING nb = '.$nb_words;
-	  }
-	 
-	  $strQuery .= ' ORDER BY cat_name ASC, nb DESC, total_weight DESC';        
-
-	  $rs = $cnx->query($strQuery);
-	  $result='';
-	  
-	  while($record = $rs->fetch()){
-		 //let check if the current user can access to the posts we found earlier above
-		 if (jAcl2::check('hfnu.forum.view','forum'.$record->id_forum))
-			$event->Add(array('SearchEngineResult'=>$record));
-	  }	  
- }
-
-}
+}	
