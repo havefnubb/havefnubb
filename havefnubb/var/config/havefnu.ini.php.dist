@@ -6,7 +6,7 @@ version=1.0
 rules="blabla les regles"
 admin_email="foxmask@localhost.com"
 url_check_version="http://www.havefnubb.org/last_version"
-installed=1
+installed=0
 
 [messages]
 posts_per_page=10
