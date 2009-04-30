@@ -1,6 +1,6 @@
 {if $msg == ''}
 <a href="{jurl 'havefnubb~posts:view',
-    array('id_post'=>$post->parent_id,
+    array('id_post'=>$post->id_post,
         'parent_id'=>$post->parent_id,
         'id_forum'=>$post->id_forum,
         'ftitle'=>$post->forum_name,

@@ -926,7 +926,10 @@ ul.subforum-home li {
 
 .post-status-icon-opened, .post-status-icon-closed, .post-status-icon-pined, .post-status-icon-pinedclosed {
 	background-position: left;
-	padding: 10px;	
+	padding-top: 0px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .colicone-opened, .post-status-icon-opened {
@@ -1107,6 +1110,7 @@ ul.subforum-home li {
 
 .postfoot .post-actions {
 		margin-right: 10px;
+		height: 10px;
 }
 .postfoot a {
 	border: 1px solid;
