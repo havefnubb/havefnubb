@@ -94,6 +94,7 @@ class search_index {
 			$dsCfg = str_replace('~','',$ds);
 			//4) get a factory of the current DAO
 			$dao = jDao::get($ds);
+			$this->dataSource = $ds;
 			//5) get all the record
 			$records = $dao->findAll();	
 			foreach ($records as $rec ) {
@@ -101,8 +102,7 @@ class search_index {
 				$indexSubject = $HfnuSearchConfig->getValue('index_subject',$dsCfg);
 				$indexMessage = $HfnuSearchConfig->getValue('index_message',$dsCfg);
 				$subject = $indexSubject != '' ? $rec->$indexSubject : '';
-				$message = $indexMessage != '' ? $rec->$indexMessage : '';
-				
+				$message = $indexMessage != '' ? $rec->$indexMessage : '';	
 				$this->message 	= $subject;
 				$this->subject 	= $message;
 				$this->id 		= $rec->id;
