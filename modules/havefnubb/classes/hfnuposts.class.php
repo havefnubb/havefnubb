@@ -61,7 +61,9 @@ class hfnuposts {
         return array($page,$nbPosts,$posts);        
     }
     
-    
+    /* updateViewing : update the counter of the views of a given post
+    * @param id_post integer id post of the current post
+    */    
     public function updateViewing($id_post) {
         if ($id_post == 0 ) return;
         $dao = jDao::get('havefnubb~posts'); 
@@ -69,7 +71,18 @@ class hfnuposts {
         $post->viewed = $post->viewed +1;
 		$dao->update($post);                
     }
-    
+
+    /* view a given thread !
+    * @param id_post integer id post of the current post
+    * @param parent_id integer parent id of the current post
+    * @return array of id_post, DaoRecord of Post, Paginator
+    */
+    // business check :
+    // 1) do those id exist ?
+    // 2) permission ok ?
+    // 3) if parent_id > 0 then calculate the page + assign id_post with parent_id
+    // business update :
+    // 1) update the count of view of this thread
     
     public function view($id_post,$parent_id) {
         global $HfnuConfig;
@@ -100,9 +113,16 @@ class hfnuposts {
 		// let's update the viewed counter
 		$this->updateViewing($id_post);
         
-        return array($post,$goto);
+        return array($id_post,$post,$goto);
     }
-        
+    
+    /*
+      * save one post
+      * @param $user current user session
+      * @param $id_forum integer id forum of the post
+      * @param id_post integer id post of the current post if editing of 0 if adding
+      * @return $id_post integer id post of the editing post or the id of the post created
+     */
     public function save($user,$id_forum,$id_post=0) {
 		global $HfnuConfig;
         $form = jForms::fill('havefnubb~posts',$id_post);
@@ -141,6 +161,8 @@ class hfnuposts {
             $record->poster_ip 		= $_SERVER['REMOTE_ADDR'];
             
             $dao->insert($record);
+            
+            // now let's get the inserted id to put this one in parent_id column !
             $record->parent_id = $record->id_post;
             $id_post = $record->id_post;
             $parent_id = $record->parent_id;
@@ -159,9 +181,8 @@ class hfnuposts {
 			
         }
         
-        // otherwise it's an update
-        // in all case we have to
-        // update as we store the last insert id in the parent_id column
+        // in all cases (id_post = 0 or not ) 
+        // we have to update as we store the last insert id in the parent_id column
         $dao->update($record);
         
         jEvent::notify('HfnuPostAfterSave',array('id'=>$id_post));
@@ -177,7 +198,15 @@ class hfnuposts {
         return $id_post;
         
     }
-    
+
+    /*
+      * save a reply to one post
+      * @param $user current user session
+      * @param $id_forum integer id forum of the current post
+      * @param parent_id integer parent id of the current post if editing of 0 if adding
+      * @param id_post integer id post of the current post if editing of 0 if adding
+      * @return $record DaoRecord of the reply
+     */    
     public function savereply($user,$id_forum,$parent_id,$id_post) {
 		global $HfnuConfig;        
         $form = jForms::create('havefnubb~posts',$parent_id);
@@ -192,7 +221,9 @@ class hfnuposts {
         $subject	= $form->getData('subject');
         $message 	= $form->getData('message');
 
-		if ( strlen($message) > $HfnuConfig->getValue('post_max_size','messages') and  $HfnuConfig->getValue('post_max_size','messages') > 0) {
+		if ( strlen($message) > $HfnuConfig->getValue('post_max_size','messages')
+            and  $HfnuConfig->getValue('post_max_size','messages') > 0)
+        {
 			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size', array($HfnuConfig->getValue('post_max_size','messages'))),'error');
 			return false;
 		}
@@ -228,7 +259,13 @@ class hfnuposts {
         
     }
     
-    
+    /*
+      * save a notification posted by a user
+      * @param $user current user session
+      * @param $id_forum integer id forum of the current post
+      * @param id_post integer id post of the current post if editing of 0 if adding
+      * @return boolean status of success of this submit 
+     */       
     public function savenotify($user,$id_forum,$id_post) {
         
         $form = jForms::fill('havefnubb~notify',$id_post);
@@ -270,7 +307,13 @@ class hfnuposts {
         return true;
         
     }
-    
+
+    /*
+      * change the status of the current THREAD (not just one post) !
+      * @param $parent_id integer parent id of the thread
+      * @param $status string the status to switch to
+      * @return $record DaoRecord 
+     */     
     public function switchStatus($parent_id,$status) {
         $statusAvailable = array('opened','closed','pined','pinedclosed');
 		if (! in_array($status,$statusAvailable)) {
@@ -288,7 +331,12 @@ class hfnuposts {
         return $post;
         
     }
-    
+
+    /*
+      * remove one post
+      * @param $id_post integer id post to remove
+      * @return boolean of the success or not
+     */     
     public function delete($id_post) {
         if ($id_post == 0 ) return false;
 		$dao = jDao::get('havefnubb~posts');

@@ -30,6 +30,8 @@ class membersCtrl extends jController {
 		
 		$letter = $this->param('letter');
 		$id_rank = (int) $this->param('id_rank');
+        
+        $memberSearch = (string) $this->param('member_search');
 		
 		$page = 0;		
 		$page = (int) $this->param('page');
@@ -58,7 +60,8 @@ class membersCtrl extends jController {
 		
         $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page,
 														  'grpid'=>$grpid,
-														  'letter'=>$letter));
+														  'letter'=>$letter,
+                                                          'memberSearch'=>$memberSearch));
         return $rep;
     }
 	

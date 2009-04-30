@@ -123,11 +123,17 @@ class postsCtrl extends jController {
 		global $HfnuConfig;
         $id_post 	= (int) $this->param('id_post');
 		$parent_id 	= (int) $this->param('parent_id');
-        
+
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-        
-        list($post,$goto) = $hfnuposts->view($id_post,$parent_id);
-        
+
+        // business check :
+        // 1) do those id exist ?
+        // 2) permission ok ?
+        // 3) if parent_id > 0 then calculate the page + assign id_post with parent_id
+        // business update :
+        // 1) update the count of view of this thread
+        list($id_post,$post,$goto) = $hfnuposts->view($id_post,$parent_id);
+             
         if ($post === null and $goto == null) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';

@@ -24,6 +24,8 @@
             <option value="{$letter}">{$letter}</option>
         {/foreach}
          </select>
+        - 
+        {@havefnubb~member.memberlist.search.nickname@} : <input type="text"  name="member_search" value="" size="40"/>
         <input type="submit" value="{@havefnubb~member.memberlist.filter@}" />    
     </fieldset>
     

@@ -13,8 +13,9 @@ class memberlistZone extends jZone {
 
     protected function _prepareTpl(){
         global $HfnuConfig;
-        $page   = (int) $this->param('page');
-        
+        $page           = (int) $this->param('page');
+        $memberSearch   = (string) $this->param('memberSearch');
+        // get letter  in lowercase
         $letter = $this->param('letter');
         if ($letter < chr(97) or $letter > chr(123) ) $letter = '';
         
@@ -26,6 +27,7 @@ class memberlistZone extends jZone {
         
         $p = jAcl2Db::getProfile();
 
+        // $memberSearch == '' means, we dont search some members by their nickname
         if($grpid == -2) {
             //all users
             
@@ -34,7 +36,10 @@ class memberlistZone extends jZone {
             $cond->addCondition('grouptype', '=', 2);
             $cond->addCondition('status', '=', 2);
             if ($letter != '')  {
-                $cond->addCondition('login', 'like', $letter . '%');    
+                $cond->addCondition('login', 'like', $letter . '%');                
+            }
+            elseif ($memberSearch != '') {
+                $cond->addCondition('login', 'like', '%'.$memberSearch . '%');
             }
             $rs = $dao->findBy($cond,$page,$nbMembersPerPage);
             $nbMembers = $dao->countBy($cond);
@@ -49,6 +54,7 @@ class memberlistZone extends jZone {
                 
             $nbMembers = $dao->getUsersGroupCount($grpid);
         }
+
         $members=array();
         $dao2 = jDao::get('jelix~jacl2groupsofuser',$p);
         foreach($rs as $u){
@@ -61,7 +67,7 @@ class memberlistZone extends jZone {
             }
             $members[] = $u;
         }
-
+        
         $groups=array();
         $o = new StdClass;
         $o->id_aclgrp ='-2';
