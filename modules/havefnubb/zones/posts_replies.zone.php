@@ -74,6 +74,9 @@ class posts_repliesZone extends jZone {
         $this->_tpl->assign('nbReplies',$nbReplies);        
         $this->_tpl->assign('properties',$properties);
 		$this->_tpl->assign('parentStatus',$parentPost->status);
+		$this->_tpl->assign('ptitle',$parentPost->subject);
+		$this->_tpl->assign('parent_id',$parentPost->parent_id);
+		$this->_tpl->assign('forum_name',$parentPost->forum_name);
 		$this->_tpl->assign('groups',$groups);
     }
 }

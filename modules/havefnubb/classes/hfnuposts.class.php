@@ -128,30 +128,17 @@ class hfnuposts {
         if ($id_post == 0) {
             jEvent::notify('HfnuPostBeforeSave',array('id'=>$id_post));
             $record = jDao::createRecord('havefnubb~posts');
-        }
-        // edit a post
-        else {
-            jEvent::notify('HfnuPostBeforeUpdate',array('id'=>$id_post));
-            $record = $dao->get($id_post);
-        }
-        
-        $record->subject	= $subject;
-        $record->message	= $message;
-        
-        // store the datas
-        // if id_post = 0 then
-        // it's an adding
-        if ($id_post == 0 ) {
-            $record->id_post  	= $id_post;
-            $record->id_user 	= $user->id;
-            $record->id_forum 	= $id_forum;
-
-            $record->parent_id  = 0;
-            $record->status		= 'opened';
-            $record->date_created = time();
-            $record->date_modified = time();
-            $record->viewed		= 0;
-            $record->poster_ip = $_SERVER['REMOTE_ADDR'];
+			$record->subject		= $subject;
+			$record->message		= $message;
+            $record->id_post  		= $id_post;
+            $record->id_user 		= $user->id;
+            $record->id_forum 		= $id_forum;
+            $record->parent_id  	= 0;
+            $record->status			= 'opened';
+            $record->date_created 	= time();
+            $record->date_modified 	= time();
+            $record->viewed			= 0;
+            $record->poster_ip 		= $_SERVER['REMOTE_ADDR'];
             
             $dao->insert($record);
             $record->parent_id = $record->id_post;
@@ -159,11 +146,19 @@ class hfnuposts {
             $parent_id = $record->parent_id;
             
             jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));                        
-        } else {
-            $record->date_modified = time();
+			
+        }
+        // edit a post
+        else {
+            jEvent::notify('HfnuPostBeforeUpdate',array('id'=>$id_post));
+            $record = $dao->get($id_post);
+			$record->subject		= $subject;
+			$record->message		= $message;
+            $record->date_modified 	= time();
             jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
-        }		
-		
+			
+        }
+        
         // otherwise it's an update
         // in all case we have to
         // update as we store the last insert id in the parent_id column
@@ -201,7 +196,6 @@ class hfnuposts {
 			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size', array($HfnuConfig->getValue('post_max_size','messages'))),'error');
 			return false;
 		}
-		
         
         jEvent::notify('HfnuPostBeforeSaveReply',array('id'=>$id_post));
         
@@ -210,19 +204,17 @@ class hfnuposts {
         $record = jDao::createRecord('havefnubb~posts');
         
         // let's create the record of this reply
-        $record->subject	= $subject;
-        $record->message	= $message;			
-
-        $record->id_post  	= 0;
-        $record->id_user 	= $user->id;
-        $record->id_forum 	= $id_forum;
-
-        $record->parent_id  = $parent_id;
-        $record->status		= 'opened';
-        $record->date_created = time();
-        $record->date_modified = time();
-        $record->viewed		= 0;
-        $record->poster_ip = $_SERVER['REMOTE_ADDR'];
+        $record->subject		= $subject;
+        $record->message		= $message;			
+        $record->id_post  		= 0;
+        $record->id_user 		= $user->id;
+        $record->id_forum 		= $id_forum;
+        $record->parent_id  	= $parent_id;
+        $record->status			= 'opened';
+        $record->date_created 	= time();
+        $record->date_modified 	= time();
+        $record->viewed			= 0;
+        $record->poster_ip 		= $_SERVER['REMOTE_ADDR'];
         $dao->insert($record);
         
 		$id_post = $record->id_post;

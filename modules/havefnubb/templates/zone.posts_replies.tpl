@@ -1,6 +1,7 @@
-{ifacl2 'hfnu.posts.view'}
+{ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="linkpages">
-{pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
+{pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
+ $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>    
 {/ifacl2}
 
@@ -90,9 +91,10 @@
 {/ifacl2}
 </div>
 
-{ifacl2 'hfnu.posts.view'}
+{ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="linkpages">
-{pagelinks 'posts:view', array('id_post'=>$id_post),  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
+{pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
+ $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
 {/ifacl2}
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}

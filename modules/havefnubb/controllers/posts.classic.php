@@ -153,11 +153,11 @@ class postsCtrl extends jController {
         if ($goto > 0 ) $page = $goto;
 		
         $tpl = new jTpl();				
-        $tpl->assign('id_post',$id_post);
-        $tpl->assign('forum',$forum);
-		$tpl->assign('category',$category);
-        $tpl->assign('page',$page);
-        $tpl->assign('subject',$post->subject);
+        $tpl->assign('id_post'	,$id_post);
+        $tpl->assign('forum'	,$forum);
+		$tpl->assign('category'	,$category);
+        $tpl->assign('page'		,$page);
+        $tpl->assign('subject'	,$post->subject);
 		
         $rep->title = $post->subject;                
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));
