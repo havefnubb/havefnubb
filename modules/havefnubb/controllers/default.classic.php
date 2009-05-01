@@ -22,7 +22,10 @@ class defaultCtrl extends jController {
 						 'history.label'=>'Accueil',
 						 'history.title'=>'Aller vers la page d\'accueil')
     );
-    
+    /*
+	 *
+	 */
+
     function index() {
 		global $HfnuConfig;
         $title = stripslashes($HfnuConfig->getValue('title','main'));

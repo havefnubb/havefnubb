@@ -12,7 +12,7 @@
     </ul>
     <ul class="member-info">
         <li class="user-posts">{@havefnubb~member.common.nb.messages@}: {$user->nb_msg}</li>
-        <li class="user-email"><span>{if $user->member_show_email == 'Y'}<a href="mailto:{$user->email}">{@havefnubb~member.common.email@}</a>{else}<a href="{jurl 'havefnubb~members:sendmail',array('to'=>$user->login)}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>{/if}</span></li>
+        <li class="user-email"><span>{if $user->member_show_email == 'Y'}<a href="mailto:{$user->email}">{@havefnubb~member.common.email@}</a>{else}<a href="{jurl 'hfnucontact~default:index',array('to'=>$user->login)}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>{/if}</span></li>
         {if $user->member_website != ''}<li class="user-website"><span><a href="{$user->member_website}" title="{jlocale 'havefnubb~member.common.website.of',array($user->login)}">{@havefnubb~member.common.website@}</a></span></li>{/if}
     </ul>
 </div>

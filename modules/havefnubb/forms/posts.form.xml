@@ -15,7 +15,7 @@
 </textarea>
 
 <textarea ref="tags" rows="2" cols="60">
-	<label>Choisis tes tags</label>
+	<label locale="havefnubb~post.form.choose.your.tags"/>
 </textarea>    
 
 <submit ref="validate">

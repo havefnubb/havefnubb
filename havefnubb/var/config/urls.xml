@@ -154,6 +154,13 @@
 		<url pathinfo="/downloads/feeds/mostpopular/:dir" module="downloads" action="feeds:mostpopular">
 			<param name="dir" type="string" />
 		</url>
+
+        <!-- hfnucontact module -->
+		<url pathinfo="/contactme/:to" module="hfnucontact" action="default:index">
+			<param name="to" type="string" />
+		</url>
+		<url pathinfo="/contacted" module="hfnucontact" action="default:contacted"/>
+
         
     </classicentrypoint>
         

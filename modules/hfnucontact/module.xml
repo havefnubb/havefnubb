@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-    <info id="hfnuinstall@forge.jelix.org" name="hfnuinstall" createdate="2009-02-08">
+    <info id="hfnucontact@forge.jelix.org" name="hfnucontact" createdate="2009-05-01">
         <version stability="beta" date="2009-05-10">1.0.0-RC1</version>
-        <label lang="en_EN">hfnuinstall</label>
-        <description lang="en_EN">install module of bulletin board HaveFnu BB! </description>        
-        <label lang="fr_FR">hfnuinstall</label>
-        <description lang="fr_FR">module d'installation du forum HaveFnu BB!</description>
+        <label lang="en_EN">hfnucontact</label>
+        <description lang="en_EN">Module to be able to send an e-mail to a contact</description>                
+        <label lang="fr_FR">hfnucontact</label>
+        <description lang="fr_FR">Module permettant d'envoyer un mail à un contact</description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
         <homepageURL>http://www.havefnubb.org/</homepageURL>
-        <updateURL>http://www.havefnubb.org/update.php?module=hfnuinstall</updateURL> 
+        <updateURL>http://www.havefnubb.org/update.php?module=contact</updateURL>
     </info>
     <dependencies>
         <jelix minversion="1.1.2" maxversion="1.1.2" />
-        <havefnubb minversion="1.0.0-RC1" maxversion="1.0.0-RC1" />
+        <jcommunity minversion="1" maxversion="1" />
     </dependencies>
 </module>
