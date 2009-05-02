@@ -1,3 +1,4 @@
+;<?php die(''); ?>
 ; Weight of the result of search
 search_subject_weight=1
 search_content_weight=2
