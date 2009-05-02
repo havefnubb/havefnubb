@@ -1,7 +1,7 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage havefnubb
+* @subpackage hfnuadmin
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://forge.jelix.org/projects/havefnubb
@@ -10,17 +10,10 @@
 
 class hfnuaboutZone extends jZone {
     protected $_tplname='zone.hfnuabout';
-
-    //@TODO : notify an event that will "respond"
-    // "i am the module xxx here is my description"
     
     protected function _prepareTpl(){
-        
-        // $data will contain the complet content of
-        // module.xml of each module that will respond
-        $ev = jEvent::notify('HfnuAboutModule');
-        
+        $ev = jEvent::notify('HfnuAboutModule');        
         $moduleInfos = $ev->getResponse();
-        $this->_tpl->assign('version',$moduleInfos[0]['moduleInfos']['version']);
+        $this->_tpl->assign('moduleInfos',$moduleInfos);
     }
 }

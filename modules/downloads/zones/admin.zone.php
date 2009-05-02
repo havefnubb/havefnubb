@@ -15,8 +15,7 @@ class adminZone extends jZone {
 
     protected function _prepareTpl(){
         jClasses::inc('readmodule');
-        $moduleInfo = readmodule::readModuleXml();
-        
+        $moduleInfo = readmodule::readModuleXml();        
         $this->_tpl->assign('moduleInfo',$moduleInfo);        
     }
 }

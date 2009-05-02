@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-    <info id="havefnubb@forge.jelix.org" name="havefnubb" createdate="2008-12-16">
-        <version stability="beta" date="2009-05-10">0.1</version>
-        <label lang="en_EN">havefnubb</label>
-        <description lang="en_EN">HaveFnu BB! The Official Module of the Bulletin Board</description>
-        <label lang="fr_FR">havefnubb</label>
-        <description lang="fr_FR">HaveFnu BB</description>
+    <info id="havefnubb@forge.jelix.org" name="HaveFnu BB!" createdate="2008-12-16">
+        <version stability="beta" date="2009-05-10">1.0.0RC1</version>
+        <label lang="en_EN">HaveFnu BB! The Official Module of the Bulletin Board</label>
+        <description lang="en_EN">This module can manage a complet bulletin board</description>
+        <label lang="fr_FR">HaveFnu BB! Le module officiel de forum</label>
+        <description lang="fr_FR">Ce module permet de gérer un forum entier</description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />

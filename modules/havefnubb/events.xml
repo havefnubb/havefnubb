@@ -14,4 +14,7 @@
       <event name="HfnuPostAfterUpdate"/>
       <event name="HfnuPostAfterSaveReply"/>
    </listener>
+   <listener name="havefnubb">
+		 <event name="masterAdminGetDashboardWidget" />
+   </listener>    
 </events>

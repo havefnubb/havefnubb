@@ -27,11 +27,11 @@ class downloadsListener extends jEventListener{
       $event->add($item);	        
    }
    
-	function onmasterAdminGetDashboardWidget ($event) {
+   function onmasterAdminGetDashboardWidget ($event) {
 		$box = new masterAdminDashboardWidget();
 		$box->title = jLocale::get('downloads~common.downloads');
 		$box->content = jZone::get('downloads~admin');
 		$event->add($box);
-	}   
+   }   
 }
 ?>

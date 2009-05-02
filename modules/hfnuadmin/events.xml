@@ -12,7 +12,7 @@
    <listener name="hfnumanageuser">
 		 <event name="AuthNewUser" />
    </listener>
-   <listener name="hfnuaboutmodule">
-		 <event name="HfnuAboutModule" />
+   <listener name="hfnuadmin">
+		 <event name="masterAdminGetDashboardWidget" />
    </listener>   
 </events>
