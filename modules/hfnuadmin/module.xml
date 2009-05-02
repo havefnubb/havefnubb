@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-    <info id="hfnuadmin@forge.jelix.org" name="hfnuadmin" createdate="2009-01-25">
+    <info id="hfnuadmin@forge.jelix.org" name="HfnuAdmin" createdate="2009-01-25">
         <version stability="beta" date="2009-05-10">1.0.0RC1</version>
-        <label lang="en_EN">hfnuadmin</label>
+        <label lang="en_EN">HfnuAdmin</label>
         <description lang="en_EN">HaveFnu BB Admin</description>
-        <label lang="fr_FR">hfnuadmin</label>
-        <description lang="fr_FR">HaveFnu BB Admin</description>
+        <label lang="fr_FR">HfnuAdmin</label>
+        <description lang="fr_FR">HaveFnu BB! Administration : module gestion complète du forum </description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
@@ -14,6 +14,7 @@
     </info>
     <dependencies>
         <jelix minversion="1.1.2" maxversion="1.1.2" />
-        <havefnubb minversion="1.0.0RC1" maxversion="1.0.0RC1" />        
+        <havefnubb minversion="1.0.0RC1" maxversion="1.0.0RC1" />
+        <jcommunity minversion="0.1" maxversion="0.2" />
     </dependencies>
 </module>

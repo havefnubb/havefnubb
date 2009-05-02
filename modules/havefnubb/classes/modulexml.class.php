@@ -31,35 +31,35 @@ class modulexml {
         $xpath->registerNamespace($ns,$nsURL); 
  
         $query = '//'.$ns.':info/@id'; 
-        $entries = $xpath->query($query); 
-         
+        $entries = $xpath->query($query);          
         $moduleId =  $entries->item(0)->nodeValue; 
          
         $query = '//'.$ns.':info/@name'; 
         $entries = $xpath->query($query); 
-     
         $moduleName =  $entries->item(0)->nodeValue; 
+
+        $query = '//'.$ns.':info/@createdate'; 
+        $entries = $xpath->query($query); 
+        $moduleDateCreated =  $entries->item(0)->nodeValue; 
     
         $query = '//'.$ns.':version/@stability'; 
-        $entries = $xpath->query($query); 
- 
+        $entries = $xpath->query($query);  
         $versionStability = $entries->item(0)->nodeValue; 
  
         $query = '//'.$ns.':version/text()'; 
-        $entries = $xpath->query($query); 
-         
+        $entries = $xpath->query($query);          
         $versionNumber = $entries->item(0)->nodeValue; 
  
         $label = 'N/A';
-        $query = '//'.$ns.':label/@lang[. ="'.$gJConfig->locale.'"]/text()';
+        $query = '//'.$ns.":label[@lang='".$gJConfig->locale."']/text()";
         $entries = $xpath->query($query); 
         if ( ! is_null($entries->item(0))) 
             $label = $entries->item(0)->nodeValue; 
 
         $desc = 'N/A';
-        $query = '//'.$ns.':description/@lang[. ="'.$gJConfig->locale.'"]/text()'; 
-        $entries = $xpath->query($query); 
-        if ( ! is_null($entries->item(0)))  
+        $query = '//'.$ns.":description[@lang='".$gJConfig->locale."']/text()";
+        $entries = $xpath->query($query);
+                if ( ! is_null($entries->item(0)))  
             $desc = $entries->item(0)->nodeValue; 
         
         $creators = array(); 
@@ -80,7 +80,8 @@ class modulexml {
             if ($entry->hasAttribute('nickname')) 
                 $creatorNickname = $entry->getAttribute('nickname'); 
             if ($entry->hasAttribute('email')) 
-                $creatorEmail = $entry->getAttribute('email'); 
+                $creatorEmail = $entry->getAttribute('email');
+
             if ($entry->hasAttribute('active')) 
                 $creatorActive = $entry->getAttribute('active'); 
                  
@@ -111,6 +112,12 @@ class modulexml {
         $entries = $xpath->query($query);
         $licence = $entries->item(0)->nodeValue;
 
+        $licenceURL = '';
+        $query = '//'.$ns.':licence/@URL'; 
+        $entries = $xpath->query($query);
+        $licenceURL = $entries->item(0)->nodeValue;
+
+
         $copyright = '';
         $query = '//'.$ns.':copyright/text()'; 
         $entries = $xpath->query($query);
@@ -119,7 +126,8 @@ class modulexml {
         $moduleInfos = array(
                         'name'=>$moduleName,
                         'id'=>$moduleId, 
-                        'version'=>$versionStability . ' ' . $versionNumber, 
+                        'version'=>$versionStability . ' ' . $versionNumber,
+                        'dateCreate'=>$moduleDateCreated,
                         'label'=>$label, 
                         'desc'=>$desc, 
                         'creators'=>$creators, 
@@ -127,6 +135,7 @@ class modulexml {
                         'updateURL'=>$updateURL,
                         'homepageURL'=>$homepageURL,
                         'licence'=>$licence,
+                        'licenceURL'=>$licenceURL,
                         'copyright'=>$copyright
                         );      
      

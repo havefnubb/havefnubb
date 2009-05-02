@@ -14,5 +14,6 @@
     </info>
     <dependencies>
         <jelix minversion="1.1.2" maxversion="1.1.2" />
+        <jcommunity minversion="0.1" maxversion="0.2" />
     </dependencies>
 </module>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-    <info id="servinfo@forge.jelix.org" name="servinfo" createdate="2009-02-06">
+    <info id="servinfo@forge.jelix.org" name="ServInfo" createdate="2009-02-06">
         <version stability="beta" date="2009-05-10">1.0.0RC1</version>
         <label lang="en_EN">ServInfo</label>
         <description lang="en_EN">server information module</description>                
