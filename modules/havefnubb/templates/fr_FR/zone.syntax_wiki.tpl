@@ -6,7 +6,7 @@
     <li class="quote"><strong>bloc de citation</strong> : chaque ligne doit débuter par un ou plusieurs ></li>
     <li class="bold"><strong>emphase forte (gras)</strong> :  <strong>__texte__</strong> (2 underscores)</li>
     <li class="italic"><strong>emphase simple (italique)</strong> : <em>''texte''</em> (deux apostrophes)</li>
-    <li class="link"><strong>Lien</strong> : [ nomdulien | lien ] ou [ lien ]</li>
+    <li class="link"><strong>Lien</strong> : [[ nomdulien | lien ]] ou [[ lien ]]</li>
 </ul>
 <p>Syntaxe wiki avancée pour mettre en forme</p>
 <ul>
@@ -15,7 +15,7 @@
 </ul>
 <p>A l'intérieur des phrases :</p>
 <ul>
-    <li class="full_link"><strong>Lien complet</strong> : [ nomdulien | lien | langue | déscription (title)]</li>
+    <li class="full_link"><strong>Lien complet</strong> : [[ nomdulien | lien | langue | description (title)]]</li>
     <li class="carriage_return"><strong>Retour à la ligne forcée</strong> : %%%</li>
     <li class="image"><strong>Image</strong> : (( lien vers l'image | textalternatif | position | longue déscription )) . valeurs de position : l/L/g/G => gauche, r/R/d/D =>droite, rien : en ligne.</li>
     <li class="code"><strong>code</strong> : @@code@@</li>

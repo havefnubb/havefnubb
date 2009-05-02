@@ -321,7 +321,7 @@ INSERT INTO `hf_jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.posts.rss', 3, 'forum2'),
 ('hfnu.posts.rss', 3, 'forum3'),
 ('hfnu.posts.rss', 3, 'forum4'),
-
+('hfnu.search', 0, ''),
 ('hfnu.search', 1, ''),
 ('hfnu.search', 2, ''),
 ('hfnu.search', 3, '');

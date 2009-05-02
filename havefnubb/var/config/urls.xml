@@ -80,7 +80,7 @@
         <url pathinfo="/users/changepwd/:user" module="havefnubb" action="members:changepwd">
             <param name="user" />
         </url>
-        <!-- preivate messaging access -->
+        <!-- private messaging -->
         <url pathinfo="/users/pm" module="havefnubb" action="members:mail"/>
 
         <!-- jmessenger -->

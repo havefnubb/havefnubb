@@ -6,7 +6,7 @@
     <li><strong>blockquote</strong>: each line should begin by one or several ></li>
     <li><strong>bold</strong>: <strong>__text__</strong> (2 underscores)</li>
     <li><strong>italic</strong>: <em>''text''</em> (2 quotes)</li>
-    <li><strong>Link</strong>: [ link name | link url] or [ link url ]</li>
+    <li><strong>Link</strong>: [[ link name | link url ]] or [[ link url ]]</li>
 </ul>
 <p>Advanced wiki syntax</p>
 <ul>
@@ -15,7 +15,7 @@
 </ul>
 <p>Inside sentences:</p>
 <ul>
-    <li><strong>Full link</strong>: [link name|link url|lang|title]</li>
+    <li><strong>Full link</strong>: [[link name|link url|lang|title]]</li>
     <li><strong>Forced break line</strong>: %%%</li>
     <li><strong>Image</strong>: ((image link|alternative text | position |description)). position: l/L/g/G => left, r/R/d/D =>right, nothing=>inline.</li>
     <li><strong>code</strong> : @@code@@</li>

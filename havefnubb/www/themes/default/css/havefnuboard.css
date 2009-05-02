@@ -120,12 +120,19 @@ code, pre {
 
 /* login form */
 #loginbox p {
-	padding-left: 20px;
+	text-align: center;
+	vertical-align: bottom;
 }
-
+/*
 #loginbox-links, #loginbox-form {
 	text-align: center;
 	padding: 5px;
+    vertical-align: bottom;
+}*/
+
+#loginbox-links {
+	text-align: center;
+	padding: 15px;
     vertical-align: bottom;
 }
 

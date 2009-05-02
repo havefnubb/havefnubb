@@ -1,1 +1,11 @@
-@TODO
+English :
+0) upload the content of the archive on your website
+1) rename the file var/config/dbprofils.ini.php.dist in var/config/dbprofils.ini.php
+2) rename the file var/config/havefnu.ini.php.dist in var/config/havefnu.ini.php
+3) go to http://_your_domain.com_/install and follow the steps 
+
+Français :
+0) transferer le contenu de l'archive sur votre site
+1) renommer le fichier var/config/dbprofils.ini.php.dist en var/config/dbprofils.ini.php
+2) renommer le fichier var/config/havefnu.ini.php.dist en var/config/havefnu.ini.php
+3) acceder à http://_votre_domaine.com_/install et suivez les étapes
