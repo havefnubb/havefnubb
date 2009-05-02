@@ -50,12 +50,12 @@ class membersCtrl extends jController {
 		
 		// change the label of the breadcrumb
         if ($page == 0) {		
-			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list')) ;
+			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list')) ;
 			$rep->title .= ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname;
 		}
 		else {
 			$rep->title .= ' - ' . jLocale::get('havefnubb~member.members.list') . ' - ' . $groupname . ' ' .($page+1) ;
-			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));		
+			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));		
 		}
 		
         $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page,

@@ -31,7 +31,7 @@ class defaultCtrl extends jController {
         $title = stripslashes($HfnuConfig->getValue('title','main'));
         $rep = $this->getResponse('html');
 		
-		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title));
+		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto.homepage'));
 		
         $rep->body->assignZone('MAIN', 'havefnubb~category');
@@ -45,7 +45,7 @@ class defaultCtrl extends jController {
         $title = stripslashes($HfnuConfig->getValue('title','main'));
         $rep = $this->getResponse('html');
 		
-		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title) . ' - ' . jLocale::get('havefnubb~main.cloud'));
+		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . jLocale::get('havefnubb~main.cloud'));
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.cloud'));
 		
         $rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));

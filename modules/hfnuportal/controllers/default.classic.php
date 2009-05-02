@@ -28,7 +28,7 @@ class defaultCtrl extends jController {
         $title = stripslashes($HfnuConfig->getValue('title','main'));
         $rep = $this->getResponse('html');
 		
-		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title));
+		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title,ENT_COMPAT,'UTF-8'));
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto.homepage'));
 		$tpl = new jTpl();
         $rep->body->assign('MAIN', $tpl->fetch('hfnuportal~home'));
