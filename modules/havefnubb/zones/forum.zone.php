@@ -20,7 +20,6 @@ class forumZone extends jZone {
         $dao = jDao::get('havefnubb~forum');
         
         $forums = $dao->findParentByCatId($id_cat);
-        $this->_tpl->assign('tableclass','forumList');
         
         $this->_tpl->assign('forums',$forums);
     }

@@ -1,6 +1,6 @@
 {zone 'jmessenger~links'}
 <div class="headings">
-    <h3 class="user-email-add"><span>{@jmessenger~message.action.new@}</span></h3>
+    <h3 class="user-email-add user-image"><span>{@jmessenger~message.action.new@}</span></h3>
 </div>
 <div id="messenger-new-mail">
     {formfull $form, $submitAction}

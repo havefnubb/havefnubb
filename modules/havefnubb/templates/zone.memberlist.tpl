@@ -5,7 +5,7 @@
 
 <div id="group">
     <form action="{formurl 'havefnubb~members:index'}" method="post">
-    <div class="filter_description">
+    <div class="member-filter-description">
         <p>{@havefnubb~member.memberlist.filter.description@}</p>
     </div>
     <fieldset>
@@ -38,22 +38,22 @@
 
 <table width="100%">
     <tr>
-        <th class="memberlistcol member">{@havefnubb~member.memberlist.username@}</th>
-        <th class="memberlistcol user-rank">{@havefnubb~member.common.rank@}</th>
-        <th class="memberlistcol user-since">{@havefnubb~member.memberlist.member.since@}</th>
-        <th class="memberlistcol user-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
+        <th class="listcol member">{@havefnubb~member.memberlist.username@}</th>
+        <th class="listcol user-rank">{@havefnubb~member.common.rank@}</th>
+        <th class="listcol user-since">{@havefnubb~member.memberlist.member.since@}</th>
+        <th class="listcol user-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
     </tr>
     {foreach $members as $member}
     <tr>
-        <td class="line linkincell memberlistline">
+        <td class="listline linkincell">
             <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
                title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->login)}">
             {$member->login|eschtml}
             </a>
         </td>
-        <td class="line colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>
-        <td class="line coldate">{$member->request_date|jdatetime:'db_datetime':'lang_datetime'}</td>
-        <td class="line colnum">{$member->nb_msg}</td>
+        <td class="listline colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>
+        <td class="listline coldate">{$member->request_date|jdatetime:'db_datetime':'lang_datetime'}</td>
+        <td class="listline colnum">{$member->nb_msg}</td>
     </tr>
     {/foreach}
 </table>

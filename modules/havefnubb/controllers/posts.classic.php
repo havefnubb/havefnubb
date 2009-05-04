@@ -95,7 +95,6 @@ class postsCtrl extends jController {
 		
         $tpl = new jTpl();        
         // B- Using the collected datas
-        $tpl->assign('tableclass','forumView');
         // 1- the posts 
         $tpl->assign('posts',$posts);		
         // 2- the forum		

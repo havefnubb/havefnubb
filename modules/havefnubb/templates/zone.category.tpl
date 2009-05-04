@@ -4,7 +4,7 @@
     <div id="post-message">{jmessage}</div>	
 {if $action == 'index'}
 {foreach $categories as $category}
-    <div class="forumcat">
+    <div class="category">
         <h3><a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat,'ctitle'=>$category->cat_name)}" title="{$category->cat_name|eschtml}">{$category->cat_name|eschtml}</a></h3>
     </div>
     {ifacl2 'hfnu.forum.list','forum'.$category->id_forum}

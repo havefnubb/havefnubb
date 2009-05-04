@@ -1,4 +1,4 @@
-<table class="{$tableclass}" width="100%">
+<table width="100%">
 {foreach $forums as $forum}
 {if $action =='view'}
 {ifacl2 'hfnu.forum.view','forum'.$forum->id_forum}

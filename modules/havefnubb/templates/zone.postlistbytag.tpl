@@ -4,8 +4,8 @@
 <div class="cloud-list">
     <table class="cloudList" width="100%">
         <tr>
-            <th class="forumlistcol">{@havefnubb~forum.forumlist.title@}</th>
-            <th class="forumlistcol">{@havefnubb~member.common.author@}</th>
+            <th class="listcol">{@havefnubb~forum.forumlist.title@}</th>
+            <th class="listcol">{@havefnubb~member.common.author@}</th>
         </tr>
     {for $i = 0 ; $i < $count ; $i++}
         {ifacl2 'hfnu.posts.view','forum'.$posts[$i]['id_forum']}

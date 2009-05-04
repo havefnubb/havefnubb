@@ -19,12 +19,12 @@
 </div>
 <table width="100%">
     <tr>
-        <th class="forumlistcol"> </th>
-        <th class="forumlistcol">{@havefnubb~forum.forumlist.title@}</th>
-        <th class="forumlistcol">{@havefnubb~member.common.author@}</th>
-        <th class="forumlistcol">{@havefnubb~forum.forumlist.responses@}</th>
-        <th class="forumlistcol">{@havefnubb~forum.forumlist.views@}</th>
-        <th class="forumlistcol">{@havefnubb~forum.forumlist.last.comments@}</th>        
+        <th class="listcol"> </th>
+        <th class="listcol">{@havefnubb~forum.forumlist.title@}</th>
+        <th class="listcol">{@havefnubb~member.common.author@}</th>
+        <th class="listcol">{@havefnubb~forum.forumlist.responses@}</th>
+        <th class="listcol">{@havefnubb~forum.forumlist.views@}</th>
+        <th class="listcol">{@havefnubb~forum.forumlist.last.comments@}</th>        
     </tr>
     {zone 'havefnubb~pinedposts', array('id_forum'=>$id_forum)}
     {foreach $posts as $post}

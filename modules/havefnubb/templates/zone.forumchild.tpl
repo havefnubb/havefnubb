@@ -8,9 +8,9 @@
 </ul>
 {else}
 <div class="subforum">
-<h3>{@havefnubb~forum.forumchild.subforum@}</h3>
+    <h3>{@havefnubb~forum.forumchild.subforum@}</h3>
 </div>
-<table class="forumList" width="100%">
+<table width="100%">
 {foreach $forumChilds as $forum}
     <tr>
         <td class="line colleft {zone 'havefnubb~newestposts',array('id_forum'=>$forum->id_forum)}"></td>
