@@ -18,12 +18,12 @@ $(document).ready(function(){
 {form $form, 'jcommunity~account:save', array('user'=>$username)}
 	<div id="container" class="user-formbg">
 		<ul>
-			<li><a href="#member-general"><span class="user-general user-image">{@havefnubb~member.general@}</span></a></li>
-			<li><a href="#member-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
-			<li><a href="#member-messenger"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></a></li>	
-			<li><a href="#member-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
+			<li><a href="#user-profile-general"><span class="user-general user-image">{@havefnubb~member.general@}</span></a></li>
+			<li><a href="#user-profile-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
+			<li><a href="#user-profile-messenger"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></a></li>	
+			<li><a href="#user-profile-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
 		</ul>    
-        <div id="member-general">
+        <div id="user-profile-general">
             <fieldset>
                 <legend><span class="user-general user-image">{@havefnubb~member.general@}</span></legend>
                 <div class="two-cols">
@@ -57,7 +57,7 @@ $(document).ready(function(){
                 </div>				
             </fieldset>
         </div>
-        <div id="member-messenger">
+        <div id="user-profile-messenger">
             <fieldset>
                 <legend><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></legend>
                 <div class="two-cols">
@@ -92,7 +92,7 @@ $(document).ready(function(){
 					
             </fieldset>
         </div>		
-        <div id="member-pref">
+        <div id="user-profile-pref">
             <fieldset>
                 <legend><span class="user-pref user-image">{@havefnubb~member.pref@}</span></legend>
                 <div>
@@ -115,7 +115,7 @@ $(document).ready(function(){
             </fieldset>
         </div>
 		
-        <div id="member-hardware">
+        <div id="user-profile-hardware">
             <fieldset>
                 <legend><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></legend>
                 <div class="two-cols">

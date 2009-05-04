@@ -46,8 +46,16 @@
 .member-filter-description {
 	padding-left: 20px;
 }
+.themember, th.themember {
+	background-image: url("../images/users/user_suit.png");
+	background-repeat: no-repeat;
+	background-position: left;
+}	
+
+
+
 /* profile - begin */
-#member-general, #member-messenger, #member-hardware, #member-pref {
+#user-profile-general, #user-profile-messenger, #user-profile-hardware, #user-profile-pref {
     padding-top: 0px;    
 }
 
@@ -71,13 +79,6 @@
 #user-group {
 	background-image: url("../images/users/group.png");
 }
-
-.member, th.member {
-	background-image: url("../images/users/user_suit.png");
-	background-repeat: no-repeat;
-	background-position: left;
-}	
-
 
 .user-name {
 	background-image: url("../images/users/user.png");
@@ -295,7 +296,7 @@
 /* profile - end */
 
 
-#member-identity fieldset, #member-pref fieldset, #member-hardware fieldset {
+#user-profile-identity fieldset, #user-profile-pref fieldset, #user-profile-hardware fieldset {
 	
 	border-color: #f1f1e5;
 }
@@ -320,4 +321,14 @@
 
 #sendmail {
 	padding-left: 20px;
+}
+
+
+
+#user-profile-menu {
+	padding-top: 0px;
+	padding-left: 25px;
+	background-repeat: no-repeat;
+	background-position: 1% 50%;
+	cursor: default;
 }

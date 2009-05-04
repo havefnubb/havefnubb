@@ -1,10 +1,3 @@
-{ifacl2 'hfnu.posts.view','forum'.$id_forum}
-<div class="linkpages">
-{pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
- $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
-</div>    
-{/ifacl2}
-
 <div class="newmessage">
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
@@ -21,6 +14,13 @@
     {/if}
 {/ifacl2}
 </div>
+
+{ifacl2 'hfnu.posts.view','forum'.$id_forum}
+<div class="pager-posts">
+{pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
+ $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
+</div>
+{/ifacl2}
 
 <div class="postlist">
 {foreach $posts as $post}
@@ -92,7 +92,7 @@
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
-<div class="linkpages">
+<div class="pager-posts">
 {pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>

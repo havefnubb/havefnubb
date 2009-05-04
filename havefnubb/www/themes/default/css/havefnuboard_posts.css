@@ -14,6 +14,14 @@
 	margin-right: 10px;
 	margin-top: 20px;
     padding-bottom: 4px;
+	float: right;
+}
+.pager-posts {
+	text-align: left;
+	margin-right: 10px;
+	margin-top: 20px;
+    padding-bottom: 4px;
+	padding-left: 0px;
 }
 
 .formsubmit {
@@ -61,11 +69,6 @@
 	text-decoration:none;
 	font-weight: bold;
 
-}
-
-.linkpages {
-	font-weight: bold;
-	margin: 1px;
 }
 
 .pagelinks {
@@ -171,6 +174,7 @@ li.pagelinks-current  {
 	width: 50%;
 	float: right;
 	margin-top: -30px;
+	padding-right: 10px;
 
 }
 
@@ -239,8 +243,8 @@ li.pagelinks-current  {
 }
 
 .postfoot .post-actions {
-		margin-right: 10px;
-		height: 10px;
+		margin-right: 5px;
+		height: 15px;
 }
 .postfoot a {
 	border: 1px solid;

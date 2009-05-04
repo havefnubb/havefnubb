@@ -38,7 +38,7 @@
 
 <table width="100%">
     <tr>
-        <th class="listcol member">{@havefnubb~member.memberlist.username@}</th>
+        <th class="listcol themember">{@havefnubb~member.memberlist.username@}</th>
         <th class="listcol user-rank">{@havefnubb~member.common.rank@}</th>
         <th class="listcol user-since">{@havefnubb~member.memberlist.member.since@}</th>
         <th class="listcol user-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
