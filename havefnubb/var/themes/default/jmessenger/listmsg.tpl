@@ -1,15 +1,15 @@
 {zone 'jmessenger~links'}
 <div id="messenger-list">
-<h3 class="{if isset($send)}user-email-outbox{else}user-email-inbox{/if}">{$title}</h3>
+<h3 class="{if isset($send)}user-email-outbox{else}user-email-inbox{/if} user-image">{$title}</h3>
 
-<table class="messenger-list-msg">
+<table width="100%">
     <thead>
         <tr>
-            <th class="messengercol"></th>
-            <th class="messengercol">{@jmessenger~message.list.discussion@}</th>
-            <th class="messengercol">{@jmessenger~message.list.from@}</th>
-            <th class="messengercol">{@jmessenger~message.list.date@}</th>
-            <th class="messengercol">{@jmessenger~message.list.actions@}</th>
+            <th class="listcol"></th>
+            <th class="listcol">{@jmessenger~message.list.discussion@}</th>
+            <th class="listcol">{@jmessenger~message.list.from@}</th>
+            <th class="listcol">{@jmessenger~message.list.date@}</th>
+            <th class="listcol">{@jmessenger~message.list.actions@}</th>
         </tr>
     </thead>    
     <tbody>
@@ -29,9 +29,9 @@
         </td>
         <td class="colright linkincell">
             {if !isset($send)}            
-            <a class="messenger-email-answer"  href="{jurl 'jmessenger~jmessenger:answer', array('id'=>$m->id)}">{@message.answer@}</a>
+            <a class="messenger-email-answer user-image"  href="{jurl 'jmessenger~jmessenger:answer', array('id'=>$m->id)}">{@message.answer@}</a>
             {/if}
-            <a class="messenger-email-delete" href="{jurl 'jmessenger~jmessenger:delete', array('id'=>$m->id)}">{@message.delete@}</a>
+            <a class="messenger-email-delete user-image" href="{jurl 'jmessenger~jmessenger:delete', array('id'=>$m->id)}">{@message.delete@}</a>
         </td>
     </tr>    
 {/foreach}

@@ -29,7 +29,9 @@ class fnuHtmlResponse extends jResponseHtml {
         if ($HfnuConfig->getValue('installed','main') == 0) $this->bodyTpl = 'havefnubb~main_not_installed';
 
         $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
-        $this->addCssLink($chemin.'css/havefnuboard.css');        
+        $this->addCssLink($chemin.'css/havefnuboard.css');
+        $this->addCssLink($chemin.'css/havefnuboard_posts.css');
+        $this->addCssLink($chemin.'css/havefnuboard_users.css'); 
 
         $title = stripslashes($HfnuConfig->getValue('title','main'));
         $description = stripslashes($HfnuConfig->getValue('description','main'));

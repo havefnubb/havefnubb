@@ -1,4 +1,4 @@
-<div id="login-status" class="smalltext">
+<div id="login-status">
 {ifuserconnected}
     <ul>
         <li>{@havefnubb~member.status.welcome@} {$login}.</li>

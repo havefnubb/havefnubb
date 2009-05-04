@@ -16,7 +16,7 @@ $(document).ready(function(){
 </div>
 <div id="profile">
 {form $form, 'jcommunity~account:save', array('user'=>$username)}
-	<div id="container" class="formbg">
+	<div id="container" class="user-formbg">
 		<ul>
 			<li><a href="#member-general"><span class="user-general user-image">{@havefnubb~member.general@}</span></a></li>
 			<li><a href="#member-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
