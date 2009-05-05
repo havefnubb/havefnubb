@@ -94,7 +94,7 @@ class memberlistZone extends jZone {
                       'next-label'  => '',
                       'end-label'   => jLocale::get("havefnubb~member.pagelinks.end"),
                       'area-size'   => 5);
-
+		
         // 1- vars for pagelinks
         $this->_tpl->assign('groups', $groups);
         $this->_tpl->assign('page',$page);                

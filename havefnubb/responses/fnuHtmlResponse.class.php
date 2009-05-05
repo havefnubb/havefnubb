@@ -41,6 +41,35 @@ class fnuHtmlResponse extends jResponseHtml {
         else
             $this->title = $title;       
         
+        $pi = $GLOBALS['gJCoord']->request->urlPathInfo;
+
+        if ($pi == '/' || $pi =='' ) {
+            $this->body->assign('selectedMenuItem','community');
+            $this->body->assign('home',1);
+        } else if(preg_match('!^/([a-zA-Z]+)(/.*)?$!', $pi, $m)) {
+            switch($m[1]) {
+                //case 'newticket':
+				case 'members':
+                    $this->body->assign('home',0);                    
+                    $this->body->assign('selectedMenuItem','members');
+                    break;
+                case 'search':
+                    $this->body->assign('home',0);                    
+                    $this->body->assign('selectedMenuItem','search');
+                    break;
+				case 'post':
+                case 'forum':
+                case 'cat':
+                    $this->body->assign('home',0);                    
+                    $this->body->assign('selectedMenuItem','community');
+                    break;                
+                default:
+                    $this->body->assign('home',1);
+                    $this->body->assign('selectedMenuItem','community');            
+            }
+        }
+
+
         $this->body->assignIfNone('MAIN','');
         $this->body->assignIfNone('TITLE',$title);
         $this->body->assignIfNone('DESC',$description);

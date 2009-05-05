@@ -27,7 +27,7 @@ class hfnumenuListener extends jEventListener{
 											  2,
 											  'main'));
 	  
-		  $event->add(new hfnuMenuItem('member',
+		  $event->add(new hfnuMenuItem('members',
 											  jLocale::get('havefnubb~main.member.list'),
 											  jUrl::get('havefnubb~members:index'),
 											  3,

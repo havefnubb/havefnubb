@@ -17,7 +17,7 @@ pluginsPath="app:../plugins/"
 
 modulesPath="lib:jelix-modules/,app:../modules/"
 
-theme=default
+theme=box
 
 [coordplugins]
 auth=auth.coord.ini.php
@@ -193,6 +193,7 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
 
 
 

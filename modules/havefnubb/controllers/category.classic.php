@@ -42,8 +42,8 @@ class categoryCtrl extends jController {
         $tpl = new jTpl();
 	
         $tpl->assign('action','view');
-        $tpl->assign('category',$category);        
-
+        $tpl->assign('category',$category);		
+		
         $rep->body->assign('MAIN', $tpl->fetch('zone.category'));
         return $rep;
     }    

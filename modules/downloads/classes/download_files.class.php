@@ -19,7 +19,6 @@ class downloadFiles {
 		$config = downloadConfig::getConfig();
 		
         $file = realpath($config->getValue('commons.upload.dir')).DIRECTORY_SEPARATOR.$path.DIRECTORY_SEPARATOR.$filename;
-		#die( "fichier $file");
 		
 		$filesize = '';
 		

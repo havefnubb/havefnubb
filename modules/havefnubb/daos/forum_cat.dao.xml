@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="forum" realname="forum" primarykey="id_forum" />
+        <foreigntable name="category" realname="category" primarykey="id_cat" onforeignkey="id_cat"/>
+    </datasources>
+    <record>
+        <property name="id_cat" fieldname="id_cat" datatype="autoincrement" table="category"/>
+        <property name="cat_name" fieldname="cat_name" datatype="string" required="true" maxlength="255" table="category"/>
+        <property name="cat_order" fieldname="cat_order" datatype="int" required="true" table="category"/>
+        <property name="id_forum" fieldname="id_forum" datatype="int" table="forum"/>
+        <property name="parent_id" fieldname="parent_id" datatype="int" table="forum"/>
+    </record>
+    <factory>
+        <method name="findAll">
+            <order>
+                <orderitem property="cat_order" way="asc" />
+            </order>            
+        </method>
+        <method name="findAllCatWithFathers" type="select" groupby="id_cat">
+            <conditions>
+                <eq property="parent_id" value="0"/>
+            </conditions>
+        </method>		        
+    </factory>
+</dao>

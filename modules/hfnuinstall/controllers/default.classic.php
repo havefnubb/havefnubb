@@ -75,12 +75,13 @@ class defaultCtrl extends jController {
                         }
                         
                         $HfnuConfig->setValue('title',      htmlentities($this->param('title')),'main');
-                        $HfnuConfig->setValue('description',htmlentities($this->param('description')),'main');
-                        $HfnuConfig->setValue('theme',      htmlentities($this->param('theme')),'main');
+                        $HfnuConfig->setValue('description',htmlentities($this->param('description')),'main');                        
                         $HfnuConfig->setValue('rules',      htmlentities($this->param('rules')),'main');
                                                 
                         $HfnuConfig->save();                        
                         
+						
+						$mainConfig->setValue('theme',      htmlentities($this->param('theme')));
                         $mainConfig->setValue('webmasterEmail', htmlentities($this->param('webmasterEmail')),'mailer');
                         $mainConfig->setValue('webmasterName',  htmlentities($this->param('webmasterName')),'mailer');
                         $mainConfig->setValue('mailerType',     htmlentities($this->param('mailerType')),'mailer');
@@ -222,7 +223,7 @@ class defaultCtrl extends jController {
                             return $rep;
                         }
                         
-						$HfnuConfig->setValue('admin_email',htmlentities($this->param('admin_email')));                                               
+						$HfnuConfig->setValue('admin_email',htmlentities($this->param('admin_email')),'main');
                         $HfnuConfig->save();                          
                                                 
                         // let's create an Admin account !

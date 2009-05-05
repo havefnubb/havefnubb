@@ -83,6 +83,7 @@ class membersCtrl extends jController {
         $tpl->assign('login', $login);
         $tpl->assign('form', $form);
 
+		$rep->body->assign('selectedMenuItem','members');
         $rep->body->assign('MAIN', $tpl->fetch('member_changepwd'));
 
         return $rep;
@@ -137,14 +138,10 @@ class membersCtrl extends jController {
 
 	function mail() {
 		$rep = $this->getResponse('html');
+		$rep->body->assign('selectedMenuItem','members');
 		$rep->body->assignZone('MAIN', 'jmessenger~links');
 		return $rep;
 	}	
 
-	function sendmail() {
-		$rep = $this->getResponse('html');
-		$rep->body->assign('MAIN', 'Feature Coming Soon');
-		return $rep;		
-	}
 }
 

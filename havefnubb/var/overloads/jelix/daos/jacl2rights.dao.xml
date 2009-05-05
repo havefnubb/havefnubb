@@ -108,5 +108,14 @@
               <eq property="id_aclsbj" expr="$subject" />
            </conditions>
         </method>
+        <method name="deleteByGroupAndExceptSubjects" type="delete">
+           <parameter name="group" />
+           <parameter name="subjects" />
+           <conditions>
+              <eq property="id_aclgrp" expr="$group" />
+              <notin property="id_aclsbj" expr="$subjects" />
+              <eq property="id_aclres" value="" />
+           </conditions>
+        </method>        
     </factory>
 </dao>
