@@ -62,7 +62,25 @@ class fnuHtmlResponse extends jResponseHtml {
                 case 'cat':
                     $this->body->assign('home',0);                    
                     $this->body->assign('selectedMenuItem','community');
-                    break;                
+                    break;
+                case 'tag':
+                    $this->body->assign('home',0);                    
+                    $this->body->assign('selectedMenuItem','tags');
+                    break;                     
+                case 'users':
+                case 'messages':
+                    $this->body->assign('home',0);                    
+                    $this->body->assign('selectedMenuItem','users');
+                    break;                     
+                case 'auth':
+                case 'registration':
+                    $this->body->assign('home',0);                    
+                    $this->body->assign('selectedMenuItem','');
+                    break;
+                case 'downloads':
+                    $this->body->assign('home',0);                    
+                    $this->body->assign('selectedMenuItem','downloads');
+                    break;                    
                 default:
                     $this->body->assign('home',1);
                     $this->body->assign('selectedMenuItem','community');            

@@ -15,7 +15,7 @@
         <url pathinfo="/community" module="havefnubb" action="default:index"/>
         
         <!-- portal access -->
-        <url pathinfo="/" module="hfnuportal" action="default:index"/>
+        <url pathinfo="/" module="havefnubb" action="default:index"/>
         
         <!-- categories management -->
         <url pathinfo="/cat/:id_cat-:ctitle" module="havefnubb" action="category:view">
