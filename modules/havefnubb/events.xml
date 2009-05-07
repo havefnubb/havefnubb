@@ -2,6 +2,7 @@
 <events xmlns="http://jelix.org/ns/events/1.0">
    <listener name="authhavefnubb">
       <event name="AuthLogin" />
+      <event name="AuthLogout" />
       <event name="AuthNewUser" />
       <event name="jcommunity_save_account" />
       <event name="jcommunity_check_before_save_registration"/>
