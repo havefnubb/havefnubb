@@ -10,17 +10,26 @@ $(document).ready(function(){
 <div id="breadcrumbtop" class="headbox">
     <h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)} 
 {if $himself}
-> <a id="user" class="user-image" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a></li>
+> <a id="user" class="user-image" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
 {ifacl2 'auth.users.change.password'}
 > <a class="user-edit-password user-image" href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a>
 {/ifacl2}        
 {/if}
-
 	</h3>	
 </div>
 <div id="post-message">{jmessage}</div>
 <div id="profile">
-{avatar $j_basepath .'images/avatars/'.$user->id}
+	<div id="user-profile-avatar">
+		{if file_exists('images/avatars/'. $user->id.'.png') }
+		{image 'images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+		{elseif file_exists('images/avatars/'. $user->id.'.jpg')}
+		{image 'images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+		{elseif file_exists('images/avatars/'. $user->id.'.jpeg')}
+		{image 'images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+		{elseif file_exists('images/avatars/'. $user->id.'.gif')}
+		{image 'images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+		{/if}		
+	</div>
     <div id="container">
         <ul>
             <li><a href="#user-profile-general"><span class="user-general user-image">{@havefnubb~member.general@}</span></a></li>
@@ -58,7 +67,7 @@ $(document).ready(function(){
                         <label class="user-town user-image"><strong>{@havefnubb~member.common.town@}</strong></label><br />{$user->member_town|eschtml}
                     </p>
                     <p class="col">
-                        <label><strong>{@havefnubb~member.common.country@}</strong></label><br />{image 'images/flags/'.$user->member_country.'.gif'} {$user->member_country|eschtml}
+                        <label><strong>{@havefnubb~member.common.country@}</strong></label><br />{image 'images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}
                     </p>
                     <p class="col">                
                         <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong></label><br /><a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>
@@ -69,10 +78,10 @@ $(document).ready(function(){
                 <legend><span class="user-stats user-image">{@havefnubb~member.common.stats@}</span></legend>
                 <div class="two-cols">                    
                     <p class="col">                
-                        <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><br />{$user->request_date|jdatetime}</a>
+                        <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><br />{$user->request_date|jdatetime}
                     </p>
                     <p class="col">                
-                        <label><strong>{@havefnubb~member.common.last.connection@}</strong></label><br />{$user->member_last_connect|jdatetime:'timestamp'}</a>
+                        <label><strong>{@havefnubb~member.common.last.connection@}</strong></label><br />{$user->member_last_connect|jdatetime:'timestamp'}
                     </p>                    
                 </div>                 
             </fieldset>
@@ -123,8 +132,9 @@ $(document).ready(function(){
                         <label><strong>{@havefnubb~member.common.language@}</strong></label> {$user->member_language}
                     </p>              
                     <p>
-                        <label><strong>{@havefnubb~member.common.account.signature@}</strong></label><br />{$user->member_comment|wiki:'wr3_to_xhtml'|stripslashes}
+                        <label><strong>{@havefnubb~member.common.account.signature@}</strong></label>
                     </p>
+					{$user->member_comment|wiki:'wr3_to_xhtml'|stripslashes}
                 </div>                
             </fieldset>
         </div>

@@ -1,7 +1,15 @@
 <div class="post-author">
     <ul class="member-ident">
         <li class="user-name user-image">{zone 'online_offline',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->login)}">{$user->login|eschtml}</a></li>
-        <li class="user-avatar">{avatar 'images/avatars/'.$user->id}</li>
+        <li class="user-avatar">
+		{if file_exists('images/avatars/'. $user->id.'.png') }
+		{image 'images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+		{elseif file_exists('images/avatars/'. $user->id.'.jpg')}
+		{image 'images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+		{elseif file_exists('images/avatars/'. $user->id.'.jpeg')}
+		{image 'images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+		{/if}            
+        </li>
         {if $user->member_town != ''}
         <li class="user-town user-image">{@havefnubb~member.common.town@} : {$user->member_town|eschtml}</li>
         {/if}        

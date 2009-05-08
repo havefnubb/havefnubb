@@ -42,10 +42,30 @@ class authhavefnubbListener extends jEventListener{
     function onjcommunity_save_account ($event) {
         global $gJConfig;
         $form = $event->getParam('form');
+		$form->check();
         if ( $form->getData('member_language') != '') {
             $_SESSION['JX_LANG'] = $form->getData('member_language');
             $gJConfig->locale = $form->getData('member_language');
         }
+		$ext = '';
+		$id = jAuth::getUserSession()->id;
+		if ($form->getData('member_avatar') != '' ) {
+			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.png');
+			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpg');
+			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpeg');
+			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.gif');
+			$avatar = $form->getData('member_avatar');
+			if (strpos($avatar,'.png') > 0 )
+			   $ext = '.png';
+			elseif (strpos($avatar,'.jpg') > 0 )
+			   $ext = '.jpg';
+			elseif (strpos($avatar,'.jpeg') > 0 )
+			   $ext = '.jpeg';
+			elseif (strpos($avatar,'.gif') > 0 )
+			   $ext = '.gif';
+			
+			$form->saveFile('member_avatar', JELIX_APP_WWW_PATH.'images/avatars/', $id.$ext);
+		}
         jMessage::add(jLocale::get('havefnubb~member.profile.updated'),'ok');
    }
    

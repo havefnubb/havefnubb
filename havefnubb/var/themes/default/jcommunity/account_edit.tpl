@@ -95,7 +95,7 @@ $(document).ready(function(){
         <div id="user-profile-pref">
             <fieldset>
                 <legend><span class="user-pref user-image">{@havefnubb~member.pref@}</span></legend>
-                <div>
+                <div class="two-cols">
                     <p class="col">
                         <label class="user-language user-image"><strong>{ctrl_label 'member_language'}</strong></label> {ctrl_control 'member_language'}<br/>
                         {@havefnubb~member.account.edit.language.description@}
@@ -105,11 +105,14 @@ $(document).ready(function(){
                         {@havefnubb~member.account.edit.show.your.email.description@}
                     </p>
                 </div>
-                <div class="two-cols">
-                    <p class="col">        
+                <div>
+					<p class="col">        
                         <label class="user-signature user-image"><strong>{ctrl_label 'member_comment'}</strong></label><br />{ctrl_control 'member_comment'}
-                    </p>
-                    <p class="col">                        
+                    </p>				
+                    <p class="col">
+						<label class="user-avatar user-image">
+						<strong>{ctrl_label 'member_avatar'}</strong></label>
+						{ctrl_control 'member_avatar'}
                     </p>                   					
                 </div>                
             </fieldset>
