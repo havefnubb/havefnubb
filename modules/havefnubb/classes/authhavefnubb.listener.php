@@ -40,7 +40,7 @@ class authhavefnubbListener extends jEventListener{
    }
    
     function onjcommunity_save_account ($event) {
-        global $gJConfig;
+        global $gJConfig, $HfnuConfig;
         $form = $event->getParam('form');
 		$form->check();
         if ( $form->getData('member_language') != '') {
@@ -50,11 +50,15 @@ class authhavefnubbListener extends jEventListener{
 		$ext = '';
 		$id = jAuth::getUserSession()->id;
 		if ($form->getData('member_avatar') != '' ) {
+			$max_width = $HfnuConfig->getValue('avatar_max_width','main');
+			$max_height = $HfnuConfig->getValue('avatar_max_height','main');
 			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.png');
 			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpg');
 			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpeg');
 			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.gif');
+			
 			$avatar = $form->getData('member_avatar');
+			
 			if (strpos($avatar,'.png') > 0 )
 			   $ext = '.png';
 			elseif (strpos($avatar,'.jpg') > 0 )
@@ -65,6 +69,16 @@ class authhavefnubbListener extends jEventListener{
 			   $ext = '.gif';
 			
 			$form->saveFile('member_avatar', JELIX_APP_WWW_PATH.'images/avatars/', $id.$ext);
+			
+			list($width, $height) = getimagesize(JELIX_APP_WWW_PATH.'images/avatars/'.$id.$ext);
+			if (empty($width) || empty($height) || $width > $max_width || $height > $max_height) {
+			   @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.$ext);
+			   jMessage::add(
+					 jLocale::get('havefnubb~member.profile.avatar.too.wide',array($max_width.' x '. $max_height))
+					 ,'error');
+			   return;
+			}
+			
 		}
         jMessage::add(jLocale::get('havefnubb~member.profile.updated'),'ok');
    }

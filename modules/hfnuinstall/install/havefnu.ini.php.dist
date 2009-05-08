@@ -6,6 +6,8 @@ version=1.0
 rules=""
 admin_email=""
 url_check_version="http://www.havefnubb.org/last_version"
+avatar_max_width=60
+avatar_max_height=75
 installed=0
 
 [messages]

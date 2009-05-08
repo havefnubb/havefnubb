@@ -96,6 +96,14 @@
   <p>{ctrl_control 'members_per_page'} </p>
   <p>{@hfnuadmin~config.members_per_page.description@}</p>
 </fieldset>
+<fieldset>
+  <legend>{@hfnuadmin~config.avatar@}</legend>
+  <p>{@hfnuadmin~config.avatar.desc@}</p>  
+  <p>{ctrl_label 'avatar_max_width'} </p>
+  <p>{ctrl_control 'avatar_max_width'} </p>
+  <p>{ctrl_label 'avatar_max_height'} </p>
+  <p>{ctrl_control 'avatar_max_height'} </p>  
+</fieldset>
 </div>
 
 <div>{formsubmit 'validate'} {formreset 'cancel'}</div>

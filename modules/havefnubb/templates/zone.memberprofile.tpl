@@ -8,7 +8,9 @@
 		{image 'images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
 		{elseif file_exists('images/avatars/'. $user->id.'.jpeg')}
 		{image 'images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
-		{/if}            
+		{elseif file_exists('images/avatars/'. $user->id.'.gif')}
+		{image 'images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+		{/if}
         </li>
         {if $user->member_town != ''}
         <li class="user-town user-image">{@havefnubb~member.common.town@} : {$user->member_town|eschtml}</li>

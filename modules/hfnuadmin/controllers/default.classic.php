@@ -29,9 +29,9 @@ class defaultCtrl extends jController {
     function config() {
         global $HfnuConfig;
 		
-		$defaultConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
-		$floodConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
-		$timeoutConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
+		$defaultConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+		$floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
+		$timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
 		
         $rep = $this->getResponse('html');
 		$submit = $this->param('validate');
@@ -54,14 +54,14 @@ class defaultCtrl extends jController {
 			$defaultConfig->save();
 			
             $HfnuConfig->setValue('rules',				htmlentities($this->param('rules')),'main');
-            
-            $HfnuConfig->setValue('admin_email',		htmlentities($this->param('admin_email')),'main');
-            
+            $HfnuConfig->setValue('admin_email',		htmlentities($this->param('admin_email')),'main');            
             $HfnuConfig->setValue('posts_per_page',		htmlentities($this->param('posts_per_page')),'messages');
             $HfnuConfig->setValue('replies_per_page',	htmlentities($this->param('replies_per_page')),'messages');
             $HfnuConfig->setValue('members_per_page',	htmlentities($this->param('members_per_page')),'messages');
             $HfnuConfig->setValue('stats_nb_of_lastpost',htmlentities($this->param('stats_nb_of_lastpost')),'messages');
             $HfnuConfig->setValue('post_max_size',		htmlentities($this->param('post_max_size')),'messages');
+			$HfnuConfig->setValue('avatar_max_width',	htmlentities($this->param('avatar_max_width')),'main');
+			$HfnuConfig->setValue('avatar_max_height',	htmlentities($this->param('avatar_max_height')),'main');			
             $HfnuConfig->save();
             
             $floodConfig->setValue('elapsed_time_after_posting_before_editing',
@@ -90,6 +90,8 @@ class defaultCtrl extends jController {
         $form->setData('posts_per_page',  (int) $HfnuConfig->getValue('posts_per_page','messages'));
         $form->setData('replies_per_page',(int) $HfnuConfig->getValue('replies_per_page','messages'));
         $form->setData('members_per_page',(int) $HfnuConfig->getValue('members_per_page','messages'));
+		$form->setData('avatar_max_width',(int) $HfnuConfig->getValue('avatar_max_width','main'));
+		$form->setData('avatar_max_height',(int) $HfnuConfig->getValue('avatar_max_height','main'));
         $form->setData('stats_nb_of_lastpost',(int) $HfnuConfig->getValue('stats_nb_of_lastpost','messages'));
         $form->setData('elapsed_time_after_posting_before_editing',(int) $floodConfig->getValue('elapsed_time_after_posting_before_editing'));
         $form->setData('elapsed_time_between_two_post_by_same_ip',(int) $floodConfig->getValue('elapsed_time_between_two_post_by_same_ip'));

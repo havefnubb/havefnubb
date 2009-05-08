@@ -65,6 +65,14 @@
 	<item value="50">50</item>		
 </menulist>
 
+<input ref="avatar_max_width" type="integer" required="true">
+	<label locale="hfnuadmin~config.avatar_max_width"/>
+</input>
+
+<input ref="avatar_max_height" type="integer" required="true">
+	<label locale="hfnuadmin~config.avatar_max_height"/>
+</input>
+
 <menulist ref="stats_nb_of_lastpost"  required="true">
 	<label locale="hfnuadmin~config.stats_nb_of_lastpost"/>
 	<item value="3">3</item>	
