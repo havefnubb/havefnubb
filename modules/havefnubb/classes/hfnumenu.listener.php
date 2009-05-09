@@ -38,7 +38,13 @@ class hfnumenuListener extends jEventListener{
 			jUrl::get('hfnusearch~default:index'),
 			4,
 			'main'));
-		  
+	  
+	  $event->add(new hfnuMenuItem('search',
+			jLocale::get('downloads~common.downloads'),
+			jUrl::get('downloads~default:index'),
+			99,
+			'main'));
+	  
       if ( jAcl2::check('hfnu.admin.index'))    {	  
 		 $event->add(new hfnuMenuItem('admin',
 			jLocale::get('havefnubb~main.admin.panel'),
