@@ -1,11 +1,34 @@
 English :
-0) upload the content of the archive on your website
-1) rename the file var/config/dbprofils.ini.php.dist in var/config/dbprofils.ini.php
-2) rename the file var/config/havefnu.ini.php.dist in var/config/havefnu.ini.php
+
+0) Configuration of the web environment : 
+- If you can specify the document root, upload the content of the archive and point the root of your application to havefnubb/www
+more infos on http://jelix.org/articles/en/manual-1.1/application-configuration
+
+- If you cant specify the document root, have a look at the chapter "If you can't change the document root" on http://jelix.org/articles/en/manual-1.1/application-configuration
+
+1) rename the file havefnubb/var/config/dbprofils.ini.php.dist in havefnubb/var/config/dbprofils.ini.php
+2) rename the file havefnubb/var/config/havefnu.ini.php.dist in havefnubb/var/config/havefnu.ini.php
 3) go to http://_your_domain.com_/install and follow the steps 
 
 Français :
-0) transferer le contenu de l'archive sur votre site
-1) renommer le fichier var/config/dbprofils.ini.php.dist en var/config/dbprofils.ini.php
-2) renommer le fichier var/config/havefnu.ini.php.dist en var/config/havefnu.ini.php
+Quand l'archive est décompressée vous obtenez les répertoires suivants :
+
+* havefnubb/          répertoire contenant la partie web et configuration 
+ -> responses
+ -> var              (la config)
+ -> www              (le web)
+* lib/               librairies Jelix
+* modules/           les differents modules composants HaveFnuBB
+* plugins/           les differents plugins composants HaveFnuBB
+* temp
+
+0) Configuration de l'environnement web :
+- Si vous pouvez spécifier le document root, transférer le contenu de l'archive et faites pointer le répertoire havefnubb/www sur la racine de votre site.
+plus d'infos ici : http://jelix.org/articles/fr/manuel-1.1/configurer-application
+
+- Si vous ne pouvez pas spécifier le document root rendez vous sur la page http://jelix.org/articles/fr/manuel-1.1/configurer-application 
+sur la paragraphe "Si vous ne pouvez pas spécifier le document root", qui vous indiquera la marche à suivre pour que l'application puisse fonctionner.
+
+1) renommer le fichier havefnubb/var/config/dbprofils.ini.php.dist en havefnubb/var/config/dbprofils.ini.php
+2) renommer le fichier havefnubb/var/config/havefnu.ini.php.dist en havefnubb/var/config/havefnu.ini.php
 3) acceder à http://_votre_domaine.com_/install et suivez les étapes
