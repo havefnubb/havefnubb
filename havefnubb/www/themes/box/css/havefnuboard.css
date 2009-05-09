@@ -652,27 +652,6 @@ ul.subforum-home li {
 #footer a:hover { color: #232320; }
 
 
-/* search page */
-#result {
-    padding-top:1px;
-    padding-bottom:1px;
-    padding-left: 20px;
-	line-height: 0.5;
-}
-
-#result .result-author {
-	color: #f90;	
-}
-
-#result .result-date {
-	color: #f90;	
-}
-
-#result .result-msg {
-	color: #666;
-	
-}
-
 /* help wiki syntaxe */
 .wiki-image {
 	background-repeat: no-repeat;	
