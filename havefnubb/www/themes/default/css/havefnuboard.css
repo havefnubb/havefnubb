@@ -270,7 +270,12 @@ code, pre {
     z-index:50;
 	
 }
-
+#navbar li.selected a {
+	color:#f90;
+	border:1px solid;
+	background-color:#f1f1e5;
+	border-color:#f1f1e5 #acac9c #acac9c #acac9c;
+}
 #navbar li {
 	float:left;
 	list-style-type:none;	
@@ -513,12 +518,12 @@ li.headings  {
 
 /* category */
 .category {
+	height: 16px;
 	background-image: url("../images/posts/category.png");
 	background-repeat: no-repeat;
 	padding-left: 20px;
-	height: 16px;
-	margin: auto;
-	margin-left: 20px;	
+	margin-left: 20px;
+	margin: auto;	
 }
 
 .forumicone {
