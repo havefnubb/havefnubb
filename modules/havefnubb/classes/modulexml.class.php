@@ -1,7 +1,7 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage hfnuadmin
+* @subpackage havefnubb
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://forge.jelix.org/projects/havefnubb

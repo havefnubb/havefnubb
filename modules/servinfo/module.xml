@@ -3,7 +3,7 @@
     <info id="servinfo@forge.jelix.org" name="ServInfo" createdate="2009-02-06">
         <version stability="beta" date="2009-05-10">1.0.0RC1</version>
         <label lang="en_EN">ServInfo</label>
-        <description lang="en_EN">server information module</description>                
+        <description lang="en_EN">Display any data about the current server on which the module runs</description>
         <label lang="fr_FR">ServInfo</label>
         <description lang="fr_FR">Affichage des données propres au serveur où fonctionne ce module</description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>

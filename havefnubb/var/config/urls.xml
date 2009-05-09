@@ -138,6 +138,8 @@
         <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
 
         <!-- downloads module -->
+		<url pathinfo="/downloads/" module="downloads" action="default:index"/>
+
 		<url pathinfo="/downloads/:dir" module="downloads" action="default:index">
 			<param name="dir" type="string" />
 		</url>               

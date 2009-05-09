@@ -11,41 +11,41 @@
 class hfnumenuListener extends jEventListener{
 
    /**
-   *
+   * Main Menu of the navbar
    */
-	function onhfnuGetMenuContent ($event) {
+   function onhfnuGetMenuContent ($event) {
 	  
-		  $event->add(new hfnuMenuItem('home',
-											  jLocale::get('havefnubb~main.home'),
-											  jUrl::get('havefnubb~default:index'),
-											  1,
-											  'main'));
-
-		  $event->add(new hfnuMenuItem('community',
-											  jLocale::get('havefnubb~main.community'),
-											  jUrl::get('havefnubb~default:index'),
-											  2,
-											  'main'));
+	  $event->add(new hfnuMenuItem('home',
+			jLocale::get('havefnubb~main.home'),
+			jUrl::get('havefnubb~default:index'),
+			1,
+			'main'));
 	  
-		  $event->add(new hfnuMenuItem('members',
-											  jLocale::get('havefnubb~main.member.list'),
-											  jUrl::get('havefnubb~members:index'),
-											  3,
-											  'main'));
-	  	  
-		  $event->add(new hfnuMenuItem('search',
-											  jLocale::get('havefnubb~main.search'),
-											  jUrl::get('hfnusearch~default:index'),
-											  4,
-											  'main'));
+	  $event->add(new hfnuMenuItem('community',
+			jLocale::get('havefnubb~main.community'),
+			jUrl::get('havefnubb~default:index'),
+			2,
+			'main'));
+	  
+	  $event->add(new hfnuMenuItem('members',
+			jLocale::get('havefnubb~main.member.list'),
+			jUrl::get('havefnubb~members:index'),
+			3,
+			'main'));
+	  
+	  $event->add(new hfnuMenuItem('search',
+			jLocale::get('havefnubb~main.search'),
+			jUrl::get('hfnusearch~default:index'),
+			4,
+			'main'));
 		  
       if ( jAcl2::check('hfnu.admin.index'))    {	  
-		  $event->add(new hfnuMenuItem('admin',
-											  jLocale::get('havefnubb~main.admin.panel'),
-											  jUrl::get('hfnuadmin~default:index'),
-											  100,
-											  'main'));		  
-		}
-	} 
+		 $event->add(new hfnuMenuItem('admin',
+			jLocale::get('havefnubb~main.admin.panel'),
+			jUrl::get('hfnuadmin~default:index'),
+			100,
+			'main'));		  
+	  }
+   } 
 }
 ?>

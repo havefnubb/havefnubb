@@ -10,7 +10,7 @@
 
 class postsCtrl extends jController {
     /**
-    *
+    * Controller to manage any specific Posts events
     */	
 	
     public $pluginParams = array(

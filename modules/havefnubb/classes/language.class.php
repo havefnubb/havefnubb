@@ -19,7 +19,7 @@ class language implements jIFormDatasource
         $dir = dirname(__FILE__) . '/../locales';
         $dh = opendir($dir);
         while (($file = readdir($dh)) !== false) {
-            if ( $file != '.' and $file != '..')
+            if ( $file != '.' and $file != '..' and $file != '.svn' and $file != '.CVS' and $file != '.htaccess')
                 $data[$file] = $file;
         }
     
