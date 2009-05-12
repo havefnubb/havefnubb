@@ -12,7 +12,7 @@ class statsZone extends jZone {
     protected $_tplname='zone.stats';
 
     protected function _prepareTpl(){
-        
+        global $gJCoord;
         $dao = jDao::get('havefnubb~posts');
         //posts and thread
         $posts      = $dao->countAllPosts();        
@@ -38,6 +38,13 @@ class statsZone extends jZone {
         $members    = $dao->countAllActivatedMember();
         // last registered user that is validate
         $lastMember = $dao->findLastActiveMember();
+        
+        
+        // display in the header ; the date of the last known posts
+        $dt = new jDateTime();
+        $dt->setFromString($lastPost->date_created, jDateTime::TIMESTAMP_FORMAT);       
+        $meta = '<meta name="dc.date" content="'.$dt->toString(jDateTime::ISO8601_FORMAT).'" />';       
+        $gJCoord->response->addHeadContent($meta);        
         
         $this->_tpl->assign('posts',$posts);
         $this->_tpl->assign('threads',$threads);

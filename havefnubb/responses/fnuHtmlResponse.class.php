@@ -28,6 +28,25 @@ class fnuHtmlResponse extends jResponseHtml {
         
         if ($HfnuConfig->getValue('installed','main') == 0) $this->bodyTpl = 'havefnubb~main_not_installed';
 
+
+        $language = split('_',$gJConfig->locale);
+       
+        /* Dublin Core Meta and Content */
+       
+        $this->addHeadContent('<meta name="description" lang="'.$language[0].'" content="'.$HfnuConfig->getValue('description','main').'" />');
+       
+        $this->addHeadContent('<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/"/>');
+        $this->addHeadContent('<meta name="dc.title" lang="'.$language[0].'" content="'.$HfnuConfig->getValue('title','main').'" />');
+        $this->addHeadContent('<meta name="dc.description" lang="'.$language[0].'" content="'.$HfnuConfig->getValue('description','main').'" />');
+        $this->addHeadContent('<meta name="dc.language" content="'.$language[0].'" />');
+        $this->addHeadContent('<meta name="dc.type" content="text" />');
+        $this->addHeadContent('<meta name="dc.format" content="text/html" />');
+        $this->addHeadContent('<link rel="section" href="'.jurl::get('havefnubb~default:index').'" title="'.jLocale::get('havefnubb~main.community').'" />');
+        $this->addHeadContent('<link rel="section" href="'.jurl::get('hfnusearch~default:index').'" title="'.jLocale::get('havefnubb~main.search').'" />');
+       
+        /* Dublin Core */
+
+
         $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
         $this->addCssLink($chemin.'css/havefnuboard.css');
         $this->addCssLink($chemin.'css/havefnuboard_posts.css');

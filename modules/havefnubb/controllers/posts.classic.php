@@ -189,9 +189,6 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
             return $rep;
 		}		
-		
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
         
 		$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 		// crumbs infos
@@ -204,7 +201,7 @@ class postsCtrl extends jController {
 				
 		$form = jForms::create('havefnubb~posts',$id_post);
 		$form->setData('id_forum',$id_forum);
-		$form->setData('id_user',$user->id);
+		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',$id_post);
 		
         $rep = $this->getResponse('html');		
@@ -248,9 +245,6 @@ class postsCtrl extends jController {
 			return $rep;
 		}
 
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);    
-        
         $srvTags = jClasses::getService("jtags~tags");
         $tagsArray = $srvTags->getTagsBySubject('forumscope', $id_post);
 		$tags= '';
@@ -271,7 +265,7 @@ class postsCtrl extends jController {
 		$form->initFromDao("havefnubb~posts");
 				
 		$form->setData('id_forum',$post->id_forum);
-		$form->setData('id_user',$user->id);
+		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',$id_post);
 		$form->setData('tags', $tags);		
 		
@@ -321,7 +315,7 @@ class postsCtrl extends jController {
 			$form = jForms::fill('havefnubb~posts',$id_post);
 	
 			$form->setData('id_forum',$id_forum);
-			$form->setData('id_user',$user->id);
+			$form->setData('id_user',jAuth::getUserSession ()->id);
 			$form->setData('id_post',$id_post);
             $form->setData('parent_id',$parent_id);
 			$form->setData('subject',$form->getData('subject'));
@@ -330,8 +324,7 @@ class postsCtrl extends jController {
 			//set the needed parameters to the template
 			$tpl = new jTpl();
 			$tpl->assign('id_post', $id_post);
-			$tpl->assign('id_forum', $id_forum);
-            $tpl->assign('user', $user);
+			$tpl->assign('id_forum', $id_forum);            
 			$tpl->assign('signature', $user->member_comment);
 			$tpl->assign('previewsubject', $form->getData('subject'));
 			$tpl->assign('previewtext', $form->getData('message'));
@@ -353,13 +346,13 @@ class postsCtrl extends jController {
         elseif ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
 			$rep = $this->getResponse('redirect');
 			
-			if ($id_forum == 0 or $user->id == 0 ) {			
+			if ($id_forum == 0  ) {			
 				$rep->action = 'havefnubb~default:index';	
 				return $rep;
 			}
             //let's save the post 
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
-            $result = $hfnuposts->save($user,$id_forum,$id_post);
+            $result = $hfnuposts->save($id_forum,$id_post);
             
             if ($result === false) {
                 $rep->action = 'havefnubb~posts:lists';
@@ -407,14 +400,11 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
 			return $rep;
 		}
-		
-        //get the info of the current user who's replying
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-		
+
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 		// crumbs infos
 		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
+		
 		if (! $forum) {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
@@ -424,7 +414,7 @@ class postsCtrl extends jController {
         $form = jForms::create('havefnubb~posts',$parent_id);
 		$form->setData('subject',$post->subject);
 		$form->setData('id_forum',$post->id_forum);
-		$form->setData('id_user',$user->id);
+		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',0);
         $form->setData('parent_id',$id_post);
         
@@ -464,8 +454,8 @@ class postsCtrl extends jController {
 		$id_post    = (int) $this->param('id_post');       
         $parent_id  = (int) $this->param('parent_id');
 
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+		//$daoUser = jDao::get('havefnubb~member');
+		//$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
 
 		$submit = $this->param('validate');
 		// preview ?
@@ -476,7 +466,7 @@ class postsCtrl extends jController {
 			$form = jForms::fill('havefnubb~posts',$parent_id);
 	
 			$form->setData('id_forum',$id_forum);
-			$form->setData('id_user',$user->id);
+			$form->setData('id_user',jAuth::getUserSession ()->id);
 			$form->setData('id_post',$id_post);
             $form->setData('parent_id',$parent_id);
 			$form->setData('subject',$form->getData('subject'));
@@ -492,7 +482,7 @@ class postsCtrl extends jController {
 			$tpl->assign('form', 		$form);
 			$tpl->assign('forum', 		$forum);
 			$tpl->assign('category', 	$category);
-			$tpl->assign('signature',	$user->member_comment);
+			$tpl->assign('signature',	$post->member_comment);
 			
 			$rep = $this->getResponse('html');
 			$rep->title = jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject');
@@ -508,14 +498,14 @@ class postsCtrl extends jController {
         elseif ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
 			$rep = $this->getResponse('redirect');
 
-            if ($id_forum == 0 or $user->id == 0 ) {
+            if ($id_forum == 0 ) {
                 $rep->action = 'havefnubb~default:index';	
                 return $rep;        
             }
 
             //let's save the reply
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
-            $result = $hfnuposts->savereply($user,$id_forum,$parent_id,$id_post);
+            $result = $hfnuposts->savereply($id_forum,$parent_id,$id_post);
             
             if ($result === false ) {
                 $rep->action = 'havefnubb~posts:lists';
@@ -570,13 +560,7 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
 			return $rep;
 		}
-		
-        //get the info of the current user who's quoting
-		$daoUser = jDao::get('havefnubb~member');
-		$me = $daoUser->getByLogin( jAuth::getUserSession ()->login);                
-        
-        $author = $daoUser->getById( $post->id_user);
-        
+		       
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');        
 		// crumbs infos
 		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
@@ -587,15 +571,15 @@ class postsCtrl extends jController {
 		}
         
         $form = jForms::create('havefnubb~posts',$parent_id);
-        $form->initFromDao('havefnubb~posts');
+        $form->setData('subject',$post->subject);
 		$form->setData('id_forum',$post->id_forum);
-		$form->setData('id_user',$me->id);
+		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',0);
         $form->setData('parent_id',$parent_id);
                 
         $newMessage = ">".preg_replace("/\\n/","\n>",$post->message);
         
-		$quoteMessage = ">".$author->login.' ' .
+		$quoteMessage = ">".$post->login.' ' .
 						jLocale::get('havefnubb~post.form.author.said') .
                         "\n".
 						$newMessage;
@@ -681,9 +665,6 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
             return $rep;
         }
-        //get the info of the current user who's notifying
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
         
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);              
@@ -704,7 +685,7 @@ class postsCtrl extends jController {
 		}		
 		
         $form = jForms::create('havefnubb~notify',$id_post);
-		$form->setData('id_user',$user->id);
+		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',$id_post);
 		$form->setData('id_forum',$post->id_forum);
         
@@ -735,22 +716,19 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
 			return $rep;
 		}
-		
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
 
 		$submit = $this->param('validate');
         if ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
 			$rep = $this->getResponse('redirect');
 			
-			if ($id_post ==  0 or $user->id == 0  or $id_forum == 0) {			
+			if ($id_post ==  0 or $id_forum == 0) {			
 				$rep->action = 'havefnubb~default:index';	
 				return $rep;
 			}
 			
             //let's save the post 
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
-            $result = $hfnuposts->savenotify($user,$id_forum,$id_post);
+            $result = $hfnuposts->savenotify($id_forum,$id_post);
             if ($result === false) {
                 $rep->action = 'havefnubb~default:index';
                 return $rep;               

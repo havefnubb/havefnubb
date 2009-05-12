@@ -39,6 +39,7 @@ abstract class jFormsControl {
 
     function setForm($form) {
         $this->form = $form;
+
         $this->container = $form->getContainer();
         if($this->initialReadOnly)
             $this->container->setReadOnly($this->ref, true);
