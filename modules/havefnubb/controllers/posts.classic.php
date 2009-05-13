@@ -394,7 +394,12 @@ class postsCtrl extends jController {
         
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($parent_id);
-
+		
+        if (!$post) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+            return $rep;
+        }
 		if ( ! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -412,11 +417,12 @@ class postsCtrl extends jController {
 		}		
         
         $form = jForms::create('havefnubb~posts',$parent_id);
-		$form->setData('subject',$post->subject);
-		$form->setData('id_forum',$post->id_forum);
+		$form->initFromDao('havefnubb~posts');
+		
 		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',0);
         $form->setData('parent_id',$id_post);
+		$form->setData('message','');
         
 		//set the needed parameters to the template              
         $tpl = new jTpl();        
@@ -439,101 +445,6 @@ class postsCtrl extends jController {
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
         return $rep;		
     }
-
-    // save the datas posted from the reply form
-	function savereply() {
-		$id_forum   = (int) $this->param('id_forum');
-		
-		if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) or
-			 ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-			return $rep;
-		}
-		
-		$id_post    = (int) $this->param('id_post');       
-        $parent_id  = (int) $this->param('parent_id');
-
-		//$daoUser = jDao::get('havefnubb~member');
-		//$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-
-		$submit = $this->param('validate');
-		// preview ?
-		if ($submit == jLocale::get('havefnubb~post.form.previewBt') ) {
-            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
-			list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
-            
-			$form = jForms::fill('havefnubb~posts',$parent_id);
-	
-			$form->setData('id_forum',$id_forum);
-			$form->setData('id_user',jAuth::getUserSession ()->id);
-			$form->setData('id_post',$id_post);
-            $form->setData('parent_id',$parent_id);
-			$form->setData('subject',$form->getData('subject'));
-			$form->setData('message',$form->getData('message'));
-			
-			//set the needed parameters to the template
-			$tpl = new jTpl();
-			$tpl->assign('id_post', 	0);
-            $tpl->assign('parent_id', 	$parent_id);
-			$tpl->assign('id_forum', 	$id_forum);
-			$tpl->assign('previewsubject', $form->getData('subject'));
-			$tpl->assign('previewtext', $form->getData('message'));
-			$tpl->assign('form', 		$form);
-			$tpl->assign('forum', 		$forum);
-			$tpl->assign('category', 	$category);
-			$tpl->assign('signature',	$post->member_comment);
-			
-			$rep = $this->getResponse('html');
-			$rep->title = jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject');
-				
-			$tpl->assign('heading',jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject'));
-			$tpl->assign('submitAction','havefnubb~posts:savereply');
-			
-			$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.reply'));
-			return $rep;		
-			
-		}
-        // save ?
-        elseif ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
-			$rep = $this->getResponse('redirect');
-
-            if ($id_forum == 0 ) {
-                $rep->action = 'havefnubb~default:index';	
-                return $rep;        
-            }
-
-            //let's save the reply
-            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
-            $result = $hfnuposts->savereply($id_forum,$parent_id,$id_post);
-            
-            if ($result === false ) {
-                $rep->action = 'havefnubb~posts:lists';
-                $rep->param = array('id_forum'=>$id_forum);
-                return $rep;                
-            } else {
-                $record = $result;
-            }
-
-            $daoForum = jDao::get('havefnubb~forum');			
-            $forum = $daoForum->get($id_forum);			
-			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
-			
-			$rep->params = array('ftitle'=>$forum->forum_name,
-								 'ptitle'=>$record->subject,
-								 'id_forum'=>$id_forum,
-								 'id_post'=>$record->id_post,
-								 'parent_id'=>$record->parent_id);
-			$rep->action ='havefnubb~posts:view';
-			return $rep;			
-		}
-		else {
-			$rep = $this->getResponse('redirect');
-			$rep->action ='havefnubb~default:index';
-			return $rep;						
-		}		
-	}
-	
 	
 	// quote message
     function quote() {
@@ -547,7 +458,7 @@ class postsCtrl extends jController {
         }
 		
 		$daoPost = jDao::get('havefnubb~posts');
-		$post = $daoPost->get($id_post);
+		$post = $daoPost->get($parent_id);
         
         if (!$post) {
             $rep = $this->getResponse('redirect');
@@ -571,6 +482,8 @@ class postsCtrl extends jController {
 		}
         
         $form = jForms::create('havefnubb~posts',$parent_id);
+		$form->initFromDao('havefnubb~posts');
+		
         $form->setData('subject',$post->subject);
 		$form->setData('id_forum',$post->id_forum);
 		$form->setData('id_user',jAuth::getUserSession ()->id);
@@ -603,9 +516,107 @@ class postsCtrl extends jController {
         
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject;                
-        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.reply'));
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
         return $rep;		
     }
+
+
+    // save the datas posted from the reply form
+	function savereply() {
+		$id_forum   = (int) $this->param('id_forum');
+		
+		if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) or
+			 ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+			return $rep;
+		}
+		
+		$id_post    = (int) $this->param('id_post');       
+        $parent_id  = (int) $this->param('parent_id');
+
+		$submit = $this->param('validate');
+		// preview ?
+		if ($submit == jLocale::get('havefnubb~post.form.previewBt') ) {
+			
+			$daoUser = jDao::get('havefnubb~member');
+			$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+			
+            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
+			list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
+            
+			$form = jForms::fill('havefnubb~posts',$parent_id);
+	
+			$form->setData('id_forum',$id_forum);
+			$form->setData('id_user',jAuth::getUserSession ()->id);
+			$form->setData('id_post',$id_post);
+            $form->setData('parent_id',$parent_id);
+			$form->setData('subject',$form->getData('subject'));
+			$form->setData('message',$form->getData('message'));
+			
+			//set the needed parameters to the template
+			$tpl = new jTpl();
+			$tpl->assign('id_post', 	0);
+            $tpl->assign('parent_id', 	$parent_id);
+			$tpl->assign('id_forum', 	$id_forum);
+			$tpl->assign('previewsubject', $form->getData('subject'));
+			$tpl->assign('previewtext', $form->getData('message'));
+			$tpl->assign('form', 		$form);
+			$tpl->assign('forum', 		$forum);
+			$tpl->assign('category', 	$category);
+			$tpl->assign('signature',	$user->member_comment);
+			
+			$rep = $this->getResponse('html');
+			$rep->title = jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject');
+				
+			$tpl->assign('heading',jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject'));
+			$tpl->assign('submitAction','havefnubb~posts:savereply');
+			
+			$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.reply'));
+			return $rep;		
+			
+		}
+        // save ?
+        elseif ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
+			$rep = $this->getResponse('redirect');
+
+            if ($id_forum == 0 ) {
+                $rep->action = 'havefnubb~default:index';	
+                return $rep;        
+            }
+
+            //let's save the reply
+            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
+            $result = $hfnuposts->savereply($parent_id);
+            
+            if ($result === false ) {
+                $rep->action = 'havefnubb~posts:lists';
+                $rep->param = array('id_forum'=>$id_forum);
+                return $rep;                
+            } else {
+                $record = $result;
+            }
+
+            $daoForum = jDao::get('havefnubb~forum');			
+            $forum = $daoForum->get($id_forum);			
+			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
+			
+			$rep->params = array('ftitle'=>$forum->forum_name,
+								 'ptitle'=>$record->subject,
+								 'id_forum'=>$id_forum,
+								 'id_post'=>$record->id_post,
+								 'parent_id'=>$record->parent_id);
+			$rep->action ='havefnubb~posts:view';
+			return $rep;			
+		}
+		else {
+			$rep = $this->getResponse('redirect');
+			$rep->action ='havefnubb~default:index';
+			return $rep;						
+		}		
+	}
+	
+
 
 	// delete a post
     function delete() {

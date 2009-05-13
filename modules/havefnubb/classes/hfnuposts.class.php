@@ -197,12 +197,10 @@ class hfnuposts {
 
     /*
       * save a reply to one post
-      * @param $id_forum integer id forum of the current post
       * @param parent_id integer parent id of the current post if editing of 0 if adding
-      * @param id_post integer id post of the current post if editing of 0 if adding
       * @return $record DaoRecord of the reply
      */    
-    public function savereply($id_forum,$parent_id,$id_post) {
+    public function savereply($parent_id) {
 		global $HfnuConfig;
         $form = jForms::fill('havefnubb~posts',$parent_id);
 
@@ -210,11 +208,9 @@ class hfnuposts {
         if (!$form->check()) {
             return false;
         }
-
-        //.. if the data are ok ; we get them !
-        $subject	= $form->getData('subject');
+		
         $message 	= $form->getData('message');
-
+		//is the size of the message limited ?
 		if ( strlen($message) > $HfnuConfig->getValue('post_max_size','messages')
             and  $HfnuConfig->getValue('post_max_size','messages') > 0)
         {
@@ -222,45 +218,34 @@ class hfnuposts {
 			return false;
 		}
         
-        jEvent::notify('HfnuPostBeforeSaveReply',array('id'=>$id_post));
+        jEvent::notify('HfnuPostBeforeSaveReply',array('id'=>$parent_id));
         
-        //CreateRecord object
-        $dao = jDao::get('havefnubb~posts');		
-        $record = jDao::createRecord('havefnubb~posts');
-        
-        // let's create the record of this reply
-        $record->subject		= $subject;
-        $record->message		= $message;			
-        $record->id_post  		= 0;
-        $record->id_user 		= jAuth::getUserSession ()->id;
-        $record->id_forum 		= $id_forum;
-        $record->parent_id  	= $parent_id;
-        $record->status			= 'opened';
-        $record->date_created 	= time();
-        $record->date_modified 	= time();
-        $record->viewed			= 0;
-        $record->poster_ip 		= $_SERVER['REMOTE_ADDR'];
-
-        $dao->insert($record);
-        
-		$id_post = $record->id_post;
+		$result = $form->prepareDaoFromControls('havefnubb~posts');
+		$result['daorec']->date_created	= time();
+		$result['daorec']->date_modified= time();
+		$result['daorec']->status		= 'opened';
+		$result['daorec']->poster_ip	= $_SERVER['REMOTE_ADDR'];
+		$result['daorec']->viewed 		= 0;
+		$result['daorec']->id_post  	= 0;
+		$result['daorec']->id_user 		= jAuth::getUserSession ()->id;
+		$result['dao']->insert($result['daorec']);
+		$id_post = $result['daorec']->getPk();		
+		
         jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
         
         jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
         
         jForms::destroy('havefnubb~posts', $parent_id);
         
-        return $record;
-        
+        return $result['daorec'];        
     }
     
     /*
       * save a notification posted by a user
-      * @param $id_forum integer id forum of the current post
       * @param id_post integer id post of the current post if editing of 0 if adding
       * @return boolean status of success of this submit 
      */       
-    public function savenotify($id_forum,$id_post) {
+    public function savenotify($id_post) {
         
         $form = jForms::fill('havefnubb~notify',$id_post);
 
@@ -268,35 +253,12 @@ class hfnuposts {
         if (!$form->check()) {
             return false;
         }        
-
-        //.. if the data are ok ; we get them !
-        $subject	= $form->getData('subject');
-        $message 	= $form->getData('message');
         
         jEvent::notify('HfnuPostBeforeSaveNotify',array('id'=>$id_post));
         
-        //CreateRecord object
-		/*
-        $dao = jDao::get('havefnubb~notify');
-		
-        $record = jDao::createRecord('havefnubb~notify');
-        
-        // let's create the record of this reply
-        $record->subject	= $subject;
-        $record->message	= $message;			
-
-        $record->id_post  	= $id_post;
-        $record->id_forum  	= $id_forum;
-        $record->id_user 	= jAuth::getUserSession ()->id;
-
-        $record->date_created = time();
-        $record->date_modified = time();
-
-        $dao->insert($record);
-		*/
 		$result = $form->prepareDaoFromControls('havefnubb~notify');
-		$result['daorec']->date_created=time();
-		$result['daorec']->date_modified=time();
+		$result['daorec']->date_created		= time();
+		$result['daorec']->date_modified	= time();
 		$result['dao']->insert($result['daorec']);
 
         jEvent::notify('HfnuPostAfterSaveNotify',array('id'=>$id_post));
@@ -305,8 +267,7 @@ class hfnuposts {
         
         jForms::destroy('havefnubb~notify', $id_post);
         
-        return true;
-        
+        return true;        
     }
 
     /*

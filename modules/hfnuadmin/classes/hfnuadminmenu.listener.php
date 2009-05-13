@@ -53,6 +53,7 @@ class hfnuadminmenuListener extends jEventListener{
 											  jUrl::get('hfnuadmin~notify:index'),
 											  205,
 											  'havefnubb');
+		 $event->add($item);
 	  }
 	  if ( jAcl2::check('hfnu.admin.member'))    {
 		 $item = new masterAdminMenuItem('rank',

@@ -1,4 +1,4 @@
-﻿<div id="syntax_wiki">
+﻿<div class="syntax_wiki">
 <p>Vous pouvez utilisez la syntaxe wiki pour mettre en forme vos messages :</p>
 <ul>
     <li class="wiki-image source"><strong>bloc code source</strong> : chaque ligne doit débuter par un espace (les balises wiki ne sont pas interprétées)</li>
