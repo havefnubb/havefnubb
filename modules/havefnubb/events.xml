@@ -16,6 +16,6 @@
       <event name="HfnuPostAfterSaveReply"/>
    </listener>
    <listener name="havefnubb">
-		 <event name="masterAdminGetDashboardWidget" />
+		 <event name="HfnuAboutModule" />
    </listener>    
 </events>

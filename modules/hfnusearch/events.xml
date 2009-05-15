@@ -9,6 +9,6 @@
 		<event name="masteradminGetMenuContent" />
    </listener>
    <listener name="hfnusearch">
-		 <event name="masterAdminGetDashboardWidget" />
+		 <event name="HfnuAboutModule" />
    </listener>    
 </events>

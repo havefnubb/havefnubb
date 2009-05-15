@@ -10,10 +10,7 @@
 
 class hfnusearchListener extends jEventListener{
     
-   function onmasterAdminGetDashboardWidget ($event) {
-		$box = new masterAdminDashboardWidget();
-		$box->title = jLocale::get('havefnubb~main.about.title',array('HfnuSearch'));
-		$box->content = jZone::get('havefnubb~about',array('modulename'=>'hfnusearch'));
-		$event->add($box);
+   function onHfnuAboutModule ($event) {
+        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnusearch')) );
    } 
 }

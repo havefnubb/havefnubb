@@ -10,10 +10,7 @@
 
 class havefnubbListener extends jEventListener{
     
-   function onmasterAdminGetDashboardWidget ($event) {
-		$box = new masterAdminDashboardWidget();
-		$box->title = jLocale::get('havefnubb~main.about.title',array('HaveFnu BB!'));
-		$box->content = jZone::get('havefnubb~about',array('modulename'=>'havefnubb'));
-		$event->add($box);
+   function onHfnuAboutModule ($event) {
+		$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'havefnubb')));
    }    
 }

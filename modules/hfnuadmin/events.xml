@@ -13,6 +13,6 @@
 		 <event name="AuthNewUser" />
    </listener>
    <listener name="hfnuadmin">
-		 <event name="masterAdminGetDashboardWidget" />
+		 <event name="HfnuAboutModule" />
    </listener>   
 </events>

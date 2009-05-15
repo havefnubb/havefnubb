@@ -10,10 +10,7 @@
 
 class servinfoListener extends jEventListener{
     
-   function onmasterAdminGetDashboardWidget ($event) {
-		$box = new masterAdminDashboardWidget();
-		$box->title = jLocale::get('havefnubb~main.about.title',array('ServInfo'));
-		$box->content = jZone::get('havefnubb~about',array('modulename'=>'servinfo'));
-		$event->add($box);
+   function onHfnuAboutModule ($event) {
+        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'servinfo')) );
    }
 }

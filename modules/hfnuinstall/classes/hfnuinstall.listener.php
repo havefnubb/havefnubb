@@ -10,10 +10,7 @@
 
 class hfnuinstallListener extends jEventListener{
     
-   function onmasterAdminGetDashboardWidget ($event) {
-		$box = new masterAdminDashboardWidget();
-		$box->title = jLocale::get('havefnubb~main.about.title',array('HfnuInstall'));
-		$box->content = jZone::get('havefnubb~about',array('modulename'=>'hfnuinstall'));
-		$event->add($box);
+   function onHfnuAboutModule ($event) {
+        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuinstall')) );
    }  
 }

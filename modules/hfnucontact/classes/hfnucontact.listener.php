@@ -10,10 +10,7 @@
 
 class hfnucontactListener extends jEventListener{
     
-   function onmasterAdminGetDashboardWidget ($event) {
-		$box = new masterAdminDashboardWidget();
-		$box->title = jLocale::get('havefnubb~main.about.title',array('HfnuContact'));
-		$box->content = jZone::get('havefnubb~about',array('modulename'=>'hfnucontact'));
-		$event->add($box);
+   function onHfnuAboutModule ($event) {
+        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnucontact')) );
    } 
 }
