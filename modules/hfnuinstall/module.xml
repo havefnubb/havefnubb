@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnuinstall@forge.jelix.org" name="HfnuInstall" createdate="2009-02-08">
-        <version stability="beta" date="2009-05-10">1.0.0RC1</version>
+        <version stability="beta" date="2009-05-16">1.0.0RC2</version>
         <label lang="en_EN">HfnuInstall</label>
         <description lang="en_EN">install module of bulletin board HaveFnu BB! </description>        
         <label lang="fr_FR">HfnuInstall</label>

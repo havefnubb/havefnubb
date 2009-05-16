@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnuadmin@forge.jelix.org" name="HfnuAdmin" createdate="2009-01-25">
-        <version stability="beta" date="2009-05-10">1.0.0RC1</version>
+        <version stability="beta" date="2009-05-16">1.0.0RC2</version>
         <label lang="en_EN">HfnuAdmin</label>
         <description lang="en_EN">HaveFnu BB Admin : manage the complet HaveFnu BB bulletin board</description>
         <label lang="fr_FR">HfnuAdmin</label>
