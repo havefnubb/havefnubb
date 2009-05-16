@@ -17,7 +17,7 @@ pluginsPath="app:../plugins/"
 
 modulesPath="lib:jelix-modules/,app:../modules/"
 
-theme=box
+theme=default
 
 [coordplugins]
 auth=auth.coord.ini.php
@@ -51,7 +51,7 @@ strict       =
 exception    = ECHOQUIET LOGFILE
 
 [compilation]
-checkCacheFiletime=on
+checkCacheFiletime=off
 force=off
 
 [urlengine]
@@ -131,7 +131,7 @@ install=on
 default=messages.log
 
 [mailer]
-webmasterEmail="webmaster@havefnubb.org"
+webmasterEmail="webmaster@domain.com"
 webmasterName=webmaster
 
 ; how to send mail : "mail" (mail()), "sendmail" (call sendmail), or "smtp" (send directly to a smtp)

@@ -2,9 +2,9 @@
 [main]
 title="HaveFnu BB!"
 description="Where Everything is Fnu"
-version=1.0.0RC1
-rules="blabla les regles"
-admin_email="foxmask@localhost.com"
+version=1.0.0RC2
+rules=""
+admin_email="admin@domain.com"
 url_check_version="http://www.havefnubb.org/last_version"
 avatar_max_width=60
 avatar_max_height=75
