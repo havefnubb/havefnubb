@@ -599,7 +599,7 @@ class postsCtrl extends jController {
 			$tpl->assign('heading',jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject'));
 			$tpl->assign('submitAction','havefnubb~posts:savereply');
 			
-			$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.reply'));
+			$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
 			return $rep;		
 			
 		}
