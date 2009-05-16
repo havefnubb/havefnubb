@@ -238,12 +238,19 @@ class postsCtrl extends jController {
 				
 		$daoPost = jDao::get('havefnubb~posts');
 		$post = $daoPost->get($id_post);
-        
-		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
-			$rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-			return $rep;
-		}
+		if (jAuth::getUserSession ()->id == $post->id_user) {
+			if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$post->id_forum)  ) {
+				$rep = $this->getResponse('redirect');
+				$rep->action = 'default:index';
+				return $rep;
+			}
+		}        
+		else
+			if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
+				$rep = $this->getResponse('redirect');
+				$rep->action = 'default:index';
+				return $rep;
+			}
 
         $srvTags = jClasses::getService("jtags~tags");
         $tagsArray = $srvTags->getTagsBySubject('forumscope', $id_post);
@@ -290,25 +297,35 @@ class postsCtrl extends jController {
 	function save() {
 		
 		$id_forum = (int) $this->param('id_forum');
-
-		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) or 
-			 ! jAcl2::check('hfnu.posts.edit','forum'.$id_forum)
+		$id_post  = (int) $this->param('id_post');
+		$daoPost = jDao::get('havefnubb~posts');
+		$post = $daoPost->get($id_post);		
+		if (jAuth::getUserSession ()->id == $post->id_user) {
+			if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$post->id_forum)  ) {
+				$rep = $this->getResponse('redirect');
+				$rep->action = 'default:index';
+				return $rep;
+			}
+		}
+		else
+		if ( (! jAcl2::check('hfnu.posts.create','forum'.$id_forum) and $id_post == 0)
+			or			
+			 (! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) and $id_post > 0)
 			) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 			return $rep;
 		}
 		
-		$id_post 	= (int) $this->param('id_post');
 		$parent_id 	= (int) $this->param('parent_id');		
 		$tags 		= $this->param("tags", false);                
 		
-		$daoUser = jDao::get('havefnubb~member');
-		$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-
 		$submit = $this->param('validate');
 		// preview ?
 		if ($submit == jLocale::get('havefnubb~post.form.previewBt') ) {
+			$daoUser = jDao::get('havefnubb~member');
+			$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+			
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 			list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
             
@@ -525,7 +542,7 @@ class postsCtrl extends jController {
 	function savereply() {
 		$id_forum   = (int) $this->param('id_forum');
 		
-		if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) or
+		if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) and
 			 ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
