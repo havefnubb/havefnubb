@@ -1,3 +1,61 @@
+Revision: 235
+Author: foxmask
+Date: 14:30:02, samedi 16 mai 2009
+Message:
+default value
+----
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/havefnubb/var/config/havefnu.ini.php.dist
+
+Revision: 234
+Author: foxmask
+Date: 14:25:28, samedi 16 mai 2009
+Message:
+fix the template name of the reply 
+----
+Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
+
+Revision: 233
+Author: foxmask
+Date: 14:01:31, samedi 16 mai 2009
+Message:
+CSS improvement for IE
+----
+Deleted : /trunk/havefnubb/www/themes/box/css/downloads.css
+Deleted : /trunk/havefnubb/www/themes/box/css/downloads_main.css
+Modified : /trunk/havefnubb/www/themes/box/css/havefnuboard_posts.css
+Deleted : /trunk/havefnubb/www/themes/default/css/downloads.css
+Deleted : /trunk/havefnubb/www/themes/default/css/downloads_main.css
+Modified : /trunk/havefnubb/www/themes/default/css/havefnuboard_posts.css
+Modified : /trunk/modules/havefnubb/templates/posts.notify.tpl
+
+Revision: 232
+Author: foxmask
+Date: 11:59:51, samedi 16 mai 2009
+Message:
+
+----
+Deleted : /trunk/havefnubb/var/config/defaultconfig.ini.php
+
+Revision: 231
+Author: foxmask
+Date: 11:59:11, samedi 16 mai 2009
+Message:
+RC2 preparing
+----
+Modified : /trunk/havefnubb/project.xml
+Modified : /trunk/havefnubb/var/config
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php
+Added : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/modules/havefnubb/module.xml
+Modified : /trunk/modules/hfnuadmin/module.xml
+Modified : /trunk/modules/hfnucontact/module.xml
+Modified : /trunk/modules/hfnuinstall/install/CHANGELOG
+Modified : /trunk/modules/hfnuinstall/install/VERSION
+Modified : /trunk/modules/hfnuinstall/module.xml
+Modified : /trunk/modules/hfnusearch/module.xml
+Modified : /trunk/modules/servinfo/module.xml
+
 Revision: 230
 Author: foxmask
 Date: 11:30:39, samedi 16 mai 2009
@@ -61,19 +119,19 @@ Date: 21:24:14, vendredi 15 mai 2009
 Message:
 ticket #61
 ----
+Modified : /trunk/modules/hfnuadmin/classes/hfnuadminmenu.listener.php
+Added : /trunk/modules/hfnuadmin/controllers/modules.classic.php
+Modified : /trunk/modules/hfnuadmin/events.xml
+Modified : /trunk/modules/hfnuadmin/locales/en_EN/hfnuabout.UTF-8.properties
+Modified : /trunk/modules/hfnuadmin/locales/fr_FR/hfnuabout.UTF-8.properties
 Modified : /trunk/havefnubb/var/config/urls.xml
 Modified : /trunk/modules/havefnubb/classes/havefnubb.listener.php
 Modified : /trunk/modules/havefnubb/events.xml
 Modified : /trunk/modules/havefnubb/locales/en_EN/main.UTF-8.properties
 Modified : /trunk/modules/havefnubb/locales/fr_FR/main.UTF-8.properties
 Modified : /trunk/modules/hfnuadmin/classes/hfnuadmin.listener.php
-Modified : /trunk/modules/hfnuadmin/classes/hfnuadminmenu.listener.php
-Added : /trunk/modules/hfnuadmin/controllers/modules.classic.php
-Modified : /trunk/modules/hfnuadmin/events.xml
 Modified : /trunk/modules/hfnuadmin/locales/en_EN/admin.UTF-8.properties
-Modified : /trunk/modules/hfnuadmin/locales/en_EN/hfnuabout.UTF-8.properties
 Modified : /trunk/modules/hfnuadmin/locales/fr_FR/admin.UTF-8.properties
-Modified : /trunk/modules/hfnuadmin/locales/fr_FR/hfnuabout.UTF-8.properties
 Added : /trunk/modules/hfnuadmin/templates/modules.tpl
 Added : /trunk/modules/hfnuadmin/templates/zone.about.tpl
 Added : /trunk/modules/hfnuadmin/zones/about.zone.php
@@ -97,14 +155,14 @@ Message:
 5) Quoting now works without Token issue.
 6) Code Improvement : remove usefull DAO access to Member to get the User ID as this one is in the Session
 ----
+Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/modules/hfnuadmin/classes/hfnuadminmenu.listener.php
 Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php
 Modified : /trunk/modules/havefnubb/classes/hfnuposts.class.php
-Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
 Modified : /trunk/modules/havefnubb/locales/en_EN/post.UTF-8.properties
 Modified : /trunk/modules/havefnubb/templates/en_EN/zone.syntax_wiki.tpl
 Modified : /trunk/modules/havefnubb/templates/fr_FR/zone.syntax_wiki.tpl
 Deleted : /trunk/modules/havefnubb/templates/posts.reply.tpl
-Modified : /trunk/modules/hfnuadmin/classes/hfnuadminmenu.listener.php
 
 Revision: 223
 Author: foxmask
@@ -114,15 +172,15 @@ Message:
 - Improvement of User Info used when storing posts : drop the call of the member dao as the user id is in the session !
 - issue When Quoting :-( pb with Token !
 ----
-Modified : /trunk/havefnubb/responses/fnuHtmlResponse.class.php
+Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
 Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php
+Modified : /trunk/modules/havefnubb/classes/hfnuposts.class.php
+Modified : /trunk/modules/havefnubb/templates/posts.reply.tpl
+Modified : /trunk/havefnubb/responses/fnuHtmlResponse.class.php
 Modified : /trunk/lib/jelix/forms/jFormsBase.class.php
 Modified : /trunk/lib/jelix/forms/jFormsControl.class.php
-Modified : /trunk/modules/havefnubb/classes/hfnuposts.class.php
-Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
 Modified : /trunk/modules/havefnubb/daos/category.dao.xml
 Modified : /trunk/modules/havefnubb/daos/posts.dao.xml
 Modified : /trunk/modules/havefnubb/templates/posts.edit.tpl
-Modified : /trunk/modules/havefnubb/templates/posts.reply.tpl
 Modified : /trunk/modules/havefnubb/zones/stats.zone.php
 

@@ -6,9 +6,10 @@ more infos on http://jelix.org/articles/en/manual-1.1/application-configuration
 
 - If you cant specify the document root, have a look at the chapter "If you can't change the document root" on http://jelix.org/articles/en/manual-1.1/application-configuration
 
-1) rename the file havefnubb/var/config/dbprofils.ini.php.dist in havefnubb/var/config/dbprofils.ini.php
-2) rename the file havefnubb/var/config/havefnu.ini.php.dist in havefnubb/var/config/havefnu.ini.php
-3) go to http://_your_domain.com_/install and follow the steps 
+1) rename the file havefnubb/var/config/defaultconfig.ini.php.dist in havefnubb/var/config/defaultconfig.ini.php
+2) rename the file havefnubb/var/config/dbprofils.ini.php.dist in havefnubb/var/config/dbprofils.ini.php
+3) rename the file havefnubb/var/config/havefnu.ini.php.dist in havefnubb/var/config/havefnu.ini.php
+4) go to http://_your_domain.com_/install and follow the steps 
 
 Français :
 Quand l'archive est décompressée vous obtenez les répertoires suivants :
@@ -29,6 +30,7 @@ plus d'infos ici : http://jelix.org/articles/fr/manuel-1.1/configurer-applicatio
 - Si vous ne pouvez pas spécifier le document root rendez vous sur la page http://jelix.org/articles/fr/manuel-1.1/configurer-application 
 sur la paragraphe "Si vous ne pouvez pas spécifier le document root", qui vous indiquera la marche à suivre pour que l'application puisse fonctionner.
 
-1) renommer le fichier havefnubb/var/config/dbprofils.ini.php.dist en havefnubb/var/config/dbprofils.ini.php
-2) renommer le fichier havefnubb/var/config/havefnu.ini.php.dist en havefnubb/var/config/havefnu.ini.php
-3) acceder à http://_votre_domaine.com_/install et suivez les étapes
+1) renommer le fichier havefnubb/var/config/defaultconfig.ini.php.dist en havefnubb/var/config/defaultconfig.ini.php
+2) renommer le fichier havefnubb/var/config/dbprofils.ini.php.dist en havefnubb/var/config/dbprofils.ini.php
+3) renommer le fichier havefnubb/var/config/havefnu.ini.php.dist en havefnubb/var/config/havefnu.ini.php
+4) acceder à http://_votre_domaine.com_/install et suivez les étapes

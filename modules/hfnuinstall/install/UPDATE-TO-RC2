@@ -1,0 +1,51 @@
+English :
+Update from RC1 to RC2
+
+1) backup your var/config directory
+
+Then there is two ways to proceed :
+
+A) 
+2) remove everything of the previous installation
+3) upload the content of the archive on your website
+  
+  --------------- OR ----------------
+B) 
+2) delete 3 files that are no more here :
+2.1) modules/havefnubb/templates/zone.about.tpl
+2.2) modules/havefnubb/zones/about.zone.php
+2.3) modules/havefnubb/templates/posts.reply.tpl
+3) overwrite everything else by uploading the content of the archive
+
+
+Finally : 
+
+4) restore your backup of var/config 
+5) empty your cache located in temp/havefnubb (or go in the admin panel at http://yoursite.com/hfnuadmin.php/admin/cache)
+
+
+Français :
+Mise à jour depuis la RC1 à la RC2
+
+1) savegarder votre recpertoire var/config 
+
+Ensuite il y deux façons de continuer :
+
+A) 
+2) tout supprimer de l'installation précédante 
+3) transferer le contenu entier de l'archive sur votre site web
+
+  --------------- OU ALORS ----------------
+B) 
+2) Supprimer les 3 fichiers suivants qui ne sont plus necessaire : 
+2.1) modules/havefnubb/templates/zone.about.tpl
+2.2) modules/havefnubb/zones/about.zone.php
+2.3) modules/havefnubb/templates/posts.reply.tpl
+3) remplacer tout le reste en transferant le contenu de l'archive 
+
+
+Finallement : 
+
+4) restaurer votre sauvegarde de votre repertoire var/config 
+5) vider le cache se trouvant dans le repertoire temp/havefnubb (ou rendez vous dans le l'administration ici http://yoursite.com/hfnuadmin.php/admin/cache)
+
