@@ -756,7 +756,7 @@ class postsCtrl extends jController {
 			
             //let's save the post 
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
-            $result = $hfnuposts->savenotify($id_forum,$id_post);
+            $result = $hfnuposts->savenotify($id_post);
             if ($result === false) {
                 $rep->action = 'havefnubb~default:index';
                 return $rep;               
