@@ -31,6 +31,7 @@ class banCtrl extends jController {
 		$tpl->assign('bans',$bans);
 		$rep = $this->getResponse('html');
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~bans_edit'));
+		$rep->body->assign('selectedMenuItem','ban');
         return $rep;	
     }
 

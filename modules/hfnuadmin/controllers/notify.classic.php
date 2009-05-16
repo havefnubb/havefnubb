@@ -28,6 +28,7 @@ class notifyCtrl extends jController {
         $tpl->assign('notify',$notify);
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~notify_index'));
+		$rep->body->assign('selectedMenuItem','notify');
         return $rep;	
     }
     

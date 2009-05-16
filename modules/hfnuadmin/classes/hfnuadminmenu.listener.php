@@ -28,13 +28,13 @@ class hfnuadminmenuListener extends jEventListener{
          $item->icon = $chemin . 'images/admin/config.png';			
          $event->add($item);		 
 	  }
-	  if ( jAcl2::check('hfnu.admin.config'))    {
-		 $item = new masterAdminMenuItem('config',
+	  if ( jAcl2::check('hfnu.admin.index'))    {
+		 $item = new masterAdminMenuItem('modules',
 											  jLocale::get('hfnuadmin~admin.modules.list'),
 											  jUrl::get('hfnuadmin~modules:index'),
 											  202,
 											  'havefnubb');
-         //$item->icon = $chemin . 'images/admin/config.png';			
+         $item->icon = $chemin . 'images/admin/modules_list.png';
          $event->add($item);		 
 	  }
       
@@ -42,7 +42,7 @@ class hfnuadminmenuListener extends jEventListener{
 		 $item = new masterAdminMenuItem('category',
 											  jLocale::get('hfnuadmin~admin.categories'),
 											  jUrl::get('hfnuadmin~category:index'),
-											  202,
+											  203,
 											  'havefnubb');
 		 $item->icon = $chemin . 'images/admin/category.png';			
 		 $event->add($item);		  		  
@@ -51,32 +51,33 @@ class hfnuadminmenuListener extends jEventListener{
 		 $item = new masterAdminMenuItem('forum',
 											  jLocale::get('hfnuadmin~admin.forum'),
 											  jUrl::get('hfnuadmin~forum:index'),
-											  203,
+											  204,
 											  'havefnubb'
 												);		  
          $item->icon = $chemin . 'images/admin/forum.png';			
          $event->add($item);		  
 	  }
 	  if ( jAcl2::check('hfnu.admin.post'))    {
-		 $item = new masterAdminMenuItem('notifying',
+		 $item = new masterAdminMenuItem('notify',
 											  jLocale::get('hfnuadmin~admin.notifying'),
 											  jUrl::get('hfnuadmin~notify:index'),
-											  205,
+											  206,
 											  'havefnubb');
+		 $item->icon = $chemin . 'images/admin/notification.png';
 		 $event->add($item);
 	  }
 	  if ( jAcl2::check('hfnu.admin.member'))    {
-		 $item = new masterAdminMenuItem('rank',
+		 $item = new masterAdminMenuItem('ranks',
 											  jLocale::get('hfnuadmin~admin.rank'),
 											  jUrl::get('hfnuadmin~ranks:index'),
-											  206,
+											  207,
 											  'havefnubb');
          $item->icon = $chemin . 'images/admin/rank.png';			
          $event->add($item);		 
 		 $item = new masterAdminMenuItem('ban',
 											  jLocale::get('hfnuadmin~admin.ban'),
 											  jUrl::get('hfnuadmin~ban:index'),
-											  207,
+											  208,
 											  'havefnubb');
          $item->icon = $chemin . 'images/admin/ban.png';			
          $event->add($item);		 
@@ -85,7 +86,7 @@ class hfnuadminmenuListener extends jEventListener{
 		 $item = new masterAdminMenuItem('cache',
 											  jLocale::get('hfnuadmin~admin.cache'),
 											  jUrl::get('hfnuadmin~cache:index'),
-											  208,
+											  209,
 											  'havefnubb');
          $item->icon = $chemin . 'images/admin/clear_cache.png';			
          $event->add($item);		 

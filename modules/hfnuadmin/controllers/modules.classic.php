@@ -27,6 +27,7 @@ class modulesCtrl extends jController {
         $tpl->assign('modules',jEvent::notify('HfnuAboutModule')->getResponse());
 
         $rep->body->assign('MAIN',$tpl->fetch('modules'));
+        $rep->body->assign('selectedMenuItem','modules');			
 		return $rep;
 	}
 }   

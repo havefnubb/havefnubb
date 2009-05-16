@@ -14,5 +14,6 @@
    </listener>
    <listener name="hfnuadmin">
 		 <event name="HfnuAboutModule" />
+		 <event name="HfnuAdminTodoToCheck" />
    </listener>   
 </events>

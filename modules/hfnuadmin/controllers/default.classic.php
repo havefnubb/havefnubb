@@ -23,7 +23,8 @@ class defaultCtrl extends jController {
     );
     
     function index() {
-		$rep = $this->getResponse('html');
+		$rep = $this->getResponse('redirect');
+		$rep->action = 'master_admin~default:index';
 		return $rep;
 	}
     function config() {
@@ -104,6 +105,7 @@ class defaultCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('form', $form);
         $rep->body->assign('MAIN',$tpl->fetch('config'));
+		$rep->body->assign('selectedMenuItem','config');
         return $rep;
     }
    

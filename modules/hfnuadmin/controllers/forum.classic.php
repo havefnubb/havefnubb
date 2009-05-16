@@ -32,6 +32,7 @@ class forumCtrl extends jController {
         $tpl->assign('form',$form);
         
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~forum_index'));
+		$rep->body->assign('selectedMenuItem','forum');
         return $rep;     
     }
 	
@@ -141,6 +142,7 @@ class forumCtrl extends jController {
     
 
         $rep = $this->getResponse('html');
+		$rep->body->assign('selectedMenuItem','forum');
         $tpl = new jTpl();
 
         $gid=array(0);

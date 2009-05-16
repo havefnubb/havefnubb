@@ -19,12 +19,14 @@ class adminCtrl extends jController {
 					),
         );
         
-    function index() {
+    function index() {		
         $rep = $this->getResponse('html');
+
         $form = jForms::create('hfnusearch~indexing');
         $tpl = new jTpl();
         $tpl->assign('form',$form);
         $rep->body->assign('MAIN', $tpl->fetch('hfnusearch~admin.index'));
+		$rep->body->assign('selectedMenuItem','searchengine');	
         return $rep;
     }
     

@@ -27,6 +27,7 @@ class cacheCtrl extends jController {
         $tpl->assign('form',$form);		
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~cache_index'));
+		$rep->body->assign('selectedMenuItem','cache');			
         return $rep;	
     }
 

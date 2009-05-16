@@ -41,6 +41,7 @@ class ranksCtrl extends jController {
 				
         $rep = $this->getResponse('html');        
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~ranks_index'));
+		$rep->body->assign('selectedMenuItem','ranks');
         return $rep;
 	}
 

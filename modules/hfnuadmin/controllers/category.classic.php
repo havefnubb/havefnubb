@@ -39,6 +39,7 @@ class categoryCtrl extends jController {
 		
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~category_index'));
+		$rep->body->assign('selectedMenuItem','category');		
         return $rep;
 	
     }
