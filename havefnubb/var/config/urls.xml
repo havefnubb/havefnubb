@@ -161,6 +161,8 @@
 		<url pathinfo="/contactme/:to" module="hfnucontact" action="default:index">
 			<param name="to" type="string" />
 		</url>
+		<url pathinfo="/contactme/" module="hfnucontact" action="default:index"/>
+        
 		<url pathinfo="/contacted" module="hfnucontact" action="default:contacted"/>
 
         

@@ -34,8 +34,17 @@
 <div id="statsinfos" class="four-cols">
 	{zone 'havefnubb~lastposts'}
 	{zone 'havefnubb~stats'}
-	<p class="col"></p>
-	<p class="col"></p>
+	<div id="home-links" class="col">
+		<div class="headings_footer">
+			<h3><span>{@havefnubb~main.home.links@}</span></h3>
+        </div>
+		<ul>
+			<li><a href="{jurl 'havefnubb~default:index'}">Accueil</a></li>
+			<li><a href="{jurl 'hfnucontact~default:index'}">Contact</a></li>
+		</ul>
+	</div>
+	<p class="col">
+	</p>
 <p class='clearboth'>&nbsp;</p>	
 </div>	
 {/if}
