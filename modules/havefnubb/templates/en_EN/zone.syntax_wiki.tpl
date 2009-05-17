@@ -1,7 +1,7 @@
 <div class="syntax_wiki">
 <p>You can use wiki syntax in your message:</p>
 <ul>
-    <li class="wiki-image source"><strong>source code bloc</strong>: each line should begin by a space</li>
+    <li class="wiki-image source"><strong>source code bloc</strong>: the bloc should be surrounded by &lt;code&gt; and &lt;/code&gt;</li>
     <li class="wiki-image list"><strong>List</strong>: each line should begin by one or several *, - or #</li>
     <li class="wiki-image quote"><strong>blockquote</strong>: each line should begin by one or several ></li>
     <li class="wiki-image bold"><strong>bold</strong>: <strong>__text__</strong> (2 underscores)</li>

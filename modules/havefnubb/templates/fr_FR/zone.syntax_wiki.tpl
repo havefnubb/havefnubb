@@ -1,7 +1,7 @@
 ﻿<div class="syntax_wiki">
 <p>Vous pouvez utilisez la syntaxe wiki pour mettre en forme vos messages :</p>
 <ul>
-    <li class="wiki-image source"><strong>bloc code source</strong> : chaque ligne doit débuter par un espace (les balises wiki ne sont pas interprétées)</li>
+    <li class="wiki-image source"><strong>bloc code source</strong> : le bloc de code source doit être entouré de &lt;code&gt; et &lt;/code&gt; (les balises wiki ne sont pas interprétées)</li>
     <li class="wiki-image list"><strong>Liste</strong> : chaque ligne doit débuter par une ou plusieurs * ou - (liste simple) ou # (liste numérotée)</li>
     <li class="wiki-image quote"><strong>bloc de citation</strong> : chaque ligne doit débuter par un ou plusieurs ></li>
     <li class="wiki-image bold"><strong>emphase forte (gras)</strong> :  <strong>__texte__</strong> (2 underscores)</li>

@@ -229,6 +229,45 @@ li.pagelinks-current  {
 	background-color: #e1e1cd;
 }
 
+.postbody .message-content ul li {
+	list-style-type: circle;
+}
+
+.postbody .message-content ol li {
+	list-style-type:  decimal;
+}
+
+.postbody .message-content pre {	
+	border-left: 3px solid;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	border-left-color: #8dc192;
+	border-top-color: #8dc192;
+	border-bottom-color: #acac9c;
+	border-right-color: #acac9c;
+	margin-right: 10px;
+	background-color: #dedec1;
+}
+
+.postbody .message-content dl dt {
+	font-weight: bold;	
+}
+
+.postbody .message-content dl dd {
+	font-family: cursive;
+	font-style: italic;
+}
+
+.postbody .message-content acronym {
+	border-bottom-style: groove;
+}
+
+.postbody .message-content code {
+	font-family: monospace;
+	background-color: #dedec1;
+}
+
 .postfoot {
 	border: 1px solid;
 	border-color :#dedec1 #dedec1 #acac9c  #dedec1;
