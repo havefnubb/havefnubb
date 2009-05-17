@@ -449,7 +449,7 @@ li.headings  {
     clear: both;
 }
 
-#lastposts, #stats {
+#lastposts, #stats, #home-links {
 	background-color: #e1e1cd;
 	border-top-color: #fff;
 	border-top-style: inset;
@@ -457,7 +457,7 @@ li.headings  {
 	margin-left: 5px;
 }
 
-#lastposts:hover, #stats:hover {
+#lastposts:hover, #stats:hover, #home-links:hover {
 	background-color: #f1f1e5;
 	border-top-color: #000;
 	border-top-style: inset;
