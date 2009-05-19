@@ -667,7 +667,7 @@ CREATE TABLE IF NOT EXISTS `hf_jmessenger` (
 --
 
 DROP TABLE IF EXISTS `hf_connected`;
-CREATE TABLE `hf_connected` (
+CREATE TABLE IF NOT EXISTS `hf_connected` (
     `id_user` int(12) NOT NULL DEFAULT '1',
     member_ip VARCHAR(200) NOT NULL DEFAULT '',
     connected INT(10) UNSIGNED NOT NULL DEFAULT 0,
@@ -676,7 +676,7 @@ CREATE TABLE `hf_connected` (
 ) DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `hf_subscription`;
-CREATE TABLE `hf_subscription` (
+CREATE TABLE IF NOT EXISTS `hf_subscription` (
 	id_user int unsigned NOT NULL default '0',
 	id_forum int unsigned NOT NULL default '0',
 	id_post int unsigned NOT NULL default '0',

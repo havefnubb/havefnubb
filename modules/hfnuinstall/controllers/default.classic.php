@@ -195,8 +195,35 @@ class defaultCtrl extends jController {
                         $profile 	= $db->getProfile('havefnubb');
                         $tools 		= jDb::getTools('havefnubb');
 						
-                        $tools->execSQLScript(dirname(__FILE__).'/../install/sql/install.'.$profile['driver'].'.sql');
-                        
+						$file = dirname(__FILE__).'/../install/sql/install.'.$profile['driver'].'.sql';
+						
+						$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);						
+						if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {
+							
+							$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
+							$fileDest = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+							$sources = file($file);
+							$newSource = '';
+							
+							$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) `(hf_)(.*)/';
+							
+							foreach ((array)$sources as $key=>$line) {
+								if (preg_match($pattern,$line,$match)) {
+									$newSource .= $match[1] .' `'.$tablePrefix . $match[3];
+								}
+								else {
+									$newSource .= $line;
+								}
+							}							
+
+							$fh = fopen($fileDest,'w+');
+							fwrite($fh,$newSource);
+							fclose($fh);
+							$file = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+						}
+						
+                        $tools->execSQLScript($file);
+                        @unlink($file);
                         $rep = $this->getResponse('redirect');
                         $rep->action ='hfnuinstall~default:index';
                         $rep->params = array('step'=>'adminaccount');
