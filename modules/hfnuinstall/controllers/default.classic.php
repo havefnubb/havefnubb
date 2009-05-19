@@ -220,10 +220,13 @@ class defaultCtrl extends jController {
 							fwrite($fh,$newSource);
 							fclose($fh);
 							$file = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+							
+							$tools->execSQLScript($file);
+							@unlink($file);							
 						}
-						
-                        $tools->execSQLScript($file);
-                        @unlink($file);
+						else 
+							$tools->execSQLScript($file);
+
                         $rep = $this->getResponse('redirect');
                         $rep->action ='hfnuinstall~default:index';
                         $rep->params = array('step'=>'adminaccount');
