@@ -894,6 +894,9 @@ class postsCtrl extends jController {
 	
 	
 	public function read_rss() {
-		
+		jMessage::add('Feature Coming Soon','warning');
+		$rep = $this->getResponse('redirect');		
+		$rep->action = 'default:index';
+		return $rep;
 	}
 }
