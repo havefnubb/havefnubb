@@ -891,4 +891,9 @@ class postsCtrl extends jController {
 		}
 		return $rep;
 	}
+	
+	
+	public function read_rss() {
+		
+	}
 }

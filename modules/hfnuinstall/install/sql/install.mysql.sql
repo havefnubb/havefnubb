@@ -39,10 +39,13 @@ CREATE TABLE IF NOT EXISTS `hf_forum` (
   `forum_order` int(4) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `child_level` int(4) NOT NULL,
+  `forum_type` INT( 1 ) NOT NULL,
+  `forum_url` varchar( 255 ) DEFAULT NULL,
   PRIMARY KEY (`id_forum`),
   KEY `id_cat` (`id_cat`),
   KEY `parent_id` (`parent_id`),
-  KEY `child_level` (`child_level`)
+  KEY `child_level` (`child_level`),
+  KEY `forum_type` (`forum_type` )
 ) DEFAULT CHARSET=utf8;
 
 --
@@ -50,10 +53,10 @@ CREATE TABLE IF NOT EXISTS `hf_forum` (
 --
 
 INSERT INTO `hf_forum` (`id_forum`, `forum_name`, `id_cat`, `forum_desc`, `forum_order`, `parent_id`, `child_level`) VALUES
-(1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0),
-(2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0),
-(3, 'Light', 2, 'Soo light', 1, 0, 0),
-(4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1);
+(1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0,0),
+(2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0,0),
+(3, 'Light', 2, 'Soo light', 1, 0, 0,0),
+(4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1,0);
 
 -- --------------------------------------------------------
 

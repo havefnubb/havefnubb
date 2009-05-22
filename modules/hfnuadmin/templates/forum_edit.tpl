@@ -22,6 +22,27 @@
     </tr>
     <tr>
         <th scope="row">
+            <label class="jforms-label jforms-required" for="jforms_hfnuadmin_forum_forum_type">{@hfnuadmin~forum.forum_type@}</label>
+        </th>
+        <td>
+            <select name="forum_type">
+                <option value="0" {if $forum->forum_type == 0}selected="selected"{/if}>{@hfnuadmin~forum.forum_type.classic@}</option>
+                <option value="1" {if $forum->forum_type == 1}selected="selected"{/if}>{@hfnuadmin~forum.forum_type.redirect@}</option>
+                <option value="2" {if $forum->forum_type == 2}selected="selected"{/if}>{@hfnuadmin~forum.forum_type.rss@}</option>
+            </select>
+        </td>
+    </tr>        
+    <tr>
+        <th scope="row">
+            <label class="jforms-label" for="jforms_hfnuadmin_forum_forum_url">{@hfnuadmin~forum.forum_url@}</label>
+        </th>
+        <td>
+            <input type="text" name="forum_url" id="jforms_hfnuadmin_forum_forum_url" size="40" value="{$forum->forum_url}"/>
+        </td>
+    </tr>        
+
+    <tr>
+        <th scope="row">
             <label class="jforms-label jforms-required" for="jforms_hfnuadmin_forum_forum_order">{@hfnuadmin~forum.forum_order@}</label>
         </th>
         <td>

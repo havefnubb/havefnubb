@@ -14,6 +14,8 @@
     
     <property name="parent_id" fieldname="parent_id" datatype="int" required="true"/>
     <property name="child_level" fieldname="child_level" datatype="int" required="true"/>
+    <property name="forum_type" fieldname="forum_type" datatype="int" required="true"/>
+    <property name="forum_url" fieldname="forum_url" datatype="string" maxlength="255" />
 
     <property name="cat_name" fieldname="cat_name" datatype="string" required="true" maxlength="255"
               table="category" />

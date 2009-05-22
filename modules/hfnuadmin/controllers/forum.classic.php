@@ -210,7 +210,11 @@ class forumCtrl extends jController {
         if ( $this->param('forum_order') == '' ) {
             jMessage::add(jLocale::get('hfnuadmin~forum.forum_desc.mandatory'),'error');
             $error = '*';
-        }        
+        }
+        if ( $this->param('forum_url') == '' and $this->param('forum_type') > 0 ) {
+            jMessage::add(jLocale::get('hfnuadmin~forum.forum_url.mandatory'),'error');
+            $error = '*';
+        }		
         if ($error == '*') {
             $rep = $this->getResponse('redirect');
             $rep->action='hfnuadmin~forum:edit';
@@ -225,6 +229,8 @@ class forumCtrl extends jController {
         $record->forum_name = $this->param('forum_name');
         $record->forum_desc = $this->param('forum_desc');
         $record->forum_order = $this->param('forum_order');
+		$record->forum_type = $this->param('forum_type');
+		$record->forum_url = $this->param('forum_url');
         
         $dao->update($record);
 
