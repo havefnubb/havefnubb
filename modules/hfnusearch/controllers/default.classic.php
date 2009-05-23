@@ -26,6 +26,7 @@ class defaultCtrl extends jController {
     function index() {
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
+		$rep->title = jLocale::get('hfnusearch~search.search.perform');
         $rep->body->assign('MAIN', $tpl->fetch('hfnusearch~search'));
         return $rep;
     }
@@ -69,6 +70,7 @@ class defaultCtrl extends jController {
         $tpl->assign('count',$count);
         $tpl->assign('datas',$result);
         $rep = $this->getResponse('html');
+		$rep->title = jLocale::get('hfnusearch~search.results.of.search');
         $rep->body->assign('MAIN',$tpl->fetch('hfnusearch~result'));
         return $rep;
 

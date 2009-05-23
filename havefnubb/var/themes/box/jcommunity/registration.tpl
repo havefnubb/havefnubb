@@ -11,6 +11,7 @@
     <legend>{@havefnubb~main.informations@}</legend>
     <p>{ctrl_label 'reg_login'} : {ctrl_control 'reg_login'}</p>
     <p>{ctrl_label 'reg_email'} : {ctrl_control 'reg_email'}</p>
+    <p>{ctrl_label 'reg_captcha'} : {ctrl_control 'reg_captcha'}</p>
 </fieldset>
 <p>{@havefnubb~member.registration.account.mail.description@}</p>
 <p>{formsubmit}</p>

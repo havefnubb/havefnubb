@@ -137,7 +137,7 @@ class passwordCtrl extends jController {
             jForms::destroy('confirmation');
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
-            $tpl->assign('status',1);
+            $tpl->assign('status',JCOMMUNITY_STATUS_VALID);
             $rep->body->assign('MAIN',$tpl->fetch('password_ok'));
             return $rep;
         }
@@ -146,7 +146,7 @@ class passwordCtrl extends jController {
             jForms::destroy('confirmation');
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
-            $tpl->assign('status',2);
+            $tpl->assign('status',JCOMMUNITY_STATUS_MAIL_CHANGED);
             $rep->body->assign('MAIN',$tpl->fetch('password_ok'));
             return $rep;
         }
@@ -172,7 +172,7 @@ class passwordCtrl extends jController {
     function confirmok() {
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
-        $tpl->assign('status',0);
+        $tpl->assign('status',JCOMMUNITY_STATUS_NEW);
         $rep->body->assign('MAIN',$tpl->fetch('password_ok'));
         return $rep;
     }

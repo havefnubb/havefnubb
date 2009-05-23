@@ -8,6 +8,7 @@ en remplissant le formulaire suivant.</p>
     <legend>Informations</legend>
     <p>{ctrl_label 'reg_login'} : {ctrl_control 'reg_login'}</p>
     <p>{ctrl_label 'reg_email'} : {ctrl_control 'reg_email'}</p>
+    <p>{ctrl_label 'reg_captcha'} : {ctrl_control 'reg_captcha'}</p>
 </fieldset>
 <p>Un e-mail vous sera envoyé pour que vous puissiez confirmer votre inscription
 et ensuite pouvoir vous identifier sur le site.</p>

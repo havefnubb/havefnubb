@@ -47,21 +47,24 @@ class membersCtrl extends jController {
 			foreach ($grpnames as $grpname)
 				$groupname = $grpname->name;
 		}
-		
+		$beginningBy = '';
+		if ($letter != '')
+			$beginningBy = ' - ' .jLocale::get('havefnubb~member.memberlist.members.beginning.by',array($letter));
 		// change the label of the breadcrumb
         if ($page == 0) {		
-			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list')) ;
-			$rep->title .= ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname;
+			$GLOBALS['gJCoord']->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list'));
+			$rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname . $beginningBy;
 		}
 		else {
-			$rep->title .= ' - ' . jLocale::get('havefnubb~member.members.list') . ' - ' . $groupname . ' ' .($page+1) ;
-			$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($title,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));		
+			$GLOBALS['gJCoord']->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));
+			$rep->title = jLocale::get('havefnubb~member.members.list') . ' - ' . $groupname .$beginningBy. ' ' .($page+1) ;			
 		}
 		
-        $rep->body->assignZone('MAIN', 'memberlist',array('page'=>$page,
-														  'grpid'=>$grpid,
-														  'letter'=>$letter,
-                                                          'memberSearch'=>$memberSearch));
+        $rep->body->assignZone('MAIN',
+							   'memberlist',array('page'=>$page,
+									'grpid'=>$grpid,
+									'letter'=>$letter,
+									'memberSearch'=>$memberSearch));
         return $rep;
     }
 	
