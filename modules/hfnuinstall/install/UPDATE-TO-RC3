@@ -1,4 +1,9 @@
-English :
+************************************************************************************
+
+                           English
+                           
+************************************************************************************
+
 Update from RC2 to RC3
 
 1) backup your var/config directory
@@ -16,7 +21,7 @@ edit the SQL script  hfnuinstall/install/update/1.1.0RC3/install.mysql.sql
 and replace "hf_" by the same table_prefix you gave during the install process and
 is located in the file var/config/dbprofile.ini.php
 
-run SQL script hfnuinstall/install/update/1.1.0RC3/install.mysql.sql n your database
+run SQL script hfnuinstall/install/update/1.1.0RC3/install.mysql.sql on your database
 
 Finally : 
 
@@ -24,7 +29,12 @@ Finally :
 5) empty your cache located in temp/havefnubb (or go in the admin panel at http://yoursite.com/hfnuadmin.php/admin/cache)
 
 
-Français :
+************************************************************************************
+
+                                Français
+
+************************************************************************************
+
 Mise à jour depuis la RC2 à la RC3
 
 1) savegarder votre recpertoire var/config 
@@ -37,7 +47,7 @@ Fichiers:
 
 Base de données :
 
-/!\ si vous utiliser un prefix de table different de "hf_" :
+/!\ si vous utilisez un prefix de table différent de "hf_" :
 éditer le script SQL hfnuinstall/install/update/1.1.0RC3/install.mysql.sql
 et remplacer hf_ par le meme prefix que vous avez donné lors de l'installation et qui se
 trouve dans le fichier var/config/dbprofile.ini.php

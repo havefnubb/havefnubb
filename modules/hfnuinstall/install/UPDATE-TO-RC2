@@ -1,4 +1,9 @@
-English :
+************************************************************************************
+
+                           English
+                           
+************************************************************************************
+
 Update from RC1 to RC2
 
 1) backup your var/config directory
@@ -24,7 +29,12 @@ Finally :
 5) empty your cache located in temp/havefnubb (or go in the admin panel at http://yoursite.com/hfnuadmin.php/admin/cache)
 
 
-Français :
+************************************************************************************
+
+                                Français
+
+************************************************************************************
+
 Mise à jour depuis la RC1 à la RC2
 
 1) savegarder votre recpertoire var/config 
