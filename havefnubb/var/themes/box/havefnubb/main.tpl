@@ -28,22 +28,7 @@
     <p><span>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a></span></p>
 </div>
 {if $home == 1}
-<div id="statsinfos" class="four-cols">
-	{zone 'havefnubb~lastposts'}
-	{zone 'havefnubb~stats'}
-	<div id="home-links" class="col">
-		<div class="headings_footer">
-			<h3><span>{@havefnubb~main.home.links@}</span></h3>
-        </div>
-		<ul>
-			<li><a href="{jurl 'havefnubb~default:index'}">Accueil</a></li>
-			<li><a href="{jurl 'hfnucontact~default:index'}">Contact</a></li>
-		</ul>
-	</div>
-	<p class="col">
-	</p>
-<p class='clearboth'>&nbsp;</p>	
-</div>	
+{zone 'havefnubb~hfnubox'}
 {/if}
 <!-- #footer -->
 

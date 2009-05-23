@@ -17,5 +17,6 @@
    </listener>
    <listener name="havefnubb">
 		 <event name="HfnuAboutModule" />
+		 <event name="HfnuBoxWidget" />
    </listener>    
 </events>
