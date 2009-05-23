@@ -448,33 +448,34 @@ li.headings  {
 	background-repeat: no-repeat;
 	background-position: center;	
 }
+
 .colrss {
 	background-image: url("../images/posts/rss_go.png");
 	background-repeat: no-repeat;
 	background-position: center;	
 }
 
-.colmain
+.colmain, .colmain_index
 {
 	/*padding: 0.5em;*/
 	background-color:#e1e1cd;
 	
 }
 
-.colstats {
+.colstats, .colstats_index {
 	width: 18ex;
 	text-align: center;
 	padding: 0.5em;
 	background-color: #baba9b;
 }
 
-.colleft {
+.colleft, .colleft_index {
 	 width: 3%;
 	 padding: 0.5em;
 	 background-color: #c9c9a7;
 }
 
-.colright {
+.colright, .colright_index {
 	width: 22%;
 	padding: 0.5em;
 	background-color:#e1e1cd;	
