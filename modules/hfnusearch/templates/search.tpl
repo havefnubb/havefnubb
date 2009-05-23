@@ -1,3 +1,4 @@
+{meta_html css $j_themepath .'css/hfnusearch.css'}
 <div id="breadcrumbtop" class="headbox">
     <h3>{@hfnusearch~search.search.perform@}</h3>    
 </div>

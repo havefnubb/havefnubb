@@ -51,7 +51,6 @@ class fnuHtmlResponse extends jResponseHtml {
         $this->addCssLink($chemin.'css/havefnuboard.css');
         $this->addCssLink($chemin.'css/havefnuboard_posts.css');
         $this->addCssLink($chemin.'css/havefnuboard_users.css');
-        $this->addCssLink($chemin.'css/hfnusearch.css');
 
         $title = stripslashes($HfnuConfig->getValue('title','main'));
         $description = stripslashes($HfnuConfig->getValue('description','main'));
