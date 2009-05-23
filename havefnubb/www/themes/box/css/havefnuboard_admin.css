@@ -41,6 +41,11 @@
     border: 1px solid #B0C4CB;
 }	
 	
+
+#hfnuadmin-tasktodo {
+    background-image: url(../images/admin/todos.png);
+	background-repeat: no-repeat;	
+}
 	
 table.records-list thead th.records-list-forum-category {
 	border: 1px solid #d7d7d7;
