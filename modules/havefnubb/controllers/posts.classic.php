@@ -892,7 +892,7 @@ class postsCtrl extends jController {
 		return $rep;
 	}
 	
-	
+	//@TODO
 	public function read_rss() {
 		jMessage::add('Feature Coming Soon','warning');
 		$rep = $this->getResponse('redirect');		
