@@ -3,7 +3,7 @@
 
 ; copy this file into the var/config directory of your application
 
-availableLanguageCode = fr_FR,en_US,en_EN
+availableLanguageCode = fr_FR,en_EN,en_US
 
 ;active la detection du changement de langage via l'url fournie
 enableUrlDetection= on

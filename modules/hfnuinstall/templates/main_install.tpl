@@ -11,13 +11,13 @@
 <div id="maincontent">	
     <div id="breadcrumbtop" class="headbox up-and-down">   
         <h3>
-            <span {if $step == 'home'} class="actif"{/if}>1- Accueil ></span>
-            <span {if $step == 'check'} class="actif"{/if}>2- Vérification ></span>
-            <span {if $step == 'config'} class="actif"{/if}>3- Configuration ></span>
-            <span {if $step == 'dbconfig'} class="actif"{/if}>4- Base de données ></span>
-            <span {if $step == 'installdb'} class="actif"{/if}>5- Création des tables ></span>
-            <span {if $step == 'adminaccount'} class="actif"{/if}>6- Création du compte administrateur ></span>
-            <span {if $step == 'end'} class="actif"{/if}>7- Fin</span>    
+            <span {if $step == 'home'} class="actif"{/if}>1- {@hfnuinstall~install.home@} ></span>
+            <span {if $step == 'check'} class="actif"{/if}>2- {@hfnuinstall~install.checking@} ></span>
+            <span {if $step == 'config'} class="actif"{/if}>3- {@hfnuinstall~install.config@} ></span>
+            <span {if $step == 'dbconfig'} class="actif"{/if}>4- {@hfnuinstall~install.db@} ></span>
+            <span {if $step == 'installdb'} class="actif"{/if}>5- {@hfnuinstall~install.create.table@} ></span>
+            <span {if $step == 'adminaccount'} class="actif"{/if}>6-  {@hfnuinstall~install.create.account.admin@}></span>
+            <span {if $step == 'end'} class="actif"{/if}>7- {@hfnuinstall~install.end@}</span>    
         </h3>
     </div>
     {$MAIN}
