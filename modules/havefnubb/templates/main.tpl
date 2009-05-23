@@ -1,6 +1,3 @@
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/ui/ui.core.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/ui.tabs.min.js'}
 <div id="hfbody">
 <!-- #top -->
 <div id="top">
@@ -12,7 +9,7 @@
 	{zone 'jcommunity~status'}
 	<!-- #login-status -->
 	<!-- main menu -->
-	{zone 'havefnubb~menu'}
+	{zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
 	<!-- main menu -->
 </div>
 <!-- #top -->

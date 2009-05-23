@@ -1,6 +1,3 @@
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/ui/ui.core.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/ui.tabs.min.js'}
 <div id="hfbody">
 <!-- #top -->
 <div id="top">
