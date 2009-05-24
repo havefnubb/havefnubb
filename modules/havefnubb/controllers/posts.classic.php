@@ -624,11 +624,9 @@ class postsCtrl extends jController {
                 $record = $result;
             }
 
-            $daoForum = jDao::get('havefnubb~forum');			
-            $forum = $daoForum->get($id_forum);			
 			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
 			
-			$rep->params = array('ftitle'=>$forum->forum_name,
+			$rep->params = array('ftitle'=>$record->forum_name,
 								 'ptitle'=>$record->subject,
 								 'id_forum'=>$id_forum,
 								 'id_post'=>$record->id_post,
@@ -899,4 +897,55 @@ class postsCtrl extends jController {
 		$rep->action = 'default:index';
 		return $rep;
 	}
+	
+	
+	/*
+	 * this function permits to move a complet thread to another forum
+	 */
+	public function moveToForum() {
+		$id_forum = (int) $this->param('id_forum');
+		$id_post = (int) $this->param('id_post');
+		
+		if ( $id_forum == 0) {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+			return $rep;			
+		}
+		
+		if ($id_post == 0) {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~posts:lists';
+			$rep->param = array('id_forum'=>$id_forum);
+			return $rep;
+		}
+		
+		if ( ! jAcl2::check('hfnu.admin.post') ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';
+			return $rep;
+		}
+		
+		//let's save the reply
+		$hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
+		$result = $hfnuposts->moveToForum($id_post,$id_forum);
+		
+		if ($result === false ) {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~posts:lists';
+			$rep->param = array('id_forum'=>$id_forum);
+			return $rep;                
+		}
+
+		$daoForum = jDao::get('havefnubb~posts');			
+		$forum = $daoForum->get($id_post);			
+		jMessage::add(jLocale::get('havefnubb~main.common.thread.moved'),'ok');
+		$rep = $this->getResponse('redirect');
+		$rep->params = array('ftitle'=>$forum->forum_name,
+							 'ptitle'=>$forum->subject,
+							 'id_forum'=>$id_forum,
+							 'id_post'=>$forum->id_post,
+							 'parent_id'=>$forum->parent_id);
+		$rep->action ='havefnubb~posts:view';
+		return $rep;		
+	} 	
 }

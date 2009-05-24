@@ -442,7 +442,7 @@ li.headings  {
     clear: both;    
 }
 
-#jumpto, #quickreply, #postreply, #postadd, #post-status, #messenger-new-mail{
+#jumpto, #quickreply, #postreply, #postadd, #post-status, #messenger-new-mail, #post-move {
 	margin: auto;
 	padding-left: 20px;
 	padding-right: 20px;

@@ -411,7 +411,7 @@ li.headings  {
     height: 30px;
 }
 
-#stats, #lastposts, #jumpto, #quickreply, #postreply, #postadd, #post-status, #messenger-new-mail{
+#stats, #lastposts, #jumpto, #quickreply, #postreply, #postadd, #post-status, #messenger-new-mail, #post-move {
 	margin: auto;
 	padding-left: 20px;
 	padding-right: 20px;

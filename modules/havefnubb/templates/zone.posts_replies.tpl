@@ -112,4 +112,12 @@
 <p>{ctrl_label 'status'} : {ctrl_control 'status'} {formsubmit 'validate'}</p>
 {/form}
 </div>
+<div class="headings">    
+    <h3><span>{@havefnubb~forum.move.this.thread@}</span></h3>
+</div>
+<div id="post-move">
+{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post)}
+<p>{ctrl_label 'id_forum'} : {ctrl_control 'id_forum'} {formsubmit 'validate'}</p>
+{/form}
+</div>
 {/ifacl2}

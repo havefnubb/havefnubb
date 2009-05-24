@@ -62,9 +62,14 @@ class posts_repliesZone extends jZone {
 		else
 			$this->_tpl->assign('current_user','');
         
-		$formStatus = jForms::create('havefnubb~posts_status');
+		if ( jAcl2::check('hfnu.admin.post') ) {
+			$formStatus = jForms::create('havefnubb~posts_status');		
+			$formMove = jForms::create('havefnubb~posts_move');
 
-		$this->_tpl->assign('formStatus',$formStatus);
+			$this->_tpl->assign('formStatus',$formStatus);
+			$this->_tpl->assign('formMove',$formMove);
+		}
+		
         $this->_tpl->assign('posts',$posts);
 		$this->_tpl->assign('id_forum',$id_forum);
         $this->_tpl->assign('tags',$tags);

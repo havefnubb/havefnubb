@@ -216,5 +216,16 @@
 				<value property="status" expr="$status" />
 			</values>
         </method>
+        <method name="moveToForum" type="update">
+			<parameter name="id_post"/>
+			<parameter name="id_forum"/>
+           <conditions>
+                <eq property="id_post" expr="$id_post" />
+            </conditions>            
+            <values>
+				<value property="id_forum" expr="$id_forum" />
+				<value property="parent_id" expr="$id_post" />
+			</values>
+        </method>		
     </factory>
 </dao>

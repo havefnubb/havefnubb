@@ -310,6 +310,31 @@ class hfnuposts {
         return jAcl2::check($rights,$ressources) ? true : false;
         
     }
-    
+	
+	/*
+	 * this function permits to move a complet thread to another forum
+	 */
+	public function moveToForum($id_post,$id_forum) {
+		if ($id_post == 0 or $id_forum == 0) return false;
+		$dao = jDao::get('havefnubb~posts');
+        $dao->moveToForum($id_post,$id_forum);
+		return true;		
+	}
+
+	/*
+	 * this function permits to split the thread to a forum
+	 */
+	public function splitToForum($id_post,$id_forum) {
+		if ($id_post == 0 or $id_forum == 0) return false;
+		
+	}
+	
+	/*
+	 * this function permits to split the thread to another thread
+	 */
+	public function splitToThread($id_post,$id_forum) {
+		if ($id_post == 0 or $id_forum == 0) return false;
+		
+	}    
 }
 ?>

@@ -125,4 +125,9 @@ $(document).ready(function(){
 <p>{ctrl_label 'status'} : {ctrl_control 'status'} {formsubmit 'validate'}</p>
 {/form}
 </div>
+<div id="post-move">
+{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post)}
+<p>{ctrl_label 'id_forum'} : {ctrl_control 'id_forum'} {formsubmit 'validate'}</p>
+{/form}
+</div>
 {/ifacl2}
