@@ -684,3 +684,7 @@ ul.subforum-home li {
 	height: 16px;
 	margin-left: 10px;
 }
+
+#notallowed,#notfound {
+	text-align: center;
+}

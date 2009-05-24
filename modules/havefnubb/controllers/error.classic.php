@@ -17,8 +17,9 @@ class errorCtrl extends jController {
     * 404 error page
     */
     public function notfound() {
-        $rep = $this->getResponse('html', true);
-        $rep->bodyTpl = 'havefnubb~404.html';
+        $rep = $this->getResponse('html');
+        $tpl = new jTpl();
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
         $rep->setHttpStatus('404', 'Not Found');
 
         return $rep;
@@ -29,10 +30,10 @@ class errorCtrl extends jController {
     * @since 1.0.1
     */
     public function badright() {
-        $rep = $this->getResponse('html', true);
-        $rep->bodyTpl = 'havefnubb~403.html';
-        $rep->setHttpStatus('403', 'Forbidden');
-
+        $rep = $this->getResponse('html');
+		$tpl = new jTpl();	
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+        $rep->setHttpStatus('403', 'Forbidden');        
         return $rep;
     }
 }

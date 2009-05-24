@@ -745,3 +745,8 @@ ul.subforum-home li {
 .clearboth {
     clear: both;
 }
+
+
+#notallowed,#notfound {
+	text-align: center;
+}

@@ -33,7 +33,7 @@ on_error = 2
 error_message = "jauth~autherror.notlogged"
 
 ; action to execute on a missing authentification when on_error=2
-on_error_action = "jcommunity~login:index"
+on_error_action = "havefnubb~error:badright"
 
 ; action to execute when a bad ip is checked with secure_with_ip=1 and on_error=2
 bad_ip_action = "jcommunity~login:out"
