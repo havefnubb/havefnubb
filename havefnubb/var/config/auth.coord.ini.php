@@ -49,7 +49,7 @@ after_login = "havefnubb~default:index"
 ; after_login = "jauth~login:form"
 
 ; action to redirect after a logout
-after_logout = "havefnubb~default:index"
+after_logout = "jcommunity~login:index"
 
 ; says if after_login can be overloaded by a "auth_url_return" parameter in the url/form for the login
 enable_after_login_override = on

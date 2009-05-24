@@ -15,15 +15,13 @@ class loginZone extends jZone {
     protected $_tplname='login';
 
     protected function _prepareTpl(){
-        
         if(jAuth::isConnected()) {
             $this->_tpl->assign('login',jAuth::getUserSession ()->login);
         }
-        else {            
+        else {
             $conf = $GLOBALS['gJCoord']->getPlugin('auth')->config;
             $this->_tpl->assign('persistance_ok',$conf['persistant_enable']);
             $form = jForms::get("jcommunity~login");
-
             if (!$form)
                 $form = jForms::create("jcommunity~login");
             $this->_tpl->assign('form',$form);

@@ -16,11 +16,11 @@
    <input ref="reg_email"  required="true" type="email">
        <label locale="register.form.create.email"/>
    </input>
-   
-   <captcha ref="reg_captcha"> 
-      <label locale="register.form.create.captcha"/> 
+
+   <captcha ref="reg_captcha">
+       <label locale="register.form.create.captcha"/>
    </captcha>
-   
+
    <submit ref="reg_submit">
        <label locale="register.form.create.submit" />
    </submit>

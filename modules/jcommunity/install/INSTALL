@@ -23,7 +23,9 @@ in the defaultconfig.ini.php:
 if you use significant urls, you have an example of urls setting into the urls_example.xml. Copy its content
 into the urls.xml file of your application.
 
-execute the install.mysql.sql script on your database. It creates a `community_users` table. If you have already a table of users, you can add new fields of community_users in your table. You should then override all DAOs of the jcommunity module to change the fieldname and the table.
+execute the install.mysql.sql script on your database. It creates a `community_users` table.
+If you have already a table of users, you can add new fields of community_users in your table.
+You should then override all DAOs of the jcommunity module to change the fieldname and the table.
 
 Activation of the auth coordplugin
 ----------------------------------

@@ -127,7 +127,7 @@
         <url pathinfo="/users/:user"            module="jcommunity" action="account:show">
             <param name="user" />
         </url>
-        <url pathinfo="/users/edit/:user"       module="jcommunity" action="account:edit" actionoverride="account:save">
+        <url pathinfo="/users/:user/edit" module="jcommunity" action="account:edit" actionoverride="account:prepareedit,account:save">
             <param name="user" />
         </url>
         <url pathinfo="/users/:user/destroy"    module="jcommunity" action="account:destroy" actionoverride="account:dodestroy">

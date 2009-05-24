@@ -2,11 +2,11 @@
 
 <table>
 <tr>
-    <td>Nickname</td> <td></td>
+    <td>Nickname</td> <td>{$user->nickname|eschtml}</td>
 </tr>
 {ifuserconnected}
 <tr>
-    <td>Email</td> <td></td>
+    <td>Email</td> <td>{$user->email|eschtml}</td>
 </tr>
 {/ifuserconnected}
 </table>
