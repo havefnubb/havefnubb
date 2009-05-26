@@ -34,7 +34,7 @@ class memberlistZone extends jZone {
             $dao = jDao::get('jelix~jacl2groupsofuser',$p);
             $cond = jDao::createConditions();
             $cond->addCondition('grouptype', '=', 2);
-            $cond->addCondition('status', '=', 2);
+            $cond->addCondition('status', '=', 1);
             if ($letter != '')  {
                 $cond->addCondition('login', 'like', $letter . '%');                
             }
@@ -62,7 +62,7 @@ class memberlistZone extends jZone {
             $gl = $dao2->getGroupsUser($u->login);
             foreach($gl as $g) {
                 
-                if($g->grouptype != 2 and $g->status == 2)
+                if($g->grouptype != 2 and $g->status == 1)
                     $u->groups[]=$g;
             }
             $members[] = $u;

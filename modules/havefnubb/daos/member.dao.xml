@@ -133,7 +133,7 @@
 		<parameter name="offset" default="0" />
 		<parameter name="count" default="200" />		
          <conditions>
-             <eq property="status" value="2" />
+             <eq property="status" value="1" />
          </conditions>		
          <order>
              <orderitem property="login" way="asc" />
@@ -142,7 +142,7 @@
      </method>
      <method name="countAllActivatedMember" type="count">
          <conditions>
-             <eq property="status" value="2" />
+             <eq property="status" value="1" />
          </conditions>		
      </method>
      <method name="getById" type="selectfirst">
@@ -155,7 +155,7 @@
        <!-- for stats purpose -->
         <method name="findLastActiveMember" type="selectfirst">
             <conditions>
-                <eq property="status" value="2" />
+                <eq property="status" value="1" />
             </conditions>            						
             <order>
                 <orderitem property="request_date" way="desc" />
