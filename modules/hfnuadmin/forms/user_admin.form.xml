@@ -21,7 +21,7 @@
 	<item value="0">new user, invalid account</item>
 	<item value="1">valid account</item>
 	<item value="2">valid, but email changed. awaiting for confirmation</item>
-	<item value="3">3 valid, but password changed. awaiting for confirmation</item>
+	<item value="3">valid, but password changed. awaiting for confirmation</item>
 </menulist>
 
 <submit ref="_submit">
