@@ -97,6 +97,17 @@ class authhavefnubbListener extends jEventListener{
         // and send an email to the admin after creating his account
         if ( $HfnuConfig->getValue('installed','main') == 1 ) {
             $user = $event->getParam('user');
+						
+			// update the creation date
+			$dao = jDao::get('havefnubb~member');
+	
+			$user = $dao->getByLogin($login);
+			if (!$user) {
+			  die("");
+			}
+			// put the current date
+			$user->member_created = time();	
+			$dao->update($user);
 
             $mail = new jMailer();
             $mail->From       = $gJConfig->mailer['webmasterEmail'];

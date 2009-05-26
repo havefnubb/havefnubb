@@ -81,7 +81,7 @@ $(document).ready(function(){
                 <legend><span class="user-stats user-image">{@havefnubb~member.common.stats@}</span></legend>
                 <div class="two-cols">                    
                     <p class="col">                
-                        <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><br />{$user->request_date|jdatetime}
+                        <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><br />{$user->member_created|jdatetime}
                     </p>
                     <p class="col">                
                         <label><strong>{@havefnubb~member.common.last.connection@}</strong></label><br />{$user->member_last_connect|jdatetime:'timestamp'}
