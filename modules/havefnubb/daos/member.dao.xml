@@ -62,7 +62,7 @@
 	<property name="nb_msg" fieldname="member_nb_msg" datatype="integer" />
 	<property name="member_last_post" fieldname="member_last_post" datatype="integer" />
     
-	<property name="member_created" fieldname="member_language" datatype="datetime" />
+	<property name="member_created" fieldname="member_created" datatype="datetime" />
 	
     <property name="member_ip"  fieldname="member_ip"   datatype="string"   table="connected" />
     <property name="connected"  fieldname="connected"   datatype="integer"  table="connected" />

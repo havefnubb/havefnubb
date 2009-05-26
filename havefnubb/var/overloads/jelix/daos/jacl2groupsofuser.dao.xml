@@ -13,7 +13,7 @@
       <property name="ownerlogin" fieldname="ownerlogin" datatype="string"  table="grp"/>
       <property name="status" fieldname="member_status" table="usr" datatype="integer" />
       <property name="nb_msg" fieldname="member_nb_msg" table="usr" datatype="integer" />
-      <property name="request_date" fieldname="member_request_date" table="usr" datatype="datetime" />
+      <property name="member_created" fieldname="member_created" table="usr" datatype="datetime" />      
     </record>
 
     <factory>
