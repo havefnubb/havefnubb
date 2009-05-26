@@ -101,12 +101,12 @@ class authhavefnubbListener extends jEventListener{
 			// update the creation date
 			$dao = jDao::get('havefnubb~member');
 	
-			$user = $dao->getByLogin($login);
+			$user = $dao->getByLogin($user->login);
 			if (!$user) {
 			  die("");
 			}
 			// put the current date
-			$user->member_created = time();	
+			$user->member_created = date('Y-m-d H:i:s');
 			$dao->update($user);
 
             $mail = new jMailer();
