@@ -22,13 +22,13 @@ dao = "havefnubb~posts"
 
 ; a list of method that can be use to perfom search, like "searchIn" + Authors , or Forums, or Words, or what ever
 ; have a loot at search_in.class.php
-perform_search_in = words,forums,authors
+perform_search_in = words
 
 ; specify the "jelix path" of the class that extends
 ; the class search_index and overwrites the function searchEngineRun
 ; this busines class is the only one you will have to write yourself 
 ; to get the datas - see the class hfnusearch~search_index_havefnubb and function searchEngineRun
-classToPerformSearchEngine = hfnusearch~search_index_havefnubb
+classToPerformSearchEngine = hfnusearch~search_index
 
 ; this section tell to HfnuSearch, which column of my DAO are the one i want to use to populate the Search Engine
 ; the section name is the DAO name WITHOUT the ~ !!!

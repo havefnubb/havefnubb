@@ -15,4 +15,6 @@
   </div>
   </fieldset> 
 </form>
+{zone 'hfnusearch~searchForum'}
+{zone 'hfnusearch~searchAuthor'}
 </div>

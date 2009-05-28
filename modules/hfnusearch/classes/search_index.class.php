@@ -113,5 +113,46 @@ class search_index {
 		return $records->rowCount();
 	}	
 
-	function searchEngineRun ($event) {}
+    // default searchEngineRun methode which make a search from the engine by querying the table define in the dao of the hfnusearch.ini.php file
+	function searchEngineRun ($event) {
+        $cleaner = jClasses::getService('hfnusearch~cleaner');
+        $words = $cleaner->stemPhrase($event->getParam('string'));
+        $nb_words = count($words);
+        // no words ; go back with nothing :P
+        if (!$words) {
+            return array('count'=>0,'result'=>array());
+        }                
+		//1) open the config file
+		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
+		//2) get the dao we want to read
+		$dataSource = $HfnuSearchConfig->getValue('dao');
+		//3) build an array with each one
+		$dataSources = split(',',$dataSource);
+		foreach ($dataSources as $ds) {
+			// due to a bug in jelix parser of ini file, we drop the ~ for nothing and
+			// will be able to find the datasource in our config file			
+			$dsCfg = str_replace('~','',$ds);
+			//4) get a factory of the current DAO
+			$dao = jDao::get($ds);
+			//5) get all the record
+
+            $conditions = jDao::createConditions();        
+            if (count($words) > 0 ) 
+                $conditions->startGroup('OR');        
+            //getting the column name on which we need to make the query
+            $indexSubject = $HfnuSearchConfig->getValue('index_subject',$dsCfg);
+            $indexMessage = $HfnuSearchConfig->getValue('index_message',$dsCfg);
+                
+            foreach ($words as $word) {
+                $conditions->addCondition($indexSubject,'=',$word);
+                $conditions->addCondition($indexMessage,'=',$word);
+            }
+            $record = $dao->findBy($conditions);
+            
+            foreach ($record as $rec) 
+                $event->Add(array('SearchEngineResult'=>$rec));
+            
+		}
+        
+    }
 }
