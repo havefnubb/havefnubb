@@ -750,3 +750,8 @@ ul.subforum-home li {
 #notallowed,#notfound {
 	text-align: center;
 }
+
+#hfnu-feeds {
+	padding-left: 20px;
+	padding-right: 20px;
+}

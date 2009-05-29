@@ -109,6 +109,7 @@ class forumCtrl extends jController {
             $record->parent_id  = $parent_id;
             $record->child_level = $child_level;
             $record->forum_order = $forum_order;
+			$record->forum_type = (int) $this->param('forum_type');
             $record->forum_desc = jLocale::get('hfnuadmin~forum.new.forum');
             
             $dao->insert($record);

@@ -40,7 +40,7 @@
 
 
         <!-- forums management -->
-        <url pathinfo="/forum/rss/:id_forum-:ftitle" module="havefnubb" action="posts:read_rss">
+        <url pathinfo="/forum/rss/:id_forum-:ftitle" module="havefnubb" action="forum:read_rss">
            <param name="id_forum" type="number"/>
            <param name="ftitle"  type="string" escape="true" />
         </url>

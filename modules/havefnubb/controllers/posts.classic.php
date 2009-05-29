@@ -139,7 +139,7 @@ class postsCtrl extends jController {
 			return $rep;
         }        
 		
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($post->subject,ENT_COMPAT,'UTF-8'));		
+        $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($post->subject,ENT_COMPAT,'UTF-8'));
 
 		// crumbs infos
         
@@ -887,14 +887,6 @@ class postsCtrl extends jController {
 		  $rep->addItem($item);
 				
 		}
-		return $rep;
-	}
-	
-	//@TODO
-	public function read_rss() {
-		jMessage::add('Feature Coming Soon','warning');
-		$rep = $this->getResponse('redirect');		
-		$rep->action = 'default:index';
 		return $rep;
 	}
 	

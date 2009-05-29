@@ -37,6 +37,13 @@
 	</item>
 </choice>
 
+<menulist ref="forum_type" required="true">
+      <label locale="hfnuadmin~forum.forum_type"/>
+      <item value="0" locale="hfnuadmin~forum.forum_type.classic"/>
+      <item value="1" locale="hfnuadmin~forum.forum_type.redirect"/>
+      <item value="2" locale="hfnuadmin~forum.forum_type.rss"/>
+</menulist>
+
 <submit ref="validate">
   <label>Veuillez valider</label>
   <item value="createBt" locale="hfnuadmin~forum.createBt"/>
