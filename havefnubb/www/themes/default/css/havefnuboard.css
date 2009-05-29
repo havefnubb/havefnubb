@@ -341,6 +341,7 @@ code, pre {
 
 .breadcrumb {
 	background-color:#8dc192;
+	height: 40px;
 }
 
 #breadcrumbtop {
@@ -693,3 +694,4 @@ ul.subforum-home li {
 	padding-left: 20px;
 	padding-right: 20px;
 }
+
