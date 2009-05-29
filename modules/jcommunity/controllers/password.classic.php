@@ -25,6 +25,7 @@ class passwordCtrl extends jController {
             return $this->noaccess();
 
         $rep = $this->getResponse('html');
+        $rep->title = jLocale::get('password.forgotten.password');
         $rep->body->assignZone('MAIN','password');
         return $rep;
     }

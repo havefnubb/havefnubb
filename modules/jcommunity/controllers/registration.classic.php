@@ -25,6 +25,7 @@ class registrationCtrl extends jController {
             return $this->noaccess();
 
         $rep = $this->getResponse('html');
+        $rep->title = jLocale::get('register.registration.title');
         $rep->body->assignZone('MAIN','registration');
         return $rep;
     }

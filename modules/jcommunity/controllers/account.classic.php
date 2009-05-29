@@ -42,6 +42,7 @@ class accountCtrl extends jController {
             return $rep;
         }
 
+        $rep->title = jLocale::get('account.profile.of',array($user->login));
         $tpl->assign('user',$user);
         $tpl->assign('himself', (jAuth::isConnected() && jAuth::getUserSession()->login == $user->login));
         $rep->body->assign('MAIN',$tpl->fetch('account_show'));
