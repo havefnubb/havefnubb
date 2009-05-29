@@ -55,7 +55,7 @@ $(document).ready(function(){
 
 {if $user->member_show_email == 'Y'}
                     <p class="col">
-                        <label class="user-email user-image"><strong>{@havefnubb~member.email@}</strong></label><br />{$user->email|eschtml}
+                        <label class="user-email user-image"><strong>{@havefnubb~member.email@}</strong></label><br />{nospam $user->email}
                     </p>                                   
 {/if}                                
                     <p class="col">
@@ -105,7 +105,7 @@ $(document).ready(function(){
                         <label class="user-yim user-image"><strong>{@havefnubb~member.yim@}</strong></label><br />{$user->member_yim|eschtml}
                     </p>                   
                     <p class="col">
-                        <label class="user-msn user-image"><strong>{@havefnubb~member.hotmail@}</strong></label><br />{$user->member_hotmail|eschtml}
+                        <label class="user-msn user-image"><strong>{@havefnubb~member.hotmail@}</strong></label><br />{nospam $user->member_hotmail}
                     </p>                   
                 </div>
                  <div class="two-cols">
