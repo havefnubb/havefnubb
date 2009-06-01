@@ -27,7 +27,7 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
 		$rep->title = jLocale::get('hfnusearch~search.search.perform');
-        $rep->body->assign('MAIN', $tpl->fetch('hfnusearch~search'));
+        $rep->body->assignZone('MAIN', 'hfnusearch~hfnusearch');
         return $rep;
     }
     
