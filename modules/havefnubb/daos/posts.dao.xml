@@ -40,7 +40,18 @@
 		getXXX uses type="selectfirst"
 		countXXX uses type="count"		
 	-->
-    <factory>        
+    <factory>
+        <method name="findAllExceptOneToSplitAndLink" type="select">
+            <parameter name="parent_id" />
+			<parameter name="id_forum" />
+            <conditions>
+                <neq property="parent_id" expr="$parent_id" />
+				<eq property="id_forum" expr="$id_forum" />
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>            
+        </method>		
         <!-- get the posts to be displayed on the index of the forum page -->
         <method name="findByIdForum" type="select">
             <parameter name="id_forum" />
@@ -220,12 +231,38 @@
 			<parameter name="id_post"/>
 			<parameter name="id_forum"/>
            <conditions>
-                <eq property="id_post" expr="$id_post" />
+                <eq property="parent_id" expr="$id_post" />
             </conditions>            
             <values>
 				<value property="id_forum" expr="$id_forum" />
-				<value property="parent_id" expr="$id_post" />
 			</values>
-        </method>		
+        </method>
+		<!--
+			this method permits to find all the post id to move
+		     from the current post with the same parent_id
+		-->
+		<method name="getAllFromCurrentIdPostWithParentId" type="select">
+			<parameter name="parent_id"/>
+			<parameter name="id_post"/>
+           <conditions>
+                <gteq property="id_post" expr="$id_post" />
+				<eq property="parent_id" expr="$parent_id" />
+            </conditions>
+            <order>
+                <orderitem property="id_post" way="asc" />
+            </order>		   
+		</method>
+		<method name="deleteAllFromCurrentIdPostWithParentId" type="delete">
+			<parameter name="parent_id"/>
+			<parameter name="id_post"/>
+           <conditions>
+                <gteq property="id_post" expr="$id_post" />
+				<eq property="parent_id" expr="$parent_id" />
+            </conditions>
+            <order>
+                <orderitem property="id_post" way="asc" />
+            </order>		   
+		</method>
+		
     </factory>
 </dao>

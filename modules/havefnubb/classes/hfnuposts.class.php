@@ -324,17 +324,62 @@ class hfnuposts {
 	/*
 	 * this function permits to split the thread to a forum
 	 */
-	public function splitToForum($id_post,$id_forum) {
-		if ($id_post == 0 or $id_forum == 0) return false;
+	public function splitToForum($parent_id,$id_post,$id_forum) {
+		if ($id_post == 0 or $id_forum == 0 or $parent_id == 0) return false;
+		$dao = jDao::get('havefnubb~posts');
+
+		$datas = $dao->getAllFromCurrentIdPostWithParentId($parent_id,$id_post);
 		
+		$i			 = 0;
+		$id_post_new = 0;
+		
+		foreach($datas as $data) {
+
+			$record = jDao::createRecord('havefnubb~posts');
+			$record = $data;
+			$record->id_post = null;//to create a new record !
+			$record->id_forum = $id_forum; // the id forum where we want to move this post
+			// we only set parent_id to id_post for the first post which becomes the parent !
+			if ($i > 0 ) {
+				$record->parent_id = $id_post_new;
+			}
+			$dao->insert($record); // create the new record
+			if ($i == 0 ) {
+				$record->parent_id 	= $record->id_post;
+				$id_post_new 		= $record->id_post;
+				$dao->update($record);
+			}
+			$i++;
+		}
+		
+		$dao->deleteAllFromCurrentIdPostWithParentId($parent_id,$id_post); // delete the old records
+
+		return $id_post_new;
 	}
 	
 	/*
 	 * this function permits to split the thread to another thread
 	 */
-	public function splitToThread($id_post,$id_forum) {
-		if ($id_post == 0 or $id_forum == 0) return false;
+	public function splitToThread($id_post,$parent_id,$new_parent_id) {
+		if ($id_post == 0 or $parent_id == 0 or $new_parent_id == 0) return false;
 		
+		$dao = jDao::get('havefnubb~posts');		
+		$datas = $dao->getAllFromCurrentIdPostWithParentId($parent_id,$id_post);
+		
+		foreach($datas as $data) {
+
+			$record = jDao::createRecord('havefnubb~posts');
+			$record = $data;
+			$record->id_post = null;//to create a new record !
+			$record->id_forum = $data->id_forum; // the id forum of the same forum
+			$record->parent_id = $new_parent_id; // the id of the parent id on which we link the thread
+			
+			$result = $dao->insert($record);			
+		}
+		
+		$dao->deleteAllFromCurrentIdPostWithParentId($parent_id,$id_post); // delete the old records
+
+		return true;
 	}    
 }
 ?>

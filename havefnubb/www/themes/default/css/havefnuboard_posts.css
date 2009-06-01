@@ -369,3 +369,8 @@ li.pagelinks-current  {
 	color: #f90; 
 	text-decoration: none;
 }
+
+#post-split-to {
+	padding-left : 20px;
+	padding-right : 20px;
+}

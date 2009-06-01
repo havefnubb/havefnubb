@@ -25,6 +25,7 @@ class postsCtrl extends jController {
 		'edit'	=> array('auth.required'=>true),
 		'quote'	=> array('auth.required'=>true),
 		'reply'	=> array('auth.required'=>true),
+		'moveToForum' => array('auth.required'=>true),
 		
 		'save'		=> array('flood.editing'=>true,'flood.same.ip'=>true),
 		'savereply'	=> array('flood.editing'=>true,'flood.same.ip'=>true),
@@ -313,9 +314,9 @@ class postsCtrl extends jController {
 			// am i an admin or modo to be able to edit this post which is not mine ?
 			else {
 				if (! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
-						$rep = $this->getResponse('redirect');
-						$rep->action = 'default:index';
-						return $rep;				
+					$rep = $this->getResponse('redirect');
+					$rep->action = 'default:index';
+					return $rep;				
 				}
 			}
 		}
@@ -826,6 +827,7 @@ class postsCtrl extends jController {
 		if ( ! jAcl2::check('hfnu.posts.rss','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $rep;
 		}
 		
         if ($id_forum == 0 ) {
@@ -917,7 +919,7 @@ class postsCtrl extends jController {
 			return $rep;
 		}
 		
-		//let's save the reply
+		//let's move the thread
 		$hfnuposts = jClasses::getService('havefnubb~hfnuposts');            
 		$result = $hfnuposts->moveToForum($id_post,$id_forum);
 		
@@ -939,5 +941,113 @@ class postsCtrl extends jController {
 							 'parent_id'=>$forum->parent_id);
 		$rep->action ='havefnubb~posts:view';
 		return $rep;		
-	} 	
+	}
+	
+	// 'Wizard' to ask to the admin where to move the selected thread, starting from the current message
+	public function splitTo() {
+		if ( ! jAcl2::check('hfnu.admin.post') ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';
+			return $rep;
+		}
+		
+		$id_post 	= (int) $this->param('id_post');
+		$parent_id 	= (int) $this->param('parent_id');
+		$id_forum 	= (int) $this->param('id_forum');
+		$step 		= (int) $this->param('step');
+	
+		if ($id_post == 0 or $id_forum == 0 or $parent_id == 0) {
+			$rep 			= $this->getResponse('redirect');
+			$rep->action 	= 'havefnubb~default:index';
+			return $rep;
+		}
+		
+		if ($step == 0) {
+	        $form = jForms::create('havefnubb~split');
+			$form->setData('id_post',	$id_post);
+			$form->setData('parent_id',	$parent_id);
+			$form->setData('id_forum',	$id_forum);
+			$form->setData('step',	1);
+			
+			$dao = jDao::get('havefnubb~posts');
+			$post = $dao->get($id_post);
+
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			$tpl->assign('title',$post->subject);
+			$tpl->assign('form',$form);			
+			$tpl->assign('step',1);
+			$rep->body->assign('MAIN', $tpl->fetch('havefnubb~split.to'));
+			$rep->title = jLocale::get("havefnubb~main.split.this.thread.from.this.message") . ' : ' . $post->subject;
+			return $rep;			
+			
+		}
+		elseif ($step == 1) {
+			$submit = $this->param('validate');
+			if ( $submit == jLocale::get('havefnubb~post.form.saveBt') ) {
+				// let's define the possible actions we can do :
+				// where to split this thread  : 
+				// 1) in the same forum and create a new one
+				// 2) in another forum and create a new one
+				// 3) link to an existing thread in the SAME forum
+				$possibleActions = array('same_forum','others','existings');		
+				// the choice is ?
+				$choice = (string) $this->param('choice');
+		
+				if (! in_array($choice,$possibleActions) ) {
+					$rep 			= $this->getResponse('redirect');
+					$rep->action 	= 'havefnubb~default:index';
+					return $rep;				
+				}
+
+				$dao = jDao::get('havefnubb~posts');
+				$post = $dao->get($id_post);
+				switch ($choice) {
+					case 'same_forum' :
+						$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+						$id_post = $hfnuposts->splitToForum($parent_id,$id_post,$id_forum);
+						if ($id_post > 0 ) $result = true; else $result = false;
+						break;
+					case 'others' :
+						// the id_forum change to the new selected one
+						$id_forum = (int) $this->param('other_forum');
+						$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+						$id_post = $hfnuposts->splitToForum($parent_id,$id_post,$id_forum);
+						if ($id_post > 0 ) $result = true; else $result = false;
+						break;
+					case 'existings' :
+						// the parent_id change to the new selected one
+						$new_parent_id = (int) $this->param('existing_thread');						
+						$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+						$result = $hfnuposts->splitToThread($id_post,$parent_id,$new_parent_id);
+						$id_post = (int) $this->param('existing_thread');
+						break;
+					
+				}
+				
+				$dao = jDao::get('havefnubb~posts');			
+				$post = $dao->get($id_post);
+				if ($result === false) {
+					jMessage::add(jLocale::get('havefnubb~main.common.thread.cant.be.moved'),'error');
+				}
+				else {
+					jMessage::add(jLocale::get('havefnubb~main.common.thread.moved'),'ok');
+				}
+				$rep = $this->getResponse('redirect');
+				$rep->params = array('ftitle'=>$post->forum_name,
+									 'ptitle'=>$post->subject,
+									 'id_forum'=>$id_forum,
+									 'id_post'=>$post->id_post,
+									 'parent_id'=>$post->parent_id);
+				$rep->action ='havefnubb~posts:view';
+				return $rep;
+			}
+		}
+		else {
+			$rep 			= $this->getResponse('redirect');
+			$rep->action 	= 'havefnubb~default:index';
+			return $rep;			
+		}
+		
+	}
 }

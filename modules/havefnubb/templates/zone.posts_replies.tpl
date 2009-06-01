@@ -50,6 +50,9 @@
     </div>
     <div class="postfoot">
         <div class="post-actions">
+            {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
+            <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
+            {/ifacl2}
             {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
             <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
              {/ifacl2}
