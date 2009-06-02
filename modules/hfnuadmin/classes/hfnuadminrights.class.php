@@ -78,7 +78,7 @@ class hfnuadminrights {
     }
     
     /**
-     * set rights on the given group. old rights are removed
+     * set rights on the given forum
      * @param int    $group the group id.
      * @param array  $rights, list of rights key=subject, value=true
      *  @param string  $resource, the resource corresponding to the "forum" string + id_forum

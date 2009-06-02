@@ -86,11 +86,11 @@
         </url>
         
         <!-- change password -->
-        <url pathinfo="/users/changepwd/:user" module="havefnubb" action="members:changepwd">
+        <url pathinfo="/profile/:user/changepwd" module="havefnubb" action="members:changepwd">
             <param name="user" />
         </url>
         <!-- private messaging -->
-        <url pathinfo="/users/pm" module="havefnubb" action="members:mail"/>
+        <url pathinfo="/profile/pm" module="havefnubb" action="members:mail"/>
 
         <!-- jmessenger -->
         <url pathinfo="/messages"  module="jmessenger" action="jmessenger:index"/>
@@ -119,18 +119,18 @@
         <url pathinfo="/auth/dologin"   module="jcommunity" action="login:in"/>
         <url pathinfo="/auth/dologout"  module="jcommunity" action="login:out"/>
         
-        <url pathinfo="/users" module="jcommunity" action="default:index"/>
-        <url pathinfo="/users/prepareedit/:user" module="jcommunity" action="account:prepareedit">
+        <url pathinfo="/profile" module="jcommunity" action="default:index"/>
+        <url pathinfo="/profile/:user/prepareedit" module="jcommunity" action="account:prepareedit">
             <param name="user" />
         </url>
         
-        <url pathinfo="/users/:user"            module="jcommunity" action="account:show">
+        <url pathinfo="/profile/:user"            module="jcommunity" action="account:show">
             <param name="user" />
         </url>
-        <url pathinfo="/users/:user/edit" module="jcommunity" action="account:edit" actionoverride="account:prepareedit,account:save">
+        <url pathinfo="/profile/:user/edit" module="jcommunity" action="account:edit" actionoverride="account:prepareedit,account:save">
             <param name="user" />
         </url>
-        <url pathinfo="/users/:user/destroy"    module="jcommunity" action="account:destroy" actionoverride="account:dodestroy">
+        <url pathinfo="/profile/:user/destroy"    module="jcommunity" action="account:destroy" actionoverride="account:dodestroy">
             <param name="user" />
         </url>
         
@@ -214,51 +214,46 @@
             <param name="id_rank" type="number"/>
         </url>                
 
-        <url pathinfo="/admin/jauthdb_admin/user/:id"   module="jauthdb_admin" action="user:index">
-            <param name="id" type="string"/>
+        <url pathinfo="/admin/auth/users/" module="jauthdb_admin" action="default:index"/>
+        <url pathinfo="/admin/auth/user/:id" module="jauthdb_admin" action="default:view">
+            <param name="id"/>
         </url>
-        
-        <url pathinfo="/admin/jauthdb_admin"            module="jauthdb_admin" action="default:index"/>
-        <url pathinfo="/admin/jauthdb_admin/precreate"  module="jauthdb_admin" action="default:precreate"/>
-        <url pathinfo="/admin/jauthdb_admin/create"     module="jauthdb_admin" action="default:create"/>
-        <url pathinfo="/admin/jauthdb_admin/savecreate" module="jauthdb_admin" action="default:savecreate"/>
-        <url pathinfo="/admin/jauthdb_admin/view/:id"   module="jauthdb_admin" action="default:view">
-            <param name="id" type="string"/>
-        </url>        
-        <url pathinfo="/admin/jauthdb_admin/preupdate/:id"  module="jauthdb_admin" action="default:preupdate">
-            <param name="id" type="string"/>
+        <url pathinfo="/admin/auth/create-user" module="jauthdb_admin" action="default:create" actionoverride="default:precreate,default:savecreate"/>
+        <url pathinfo="/admin/auth/user/:id/edit" module="jauthdb_admin" action="default:editupdate" actionoverride="default:preupdate,default:saveupdate">
+            <param name="id"/>
         </url>
-        <url pathinfo="/admin/jauthdb_admin/preupdate/:id"  module="jauthdb_admin" action="user:preupdate">
-            <param name="id" type="string"/>
+        <url pathinfo="/admin/auth/user/:id/confirmdelete" module="jauthdb_admin" action="default:confirmdelete">
+            <param name="id"/>
         </url>
-        
-        <url pathinfo="/admin/jauthdb_admin/editupdate"  module="jauthdb_admin" action="default:editupdate"/>
-        <url pathinfo="/admin/jauthdb_admin/saveupdate"  module="jauthdb_admin" action="default:saveupdate"/>
-        <url pathinfo="/admin/jauthdb_admin/password/:id"  module="jauthdb_admin" action="password:index">
-            <param name="id" type="string"/>
+        <url pathinfo="/admin/auth/user/:id/delete" module="jauthdb_admin" action="default:delete">
+            <param name="id"/>
         </url>
-        <url pathinfo="/admin/jauthdb_admin/passwordupd"  module="jauthdb_admin" action="password:update"/>
-        <url pathinfo="/admin/jauthdb_admin/confirmdelete/:id"  module="jauthdb_admin" action="default:confirmdelete">
-            <param name="id" type="string"/>
-        </url>
-        <url pathinfo="/admin/jauthdb_admin/delete"  module="jauthdb_admin" action="default:delete"/>
 
-        <url pathinfo="/admin/jacl2db_admin/users"              module="jacl2db_admin" action="users:index"/>                
-        <url pathinfo="/admin/jacl2db_admin/users/saverights"   module="jacl2db_admin" action="users:saverights"/>
-        <url pathinfo="/admin/jacl2db_admin/users/:grpid"       module="jauthdb_admin" action="users:index">
-            <parameter name="grpid" type="number"/>
-        </url>        
-        <url pathinfo="/admin/jacl2db_admin/users/rights/:user" module="jacl2db_admin" action="users:rights">
-            <parameter name="user" type="string"/>        
+        <url pathinfo="/admin/auth/profile/:id" module="jauthdb_admin" action="user:index">
+            <param name="id"/>
         </url>
-        
-        <url pathinfo="/admin/jacl2db_admin/groups"             module="jacl2db_admin" action="groups:index"/>
-        <url pathinfo="/admin/jacl2db_admin/groups/setdefault"  module="jacl2db_admin" action="groups:setdefault"/>
-        <url pathinfo="/admin/jacl2db_admin/groups/changename"  module="jacl2db_admin" action="groups:changename"/>
-        <url pathinfo="/admin/jacl2db_admin/groups/rights"      module="jacl2db_admin" action="groups:rights"/>
-        <url pathinfo="/admin/jacl2db_admin/groups/newgroup"    module="jacl2db_admin" action="groups:newgroup"/>
-        <url pathinfo="/admin/jacl2db_admin/groups/delgroup"    module="jacl2db_admin" action="groups:delgroup"/>
-        <url pathinfo="/admin/jacl2db_admin/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>
+        <url pathinfo="/admin/auth/profile/:id/edit" module="jauthdb_admin" action="user:editupdate" actionoverride="user:preupdate,user:saveupdate">
+            <param name="id"/>
+        </url>
+
+        <url pathinfo="/admin/auth/user/:id/password" module="jauthdb_admin" action="password:index">
+            <param name="id"/>
+        </url>
+        <url pathinfo="/admin/auth/user/:id/password-save" module="jauthdb_admin" action="password:update">
+            <param name="id"/>
+        </url>
+
+        <url pathinfo="/admin/acl/groups"             module="jacl2db_admin" action="groups:index"/>
+        <url pathinfo="/admin/acl/groups/rights"      module="jacl2db_admin" action="groups:rights"/>
+        <url pathinfo="/admin/acl/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>
+        <url pathinfo="/admin/acl/groups/resource-rights" module="jacl2db_admin" action="groups:rightres"/>
+        <url pathinfo="/admin/acl/groups/save-resource-rights" module="jacl2db_admin" action="groups:saverightres"/>
+        <url pathinfo="/admin/acl/groups/new"         module="jacl2db_admin" action="groups:newgroup"/>
+        <url pathinfo="/admin/acl/groups/rename"      module="jacl2db_admin" action="groups:changename"/>
+        <url pathinfo="/admin/acl/groups/delete"      module="jacl2db_admin" action="groups:delgroup"/>
+        <url pathinfo="/admin/acl/users"              module="jacl2db_admin" action="users:index"/>
+        <url pathinfo="/admin/acl/users/:user"        module="jacl2db_admin" action="users:rights" 
+                actionoverride="users:removegroup,users:addgroup,users:saverights,users:rightres,users:saverightres"/>
 
         <!-- downloads module -->
 		<url pathinfo="/downloads/manage" module="downloads" action="mgr:manage"/>
@@ -284,9 +279,6 @@
 		<url pathinfo="/downloads/disable/:id" module="downloads" action="mgr:dl_disable">
 			<param name="id" type="integer" />
 		</url>
-
-
-
         
     </classicentrypoint>
     
