@@ -5,7 +5,7 @@
       <event name="AuthLogout" />
       <event name="AuthNewUser" />
       <event name="jcommunity_save_account" />
-      <event name="jcommunity_check_before_save_registration"/>
+      <event name="jcommunity_registration_prepare_save"/>
    </listener>
    <listener name="hfnumenu">
       <event name="hfnuGetMenuContent" />

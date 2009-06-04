@@ -1,4 +1,5 @@
-<h2>Activation of your account</h2>
+<div class="jcommunity-box jcommunity-account">
+<h1>Activation of your account</h1>
 
 <p>You must activate your account before to authenticate yourself on the web site.
 <strong>An email has been sent to you</strong> which contains a key (a word with some characters and numbers),
@@ -17,4 +18,4 @@ to activate your account.</p>
 </fieldset>
 <p>{formsubmit}</p>
 {/form}
-
+</div>

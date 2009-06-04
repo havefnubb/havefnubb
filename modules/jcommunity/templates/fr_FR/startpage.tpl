@@ -1,4 +1,4 @@
-
+<div class="jcommunity-box">
 {ifuserconnected}
     <p>{$login}, vous êtes identifié.</p>
 
@@ -19,3 +19,4 @@
     </ul>
 {/ifuserconnected}
 
+</div>

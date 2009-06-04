@@ -20,6 +20,7 @@ class registrationZone extends jZone {
         if($form == null){
             $form = jForms::create('registration');
         }
+        jEvent::notify('jcommunity_registration_init_form', array('form'=>$form,'tpl'=>$this->_tpl) );
         $this->_tpl->assign('form',$form);
     }
 

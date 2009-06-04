@@ -1,4 +1,5 @@
-<h2>Creating an account</h2>
+<div class="jcommunity-box jcommunity-account">
+<h1>Creating an account</h1>
 
 <p>To access to the web site services, register yourself by filling the following form.</p>
 
@@ -13,3 +14,4 @@
 you could identified yourself on the site.</p>
 <p>{formsubmit}</p>
 {/form}
+</div>

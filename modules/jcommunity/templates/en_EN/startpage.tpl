@@ -1,4 +1,4 @@
-
+<div class="jcommunity-box">
 {ifuserconnected}
     <p>{$login}, you are connected.</p>
 
@@ -17,3 +17,4 @@
         <li><a href="{jurl 'jcommunity~password:index'}">Get a new password</a> if you don't remember it.</li>
     </ul>
 {/ifuserconnected}
+</div>

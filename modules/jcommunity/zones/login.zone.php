@@ -26,13 +26,27 @@ class loginZone extends jZone {
                 $form = jForms::create("jcommunity~login");
             $this->_tpl->assign('form',$form);
 
-            if ($_SERVER['REQUEST_METHOD'] == 'GET' && $conf['enable_after_login_override']) {
+            if ($conf['enable_after_login_override']) {
                 $req = $GLOBALS['gJCoord']->request;
-                //(empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER["HTTP_HOST"].
-                $url = $req->urlScript.$req->urlPathInfo;
-                if(!empty($_SERVER['QUERY_STRING']))
-                    $url.='?'.$_SERVER['QUERY_STRING'];
-                $this->_tpl->assign('url_return',$url);
+                if ($req->getParam('auth_url_return')) {
+                    $this->_tpl->assign('url_return',$req->getParam('auth_url_return'));
+                }
+                else if($this->param('as_main_content')) {
+                    if ($_SERVER['HTTP_REFERER']) {
+                        $this->_tpl->assign('url_return',$_SERVER['HTTP_REFERER']);
+                    }
+                    else {
+                        $this->_tpl->assign('url_return','');
+                    }
+                }
+                else {
+                    
+                    //(empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER["HTTP_HOST"].
+                    $url = $req->urlScript.$req->urlPathInfo;
+                    if(!empty($_SERVER['QUERY_STRING']))
+                        $url.='?'.$_SERVER['QUERY_STRING'];
+                    $this->_tpl->assign('url_return',$url);
+                }                
             }else
                 $this->_tpl->assign('url_return','');
         }

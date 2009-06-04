@@ -1,4 +1,5 @@
-<h2>Activation of your new password</h2>
+<div class="jcommunity-box jcommunity-account-password">
+<h1>Activation of your new password</h1>
 
 <p><strong>An email has been sent to you</strong> which contains a key.
 In order to confirm the password change. you should indicate the key in the following form,
@@ -16,3 +17,4 @@ and give a new password.</p>
 <p>{formsubmit}</p>
 {/form}
 
+</div>

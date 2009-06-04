@@ -1,4 +1,5 @@
-<h2>Activation de votre compte</h2>
+<div class="jcommunity-box jcommunity-account">
+<h1>Activation de votre compte</h1>
 
 <p>Avant de pouvoir vous identifier sur le site, vous devez activer votre compte.
 Pour cela, <strong>un email vous a été envoyé</strong>, contenant une clé (un mot avec des chiffres et des lettres).</p>
@@ -17,3 +18,4 @@ Pour cela, <strong>un email vous a été envoyé</strong>, contenant une clé (u
 <p>{formsubmit}</p>
 {/form}
 
+</div>

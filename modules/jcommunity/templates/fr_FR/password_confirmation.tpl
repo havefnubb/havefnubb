@@ -1,4 +1,5 @@
-<h2>Activation de votre nouveau mot de passe</h2>
+<div class="jcommunity-box jcommunity-account-password">
+<h1>Activation de votre nouveau mot de passe</h1>
 
 <p>Un mail vous a été envoyé, contenant une clé d'activation. Pour valider
 le changement de mot de passe, indiquez la clé et un nouveau
@@ -15,3 +16,4 @@ mot de passe dans le formulaire suivant.</p>
 </fieldset>
 <p>{formsubmit}</p>
 {/form}
+</div>

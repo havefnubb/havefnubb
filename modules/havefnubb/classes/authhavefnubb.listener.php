@@ -125,7 +125,7 @@ class authhavefnubbListener extends jEventListener{
         }
    }
    
-   function onjcommunity_check_before_save_registration($event) {
+   function onjcommunity_registration_prepare_save($event) {
 	  $user = $event->getParam('user');
 
 	  // check if the user try to register with a banned domain
@@ -135,10 +135,10 @@ class authhavefnubbListener extends jEventListener{
 	  $return = bans::checkDomain($user->email);
 
 	  if (is_string($return)) {
-		 $event->Add(array('canregister'=>false,'why'=>$return));
+		 $event->Add(array('errorRegistration'=>$return));
 	  }
 	  else {
-		 $event->Add(array('canregister'=>true,'why'=>''));
+		 $event->Add(array('errorRegistration'=>''));
 	  }
 	  
    }

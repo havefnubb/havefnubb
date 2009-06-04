@@ -1,3 +1,4 @@
+<div class="jcommunity-box jcommunity-account-destroy">
 <h1>Deleting your account</h1>
 
 <form action="{formurl 'jcommunity~account:dodestroy', array('user'=>$username)}" method="get">
@@ -10,3 +11,4 @@
 </div>
 </fieldset>
 </form>
+</div>

@@ -19,7 +19,7 @@ class loginCtrl extends jController {
     function index() {
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('login.login.title');
-        $rep->body->assignZone('MAIN','jcommunity~login');
+        $rep->body->assignZone('MAIN','jcommunity~login', array('as_main_content'=>true));
         return $rep;
     }
 
@@ -46,7 +46,11 @@ class loginCtrl extends jController {
         if (!jAuth::login($form->getData('auth_login'), $form->getData('auth_password'), $form->getData('auth_remember_me'))){
             sleep (intval($conf['on_error_sleep']));
             $form->setErrorOn('auth_login',jLocale::get('jcommunity~login.error'));
-            $url_return = jUrl::get($conf['after_logout']);
+            //jMessage::add(jLocale::get('jcommunity~login.error'), 'error');
+            if ($auth_url_return = $this->param('auth_url_return'))
+                $url_return = jUrl::get('login:index', array('auth_url_return'=>$auth_url_return));
+            else
+                $url_return = jUrl::get('login:index');
         } else {
             jForms::destroy('jcommunity~login');
             if (!($conf['enable_after_login_override'] && $url_return = $this->param('auth_url_return'))){

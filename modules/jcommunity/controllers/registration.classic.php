@@ -40,9 +40,15 @@ class registrationCtrl extends jController {
 
         global $gJConfig;
         $rep= $this->getResponse("redirect");
-        $rep->action="registration:index";
+        $rep->action = "registration:index";
 
-        $form = jForms::fill('registration');
+        $form = jForms::get('registration');
+        if(!$form)
+            return $rep;
+        
+        jEvent::notify('jcommunity_registration_init_form', array('form'=>$form) );
+
+        $form->initFromRequest();
         if(!$form->check()){
             return $rep;
         }
@@ -62,18 +68,28 @@ class registrationCtrl extends jController {
         $user->status = JCOMMUNITY_STATUS_NEW;
         $user->request_date = date('Y-m-d H:i:s');
         $user->keyactivate = $key;
-        
-        $ev = jEvent::notify('jcommunity_check_before_save_registration', array('user'=>$user));
+
+        $ev = jEvent::notify('jcommunity_registration_prepare_save', array('form'=>$form, 'user'=>$user));
+
+        if (count($form->getErrors())) {
+            return $rep;
+        }
+
         $responses = $ev->getResponse();
-        
-        foreach ($responses as $response) {            
-            if ($response['why'] != '' and $response['canregister'] === false) {
-                jMessage::add( $response['why'],'error');
-                return $rep;
+        $hasErrors = false;
+        foreach ($responses as $response) {             
+            if (isset($response['errorRegistration']) && $response['errorRegistration'] != "") { 
+                jMessage::add($response['errorRegistration'], 'error');
+                $hasErrors = true;
             }
         }
-        
+
+        if ($hasErrors)
+            return $rep;
+
         jAuth::saveNewUser($user);
+
+        jEvent::notify('jcommunity_registration_after_save', array('form'=>$form, 'user'=>$user));
 
         $mail = new jMailer();
         $mail->From = $gJConfig->mailer['webmasterEmail'];
@@ -87,12 +103,12 @@ class registrationCtrl extends jController {
         $mail->Body = $tpl->fetch('mail_registration', 'text');
 
         $mail->AddAddress($user->email);
-        //$mail->SMTPDebug = true;
         $mail->Send();
 
         jForms::destroy('registration');
 
         $rep->action="registration:confirmform";
+        $rep->params= array('login'=>$login);
         return $rep;
     }
 
@@ -108,6 +124,9 @@ class registrationCtrl extends jController {
         $form = jForms::get('confirmation');
         if($form == null){
             $form = jForms::create('confirmation');
+            $login = $this->param('login');
+            if ($login)
+                $form->setData('conf_login', $login);
         }
         $tpl = new jTpl();
         $tpl->assign('form',$form);
@@ -159,10 +178,12 @@ class registrationCtrl extends jController {
         }
 
         $user->status = JCOMMUNITY_STATUS_VALID;
+        jEvent::notify('jcommunity_registration_confirm', array('user'=>$user));
         jAuth::updateUser($user);
         jAuth::changePassword($login, $form->getData('conf_password'));
         jAuth::login($login, $form->getData('conf_password'));
         jForms::destroy('confirmation');
+        
         $rep->action="registration:confirmok";
         return $rep;
     }

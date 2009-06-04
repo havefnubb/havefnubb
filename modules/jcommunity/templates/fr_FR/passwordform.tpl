@@ -1,4 +1,5 @@
-<h2>Récupération d'un nouveau mot de passe</h2>
+<div class="jcommunity-box jcommunity-account-password">
+<h1>Récupération d'un nouveau mot de passe</h1>
 
 <p>Si vous avez oublié votre mot de passe, indiquez ci-dessous votre login
 et l'adresse e-mail que vous avez indiqué dans votre profil, lors de votre inscription.</p>
@@ -11,3 +12,4 @@ et l'adresse e-mail que vous avez indiqué dans votre profil, lors de votre insc
 <p>Un email vous sera envoyé avec une clé d'activation vous permettant de choisir un nouveau mot de passe.</p>
 <p>{formsubmit}</p>
 {/form}
+</div>

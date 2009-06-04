@@ -1,8 +1,9 @@
-<h2>Création d'un compte</h2>
+<div class="jcommunity-box jcommunity-account">
+<h1>Création d'un compte</h1>
 
 <p>Pour pouvoir profiter au mieux des services du site, inscrivez-vous
 en remplissant le formulaire suivant.</p>
-{jmessage}
+
 {form $form,'jcommunity~registration:save', array()}
 <fieldset>
     <legend>Informations</legend>
@@ -14,3 +15,4 @@ en remplissant le formulaire suivant.</p>
 et ensuite pouvoir vous identifier sur le site.</p>
 <p>{formsubmit}</p>
 {/form}
+</div>
