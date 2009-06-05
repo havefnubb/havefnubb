@@ -307,7 +307,7 @@ class defaultCtrl extends jController {
 	}    
 	
 	function update_rc2_to_rc3() {
-		global $HfnuConfig;
+		global $HfnuConfig, $gJConfig;
 		
         if ($HfnuConfig->getValue('installed','main') == 0) {            
             $rep = $this->getResponse('redirect');
@@ -315,7 +315,7 @@ class defaultCtrl extends jController {
             return $rep;            
         }
 		
-		if ($HfnuConfig->getValue('installed','version') == '1.0.0RC2') {
+		if ($HfnuConfig->getValue('version','main') == '1.0.0RC2') {
 		
 			$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');		
 			$hfnuadminEntriesPoint =  $mainConfig->getValue('hfnuadmin','simple_urlengine_entrypoints');		
@@ -332,7 +332,7 @@ class defaultCtrl extends jController {
 			$profile 	= $db->getProfile('havefnubb');
 			$tools 		= jDb::getTools('havefnubb');
 			
-			$file = dirname(__FILE__).'/../install/update/1.0.0RC3/.'.$profile['driver'].'.sql';
+			$file = dirname(__FILE__).'/../install/update/1.0.0RC3/install.'.$profile['driver'].'.sql';
 			
 			$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);						
 			if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {
@@ -364,9 +364,18 @@ class defaultCtrl extends jController {
 			else 
 				$tools->execSQLScript($file);			
 				
-			$rep = $this->getResponse('html');		
-			$rep->body->assign('MAIN', 'update done');
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
 			return $rep;				
+		}
+		else {
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+			return $rep;		
 		}
 	}
 }

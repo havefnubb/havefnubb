@@ -11,6 +11,9 @@
 <div id="maincontent">	
     <div id="breadcrumbtop" class="headbox up-and-down">   
         <h3>
+		{if $step == 'update'}
+			<span class="actif">{@hfnuinstall~install.home.update@} ></span>
+		{else}
             <span {if $step == 'home'} class="actif"{/if}>1- {@hfnuinstall~install.home@} ></span>
             <span {if $step == 'check'} class="actif"{/if}>2- {@hfnuinstall~install.checking@} ></span>
             <span {if $step == 'config'} class="actif"{/if}>3- {@hfnuinstall~install.config@} ></span>
@@ -18,6 +21,7 @@
             <span {if $step == 'installdb'} class="actif"{/if}>5- {@hfnuinstall~install.create.table@} ></span>
             <span {if $step == 'adminaccount'} class="actif"{/if}>6-  {@hfnuinstall~install.create.account.admin@}></span>
             <span {if $step == 'end'} class="actif"{/if}>7- {@hfnuinstall~install.end@}</span>    
+		{/if}
         </h3>
     </div>
     {$MAIN}

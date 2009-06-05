@@ -15,20 +15,9 @@ var/config/havefnu.search.ini.php
 Files 
 2) remove everything of the previous installation
 3) upload the content of the archive on your website
-
-Database :
-
-/!\ if you use another table prefix than "hf_" :
-edit the SQL script  hfnuinstall/install/update/1.0.0RC3/install.mysql.sql
-and replace "hf_" by the same table_prefix you gave during the install process and
-is located in the file var/config/dbprofile.ini.php
-
-run SQL script hfnuinstall/install/update/1.0.0RC3/install.mysql.sql on your database
-
-Finally : 
-
 4) restore your backup of var/config 
-5) empty your cache located in temp/havefnubb (or go in the admin panel at http://yoursite.com/hfnuadmin.php/admin/cache)
+5) access to http://youresite.com/install?action=default:update_rc2_to_rc3&step=update
+this will update your database and your config files with the correct version number of HaveFnuBB
 
 
 ************************************************************************************
@@ -48,17 +37,6 @@ var/config/havefnu.search.ini.php
 Fichiers: 
 2) tout supprimer de l'installation précédante 
 3) transferer le contenu entier de l'archive sur votre site web
-
-Base de données :
-
-/!\ si vous utilisez un prefix de table différent de "hf_" :
-éditer le script SQL hfnuinstall/install/update/1.0.0RC3/install.mysql.sql
-et remplacer hf_ par le meme prefix que vous avez donné lors de l'installation et qui se
-trouve dans le fichier var/config/dbprofile.ini.php
-
-éxécuter le script SQL hfnuinstall/install/update/1.0.0RC3/install.mysql.sql
-
-Finallement : 
-
 4) restaurer votre sauvegarde de votre repertoire var/config 
-5) vider le cache se trouvant dans le repertoire temp/havefnubb (ou rendez vous dans le l'administration ici http://yoursite.com/hfnuadmin.php/admin/cache)
+5) acceder à http://votresite.com/install?action=default:update_rc2_to_rc3&step=update
+ceci mettra à jour votre base de données et vos fichiers de configuration avec la bonne version de HaveFnuBB
