@@ -320,7 +320,7 @@ class defaultCtrl extends jController {
 			$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');		
 			$hfnuadminEntriesPoint =  $mainConfig->getValue('hfnuadmin','simple_urlengine_entrypoints');		
 			$hfnuadminEntriesPoint .= ', hfnucontact~*@classic';
-			$mainConfig->setValue('hfnuadmin', hfnuadminEntriesPoint,'simple_urlengine_entrypoints');
+			$mainConfig->setValue('hfnuadmin', $hfnuadminEntriesPoint,'simple_urlengine_entrypoints');
 			$mainConfig->save();
 			
 			$HfnuConfig->setValue('version','1.0.0RC3','main');
