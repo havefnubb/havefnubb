@@ -65,7 +65,10 @@ class installHtmlResponse extends jResponseHtml {
                     break;                
                  case 'end':
                     $this->body->assign('step','end');
-                    break;                                
+                    break;
+				case 'update':
+                    $this->body->assign('step','update');
+                    break;   
                 default:
                     $this->body->assign('step','home');
                     break;
