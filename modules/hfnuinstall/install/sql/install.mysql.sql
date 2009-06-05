@@ -327,7 +327,9 @@ INSERT INTO `hf_jacl2_rights` (`id_aclsbj`, `id_aclgrp`, `id_aclres`) VALUES
 ('hfnu.search', 0, ''),
 ('hfnu.search', 1, ''),
 ('hfnu.search', 2, ''),
-('hfnu.search', 3, '');
+('hfnu.search', 3, ''),
+
+('hfnu.admin.contact', 1, '');
 
 -- --------------------------------------------------------
 
@@ -409,7 +411,8 @@ INSERT INTO `hf_jacl2_subject` (`id_aclsbj`, `label_key`) VALUES
 ('hfnu.admin.member', 'havefnubb~acl2.admin.member'),
 ('hfnu.admin.post', 'havefnubb~acl2.admin.post'),
 ('hfnu.admin.ban', 'havefnubb~acl2.admin.ban'),
-('hfnu.admin.serverinfo', 'havefnubb~acl2.admin.serverinfo');
+('hfnu.admin.serverinfo', 'havefnubb~acl2.admin.serverinfo'),
+('hfnu.admin.contact', 'hfnucontact~acl2.admin.contact');
 
 -- --------------------------------------------------------
 

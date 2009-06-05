@@ -3,7 +3,7 @@ A) PreRequisites :
 
 B) INSTALLATION :
 1) Files : 
-To be able to install this module ; just copy the hfnuseach directory in your modules directory, then : 
+To be able to use this module ; just copy the hfnuseach directory in your modules directory, then : 
 - Copy the file install/hfnusearch.ini.php.dist to var/config/hfnusearch.ini.php
 - Copy the file install/hfnusearch.css in your directory www/themes/<_your_theme_>
 

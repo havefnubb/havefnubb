@@ -255,6 +255,9 @@
         <url pathinfo="/admin/acl/users/:user"        module="jacl2db_admin" action="users:rights" 
                 actionoverride="users:removegroup,users:addgroup,users:saverights,users:rightres,users:saverightres"/>
 
+
+        <url pathinfo="/admin/contact"          module="hfnucontact" action="admin:index" />
+
         <!-- downloads module -->
 		<url pathinfo="/downloads/manage" module="downloads" action="mgr:manage"/>
 		<url pathinfo="/downloads/manage/:id" module="downloads" action="mgr:manage">
