@@ -112,7 +112,7 @@ xmlrpc="@xmlrpc"
 jsonrpc="@jsonrpc"
 rdf="@rdf"
 
-hfnuadmin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~*@classic, servinfo~default@classic, hfnusearch~admin@classic, downloads~mgr:index@classic, downloads~mgr:manage@classic, downloads~mgr:config@classic, downloads~mgr:dls@classic"
+hfnuadmin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, hfnuadmin~*@classic, servinfo~default@classic, hfnusearch~admin@classic, hfnucontact~*@classic, downloads~mgr:index@classic, downloads~mgr:manage@classic, downloads~mgr:config@classic, downloads~mgr:dls@classic"
 install="hfnuinstall~*@classic"
 
 

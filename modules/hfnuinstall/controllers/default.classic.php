@@ -305,4 +305,68 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN', $tpl->fetch('install'));
         return $rep;		
 	}    
+	
+	function update_rc2_to_rc3() {
+		global $HfnuConfig;
+		
+        if ($HfnuConfig->getValue('installed','main') == 0) {            
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'hfnuinstall~default:index';
+            return $rep;            
+        }
+		
+		if ($HfnuConfig->getValue('installed','version') == '1.0.0RC2') {
+		
+			$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');		
+			$hfnuadminEntriesPoint =  $mainConfig->getValue('hfnuadmin','simple_urlengine_entrypoints');		
+			$hfnuadminEntriesPoint .= ', hfnucontact~*@classic';
+			$mainConfig->setValue('hfnuadmin', hfnuadminEntriesPoint,'simple_urlengine_entrypoints');
+			$mainConfig->save();
+			
+			$HfnuConfig->setValue('version','1.0.0RC3','main');
+			$HfnuConfig->save();
+			
+			jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+			
+			$db 		= new jDb();
+			$profile 	= $db->getProfile('havefnubb');
+			$tools 		= jDb::getTools('havefnubb');
+			
+			$file = dirname(__FILE__).'/../install/update/1.0.0RC3/.'.$profile['driver'].'.sql';
+			
+			$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);						
+			if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {
+				
+				$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
+				$fileDest = dirname(__FILE__).'/../install/update/1.0.0RC3/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+				$sources = file($file);
+				$newSource = '';
+				
+				$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO|UPDATE|ALTER TABLE) `(hf_)(.*)/';
+				
+				foreach ((array)$sources as $key=>$line) {
+					if (preg_match($pattern,$line,$match)) {
+						$newSource .= $match[1] .' `'.$tablePrefix . $match[3];
+					}
+					else {
+						$newSource .= $line;
+					}
+				}							
+
+				$fh = fopen($fileDest,'w+');
+				fwrite($fh,$newSource);
+				fclose($fh);
+				$file = dirname(__FILE__).'/../install/update/1.0.0RC3/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+				
+				$tools->execSQLScript($file);
+				@unlink($file);							
+			}
+			else 
+				$tools->execSQLScript($file);			
+				
+			$rep = $this->getResponse('html');		
+			$rep->body->assign('MAIN', 'update done');
+			return $rep;				
+		}
+	}
 }
