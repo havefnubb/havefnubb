@@ -20,7 +20,7 @@
     <li class="wiki-image image"><strong>Image</strong>: ((image link|alternative text | position |description)). position: l/L/g/G => left, r/R/d/D =>right, nothing=>inline.</li>
     <li class="wiki-image code"><strong>code</strong> : @@code@@</li>
     <li class="wiki-image quoting"><strong>cite</strong> : ^^sentence|lang|link of source^^</li>
-    <li class="wiki-image ref"><strong>reference (cite)</strong> : {litera}{{reference}}{/literal}</li>
+    <li class="wiki-image ref"><strong>reference (cite)</strong> : {literal}{{reference}}{/literal}</li>
     <li class="wiki-image acronym"><strong>acronym</strong> : ??acronym|explanation??</li>
 </ul>
 </div>
