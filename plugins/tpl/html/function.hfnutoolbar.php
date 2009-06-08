@@ -29,7 +29,7 @@ function jtpl_function_html_hfnutoolbar($tpl, $id, $path)
         "               '".jLocale::get('hfnutoolbar.enter.the.link.image')."',"."\n".
         "               '".jLocale::get('hfnutoolbar.enter.the.alt.image')."',"."\n".
         "               '".jLocale::get('hfnutoolbar.enter.the.position.image')."',"."\n".
-        "               '".jLocale::get('hfnutoolbar.enter.the.position.image')."'"."\n".
+        "               '".jLocale::get('hfnutoolbar.enter.the.description.image')."'"."\n".
         "               );  "."\n".
         "  tb.btCode('".jLocale::get('hfnutoolbar.source.code')."');"."\n".
         "  tb.btHr('".jLocale::get('hfnutoolbar.horiz.line')."');"."\n".
