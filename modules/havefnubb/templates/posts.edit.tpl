@@ -1,3 +1,4 @@
+{meta_html js $j_basepath .'hfnutoolbar.js'}
 <div id="breadcrumbtop" class="headbox">
     <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat,'ctitle'=>$category->cat_name)}" title="{$category->cat_name}">{$category->cat_name|eschtml}</a> > <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h3>
 </div>
@@ -22,6 +23,7 @@
     <p>{ctrl_control 'tags'} </p>    
     <p>{ctrl_label 'message'} </p>
     <p>{ctrl_control 'message'} </p>
+    {hfnutoolbar 'jforms_havefnubb_posts_message',$j_themepath.'images/wiki/'}    
     </fieldset>
     <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
     {/form}

@@ -669,69 +669,69 @@ ul.subforum-home li {
 	height: 20px;
 
 }
-#syntax_wiki {
+.syntax_wiki {
 	padding-left: 40px;
 }
 
-#syntax_wiki li.italic {
+.syntax_wiki li.italic {
 	background-image: url("../images/wiki/text_italic.png");
 }
 
-#syntax_wiki li.bold {
+.syntax_wiki li.bold {
 	background-image: url("../images/wiki/text_bold.png");
 }
 
-#syntax_wiki  li.list{
+.syntax_wiki  li.list{
 	background-image: url("../images/wiki/text_list_numbers.png");
 }
 
-#syntax_wiki  li.source{
+.syntax_wiki  li.source{
 	background-image: url("../images/wiki/text_source.png");
 }
 
-#syntax_wiki  li.link {
+.syntax_wiki  li.link {
 	background-image: url("../images/wiki/text_link.png");
 }
 
-#syntax_wiki  li.quote {
+.syntax_wiki  li.quote {
 	background-image: url("../images/wiki/text_quote.png");
 }
 
-#syntax_wiki  li.para {
+.syntax_wiki  li.para {
 	background-image: url("../images/wiki/text_para.png");
 }
 
 
-#syntax_wiki  li.def {
+.syntax_wiki  li.def {
 	background-image: url("../images/wiki/text_def.png");
 }
 
-#syntax_wiki  li.full_link {
+.syntax_wiki  li.full_link {
 	background-image: url("../images/wiki/text_full_link.png");
 }
 
-#syntax_wiki  li.carriage_return {
+.syntax_wiki  li.carriage_return {
 	background-image: url("../images/wiki/text_carriage_return.png");
 }
 
-#syntax_wiki  li.image {
+.syntax_wiki  li.image {
 	background-image: url("../images/wiki/text_image.png");
 }
 
-#syntax_wiki  li.code {
+.syntax_wiki  li.code {
 	background-image: url("../images/wiki/text_code.png");
 }
 
-#syntax_wiki  li.quoting {
+.syntax_wiki  li.quoting {
 	background-image: url("../images/wiki/text_quoting.png");
 }
 
-#syntax_wiki  li.ref {
+.syntax_wiki  li.ref {
 	background-image: url("../images/wiki/text_ref.png");
 	height: 20px;
 }
 
-#syntax_wiki  li.acronym {
+.syntax_wiki  li.acronym {
 	background-image: url("../images/wiki/text_acronym.png");
 
 }
