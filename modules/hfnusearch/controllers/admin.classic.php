@@ -35,9 +35,8 @@ class adminCtrl extends jController {
         
         if ($confirm == 'Y') {            
             $idx = jClasses::getService('hfnusearch~search_index');
-            $idx->searchEngineReindexing();
-            //@TODO : adding the count of reindexing words + posts
-            jMessage::add(jLocale::get('hfnusearch~search.admin.reindexing.done'));
+            $nbWords = $idx->searchEngineReindexing();
+            jMessage::add(jLocale::get('hfnusearch~search.admin.reindexing.done',$nbWords));
         }
         else {
             jMessage::add(jLocale::get('hfnusearch~search.admin.reindexing.canceled'));

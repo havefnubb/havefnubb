@@ -669,7 +669,6 @@ class postsCtrl extends jController {
             
             jEvent::notify('HfnuSearchEngineDeleteContent',array('id'=>$id_post,'havefnubb~forum'));
             
-            //@TODO remove the tag from this post into the tag tables
             jMessage::add(jLocale::get('havefnubb~main.common.posts.deleted'),'ok');
         }
         $rep = $this->getResponse('redirect');		

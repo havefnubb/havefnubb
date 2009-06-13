@@ -21,6 +21,12 @@
             <conditions>
                 <eq property="parent_id" value="0"/>
             </conditions>
-        </method>		        
+        </method>
+        <method name="countByIdCat" type="count">
+            <parameter name="id_cat" />
+            <conditions>
+                <eq property="id_cat" expr="$id_cat" />
+            </conditions>            
+        </method>        
     </factory>
 </dao>

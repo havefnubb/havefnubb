@@ -13,12 +13,12 @@ class ranksCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'		=>	array('auth.required'=>true,
-						  'hfnu.check.installed'=>true,
-						  'banuser.check'=>true,
+        '*'     => array('auth.required'=>true,
+                            'hfnu.check.installed'=>true,
+                            'banuser.check'=>true,
 					),
         'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.rank.create',
-														'hfnu.admin.rank.edit')
+                                                        'hfnu.admin.rank.edit')
 							),		
         'delete'    => array( 'jacl2.right'=>'hfnu.admin.rank.delete'),
     );
@@ -124,10 +124,8 @@ class ranksCtrl extends jController {
 			jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');			
 		} else {
 			$dao = jDao::get('havefnubb~ranks');
-			//@TODO : check if there is existing Member using this rank
-			// if so, tell the admin he cant remove it !		
-			$dao->delete($id_rank);        
-			jMessage::add(jLocale::get('hfnuadmin~rank.rank.deleted'),'ok');			
+			$dao->delete($id_rank);
+			jMessage::add(jLocale::get('hfnuadmin~rank.rank.deleted'),'ok');
 		}
         
         $rep = $this->getResponse('redirect');

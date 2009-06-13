@@ -121,12 +121,15 @@ class categoryCtrl extends jController {
 		if ($id_cat == 0) {
 			jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
 		} else {		
-			//@TODO : check if there is existing Forum linked to this category
-			// if so, ask the user if he wants to remove the forum and all the linked posts !
-			$dao = jDao::get('havefnubb~category');        
-			$dao->delete($id_cat);
-        
-	        jMessage::add(jLocale::get('hfnuadmin~category.category.deleted'),'ok');
+			$rec = jDao::get('havefnubb~forum_cat')->countByIdCat($id_cat);
+			if ($rec == 0) {
+				$dao = jDao::get('havefnubb~category');        
+				$dao->delete($id_cat);        
+				jMessage::add(jLocale::get('hfnuadmin~category.category.deleted'),'ok');
+			}
+			else {
+				jMessage::add(jLocale::get('hfnuadmin~category.category.cant.be.deleted',$rec),'error');
+			}
 		}
 		
         $rep = $this->getResponse('redirect');
