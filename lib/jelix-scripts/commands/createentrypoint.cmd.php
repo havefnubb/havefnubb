@@ -33,7 +33,7 @@ class createentrypointCommand extends JelixScriptCommand {
     Create a new entry point in the www directory of the application.
     
     The -type option indicates the type of the entry point: classic, jsonrpc,
-    xmlrpc, rdf, soap.
+    xmlrpc, rdf, soap, cmdline.
     
     The name of the entry point can contain a subdirectory. It shouldn't
     contain the .php suffix.
@@ -80,7 +80,8 @@ class createentrypointCommand extends JelixScriptCommand {
             $this->createDir(JELIX_APP_CONFIG_PATH.'cmdline');
             $this->createDir(JELIX_APP_CMD_PATH);
             $this->createFile(JELIX_APP_CONFIG_PATH.'cmdline/'.$name.'.ini.php','var/config/cmdline/config.ini.php.tpl', $param);
-            $param['rp_cmd'] =jxs_getRelativePath(JELIX_APP_PATH, JELIX_APP_CMD_PATH,true);
+            $param['rp_cmd'] =jxs_getRelativePath(JELIX_APP_CMD_PATH, JELIX_APP_PATH, true);
+            $param['config_file'] = 'cmdline/'.$name.'.ini.php';
             $this->createFile(JELIX_APP_CMD_PATH.$name.'.php','scripts/cmdline.php.tpl',$param);
             
             return;

@@ -10,9 +10,9 @@
 	<label locale="havefnubb~post.form.subject"/>
 </input>
 
-<wikieditor ref="message" required="true"  rows="10" cols="80" config="default">
+<textarea ref="message" required="true"  rows="10" cols="80" >
 	<label locale="havefnubb~post.form.message"/>
-</wikieditor>
+</textarea>
 
 <textarea ref="tags" rows="2" cols="60">
 	<label locale="havefnubb~post.form.choose.your.tags"/>

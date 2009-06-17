@@ -77,29 +77,30 @@ class createappCommand extends JelixScriptCommand {
             $wwwpath = JELIX_APP_WWW_PATH;
         }
 
-       $this->createDir(JELIX_APP_REAL_TEMP_PATH);
-       $this->createDir(JELIX_APP_CLI_TEMP_PATH);
-       $this->createDir(JELIX_APP_TEMP_PATH);
-       $this->createDir($wwwpath);
-       $this->createDir(JELIX_APP_VAR_PATH);
-       $this->createDir(JELIX_APP_LOG_PATH);
-       $this->createDir(JELIX_APP_CONFIG_PATH);
-       $this->createDir(JELIX_APP_CONFIG_PATH.'index/');
-       $this->createDir(JELIX_APP_VAR_PATH.'overloads/');
-       $this->createDir(JELIX_APP_VAR_PATH.'themes/');
-       $this->createDir(JELIX_APP_VAR_PATH.'themes/default/');
-       $this->createDir(JELIX_APP_VAR_PATH.'uploads/');
-       $this->createDir(JELIX_APP_VAR_PATH.'sessions/');
-       $this->createDir(JELIX_APP_PATH.'modules');
-       $this->createDir(JELIX_APP_PATH.'plugins');
-       $this->createDir(JELIX_APP_PATH.'plugins/coord/');
-       $this->createDir(JELIX_APP_PATH.'plugins/tpl/');
-       $this->createDir(JELIX_APP_PATH.'plugins/tpl/common');
-       $this->createDir(JELIX_APP_PATH.'plugins/tpl/html');
-       $this->createDir(JELIX_APP_PATH.'plugins/tpl/text');
-       $this->createDir(JELIX_APP_PATH.'plugins/db/');
-       $this->createDir(JELIX_APP_PATH.'plugins/auth/');
-       $this->createDir(JELIX_APP_PATH.'responses');
+        $this->createDir(JELIX_APP_REAL_TEMP_PATH);
+        $this->createDir(JELIX_APP_CLI_TEMP_PATH);
+        $this->createDir(JELIX_APP_TEMP_PATH);
+        $this->createDir($wwwpath);
+        $this->createDir(JELIX_APP_VAR_PATH);
+        $this->createDir(JELIX_APP_LOG_PATH);
+        $this->createDir(JELIX_APP_CONFIG_PATH);
+        $this->createDir(JELIX_APP_CONFIG_PATH.'index/');
+        $this->createDir(JELIX_APP_VAR_PATH.'overloads/');
+        $this->createDir(JELIX_APP_VAR_PATH.'themes/');
+        $this->createDir(JELIX_APP_VAR_PATH.'themes/default/');
+        $this->createDir(JELIX_APP_VAR_PATH.'uploads/');
+        $this->createDir(JELIX_APP_VAR_PATH.'sessions/');
+        $this->createDir(JELIX_APP_PATH.'modules');
+        $this->createDir(JELIX_APP_PATH.'plugins');
+        $this->createDir(JELIX_APP_PATH.'plugins/coord/');
+        $this->createDir(JELIX_APP_PATH.'plugins/tpl/');
+        $this->createDir(JELIX_APP_PATH.'plugins/tpl/common');
+        $this->createDir(JELIX_APP_PATH.'plugins/tpl/html');
+        $this->createDir(JELIX_APP_PATH.'plugins/tpl/text');
+        $this->createDir(JELIX_APP_PATH.'plugins/db/');
+        $this->createDir(JELIX_APP_PATH.'plugins/auth/');
+        $this->createDir(JELIX_APP_PATH.'responses');
+        $this->createDir(JELIX_APP_PATH.'scripts');
 
         $param = array();
         $param['default_id'] = $GLOBALS['APPNAME'].JELIXS_INFO_DEFAULT_IDSUFFIX;
@@ -155,7 +156,7 @@ class createappCommand extends JelixScriptCommand {
                 $this->createFile(JELIX_APP_PATH.'modules/'.$param['modulename'].'/templates/main.tpl', 'main.tpl.tpl', $param);
             } catch (Exception $e) {
                 $moduleok = false;
-                echo "The module has not been created because of this error: ".$e->getMessage()."\nHowever the application has been created";
+                echo "The module has not been created because of this error: ".$e->getMessage()."\nHowever the application has been created\n";
             }
         }
 

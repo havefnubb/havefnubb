@@ -9,7 +9,7 @@
 */
 
 
-class language implements jIFormDatasource
+class language implements jIFormsDatasource
 {
     protected $formId = 0; 
     protected $data = array();  

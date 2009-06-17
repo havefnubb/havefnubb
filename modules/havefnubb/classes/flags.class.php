@@ -9,7 +9,7 @@
 */
 
 
-class flags implements jIFormDatasource
+class flags implements jIFormsDatasource
 {
   protected $formId = 0; 
   protected $data = array();  

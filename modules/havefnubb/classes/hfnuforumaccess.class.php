@@ -9,7 +9,7 @@
 */
 
 
-class hfnuforumaccess implements jIFormDatasource
+class hfnuforumaccess implements jIFormsDatasource
 {
     protected $formId = 0; 
     protected $data = array();  

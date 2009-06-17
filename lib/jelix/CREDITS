@@ -66,6 +66,7 @@ Yannick Le Guédart (aka Torgan)
  - jdb driver for Intuition
  - resolved memory exhausted errors in truncate modifier (#511)
  - fixed bug on jBundle (#639)
+ - fixed bug on jDaoConditions (#906)
 
 Kévin Lepeltier (aka Lipki)
  - plugin image for jtpl (#474, #502, #558, #559, #560)
@@ -155,6 +156,9 @@ Mickaël Fradin (aka mike/kewix)
 
 Olivier Gambier (aka d-m-p)
  - code reviewer, bug fixes
+
+Geekbay
+ - fixed bug in jMailer about the support of html plugins into the template (#898)
 
 Gildas Givaja (aka Giviz)
  - testor, bug fixes
