@@ -8,7 +8,7 @@
 */
 
 /* login form */
-#loginbox  p {
+#loginbox p {
 	text-align: center;
 	vertical-align: bottom;
 }
@@ -22,17 +22,18 @@
 #login-status {
 	width: 30%;
 	top: 3px;
-	right: 30px;
+	right: 170px;
 	position: absolute;
 	margin: auto;
-	color: #232320;
-    background-position:center;
+	color: #FFF;
     padding-left: 0px;
     padding-right:0px;
 }
 
 #login-status li {
-    display:inline;
+/*    display:inline;*/
+	margin-left: 80px;
+	text-align: center;
     padding:1px;
     list-style-type:none;
     list-style-position:outside;	
