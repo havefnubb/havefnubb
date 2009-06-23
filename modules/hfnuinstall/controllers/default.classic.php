@@ -8,11 +8,22 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
+// Installation controller
 class defaultCtrl extends jController {
     public $pluginParams = array(
         '*'		=>	array('auth.required'=>false,
 						  'hfnu.timeout.do.not.check'=>true)
     );
+    
+    /**
+     * Main method which manage all the installation process
+     * step 1 : check the prerequisite
+     * step 2 : define the config of the forum
+     * step 3 : define the config access
+     * step 4 : install the database
+     * step 5 : define the admin account
+     * step 6 : end
+     */
     function index() {
         global $HfnuConfig, $gJConfig;
         
@@ -196,36 +207,42 @@ class defaultCtrl extends jController {
                         $tools 		= jDb::getTools('havefnubb');
 						
 						$file = dirname(__FILE__).'/../install/sql/install.'.$profile['driver'].'.sql';
-						
-						$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);						
-						if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {
-							
-							$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
-							$fileDest = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
-							$sources = file($file);
-							$newSource = '';
-							
-							$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) `(hf_)(.*)/';
-							
-							foreach ((array)$sources as $key=>$line) {
-								if (preg_match($pattern,$line,$match)) {
-									$newSource .= $match[1] .' `'.$tablePrefix . $match[3];
-								}
-								else {
-									$newSource .= $line;
-								}
-							}							
+                        
+                        //default fake prefix uses in the filename if no prefix table are filled
+						$tablePrefix = 'null_';
+                        
+						$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+                        
+						if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {						
+							$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;							
+                        }
+                        
+                        $fileDest = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+                        
+                        $sources = file($file);
+                        $newSource = '';
+                        
+                        $pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) `(hf_)(.*)/';
+                        
+                        foreach ((array)$sources as $key=>$line) {
+                            if (preg_match($pattern,$line,$match)) {
+                                if ($tablePrefix != 'null_')
+                                    $newSource .= $match[1] .' `'.$tablePrefix . $match[3];
+                                else
+                                    $newSource .= $match[1] .' `'. $match[3];
+                            }
+                            else {
+                                $newSource .= $line;
+                            }
+                        }							
 
-							$fh = fopen($fileDest,'w+');
-							fwrite($fh,$newSource);
-							fclose($fh);
-							$file = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
-							
-							$tools->execSQLScript($file);
-							@unlink($file);							
-						}
-						else 
-							$tools->execSQLScript($file);
+                        $fh = fopen($fileDest,'w+');
+                        fwrite($fh,$newSource);
+                        fclose($fh);
+                        $file = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+                        
+                        $tools->execSQLScript($file);
+                        @unlink($file);							
 
                         $rep = $this->getResponse('redirect');
                         $rep->action ='hfnuinstall~default:index';
@@ -258,25 +275,22 @@ class defaultCtrl extends jController {
                                                 
                         // let's create an Admin account !
                         // 1) get data !
-                        $login = $form->getData('login');
-                        $pass = $form->getData('password');
-                        // 2) generate random password
-                        // $pass = jAuth::getRandomPassword(8);
-                        // $key = substr(md5($login.'-'.$pass),1,10);
-                        // 3) create User Object
-                        $user = jAuth::createUserObject($login,$pass);
-                        // 4) set properties
-                        $user->email = $form->getData('admin_email');
+                        $login  = $form->getData('login');
+                        $pass   = $form->getData('password');
+                        // 2) create User Object
+                        $user   = jAuth::createUserObject($login,$pass);
+                        // 3) set properties
+                        $user->email    = $form->getData('admin_email');
                         $user->nickname = $login;
-                        $user->status = 2;
+                        $user->status   = 2;
                         $user->request_date = date('Y-m-d H:i:s');
                         // $user->keyactivate = $key;
-                        // 5) save the user !
+                        // 4) save the user !
                         // this will add the user to the "default group" which is "users"                        
                         jAuth::saveNewUser($user);
-                        // 6) add this user to the group "admins" number 1
+                        // 5) add this user to the group "admins" number 1
                         jAcl2DbUserGroup::addUserToGroup($login, 1);
-                        // 7) remove the user to the groups "users" 2 (the default one)
+                        // 6) remove the user to the groups "users" 2 (the default one)
                         jAcl2DbUserGroup::removeUserFromGroup($login, 2 );
                         // DONE : we have created an admin account !
                         
@@ -305,7 +319,12 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN', $tpl->fetch('install'));
         return $rep;		
 	}    
-	
+
+
+
+    /**
+     * Method to update from rc2 to rc3
+     */	
 	function update_rc2_to_rc3() {
 		global $HfnuConfig, $gJConfig;
 		
@@ -317,52 +336,7 @@ class defaultCtrl extends jController {
 		
 		if ($HfnuConfig->getValue('version','main') == '1.0.0RC2') {
 		
-			$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');		
-			$hfnuadminEntriesPoint =  $mainConfig->getValue('hfnuadmin','simple_urlengine_entrypoints');		
-			$hfnuadminEntriesPoint .= ', hfnucontact~*@classic';
-			$mainConfig->setValue('hfnuadmin', $hfnuadminEntriesPoint,'simple_urlengine_entrypoints');
-			$mainConfig->save();
-			
-			$HfnuConfig->setValue('version','1.0.0RC3','main');
-			$HfnuConfig->save();
-			
-			jFile::removeDir(JELIX_APP_TEMP_PATH, false);
-			
-			$db 		= new jDb();
-			$profile 	= $db->getProfile('havefnubb');
-			$tools 		= jDb::getTools('havefnubb');
-			
-			$file = dirname(__FILE__).'/../install/update/1.0.0RC3/install.'.$profile['driver'].'.sql';
-			
-			$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);						
-			if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {
-				
-				$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
-				$fileDest = dirname(__FILE__).'/../install/update/1.0.0RC3/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
-				$sources = file($file);
-				$newSource = '';
-				
-				$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO|UPDATE|ALTER TABLE) `(hf_)(.*)/';
-				
-				foreach ((array)$sources as $key=>$line) {
-					if (preg_match($pattern,$line,$match)) {
-						$newSource .= $match[1] .' `'.$tablePrefix . $match[3];
-					}
-					else {
-						$newSource .= $line;
-					}
-				}							
-
-				$fh = fopen($fileDest,'w+');
-				fwrite($fh,$newSource);
-				fclose($fh);
-				$file = dirname(__FILE__).'/../install/update/1.0.0RC3/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
-				
-				$tools->execSQLScript($file);
-				@unlink($file);							
-			}
-			else 
-				$tools->execSQLScript($file);			
+            self::_update_to_rc3();	
 				
 			$rep = $this->getResponse('html');
 			$tpl = new jTpl();
@@ -378,4 +352,106 @@ class defaultCtrl extends jController {
 			return $rep;		
 		}
 	}
+    /**
+     * Method to update to rc4
+     */	
+	function update_to_rc4() {
+		global $HfnuConfig, $gJConfig;
+        
+		$version = $HfnuConfig->getValue('version','main');
+        
+        if ($HfnuConfig->getValue('installed','main') == 0) {            
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'hfnuinstall~default:index';
+            return $rep;            
+        }
+        $updated == '';
+		if ($version == '1.0.0RC2') {
+            self::_update_to_rc3();
+            $updated == 'ok';
+        }
+		if ($version == '1.0.0RC3') {
+			self::_update_to_rc4();
+            $updated == 'ok';
+        }
+
+        if ($updated == 'ok') {
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
+			return $rep;
+		}
+		else {
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+			return $rep;		
+		}
+    }
+        
+    private  static function _update_to_rc3() {
+        global $HfnuConfig, $gJConfig;
+        
+        $mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+        $hfnuadminEntriesPoint =  $mainConfig->getValue('hfnuadmin','simple_urlengine_entrypoints');		
+        $hfnuadminEntriesPoint .= ', hfnucontact~*@classic';
+        $mainConfig->setValue('hfnuadmin', $hfnuadminEntriesPoint,'simple_urlengine_entrypoints');
+        $mainConfig->save();
+        
+        $db 		= new jDb();
+        $profile 	= $db->getProfile('havefnubb');
+        $tools 		= jDb::getTools('havefnubb');
+        
+        $file = dirname(__FILE__).'/../install/update/1.0.0RC3/install.'.$profile['driver'].'.sql';
+        
+        //default fake prefix uses in the filename if no prefix table are filled
+        $tablePrefix = 'null_';
+        
+        $dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+        
+        
+        if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {            
+            $tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
+        }            
+        $fileDest = dirname(__FILE__).'/../install/update/1.0.0RC3/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+        $sources = file($file);
+        $newSource = '';
+        
+        $pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO|UPDATE|ALTER TABLE) `(hf_)(.*)/';
+        
+        foreach ((array)$sources as $key=>$line) {
+            if (preg_match($pattern,$line,$match)) {
+                if ($tablePrefix != 'null_')
+                    $newSource .= $match[1] .' `'.$tablePrefix . $match[3];
+                else
+                    $newSource .= $match[1] .' `'. $match[3];
+            }
+            else {
+                $newSource .= $line;
+            }
+        }							
+
+        $fh = fopen($fileDest,'w+');
+        fwrite($fh,$newSource);
+        fclose($fh);
+        $file = dirname(__FILE__).'/../install/update/1.0.0RC3/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+        
+        $tools->execSQLScript($file);
+        @unlink($file);							
+
+        $HfnuConfig->setValue('version','1.0.0RC3','main');
+        $HfnuConfig->save();
+
+        jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+    }
+
+    private  static function _update_to_rc4() {
+        global $HfnuConfig, $gJConfig;
+        $HfnuConfig->setValue('version','1.0.0RC4','main');
+        $HfnuConfig->save();
+        jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+    }
+    
 }

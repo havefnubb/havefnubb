@@ -1,4 +1,4 @@
-<div id="login-status">
+
 {ifuserconnected}
     <ul>
         <li>{@havefnubb~member.status.welcome@} <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$login)}">{$login}.</a></li>
@@ -13,5 +13,3 @@
     <li>{@havefnubb~member.status.or.to@} <a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.status.register@}</a></li>
 </ul>
 {/ifuserconnected}
-</div>
-
