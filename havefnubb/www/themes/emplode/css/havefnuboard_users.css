@@ -34,12 +34,6 @@
     list-style-position:outside;	
 }
 
-#login-status a:hover {color: #CCB;}
-
-#footer {
-	color: #AA9;
-	padding: 12px 0;
-}
 #login-status a {
 	color: #777;
 	text-decoration: none;

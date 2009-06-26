@@ -3,7 +3,7 @@
 		
 		<div id="toplinks">
 			<div id="toplinks_inner">
-				{* zone 'jcommunity~status' *}
+			{zone 'jcommunity~status'}
 			</div>
 		</div>
 		<div class="clearer">&nbsp;</div>
@@ -26,7 +26,16 @@
 	<div id="main_wrapper_inner">
 		<div class="center_wrapper">
 				<div id="main_content">
-				{zone 'jcommunity~status'}					
+{ifuserconnected}
+{else}
+				<div id="login-status">
+					<ul>
+						<li>{@havefnubb~member.status.welcome.and.thanks.to@} <a href="{jurl 'jcommunity~login:index'}">{@havefnubb~member.status.connect@}</a></li>
+						<li>{@havefnubb~member.status.or.to@} <a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.status.register@}</a></li>
+						<li>{@havefnubb~member.status.or.maybe@} <a href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.status.forgotten.password@} ?</a></li>
+					</ul>
+				</div>
+{/ifuserconnected}
 				{$MAIN}
 				</div>
 			<div class="clearer">&nbsp;</div>

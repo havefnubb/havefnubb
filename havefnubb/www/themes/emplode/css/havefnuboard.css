@@ -294,11 +294,21 @@ img.right {margin: 0 0 15px 12px;}
 	width: 230px;
 }
 #toplinks_inner {
-	padding-top: 3px;
 	text-align: center;
+	color: #777;
+	font-size: xx-small;
 }
-#toplinks a {color: #887;}
-#toplinks a:hover {color: #DDC;}
+#toplinks_inner li {
+    display:inline;	
+}
+
+#toplinks_inner a {
+	color: #FFF;
+	text-decoration: none;	
+}
+#toplinks_inner a:hover {
+	color: #FFB;
+}
 
 /* Site title */
 #site_title {
