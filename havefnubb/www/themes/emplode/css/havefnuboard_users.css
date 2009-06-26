@@ -56,6 +56,10 @@
 
 
 /* profile - begin */
+#profile {
+	background-color: #f1f1e5;
+}
+
 #user-profile-general, #user-profile-messenger, #user-profile-hardware, #user-profile-pref {
     padding-top: 0px;    
 }

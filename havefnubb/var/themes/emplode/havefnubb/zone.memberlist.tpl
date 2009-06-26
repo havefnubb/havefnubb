@@ -5,16 +5,14 @@
 
 <div id="group">
     <form action="{formurl 'havefnubb~members:index'}" method="post">
+    {formurlparam 'havefnubb~members:index'}        
     <fieldset>        
         <div class="member-filter-description form_row">
             <p>{@havefnubb~member.memberlist.filter.description@}</p>
         </div>    
         <div class="legend"><h3>{@havefnubb~member.memberlist.filter@}</h3></div>
         <div class="form_row">
-            <div class="form_property">
-                {@havefnubb~member.memberlist.thegroups@} :
-            </div>
-            {formurlparam 'havefnubb~members:index'}
+            <div class="form_property">{@havefnubb~member.memberlist.thegroups@} : </div>
             <div class="form_value">
                 <select name="grpid">
                 {foreach $groups as $group}
@@ -25,10 +23,8 @@
             <div class="clearer">&nbsp;</div>
         </div>
         <div class="form_row">
-            <div class="form_property">
-                {@havefnubb~member.memberlist.initial.nickname@} :
-            </div>
-            <div class="fom_value">
+            <div class="form_property">{@havefnubb~member.memberlist.initial.nickname@} : </div>
+            <div class="form_value">
                 <select name="letter">
                 {foreach $letters as $letter}
                     <option value="{$letter}">{$letter}</option>
@@ -38,10 +34,8 @@
             <div class="clearer">&nbsp;</div>
         </div>
         <div class="form_row">
-            <div class="form_property">
-                {@havefnubb~member.memberlist.search.nickname@} :     
-            </div>
-            <div class="fom_value">
+            <div class="form_property">{@havefnubb~member.memberlist.search.nickname@} : </div>
+            <div class="form_value">
                 <input type="text"  name="member_search" value="" size="40"/>
             </div>
             <div class="clearer">&nbsp;</div>
