@@ -3,7 +3,7 @@
 		
 		<div id="toplinks">
 			<div id="toplinks_inner">
-				{zone 'jcommunity~status'}
+				{* zone 'jcommunity~status' *}
 			</div>
 		</div>
 		<div class="clearer">&nbsp;</div>
@@ -18,7 +18,6 @@
 	<div class="center_wrapper">
 		{zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
 		<div class="clearer">&nbsp;</div>
-
 	</div>
 </div>
 
@@ -27,6 +26,7 @@
 	<div id="main_wrapper_inner">
 		<div class="center_wrapper">
 				<div id="main_content">
+				{zone 'jcommunity~status'}					
 				{$MAIN}
 				</div>
 			<div class="clearer">&nbsp;</div>

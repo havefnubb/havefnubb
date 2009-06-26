@@ -20,24 +20,33 @@
 }
 
 #login-status {
-	width: 30%;
-	top: 3px;
-	right: 170px;
-	position: absolute;
-	margin: auto;
-	color: #FFF;
-    padding-left: 0px;
-    padding-right:0px;
+	padding: 5px 8px;
+	position: relative;
+	color: #AA9;
+	background-color: #353530;
 }
 
 #login-status li {
-/*    display:inline;*/
-	margin-left: 80px;
+    display:inline;
 	text-align: center;
     padding:1px;
     list-style-type:none;
     list-style-position:outside;	
 }
+
+#login-status a:hover {color: #CCB;}
+
+#footer {
+	color: #AA9;
+	padding: 12px 0;
+}
+#login-status a {
+	color: #777;
+	text-decoration: none;
+}
+#login-status a:hover {color: #CCB;}
+
+
 
 .user-formbg  {
 	background-color:#f1f1e5;
