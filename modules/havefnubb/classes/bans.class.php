@@ -62,7 +62,7 @@ class bans
 		$return = false;
 		$bans = self::getBannedDomains();
 		foreach ($bans as $ban) {
-			if (strpos('@',$ban->ban_email) > 0 )
+			if (strpos($ban->ban_email,'@') > 0 )
 				list($bannedAddress,$bannedDomain) = preg_split('/@/',$ban->ban_email);
 			else
 				$bannedDomain = $ban->ban_email;
@@ -128,7 +128,7 @@ class bans
         $validIp = false;
         $newIp = '';
         //0) checking the content : list or range but not list AND range :
-        if (strpos($ip,',') > 0 and strpos('-',$ip) > 0 ) {
+        if (strpos($ip,',') > 0 and strpos($ip,'-') > 0 ) {
             jMessage::add(jLocale::get('hfnuadmin~ban.list.or.range'));
             return false;            
         }
