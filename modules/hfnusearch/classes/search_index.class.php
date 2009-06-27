@@ -87,7 +87,7 @@ class search_index {
 		//2) get the dao we want to read
 		$dataSource = $HfnuSearchConfig->getValue('dao');
 		//3) build an array with each one
-		$dataSources = split(',',$dataSource);
+		$dataSources = preg_split('/,/',$dataSource);
 		foreach ($dataSources as $ds) {
 			// due to a bug in jelix parser of ini file, we drop the ~ for nothing and
 			// will be able to find the datasource in our config file			
@@ -127,7 +127,7 @@ class search_index {
 		//2) get the dao we want to read
 		$dataSource = $HfnuSearchConfig->getValue('dao');
 		//3) build an array with each one
-		$dataSources = split(',',$dataSource);
+		$dataSources = preg_split('/,/',$dataSource);
 		foreach ($dataSources as $ds) {
 			// due to a bug in jelix parser of ini file, we drop the ~ for nothing and
 			// will be able to find the datasource in our config file			

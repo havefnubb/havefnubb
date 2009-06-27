@@ -63,11 +63,11 @@ class bans
 		$bans = self::getBannedDomains();
 		foreach ($bans as $ban) {
 			if (strpos('@',$ban->ban_email) > 0 )
-				list($bannedAddress,$bannedDomain) = split('@',$ban->ban_email);
+				list($bannedAddress,$bannedDomain) = preg_split('/@/',$ban->ban_email);
 			else
 				$bannedDomain = $ban->ban_email;
 			
-			list($userAddress,$userDomain) = split('@',$email);
+			list($userAddress,$userDomain) = preg_split('/@/',$email);
 
 			if ( $bannedDomain == $userDomain ) {
 				return $ban->ban_message;
@@ -84,8 +84,9 @@ class bans
 	// does this email banned ?
 	public static function bannedDomain($email) {
 		if (! jAuth::isConnected() ) return false;
-		if (strpos('@',$email) == 0 )
-			list($unused,$userEmail) = split('@',jAuth::getUserSession()->email);
+		if (strpos($email,'@') == 0 ) {
+			list($unused,$userEmail) = preg_split('/@/',jAuth::getUserSession()->email);
+		}
 		else
 			$userEmail = jAuth::getUserSession()->email;
 		return ($userEmail == $email);
@@ -95,7 +96,7 @@ class bans
 	public static function bannedIp($banIp) {
         //is this IP one of them ?
 		if (strpos($banIp,',') > 0 ) {
-            $list = split(',',$banIp);			
+            $list = preg_split('/,/',$banIp);			
             foreach ($list as $item) {
 				if  ($item == $_SERVER['REMOTE_ADDR']) return true;
             }
@@ -103,7 +104,7 @@ class bans
         // is this IP in this range ?
         elseif (strpos($banIp,'-')> 0 ) {
 			// ip is xxx.yyy.zzz-aaa
-            $list = split('-',$banIp);
+            $list = preg_split('/-/',$banIp);
 			// find xxx.yyy.
 			$pos = strrpos($list[0],'.');
 			// start is xxx.yyy.zzz
@@ -133,7 +134,7 @@ class bans
         }
         //1) list of IP with commas
 		elseif (strpos($ip,',') > 0 ) {
-            $list = split(',',$ip);
+            $list = preg_split('/,/',$ip);
             foreach ($list as $item) {
                 $validIp = jFilter::isIPv4($item);
                 if ($validIp === false) {
@@ -145,7 +146,7 @@ class bans
         //2) range of IP with -
         elseif (strpos($ip,'-')> 0 ) {
 			// ip is xxx.yyy.zzz-aaa
-            $list = split('-',$ip);
+            $list = preg_split('/-/',$ip);
 			// find xxx.yyy.
 			$pos = strrpos($list[0],'.');
 			// start is xxx.yyy.zzz

@@ -22,7 +22,7 @@ class flags implements jIFormsDatasource
      while (($file_complet = readdir($dh)) !== false) {
      
         if ( strpos($file_complet,".") > 2) {
-            list($file) = split(".gif",$file_complet);
+            list($file) = preg_split('/\.gif/',$file_complet);
             $data[$file] = $file;
         }
     }

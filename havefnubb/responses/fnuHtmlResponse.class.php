@@ -29,7 +29,7 @@ class fnuHtmlResponse extends jResponseHtml {
         if ($HfnuConfig->getValue('installed','main') == 0) $this->bodyTpl = 'havefnubb~main_not_installed';
 
 
-        $language = split('_',$gJConfig->locale);
+        $language = preg_split('/_/',$gJConfig->locale);
        
         /* Dublin Core Meta and Content */
        

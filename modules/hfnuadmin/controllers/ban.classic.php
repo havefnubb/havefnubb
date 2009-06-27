@@ -63,7 +63,6 @@ class banCtrl extends jController {
 			if ($mail != '') {
 				$validMail = false;
 				// ban one given domain
-				echo "mail : $mail";
 				if (  preg_match('/^[a-z0-9]+\.[a-z]{2,4}$/',$mail)) {
 					$validMail = true;
 				}else {
