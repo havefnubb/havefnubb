@@ -176,7 +176,7 @@
         
     </classicentrypoint>
         
-    <classicentrypoint name="hfnuinstall" default="false" noentrypoint="true">
+    <classicentrypoint name="hfnuinstall" default="false" noentrypoint="false">
         <url pathinfo="/install" module="hfnuinstall" action="default:index"/>
     </classicentrypoint>
     

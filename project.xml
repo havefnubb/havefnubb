@@ -33,7 +33,7 @@
         <log/>
         <var/>
         <www/>
-        <temp>../temp</temp>
+        <temp>temp</temp>
     </directories>
     <entrypoints>
         <entry file="index.php" config="index/config.ini.php"/>
