@@ -12,7 +12,7 @@ class defaultCtrl extends jController {
 
     public $pluginParams = array(
 
-        '*'		=>	array('auth.required'=>true,
+        '*'		=>	array('auth.required'=>false,
 						  'hfnu.check.installed'=>true,
 						  'banuser.check'=>true,
 					),        
