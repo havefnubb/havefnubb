@@ -1,0 +1,758 @@
+/**
+* @package   havefnubb
+* @subpackage havefnubb
+* @author    FoxMaSk
+* @copyright 2008 FoxMaSk
+* @link      http://forge.jelix.org/projects/havefnubb
+* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*/
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #fff;
+	color: #4d5431;
+	font: 75% "Georgia", sans-serif;
+}
+
+#hfbody {
+	width: 98%;
+	border-color: #4d5431;
+	margin: auto;
+	line-height: normal;	
+}
+
+/* common class */
+
+h2 {font-size: 1em}
+h3 {font-size: 1.1em}
+h4 {font-size: 1em}
+
+li {
+	list-style-type: none;
+}
+
+a:link, a:visited, a:active { 
+	color: #060; 
+	text-decoration: underline;
+}
+a:hover { 
+	color: #f90; 
+	text-decoration: none;
+}
+
+a.imglink:link, a.imglink:visited, a.imglink:hover, a.imglink:active  { text-decoration: none; }
+
+fieldset legend {
+    color: #f90; 
+}
+    
+
+p { margin: 1em 0; }
+table p { margin: 0; }
+
+table
+{
+	width: 100%;
+	empty-cells: show;
+}
+
+table td {
+	padding: 1px;	
+}
+
+img { border: none; }
+form { display: block; margin: 0; padding: 0; }
+
+code, pre {
+	font-family: monaco, "Courier New", monospace;
+	font-size: 1.1em;
+	color: #666;
+}
+
+.up-and-down {
+	height:28px;
+}
+
+.headbox {
+	padding-left: 20px;
+	background-color:#8dc192;
+}
+
+.clear{
+	height: 0;
+	width: 0;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden
+}
+
+.two-cols { position: static; }
+.two-cols .col {
+	width: 50%;
+	margin-left: 0%;
+	float: left;
+}
+.two-cols .col:first-child {
+	width: 50%;
+	margin-left: 0;
+}
+
+.three-cols { position: static; }
+.three-cols .col {
+	width: 32.3%;
+	float: left;
+	margin-left: 1%;
+}
+.three-cols .col:first-child {
+	width: 33.3%;
+	margin-left: 0;
+}
+
+.four-cols { position: static;}
+.four-cols .col {
+	width: 24%;
+	float: left;
+	margin-left: 1%;
+}
+.four-cols .col:first-child {
+	width: 25%;
+	margin-left: 0;
+}
+
+
+/* Tab */
+
+/* Caution! Ensure accessibility in print and other media types... */
+@media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
+    .ui-tabs-hide {
+        display: none;
+    }
+}
+
+/* Skin */
+
+.ui-tabs-nav {
+	height:28px;
+	display:block;
+	font-weight: bold;
+}
+
+.ui-tabs-nav li {
+	float:left;
+	list-style-type:none;	
+	background-color:#f1f1e5;
+}
+
+.ui-tabs-nav a, .ui-tabs-nav a span {
+    float: left; /* fixes dir=ltr problem and other quirks IE */
+}
+
+.ui-tabs-nav abackup {
+    margin: 5px 0 0; /* position: relative makes opacity fail for disabled tab in IE */
+    padding-left: 0;
+    background-position: 100% 0;
+    text-decoration: none;
+    white-space: nowrap; /* @ IE 6 */
+    outline: 0; /* @ Firefox, prevent dotted border after click */    
+}
+
+.ui-tabs-nav a {	
+	color:#4D5431;
+	text-decoration:none;	
+	display:block;
+	margin:0 3px 0 0;
+	padding:6px 10px;
+	border: 1px solid;
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	background-color: #e1e1cd;	
+}
+
+.ui-tabs-nav a:link, .ui-tabs-nav a:visited {
+    color: #4D5431; 
+}
+
+.ui-tabs-nav .ui-tabs-selected a:link, .ui-tabs-nav .ui-tabs-selected a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
+    cursor: text;
+}
+
+.ui-tabs-nav a:hover, .ui-tabs-nav a:focus, .ui-tabs-nav a:active,
+.ui-tabs-nav .ui-tabs-unselect a:hover, .ui-tabs-nav .ui-tabs-unselect a:focus, .ui-tabs-nav .ui-tabs-unselect a:active { /* @ Opera, we need to be explicit again here now... */
+    cursor: pointer;
+	background-color: #f1f1e5;
+	border:1px solid;
+	border-color:#acac9c #acac9c #f1f1e5 #acac9c;	
+}
+
+.ui-tabs-panel {
+    padding: 20px;
+    background: #f1f1e5; /* declare background color for container to avoid distorted fonts in IE while fading */
+}
+.ui-tabs-panel fieldset legend {
+	padding: 2px;
+	color:#4D5431;
+	background: #f1f1e5;
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	background-color: #f1f1e5;
+	font-weight: bold;
+}
+.ui-tabs-panel fieldset {
+	padding-top: 3px;
+	background: #e1e1cd;
+}
+
+/* Additional IE specific bug fixes... */
+* html .ui-tabs-nav { /* auto clear @ IE 6 & IE 7 Quirks Mode */
+    display: inline-block;
+}
+
+*:first-child+html .ui-tabs-nav  { /* auto clear @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
+    display: inline-block;
+}
+
+/* En-tête
+----------------------------------------------------------*/
+
+#top {
+	width: 100%;
+	position: relative;
+	margin: auto;
+	height: 100px;
+    background-color:#f1f1e5;
+    background-position:center;
+    padding-left:0px;
+    padding-right:0px;
+    -moz-border-radius:0px 0px 10px  10px ;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    border-radius: 0px 0px 10px  10px ;
+    -moz-box-shadow: gray 3px 5px 5px 0px;
+    -webkit-box-shadow: gray 3px 5px 5px 0px;
+    box-shadow: gray 0px 3px 5px 0px;
+    /*z-index:50;	*/
+}
+
+#top h1 {
+	margin: 0;
+	padding: 20px 0 0 85px;
+}
+#top h1 span {
+	display: block;
+	font-size: 0.5em;
+	color: #060;
+	font-style: italic;
+}
+
+#top #title {
+ width: 70%;	
+}
+
+/* navbar */
+#navbar {
+	width: 100%;	
+	position: relative;
+	display:block;
+	font-weight: bold;
+	
+    background-color:#e1e1cd;
+    background-position:center;
+	
+    -moz-border-radius:0px 0px 10px  10px ;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    border-radius:0px 0px 10px  10px ;
+    -moz-box-shadow: gray 3px 5px 5px 0px;
+    -webkit-box-shadow: gray 3px 5px 5px 0px;
+    box-shadow: gray 0px 3px 5px 0px;
+    z-index:50;
+	
+}
+
+#navbar li.selected a {
+	color:#f90;
+	border:1px solid;
+	background-color:#f1f1e5;
+	border-color:#f1f1e5 #acac9c #acac9c #acac9c;
+}
+
+#navbar li {
+	float:left;
+	list-style-type:none;	
+	background-color:#e1e1cd;
+}
+
+
+
+#navbar a {
+    float: left;
+}
+
+#navbar a {	
+	text-decoration:none;	
+	display:block;
+	margin:0 3px 0 0;
+	padding-top:6px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:6px;
+    
+	border: 1px solid;
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	
+}
+#navbar a:link, #navbar a:visited {
+    color: #4D5431; 
+}
+
+#navbar a:hover, #navbar a:focus, #navbar a:active
+{ 
+    cursor: pointer;
+	color:#f90;
+	border:1px solid;
+	background-color:#f1f1e5;
+	border-color:#f1f1e5 #acac9c #acac9c #acac9c;	
+}
+
+* html #navbar { 
+    display: inline-block;
+}
+*:first-child+html #navbar { 
+    display: inline-block;
+}
+
+
+/* Forum Layout */
+
+#maincontent
+{
+	width: 100%;
+	margin: auto;
+	margin-top: 35px;
+	background-color: #f1f1e5;	
+	background-position:center;
+    -moz-border-radius:10px 10px 8px 8px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px; 
+    border-radius:10px 10px 8px 8px;
+    -moz-box-shadow: gray 3px 5px 5px 0px;
+    -webkit-box-shadow: gray 3px 5px 5px 0px;
+    box-shadow: gray 0px 3px 5px 0px;
+    z-index:50;
+}
+
+.breadcrumb {
+	background-color:#8dc192;
+	height: 40px;
+}
+
+#breadcrumbtop {
+    -moz-border-radius:10px 10px 0px 0px;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px; 
+    border-radius:10px 10px 0px 0px;	
+	border-bottom: 1px solid; 
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#breadcrumbbottom {
+    -moz-border-radius:0px 0px 7px 7px;
+    -webkit-border-bottom-right-radius: 7px;
+    -webkit-border-bottom-left-radius: 7px; 
+    border-radius:0px 0px 7px 7px;
+	border-top: 1px solid;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#breadcrumbbottom li {
+	font-size: x-small;
+    display:inline;
+    list-style-type:none;    
+}
+
+.child {
+   border-top: dotted;
+   border-top-width: 1px;
+   border-color: #8dc192;
+}
+
+.child:hover {
+   border-top: dotted;
+   border-top-width: 1px;
+   border-color: #e1e1cd;
+}
+
+.child li {
+	padding: 1px;
+    display:inline;
+    list-style-type:none;
+}
+
+.headings {   
+    padding-top:1px;
+    padding-bottom:1px;        
+    padding-left: 20px;
+    height: 30px;
+    background-color:#baba9b;
+	border-top-style: inset;
+	border-top-color: #e1e1cd;
+}
+
+.headings_footer {   
+    padding-top:1px;
+    padding-bottom:1px;        
+    padding-left: 20px;
+    height: 30px;
+    background-color: #f1f1e5;	
+}
+
+
+
+li.headings  {   
+	list-style-type:none;
+}
+
+/* stats of the forum - begin*/
+
+#cloud-headings {	
+	margin-top: 20px;
+    padding-top:1px;
+    padding-bottom:1px;
+    padding-left: 20px;
+    background-color:#8dc192;
+    text-align: center;
+    height: 30px;
+    clear: both;	
+}
+
+#statsinfos {
+	background-color:#e1e1cd;
+}
+#statsinfos-headings {	
+	margin-top: 20px;
+    padding-top:1px;
+    padding-bottom:1px;
+    padding-left: 20px;
+    background-color:#e1e1cd;    
+    text-align: center;
+    height: 30px;
+    clear: both;    
+}
+
+#jumpto, #quickreply, #postreply, #postadd, #post-status, #messenger-new-mail, #post-move {
+	margin: auto;
+	padding-left: 20px;
+	padding-right: 20px;
+    clear: both;
+}
+
+#lastposts, #stats, #home-links {
+	background-color: #e1e1cd;
+	border-top-color: #fff;
+	border-top-style: inset;
+	border-top-width: thin;
+	margin-left: 5px;
+}
+
+#lastposts:hover, #stats:hover, #home-links:hover {
+	background-color: #f1f1e5;
+	border-top-color: #000;
+	border-top-style: inset;
+	border-top-width: thin;
+	margin-left: 5px;
+}
+
+.footer_para {
+	padding-left: 5px;
+}
+
+.footer_para:hover {
+	color:#060;
+}
+
+
+#tagscloud {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+
+.colmain_index
+{
+	width: 72%;
+	background-color:#e1e1cd;
+	
+}
+
+.colstats_index {
+	width: 18%;
+	text-align: center;
+	padding: 0.5em;
+	background-color: #baba9b;
+}
+
+.colleft_index {
+	 width: 8%;
+	 padding: 0.5em;
+	 background-color: #c9c9a7;
+}
+
+.colredirect {
+	background-image: url("../images/posts/world_go.png");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.colrss {
+	background-image: url("../images/posts/rss_go.png");
+	background-repeat: no-repeat;
+	background-position: center;	
+}
+/* stats of the forum - end*/
+
+.colmain
+{
+	/*padding: 0.5em;*/
+	background-color:#e1e1cd;
+	
+}
+
+.colstats {
+	width: 18ex;
+	text-align: center;
+	padding: 0.5em;
+	background-color: #baba9b;
+}
+
+.colleft {
+	 width: 3%;
+	 padding: 0.5em;
+	 background-color: #c9c9a7;
+}
+
+.colright {
+	width: 22%;
+	padding: 0.5em;
+	background-color:#e1e1cd;	
+}
+
+.colnum {
+	text-align: right;
+	padding: 10px;
+	width: 6%;
+	background-color: #c9c9a7;
+}
+
+.coltag {
+	text-align: center;
+	padding: 5px;
+	width: 8%;
+	background-color: #c9c9a7;
+}
+
+.coltitle {
+	width: 30%;
+	padding-left: 10px;
+	background-color: #e1e1cd;
+}
+
+.colrank, .colposter, .coldate {
+	width: 20%;
+	padding-left: 10px;
+	background-color: #e1e1cd;
+}
+
+.forumtitle, .forumdesc {
+    padding-left: 8px;
+}
+
+.listline {
+	background-color: #e1e1cd;
+}
+
+.listcol {
+	border: 1px solid;
+	border-color:#dedec1 #acac9c #acac9c #dedec1;
+	background: #baba9b;
+	display: table-cell;
+	padding: 5px;
+}
+
+.linkincell:hover {
+	background-color: #f1f1e5;
+}
+
+/* category */
+.category {
+    height: 16px;
+	background-image: url("../images/posts/category.png");
+	background-repeat: no-repeat;
+    padding-left: 20px;	
+	margin-left: 20px;
+}
+
+.forumicone {
+	background-image: url("../images/posts/folder.png");
+	background-repeat: no-repeat;
+	background-position: center;	
+}
+
+.forumiconenew {
+	background-image: url("../images/posts/folder_new.png");
+	background-repeat: no-repeat;
+	background-position: center;	
+}
+
+.subforum {
+	margin: auto;
+	margin-left: 20px;	
+	background-image: url("../images/posts/book.png");
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+}
+
+.subforum-home {
+	background-image: url("../images/posts/book_next.png");
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	height: 16px;
+	
+}
+
+ul.subforum-home li {
+	float:left;
+	list-style-type:none;	
+}
+
+
+/* Pied de page
+----------------------------------------------------------*/
+#footer {
+	width: 100%;
+	position: relative;
+	margin-top: 20px;
+    background-color:#e1e1cd;
+    background-position:center;
+    height: 34px;
+    padding-top: 1px;
+    padding-left:0px;
+    padding-right:0px;
+    -moz-border-radius:10px 10px 0px  0px ;
+    -webkit-border-top-right-radius: 10px;
+    -webkit-border-top-left-radius: 10px; 
+    border-radius:10px 10px 0px  0px ;
+    -moz-box-shadow: gray 3px 5px 5px 0px;
+    -webkit-box-shadow: gray 3px 5px 5px 0px;
+    box-shadow: gray 0px 3px 5px 0px;
+    z-index:50;    
+
+}
+#footer p {
+	text-align: center;
+}
+#footer span  { font-weight: bold; }
+#footer a:link, #footer a:visited, #footer a:active{
+	color: #f90;
+	text-decoration: none;
+}
+#footer a:hover { color: #232320; }
+
+
+/* help wiki syntaxe */
+.wiki-image {
+	background-repeat: no-repeat;	
+	padding-left: 20px;
+	height: 20px;
+
+}
+.syntax_wiki {
+	padding-left: 40px;
+}
+
+.syntax_wiki li.italic {
+	background-image: url("../images/wiki/text_italic.png");
+}
+
+.syntax_wiki li.bold {
+	background-image: url("../images/wiki/text_bold.png");
+}
+
+.syntax_wiki  li.list{
+	background-image: url("../images/wiki/text_list_numbers.png");
+}
+
+.syntax_wiki  li.source{
+	background-image: url("../images/wiki/text_source.png");
+}
+
+.syntax_wiki  li.link {
+	background-image: url("../images/wiki/text_link.png");
+}
+
+.syntax_wiki  li.quote {
+	background-image: url("../images/wiki/text_quote.png");
+}
+
+.syntax_wiki  li.para {
+	background-image: url("../images/wiki/text_para.png");
+}
+
+
+.syntax_wiki  li.def {
+	background-image: url("../images/wiki/text_def.png");
+}
+
+.syntax_wiki  li.full_link {
+	background-image: url("../images/wiki/text_full_link.png");
+}
+
+.syntax_wiki  li.carriage_return {
+	background-image: url("../images/wiki/text_carriage_return.png");
+}
+
+.syntax_wiki  li.image {
+	background-image: url("../images/wiki/text_image.png");
+}
+
+.syntax_wiki  li.code {
+	background-image: url("../images/wiki/text_code.png");
+}
+
+.syntax_wiki  li.quoting {
+	background-image: url("../images/wiki/text_quoting.png");
+}
+
+.syntax_wiki  li.ref {
+	background-image: url("../images/wiki/text_ref.png");
+	height: 20px;
+}
+
+.syntax_wiki  li.acronym {
+	background-image: url("../images/wiki/text_acronym.png");
+
+}
+
+.jforms-help {
+	background-image: url("../images/help.png");
+	height: 16px;
+	margin-left: 10px;
+}
+
+
+.clearboth {
+    clear: both;
+}
+
+
+#notallowed,#notfound {
+	text-align: center;
+}
+
+#hfnu-feeds {
+	padding-left: 20px;
+	padding-right: 20px;
+}

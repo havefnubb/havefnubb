@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+<input ref="title" type="string" required="true" size="80">
+	<label locale="hfnuadmin~config.title"/>
+</input>
+
+<input ref="description" type="string" required="true" size="80">
+	<label locale="hfnuadmin~config.description"/>
+</input>
+
+<menulist ref="theme" required="true">
+	<label locale="hfnuadmin~config.themes"/>
+	<datasource class="hfnuadmin~themes" />
+</menulist>
+
+<textarea ref="rules" required="false" cols="60">
+	<label locale="hfnuadmin~config.rules"/>
+</textarea>
+
+<input ref="webmaster_email" type="email" required="true" size="80">
+	<label locale="hfnuadmin~config.webmaster_email"/>
+</input>
+
+<input ref="admin_email" type="email" required="true" size="80">
+	<label locale="hfnuadmin~config.admin_email"/>
+</input>
+
+<menulist ref="posts_per_page"  required="true">
+	<label locale="hfnuadmin~config.posts_per_page"/>
+	<item value="10">10</item>
+	<item value="15">15</item>
+	<item value="20">20</item>
+	<item value="25">25</item>
+	<item value="30">30</item>
+	<item value="35">35</item>
+	<item value="40">40</item>
+	<item value="45">45</item>	
+	<item value="50">50</item>	
+</menulist>
+
+<menulist ref="replies_per_page"  required="true">
+	<label locale="hfnuadmin~config.replies_per_page"/>
+	<item value="10">10</item>
+	<item value="15">15</item>
+	<item value="20">20</item>
+	<item value="25">25</item>
+	<item value="30">30</item>
+	<item value="35">35</item>
+	<item value="40">40</item>
+	<item value="45">45</item>	
+	<item value="50">50</item>		
+</menulist>
+
+<menulist ref="members_per_page"  required="true">
+	<label locale="hfnuadmin~config.members_per_page"/>
+	<item value="10">10</item>
+	<item value="15">15</item>
+	<item value="20">20</item>
+	<item value="25">25</item>
+	<item value="30">30</item>
+	<item value="35">35</item>
+	<item value="40">40</item>
+	<item value="45">45</item>	
+	<item value="50">50</item>		
+</menulist>
+
+<input ref="avatar_max_width" type="integer" required="true">
+	<label locale="hfnuadmin~config.avatar_max_width"/>
+</input>
+
+<input ref="avatar_max_height" type="integer" required="true">
+	<label locale="hfnuadmin~config.avatar_max_height"/>
+</input>
+
+<menulist ref="stats_nb_of_lastpost"  required="true">
+	<label locale="hfnuadmin~config.stats_nb_of_lastpost"/>
+	<item value="3">3</item>	
+	<item value="4">4</item>	
+	<item value="5">5</item>
+	<item value="6">6</item>
+	<item value="7">7</item>
+	<item value="8">8</item>
+	<item value="9">9</item>
+	<item value="10">10</item>
+</menulist>
+
+<menulist ref="elapsed_time_between_two_post_by_same_ip"  required="true">
+	<label locale="hfnuadmin~config.elapsed_time_between_two_post_by_same_ip"/>
+	<item value="0">0</item>	
+	<item value="30">30</item>	
+	<item value="60">60</item>
+	<item value="90">90</item>
+	<item value="120">120</item>
+	<item value="150">150</item>
+	<item value="180">180</item>
+	<item value="210">210</item>
+</menulist>
+
+<menulist ref="elapsed_time_after_posting_before_editing"  required="true">
+	<label locale="hfnuadmin~config.elapsed_time_after_posting_before_editing"/>
+	<item value="0">0</item>	
+	<item value="30">30</item>	
+	<item value="60">60</item>
+	<item value="90">90</item>
+	<item value="120">120</item>
+	<item value="150">150</item>
+	<item value="180">180</item>
+	<item value="210">210</item>
+</menulist>
+
+<input ref="post_max_size" type="integer" required="true" size="4">
+	<label locale="hfnuadmin~config.post_max_size"/>
+</input>
+
+<menulist ref="timeout_visit"  required="true">
+	<label locale="hfnuadmin~config.timeout_visit"/>
+	<item value="60">60</item>
+	<item value="120">120</item>
+	<item value="180">180</item>
+	<item value="240">240</item>
+	<item value="300">300</item>
+	<item value="600">600</item>	
+</menulist>
+
+<menulist ref="timeout_connected"  required="true">
+	<label locale="hfnuadmin~config.timeout_connected"/>
+	<item value="60">60</item>
+	<item value="120">120</item>
+	<item value="180">180</item>
+	<item value="240">240</item>
+	<item value="300">300</item>
+	<item value="600">600</item>
+</menulist>
+
+<submit ref="validate">
+  <label>Veuillez valider</label>
+  <item value="save" locale="hfnuadmin~config.saveBt"/>
+</submit>
+
+<reset ref="cancel">
+	<label locale="hfnuadmin~config.cancelBt"/>
+</reset>
+</form>

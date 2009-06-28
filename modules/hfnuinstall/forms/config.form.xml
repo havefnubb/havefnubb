@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+    
+<hidden ref="step"/>
+
+<input ref="title" type="string" required="true" size="80">
+	<label locale="hfnuinstall~install.config.title"/>
+</input>
+
+<input ref="description" type="string" required="true" size="80">
+	<label locale="hfnuinstall~install.config.description"/>
+</input>
+
+<menulist ref="theme" required="true">
+	<label locale="hfnuinstall~install.config.themes"/>
+	<datasource class="hfnuadmin~themes" />
+</menulist>
+
+<textarea ref="rules" required="false" cols="60">
+	<label locale="hfnuinstall~install.config.rules"/>
+</textarea>
+
+<input ref="webmasterEmail" type="email" required="true" size="80">
+	<label locale="hfnuinstall~install.config.webmasterEmail"/>
+</input>
+
+<input ref="webmasterName" type="string" required="true" size="80">
+	<label locale="hfnuinstall~install.config.webmasterName"/>
+</input>
+
+<menulist ref="mailerType" required="true">
+	<label locale="hfnuinstall~install.config.mailerType"/>
+    <item value="mail">Mail</item>
+    <item value="sendmail">Sendmail</item>
+    <item value="smtp">Smtp</item>
+</menulist>
+
+<input ref="hostname" type="string" size="80">
+	<label locale="hfnuinstall~install.config.hostname"/>
+</input>
+
+<input ref="sendmailPath" type="string"  size="80">
+	<label locale="hfnuinstall~install.config.sendmailPath"/>
+    <help locale="hfnuinstall~install.config.sendmailPath.description"/>
+    <hint locale="hfnuinstall~install.config.sendmailPath.description"/>
+</input>
+
+<input ref="smtpHost" type="string"  size="80">
+	<label locale="hfnuinstall~install.config.smtpHost"/>
+    <help locale="hfnuinstall~install.config.smtpHost.description"/>
+    <hint locale="hfnuinstall~install.config.smtpHost.description"/>
+</input>
+
+<input ref="smtpPort" type="integer"  size="4">
+	<label locale="hfnuinstall~install.config.smtpPort"/>
+</input>
+
+<radiobuttons ref="smtpAuth" required="true">
+	<label locale="hfnuinstall~install.config.smtpAuth"/>
+    <item value="off" selected="true">Off</item>
+    <item value="on">On</item>
+</radiobuttons>
+
+<input ref="smtpUsername" type="string" size="80">
+	<label locale="hfnuinstall~install.config.smtpUsername"/>
+</input>
+
+<input ref="smtpPassword" type="string" size="80">
+	<label locale="hfnuinstall~install.config.smtpPassword"/>
+</input>
+
+<input ref="smtpTimeout" type="integer"  size="4">
+	<label locale="hfnuinstall~install.config.smtpTimeout"/>
+</input>
+
+<submit ref="validate">
+  <label>Veuillez valider</label>
+  <item value="save" locale="hfnuinstall~install.config.saveConfigBt"/>
+</submit>
+
+<reset ref="cancel">
+	<label locale="hfnuinstall~install.config.cancelConfigBt"/>
+</reset>
+</form>

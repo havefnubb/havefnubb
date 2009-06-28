@@ -1,0 +1,12 @@
+;<?php die(''); ?>
+;for security reasons , don't remove or modify the first line
+elapsed_time_between_two_post_by_same_ip=60
+elapsed_time_after_posting_before_editing=60
+
+; What to do if a user is flooding
+; 1 = generate an error. This value should be set for web services (xmlrpc, jsonrpc...)
+; 2 = redirect to an action
+on_error = 2
+
+; action to execute on a flood detection when on_error=2
+on_error_action = "havefnubb~default:flood"

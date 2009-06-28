@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+<menulist ref="status">
+  <item value="opened" locale="havefnubb~post.status.opened"/> <!-- opened -->
+  <item value="closed" locale="havefnubb~post.status.closed"/> <!-- closed -->
+  <item value="pined" locale="havefnubb~post.status.pined"/> <!-- pined -->
+  <item value="pinedclosed" locale="havefnubb~post.status.pinedclosed"/> <!-- closed and pined -->
+  <label locale="havefnubb~post.change.status">Status :</label>	
+</menulist>
+
+<submit ref="validate">
+  <label>Veuillez valider</label>
+  <item value="ok" locale="havefnubb~post.status.ok"/>  
+</submit>
+
+</form>

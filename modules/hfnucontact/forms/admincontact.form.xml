@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+<input ref="contact" type="email" required="true">
+	<label locale="hfnucontact~contact.admin.form.email.contact"/>
+</input>
+
+<submit ref="validate">
+  <label>Veuillez valider</label>
+  <item value="save" locale="hfnucontact~contact.form.saveBt"/>
+</submit>
+<reset ref="cancel">
+	<label locale="hfnucontact~contact.form.cancelBt"/>
+</reset>
+</form>

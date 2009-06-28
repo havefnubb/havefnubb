@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<events xmlns="http://jelix.org/ns/events/1.0">
+   <listener name="searchwords">
+      <event name="HfnuSearchEngineAddContent"/>
+      <event name="HfnuSearchEngineDeleteContent"/>
+      <event name="HfnuSearchEngineRun"/>
+   </listener>
+   <listener name="hfnusearchadminmenu">
+		<event name="masteradminGetMenuContent" />
+   </listener>
+   <listener name="hfnusearch">
+		 <event name="HfnuAboutModule" />
+   </listener>    
+</events>

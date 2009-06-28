@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="sc_tags" realname="sc_tags" primarykey="tag_id" />
+    </datasources>
+    <record>
+
+
+        
+    <property name="tag_id" fieldname="tag_id" datatype="autoincrement"/>
+    <property name="tag_name" fieldname="tag_name" datatype="string" required="true" maxlength="50"/>
+    <property name="nbuse" fieldname="nbuse" datatype="int" default="0"/>
+
+
+    <!--<property name="" fieldname="" datatype="string/int/float/autoincrement/date"
+        required="yes"
+        maxlength="" minlength="" regexp=""
+        sequence=""
+        updatepattern="" insertpattern="" selectpattern=""
+    />-->
+    </record>
+    <factory>
+    
+        <method name="findAll" type="select">
+            <order>
+                 <orderitem property="tag_name" way="asc" />
+            </order>
+        </method>
+        
+        <method name="tagExiste" type="selectfirst">
+            <parameter name="tag" />
+            
+            <conditions>
+                <eq property="tag_name" expr="$tag" />
+            </conditions>
+        </method>
+                
+    </factory>
+    <!--<factory>
+        <method name="findByStage" type="select/selectfirst/delete/update/php">
+            <parameter name="" />
+            <values>
+                <value property="" value="" />
+            </values>
+            <conditions logic="and/or">
+                <eq property="" value="" />
+            </conditions>
+            <order>
+                <orderitem property="" way="asc/desc" />
+            </order>
+            <limit offset="" count=""/>
+            <body><![CDATA[
+            ]]></body>
+        </method>
+    </factory>-->
+</dao>

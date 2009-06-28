@@ -1,0 +1,33 @@
+A) PreRequisites :
+ jAcl2 is installed
+
+B) INSTALLATION :
+1) Files : 
+To be able to use this module ; just copy the hfnuseach directory in your modules directory, then : 
+- Copy the file install/hfnusearch.ini.php.dist to var/config/hfnusearch.ini.php
+- Copy the file install/hfnusearch.css in your directory www/themes/<_your_theme_>
+
+2) Database : 
+a) the SQL script install/install.mysql.sql uses a table prefixe "hf_" you could change by editing the file install.mysql.sql .
+b) execute the install.mysql.sql script onto your MySQL database, to create the table search engine + adding right access 
+
+C) Configuration
+edit the file var/config/hfnusearch.ini.php and set the parameters that fit your needs :
+- dao : the name of the dao where to find data or a list of daos
+- perform_search_in : the name of the function that send an event to perform the search, default is "words"
+- classToPerformSearchEngine : the name of the class to perform the search. put a class+function that extend the class search_engine
+
+D) USING hfnusearch :
+1) To retreive your datas : 
+hfnusearch.ini.php will help you to tell to the hfnusearch module, in which table to search and in which column of your table to search
+
+you will need to produce a class that extends search_index and overwrite the function searchEngineRun which actually return nothing
+You can have a look at the function searchEngineRun of the class search_index_havefnubb for example.
+
+2) To manage your datas search engine :
+From you controller you will use only one Event HfnuSearchEngineAddContent like that :
+
+jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
+
+The datasource is the DAO in which you will want to add your datas
+the id is the value of PK of your DAO.

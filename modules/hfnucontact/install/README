@@ -1,0 +1,15 @@
+A) PreRequisites :
+ jAcl2 is installed
+
+B) INSTALLATION :
+1) Files : 
+To be able to use this module ; just copy the hfnucontact directory in your modules directory, then : 
+
+- Copy the file install/hfnucontact.ini.php.dist to var/config/hfnucontact.ini.php
+
+2) Database : 
+a) the SQL script install/install.mysql.sql uses a table prefixe "hf_" you could change by editing the file install.mysql.sql .
+b) execute the install.mysql.sql script onto your MySQL database, to add the rights access
+
+C) Configuration :
+Logon your application as an admin and go to your admin panel where you could find a link to manage the "Contact" module
