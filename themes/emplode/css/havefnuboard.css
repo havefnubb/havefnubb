@@ -542,7 +542,7 @@ div.comment_list {
 
 .legend, blockquote, #sidebar {min-height: 0.01%;}
 
-#lastposts-date {
+.lastposts-date {
     font-size: xx-small;
 }
 

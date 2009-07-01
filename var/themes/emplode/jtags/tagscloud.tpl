@@ -8,6 +8,6 @@
         {else}
         {assign $theSize = $size[$t->tag_id]}
         {/if}
-        <a href="{jurl $destination, array('tag'=>$t->tag_name)}" style="font-size:{$theSize}em" title="{$t->tag_name}">{$t->tag_name}</a>,
+        <a href="{jurl $destination, array('tag'=>$t->tag_name)}" style="font-size: {$theSize}em" title="Tag {$t->tag_name}">{$t->tag_name}</a>,
     {/foreach}
 </p>

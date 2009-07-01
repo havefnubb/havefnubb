@@ -39,6 +39,7 @@
    
    <menulist ref="member_country">
       <label locale="havefnubb~member.common.country"/>
+      <emptyitem locale="havefnubb~member.select.a.country"/>
       <datasource class="havefnubb~flags" />
    </menulist>
 
@@ -54,6 +55,7 @@
 
    <menulist ref="member_language">
       <label locale="havefnubb~member.common.language"/>
+      <emptyitem locale="havefnubb~member.select.a.language"/>
       <datasource class="havefnubb~language" />
    </menulist>
 
