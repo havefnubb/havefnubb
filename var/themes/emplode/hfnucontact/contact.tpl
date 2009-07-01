@@ -16,6 +16,12 @@
     <div class="clearer">&nbsp;</div>
 </div>
 
+<div class="form_row">        
+    <div class="form_property">{ctrl_label 'captcha'} </div>
+    <div class="form_value">{ctrl_control 'captcha'}</div>
+    <div class="clearer">&nbsp;</div>
+</div>
+
 <div class="form_row form_row_submit">    
     <div class="form_value">    
     {formsubmit 'validate'} {formreset 'cancel'}

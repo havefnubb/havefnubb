@@ -9,7 +9,9 @@
     <p>{ctrl_control 'subject'} </p>
     <p>{ctrl_label 'message'} </p>
     <p>{ctrl_control 'message'} </p>
-     
+    <p>{ctrl_label 'captcha'} </p>
+    <p>{ctrl_control 'captcha'} </p>
+    
     <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
     {/form}
 </div>
