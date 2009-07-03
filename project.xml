@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://jelix.org/ns/project/1.0">
     <info id="havefnubb@forge.jelix.org" name="HaveFnuBB" createdate="2008-12-16">
         <version stability="beta" date="2009-05-16">1.0.0RC3</version>
@@ -13,7 +13,7 @@
         <updateURL>http://community.havefnubb.org/last_update</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1.2" maxversion="1.1.2"/>
+        <jelix minversion="1.1.3" maxversion="1.1.3"/>
 		<module id="downloads@jelix.org" maxversion="1.2.0" minversion="1.2.0" name="downloads" />		
 		<module id="jcommunity@jelix.org" maxversion="1.0" minversion="0.9" name="jcommunity" />		
 		<module id="jtags@jelix.org" maxversion="1.0" minversion="0.9" name="jtags" />

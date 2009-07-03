@@ -106,7 +106,9 @@ li.pagelinks-current  {
 .posthead  {
     /*height: 35px;*/
 }
-
+.post-rates {
+    float: left;
+}
 .posthead-title {
 	margin-left: 9em ; 
 	padding-left: 12px;

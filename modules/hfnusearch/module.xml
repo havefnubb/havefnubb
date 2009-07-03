@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnusearch@forge.jelix.org" name="HfnuSearch" createdate="2009-02-08">
         <version stability="beta" date="2009-05-16">1.0.0RC3</version>
@@ -13,6 +13,6 @@
         <updateURL>http://www.havefnubb.org/update.php?module=hfnusearch</updateURL>         
     </info>
     <dependencies>
-        <jelix minversion="1.1.2" maxversion="1.1.2" />
+        <jelix minversion="1.1.3" maxversion="1.1.3" />
     </dependencies>
 </module>

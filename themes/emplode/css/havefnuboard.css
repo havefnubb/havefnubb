@@ -174,6 +174,20 @@ input.button, .jforms-submit, .jforms-reset, .newmessage a, .replymessage a {
 	padding: 6px;
 	width: auto;
 }
+
+.submit-rates {
+	background: #E9E8E8 url('../img/backgrounds.gif') repeat-x 0 -366px;
+	border: 1px solid #888;
+	border-color: #BBB #888 #888 #CCC;		
+	color: #444;
+	cursor: pointer;
+	font: normal 1em Verdana,sans-serif;
+	margin-top: 0px;
+	padding: 1px;
+	width: auto;
+}
+
+
 input:focus,input:active,
 textarea:focus,textarea:active,
 select:focus,select:active,
@@ -181,11 +195,12 @@ input.button:hover,input.button:focus,
 .jforms-submit:hover, .jforms-submit:focus,
 .jforms-reset:hover, .jforms-reset:focus,
 .replymessage:hover, .replymessage:focus,
-.newmessage a:hover, .newmessage a:focus
+.newmessage a:hover, .newmessage a:focus,
+.submit-rates:hover, .submit-rates:focus
 {
 	background: #FFFFF5;
 }
-input.button:hover, input.button:focus,.replymessage a:hover, .replymessage a:focus,.newmessage a:hover, .newmessage a:focus, .jforms-submit:hover, .jforms-submit:focus, .jforms-reset:hover, .jforms-reset:focus {
+input.button:hover, input.button:focus,.replymessage a:hover, .replymessage a:focus,.newmessage a:hover, .newmessage a:focus, .jforms-submit:hover, .jforms-submit:focus, .jforms-reset:hover, .jforms-reset:focus, .submit-rates:hover, .submit-rates:focus {
 	color: #123;
 	cursor: pointer;
 }
