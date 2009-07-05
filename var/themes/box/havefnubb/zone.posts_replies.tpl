@@ -1,16 +1,18 @@
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/jquery.toggleElements.pack.js'}
+{meta_html js $j_jelixwww.'jquery/include/jquery.include.js'}
 {meta_html css $j_themepath.'css/toggleElements.css'}
+{meta_html js $j_jelixwww.'jquery/jquery.toggleElements.pack.js'}
 {literal}
-<script type="text/javascript"> 
+<script type="text/javascript">
+//<![CDATA[
 $(document).ready(function(){ 
      $('div.toggler-c').toggleElements( 
           { fxAnimation:'slide', fxSpeed:'slow', className:'toggler' } );
      $('div.toggler-quickreply').toggleElements( { fxAnimation:'show', fxSpeed:'slow', className:'toggler' } );    
 }); 
+//]]>
 </script>
 {/literal}
-
 <div class="newmessage">
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
@@ -41,12 +43,12 @@ $(document).ready(function(){
 {assign $id_forum = $post->id_forum}
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post toggler-c opened" title="[{jlocale 'havefnubb~post.status.'.$post->status}] {$post->subject|eschtml} - {@havefnubb~main.by@} {$post->login|eschtml}">
-    <div class="posthead">       
+    <div class="posthead">                
         <h4 class="posthead-title"><span class="post-status-icon-{$post->status}"> </span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
         <div class="posthead-date">{$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</div>
         {if count($tags) > 0}
         <div class="posthead-tags"><ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul></div>
-        {/if}        
+        {/if}       
     </div>
     <div class="postbody">
         {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}        
@@ -62,6 +64,10 @@ $(document).ready(function(){
         </div>        
     </div>
     <div class="postfoot">
+        {* rate ON the FIRST post of the thread *}
+        {if $post->parent_id == $post->id_post}
+        {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,'source'=>'post')}
+        {/if}        
         <div class="post-actions">
             {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
             <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>

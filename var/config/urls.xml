@@ -173,6 +173,9 @@
         
 		<url pathinfo="/contacted" module="hfnucontact" action="default:contacted"/>
 
+        <!-- hfnurates module -->
+		<url pathinfo="/rates/it" module="hfnurates" action="default:it"/>
+        <url pathinfo="/rates/ait" module="hfnurates" action="default:ait"/>
         
     </classicentrypoint>
         
