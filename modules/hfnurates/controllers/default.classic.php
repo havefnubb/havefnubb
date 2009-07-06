@@ -30,7 +30,10 @@ class defaultCtrl extends jController {
 		//info about the "source" from where the datas come from
 		$id_source 	= (int) $this->param('id_source');
 		$source		= (string) $this->param('source');		
-		// the star
+
+		//check if the cancel button was selected
+		if ($id_source == 0 or $source == '') return;
+		
 		$rate 		= (float) $this->param('star1');
 		$rates 		= jClasses::getService('hfnurates~rates');
 		$rates->saveRatesBySource($id_source,$source,$rate);

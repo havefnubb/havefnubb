@@ -16,10 +16,10 @@
     {foreach $return_url_params as $key => $value}
     <input type="hidden" value="{$value}" name="return_url_params[{$key}]" />
     {/foreach}
-    <input name="star1" type="radio" class="starsrating" value="1" title="{@hfnurates~main.very.poor@}" {if $checked < 21 }checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.very.poor@}</span>
-    <input name="star1" type="radio" class="starsrating" value="2" title="{@hfnurates~main.poor@}" {if $checked < 41}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.poor@}</span>
-    <input name="star1" type="radio" class="starsrating" value="3" title="{@hfnurates~main.ok@}" {if $checked < 61}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.ok@}</span>
-    <input name="star1" type="radio" class="starsrating" value="4" title="{@hfnurates~main.good@}" {if $checked < 81 }checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.good@}</span>
+    <input name="star1" type="radio" class="starsrating" value="1" title="{@hfnurates~main.very.poor@}" {if $checked < 21 and $checked > 0 }checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.very.poor@}</span>
+    <input name="star1" type="radio" class="starsrating" value="2" title="{@hfnurates~main.poor@}" {if $checked < 41 and $checked > 20}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.poor@}</span>
+    <input name="star1" type="radio" class="starsrating" value="3" title="{@hfnurates~main.ok@}" {if $checked < 61 and $checked > 40}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.ok@}</span>
+    <input name="star1" type="radio" class="starsrating" value="4" title="{@hfnurates~main.good@}" {if $checked < 81 and $checked > 60}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.good@}</span>
     <input name="star1" type="radio" class="starsrating" value="5" title="{@hfnurates~main.very.good@}" {if $checked  > 80}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.very.good@}</span>
     <input type="submit" value="{@hfnurates~main.lets.rate@}" />
     <span id="rating-hover" style="margin:0 0 0 20px;">{@hfnurates~main.your.rate.will.be@}</span>      

@@ -21,10 +21,13 @@ class ratesZone extends jZone {
         
         $id_source = (int) $this->param('id_source');
 		if (! $id_source ) return;
+		
 		$source = (string) $this->param('source');  
-        if (! $source ) return;		
+        if (! $source ) return;
+		
         $return_url = (string) $this->param('return_url');
 		if (! $return_url ) return;
+		
         $return_url_params = $this->param('return_url_params');
 		if (! $return_url_params ) return;     
 		
@@ -38,8 +41,9 @@ $(document).ready(function() {
         success:   showResponse,
         url:       "'.$url.'",
         type:      "post",     
-        dataType:  "text",
-    };         
+        dataType:  "text",		
+    };
+	
     $(\'.starsrating\').rating({
         focus: function(value, link){
           var tip = $(\'#rating-hover\');
@@ -52,8 +56,9 @@ $(document).ready(function() {
         },
         callback: function(value, link){
             $(this.form).ajaxSubmit(options);
-        }
+        },
    });
+   
 });
 function showResponse(response) {
     $(\'.rates-result\').html(response);
@@ -61,12 +66,15 @@ function showResponse(response) {
 }
 //]]>
 </script>';
-
+$GLOBALS['gJCoord']->errorMessages = array("caca"=>"raraara","coucou","tata","totot");
 		$rates 	= jClasses::getService('hfnurates~rates');
-		$result =  $rates->getTotalRatesBySource($id_source,$source);		
+		$result =  $rates->getTotalRatesBySource($id_source,$source);
+	
         $resultText = jLocale::get('hfnurates~main.total.of.rates') . ':'.$result[0]->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result[1]->avg_level;
         
-        $checked = round(100 * $result[1]->avg_level / SCALE);
+		if ($result[1]->avg_level > 0)
+			$checked = round(100 * $result[1]->avg_level / SCALE);
+		else $checked = 0;
 
         $this->_tpl->assign('rating',$rating);
         $this->_tpl->assign('checked',$checked);
