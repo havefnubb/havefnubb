@@ -251,7 +251,7 @@ li.pagelinks-current  {
 	cursor: pointer;    
 }
 
-.postfoot a:hover,.postfoot a:focus,.postfoot a:active {
+.post-actions a:hover,.post-actions a:focus,.post-actions a:active {	
 
     cursor: pointer;
 	color:#c40;

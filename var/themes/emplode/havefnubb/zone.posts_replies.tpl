@@ -43,8 +43,16 @@ $(document).ready(function(){
 {assign $id_forum = $post->id_forum}
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post">
-    <div class="posthead legend">
+    <div class="posthead legend">     
         <h4 class="posthead-title"><span class="post-status-icon-{$post->status}"> </span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
+        {* rate ON the FIRST post of the thread *}
+        {if $post->parent_id == $post->id_post}
+        {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
+                                        'source'=>'post',
+                                        'return_url'=>'havefnubb~posts:view',
+                                        'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle) 
+                                        )}
+        {/if}        
         <div class="posthead-date">{$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</div>
         {if count($tags) > 0}
         <div class="posthead-tags"><ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul></div>
@@ -64,14 +72,6 @@ $(document).ready(function(){
         </div>        
     </div>
     <div class="postfoot">
-        {* rate ON the FIRST post of the thread *}
-        {if $post->parent_id == $post->id_post}
-        {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
-                                        'source'=>'post',
-                                        'return_url'=>'posts:view',
-                                        'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle) 
-                                        )}
-        {/if}
         <div class="post-actions">            
             {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
             <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>

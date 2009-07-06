@@ -21,7 +21,7 @@
     <input name="star1" type="radio" class="starsrating" value="3" title="{@hfnurates~main.ok@}" {if $checked < 61 and $checked > 40}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.ok@}</span>
     <input name="star1" type="radio" class="starsrating" value="4" title="{@hfnurates~main.good@}" {if $checked < 81 and $checked > 60}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.good@}</span>
     <input name="star1" type="radio" class="starsrating" value="5" title="{@hfnurates~main.very.good@}" {if $checked  > 80}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.very.good@}</span>
-    <input type="submit" class="submit" value="{@hfnurates~main.lets.rate@}" />
+    <input type="submit" class="submit-rates" value="{@hfnurates~main.lets.rate@}" /><br/>
     <span id="rating-hover" style="margin:0 0 0 20px;">{@hfnurates~main.your.rate.will.be@}</span>      
     </div>
 </form>
