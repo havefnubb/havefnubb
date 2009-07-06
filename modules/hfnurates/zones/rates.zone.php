@@ -12,12 +12,24 @@ class ratesZone extends jZone {
     protected $_tplname='zone.rates';
     
     protected function _prepareTpl(){
-        $id_source = $this->param('id_source');
+        
+        // define the number of stars used in the template
+        // this will determine which star is selected
+        // when the rate is done.
+        define ('SCALE',5);
+        
+        
+        $id_source = (int) $this->param('id_source');
 		if (! $id_source ) return;
-		$source = $this->param('source');  
+		$source = (string) $this->param('source');  
         if (! $source ) return;		
+        $return_url = (string) $this->param('return_url');
+		if (! $return_url ) return;
+        $return_url_params = $this->param('return_url_params');
+		if (! $return_url_params ) return;     
 		
-		$url = jUrl::get('hfnurates~default:rate_ajax_it');		
+		$url = jUrl::get('hfnurates~default:rate_ajax_it');
+        
 		$js = '		
 <script type="text/javascript">
 //<![CDATA[
@@ -44,19 +56,26 @@ $(document).ready(function() {
    });
 });
 function showResponse(response) {
-     $(\'#post-rates-msg\').html(\''.jLocale::get('hfnurates~main.thanks.you.for.rating').'\');
+    $(\'.rates-result\').html(response);
+    $(\'#post-rates-msg\').html(\''.jLocale::get('hfnurates~main.thanks.you.for.rating').'\');
 }
 //]]>
 </script>';
 
 		$rates 	= jClasses::getService('hfnurates~rates');
-		$data 	= $rates->getTotalRatesBySource($id_source,$source);		
-		//@TODO
-		//Display the Data 'total_rates' and 'avg_rates' after submission
+		$result =  $rates->getTotalRatesBySource($id_source,$source);		
+        $resultText = jLocale::get('hfnurates~main.total.of.rates') . ':'.$result[0]->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result[1]->avg_level;
+        
+        $checked = round(100 * $result[1]->avg_level / SCALE);
+
+        $this->_tpl->assign('rating',$rating);
+        $this->_tpl->assign('checked',$checked);
 		$this->_tpl->assign('js',$js);
 		$this->_tpl->assign('id_source',$id_source);
-		$this->_tpl->assign('total_rates',$data[0]);
-		$this->_tpl->assign('avg_rates',$data[1]);
-		$this->_tpl->assign('redirect',$GLOBALS['gJCoord']->request->urlPathInfo);
+        $this->_tpl->assign('source',$source);
+		$this->_tpl->assign('result',$resultText);
+        $this->_tpl->assign('return_url',$return_url);
+        $this->_tpl->assign('return_url_params',$return_url_params);
+
     }    
 }

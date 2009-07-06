@@ -150,6 +150,10 @@ li.pagelinks-current  {
     height: 35px;
 }
 
+.post-rates,.rates-result,#post-rates-msg {
+    text-align: left;
+}
+
 .posthead-title {
 	margin-left: 18em ; 
 	padding-left: 12px;

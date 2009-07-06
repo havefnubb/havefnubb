@@ -22,7 +22,8 @@ class defaultCtrl extends jController {
 		$rates 		= jClasses::getService('hfnurates~rates');
 		$result 	= $rates->saveRatesBySource($id_source,$source,$rate);
 		$rep 		= $this->getResponse('redirect');
-		$rep->url   = (string) $this->param('redirect');
+		$rep->action= (string) $this->param('return_url');
+        $rep->params= (array) $this->param('return_url_params');
 		return $rep;
 	}
 	function rate_ajax_it() {
@@ -32,8 +33,11 @@ class defaultCtrl extends jController {
 		// the star
 		$rate 		= (float) $this->param('star1');
 		$rates 		= jClasses::getService('hfnurates~rates');
-		$result 	= $rates->saveRatesBySource($id_source,$source,$rate);
-		$rep = $this->getResponse('html');
+		$rates->saveRatesBySource($id_source,$source,$rate);
+        $result     = $rates->getTotalRatesBySource($id_source,$source);
+        
+		$rep = $this->getResponse('htmlfragment');
+        $rep->addContent( jLocale::get('hfnurates~main.total.of.rates').':'.$result[0]->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result[1]->avg_level );
 		return $rep;
 	}	
 }

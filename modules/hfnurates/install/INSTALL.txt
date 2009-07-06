@@ -1,47 +1,8 @@
-in the target template add :
+HOW TO USE :
 
-{meta_html css $j_basepath.'images/star-rating/jquery.rating.css'}
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/include/jquery.include.js'}
-{meta_html js $j_jelixwww.'jquery/jquery.MetaData.js'}
-{meta_html js $j_jelixwww.'jquery/jquery.rating.pack.js'}
-
-...
-
-{literal}
-<script type="text/javascript">
-//<![CDATA[
-
-...
-
-$(function(){   
-    $('.starsrating').rating({
-        callback: function(value, link){
-   // 'this' is the hidden form element holding the current value
-   // 'value' is the value selected
-   // 'element' points to the link element that received the click.
-        alert("The value selected was '" + value + "'\n\nWith this callback function I can automatically submit the form with this code:\nthis.form.submit();");
-   
-   // To submit the form automatically:
-   //this.form.submit();
-   
-   // To submit the form via ajax:
-   //$(this.form).ajaxSubmit();
-        }
-    });     
-});
-//]]>
-</script>
-{/literal}
-        <div class="post-rates">
-        <form id="form{$post->id_post}">
-        <input name="star1" type="radio" class="starsrating" value="1"/>
-        <input name="star1" type="radio" class="starsrating" value="2"/>
-        <input name="star1" type="radio" class="starsrating" value="3"/>
-        <input name="star1" type="radio" class="starsrating" value="4"/>
-        <input name="star1" type="radio" class="starsrating" value="5"/>
-        <input type="submit" class="submit-rates" value="Rate!" />
-        </form>
-        </div>
+// in tpl, all rates of an object : 
+{zone 'hfnurates~rates' , array('id_source'=>$post->id_post,'source'=>'post','return_url'=>'module~ctrl:action','return_url_params'=>array('parms1',parms2'))}
 
 
+the parameter "return_url" : tells to hfnurates, where to go back after the data submission
+the parameter "return_url_params" : tells to hfnurates, which parameter to use with the return_url action.

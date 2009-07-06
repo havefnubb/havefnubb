@@ -66,7 +66,11 @@ $(document).ready(function(){
     <div class="postfoot">
         {* rate ON the FIRST post of the thread *}
         {if $post->parent_id == $post->id_post}
-        {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,'source'=>'post')}
+        {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
+                                        'source'=>'post',
+                                        'return_url'=>'posts:view',
+                                        'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle) 
+                                        )}
         {/if}
         <div class="post-actions">            
             {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
