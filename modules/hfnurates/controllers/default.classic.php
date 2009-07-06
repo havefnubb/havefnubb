@@ -13,7 +13,7 @@ class defaultCtrl extends jController {
         '*'		=> array('auth.required'=>false,
 						 ),
     );
-	function it() {
+	function rate_it() {
 		//info about the "source" from where the datas come from
 		$id_source 	= (int) $this->param('id_source');
 		$source		= (string) $this->param('source');		
@@ -21,11 +21,11 @@ class defaultCtrl extends jController {
 		$rate 		= (float) $this->param('star1');
 		$rates 		= jClasses::getService('hfnurates~rates');
 		$result 	= $rates->saveRatesBySource($id_source,$source,$rate);
-		$rep = $this->getResponse('redirect');
-		$rep->action = (string) $this->param('redirect');
+		$rep 		= $this->getResponse('redirect');
+		$rep->url   = (string) $this->param('redirect');
 		return $rep;
 	}
-	function ait() {
+	function rate_ajax_it() {
 		//info about the "source" from where the datas come from
 		$id_source 	= (int) $this->param('id_source');
 		$source		= (string) $this->param('source');		

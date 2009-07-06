@@ -7,10 +7,11 @@
 
 {* javascript and ajax code *}
 {$js}
-<form id="form{$id_source}" action="{formurl 'hfnurates~default:it'}" method="post">
+<form id="form{$id_source}" action="{formurl 'hfnurates~default:rate_it'}" method="post">
     <div class="post-rates">          
     <input type="hidden" value="{$id_source}" id="id_source" name="id_source"/>
     <input type="hidden" value="post" id="source" name="source"/>
+    <input type="hidden" value="{$redirect}" name="redirect" />
     <input name="star1" type="radio" class="starsrating" value="1" title="Very Poor"/>
     <input name="star1" type="radio" class="starsrating" value="2" title="Poor"/>
     <input name="star1" type="radio" class="starsrating" value="3" title="Ok"/>

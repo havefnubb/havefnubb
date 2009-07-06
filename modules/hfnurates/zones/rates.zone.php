@@ -17,7 +17,7 @@ class ratesZone extends jZone {
 		$source = $this->param('source');  
         if (! $source ) return;		
 		
-		$url = jUrl::get('hfnurates~default:ait');		
+		$url = jUrl::get('hfnurates~default:rate_ajax_it');		
 		$js = '		
 <script type="text/javascript">
 //<![CDATA[
@@ -51,9 +51,12 @@ function showResponse(response) {
 
 		$rates 	= jClasses::getService('hfnurates~rates');
 		$data 	= $rates->getTotalRatesBySource($id_source,$source);		
-
+		//@TODO
+		//Display the Data 'total_rates' and 'avg_rates' after submission
 		$this->_tpl->assign('js',$js);
 		$this->_tpl->assign('id_source',$id_source);
-		$this->_tpl->assign('level',$level);
+		$this->_tpl->assign('total_rates',$data[0]);
+		$this->_tpl->assign('avg_rates',$data[1]);
+		$this->_tpl->assign('redirect',$GLOBALS['gJCoord']->request->urlPathInfo);
     }    
 }
