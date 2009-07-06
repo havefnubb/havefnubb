@@ -66,7 +66,7 @@ function showResponse(response) {
 }
 //]]>
 </script>';
-$GLOBALS['gJCoord']->errorMessages = array("caca"=>"raraara","coucou","tata","totot");
+
 		$rates 	= jClasses::getService('hfnurates~rates');
 		$result =  $rates->getTotalRatesBySource($id_source,$source);
 	
