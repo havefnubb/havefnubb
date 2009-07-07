@@ -17,10 +17,9 @@ class ratesZone extends jZone {
         // this will determine which star is selected
         // when the rate is done.
         define ('SCALE',5);
-        
-        
+                
         $id_source = (int) $this->param('id_source');
-		if (! $id_source ) return;
+		if ( $id_source == 0) return;
 		
 		$source = (string) $this->param('source');  
         if (! $source ) return;
@@ -70,13 +69,12 @@ function showResponse(response) {
 		$rates 	= jClasses::getService('hfnurates~rates');
 		$result =  $rates->getTotalRatesBySource($id_source,$source);
 	
-        $resultText = jLocale::get('hfnurates~main.total.of.rates') . ':'.$result[0]->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result[1]->avg_level;
+        $resultText = jLocale::get('hfnurates~main.total.of.rates') . ':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level;
         
-		if ($result[1]->avg_level > 0)
-			$checked = round(100 * $result[1]->avg_level / SCALE);
+		if ($result->avg_level > 0)
+			$checked = round(100 * $result->avg_level / SCALE);
 		else $checked = 0;
 
-        $this->_tpl->assign('rating',$rating);
         $this->_tpl->assign('checked',$checked);
 		$this->_tpl->assign('js',$js);
 		$this->_tpl->assign('id_source',$id_source);

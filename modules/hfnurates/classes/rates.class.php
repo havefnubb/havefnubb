@@ -10,23 +10,16 @@
 
 class rates {
 
-    protected $dao_tags = "hfnurates~rates";
-
     // get the Rate of a given source and ID
     function getTotalRatesBySource($id_source, $source) {
         $cnx = jDb::getConnection();        
-	    $strQuery = 'SELECT COUNT(*) as total_rates, SUM(level) as total_level ' . 
+	    $strQuery = 'SELECT COUNT(*) as total_rates, SUM(level) as total_level, AVG(level) as avg_level ' . 
 	                ' FROM '.$cnx->prefixTable('rates'). 
 	                " WHERE id_source = '".$id_source."' AND source='".addslashes($source). "' GROUP BY id_source";
         $rs = $cnx->query($strQuery);        
         $total = $rs->fetch();
         
-	    $strQuery = 'SELECT AVG(level) as avg_level ' . 
-	                ' FROM '.$cnx->prefixTable('rates'). 
-	                " WHERE id_source = '".$id_source."' AND source='".addslashes($source). "' GROUP BY id_source";
-        $rs = $cnx->query($strQuery);
-        $avg = $rs->fetch();
-        return array($total,$avg);
+        return $total;
     }
     
     // save the Rate to a given source and ID

@@ -254,12 +254,8 @@ class postsCtrl extends jController {
 			}
 
         $srvTags = jClasses::getService("jtags~tags");
-        $tagsArray = $srvTags->getTagsBySubject('forumscope', $id_post);
-		$tags= '';
-		for ($i = 0; $i < count($tagsArray) ; $i ++) {			
-			$tags .= $tagsArray[$i] . ',';
-		}     
-        
+        $tags = implode(',',$srvTags->getTagsBySubject('forumscope',$id_post));		
+		
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 		// crumbs infos
 		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);		
@@ -329,7 +325,6 @@ class postsCtrl extends jController {
 		}
 		
 		$parent_id 	= (int) $this->param('parent_id');		
-		$tags 		= $this->param("tags", false);                
 		
 		$submit = $this->param('validate');
 		// preview ?

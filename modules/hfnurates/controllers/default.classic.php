@@ -40,7 +40,7 @@ class defaultCtrl extends jController {
         $result     = $rates->getTotalRatesBySource($id_source,$source);
         
 		$rep = $this->getResponse('htmlfragment');
-        $rep->addContent( jLocale::get('hfnurates~main.total.of.rates').':'.$result[0]->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result[1]->avg_level );
+        $rep->addContent( jLocale::get('hfnurates~main.total.of.rates').':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level );
 		return $rep;
 	}	
 }
