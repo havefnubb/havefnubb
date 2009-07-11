@@ -1,3 +1,7 @@
+INSTALL :
+1) copy the module hfnurates inside your own modules repository
+2) copy the CONTENT of the www directory in your main website directory also call "document root"
+
 HOW TO USE :
 
 // in tpl, all rates of an object : 
