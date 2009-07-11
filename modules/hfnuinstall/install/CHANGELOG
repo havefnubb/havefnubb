@@ -1,3 +1,1034 @@
+Revision: 331
+Author: foxmask
+Date: 11:40:13, samedi 11 juillet 2009
+Message:
+1.0.0 in the pipe
+----
+Modified : /trunk/modules/havefnubb/module.xml
+Modified : /trunk/modules/hfnuadmin/module.xml
+Modified : /trunk/modules/hfnucontact/module.xml
+Modified : /trunk/modules/hfnuinstall/controllers/default.classic.php
+Added : /trunk/modules/hfnuinstall/install/UPDATE-TO-1.0.0
+Modified : /trunk/modules/hfnuinstall/install/sql/install.mysql.sql
+Added : /trunk/modules/hfnuinstall/install/update/1.0.0
+Added : /trunk/modules/hfnuinstall/install/update/1.0.0/install.mysql.sql
+Modified : /trunk/modules/hfnurates/install/INSTALL.txt
+Modified : /trunk/modules/hfnurates/module.xml
+Modified : /trunk/modules/hfnusearch/module.xml
+Modified : /trunk/modules/servinfo/module.xml
+Added : /trunk/var/themes/chocolatebrown/havefnubb/zone.posts_replies.tpl
+
+Revision: 330
+Author: foxmask
+Date: 18:50:40, mardi 7 juillet 2009
+Message:
+unusefull ressource at all
+----
+Deleted : /trunk/hfnutoolbar.js
+
+Revision: 329
+Author: foxmask
+Date: 18:39:24, mardi 7 juillet 2009
+Message:
+post controlleur improvment
+
+rates class improvment
+----
+Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/modules/hfnurates/classes/rates.class.php
+Modified : /trunk/modules/hfnurates/controllers/default.classic.php
+Modified : /trunk/modules/hfnurates/zones/rates.zone.php
+
+Revision: 328
+Author: foxmask
+Date: 00:11:08, mardi 7 juillet 2009
+Message:
+ticket #77 remains to fix the issue with theme chocolatebrown
+----
+Modified : /trunk/images/star-rating/jquery.rating.css
+Deleted : /trunk/modules/havefnubb/templates/zone.syntax_wiki.tpl
+Modified : /trunk/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/themes/box/css/havefnuboard_posts.css
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard_posts.css
+Modified : /trunk/themes/default/css/havefnuboard_posts.css
+Modified : /trunk/themes/emplode/css/havefnuboard_posts.css
+Modified : /trunk/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+Added : /trunk/var/themes/emplode/hfnurates
+Added : /trunk/var/themes/emplode/hfnurates/zone.rates.tpl
+
+Revision: 327
+Author: foxmask
+Date: 23:20:26, lundi 6 juillet 2009
+Message:
+ticket #77 remove a test ;)
+----
+Modified : /trunk/modules/hfnurates/zones/rates.zone.php
+
+Revision: 326
+Author: foxmask
+Date: 23:17:43, lundi 6 juillet 2009
+Message:
+ticket #77 : rates Done
+----
+Modified : /trunk/modules/hfnurates/controllers/default.classic.php
+Modified : /trunk/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/modules/hfnurates/zones/rates.zone.php
+
+Revision: 325
+Author: foxmask
+Date: 21:06:48, lundi 6 juillet 2009
+Message:
+Module HfnuRates done !
+----
+Modified : /trunk/modules/havefnubb/templates/zone.posts_replies.tpl
+Modified : /trunk/modules/hfnurates/controllers/default.classic.php
+Modified : /trunk/modules/hfnurates/install/INSTALL.txt
+Modified : /trunk/modules/hfnurates/locales/en_EN/main.UTF-8.properties
+Modified : /trunk/modules/hfnurates/locales/fr_FR/main.UTF-8.properties
+Modified : /trunk/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/modules/hfnurates/zones/rates.zone.php
+Modified : /trunk/themes/box/css/havefnuboard_posts.css
+Modified : /trunk/themes/default/css/havefnuboard_posts.css
+Modified : /trunk/themes/emplode/css/havefnuboard_posts.css
+Modified : /trunk/var/themes/box/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+
+Revision: 324
+Author: foxmask
+Date: 07:32:13, lundi 6 juillet 2009
+Message:
+Continue "Rates" Module
+----
+Modified : /trunk/modules/havefnubb/templates/zone.posts_replies.tpl
+Modified : /trunk/modules/hfnurates/controllers/default.classic.php
+Deleted : /trunk/modules/hfnurates/forms/rates.form.xml
+Modified : /trunk/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/modules/hfnurates/zones/rates.zone.php
+Modified : /trunk/var/config/urls.xml
+Modified : /trunk/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+
+Revision: 323
+Author: foxmask
+Date: 11:03:54, dimanche 5 juillet 2009
+Message:
+Introducing Rate Modules
+----
+Added : /trunk/images/star-rating
+Added : /trunk/images/star-rating/delete.gif
+Added : /trunk/images/star-rating/jquery.rating.css
+Added : /trunk/images/star-rating/star.gif
+Added : /trunk/jelix/jquery/jquery.MetaData.js
+Added : /trunk/jelix/jquery/jquery.form.js
+Added : /trunk/jelix/jquery/jquery.rating.pack.js
+Added : /trunk/modules/hfnurates
+Added : /trunk/modules/hfnurates/classes
+Added : /trunk/modules/hfnurates/classes/rates.class.php
+Added : /trunk/modules/hfnurates/controllers
+Added : /trunk/modules/hfnurates/controllers/default.classic.php
+Added : /trunk/modules/hfnurates/daos
+Added : /trunk/modules/hfnurates/daos/rates.dao.xml
+Added : /trunk/modules/hfnurates/forms
+Added : /trunk/modules/hfnurates/forms/rates.form.xml
+Added : /trunk/modules/hfnurates/install
+Added : /trunk/modules/hfnurates/install/INSTALL.txt
+Added : /trunk/modules/hfnurates/install/sql
+Added : /trunk/modules/hfnurates/install/sql/install.mysql.sql
+Added : /trunk/modules/hfnurates/install/www
+Added : /trunk/modules/hfnurates/install/www/images
+Added : /trunk/modules/hfnurates/install/www/images/star-rating
+Added : /trunk/modules/hfnurates/install/www/images/star-rating/delete.gif
+Added : /trunk/modules/hfnurates/install/www/images/star-rating/jquery.rating.css
+Added : /trunk/modules/hfnurates/install/www/images/star-rating/star.gif
+Added : /trunk/modules/hfnurates/install/www/jelix
+Added : /trunk/modules/hfnurates/install/www/jelix/jquery
+Added : /trunk/modules/hfnurates/install/www/jelix/jquery/jquery.MetaData.js
+Added : /trunk/modules/hfnurates/install/www/jelix/jquery/jquery.form.js
+Added : /trunk/modules/hfnurates/install/www/jelix/jquery/jquery.rating.js
+Added : /trunk/modules/hfnurates/install/www/jelix/jquery/jquery.rating.pack.js
+Added : /trunk/modules/hfnurates/locales
+Added : /trunk/modules/hfnurates/locales/en_EN
+Added : /trunk/modules/hfnurates/locales/en_EN/main.UTF-8.properties
+Added : /trunk/modules/hfnurates/locales/fr_FR
+Added : /trunk/modules/hfnurates/locales/fr_FR/main.UTF-8.properties
+Added : /trunk/modules/hfnurates/module.xml
+Added : /trunk/modules/hfnurates/templates
+Added : /trunk/modules/hfnurates/templates/zone.rates.tpl
+Added : /trunk/modules/hfnurates/zones
+Added : /trunk/modules/hfnurates/zones/rates.zone.php
+Modified : /trunk/var/config/urls.xml
+Modified : /trunk/var/themes/box/havefnubb/zone.posts_replies.tpl
+
+Revision: 322
+Author: foxmask
+Date: 01:30:26, samedi 4 juillet 2009
+Message:
+replacing hfnutoolbar by markitup
+----
+Added : /trunk/images/body.png
+Added : /trunk/images/jaysalvat.png
+Added : /trunk/images/markitup.png
+Added : /trunk/images/style.css
+Added : /trunk/markitup
+Added : /trunk/markitup/jquery.markitup.js
+Added : /trunk/markitup/jquery.markitup.pack.js
+Added : /trunk/markitup/readme.txt
+Added : /trunk/markitup/sets
+Added : /trunk/markitup/sets/default
+Added : /trunk/markitup/sets/default/images
+Added : /trunk/markitup/sets/default/images/Thumbs.db
+Added : /trunk/markitup/sets/default/images/bold.png
+Added : /trunk/markitup/sets/default/images/clean.png
+Added : /trunk/markitup/sets/default/images/image.png
+Added : /trunk/markitup/sets/default/images/italic.png
+Added : /trunk/markitup/sets/default/images/link.png
+Added : /trunk/markitup/sets/default/images/picture.png
+Added : /trunk/markitup/sets/default/images/preview.png
+Added : /trunk/markitup/sets/default/images/stroke.png
+Added : /trunk/markitup/sets/default/set.js
+Added : /trunk/markitup/sets/default/style.css
+Added : /trunk/markitup/sets/wiki
+Added : /trunk/markitup/sets/wiki/images
+Added : /trunk/markitup/sets/wiki/images/Thumbs.db
+Added : /trunk/markitup/sets/wiki/images/bold.png
+Added : /trunk/markitup/sets/wiki/images/code.png
+Added : /trunk/markitup/sets/wiki/images/h1.png
+Added : /trunk/markitup/sets/wiki/images/h2.png
+Added : /trunk/markitup/sets/wiki/images/h3.png
+Added : /trunk/markitup/sets/wiki/images/h4.png
+Added : /trunk/markitup/sets/wiki/images/h5.png
+Added : /trunk/markitup/sets/wiki/images/h6.png
+Added : /trunk/markitup/sets/wiki/images/italic.png
+Added : /trunk/markitup/sets/wiki/images/link.png
+Added : /trunk/markitup/sets/wiki/images/list-bullet.png
+Added : /trunk/markitup/sets/wiki/images/list-numeric.png
+Added : /trunk/markitup/sets/wiki/images/picture.png
+Added : /trunk/markitup/sets/wiki/images/preview.png
+Added : /trunk/markitup/sets/wiki/images/quotes.png
+Added : /trunk/markitup/sets/wiki/images/stroke.png
+Added : /trunk/markitup/sets/wiki/images/url.png
+Added : /trunk/markitup/sets/wiki/readme.txt
+Added : /trunk/markitup/sets/wiki/set.js
+Added : /trunk/markitup/sets/wiki/style.css
+Added : /trunk/markitup/sets/wr3
+Added : /trunk/markitup/sets/wr3/en_EN.js
+Added : /trunk/markitup/sets/wr3/en_US.js
+Added : /trunk/markitup/sets/wr3/fr_FR.js
+Added : /trunk/markitup/sets/wr3/images
+Added : /trunk/markitup/sets/wr3/images/Thumbs.db
+Added : /trunk/markitup/sets/wr3/images/bold.png
+Added : /trunk/markitup/sets/wr3/images/code.png
+Added : /trunk/markitup/sets/wr3/images/h1.png
+Added : /trunk/markitup/sets/wr3/images/h2.png
+Added : /trunk/markitup/sets/wr3/images/h3.png
+Added : /trunk/markitup/sets/wr3/images/h4.png
+Added : /trunk/markitup/sets/wr3/images/h5.png
+Added : /trunk/markitup/sets/wr3/images/h6.png
+Added : /trunk/markitup/sets/wr3/images/italic.png
+Added : /trunk/markitup/sets/wr3/images/link.png
+Added : /trunk/markitup/sets/wr3/images/list-bullet.png
+Added : /trunk/markitup/sets/wr3/images/list-numeric.png
+Added : /trunk/markitup/sets/wr3/images/picture.png
+Added : /trunk/markitup/sets/wr3/images/preview.png
+Added : /trunk/markitup/sets/wr3/images/quotes.png
+Added : /trunk/markitup/sets/wr3/images/stroke.png
+Added : /trunk/markitup/sets/wr3/images/text_carriage_return.png
+Added : /trunk/markitup/sets/wr3/images/text_source.png
+Added : /trunk/markitup/sets/wr3/images/url.png
+Added : /trunk/markitup/sets/wr3/style.css
+Added : /trunk/markitup/skins
+Added : /trunk/markitup/skins/markitup
+Added : /trunk/markitup/skins/markitup/images
+Added : /trunk/markitup/skins/markitup/images/Thumbs.db
+Added : /trunk/markitup/skins/markitup/images/bg-container.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor-bbcode.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor-dotclear.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor-html.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor-json.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor-markdown.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor-textile.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor-wiki.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor-xml.png
+Added : /trunk/markitup/skins/markitup/images/bg-editor.png
+Added : /trunk/markitup/skins/markitup/images/handle.png
+Added : /trunk/markitup/skins/markitup/images/menu.png
+Added : /trunk/markitup/skins/markitup/images/submenu.png
+Added : /trunk/markitup/skins/markitup/style.css
+Added : /trunk/markitup/skins/simple
+Added : /trunk/markitup/skins/simple/images
+Added : /trunk/markitup/skins/simple/images/handle.png
+Added : /trunk/markitup/skins/simple/images/menu.png
+Added : /trunk/markitup/skins/simple/images/submenu.png
+Added : /trunk/markitup/skins/simple/style.css
+Added : /trunk/markitup/templates
+Added : /trunk/markitup/templates/preview.css
+Added : /trunk/markitup/templates/preview.html
+Modified : /trunk/modules/havefnubb/module.xml
+Modified : /trunk/modules/havefnubb/templates/posts.edit.tpl
+Modified : /trunk/modules/havefnubb/templates/posts.notify.tpl
+Modified : /trunk/modules/havefnubb/templates/zone.quickreply.tpl
+Modified : /trunk/modules/hfnuadmin/module.xml
+Modified : /trunk/modules/hfnucontact/module.xml
+Modified : /trunk/modules/hfnuinstall/module.xml
+Modified : /trunk/modules/hfnusearch/module.xml
+Modified : /trunk/modules/servinfo/module.xml
+Modified : /trunk/plugins/coord/banuser/plugin.xml
+Modified : /trunk/plugins/coord/flood/plugin.xml
+Modified : /trunk/plugins/coord/hfnuinstalled/plugin.xml
+Modified : /trunk/plugins/coord/timeout/plugin.xml
+Deleted : /trunk/plugins/tpl/html/function.hfnutoolbar.php
+Deleted : /trunk/plugins/tpl/html/install.hfnutoolbar
+Modified : /trunk/project.xml
+Modified : /trunk/responses/fnuHtmlResponse.class.php
+Modified : /trunk/themes/box/css/havefnuboard_posts.css
+Modified : /trunk/themes/emplode/css/havefnuboard.css
+Modified : /trunk/themes/emplode/css/havefnuboard_posts.css
+Added : /trunk/var/config/wikitoolbar.ini.php
+Modified : /trunk/var/themes/box/havefnubb/zone.quickreply.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/posts.edit.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/posts.notify.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/zone.quickreply.tpl
+
+Revision: 321
+Author: foxmask
+Date: 00:48:35, jeudi 2 juillet 2009
+Message:
+ticket #80
+----
+Modified : /trunk/modules/hfnucontact/forms/contact.form.xml
+Modified : /trunk/modules/hfnucontact/locales/en_EN/contact.UTF-8.properties
+Modified : /trunk/modules/hfnucontact/locales/fr_FR/contact.UTF-8.properties
+Modified : /trunk/modules/hfnucontact/templates/contact.tpl
+Modified : /trunk/var/themes/emplode/hfnucontact/contact.tpl
+
+Revision: 320
+Author: foxmask
+Date: 22:40:42, mercredi 1 juillet 2009
+Message:
+some very light improvments to be nearer WAII Validation which is a long way.
+----
+Modified : /trunk/modules/havefnubb/locales/en_EN/member.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/fr_FR/member.UTF-8.properties
+Modified : /trunk/themes/emplode/css/havefnuboard.css
+Modified : /trunk/var/overloads/jcommunity/forms/account.form.xml
+Modified : /trunk/var/themes/emplode/havefnubb/zone.lastposts.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/zone.stats.tpl
+Modified : /trunk/var/themes/emplode/jcommunity/status.tpl
+Modified : /trunk/var/themes/emplode/jtags/tagscloud.tpl
+
+Revision: 319
+Author: foxmask
+Date: 15:55:57, dimanche 28 juin 2009
+Message:
+rules
+----
+Modified : /trunk/var/feeds
+Modified : /trunk/var/log
+Modified : /trunk/var/sessions
+Modified : /trunk/var/uploads
+
+Revision: 318
+Author: foxmask
+Date: 15:47:16, dimanche 28 juin 2009
+Message:
+ticket #85
+----
+Modified : /trunk/jelix/.htaccess
+Modified : /trunk/modules/hfnucontact/controllers/default.classic.php
+Modified : /trunk/var/config/flood.coord.ini.php
+Modified : /trunk/var/config/hfnuadmin/config.ini.php
+Modified : /trunk/var/config/timeout.coord.ini.php
+Modified : /trunk/var/themes/box/jcommunity/account_show.tpl
+Modified : /trunk/var/themes/box/jtags/tagscloud.tpl
+Modified : /trunk/var/themes/default/jcommunity/account_show.tpl
+Modified : /trunk/var/themes/default/jtags/tagscloud.tpl
+Modified : /trunk/var/themes/emplode/jcommunity/account_show.tpl
+Modified : /trunk/var/themes/emplode/jtags/tagscloud.tpl
+
+Revision: 317
+Author: foxmask
+Date: 15:12:35, dimanche 28 juin 2009
+Message:
+
+----
+Modified : /trunk/var/config
+
+Revision: 316
+Author: foxmask
+Date: 15:10:49, dimanche 28 juin 2009
+Message:
+unusefull content
+----
+Deleted : /trunk/var/config/dbprofils.ini.php
+
+Revision: 315
+Author: foxmask
+Date: 15:09:20, dimanche 28 juin 2009
+Message:
+unusefull content
+----
+Deleted : /trunk/var/config/defaultconfig.ini.php
+Deleted : /trunk/var/config/downloads.module.ini.php
+Deleted : /trunk/var/config/havefnu.ini.php
+
+Revision: 314
+Author: foxmask
+Date: 15:01:33, dimanche 28 juin 2009
+Message:
+
+----
+Added : /trunk/files/.htaccess
+
+Revision: 313
+Author: foxmask
+Date: 15:00:01, dimanche 28 juin 2009
+Message:
+standard Rewrite 
+----
+Modified : /trunk/.htaccess
+
+Revision: 312
+Author: foxmask
+Date: 14:58:33, dimanche 28 juin 2009
+Message:
+Unusefull content
+----
+Modified : /trunk
+Deleted : /trunk/HaveFnuBB.kpf
+Modified : /trunk/temp/havefnubb
+Modified : /trunk/temp/havefnubb-cli
+Modified : /trunk/temp/havefnubb-jelix-scripts
+
+Revision: 311
+Author: foxmask
+Date: 14:54:46, dimanche 28 juin 2009
+Message:
+
+----
+Deleted : /trunk/temp/havefnubb/compiled
+Deleted : /trunk/temp/havefnubb/index~config.ini.php.resultini.php
+Deleted : /trunk/temp/havefnubb/zonecache
+
+Revision: 310
+Author: foxmask
+Date: 14:50:00, dimanche 28 juin 2009
+Message:
+Ticket #88 : new tree directories
+----
+[...]
+
+Revision: 309
+Author: foxmask
+Date: 14:32:48, dimanche 28 juin 2009
+Message:
+
+----
+[...]
+
+Revision: 308
+Author: foxmask
+Date: 14:32:28, dimanche 28 juin 2009
+Message:
+
+----
+Deleted : /trunk/themes
+
+Revision: 307
+Author: foxmask
+Date: 14:26:35, dimanche 28 juin 2009
+Message:
+Ticket #88 : new directory tree
+----
+[...]
+
+Revision: 306
+Author: foxmask
+Date: 19:19:20, samedi 27 juin 2009
+Message:
+dernier clou à ce bug strpos :P
+----
+Modified : /trunk/modules/havefnubb/classes/bans.class.php
+
+Revision: 305
+Author: foxmask
+Date: 18:56:45, samedi 27 juin 2009
+Message:
+1) PHP5.3 compliant code replace split by preg_split
+2) fix bug on bannedDomain
+----
+Modified : /trunk/havefnubb/responses/fnuHtmlResponse.class.php
+Modified : /trunk/modules/havefnubb/classes/bans.class.php
+Modified : /trunk/modules/havefnubb/classes/flags.class.php
+Modified : /trunk/modules/hfnuadmin/controllers/ban.classic.php
+Modified : /trunk/modules/hfnusearch/classes/search_index.class.php
+Modified : /trunk/plugins/tpl/html/function.nospam.php
+
+Revision: 304
+Author: foxmask
+Date: 15:54:40, vendredi 26 juin 2009
+Message:
+missing tpl
+----
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/main_not_installed.tpl
+
+Revision: 303
+Author: foxmask
+Date: 14:04:44, vendredi 26 juin 2009
+Message:
+remove unusefull resources
+----
+Deleted : /trunk/havefnubb/www/themes/emplode/css/havefnuboard.css.bak
+Deleted : /trunk/havefnubb/www/themes/emplode/css/style.css
+
+Revision: 302
+Author: foxmask
+Date: 14:00:31, vendredi 26 juin 2009
+Message:
+Themes Emplode Improved
+----
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/main.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/status.tpl
+Modified : /trunk/havefnubb/www/themes/emplode/css/havefnuboard.css
+Modified : /trunk/havefnubb/www/themes/emplode/css/havefnuboard_users.css
+
+Revision: 301
+Author: foxmask
+Date: 13:09:02, vendredi 26 juin 2009
+Message:
+Theme Emplode Improved
+----
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/main.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/status.tpl
+Modified : /trunk/havefnubb/www/themes/emplode/css/havefnuboard_users.css
+
+Revision: 300
+Author: foxmask
+Date: 12:50:14, vendredi 26 juin 2009
+Message:
+Theme Emplode improved on user pages
+----
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.memberlist.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnucontact
+Added : /trunk/havefnubb/var/themes/emplode/hfnucontact/contact.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/account_edit.tpl
+Modified : /trunk/havefnubb/www/themes/emplode/css/havefnuboard_users.css
+Modified : /trunk/modules/havefnubb/locales/en_EN/hfnutoolbar.UTF-8.properties
+
+Revision: 299
+Author: foxmask
+Date: 23:07:01, mardi 23 juin 2009
+Message:
+ticket #83
+----
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/status.tpl
+Modified : /trunk/modules/hfnuinstall/controllers/default.classic.php
+
+Revision: 298
+Author: foxmask
+Date: 23:56:02, lundi 22 juin 2009
+Message:
+ticket #29 new theme "emplode"
+----
+Added : /trunk/havefnubb/var/themes/emplode
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/403.html.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/404.html.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/banuser.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/flood.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/main.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/member_changepwd.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.edit.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.list.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.notify.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/split.to.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.category.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumchild.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumindex.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.jumpto.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.lastposts.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.memberlist.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.online.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.online_today.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.postlistbytag.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.quickreply.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.stats.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.statsinfos.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnusearch
+Added : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.hfnusearch.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.searchAuthor.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.searchForum.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/account_edit.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/account_show.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/login.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/password_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/passwordform.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/registration.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/registration_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/status.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger/links.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger/listmsg.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger/new.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger/view.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jtags
+Added : /trunk/havefnubb/var/themes/emplode/jtags/tagscloud.tpl
+Modified : /trunk/havefnubb/www/themes/default/css/havefnuboard_users.css
+Added : /trunk/havefnubb/www/themes/emplode
+Added : /trunk/havefnubb/www/themes/emplode/css
+Added : /trunk/havefnubb/www/themes/emplode/css/havefnuboard.css
+Added : /trunk/havefnubb/www/themes/emplode/css/havefnuboard.css.bak
+Added : /trunk/havefnubb/www/themes/emplode/css/havefnuboard_admin.css
+Added : /trunk/havefnubb/www/themes/emplode/css/havefnuboard_posts.css
+Added : /trunk/havefnubb/www/themes/emplode/css/havefnuboard_users.css
+Added : /trunk/havefnubb/www/themes/emplode/css/hfnusearch.css
+Added : /trunk/havefnubb/www/themes/emplode/css/style.css
+Added : /trunk/havefnubb/www/themes/emplode/images
+Added : /trunk/havefnubb/www/themes/emplode/images/admin
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/accelerator.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/ban.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/category.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/clear_cache.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/config.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/contact.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/database.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/forum.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/information.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/modules_list.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/notification.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/php.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/rank.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/search_engine.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/todos.png
+Added : /trunk/havefnubb/www/themes/emplode/images/admin/user.png
+Added : /trunk/havefnubb/www/themes/emplode/images/error.png
+Added : /trunk/havefnubb/www/themes/emplode/images/exclamation.png
+Added : /trunk/havefnubb/www/themes/emplode/images/help.png
+Added : /trunk/havefnubb/www/themes/emplode/images/img01.jpg
+Added : /trunk/havefnubb/www/themes/emplode/images/img02.jpg
+Added : /trunk/havefnubb/www/themes/emplode/images/img03.jpg
+Added : /trunk/havefnubb/www/themes/emplode/images/img04.jpg
+Added : /trunk/havefnubb/www/themes/emplode/images/information.png
+Added : /trunk/havefnubb/www/themes/emplode/images/mail
+Added : /trunk/havefnubb/www/themes/emplode/images/mail/email_answer.png
+Added : /trunk/havefnubb/www/themes/emplode/images/mail/email_delete.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/book.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/book_next.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/category.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/closed.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/folder.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/folder_new.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/opened.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/pined-closed.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/pined.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/post_new.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/rss_go.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/tag_green.png
+Added : /trunk/havefnubb/www/themes/emplode/images/posts/world_go.png
+Added : /trunk/havefnubb/www/themes/emplode/images/spacer.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/users
+Added : /trunk/havefnubb/www/themes/emplode/images/users/aim.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/users/at.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/users/at2.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/users/cake.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/chart_bar.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/computer.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/connect.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/display.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/dot.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/users/email.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/email_add.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/email_go.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/email_inbox.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/email_outbox.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/emoticon_tongue.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/eye.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/group.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/house.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/icq.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/users/keyboard.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/mail.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/users/member_posts.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/member_rank.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/member_since.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/motherboard.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/mouse.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/msn.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/users/offline.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/online.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/screen.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/user.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/user_edit.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/user_key.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/user_pref.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/user_suit.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/vcard.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/world.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/world_link.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/xfire.png
+Added : /trunk/havefnubb/www/themes/emplode/images/users/yim.gif
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_acronym.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_align_center.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_align_justify.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_align_left.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_align_right.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_bold.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_carriage_return.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_code.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_def.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_full_link.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_hr.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_image.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_italic.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_link.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_list_numbers.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_para.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_quote.png
+Added : /trunk/havefnubb/www/themes/emplode/images/wiki/text_source.png
+Added : /trunk/havefnubb/www/themes/emplode/img
+Added : /trunk/havefnubb/www/themes/emplode/img/backgrounds.gif
+Added : /trunk/havefnubb/www/themes/emplode/img/grain.gif
+Added : /trunk/havefnubb/www/themes/emplode/img/grain_dark.gif
+Added : /trunk/havefnubb/www/themes/emplode/img/grain_light.gif
+Added : /trunk/havefnubb/www/themes/emplode/img/main_wrapper_inner.gif
+Added : /trunk/havefnubb/www/themes/emplode/img/toplinks.gif
+Modified : /trunk/modules/havefnubb/locales/en_EN/main.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/fr_FR/main.UTF-8.properties
+
+Revision: 297
+Author: foxmask
+Date: 20:57:32, mercredi 17 juin 2009
+Message:
+Jelix 1.1.3
+----
+Deleted : /trunk/havefnubb/www/jelix/design/images/Thumbs.db
+Modified : /trunk/havefnubb/www/jelix/js/jforms/datepickers/default/init.js
+Modified : /trunk/havefnubb/www/jelix/js/jforms_jquery.js
+Modified : /trunk/havefnubb/www/jelix/js/jforms_light.js
+Modified : /trunk/lib/jelix/BUILD
+Modified : /trunk/lib/jelix/CREDITS
+Modified : /trunk/lib/jelix/VERSION
+Modified : /trunk/lib/jelix/acl/jAcl2DbManager.class.php
+Modified : /trunk/lib/jelix/controllers/jControllerDaoCrud.class.php
+Modified : /trunk/lib/jelix/controllers/jControllerDaoCrudDfk.class.php
+Modified : /trunk/lib/jelix/core/response/jResponseBinary.class.php
+Modified : /trunk/lib/jelix/core/response/jResponseHtml.class.php
+Modified : /trunk/lib/jelix/core-modules/jelix/daos/jacl2rights.dao.xml
+Modified : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl2.data.mysql.sql
+Modified : /trunk/lib/jelix/core-modules/jelix/templates/crud_list.tpl
+Modified : /trunk/lib/jelix/core-modules/jelix/templates/cruddfk_list.tpl
+Modified : /trunk/lib/jelix/dao/jDaoConditions.class.php
+Modified : /trunk/lib/jelix/dao/jDaoGenerator.class.php
+Modified : /trunk/lib/jelix/db/jDbTools.class.php
+Modified : /trunk/lib/jelix/events/jEvent.class.php
+Modified : /trunk/lib/jelix/events/jEventListener.class.php
+Added : /trunk/lib/jelix/forms/controls/jFormsControlWikiEditor.class.php
+Modified : /trunk/lib/jelix/forms/jFormsBase.class.php
+Modified : /trunk/lib/jelix/forms/jFormsControl.class.php
+Modified : /trunk/lib/jelix/init.php
+Modified : /trunk/lib/jelix/plugins/coord/magicquotes/magicquotes.coord.php
+Modified : /trunk/lib/jelix/plugins/db/mysql/mysql.dbtools.php
+Modified : /trunk/lib/jelix/plugins/db/oci/oci.dbtools.php
+Modified : /trunk/lib/jelix/plugins/db/pgsql/pgsql.dbconnection.php
+Modified : /trunk/lib/jelix/plugins/db/pgsql/pgsql.dbtools.php
+Modified : /trunk/lib/jelix/plugins/db/sqlite/sqlite.dbtools.php
+Modified : /trunk/lib/jelix/plugins/jforms/html/html.jformsbuilder.php
+Modified : /trunk/lib/jelix/plugins/jforms/htmllight/htmllight.jformsbuilder.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.repeat_string.php
+Modified : /trunk/lib/jelix/plugins/tpl/html/function.formsubmit.php
+Modified : /trunk/lib/jelix/utils/jMailer.class.php
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/en_EN/acl2.ISO-8859-1.properties
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/en_EN/acl2.ISO-8859-15.properties
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/fr_FR/acl2.ISO-8859-1.properties
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/fr_FR/acl2.ISO-8859-15.properties
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/module.xml
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/controllers/password.classic.php
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/controllers/user.classic.php
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/module.xml
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates/crud_list.tpl
+Modified : /trunk/lib/jelix-admin-modules/master_admin/module.xml
+Modified : /trunk/lib/jelix-modules/jWSDL/module.xml
+Modified : /trunk/lib/jelix-modules/jacl2db/module.xml
+Modified : /trunk/lib/jelix-modules/jacldb/module.xml
+Modified : /trunk/lib/jelix-modules/jauth/controllers/login.classic.php
+Modified : /trunk/lib/jelix-modules/jauth/module.xml
+Modified : /trunk/lib/jelix-scripts/commands/createapp.cmd.php
+Modified : /trunk/lib/jelix-scripts/commands/createentrypoint.cmd.php
+Modified : /trunk/lib/jelix-scripts/commands/initadmin.cmd.php
+Modified : /trunk/lib/jelix-scripts/templates/controller.daocrud.tpl
+Modified : /trunk/lib/jelix-scripts/templates/scripts/cmdline.php.tpl
+Modified : /trunk/lib/jelix-www/design/jacl2.css
+Modified : /trunk/lib/jelix-www/js/jforms/datepickers/default/init.js
+Modified : /trunk/lib/jelix-www/js/jforms_jquery.js
+Modified : /trunk/lib/jelix-www/js/jforms_light.js
+Added : /trunk/lib/jelix-www/js/json2.js
+Modified : /trunk/lib/jelix_check_server.php
+Modified : /trunk/modules/havefnubb/classes/flags.class.php
+Modified : /trunk/modules/havefnubb/classes/hfnuforumaccess.class.php
+Modified : /trunk/modules/havefnubb/classes/language.class.php
+Modified : /trunk/modules/havefnubb/forms/posts.form.xml
+
+Revision: 296
+Author: foxmask
+Date: 14:39:44, samedi 13 juin 2009
+Message:
+ranks
+----
+Added : /trunk/modules/havefnubb/daos/ranks.dao.xml
+
+Revision: 295
+Author: foxmask
+Date: 14:38:13, samedi 13 juin 2009
+Message:
+some little improvement
+----
+Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/modules/havefnubb/daos/forum_cat.dao.xml
+Deleted : /trunk/modules/havefnubb/daos/ranks.dao.xml
+Modified : /trunk/modules/havefnubb/forms/posts.form.xml
+Modified : /trunk/modules/hfnuadmin/controllers/category.classic.php
+Modified : /trunk/modules/hfnuadmin/controllers/ranks.classic.php
+Modified : /trunk/modules/hfnuadmin/locales/en_EN/category.UTF-8.properties
+Modified : /trunk/modules/hfnuadmin/locales/fr_FR/category.UTF-8.properties
+Modified : /trunk/modules/hfnusearch/controllers/admin.classic.php
+Modified : /trunk/modules/hfnusearch/locales/en_EN/search.UTF-8.properties
+Modified : /trunk/modules/hfnusearch/locales/fr_FR/search.UTF-8.properties
+
+Revision: 294
+Author: foxmask
+Date: 17:00:40, lundi 8 juin 2009
+Message:
+WikiToolbar
+----
+Added : /trunk/modules/havefnubb/locales/en_EN/hfnutoolbar.UTF-8.properties
+Added : /trunk/modules/havefnubb/locales/fr_FR/hfnutoolbar.UTF-8.properties
+Modified : /trunk/plugins/tpl/html/function.hfnutoolbar.php
+Modified : /trunk/plugins/tpl/html/install.hfnutoolbar/en_EN/hfnutoolbar.UTF-8.properties
+Modified : /trunk/plugins/tpl/html/install.hfnutoolbar/fr_FR/hfnutoolbar.UTF-8.properties
+
+Revision: 293
+Author: foxmask
+Date: 16:39:16, lundi 8 juin 2009
+Message:
+ticket #46 wiki toolbar
+----
+Modified : /trunk/havefnubb/var/themes/box/havefnubb/zone.quickreply.tpl
+Added : /trunk/havefnubb/www/hfnutoolbar.js
+Modified : /trunk/havefnubb/www/themes/box/css/havefnuboard.css
+Added : /trunk/havefnubb/www/themes/box/images/wiki/text_acronym.png
+Added : /trunk/havefnubb/www/themes/box/images/wiki/text_align_center.png
+Added : /trunk/havefnubb/www/themes/box/images/wiki/text_align_justify.png
+Added : /trunk/havefnubb/www/themes/box/images/wiki/text_align_left.png
+Added : /trunk/havefnubb/www/themes/box/images/wiki/text_align_right.png
+Added : /trunk/havefnubb/www/themes/box/images/wiki/text_def.png
+Added : /trunk/havefnubb/www/themes/box/images/wiki/text_hr.png
+Modified : /trunk/havefnubb/www/themes/chocolatebrown/css/havefnuboard.css
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_acronym.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_align_center.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_align_justify.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_align_left.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_align_right.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_def.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_hr.png
+Modified : /trunk/havefnubb/www/themes/default/css/havefnuboard.css
+Added : /trunk/havefnubb/www/themes/default/images/admin/contact.png
+Added : /trunk/havefnubb/www/themes/default/images/wiki/text_acronym.png
+Added : /trunk/havefnubb/www/themes/default/images/wiki/text_align_center.png
+Added : /trunk/havefnubb/www/themes/default/images/wiki/text_align_justify.png
+Added : /trunk/havefnubb/www/themes/default/images/wiki/text_align_left.png
+Added : /trunk/havefnubb/www/themes/default/images/wiki/text_align_right.png
+Added : /trunk/havefnubb/www/themes/default/images/wiki/text_def.png
+Added : /trunk/havefnubb/www/themes/default/images/wiki/text_hr.png
+Modified : /trunk/modules/havefnubb/templates/posts.edit.tpl
+Modified : /trunk/modules/havefnubb/templates/posts.notify.tpl
+Modified : /trunk/modules/havefnubb/templates/zone.quickreply.tpl
+Added : /trunk/plugins/tpl/html/function.hfnutoolbar.php
+Added : /trunk/plugins/tpl/html/install.hfnutoolbar
+Added : /trunk/plugins/tpl/html/install.hfnutoolbar/en_EN
+Added : /trunk/plugins/tpl/html/install.hfnutoolbar/en_EN/hfnutoolbar.UTF-8.properties
+Added : /trunk/plugins/tpl/html/install.hfnutoolbar/fr_FR
+Added : /trunk/plugins/tpl/html/install.hfnutoolbar/fr_FR/hfnutoolbar.UTF-8.properties
+Added : /trunk/plugins/tpl/html/install.hfnutoolbar/www
+Added : /trunk/plugins/tpl/html/install.hfnutoolbar/www/hfnutoolbar.js
+
+Revision: 292
+Author: foxmask
+Date: 10:56:25, lundi 8 juin 2009
+Message:
+typo
+----
+Modified : /trunk/modules/havefnubb/templates/en_EN/zone.syntax_wiki.tpl
+
+Revision: 291
+Author: foxmask
+Date: 18:36:20, dimanche 7 juin 2009
+Message:
+mistake previous commit.
+----
+Modified : /trunk/havefnubb/var/config/urls.xml
+
+Revision: 290
+Author: foxmask
+Date: 18:31:27, dimanche 7 juin 2009
+Message:
+ticket #29 theme chocolatebrown
+----
+Modified : /trunk/havefnubb/var/config/urls.xml
+Added : /trunk/havefnubb/var/themes/chocolatebrown
+Added : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb
+Added : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb/main.tpl
+Added : /trunk/havefnubb/www/themes/chocolatebrown
+Added : /trunk/havefnubb/www/themes/chocolatebrown/css
+Added : /trunk/havefnubb/www/themes/chocolatebrown/css/havefnuboard.css
+Added : /trunk/havefnubb/www/themes/chocolatebrown/css/havefnuboard_admin.css
+Added : /trunk/havefnubb/www/themes/chocolatebrown/css/havefnuboard_posts.css
+Added : /trunk/havefnubb/www/themes/chocolatebrown/css/havefnuboard_users.css
+Added : /trunk/havefnubb/www/themes/chocolatebrown/css/hfnusearch.css
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/accelerator.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/ban.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/category.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/clear_cache.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/config.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/contact.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/database.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/forum.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/information.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/modules_list.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/notification.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/php.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/rank.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/search_engine.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/todos.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/admin/user.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/error.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/exclamation.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/help.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/img01.jpg
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/img02.jpg
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/img03.jpg
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/img04.jpg
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/information.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/mail
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/mail/email_answer.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/mail/email_delete.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/book.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/book_next.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/category.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/closed.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/folder.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/folder_new.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/opened.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/pined-closed.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/pined.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/post_new.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/rss_go.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/tag_green.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/posts/world_go.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/spacer.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/aim.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/at.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/at2.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/cake.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/chart_bar.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/computer.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/connect.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/display.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/dot.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/email.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/email_add.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/email_go.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/email_inbox.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/email_outbox.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/emoticon_tongue.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/eye.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/group.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/house.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/icq.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/keyboard.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/mail.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/member_posts.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/member_rank.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/member_since.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/motherboard.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/mouse.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/msn.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/offline.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/online.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/screen.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/user.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/user_edit.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/user_key.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/user_pref.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/user_suit.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/vcard.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/world.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/world_link.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/xfire.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/users/yim.gif
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_bold.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_carriage_return.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_code.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_full_link.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_image.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_italic.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_link.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_list_numbers.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_para.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_quote.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/images/wiki/text_source.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/bg_buton.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/bg_footer.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/bg_sidebar_top_box.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/check_off.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/check_on.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/check_wrn.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/delete.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/download.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/downloads.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/downloads_cats.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/get_download.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/ico_activer.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/ico_back_portal.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/ico_desactiver.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/ico_file.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/ico_logout.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/ko.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/last_download.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/off.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/ok.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/on.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/pop_download.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/trash.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/warning.png
+Added : /trunk/havefnubb/www/themes/chocolatebrown/img/zoom.png
+
+Revision: 289
+Author: foxmask
+Date: 23:37:57, vendredi 5 juin 2009
+Message:
+typo
+----
+Modified : /branches/havefnubb-1.0.0RC3/havefnubb/var/themes/box/havefnubb/zone.forumindex.tpl
+Modified : /trunk/havefnubb/var/themes/box/havefnubb/zone.forumindex.tpl
+
+Revision: 287
+Author: foxmask
+Date: 23:11:09, vendredi 5 juin 2009
+Message:
+last forget ;)
+----
+Modified : /trunk/havefnubb/var/themes/box/havefnubb/zone.posts_replies.tpl
+
+
+
 Revision: 283
 Author: foxmask
 Date: 21:34:16, vendredi 5 juin 2009
