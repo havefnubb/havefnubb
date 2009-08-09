@@ -1,3 +1,6 @@
+{meta_html csstheme 'css/havefnuboard.css'}
+{meta_html csstheme 'css/havefnuboard_posts.css'}
+{meta_html csstheme 'css/havefnuboard_users.css'}
 <div id="hfnuhead">
 	<div class="center_wrapper">
 		

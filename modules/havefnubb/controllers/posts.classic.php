@@ -86,7 +86,7 @@ class postsCtrl extends jController {
 		//build the rss link in the header of the html page
 		$url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$forum->forum_name,
 													'id_forum'=>$forum->id_forum	));
-		$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.$url.'" />');
+		$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.htmlentities($url).'" />');
 		// end rss link 
 			
         if ($page == 0)
@@ -673,7 +673,7 @@ class postsCtrl extends jController {
     }
 
 	// goto another forum
-    function goto() {
+    function goesto() {
         $id_forum = (int) $this->param('id_forum');
         if ($id_forum == 0 ) {
             $rep = $this->getResponse('redirect');
