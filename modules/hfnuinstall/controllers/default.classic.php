@@ -282,7 +282,8 @@ class defaultCtrl extends jController {
                         // 3) set properties
                         $user->email    = $form->getData('admin_email');
                         $user->nickname = $login;
-                        $user->status   = 2;
+                        $user->status   = 1;
+						$user->member_created = date('Y-m-d H:i:s');
                         $user->request_date = date('Y-m-d H:i:s');
                         // $user->keyactivate = $key;
                         // 4) save the user !
