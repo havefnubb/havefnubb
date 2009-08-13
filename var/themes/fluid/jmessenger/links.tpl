@@ -10,20 +10,31 @@ $(document).ready(function(){
 });
 {/literal}
 </script>
-<div id="breadcrumbtop" class="headbox box_title">
-    <h3 id="user" class="user-image"><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a> - <span class="user-private-message user-image">{@havefnubb~member.internal.messenger@}</span>
-{ifacl2 'auth.users.change.password'}
-> <a class="user-edit-password user-image" href="{jurl 'havefnubb~members:changepwd', array('user'=>$login)}">{@havefnubb~member.pwd.change.of.password@}</a>
-{/ifacl2}    
-    </h3>
+<div class="box">
+    <h2><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a></h2>
+    <div class="block">
+        <ul class="nav main">
+            <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-general">{@havefnubb~member.general@}</a></li>
+            <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-pref">{@havefnubb~member.pref@}</a></li>
+            <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>	
+            <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>
+        </ul>
+    </div>
 </div>
 
-<div id="messenger-index" class="form_row">
-<p>{zone 'jmessenger~nbNewMessage'}</p>
-<ul>
-    <li class="user-email-inbox user-image"><a href="{jurl 'jmessenger~jmessenger:inbox'}">{@jmessenger~message.msg.inbox@}</a></li>
-    <li class="user-email-outbox user-image"><a href="{jurl 'jmessenger~jmessenger:outbox'}">{@jmessenger~message.msg.outbox@}</a></li>
-    <li class="user-email-add user-image"><a href="{jurl 'jmessenger~jmessenger:precreate'}">{@jmessenger~message.title.new@}</a></li>
-</ul>
+<div class="box menu">
+    <h2>{@havefnubb~member.private.messaging@}</h2>
+    <div class="block" id="section-menu">         
+        <ul class="section menu">
+            <li>{zone 'jmessenger~nbNewMessage'}</li>
+            <li>
+                <ul>
+                    <li><a href="{jurl 'jmessenger~jmessenger:inbox'}"><span class="user-email-inbox user-image">{@jmessenger~message.msg.inbox@}</span></a></li>
+                    <li><a href="{jurl 'jmessenger~jmessenger:outbox'}"><span class="user-email-outbox user-image">{@jmessenger~message.msg.outbox@}</span></a></li>
+                    <li><a href="{jurl 'jmessenger~jmessenger:precreate'}"><span class="user-email-add user-image">{@jmessenger~message.title.new@}</span></a></li>    
+                </ul>
+            </li>
+        </ul>
+    </div>        
 </div>
 {/ifuserconnected}

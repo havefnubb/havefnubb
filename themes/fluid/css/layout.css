@@ -110,6 +110,11 @@ h2#page-heading {
 .box h2 a:hover {
 	background-color:#111;
 }
+
+.box h3 {
+	background-color:#eee;
+}
+
 .block {
 	padding-top:10px;
 }
@@ -483,10 +488,14 @@ input.search.button {
 }
 
 /* anchor that emulates button */
+.fake-button-left{
+	text-align: left;    
+}
+
 .fake-button{
 	text-align: right;    
 }
-.fake-button a , .jforms-submit, .submit, .jforms-reset {
+.fake-button a, .fake-button-left a , .jforms-submit, .submit, .jforms-reset {
     border:1px solid #666;
 	text-decoration: none;
     background-color:#666;   
@@ -495,7 +504,7 @@ input.search.button {
 	cursor: pointer;    
 }
 
-.fake-button a:hover, .jforms-submit:hover, .submit:hover, .jforms-reset:hover {
+.fake-button a:hover, .fake-button-left a:hover, .jforms-submit:hover, .submit:hover, .jforms-reset:hover {
     background-color:#000; 
     border:1px solid #000;    
 }
@@ -505,6 +514,7 @@ input.search.button {
 /* breadcrumb */
 .breadcrumb {
     height:auto;
+	background-color: #aaa;
 }
 
 .breadcrumb li {
@@ -734,6 +744,21 @@ input.search.button {
 	padding-top: 4px;			
 }
 
+.messenger-email-delete {
+	background-image: url("../images/mail/email_delete.png");
+	height: 16px;
+	margin-left: 4px;
+	
+}
+
+.messenger-email-answer {
+	background-image: url("../images/mail/email_answer.png");
+	height: 16px;
+	margin-left: 4px;
+}
+
+
+
 #login-status {
     background: #aaa;
     text-align: center;
@@ -747,4 +772,52 @@ input.search.button {
 }
 .loginbox {
     text-align: center;
+	background: #aaa;
+}
+
+
+.form_row {
+	border-bottom: 1px solid #E1E1D5;
+	padding: 10px 0;
+}
+.form_property, .form_value {float: left;}
+.form_property {
+	font-size: 1.1em;
+	text-align: right;
+	width: 180px;
+}
+.form_value {padding-left: 24px;}
+.form_row_submit .form_value {padding-left: 132px;}
+
+
+
+/* Tab */
+
+/* Caution! Ensure accessibility in print and other media types... */
+@media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
+    .ui-tabs-hide {
+        display: none;
+    }
+}
+
+/* Skin */
+
+.ui-tabs-nav {
+	height:28px;
+	display:block;
+	font-weight: bold;
+}
+.ui-tabs-nav li {
+	padding-left: 20px;
+}
+* html .ui-tabs-nav { /* auto clear @ IE 6 & IE 7 Quirks Mode */
+    display: inline-block;
+}
+
+*:first-child+html .ui-tabs-nav  { /* auto clear @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
+    display: inline-block;
+}
+
+.branding {
+	background:#aaa;	
 }

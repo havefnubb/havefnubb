@@ -10,39 +10,29 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
-<div id="breadcrumbtop" class="headbox box_title">
-    <h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)} 
-{if $himself}
-> <a id="user" class="user-image" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
-{ifacl2 'auth.users.change.password'}
-> <a class="user-edit-password user-image" href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a>
-{/ifacl2}        
-{else}
-> <a href="{jurl 'hfnucontact~default:index',array('to'=>$user->login)}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>
-{/if}
-	</h3>	
-</div>
 <div id="post-message">{jmessage}</div>
-<div id="profile">
-	<div id="user-profile-avatar">
-		{if file_exists('images/avatars/'. $user->id.'.png') }
-		{image 'images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
-		{elseif file_exists('images/avatars/'. $user->id.'.jpg')}
-		{image 'images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
-		{elseif file_exists('images/avatars/'. $user->id.'.jpeg')}
-		{image 'images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
-		{elseif file_exists('images/avatars/'. $user->id.'.gif')}
-		{image 'images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
-		{/if}		
-	</div>
-    <div id="container">		
-        <ul>
-            <li><a href="#user-profile-general"><span class="user-general user-image">{@havefnubb~member.general@}</span></a></li>
-            <li><a href="#user-profile-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
-            <li><a href="#user-profile-messenger"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></a></li>	
-            <li><a href="#user-profile-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
+<div class="box">
+	<h2>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h2>
+	<div class="block">
+		<div id="user-profile-avatar">
+			{if file_exists('images/avatars/'. $user->id.'.png') }
+			{image 'images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+			{elseif file_exists('images/avatars/'. $user->id.'.jpg')}
+			{image 'images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+			{elseif file_exists('images/avatars/'. $user->id.'.jpeg')}
+			{image 'images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+			{elseif file_exists('images/avatars/'. $user->id.'.gif')}
+			{image 'images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+			{/if}		
+		</div>
+	    <div id="container">		
+        <ul class="nav main">
+            <li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
+            <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
+            <li><a href="#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>	
+            <li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>
         </ul>
-        <div id="user-profile-general">
+			<div id="user-profile-general">
             <fieldset>
                 <legend><span class="user-general user-image">{@havefnubb~member.general@}</span></legend>
 {if $user->member_show_email == 'Y'}
@@ -91,14 +81,13 @@ $(document).ready(function(){
                         {image 'images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}                        
                     </div>
                     <div class="form_property">
-                        <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong></label>
+                        <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong>&nbsp;</label>
                     </div>
                     <div class="fom_value">
                         <a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>                        
                     </div>
                     <div class="clearer">&nbsp;</div>
                 </div>
-
             </fieldset>
             <fieldset>
                 <legend><span class="user-stats user-image">{@havefnubb~member.common.stats@}</span></legend>
@@ -120,10 +109,20 @@ $(document).ready(function(){
                     </div>
                 </div>                 
             </fieldset>
-        </div>
-        <div id="user-profile-messenger">
+			</div>
+			<div id="user-profile-messenger">
             <fieldset>
                 <legend><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></legend>
+{if $himself}
+{else}
+				<div class="form_row">
+					<div class="form_property">
+						<label class="user-messenger user-image"> &nbsp;</label>
+					</div>
+					<div class="form_value"><a href="{jurl 'hfnucontact~default:index',array('to'=>$user->login)}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a></div>
+					<div class="clearer">&nbsp;</div>
+				</div>
+{/if}				
                 <div class="form_row">
                     <div class="form_property"> 
                         <label class="user-xfire user-image"><strong>{@havefnubb~member.xfire@}</strong></label>
@@ -177,12 +176,10 @@ $(document).ready(function(){
                         {$user->member_jabber|eschtml}
                     </div>
                     <div class="clearer">&nbsp;</div>					
-                </div>                    
-                
+                </div>                                    
             </fieldset>
-        </div>
-		
-        <div id="user-profile-pref">
+			</div>		
+			<div id="user-profile-pref">
             <fieldset>
                 <legend><span class="user-pref user-image">{@havefnubb~member.pref@}</span></legend>
                 <div class="form_row">
@@ -204,9 +201,8 @@ $(document).ready(function(){
                     <div class="clearer">&nbsp;</div>
                 </div>                
             </fieldset>
-        </div>
-		
-        <div id="user-profile-hardware">
+			</div>		
+			<div id="user-profile-hardware">
             <fieldset>
                 <legend><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></legend>
                 <div class="form_row">
@@ -285,6 +281,12 @@ $(document).ready(function(){
 					<div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
-        </div>
-    </div>
+			</div>
+		</div> <!-- #container -->
+	</div>
+	<div class="fake-button-left">
+{if $himself}
+<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
+{/if}
+	</div>
 </div>

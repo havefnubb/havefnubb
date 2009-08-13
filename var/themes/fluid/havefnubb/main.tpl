@@ -6,14 +6,20 @@
 {meta_html cssthemeie 'css/ie.css'} 
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 {meta_html js $j_themepath.'js/jquery-fluid16.js'} 
-{meta_html js $j_themepath.'js/jquery-ui.js'}
+{* meta_html js $j_themepath.'js/jquery-ui.js' *}
 
 <div class="container_16">
-    <div class="grid_16">
-        <h1 id="branding"><a href="{jurl 'havefnubb~default:index'}" >{$TITLE}</a></h1>
-    </div>   
-    <div class="clear"></div>    
-    
+	<div class="grid_16 branding">
+		<div class="grid_12">
+			<h1 id="branding"><a href="{jurl 'havefnubb~default:index'}" >{$TITLE}</a></h1>
+		</div>
+		<div class="grid_4">
+			{zone 'jcommunity~status'}		
+		</div>	
+		<div class="clear"></div>    
+	</div>
+	<div class="clear"></div>
+	
     <div class="grid_16">
 		{zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
     </div>
@@ -23,19 +29,16 @@
         <h2 id="page-heading">{$DESC}</h2>
     </div>
     <div class="clear"></div>    
-    
-    <div class="grid_16">
-        {zone 'jcommunity~status'}		
-	</div>
-	<div class="clear"></div>
-    
+        
     <div class="grid_16">
     {$MAIN}
     </div>
     <div class="clear"></div>
     
-    <div class="grid_16 breadcrumb">
-        {breadcrumb 8, ' > '}
+    <div class="grid_16">
+		<div class="breadcrumb">
+			{breadcrumb 8, ' > '}
+		</div>
     </div>    
     <div class="clear"></div>
 

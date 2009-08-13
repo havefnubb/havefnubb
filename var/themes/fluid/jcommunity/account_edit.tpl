@@ -10,25 +10,21 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
-<div id="breadcrumbtop" class="headbox box_title">
-    <h3 id="user" class="user-image">{@havefnubb~member.edit.account.header@} - <a class="user-private-message  user-image" href="{jurl 'havefnubb~members:mail'}" >{@havefnubb~member.internal.messenger@}</a>
-{ifacl2 'auth.users.change.password'}
-> <a class="user-edit-password user-image" href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a>
-{/ifacl2}    
-    </h3>
-</div>
-<div id="profile">
-{form $form, 'jcommunity~account:save', array('user'=>$username)}
-	<div id="container" class="user-formbg">
-		<ul>
-			<li><a href="#user-profile-general"><span class="user-general user-image">{@havefnubb~member.general@}</span></a></li>
-			<li><a href="#user-profile-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
-			<li><a href="#user-profile-messenger"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></a></li>	
-			<li><a href="#user-profile-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
-		</ul>    
-        <div id="user-profile-general">
+
+<div class="box">
+	<h2>{@havefnubb~member.edit.account.header@}</h2>
+	<div class="block">
+		{form $form, 'jcommunity~account:save', array('user'=>$username)}
+		<div id="container">
+			<ul class="nav main">
+				<li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
+				<li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
+				<li><a href="#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>	
+				<li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>			
+			</ul>    
+			<div id="user-profile-general">
             <fieldset>
-                <div class="legend"><span class="user-general user-image">{@havefnubb~member.general@}</span></div>
+                <legend><span class="user-general user-image">{@havefnubb~member.general@}</span></legend>
                 <div class="form_row">
                     <div class="form_property">
                         <label class="user-name user-image"><strong>{ctrl_label 'nickname'}</strong></label>
@@ -45,11 +41,14 @@ $(document).ready(function(){
                         <label class="user-birthday user-image"><strong>{ctrl_label 'member_birth'}</strong></label>
                     </div>
                     <div class="form_value">{ctrl_control 'member_birth'}</div>
+					{ifacl2 'auth.users.change.password'}
+					<div class="form_value"><a class="user-edit-password user-image"  href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a></div>
+					{/ifacl2}									
 					<div class="clearer">&nbsp;</div>						
 				</div>						
             </fieldset>                
             <fieldset>
-                <div class="legend"><span class="user-location user-image">{@havefnubb~member.common.location@}</span></div>
+                <legend><span class="user-location user-image">{@havefnubb~member.common.location@}</span></legend>
                 <div class="form_row">
 					<div class="form_property">
 						<label class="user-town user-image"><strong>{ctrl_label 'member_town'}</strong></label>
@@ -58,7 +57,10 @@ $(document).ready(function(){
 					<div class="form_property">
 						<label class="user-country user-image"><strong>{ctrl_label 'member_country'}</strong></label>
 					</div>
-                    <div class="form_value">{ctrl_control 'member_country'}</div>
+                    <div class="form_value">{ctrl_control 'member_country'}</div>					
+					<div class="clearer">&nbsp;</div>
+				</div>
+				<div class="form_row">					
 					<div class="form_property">
 						<label class="user-website user-image"><strong>{ctrl_label 'member_website'}</strong></label>
 					</div>
@@ -66,10 +68,17 @@ $(document).ready(function(){
 					<div class="clearer">&nbsp;</div>											
 				</div>
             </fieldset>
-        </div>
-        <div id="user-profile-messenger">
+			</div>		
+			<div id="user-profile-messenger">
             <fieldset>
-                <div class="legend"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></div>
+                <legend><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></legend>
+				<div class="form_row">
+					<div class="form_property">
+						<label class="user-email user-image">&nbsp;</label>
+					</div>
+					<div class="form_value"><a href="{jurl 'havefnubb~members:mail'}">{@havefnubb~member.internal.messenger@}</a></div>
+					<div class="clearer">&nbsp;</div>
+				</div>
                 <div class="form_row">
                     <div class="form_property">
                         <label class="user-xfire user-image"><strong>{ctrl_label 'member_xfire'}</strong></label>
@@ -111,10 +120,10 @@ $(document).ready(function(){
 					<div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
-        </div>		
-        <div id="user-profile-pref">
+			</div>		
+			<div id="user-profile-pref">
             <fieldset>
-                <div class="legend"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></div>
+                <legend><span class="user-pref user-image">{@havefnubb~member.pref@}</span></legend>
 				<div class="form_row">
                     <div class="form_property">
 						<label class="user-language user-image"><strong>{ctrl_label 'member_language'}</strong></label>
@@ -134,22 +143,24 @@ $(document).ready(function(){
 					<div class="clearer">&nbsp;</div>
 				</div>
 				<div class="form_row">
-					<div class="form_property">
-						<label class="user-signature user-image"><strong>{ctrl_label 'member_comment'}</strong></label>
-					</div>
-                    <div class="form_value">{ctrl_control 'member_comment'}</div>
                     <div class="form_property">
 						<label class="user-avatar user-image"><strong>{ctrl_label 'member_avatar'}</strong></label>							
 					</div>
 					<div class="form_value">{ctrl_control 'member_avatar'}</div>
 					<div class="clearer">&nbsp;</div>
+				</div>
+				<div class="form_row">
+					<div class="form_property">
+						<label class="user-signature user-image"><strong>{ctrl_label 'member_comment'}</strong></label>
+					</div>
+                    <div class="form_value">{ctrl_control 'member_comment'}</div>
+					<div class="clearer">&nbsp;</div>
                 </div>                
             </fieldset>
-        </div>
-		
-        <div id="user-profile-hardware">
+			</div>		
+			<div id="user-profile-hardware">
             <fieldset>
-                <div class="legend"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></div>
+                <legend><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></legend>
                 <div class="form_row">
                     <div class="form_property">              
                         <label class="user-connect user-image"><strong>{ctrl_label 'member_connection'}</strong></label>						
@@ -206,11 +217,12 @@ $(document).ready(function(){
 					<div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
-        </div>
-	</div>
-    <div class="form_row form_row_submit">
-        <div class="form_value">{formsubmit}</div>
-        <div class="clearer">&nbsp;</div>
-    </div>
-{/form}
-</div>
+			</div>
+		</div> <!-- #container -->
+		<div class="form_row form_row_submit">
+			<div class="form_value">{formsubmit}</div>
+			<div class="clearer">&nbsp;</div>
+		</div>
+	{/form}
+	</div> <!-- #block -->
+</div> <!-- #box -->
