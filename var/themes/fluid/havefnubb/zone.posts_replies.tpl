@@ -40,7 +40,7 @@
         {/if}&nbsp;
         </div>              
         <div class="grid_8 postheading">
-        {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}
+        <h5>{$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</h5>
         </div>
         {if count($tags) > 0}
         <div class="grid_2 postheading-tags">
@@ -63,6 +63,7 @@
         <div class="clear"></div>
     </div>
     <div class="postfoot fake-button">
+       &nbsp;
         {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
         <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}

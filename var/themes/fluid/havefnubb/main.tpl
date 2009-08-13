@@ -38,6 +38,21 @@
         {breadcrumb 8, ' > '}
     </div>    
     <div class="clear"></div>
+
+    <div class="grid_5">
+		{zone 'havefnubb~lastposts'}
+		{zone 'havefnubb~stats'}		
+	</div>
+	
+	<div class="grid_5">
+		{zone 'havefnubb~online'}
+		{zone 'havefnubb~online_today'}
+	</div>
+	
+	<div class="grid_6">
+		{zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}    					
+	</div>
+    <div class="clear"></div>
     
     <div class="grid_16" id="site_info">
         <div class="box">

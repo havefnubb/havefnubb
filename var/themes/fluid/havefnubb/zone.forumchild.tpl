@@ -9,8 +9,6 @@
 {else}
 <div class="box">
     <h2><strong>{@havefnubb~forum.forumchild.subforum@}</strong></h2>
-</div>
-<div class="box">
     <div class="block">        
     <table>
 {foreach $forumChilds as $forum}

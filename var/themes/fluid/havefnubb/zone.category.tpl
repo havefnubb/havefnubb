@@ -6,10 +6,10 @@
 {foreach $categories as $category}
 <div class="box">
     <h2><a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat,'ctitle'=>$category->cat_name)}" title="{$category->cat_name|eschtml}">{$category->cat_name|eschtml}</a></h2>
-</div>
 {ifacl2 'hfnu.forum.list','forum'.$category->id_forum}
     {zone 'havefnubb~forum',array('action'=>'index','id_cat'=>$category->id_cat)}
 {/ifacl2}
+</div>
 {/foreach}
 {elseif $action == 'view'}
     {zone 'havefnubb~forum',array('action'=>'view','id_cat'=>$category->id_cat,'ctitle'=>$category->cat_name)}

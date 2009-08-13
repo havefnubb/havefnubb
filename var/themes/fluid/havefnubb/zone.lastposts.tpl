@@ -1,8 +1,5 @@
 <div class="box">
-    <h3><span>{@havefnubb~main.last.messages@}</span></h3>
-</div>
-
-<div class="box">
+    <h2>{@havefnubb~main.last.messages@}</h2>
     <div class="block">        
     <table>
 {foreach $lastPost as $post}
