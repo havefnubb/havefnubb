@@ -78,7 +78,7 @@ class memberlistZone extends jZone {
             $groups[]=$grp;
         }
 		
-        $letters[] = '';
+        $letters[] = jLocale::get('havefnubb~member.memberlist.select.an.initial.nickname');
 		for ($i = 0 ; $i < 26 ; $i ++) {
 			$letters[] = chr(97 + $i);
 		}

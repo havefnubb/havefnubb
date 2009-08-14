@@ -6,7 +6,7 @@
 <div class="box">
     <div class="block">  
     <form action="{formurl 'havefnubb~members:index'}" method="post">
-    {formurlparam 'havefnubb~members:index'}        
+    <div class="hidden">{formurlparam 'havefnubb~members:index'}</div>
     <fieldset>
         <legend>{@havefnubb~member.memberlist.filter@}</legend>
         <div class="member-filter-description">
@@ -23,7 +23,7 @@
         <p>
             <label>{@havefnubb~member.memberlist.initial.nickname@} :</label>
             <select name="letter">
-            {foreach $letters as $letter}
+            {foreach $letters as $letter}                
                 <option value="{$letter}">{$letter}</option>
             {/foreach}
              </select>
@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<div class="linkpages">
+<div class="pager-posts">
 {pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
 <div class="box">
@@ -72,6 +72,6 @@
     </div>
 </div>
 
-<div class="linkpages">
+<div class="pager-posts">
 {pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>

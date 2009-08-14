@@ -1,4 +1,4 @@
-<div class="fake-button">
+<div class="fake-button-left grid_8 alpha">&nbsp;
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
@@ -16,12 +16,12 @@
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
-<div class="pager-posts">
+<div class="pager-posts grid_8 omega">
 {pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
 {/ifacl2}
-
+<div class="clear"></div>
 {foreach $posts as $post}
 {assign $parent_id = $post->parent_id}
 {assign $id_forum = $post->id_forum}
@@ -90,7 +90,7 @@
 {/ifacl2}
 {/foreach}
 
-<div class="fake-button">
+<div class="fake-button-left grid_8 alpha">&nbsp;
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
@@ -108,11 +108,12 @@
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
-<div class="pager-posts">
+<div class="pager-posts grid_8 omega">
 {pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
 {/ifacl2}
+<div class="clear"></div>
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
 {/ifacl2}

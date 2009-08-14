@@ -1,4 +1,7 @@
 <div class="box">
+    <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@havefnubb~main.cloud@}</h3>
+</div>
+<div class="box">
     <div class="block">
     <table>
         <caption>{jlocale 'havefnubb~main.cloud.posts.by.tag',array($tag)}</caption>

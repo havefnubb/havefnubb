@@ -16,3 +16,18 @@
 {elseif $action == 'view'}
     {zone 'havefnubb~forum',array('action'=>'view','id_cat'=>$category->id_cat,'ctitle'=>$category->cat_name)}
 {/if}
+
+<div class="grid_5 alpha">
+    {zone 'havefnubb~lastposts'}
+    {zone 'havefnubb~stats'}		
+</div>
+
+<div class="grid_5">
+    {zone 'havefnubb~online'}
+    {zone 'havefnubb~online_today'}
+</div>
+
+<div class="grid_6 omega">
+    {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}    					
+</div>
+<div class="clear"></div>

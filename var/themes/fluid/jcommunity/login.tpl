@@ -1,5 +1,5 @@
 {ifuserconnected}
-<div class="box loginbox">
+<div class="box loginbox-connected">
     <h2>{@havefnubb~member.identity@}</h2>
     <div id="block">
         <p>{jlocale 'havefnubb~member.login.welcome', array($login)}
@@ -11,12 +11,12 @@
 {else}
 <div class="box loginbox">
     <h2>{@havefnubb~main.login.connection@}</h2>
-    <div id="block loginbox">
+    <div class="block">
     {form $form, 'jcommunity~login:in'}
        <p>
             {ctrl_label 'auth_login'}
             {ctrl_control 'auth_login'}
-        
+        &nbsp;
             {ctrl_label 'auth_password'}
             {ctrl_control 'auth_password'}    
         {if $persistance_ok}
@@ -25,6 +25,7 @@
             {formsubmit}
 
         {if $url_return}
+            &nbsp;
             <input type="hidden" name="auth_url_return" value="{$url_return|eschtml}" />
         {/if}
         </p>            

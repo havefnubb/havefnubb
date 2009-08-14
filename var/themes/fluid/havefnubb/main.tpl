@@ -10,10 +10,10 @@
 
 <div class="container_16">
 	<div class="grid_16 branding">
-		<div class="grid_12">
+		<div class="grid_11">
 			<h1 id="branding"><a href="{jurl 'havefnubb~default:index'}" >{$TITLE}</a></h1>
 		</div>
-		<div class="grid_4">
+		<div class="grid_5">
 			{zone 'jcommunity~status'}		
 		</div>	
 		<div class="clear"></div>    
@@ -34,35 +34,18 @@
     {$MAIN}
     </div>
     <div class="clear"></div>
-    
+       
     <div class="grid_16">
-		<div class="breadcrumb">
+		<div class="box breadcrumb">
 			{breadcrumb 8, ' > '}
 		</div>
     </div>    
     <div class="clear"></div>
 
-    <div class="grid_5">
-		{zone 'havefnubb~lastposts'}
-		{zone 'havefnubb~stats'}		
-	</div>
-	
-	<div class="grid_5">
-		{zone 'havefnubb~online'}
-		{zone 'havefnubb~online_today'}
-	</div>
-	
-	<div class="grid_6">
-		{zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}    					
-	</div>
-    <div class="clear"></div>
-    
     <div class="grid_16" id="site_info">
         <div class="box">
             <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a>.</p>
         </div>
     </div>
-    <div class="clear"></div>
-    
+    <div class="clear"></div>       
 </div>
-

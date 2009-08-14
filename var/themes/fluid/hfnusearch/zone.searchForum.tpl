@@ -1,15 +1,22 @@
 {form $form , 'hfnusearch~default:query'}
 <fieldset>
-    <div class="legend"><h3>Forums</h3></div>
+    <legend>Forums</legend>
     <div class="form_row">
-        {@hfnusearch~forum.search.in.a.particular.forum@}<br/>
+        <div class="form_value">
+            <strong>{@hfnusearch~forum.search.in.a.particular.forum@}</strong>
+        </div>
+        <div class="clearer">&nbsp;</div>
+    </div>
+    <div class="form_row">        
         <div class="form_property">
             {ctrl_label 'hfnu_q'}            
-        </div>        
+        </div>     
         <div class="form_value">
              {ctrl_control 'hfnu_q'}
         </div>
         <div class="clearer">&nbsp;</div>
+    </div>
+    <div class="form_row">        
         <div class="form_property">
             {ctrl_label 'param'}            
         </div>        

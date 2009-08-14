@@ -15,7 +15,6 @@
         {$signature|wiki:'wr3_to_xhtml'|stripslashes}
         {/if}
         </div>
-    </div>
     </fieldset>
     {/if}
     

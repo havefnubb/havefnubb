@@ -6,6 +6,7 @@
   <item value="closed" locale="havefnubb~post.status.closed"/> <!-- closed -->
   <item value="pined" locale="havefnubb~post.status.pined"/> <!-- pined -->
   <item value="pinedclosed" locale="havefnubb~post.status.pinedclosed"/> <!-- closed and pined -->
+  <emptyitem locale="havefnubb~post.select.a.status"/>
   <label locale="havefnubb~post.change.status">Status :</label>	
 </menulist>
 

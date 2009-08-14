@@ -4,6 +4,7 @@
 <menulist ref="id_forum">
   <datasource class="havefnubb~hfnuforumaccess"/>
   <label locale="havefnubb~forum.move.this.thread.to.this.forum"/>
+  <emptyitem locale="havefnubb~forum.select.a.forum"/>
 </menulist>
 
 <submit ref="validate">

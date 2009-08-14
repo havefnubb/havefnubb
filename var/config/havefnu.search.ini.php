@@ -22,7 +22,7 @@ dao = "havefnubb~posts"
 
 ; a list of method that can be use to perfom search, like "searchIn" + Authors , or Forums, or Words, or what ever
 ; have a loot at search_in.class.php
-perform_search_in = words
+perform_search_in = words,authors,forums
 
 ; specify the "jelix path" of the class that extends
 ; the class search_index and overwrites the function searchEngineRun
