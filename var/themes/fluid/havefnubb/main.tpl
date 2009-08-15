@@ -26,9 +26,9 @@
     <div class="clear"></div>    
     
     <div class="grid_16">
-        <h2 id="page-heading">{$DESC}</h2>
+		<h2 id="page-heading">{$DESC}</h2>	
     </div>
-    <div class="clear"></div>    
+    <div class="clear"></div>
         
     <div class="grid_16">
     {$MAIN}

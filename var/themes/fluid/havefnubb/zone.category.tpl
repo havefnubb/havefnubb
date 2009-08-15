@@ -28,6 +28,7 @@
 </div>
 
 <div class="grid_6 omega">
+    {zone 'hfnusearch~hfnuquicksearch'}
     {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}    					
 </div>
 <div class="clear"></div>

@@ -15,20 +15,20 @@ class hfnusearchZone extends jZone {
         
 		$url = jUrl::get('hfnusearch~default:queryajax');
         
-		$javascript = "
-<script type=\"text/javascript\">"."\n".
-"//<![CDATA["."\n".
-"$().ready(function() {"."\n".
-"\t"."$(\"#hfnu_q\").autocomplete('".$url."', {"."\n".
-		"\t\t"."width: 300,"."\n".
-		"\t\t"."multiple: true,"."\n".
-		"\t\t"."matchContains: true,"."\n".
-		//"\t\t"."formatItem: formatItem,"."\n".
-		//"\t\t"."formatResult: formatResult"."\n".
-"\t"."});"."\n".
-"});"."\n".
-"//]]>"."\n".
-"</script>"."\n";
+		$javascript =
+        "<script type=\"text/javascript\">"."\n".
+        "//<![CDATA["."\n".
+        "$().ready(function() {"."\n".
+        "\t"."$(\"#hfnu_q\").autocomplete('".$url."', {"."\n".
+                "\t\t"."width: 300,"."\n".
+                "\t\t"."multiple: true,"."\n".
+                "\t\t"."matchContains: true,"."\n".
+                //"\t\t"."formatItem: formatItem,"."\n".
+                //"\t\t"."formatResult: formatResult"."\n".
+        "\t"."});"."\n".
+        "});"."\n".
+        "//]]>"."\n".
+        "</script>"."\n";
 
         $this->_tpl->assign('javascript',$javascript);
     }    

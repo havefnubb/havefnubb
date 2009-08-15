@@ -23,14 +23,14 @@ class defaultCtrl extends jController {
 					),        
     );
 
-    function index() {
+    public function index() {
         $rep = $this->getResponse('html');	
 		$rep->title = jLocale::get('hfnusearch~search.search.perform');		
         $rep->body->assignZone('MAIN', 'hfnusearch~hfnusearch');
         return $rep;
     }
     
-    function query() {
+    public function query() {
         $string = $this->param('hfnu_q');
         
         $additionnalParam = '';
@@ -75,8 +75,8 @@ class defaultCtrl extends jController {
     }
 	
 	public function queryajax () {
-		$string = $this->param('q');
-        
+		$string = (string) $this->param('q');
+        if ($string == '') return;
         $perform = jClasses::getService('hfnusearch~search_in');
         
         $result = $perform->searchInWords($string,$additionnalParam);
