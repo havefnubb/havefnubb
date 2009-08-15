@@ -68,7 +68,7 @@ class searchwordsListener extends jEventListener{
       $service->searchEngineDelete();
    }
    
-    function onHfnuSearchEngineRun ($event) {
+   function onHfnuSearchEngineRun ($event) {
 	  $HfnuSearchConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
 	  
 	  $cleaner = jClasses::getService('hfnusearch~cleaner');

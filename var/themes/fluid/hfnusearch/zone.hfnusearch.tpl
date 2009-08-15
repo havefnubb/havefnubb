@@ -1,4 +1,8 @@
 {meta_html css $j_themepath .'css/hfnusearch.css'}
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_basepath.'js/jquery.autocomplete.pack.js'}
+{meta_html css $j_basepath.'js/jquery.autocomplete.css'}
+{$javascript}
 <div class="box">
     <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@hfnusearch~search.search.perform@}</h3>
 </div>
@@ -15,7 +19,7 @@
             <div class="form_property">{@hfnusearch~search.hfnu_q.search@}</div>
             
             <div class="form_value">
-                <input type="text" name="hfnu_q" size="31" />    
+                <input type="text" id="hfnu_q" name="hfnu_q" size="31" />    
             </div>
             <div class="clearer">&nbsp;</div>
     

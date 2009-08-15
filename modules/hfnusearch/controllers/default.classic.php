@@ -24,9 +24,8 @@ class defaultCtrl extends jController {
     );
 
     function index() {
-        $rep = $this->getResponse('html');
-        $tpl = new jTpl();
-		$rep->title = jLocale::get('hfnusearch~search.search.perform');
+        $rep = $this->getResponse('html');	
+		$rep->title = jLocale::get('hfnusearch~search.search.perform');		
         $rep->body->assignZone('MAIN', 'hfnusearch~hfnusearch');
         return $rep;
     }
@@ -73,8 +72,22 @@ class defaultCtrl extends jController {
 		$rep->title = jLocale::get('hfnusearch~search.results.of.search');
         $rep->body->assign('MAIN',$tpl->fetch('hfnusearch~result'));
         return $rep;
-
     }
+	
+	public function queryajax () {
+		$string = $this->param('q');
+        
+        $perform = jClasses::getService('hfnusearch~search_in');
+        
+        $result = $perform->searchInWords($string,$additionnalParam);
+
+        $rep = $this->getResponse('htmlfragment');
+		for ($i = 0 ; $i < count($result) ; $i++ ) {
+			echo $result[$i]['subject']."\n";
+		}
+
+        return $rep;
+	}
     
 }
 
