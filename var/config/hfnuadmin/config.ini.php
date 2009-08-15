@@ -19,5 +19,5 @@ enableAcl2DbEventListener=on
 
 [simple_urlengine_entrypoints]
 hfnuadmin="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic,
-hfnuadmin~*@classic, servinfo~default@classic, hfnusearch~*@classic, hfnucontact~*@classic"
+hfnuadmin~*@classic, servinfo~default@classic, hfnusearch~*@classic, hfnucontact~*@classic, hfnupoll~admin@classic"
 
