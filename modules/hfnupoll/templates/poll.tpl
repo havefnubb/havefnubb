@@ -4,7 +4,7 @@
 {formfull $form, 'hfnupoll~admin:savecreate'}
 <br/>
 {/ifacl2}
-{jmessage}
+<div id="admin-message">{jmessage}</div>
 <table width="100%" class="records-list">
 <thead>  
     <tr>

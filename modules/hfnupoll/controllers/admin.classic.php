@@ -46,58 +46,98 @@ class adminCtrl extends jController {
     }
    
     public function delete () {
-        $rep = $this->getResponse('html');
-
-        return $rep;        
-    }
-    
-    public function savecreate() {
-        $form = jForms::get('hfnupoll~poll_add');
-        if ($form->check()) {
-            jMessage::add(jLocale::get('hfnupoll~poll.invalid.datas'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnupoll~admin:index';
-            return $rep;
-        }
-               
-        if ($this->param('validate') == jLocale::get('hfnupoll~poll.saveBt')) {
-
-            $dao = jDao::get('hfnupoll~poll');
-            
-            $form = jForms::fill('hfnupoll~poll_add');
-            
-            $record = jDao::createRecord('hfnupoll~poll');        
-            $record->question = $form->getData('question');
-            $record->date_created = time();
-            $record->status = 1; // to add answer 
-           
-            $dao->insert($record);
-
-			jForms::destroy('hfnupoll~poll_add');
-			
-            jMessage::add(jLocale::get('hfnupoll~poll.added'),'ok');
-        }
         $rep = $this->getResponse('redirect');
+        $id = $this->intParam('id_poll');
+        if ($id > 0 ) {
+            $dao = jDao::get('hfnupoll~poll');
+            $dao->delete($id);
+            jMessage::add(jLocale::get('hfnupoll~poll.deleted'),'ok');
+        }
+        else {
+            jMessage::add(jLocale::get('hfnupoll~poll.invalid.datas'),'error');
+        }
         $rep->action='hfnupoll~admin:index';
         return $rep;        
     }
     
-    public function edit() {
-       $rep = $this->getResponse('html');
-
-        return $rep;         
-    }
-
-    public function saveedit() {
-        $rep = $this->getResponse('html');
-
-        return $rep;          
-    }
-
+    public function savecreate() {
+        $id = $this->intParam('id_poll');
+        if ($id == 0) {
+            $form = jForms::get('hfnupoll~poll_add');
+            if ($form->check()) {
+                jMessage::add(jLocale::get('hfnupoll~poll.invalid.datas'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action='hfnupoll~admin:index';
+                return $rep;
+            }
+                   
+            if ($this->param('validate') == jLocale::get('hfnupoll~poll.saveBt')) {
     
-    public function deletesave() {
-        
-    }        
+                $dao = jDao::get('hfnupoll~poll');
+                
+                $form = jForms::fill('hfnupoll~poll_add');
+                
+                $record = jDao::createRecord('hfnupoll~poll');        
+                $record->question = htmlentities($form->getData('question'));
+                $record->date_created = time();
+                $record->status = 1; // to add answer 
+               
+                $dao->insert($record);
+    
+                jForms::destroy('hfnupoll~poll_add');
+                
+                jMessage::add(jLocale::get('hfnupoll~poll.added'),'ok');
+            }
+        }
+        else {
+            if ($this->param('validate') == jLocale::get('hfnupoll~poll.saveBt')) {
+                
+                $form = jForms::fill('hfnupoll~poll_edit',$id);
+                
+                $dao = jDao::get('hfnupoll~poll');
+                $dao->get($id);
+
+                $record->question = htmlentities($form->getData('question'));
+                $record->date_created = time();
+                $record->status = $this->intParam('status'); 
+               
+                $dao->update($record);
+    
+                jForms::destroy('hfnupoll~poll_add');
+                
+                jMessage::add(jLocale::get('hfnupoll~poll.updated'),'ok');
+            }
+            
+        }
+        $rep = $this->getResponse('redirect');
+        $rep->action='hfnupoll~admin:index';
+        return $rep;     
+    }
+    
+    public function edit() {
+        $tpl = new jTpl();
+        $id = $this->intParam('id_poll');
+        if ($id > 0) {
+            $form = jForms::create('hfnupoll~poll_edit',$id);
+            
+            $dao = jDao::get('hfnupoll~poll');
+            $poll = $dao->get($id);
+            
+            $tpl->assign('poll',$poll);
+            $tpl->assign('form',$form);
+            
+            $rep = $this->getResponse('html');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnupoll~poll_edit'));
+            $rep->body->assign('selectedMenuItem','poll_list');
+            return $rep;
+        }
+        else {
+            $rep = $this->getResponse('redirect');
+            $rep->action='hfnupoll~admin:index';        
+            return $rep;    
+        }
+    }
+       
 }
 
 

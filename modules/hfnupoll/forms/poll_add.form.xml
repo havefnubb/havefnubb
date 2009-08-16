@@ -5,6 +5,8 @@
 
 <input ref="question" required="true" maxlength="255">
 	<label locale="hfnupoll~poll.add.a.question"/>
+	<hint locale="hfnupoll~poll.html.forbidden"/>
+	<help locale="hfnupoll~poll.html.forbidden"/>
 </input>
 
 <submit ref="validate">
