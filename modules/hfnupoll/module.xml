@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnupoll@havefnubb.org" name="hfnupoll" createdate="2009-08-15">
-        <version stability="pre-alpha" date="">0.1pre</version>
+        <version stability="stable" date="2009-08-16">1.0.2</version>
         <label lang="en_EN">hfnupoll</label>
         <description lang="en_EN">Poll Module</description>		
         <label lang="fr_FR">hfnupoll</label>
@@ -9,9 +9,8 @@
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</license>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="foxmask" email="foxmask@havefnubb.org" active="true" />
-        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
         <homepageURL>http://www.havefnubb.org</homepageURL>
-        <!--<updateURL>http://www.havefnubb.org/update.xml</updateURL>-->
+        <updateURL>http://www.havefnubb.org/update.php?module=hfnupoll</updateURL>
     </info>
     <dependencies>
         <jelix minversion="1.1.3" maxversion="1.1.3" />

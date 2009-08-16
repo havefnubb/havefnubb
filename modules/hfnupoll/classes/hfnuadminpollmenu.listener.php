@@ -17,40 +17,26 @@ class hfnuadminpollmenuListener extends jEventListener{
 	  global $gJConfig;
 	  $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
 	  
-      //if ( jAcl2::check('hfnu.admin.poll.list'))    {
+      if ( jAcl2::check('hfnu.admin.poll.list'))    {
 		 $event->add(new masterAdminMenuItem('hfnupoll',jLocale::get('hfnupoll~poll.poll'), '', 100));
 
-		 $item = new masterAdminMenuItem('poll',
+		 $item = new masterAdminMenuItem('poll_list',
 											  jLocale::get('hfnupoll~poll.list'),
 											  jUrl::get('hfnupoll~admin:index'),
-											  100,
+											  101,
 											  'hfnupoll');
          $item->icon = $chemin . 'images/admin/poll_list.png';			
          $event->add($item);		 
-	  //}
-      //if ( jAcl2::check('hfnu.admin.poll.config'))    {
-		 $event->add(new masterAdminMenuItem('hfnupoll',jLocale::get('hfnupoll~poll.poll'), '', 101));
-
-		 $item = new masterAdminMenuItem('poll',
-											  jLocale::get('hfnupoll~poll.config'),
-											  jUrl::get('hfnupoll~admin:config'),
-											  101,
-											  'hfnupoll');
-         $item->icon = $chemin . 'images/admin/poll_config.png';			
-         $event->add($item);		 
-	  //}
-	  
-      //if ( jAcl2::check('hfnu.admin.poll.add'))    {
-		 $event->add(new masterAdminMenuItem('hfnupoll',jLocale::get('hfnupoll~poll.poll'), '', 102));
-
-		 $item = new masterAdminMenuItem('poll',
+	  }
+      /*if ( jAcl2::check('hfnu.admin.poll.add'))    {
+		 $item = new masterAdminMenuItem('poll_add',
 											  jLocale::get('hfnupoll~poll.add'),
 											  jUrl::get('hfnupoll~admin:add'),
-											  102,
+											  103,
 											  'hfnupoll');
          $item->icon = $chemin . 'images/admin/poll_add.png';
          $event->add($item);		 
-	  //}
+	  }*/
 	  
 	} 
 }

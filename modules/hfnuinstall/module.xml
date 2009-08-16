@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnuinstall@forge.jelix.org" name="HfnuInstall" createdate="2009-02-08">
-        <version stability="beta" date="2009-07-15">1.0.1</version>
+        <version stability="beta" date="2009-08-16">1.0.2</version>
         <label lang="en_EN">HfnuInstall</label>
         <description lang="en_EN">install module of bulletin board HaveFnuBB! </description>        
         <label lang="fr_FR">HfnuInstall</label>
@@ -14,6 +14,6 @@
     </info>
     <dependencies>
         <jelix minversion="1.1.3" maxversion="1.1.3" />
-        <havefnubb minversion="1.0.0RC1" maxversion="1.0.0RC1" />
+        <havefnubb minversion="1.0.2" maxversion="1.0.2" />
     </dependencies>
 </module>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://jelix.org/ns/project/1.0">
     <info id="havefnubb@forge.jelix.org" name="HaveFnuBB" createdate="2008-12-16">
-        <version stability="beta" date="2009-05-16">1.0.0RC3</version>
+        <version stability="beta" date="2009-08-16">1.0.2</version>
         <label lang="en_EN">HaveFnuBB!</label>
         <description lang="en_EN">HaveFnuBB! Where everything is Fnu !</description>
         <label lang="fr_FR">HaveFnuBB!</label>
@@ -18,15 +18,15 @@
 		<module id="jcommunity@jelix.org" maxversion="1.0" minversion="0.9" name="jcommunity" />		
 		<module id="jtags@jelix.org" maxversion="1.0" minversion="0.9" name="jtags" />
 		<module id="jmessenger@jelix.org" maxversion="1.0" minversion="0.9" name="jmessenger" />
-		<module id="havefnubb@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="havefnubb" />
-		<module id="hfnuadmin@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="hfnuadmin" />
-		<module id="hfnucontact@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="hfnucontact" />
-        <module id="hfnuinstall@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="hfnuinstall" />
-		<module id="hfnusearch@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="hfnusearch" />
-		<module id="servinfo@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="servinfo" />
-        <plugin id="flood@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="flood" />
-		<plugin id="banuser@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="banuser" />
-        <plugin id="hfnuinstalled@forge.jelix.org" maxversion="1.0.0RC3" minversion="1.0.0RC3" name="hfnuinstalled" />
+		<module id="havefnubb@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="havefnubb" />
+		<module id="hfnuadmin@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="hfnuadmin" />
+		<module id="hfnucontact@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="hfnucontact" />
+        <module id="hfnuinstall@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="hfnuinstall" />
+		<module id="hfnusearch@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="hfnusearch" />
+		<module id="servinfo@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="servinfo" />
+        <plugin id="flood@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="flood" />
+		<plugin id="banuser@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="banuser" />
+        <plugin id="hfnuinstalled@forge.jelix.org" maxversion="1.0.2" minversion="1.0.2" name="hfnuinstalled" />
     </dependencies>
     <directories>
         <config/>

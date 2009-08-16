@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+<hidden ref="id_poll"/>
+
+<input ref="question" required="true" maxlength="255">
+	<label locale="hfnupoll~poll.add.a.question"/>
+</input>
+
+<submit ref="validate">
+	<label locale="hfnupoll~poll.saveBt"/>
+</submit>
+</form>
