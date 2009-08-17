@@ -8,7 +8,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-require ('application.init.php');
+require ('havefnubb/application.init.php');
 require (JELIX_LIB_CORE_PATH.'request/jClassicRequest.class.php');
 
 $config_file = 'install/config.ini.php';
