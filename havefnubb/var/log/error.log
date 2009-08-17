@@ -415,3 +415,5 @@ NULL, 'cacatoesse', 1250454307, 1
 2009-08-17 15:00:18	[520]	DAO hfnupoll~poll_answer, une table doit être indiquée (fichier E:\wamp\www1\havefnubb\modules/hfnupoll/daos/poll_answer.dao.xml)	E:\wamp\www1\lib\jelix\dao\jDaoParser.class.php	97
 2009-08-17 15:01:25	[520]	DAO hfnupoll~poll_answer, une table doit être indiquée (fichier E:\wamp\www1\havefnubb\modules/hfnupoll/daos/poll_answer.dao.xml)	E:\wamp\www1\lib\jelix\dao\jDaoParser.class.php	97
 2009-08-17 15:01:51	[0]	(210)The given locale key "hfnupoll~poll.answsers.added" does not exists in the default lang for the UTF-8 charset	E:\wamp\www1\lib\jelix\core\jLocale.class.php	86
+2009-08-17 18:51:08	[403]	Erreur dans la requête (Table 'hfnu.hf_bans' doesn't exist(DELETE FROM `hf_bans`  WHERE  `ban_expire` <'1250527868' AND `ban_expire` <> '0'))	D:\DOCUMENT_ROOT\www_havefnubb\lib\jelix\plugins\db\mysql\mysql.dbconnection.php	127
+2009-08-17 18:51:10	[403]	Erreur dans la requête (Table 'hfnu.hf_bans' doesn't exist(DELETE FROM `hf_bans`  WHERE  `ban_expire` <'1250527870' AND `ban_expire` <> '0'))	D:\DOCUMENT_ROOT\www_havefnubb\lib\jelix\plugins\db\mysql\mysql.dbconnection.php	127
