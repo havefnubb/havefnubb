@@ -352,7 +352,7 @@ li.headings  {
 
 /* category */
 .category {	
-	background: #90602A url(../images/img03.jpg) repeat-x left top;
+	background: #90602A url("../images/img03.jpg") repeat-x left top;
 	border: 2px #EEE3C3 solid;
 	height: 32px;
 	padding: 8px 0 0 15px;

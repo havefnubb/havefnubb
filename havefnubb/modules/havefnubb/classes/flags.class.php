@@ -17,7 +17,7 @@ class flags implements jIFormsDatasource
   function __construct($id)
   {
     $data = array();
-    $dir = JELIX_APP_WWW_PATH.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'flags';
+    $dir = JELIX_APP_WWW_PATH.DIRECTORY_SEPARATOR.'hfnu'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'flags';
     $dh = opendir($dir);
      while (($file_complet = readdir($dh)) !== false) {
      

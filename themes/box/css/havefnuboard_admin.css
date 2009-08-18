@@ -14,19 +14,19 @@
 
 #admin-message .jelix-msg li.jelix-msg-item-warning {
     background-color: #F6B1B1;
-    background-image: url(../images/exclamation.png);
+    background-image: url("../images/exclamation.png");
 	background-repeat: no-repeat;		
 }
 #admin-message .jelix-msg li.jelix-msg-item-error {
     background-color: #F6CAB1;
-    background-image: url(../images/error.png);
+    background-image: url("../images/error.png");
 	background-repeat: no-repeat;		
 }
 
 #admin-message .jelix-msg li.jelix-msg-item-ok,
 #admin-message .jelix-msg li.jelix-msg-item-notice {
     background-color: #E5F6D4;
-    background-image: url(../images/information.png);
+    background-image: url("../images/information.png");
 	background-repeat: no-repeat;	
 }
 
@@ -43,7 +43,7 @@
 	
 
 #hfnuadmin-tasktodo {
-    background-image: url(../images/admin/todos.png);
+    background-image: url("../images/admin/todos.png");
 	background-repeat: no-repeat;	
 }
 	

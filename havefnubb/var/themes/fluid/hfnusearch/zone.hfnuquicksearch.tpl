@@ -1,7 +1,7 @@
 {meta_html css $j_themepath .'css/hfnusearch.css'}
 {meta_html js  $j_jelixwww . 'jquery/jquery.js'}
-{meta_html js  $j_basepath . 'js/jquery.autocomplete.pack.js'}
-{meta_html css $j_basepath . 'js/jquery.autocomplete.css'}
+{meta_html js  $j_basepath . 'hfnu/js/jquery.autocomplete.pack.js'}
+{meta_html css $j_basepath . 'hfnu/js/jquery.autocomplete.css'}
 {$javascript}
 <form action="{formurl 'hfnusearch~default:query'}" method="post">
 <fieldset>

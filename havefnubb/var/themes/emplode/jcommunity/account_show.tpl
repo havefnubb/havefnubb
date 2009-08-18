@@ -25,14 +25,14 @@ $(document).ready(function(){
 <div id="post-message">{jmessage}</div>
 <div id="profile">
 	<div id="user-profile-avatar">
-		{if file_exists('images/avatars/'. $user->id.'.png') }
-		{image 'images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
-		{elseif file_exists('images/avatars/'. $user->id.'.jpg')}
-		{image 'images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
-		{elseif file_exists('images/avatars/'. $user->id.'.jpeg')}
-		{image 'images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
-		{elseif file_exists('images/avatars/'. $user->id.'.gif')}
-		{image 'images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+		{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
+		{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
+		{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
+		{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
+		{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
 		{/if}		
 	</div>
     <div id="container">		
@@ -88,7 +88,7 @@ $(document).ready(function(){
                         <label><strong>{@havefnubb~member.common.country@}</strong></label>
                     </div>
                     <div class="form_value">
-                        {image 'images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}                        
+                        {image 'hfnu/images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}                        
                     </div>
                     <div class="form_property">
                         <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong></label>

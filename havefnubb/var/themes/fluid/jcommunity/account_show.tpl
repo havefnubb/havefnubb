@@ -15,15 +15,17 @@ $(document).ready(function(){
 	<h2>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h2>
 	<div class="block">
 		<div id="user-profile-avatar">
-			{if file_exists('images/avatars/'. $user->id.'.png') }
-			{image 'images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
-			{elseif file_exists('images/avatars/'. $user->id.'.jpg')}
-			{image 'images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
-			{elseif file_exists('images/avatars/'. $user->id.'.jpeg')}
-			{image 'images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
-			{elseif file_exists('images/avatars/'. $user->id.'.gif')}
-			{image 'images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
-			{/if}		
+			{if file_exists('hfnu/hfnu/images/avatars/'. $user->id.'.png') }
+			{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
+			{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/imagse/avatars/'. $user->id.'.jpeg')}
+			{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
+			{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}
+            {else}
+            {image 'hfnu/images/avatars/photo_60x60.jpg',array('alt'=>'avatar')}
+			{/if}
 		</div>
 	    <div id="container">		
         <ul class="nav main">
@@ -78,7 +80,7 @@ $(document).ready(function(){
                         <label><strong>{@havefnubb~member.common.country@}</strong></label>
                     </div>
                     <div class="form_value">
-                        {image 'images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}                        
+                        {image 'hfnu/images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}                        
                     </div>
                     <div class="form_property">
                         <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong>&nbsp;</label>
@@ -286,7 +288,7 @@ $(document).ready(function(){
 	</div>
 	<div class="fake-button-left">
 {if $himself}
-<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
+<a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
 {/if}
 	</div>
 </div>

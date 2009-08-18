@@ -1,4 +1,4 @@
-{meta_html css $j_basepath.'images/star-rating/jquery.rating.css'}
+{meta_html css $j_basepath.'hfnu/images/star-rating/jquery.rating.css'}
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 {meta_html js $j_jelixwww.'jquery/include/jquery.include.js'}
 {meta_html js $j_jelixwww.'jquery/jquery.MetaData.js'}

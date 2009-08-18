@@ -68,9 +68,9 @@ class authhavefnubbListener extends jEventListener{
 			elseif (strpos($avatar,'.gif') > 0 )
 			   $ext = '.gif';
 			
-			$form->saveFile('member_avatar', JELIX_APP_WWW_PATH.'images/avatars/', $id.$ext);
+			$form->saveFile('member_avatar', JELIX_APP_WWW_PATH.'hfnu/images/avatars/', $id.$ext);
 			
-			list($width, $height) = getimagesize(JELIX_APP_WWW_PATH.'images/avatars/'.$id.$ext);
+			list($width, $height) = getimagesize(JELIX_APP_WWW_PATH.'hfnu/images/avatars/'.$id.$ext);
 			if (empty($width) || empty($height) || $width > $max_width || $height > $max_height) {
 			   @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.$ext);
 			   jMessage::add(
