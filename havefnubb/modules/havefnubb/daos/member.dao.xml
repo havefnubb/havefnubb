@@ -33,6 +33,7 @@
 	<property name="member_town" fieldname="member_town" datatype="string" required="true" maxlength="100"/>
 	<property name="member_comment" fieldname="member_comment" datatype="string" required="true" maxlength="255"/>
 	<property name="member_avatar" fieldname="member_avatar" datatype="string" maxlength="255"/>
+	<property name="member_gravatar" fieldname="member_gravatar" datatype="integer" />
 
 
 	<property name="member_xfire" fieldname="member_xfire" datatype="string" maxlength="80"/>

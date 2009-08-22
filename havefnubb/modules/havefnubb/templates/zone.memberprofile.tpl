@@ -2,14 +2,18 @@
     <ul class="member-ident">
         <li class="user-name user-image">{zone 'online_offline',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->login)}">{$user->login|eschtml}</a></li>
         <li class="user-avatar">
-		{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
-		{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
-		{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
-		{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
-		{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+		{if $user->member_gravatar == 1}
+			{gravatar $user->email,array('username'=>$user->login)}
+		{else}
+			{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
+			{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
+			{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
+			{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
+			{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+			{/if}
 		{/if}
         </li>
         {if $user->member_town != ''}

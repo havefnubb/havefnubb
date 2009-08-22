@@ -138,6 +138,16 @@ $(document).ready(function(){
 						<label class="user-signature user-image"><strong>{ctrl_label 'member_comment'}</strong></label>
 					</div>
                     <div class="form_value">{ctrl_control 'member_comment'}</div>
+					<div class="clearer">&nbsp;</div>
+				</div>
+				<div class="form_row">					
+                    <div class="form_property">
+						<label class="user-gravatar user-image"><strong>{ctrl_label 'member_gravatar'}</strong></label>
+					</div>
+					<div class="form_value">{ctrl_control 'member_gravatar'}</div>
+					<div class="clearer">&nbsp;</div>
+				</div>
+				<div class="form_row">					
                     <div class="form_property">
 						<label class="user-avatar user-image"><strong>{ctrl_label 'member_avatar'}</strong></label>							
 					</div>

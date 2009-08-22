@@ -16,11 +16,17 @@ class defaultCtrl extends jController {
         'index' => array( 'jacl2.right' =>'hfnu.search'),
         'query' => array( 'jacl2.right' =>'hfnu.search'),
     
-        '*'		=>	array('auth.required'=>false,
+        'index'	=>	array('auth.required'=>false,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+						  'history.add'=>true,
+					),
+        'query'	=>	array('auth.required'=>false,
 						  'hfnu.check.installed'=>true,
 						  'banuser.check'=>true,
 						  'history.add'=>true,
 					),        
+        
     );
 
     public function index() {

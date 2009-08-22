@@ -32,7 +32,7 @@
 	<property name="member_town" fieldname="member_town" datatype="string" required="true" maxlength="100"/>
 	<property name="member_comment" fieldname="member_comment" datatype="string" required="true" maxlength="255"/>
 	<property name="member_avatar" fieldname="member_avatar" datatype="string" maxlength="255"/>
-
+	<property name="member_gravatar" fieldname="member_gravatar" datatype="integer" />
 
 	<property name="member_xfire" fieldname="member_xfire" datatype="string" maxlength="80"/>
 	<property name="member_icq" fieldname="member_icq" datatype="string" maxlength="80"/>
@@ -55,7 +55,7 @@
 
 	<property name="member_last_connect" fieldname="member_last_connect" datatype="integer" />
 	
-    <property name="member_created" fieldname="member_created" datatype="datetime" />
+    <property name="member_created" fieldname="member_created" datatype="datetime" />	
 	
     <property name="member_show_email" fieldname="member_show_email" datatype="string" maxlength="1"/>
 	<property name="member_language" fieldname="member_language" datatype="string"/>

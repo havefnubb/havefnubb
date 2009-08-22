@@ -1,5 +1,5 @@
 <div id="breadcrumbtop" class="headbox">
-    <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >
+    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >
         <span class="user-image" id="user-group">{@havefnubb~member.memberlist.members.list@}</span></h3>
 </div>
 
@@ -33,7 +33,7 @@
 </div>
 
 <div class="linkpages">
-{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
 
 <table width="100%">
@@ -59,5 +59,5 @@
 </table>
 
 <div class="linkpages">
-{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>

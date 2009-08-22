@@ -25,15 +25,19 @@ $(document).ready(function(){
 <div id="post-message">{jmessage}</div>
 <div id="profile">
 	<div id="user-profile-avatar">
-		{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
-		{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
-		{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
-		{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
-		{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
-		{/if}		
+		{if $user->member_gravatar == 1}
+			{gravatar $user->email,array('username'=>$user->login)}
+		{else}
+			{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
+			{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
+			{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
+			{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
+			{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+			{/if}
+		{/if}
 	</div>
     <div id="container">		
         <ul>

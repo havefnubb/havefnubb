@@ -1,5 +1,5 @@
 <div id="breadcrumbtop" class="headbox">
-    <h3><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {jlocale 'havefnubb~main.cloud.posts.by.tag',array($tag)}</h3>
+    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {jlocale 'havefnubb~main.cloud.posts.by.tag',array($tag)}</h3>
 </div>
 <div class="cloud-list">
     <table class="cloudList data_table" width="100%">
