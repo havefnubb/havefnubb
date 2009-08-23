@@ -434,9 +434,9 @@ class defaultCtrl extends jController {
     }
 
     /**
-     * Method to update to 1.0.2
+     * Method to update to 1.1.0
      */	
-	function update_to_1_0_2() {
+	function update_to_1_1_0() {
 		global $HfnuConfig, $gJConfig;
         
 		$version = $HfnuConfig->getValue('version','main');
@@ -460,7 +460,7 @@ class defaultCtrl extends jController {
             $updated = 'ok';
         }
 		if ($version == '1.0.1') {
-			self::_update_to_1_0_2();
+			self::_update_to_1_1_0();
             $updated = 'ok';
         }		
         if ($updated == 'ok') {
@@ -594,14 +594,14 @@ class defaultCtrl extends jController {
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }
 
-    private  static function _update_to_1_0_2() {
+    private  static function _update_to_1_1_0() {
         global $HfnuConfig;
 		
         $db 		= new jDb();
         $profile 	= $db->getProfile('havefnubb');
         $tools 		= jDb::getTools('havefnubb');
         
-        $file = dirname(__FILE__).'/../install/update/1.0.2/install.'.$profile['driver'].'.sql';
+        $file = dirname(__FILE__).'/../install/update/1.1.0/install.'.$profile['driver'].'.sql';
         
         //default fake prefix uses in the filename if no prefix table are filled
         $tablePrefix = 'null_';
@@ -612,7 +612,7 @@ class defaultCtrl extends jController {
         if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {            
             $tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
         }            
-        $fileDest = dirname(__FILE__).'/../install/update/1.0.2/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+        $fileDest = dirname(__FILE__).'/../install/update/1.1.0/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
         $sources = file($file);
         $newSource = '';
         
@@ -633,12 +633,12 @@ class defaultCtrl extends jController {
         $fh = fopen($fileDest,'w+');
         fwrite($fh,$newSource);
         fclose($fh);
-        $file = dirname(__FILE__).'/../install/update/1.0.2/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+        $file = dirname(__FILE__).'/../install/update/1.1.0/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
         
         $tools->execSQLScript($file);
         @unlink($file);							
 		
-        $HfnuConfig->setValue('version','1.0.2','main');
+        $HfnuConfig->setValue('version','1.1.0','main');
         $HfnuConfig->save();
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }

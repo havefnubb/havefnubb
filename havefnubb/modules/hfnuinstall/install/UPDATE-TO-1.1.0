@@ -4,7 +4,7 @@
                            
 ************************************************************************************
 
-Update from 1.0.1 to 1.0.2
+Update from 1.0.1 to 1.1.0
 
 1) backup your files :
 var/config/dbprofils.ini.php
@@ -16,7 +16,7 @@ Files
 2) remove everything of the previous installation
 3) upload the content of the archive on your website
 4) restore your backup of var/config 
-5) access to http://youresite.com/install?action=default:update_to_1_0_2&step=update
+5) access to http://youresite.com/install?action=default:update_to_1_1_0&step=update
 this will update your database and your config files with the correct version number of HaveFnuBB
 
 
@@ -26,7 +26,7 @@ this will update your database and your config files with the correct version nu
 
 ************************************************************************************
 
-Mise à jour depuis la 1.0.1 à la 1.0.2
+Mise à jour depuis la 1.0.1 à la 1.1.0
 
 1) savegarder vos fichiers : 
 var/config/dbprofils.ini.php
@@ -38,5 +38,5 @@ Fichiers:
 2) tout supprimer de l'installation précédante 
 3) transferer le contenu entier de l'archive sur votre site web
 4) restaurer votre sauvegarde de votre repertoire var/config 
-5) acceder à http://votresite.com/install?action=default:update_to_1_0_2&step=update
+5) acceder à http://votresite.com/install?action=default:update_to_1_1_0&step=update
 ceci mettra à jour votre base de données et vos fichiers de configuration avec la bonne version de HaveFnuBB

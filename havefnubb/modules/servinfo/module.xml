@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="servinfo@havefnubb.org" name="ServInfo" createdate="2009-02-06">
-        <version stability="stable" date="2009-08-16">1.0.2</version>
+        <version stability="stable" date="2009-09-01">1.1.0</version>
         <label lang="en_EN">ServInfo</label>
         <description lang="en_EN">Display any data about the current server on which the module runs</description>
         <label lang="fr_FR">ServInfo</label>
