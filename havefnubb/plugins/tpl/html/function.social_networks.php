@@ -53,50 +53,56 @@ function jtpl_function_html_social_networks($tpl, $network, $params) {
 }
 
 function social_delicious($imgPath, $jurl, $jurlParams, $title) {
+	$params = array('width'=>32,'height'=>32,'alt'=>'delicious');
 	$deliciousUrl = 'http://del.icio.us/post?';
 	$deliciousUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
 	$deliciousUrl .= '&amp;title='.urlencode($title);
-	echo '<a href="'.$deliciousUrl.'" title="delicious" >'.make_image($imgPath.'/icontexto-user-web20-delicious.png').'</a>';
+	echo '<a href="'.$deliciousUrl.'" title="delicious" >'.make_image($imgPath.'/Delicious.png',$params).'</a>';
 }
 
 function social_facebook($imgPath, $jurl, $jurlParams, $title) {
+	$params = array('width'=>32,'height'=>32,'alt'=>'facebook');
 	$facebookUrl = 'http://www.facebook.com/sharer.php?';
 	$facebookUrl .= 'u=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
-	echo '<a href="'.$facebookUrl.'" title="facebook" >'.make_image($imgPath.'/icontexto-user-web20-facebook.png').'</a>';
+	echo '<a href="'.$facebookUrl.'" title="facebook" >'.make_image($imgPath.'/Facebook.png',$params).'</a>';
 }
 
 function social_reddit($imgPath, $jurl, $jurlParams, $title) {
+	$params = array('width'=>32,'height'=>32,'alt'=>'reddit');
 	$redditUrl = 'http://reddit.com/submit?';
 	$redditUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
 	$redditUrl .= '&amp;title='.urlencode($title);
-	echo '<a href="'.$redditUrl.'" title="reddit" >'.make_image($imgPath.'/icontexto-user-web20-reddit.png').'</a>';
+	echo '<a href="'.$redditUrl.'" title="reddit" >'.make_image($imgPath.'/Reddit.png',$params).'</a>';
 }
 
 function social_twitter($imgPath, $jurl, $jurlParams, $title) {
+	$params = array('width'=>32,'height'=>32,'alt'=>'twitter');
 	$twitterUrl = 'http://twitter.com/timeline/home?';
 	$twitterUrl .= urlencode('status=view '.$title.' http://'.$_SERVER['SERVER_NAME'].jUrl::get($jurl, $jurlParams));
-	echo '<a href="'.$twitterUrl.'" title="twitter" >'.make_image($imgPath.'/icontexto-user-web20-twitter.png').'</a>';
+	echo '<a href="'.$twitterUrl.'" title="twitter" >'.make_image($imgPath.'/Twitter.png',$params).'</a>';
 }
 
 function social_digg($imgPath, $jurl, $jurlParams, $title) {
+	$params = array('width'=>32,'height'=>32,'alt'=>'digg');
 	$diggUrl = 'http://digg.com/submit?phase=2&amp;url=';
 	$diggUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
 	$diggUrl .= '&amp;title='.urlencode($title);
-	echo '<a href="'.$diggUrl.'" title="digg" >'.make_image($imgPath.'/icontexto-user-web20-digg.png').'</a>';
+	echo '<a href="'.$diggUrl.'" title="digg" >'.make_image($imgPath.'/Digg.png',$params).'</a>';
 }
 
 function social_netvibes($imgPath, $jurl, $jurlParams, $title) {
+	$params = array('width'=>32,'height'=>32,'alt'=>'netvibes');
 	$netvibesUrl = 'http://www.netvibes.com/share?';
 	$netvibesUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
 	$netvibesUrl .= '&amp;title='.urlencode($title);
-	echo '<a href="'.$netvibesUrl.'" title="netvibes" >'.make_image($imgPath.'/icontexto-user-web20-netvibes.png').'</a>';
+	echo '<a href="'.$netvibesUrl.'" title="netvibes" >'.make_image($imgPath.'/Netvibes.png',$params).'</a>';
 }
 
 
 
-function make_image($src) {
+function make_image($src,$params) {
 
-$att = jImageModifier::get($src, $params=array(), false);
+	$att = jImageModifier::get($src, $params, false);
 
     // alt attribute is required (xhtml/html4 spec)
     if (!array_key_exists('alt',$att))
@@ -108,6 +114,6 @@ $att = jImageModifier::get($src, $params=array(), false);
         if( !empty($val) )
             $img .=  ' '.$key.'="'.htmlspecialchars($val).'"';
     }
-    $img .= '/>';
+    $img .= ' />';
 	return $img;
 }
