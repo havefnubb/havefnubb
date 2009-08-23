@@ -77,14 +77,14 @@ function social_reddit($imgPath, $jurl, $jurlParams, $title) {
 
 function social_twitter($imgPath, $jurl, $jurlParams, $title) {
 	$params = array('width'=>32,'height'=>32,'alt'=>'twitter');
-	$twitterUrl = 'http://twitter.com/timeline/home?';
-	$twitterUrl .= urlencode('status=view '.$title.' http://'.$_SERVER['SERVER_NAME'].jUrl::get($jurl, $jurlParams));
+	$twitterUrl = 'http://twitter.com/timeline/home?status=';
+	$twitterUrl .= urlencode('I Read '.$title.' ').'http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
 	echo '<a href="'.$twitterUrl.'" title="twitter" >'.make_image($imgPath.'/Twitter.png',$params).'</a>';
 }
 
 function social_digg($imgPath, $jurl, $jurlParams, $title) {
 	$params = array('width'=>32,'height'=>32,'alt'=>'digg');
-	$diggUrl = 'http://digg.com/submit?phase=2&amp;url=';
+	$diggUrl = 'http://digg.com/submit?phase=2&amp;';
 	$diggUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
 	$diggUrl .= '&amp;title='.urlencode($title);
 	echo '<a href="'.$diggUrl.'" title="digg" >'.make_image($imgPath.'/Digg.png',$params).'</a>';
