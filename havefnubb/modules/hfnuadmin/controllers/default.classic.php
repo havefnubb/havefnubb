@@ -39,8 +39,9 @@ class defaultCtrl extends jController {
         
 		if ($submit == jLocale::get('hfnuadmin~config.saveBt') ) {
             
-            $form = jForms::get('hfnuadmin~config');
-            
+			
+            $form = jForms::fill('hfnuadmin~config');
+
             if (!$form->check()) {
                 $rep = $this->getResponse('redirect');
                 $rep->action='havefnubb~default:index';

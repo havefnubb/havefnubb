@@ -72,10 +72,10 @@ class fnuHtmlResponse extends jResponseHtml {
 							$this->body->assign('home',0);                    
 							$this->body->assign('selectedMenuItem','community');						
 							$toolbarConfig  = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'wikitoolbar.ini.php');
-							$this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig->getValue('default.engine.file','wikitoolbar'));
-							$this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig->getValue('default.config.path','wikitoolbar') .$gJConfig->locale . '.js');
-							$this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig->getValue('default.skin','wikitoolbar'));
-							$this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig->getValue('default.config.path','wikitoolbar') .'style.css');
+							$this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.engine.file','wikitoolbar'));
+							$this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .$gJConfig->locale . '.js');
+							$this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.skin','wikitoolbar'));
+							$this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .'style.css');
 							break;
 					case 'forum':
 					case 'cat':

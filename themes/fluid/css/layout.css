@@ -821,6 +821,10 @@ h2#login-status {
 .pager-posts {
     text-align: right;
 }
+.pager-posts ul {
+	list-style: none;
+	display:inline;
+}
 
 .pagelinks li {
     list-style: none;

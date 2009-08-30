@@ -17,7 +17,7 @@ pluginsPath="app:plugins/"
 
 modulesPath="lib:jelix-modules/,app:modules/"
 
-theme=default
+theme=fluid
 
 [coordplugins]
 auth=auth.coord.ini.php
