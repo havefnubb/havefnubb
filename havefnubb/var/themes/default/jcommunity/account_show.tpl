@@ -10,39 +10,33 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
-<div id="breadcrumbtop" class="headbox">
-    <h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)} 
-{if $himself}
-> <a id="user" class="user-image" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
-{ifacl2 'auth.users.change.password'}
-> <a class="user-edit-password user-image" href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a>
-{/ifacl2}
-{else}
-> <a href="{jurl 'hfnucontact~default:index',array('to'=>$user->login)}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>
-{/if}
-	</h3>	
-</div>
 <div id="post-message">{jmessage}</div>
-<div id="profile">
-	<div id="user-profile-avatar">
-		{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
-		{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
-		{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
-		{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
-		{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
-		{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
-		{/if}		
-	</div>
-    <div id="container">
-        <ul>
-            <li><a href="#user-profile-general"><span class="user-general user-image">{@havefnubb~member.general@}</span></a></li>
-            <li><a href="#user-profile-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
-            <li><a href="#user-profile-messenger"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></a></li>	
-            <li><a href="#user-profile-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
+<div class="box">
+	<h2>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h2>
+	<div class="block">
+		<div id="user-profile-avatar">
+		{if $user->member_gravatar == 1}
+			{gravatar $user->email,array('username'=>$user->login)}
+		{else}
+			{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
+			{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
+			{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
+			{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
+			{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+			{/if}
+		{/if}
+		</div>
+	    <div id="container">		
+        <ul class="nav main">
+            <li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
+            <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
+            <li><a href="#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>	
+            <li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>
         </ul>
-        <div id="user-profile-general">
+			<div id="user-profile-general">
             <fieldset>
                 <legend><span class="user-general user-image">{@havefnubb~member.general@}</span></legend>
 {if $user->member_show_email == 'Y'}
@@ -50,144 +44,253 @@ $(document).ready(function(){
 {else}
 {assign $class="two-cols"}
 {/if}
-                <div class="{$class}">
-                    <p class="col">
-                        <label class="user-name user-image"><strong>{@havefnubb~member.nickname@}</strong></label><br />{$user->nickname|eschtml}
-                    </p>                   
+                <div class="{$class} form_row">
+                    <div class="form_property">
+                        <label class="user-name user-image"><strong>{@havefnubb~member.nickname@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->nickname|eschtml}
+                    </div>          
 
 {if $user->member_show_email == 'Y'}
-                    <p class="col">
-                        <label class="user-email user-image"><strong>{@havefnubb~member.email@}</strong></label><br />{nospam $user->email,'images/users/'}
-                    </p>                                   
+                    <div class="form_property">
+                        <label class="user-email user-image"><strong>{@havefnubb~member.email@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {nospam $user->email,'images/users/'}
+                    </div>
 {/if}                                
-                    <p class="col">
-                        <label class="user-birthday user-image"><strong>{@havefnubb~member.common.age@}</strong></label><br />{age $user->member_birth}
-                    </p>
+                    <div class="form_property">
+                        <label class="user-birthday user-image"><strong>{@havefnubb~member.common.age@}</strong></label>
+                    </div>
+                    <div class="form_value">                        
+                        {age $user->member_birth}                        
+                    </div>
+                    <div class="clearer">&nbsp;</div>
                 </div>                
             </fieldset>                
             <fieldset>
-                <legend><span class="user-location user-image">{@havefnubb~member.common.location@}</span></legend>                  
-                <div class="three-cols">
-                    <p class="col">                
-                        <label class="user-town user-image"><strong>{@havefnubb~member.common.town@}</strong></label><br />{$user->member_town|eschtml}
-                    </p>
-                    <p class="col">
-                        <label><strong>{@havefnubb~member.common.country@}</strong></label><br />{image 'hfnu/images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}
-                    </p>
-                    <p class="col">                
-                        <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong></label><br /><a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>
-                    </p>
+                <legend><span class="user-location user-image">{@havefnubb~member.common.location@}</span></legend>
+                <div class="form_row">
+                    <div class="form_property">       
+                        <label class="user-town user-image"><strong>{@havefnubb~member.common.town@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_town|eschtml}                        
+                    </div>
+                    <div class="form_property">
+                        <label><strong>{@havefnubb~member.common.country@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {image 'hfnu/images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}                        
+                    </div>
+                    <div class="form_property">
+                        <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong>&nbsp;</label>
+                    </div>
+                    <div class="fom_value">
+                        <a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>                        
+                    </div>
+                    <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
             <fieldset>
                 <legend><span class="user-stats user-image">{@havefnubb~member.common.stats@}</span></legend>
-                <div class="two-cols">                    
-                    <p class="col">                
-                        <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><br />{$user->member_created|jdatetime}
-                    </p>
-                    <p class="col">                
-                        <label><strong>{@havefnubb~member.common.last.connection@}</strong></label><br />{$user->member_last_connect|jdatetime:'timestamp'}
-                    </p>                    
+                <div class="form_row">                    
+                    <div class="form_property">        
+                        <label><strong>{@havefnubb~member.common.registered.since@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_created|jdatetime}                        
+                    </div>
+                    <div class="form_property">    
+                        <label><strong>{@havefnubb~member.common.last.connection@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_last_connect|jdatetime:'timestamp'}
+                    </div>
+                    <div class="clearer">
+                        &nbsp;
+                    </div>
                 </div>                 
             </fieldset>
-        </div>
-        <div id="user-profile-messenger">
+			</div>
+			<div id="user-profile-messenger">
             <fieldset>
                 <legend><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></legend>
-                <div class="two-cols">
-                    <p class="col">
-                        <label class="user-xfire user-image"><strong>{@havefnubb~member.xfire@}</strong></label><br />{$user->member_xfire|eschtml}
-                    </p>                   
-                    <p class="col">
-                        <label class="user-icq user-image"><strong>{@havefnubb~member.icq@}</strong></label><br />{$user->member_icq|eschtml}
-                    </p>                   
+{if $himself}
+{else}
+				<div class="form_row">
+					<div class="form_property">
+						<label class="user-messenger user-image"> &nbsp;</label>
+					</div>
+					<div class="form_value"><a href="{jurl 'hfnucontact~default:index',array('to'=>$user->login)}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a></div>
+					<div class="clearer">&nbsp;</div>
+				</div>
+{/if}				
+                <div class="form_row">
+                    <div class="form_property"> 
+                        <label class="user-xfire user-image"><strong>{@havefnubb~member.xfire@}</strong></label>
+                    </div>
+                    <div class="fom_value">
+                        {$user->member_xfire|eschtml}
+                    </div>
+                    <div class="form_property">                 
+                        <label class="user-icq user-image"><strong>{@havefnubb~member.icq@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_icq|eschtml}
+                    </div>
+                    <div class="clearer">&nbsp;</div>   
                 </div>
-                 <div class="two-cols">
-                    <p class="col">
-                        <label class="user-yim user-image"><strong>{@havefnubb~member.yim@}</strong></label><br />{$user->member_yim|eschtml}
-                    </p>                   
-                    <p class="col">
-                        <label class="user-msn user-image"><strong>{@havefnubb~member.hotmail@}</strong></label><br />{nospam $user->member_hotmail,'images/users/'}
-                    </p>                   
+                 <div class="form_row">
+                    <div class="form_property"> 
+                        <label class="user-yim user-image"><strong>{@havefnubb~member.yim@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_yim|eschtml}                        
+                    </div>                    
+                    <div class="form_property">                  
+                        <label class="user-msn user-image"><strong>{@havefnubb~member.hotmail@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {nospam $user->member_hotmail,'images/users/'}
+                    </div>
+                    <div class="clearer">&nbsp;</div>                   
                 </div>
-                 <div class="two-cols">
-                    <p class="col">
-                        <label class="user-aim user-image"><strong>{@havefnubb~member.aol@}</strong></label><br />{$user->member_aol|eschtml}
-                    </p>                   
-                    <p class="col">
-                        <label class="user-gtalk user-image"><strong>{@havefnubb~member.gtalk@}</strong></label><br />{$user->member_gtalk|eschtml}
-                    </p>                   
+                 <div class="form_row">
+                    <div class="form_property">
+                        <label class="user-aim user-image"><strong>{@havefnubb~member.aol@}</strong></label>                        
+                    </div>
+                    <div class="form_value">
+                        {$user->member_aol|eschtml}
+                    </div>
+                    <div class="form_property">   
+                        <label class="user-gtalk user-image"><strong>{@havefnubb~member.gtalk@}</strong></label>                        
+                    </div>
+                    <div class="form_value">
+                        {$user->member_gtalk|eschtml}                        
+                    </div>
+                    <div class="clearer">&nbsp;</div>                    
                 </div>                    
-                 <div class="two-cols">
-                    <p class="col">
-                        <label class="user-jabber user-image"><strong>{@havefnubb~member.jabber@}</strong></label><br />{$user->member_jabber|eschtml}
-                    </p>                   
-                    <p class="col">                        
-                    </p>                   
-                </div>                    
-					
+                 <div class="form_row">
+                    <div class="form_property">
+                        <label class="user-jabber user-image"><strong>{@havefnubb~member.jabber@}</strong></label>
+                    </div>
+                    <div class="forum_value">
+                        {$user->member_jabber|eschtml}
+                    </div>
+                    <div class="clearer">&nbsp;</div>					
+                </div>                                    
             </fieldset>
-        </div>
-		
-        <div id="user-profile-pref">
+			</div>		
+			<div id="user-profile-pref">
             <fieldset>
                 <legend><span class="user-pref user-image">{@havefnubb~member.pref@}</span></legend>
-                <div>
-                    <p>
-                        <label><strong>{@havefnubb~member.common.language@}</strong></label> {$user->member_language}
-                    </p>              
-                    <p>
+                <div class="form_row">
+                    <div class="form_property">
+                        <label><strong>{@havefnubb~member.common.language@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_language}                        
+                    </div>
+                    <div class="clearer">&nbsp;</div>
+                </div>
+                <div class="form_row">
+                    <div class="form_property">
                         <label><strong>{@havefnubb~member.common.account.signature@}</strong></label>
-                    </p>
-					{$user->member_comment|wiki:'wr3_to_xhtml'|stripslashes}
+                    </div>                    
+                    <div class="form_value">
+                        {$user->member_comment|wiki:'wr3_to_xhtml'|stripslashes}
+                    </div>
+                    <div class="clearer">&nbsp;</div>
                 </div>                
             </fieldset>
-        </div>
-		
-        <div id="user-profile-hardware">
+			</div>		
+			<div id="user-profile-hardware">
             <fieldset>
                 <legend><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></legend>
-                <div class="two-cols">
-                    <p class="col">                 
-                        <label class="user-connect user-image"><strong>{@havefnubb~member.connection@}</strong></label><br />{$user->member_connection|eschtml}
-                    </p>
-                    <p class="col">                                
-                        <label class="user-os user-image"><strong>{@havefnubb~member.os@}</strong></label>      <br />{$user->member_os|eschtml}
-                    </p>
+                <div class="form_row">
+                    <div class="form_property">                
+                        <label class="user-connect user-image"><strong>{@havefnubb~member.connection@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_connection|eschtml}                        
+                    </div>
+                    <div class="form_property">                                
+                        <label class="user-os user-image"><strong>{@havefnubb~member.os@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_os|eschtml}
+                    </div>
+                    <div class="clearer">&nbsp;</div>
                 </div>                
-                <div class="two-cols">
-                    <p class="col">                 
-                        <label class="user-processor  user-image"><strong>{@havefnubb~member.proc@}</strong></label>    <br />{$user->member_proc|eschtml}
-                    </p>
-                    <p class="col">                                
-                        <label class="user-motherboard user-image"><strong>{@havefnubb~member.mb@}</strong></label>      <br />{$user->member_mb|eschtml}
-                    </p>
+                <div class="form_row">
+                    <div class="form_property">                      
+                        <label class="user-processor  user-image"><strong>{@havefnubb~member.proc@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_proc|eschtml}
+                    </div>                                    
+                    <div class="form_property">                               
+                        <label class="user-motherboard user-image"><strong>{@havefnubb~member.mb@}</strong></label>
+                    </div>
+                    <div class="fom_value">
+                        {$user->member_mb|eschtml}
+                    </div>
+                    <div class="clearer">&nbsp;</div>
                 </div>                
-                <div class="two-cols">
-                    <p class="col">                 
-                        <label class="user-card user-image"><strong>{@havefnubb~member.card@}</strong></label>    <br />{$user->member_card|eschtml}
-                    </p>
-                    <p class="col">                                
-                        <label class="user-ram user-image"><strong>{@havefnubb~member.ram@}</strong></label>     <br />{$user->member_ram|eschtml}
-                    </p>
+                <div class="form_row">
+                    <div class="form_property">                       
+                        <label class="user-card user-image"><strong>{@havefnubb~member.card@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_card|eschtml}                        
+                    </div>
+                    <div class="form_property">                      
+                        <label class="user-ram user-image"><strong>{@havefnubb~member.ram@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_ram|eschtml}
+                    </div>                    
+                    <div class="clearer">&nbsp;</div>
                 </div>            
-                <div class="two-cols">
-                    <p class="col">                 
-                        <label class="user-display user-image"><strong>{@havefnubb~member.display@}</strong></label> <br />{$user->member_display|eschtml}
-                    </p>
-                    <p class="col">                                
-                        <label class="user-screen user-image"><strong>{@havefnubb~member.screen@}</strong></label>  <br />{$user->member_screen|eschtml}
-                    </p>
+                <div class="form_row">
+                    <div class="form_property">                      
+                        <label class="user-display user-image"><strong>{@havefnubb~member.display@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_display|eschtml}
+                    </div>  
+                    <div class="form_property">    
+                        <label class="user-screen user-image"><strong>{@havefnubb~member.screen@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_screen|eschtml}
+                    </div>  
+                    <div class="clearer">&nbsp;</div>
                 </div>            
-                <div class="two-cols">
-                    <p class="col">                 
-                        <label class="user-mouse user-image"><strong>{@havefnubb~member.mouse@}</strong></label>   <br />{$user->member_mouse|eschtml}
-                    </p>
-                    <p class="col">                                
-                        <label class="user-keyboard user-image"><strong>{@havefnubb~member.keyb@}</strong></label>    <br />{$user->member_keyb|eschtml}
-                    </p>
+                <div class="form_row">
+                    <div class="form_property">                       
+                        <label class="user-mouse user-image"><strong>{@havefnubb~member.mouse@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_mouse|eschtml}
+                    </div>                      
+                    <div class="form_property">                         
+                        <label class="user-keyboard user-image"><strong>{@havefnubb~member.keyb@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->member_keyb|eschtml}
+                    </div>                      
+					<div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
-        </div>
-    </div>
+			</div>
+		</div> <!-- #container -->
+	</div>
+	<div class="fake-button-left">
+{if $himself}
+<a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
+{/if}
+	</div>
 </div>

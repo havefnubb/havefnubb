@@ -1,17 +1,15 @@
-<div id="breadcrumbtop" class="headbox">
-    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> </h3>
-</div>
-<div id="post-split-to">
+<div class="box">
+    <h2>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</h2>
+    <div class="block">
 {if $step == 1}
-    <h1>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</h1>
-    {form $form, 'havefnubb~posts:splitTo'}
-    <fieldset>
-    <p>{ctrl_label 'choice'} </p>
-    {ctrl_control 'choice'}
-    </fieldset>
-    <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
+    {form $form, 'havefnubb~posts:splitTo'}    
+        <fieldset>
+            <legend>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</legend>
+            {ctrl_label 'choice'} {ctrl_control 'choice'} {formsubmit 'validate'} {formreset 'cancel'}
+        </fieldset>
     {/form}
+    </div>
+</div>
 {elseif $step == 2}
 ok
 {/if}
-</div>

@@ -1,7 +1,7 @@
 <div class="post-author">
     <ul class="member-ident">
         <li class="user-name user-image">{zone 'online_offline',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->login)}">{$user->login|eschtml}</a></li>
-        <li class="user-avatar">
+        <li>
 		{if $user->member_gravatar == 1}
 			{gravatar $user->email,array('username'=>$user->login)}
 		{else}

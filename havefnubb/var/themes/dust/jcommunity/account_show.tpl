@@ -15,17 +15,19 @@ $(document).ready(function(){
 	<h2>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h2>
 	<div class="block">
 		<div id="user-profile-avatar">
-			{if file_exists('hfnu/hfnu/images/avatars/'. $user->id.'.png') }
+		{if $user->member_gravatar == 1}
+			{gravatar $user->email,array('username'=>$user->login)}
+		{else}
+			{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
 			{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
 			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
 			{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
-			{elseif file_exists('hfnu/imagse/avatars/'. $user->id.'.jpeg')}
+			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
 			{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
 			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
-			{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}
-            {else}
-            {image 'hfnu/images/avatars/photo_60x60.jpg',array('alt'=>'avatar')}
+			{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
 			{/if}
+		{/if}
 		</div>
 	    <div id="container">		
         <ul class="nav main">

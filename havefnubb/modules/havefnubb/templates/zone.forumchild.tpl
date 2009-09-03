@@ -7,19 +7,21 @@
 {/foreach}
 </ul>
 {else}
-<div class="subforum">
-    <h3>{@havefnubb~forum.forumchild.subforum@}</h3>
-</div>
-<table width="100%">
+<div class="box">
+    <h2><strong>{@havefnubb~forum.forumchild.subforum@}</strong></h2>
+    <div class="block">        
+    <table>
 {foreach $forumChilds as $forum}
     <tr>
-        <td class="line colleft {zone 'havefnubb~newestposts',array('id_forum'=>$forum->id_forum)}"></td>
-        <td class="line colmain linkincell"><h4 class="forumtitle"><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-        <td class="line colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum)}</td>
-        <td class="line colright linkincell"><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
+        <td class="{zone 'havefnubb~newestposts',array('id_forum'=>$forum->id_forum)}"></td>
+        <td><h4 class="forumtitle"><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
+        <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum)}</td>
+        <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
         {zone 'havefnubb~postlc',array('id_forum'=>$forum->id_forum)}</span></td>
     </tr>
 {/foreach}
-</table>
+    </table>
+    </div>
+</div>    
 {/if}
 {/if}

@@ -1,8 +1,9 @@
-<div class="headings">
-    <h3><span>{@havefnubb~forum.jumpto.jumpto@}</span></h3>
-</div>    
-<div id="jumpto">    
-    {form $form, 'havefnubb~posts:goesto'}
-    <p>{ctrl_label 'id_forum'} : {ctrl_control 'id_forum'} {formsubmit 'validate'}</p>
-    {/form}    
+<div class="box">
+    <h2>{@havefnubb~forum.jumpto.jumpto@}</h2>
+    {form $form, 'havefnubb~posts:goesto'}      
+    <div class="block">
+        {ctrl_label 'id_forum'} {ctrl_control 'id_forum'} {formsubmit 'validate'} {formreset 'cancel'}    
+    </div>
+    {/form}
 </div>
+

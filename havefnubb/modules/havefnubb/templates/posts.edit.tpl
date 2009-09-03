@@ -1,38 +1,52 @@
-<div id="breadcrumbtop" class="headbox">
+<div class="box">
     <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat,'ctitle'=>$category->cat_name)}" title="{$category->cat_name}">{$category->cat_name|eschtml}</a> > <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h3>
 </div>
 
-<div id="postadd">
+<div class="box">
+    <div class="block">
+        
     {if $previewsubject !== null}
-    <h1>{@havefnubb~post.form.title.preview.page@}</h1>
-    {$previewsubject|eschtml}    
-    {$previewtext|wiki:'wr3_to_xhtml'}    
-    <div class="signature-content">
+    <fieldset>
+    <legend>{@havefnubb~post.form.title.preview.page@}</legend>
+        <div class="signature-content form_value">
+        {$previewsubject|eschtml}    
+        {$previewtext|wiki:'wr3_to_xhtml'}      
         {if $signature != ''}<hr/>
         {$signature|wiki:'wr3_to_xhtml'|stripslashes}
         {/if}
-    </div>
-    {/if}    
-    <h1>{$heading}</h1>
+        </div>
+    </fieldset>
+    {/if}
+    
     {form $form, $submitAction, array('id_post'=>$id_post)}
     <fieldset>
-    <p>{ctrl_label 'subject'} </p>
-    <p>{ctrl_control 'subject'} </p>
-    <p>{ctrl_label 'tags'} </p>
-    <p>{ctrl_control 'tags'} </p>    
-    <p>{ctrl_label 'message'} </p>
-    <p>{ctrl_control 'message'} </p>
-    {literal}
-    <script type="text/javascript">
-    //<![CDATA[
-    $(document).ready(function()	{
-        $('#jforms_havefnubb_posts_message').markItUp(mySettings);
-    });
-    //]]>
-    </script>
-    {/literal}    
-    </fieldset>
-    <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
+    <legend>{$heading}</legend>
+    <p>
+        {ctrl_label 'subject'}<br/>
+        {ctrl_control 'subject'}
+    </p>
+    <p>
+        {ctrl_label 'tags'}<br/>
+        {ctrl_control 'tags'} 
+    </p>
+    
+    <p>
+        {ctrl_label 'message'}<br/>
+        {ctrl_control 'message'}
+        {literal}
+        <script type="text/javascript">
+        //<![CDATA[
+        $(document).ready(function()	{
+            $('#jforms_havefnubb_posts_message').markItUp(mySettings);
+        });
+        //]]>
+        </script>
+        {/literal}               
+    </p>
+    {formsubmit 'validate'} {formreset 'cancel'}   
+    </fieldset>        
     {/form}
+
+    </div>
 </div>
 {zone 'havefnubb~syntax_wiki'}

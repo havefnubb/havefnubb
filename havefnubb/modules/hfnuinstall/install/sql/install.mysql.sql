@@ -473,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
   `member_nb_msg` int(12) DEFAULT '0',
   `member_last_post` int(12) DEFAULT NULL,
   `member_created` datetime DEFAULT NULL,
-  `member_gravatar` INT( 1 ) NOT NULL, 
+  `member_gravatar` INT( 1 ) NOT NULL DEFAULT '0', 
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
 ) DEFAULT CHARSET=utf8;

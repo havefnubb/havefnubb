@@ -150,6 +150,14 @@ $(document).ready(function(){
 					<div class="clearer">&nbsp;</div>
 				</div>
 				<div class="form_row">
+                    <div class="form_property">
+						<label class="user-gravatar user-image"><strong>{ctrl_label 'member_gravatar'}</strong></label>
+						<br/>
+					</div>
+					<div class="form_value">{ctrl_control 'member_gravatar'}</div>
+					<div class="clearer">&nbsp;</div>
+				</div>				
+				<div class="form_row">
 					<div class="form_property">
 						<label class="user-signature user-image"><strong>{ctrl_label 'member_comment'}</strong></label>
 					</div>

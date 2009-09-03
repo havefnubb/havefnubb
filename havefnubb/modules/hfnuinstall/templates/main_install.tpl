@@ -1,35 +1,51 @@
-<div id="hfbody">
-<!-- #top -->
-<div id="top">
-	<div id="title">
-		<h1>{$TITLE}</h1>
-		<h1><span>{$DESC}</span></h1>
-	</div>
-</div>
-<!-- #top -->
-<!-- #maincontent -->
-<div id="maincontent">	
-    <div id="breadcrumbtop" class="headbox up-and-down">   
-        <h3>
+{meta_html csstheme 'css/text.css'}
+{meta_html csstheme 'css/grid.css'}
+{meta_html csstheme 'css/layout.css'}
+{meta_html csstheme 'css/nav.css'}
+{meta_html cssthemeie 'css/ie.css'}
+
+<div class="container_16">
+
+    <div class="grid_16">
+        <h1 id="branding"><a href="{jurl 'havefnubb~default:index'}" >{$TITLE}</a></h1>
+    </div>   
+    <div class="clear"></div>    
+    
+    <div class="grid_16">
+        <h2 id="page-heading">{$DESC}</h2>
+    </div>
+    <div class="clear"></div>    
+    
+    <div class="grid_16">
+		<div class="box">
+			<h2>{@hfnuinstall~install.home.welcome@}</h2>	
+		</div>
+		<div class="grid_4 alpha">
+			<ol id="id">
 		{if $step == 'update'}
-			<span class="actif">{@hfnuinstall~install.home.update@} ></span>
+			<li class="actif">{@hfnuinstall~install.home.update@} ></li>
 		{else}
-            <span {if $step == 'home'} class="actif"{/if}>1- {@hfnuinstall~install.home@} ></span>
-            <span {if $step == 'check'} class="actif"{/if}>2- {@hfnuinstall~install.checking@} ></span>
-            <span {if $step == 'config'} class="actif"{/if}>3- {@hfnuinstall~install.config@} ></span>
-            <span {if $step == 'dbconfig'} class="actif"{/if}>4- {@hfnuinstall~install.db@} ></span>
-            <span {if $step == 'installdb'} class="actif"{/if}>5- {@hfnuinstall~install.create.table@} ></span>
-            <span {if $step == 'adminaccount'} class="actif"{/if}>6-  {@hfnuinstall~install.create.account.admin@}></span>
-            <span {if $step == 'end'} class="actif"{/if}>7- {@hfnuinstall~install.end@}</span>    
+            <li {if $step == 'home'} class="actif"{/if}>{@hfnuinstall~install.home@}</li>
+            <li {if $step == 'check'} class="actif"{/if}>{@hfnuinstall~install.checking@}</li>
+            <li {if $step == 'config'} class="actif"{/if}>{@hfnuinstall~install.config@}</li>
+            <li {if $step == 'dbconfig'} class="actif"{/if}>{@hfnuinstall~install.db@}</li>
+            <li {if $step == 'installdb'} class="actif"{/if}>{@hfnuinstall~install.create.table@}</li>
+            <li {if $step == 'adminaccount'} class="actif"{/if}>{@hfnuinstall~install.create.account.admin@}</li>
+            <li {if $step == 'end'} class="actif"{/if}>{@hfnuinstall~install.end@}</li>    
 		{/if}
-        </h3>
+			</ol>
+        </div>
+	    <div class="grid_12 omega">
+	    {$MAIN}
+	    </div>		
+	</div> 
+    <div class="clear"></div>
+       
+    <div class="grid_16" id="site_info">
+        <div class="box">
+            <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a>.</p>
+        </div>
     </div>
-    {$MAIN}
-    <div id="breadcrumbbottom" class="headbox up-and-down">
-    </div>
-</div>
-<!-- #maincontent -->
-<div id="footer" class="up-and-down">
-    <p><span>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnu BB!">HaveFnu BB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a></span></p>
-</div><!-- #footer -->
+    <div class="clear"></div>
+    
 </div>

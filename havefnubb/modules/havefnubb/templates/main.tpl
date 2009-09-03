@@ -1,34 +1,51 @@
-{meta_html csstheme 'css/havefnuboard.css'}
-{meta_html csstheme 'css/havefnuboard_posts.css'}
-{meta_html csstheme 'css/havefnuboard_users.css'}
-<div id="hfbody">
-<!-- #top -->
-<div id="top">
-	<div id="title">
-		<h1>{$TITLE}</h1>
-		<h1><span>{$DESC}</span></h1>
+{meta_html csstheme 'css/reset.css'}
+{meta_html csstheme 'css/text.css'}
+{meta_html csstheme 'css/grid.css'}
+{meta_html csstheme 'css/layout.css'}
+{meta_html csstheme 'css/nav.css'}
+{meta_html cssthemeie 'css/ie.css'} 
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_themepath.'js/jquery-fluid16.js'} 
+{* meta_html js $j_themepath.'js/jquery-ui.js' *}
+
+<div class="container_16">
+	<div class="grid_16 branding">
+		<div class="grid_11">
+			<h1 id="branding"><a href="{jurl 'havefnubb~default:index'}" >{$TITLE}</a></h1>
+		</div>
+		<div class="grid_5">
+			{zone 'jcommunity~status'}		
+		</div>	
+		<div class="clear"></div>    
 	</div>
-	<!-- #login-status -->
-	{zone 'jcommunity~status'}
-	<!-- #login-status -->
-	<!-- main menu -->
-	{zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
-	<!-- main menu -->
-</div>
-<!-- #top -->
-<!-- #maincontent -->
-<div id="maincontent">	
-	{$MAIN}
-	<!-- .breadcrumb #breadcrumbbottom -->
-	<div class="breadcrumb" id="breadcrumbbottom">
-	{breadcrumb 5, ' > '}
-	</div>
-	<!-- .breadcrumb #breadcrumbbottom -->
-</div>
-<!-- #maincontent -->
-<!-- #footer -->
-<div id="footer" class="up-and-down">
-    <p><span>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a></span></p>
-</div>
-<!-- #footer -->
+	<div class="clear"></div>
+	
+    <div class="grid_16">
+		{zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
+    </div>
+    <div class="clear"></div>    
+    
+    <div class="grid_16">
+		<h2 id="page-heading">{$DESC}</h2>	
+    </div>
+    <div class="clear"></div>
+        
+    <div class="grid_16">
+    {$MAIN}
+    </div>
+    <div class="clear"></div>
+       
+    <div class="grid_16">
+		<div class="box">
+			{breadcrumb 8, ' > '}
+		</div>
+    </div>    
+    <div class="clear"></div>
+
+    <div class="grid_16" id="site_info">
+        <div class="box">
+            <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a>.</p>
+        </div>
+    </div>
+    <div class="clear"></div>       
 </div>

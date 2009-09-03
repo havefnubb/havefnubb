@@ -1,17 +1,24 @@
-<div id="breadcrumbtop" class="headbox">
-    <h3><span>{@hfnucontact~contact.send.an.email@}</span></h3>
-</div>
 <div id="post-message">{jmessage}</div>
-<div id="sendmail">
+<div class="box">
+    <h2>{@hfnucontact~contact.send.an.email@}</h2>
+    <div class="block">
     {form $form, 'hfnucontact~default:send_a_message'}
-    
-    <p>{ctrl_label 'subject'} </p>
-    <p>{ctrl_control 'subject'} </p>
-    <p>{ctrl_label 'message'} </p>
-    <p>{ctrl_control 'message'} </p>
-    <p>{ctrl_label 'captcha'} </p>
-    <p>{ctrl_control 'captcha'} </p>
-    
-    <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
+    <fieldset>
+    <legend>{@hfnucontact~contact.send.an.email@}</legend>    
+    <p>
+    {ctrl_label 'subject'}<br/>
+    {ctrl_control 'subject'}
+    </p>
+    <p>
+    {ctrl_label 'message'}<br/> 
+    {ctrl_control 'message'}
+    </p>
+    <p>      
+    {ctrl_label 'captcha'} <br/>
+    {ctrl_control 'captcha'}
+    </p>
+    {formsubmit 'validate'} {formreset 'cancel'}
+    </fieldset>
     {/form}
+    </div>
 </div>

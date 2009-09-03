@@ -1,63 +1,77 @@
-<div id="breadcrumbtop" class="headbox">
+<div class="box">
     <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >
         <span class="user-image" id="user-group">{@havefnubb~member.memberlist.members.list@}</span></h3>
 </div>
 
-<div id="group">
+<div class="box">
+    <div class="block">  
     <form action="{formurl 'havefnubb~members:index'}" method="post">
-    <div class="member-filter-description">
-        <p>{@havefnubb~member.memberlist.filter.description@}</p>
-    </div>
+    <div class="hidden">{formurlparam 'havefnubb~members:index'}</div>
     <fieldset>
         <legend>{@havefnubb~member.memberlist.filter@}</legend>
-        {@havefnubb~member.memberlist.thegroups@} :
-        {formurlparam 'havefnubb~members:index'}
-        <select name="grpid">
-        {foreach $groups as $group}
-            {if  $group->id_aclgrp != 0}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
-        {/foreach}
-         </select>
-        -
-        {@havefnubb~member.memberlist.initial.nickname@} :
-        <select name="letter">
-        {foreach $letters as $letter}
-            <option value="{$letter}">{$letter}</option>
-        {/foreach}
-         </select>
-        - 
-        {@havefnubb~member.memberlist.search.nickname@} : <input type="text"  name="member_search" value="" size="40"/>
-        <input type="submit" value="{@havefnubb~member.memberlist.filter@}" />    
-    </fieldset>
-    
-    </form>    
+        <div class="member-filter-description">
+            <p>{@havefnubb~member.memberlist.filter.description@}</p>
+        </div>            
+        <p>
+            <label>{@havefnubb~member.memberlist.thegroups@} : </label>
+            <select name="grpid">
+                {foreach $groups as $group}
+                    {if  $group->id_aclgrp != 0}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
+                {/foreach}
+            </select>
+        </p>
+        <p>
+            <label>{@havefnubb~member.memberlist.initial.nickname@} :</label>
+            <select name="letter">
+            {foreach $letters as $letter}                
+                <option value="{$letter}">{$letter}</option>
+            {/foreach}
+             </select>
+        </p>
+        <p>
+            <label>{@havefnubb~member.memberlist.search.nickname@} : </label>
+            <input type="text"  name="member_search" value="" size="40"/>
+        </p>
+        <input class="jforms-submit" type="submit" value="{@havefnubb~member.memberlist.filter@}" />
+    </fieldset>    
+    </form>
+    </div>
 </div>
 
-<div class="linkpages">
+<div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
+<div class="box">
+    <div class="block">
+    <table>
+        <caption>{@havefnubb~member.memberlist.members.list@}</caption>
+        <thead>
+            <tr>
+                <th class="themember">{@havefnubb~member.memberlist.username@} </th>
+                <th class="user-rank">{@havefnubb~member.common.rank@}</th>
+                <th class="user-since">{@havefnubb~member.memberlist.member.since@}</th>
+                <th class="user-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>         
+            </tr>
+        </thead>
+        <tbody>
+        {foreach $members as $member}
+        <tr>
+            <td class="listline linkincell">
+                <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
+                   title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->login)}">
+                {$member->login|eschtml}
+                </a>
+            </td>
+            <td class="listline colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>
+            <td class="listline coldate">{$member->member_created|jdatetime:'db_datetime':'lang_datetime'}</td>
+            <td class="listline colnum">{$member->nb_msg}</td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    </div>
+</div>
 
-<table width="100%">
-    <tr>
-        <th class="listcol themember">{@havefnubb~member.memberlist.username@}</th>
-        <th class="listcol user-rank">{@havefnubb~member.common.rank@}</th>
-        <th class="listcol user-since">{@havefnubb~member.memberlist.member.since@}</th>
-        <th class="listcol user-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
-    </tr>
-    {foreach $members as $member}
-    <tr>
-        <td class="listline linkincell">
-            <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
-               title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->login)}">
-            {$member->login|eschtml}
-            </a>
-        </td>
-        <td class="listline colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>
-        <td class="listline coldate">{$member->member_created|jdatetime:'db_datetime':'lang_datetime'}</td>
-        <td class="listline colnum">{$member->nb_msg}</td>
-    </tr>
-    {/foreach}
-</table>
-
-<div class="linkpages">
+<div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>

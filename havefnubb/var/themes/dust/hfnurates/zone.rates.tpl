@@ -7,9 +7,10 @@
 
 {* javascript and ajax code *}
 {$js}
-<div class="post-rates"> 
+<div class="post-rates">
     <div class="rates-result">{$result}</div>
-    <form id="form{$id_source}" action="{formurl 'hfnurates~default:rate_it'}" method="post">         
+    <form id="form{$id_source}" action="{formurl 'hfnurates~default:rate_it'}" method="post">
+        <div>
         <input type="hidden" value="{$id_source}" id="id_source" name="id_source"/>
         <input type="hidden" value="{$source}" id="source" name="source"/>
         <input type="hidden" value="{$return_url}" name="return_url" />
@@ -22,7 +23,8 @@
         <input name="star1" type="radio" class="starsrating" value="4" title="{@hfnurates~main.good@}" {if $checked < 81 and $checked > 60}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.good@}</span>
         <input name="star1" type="radio" class="starsrating" value="5" title="{@hfnurates~main.very.good@}" {if $checked  > 80}checked="checked"{/if}/><span class="star-legend">{@hfnurates~main.very.good@}</span>
         <input type="submit" class="submit" value="{@hfnurates~main.lets.rate@}" /><br/>
-        <span id="rating-hover" style="margin:0 0 0 20px;">{@hfnurates~main.your.rate.will.be@}</span>      
+        <span id="rating-hover" style="margin:0 0 0 20px;">{@hfnurates~main.your.rate.will.be@}</span>
+        </div>
     </form>
     <div id="post-rates-msg"></div>    
 </div>
