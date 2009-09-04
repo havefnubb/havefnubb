@@ -1,3 +1,3092 @@
+Revision: 382
+Author: foxmask
+Date: 23:49:18, vendredi 4 septembre 2009
+Message:
+typo
+----
+Modified : /branches/havefnubb-1.1.0/havefnubb/modules/hfnuinstall/install/sql/install.mysql.sql
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/sql/install.mysql.sql
+
+Revision: 378
+Author: foxmask
+Date: 23:04:54, vendredi 4 septembre 2009
+Message:
+Chocolate Brown theme
+----
+Added : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb
+Added : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb/main.tpl
+Added : /trunk/havefnubb/var/themes/chocolatebrown/jcommunity
+Added : /trunk/havefnubb/var/themes/chocolatebrown/jcommunity/status.tpl
+Modified : /trunk/themes/chocolatebrown/css/hfnusearch.css
+Modified : /trunk/themes/chocolatebrown/css/layout.css
+Modified : /trunk/themes/chocolatebrown/css/nav.css
+
+Revision: 377
+Author: foxmask
+Date: 23:40:03, jeudi 3 septembre 2009
+Message:
+chocolatebrown 960gs to coninue
+----
+Added : /trunk/havefnubb/var/themes/chocolatebrown/empty
+Deleted : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb
+Added : /trunk/themes/chocolatebrown/css/960.css
+Added : /trunk/themes/chocolatebrown/css/grid.css
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard_admin.css
+Modified : /trunk/themes/chocolatebrown/css/hfnusearch.css
+Added : /trunk/themes/chocolatebrown/css/ie.css
+Added : /trunk/themes/chocolatebrown/css/ie6.css
+Added : /trunk/themes/chocolatebrown/css/layout.css
+Added : /trunk/themes/chocolatebrown/css/nav.css
+Added : /trunk/themes/chocolatebrown/css/reset.css
+Added : /trunk/themes/chocolatebrown/css/text.css
+Added : /trunk/themes/chocolatebrown/images/toggle
+Added : /trunk/themes/chocolatebrown/images/toggle/togglerc.gif
+Added : /trunk/themes/chocolatebrown/images/toggle/togglerch.gif
+Added : /trunk/themes/chocolatebrown/images/toggle/togglero.gif
+Added : /trunk/themes/chocolatebrown/images/toggle/toggleroh.gif
+Added : /trunk/themes/chocolatebrown/img/ajax-loader.gif
+Added : /trunk/themes/chocolatebrown/img/photo_60x60.jpg
+Added : /trunk/themes/chocolatebrown/img/switch_minus.gif
+Added : /trunk/themes/chocolatebrown/img/switch_plus.gif
+Added : /trunk/themes/chocolatebrown/js
+Added : /trunk/themes/chocolatebrown/js/jquery-fluid16.js
+Added : /trunk/themes/chocolatebrown/js/jquery-ui.js
+
+Revision: 376
+Author: foxmask
+Date: 22:54:45, jeudi 3 septembre 2009
+Message:
+Default themes with its own css 
+----
+Added : /trunk/themes/default/css/960.css
+Added : /trunk/themes/default/css/grid.css
+Added : /trunk/themes/default/css/ie.css
+Added : /trunk/themes/default/css/ie6.css
+Added : /trunk/themes/default/css/layout.css
+Added : /trunk/themes/default/css/nav.css
+Added : /trunk/themes/default/css/reset.css
+Added : /trunk/themes/default/css/text.css
+Added : /trunk/themes/default/images/toggle
+Added : /trunk/themes/default/images/toggle/togglerc.gif
+Added : /trunk/themes/default/images/toggle/togglerch.gif
+Added : /trunk/themes/default/images/toggle/togglero.gif
+Added : /trunk/themes/default/images/toggle/toggleroh.gif
+Added : /trunk/themes/default/img/ajax-loader.gif
+Added : /trunk/themes/default/img/photo_60x60.jpg
+Added : /trunk/themes/default/img/switch_minus.gif
+Added : /trunk/themes/default/img/switch_plus.gif
+Added : /trunk/themes/default/js
+Added : /trunk/themes/default/js/jquery-fluid16.js
+Added : /trunk/themes/default/js/jquery-ui.js
+
+Revision: 375
+Author: foxmask
+Date: 18:38:47, jeudi 3 septembre 2009
+Message:
+out !
+----
+Deleted : /trunk/havefnubb/var/themes/fluid
+
+Revision: 374
+Author: foxmask
+Date: 18:12:59, jeudi 3 septembre 2009
+Message:
+remove unneeded theme 
+----
+Deleted : /trunk/themes/fluid
+
+Revision: 373
+Author: foxmask
+Date: 18:12:13, jeudi 3 septembre 2009
+Message:
+Big Big Changes in Themes 
+1) Replace the "default" template by the 960gs one "fluid".
+2) remove default and box themes ; home made
+3) rename fluid to default
+4) for all the next themes, we will need to just adapt the CSS and no need to copy all the templates at all
+ 
+----
+Modified : /trunk/havefnubb/modules/havefnubb/templates/403.html.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/404.html.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/banuser.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/flood.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/main.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/main_not_installed.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/member_changepwd.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/notinstalled.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.edit.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.list.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.notify.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.view.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/split.to.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.category.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.forumchild.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.forumindex.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.jumpto.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.lastposts.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.memberlist.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.memberprofile.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.menu.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.online.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.online_offline.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.online_today.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.postlistbytag.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.quickreply.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.stats.tpl
+Modified : /trunk/havefnubb/modules/hfnucontact/templates/contact.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/sql/install.mysql.sql
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates/install.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates/main_install.tpl
+Modified : /trunk/havefnubb/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/result.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.hfnuquicksearch.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.hfnusearch.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.searchAuthor.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.searchForum.tpl
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/havefnubb/var/config/flood.coord.ini.php
+Modified : /trunk/havefnubb/var/config/timeout.coord.ini.php
+Deleted : /trunk/havefnubb/var/themes/box
+Modified : /trunk/havefnubb/var/themes/default/hfnusearch/zone.hfnusearch.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/account_edit.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/login.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/password_confirmation.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/passwordform.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/registration.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/registration_confirmation.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/status.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/links.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/listmsg.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/new.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/view.tpl
+Modified : /trunk/havefnubb/var/themes/default/jtags/tagscloud.tpl
+Modified : /trunk/havefnubb/var/themes/dust/havefnubb/zone.memberprofile.tpl
+Modified : /trunk/havefnubb/var/themes/dust/hfnurates/zone.rates.tpl
+Modified : /trunk/havefnubb/var/themes/dust/jcommunity/account_edit.tpl
+Modified : /trunk/havefnubb/var/themes/dust/jcommunity/account_show.tpl
+Deleted : /trunk/themes/box
+Deleted : /trunk/themes/default/css/havefnuboard.css
+Modified : /trunk/themes/default/css/havefnuboard_admin.css
+Deleted : /trunk/themes/default/css/havefnuboard_posts.css
+Deleted : /trunk/themes/default/css/havefnuboard_users.css
+Modified : /trunk/themes/default/css/hfnusearch.css
+Modified : /trunk/themes/dust/css/layout.css
+Modified : /trunk/themes/install/css/install.css
+
+Revision: 371
+Author: foxmask
+Date: 16:03:49, dimanche 30 août 2009
+Message:
+New Theme "dust" based on "fluid" one which used 960gs :D
+----
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/default.classic.php
+Modified : /trunk/havefnubb/responses/fnuHtmlResponse.class.php
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/havefnubb/var/config/flood.coord.ini.php
+Modified : /trunk/havefnubb/var/config/timeout.coord.ini.php
+Added : /trunk/havefnubb/var/themes/dust
+Added : /trunk/havefnubb/var/themes/dust/havefnubb
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/403.html.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/404.html.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/banuser.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/flood.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/main.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/main_not_installed.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/member_changepwd.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/posts.edit.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/posts.list.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/posts.notify.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/posts.view.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/split.to.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.category.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.forumchild.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.forumindex.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.jumpto.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.lastposts.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.memberlist.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.memberprofile.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.menu.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.online.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.online_offline.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.online_today.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.postlistbytag.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.posts_replies.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.quickreply.tpl
+Added : /trunk/havefnubb/var/themes/dust/havefnubb/zone.stats.tpl
+Added : /trunk/havefnubb/var/themes/dust/hfnucontact
+Added : /trunk/havefnubb/var/themes/dust/hfnucontact/contact.tpl
+Added : /trunk/havefnubb/var/themes/dust/hfnurates
+Added : /trunk/havefnubb/var/themes/dust/hfnurates/zone.rates.tpl
+Added : /trunk/havefnubb/var/themes/dust/hfnusearch
+Added : /trunk/havefnubb/var/themes/dust/hfnusearch/result.tpl
+Added : /trunk/havefnubb/var/themes/dust/hfnusearch/zone.hfnuquicksearch.tpl
+Added : /trunk/havefnubb/var/themes/dust/hfnusearch/zone.hfnusearch.tpl
+Added : /trunk/havefnubb/var/themes/dust/hfnusearch/zone.searchAuthor.tpl
+Added : /trunk/havefnubb/var/themes/dust/hfnusearch/zone.searchForum.tpl
+Added : /trunk/havefnubb/var/themes/dust/jcommunity
+Added : /trunk/havefnubb/var/themes/dust/jcommunity/account_edit.tpl
+Added : /trunk/havefnubb/var/themes/dust/jcommunity/account_show.tpl
+Added : /trunk/havefnubb/var/themes/dust/jcommunity/login.tpl
+Added : /trunk/havefnubb/var/themes/dust/jcommunity/password_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/dust/jcommunity/passwordform.tpl
+Added : /trunk/havefnubb/var/themes/dust/jcommunity/registration.tpl
+Added : /trunk/havefnubb/var/themes/dust/jcommunity/registration_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/dust/jcommunity/status.tpl
+Added : /trunk/havefnubb/var/themes/dust/jmessenger
+Added : /trunk/havefnubb/var/themes/dust/jmessenger/links.tpl
+Added : /trunk/havefnubb/var/themes/dust/jmessenger/listmsg.tpl
+Added : /trunk/havefnubb/var/themes/dust/jmessenger/new.tpl
+Added : /trunk/havefnubb/var/themes/dust/jmessenger/view.tpl
+Added : /trunk/havefnubb/var/themes/dust/jtags
+Added : /trunk/havefnubb/var/themes/dust/jtags/tagscloud.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/main.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.jumpto.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/hfnurates/zone.rates.tpl
+Added : /trunk/themes/dust
+Added : /trunk/themes/dust/css
+Added : /trunk/themes/dust/css/960.css
+Added : /trunk/themes/dust/css/grid.css
+Added : /trunk/themes/dust/css/havefnuboard_admin.css
+Added : /trunk/themes/dust/css/hfnusearch.css
+Added : /trunk/themes/dust/css/ie.css
+Added : /trunk/themes/dust/css/ie6.css
+Added : /trunk/themes/dust/css/layout.css
+Added : /trunk/themes/dust/css/nav.css
+Added : /trunk/themes/dust/css/reset.css
+Added : /trunk/themes/dust/css/text.css
+Added : /trunk/themes/dust/images
+Added : /trunk/themes/dust/images/admin
+Added : /trunk/themes/dust/images/admin/accelerator.png
+Added : /trunk/themes/dust/images/admin/ban.png
+Added : /trunk/themes/dust/images/admin/category.png
+Added : /trunk/themes/dust/images/admin/clear_cache.png
+Added : /trunk/themes/dust/images/admin/config.png
+Added : /trunk/themes/dust/images/admin/contact.png
+Added : /trunk/themes/dust/images/admin/database.png
+Added : /trunk/themes/dust/images/admin/forum.png
+Added : /trunk/themes/dust/images/admin/information.png
+Added : /trunk/themes/dust/images/admin/modules_list.png
+Added : /trunk/themes/dust/images/admin/notification.png
+Added : /trunk/themes/dust/images/admin/php.png
+Added : /trunk/themes/dust/images/admin/poll_add.png
+Added : /trunk/themes/dust/images/admin/poll_config.png
+Added : /trunk/themes/dust/images/admin/poll_list.png
+Added : /trunk/themes/dust/images/admin/rank.png
+Added : /trunk/themes/dust/images/admin/search_engine.png
+Added : /trunk/themes/dust/images/admin/todos.png
+Added : /trunk/themes/dust/images/admin/user.png
+Added : /trunk/themes/dust/images/error.png
+Added : /trunk/themes/dust/images/exclamation.png
+Added : /trunk/themes/dust/images/help.png
+Added : /trunk/themes/dust/images/information.png
+Added : /trunk/themes/dust/images/mail
+Added : /trunk/themes/dust/images/mail/Thumbs.db
+Added : /trunk/themes/dust/images/mail/email_answer.png
+Added : /trunk/themes/dust/images/mail/email_delete.png
+Added : /trunk/themes/dust/images/posts
+Added : /trunk/themes/dust/images/posts/Thumbs.db
+Added : /trunk/themes/dust/images/posts/book.png
+Added : /trunk/themes/dust/images/posts/book_next.png
+Added : /trunk/themes/dust/images/posts/category.png
+Added : /trunk/themes/dust/images/posts/closed.png
+Added : /trunk/themes/dust/images/posts/folder.png
+Added : /trunk/themes/dust/images/posts/folder_new.png
+Added : /trunk/themes/dust/images/posts/opened.png
+Added : /trunk/themes/dust/images/posts/pined-closed.png
+Added : /trunk/themes/dust/images/posts/pined.png
+Added : /trunk/themes/dust/images/posts/post_new.png
+Added : /trunk/themes/dust/images/posts/rss_go.png
+Added : /trunk/themes/dust/images/posts/tag_green.png
+Added : /trunk/themes/dust/images/posts/world_go.png
+Added : /trunk/themes/dust/images/social-network
+Added : /trunk/themes/dust/images/social-network/Delicious.png
+Added : /trunk/themes/dust/images/social-network/Digg.png
+Added : /trunk/themes/dust/images/social-network/Facebook.png
+Added : /trunk/themes/dust/images/social-network/Netvibes.png
+Added : /trunk/themes/dust/images/social-network/Reddit.png
+Added : /trunk/themes/dust/images/social-network/Twitter.png
+Added : /trunk/themes/dust/images/toggle
+Added : /trunk/themes/dust/images/toggle/Thumbs.db
+Added : /trunk/themes/dust/images/toggle/togglerc.gif
+Added : /trunk/themes/dust/images/toggle/togglerch.gif
+Added : /trunk/themes/dust/images/toggle/togglero.gif
+Added : /trunk/themes/dust/images/toggle/toggleroh.gif
+Added : /trunk/themes/dust/images/users
+Added : /trunk/themes/dust/images/users/Thumbs.db
+Added : /trunk/themes/dust/images/users/aim.gif
+Added : /trunk/themes/dust/images/users/at.gif
+Added : /trunk/themes/dust/images/users/at2.gif
+Added : /trunk/themes/dust/images/users/cake.png
+Added : /trunk/themes/dust/images/users/chart_bar.png
+Added : /trunk/themes/dust/images/users/computer.png
+Added : /trunk/themes/dust/images/users/connect.png
+Added : /trunk/themes/dust/images/users/display.png
+Added : /trunk/themes/dust/images/users/dot.gif
+Added : /trunk/themes/dust/images/users/email.png
+Added : /trunk/themes/dust/images/users/email_add.png
+Added : /trunk/themes/dust/images/users/email_go.png
+Added : /trunk/themes/dust/images/users/email_inbox.png
+Added : /trunk/themes/dust/images/users/email_outbox.png
+Added : /trunk/themes/dust/images/users/emoticon_tongue.png
+Added : /trunk/themes/dust/images/users/eye.png
+Added : /trunk/themes/dust/images/users/group.png
+Added : /trunk/themes/dust/images/users/house.png
+Added : /trunk/themes/dust/images/users/icq.gif
+Added : /trunk/themes/dust/images/users/keyboard.png
+Added : /trunk/themes/dust/images/users/mail.gif
+Added : /trunk/themes/dust/images/users/member_posts.png
+Added : /trunk/themes/dust/images/users/member_rank.png
+Added : /trunk/themes/dust/images/users/member_since.png
+Added : /trunk/themes/dust/images/users/motherboard.png
+Added : /trunk/themes/dust/images/users/mouse.png
+Added : /trunk/themes/dust/images/users/msn.gif
+Added : /trunk/themes/dust/images/users/offline.png
+Added : /trunk/themes/dust/images/users/online.png
+Added : /trunk/themes/dust/images/users/screen.png
+Added : /trunk/themes/dust/images/users/user.png
+Added : /trunk/themes/dust/images/users/user_edit.png
+Added : /trunk/themes/dust/images/users/user_key.png
+Added : /trunk/themes/dust/images/users/user_pref.png
+Added : /trunk/themes/dust/images/users/user_suit.png
+Added : /trunk/themes/dust/images/users/vcard.png
+Added : /trunk/themes/dust/images/users/world.png
+Added : /trunk/themes/dust/images/users/world_link.png
+Added : /trunk/themes/dust/images/users/xfire.png
+Added : /trunk/themes/dust/images/users/yim.gif
+Added : /trunk/themes/dust/images/wiki
+Added : /trunk/themes/dust/images/wiki/Thumbs.db
+Added : /trunk/themes/dust/images/wiki/text_acronym.png
+Added : /trunk/themes/dust/images/wiki/text_align_center.png
+Added : /trunk/themes/dust/images/wiki/text_align_justify.png
+Added : /trunk/themes/dust/images/wiki/text_align_left.png
+Added : /trunk/themes/dust/images/wiki/text_align_right.png
+Added : /trunk/themes/dust/images/wiki/text_bold.png
+Added : /trunk/themes/dust/images/wiki/text_carriage_return.png
+Added : /trunk/themes/dust/images/wiki/text_code.png
+Added : /trunk/themes/dust/images/wiki/text_def.png
+Added : /trunk/themes/dust/images/wiki/text_full_link.png
+Added : /trunk/themes/dust/images/wiki/text_hr.png
+Added : /trunk/themes/dust/images/wiki/text_image.png
+Added : /trunk/themes/dust/images/wiki/text_italic.png
+Added : /trunk/themes/dust/images/wiki/text_link.png
+Added : /trunk/themes/dust/images/wiki/text_list_numbers.png
+Added : /trunk/themes/dust/images/wiki/text_para.png
+Added : /trunk/themes/dust/images/wiki/text_quote.png
+Added : /trunk/themes/dust/images/wiki/text_source.png
+Added : /trunk/themes/dust/img
+Added : /trunk/themes/dust/img/Thumbs.db
+Added : /trunk/themes/dust/img/ajax-loader.gif
+Added : /trunk/themes/dust/img/bg_buton.png
+Added : /trunk/themes/dust/img/bg_footer.png
+Added : /trunk/themes/dust/img/bg_sidebar_top_box.png
+Added : /trunk/themes/dust/img/check_off.png
+Added : /trunk/themes/dust/img/check_on.png
+Added : /trunk/themes/dust/img/check_wrn.png
+Added : /trunk/themes/dust/img/delete.png
+Added : /trunk/themes/dust/img/download.png
+Added : /trunk/themes/dust/img/downloads.png
+Added : /trunk/themes/dust/img/downloads_cats.png
+Added : /trunk/themes/dust/img/get_download.png
+Added : /trunk/themes/dust/img/ico_activer.png
+Added : /trunk/themes/dust/img/ico_back_portal.png
+Added : /trunk/themes/dust/img/ico_desactiver.png
+Added : /trunk/themes/dust/img/ico_file.png
+Added : /trunk/themes/dust/img/ico_logout.png
+Added : /trunk/themes/dust/img/ko.png
+Added : /trunk/themes/dust/img/last_download.png
+Added : /trunk/themes/dust/img/off.png
+Added : /trunk/themes/dust/img/ok.png
+Added : /trunk/themes/dust/img/on.png
+Added : /trunk/themes/dust/img/photo_60x60.jpg
+Added : /trunk/themes/dust/img/photo_60x60.psd
+Added : /trunk/themes/dust/img/pop_download.png
+Added : /trunk/themes/dust/img/switch_minus.gif
+Added : /trunk/themes/dust/img/switch_plus.gif
+Added : /trunk/themes/dust/img/trash.png
+Added : /trunk/themes/dust/img/warning.png
+Added : /trunk/themes/dust/img/zoom.png
+Added : /trunk/themes/dust/js
+Added : /trunk/themes/dust/js/jquery-fluid16.js
+Added : /trunk/themes/dust/js/jquery-ui.js
+Modified : /trunk/themes/fluid/css/layout.css
+
+Revision: 370
+Author: foxmask
+Date: 09:52:46, dimanche 30 août 2009
+Message:
+Move HnfuPoll To next release.
+----
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/sql/install.mysql.sql
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/update/1.1.0/install.mysql.sql
+
+Revision: 369
+Author: foxmask
+Date: 09:44:30, dimanche 30 août 2009
+Message:
+Features of this MileStone are Freeze ; Poll Module will be for next release
+----
+Deleted : /trunk/havefnubb/modules/hfnupoll
+
+Revision: 368
+Author: foxmask
+Date: 07:23:32, vendredi 28 août 2009
+Message:
+default engine : basic_significant
+----
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+
+Revision: 367
+Author: foxmask
+Date: 15:23:34, dimanche 23 août 2009
+Message:
+Issue on Twitter link ;)
+----
+Modified : /trunk/havefnubb/plugins/tpl/html/function.social_networks.php
+
+Revision: 366
+Author: foxmask
+Date: 14:21:45, dimanche 23 août 2009
+Message:
+Plugin Social Netwrok : Switch to another icon set because of a non compliant License 
+----
+Added : /trunk/cache
+Added : /trunk/cache/images
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/CREDITS
+Modified : /trunk/havefnubb/plugins/tpl/html/function.social_networks.php
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/copyright.jpg
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/copyright.txt
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Blogger.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Delicious.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Digg.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Facebook.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Feed.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Flickr.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Friendfeed.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Friendster.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Furl.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Google.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Lastfm.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Linkedin.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Livejournal.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Magnolia.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Mixx.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Myspace.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Netvibes.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Newsvine.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Picasa.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Pownce.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Reddit.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Stumbleupon.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Technorati.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Twitter.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Vimeo.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Webshots.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Wordpress.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Yahoo.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Yelp.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/Youtube.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-blinklist.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-blogger.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-delicious.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-digg.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-facebook.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-favorites.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-feedburner.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-flickr.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-furl.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-google.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-icontexto.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-linkedin.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-magnolia.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-mogulus.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-myspace.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-netvibes.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-newsvine.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-orkut.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-picasa.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-reddit.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-rss.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-stumbleupon.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-technorati.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-twitter.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-whosamungus.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-wordpress.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-yahoo.png
+Deleted : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-youtube.png
+Added : /trunk/themes/box/images/social-network/Delicious.png
+Added : /trunk/themes/box/images/social-network/Digg.png
+Added : /trunk/themes/box/images/social-network/Facebook.png
+Added : /trunk/themes/box/images/social-network/Netvibes.png
+Added : /trunk/themes/box/images/social-network/Reddit.png
+Added : /trunk/themes/box/images/social-network/Twitter.png
+Deleted : /trunk/themes/box/images/social-network/icontexto-user-web20-delicious.png
+Deleted : /trunk/themes/box/images/social-network/icontexto-user-web20-digg.png
+Deleted : /trunk/themes/box/images/social-network/icontexto-user-web20-facebook.png
+Deleted : /trunk/themes/box/images/social-network/icontexto-user-web20-linkedin.png
+Deleted : /trunk/themes/box/images/social-network/icontexto-user-web20-netvibes.png
+Deleted : /trunk/themes/box/images/social-network/icontexto-user-web20-reddit.png
+Deleted : /trunk/themes/box/images/social-network/icontexto-user-web20-twitter.png
+Added : /trunk/themes/chocolatebrown/images/social-network/Delicious.png
+Added : /trunk/themes/chocolatebrown/images/social-network/Digg.png
+Added : /trunk/themes/chocolatebrown/images/social-network/Facebook.png
+Added : /trunk/themes/chocolatebrown/images/social-network/Netvibes.png
+Added : /trunk/themes/chocolatebrown/images/social-network/Reddit.png
+Added : /trunk/themes/chocolatebrown/images/social-network/Twitter.png
+Deleted : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-delicious.png
+Deleted : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-digg.png
+Deleted : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-facebook.png
+Deleted : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-linkedin.png
+Deleted : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-netvibes.png
+Deleted : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-reddit.png
+Deleted : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-twitter.png
+Added : /trunk/themes/default/images/social-network/Delicious.png
+Added : /trunk/themes/default/images/social-network/Digg.png
+Added : /trunk/themes/default/images/social-network/Facebook.png
+Added : /trunk/themes/default/images/social-network/Netvibes.png
+Added : /trunk/themes/default/images/social-network/Reddit.png
+Added : /trunk/themes/default/images/social-network/Twitter.png
+Deleted : /trunk/themes/default/images/social-network/icontexto-user-web20-delicious.png
+Deleted : /trunk/themes/default/images/social-network/icontexto-user-web20-digg.png
+Deleted : /trunk/themes/default/images/social-network/icontexto-user-web20-facebook.png
+Deleted : /trunk/themes/default/images/social-network/icontexto-user-web20-linkedin.png
+Deleted : /trunk/themes/default/images/social-network/icontexto-user-web20-netvibes.png
+Deleted : /trunk/themes/default/images/social-network/icontexto-user-web20-reddit.png
+Deleted : /trunk/themes/default/images/social-network/icontexto-user-web20-twitter.png
+Added : /trunk/themes/emplode/images/social-network/Delicious.png
+Added : /trunk/themes/emplode/images/social-network/Digg.png
+Added : /trunk/themes/emplode/images/social-network/Facebook.png
+Added : /trunk/themes/emplode/images/social-network/Netvibes.png
+Added : /trunk/themes/emplode/images/social-network/Reddit.png
+Added : /trunk/themes/emplode/images/social-network/Twitter.png
+Deleted : /trunk/themes/emplode/images/social-network/icontexto-user-web20-delicious.png
+Deleted : /trunk/themes/emplode/images/social-network/icontexto-user-web20-digg.png
+Deleted : /trunk/themes/emplode/images/social-network/icontexto-user-web20-facebook.png
+Deleted : /trunk/themes/emplode/images/social-network/icontexto-user-web20-linkedin.png
+Deleted : /trunk/themes/emplode/images/social-network/icontexto-user-web20-netvibes.png
+Deleted : /trunk/themes/emplode/images/social-network/icontexto-user-web20-reddit.png
+Deleted : /trunk/themes/emplode/images/social-network/icontexto-user-web20-twitter.png
+Added : /trunk/themes/fluid/images/social-network/Delicious.png
+Added : /trunk/themes/fluid/images/social-network/Digg.png
+Added : /trunk/themes/fluid/images/social-network/Facebook.png
+Added : /trunk/themes/fluid/images/social-network/Netvibes.png
+Added : /trunk/themes/fluid/images/social-network/Reddit.png
+Added : /trunk/themes/fluid/images/social-network/Twitter.png
+Deleted : /trunk/themes/fluid/images/social-network/icontexto-user-web20-delicious.png
+Deleted : /trunk/themes/fluid/images/social-network/icontexto-user-web20-digg.png
+Deleted : /trunk/themes/fluid/images/social-network/icontexto-user-web20-facebook.png
+Deleted : /trunk/themes/fluid/images/social-network/icontexto-user-web20-linkedin.png
+Deleted : /trunk/themes/fluid/images/social-network/icontexto-user-web20-netvibes.png
+Deleted : /trunk/themes/fluid/images/social-network/icontexto-user-web20-reddit.png
+Deleted : /trunk/themes/fluid/images/social-network/icontexto-user-web20-twitter.png
+
+Revision: 365
+Author: foxmask
+Date: 10:20:12, dimanche 23 août 2009
+Message:
+next step will be 1.1.0 
+----
+Modified : /trunk/havefnubb/modules/havefnubb/module.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/module.xml
+Modified : /trunk/havefnubb/modules/hfnucontact/module.xml
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/CREDITS
+Deleted : /trunk/havefnubb/modules/hfnuinstall/install/UPDATE-TO-1.0.2
+Added : /trunk/havefnubb/modules/hfnuinstall/install/UPDATE-TO-1.1.0 (Copy from path: /trunk/havefnubb/modules/hfnuinstall/install/UPDATE-TO-1.0.2, Revision, 359)
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/VERSION
+Deleted : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.2
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update/1.1.0 (Copy from path: /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.2, Revision, 359)
+Replacing : /trunk/havefnubb/modules/hfnuinstall/install/update/1.1.0/install.mysql.sql (Copy from path: /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.2/install.mysql.sql, Revision, 362)
+Modified : /trunk/havefnubb/modules/hfnuinstall/module.xml
+Modified : /trunk/havefnubb/modules/hfnupoll/module.xml
+Modified : /trunk/havefnubb/modules/hfnurates/module.xml
+Modified : /trunk/havefnubb/modules/hfnusearch/module.xml
+Modified : /trunk/havefnubb/modules/servinfo/module.xml
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/copyright.jpg
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/copyright.txt
+Modified : /trunk/havefnubb/project.xml
+Modified : /trunk/havefnubb/var/config/havefnu.ini.php.dist
+
+Revision: 364
+Author: foxmask
+Date: 00:50:03, dimanche 23 août 2009
+Message:
+social networking
+----
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.list.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.list.tpl
+
+Revision: 363
+Author: foxmask
+Date: 00:47:14, dimanche 23 août 2009
+Message:
+social network plugin ticket #95
+----
+Added : /trunk/havefnubb/plugins/tpl/html/function.social_networks.php
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-blinklist.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-blogger.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-delicious.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-digg.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-facebook.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-favorites.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-feedburner.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-flickr.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-furl.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-google.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-icontexto.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-linkedin.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-magnolia.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-mogulus.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-myspace.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-netvibes.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-newsvine.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-orkut.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-picasa.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-reddit.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-rss.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-stumbleupon.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-technorati.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-twitter.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-whosamungus.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-wordpress.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-yahoo.png
+Added : /trunk/havefnubb/plugins/tpl/html/install.social_networks/images/icontexto-user-web20-youtube.png
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.list.tpl
+Added : /trunk/themes/box/images/social-network
+Added : /trunk/themes/box/images/social-network/icontexto-user-web20-delicious.png
+Added : /trunk/themes/box/images/social-network/icontexto-user-web20-digg.png
+Added : /trunk/themes/box/images/social-network/icontexto-user-web20-facebook.png
+Added : /trunk/themes/box/images/social-network/icontexto-user-web20-linkedin.png
+Added : /trunk/themes/box/images/social-network/icontexto-user-web20-netvibes.png
+Added : /trunk/themes/box/images/social-network/icontexto-user-web20-reddit.png
+Added : /trunk/themes/box/images/social-network/icontexto-user-web20-twitter.png
+Added : /trunk/themes/chocolatebrown/images/social-network
+Added : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-delicious.png
+Added : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-digg.png
+Added : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-facebook.png
+Added : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-linkedin.png
+Added : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-netvibes.png
+Added : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-reddit.png
+Added : /trunk/themes/chocolatebrown/images/social-network/icontexto-user-web20-twitter.png
+Added : /trunk/themes/default/images/social-network
+Added : /trunk/themes/default/images/social-network/icontexto-user-web20-delicious.png
+Added : /trunk/themes/default/images/social-network/icontexto-user-web20-digg.png
+Added : /trunk/themes/default/images/social-network/icontexto-user-web20-facebook.png
+Added : /trunk/themes/default/images/social-network/icontexto-user-web20-linkedin.png
+Added : /trunk/themes/default/images/social-network/icontexto-user-web20-netvibes.png
+Added : /trunk/themes/default/images/social-network/icontexto-user-web20-reddit.png
+Added : /trunk/themes/default/images/social-network/icontexto-user-web20-twitter.png
+Added : /trunk/themes/emplode/images/social-network
+Added : /trunk/themes/emplode/images/social-network/icontexto-user-web20-delicious.png
+Added : /trunk/themes/emplode/images/social-network/icontexto-user-web20-digg.png
+Added : /trunk/themes/emplode/images/social-network/icontexto-user-web20-facebook.png
+Added : /trunk/themes/emplode/images/social-network/icontexto-user-web20-linkedin.png
+Added : /trunk/themes/emplode/images/social-network/icontexto-user-web20-netvibes.png
+Added : /trunk/themes/emplode/images/social-network/icontexto-user-web20-reddit.png
+Added : /trunk/themes/emplode/images/social-network/icontexto-user-web20-twitter.png
+Added : /trunk/themes/fluid/images/social-network
+Added : /trunk/themes/fluid/images/social-network/icontexto-user-web20-delicious.png
+Added : /trunk/themes/fluid/images/social-network/icontexto-user-web20-digg.png
+Added : /trunk/themes/fluid/images/social-network/icontexto-user-web20-facebook.png
+Added : /trunk/themes/fluid/images/social-network/icontexto-user-web20-linkedin.png
+Added : /trunk/themes/fluid/images/social-network/icontexto-user-web20-netvibes.png
+Added : /trunk/themes/fluid/images/social-network/icontexto-user-web20-reddit.png
+Added : /trunk/themes/fluid/images/social-network/icontexto-user-web20-twitter.png
+
+Revision: 362
+Author: foxmask
+Date: 22:17:08, samedi 22 août 2009
+Message:
+1) new plugin : Gravatar 
+2) adding "you are here >" 
+3) adding "page:" in page link
+4) new column in member table "member_gravatar"
+----
+Modified : /trunk/havefnubb/modules/havefnubb/daos/member.dao.xml
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/main.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/member.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/main.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/member.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/templates/banuser.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/flood.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/forum_rss.view.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.edit.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.list.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.notify.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.view.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/split.to.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.category.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.memberlist.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.memberprofile.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.postlistbytag.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/sql/install.mysql.sql
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.2/install.mysql.sql
+Modified : /trunk/havefnubb/modules/hfnusearch/controllers/default.classic.php
+Added : /trunk/havefnubb/plugins/tpl/html/function.gravatar.php
+Modified : /trunk/havefnubb/var/overloads/jcommunity/daos/user.dao.xml
+Modified : /trunk/havefnubb/var/overloads/jcommunity/forms/account.form.xml
+Modified : /trunk/havefnubb/var/themes/box/havefnubb/zone.category.tpl
+Modified : /trunk/havefnubb/var/themes/box/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/banuser.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/flood.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.edit.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.list.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.notify.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/split.to.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.category.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.memberlist.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.postlistbytag.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/account_edit.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.edit.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.list.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.notify.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.view.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.category.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.memberlist.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.postlistbytag.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/hfnusearch/zone.hfnusearch.tpl
+
+Revision: 361
+Author: foxmask
+Date: 18:26:48, mardi 18 août 2009
+Message:
+Finished the new arch modifications
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/authhavefnubb.listener.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/flags.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/templates/main.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.memberprofile.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/modules.tpl
+Modified : /trunk/havefnubb/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.hfnusearch.tpl
+Modified : /trunk/havefnubb/var/config/flood.coord.ini.php
+Modified : /trunk/havefnubb/var/config/timeout.coord.ini.php
+Deleted : /trunk/havefnubb/var/log/error.log
+Modified : /trunk/havefnubb/var/themes/box/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/hfnurates/zone.rates.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.memberprofile.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/hfnurates/zone.rates.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/hfnusearch/zone.hfnuquicksearch.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/hfnusearch/zone.hfnusearch.tpl
+Modified : /trunk/havefnubb/var/themes/fluid/jcommunity/account_show.tpl
+Modified : /trunk/themes/box/css/havefnuboard_admin.css
+Modified : /trunk/themes/box/css/havefnuboard_posts.css
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard.css
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard_admin.css
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard_posts.css
+Modified : /trunk/themes/default/css/havefnuboard_admin.css
+Modified : /trunk/themes/default/css/havefnuboard_posts.css
+Modified : /trunk/themes/emplode/css/havefnuboard_admin.css
+Modified : /trunk/themes/emplode/css/havefnuboard_posts.css
+
+Revision: 360
+Author: foxmask
+Date: 07:21:32, mardi 18 août 2009
+Message:
+web content in its corner
+----
+Added : /trunk/hfnu
+Added : /trunk/hfnu/images
+Added : /trunk/hfnu/images/.htaccess
+Added : /trunk/hfnu/images/avatars
+Added : /trunk/hfnu/images/avatars/photo_60x60.jpg
+Added : /trunk/hfnu/images/body.png
+Added : /trunk/hfnu/images/flags
+Added : /trunk/hfnu/images/flags/Albania.gif
+Added : /trunk/hfnu/images/flags/Argentina.gif
+Added : /trunk/hfnu/images/flags/Australia.gif
+Added : /trunk/hfnu/images/flags/Austria.gif
+Added : /trunk/hfnu/images/flags/Belgium.gif
+Added : /trunk/hfnu/images/flags/Bosnia.gif
+Added : /trunk/hfnu/images/flags/Brazil.gif
+Added : /trunk/hfnu/images/flags/Canada.gif
+Added : /trunk/hfnu/images/flags/Chile.gif
+Added : /trunk/hfnu/images/flags/China.gif
+Added : /trunk/hfnu/images/flags/Croatia.gif
+Added : /trunk/hfnu/images/flags/Denmark.gif
+Added : /trunk/hfnu/images/flags/Estonia.gif
+Added : /trunk/hfnu/images/flags/Finland.gif
+Added : /trunk/hfnu/images/flags/France.gif
+Added : /trunk/hfnu/images/flags/Germany.gif
+Added : /trunk/hfnu/images/flags/Greece.gif
+Added : /trunk/hfnu/images/flags/Hungary.gif
+Added : /trunk/hfnu/images/flags/Iceland.gif
+Added : /trunk/hfnu/images/flags/Ireland.gif
+Added : /trunk/hfnu/images/flags/Israel.gif
+Added : /trunk/hfnu/images/flags/Italy.gif
+Added : /trunk/hfnu/images/flags/Japan.gif
+Added : /trunk/hfnu/images/flags/Mexico.gif
+Added : /trunk/hfnu/images/flags/Morocco.gif
+Added : /trunk/hfnu/images/flags/Netherlandsl.gif
+Added : /trunk/hfnu/images/flags/New-Zealand.gif
+Added : /trunk/hfnu/images/flags/Norway.gif
+Added : /trunk/hfnu/images/flags/Poland.gif
+Added : /trunk/hfnu/images/flags/Portugal.gif
+Added : /trunk/hfnu/images/flags/Romania.gif
+Added : /trunk/hfnu/images/flags/Russia.gif
+Added : /trunk/hfnu/images/flags/Singapore.gif
+Added : /trunk/hfnu/images/flags/Slovenia.gif
+Added : /trunk/hfnu/images/flags/South-Africa.gif
+Added : /trunk/hfnu/images/flags/Spain.gif
+Added : /trunk/hfnu/images/flags/Sweden.gif
+Added : /trunk/hfnu/images/flags/Switzerland.gif
+Added : /trunk/hfnu/images/flags/Tunisia.gif
+Added : /trunk/hfnu/images/flags/United-Kingdom.gif
+Added : /trunk/hfnu/images/flags/United-States.gif
+Added : /trunk/hfnu/images/flags/Venezuela.gif
+Added : /trunk/hfnu/images/flags/Yugoslavia.gif
+Added : /trunk/hfnu/images/flags/czech.gif
+Added : /trunk/hfnu/images/jaysalvat.png
+Added : /trunk/hfnu/images/markitup.png
+Added : /trunk/hfnu/images/star-rating
+Added : /trunk/hfnu/images/star-rating/delete.gif
+Added : /trunk/hfnu/images/star-rating/jquery.rating.css
+Added : /trunk/hfnu/images/star-rating/star.gif
+Added : /trunk/hfnu/images/style.css
+Added : /trunk/hfnu/js
+Added : /trunk/hfnu/js/indicator.gif
+Added : /trunk/hfnu/js/jquery.autocomplete.css
+Added : /trunk/hfnu/js/jquery.autocomplete.js
+Added : /trunk/hfnu/js/jquery.autocomplete.min.js
+Added : /trunk/hfnu/js/jquery.autocomplete.pack.js
+Added : /trunk/hfnu/markitup
+Added : /trunk/hfnu/markitup/jquery.markitup.js
+Added : /trunk/hfnu/markitup/jquery.markitup.pack.js
+Added : /trunk/hfnu/markitup/readme.txt
+Added : /trunk/hfnu/markitup/sets
+Added : /trunk/hfnu/markitup/sets/default
+Added : /trunk/hfnu/markitup/sets/default/images
+Added : /trunk/hfnu/markitup/sets/default/images/Thumbs.db
+Added : /trunk/hfnu/markitup/sets/default/images/bold.png
+Added : /trunk/hfnu/markitup/sets/default/images/clean.png
+Added : /trunk/hfnu/markitup/sets/default/images/image.png
+Added : /trunk/hfnu/markitup/sets/default/images/italic.png
+Added : /trunk/hfnu/markitup/sets/default/images/link.png
+Added : /trunk/hfnu/markitup/sets/default/images/picture.png
+Added : /trunk/hfnu/markitup/sets/default/images/preview.png
+Added : /trunk/hfnu/markitup/sets/default/images/stroke.png
+Added : /trunk/hfnu/markitup/sets/default/set.js
+Added : /trunk/hfnu/markitup/sets/default/style.css
+Added : /trunk/hfnu/markitup/sets/wiki
+Added : /trunk/hfnu/markitup/sets/wiki/images
+Added : /trunk/hfnu/markitup/sets/wiki/images/bold.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/code.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/h1.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/h2.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/h3.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/h4.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/h5.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/h6.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/italic.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/link.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/list-bullet.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/list-numeric.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/picture.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/preview.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/quotes.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/stroke.png
+Added : /trunk/hfnu/markitup/sets/wiki/images/url.png
+Added : /trunk/hfnu/markitup/sets/wiki/readme.txt
+Added : /trunk/hfnu/markitup/sets/wiki/set.js
+Added : /trunk/hfnu/markitup/sets/wiki/style.css
+Added : /trunk/hfnu/markitup/sets/wr3
+Added : /trunk/hfnu/markitup/sets/wr3/en_EN.js
+Added : /trunk/hfnu/markitup/sets/wr3/en_US.js
+Added : /trunk/hfnu/markitup/sets/wr3/fr_FR.js
+Added : /trunk/hfnu/markitup/sets/wr3/images
+Added : /trunk/hfnu/markitup/sets/wr3/images/Thumbs.db
+Added : /trunk/hfnu/markitup/sets/wr3/images/bold.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/code.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/h1.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/h2.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/h3.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/h4.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/h5.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/h6.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/italic.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/link.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/list-bullet.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/list-numeric.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/picture.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/preview.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/quotes.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/stroke.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/text_carriage_return.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/text_source.png
+Added : /trunk/hfnu/markitup/sets/wr3/images/url.png
+Added : /trunk/hfnu/markitup/sets/wr3/style.css
+Added : /trunk/hfnu/markitup/skins
+Added : /trunk/hfnu/markitup/skins/markitup
+Added : /trunk/hfnu/markitup/skins/markitup/images
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-container.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor-bbcode.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor-dotclear.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor-html.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor-json.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor-markdown.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor-textile.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor-wiki.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor-xml.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/bg-editor.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/handle.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/menu.png
+Added : /trunk/hfnu/markitup/skins/markitup/images/submenu.png
+Added : /trunk/hfnu/markitup/skins/markitup/style.css
+Added : /trunk/hfnu/markitup/skins/simple
+Added : /trunk/hfnu/markitup/skins/simple/images
+Added : /trunk/hfnu/markitup/skins/simple/images/handle.png
+Added : /trunk/hfnu/markitup/skins/simple/images/menu.png
+Added : /trunk/hfnu/markitup/skins/simple/images/submenu.png
+Added : /trunk/hfnu/markitup/skins/simple/style.css
+Added : /trunk/hfnu/markitup/templates
+Added : /trunk/hfnu/markitup/templates/preview.css
+Added : /trunk/hfnu/markitup/templates/preview.html
+
+Revision: 359
+Author: foxmask
+Date: 07:13:10, mardi 18 août 2009
+Message:
+
+----
+Deleted : /trunk/hfnu
+
+Revision: 358
+Author: foxmask
+Date: 07:11:47, mardi 18 août 2009
+Message:
+
+----
+Deleted : /trunk/images
+Deleted : /trunk/js
+Deleted : /trunk/markitup
+Deleted : /trunk/scripts
+
+Revision: 357
+Author: foxmask
+Date: 07:04:55, mardi 18 août 2009
+Message:
+
+----
+Added : /trunk/hfnu
+Added : /trunk/hfnu/js (Copy from path: /trunk/js, Revision, 356)
+Added : /trunk/hfnu/markitup (Copy from path: /trunk/markitup, Revision, 356)
+
+Revision: 356
+Author: foxmask
+Date: 18:56:20, lundi 17 août 2009
+Message:
+ignore
+----
+Modified : /trunk
+Modified : /trunk/files
+Modified : /trunk/havefnubb
+Modified : /trunk/havefnubb/modules
+Modified : /trunk/havefnubb/modules/havefnubb
+Modified : /trunk/havefnubb/modules/havefnubb/classes
+Modified : /trunk/havefnubb/modules/havefnubb/controllers
+Modified : /trunk/havefnubb/modules/havefnubb/daos
+Modified : /trunk/havefnubb/modules/havefnubb/forms
+Modified : /trunk/havefnubb/modules/havefnubb/locales
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR
+Modified : /trunk/havefnubb/modules/havefnubb/templates
+Modified : /trunk/havefnubb/modules/havefnubb/templates/en_EN
+Modified : /trunk/havefnubb/modules/havefnubb/templates/fr_FR
+Modified : /trunk/havefnubb/modules/havefnubb/zones
+Modified : /trunk/havefnubb/modules/hfnuadmin
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers
+Modified : /trunk/havefnubb/modules/hfnuadmin/daos
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates
+Modified : /trunk/havefnubb/modules/hfnuadmin/zones
+Modified : /trunk/havefnubb/modules/hfnucontact
+Modified : /trunk/havefnubb/modules/hfnucontact/classes
+Modified : /trunk/havefnubb/modules/hfnucontact/controllers
+Modified : /trunk/havefnubb/modules/hfnucontact/daos
+Modified : /trunk/havefnubb/modules/hfnucontact/forms
+Modified : /trunk/havefnubb/modules/hfnucontact/install
+Modified : /trunk/havefnubb/modules/hfnucontact/install/sql
+Modified : /trunk/havefnubb/modules/hfnucontact/locales
+Modified : /trunk/havefnubb/modules/hfnucontact/locales/en_EN
+Modified : /trunk/havefnubb/modules/hfnucontact/locales/fr_FR
+Modified : /trunk/havefnubb/modules/hfnucontact/templates
+Modified : /trunk/havefnubb/modules/hfnucontact/zones
+Modified : /trunk/havefnubb/modules/hfnuinstall
+Modified : /trunk/havefnubb/modules/hfnuinstall/classes
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers
+Modified : /trunk/havefnubb/modules/hfnuinstall/daos
+Modified : /trunk/havefnubb/modules/hfnuinstall/forms
+Modified : /trunk/havefnubb/modules/hfnuinstall/install
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/sql
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/update
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.0
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.0RC3
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.2
+Modified : /trunk/havefnubb/modules/hfnuinstall/locales
+Modified : /trunk/havefnubb/modules/hfnuinstall/locales/en_EN
+Modified : /trunk/havefnubb/modules/hfnuinstall/locales/fr_FR
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates
+Modified : /trunk/havefnubb/modules/hfnuinstall/zones
+Modified : /trunk/havefnubb/modules/hfnupoll
+Modified : /trunk/havefnubb/modules/hfnupoll/classes
+Modified : /trunk/havefnubb/modules/hfnupoll/controllers
+Modified : /trunk/havefnubb/modules/hfnupoll/daos
+Modified : /trunk/havefnubb/modules/hfnupoll/forms
+Modified : /trunk/havefnubb/modules/hfnupoll/install
+Modified : /trunk/havefnubb/modules/hfnupoll/install/sql
+Modified : /trunk/havefnubb/modules/hfnupoll/locales
+Modified : /trunk/havefnubb/modules/hfnupoll/locales/en_EN
+Modified : /trunk/havefnubb/modules/hfnupoll/locales/fr_FR
+Modified : /trunk/havefnubb/modules/hfnupoll/templates
+Modified : /trunk/havefnubb/modules/hfnupoll/zones
+Modified : /trunk/havefnubb/modules/hfnurates
+Modified : /trunk/havefnubb/modules/hfnurates/classes
+Modified : /trunk/havefnubb/modules/hfnurates/controllers
+Modified : /trunk/havefnubb/modules/hfnurates/daos
+Modified : /trunk/havefnubb/modules/hfnurates/forms
+Modified : /trunk/havefnubb/modules/hfnurates/install
+Modified : /trunk/havefnubb/modules/hfnurates/install/sql
+Modified : /trunk/havefnubb/modules/hfnurates/install/www
+Modified : /trunk/havefnubb/modules/hfnurates/install/www/images
+Modified : /trunk/havefnubb/modules/hfnurates/install/www/images/star-rating
+Modified : /trunk/havefnubb/modules/hfnurates/install/www/jelix
+Modified : /trunk/havefnubb/modules/hfnurates/install/www/jelix/jquery
+Modified : /trunk/havefnubb/modules/hfnurates/locales
+Modified : /trunk/havefnubb/modules/hfnurates/locales/en_EN
+Modified : /trunk/havefnubb/modules/hfnurates/locales/fr_FR
+Modified : /trunk/havefnubb/modules/hfnurates/templates
+Modified : /trunk/havefnubb/modules/hfnurates/zones
+Modified : /trunk/havefnubb/modules/hfnusearch
+Modified : /trunk/havefnubb/modules/hfnusearch/classes
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/en_EN
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/fr_FR
+Modified : /trunk/havefnubb/modules/hfnusearch/controllers
+Modified : /trunk/havefnubb/modules/hfnusearch/daos
+Modified : /trunk/havefnubb/modules/hfnusearch/forms
+Modified : /trunk/havefnubb/modules/hfnusearch/install
+Modified : /trunk/havefnubb/modules/hfnusearch/locales
+Modified : /trunk/havefnubb/modules/hfnusearch/locales/en_EN
+Modified : /trunk/havefnubb/modules/hfnusearch/locales/fr_FR
+Modified : /trunk/havefnubb/modules/hfnusearch/templates
+Modified : /trunk/havefnubb/modules/hfnusearch/zones
+Modified : /trunk/havefnubb/modules/jcommunity
+Modified : /trunk/havefnubb/modules/jcommunity/classes
+Modified : /trunk/havefnubb/modules/jcommunity/controllers
+Modified : /trunk/havefnubb/modules/jcommunity/daos
+Modified : /trunk/havefnubb/modules/jcommunity/forms
+Modified : /trunk/havefnubb/modules/jcommunity/install
+Modified : /trunk/havefnubb/modules/jcommunity/locales
+Modified : /trunk/havefnubb/modules/jcommunity/locales/en_EN
+Modified : /trunk/havefnubb/modules/jcommunity/locales/fr_FR
+Modified : /trunk/havefnubb/modules/jcommunity/templates
+Modified : /trunk/havefnubb/modules/jcommunity/templates/en_EN
+Modified : /trunk/havefnubb/modules/jcommunity/templates/fr_FR
+Modified : /trunk/havefnubb/modules/jcommunity/zones
+Modified : /trunk/havefnubb/modules/jmessenger
+Modified : /trunk/havefnubb/modules/jmessenger/classes
+Modified : /trunk/havefnubb/modules/jmessenger/controllers
+Modified : /trunk/havefnubb/modules/jmessenger/daos
+Modified : /trunk/havefnubb/modules/jmessenger/forms
+Modified : /trunk/havefnubb/modules/jmessenger/install
+Modified : /trunk/havefnubb/modules/jmessenger/locales
+Modified : /trunk/havefnubb/modules/jmessenger/locales/en_EN
+Modified : /trunk/havefnubb/modules/jmessenger/locales/fr_FR
+Modified : /trunk/havefnubb/modules/jmessenger/templates
+Modified : /trunk/havefnubb/modules/jmessenger/zones
+Modified : /trunk/havefnubb/modules/jtags
+Modified : /trunk/havefnubb/modules/jtags/classes
+Modified : /trunk/havefnubb/modules/jtags/daos
+Modified : /trunk/havefnubb/modules/jtags/install
+Modified : /trunk/havefnubb/modules/jtags/locales
+Modified : /trunk/havefnubb/modules/jtags/locales/en_EN
+Modified : /trunk/havefnubb/modules/jtags/locales/fr_FR
+Modified : /trunk/havefnubb/modules/jtags/templates
+Modified : /trunk/havefnubb/modules/jtags/templates/fr_FR
+Modified : /trunk/havefnubb/modules/jtags/zones
+Modified : /trunk/havefnubb/modules/servinfo
+Modified : /trunk/havefnubb/modules/servinfo/classes
+Modified : /trunk/havefnubb/modules/servinfo/controllers
+Modified : /trunk/havefnubb/modules/servinfo/daos
+Modified : /trunk/havefnubb/modules/servinfo/forms
+Modified : /trunk/havefnubb/modules/servinfo/locales
+Modified : /trunk/havefnubb/modules/servinfo/locales/en_EN
+Modified : /trunk/havefnubb/modules/servinfo/locales/fr_FR
+Modified : /trunk/havefnubb/modules/servinfo/templates
+Modified : /trunk/havefnubb/modules/servinfo/zones
+Modified : /trunk/havefnubb/plugins
+Modified : /trunk/havefnubb/plugins/auth
+Modified : /trunk/havefnubb/plugins/coord
+Modified : /trunk/havefnubb/plugins/coord/banuser
+Modified : /trunk/havefnubb/plugins/coord/flood
+Modified : /trunk/havefnubb/plugins/coord/hfnuinstalled
+Modified : /trunk/havefnubb/plugins/coord/jGoogleAnalytics
+Modified : /trunk/havefnubb/plugins/coord/timeout
+Modified : /trunk/havefnubb/plugins/db
+Modified : /trunk/havefnubb/plugins/tpl
+Modified : /trunk/havefnubb/plugins/tpl/common
+Modified : /trunk/havefnubb/plugins/tpl/html
+Modified : /trunk/havefnubb/plugins/tpl/html/install.nospam
+Modified : /trunk/havefnubb/plugins/tpl/text
+Modified : /trunk/havefnubb/responses
+Modified : /trunk/havefnubb/scripts
+Modified : /trunk/havefnubb/var
+Modified : /trunk/havefnubb/var/config
+Modified : /trunk/havefnubb/var/config/hfnuadmin
+Modified : /trunk/havefnubb/var/config/index
+Modified : /trunk/havefnubb/var/config/install
+Modified : /trunk/havefnubb/var/feeds
+Modified : /trunk/havefnubb/var/log
+Modified : /trunk/havefnubb/var/log/error.log
+Modified : /trunk/havefnubb/var/overloads
+Modified : /trunk/havefnubb/var/overloads/jcommunity
+Modified : /trunk/havefnubb/var/overloads/jcommunity/daos
+Modified : /trunk/havefnubb/var/overloads/jcommunity/forms
+Modified : /trunk/havefnubb/var/overloads/jelix
+Modified : /trunk/havefnubb/var/overloads/jelix/daos
+Modified : /trunk/havefnubb/var/overloads/jmessenger
+Modified : /trunk/havefnubb/var/overloads/jmessenger/daos
+Modified : /trunk/havefnubb/var/sessions
+Modified : /trunk/havefnubb/var/themes
+Modified : /trunk/havefnubb/var/themes/box
+Modified : /trunk/havefnubb/var/themes/box/havefnubb
+Modified : /trunk/havefnubb/var/themes/box/hfnusearch
+Modified : /trunk/havefnubb/var/themes/box/jcommunity
+Modified : /trunk/havefnubb/var/themes/box/jmessenger
+Modified : /trunk/havefnubb/var/themes/box/jtags
+Modified : /trunk/havefnubb/var/themes/chocolatebrown
+Modified : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb
+Modified : /trunk/havefnubb/var/themes/default
+Modified : /trunk/havefnubb/var/themes/default/hfnusearch
+Modified : /trunk/havefnubb/var/themes/default/jcommunity
+Modified : /trunk/havefnubb/var/themes/default/jmessenger
+Modified : /trunk/havefnubb/var/themes/default/jtags
+Modified : /trunk/havefnubb/var/themes/emplode
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb
+Modified : /trunk/havefnubb/var/themes/emplode/hfnucontact
+Modified : /trunk/havefnubb/var/themes/emplode/hfnurates
+Modified : /trunk/havefnubb/var/themes/emplode/hfnusearch
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity
+Modified : /trunk/havefnubb/var/themes/emplode/jmessenger
+Modified : /trunk/havefnubb/var/themes/emplode/jtags
+Modified : /trunk/havefnubb/var/themes/fluid
+Modified : /trunk/havefnubb/var/themes/fluid/havefnubb
+Modified : /trunk/havefnubb/var/themes/fluid/hfnucontact
+Modified : /trunk/havefnubb/var/themes/fluid/hfnurates
+Modified : /trunk/havefnubb/var/themes/fluid/hfnusearch
+Modified : /trunk/havefnubb/var/themes/fluid/jcommunity
+Modified : /trunk/havefnubb/var/themes/fluid/jmessenger
+Modified : /trunk/havefnubb/var/themes/fluid/jtags
+Modified : /trunk/havefnubb/var/uploads
+Modified : /trunk/images
+Modified : /trunk/images/avatars
+Modified : /trunk/images/flags
+Modified : /trunk/images/star-rating
+Modified : /trunk/jelix
+Modified : /trunk/jelix/design
+Modified : /trunk/jelix/design/images
+Modified : /trunk/jelix/design/jforms
+Modified : /trunk/jelix/jquery
+Modified : /trunk/jelix/jquery/date_input
+Modified : /trunk/jelix/jquery/flash
+Modified : /trunk/jelix/jquery/include
+Modified : /trunk/jelix/jquery/themes
+Modified : /trunk/jelix/jquery/themes/default
+Modified : /trunk/jelix/jquery/themes/default/images
+Modified : /trunk/jelix/jquery/themes/flora
+Modified : /trunk/jelix/jquery/themes/flora/i
+Modified : /trunk/jelix/jquery/ui
+Modified : /trunk/jelix/jquery/ui/i18n
+Modified : /trunk/jelix/js
+Modified : /trunk/jelix/js/jforms
+Modified : /trunk/jelix/js/jforms/datepickers
+Modified : /trunk/jelix/js/jforms/datepickers/default
+Modified : /trunk/jelix/wymeditor
+Modified : /trunk/jelix/wymeditor/config
+Modified : /trunk/jelix/wymeditor/iframe
+Modified : /trunk/jelix/wymeditor/iframe/default
+Modified : /trunk/jelix/wymeditor/lang
+Modified : /trunk/jelix/wymeditor/plugins
+Modified : /trunk/jelix/wymeditor/plugins/hovertools
+Modified : /trunk/jelix/wymeditor/plugins/tidy
+Modified : /trunk/jelix/wymeditor/skins
+Modified : /trunk/jelix/wymeditor/skins/default
+Modified : /trunk/jelix/xul
+Modified : /trunk/jelix/xul/test
+Modified : /trunk/js
+Modified : /trunk/lib
+Modified : /trunk/lib/clearbricks
+Modified : /trunk/lib/clearbricks/common
+Modified : /trunk/lib/clearbricks/net
+Modified : /trunk/lib/clearbricks/net.http
+Modified : /trunk/lib/clearbricks/net.http.feed
+Modified : /trunk/lib/diff
+Modified : /trunk/lib/jelix
+Modified : /trunk/lib/jelix/acl
+Modified : /trunk/lib/jelix/auth
+Modified : /trunk/lib/jelix/controllers
+Modified : /trunk/lib/jelix/core
+Modified : /trunk/lib/jelix/core/request
+Modified : /trunk/lib/jelix/core/response
+Modified : /trunk/lib/jelix/core/selector
+Modified : /trunk/lib/jelix/core-modules
+Modified : /trunk/lib/jelix/core-modules/jelix
+Modified : /trunk/lib/jelix/core-modules/jelix/controllers
+Modified : /trunk/lib/jelix/core-modules/jelix/daos
+Modified : /trunk/lib/jelix/core-modules/jelix/install
+Modified : /trunk/lib/jelix/core-modules/jelix/install/sql
+Modified : /trunk/lib/jelix/core-modules/jelix/locales
+Modified : /trunk/lib/jelix/core-modules/jelix/locales/en_EN
+Modified : /trunk/lib/jelix/core-modules/jelix/locales/en_US
+Modified : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR
+Modified : /trunk/lib/jelix/core-modules/jelix/templates
+Modified : /trunk/lib/jelix/core-modules/jelix/templates/en_EN
+Modified : /trunk/lib/jelix/core-modules/jelix/templates/en_US
+Modified : /trunk/lib/jelix/core-modules/jelix/templates/fr_FR
+Modified : /trunk/lib/jelix/core-modules/jelix/zones
+Modified : /trunk/lib/jelix/dao
+Modified : /trunk/lib/jelix/db
+Modified : /trunk/lib/jelix/docs
+Modified : /trunk/lib/jelix/docs/ns
+Modified : /trunk/lib/jelix/events
+Modified : /trunk/lib/jelix/forms
+Modified : /trunk/lib/jelix/forms/controls
+Modified : /trunk/lib/jelix/installer
+Modified : /trunk/lib/jelix/plugins
+Modified : /trunk/lib/jelix/plugins/acl
+Modified : /trunk/lib/jelix/plugins/acl/db
+Modified : /trunk/lib/jelix/plugins/acl2
+Modified : /trunk/lib/jelix/plugins/acl2/db
+Modified : /trunk/lib/jelix/plugins/auth
+Modified : /trunk/lib/jelix/plugins/auth/class
+Modified : /trunk/lib/jelix/plugins/auth/db
+Modified : /trunk/lib/jelix/plugins/auth/lds
+Modified : /trunk/lib/jelix/plugins/coord
+Modified : /trunk/lib/jelix/plugins/coord/auth
+Modified : /trunk/lib/jelix/plugins/coord/autolocale
+Modified : /trunk/lib/jelix/plugins/coord/history
+Modified : /trunk/lib/jelix/plugins/coord/jacl
+Modified : /trunk/lib/jelix/plugins/coord/jacl2
+Modified : /trunk/lib/jelix/plugins/coord/magicquotes
+Modified : /trunk/lib/jelix/plugins/coord/zendframework
+Modified : /trunk/lib/jelix/plugins/db
+Modified : /trunk/lib/jelix/plugins/db/intuition
+Modified : /trunk/lib/jelix/plugins/db/mysql
+Modified : /trunk/lib/jelix/plugins/db/oci
+Modified : /trunk/lib/jelix/plugins/db/pgsql
+Modified : /trunk/lib/jelix/plugins/db/sqlite
+Modified : /trunk/lib/jelix/plugins/jforms
+Modified : /trunk/lib/jelix/plugins/jforms/html
+Modified : /trunk/lib/jelix/plugins/jforms/htmllight
+Modified : /trunk/lib/jelix/plugins/tpl
+Modified : /trunk/lib/jelix/plugins/tpl/common
+Modified : /trunk/lib/jelix/plugins/tpl/html
+Modified : /trunk/lib/jelix/plugins/tpl/ltx2pdf
+Modified : /trunk/lib/jelix/plugins/tpl/text
+Modified : /trunk/lib/jelix/plugins/tpl/xml
+Modified : /trunk/lib/jelix/plugins/tpl/xul
+Modified : /trunk/lib/jelix/plugins/urls
+Modified : /trunk/lib/jelix/plugins/urls/basic_significant
+Modified : /trunk/lib/jelix/plugins/urls/significant
+Modified : /trunk/lib/jelix/plugins/urls/simple
+Modified : /trunk/lib/jelix/tpl
+Modified : /trunk/lib/jelix/utils
+Modified : /trunk/lib/jelix-admin-modules
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/classes
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/controllers
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/install
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/en_EN
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/fr_FR
+Modified : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/classes
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/controllers
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/forms
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/install
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR
+Modified : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates
+Modified : /trunk/lib/jelix-admin-modules/master_admin
+Modified : /trunk/lib/jelix-admin-modules/master_admin/classes
+Modified : /trunk/lib/jelix-admin-modules/master_admin/controllers
+Modified : /trunk/lib/jelix-admin-modules/master_admin/locales
+Modified : /trunk/lib/jelix-admin-modules/master_admin/locales/en_EN
+Modified : /trunk/lib/jelix-admin-modules/master_admin/locales/fr_FR
+Modified : /trunk/lib/jelix-admin-modules/master_admin/templates
+Modified : /trunk/lib/jelix-admin-modules/master_admin/zones
+Modified : /trunk/lib/jelix-modules
+Modified : /trunk/lib/jelix-modules/jWSDL
+Modified : /trunk/lib/jelix-modules/jWSDL/controllers
+Modified : /trunk/lib/jelix-modules/jWSDL/locales
+Modified : /trunk/lib/jelix-modules/jWSDL/locales/en_EN
+Modified : /trunk/lib/jelix-modules/jWSDL/locales/en_US
+Modified : /trunk/lib/jelix-modules/jWSDL/locales/fr_FR
+Modified : /trunk/lib/jelix-modules/jWSDL/templates
+Modified : /trunk/lib/jelix-modules/jacl2db
+Modified : /trunk/lib/jelix-modules/jacl2db/classes
+Modified : /trunk/lib/jelix-modules/jacldb
+Modified : /trunk/lib/jelix-modules/jacldb/classes
+Modified : /trunk/lib/jelix-modules/jauth
+Modified : /trunk/lib/jelix-modules/jauth/classes
+Modified : /trunk/lib/jelix-modules/jauth/controllers
+Modified : /trunk/lib/jelix-modules/jauth/daos
+Modified : /trunk/lib/jelix-modules/jauth/install
+Modified : /trunk/lib/jelix-modules/jauth/install/var
+Modified : /trunk/lib/jelix-modules/jauth/install/var/config
+Modified : /trunk/lib/jelix-modules/jauth/locales
+Modified : /trunk/lib/jelix-modules/jauth/locales/en_EN
+Modified : /trunk/lib/jelix-modules/jauth/locales/en_US
+Modified : /trunk/lib/jelix-modules/jauth/locales/fr_FR
+Modified : /trunk/lib/jelix-modules/jauth/templates
+Modified : /trunk/lib/jelix-modules/jauth/zones
+Modified : /trunk/lib/jelix-modules/junittests
+Modified : /trunk/lib/jelix-modules/junittests/classes
+Modified : /trunk/lib/jelix-modules/junittests/controllers
+Modified : /trunk/lib/jelix-modules/junittests/install
+Modified : /trunk/lib/jelix-modules/junittests/install/scripts
+Modified : /trunk/lib/jelix-modules/junittests/install/var
+Modified : /trunk/lib/jelix-modules/junittests/install/var/config
+Modified : /trunk/lib/jelix-modules/junittests/install/var/config/cmdline
+Modified : /trunk/lib/jelix-modules/junittests/install/var/log-cli
+Modified : /trunk/lib/jelix-modules/junittests/install/www
+Modified : /trunk/lib/jelix-modules/junittests/install/www/tests
+Modified : /trunk/lib/jelix-modules/junittests/templates
+Modified : /trunk/lib/jelix-plugins
+Modified : /trunk/lib/jelix-scripts
+Modified : /trunk/lib/jelix-scripts/commands
+Modified : /trunk/lib/jelix-scripts/includes
+Modified : /trunk/lib/jelix-scripts/modules
+Modified : /trunk/lib/jelix-scripts/modules/beta_migrating
+Modified : /trunk/lib/jelix-scripts/modules/beta_migrating/controllers
+Modified : /trunk/lib/jelix-scripts/modules/beta_migrating/install
+Modified : /trunk/lib/jelix-scripts/templates
+Modified : /trunk/lib/jelix-scripts/templates/responses
+Modified : /trunk/lib/jelix-scripts/templates/scripts
+Modified : /trunk/lib/jelix-scripts/templates/var
+Modified : /trunk/lib/jelix-scripts/templates/var/config
+Modified : /trunk/lib/jelix-scripts/templates/var/config/cmdline
+Modified : /trunk/lib/jelix-scripts/templates/var/config/index
+Modified : /trunk/lib/jelix-scripts/templates/var/config/jsonrpc
+Modified : /trunk/lib/jelix-scripts/templates/var/config/soap
+Modified : /trunk/lib/jelix-scripts/templates/var/config/xmlrpc
+Modified : /trunk/lib/jelix-scripts/templates/www
+Modified : /trunk/lib/jelix-www
+Modified : /trunk/lib/jelix-www/design
+Modified : /trunk/lib/jelix-www/design/images
+Modified : /trunk/lib/jelix-www/design/jforms
+Modified : /trunk/lib/jelix-www/jquery
+Modified : /trunk/lib/jelix-www/jquery/date_input
+Modified : /trunk/lib/jelix-www/jquery/flash
+Modified : /trunk/lib/jelix-www/jquery/include
+Modified : /trunk/lib/jelix-www/jquery/themes
+Modified : /trunk/lib/jelix-www/jquery/themes/default
+Modified : /trunk/lib/jelix-www/jquery/themes/default/images
+Modified : /trunk/lib/jelix-www/jquery/themes/flora
+Modified : /trunk/lib/jelix-www/jquery/themes/flora/i
+Modified : /trunk/lib/jelix-www/jquery/ui
+Modified : /trunk/lib/jelix-www/jquery/ui/i18n
+Modified : /trunk/lib/jelix-www/js
+Modified : /trunk/lib/jelix-www/js/jforms
+Modified : /trunk/lib/jelix-www/js/jforms/datepickers
+Modified : /trunk/lib/jelix-www/js/jforms/datepickers/default
+Modified : /trunk/lib/jelix-www/wymeditor
+Modified : /trunk/lib/jelix-www/wymeditor/config
+Modified : /trunk/lib/jelix-www/wymeditor/iframe
+Modified : /trunk/lib/jelix-www/wymeditor/iframe/default
+Modified : /trunk/lib/jelix-www/wymeditor/lang
+Modified : /trunk/lib/jelix-www/wymeditor/plugins
+Modified : /trunk/lib/jelix-www/wymeditor/plugins/hovertools
+Modified : /trunk/lib/jelix-www/wymeditor/plugins/tidy
+Modified : /trunk/lib/jelix-www/wymeditor/skins
+Modified : /trunk/lib/jelix-www/wymeditor/skins/default
+Modified : /trunk/lib/jelix-www/xul
+Modified : /trunk/lib/jelix-www/xul/test
+Modified : /trunk/lib/phpMailer
+Modified : /trunk/lib/phpMailer/language
+Modified : /trunk/lib/simpletest
+Modified : /trunk/lib/simpletest/extensions
+Modified : /trunk/lib/simpletest/test
+Modified : /trunk/lib/simpletest/test/support
+Modified : /trunk/lib/simpletest/test/support/collector
+Modified : /trunk/lib/tcpdf
+Modified : /trunk/lib/tcpdf/config
+Modified : /trunk/lib/tcpdf/images
+Modified : /trunk/lib/wikirenderer
+Modified : /trunk/lib/wikirenderer/rules
+Modified : /trunk/lib/wshelper
+Modified : /trunk/markitup
+Modified : /trunk/markitup/sets
+Modified : /trunk/markitup/sets/default
+Modified : /trunk/markitup/sets/default/images
+Modified : /trunk/markitup/sets/wiki
+Modified : /trunk/markitup/sets/wiki/images
+Modified : /trunk/markitup/sets/wr3
+Modified : /trunk/markitup/sets/wr3/images
+Modified : /trunk/markitup/skins
+Modified : /trunk/markitup/skins/markitup
+Modified : /trunk/markitup/skins/markitup/images
+Modified : /trunk/markitup/skins/simple
+Modified : /trunk/markitup/skins/simple/images
+Modified : /trunk/markitup/templates
+Modified : /trunk/scripts
+Modified : /trunk/temp
+Modified : /trunk/temp/havefnubb
+Modified : /trunk/temp/havefnubb-cli
+Modified : /trunk/temp/havefnubb-jelix-scripts
+Modified : /trunk/themes
+Modified : /trunk/themes/box
+Modified : /trunk/themes/box/css
+Modified : /trunk/themes/box/images
+Modified : /trunk/themes/box/images/admin
+Modified : /trunk/themes/box/images/mail
+Modified : /trunk/themes/box/images/posts
+Modified : /trunk/themes/box/images/toggle
+Modified : /trunk/themes/box/images/users
+Modified : /trunk/themes/box/images/wiki
+Modified : /trunk/themes/box/img
+Modified : /trunk/themes/chocolatebrown
+Modified : /trunk/themes/chocolatebrown/css
+Modified : /trunk/themes/chocolatebrown/images
+Modified : /trunk/themes/chocolatebrown/images/admin
+Modified : /trunk/themes/chocolatebrown/images/mail
+Modified : /trunk/themes/chocolatebrown/images/posts
+Modified : /trunk/themes/chocolatebrown/images/users
+Modified : /trunk/themes/chocolatebrown/images/wiki
+Modified : /trunk/themes/chocolatebrown/img
+Modified : /trunk/themes/default
+Modified : /trunk/themes/default/css
+Modified : /trunk/themes/default/images
+Modified : /trunk/themes/default/images/admin
+Modified : /trunk/themes/default/images/mail
+Modified : /trunk/themes/default/images/posts
+Modified : /trunk/themes/default/images/users
+Modified : /trunk/themes/default/images/wiki
+Modified : /trunk/themes/default/img
+Modified : /trunk/themes/emplode
+Modified : /trunk/themes/emplode/css
+Modified : /trunk/themes/emplode/images
+Modified : /trunk/themes/emplode/images/admin
+Modified : /trunk/themes/emplode/images/mail
+Modified : /trunk/themes/emplode/images/posts
+Modified : /trunk/themes/emplode/images/users
+Modified : /trunk/themes/emplode/images/wiki
+Modified : /trunk/themes/emplode/img
+Modified : /trunk/themes/fluid
+Modified : /trunk/themes/fluid/css
+Modified : /trunk/themes/fluid/images
+Modified : /trunk/themes/fluid/images/admin
+Modified : /trunk/themes/fluid/images/mail
+Modified : /trunk/themes/fluid/images/posts
+Modified : /trunk/themes/fluid/images/toggle
+Modified : /trunk/themes/fluid/images/users
+Modified : /trunk/themes/fluid/images/wiki
+Modified : /trunk/themes/fluid/img
+Modified : /trunk/themes/fluid/js
+Modified : /trunk/themes/install
+Modified : /trunk/themes/install/css
+Modified : /trunk/themes/install/images
+
+Revision: 355
+Author: foxmask
+Date: 18:50:52, lundi 17 août 2009
+Message:
+unuseful file
+----
+Modified : /trunk/havefnubb/var/config
+Deleted : /trunk/havefnubb/var/config/havefnu.ini.php
+
+Revision: 354
+Author: foxmask
+Date: 18:41:38, lundi 17 août 2009
+Message:
+
+----
+Modified : /trunk/havefnubb/var/config
+Deleted : /trunk/havefnubb/var/config/dbprofils.ini.php
+Deleted : /trunk/havefnubb/var/config/defaultconfig.ini.php
+
+Revision: 353
+Author: foxmask
+Date: 18:39:08, lundi 17 août 2009
+Message:
+1) New Archi
+2) HfnuPoll
+----
+Modified : /trunk
+Deleted : /trunk/application-cli.init.php
+Deleted : /trunk/application.init.php
+Added : /trunk/havefnubb
+Added : /trunk/havefnubb/.htaccess
+Added : /trunk/havefnubb/application-cli.init.php
+Added : /trunk/havefnubb/application.init.php
+Added : /trunk/havefnubb/jelix-scripts.init.php
+Added : /trunk/havefnubb/modules
+Added : /trunk/havefnubb/modules/.htaccess
+Added : /trunk/havefnubb/modules/havefnubb
+Added : /trunk/havefnubb/modules/havefnubb/classes
+Added : /trunk/havefnubb/modules/havefnubb/classes/authhavefnubb.listener.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/bans.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/flags.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/flood.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/havefnubb.listener.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/hfnuMenuItem.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/hfnuforumaccess.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/hfnumenu.listener.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/hfnuposts.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/hfnutoken.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/language.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/modulexml.class.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/postStuff.listener.php
+Added : /trunk/havefnubb/modules/havefnubb/classes/timeout.class.php
+Added : /trunk/havefnubb/modules/havefnubb/controllers
+Added : /trunk/havefnubb/modules/havefnubb/controllers/banuser.classic.php
+Added : /trunk/havefnubb/modules/havefnubb/controllers/category.classic.php
+Added : /trunk/havefnubb/modules/havefnubb/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/havefnubb/controllers/error.classic.php
+Added : /trunk/havefnubb/modules/havefnubb/controllers/flood.classic.php
+Added : /trunk/havefnubb/modules/havefnubb/controllers/forum.classic.php
+Added : /trunk/havefnubb/modules/havefnubb/controllers/members.classic.php
+Added : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
+Added : /trunk/havefnubb/modules/havefnubb/daos
+Added : /trunk/havefnubb/modules/havefnubb/daos/bans.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/category.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/forum.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/forum_cat.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/member.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/newest_posts.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/notify.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/posts.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/pwd.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/ranks.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/daos/timeout.dao.xml
+Added : /trunk/havefnubb/modules/havefnubb/events.xml
+Added : /trunk/havefnubb/modules/havefnubb/forms
+Added : /trunk/havefnubb/modules/havefnubb/forms/jumpto.form.xml
+Added : /trunk/havefnubb/modules/havefnubb/forms/notify.form.xml
+Added : /trunk/havefnubb/modules/havefnubb/forms/posts.form.xml
+Added : /trunk/havefnubb/modules/havefnubb/forms/posts_move.form.xml
+Added : /trunk/havefnubb/modules/havefnubb/forms/posts_status.form.xml
+Added : /trunk/havefnubb/modules/havefnubb/forms/pwd.form.xml
+Added : /trunk/havefnubb/modules/havefnubb/forms/split.form.xml
+Added : /trunk/havefnubb/modules/havefnubb/locales
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN/acl2.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN/flood.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN/forum.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN/hfnutoolbar.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN/main.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN/member.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN/post.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/en_EN/rank.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/acl2.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/flood.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/forum.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/hfnutoolbar.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/main.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/member.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/post.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/rank.UTF-8.properties
+Added : /trunk/havefnubb/modules/havefnubb/module.xml
+Added : /trunk/havefnubb/modules/havefnubb/templates
+Added : /trunk/havefnubb/modules/havefnubb/templates/403.html.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/404.html.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/banuser.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/en_EN
+Added : /trunk/havefnubb/modules/havefnubb/templates/en_EN/zone.syntax_wiki.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/flood.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/forum_rss.view.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/fr_FR
+Added : /trunk/havefnubb/modules/havefnubb/templates/fr_FR/zone.syntax_wiki.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/main.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/main_not_installed.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/member_changepwd.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/notinstalled.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/posts.edit.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/posts.list.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/posts.notify.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/posts.view.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/split.to.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/warn_new_registration.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.category.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.footer_menu.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.forumchild.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.forumindex.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.hfnubox.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.jumpto.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.lastposts.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.memberlist.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.memberprofile.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.menu.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.newestposts.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.online.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.online_offline.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.online_today.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.pinedposts.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.postandmsg.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.postlc.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.postlistbytag.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.posts_replies.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.quickreply.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.responsettl.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.stats.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.statsinfos.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.viewedttl.tpl
+Added : /trunk/havefnubb/modules/havefnubb/templates/zone.what_is_my_rank.tpl
+Added : /trunk/havefnubb/modules/havefnubb/zones
+Added : /trunk/havefnubb/modules/havefnubb/zones/category.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/footer_menu.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/forum.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/forumchild.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/hfnubox.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/jumpto.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/lastposts.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/memberlist.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/memberprofile.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/menu.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/newestposts.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/online.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/online_offline.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/online_today.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/pinedposts.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/postandmsg.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/postlc.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/postlistbytag.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/posts_replies.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/quickreply.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/responsettl.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/stats.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/statsinfos.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/syntax_wiki.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/viewedttl.zone.php
+Added : /trunk/havefnubb/modules/havefnubb/zones/what_is_my_rank.zone.php
+Added : /trunk/havefnubb/modules/hfnuadmin
+Added : /trunk/havefnubb/modules/hfnuadmin/classes
+Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuaboutmodule.listener.php
+Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadmin.listener.php
+Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadmindashboard.listener.php
+Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadmininfobox.listener.php
+Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadminmenu.listener.php
+Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadminrights.class.php
+Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnumanageuser.listener.php
+Added : /trunk/havefnubb/modules/hfnuadmin/classes/themes.class.php
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers/ban.classic.php
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers/cache.classic.php
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers/category.classic.php
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers/forum.classic.php
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers/modules.classic.php
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers/notify.classic.php
+Added : /trunk/havefnubb/modules/hfnuadmin/controllers/ranks.classic.php
+Added : /trunk/havefnubb/modules/hfnuadmin/daos
+Added : /trunk/havefnubb/modules/hfnuadmin/daos/empty
+Added : /trunk/havefnubb/modules/hfnuadmin/events.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/bans.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/cache.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/category.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/category_list.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/config.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/forum.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/forum_edit.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/ranks.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/forms/user_admin.form.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/locales
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/admin.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/ban.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/category.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/common.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/config.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/forum.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/hfnuabout.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/jauth_crud_edit.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/notify.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/rank.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/task.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/admin.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/ban.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/category.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/common.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/config.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/forum.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/hfnuabout.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/jauth_crud_edit.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/notify.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/rank.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/task.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuadmin/module.xml
+Added : /trunk/havefnubb/modules/hfnuadmin/templates
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/bans_edit.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/cache_index.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/category_index.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/config.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/forum_edit.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/forum_index.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/modules.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/notify_index.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/ranks_index.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/zone.about.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/zone.category.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/zone.forumchild.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/zone.forumindex.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/zone.hfnuabout.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/templates/zone.hfnutasktodo.tpl
+Added : /trunk/havefnubb/modules/hfnuadmin/zones
+Added : /trunk/havefnubb/modules/hfnuadmin/zones/about.zone.php
+Added : /trunk/havefnubb/modules/hfnuadmin/zones/category.zone.php
+Added : /trunk/havefnubb/modules/hfnuadmin/zones/forum.zone.php
+Added : /trunk/havefnubb/modules/hfnuadmin/zones/forumchild.zone.php
+Added : /trunk/havefnubb/modules/hfnuadmin/zones/hfnuabout.zone.php
+Added : /trunk/havefnubb/modules/hfnuadmin/zones/hfnutasktodo.zone.php
+Added : /trunk/havefnubb/modules/hfnucontact
+Added : /trunk/havefnubb/modules/hfnucontact/classes
+Added : /trunk/havefnubb/modules/hfnucontact/classes/hfnuadmincontactmenu.listener.php
+Added : /trunk/havefnubb/modules/hfnucontact/classes/hfnucontact.listener.php
+Added : /trunk/havefnubb/modules/hfnucontact/controllers
+Added : /trunk/havefnubb/modules/hfnucontact/controllers/admin.classic.php
+Added : /trunk/havefnubb/modules/hfnucontact/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/hfnucontact/daos
+Added : /trunk/havefnubb/modules/hfnucontact/daos/empty
+Added : /trunk/havefnubb/modules/hfnucontact/events.xml
+Added : /trunk/havefnubb/modules/hfnucontact/forms
+Added : /trunk/havefnubb/modules/hfnucontact/forms/admincontact.form.xml
+Added : /trunk/havefnubb/modules/hfnucontact/forms/contact.form.xml
+Added : /trunk/havefnubb/modules/hfnucontact/install
+Added : /trunk/havefnubb/modules/hfnucontact/install/README
+Added : /trunk/havefnubb/modules/hfnucontact/install/hfnucontact.ini.php.dist
+Added : /trunk/havefnubb/modules/hfnucontact/install/sql
+Added : /trunk/havefnubb/modules/hfnucontact/install/sql/install.mysql.sql
+Added : /trunk/havefnubb/modules/hfnucontact/install/urls_example.xml
+Added : /trunk/havefnubb/modules/hfnucontact/locales
+Added : /trunk/havefnubb/modules/hfnucontact/locales/en_EN
+Added : /trunk/havefnubb/modules/hfnucontact/locales/en_EN/contact.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnucontact/locales/fr_FR
+Added : /trunk/havefnubb/modules/hfnucontact/locales/fr_FR/contact.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnucontact/module.xml
+Added : /trunk/havefnubb/modules/hfnucontact/templates
+Added : /trunk/havefnubb/modules/hfnucontact/templates/admincontact.tpl
+Added : /trunk/havefnubb/modules/hfnucontact/templates/contact.tpl
+Added : /trunk/havefnubb/modules/hfnucontact/templates/contacted.tpl
+Added : /trunk/havefnubb/modules/hfnucontact/templates/send_an_email.tpl
+Added : /trunk/havefnubb/modules/hfnucontact/zones
+Added : /trunk/havefnubb/modules/hfnucontact/zones/about.zone.php
+Added : /trunk/havefnubb/modules/hfnuinstall
+Added : /trunk/havefnubb/modules/hfnuinstall/classes
+Added : /trunk/havefnubb/modules/hfnuinstall/classes/driver.class.php
+Added : /trunk/havefnubb/modules/hfnuinstall/classes/hfnuinstall.listener.php
+Added : /trunk/havefnubb/modules/hfnuinstall/classes/supported_drivers.class.php
+Added : /trunk/havefnubb/modules/hfnuinstall/controllers
+Added : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/hfnuinstall/daos
+Added : /trunk/havefnubb/modules/hfnuinstall/events.xml
+Added : /trunk/havefnubb/modules/hfnuinstall/forms
+Added : /trunk/havefnubb/modules/hfnuinstall/forms/adminaccount.form.xml
+Added : /trunk/havefnubb/modules/hfnuinstall/forms/config.form.xml
+Added : /trunk/havefnubb/modules/hfnuinstall/forms/dbconfig.form.xml
+Added : /trunk/havefnubb/modules/hfnuinstall/forms/installdb.form.xml
+Added : /trunk/havefnubb/modules/hfnuinstall/install
+Added : /trunk/havefnubb/modules/hfnuinstall/install/CHANGELOG
+Added : /trunk/havefnubb/modules/hfnuinstall/install/CREDITS
+Added : /trunk/havefnubb/modules/hfnuinstall/install/INSTALL
+Added : /trunk/havefnubb/modules/hfnuinstall/install/LICENCE
+Added : /trunk/havefnubb/modules/hfnuinstall/install/UPDATE-TO-1.0.0
+Added : /trunk/havefnubb/modules/hfnuinstall/install/UPDATE-TO-1.0.1
+Added : /trunk/havefnubb/modules/hfnuinstall/install/UPDATE-TO-1.0.2
+Added : /trunk/havefnubb/modules/hfnuinstall/install/UPDATE-TO-RC2
+Added : /trunk/havefnubb/modules/hfnuinstall/install/UPDATE-TO-RC3
+Added : /trunk/havefnubb/modules/hfnuinstall/install/VERSION
+Added : /trunk/havefnubb/modules/hfnuinstall/install/havefnu.ini.php.dist
+Added : /trunk/havefnubb/modules/hfnuinstall/install/havefnubb_archi.jpeg
+Added : /trunk/havefnubb/modules/hfnuinstall/install/sql
+Added : /trunk/havefnubb/modules/hfnuinstall/install/sql/install.mysql.sql
+Added : /trunk/havefnubb/modules/hfnuinstall/install/sql/install.pgsql.sql
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.0
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.0/install.mysql.sql
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.0RC3
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.0RC3/install.mysql.sql
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.2
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update/1.0.2/install.mysql.sql
+Added : /trunk/havefnubb/modules/hfnuinstall/locales
+Added : /trunk/havefnubb/modules/hfnuinstall/locales/en_EN
+Added : /trunk/havefnubb/modules/hfnuinstall/locales/en_EN/install.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuinstall/locales/fr_FR
+Added : /trunk/havefnubb/modules/hfnuinstall/locales/fr_FR/install.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnuinstall/module.xml
+Added : /trunk/havefnubb/modules/hfnuinstall/templates
+Added : /trunk/havefnubb/modules/hfnuinstall/templates/install.tpl
+Added : /trunk/havefnubb/modules/hfnuinstall/templates/main_install.tpl
+Added : /trunk/havefnubb/modules/hfnuinstall/templates/update.tpl
+Added : /trunk/havefnubb/modules/hfnuinstall/zones
+Added : /trunk/havefnubb/modules/hfnupoll
+Added : /trunk/havefnubb/modules/hfnupoll/classes
+Added : /trunk/havefnubb/modules/hfnupoll/classes/hfnuadminpollmenu.listener.php
+Added : /trunk/havefnubb/modules/hfnupoll/classes/hfnupoll.listener.php
+Added : /trunk/havefnubb/modules/hfnupoll/controllers
+Added : /trunk/havefnubb/modules/hfnupoll/controllers/admin.classic.php
+Added : /trunk/havefnubb/modules/hfnupoll/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/hfnupoll/daos
+Added : /trunk/havefnubb/modules/hfnupoll/daos/poll.dao.xml
+Added : /trunk/havefnubb/modules/hfnupoll/daos/poll_answer.dao.xml
+Added : /trunk/havefnubb/modules/hfnupoll/events.xml
+Added : /trunk/havefnubb/modules/hfnupoll/forms
+Added : /trunk/havefnubb/modules/hfnupoll/forms/ans_wizard1.form.xml
+Added : /trunk/havefnubb/modules/hfnupoll/forms/poll_add.form.xml
+Added : /trunk/havefnubb/modules/hfnupoll/forms/poll_edit.form.xml
+Added : /trunk/havefnubb/modules/hfnupoll/install
+Added : /trunk/havefnubb/modules/hfnupoll/install/sql
+Added : /trunk/havefnubb/modules/hfnupoll/install/sql/install.mysql.sql
+Added : /trunk/havefnubb/modules/hfnupoll/locales
+Added : /trunk/havefnubb/modules/hfnupoll/locales/en_EN
+Added : /trunk/havefnubb/modules/hfnupoll/locales/en_EN/poll.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnupoll/locales/fr_FR
+Added : /trunk/havefnubb/modules/hfnupoll/locales/fr_FR/poll.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnupoll/module.xml
+Added : /trunk/havefnubb/modules/hfnupoll/templates
+Added : /trunk/havefnubb/modules/hfnupoll/templates/poll.tpl
+Added : /trunk/havefnubb/modules/hfnupoll/templates/poll_answers1.tpl
+Added : /trunk/havefnubb/modules/hfnupoll/templates/poll_answers2.tpl
+Added : /trunk/havefnubb/modules/hfnupoll/templates/zone.answers.tpl
+Added : /trunk/havefnubb/modules/hfnupoll/zones
+Added : /trunk/havefnubb/modules/hfnupoll/zones/answers.zone.php
+Added : /trunk/havefnubb/modules/hfnurates
+Added : /trunk/havefnubb/modules/hfnurates/classes
+Added : /trunk/havefnubb/modules/hfnurates/classes/rates.class.php
+Added : /trunk/havefnubb/modules/hfnurates/controllers
+Added : /trunk/havefnubb/modules/hfnurates/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/hfnurates/daos
+Added : /trunk/havefnubb/modules/hfnurates/daos/rates.dao.xml
+Added : /trunk/havefnubb/modules/hfnurates/forms
+Added : /trunk/havefnubb/modules/hfnurates/install
+Added : /trunk/havefnubb/modules/hfnurates/install/INSTALL.txt
+Added : /trunk/havefnubb/modules/hfnurates/install/sql
+Added : /trunk/havefnubb/modules/hfnurates/install/sql/install.mysql.sql
+Added : /trunk/havefnubb/modules/hfnurates/install/www
+Added : /trunk/havefnubb/modules/hfnurates/install/www/images
+Added : /trunk/havefnubb/modules/hfnurates/install/www/images/star-rating
+Added : /trunk/havefnubb/modules/hfnurates/install/www/images/star-rating/delete.gif
+Added : /trunk/havefnubb/modules/hfnurates/install/www/images/star-rating/jquery.rating.css
+Added : /trunk/havefnubb/modules/hfnurates/install/www/images/star-rating/star.gif
+Added : /trunk/havefnubb/modules/hfnurates/install/www/jelix
+Added : /trunk/havefnubb/modules/hfnurates/install/www/jelix/jquery
+Added : /trunk/havefnubb/modules/hfnurates/install/www/jelix/jquery/jquery.MetaData.js
+Added : /trunk/havefnubb/modules/hfnurates/install/www/jelix/jquery/jquery.form.js
+Added : /trunk/havefnubb/modules/hfnurates/install/www/jelix/jquery/jquery.rating.js
+Added : /trunk/havefnubb/modules/hfnurates/install/www/jelix/jquery/jquery.rating.pack.js
+Added : /trunk/havefnubb/modules/hfnurates/locales
+Added : /trunk/havefnubb/modules/hfnurates/locales/en_EN
+Added : /trunk/havefnubb/modules/hfnurates/locales/en_EN/main.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnurates/locales/fr_FR
+Added : /trunk/havefnubb/modules/hfnurates/locales/fr_FR/main.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnurates/module.xml
+Added : /trunk/havefnubb/modules/hfnurates/templates
+Added : /trunk/havefnubb/modules/hfnurates/templates/zone.rates.tpl
+Added : /trunk/havefnubb/modules/hfnurates/zones
+Added : /trunk/havefnubb/modules/hfnurates/zones/rates.zone.php
+Added : /trunk/havefnubb/modules/hfnusearch
+Added : /trunk/havefnubb/modules/hfnusearch/classes
+Added : /trunk/havefnubb/modules/hfnusearch/classes/PorterStemmer.class.php
+Added : /trunk/havefnubb/modules/hfnusearch/classes/cleaner.class.php
+Added : /trunk/havefnubb/modules/hfnusearch/classes/en_EN
+Added : /trunk/havefnubb/modules/hfnusearch/classes/en_EN/stopwords.txt
+Added : /trunk/havefnubb/modules/hfnusearch/classes/fr_FR
+Added : /trunk/havefnubb/modules/hfnusearch/classes/fr_FR/stopwords.txt
+Added : /trunk/havefnubb/modules/hfnusearch/classes/hfnusearch.listener.php
+Added : /trunk/havefnubb/modules/hfnusearch/classes/hfnusearchadminmenu.listener.php
+Added : /trunk/havefnubb/modules/hfnusearch/classes/search_in.class.php
+Added : /trunk/havefnubb/modules/hfnusearch/classes/search_index.class.php
+Added : /trunk/havefnubb/modules/hfnusearch/classes/search_index_havefnubb.class.php
+Added : /trunk/havefnubb/modules/hfnusearch/classes/searchwords.listener.php
+Added : /trunk/havefnubb/modules/hfnusearch/controllers
+Added : /trunk/havefnubb/modules/hfnusearch/controllers/admin.classic.php
+Added : /trunk/havefnubb/modules/hfnusearch/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/hfnusearch/daos
+Added : /trunk/havefnubb/modules/hfnusearch/daos/searchwords.dao.xml
+Added : /trunk/havefnubb/modules/hfnusearch/events.xml
+Added : /trunk/havefnubb/modules/hfnusearch/forms
+Added : /trunk/havefnubb/modules/hfnusearch/forms/author.form.xml
+Added : /trunk/havefnubb/modules/hfnusearch/forms/forum.form.xml
+Added : /trunk/havefnubb/modules/hfnusearch/forms/indexing.form.xml
+Added : /trunk/havefnubb/modules/hfnusearch/install
+Added : /trunk/havefnubb/modules/hfnusearch/install/README
+Added : /trunk/havefnubb/modules/hfnusearch/install/havefnu.search.ini.php.dist
+Added : /trunk/havefnubb/modules/hfnusearch/install/hfnusearch.css
+Added : /trunk/havefnubb/modules/hfnusearch/install/install.mysql.sql
+Added : /trunk/havefnubb/modules/hfnusearch/locales
+Added : /trunk/havefnubb/modules/hfnusearch/locales/en_EN
+Added : /trunk/havefnubb/modules/hfnusearch/locales/en_EN/forum.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnusearch/locales/en_EN/search.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnusearch/locales/fr_FR
+Added : /trunk/havefnubb/modules/hfnusearch/locales/fr_FR/forum.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnusearch/locales/fr_FR/search.UTF-8.properties
+Added : /trunk/havefnubb/modules/hfnusearch/module.xml
+Added : /trunk/havefnubb/modules/hfnusearch/templates
+Added : /trunk/havefnubb/modules/hfnusearch/templates/admin.index.tpl
+Added : /trunk/havefnubb/modules/hfnusearch/templates/result.tpl
+Added : /trunk/havefnubb/modules/hfnusearch/templates/zone.hfnuquicksearch.tpl
+Added : /trunk/havefnubb/modules/hfnusearch/templates/zone.hfnusearch.tpl
+Added : /trunk/havefnubb/modules/hfnusearch/templates/zone.searchAuthor.tpl
+Added : /trunk/havefnubb/modules/hfnusearch/templates/zone.searchForum.tpl
+Added : /trunk/havefnubb/modules/hfnusearch/zones
+Added : /trunk/havefnubb/modules/hfnusearch/zones/hfnuquicksearch.zone.php
+Added : /trunk/havefnubb/modules/hfnusearch/zones/hfnusearch.zone.php
+Added : /trunk/havefnubb/modules/hfnusearch/zones/searchAuthor.zone.php
+Added : /trunk/havefnubb/modules/hfnusearch/zones/searchForum.zone.php
+Added : /trunk/havefnubb/modules/jcommunity
+Added : /trunk/havefnubb/modules/jcommunity/VERSION
+Added : /trunk/havefnubb/modules/jcommunity/classes
+Added : /trunk/havefnubb/modules/jcommunity/classes/authcommunity.listener.php
+Added : /trunk/havefnubb/modules/jcommunity/classes/defines.php
+Added : /trunk/havefnubb/modules/jcommunity/controllers
+Added : /trunk/havefnubb/modules/jcommunity/controllers/account.classic.php
+Added : /trunk/havefnubb/modules/jcommunity/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/jcommunity/controllers/login.classic.php
+Added : /trunk/havefnubb/modules/jcommunity/controllers/password.classic.php
+Added : /trunk/havefnubb/modules/jcommunity/controllers/registration.classic.php
+Added : /trunk/havefnubb/modules/jcommunity/daos
+Added : /trunk/havefnubb/modules/jcommunity/daos/user.dao.xml
+Added : /trunk/havefnubb/modules/jcommunity/events.xml
+Added : /trunk/havefnubb/modules/jcommunity/forms
+Added : /trunk/havefnubb/modules/jcommunity/forms/account.form.xml
+Added : /trunk/havefnubb/modules/jcommunity/forms/confirmation.form.xml
+Added : /trunk/havefnubb/modules/jcommunity/forms/login.form.xml
+Added : /trunk/havefnubb/modules/jcommunity/forms/password.form.xml
+Added : /trunk/havefnubb/modules/jcommunity/forms/registration.form.xml
+Added : /trunk/havefnubb/modules/jcommunity/install
+Added : /trunk/havefnubb/modules/jcommunity/install/INSTALL
+Added : /trunk/havefnubb/modules/jcommunity/install/install.mysql.sql
+Added : /trunk/havefnubb/modules/jcommunity/install/urls_example.xml
+Added : /trunk/havefnubb/modules/jcommunity/locales
+Added : /trunk/havefnubb/modules/jcommunity/locales/en_EN
+Added : /trunk/havefnubb/modules/jcommunity/locales/en_EN/account.UTF-8.properties
+Added : /trunk/havefnubb/modules/jcommunity/locales/en_EN/login.UTF-8.properties
+Added : /trunk/havefnubb/modules/jcommunity/locales/en_EN/password.UTF-8.properties
+Added : /trunk/havefnubb/modules/jcommunity/locales/en_EN/register.UTF-8.properties
+Added : /trunk/havefnubb/modules/jcommunity/locales/fr_FR
+Added : /trunk/havefnubb/modules/jcommunity/locales/fr_FR/account.UTF-8.properties
+Added : /trunk/havefnubb/modules/jcommunity/locales/fr_FR/login.UTF-8.properties
+Added : /trunk/havefnubb/modules/jcommunity/locales/fr_FR/password.UTF-8.properties
+Added : /trunk/havefnubb/modules/jcommunity/locales/fr_FR/register.UTF-8.properties
+Added : /trunk/havefnubb/modules/jcommunity/module.xml
+Added : /trunk/havefnubb/modules/jcommunity/templates
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/account_destroy.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/account_destroy_cancel.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/account_destroy_done.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/account_edit.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/account_show.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/account_unknow.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/login.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/mail_password_change.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/mail_registration.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/no_access.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/password_confirmation.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/password_ok.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/passwordform.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/registration.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/registration_confirmation.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/registration_ok.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/startpage.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/en_EN/status.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/account_destroy.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/account_destroy_cancel.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/account_destroy_done.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/account_edit.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/account_show.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/account_unknow.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/login.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/mail_password_change.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/mail_registration.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/no_access.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/password_confirmation.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/password_ok.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/passwordform.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/registration.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/registration_confirmation.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/registration_ok.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/startpage.tpl
+Added : /trunk/havefnubb/modules/jcommunity/templates/fr_FR/status.tpl
+Added : /trunk/havefnubb/modules/jcommunity/zones
+Added : /trunk/havefnubb/modules/jcommunity/zones/login.zone.php
+Added : /trunk/havefnubb/modules/jcommunity/zones/password.zone.php
+Added : /trunk/havefnubb/modules/jcommunity/zones/registration.zone.php
+Added : /trunk/havefnubb/modules/jcommunity/zones/status.zone.php
+Added : /trunk/havefnubb/modules/jmessenger
+Added : /trunk/havefnubb/modules/jmessenger/classes
+Added : /trunk/havefnubb/modules/jmessenger/classes/jmessenger.class.php
+Added : /trunk/havefnubb/modules/jmessenger/controllers
+Added : /trunk/havefnubb/modules/jmessenger/controllers/jmessenger.classic.php
+Added : /trunk/havefnubb/modules/jmessenger/daos
+Added : /trunk/havefnubb/modules/jmessenger/daos/jmessenger.dao.xml
+Added : /trunk/havefnubb/modules/jmessenger/events.xml
+Added : /trunk/havefnubb/modules/jmessenger/forms
+Added : /trunk/havefnubb/modules/jmessenger/forms/jmessenger.form.xml
+Added : /trunk/havefnubb/modules/jmessenger/install
+Added : /trunk/havefnubb/modules/jmessenger/install/INSTALL
+Added : /trunk/havefnubb/modules/jmessenger/install/install.mysql.sql
+Added : /trunk/havefnubb/modules/jmessenger/install/urls_example.xml
+Added : /trunk/havefnubb/modules/jmessenger/locales
+Added : /trunk/havefnubb/modules/jmessenger/locales/en_EN
+Added : /trunk/havefnubb/modules/jmessenger/locales/en_EN/message.UTF-8.properties
+Added : /trunk/havefnubb/modules/jmessenger/locales/fr_FR
+Added : /trunk/havefnubb/modules/jmessenger/locales/fr_FR/message.UTF-8.properties
+Added : /trunk/havefnubb/modules/jmessenger/module.xml
+Added : /trunk/havefnubb/modules/jmessenger/templates
+Added : /trunk/havefnubb/modules/jmessenger/templates/index.tpl
+Added : /trunk/havefnubb/modules/jmessenger/templates/links.tpl
+Added : /trunk/havefnubb/modules/jmessenger/templates/listmsg.tpl
+Added : /trunk/havefnubb/modules/jmessenger/templates/mail.tpl
+Added : /trunk/havefnubb/modules/jmessenger/templates/nbNewMessage.tpl
+Added : /trunk/havefnubb/modules/jmessenger/templates/new.tpl
+Added : /trunk/havefnubb/modules/jmessenger/templates/view.tpl
+Added : /trunk/havefnubb/modules/jmessenger/zones
+Added : /trunk/havefnubb/modules/jmessenger/zones/archive.zone.php
+Added : /trunk/havefnubb/modules/jmessenger/zones/inbox.zone.php
+Added : /trunk/havefnubb/modules/jmessenger/zones/links.zone.php
+Added : /trunk/havefnubb/modules/jmessenger/zones/nbNewMessage.zone.php
+Added : /trunk/havefnubb/modules/jmessenger/zones/outbox.zone.php
+Added : /trunk/havefnubb/modules/jtags
+Added : /trunk/havefnubb/modules/jtags/classes
+Added : /trunk/havefnubb/modules/jtags/classes/tags.class.php
+Added : /trunk/havefnubb/modules/jtags/daos
+Added : /trunk/havefnubb/modules/jtags/daos/objects_tags.dao.xml
+Added : /trunk/havefnubb/modules/jtags/daos/tags.dao.xml
+Added : /trunk/havefnubb/modules/jtags/install
+Added : /trunk/havefnubb/modules/jtags/install/README
+Added : /trunk/havefnubb/modules/jtags/install/install_InnoDB.mysql.sql
+Added : /trunk/havefnubb/modules/jtags/install/install_MyISAM.mysql.sql
+Added : /trunk/havefnubb/modules/jtags/locales
+Added : /trunk/havefnubb/modules/jtags/locales/en_EN
+Added : /trunk/havefnubb/modules/jtags/locales/en_EN/tags.UTF-8.properties
+Added : /trunk/havefnubb/modules/jtags/locales/fr_FR
+Added : /trunk/havefnubb/modules/jtags/locales/fr_FR/tags.UTF-8.properties
+Added : /trunk/havefnubb/modules/jtags/module.xml
+Added : /trunk/havefnubb/modules/jtags/templates
+Added : /trunk/havefnubb/modules/jtags/templates/fr_FR
+Added : /trunk/havefnubb/modules/jtags/templates/fr_FR/tagsbyobject.tpl
+Added : /trunk/havefnubb/modules/jtags/templates/fr_FR/tagscloud.tpl
+Added : /trunk/havefnubb/modules/jtags/zones
+Added : /trunk/havefnubb/modules/jtags/zones/tagsbyobject.zone.php
+Added : /trunk/havefnubb/modules/jtags/zones/tagscloud.zone.php
+Added : /trunk/havefnubb/modules/servinfo
+Added : /trunk/havefnubb/modules/servinfo/classes
+Added : /trunk/havefnubb/modules/servinfo/classes/serverinfos.class.php
+Added : /trunk/havefnubb/modules/servinfo/classes/servinfo.listener.php
+Added : /trunk/havefnubb/modules/servinfo/controllers
+Added : /trunk/havefnubb/modules/servinfo/controllers/default.classic.php
+Added : /trunk/havefnubb/modules/servinfo/daos
+Added : /trunk/havefnubb/modules/servinfo/events.xml
+Added : /trunk/havefnubb/modules/servinfo/forms
+Added : /trunk/havefnubb/modules/servinfo/locales
+Added : /trunk/havefnubb/modules/servinfo/locales/en_EN
+Added : /trunk/havefnubb/modules/servinfo/locales/en_EN/servinfo.UTF-8.properties
+Added : /trunk/havefnubb/modules/servinfo/locales/fr_FR
+Added : /trunk/havefnubb/modules/servinfo/locales/fr_FR/servinfo.UTF-8.properties
+Added : /trunk/havefnubb/modules/servinfo/module.xml
+Added : /trunk/havefnubb/modules/servinfo/templates
+Added : /trunk/havefnubb/modules/servinfo/templates/phpinfo.tpl
+Added : /trunk/havefnubb/modules/servinfo/templates/zone.server_info.tpl
+Added : /trunk/havefnubb/modules/servinfo/zones
+Added : /trunk/havefnubb/modules/servinfo/zones/server_info.zone.php
+Added : /trunk/havefnubb/plugins
+Added : /trunk/havefnubb/plugins/.htaccess
+Added : /trunk/havefnubb/plugins/auth
+Added : /trunk/havefnubb/plugins/auth/empty
+Added : /trunk/havefnubb/plugins/coord
+Added : /trunk/havefnubb/plugins/coord/banuser
+Added : /trunk/havefnubb/plugins/coord/banuser/banuser.coord.ini.php.dist
+Added : /trunk/havefnubb/plugins/coord/banuser/banuser.coord.php
+Added : /trunk/havefnubb/plugins/coord/banuser/plugin.xml
+Added : /trunk/havefnubb/plugins/coord/flood
+Added : /trunk/havefnubb/plugins/coord/flood/flood.coord.ini.php.dist
+Added : /trunk/havefnubb/plugins/coord/flood/flood.coord.php
+Added : /trunk/havefnubb/plugins/coord/flood/plugin.xml
+Added : /trunk/havefnubb/plugins/coord/hfnuinstalled
+Added : /trunk/havefnubb/plugins/coord/hfnuinstalled/hfnuinstalled.coord.ini.php.dist
+Added : /trunk/havefnubb/plugins/coord/hfnuinstalled/hfnuinstalled.coord.php
+Added : /trunk/havefnubb/plugins/coord/hfnuinstalled/plugin.xml
+Added : /trunk/havefnubb/plugins/coord/jGoogleAnalytics
+Added : /trunk/havefnubb/plugins/coord/jGoogleAnalytics/jGoogleAnalytics.coord.ini.php.dist
+Added : /trunk/havefnubb/plugins/coord/jGoogleAnalytics/jGoogleAnalytics.coord.php
+Added : /trunk/havefnubb/plugins/coord/jGoogleAnalytics/plugin.xml
+Added : /trunk/havefnubb/plugins/coord/timeout
+Added : /trunk/havefnubb/plugins/coord/timeout/plugin.xml
+Added : /trunk/havefnubb/plugins/coord/timeout/timeout.coord.ini.php.dist
+Added : /trunk/havefnubb/plugins/coord/timeout/timeout.coord.php
+Added : /trunk/havefnubb/plugins/db
+Added : /trunk/havefnubb/plugins/db/empty
+Added : /trunk/havefnubb/plugins/tpl
+Added : /trunk/havefnubb/plugins/tpl/common
+Added : /trunk/havefnubb/plugins/tpl/common/empty
+Added : /trunk/havefnubb/plugins/tpl/html
+Added : /trunk/havefnubb/plugins/tpl/html/function.age.php
+Added : /trunk/havefnubb/plugins/tpl/html/function.nospam.php
+Added : /trunk/havefnubb/plugins/tpl/html/function.phpinfo.php
+Added : /trunk/havefnubb/plugins/tpl/html/install.nospam
+Added : /trunk/havefnubb/plugins/tpl/html/install.nospam/at.gif
+Added : /trunk/havefnubb/plugins/tpl/html/install.nospam/at2.gif
+Added : /trunk/havefnubb/plugins/tpl/html/install.nospam/dot.gif
+Added : /trunk/havefnubb/plugins/tpl/text
+Added : /trunk/havefnubb/plugins/tpl/text/empty
+Added : /trunk/havefnubb/project.xml
+Added : /trunk/havefnubb/responses
+Added : /trunk/havefnubb/responses/.htaccess
+Added : /trunk/havefnubb/responses/adminHtmlResponse.class.php
+Added : /trunk/havefnubb/responses/adminLoginHtmlResponse.class.php
+Added : /trunk/havefnubb/responses/fnuHtmlResponse.class.php
+Added : /trunk/havefnubb/responses/installHtmlResponse.class.php
+Added : /trunk/havefnubb/scripts
+Added : /trunk/havefnubb/scripts/phpunit
+Added : /trunk/havefnubb/var
+Added : /trunk/havefnubb/var/.htaccess
+Added : /trunk/havefnubb/var/config
+Added : /trunk/havefnubb/var/config/auth.coord.ini.php
+Added : /trunk/havefnubb/var/config/autolocale.coord.ini.php
+Added : /trunk/havefnubb/var/config/banuser.coord.ini.php
+Added : /trunk/havefnubb/var/config/dbprofils.ini.php
+Added : /trunk/havefnubb/var/config/dbprofils.ini.php.dist
+Added : /trunk/havefnubb/var/config/defaultconfig.ini.php
+Added : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Added : /trunk/havefnubb/var/config/flood.coord.ini.php
+Added : /trunk/havefnubb/var/config/havefnu.ini.php
+Added : /trunk/havefnubb/var/config/havefnu.ini.php.dist
+Added : /trunk/havefnubb/var/config/havefnu.search.ini.php
+Added : /trunk/havefnubb/var/config/hfnuadmin
+Added : /trunk/havefnubb/var/config/hfnuadmin/auth.coord.ini.php
+Added : /trunk/havefnubb/var/config/hfnuadmin/config.ini.php
+Added : /trunk/havefnubb/var/config/hfnuadmin/jacl2.coord.ini.php
+Added : /trunk/havefnubb/var/config/hfnucontact.ini.php
+Added : /trunk/havefnubb/var/config/hfnuinstalled.coord.ini.php
+Added : /trunk/havefnubb/var/config/history.coord.ini.php
+Added : /trunk/havefnubb/var/config/index
+Added : /trunk/havefnubb/var/config/index/config.ini.php
+Added : /trunk/havefnubb/var/config/install
+Added : /trunk/havefnubb/var/config/install/config.ini.php
+Added : /trunk/havefnubb/var/config/jacl2.coord.ini.php
+Added : /trunk/havefnubb/var/config/timeout.coord.ini.php
+Added : /trunk/havefnubb/var/config/urls.xml
+Added : /trunk/havefnubb/var/config/wikitoolbar.ini.php
+Added : /trunk/havefnubb/var/feeds
+Added : /trunk/havefnubb/var/feeds/empty
+Added : /trunk/havefnubb/var/log
+Added : /trunk/havefnubb/var/log/empty
+Added : /trunk/havefnubb/var/log/error.log
+Added : /trunk/havefnubb/var/overloads
+Added : /trunk/havefnubb/var/overloads/jcommunity
+Added : /trunk/havefnubb/var/overloads/jcommunity/daos
+Added : /trunk/havefnubb/var/overloads/jcommunity/daos/user.dao.xml
+Added : /trunk/havefnubb/var/overloads/jcommunity/forms
+Added : /trunk/havefnubb/var/overloads/jcommunity/forms/account.form.xml
+Added : /trunk/havefnubb/var/overloads/jelix
+Added : /trunk/havefnubb/var/overloads/jelix/daos
+Added : /trunk/havefnubb/var/overloads/jelix/daos/jacl2group.dao.xml
+Added : /trunk/havefnubb/var/overloads/jelix/daos/jacl2groupsofuser.dao.xml
+Added : /trunk/havefnubb/var/overloads/jelix/daos/jacl2rights.dao.xml
+Added : /trunk/havefnubb/var/overloads/jelix/daos/jacl2subject.dao.xml
+Added : /trunk/havefnubb/var/overloads/jelix/daos/jacl2usergroup.dao.xml
+Added : /trunk/havefnubb/var/overloads/jmessenger
+Added : /trunk/havefnubb/var/overloads/jmessenger/daos
+Added : /trunk/havefnubb/var/overloads/jmessenger/daos/jmessenger.dao.xml
+Added : /trunk/havefnubb/var/sessions
+Added : /trunk/havefnubb/var/sessions/empty
+Added : /trunk/havefnubb/var/themes
+Added : /trunk/havefnubb/var/themes/box
+Added : /trunk/havefnubb/var/themes/box/havefnubb
+Added : /trunk/havefnubb/var/themes/box/havefnubb/main.tpl
+Added : /trunk/havefnubb/var/themes/box/havefnubb/zone.category.tpl
+Added : /trunk/havefnubb/var/themes/box/havefnubb/zone.forumindex.tpl
+Added : /trunk/havefnubb/var/themes/box/havefnubb/zone.lastposts.tpl
+Added : /trunk/havefnubb/var/themes/box/havefnubb/zone.online.tpl
+Added : /trunk/havefnubb/var/themes/box/havefnubb/zone.online_today.tpl
+Added : /trunk/havefnubb/var/themes/box/havefnubb/zone.posts_replies.tpl
+Added : /trunk/havefnubb/var/themes/box/havefnubb/zone.quickreply.tpl
+Added : /trunk/havefnubb/var/themes/box/havefnubb/zone.stats.tpl
+Added : /trunk/havefnubb/var/themes/box/hfnusearch
+Added : /trunk/havefnubb/var/themes/box/hfnusearch/result.tpl
+Added : /trunk/havefnubb/var/themes/box/hfnusearch/zone.hfnusearch.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity
+Added : /trunk/havefnubb/var/themes/box/jcommunity/account_destroy.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/account_destroy_cancel.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/account_destroy_done.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/account_edit.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/account_show.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/account_unknow.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/login.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/password_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/passwordform.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/registration.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/registration_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/box/jcommunity/status.tpl
+Added : /trunk/havefnubb/var/themes/box/jmessenger
+Added : /trunk/havefnubb/var/themes/box/jmessenger/links.tpl
+Added : /trunk/havefnubb/var/themes/box/jmessenger/listmsg.tpl
+Added : /trunk/havefnubb/var/themes/box/jmessenger/new.tpl
+Added : /trunk/havefnubb/var/themes/box/jmessenger/view.tpl
+Added : /trunk/havefnubb/var/themes/box/jtags
+Added : /trunk/havefnubb/var/themes/box/jtags/tagscloud.tpl
+Added : /trunk/havefnubb/var/themes/chocolatebrown
+Added : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb
+Added : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb/main.tpl
+Added : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb/zone.posts_replies.tpl
+Added : /trunk/havefnubb/var/themes/default
+Added : /trunk/havefnubb/var/themes/default/hfnusearch
+Added : /trunk/havefnubb/var/themes/default/hfnusearch/zone.hfnusearch.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity
+Added : /trunk/havefnubb/var/themes/default/jcommunity/account_destroy.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/account_destroy_cancel.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/account_destroy_done.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/account_edit.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/account_show.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/account_unknow.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/login.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/password_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/passwordform.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/registration.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/registration_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/default/jcommunity/status.tpl
+Added : /trunk/havefnubb/var/themes/default/jmessenger
+Added : /trunk/havefnubb/var/themes/default/jmessenger/links.tpl
+Added : /trunk/havefnubb/var/themes/default/jmessenger/listmsg.tpl
+Added : /trunk/havefnubb/var/themes/default/jmessenger/new.tpl
+Added : /trunk/havefnubb/var/themes/default/jmessenger/view.tpl
+Added : /trunk/havefnubb/var/themes/default/jtags
+Added : /trunk/havefnubb/var/themes/default/jtags/tagscloud.tpl
+Added : /trunk/havefnubb/var/themes/emplode
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/403.html.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/404.html.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/banuser.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/flood.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/main.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/main_not_installed.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/member_changepwd.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.edit.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.list.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.notify.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/split.to.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.category.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumchild.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumindex.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.jumpto.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.lastposts.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.memberlist.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.online.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.online_today.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.postlistbytag.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.quickreply.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.stats.tpl
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.statsinfos.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnucontact
+Added : /trunk/havefnubb/var/themes/emplode/hfnucontact/contact.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnurates
+Added : /trunk/havefnubb/var/themes/emplode/hfnurates/zone.rates.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnusearch
+Added : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.hfnusearch.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.searchAuthor.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.searchForum.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/account_edit.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/account_show.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/login.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/password_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/passwordform.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/registration.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/registration_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jcommunity/status.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger/links.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger/listmsg.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger/new.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jmessenger/view.tpl
+Added : /trunk/havefnubb/var/themes/emplode/jtags
+Added : /trunk/havefnubb/var/themes/emplode/jtags/tagscloud.tpl
+Added : /trunk/havefnubb/var/themes/fluid
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/403.html.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/404.html.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/banuser.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/flood.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/main.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/main_not_installed.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/member_changepwd.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.edit.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.list.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.notify.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/posts.view.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/split.to.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.category.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.forumchild.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.forumindex.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.jumpto.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.lastposts.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.memberlist.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.memberprofile.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.menu.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.online.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.online_offline.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.online_today.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.postlistbytag.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.posts_replies.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.quickreply.tpl
+Added : /trunk/havefnubb/var/themes/fluid/havefnubb/zone.stats.tpl
+Added : /trunk/havefnubb/var/themes/fluid/hfnucontact
+Added : /trunk/havefnubb/var/themes/fluid/hfnucontact/contact.tpl
+Added : /trunk/havefnubb/var/themes/fluid/hfnurates
+Added : /trunk/havefnubb/var/themes/fluid/hfnurates/zone.rates.tpl
+Added : /trunk/havefnubb/var/themes/fluid/hfnusearch
+Added : /trunk/havefnubb/var/themes/fluid/hfnusearch/result.tpl
+Added : /trunk/havefnubb/var/themes/fluid/hfnusearch/zone.hfnuquicksearch.tpl
+Added : /trunk/havefnubb/var/themes/fluid/hfnusearch/zone.hfnusearch.tpl
+Added : /trunk/havefnubb/var/themes/fluid/hfnusearch/zone.searchAuthor.tpl
+Added : /trunk/havefnubb/var/themes/fluid/hfnusearch/zone.searchForum.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity/account_edit.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity/account_show.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity/login.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity/password_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity/passwordform.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity/registration.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity/registration_confirmation.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jcommunity/status.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jmessenger
+Added : /trunk/havefnubb/var/themes/fluid/jmessenger/links.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jmessenger/listmsg.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jmessenger/new.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jmessenger/view.tpl
+Added : /trunk/havefnubb/var/themes/fluid/jtags
+Added : /trunk/havefnubb/var/themes/fluid/jtags/tagscloud.tpl
+Added : /trunk/havefnubb/var/uploads
+Added : /trunk/havefnubb/var/uploads/empty
+Modified : /trunk/hfnuadmin.php
+Modified : /trunk/index.php
+Modified : /trunk/install.php
+Deleted : /trunk/jelix-scripts.init.php
+Deleted : /trunk/modules
+Deleted : /trunk/plugins
+Deleted : /trunk/project.xml
+Deleted : /trunk/responses
+Modified : /trunk/temp/havefnubb
+Modified : /trunk/temp/havefnubb-cli
+Modified : /trunk/temp/havefnubb-jelix-scripts
+Deleted : /trunk/var
+
+Revision: 352
+Author: foxmask
+Date: 01:09:54, lundi 17 août 2009
+Message:
+HnfuPoll
+----
+Modified : /trunk/modules/hfnupoll/controllers/admin.classic.php
+Modified : /trunk/modules/hfnupoll/forms/poll_add.form.xml
+Modified : /trunk/modules/hfnupoll/locales/en_EN/poll.UTF-8.properties
+Modified : /trunk/modules/hfnupoll/locales/fr_FR/poll.UTF-8.properties
+Modified : /trunk/modules/hfnupoll/templates/poll.tpl
+
+Revision: 351
+Author: foxmask
+Date: 22:37:42, dimanche 16 août 2009
+Message:
+1) next version 
+2) admin of hnfupoll 
+----
+Modified : /trunk/modules/havefnubb/module.xml
+Modified : /trunk/modules/hfnuadmin/module.xml
+Modified : /trunk/modules/hfnucontact/module.xml
+Modified : /trunk/modules/hfnuinstall/install/VERSION
+Modified : /trunk/modules/hfnuinstall/install/sql/install.mysql.sql
+Modified : /trunk/modules/hfnuinstall/install/update/1.0.2/install.mysql.sql
+Modified : /trunk/modules/hfnuinstall/module.xml
+Modified : /trunk/modules/hfnupoll/classes/hfnuadminpollmenu.listener.php
+Modified : /trunk/modules/hfnupoll/controllers/admin.classic.php
+Deleted : /trunk/modules/hfnupoll/daos/hfnupoll.dao.xml
+Added : /trunk/modules/hfnupoll/daos/poll.dao.xml (Copy from path: /trunk/modules/hfnupoll/daos/hfnupoll.dao.xml, Revision, 349)
+Deleted : /trunk/modules/hfnupoll/forms/hfnupoll.form.xml
+Added : /trunk/modules/hfnupoll/forms/poll_add.form.xml
+Added : /trunk/modules/hfnupoll/forms/poll_edit.form.xml
+Modified : /trunk/modules/hfnupoll/install/sql/install.mysql.sql
+Modified : /trunk/modules/hfnupoll/locales/en_EN/poll.UTF-8.properties
+Modified : /trunk/modules/hfnupoll/locales/fr_FR/poll.UTF-8.properties
+Modified : /trunk/modules/hfnupoll/module.xml
+Added : /trunk/modules/hfnupoll/templates/poll.tpl
+Added : /trunk/modules/hfnupoll/templates/poll_edit.tpl
+Modified : /trunk/modules/hfnurates/module.xml
+Modified : /trunk/modules/hfnusearch/classes/hfnusearchadminmenu.listener.php
+Modified : /trunk/modules/hfnusearch/module.xml
+Modified : /trunk/modules/servinfo/module.xml
+Modified : /trunk/project.xml
+Modified : /trunk/var/config/havefnu.ini.php.dist
+
+Revision: 350
+Author: foxmask
+Date: 01:05:05, dimanche 16 août 2009
+Message:
+hfnupoll url + entrypoint managed
+----
+Modified : /trunk/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/var/config/hfnuadmin/config.ini.php
+
+Revision: 349
+Author: foxmask
+Date: 23:32:49, samedi 15 août 2009
+Message:
+1) start of the module Poll (ticket #78) 
+2) change of the URL of the Project in all files
+----
+Modified : /trunk
+Modified : /trunk/application-cli.init.php
+Modified : /trunk/application.init.php
+Modified : /trunk/hfnuadmin.php
+Modified : /trunk/index.php
+Modified : /trunk/install.php
+Modified : /trunk/jelix-scripts.init.php
+Added : /trunk/lib/jelix/core/request/jPhpunitRequest.class.php
+Added : /trunk/lib/jelix-scripts/scripts.conf.php
+Modified : /trunk/modules/havefnubb/classes/authhavefnubb.listener.php
+Modified : /trunk/modules/havefnubb/classes/bans.class.php
+Modified : /trunk/modules/havefnubb/classes/flags.class.php
+Modified : /trunk/modules/havefnubb/classes/flood.class.php
+Modified : /trunk/modules/havefnubb/classes/havefnubb.listener.php
+Modified : /trunk/modules/havefnubb/classes/hfnuMenuItem.class.php
+Modified : /trunk/modules/havefnubb/classes/hfnuforumaccess.class.php
+Modified : /trunk/modules/havefnubb/classes/hfnumenu.listener.php
+Modified : /trunk/modules/havefnubb/classes/hfnuposts.class.php
+Modified : /trunk/modules/havefnubb/classes/hfnutoken.class.php
+Modified : /trunk/modules/havefnubb/classes/language.class.php
+Modified : /trunk/modules/havefnubb/classes/modulexml.class.php
+Modified : /trunk/modules/havefnubb/classes/postStuff.listener.php
+Modified : /trunk/modules/havefnubb/classes/timeout.class.php
+Modified : /trunk/modules/havefnubb/controllers/banuser.classic.php
+Modified : /trunk/modules/havefnubb/controllers/category.classic.php
+Modified : /trunk/modules/havefnubb/controllers/default.classic.php
+Modified : /trunk/modules/havefnubb/controllers/error.classic.php
+Modified : /trunk/modules/havefnubb/controllers/flood.classic.php
+Modified : /trunk/modules/havefnubb/controllers/forum.classic.php
+Modified : /trunk/modules/havefnubb/controllers/members.classic.php
+Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/modules/havefnubb/module.xml
+Modified : /trunk/modules/havefnubb/zones/category.zone.php
+Modified : /trunk/modules/havefnubb/zones/footer_menu.zone.php
+Modified : /trunk/modules/havefnubb/zones/forum.zone.php
+Modified : /trunk/modules/havefnubb/zones/forumchild.zone.php
+Modified : /trunk/modules/havefnubb/zones/hfnubox.zone.php
+Modified : /trunk/modules/havefnubb/zones/jumpto.zone.php
+Modified : /trunk/modules/havefnubb/zones/lastposts.zone.php
+Modified : /trunk/modules/havefnubb/zones/memberlist.zone.php
+Modified : /trunk/modules/havefnubb/zones/memberprofile.zone.php
+Modified : /trunk/modules/havefnubb/zones/menu.zone.php
+Modified : /trunk/modules/havefnubb/zones/newestposts.zone.php
+Modified : /trunk/modules/havefnubb/zones/online.zone.php
+Modified : /trunk/modules/havefnubb/zones/online_offline.zone.php
+Modified : /trunk/modules/havefnubb/zones/online_today.zone.php
+Modified : /trunk/modules/havefnubb/zones/pinedposts.zone.php
+Modified : /trunk/modules/havefnubb/zones/postandmsg.zone.php
+Modified : /trunk/modules/havefnubb/zones/postlc.zone.php
+Modified : /trunk/modules/havefnubb/zones/postlistbytag.zone.php
+Modified : /trunk/modules/havefnubb/zones/posts_replies.zone.php
+Modified : /trunk/modules/havefnubb/zones/quickreply.zone.php
+Modified : /trunk/modules/havefnubb/zones/responsettl.zone.php
+Modified : /trunk/modules/havefnubb/zones/stats.zone.php
+Modified : /trunk/modules/havefnubb/zones/statsinfos.zone.php
+Modified : /trunk/modules/havefnubb/zones/syntax_wiki.zone.php
+Modified : /trunk/modules/havefnubb/zones/viewedttl.zone.php
+Modified : /trunk/modules/havefnubb/zones/what_is_my_rank.zone.php
+Modified : /trunk/modules/hfnuadmin/classes/hfnuaboutmodule.listener.php
+Modified : /trunk/modules/hfnuadmin/classes/hfnuadmin.listener.php
+Modified : /trunk/modules/hfnuadmin/classes/hfnuadmindashboard.listener.php
+Modified : /trunk/modules/hfnuadmin/classes/hfnuadmininfobox.listener.php
+Modified : /trunk/modules/hfnuadmin/classes/hfnuadminmenu.listener.php
+Modified : /trunk/modules/hfnuadmin/classes/hfnuadminrights.class.php
+Modified : /trunk/modules/hfnuadmin/classes/hfnumanageuser.listener.php
+Modified : /trunk/modules/hfnuadmin/classes/themes.class.php
+Modified : /trunk/modules/hfnuadmin/controllers/ban.classic.php
+Modified : /trunk/modules/hfnuadmin/controllers/cache.classic.php
+Modified : /trunk/modules/hfnuadmin/controllers/category.classic.php
+Modified : /trunk/modules/hfnuadmin/controllers/default.classic.php
+Modified : /trunk/modules/hfnuadmin/controllers/forum.classic.php
+Modified : /trunk/modules/hfnuadmin/controllers/modules.classic.php
+Modified : /trunk/modules/hfnuadmin/controllers/notify.classic.php
+Modified : /trunk/modules/hfnuadmin/controllers/ranks.classic.php
+Modified : /trunk/modules/hfnuadmin/module.xml
+Modified : /trunk/modules/hfnuadmin/zones/about.zone.php
+Modified : /trunk/modules/hfnuadmin/zones/category.zone.php
+Modified : /trunk/modules/hfnuadmin/zones/forum.zone.php
+Modified : /trunk/modules/hfnuadmin/zones/forumchild.zone.php
+Modified : /trunk/modules/hfnuadmin/zones/hfnuabout.zone.php
+Modified : /trunk/modules/hfnuadmin/zones/hfnutasktodo.zone.php
+Modified : /trunk/modules/hfnucontact/classes/hfnuadmincontactmenu.listener.php
+Modified : /trunk/modules/hfnucontact/classes/hfnucontact.listener.php
+Modified : /trunk/modules/hfnucontact/controllers/admin.classic.php
+Modified : /trunk/modules/hfnucontact/controllers/default.classic.php
+Modified : /trunk/modules/hfnucontact/module.xml
+Modified : /trunk/modules/hfnucontact/zones/about.zone.php
+Modified : /trunk/modules/hfnuinstall/classes/driver.class.php
+Modified : /trunk/modules/hfnuinstall/classes/hfnuinstall.listener.php
+Modified : /trunk/modules/hfnuinstall/classes/supported_drivers.class.php
+Modified : /trunk/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/modules/hfnuinstall/install/sql/install.mysql.sql
+Modified : /trunk/modules/hfnuinstall/install/update/1.0.2/install.mysql.sql
+Added : /trunk/modules/hfnupoll
+Added : /trunk/modules/hfnupoll/classes
+Added : /trunk/modules/hfnupoll/classes/hfnuadminpollmenu.listener.php
+Added : /trunk/modules/hfnupoll/classes/hfnupoll.listener.php
+Added : /trunk/modules/hfnupoll/controllers
+Added : /trunk/modules/hfnupoll/controllers/admin.classic.php
+Added : /trunk/modules/hfnupoll/controllers/default.classic.php
+Added : /trunk/modules/hfnupoll/daos
+Added : /trunk/modules/hfnupoll/daos/hfnupoll.dao.xml
+Added : /trunk/modules/hfnupoll/events.xml
+Added : /trunk/modules/hfnupoll/forms
+Added : /trunk/modules/hfnupoll/forms/hfnupoll.form.xml
+Added : /trunk/modules/hfnupoll/install
+Added : /trunk/modules/hfnupoll/install/sql
+Added : /trunk/modules/hfnupoll/install/sql/install.mysql.sql
+Added : /trunk/modules/hfnupoll/locales
+Added : /trunk/modules/hfnupoll/locales/en_EN
+Added : /trunk/modules/hfnupoll/locales/en_EN/poll.UTF-8.properties
+Added : /trunk/modules/hfnupoll/locales/fr_FR
+Added : /trunk/modules/hfnupoll/locales/fr_FR/poll.UTF-8.properties
+Added : /trunk/modules/hfnupoll/module.xml
+Added : /trunk/modules/hfnupoll/templates
+Added : /trunk/modules/hfnupoll/zones
+Modified : /trunk/modules/hfnurates/classes/rates.class.php
+Modified : /trunk/modules/hfnurates/controllers/default.classic.php
+Modified : /trunk/modules/hfnurates/module.xml
+Modified : /trunk/modules/hfnurates/zones/rates.zone.php
+Modified : /trunk/modules/hfnusearch/classes/cleaner.class.php
+Modified : /trunk/modules/hfnusearch/classes/hfnusearch.listener.php
+Modified : /trunk/modules/hfnusearch/classes/hfnusearchadminmenu.listener.php
+Modified : /trunk/modules/hfnusearch/classes/search_in.class.php
+Modified : /trunk/modules/hfnusearch/classes/search_index.class.php
+Modified : /trunk/modules/hfnusearch/classes/search_index_havefnubb.class.php
+Modified : /trunk/modules/hfnusearch/classes/searchwords.listener.php
+Modified : /trunk/modules/hfnusearch/controllers/admin.classic.php
+Modified : /trunk/modules/hfnusearch/controllers/default.classic.php
+Modified : /trunk/modules/hfnusearch/install/hfnusearch.css
+Modified : /trunk/modules/hfnusearch/module.xml
+Added : /trunk/modules/hfnusearch/templates/zone.hfnuquicksearch.tpl
+Added : /trunk/modules/hfnusearch/zones/hfnuquicksearch.zone.php
+Modified : /trunk/modules/hfnusearch/zones/hfnusearch.zone.php
+Modified : /trunk/modules/hfnusearch/zones/searchAuthor.zone.php
+Modified : /trunk/modules/hfnusearch/zones/searchForum.zone.php
+Modified : /trunk/modules/servinfo/classes/serverinfos.class.php
+Modified : /trunk/modules/servinfo/classes/servinfo.listener.php
+Modified : /trunk/modules/servinfo/controllers/default.classic.php
+Modified : /trunk/modules/servinfo/module.xml
+Modified : /trunk/modules/servinfo/zones/server_info.zone.php
+Modified : /trunk/plugins/tpl/html/function.age.php
+Modified : /trunk/plugins/tpl/html/function.nospam.php
+Modified : /trunk/plugins/tpl/html/function.phpinfo.php
+Modified : /trunk/responses/adminHtmlResponse.class.php
+Modified : /trunk/responses/adminLoginHtmlResponse.class.php
+Modified : /trunk/responses/fnuHtmlResponse.class.php
+Modified : /trunk/responses/installHtmlResponse.class.php
+Added : /trunk/scripts
+Added : /trunk/scripts/phpunit
+Modified : /trunk/themes/box/css/havefnuboard.css
+Modified : /trunk/themes/box/css/havefnuboard_admin.css
+Modified : /trunk/themes/box/css/havefnuboard_posts.css
+Modified : /trunk/themes/box/css/havefnuboard_users.css
+Modified : /trunk/themes/box/css/hfnusearch.css
+Added : /trunk/themes/box/images/admin/poll_add.png
+Added : /trunk/themes/box/images/admin/poll_config.png
+Added : /trunk/themes/box/images/admin/poll_list.png
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard.css
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard_admin.css
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard_posts.css
+Modified : /trunk/themes/chocolatebrown/css/havefnuboard_users.css
+Modified : /trunk/themes/chocolatebrown/css/hfnusearch.css
+Added : /trunk/themes/chocolatebrown/images/admin/poll_add.png
+Added : /trunk/themes/chocolatebrown/images/admin/poll_config.png
+Added : /trunk/themes/chocolatebrown/images/admin/poll_list.png
+Modified : /trunk/themes/default/css/havefnuboard.css
+Modified : /trunk/themes/default/css/havefnuboard_admin.css
+Modified : /trunk/themes/default/css/havefnuboard_posts.css
+Modified : /trunk/themes/default/css/havefnuboard_users.css
+Modified : /trunk/themes/default/css/hfnusearch.css
+Added : /trunk/themes/default/images/admin/poll_add.png
+Added : /trunk/themes/default/images/admin/poll_config.png
+Added : /trunk/themes/default/images/admin/poll_list.png
+Modified : /trunk/themes/emplode/css/havefnuboard_admin.css
+Modified : /trunk/themes/emplode/css/havefnuboard_posts.css
+Modified : /trunk/themes/emplode/css/havefnuboard_users.css
+Modified : /trunk/themes/emplode/css/hfnusearch.css
+Added : /trunk/themes/emplode/images/admin/poll_add.png
+Added : /trunk/themes/emplode/images/admin/poll_config.png
+Added : /trunk/themes/emplode/images/admin/poll_list.png
+Added : /trunk/themes/fluid/css/havefnuboard_admin.css
+Modified : /trunk/themes/fluid/css/hfnusearch.css
+Deleted : /trunk/themes/fluid/images/admin/Thumbs.db
+Added : /trunk/themes/fluid/images/admin/poll_add.png
+Added : /trunk/themes/fluid/images/admin/poll_config.png
+Added : /trunk/themes/fluid/images/admin/poll_list.png
+Modified : /trunk/var/config/hfnuadmin/config.ini.php
+Modified : /trunk/var/config/index/config.ini.php
+Added : /trunk/var/themes/fluid/hfnusearch/zone.hfnuquicksearch.tpl
+
+Revision: 348
+Author: foxmask
+Date: 17:27:17, samedi 15 août 2009
+Message:
+ticket #45
+----
+Modified : /trunk/modules/hfnusearch/controllers/default.classic.php
+Modified : /trunk/modules/hfnusearch/locales/en_EN/search.UTF-8.properties
+Modified : /trunk/modules/hfnusearch/locales/fr_FR/search.UTF-8.properties
+Modified : /trunk/modules/hfnusearch/templates/zone.hfnusearch.tpl
+Modified : /trunk/modules/hfnusearch/zones/hfnusearch.zone.php
+Modified : /trunk/var/themes/fluid/havefnubb/main.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.category.tpl
+Modified : /trunk/var/themes/fluid/hfnusearch/zone.hfnusearch.tpl
+
+Revision: 347
+Author: foxmask
+Date: 16:44:18, samedi 15 août 2009
+Message:
+AutoComplete JQuery plugin integrated to the HfnuSearch module
+----
+Added : /trunk/js
+Added : /trunk/js/indicator.gif
+Added : /trunk/js/jquery.autocomplete.css
+Added : /trunk/js/jquery.autocomplete.js
+Added : /trunk/js/jquery.autocomplete.min.js
+Added : /trunk/js/jquery.autocomplete.pack.js
+Modified : /trunk/modules/hfnusearch/classes/searchwords.listener.php
+Modified : /trunk/modules/hfnusearch/controllers/default.classic.php
+Modified : /trunk/modules/hfnusearch/zones/hfnusearch.zone.php
+Modified : /trunk/var/themes/fluid/hfnusearch/zone.hfnusearch.tpl
+
+Revision: 346
+Author: foxmask
+Date: 22:17:51, vendredi 14 août 2009
+Message:
+ticket #91
+----
+Modified : /trunk/modules/hfnuinstall/controllers/default.classic.php
+Added : /trunk/modules/hfnuinstall/install/update/1.0.2
+Added : /trunk/modules/hfnuinstall/install/update/1.0.2/install.mysql.sql
+
+Revision: 345
+Author: foxmask
+Date: 18:37:51, vendredi 14 août 2009
+Message:
+"fluid" theme continuing
+----
+Modified : /trunk/modules/havefnubb/forms/jumpto.form.xml
+Modified : /trunk/modules/havefnubb/forms/posts_move.form.xml
+Modified : /trunk/modules/havefnubb/forms/posts_status.form.xml
+Modified : /trunk/modules/havefnubb/locales/en_EN/forum.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/en_EN/member.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/en_EN/post.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/fr_FR/forum.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/fr_FR/member.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/fr_FR/post.UTF-8.properties
+Modified : /trunk/modules/havefnubb/zones/memberlist.zone.php
+Modified : /trunk/modules/hfnusearch/forms/forum.form.xml
+Modified : /trunk/modules/hfnusearch/locales/en_EN/forum.UTF-8.properties
+Modified : /trunk/modules/hfnusearch/locales/fr_FR/forum.UTF-8.properties
+Added : /trunk/themes/fluid/css/hfnusearch.css
+Modified : /trunk/themes/fluid/css/layout.css
+Modified : /trunk/var/config/havefnu.search.ini.php
+Modified : /trunk/var/themes/fluid/havefnubb/main.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/posts.edit.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/posts.list.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.category.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.memberlist.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.postlistbytag.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.posts_replies.tpl
+Added : /trunk/var/themes/fluid/hfnusearch/result.tpl
+Modified : /trunk/var/themes/fluid/hfnusearch/zone.hfnusearch.tpl
+Modified : /trunk/var/themes/fluid/hfnusearch/zone.searchAuthor.tpl
+Modified : /trunk/var/themes/fluid/hfnusearch/zone.searchForum.tpl
+Modified : /trunk/var/themes/fluid/jcommunity/login.tpl
+Modified : /trunk/var/themes/fluid/jcommunity/status.tpl
+
+Revision: 344
+Author: foxmask
+Date: 20:57:36, jeudi 13 août 2009
+Message:
+"fluid" theme continuing
+----
+Modified : /trunk/modules/havefnubb/locales/en_EN/member.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/fr_FR/member.UTF-8.properties
+Modified : /trunk/themes/fluid/css/layout.css
+Modified : /trunk/var/themes/fluid/havefnubb/main.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.category.tpl
+Modified : /trunk/var/themes/fluid/jcommunity/account_edit.tpl
+Modified : /trunk/var/themes/fluid/jcommunity/account_show.tpl
+Modified : /trunk/var/themes/fluid/jcommunity/status.tpl
+Modified : /trunk/var/themes/fluid/jmessenger/links.tpl
+Modified : /trunk/var/themes/fluid/jmessenger/listmsg.tpl
+Modified : /trunk/var/themes/fluid/jmessenger/new.tpl
+Modified : /trunk/var/themes/fluid/jmessenger/view.tpl
+
+Revision: 343
+Author: foxmask
+Date: 15:45:00, jeudi 13 août 2009
+Message:
+"fluid"  theme to continue
+----
+Added : /trunk/images/avatars/photo_60x60.jpg
+Modified : /trunk/modules/havefnubb/controllers/default.classic.php
+Modified : /trunk/themes/fluid/css/layout.css
+Modified : /trunk/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/var/themes/fluid/havefnubb/main.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.category.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.forumchild.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.lastposts.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.online.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.online_today.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.postlistbytag.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.stats.tpl
+Deleted : /trunk/var/themes/fluid/havefnubb/zone.statsinfos.tpl
+Modified : /trunk/var/themes/fluid/hfnucontact/contact.tpl
+Modified : /trunk/var/themes/fluid/jtags/tagscloud.tpl
+
+Revision: 342
+Author: foxmask
+Date: 20:06:39, mercredi 12 août 2009
+Message:
+Continuing of integrated 960gs fwrk with a "fluid" theme.
+----
+Modified : /trunk/var/config/flood.coord.ini.php
+Modified : /trunk/var/config/timeout.coord.ini.php
+Modified : /trunk/var/themes/fluid/havefnubb/banuser.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/flood.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/member_changepwd.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/posts.edit.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/posts.notify.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.forumchild.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.lastposts.tpl
+Modified : /trunk/var/themes/fluid/havefnubb/zone.memberlist.tpl
+
+Revision: 341
+Author: foxmask
+Date: 20:03:59, mercredi 12 août 2009
+Message:
+2 bugs (fixed) in install process appeared since jCommunity change the status of a valid account.
+----
+Modified : /trunk/modules/hfnuinstall/controllers/default.classic.php
+
+Revision: 340
+Author: foxmask
+Date: 10:42:18, dimanche 9 août 2009
+Message:
+New Theme based on 960gs "fluid" 
+----
+Added : /trunk/themes/fluid
+Added : /trunk/themes/fluid/css
+Added : /trunk/themes/fluid/css/960.css
+Added : /trunk/themes/fluid/css/grid.css
+Added : /trunk/themes/fluid/css/ie.css
+Added : /trunk/themes/fluid/css/ie6.css
+Added : /trunk/themes/fluid/css/layout.css
+Added : /trunk/themes/fluid/css/nav.css
+Added : /trunk/themes/fluid/css/reset.css
+Added : /trunk/themes/fluid/css/text.css
+Added : /trunk/themes/fluid/images
+Added : /trunk/themes/fluid/images/Thumbs.db
+Added : /trunk/themes/fluid/images/admin
+Added : /trunk/themes/fluid/images/admin/Thumbs.db
+Added : /trunk/themes/fluid/images/admin/accelerator.png
+Added : /trunk/themes/fluid/images/admin/ban.png
+Added : /trunk/themes/fluid/images/admin/category.png
+Added : /trunk/themes/fluid/images/admin/clear_cache.png
+Added : /trunk/themes/fluid/images/admin/config.png
+Added : /trunk/themes/fluid/images/admin/contact.png
+Added : /trunk/themes/fluid/images/admin/database.png
+Added : /trunk/themes/fluid/images/admin/forum.png
+Added : /trunk/themes/fluid/images/admin/information.png
+Added : /trunk/themes/fluid/images/admin/modules_list.png
+Added : /trunk/themes/fluid/images/admin/notification.png
+Added : /trunk/themes/fluid/images/admin/php.png
+Added : /trunk/themes/fluid/images/admin/rank.png
+Added : /trunk/themes/fluid/images/admin/search_engine.png
+Added : /trunk/themes/fluid/images/admin/todos.png
+Added : /trunk/themes/fluid/images/admin/user.png
+Added : /trunk/themes/fluid/images/error.png
+Added : /trunk/themes/fluid/images/exclamation.png
+Added : /trunk/themes/fluid/images/help.png
+Added : /trunk/themes/fluid/images/information.png
+Added : /trunk/themes/fluid/images/mail
+Added : /trunk/themes/fluid/images/mail/Thumbs.db
+Added : /trunk/themes/fluid/images/mail/email_answer.png
+Added : /trunk/themes/fluid/images/mail/email_delete.png
+Added : /trunk/themes/fluid/images/posts
+Added : /trunk/themes/fluid/images/posts/Thumbs.db
+Added : /trunk/themes/fluid/images/posts/book.png
+Added : /trunk/themes/fluid/images/posts/book_next.png
+Added : /trunk/themes/fluid/images/posts/category.png
+Added : /trunk/themes/fluid/images/posts/closed.png
+Added : /trunk/themes/fluid/images/posts/folder.png
+Added : /trunk/themes/fluid/images/posts/folder_new.png
+Added : /trunk/themes/fluid/images/posts/opened.png
+Added : /trunk/themes/fluid/images/posts/pined-closed.png
+Added : /trunk/themes/fluid/images/posts/pined.png
+Added : /trunk/themes/fluid/images/posts/post_new.png
+Added : /trunk/themes/fluid/images/posts/rss_go.png
+Added : /trunk/themes/fluid/images/posts/tag_green.png
+Added : /trunk/themes/fluid/images/posts/world_go.png
+Added : /trunk/themes/fluid/images/toggle
+Added : /trunk/themes/fluid/images/toggle/Thumbs.db
+Added : /trunk/themes/fluid/images/toggle/togglerc.gif
+Added : /trunk/themes/fluid/images/toggle/togglerch.gif
+Added : /trunk/themes/fluid/images/toggle/togglero.gif
+Added : /trunk/themes/fluid/images/toggle/toggleroh.gif
+Added : /trunk/themes/fluid/images/users
+Added : /trunk/themes/fluid/images/users/Thumbs.db
+Added : /trunk/themes/fluid/images/users/aim.gif
+Added : /trunk/themes/fluid/images/users/at.gif
+Added : /trunk/themes/fluid/images/users/at2.gif
+Added : /trunk/themes/fluid/images/users/cake.png
+Added : /trunk/themes/fluid/images/users/chart_bar.png
+Added : /trunk/themes/fluid/images/users/computer.png
+Added : /trunk/themes/fluid/images/users/connect.png
+Added : /trunk/themes/fluid/images/users/display.png
+Added : /trunk/themes/fluid/images/users/dot.gif
+Added : /trunk/themes/fluid/images/users/email.png
+Added : /trunk/themes/fluid/images/users/email_add.png
+Added : /trunk/themes/fluid/images/users/email_go.png
+Added : /trunk/themes/fluid/images/users/email_inbox.png
+Added : /trunk/themes/fluid/images/users/email_outbox.png
+Added : /trunk/themes/fluid/images/users/emoticon_tongue.png
+Added : /trunk/themes/fluid/images/users/eye.png
+Added : /trunk/themes/fluid/images/users/group.png
+Added : /trunk/themes/fluid/images/users/house.png
+Added : /trunk/themes/fluid/images/users/icq.gif
+Added : /trunk/themes/fluid/images/users/keyboard.png
+Added : /trunk/themes/fluid/images/users/mail.gif
+Added : /trunk/themes/fluid/images/users/member_posts.png
+Added : /trunk/themes/fluid/images/users/member_rank.png
+Added : /trunk/themes/fluid/images/users/member_since.png
+Added : /trunk/themes/fluid/images/users/motherboard.png
+Added : /trunk/themes/fluid/images/users/mouse.png
+Added : /trunk/themes/fluid/images/users/msn.gif
+Added : /trunk/themes/fluid/images/users/offline.png
+Added : /trunk/themes/fluid/images/users/online.png
+Added : /trunk/themes/fluid/images/users/screen.png
+Added : /trunk/themes/fluid/images/users/user.png
+Added : /trunk/themes/fluid/images/users/user_edit.png
+Added : /trunk/themes/fluid/images/users/user_key.png
+Added : /trunk/themes/fluid/images/users/user_pref.png
+Added : /trunk/themes/fluid/images/users/user_suit.png
+Added : /trunk/themes/fluid/images/users/vcard.png
+Added : /trunk/themes/fluid/images/users/world.png
+Added : /trunk/themes/fluid/images/users/world_link.png
+Added : /trunk/themes/fluid/images/users/xfire.png
+Added : /trunk/themes/fluid/images/users/yim.gif
+Added : /trunk/themes/fluid/images/wiki
+Added : /trunk/themes/fluid/images/wiki/Thumbs.db
+Added : /trunk/themes/fluid/images/wiki/text_acronym.png
+Added : /trunk/themes/fluid/images/wiki/text_align_center.png
+Added : /trunk/themes/fluid/images/wiki/text_align_justify.png
+Added : /trunk/themes/fluid/images/wiki/text_align_left.png
+Added : /trunk/themes/fluid/images/wiki/text_align_right.png
+Added : /trunk/themes/fluid/images/wiki/text_bold.png
+Added : /trunk/themes/fluid/images/wiki/text_carriage_return.png
+Added : /trunk/themes/fluid/images/wiki/text_code.png
+Added : /trunk/themes/fluid/images/wiki/text_def.png
+Added : /trunk/themes/fluid/images/wiki/text_full_link.png
+Added : /trunk/themes/fluid/images/wiki/text_hr.png
+Added : /trunk/themes/fluid/images/wiki/text_image.png
+Added : /trunk/themes/fluid/images/wiki/text_italic.png
+Added : /trunk/themes/fluid/images/wiki/text_link.png
+Added : /trunk/themes/fluid/images/wiki/text_list_numbers.png
+Added : /trunk/themes/fluid/images/wiki/text_para.png
+Added : /trunk/themes/fluid/images/wiki/text_quote.png
+Added : /trunk/themes/fluid/images/wiki/text_source.png
+Added : /trunk/themes/fluid/img
+Added : /trunk/themes/fluid/img/Thumbs.db
+Added : /trunk/themes/fluid/img/ajax-loader.gif
+Added : /trunk/themes/fluid/img/bg_buton.png
+Added : /trunk/themes/fluid/img/bg_footer.png
+Added : /trunk/themes/fluid/img/bg_sidebar_top_box.png
+Added : /trunk/themes/fluid/img/check_off.png
+Added : /trunk/themes/fluid/img/check_on.png
+Added : /trunk/themes/fluid/img/check_wrn.png
+Added : /trunk/themes/fluid/img/delete.png
+Added : /trunk/themes/fluid/img/download.png
+Added : /trunk/themes/fluid/img/downloads.png
+Added : /trunk/themes/fluid/img/downloads_cats.png
+Added : /trunk/themes/fluid/img/get_download.png
+Added : /trunk/themes/fluid/img/ico_activer.png
+Added : /trunk/themes/fluid/img/ico_back_portal.png
+Added : /trunk/themes/fluid/img/ico_desactiver.png
+Added : /trunk/themes/fluid/img/ico_file.png
+Added : /trunk/themes/fluid/img/ico_logout.png
+Added : /trunk/themes/fluid/img/ko.png
+Added : /trunk/themes/fluid/img/last_download.png
+Added : /trunk/themes/fluid/img/off.png
+Added : /trunk/themes/fluid/img/ok.png
+Added : /trunk/themes/fluid/img/on.png
+Added : /trunk/themes/fluid/img/photo_60x60.jpg
+Added : /trunk/themes/fluid/img/photo_60x60.psd
+Added : /trunk/themes/fluid/img/pop_download.png
+Added : /trunk/themes/fluid/img/switch_minus.gif
+Added : /trunk/themes/fluid/img/switch_plus.gif
+Added : /trunk/themes/fluid/img/trash.png
+Added : /trunk/themes/fluid/img/warning.png
+Added : /trunk/themes/fluid/img/zoom.png
+Added : /trunk/themes/fluid/js
+Added : /trunk/themes/fluid/js/jquery-fluid16.js
+Added : /trunk/themes/fluid/js/jquery-ui.js
+Added : /trunk/var/themes/fluid
+Added : /trunk/var/themes/fluid/havefnubb
+Added : /trunk/var/themes/fluid/havefnubb/403.html.tpl
+Added : /trunk/var/themes/fluid/havefnubb/404.html.tpl
+Added : /trunk/var/themes/fluid/havefnubb/banuser.tpl
+Added : /trunk/var/themes/fluid/havefnubb/flood.tpl
+Added : /trunk/var/themes/fluid/havefnubb/main.tpl
+Added : /trunk/var/themes/fluid/havefnubb/main_not_installed.tpl
+Added : /trunk/var/themes/fluid/havefnubb/member_changepwd.tpl
+Added : /trunk/var/themes/fluid/havefnubb/posts.edit.tpl
+Added : /trunk/var/themes/fluid/havefnubb/posts.list.tpl
+Added : /trunk/var/themes/fluid/havefnubb/posts.notify.tpl
+Added : /trunk/var/themes/fluid/havefnubb/posts.view.tpl
+Added : /trunk/var/themes/fluid/havefnubb/split.to.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.category.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.forumchild.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.forumindex.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.jumpto.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.lastposts.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.memberlist.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.memberprofile.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.menu.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.online.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.online_offline.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.online_today.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.postlistbytag.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.posts_replies.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.quickreply.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.stats.tpl
+Added : /trunk/var/themes/fluid/havefnubb/zone.statsinfos.tpl
+Added : /trunk/var/themes/fluid/hfnucontact
+Added : /trunk/var/themes/fluid/hfnucontact/contact.tpl
+Added : /trunk/var/themes/fluid/hfnurates
+Added : /trunk/var/themes/fluid/hfnurates/zone.rates.tpl
+Added : /trunk/var/themes/fluid/hfnusearch
+Added : /trunk/var/themes/fluid/hfnusearch/zone.hfnusearch.tpl
+Added : /trunk/var/themes/fluid/hfnusearch/zone.searchAuthor.tpl
+Added : /trunk/var/themes/fluid/hfnusearch/zone.searchForum.tpl
+Added : /trunk/var/themes/fluid/jcommunity
+Added : /trunk/var/themes/fluid/jcommunity/account_edit.tpl
+Added : /trunk/var/themes/fluid/jcommunity/account_show.tpl
+Added : /trunk/var/themes/fluid/jcommunity/login.tpl
+Added : /trunk/var/themes/fluid/jcommunity/password_confirmation.tpl
+Added : /trunk/var/themes/fluid/jcommunity/passwordform.tpl
+Added : /trunk/var/themes/fluid/jcommunity/registration.tpl
+Added : /trunk/var/themes/fluid/jcommunity/registration_confirmation.tpl
+Added : /trunk/var/themes/fluid/jcommunity/status.tpl
+Added : /trunk/var/themes/fluid/jmessenger
+Added : /trunk/var/themes/fluid/jmessenger/links.tpl
+Added : /trunk/var/themes/fluid/jmessenger/listmsg.tpl
+Added : /trunk/var/themes/fluid/jmessenger/new.tpl
+Added : /trunk/var/themes/fluid/jmessenger/view.tpl
+Added : /trunk/var/themes/fluid/jtags
+Added : /trunk/var/themes/fluid/jtags/tagscloud.tpl
+
+Revision: 339
+Author: foxmask
+Date: 10:39:44, dimanche 9 août 2009
+Message:
+- ticket #92
+- déplacement des CSS du "response" au template main
+----
+Modified : /trunk/modules/havefnubb/controllers/banuser.classic.php
+Modified : /trunk/modules/havefnubb/controllers/default.classic.php
+Modified : /trunk/modules/havefnubb/controllers/flood.classic.php
+Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/modules/havefnubb/locales/en_EN/main.UTF-8.properties
+Modified : /trunk/modules/havefnubb/locales/fr_FR/main.UTF-8.properties
+Modified : /trunk/modules/havefnubb/templates/zone.jumpto.tpl
+Modified : /trunk/modules/havefnubb/templates/zone.postlc.tpl
+Modified : /trunk/modules/havefnubb/templates/zone.stats.tpl
+Modified : /trunk/modules/hfnuinstall/locales/en_EN/install.UTF-8.properties
+Modified : /trunk/modules/hfnuinstall/locales/fr_FR/install.UTF-8.properties
+Modified : /trunk/modules/hfnuinstall/templates/install.tpl
+Modified : /trunk/responses/fnuHtmlResponse.class.php
+Modified : /trunk/var/config/flood.coord.ini.php
+Modified : /trunk/var/config/timeout.coord.ini.php
+Modified : /trunk/var/themes/box/havefnubb/main.tpl
+Modified : /trunk/var/themes/box/havefnubb/zone.stats.tpl
+Modified : /trunk/var/themes/chocolatebrown/havefnubb/main.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/main.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/main_not_installed.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/zone.jumpto.tpl
+Modified : /trunk/var/themes/emplode/havefnubb/zone.stats.tpl
+
+Revision: 337
+Author: foxmask
+Date: 10:09:13, mardi 14 juillet 2009
+Message:
+1.0.1
+----
+Modified : /trunk/modules/hfnuinstall/install/UPDATE-TO-1.0.1
+Modified : /trunk/var/config/havefnu.ini.php.dist
+
+Revision: 336
+Author: foxmask
+Date: 09:53:39, mardi 14 juillet 2009
+Message:
+ticket #89
+----
+Modified : /trunk/modules/havefnubb/module.xml
+Modified : /trunk/modules/hfnuinstall/controllers/default.classic.php
+Added : /trunk/modules/hfnuinstall/install/UPDATE-TO-1.0.1
+Modified : /trunk/modules/hfnuinstall/module.xml
+Modified : /trunk/responses/fnuHtmlResponse.class.php
+Modified : /trunk/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/var/config/urls.xml
+
+Revision: 334
+Author: foxmask
+Date: 11:51:11, samedi 11 juillet 2009
+Message:
+1.0.0
+----
+Modified : /trunk/var/config/havefnu.ini.php.dist
+
+Revision: 333
+Author: foxmask
+Date: 11:49:42, samedi 11 juillet 2009
+Message:
+1.0.0
+----
+Modified : /trunk/modules/hfnuinstall/install/VERSION
+
+Revision: 332
+Author: foxmask
+Date: 11:48:47, samedi 11 juillet 2009
+Message:
+ChangeLog 1.1.0
+----
+Modified : /trunk/modules/hfnuinstall/install/CHANGELOG
+
+
+
+
 Revision: 331
 Author: foxmask
 Date: 11:40:13, samedi 11 juillet 2009
