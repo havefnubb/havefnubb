@@ -31,7 +31,7 @@ class defaultCtrl extends jController {
 		}
 		else {
 			$HfnucontactConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'hfnucontact.ini.php');
-			$to = $HfnucontactConfig->getValue('email_contact');
+			$to = $HfnucontactConfig->getValue('to_contact');
 		}
 		// is the 'To' still empty ??
 		if ( $to == '' ) {
@@ -48,33 +48,45 @@ class defaultCtrl extends jController {
     }
 	
 	public function send_a_message() {
-		
+		global $gJConfig;
 		$form = jForms::fill('hfnucontact~contact');
 
 		if (! $form->check()) {
-			$to = $this->param('to');
-			jMessage::add($form->getErrors(),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action='hfnucontact~default:index';
-			$rep->params = array('to',$to);
 			return $rep;			
 		}
 		
+		// the sender is  not connected and use contact form to send a message 
+		// to the contact defined in hfnucontact.ini.php
+		if (! jAuth::isConnected()) {
+			$HfnucontactConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'hfnucontact.ini.php');
+			$toContact = $HfnucontactConfig->getValue('to_contact');
+			$emailTo = $HfnucontactConfig->getValue('email_contact');
+			$email = $gJConfig->mailer['webmasterEmail'];
+			$login = $gJConfig->mailer['webmasterName'];	
+		}
+		else {
+			$email = jAuth::getUserSession ()->email ;
+			$login = jAuth::getUserSession ()->login ;			
+			$dao = jDao::get('jcommunity~user');
+			$user = $dao->getByLogin($form->getData('to'));
+			$emailTo = $user->email;			
+		}
+		
 		$mail = new jMailer();
-		$mail->From       = jAuth::getUserSession ()->email;
-		$mail->FromName   = jAuth::getUserSession ()->login;
-		$mail->Sender     = jAuth::getUserSession ()->email;
-		$mail->Subject    = $form->getData('subject');
+		$mail->From       = $email;
+		$mail->FromName   = $login;
+		$mail->Sender     = $email;
+		$mail->Subject    = '[Contact] '.htmlentities($form->getData('subject'));
 		$mail->ContentType = 'text/html';
 		
 		$tpl = new jTpl();
-		$tpl->assign('login',jAuth::getUserSession ()->login);
+		$tpl->assign('login',$login);
 		$tpl->assign('message',$form->getData('message'));
-		$mail->Body = $tpl->fetch('hfnucontact~send_an_email', 'text');
-
-		$dao = jDao::get('jcommunity~user');
-		$user = $dao->getByLogin($form->getData('to'));		
-		$mail->AddAddress($user->email);
+		$tpl->assign('server',$_SERVER['SERVER_NAME']);
+		$mail->Body = $tpl->fetch('hfnucontact~send_an_email', 'text');	
+		$mail->AddAddress($emailTo);
 		$mail->Send();
 		
 		jForms::destroy('hfnucontact~contact');
