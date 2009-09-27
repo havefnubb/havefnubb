@@ -49,7 +49,7 @@ class defaultCtrl extends jController {
 				 case 'check':
                     
                     $phpSupported = false;                    
-                    if ( version_compare(phpversion(),'5.0','>=') ) {
+                    if ( version_compare(phpversion(),'5.2','>=') ) {
                         $phpSupported = true;
                         jMessage::add(jLocale::get('hfnuinstall~install.check.php.version.is',array(phpversion())),'ok') ;
                     }
