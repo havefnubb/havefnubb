@@ -42,16 +42,16 @@ emailHeaders="Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.
 quietMessage="Une erreur technique est survenue. Désolé pour ce désagrément."
 
 ; mots clés que vous pouvez utiliser : ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
-default      = ECHOQUIET EXIT LOGFILE
-error        = ECHOQUIET EXIT LOGFILE
-warning      = ECHOQUIET LOGFILE
-notice       =  
-strict       = 
+default="ECHOQUIET EXIT LOGFILE"
+error="ECHOQUIET EXIT LOGFILE"
+warning="ECHOQUIET LOGFILE"
+notice=
+strict=
 ; pour les exceptions, il y a implicitement un EXIT
-exception    = ECHOQUIET LOGFILE
+exception="ECHOQUIET LOGFILE"
 
 [compilation]
-checkCacheFiletime=off
+checkCacheFiletime=on
 force=off
 
 [urlengine]
@@ -114,7 +114,7 @@ jsonrpc="@jsonrpc"
 rdf="@rdf"
 
 ; hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~admin@classic, hfnupoll~admin@classic hfnucontact~admin@classic downloads~mgr:index@classic downloads~mgr:manage@classic downloads~mgr:config@classic downloads~mgr:dls@classic"
-hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic"
+hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~*@classic"
 install="hfnuinstall~*@classic"
 
 [basic_significant_urlengine_entrypoints]
@@ -192,3 +192,4 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
