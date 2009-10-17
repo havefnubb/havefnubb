@@ -59,4 +59,19 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~notinstalled'));
         return $rep;		
 	}
+	
+	function rules() {
+		global $HfnuConfig;        
+		$tpl = new jTpl();
+		if ($HfnuConfig->getValue('rules','main') != '') {
+			$rep = $this->getResponse('html');
+			$tpl->assign('rules',$HfnuConfig->getValue('rules','main'));
+	        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~rules'));
+		}
+		else {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'default:index';
+		}
+        return $rep;		
+	}
 }

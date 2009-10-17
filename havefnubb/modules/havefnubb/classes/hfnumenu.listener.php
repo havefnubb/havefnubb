@@ -14,6 +14,7 @@ class hfnumenuListener extends jEventListener{
    * Main Menu of the navbar
    */
    function onhfnuGetMenuContent ($event) {
+	  global $HfnuConfig;
 	  
 	  $event->add(new hfnuMenuItem('home',
 			jLocale::get('havefnubb~main.home'),
@@ -32,13 +33,18 @@ class hfnumenuListener extends jEventListener{
 			jUrl::get('havefnubb~members:index'),
 			3,
 			'main'));
-	  
-	  $event->add(new hfnuMenuItem('search',
-			jLocale::get('havefnubb~main.search'),
-			jUrl::get('hfnusearch~default:index'),
+	  $event->add(new hfnuMenuItem('members',
+			jLocale::get('havefnubb~main.member.list'),
+			jUrl::get('havefnubb~members:index'),
 			4,
 			'main'));
-	  
+	  if ($HfnuConfig->getValue('rules','main') != '') {
+		 $event->add(new hfnuMenuItem('rules',
+			   jLocale::get('havefnubb~main.rules'),
+			   jUrl::get('havefnubb~default:rules'),
+			   5,
+			   'main'));
+	  }	  
       if ( jAcl2::check('hfnu.admin.index'))    {	  
 		 $event->add(new hfnuMenuItem('admin',
 			jLocale::get('havefnubb~main.admin.panel'),
