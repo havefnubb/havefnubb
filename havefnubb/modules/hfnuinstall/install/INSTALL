@@ -23,6 +23,20 @@ When the archive in uncompressed you have the following directories :
 * lib/               Jelix librairies 
 * temp
 * all others dir are use for web content such as "images","themes" etc..
+
+
+Rights Accesss :
+Don't forget to change/check your rights access on all your folder to 755, and your files in 644,
+except for the 4 files located in var/config which have to be in 664 : defaultconfig.ini.php, dbprofils.ini.php, havefnu.ini.php, flood.ini.php.
+
+do the following to change them :
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+
+chmod 664 var/config/defaultconfig.ini.php
+chmod 664 var/config/dbprofils.ini.php
+chmod 664 var/config/havefnu.ini.php
+chmod 664 var/config/flood.ini.php
  
  
 0) Configuration of the web environment : 
@@ -37,7 +51,9 @@ Options +Multiviews
 1) rename the file havefnubb/var/config/defaultconfig.ini.php.dist in havefnubb/var/config/defaultconfig.ini.php
 2) rename the file havefnubb/var/config/dbprofils.ini.php.dist in havefnubb/var/config/dbprofils.ini.php
 3) rename the file havefnubb/var/config/havefnu.ini.php.dist in havefnubb/var/config/havefnu.ini.php
-4) go to http://_your_domain.com_/install and follow the steps 
+4) go to http://_your_domain.com_/install and follow the steps
+
+
 
 ************************************************************************************
 
@@ -63,6 +79,20 @@ Quand l'archive est décompressée vous obtenez les répertoires suivants :
 * lib/               librairies Jelix
 * temp
 * tous les autres répertoires fournissent du contenu web tels "images","themes" etc..
+
+Droits d'accès : 
+n'oubliez pas de passer vos dossiers en 755 et vos fichiers en 644,
+à l'exception des 4 fichiers de configurations situés dans var/config avec le mode suivant 664 : defaultconfig.ini.php, dbprofils.ini.php, havefnu.ini.php, flood.ini.php.
+
+executer les commandes suivantes pour appliquer les bons droits  :
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+
+chmod 664 var/config/defaultconfig.ini.php
+chmod 664 var/config/dbprofils.ini.php
+chmod 664 var/config/havefnu.ini.php
+chmod 664 var/config/flood.ini.php
+ 
 
 0) Configuration de l'environnement web :
 - Si vous pouvez spécifier le document root, transférer le contenu de l'archive et faites pointer le répertoire havefnubb/www sur la racine de votre site.

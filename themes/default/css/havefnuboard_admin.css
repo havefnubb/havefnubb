@@ -31,12 +31,12 @@
 }
 
 
-#hfnuadmin-general, #hfnuadmin-messages, #hfnuadmin-members, #hfnuadmin-timeout, #hfnuadmin-flood  {
+#hfnuadmin-general, #hfnuadmin-messages, #hfnuadmin-members, #hfnuadmin-timeout, #hfnuadmin-flood, #hfnuadmin-social-networks  {
     background-color:#eff4f6;
     border: 1px solid #B0C4CB;
 }	
 	
-#hfnuadmin-general fieldset, #hfnuadmin-messages fieldset, #hfnuadmin-members  fieldset, #hfnuadmin-timeout fieldset, #hfnuadmin-flood fieldset  {
+#hfnuadmin-general fieldset, #hfnuadmin-messages fieldset, #hfnuadmin-members  fieldset, #hfnuadmin-timeout fieldset, #hfnuadmin-flood fieldset, #hfnuadmin-social-networks fieldset  {
     background-color:#eff4f6;
     border: 1px solid #B0C4CB;
 }	
@@ -212,4 +212,44 @@ td.td-notify-message {
 	background-repeat: no-repeat;
     background-image: url(../images/admin/user.png);
 	padding-left : 20px;
+}
+
+.social-network li {
+	list-style: none;
+}
+#social-network-twitter {
+	background-image: url('../images/social-network/Twitter.png');
+	background-repeat: no-repeat;
+	height: 64px;
+	padding-left: 45px;
+}
+#social-network-digg {
+	background-image: url('../images/social-network/Digg.png');
+	background-repeat: no-repeat;
+	height: 64px;
+	padding-left: 45px;
+}
+#social-network-delicious {
+	background-image: url('../images/social-network/Delicious.png');
+	background-repeat: no-repeat;
+	height: 64px;
+	padding-left: 45px;
+}
+#social-network-facebook {
+	background-image: url('../images/social-network/Facebook.png');
+	background-repeat: no-repeat;
+	height: 64px;
+	padding-left: 45px;
+}
+#social-network-netvibes {
+	background-image: url('../images/social-network/Netvibes.png');
+	background-repeat: no-repeat;
+	height: 64px;
+	padding-left: 45px;
+}
+#social-network-reddit {
+	background-image: url('../images/social-network/Reddit.png');
+	background-repeat: no-repeat;
+	height: 64px;
+	padding-left: 45px;
 }

@@ -33,6 +33,11 @@ class defaultCtrl extends jController {
             $rep->action = 'havefnubb~default:index';
             return $rep;            
         }
+
+		$chmod_msg = '*NIX';
+		if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+			$chmod_msg = 'WIN';
+		}
         
 		$step = $this->param('step');
         
@@ -318,6 +323,7 @@ class defaultCtrl extends jController {
         
         $rep = $this->getResponse('html');		
         $tpl->assign('step',$step);
+		$tpl->assign('chmod_msg',$chmod_msg);
         $rep->body->assign('MAIN', $tpl->fetch('install'));
         return $rep;		
 	}    

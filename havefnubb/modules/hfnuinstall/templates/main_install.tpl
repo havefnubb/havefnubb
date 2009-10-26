@@ -35,7 +35,7 @@
 		{/if}
 			</ol>
         </div>
-	    <div class="grid_12 omega">
+	    <div class="grid_12 omega">		
 	    {$MAIN}
 	    </div>		
 	</div> 

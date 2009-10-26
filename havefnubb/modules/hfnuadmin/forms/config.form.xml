@@ -133,6 +133,43 @@
 	<item value="600">600</item>
 </menulist>
 
+
+<radiobuttons ref="social_network_twitter" required="true">
+    <label>Twitter:</label>
+    <item value="1" locale="hfnuadmin~common.yes"/>
+    <item value="0" locale="hfnuadmin~common.no" selected="true"/>
+</radiobuttons>
+
+<radiobuttons ref="social_network_digg" required="true">
+    <label>Digg:</label>
+    <item value="1" locale="hfnuadmin~common.yes"/>
+    <item value="0" locale="hfnuadmin~common.no" selected="true"/>
+</radiobuttons>
+
+<radiobuttons ref="social_network_delicious" required="true">
+    <label>Delicious:</label>
+    <item value="1" locale="hfnuadmin~common.yes"/>
+    <item value="0" locale="hfnuadmin~common.no" selected="true"/>
+</radiobuttons>
+
+<radiobuttons ref="social_network_facebook" required="true">
+    <label>Facebook:</label>
+    <item value="1" locale="hfnuadmin~common.yes"/>
+    <item value="0" locale="hfnuadmin~common.no" selected="true"/>
+</radiobuttons>
+
+<radiobuttons ref="social_network_reddit" required="true">
+    <label>Reddit:</label>
+    <item value="1" locale="hfnuadmin~common.yes"/>
+    <item value="0" locale="hfnuadmin~common.no" selected="true"/>
+</radiobuttons>
+
+<radiobuttons ref="social_network_netvibes" required="true">
+    <label>Netvibes:</label>
+    <item value="1" locale="hfnuadmin~common.yes"/>
+    <item value="0" locale="hfnuadmin~common.no" selected="true"/>
+</radiobuttons>
+
 <submit ref="validate">
   <label>Veuillez valider</label>
   <item value="save" locale="hfnuadmin~config.saveBt"/>

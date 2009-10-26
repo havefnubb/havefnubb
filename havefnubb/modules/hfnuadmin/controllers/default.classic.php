@@ -33,6 +33,7 @@ class defaultCtrl extends jController {
 		$defaultConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
 		$floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
 		$timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
+		$socialNetwork	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'social.network.ini.php');
 		
         $rep = $this->getResponse('html');
 		$submit = $this->param('validate');
@@ -55,7 +56,7 @@ class defaultCtrl extends jController {
 			$defaultConfig->setValue('webmasterEmail',	htmlentities($this->param('webmaster_email')),'mailer');
 			$defaultConfig->save();
 			
-            $HfnuConfig->setValue('rules',				htmlentities($this->param('rules')),'main');
+            $HfnuConfig->setValue('rules',				$this->param('rules'),'main');
             $HfnuConfig->setValue('admin_email',		htmlentities($this->param('admin_email')),'main');            
             $HfnuConfig->setValue('posts_per_page',		htmlentities($this->param('posts_per_page')),'messages');
             $HfnuConfig->setValue('replies_per_page',	htmlentities($this->param('replies_per_page')),'messages');
@@ -75,6 +76,15 @@ class defaultCtrl extends jController {
 			$timeoutConfig->setValue('timeout_connected',(int) htmlentities($this->param('timeout_connected')));
 			$timeoutConfig->setValue('timeout_visit',(int) htmlentities($this->param('timeout_visit')));
 			$timeoutConfig->save();
+			
+			
+			$socialNetwork->setValue('twitter',(int) $this->param('social_network_twitter'));
+			$socialNetwork->setValue('digg',(int) $this->param('social_network_digg'));
+			$socialNetwork->setValue('delicious',(int) $this->param('social_network_delicious'));
+			$socialNetwork->setValue('facebook',(int) $this->param('social_network_facebook'));
+			$socialNetwork->setValue('reddit',(int) $this->param('social_network_reddit'));
+			$socialNetwork->setValue('netvibes',(int) $this->param('social_network_netvibes'));
+			$socialNetwork->save();
 			
 			jForms::destroy('hfnuadmin~config');
 			$rep->action ='hfnuadmin~default:config';
@@ -102,6 +112,14 @@ class defaultCtrl extends jController {
         $form->setData('timeout_visit',(int) $timeoutConfig->getValue('timeout_visit'));
 		
         $form->setData('post_max_size',(int) $HfnuConfig->getValue('post_max_size','messages'));
+
+		$form->setData('social_network_twitter', 	$socialNetwork->getValue('twitter'));
+		$form->setData('social_network_digg', 		$socialNetwork->getValue('digg'));
+		$form->setData('social_network_delicious', 	$socialNetwork->getValue('delicious'));
+		$form->setData('social_network_facebook', 	$socialNetwork->getValue('facebook'));
+		$form->setData('social_network_reddit', 	$socialNetwork->getValue('reddit'));
+		$form->setData('social_network_netvibes', 	$socialNetwork->getValue('netvibes'));		
+
                               
         $tpl = new jTpl();
         $tpl->assign('form', $form);

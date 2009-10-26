@@ -1,9 +1,15 @@
 <div class="box">
     <div class="block">
     <div id="msg-install">{jmessage}</div>        
-{if $step == 'home'}            
+{if $step == 'home'}
+        <h3>{@hfnuinstall~install.home.introduction@}</h3>
         <p>{@hfnuinstall~install.home.process.description@}</p>
+        {if $chmod_msg == '*NIX'}
+        {zone 'rights_msg'}
+        {/if}
+        <h3>{@hfnuinstall~install.home.lets.go@}</h3>
         <p><a href="{jurl 'hfnuinstall~default:index', array('step'=>'check')}">{@hfnuinstall~install.home.process.start@}</a></p>
+
 {/if}
 {if $step == 'check'}
     {if $continue}

@@ -19,35 +19,26 @@
  * jurlparams = params of jUrl
  * title = title to share
  */
-function jtpl_function_html_social_networks($tpl, $network, $params) {
+function jtpl_function_html_social_networks($tpl, $params) {
+	$socialNetwork	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'social.network.ini.php');
 	echo '<div class="social-network">';
-	switch ($network) {
-		case 'twitter':			
-			social_twitter($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			break;				
-		case 'digg':			
-			social_digg($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			break;		
-		case 'delicious':			
-			social_delicious($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			break;
-		case 'facebook':			
-			social_facebook($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			break;
-		case 'reddit':			
-			social_reddit($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			break;
-		case 'netvibes':
-			social_netvibes($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			break;
-		case 'all' :
-			social_twitter($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			social_delicious($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			social_facebook($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			social_reddit($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			social_digg($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			social_netvibes($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
-			break;
+	if ( $socialNetwork->getValue('twitter')) {
+		social_twitter($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
+	}
+	if ( $socialNetwork->getValue('diff')) {
+		social_digg($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
+	}
+	if ( $socialNetwork->getValue('delicious')) {
+		social_delicious($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
+	}
+	if ( $socialNetwork->getValue('facebook')) {	
+		social_facebook($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
+	}
+	if ( $socialNetwork->getValue('reddit')) {
+		social_reddit($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
+	}
+	if ( $socialNetwork->getValue('netvibes')) {
+		social_netvibes($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
 	echo "</div>";
 }
