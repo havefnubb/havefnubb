@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme xmlns="http://jelix.org/ns/theme/1.0">
+    <info id="install_theme@havefnubb.org" name="Instal" createdate="2009-09-01">
+        <version stability="stable" date="2009-09-01">1.0.0</version>
+        <label lang="en_EN">Install theme</label>
+        <description lang="en_EN">Install Theme used only for the install process of HaveFnuBB!</description>
+        <label lang="fr_FR">Thème Install</label>
+        <description lang="en_EN">Thème Install utilisé uniquement pour la partie de l'installation de HaveFnuBB!</description>
+        <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
+        <copyright>2008 FoxMaSk</copyright>
+        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
+        <homepageURL>http://www.havefnubb.org/</homepageURL>
+        <updateURL>http://community.havefnubb.org/last_update</updateURL>
+    </info>
+</theme>
+

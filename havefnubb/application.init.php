@@ -18,6 +18,6 @@ define ('JELIX_APP_LOG_PATH',     realpath(JELIX_APP_PATH.'./var/log/').DIRECTOR
 define ('JELIX_APP_CONFIG_PATH',  realpath(JELIX_APP_PATH.'./var/config/').DIRECTORY_SEPARATOR);
 define ('JELIX_APP_WWW_PATH',     realpath(JELIX_APP_PATH).'/../'.DIRECTORY_SEPARATOR);
 define ('JELIX_APP_CMD_PATH',     realpath(JELIX_APP_PATH.'./scripts/').DIRECTORY_SEPARATOR);
-
+define ('HFNU_APP_THEME_PATH',   realpath(JELIX_APP_PATH.'/../themes/').DIRECTORY_SEPARATOR);
 // forum
 $HfnuConfig     =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.ini.php');
