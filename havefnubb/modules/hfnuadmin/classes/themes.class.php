@@ -18,9 +18,9 @@ class themes
         global $gJConfig;
         $themes = array();
 
-        $dir = new DirectoryIterator(HFNU_APP_THEME_PATH);
+        $dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
         foreach ($dir as $dirContent) {
-            if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..') 
+            if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..' and $dirContent != '.svn') 
                 $themes[] = self::readManifest($dirContent->getFilename());
         }
         return $themes;
@@ -33,7 +33,7 @@ class themes
         $themesInfo = array(); 
                  
         $doc = new DOMDocument; 
-        $doc->Load(HFNU_APP_THEME_PATH.$theme .'/theme.xml'); 
+        $doc->Load(JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.xml'); 
         
         $xpath  = new DOMXPath($doc); 
         $xpath->registerNamespace(self::$ns,self::$nsURL); 
