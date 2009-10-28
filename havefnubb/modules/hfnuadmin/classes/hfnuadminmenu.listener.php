@@ -93,7 +93,7 @@ class hfnuadminmenuListener extends jEventListener{
 	  }
       if ( jAcl2::check('hfnu.admin.index'))    {	  
 		 $item = new masterAdminMenuItem('cache',
-											  jLocale::get('hfnuadmin~admin.themes'),
+											  jLocale::get('hfnuadmin~theme.themes'),
 											  jUrl::get('hfnuadmin~theme:index'),
 											  209,
 											  'havefnubb');

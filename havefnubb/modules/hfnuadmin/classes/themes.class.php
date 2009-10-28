@@ -67,7 +67,7 @@ class themes
         $desc = 'N/A';
         $query = '//'.self::$ns.":description[@lang='".$gJConfig->locale."']/text()";
         $entries = $xpath->query($query);
-                if ( ! is_null($entries->item(0)))  
+        if ( ! is_null($entries->item(0)))  
             $desc = $entries->item(0)->nodeValue; 
         
         $creators = array(); 
@@ -132,7 +132,7 @@ class themes
         $copyright = $entries->item(0)->nodeValue;
         
         $themesInfo = array(
-                        'name'=>$themeName,
+                        'name'=>strtolower($themeName),
                         'id'=>$themeId, 
                         'version'=>$versionStability . ' ' . $versionNumber,
                         'dateCreate'=>$themeDateCreated,

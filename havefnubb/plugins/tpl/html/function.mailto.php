@@ -13,12 +13,12 @@
 /**
  * Examples:
  * <pre>
- * {mailto address="me@domain.com"}
- * {mailto address="me@domain.com" encode="javascript"}
- * {mailto address="me@domain.com" encode="hex"}
- * {mailto address="me@domain.com" subject="Hello to you!"}
- * {mailto address="me@domain.com" cc="you@domain.com,they@domain.com"}
- * {mailto address="me@domain.com" extra='class="mailto"'}
+ * {mailto array(address=>"me@domain.com")}
+ * {mailto array(address=>"me@domain.com",encode=>"javascript")}
+ * {mailto array(address=>"me@domain.com",encode=>"hex")}
+ * {mailto array(address=>"me@domain.com",subject=>"Hello to you!")}
+ * {mailto array(address=>"me@domain.com",cc=>"you@domain.com,they@domain.com")}
+ * {mailto array(address=>"me@domain.com",extra=>'class="mailto"')}
  * </pre>
  * @params  array
  */
