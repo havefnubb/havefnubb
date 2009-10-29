@@ -15,7 +15,7 @@ class hfnuadminmenuListener extends jEventListener{
    */
 	function onmasteradminGetMenuContent ($event) {
 	  global $gJConfig;
-	  $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
+	  $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
       if ( jAcl2::check('hfnu.admin.index'))    {
 		 $event->add(new masterAdminMenuItem('havefnubb','HaveFnu BB!', '', 20));
 	  }
@@ -25,7 +25,7 @@ class hfnuadminmenuListener extends jEventListener{
 											  jUrl::get('hfnuadmin~default:config'),
 											  201,
 											  'havefnubb');
-         $item->icon = $chemin . 'images/admin/config.png';			
+         $item->icon = $chemin . 'images/config.png';			
          $event->add($item);		 
 	  }
 	  if ( jAcl2::check('hfnu.admin.index'))    {
@@ -34,7 +34,7 @@ class hfnuadminmenuListener extends jEventListener{
 											  jUrl::get('hfnuadmin~modules:index'),
 											  202,
 											  'havefnubb');
-         $item->icon = $chemin . 'images/admin/modules_list.png';
+         $item->icon = $chemin . 'images/modules_list.png';
          $event->add($item);		 
 	  }
       
@@ -44,7 +44,7 @@ class hfnuadminmenuListener extends jEventListener{
 											  jUrl::get('hfnuadmin~category:index'),
 											  203,
 											  'havefnubb');
-		 $item->icon = $chemin . 'images/admin/category.png';			
+		 $item->icon = $chemin . 'images/category.png';			
 		 $event->add($item);		  		  
 	  }
 	  if ( jAcl2::check('hfnu.admin.forum'))    {		  
@@ -54,7 +54,7 @@ class hfnuadminmenuListener extends jEventListener{
 											  204,
 											  'havefnubb'
 												);		  
-         $item->icon = $chemin . 'images/admin/forum.png';			
+         $item->icon = $chemin . 'images/forum.png';			
          $event->add($item);		  
 	  }
 	  if ( jAcl2::check('hfnu.admin.post'))    {
@@ -63,7 +63,7 @@ class hfnuadminmenuListener extends jEventListener{
 											  jUrl::get('hfnuadmin~notify:index'),
 											  206,
 											  'havefnubb');
-		 $item->icon = $chemin . 'images/admin/notification.png';
+		 $item->icon = $chemin . 'images/notification.png';
 		 $event->add($item);
 	  }
 	  if ( jAcl2::check('hfnu.admin.member'))    {
@@ -72,14 +72,14 @@ class hfnuadminmenuListener extends jEventListener{
 											  jUrl::get('hfnuadmin~ranks:index'),
 											  207,
 											  'havefnubb');
-         $item->icon = $chemin . 'images/admin/rank.png';			
+         $item->icon = $chemin . 'images/rank.png';			
          $event->add($item);		 
 		 $item = new masterAdminMenuItem('ban',
 											  jLocale::get('hfnuadmin~admin.ban'),
 											  jUrl::get('hfnuadmin~ban:index'),
 											  208,
 											  'havefnubb');
-         $item->icon = $chemin . 'images/admin/ban.png';			
+         $item->icon = $chemin . 'images/ban.png';			
          $event->add($item);		 
 	  }
       if ( jAcl2::check('hfnu.admin.cache'))    {	  
@@ -88,7 +88,7 @@ class hfnuadminmenuListener extends jEventListener{
 											  jUrl::get('hfnuadmin~cache:index'),
 											  209,
 											  'havefnubb');
-         $item->icon = $chemin . 'images/admin/clear_cache.png';			
+         $item->icon = $chemin . 'images/clear_cache.png';			
          $event->add($item);		 
 	  }
       if ( jAcl2::check('hfnu.admin.index'))    {	  
@@ -97,7 +97,7 @@ class hfnuadminmenuListener extends jEventListener{
 											  jUrl::get('hfnuadmin~theme:index'),
 											  210,
 											  'havefnubb');
-         $item->icon = $chemin . 'images/admin/theme.png';
+         $item->icon = $chemin . 'images/theme.png';
          $event->add($item);		 
 	  }
 	  

@@ -15,7 +15,7 @@ class hfnuadminpollmenuListener extends jEventListener{
    */
 	function onmasteradminGetMenuContent ($event) {
 	  global $gJConfig;
-	  $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
+	  $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
 	  
       if ( jAcl2::check('hfnu.admin.poll.list'))    {
 		 $event->add(new masterAdminMenuItem('hfnupoll',jLocale::get('hfnupoll~poll.poll'), '', 100));
@@ -25,7 +25,7 @@ class hfnuadminpollmenuListener extends jEventListener{
 											  jUrl::get('hfnupoll~admin:index'),
 											  101,
 											  'hfnupoll');
-         $item->icon = $chemin . 'images/admin/poll_list.png';			
+         $item->icon = $chemin . 'images/poll_list.png';			
          $event->add($item);		 
 	  }
       /*if ( jAcl2::check('hfnu.admin.poll.add'))    {

@@ -2,10 +2,8 @@
 {if count($modules)}
 {assign $count = count($modules)}
 {for $i=0; $i < $count ;$i++}
-<div class="two-cols">
-    <div class="col">
-        {$modules[$i]}            
-    </div>
+<div class="modulelist">
+    {$modules[$i]}            
 </div>
 {/for}
 {/if}

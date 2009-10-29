@@ -1,13 +1,30 @@
-<h1>{$moduleInfo['name']}</h1>
-<dl>
-<dt>{@hfnuadmin~hfnuabout.about.version@} :</dt><dd> {$moduleInfo['version']} ({@hfnuadmin~hfnuabout.about.date.create@} {$moduleInfo['dateCreate']})</dd>
-<dt>{@hfnuadmin~hfnuabout.about.label@} :</dt><dd> {$moduleInfo['label']|escxml}</dd>
-<dt>{@hfnuadmin~hfnuabout.about.desc@} :</dt><dd> {$moduleInfo['desc']}</dd>
-<dt>{@hfnuadmin~hfnuabout.about.notes@} :</dt><dd> {$moduleInfo['notes']}</dd>
-<dt>{@hfnuadmin~hfnuabout.about.licence@} :</dt><dd> {if $moduleInfo['licenceURL'] != ''}<a href="{$moduleInfo['licenceURL']}">{$moduleInfo['licence']}</a>{else}{$moduleInfo['licence']}{/if}</dd>
-<dt>{@hfnuadmin~hfnuabout.about.copyright@} :</dt><dd> {$moduleInfo['copyright']}</dd>
+<h2>{$moduleInfo['name']}</h2>
+<table>
+    <tr>
+        <td>{@hfnuadmin~hfnuabout.about.version@} :</td><td> {$moduleInfo['version']} ({@hfnuadmin~hfnuabout.about.date.create@} {$moduleInfo['dateCreate']})</td>
+    </tr>
+    <tr>    
+        <td>{@hfnuadmin~hfnuabout.about.label@} :</td><td> {$moduleInfo['label']|escxml}</td>
+    </tr>
+    <tr>        
+        <td>{@hfnuadmin~hfnuabout.about.desc@} :</td><td> {$moduleInfo['desc']}</td>
+    </tr>
+    <tr>        
+        <td>{@hfnuadmin~hfnuabout.about.notes@} :</td><td> {$moduleInfo['notes']}</td>
+    </tr>
+    <tr>        
+        <td>{@hfnuadmin~hfnuabout.about.licence@} :</td><td> {if $moduleInfo['licenceURL'] != ''}<a href="{$moduleInfo['licenceURL']}">{$moduleInfo['licence']}</a>{else}{$moduleInfo['licence']}{/if}</td>
+    </tr>
+    <tr>        
+        <td>{@hfnuadmin~hfnuabout.about.copyright@} :</td><td> {$moduleInfo['copyright']}</td>
+    </tr>
+    
 {foreach $moduleInfo['creators'] as $author}
-<dt>{@hfnuadmin~hfnuabout.about.authors@} :</dt><dd> {if $author['email'] != ''}<a href="mailto:{$author['email']}">{$author['name']|escxml}{else}{$author['name']|escxml}{/if}</a></dd>
-{/foreach}
-<dt>{@hfnuadmin~hfnuabout.about.links@}</dt><dd><a href="{$moduleInfo['homepageURL']}">{@hfnuadmin~hfnuabout.about.homepageURL@}</a> - <a href="{$moduleInfo['updateURL']}">{@hfnuadmin~hfnuabout.about.updateURL@}</a></dd>
-</dl>
+    <tr>        
+        <td>{@hfnuadmin~hfnuabout.about.authors@} :</td><td> {if $author['email'] != ''}<a href="mailto:{$author['email']}">{$author['name']|escxml}{else}{$author['name']|escxml}{/if}</a></td>
+    </tr>        
+{/foreach}    
+    <tr>        
+        <td>{@hfnuadmin~hfnuabout.about.links@}</td><td><a href="{$moduleInfo['homepageURL']}">{@hfnuadmin~hfnuabout.about.homepageURL@}</a> - <a href="{$moduleInfo['updateURL']}">{@hfnuadmin~hfnuabout.about.updateURL@}</a></td>
+    </tr>
+</table>

@@ -15,7 +15,7 @@ class hfnuadmincontactmenuListener extends jEventListener{
    */
 	function onmasteradminGetMenuContent ($event) {
 	  global $gJConfig;
-	  $chemin = $gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
+	  $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
 	  
       if ( jAcl2::check('hfnu.admin.contact'))    {
 		 $event->add(new masterAdminMenuItem('hfnucontact','Contact', '', 100));
@@ -25,7 +25,7 @@ class hfnuadmincontactmenuListener extends jEventListener{
 											  jUrl::get('hfnucontact~admin:index'),
 											  100,
 											  'hfnucontact');
-         $item->icon = $chemin . 'images/admin/contact.png';			
+         $item->icon = $chemin . 'images/contact.png';			
          $event->add($item);		 
 	  }
 	  
