@@ -45,16 +45,16 @@ define ('JELIXS_INIT_PATH'          , JELIXS_LIB_PATH.'jelix/init.php');
 define('JELIXS_INFO_DEFAULT_IDSUFFIX','@havefnubb.org');
 
 // Your website, or the domain name of your application
-define('JELIXS_INFO_DEFAULT_WEBSITE','http://www.havefnubb.org');
+define('JELIXS_INFO_DEFAULT_WEBSITE','http://havefnubb.org');
 
 // label of the license of your files. ex: GPL, Gnu Public License
-define('JELIXS_INFO_DEFAULT_LICENSE','GNU General Public Licence');
+define('JELIXS_INFO_DEFAULT_LICENSE','GNU Lesser General Public Licence, see LICENCE file');
 
 // the URL where we can read the license you choose
 define('JELIXS_INFO_DEFAULT_LICENSE_URL','http://www.gnu.org/licenses/gpl.html');
 
 // the default creator name (your name for example..)
-define('JELIXS_INFO_DEFAULT_CREATOR_NAME','foxmask');
+define('JELIXS_INFO_DEFAULT_CREATOR_NAME','FoxMaSk');
 
 // the email of the creator
 define('JELIXS_INFO_DEFAULT_CREATOR_EMAIL','foxmask@havefnubb.org');

@@ -9,11 +9,6 @@
 	<label locale="hfnuadmin~config.description"/>
 </input>
 
-<menulist ref="theme" required="true">
-	<label locale="hfnuadmin~config.themes"/>
-	<datasource class="hfnuadmin~themes_datasource" />
-</menulist>
-
 <textarea ref="rules" required="false" cols="60">
 	<label locale="hfnuadmin~config.rules"/>
 </textarea>

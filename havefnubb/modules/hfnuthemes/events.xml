@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<events xmlns="http://jelix.org/ns/events/1.0">
+   <listener name="hfnuthemes">
+		 <event name="HfnuAboutModule" />
+   </listener>    
+   <listener name="hfnuthemesadminmenu">
+		<event name="masteradminGetMenuContent" />
+   </listener>
+</events>
+
+

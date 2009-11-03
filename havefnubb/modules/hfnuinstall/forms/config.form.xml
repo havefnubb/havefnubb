@@ -13,7 +13,7 @@
 
 <menulist ref="theme" required="true">
 	<label locale="hfnuinstall~install.config.themes"/>
-	<datasource class="hfnuadmin~themes" />
+	<datasource class="hfnuinstall~themes_datasource" />
 </menulist>
 
 <textarea ref="rules" required="false" cols="60">

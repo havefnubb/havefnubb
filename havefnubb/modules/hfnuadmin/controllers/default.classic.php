@@ -52,7 +52,6 @@ class defaultCtrl extends jController {
             $HfnuConfig->setValue('title',				htmlentities($this->param('title')),'main');
             $HfnuConfig->setValue('description',		htmlentities($this->param('description')),'main');
 			
-			$defaultConfig->setValue('theme',			htmlentities($this->param('theme')));
 			$defaultConfig->setValue('webmasterEmail',	htmlentities($this->param('webmaster_email')),'mailer');
 			$defaultConfig->save();
 			
@@ -95,7 +94,6 @@ class defaultCtrl extends jController {
 
         $form->setData('title',           stripslashes($HfnuConfig->getValue('title','main')));
         $form->setData('description',     stripslashes($HfnuConfig->getValue('description','main')));
-        $form->setData('theme',           stripslashes($defaultConfig->getValue('theme')));
         $form->setData('rules',           stripslashes($HfnuConfig->getValue('rules','main')));
         $form->setData('webmaster_email', stripslashes($defaultConfig->getValue('webmasterEmail','mailer')));
         $form->setData('admin_email',     stripslashes($HfnuConfig->getValue('admin_email','main')));

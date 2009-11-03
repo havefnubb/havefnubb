@@ -30,9 +30,6 @@
   <p>{ctrl_label 'description'} </p>
   <p>{ctrl_control 'description'} </p>
   
-  <p>{ctrl_label 'theme'} </p>
-  <p>{ctrl_control 'theme'} </p>
-  
   <p>{ctrl_label 'rules'} </p>
   <p>{ctrl_control 'rules'} </p>
   

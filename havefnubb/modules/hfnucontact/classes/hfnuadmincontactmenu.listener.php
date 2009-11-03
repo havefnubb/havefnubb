@@ -18,7 +18,7 @@ class hfnuadmincontactmenuListener extends jEventListener{
 	  $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
 	  
       if ( jAcl2::check('hfnu.admin.contact'))    {
-		 $event->add(new masterAdminMenuItem('hfnucontact','Contact', '', 100));
+		 $event->add(new masterAdminMenuItem('hfnucontact','Contact', '', 40));
 
 		 $item = new masterAdminMenuItem('contact',
 											  jLocale::get('hfnucontact~contact.contact'),
