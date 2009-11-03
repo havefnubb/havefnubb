@@ -113,8 +113,8 @@ xmlrpc="@xmlrpc"
 jsonrpc="@jsonrpc"
 rdf="@rdf"
 
-; hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~admin@classic, hfnupoll~admin@classic hfnucontact~admin@classic downloads~mgr:index@classic downloads~mgr:manage@classic downloads~mgr:config@classic downloads~mgr:dls@classic"
-hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~*@classic"
+; hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~admin@classic, hfnupoll~admin@classic hfnucontact~admin@classic hfnuthemes~*@classic downloads~mgr:index@classic downloads~mgr:manage@classic downloads~mgr:config@classic downloads~mgr:dls@classic"
+hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~*@classic hfnuthemes~*@classic"
 install="hfnuinstall~*@classic"
 
 [basic_significant_urlengine_entrypoints]
