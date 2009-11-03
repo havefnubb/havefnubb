@@ -254,14 +254,37 @@ td.td-notify-message {
 	padding-left: 45px;
 }
 
-.themelist, .modulelist {
-	width: 40%;
-	float: left;
+
+.two-cols { position: static; }
+.two-cols .col {
+        width: 49%;
+        margin-left: 1%;
+        float: left;
+}
+.two-cols .col:first-child {
+        width: 50%;
+        margin-left: 0;
 }
 
-.themelist #current_theme {
-	background-image: url('../images/rosette.png');
-	background-repeat: no-repeat;
-	height: 16px;
-	padding-left: 20px;	
+
+.three-cols { position: static; }
+.three-cols .col {
+        width: 32.3%;
+        float: left;
+        margin-left: 1%;
+}
+.three-cols .col:first-child {
+        width: 33.3%;
+        margin-left: 0;
+}
+
+.four-cols { position: static; }
+.four-cols .col {
+        width: 24%;
+        float: left;
+        margin-left: 1%;
+}
+.four-cols .col:first-child {
+        width: 25%;
+        margin-left: 0;
 }
