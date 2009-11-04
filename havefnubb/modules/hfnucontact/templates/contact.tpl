@@ -2,7 +2,7 @@
 <div class="box">
     <h2>{@hfnucontact~contact.send.an.email@}</h2>
     <div class="block">
-    {form $form, 'hfnucontact~default:send_a_message'}
+    {form $form, $action}
     <fieldset>
     <legend>{@hfnucontact~contact.send.an.email@}</legend>    
     <p>

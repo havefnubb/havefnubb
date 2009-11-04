@@ -2,6 +2,7 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <hidden ref="to"/>
+<hidden ref="url"/>
 
 <input ref="subject" type="string" required="true" size="80">
 	<label locale="hfnucontact~contact.form.subject"/>

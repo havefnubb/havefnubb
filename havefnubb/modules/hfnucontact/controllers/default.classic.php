@@ -43,6 +43,7 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');        
         $tpl = new jTpl();		
 		$tpl->assign('form',$form);
+		$tpl->assign('action','hfnucontact~default:send_a_message');
         $rep->body->assign('MAIN',$tpl->fetch('hfnucontact~contact'));
         return $rep;
     }
@@ -80,10 +81,19 @@ class defaultCtrl extends jController {
 		$mail->Sender     = $email;
 		$mail->Subject    = '[Contact] '.htmlentities($form->getData('subject'));
 		$mail->ContentType = 'text/html';
-		
+
+		$message  = $form->getData('message');		
+		if ($form->getData('url') != '') {
+			$url = 'http://'. $_SERVER['SERVER_NAME'] .'/'. $form->getData('url');
+			if (filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
+				$message .= "\n"."\n";
+				$message .= $url;
+			}
+		} 
+
 		$tpl = new jTpl();
 		$tpl->assign('login',$login);
-		$tpl->assign('message',$form->getData('message'));
+		$tpl->assign('message',$message);
 		$tpl->assign('server',$_SERVER['SERVER_NAME']);
 		$mail->Body = $tpl->fetch('hfnucontact~send_an_email', 'text');	
 		$mail->AddAddress($emailTo);
@@ -100,6 +110,19 @@ class defaultCtrl extends jController {
         $tpl = new jTpl();		
         $rep->body->assign('MAIN',$tpl->fetch('hfnucontact~contacted'));
         return $rep;
-    }	
+    }
+		
+	public function send_to_friend() {
+		$url = (string) $this->param('url');
+		$form = jForms::create('hfnucontact~contact');
+		$form->setData('url',$url);
+		$rep = $this->getResponse('html');        
+		$tpl = new jTpl();		
+		$tpl->assign('form',$form);
+		$tpl->assign('action','hfnucontact~default:send_a_message');
+		$rep->body->assign('MAIN',$tpl->fetch('hfnucontact~contact'));
+		return $rep;
+	}
+	
 }
 
