@@ -1,6 +1,6 @@
 {assign $line = true}    
 {foreach $forums as $forum}
-    <tr class="{if $line}odd{else}even{/if}">
+    <tr class="{cycle array('odd','even')}">
         <th>{$forum->forum_name|eschtml}</th>
         {ifacl2 'hfnu.admin.forum.delete'}
         <td><a href="{jurl 'hfnuadmin~forum:delete',array('id_forum'=>$forum->id_forum)}" title="{$forum->forum_name|eschtml}" onclick="return confirm('{jlocale 'hfnuadmin~forum.confirm.deletion',array($forum->forum_name)}')">{@hfnuadmin~forum.forum.delete@}</a></td>

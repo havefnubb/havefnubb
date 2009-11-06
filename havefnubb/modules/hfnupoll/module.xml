@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-    <info id="hfnupoll@havefnubb.org" name="hfnupoll" createdate="2009-08-15">
+    <info id="hfnupoll@havefnubb.org" name="HfnuPoll" createdate="2009-08-15">
         <version stability="stable" date="2009-08-16">1.0.2</version>
         <label lang="en_EN">hfnupoll</label>
         <description lang="en_EN">Poll Module</description>		
