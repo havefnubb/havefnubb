@@ -107,15 +107,15 @@ class modulexml {
         $entries = $xpath->query($query);
         $homepageURL = $entries->item(0)->nodeValue;        
 
-        $licence = '';
-        $query = '//'.$ns.':licence/text()'; 
+		$license = '';
+        $query = '//'.$ns.':license/text()'; 
         $entries = $xpath->query($query);
-        $licence = $entries->item(0)->nodeValue;
+        $license = $entries->item(0)->nodeValue;
 
-        $licenceURL = '';
-        $query = '//'.$ns.':licence/@URL'; 
+        $licenseURL = '';
+        $query = '//'.$ns.':license/@URL'; 
         $entries = $xpath->query($query);
-        $licenceURL = $entries->item(0)->nodeValue;
+        $licenseURL = $entries->item(0)->nodeValue;
 
 
         $copyright = '';
@@ -134,8 +134,8 @@ class modulexml {
                         'notes'=>$notes,
                         'updateURL'=>$updateURL,
                         'homepageURL'=>$homepageURL,
-                        'licence'=>$licence,
-                        'licenceURL'=>$licenceURL,
+                        'license'=>$license,
+                        'licenseURL'=>$licenseURL,
                         'copyright'=>$copyright
                         );      
      

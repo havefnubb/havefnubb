@@ -13,7 +13,7 @@
         <td>{@hfnuadmin~hfnuabout.about.notes@} :</td><td> {$moduleInfo['notes']}</td>
     </tr>
     <tr>        
-        <td>{@hfnuadmin~hfnuabout.about.licence@} :</td><td> {if $moduleInfo['licenceURL'] != ''}<a href="{$moduleInfo['licenceURL']}">{$moduleInfo['licence']}</a>{else}{$moduleInfo['licence']}{/if}</td>
+        <td>{@hfnuadmin~hfnuabout.about.license@} :</td><td> {if $moduleInfo['licenseURL'] != ''}<a href="{$moduleInfo['licenseURL']}">{$moduleInfo['license']}</a>{else}{$moduleInfo['license']}{/if}</td>
     </tr>
     <tr>        
         <td>{@hfnuadmin~hfnuabout.about.copyright@} :</td><td> {$moduleInfo['copyright']}</td>

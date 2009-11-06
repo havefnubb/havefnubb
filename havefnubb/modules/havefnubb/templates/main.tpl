@@ -7,7 +7,6 @@
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 {meta_html js $j_themepath.'js/jquery-fluid16.js'} 
 {* meta_html js $j_themepath.'js/jquery-ui.js' *}
-
 <div class="container_16">
 	<div class="grid_16 branding">
 		<div class="grid_11">

@@ -6,7 +6,7 @@
         <description lang="en_EN">install module of bulletin board HaveFnuBB! </description>        
         <label lang="fr_FR">HfnuInstall</label>
         <description lang="fr_FR">module d'installation du forum HaveFnuBB!</description>
-        <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
+        <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
         <homepageURL>http://www.havefnubb.org/</homepageURL>
