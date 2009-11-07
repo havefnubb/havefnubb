@@ -122,5 +122,22 @@ class hookListener extends jEventListener{
    function onAfterSearch($event) {
       
    }      
-   
+   function onBeforeBan($event) {
+      
+   }
+   function onBan($event) {
+      
+   }
+   function onAfterBan($event) {
+      
+   }
+   function onJcommunityStatusConnected($event) {
+      
+   }
+   function onMainInHeader($event) {
+      
+   }
+   function onMainInFooter($event) {
+      
+   }         
 }

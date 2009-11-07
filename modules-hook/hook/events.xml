@@ -53,6 +53,14 @@
 	  <event name="BeforeSearch"/>
 	  <event name="Search"/>
 	  <event name="AfterSearch"/>
+
+	  <event name="BeforeBan"/>
+	  <event name="Ban"/>
+	  <event name="AfterBan"/>
+	  
+	  <event name="JcommunityStatusConnected"/>
+	  <event name="MainInHeader"/>
+	  <event name="MainInFooter"/>
 	  
    </listener>
 </events>
