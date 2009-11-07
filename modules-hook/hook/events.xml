@@ -1,10 +1,59 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <events xmlns="http://jelix.org/ns/events/1.0">
    <listener name="hookabout">
-		 <event name="HfnuAboutModule" />
+	  <event name="HfnuAboutModule" />
    </listener>
    <listener name="hook">
-		<event name="SampleBannerAnnouncement" />
+	  <event name="SampleBannerAnnouncement" />
+	  
+	  <event name="BeforeCategoryList"/>
+	  <event name="CategoryList"/>
+	  <event name="AfterCategoryList"/>
+
+	  <event name="BeforeForumIndex"/>
+	  <event name="ForumIndex"/>
+	  <event name="AfterForumIndex"/>
+	  
+	  <event name="BeforePostsEdit"/>
+	  <event name="PostsEdit"/>
+	  <event name="AfterPostsEdit"/>	  
+	  
+	  <event name="BeforePostsList"/>
+	  <event name="PostsList"/>
+	  <event name="AfterPostsList"/>
+
+	  <event name="BeforePostsReplies"/>
+	  <event name="PostsReplies"/>
+	  <event name="AfterPostReplies"/>
+
+	  <event name="BeforeStats"/>
+	  <event name="Stats"/>
+	  <event name="AfterStats"/>
+	  
+	  <event name="BeforeOnline"/>
+	  <event name="Online"/>
+	  <event name="AfterOnline"/>
+	  
+	  <event name="BeforeOnlineToday"/>
+	  <event name="OnlineToday"/>
+	  <event name="AfterOnlineToday"/>
+
+	  <event name="BeforeFlood"/>
+	  <event name="Flood"/>
+	  <event name="AfterFlood"/>
+
+	  <event name="BeforeMembersList"/>
+	  <event name="MembersList"/>
+	  <event name="AfterMembersList"/>
+
+	  <event name="BeforeMemberProfile"/>
+	  <event name="MemberProfile"/>	  
+	  <event name="AfterMemberProfile"/>
+	  
+	  <event name="BeforeSearch"/>
+	  <event name="Search"/>
+	  <event name="AfterSearch"/>
+	  
    </listener>
 </events>
 

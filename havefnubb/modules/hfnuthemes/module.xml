@@ -8,10 +8,9 @@
         <description lang="fr_FR">Gestionnaire de Thèmes</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2008 FoxMaSk</copyright>
-        <creator name="foxmask" email="foxmask@havefnubb.org" active="true" />
-        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
+        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
         <homepageURL>http://www.havefnubb.org</homepageURL>
-        <!--<updateURL>http://www.havefnubb.org/update.xml</updateURL>-->
+        <updateURL>http://www.havefnubb.org/update.php?module=hfnuthemes</updateURL>
     </info>
     <dependencies>
         <jelix minversion="1.1.3" maxversion="1.1.3" />

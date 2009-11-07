@@ -1,9 +1,11 @@
 <div class="box">
 <div class="block">
 <table>
+{hook 'BeforeForumIndex'}
 {foreach $forums as $forum}
 {if $action =='view'}
 {ifacl2 'hfnu.forum.view','forum'.$forum->id_forum}
+{hook 'ForumIndex',array('id_forum'=>$forum->id_forum)}
 {if $forum->forum_type == 0}
     <tr>
         <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum)}"></td>
@@ -29,6 +31,7 @@
 {/ifacl2}
 {elseif $action =='index'}
 {ifacl2 'hfnu.forum.list','forum'.$forum->id_forum}
+{hook 'ForumIndex',array('id_forum'=>$forum->id_forum)}
 {if $forum->forum_type == 0}
     <tr>
         <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum)}"></td>
@@ -54,6 +57,7 @@
 {/ifacl2}
 {/if}
 {/foreach}
+{hook 'AfterForumIndex'}
 </table>
 </div>
 </div>

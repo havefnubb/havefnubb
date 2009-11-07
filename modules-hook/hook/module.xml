@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hook@havefnubb.org" name="Hook" createdate="2009-11-05">
-        <version stability="stable" date="2009-11-05">0.1pre</version>
+        <version stability="stable" date="2009-11-05">1.0.0</version>
         <label lang="en_EN">Hook</label>
         <description lang="en_EN">Hook System that extends functionalities without any limit.</description>        
         <label lang="fr_FR">Hook</label>
@@ -9,9 +9,8 @@
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
-        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
-        <homepageURL>http://havefnubb.org</homepageURL>
-        <!--<updateURL>http://havefnubb.org/update.xml</updateURL>-->
+        <homepageURL>http://www.havefnubb.org</homepageURL>
+        <updateURL>http://www.havefnubb.org/update.php?module=hook</updateURL>        
     </info>
     <dependencies>
         <jelix minversion="1.1.3" maxversion="1.1.3" />

@@ -1,3 +1,4 @@
+{hook 'BeforeMembersList'}
 <div class="box">
     <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >
         <span class="user-image" id="user-group">{@havefnubb~member.memberlist.members.list@}</span></h3>
@@ -55,6 +56,7 @@
         </thead>
         <tbody>
         {foreach $members as $member}
+        {hook 'MembersList',array('user'=>$member->login)}
         <tr>
             <td class="listline linkincell">
                 <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
@@ -71,7 +73,7 @@
     </table>
     </div>
 </div>
-
+{hook 'AfterMembersList'}
 <div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>

@@ -1,3 +1,4 @@
+{hook 'BeforePostsEdit',array('id_post'=>$id_post)}
 <div class="box">
     <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$category->id_cat,'ctitle'=>$category->cat_name)}" title="{$category->cat_name}">{$category->cat_name|eschtml}</a> > <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h3>
 </div>
@@ -17,7 +18,7 @@
         </div>
     </fieldset>
     {/if}
-    
+    {hook 'PostsEdit',array('id_post'=>$id_post)}
     {form $form, $submitAction, array('id_post'=>$id_post)}
     <fieldset>
     <legend>{$heading}</legend>
@@ -49,4 +50,5 @@
 
     </div>
 </div>
+{hook 'AfterPostsEdit',array('id_post'=>$id_post)}}
 {zone 'havefnubb~syntax_wiki'}

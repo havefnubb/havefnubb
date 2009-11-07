@@ -67,7 +67,7 @@ $(document).ready(function(){
                         <label class="user-email user-image"><strong>{@havefnubb~member.email@}</strong></label>
                     </div>
                     <div class="form_value">
-                        {nospam $user->email,'images/users/'}
+                        {mailto array('address'=>$user->email,'encode'=>'hex','text'=>@havefnubb~member.common.email@)}
                     </div>
 {/if}                                
                     <div class="form_property">
@@ -154,7 +154,9 @@ $(document).ready(function(){
                         <label class="user-msn user-image"><strong>{@havefnubb~member.hotmail@}</strong></label>
                     </div>
                     <div class="form_value">
-                        {nospam $user->member_hotmail,'images/users/'}
+						{if $user->member_hotmail != ''}
+						{mailto array('address'=>$user->member_hotmail,'encode'=>'hex','text'=>@havefnubb~member.common.email@)}
+						{/if}
                     </div>
                     <div class="clearer">&nbsp;</div>                   
                 </div>

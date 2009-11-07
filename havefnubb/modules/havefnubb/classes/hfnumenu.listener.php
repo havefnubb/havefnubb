@@ -33,9 +33,9 @@ class hfnumenuListener extends jEventListener{
 			jUrl::get('havefnubb~members:index'),
 			3,
 			'main'));
-	  $event->add(new hfnuMenuItem('members',
-			jLocale::get('havefnubb~main.member.list'),
-			jUrl::get('havefnubb~members:index'),
+	  $event->add(new hfnuMenuItem('search',
+			jLocale::get('hfnusearch~search.search'),
+			jUrl::get('hfnusearch~default:index'),
 			4,
 			'main'));
 	  if ($HfnuConfig->getValue('rules','main') != '') {

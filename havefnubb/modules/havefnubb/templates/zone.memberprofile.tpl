@@ -1,5 +1,7 @@
+{hook 'BeforeMemberProfile',array('user'=>$user->id)}
 <div class="post-author">
     <ul class="member-ident">
+		{hook 'MemberProfile',array('user'=>$user->id)}
         <li class="user-name user-image">{zone 'online_offline',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->login)}">{$user->login|eschtml}</a></li>
         <li>
 		{if $user->member_gravatar == 1}
@@ -30,3 +32,4 @@
         {if $user->member_website != ''}<li class="user-website user-image"><span><a href="{$user->member_website}" title="{jlocale 'havefnubb~member.common.website.of',array($user->login)}">{@havefnubb~member.common.website@}</a></span></li>{/if}
     </ul>
 </div>
+{hook 'AfterMemberProfile',array('user'=>$user->id)}
