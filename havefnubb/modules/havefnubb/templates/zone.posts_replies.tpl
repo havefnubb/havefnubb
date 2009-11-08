@@ -23,11 +23,12 @@
 </div>
 {/ifacl2}
 <div class="clear"></div>
+<br/>
 {foreach $posts as $post}
-{hook 'PostReplies',array('id_post'=>$id_post)}
-{assign $parent_id = $post->parent_id}
-{assign $id_forum = $post->id_forum}
-{ifacl2 'hfnu.posts.view','forum'.$id_forum}
+    {hook 'PostReplies',array('id_post'=>$id_post)}
+    {assign $parent_id = $post->parent_id}
+    {assign $id_forum = $post->id_forum}
+    {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="box">
     <h2>{$post->subject|eschtml}</h2>
     <div class="block">
@@ -35,10 +36,10 @@
         <div class="grid_4">
         {if $post->parent_id == $post->id_post}        
         {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
-                                        'source'=>'post',
-                                        'return_url'=>'havefnubb~posts:view',
-                                        'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle) 
-                                        )}
+                'source'=>'post',
+                'return_url'=>'havefnubb~posts:view',
+                'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle) 
+                )}
         {/if}&nbsp;
         </div>              
         <div class="grid_8 postheading">
@@ -90,7 +91,7 @@
         {/ifacl2}            
     </div>
 </div>
-{/ifacl2}
+    {/ifacl2}
 {/foreach}
 
 <div class="fake-button-left grid_8 alpha">&nbsp;
@@ -118,6 +119,7 @@
 </div>
 {/ifacl2}
 <div class="clear"></div>
+<br/>
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
 {/ifacl2}

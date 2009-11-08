@@ -34,7 +34,7 @@ class hfnumenuListener extends jEventListener{
 			3,
 			'main'));
 	  $event->add(new hfnuMenuItem('search',
-			jLocale::get('hfnusearch~search.search'),
+			jLocale::get('havefnubb~main.search'),
 			jUrl::get('hfnusearch~default:index'),
 			4,
 			'main'));

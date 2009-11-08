@@ -22,6 +22,7 @@
 </div>
 {/ifacl2}
 <div class="clear"></div>
+<br/>
 {foreach $posts as $post}
 {assign $parent_id = $post->parent_id}
 {assign $id_forum = $post->id_forum}
@@ -49,10 +50,10 @@
         <div class="grid_4">
         {if $post->parent_id == $post->id_post}        
         {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
-                                        'source'=>'post',
-                                        'return_url'=>'havefnubb~posts:view',
-                                        'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle) 
-                                        )}
+            'source'=>'post',
+            'return_url'=>'havefnubb~posts:view',
+            'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle) 
+            )}
         {/if}&nbsp;
         </div>        
         <div class="grid_12">
@@ -114,6 +115,7 @@
 </div>
 {/ifacl2}
 <div class="clear"></div>
+<br/>
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
 {/ifacl2}

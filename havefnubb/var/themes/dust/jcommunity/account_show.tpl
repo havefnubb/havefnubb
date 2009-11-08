@@ -82,7 +82,9 @@ $(document).ready(function(){
                         <label><strong>{@havefnubb~member.common.country@}</strong></label>
                     </div>
                     <div class="form_value">
-                        {image 'hfnu/images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}                        
+						{if $user->member_country != ''}
+                        {image 'hfnu/images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}
+						{/if}
                     </div>
                     <div class="form_property">
                         <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong>&nbsp;</label>
