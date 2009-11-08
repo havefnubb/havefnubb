@@ -1,3 +1,4 @@
+;<?php die(''); ?>
 twitter=0
 digg=0
 delicious=0
