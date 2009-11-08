@@ -2,7 +2,7 @@
 [main]
 title="HaveFnu BB!"
 description="Where Everything is Fnu"
-version=1.0.0RC1
+version=1.2.0
 rules=""
 admin_email=""
 url_check_version="http://www.havefnubb.org/last_version"
