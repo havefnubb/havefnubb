@@ -44,7 +44,17 @@ class hfnumenuListener extends jEventListener{
 			   jUrl::get('havefnubb~default:rules'),
 			   5,
 			   'main'));
-	  }	  
+	  }
+	  // dynamic menu
+	  $menus = jClasses::getService('havefnubb~menus')->getMenus();
+
+	  foreach ($menus as $indx => $menu) {
+		 $event->add(new hfnuMenuItem($menu['itemName'],
+			$menu['name'],
+			$menu['url'],
+			50 + $menu['order'],
+			'main'));		  		 
+	  }
       if ( jAcl2::check('hfnu.admin.index'))    {	  
 		 $event->add(new hfnuMenuItem('admin',
 			jLocale::get('havefnubb~main.admin.panel'),
