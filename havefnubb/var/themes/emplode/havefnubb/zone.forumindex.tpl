@@ -1,9 +1,9 @@
 <table class="data_table" width="100%">
-{hook 'BeforeForumIndex'}    
+{hook 'hfbBeforeForumIndex'}    
 {foreach $forums as $forum}
 {if $action =='view'}
 {ifacl2 'hfnu.forum.view','forum'.$forum->id_forum}
-{hook 'ForumIndex',array('id_forum'=>$forum->id_forum)}
+{hook 'hfbForumIndex',array('id_forum'=>$forum->id_forum)}
 {if $forum->forum_type == 0}
     <tr>
         <td class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum)}"></td>
@@ -55,5 +55,5 @@
 {/ifacl2}
 {/if}
 {/foreach}
-{hook 'AfterForumIndex'}
+{hook 'hfbAfterForumIndex'}
 </table>

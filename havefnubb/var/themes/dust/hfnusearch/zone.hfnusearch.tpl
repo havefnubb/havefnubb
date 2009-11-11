@@ -6,10 +6,10 @@
 <div class="box">
     <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@hfnusearch~search.search.perform@}</h3>
 </div>
-{hook 'BeforeSearch'}
+{hook 'hfbBeforeSearch'}
 <div class="box">
     <h2>{@hfnusearch~search.search.perform@}</h2>
-    {hook 'Search'}      
+    {hook 'hfbSearch'}      
     <div class="block">        
         <div id="post-message">{jmessage}</div>
         <form action="{formurl 'hfnusearch~default:query'}" method="post">  
@@ -38,4 +38,4 @@
     {zone 'hfnusearch~searchAuthor'}
     </div>     
 </div>
-{hook 'AfterSearch'}
+{hook 'hfbAfterSearch'}

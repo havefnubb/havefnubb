@@ -1,9 +1,9 @@
-{hook 'BeforeFlood'}
+{hook 'hfbBeforeFlood'}
 <div class="box">	
 	<h2>Flood</h2>
 	<div class="block">
-		{hook 'Flood'}
+		{hook 'hfbFlood'}
 		{$message}
 	</div>
 </div>
-{hook 'AfterFlood'}
+{hook 'hfbAfterFlood'}

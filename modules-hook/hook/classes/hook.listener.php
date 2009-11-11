@@ -10,134 +10,137 @@
 
 class hookListener extends jEventListener{
    /* Dummy listener to show what are the events that can be managed */
-   function onSampleBannerAnnouncement ($event) {
+   function onhfbSampleBannerAnnouncement ($event) {
         $event->add( jZone::get('hook~samplebanner_accouncement') );
    }
    
-   function onBeforeCategoryList ($event) {
+   function onhfbBeforeCategoryList ($event) {
       
    }
-   function onCategoryList ($event) {
+   function onhfbCategoryList ($event) {
       
    }
-   function onAfterCategoryList ($event) {
+   function onhfbAfterCategoryList ($event) {
       
    }
-   function onBeforeForumIndex ($event) {
+   function onhfbBeforeForumIndex ($event) {
       
    }
-   function onForumIndex ($event) {
+   function onhfbForumIndex ($event) {
       
    }
-   function onAfterForumIndex ($event) {
+   function onhfbAfterForumIndex ($event) {
       
    }
-   function onBeforeStats ($event) {
+   function onhfbBeforeStats ($event) {
       
    }
-   function onStats ($event) {
+   function onhfbStats ($event) {
       
    }
-   function onAfterStats ($event) {
+   function onhfbAfterStats ($event) {
       
    }
-   function onBeforeOnline ($event) {
+   function onhfbBeforeOnline ($event) {
       
    }
-   function onOnline ($event) {
+   function onhfbOnline ($event) {
       
    }
-   function onAfterOnline ($event) {
+   function onhfbAfterOnline ($event) {
       
    }
-   function onBeforeOnlineToday ($event) {
+   function onhfbBeforeOnlineToday ($event) {
       
    }
-   function onOnlineToday ($event) {
+   function onhfbOnlineToday ($event) {
       
    }
-   function onAfterOnlineToday ($event) {
+   function onhfbAfterOnlineToday ($event) {
       
    }
-   function onBeforePostsList($event) {
+   function onhfbBeforePostsList($event) {
       
    }
-   function onPostsList($event) {
+   function onhfbPostsList($event) {
       
    }
-   function onAfterPostsList ($event) {
+   function onhfbAfterPostsList ($event) {
       
    }
-   function onBeforePostsReplies($event) {
+   function onhfbBeforePostsReplies($event) {
       
    }
-   function onPostsReplies($event) {
+   function onhfbPostsReplies($event) {
       
    }
-   function onAfterPostsReplies ($event) {
+   function onhfbAfterPostsReplies ($event) {
       
    }   
-   function onBeforePostsEdit($event) {
+   function onhfbBeforePostsEdit($event) {
       
    }
-   function onPostsEdit($event) {
+   function onhfbPostsEdit($event) {
       
    }
-   function onAfterPostsEdit ($event) {
+   function onhfbAfterPostsEdit ($event) {
       
    }
-   function onBeforeFlood($event) {
+   function onhfbBeforeFlood($event) {
       
    }
-   function onFlood($event) {
+   function onhfbFlood($event) {
       
    }
-   function onAfterFlood($event) {
+   function onhfbAfterFlood($event) {
       
    }
-   function onBeforeMembersList($event) {
+   function onhfbBeforeMembersList($event) {
       
    }
-   function onMembersList($event) {
+   function onhfbMembersList($event) {
       
    }
-   function onAfterMembersList($event) {
+   function onhfbAfterMembersList($event) {
       
    }
-   function onBeforeMemberProfile($event) {
+   function onhfbBeforeMemberProfile($event) {
       
    }
-   function onMemberProfile($event) {
+   function onhfbMemberProfile($event) {
       
    }
-   function onAfterMemberProfile($event) {
+   function onhfbAfterMemberProfile($event) {
       
    }
-   function onBeforeSearch($event) {
+   function onhfbBeforeSearch($event) {
       
    }
-   function onSearch($event) {
-      
+   function onhfbSearch($event) {
+      $author =  jZone::get('hfnusearch~searchAuthor');
+      $forum  =  jZone::get('hfnusearch~searchForum');
+      $zone = $author . $forum;
+      $event->add( $zone );      
    }
-   function onAfterSearch($event) {
+   function onhfbAfterSearch($event) {
       
    }      
-   function onBeforeBan($event) {
+   function onhfbBeforeBan($event) {
       
    }
-   function onBan($event) {
+   function onhfbBan($event) {
       
    }
-   function onAfterBan($event) {
+   function onhfbAfterBan($event) {
       
    }
-   function onJcommunityStatusConnected($event) {
+   function onhfbJcommunityStatusConnected($event) {
       
    }
-   function onMainInHeader($event) {
+   function onhfbMainInHeader($event) {
       
    }
-   function onMainInFooter($event) {
+   function onhfbMainInFooter($event) {
       
    }         
 }

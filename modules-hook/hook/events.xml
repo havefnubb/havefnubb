@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <events xmlns="http://jelix.org/ns/events/1.0">
-   <listener name="hookabout">
-	  <event name="HfnuAboutModule" />
+   <listener name="hfbhookabout">
+	  <event name="hfbHfnuAboutModule" />
    </listener>
-   <listener name="hook">
-	  <event name="SampleBannerAnnouncement" />
+   <listener name="hfbhook">
+	  <event name="hfbSampleBannerAnnouncement" />
 	  
-	  <event name="BeforeCategoryList"/>
-	  <event name="CategoryList"/>
-	  <event name="AfterCategoryList"/>
+	  <event name="hfbBeforeCategoryList"/>
+	  <event name="hfbCategoryList"/>
+	  <event name="hfbAfterCategoryList"/>
 
-	  <event name="BeforeForumIndex"/>
-	  <event name="ForumIndex"/>
-	  <event name="AfterForumIndex"/>
+	  <event name="hfbBeforeForumIndex"/>
+	  <event name="hfbForumIndex"/>
+	  <event name="hfbAfterForumIndex"/>
 	  
-	  <event name="BeforePostsEdit"/>
-	  <event name="PostsEdit"/>
-	  <event name="AfterPostsEdit"/>	  
+	  <event name="hfbBeforePostsEdit"/>
+	  <event name="hfbPostsEdit"/>
+	  <event name="hfbAfterPostsEdit"/>	  
 	  
-	  <event name="BeforePostsList"/>
-	  <event name="PostsList"/>
-	  <event name="AfterPostsList"/>
+	  <event name="hfbBeforePostsList"/>
+	  <event name="hfbPostsList"/>
+	  <event name="hfbAfterPostsList"/>
 
-	  <event name="BeforePostsReplies"/>
-	  <event name="PostsReplies"/>
-	  <event name="AfterPostReplies"/>
+	  <event name="hfbBeforePostsReplies"/>
+	  <event name="hfbPostsReplies"/>
+	  <event name="hfbAfterPostReplies"/>
 
-	  <event name="BeforeStats"/>
-	  <event name="Stats"/>
-	  <event name="AfterStats"/>
+	  <event name="hfbBeforeStats"/>
+	  <event name="hfbStats"/>
+	  <event name="hfbAfterStats"/>
 	  
-	  <event name="BeforeOnline"/>
-	  <event name="Online"/>
-	  <event name="AfterOnline"/>
+	  <event name="hfbBeforeOnline"/>
+	  <event name="hfbOnline"/>
+	  <event name="hfbAfterOnline"/>
 	  
-	  <event name="BeforeOnlineToday"/>
-	  <event name="OnlineToday"/>
-	  <event name="AfterOnlineToday"/>
+	  <event name="hfbBeforeOnlineToday"/>
+	  <event name="hfbOnlineToday"/>
+	  <event name="hfbAfterOnlineToday"/>
 
-	  <event name="BeforeFlood"/>
-	  <event name="Flood"/>
-	  <event name="AfterFlood"/>
+	  <event name="hfbBeforeFlood"/>
+	  <event name="hfbFlood"/>
+	  <event name="hfbAfterFlood"/>
 
-	  <event name="BeforeMembersList"/>
-	  <event name="MembersList"/>
-	  <event name="AfterMembersList"/>
+	  <event name="hfbBeforeMembersList"/>
+	  <event name="hfbMembersList"/>
+	  <event name="hfbAfterMembersList"/>
 
-	  <event name="BeforeMemberProfile"/>
-	  <event name="MemberProfile"/>	  
-	  <event name="AfterMemberProfile"/>
+	  <event name="hfbBeforeMemberProfile"/>
+	  <event name="hfbMemberProfile"/>	  
+	  <event name="hfbAfterMemberProfile"/>
 	  
-	  <event name="BeforeSearch"/>
-	  <event name="Search"/>
-	  <event name="AfterSearch"/>
+	  <event name="hfbBeforeSearch"/>
+	  <event name="hfbSearch"/>
+	  <event name="hfbAfterSearch"/>
 
-	  <event name="BeforeBan"/>
-	  <event name="Ban"/>
-	  <event name="AfterBan"/>
+	  <event name="hfbBeforeBan"/>
+	  <event name="hfbBan"/>
+	  <event name="hfbAfterBan"/>
 	  
-	  <event name="JcommunityStatusConnected"/>
-	  <event name="MainInHeader"/>
-	  <event name="MainInFooter"/>
+	  <event name="hfbJcommunityStatusConnected"/>
+	  <event name="hfbMainInHeader"/>
+	  <event name="hfbMainInFooter"/>
 	  
    </listener>
 </events>

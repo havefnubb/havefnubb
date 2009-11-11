@@ -16,7 +16,7 @@
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
-{hook 'BeforePostReplies',array('id_post'=>$id_post)}
+{hook 'hfbBeforePostReplies',array('id_post'=>$id_post)}
 <div class="pager-posts grid_8 omega">
 {@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
@@ -25,7 +25,7 @@
 <div class="clear"></div>
 <br/>
 {foreach $posts as $post}
-    {hook 'PostReplies',array('id_post'=>$id_post)}
+    {hook 'hfbPostReplies',array('id_post'=>$id_post)}
     {assign $parent_id = $post->parent_id}
     {assign $id_forum = $post->id_forum}
     {ifacl2 'hfnu.posts.view','forum'.$id_forum}
@@ -112,7 +112,7 @@
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
-{hook 'AfterPostsReplies',array('id_post'=>$id_post)}
+{hook 'hfbAfterPostsReplies',array('id_post'=>$id_post)}
 <div class="pager-posts grid_8 omega">
 {@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}

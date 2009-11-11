@@ -15,7 +15,7 @@
 		<div class="grid_5">
 			{zone 'jcommunity~status'}		
 		</div>
-		{hook 'MainInHeader'}		
+		{hook 'hfbMainInHeader'}		
 		<div class="clear"></div>    
 	</div>
 	<div class="clear"></div>
@@ -46,7 +46,7 @@
         <div class="box">
             <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a>.</p>
         </div>
-		{hook 'MainInFooter'}		
+		{hook 'hfbMainInFooter'}		
     </div>	
     <div class="clear"></div>       
 </div>

@@ -14,7 +14,7 @@
 		<div id="site_title">
 			<h1><a href="{jurl 'havefnubb~default:index'}" >{$TITLE}</a></h1><p>{$DESC}</p>	
 		</div>
-		{hook 'MainInHeader'}
+		{hook 'hfbMainInHeader'}
 	</div>
 </div>
 <div id="navigation">
@@ -89,7 +89,7 @@
 		<div class="right">
 			<a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a> 
 		</div>
-		{hook 'MainInFooter'}		
+		{hook 'hfbMainInFooter'}		
 		<div class="clearer">&nbsp;</div>
 
 	</div>

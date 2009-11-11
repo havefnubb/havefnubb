@@ -1,9 +1,9 @@
-{hook 'BeforeBan'}
+{hook 'hfbBeforeBan'}
 <div class="box">	
 	<h2>{@hfnuadmin~ban.title@}</h2>
 	<div class="block">
-		{hook 'Ban'}
+		{hook 'hfbBan'}
 		{$message}
 	</div>
 </div>
-{hook 'AftereBan'}
+{hook 'hfbAftereBan'}

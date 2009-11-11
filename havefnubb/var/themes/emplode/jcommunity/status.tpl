@@ -1,5 +1,5 @@
 {ifuserconnected}
-    {hook 'JcommunityStatusConnected',array('login'=>$login)}
+    {hook 'hfbJcommunityStatusConnected',array('login'=>$login)}
     <ul>
         <li>{@havefnubb~member.status.welcome@} <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$login)}">{$login}.</a></li>
     </ul>
