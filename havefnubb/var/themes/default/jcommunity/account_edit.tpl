@@ -10,7 +10,7 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
-
+{hook 'hfbAccountEditBefore',array($user->login)}
 <div class="box">
 	<h2>{@havefnubb~member.edit.account.header@}</h2>
 	<div class="block">
@@ -20,7 +20,8 @@ $(document).ready(function(){
 				<li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
 				<li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
 				<li><a href="#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>	
-				<li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>			
+				<li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>
+				{hook 'hfbAccountEditTab',array($user->login)}
 			</ul>    
 			<div id="user-profile-general">
             <fieldset>
@@ -226,6 +227,7 @@ $(document).ready(function(){
                 </div>
             </fieldset>
 			</div>
+			{hook 'hfbAccountEditDiv',array($user->login)}
 		</div> <!-- #container -->
 		<div class="form_row form_row_submit">
 			<div class="form_value">{formsubmit}</div>
@@ -234,3 +236,4 @@ $(document).ready(function(){
 	{/form}
 	</div> <!-- #block -->
 </div> <!-- #box -->
+{hook 'hfbAccountEditAfter',array($user->login)}

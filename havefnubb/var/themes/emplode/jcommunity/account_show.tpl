@@ -22,6 +22,7 @@ $(document).ready(function(){
 {/if}
 	</h3>	
 </div>
+{hook 'hfbAccountShowBefore',array($user->login)}
 <div id="post-message">{jmessage}</div>
 <div id="profile">
 	<div id="user-profile-avatar">
@@ -45,6 +46,7 @@ $(document).ready(function(){
             <li><a href="#user-profile-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
             <li><a href="#user-profile-messenger"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></a></li>	
             <li><a href="#user-profile-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
+			{hook 'hfbAccountShowTab',array($user->login)}
         </ul>
         <div id="user-profile-general">
             <fieldset>
@@ -294,5 +296,7 @@ $(document).ready(function(){
                 </div>
             </fieldset>
         </div>
+		{hook 'hfbAccountShowDiv',array($user->login)}
     </div>
 </div>
+{hook 'hfbAccountShowBefore',array($user->login)}

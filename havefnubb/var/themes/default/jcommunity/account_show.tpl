@@ -10,6 +10,7 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
+{hook 'hfbAccountShowBefore',array($user->login)}
 <div id="post-message">{jmessage}</div>
 <div class="box">
 	<h2>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h2>
@@ -35,6 +36,7 @@ $(document).ready(function(){
             <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
             <li><a href="#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>	
             <li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>
+			{hook 'hfbAccountShowTab',array($user->login)}
         </ul>
 			<div id="user-profile-general">
             <fieldset>
@@ -290,6 +292,7 @@ $(document).ready(function(){
                 </div>
             </fieldset>
 			</div>
+			{hook 'hfbAccountShowDiv',array($user->login)}
 		</div> <!-- #container -->
 	</div>
 	<div class="fake-button-left">
@@ -298,3 +301,4 @@ $(document).ready(function(){
 {/if}
 	</div>
 </div>
+{hook 'hfbAccountShowBefore',array($user->login)}

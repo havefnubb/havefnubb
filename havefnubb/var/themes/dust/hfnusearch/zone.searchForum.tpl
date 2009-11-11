@@ -1,6 +1,6 @@
 {form $form , 'hfnusearch~default:query'}
 <fieldset>
-    <legend>Forums</legend>
+    <legend>{@hfnusearch~forum.search.forums@}</legend>
     <div class="form_row">
         <div class="form_value">
             <strong>{@hfnusearch~forum.search.in.a.particular.forum@}</strong>

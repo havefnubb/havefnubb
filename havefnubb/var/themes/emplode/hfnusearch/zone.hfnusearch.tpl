@@ -3,6 +3,7 @@
     <h3>{@hfnusearch~search.search.perform@}</h3>    
 </div>
 <div id="hfnusearch">
+{hook 'hfbBeforeSearch'}
 <div id="post-message">{jmessage}</div>
 <form action="{formurl 'hfnusearch~default:query'}" method="post">  
     <fieldset>
@@ -26,6 +27,6 @@
     </div>
   </fieldset> 
 </form>
-{zone 'hfnusearch~searchForum'}
-{zone 'hfnusearch~searchAuthor'}
+{hook 'hfbSearch'}
 </div>
+{hook 'hfbAfterSearch'}

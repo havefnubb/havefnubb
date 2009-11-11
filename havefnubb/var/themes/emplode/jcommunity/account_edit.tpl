@@ -17,6 +17,7 @@ $(document).ready(function(){
 {/ifacl2}    
     </h3>
 </div>
+{hook 'hfbAccountEditBefore',array($user->login)}
 <div id="profile">
 {form $form, 'jcommunity~account:save', array('user'=>$username)}
 	<div id="container" class="user-formbg">
@@ -25,6 +26,7 @@ $(document).ready(function(){
 			<li><a href="#user-profile-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
 			<li><a href="#user-profile-messenger"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></a></li>	
 			<li><a href="#user-profile-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
+			{hook 'hfbAccountEditTab',array($user->login)}
 		</ul>    
         <div id="user-profile-general">
             <fieldset>
@@ -217,6 +219,7 @@ $(document).ready(function(){
                 </div>
             </fieldset>
         </div>
+		{hook 'hfbAccountEditDiv',array($user->login)}
 	</div>
     <div class="form_row form_row_submit">
         <div class="form_value">{formsubmit}</div>
@@ -224,3 +227,4 @@ $(document).ready(function(){
     </div>
 {/form}
 </div>
+{hook 'hfbAccountEditAfter',array($user->login)}

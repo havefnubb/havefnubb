@@ -9,7 +9,6 @@
 {hook 'hfbBeforeSearch'}
 <div class="box">
     <h2>{@hfnusearch~search.search.perform@}</h2>
-    {hook 'hfbSearch'}      
     <div class="block">        
         <div id="post-message">{jmessage}</div>
         <form action="{formurl 'hfnusearch~default:query'}" method="post">  
@@ -24,7 +23,6 @@
                 <input type="text" id="hfnu_q" name="hfnu_q" size="31" />    
             </div>
             <div class="clearer">&nbsp;</div>
-    
         </div>
         <div class="form_row form_row_submit">    
             <div class="form_value">
@@ -34,8 +32,7 @@
         </div>
       </fieldset> 
     </form>
-    {zone 'hfnusearch~searchForum'}
-    {zone 'hfnusearch~searchAuthor'}
+    {hook 'hfbSearch'}
     </div>     
 </div>
 {hook 'hfbAfterSearch'}

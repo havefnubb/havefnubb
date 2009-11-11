@@ -1,6 +1,6 @@
 {form $form , 'hfnusearch~default:query'}
 <fieldset>
-    <div class="legend"><h3>Auteur</h3></div>
+    <div class="legend"><h3>{@hfnusearch~forum.search.author@}</h3></div>
     <div class="form_row">
         {@hfnusearch~forum.search.post.from.an.author@}<br/>
         <div class="form_property">
