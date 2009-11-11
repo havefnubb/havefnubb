@@ -25,7 +25,7 @@ function jtpl_function_html_social_networks($tpl, $params) {
 	if ( $socialNetwork->getValue('twitter')) {
 		social_twitter($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
-	if ( $socialNetwork->getValue('diff')) {
+	if ( $socialNetwork->getValue('digg')) {
 		social_digg($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
 	if ( $socialNetwork->getValue('delicious')) {
