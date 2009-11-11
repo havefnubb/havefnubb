@@ -44,7 +44,11 @@
                 {social_networks 
                 array(  'imgpath'=>$j_themepath.'images/social-network',
                         'jurl'=>'havefnubb~posts:view',
-                        'jurlparam'=>array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject),
+                        'jurlparams'=>array('id_post'=>$post->parent_id,
+                            'parent_id'=>$post->parent_id,
+                            'id_forum'=>$post->id_forum,
+                            'ftitle'=>$post->forum_name,
+                            'ptitle'=>$post->subject),
                         'title'=>$post->subject)}            
             </td>
             <td>
