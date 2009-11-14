@@ -3,10 +3,11 @@
 * @package     jelix-scripts
 * @author      Jouanneau Laurent
 * @contributor Loic Mathaud
-* @copyright   2007 Jouanneau laurent, 2008 Loic Mathaud
+* @copyright   2007 Jouanneau laurent, 2008 Loic Mathaud, 2009 Bastien Jaillot
 * @link        http://www.jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
+
 
 class createformCommand extends JelixScriptCommand {
 

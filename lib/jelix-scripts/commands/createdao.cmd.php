@@ -142,7 +142,8 @@ class createdaoCommand extends JelixScriptCommand {
             }
 
             if($type!=''){
-               $properties.="\n        <property name=\"$fieldname\" fieldname=\"$fieldname\"";
+               $name = str_replace('-', '_', $fieldname);
+               $properties.="\n        <property name=\"$name\" fieldname=\"$fieldname\"";
                $properties.=' datatype="'.$type.'"';
                if($prop->primary){
                   if($primarykeys != '')

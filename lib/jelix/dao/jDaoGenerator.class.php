@@ -65,7 +65,7 @@ class jDaoGenerator {
     /**
     * build all classes
     */
-    public final function buildClasses () {
+    public function buildClasses () {
 
         $src = array();
         $src[] = ' require_once ( JELIX_LIB_PATH .\'dao/jDaoRecordBase.class.php\');';
@@ -182,9 +182,9 @@ class jDaoGenerator {
         }
 
         if($this->_dataParser->hasEvent('insertbefore') || $this->_dataParser->hasEvent('insert')){
-            $src[] = '   jEvent::notify("daoInsertBefore", array(\'dao\'=>$this->_daoSelector, \'record\'=>$record));';
+          $src[] = '   jEvent::notify("daoInsertBefore", array(\'dao\'=>$this->_daoSelector, \'record\'=>$record));';
         }
-        
+
         // if there isn't a autoincrement as primary key, then we do a full insert.
         // if there isn't a value for the autoincrement field and if this is a mysql/sqlserver and pgsql,
         // we do an insert without given primary key. In other case, we do a full insert.
@@ -245,7 +245,7 @@ class jDaoGenerator {
             if($this->_dataParser->hasEvent('updatebefore') || $this->_dataParser->hasEvent('update')){
                 $src[] = '   jEvent::notify("daoUpdateBefore", array(\'dao\'=>$this->_daoSelector, \'record\'=>$record));';
             }
-        	
+
             $src[] = '   $query = \'UPDATE '.$pTableRealNameEsc.' SET ';
             $sqlSet='';
             foreach($fields as $k=> $fname){
@@ -445,7 +445,7 @@ class jDaoGenerator {
     *  create FROM clause for all SELECT query
     * @return array  FROM string and WHERE string
     */
-    final protected function _getFromClause(){
+    protected function _getFromClause(){
 
         $tables = $this->_dataParser->getTables();
 
@@ -678,7 +678,7 @@ class jDaoGenerator {
             }
 
             $var = '$'.$fieldPrefix.$field->name;
-            $value = $this->_preparePHPExpr($var,$field, !$field->requiredInConditions,'=' );
+            $value = $this->_preparePHPExpr($var, $field, !$field->requiredInConditions, '=');
 
             $r .= $condition.'\'.'.$value.'.\'';
         }
@@ -691,7 +691,7 @@ class jDaoGenerator {
         $values = $fields = array();
 
         foreach ((array)$fieldList as $fieldName=>$field) {
-            if ($pattern != '' && $field->$pattern == ''){
+            if ($pattern != '' && $field->$pattern == '') {
                 continue;
             }
 
@@ -746,12 +746,12 @@ class jDaoGenerator {
                     $ord = $this->_encloseName($fields[$name]->table).'.'.$this->_encloseName($fields[$name]->fieldName);
                 else
                     $ord = $this->_encloseName($fields[$name]->fieldName);
-            }elseif($name{0} == '$'){
+            }elseif($name[0] == '$'){
                 $ord = '\'.'.$name.'.\'';
             }else{
                 continue;
             }
-            if($way{0} == '$'){
+            if($way[0] == '$'){
                 $order[]=$ord.' \'.( strtolower('.$way.') ==\'asc\'?\'asc\':\'desc\').\'';
             }else{
                 $order[]=$ord.' '.$way;
@@ -817,7 +817,7 @@ class jDaoGenerator {
             }elseif($cond['operator'] == 'IS NULL' || $cond['operator'] == 'IS NOT NULL'){
                 $r.=$cond['operator'].' ';
             }else{
-                if($cond['isExpr']){
+                if ($cond['isExpr']) {
                     $value=str_replace("'","\\'",$cond['value']);
                     // we need to know if the expression is like "$foo" (1) or a thing like "concat($foo,'bla')" (2)
                     // because of the nullability of the parameter. If the value of the parameter is null and the operator
@@ -830,10 +830,15 @@ class jDaoGenerator {
                         foreach($params as $param){
                             $value = str_replace('$'.$param, '\'.'.$this->_preparePHPExpr('$'.$param, $prop, !$prop->requiredInConditions).'.\'',$value);
                         }
-                        $value= $cond['operator'].' '.$value;
+                        $value = $cond['operator'].' '.$value;
                     }
-                }else{
-                    $value= $cond['operator'].' '.$this->_preparePHPValue($cond['value'], $prop->datatype,false);
+                } else {
+                    $value = $cond['operator'].' ';
+                    if ($cond['operator'] == 'LIKE' || $cond['operator'] == 'NOT LIKE') {
+                        $value .= $this->_preparePHPValue($cond['value'], 'string', false);
+                    } else {
+                        $value .= $this->_preparePHPValue($cond['value'], $prop->datatype, false);
+                    }
                 }
                 $r.=$value;
             }
@@ -853,8 +858,6 @@ class jDaoGenerator {
         }
         return $r;
     }
-
-
 
     /**
     * prepare a string ready to be included in a PHP script
@@ -894,7 +897,7 @@ class jDaoGenerator {
     }
 
     protected function _preparePHPExpr($expr, $field, $checknull=true, $forCondition=''){
-        $opnull=$opval='';
+        $opnull = $opval = '';
         if($checknull && $forCondition != ''){
             if($forCondition == '=')
                 $opnull = 'IS ';
@@ -903,10 +906,14 @@ class jDaoGenerator {
             else
                 $checknull=false;
         }
-        if($forCondition!='')
-            $forCondition = '\''.$forCondition.'\'.';
+        $type = '';
+        if ($forCondition != 'LIKE' && $forCondition != 'NOT LIKE')
+            $type = strtolower($field->datatype);
+        
+        if ($forCondition != '')
+            $forCondition = '\' '.$forCondition.' \'.'; // spaces for operators like LIKE
 
-        switch(strtolower($field->datatype)){
+        switch($type){
             case 'int':
             case 'integer':
                 if($checknull){

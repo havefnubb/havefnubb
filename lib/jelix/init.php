@@ -17,7 +17,7 @@
  * Version number of Jelix
  * @name  JELIX_VERSION
  */
-define ('JELIX_VERSION', '1.1.3');
+define ('JELIX_VERSION', '1.1.4');
 
 /**
  * base of namespace path used in xml files of jelix
@@ -34,6 +34,8 @@ define ('BYTECODE_CACHE_EXISTS', function_exists('apc_cache_info') || function_e
 
 if(!defined('E_DEPRECATED'))
     define ('E_DEPRECATED',8192);
+if(!defined('E_USER_DEPRECATED'))
+    define ('E_USER_DEPRECATED',16384);
 error_reporting (E_ALL | E_STRICT);
 
 

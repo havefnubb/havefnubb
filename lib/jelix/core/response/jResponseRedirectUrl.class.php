@@ -47,7 +47,7 @@ final class jResponseRedirectUrl extends jResponse {
         if($this->hasErrors())
             return false;
         $this->sendHttpHeaders();
-        header ('location: '.$this->url);
+        header ('Location: '.$this->url);
         return true;
     }
 

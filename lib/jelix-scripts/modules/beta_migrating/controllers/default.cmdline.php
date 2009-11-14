@@ -90,7 +90,7 @@ class defaultCtrl extends jControllerCmdLine
         $grepCmd = 
             "grep -R 'jUrl::get' " . $this->_directory . " | grep -v svn";
 
-        foreach (split ("\n", `$grepCmd`) as $line)
+        foreach (explode ("\n", `$grepCmd`) as $line)
         {
             $file = 
                 substr 
@@ -178,7 +178,7 @@ class defaultCtrl extends jControllerCmdLine
         $grepCmd =  
             "grep -R '{jurl' " . $this->_directory . " | grep -v svn";
 
-        foreach (split ("\n", `$grepCmd`) as $line)
+        foreach (explode ("\n", `$grepCmd`) as $line)
         {
             $file = 
                 substr 
@@ -266,7 +266,7 @@ class defaultCtrl extends jControllerCmdLine
         $grepCmd = 
             "grep -R '\->action' " . $this->_directory . " | grep -v svn";
 
-        foreach (split ("\n", `$grepCmd`) as $line)
+        foreach (explode ("\n", `$grepCmd`) as $line)
         {
             $file = 
                 substr 
@@ -355,7 +355,7 @@ class defaultCtrl extends jControllerCmdLine
 
         $basePath = $this->_destDirectory;
 
-        $directories = split ('/', $newPath);
+        $directories = preg_split ('!/!', $newPath);
 
         $fileName = array_pop ($directories);
 

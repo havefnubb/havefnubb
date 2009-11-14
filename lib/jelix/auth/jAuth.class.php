@@ -183,9 +183,10 @@ class jAuth {
             if(!isset($rep['canremove']) || $rep['canremove'] === false)
                 return false;
         }
+        $user = $dr->getUser($login);
         if($dr->removeUser($login)===false)
             return false;
-        jEvent::notify ('AuthRemoveUser', array('login'=>$login));
+        jEvent::notify ('AuthRemoveUser', array('login'=>$login, 'user'=>$user));
         if(self::isConnected() && self::getUserSession()->login === $login)
             self::logout();
         return true;
@@ -335,7 +336,7 @@ class jAuth {
         $letter = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $pass = '';
         for($i=0;$i<$length;$i++)
-            $pass .= $letter{rand(0,61)};
+            $pass .= $letter[rand(0,61)];
         return $pass;
     }
 }

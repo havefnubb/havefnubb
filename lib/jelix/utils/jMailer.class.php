@@ -176,10 +176,10 @@ class jMailer extends PHPMailer {
             }
             $locale = 'jelix~errors.mail.'.$m[2];
             if ($arg !== null) {
-                throw new jException($locale, $arg, 1, $this->lang, $this->CharSet);
+                throw new jException($locale, $arg, $this->lang, $this->CharSet);
             }
             else
-                throw new jException($locale, array(), 1, $this->lang, $this->CharSet);
+                throw new jException($locale, array(), $this->lang, $this->CharSet);
         }
         else {
             throw new Exception($msg);

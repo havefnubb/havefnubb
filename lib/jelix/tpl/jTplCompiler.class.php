@@ -10,6 +10,9 @@
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 
+define('T_GOTO',333);
+
+
 /**
  * This is the compiler of templates: it converts a template into a php file.
  * @package     jelix
@@ -36,7 +39,7 @@ class jTplCompiler
     private $_inLocaleOk = array(T_STRING, T_ABSTRACT, T_AS, T_BREAK, T_CASE,
             T_CATCH, T_CLASS, T_CLONE, T_CONST, T_CONTINUE, T_DECLARE, T_DEFAULT,
             T_DO, T_ECHO, T_ELSE, T_ELSEIF, T_EMPTY, T_EXIT, T_FINAL, T_FOR,
-            T_FOREACH, T_FUNCTION, T_GLOBAL, T_IF, T_IMPLEMENTS, T_INSTANCEOF,
+            T_FOREACH, T_FUNCTION, T_GLOBAL, T_GOTO, T_IF, T_IMPLEMENTS, T_INSTANCEOF,
             T_INTERFACE, T_LIST, T_LOGICAL_AND, T_LOGICAL_OR, T_LOGICAL_XOR,
             T_NEW, T_PRIVATE, T_PUBLIC, T_PROTECTED, T_RETURN, T_STATIC,
             T_SWITCH, T_THROW, T_TRY, T_USE, T_VAR, T_WHILE, T_DNUMBER,
@@ -70,6 +73,10 @@ class jTplCompiler
 
     protected $_userFunctions = array();
 
+    protected $escapePI = false;
+    
+    protected $removeASPtags = true;
+
     /**
      * Initialize some properties
      */
@@ -78,6 +85,9 @@ class jTplCompiler
         $this->_allowedInExpr = array_merge($this->_vartype, $this->_op);
         $this->_allowedAssign = array_merge($this->_vartype, $this->_assignOp, $this->_op);
         $this->_allowedInForeach = array_merge($this->_vartype, array(T_AS, T_DOUBLE_ARROW));
+
+        $this->escapePI = (ini_get("short_open_tag") == "1");
+        $this->removeASPtags = (ini_get("asp_tags") == "1");
 
     }
 
@@ -121,11 +131,23 @@ class jTplCompiler
         return true;
     }
 
+    protected function _piCallback($matches) {
+        return '<?php echo \''.str_replace("'","\\'",$matches[1]).'\'?>';
+    }
+
     protected function compileContent($tplcontent){
         // we remove all php tags 
-        $tplcontent = preg_replace("!<\?(.*?)\?>!s", '', $tplcontent);
+        $tplcontent = preg_replace("!<\?((?:php|=|\s).*)\?>!s", '', $tplcontent);
         // we remove all template comments
         $tplcontent = preg_replace("!{\*(.*?)\*}!s", '', $tplcontent);
+
+        if ($this->escapePI) {
+            $tplcontent = preg_replace_callback("!(<\?.*\?>)!sm", array($this,'_piCallback'), $tplcontent);
+        }
+        if ($this->removeASPtags) {
+          // we remove all asp tags 
+          $tplcontent = preg_replace("!<%.*%>!s", '', $tplcontent);
+        }
 
         preg_match_all("!{literal}(.*?){/literal}!s", $tplcontent, $_match);
 

@@ -27,7 +27,7 @@ unusedModules = jacldb
 
 
 [coordplugins]
-;nom = nom_fichier_ini
+;name = file_ini_name or 1
 
 [tplplugins]
 defaultJformsBuilder = html
@@ -40,15 +40,15 @@ messageLogFormat = "%date%\t[%code%]\t%msg%\t%file%\t%line%\n"
 logFile = error.log
 email = root@localhost
 emailHeaders = "Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
-quietMessage="Une erreur technique est survenue. Désolé pour ce désagrément."
+quietMessage="An error occured. Sorry for the inconvenience."
 
-; mots clés que vous pouvez utiliser : ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
+; keywords you can use: ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
 default      = ECHO EXIT
 error        = ECHO EXIT
 warning      = ECHO
 notice       = ECHO
 strict       = ECHO
-; pour les exceptions, il y a implicitement un EXIT
+; for exceptions, there is always an implicit EXIT by default
 exception    = ECHO
 
 

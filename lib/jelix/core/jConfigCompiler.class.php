@@ -81,7 +81,7 @@ class jConfigCompiler {
         }
 
         $config->_allBasePath = array();
-        $unusedModules = split(' *, *',$config->unusedModules);
+        $unusedModules = preg_split('/ *, */',$config->unusedModules);
         $config->_modulesPathList = self::_loadPathList($config->modulesPath, $unusedModules, $config->_allBasePath);
 
         self::_loadPluginsPathList($config);
@@ -104,7 +104,7 @@ class jConfigCompiler {
 
         $basepath = $config->urlengine['basePath'];
         if ($basepath != '/' && $basepath != '') {
-            if($basepath{0} != '/') $basepath='/'.$basepath;
+            if($basepath[0] != '/') $basepath='/'.$basepath;
             if(substr($basepath,-1) != '/') $basepath.='/';
 
             if(PHP_SAPI != 'cli' && strpos($config->urlengine['urlScriptPath'], $basepath) !== 0){
@@ -145,7 +145,7 @@ class jConfigCompiler {
 
         $config->sessions['_class_to_load'] = array();
         if ($config->sessions['loadClasses'] != '') {
-            $list = split(' *, *',$config->sessions['loadClasses']);
+            $list = preg_split('/ *, */',$config->sessions['loadClasses']);
             foreach($list as $sel) {
                 if(preg_match("/^([a-zA-Z0-9_\.]+)~([a-zA-Z0-9_\.\\/]+)$/", $sel, $m)){
                     if (!isset($config->_modulesPathList[$m[1]])) {
@@ -190,7 +190,7 @@ class jConfigCompiler {
      * @return array list of full path
      */
     static protected function _loadPathList($list, $forbiddenList, &$allBasePath){
-        $list = split(' *, *',$list);
+        $list = preg_split('/ *, */',$list);
         array_unshift($list, JELIX_LIB_PATH.'core-modules/');
         $result=array();
         foreach($list as $k=>$path){
@@ -206,7 +206,7 @@ class jConfigCompiler {
                 $allBasePath[]=$p;
             if ($handle = opendir($p)) {
                 while (false !== ($f = readdir($handle))) {
-                    if ($f{0} != '.' && is_dir($p.$f) && !in_array($f, $forbiddenList)) {
+                    if ($f[0] != '.' && is_dir($p.$f) && !in_array($f, $forbiddenList)) {
                         $result[$f]=$p.$f.'/';
                     }
                 }
@@ -221,7 +221,7 @@ class jConfigCompiler {
      * @param array|object $config the config container
      */
     static protected function _loadPluginsPathList(&$config){
-        $list = split(' *, *',$config->pluginsPath);
+        $list = preg_split('/ *, */',$config->pluginsPath);
         array_unshift($list, JELIX_LIB_PATH.'plugins/');
         foreach($list as $k=>$path){
             if(trim($path) == '') continue;
@@ -235,12 +235,12 @@ class jConfigCompiler {
 
             if ($handle = opendir($p)) {
                 while (false !== ($f = readdir($handle))) {
-                    if ($f{0} != '.' && is_dir($p.$f)) {
+                    if ($f[0] != '.' && is_dir($p.$f)) {
                         if($subdir = opendir($p.$f)){
                             if($k!=0)
                                $config->_allBasePath[]=$p.$f.'/';
                             while (false !== ($subf = readdir($subdir))) {
-                                if ($subf{0} != '.' && is_dir($p.$f.'/'.$subf)) {
+                                if ($subf[0] != '.' && is_dir($p.$f.'/'.$subf)) {
                                     if($f == 'tpl'){
                                         $prop = '_tplpluginsPathList_'.$subf;
                                         $config->{$prop}[] = $p.$f.'/'.$subf.'/';
@@ -302,7 +302,7 @@ class jConfigCompiler {
                 $array[$k] = $v;
                 continue;
             }
-            if($k{1} == '_')
+            if($k[1] == '_')
                 continue;
             if(is_array($v)){
                 $array[$k] = array_merge($array[$k], $v);
