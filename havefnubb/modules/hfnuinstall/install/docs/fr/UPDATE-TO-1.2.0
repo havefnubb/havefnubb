@@ -18,5 +18,9 @@ Fichiers:
 4) restaurer votre sauvegarde de votre repertoire var/config
 5) renommer le fichier havefnubb/var/config/social.network.ini.php.dist en havefnubb/var/config/social.network.ini.php
 6) rendez votre repertoire havefnubb/modules/hfnuinstall/install/sql accessible en écriture (chmod 755 ou 777)
-7) acceder à http://votresite.com/install?action=default:update_to_1_2_0&step=update
+7) acceder à l'url suivante selon votre moteur d'url :
+* basic             : http://votresite.com/install.php?action=default:update_to_1_2_0&step=update
+* basic_significant : http://votresite.com/install.php?action=default:update_to_1_2_0&step=update
+* significant       : http://votresite.com/install/update/1_2_0
+
 ceci mettra à jour votre base de données et vos fichiers de configuration avec la bonne version de HaveFnuBB

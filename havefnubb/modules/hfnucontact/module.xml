@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnucontact@havefnubb.org" name="HfnuContact" createdate="2009-05-01">
-        <version stability="stable" date="2009-09-01">1.1.0</version>
+        <version stability="stable" date="2009-11-15">1.2.0</version>
         <label lang="en_EN">HfnuContact</label>
         <description lang="en_EN">Module to be able to send an e-mail to a contact</description>                
         <label lang="fr_FR">HfnuContact</label>

@@ -180,7 +180,10 @@
     </classicentrypoint>
         
     <classicentrypoint name="install" default="false" noentrypoint="false">
-        <url pathinfo="/install" module="hfnuinstall" action="default:index"/>
+        <url pathinfo="/" module="hfnuinstall" action="default:index"/>        
+        <url pathinfo="/:step/1_2_0" module="hfnuinstall" action="default:update_to_1_2_0">
+            <param name="step" type="string"/>
+        </url>
     </classicentrypoint>
     
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">

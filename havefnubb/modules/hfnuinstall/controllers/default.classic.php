@@ -653,7 +653,7 @@ class defaultCtrl extends jController {
     }
 
     private  static function _update_to_1_1_0() {
-        global $HfnuConfig;
+        global $HfnuConfig, $gJConfig;
 		
         $db 		= new jDb();
         $profile 	= $db->getProfile('havefnubb');
@@ -702,7 +702,7 @@ class defaultCtrl extends jController {
     }
 	
     private  static function _update_to_1_2_0() {
-        global $HfnuConfig;
+        global $HfnuConfig, $gJConfig;
 		
         $db 		= new jDb();
         $profile 	= $db->getProfile('havefnubb');
@@ -715,10 +715,9 @@ class defaultCtrl extends jController {
         
         $dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
         
-        
         if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {            
             $tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
-        }            
+        }
         $fileDest = dirname(__FILE__).'/../install/update/1.2.0/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
         $sources = file($file);
         $newSource = '';

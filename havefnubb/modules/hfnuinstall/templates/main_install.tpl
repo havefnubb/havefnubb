@@ -1,8 +1,8 @@
-{meta_html csstheme 'css/text.css'}
+{*meta_html csstheme 'css/text.css'}
 {meta_html csstheme 'css/grid.css'}
 {meta_html csstheme 'css/layout.css'}
 {meta_html csstheme 'css/nav.css'}
-{meta_html cssthemeie 'css/ie.css'}
+{meta_html cssthemeie 'css/ie.css' *}
 
 <div class="container_16">
 

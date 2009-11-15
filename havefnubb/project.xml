@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://jelix.org/ns/project/1.0">
     <info id="havefnubb@havefnubb.org" name="HaveFnuBB" createdate="2008-12-16">
-        <version stability="stable" date="2009-09-01">1.1.0</version>
+        <version stability="stable" date="2009-11-15">1.2.0</version>
         <label lang="en_EN">HaveFnuBB!</label>
         <description lang="en_EN">HaveFnuBB! Where everything is Fnu !</description>
         <label lang="fr_FR">HaveFnuBB!</label>
-        <description lang="en_EN">HaveFnuBB! Where everything is Fnu !</description>
+        <description lang="fr_FR">HaveFnuBB! Where everything is Fnu !</description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
@@ -14,21 +14,28 @@
     </info>
     <dependencies>
         <jelix minversion="1.1.4" maxversion="1.1.4"/>
-		<module id="downloads@jelix.org" maxversion="1.2.0" minversion="1.2.0" name="downloads" />		
-		<module id="jcommunity@jelix.org" maxversion="1.0" minversion="0.9" name="jcommunity" />		
-		<module id="jtags@jelix.org" maxversion="1.0" minversion="0.9" name="jtags" />
-		<module id="jmessenger@jelix.org" maxversion="1.0" minversion="0.9" name="jmessenger" />
-		<module id="havefnubb@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="havefnubb" />
-		<module id="hfnuadmin@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="hfnuadmin" />
-		<module id="hfnucontact@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="hfnucontact" />
-        <module id="hfnuinstall@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="hfnuinstall" />
-		<module id="hfnusearch@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="hfnusearch" />
-		<module id="servinfo@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="servinfo" />
-        <plugin id="flood@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="flood" />
-		<plugin id="banuser@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="banuser" />
-        <plugin id="hfnuinstalled@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="hfnuinstalled" />
-		<plugin id="gravatar@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="gravatar" />
-		<plugin id="social_network@havefnubb.org" maxversion="1.1.0" minversion="1.1.0" name="social_network" />
+	<module id="downloads@jelix.org" maxversion="1.2.0" minversion="1.2.0" name="downloads" />		
+	<module id="jcommunity@jelix.org" maxversion="1.0" minversion="0.9" name="jcommunity" />		
+	<module id="jtags@jelix.org" maxversion="1.0" minversion="0.9" name="jtags" />
+	<module id="jmessenger@jelix.org" maxversion="1.0" minversion="0.9" name="jmessenger" />
+	<module id="havefnubb@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="havefnubb" />
+	<module id="hfnuadmin@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="hfnuadmin" />
+	<module id="hfnucontact@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="hfnucontact" />
+        <module id="hfnuinstall@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="hfnuinstall" />
+	<module id="hfnurates@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="hfnurates" />
+	<module id="hfnusearch@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="hfnusearch" />
+	<module id="hfnuthemes@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="hfnuthemes" />
+	<module id="servinfo@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="servinfo" />
+	<plugin id="age@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="age" />
+	<plugin id="banuser@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="banuser" />
+       	<plugin id="flood@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="flood" />
+	<plugin id="gravatar@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="gravatar" />
+        <plugin id="hfnuinstalled@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="hfnuinstalled" />
+        <plugin id="hook@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="hook" />
+        <plugin id="mailto@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="mailto" />
+        <plugin id="phpinfo@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="phpinfo" />
+	<plugin id="social_network@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="social_network" />
+	<plugin id="timeout@havefnubb.org" maxversion="1.2.0" minversion="1.2.0" name="timeout" />
     </dependencies>
     <directories>
         <config/>

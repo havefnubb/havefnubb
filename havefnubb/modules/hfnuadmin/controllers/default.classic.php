@@ -55,7 +55,7 @@ class defaultCtrl extends jController {
 			$defaultConfig->setValue('webmasterEmail',	htmlentities($this->param('webmaster_email')),'mailer');
 			$defaultConfig->save();
 			
-            $HfnuConfig->setValue('rules',				$this->param('rules'),'main');
+            $HfnuConfig->setValue('rules',				str_replace('"','',$this->param('rules')),'main');
             $HfnuConfig->setValue('admin_email',		htmlentities($this->param('admin_email')),'main');            
             $HfnuConfig->setValue('posts_per_page',		htmlentities($this->param('posts_per_page')),'messages');
             $HfnuConfig->setValue('replies_per_page',	htmlentities($this->param('replies_per_page')),'messages');
