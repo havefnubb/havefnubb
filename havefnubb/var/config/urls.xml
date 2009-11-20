@@ -188,6 +188,11 @@
     
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
 
+        <url pathinfo="/admin/themes" module="hfnuthemes" action="default:index" />
+        <url pathinfo="/admin/themes/useit" module="hfnuthemes" action="default:useit">
+            <param name="theme" type="string"/>
+        </url>
+        
         <url pathinfo="/admin/checkupgrade" module="hfnuadmin" action="default:check_upgrade" />
         <url pathinfo="/admin/board" module="master_admin" action="default:index" />
         

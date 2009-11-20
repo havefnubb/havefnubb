@@ -23,5 +23,6 @@ $themeInfos = array (
     'copyright'=>'2008 FoxMaSk',
     'creator'=>array('name'=>'FoxMaSk','email'=>'foxmask@havefnubb.org','active'=>true),
     'homepageURL'=>'http://www.havefnubb.org/',
-    'updateURL'=>'http://community.havefnubb.org/last_update'
+    'updateURL'=>'http://www.havefnubb.org/update.php?theme=Emplode',
+    'version'=>'1.0.0'
 );

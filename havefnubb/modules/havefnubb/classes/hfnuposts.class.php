@@ -1,19 +1,18 @@
 <?php
 /**
+* main UI to manage the statement of the posts  of the forum HaveFnuBB!
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
-* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+* @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*
 */
-
-/* main UI to manage the statement of the posts */
-
 class hfnuposts {
 
 
-    /*
+    /**
      * get specific info to be display in the breadcrumb and title of each page
      * @param  integer $id_forum  the current forum
      * @return  array composed by the forum datas of the current forum and the category datas of the current forum
@@ -34,7 +33,7 @@ class hfnuposts {
 		return $info;
 	}
     
-    /*
+    /**
      * get the post of the given forum
      * @param integer $id_forum the current forum 
      * @param integer $page the current page
@@ -58,9 +57,10 @@ class hfnuposts {
         return array($page,$nbPosts,$posts);        
     }
     
-    /* updateViewing : update the counter of the views of a given post
-    * @param id_post integer id post of the current post
-    */    
+    /**
+	 * updateViewing : update the counter of the views of a given post
+     * @param id_post integer id post of the current post
+     */    
     public function updateViewing($id_post) {
         if ($id_post == 0 ) return;
         $dao = jDao::get('havefnubb~posts'); 
@@ -69,11 +69,12 @@ class hfnuposts {
 		$dao->update($post);                
     }
 
-    /* view a given thread !
-    * @param id_post integer id post of the current post
-    * @param parent_id integer parent id of the current post
-    * @return array of id_post, DaoRecord of Post, Paginator
-    */
+    /**
+	 * view a given thread !
+     * @param id_post integer id post of the current post
+     * @param parent_id integer parent id of the current post
+     * @return array of id_post, DaoRecord of Post, Paginator
+     */
     // business check :
     // 1) do those id exist ?
     // 2) permission ok ?
@@ -113,11 +114,11 @@ class hfnuposts {
         return array($id_post,$post,$goto);
     }
     
-    /*
-      * save one post
-      * @param $id_forum integer id forum of the post
-      * @param id_post integer id post of the current post if editing of 0 if adding
-      * @return $id_post integer id post of the editing post or the id of the post created
+    /**
+     * save one post
+     * @param $id_forum integer id forum of the post
+     * @param id_post integer id post of the current post if editing of 0 if adding
+     * @return $id_post integer id post of the editing post or the id of the post created
      */
     public function save($id_forum,$id_post=0) {
 		global $HfnuConfig;
@@ -195,10 +196,10 @@ class hfnuposts {
         
     }
 
-    /*
-      * save a reply to one post
-      * @param parent_id integer parent id of the current post if editing of 0 if adding
-      * @return $record DaoRecord of the reply
+    /**
+     * save a reply to one post
+     * @param parent_id integer parent id of the current post if editing of 0 if adding
+     * @return $record DaoRecord of the reply
      */    
     public function savereply($parent_id) {
 		global $HfnuConfig;
@@ -240,10 +241,10 @@ class hfnuposts {
         return $result['daorec'];        
     }
     
-    /*
-      * save a notification posted by a user
-      * @param id_post integer id post of the current post if editing of 0 if adding
-      * @return boolean status of success of this submit 
+    /**
+     * save a notification posted by a user
+     * @param id_post integer id post of the current post if editing of 0 if adding
+     * @return boolean status of success of this submit 
      */       
     public function savenotify($id_post) {
         
@@ -270,11 +271,11 @@ class hfnuposts {
         return true;        
     }
 
-    /*
-      * change the status of the current THREAD (not just one post) !
-      * @param $parent_id integer parent id of the thread
-      * @param $status string the status to switch to
-      * @return $record DaoRecord 
+    /**
+     * change the status of the current THREAD (not just one post) !
+     * @param $parent_id integer parent id of the thread
+     * @param $status string the status to switch to
+     * @return $record DaoRecord 
      */     
     public function switchStatus($parent_id,$status) {
         $statusAvailable = array('opened','closed','pined','pinedclosed');
@@ -294,10 +295,10 @@ class hfnuposts {
         
     }
 
-    /*
-      * remove one post
-      * @param $id_post integer id post to remove
-      * @return boolean of the success or not
+    /**
+     * remove one post
+     * @param $id_post integer id post to remove
+     * @return boolean of the success or not
      */     
     public function delete($id_post) {
         if ($id_post == 0 ) return false;
@@ -306,13 +307,21 @@ class hfnuposts {
         return true;
     }
     
+	/**
+	 * check the permissions/rights to the resources
+	 * @param $rights the rights to check to the resource
+	 * @param $resources the resource to check
+	 * @return boolean 
+	 */
     public static function checkPerm($rights,$ressources) {
-        return jAcl2::check($rights,$ressources) ? true : false;
-        
+        return jAcl2::check($rights,$ressources) ? true : false;        
     }
 	
-	/*
+	/**
 	 * this function permits to move a complet thread to another forum
+	 * @param $id_post integer id post to move
+	 * @param $id_forum integer id forum to move to
+	 * @return boolean
 	 */
 	public function moveToForum($id_post,$id_forum) {
 		if ($id_post == 0 or $id_forum == 0) return false;
@@ -321,8 +330,12 @@ class hfnuposts {
 		return true;		
 	}
 
-	/*
+	/**
 	 * this function permits to split the thread to a forum
+	 * @param $parent_id integer parent_id 
+	 * @param $id_post integer id post 
+	 * @param $id_forum integer id forum 
+	 * @return $id_post_new the new Id
 	 */
 	public function splitToForum($parent_id,$id_post,$id_forum) {
 		if ($id_post == 0 or $id_forum == 0 or $parent_id == 0) return false;
@@ -357,8 +370,12 @@ class hfnuposts {
 		return $id_post_new;
 	}
 	
-	/*
+	/**
 	 * this function permits to split the thread to another thread
+	 * @param $id_post integer id post to split
+	 * @param $parent_id integer parent_id  of the current id post
+	 * @param $new_parent_id parent id to attach to 
+	 * @return boolean
 	 */
 	public function splitToThread($id_post,$parent_id,$new_parent_id) {
 		if ($id_post == 0 or $parent_id == 0 or $new_parent_id == 0) return false;
