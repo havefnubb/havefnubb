@@ -1,18 +1,20 @@
 <?php
 /**
+ * Listener to answer to Auth and 'Community' events
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
-* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+* @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*
 */
-
 class authhavefnubbListener extends jEventListener{
 
    /**
-   *
-   */
+    * to answer to AuthLogin event
+    * @param $event the given event to answer to
+    */
     function onAuthLogin ($event) {
         global $gJConfig;    
         $login = $event->getParam('login');
@@ -34,11 +36,19 @@ class authhavefnubbListener extends jEventListener{
         $gJConfig->locale = $user->member_language;
    }
    
+   /**
+    * to answer to AuthLogout event
+    * @param $event the given event to answer to
+    */   
     function onAuthLogout($event) {
         $_SESSION['JX_LANG'] = '';
         unset($_SESSION['JX_LANG']);
    }
    
+   /**
+    * to answer to jcommunity_save_account event
+    * @param $event the given event to answer to
+    */      
     function onjcommunity_save_account ($event) {
         global $gJConfig, $HfnuConfig;
         $form = $event->getParam('form');
@@ -83,7 +93,10 @@ class authhavefnubbListener extends jEventListener{
         jMessage::add(jLocale::get('havefnubb~member.profile.updated'),'ok');
    }
    
-    // send a mail to the admin when a user registers
+    /**
+     * to answer to AuthNewUser event
+     * @param $event the given event to answer to	 
+	 */
     function onAuthNewUser ($event) {
         global $HfnuConfig, $gJConfig;
 
@@ -124,7 +137,10 @@ class authhavefnubbListener extends jEventListener{
             $mail->Send();
         }
    }
-   
+    /**
+     * to answer to jcommunity_registration_prepare_save event
+     * @param $event the given event to answer to	 
+	 */   
    function onjcommunity_registration_prepare_save($event) {
 	  $user = $event->getParam('user');
 
