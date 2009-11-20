@@ -8,6 +8,7 @@
         <thead>        
         <tr>
             <th>{@havefnubb~forum.forumlist.title@}</th>
+            <th>{@havefnubb~forum.postlistbytag.forum.name@}</th>
             <th>{@havefnubb~member.common.author@}</th>
         </tr>
         </thead>
@@ -16,7 +17,8 @@
         {ifacl2 'hfnu.posts.view','forum'.$posts[$i]['id_forum']}
         <tr>
             <td><a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$posts[$i]['id_forum'],'id_post'=>$posts[$i]['id_post'],'parent_id'=>$posts[$i]['parent_id'],'ptitle'=>$posts[$i]['subject'],'ftitle'=>$posts[$i]['forum_name'])}">{$posts[$i]['subject']|eschtml}</a></td>
-            <td><a href="{jurl 'jcommunity~account:show',array('user'=>$posts[$i]['login'])}">{$posts[$i]['login']|eschtml}</a>, <a href="{jurl 'jcommunity~account:show',array('user'=>$posts[$i]['login'])}">{$posts[$i]['date_modified']|jdatetime:'timestamp':'lang_datetime'}</a></td>
+            <td><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$posts[$i]['id_forum'],'ftitle'=>$posts[$i]['forum_name'])}">{$posts[$i]['forum_name']|eschtml}</a></td>            
+            <td><a href="{jurl 'jcommunity~account:show',array('user'=>$posts[$i]['login'])}">{$posts[$i]['login']|eschtml}</a> {$posts[$i]['date_created']|jdatetime:'timestamp':'lang_datetime'}</td>
         </tr>
         {/ifacl2}
     {/for}
