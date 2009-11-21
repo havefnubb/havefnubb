@@ -13,8 +13,8 @@ class banuserCtrl extends jController {
     *
     */
     function index() {
-		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title','main'));
+		global $gJConfig;
+        $title = stripslashes($gJConfig->havefnubb['title']);
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities( $title,ENT_COMPAT,'UTF-8') ) );
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
 		$rep = $this->getResponse('html');		

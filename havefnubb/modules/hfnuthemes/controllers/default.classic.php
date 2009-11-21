@@ -21,13 +21,11 @@ class defaultCtrl extends jController {
     function index() {
         global $gJConfig;
         $tpl = new jTpl();		
-		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
-		$mainConfig->getValue('theme',strtolower($theme));		
         $themes = jClasses::getService('themes');
         $lists = $themes->lists();
         $tpl->assign('themes',$lists);
         $tpl->assign('lang',$gJConfig->locale);
-		$tpl->assign('current_theme',$mainConfig->getValue('theme'));
+		$tpl->assign('current_theme',strtolower($gJConfig->theme));
         $rep = $this->getResponse('html');                
         $rep->body->assign('MAIN',$tpl->fetch('theme'));
 		$rep->body->assign('selectedMenuItem','theme');

@@ -30,14 +30,14 @@ class hfnuinstalledCoordPlugin implements jICoordPlugin {
      * @return null or jSelectorAct  if action should change
      */
     public function beforeAction ($params){
-        global $HfnuConfig;
+        global $gJConfig;
         $selector = null;
         $ok = true;
         $error_message = '';
         $on_error_action = '';
         
         if(isset($params['hfnu.check.installed'])) {
-            if ($HfnuConfig->getValue('installed','main') == 1)
+            if ($gJConfig->havefnubb['installed'] == 1)
                 $ok = true;
             else {
                 $on_error_action = 'on_error_action';

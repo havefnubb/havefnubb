@@ -12,7 +12,6 @@ class quickreplyZone extends jZone {
     protected $_tplname='zone.quickreply';
 
     protected function _prepareTpl(){
-        global $HfnuConfig;
         $id_post = $this->param('id_post');
         $id_forum = $this->param('id_forum');
         if (!$id_post) return;

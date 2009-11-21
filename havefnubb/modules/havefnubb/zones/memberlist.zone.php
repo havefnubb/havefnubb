@@ -12,7 +12,7 @@ class memberlistZone extends jZone {
     protected $_tplname='zone.memberlist';
 
     protected function _prepareTpl(){
-        global $HfnuConfig;
+        global $gJConfig;
         $page           = (int) $this->param('page');
         $memberSearch   = (string) $this->param('memberSearch');
         // get letter  in lowercase
@@ -23,7 +23,7 @@ class memberlistZone extends jZone {
         if ($this->param('grpid')) 
             $grpid =  intval($this->param('grpid'));
         
-        $nbMembersPerPage = (int) $HfnuConfig->getValue('members_per_page','messages');
+        $nbMembersPerPage = (int) $gJConfig->havefnubb['members_per_page'];
         
         $p = jAcl2Db::getProfile();
 

@@ -24,20 +24,19 @@ class fnuHtmlResponse extends jResponseHtml {
         // Include all process in common for all actions, like the settings of the
         // main template, the settings of the response etc..
         global $gJConfig;
-        global $HfnuConfig;
-        
-        if ($HfnuConfig->getValue('installed','main') == 0) $this->bodyTpl = 'havefnubb~main_not_installed';
+
+        if ($gJConfig->havefnubb['installed'] == 0) $this->bodyTpl = 'havefnubb~main_not_installed';
 
 
         $language = preg_split('/_/',$gJConfig->locale);
        
         /* Dublin Core Meta and Content */
        
-        $this->addHeadContent('<meta name="description" lang="'.$language[0].'" content="'.$HfnuConfig->getValue('description','main').'" />');
+        $this->addHeadContent('<meta name="description" lang="'.$language[0].'" content="'.$gJConfig->havefnubb['description'].'" />');
        
         $this->addHeadContent('<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/"/>');
-        $this->addHeadContent('<meta name="dc.title" lang="'.$language[0].'" content="'.$HfnuConfig->getValue('title','main').'" />');
-        $this->addHeadContent('<meta name="dc.description" lang="'.$language[0].'" content="'.$HfnuConfig->getValue('description','main').'" />');
+        $this->addHeadContent('<meta name="dc.title" lang="'.$language[0].'" content="'.$gJConfig->havefnubb['title'].'" />');
+        $this->addHeadContent('<meta name="dc.description" lang="'.$language[0].'" content="'.$gJConfig->havefnubb['description'].'" />');
         $this->addHeadContent('<meta name="dc.language" content="'.$language[0].'" />');
         $this->addHeadContent('<meta name="dc.type" content="text" />');
         $this->addHeadContent('<meta name="dc.format" content="text/html" />');
@@ -46,8 +45,8 @@ class fnuHtmlResponse extends jResponseHtml {
        
         /* Dublin Core */
 
-        $title = stripslashes($HfnuConfig->getValue('title','main'));
-        $description = stripslashes($HfnuConfig->getValue('description','main'));
+        $title = stripslashes($gJConfig->havefnubb['title']);
+        $description = stripslashes($gJConfig->havefnubb['description']);
 
         if ($this->title)
             $this->title = $title . ' - ' . $this->title;        

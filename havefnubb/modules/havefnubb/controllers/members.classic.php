@@ -24,8 +24,8 @@ class membersCtrl extends jController {
     );
     
     function index() {
-		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title','main'));
+		global $gJConfig;
+        $title = stripslashes($gJConfig->havefnubb['title']);
         $rep = $this->getResponse('html');
 		
 		$letter = $this->param('letter');

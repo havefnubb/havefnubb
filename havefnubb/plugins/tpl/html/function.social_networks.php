@@ -20,24 +20,24 @@
  * title = title to share
  */
 function jtpl_function_html_social_networks($tpl, $params) {
-	$socialNetwork	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'social.network.ini.php');
+	global $gJConfig;
 	echo '<div class="social-network">';
-	if ( $socialNetwork->getValue('twitter')) {
+	if ( $gJConfig->social_networks['twitter']) {
 		social_twitter($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
-	if ( $socialNetwork->getValue('digg')) {
+	if ( $gJConfig->social_networks['digg']) {
 		social_digg($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
-	if ( $socialNetwork->getValue('delicious')) {
+	if ( $gJConfig->social_networks['delicious']) {
 		social_delicious($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
-	if ( $socialNetwork->getValue('facebook')) {	
+	if ( $gJConfig->social_networks['facebook']) {	
 		social_facebook($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
-	if ( $socialNetwork->getValue('reddit')) {
+	if ( $gJConfig->social_networks['reddit']) {
 		social_reddit($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
-	if ( $socialNetwork->getValue('netvibes')) {
+	if ( $gJConfig->social_networks['netvibes']) {
 		social_netvibes($params['imgpath'],$params['jurl'], $params['jurlparams'], $params['title']);
 	}
 	echo "</div>";

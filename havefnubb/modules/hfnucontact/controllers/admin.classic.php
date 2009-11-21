@@ -20,8 +20,7 @@ class adminCtrl extends jController {
     );    
     
     public function index() {
-		$HfnucontactConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'hfnucontact.ini.php');
-		
+		global $gJConfig;				
 		$submit = $this->param('validate');
         
 		if ($submit == jLocale::get('hfnucontact~contact.form.saveBt') ) {
@@ -33,8 +32,8 @@ class adminCtrl extends jController {
                 $rep->action='hfnucontact~admin:index';
                 return $rep;
             }
-            
-            $HfnucontactConfig->setValue('email_contact',$this->param('contact'));
+            $HfnucontactConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+            $HfnucontactConfig->setValue('email_contact',$this->param('contact'),'hfnucontact');
             $HfnucontactConfig->save();
             jMessage::add(jLocale::get('hfnucontact~contact.admin.form.email.saved'),'ok');
 			jForms::destroy('hfnucontact~admincontact');            
@@ -46,7 +45,7 @@ class adminCtrl extends jController {
         else 
             $form = jForms::create('hfnucontact~admincontact');
             
-		$form->setData('contact',$HfnucontactConfig->getValue('email_contact'));
+		$form->setData('contact',$gJConfig->hfnucontact['email_contact']);
 
         $rep = $this->getResponse('html');
         $tpl = new jTpl();		

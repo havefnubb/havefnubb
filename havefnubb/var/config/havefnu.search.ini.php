@@ -6,7 +6,7 @@ search_tag_weight=3
 
 ; dao from which you read the datas you want to 'inject' in search_index table
 ; for example :
-; dao = wiki~wiki, cms~news, ticket~bug
+; dao = "wiki~wiki, cms~news, ticket~bug"   
 ; then you will have to create 3 sections at bottom of the file 
 ; [wikiwiki]
 ; index_subject=name
@@ -18,16 +18,17 @@ search_tag_weight=3
 ; index_subject=summary
 ; index_message=description
 
-dao = "havefnubb~posts"
+dao="havefnubb~posts"
 
 ; a list of method that can be use to perfom search, like "searchIn" + Authors , or Forums, or Words, or what ever
 ; have a loot at search_in.class.php
-perform_search_in = words,authors,forums
+perform_search_in = words
 
 ; specify the "jelix path" of the class that extends
 ; the class search_index and overwrites the function searchEngineRun
 ; this busines class is the only one you will have to write yourself 
-; to get the datas - see the class hfnusearch~search_index_havefnubb and function searchEngineRun
+; to get the datas - see the class hfnusearch~search_index and function searchEngineRun for or 
+; simple way to use it or in class hfnusearch~search_index_havefnubb and function searchEngineRun for a more complex query
 classToPerformSearchEngine = hfnusearch~search_index
 
 ; this section tell to HfnuSearch, which column of my DAO are the one i want to use to populate the Search Engine

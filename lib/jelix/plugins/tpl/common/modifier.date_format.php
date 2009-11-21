@@ -36,7 +36,10 @@ function jtpl_modifier_common_date_format( $string, $format="%b %e, %Y",
 
     } elseif (isset($default_date) && $default_date != '') {
 
-        return strftime($format, strtotime($default_date));
+        if (is_int($default_date)) 
+            return strftime($format, $default_date);
+        else
+            return strftime($format, strtotime($default_date));
 
     } else {
 

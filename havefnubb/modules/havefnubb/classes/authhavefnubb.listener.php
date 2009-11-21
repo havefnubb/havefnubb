@@ -50,7 +50,7 @@ class authhavefnubbListener extends jEventListener{
     * @param $event the given event to answer to
     */      
     function onjcommunity_save_account ($event) {
-        global $gJConfig, $HfnuConfig;
+        global $gJConfig;
         $form = $event->getParam('form');
 		$form->check();
         if ( $form->getData('member_language') != '') {
@@ -60,8 +60,8 @@ class authhavefnubbListener extends jEventListener{
 		$ext = '';
 		$id = jAuth::getUserSession()->id;
 		if ($form->getData('member_avatar') != '' ) {
-			$max_width = $HfnuConfig->getValue('avatar_max_width','main');
-			$max_height = $HfnuConfig->getValue('avatar_max_height','main');
+			$max_width = $gJConfig->havefnubb['avatar_max_width'];
+			$max_height = $gJConfig->havefnubb['avatar_max_height'];
 			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.png');
 			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpg');
 			@unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpeg');
@@ -98,9 +98,9 @@ class authhavefnubbListener extends jEventListener{
      * @param $event the given event to answer to	 
 	 */
     function onAuthNewUser ($event) {
-        global $HfnuConfig, $gJConfig;
+        global $gJConfig;
 
-        $toEmail = ($HfnuConfig->getValue('admin_email','main') != '') ? $HfnuConfig->getValue('admin_email','main') : $gJConfig->mailer['webmasterEmail'];
+        $toEmail = ($gJConfig->havefnubb['admin_email'] != '') ? $gJConfig->havefnubb['admin_email'] : $gJConfig->mailer['webmasterEmail'];
 
         if ($toEmail == '') {
             throw new jException('havefnubb~mail.email.config.not.done.properly');		 
@@ -108,7 +108,7 @@ class authhavefnubbListener extends jEventListener{
         // send an email only if the forum is installed
         // this avoid to send an email when the forum is installing
         // and send an email to the admin after creating his account
-        if ( $HfnuConfig->getValue('installed','main') == 1 ) {
+        if ( $gJConfig->havefnubb['installed'] == 1 ) {
             $user = $event->getParam('user');
 						
 			// update the creation date

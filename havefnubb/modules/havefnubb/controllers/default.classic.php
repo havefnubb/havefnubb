@@ -27,8 +27,8 @@ class defaultCtrl extends jController {
 	 */
 
     function index() {
-		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title','main'));
+		global $gJConfig;
+        $title = stripslashes($gJConfig->havefnubb['title']);
         $rep = $this->getResponse('html');
 		
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
@@ -41,8 +41,8 @@ class defaultCtrl extends jController {
 	function cloud () {
 		$tag = $this->param('tag');
 		
-		global $HfnuConfig;
-        $title = stripslashes($HfnuConfig->getValue('title','main'));
+		global $gJConfig;
+        $title = stripslashes($gJConfig->havefnubb['title']);
         $rep = $this->getResponse('html');
 		
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . jLocale::get('havefnubb~main.cloud'));
@@ -61,11 +61,11 @@ class defaultCtrl extends jController {
 	}
 	
 	function rules() {
-		global $HfnuConfig;        
+		global $gJConfig;        
 		$tpl = new jTpl();
-		if ($HfnuConfig->getValue('rules','main') != '') {
+		if ($gJConfig->havefnubb['rules'] != '') {
 			$rep = $this->getResponse('html');
-			$tpl->assign('rules',$HfnuConfig->getValue('rules','main'));
+			$tpl->assign('rules',$gJConfig->havefnubb['rules']);
 	        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~rules'));
 		}
 		else {

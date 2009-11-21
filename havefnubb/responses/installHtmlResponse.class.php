@@ -24,7 +24,6 @@ class installHtmlResponse extends jResponseHtml {
         // Include all process in common for all actions, like the settings of the
         // main template, the settings of the response etc..
         global $gJConfig;
-        global $HfnuConfig;
 
         $chemin = $gJConfig->urlengine['basePath'].'themes/install/';
         $this->addCssLink($chemin.'css/install.css');
@@ -34,8 +33,8 @@ class installHtmlResponse extends jResponseHtml {
 		$this->addCssLink($chemin.'css/nav.css');
 		$this->addCssLink($chemin.'css/ie.css');
 
-        $title = stripslashes($HfnuConfig->getValue('title','main'));
-        $description = stripslashes($HfnuConfig->getValue('description','main'));
+        $title = stripslashes($gJConfig->havefnubb['title']);
+        $description = stripslashes($gJConfig->havefnubb['description']);
 
         if ($this->title)
             $this->title = $title . ' - ' . $this->title;        

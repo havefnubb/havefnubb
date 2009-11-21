@@ -193,3 +193,31 @@ datepicker=default
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
 
+[havefnubb]
+title="HaveFnuBB!"
+description="Where Everything is Fnu"
+version=1.2.0
+rules=
+admin_email="admin@localhost.net"
+url_check_version="http://www.havefnubb.org/last_version"
+avatar_max_width=60
+avatar_max_height=75
+installed=1
+
+posts_per_page=10
+replies_per_page=10
+members_per_page=25
+stats_nb_of_lastpost=3
+post_max_size=1000
+
+[hfnucontact]
+to_contact="toto"
+email_contact="toto@tata.com"
+
+[social_networks]
+twitter=1
+digg=1
+delicious=1
+facebook=1
+reddit=1
+netvibes=1

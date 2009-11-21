@@ -19,6 +19,7 @@ class defaultCtrl extends jController {
     );    
     
     public function index() {
+		global $gJConfig;
 		$to = $this->param('to');
 
 		if ($to != '') {			
@@ -30,8 +31,7 @@ class defaultCtrl extends jController {
 			}
 		}
 		else {
-			$HfnucontactConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'hfnucontact.ini.php');
-			$to = $HfnucontactConfig->getValue('to_contact');
+			$to = $gJConfig->hfnucontact['to_contact'];
 		}
 		// is the 'To' still empty ??
 		if ( $to == '' ) {
@@ -61,9 +61,8 @@ class defaultCtrl extends jController {
 		// the sender is  not connected and use contact form to send a message 
 		// to the contact defined in hfnucontact.ini.php
 		if (! jAuth::isConnected()) {
-			$HfnucontactConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'hfnucontact.ini.php');
-			$toContact = $HfnucontactConfig->getValue('to_contact');
-			$emailTo = $HfnucontactConfig->getValue('email_contact');
+			$toContact = $gJConfig->hfnucontact['to_contact'];			
+			$emailTo = $gJConfig->hfnucontact['email_contact'];
 			$email = $gJConfig->mailer['webmasterEmail'];
 			$login = $gJConfig->mailer['webmasterName'];	
 		}

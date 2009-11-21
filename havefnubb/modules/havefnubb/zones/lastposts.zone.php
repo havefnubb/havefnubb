@@ -12,11 +12,11 @@ class lastpostsZone extends jZone {
     protected $_tplname='zone.lastposts';
 
     protected function _prepareTpl(){
-        global $HfnuConfig;
+        global $gJConfig;
         $dao = jDao::get('havefnubb~posts');
         
         //last 'x' posts
-        $lastPost  = $dao->findLastPosts( (int) $HfnuConfig->getValue('stats_nb_of_lastpost','messages'));
+        $lastPost  = $dao->findLastPosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
         $this->_tpl->assign('lastPost',$lastPost);
     }
 }

@@ -83,7 +83,7 @@ class hfnuposts {
     // 1) update the count of view of this thread
     
     public function view($id_post,$parent_id) {
-        global $HfnuConfig;
+        global $gJConfig;
         $dao = jDao::get('havefnubb~posts'); 
         $post = $dao->get($id_post);		
 
@@ -100,7 +100,7 @@ class hfnuposts {
 			// the number of post between the current post_id and the parent_id
 			$child = (int) $dao->countReplies($post->id_post,$post->parent_id);
 	
-			$nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page','messages');			
+			$nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
 			// calculate the offset of this id_post
 			$goto = (ceil ($child/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
 			if ($goto < 0 ) $goto = 0;
@@ -121,7 +121,7 @@ class hfnuposts {
      * @return $id_post integer id post of the editing post or the id of the post created
      */
     public function save($id_forum,$id_post=0) {
-		global $HfnuConfig;
+		global $gJConfig;
         $form = jForms::fill('havefnubb~posts',$id_post);
 
         //.. if the data are not ok, return to the form and display errors messages form
@@ -133,8 +133,9 @@ class hfnuposts {
         $subject	= $form->getData('subject');
         $message 	= $form->getData('message');
 		
-		if ( count($message) > $HfnuConfig->getValue('post_max_size','messages') and  $HfnuConfig->getValue('post_max_size','messages') > 0) {
-			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size', array($HfnuConfig->getValue('post_max_size','messages'))),'error');
+		if ( count($message) > $gJConfig->havefnubb['post_max_size'] and $gJConfig->havefnubb['post_max_size'] > 0) {
+			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
+										array($gJConfig->havefnubb['post_max_size'])),'error');
 			return false;
 		}
         
@@ -202,7 +203,7 @@ class hfnuposts {
      * @return $record DaoRecord of the reply
      */    
     public function savereply($parent_id) {
-		global $HfnuConfig;
+		global $gJConfig;
         $form = jForms::fill('havefnubb~posts',$parent_id);
 
         //.. if the data are not ok, return to the form and display errors messages form
@@ -212,10 +213,10 @@ class hfnuposts {
 		
         $message 	= $form->getData('message');
 		//is the size of the message limited ?
-		if ( strlen($message) > $HfnuConfig->getValue('post_max_size','messages')
-            and  $HfnuConfig->getValue('post_max_size','messages') > 0)
+		if ( strlen($message) > $gJConfig->havefnubb['post_max_size'] 			                    
+            and  $gJConfig->havefnubb['post_max_size'] > 0)
         {
-			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size', array($HfnuConfig->getValue('post_max_size','messages'))),'error');
+			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size', array($gJConfig->havefnubb['post_max_size'])),'error');
 			return false;
 		}
         

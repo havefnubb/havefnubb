@@ -25,10 +25,10 @@ class defaultCtrl extends jController {
      * step 6 : end
      */
     function index() {
-        global $HfnuConfig, $gJConfig;
+        global $gJConfig;
         
         // is the install still done ?
-        if ($HfnuConfig->getValue('installed','main') == 1) {            
+        if ($gJConfig->havefnubb['installed'] == 1) {            
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
             return $rep;            
@@ -76,7 +76,7 @@ class defaultCtrl extends jController {
                 
 				 case 'config':                    
                     $submit = $this->param('validate');
-                    $mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+                    
                     
                     if ($submit == jLocale::get('hfnuinstall~install.config.saveConfigBt')  ) {
                         
@@ -89,13 +89,10 @@ class defaultCtrl extends jController {
                             $rep->params = array('step'=>'config');
                             return $rep;
                         }
-                        
-                        $HfnuConfig->setValue('title',      htmlentities($this->param('title')),'main');
-                        $HfnuConfig->setValue('description',htmlentities($this->param('description')),'main');                        
-                        $HfnuConfig->setValue('rules',      htmlentities($this->param('rules')),'main');
-                                                
-                        $HfnuConfig->save();                        
-                        
+                        $mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+                        $mainConfig->setValue('title',      htmlentities($this->param('title')),'havefnubb');
+                        $mainConfig->setValue('description',htmlentities($this->param('description')),'havefnubb');                        
+                        $mainConfig->setValue('rules',      htmlentities($this->param('rules')),'havefnubb');      
 						
 						$mainConfig->setValue('theme',      htmlentities($this->param('theme')));
                         $mainConfig->setValue('webmasterEmail', htmlentities($this->param('webmasterEmail')),'mailer');
@@ -119,21 +116,21 @@ class defaultCtrl extends jController {
                     }
                     else  {
                         $form = jForms::create('hfnuinstall~config');                            
-                        $form->setData('title',         stripslashes($HfnuConfig->getValue('title','main')));
-                        $form->setData('description',   stripslashes($HfnuConfig->getValue('description','main')));
-                        $form->setData('theme',         stripslashes($mainConfig->getValue('theme')));
-                        $form->setData('rules',         stripslashes($HfnuConfig->getValue('rules')));
-                        $form->setData('webmasterEmail',stripslashes($mainConfig->getValue('webmasterEmail','mailer')));
-                        $form->setData('webmasterName', stripslashes($mainConfig->getValue('webmasterName','mailer')));
-                        $form->setData('mailerType',    stripslashes($mainConfig->getValue('mailerType','mailer')));
-                        $form->setData('hostname',      stripslashes($mainConfig->getValue('hostname','mailer')));
-                        $form->setData('sendmailPath',  stripslashes($mainConfig->getValue('sendmailPath','mailer')));
-                        $form->setData('smtpHost',      stripslashes($mainConfig->getValue('smtpHost','mailer')));
-                        $form->setData('smtpPort',      stripslashes($mainConfig->getValue('smtpPort','mailer')));
-                        $form->setData('smtpAuth',      stripslashes($mainConfig->getValue('smtpAuth','mailer')));
-                        $form->setData('smtpUsername',  stripslashes($mainConfig->getValue('smtpUsername','mailer')));
-                        $form->setData('smtpPassword',  stripslashes($mainConfig->getValue('smtpPassword','mailer')));
-                        $form->setData('smtpTimeout',   stripslashes($mainConfig->getValue('smtpTimeout','mailer')));                        
+                        $form->setData('title',         stripslashes($gJConfig->havefnubb['title']));
+                        $form->setData('description',   stripslashes($gJConfig->havefnubb['description']));
+                        $form->setData('theme',         stripslashes($gJConfig->theme));
+                        $form->setData('rules',         stripslashes($gJConfig->havefnubb['rules']));
+                        $form->setData('webmasterEmail',stripslashes($gJConfig->mailer['webmasterEmail']));
+                        $form->setData('webmasterName', stripslashes($gJConfig->mailer['webmasterName']));
+                        $form->setData('mailerType',    stripslashes($gJConfig->mailer['mailerType']));
+                        $form->setData('hostname',      stripslashes($gJConfig->mailer['hostname']));
+                        $form->setData('sendmailPath',  stripslashes($gJConfig->mailer['sendmailPath']));
+                        $form->setData('smtpHost',      stripslashes($gJConfig->mailer['smtpHost']));
+                        $form->setData('smtpPort',      stripslashes($gJConfig->mailer['smtpPort']));
+                        $form->setData('smtpAuth',      stripslashes($gJConfig->mailer['smtpAuth']));
+                        $form->setData('smtpUsername',  stripslashes($gJConfig->mailer['smtpUsername']));
+                        $form->setData('smtpPassword',  stripslashes($gJConfig->mailer['smtpPassword']));
+                        $form->setData('smtpTimeout',   stripslashes($gJConfig->mailer['smtpTimeout']));
                         $form->setData('step','config');
                         $tpl->assign('form',$form);                    
                     }
@@ -274,9 +271,9 @@ class defaultCtrl extends jController {
                             $rep->params = array('step'=>'adminaccount');
                             return $rep;
                         }
-                        
-						$HfnuConfig->setValue('admin_email',htmlentities($this->param('admin_email')),'main');
-                        $HfnuConfig->save();                          
+                        $mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+						$mainConfig->setValue('admin_email',htmlentities($this->param('admin_email')),'havefnubb');
+                        $mainConfig->save();                          
                                                 
                         // let's create an Admin account !
                         // 1) get data !
@@ -314,8 +311,9 @@ class defaultCtrl extends jController {
                     }
                     break;				
 				 case 'end':
-                    $HfnuConfig->setValue('installed',true,'main');
-                    $HfnuConfig->save();
+					$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+                    $mainConfig->setValue('installed',true,'havefnubb');
+                    $mainConfig->save();
                     break;				
             }            
             
@@ -334,15 +332,15 @@ class defaultCtrl extends jController {
      * Method to update from rc2 to rc3
      */	
 	function update_rc2_to_rc3() {
-		global $HfnuConfig, $gJConfig;
+		global $gJConfig;
 		
-        if ($HfnuConfig->getValue('installed','main') == 0) {            
+        if ($gJConfig->havefnubb['installed'] == 0) {            
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnuinstall~default:index';
             return $rep;            
         }
 		
-		if ($HfnuConfig->getValue('version','main') == '1.0.0RC2') {
+		if ($gJConfig->havefnubb['version'] == '1.0.0RC2') {
 		
             self::_update_to_rc3();	
 				
@@ -364,11 +362,11 @@ class defaultCtrl extends jController {
      * Method to update to 1.0.0
      */	
 	function update_to_1() {
-		global $HfnuConfig, $gJConfig;
+		global $gJConfig;
         
-		$version = $HfnuConfig->getValue('version','main');
+		$version = $gJConfig->havefnubb['version'];
         
-        if ($HfnuConfig->getValue('installed','main') == 0) {            
+        if ($gJConfig->havefnubb['installed'] == 0) { 
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnuinstall~default:index';
             return $rep;            
@@ -402,11 +400,11 @@ class defaultCtrl extends jController {
      * Method to update to 1.0.1
      */	
 	function update_to_1_0_1() {
-		global $HfnuConfig, $gJConfig;
+		global $gJConfig;
         
-		$version = $HfnuConfig->getValue('version','main');
+		$version = $gJConfig->havefnubb['version'];
         
-        if ($HfnuConfig->getValue('installed','main') == 0) {            
+        if ($gJConfig->havefnubb['installed'] == 0) {       
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnuinstall~default:index';
             return $rep;            
@@ -444,11 +442,11 @@ class defaultCtrl extends jController {
      * Method to update to 1.1.0
      */	
 	function update_to_1_1_0() {
-		global $HfnuConfig, $gJConfig;
+		global $gJConfig;
+
+		$version = $gJConfig->havefnubb['version'];
         
-		$version = $HfnuConfig->getValue('version','main');
-        
-        if ($HfnuConfig->getValue('installed','main') == 0) {            
+        if ($gJConfig->havefnubb['installed'] == 0) {         
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnuinstall~default:index';
             return $rep;            
@@ -491,11 +489,11 @@ class defaultCtrl extends jController {
      * Method to update to 1.2.0
      */	
 	function update_to_1_2_0() {
-		global $HfnuConfig, $gJConfig;
+		global $gJConfig;
         
-		$version = $HfnuConfig->getValue('version','main');
+		$version = $gJConfig->havefnubb['version'];
         
-        if ($HfnuConfig->getValue('installed','main') == 0) {            
+        if ($gJConfig->havefnubb['installed'] == 0) {            
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnuinstall~default:index';
             return $rep;            
@@ -540,13 +538,13 @@ class defaultCtrl extends jController {
 
         
     private  static function _update_to_rc3() {
-        global $HfnuConfig, $gJConfig;
+        global $gJConfig;
         
         $mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
         $hfnuadminEntriesPoint =  $mainConfig->getValue('hfnuadmin','simple_urlengine_entrypoints');		
         $hfnuadminEntriesPoint .= ', hfnucontact~*@classic';
         $mainConfig->setValue('hfnuadmin', $hfnuadminEntriesPoint,'simple_urlengine_entrypoints');
-        $mainConfig->save();
+        
         
         $db 		= new jDb();
         $profile 	= $db->getProfile('havefnubb');
@@ -589,14 +587,14 @@ class defaultCtrl extends jController {
         $tools->execSQLScript($file);
         @unlink($file);							
 
-        $HfnuConfig->setValue('version','1.0.0RC3','main');
-        $HfnuConfig->save();
+        $mainConfig->setValue('version','1.0.0RC3','havefnubb');
+        $mainConfig->save();
 
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }
 
     private  static function _update_to_1() {
-        global $HfnuConfig, $gJConfig;
+        global $gJConfig;
         $db 		= new jDb();
         $profile 	= $db->getProfile('havefnubb');
         $tools 		= jDb::getTools('havefnubb');
@@ -636,24 +634,23 @@ class defaultCtrl extends jController {
         $file = dirname(__FILE__).'/../install/update/1.0.0/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
         
         $tools->execSQLScript($file);
-        @unlink($file);							
-
+        @unlink($file);
 		
-        $HfnuConfig->setValue('version','1.0.0','main');
-        $HfnuConfig->save();
+		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+        $mainConfig->setValue('version','1.0.0','havefnubb');
+        $mainConfig->save();		
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }
 	
     private  static function _update_to_1_0_1() {
-        global $HfnuConfig;
-		
-        $HfnuConfig->setValue('version','1.0.1','main');
-        $HfnuConfig->save();
+		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+        $mainConfig->setValue('version','1.0.1','havefnubb');
+        $mainConfig->save();	
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }
 
     private  static function _update_to_1_1_0() {
-        global $HfnuConfig, $gJConfig;
+        global $gJConfig;
 		
         $db 		= new jDb();
         $profile 	= $db->getProfile('havefnubb');
@@ -696,13 +693,14 @@ class defaultCtrl extends jController {
         $tools->execSQLScript($file);
         @unlink($file);							
 		
-        $HfnuConfig->setValue('version','1.1.0','main');
-        $HfnuConfig->save();
+		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+        $mainConfig->setValue('version','1.1.0','havefnubb');
+        $mainConfig->save();
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }
 	
     private  static function _update_to_1_2_0() {
-        global $HfnuConfig, $gJConfig;
+        global $gJConfig;
 		
         $db 		= new jDb();
         $profile 	= $db->getProfile('havefnubb');
@@ -744,8 +742,9 @@ class defaultCtrl extends jController {
         $tools->execSQLScript($file);
         @unlink($file);							
 		
-        $HfnuConfig->setValue('version','1.2.0','main');
-        $HfnuConfig->save();
+		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+        $mainConfig->setValue('version','1.2.0','havefnubb');
+        $mainConfig->save();	
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }	
 }

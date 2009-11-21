@@ -14,7 +14,7 @@ class hfnumenuListener extends jEventListener{
    * Main Menu of the navbar
    */
    function onhfnuGetMenuContent ($event) {
-	  global $HfnuConfig;
+	  global $gJConfig;
 	  
 	  $event->add(new hfnuMenuItem('home',
 			jLocale::get('havefnubb~main.home'),
@@ -38,7 +38,7 @@ class hfnumenuListener extends jEventListener{
 			jUrl::get('hfnusearch~default:index'),
 			4,
 			'main'));
-	  if ($HfnuConfig->getValue('rules','main') != '') {
+	  if ($gJConfig->havefnubb['rules'] != '') {
 		 $event->add(new hfnuMenuItem('rules',
 			   jLocale::get('havefnubb~main.rules'),
 			   jUrl::get('havefnubb~default:rules'),

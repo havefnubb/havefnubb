@@ -12,7 +12,7 @@ class posts_repliesZone extends jZone {
     protected $_tplname='zone.posts_replies';
 
     protected function _prepareTpl(){
-        global $HfnuConfig;
+        global $gJConfig;
 		
         $id_post 	= (int) $this->param('id_post');
 		$id_forum 	= (int) $this->param('id_forum');
@@ -36,7 +36,7 @@ class posts_repliesZone extends jZone {
                       'area-size'   => 5);
         // 1- get the nb of replies per page
         $nbRepliesPerPage = 0;
-        $nbRepliesPerPage = (int) $HfnuConfig->getValue('replies_per_page','messages');
+        $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
         // 2- get the post
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts

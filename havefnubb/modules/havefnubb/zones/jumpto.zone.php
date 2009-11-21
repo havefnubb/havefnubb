@@ -12,7 +12,6 @@ class jumptoZone extends jZone {
     protected $_tplname='zone.jumpto';
 
     protected function _prepareTpl(){
-        global $HfnuConfig;
         $id_forum = $this->param('id_forum');
         if (!$id_forum) return;
        

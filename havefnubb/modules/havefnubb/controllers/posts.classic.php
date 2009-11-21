@@ -37,7 +37,7 @@ class postsCtrl extends jController {
 
 	// main list of all posts of a given forum ($id_forum)	
     function lists() {
-        global $HfnuConfig;
+        global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
 		
 		if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
@@ -73,7 +73,7 @@ class postsCtrl extends jController {
 		
         // 2- limit per page 
         $nbPostPerPage = 0;
-        $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page','messages');
+        $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
         
         // get all the posts of the current Forum by its Id
         list($page,$nbPosts,$posts) = $hfnuposts->getPostsByIdForum($id_forum,$page,$nbPostPerPage);
@@ -119,8 +119,6 @@ class postsCtrl extends jController {
 	// Method 1 : default usage : list all messages of a thread (id_post known)
 	// Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
     function view() {
-		
-		global $HfnuConfig;
         $id_post 	= (int) $this->param('id_post');
 		$parent_id 	= (int) $this->param('parent_id');
 
@@ -225,10 +223,7 @@ class postsCtrl extends jController {
     }
 
     // display the edit form with the corresponding selected post
-    function edit () {
-		
-		global $HfnConfig;
-		
+    function edit () {		
 		$id_post = (int) $this->param('id_post');
 			
 		if ($id_post == 0 ) {
@@ -813,7 +808,7 @@ class postsCtrl extends jController {
 	
 	// provide a rss feeds for each forum
 	public function rss() {
-        global $HfnuConfig;
+        global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
 		
 		// if the forum is accessible by anonymous then the rss will be available
@@ -833,10 +828,10 @@ class postsCtrl extends jController {
 		$rep = $this->getResponse('rss2.0');
 		
 		// entete du flux rss
-		$rep->infos->title = $HfnuConfig->getValue('title','main');
+		$rep->infos->title = $gJConfig->havefnubb['title'];
 		$rep->infos->webSiteUrl= $_SERVER['HTTP_HOST'];
-		$rep->infos->copyright = $HfnuConfig->getValue('title','main');
-		$rep->infos->description = $HfnuConfig->getValue('description','main');
+		$rep->infos->copyright = $gJConfig->havefnubb['title'];
+		$rep->infos->description = $gJConfig->havefnubb['description'];
 		$rep->infos->updated = date('Y-m-d H:i:s');
 		$rep->infos->published = date('Y-m-d H:i:s');
 		$rep->infos->ttl=60;
@@ -846,7 +841,7 @@ class postsCtrl extends jController {
 		
         // 1- limit of posts 
         $nbPostPerPage = 0;
-        $nbPostPerPage = (int) $HfnuConfig->getValue('posts_per_page','messages');
+        $nbPostPerPage = (int)  $gJConfig->havefnubb['posts_per_page'];
               
         $daoPost = jDao::get('havefnubb~posts');
         // 2- get the posts of the current forum, limited by point 1
