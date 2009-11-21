@@ -38,12 +38,10 @@ Options +Multiviews
 
 1) renommer le fichier havefnubb/var/config/defaultconfig.ini.php.dist en havefnubb/var/config/defaultconfig.ini.php
 2) renommer le fichier havefnubb/var/config/dbprofils.ini.php.dist en havefnubb/var/config/dbprofils.ini.php
-3) renommer le fichier havefnubb/var/config/havefnu.ini.php.dist en havefnubb/var/config/havefnu.ini.php
-4) renommer le fichier havefnubb/var/config/social.network.ini.php.dist en havefnubb/var/config/social.network.ini.php
 
-5) Droits d'accès : 
+3) Droits d'accès : 
 n'oubliez pas de passer vos dossiers en 755 et vos fichiers en 644,
-à l'exception des 4 fichiers de configurations situés dans var/config avec le mode suivant 664 : defaultconfig.ini.php, dbprofils.ini.php, havefnu.ini.php, flood.ini.php.
+à l'exception des 4 fichiers de configurations situés dans var/config avec le mode suivant 664 : defaultconfig.ini.php, dbprofils.ini.php, flood.coord.ini.php, timeout.coord.ini.php.
 
 executer les commandes suivantes pour appliquer les bons droits  :
 find . -type d -exec chmod 755 {} \;
@@ -51,8 +49,7 @@ find . -type f -exec chmod 644 {} \;
 
 chmod 664 var/config/defaultconfig.ini.php
 chmod 664 var/config/dbprofils.ini.php
-chmod 664 var/config/havefnu.ini.php
-chmod 664 var/config/flood.ini.php
-chmod 664 var/config/social.network.ini.php
+chmod 664 var/config/flood.coord.ini.php
+chmod 664 var/config/timeout.coord.ini.php
 
 6) acceder à http://_votre_domaine.com_/install et suivez les étapes

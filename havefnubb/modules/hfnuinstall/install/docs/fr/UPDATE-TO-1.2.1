@@ -1,0 +1,24 @@
+************************************************************************************
+
+                                Français
+
+************************************************************************************
+
+Mise à jour depuis la 1.2.0 à 1.2.1
+
+1) savegarder vos fichiers : 
+var/config/dbprofils.ini.php
+var/config/defaultconfig.ini.php
+var/config/havefnu.search.ini.php
+
+Fichiers: 
+2) tout supprimer de l'installation précédante 
+3) transferer le contenu entier de l'archive sur votre site web
+4) restaurer votre sauvegarde de votre repertoire var/config
+5) rendez votre repertoire havefnubb/modules/hfnuinstall/install/sql accessible en écriture (chmod 755 ou 777)
+6) acceder à l'url suivante selon votre moteur d'url :
+* basic             : http://votresite.com/install.php?action=default:update_to_1_2_1&step=update
+* basic_significant : http://votresite.com/install.php?action=default:update_to_1_2_1&step=update
+* significant       : http://votresite.com/install/update/1_2_1
+
+ceci mettra à jour votre base de données et vos fichiers de configuration avec la bonne version de HaveFnuBB

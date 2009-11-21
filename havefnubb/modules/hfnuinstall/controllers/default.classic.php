@@ -536,6 +536,60 @@ class defaultCtrl extends jController {
     }
 
 
+    /**
+     * Method to update to 1.2.0
+     */	
+	function update_to_1_2_1() {
+		global $gJConfig;
+        
+		$version = $gJConfig->havefnubb['version'];
+        
+        if ($gJConfig->havefnubb['installed'] == 0) {            
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'hfnuinstall~default:index';
+            return $rep;            
+        }
+        $updated == '';
+		if ($version == '1.0.0RC2') {
+            self::_update_to_rc3();
+            $updated = 'ok';
+        }
+		if ($version == '1.0.0RC3') {
+			self::_update_to_1();
+            $updated = 'ok';
+        }
+		if ($version == '1.0.0') {
+			self::_update_to_1_0_1();
+            $updated = 'ok';
+        }
+		if ($version == '1.0.1') {
+			self::_update_to_1_1_0();
+            $updated = 'ok';
+        }
+		if ($version == '1.1.0') {
+			self::_update_to_1_2_0();
+            $updated = 'ok';
+        }
+		if ($version == '1.2.0') {
+			self::_update_to_1_2_1();
+            $updated = 'ok';
+        }						
+        if ($updated == 'ok') {
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
+			return $rep;
+		}
+		else {
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+			return $rep;		
+		}
+    }
+
         
     private  static function _update_to_rc3() {
         global $gJConfig;
@@ -744,6 +798,13 @@ class defaultCtrl extends jController {
 		
 		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
         $mainConfig->setValue('version','1.2.0','havefnubb');
+        $mainConfig->save();	
+        jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+    }
+	
+    private  static function _update_to_1_2_1() {
+		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+        $mainConfig->setValue('version','1.2.1','havefnubb');
         $mainConfig->save();	
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }	
