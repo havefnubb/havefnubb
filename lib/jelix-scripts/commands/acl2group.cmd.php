@@ -120,8 +120,9 @@ ACTION:
 
 
     protected function cmd_list(){
-        $sql="SELECT id_aclgrp, name, grouptype FROM jacl2_group WHERE grouptype <2 ORDER BY name";
-        $cnx = jDb::getConnection(jAclDb::getProfile());
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
+        $sql="SELECT id_aclgrp, name, grouptype FROM ".$cnx->prefixTable('jacl2_group')
+                ." WHERE grouptype <2 ORDER BY name";
         $rs = $cnx->query($sql);
         echo "id\tlabel name\t\tdefault\n--------------------------------------------------------\n";
         foreach($rs as $rec){
@@ -140,8 +141,9 @@ ACTION:
 
         $id = $this->_getGrpId($params[0]);
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
-        $sql = "SELECT login FROM jacl2_user_group WHERE id_aclgrp =".$id;
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
+        $sql = "SELECT login FROM ".$cnx->prefixTable('jacl2_user_group')
+                ." WHERE id_aclgrp =".$id;
         $rs = $cnx->query($sql);
         echo "Login\n-------------------------\n";
         foreach($rs as $rec){
@@ -150,10 +152,14 @@ ACTION:
     }
 
     protected function cmd_alluserslist(){
-        $sql="SELECT login, u.id_aclgrp, name FROM jacl2_user_group u, jacl2_group g 
+
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
+
+        $sql="SELECT login, u.id_aclgrp, name FROM ".
+            $cnx->prefixTable('jacl2_user_group')." u, ".
+            $cnx->prefixTable('jacl2_group')." g
             WHERE g.grouptype <2 AND u.id_aclgrp = g.id_aclgrp ORDER BY login";
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
         $rs = $cnx->query($sql);
         echo "Login\t\tgroups\n--------------------------------------------------------\n";
         $login = '';
@@ -173,9 +179,9 @@ ACTION:
         if(!is_array($params) || count($params) != 1)
             throw new Exception("wrong parameter count");
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
 
-        $sql="INSERT into jacl2_group (name, grouptype, ownerlogin) VALUES (";
+        $sql="INSERT into ".$cnx->prefixTable('jacl2_group')." (name, grouptype, ownerlogin) VALUES (";
         $sql.=$cnx->quote($params[0]).',';
         if($this->getOption('-defaultgroup'))
             $sql.='1, NULL)';
@@ -183,7 +189,7 @@ ACTION:
             $sql.='0, NULL)';
 
         $cnx->exec($sql);
-        $id = $cnx->lastInsertId('jacl2_group_id_aclgrp_seq'); // name of the sequence for pgsql
+        $id = $cnx->lastInsertId($cnx->prefixTable('jacl2_group_id_aclgrp_seq')); // name of the sequence for pgsql
         echo "OK. Group id is: ".$id."\n";
     }
 
@@ -192,20 +198,20 @@ ACTION:
         if(!is_array($params) || count($params) != 1)
             throw new Exception("wrong parameter count");
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
 
         if($params[0] != 0)
             $id = $this->_getGrpId($params[0]);
 
-        $sql="DELETE FROM jacl2_rights WHERE id_aclgrp=";
+        $sql="DELETE FROM ".$cnx->prefixTable('jacl2_rights')." WHERE id_aclgrp=";
         $sql.=intval($id);
         $cnx->exec($sql);
 
-        $sql="DELETE FROM jacl2_user_group WHERE id_aclgrp=";
+        $sql="DELETE FROM ".$cnx->prefixTable('jacl2_user_group')." WHERE id_aclgrp=";
         $sql.=intval($id);
         $cnx->exec($sql);
 
-        $sql="DELETE FROM jacl2_group WHERE id_aclgrp=";
+        $sql="DELETE FROM ".$cnx->prefixTable('jacl2_group')." WHERE id_aclgrp=";
         $sql.=intval($id);
         $cnx->exec($sql);
 
@@ -218,7 +224,7 @@ ACTION:
         if(!is_array($params) || count($params) == 0 || count($params) > 2)
             throw new Exception("wrong parameter count");
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
 
         $id = $this->_getGrpId($params[0]);
 
@@ -232,7 +238,7 @@ ACTION:
                 throw new Exception("bad value for last parameter");
         }
 
-        $sql="UPDATE jacl2_group SET grouptype=$def  WHERE id_aclgrp=".$id;
+        $sql="UPDATE ".$cnx->prefixTable('jacl2_group')." SET grouptype=$def  WHERE id_aclgrp=".$id;
         $cnx->exec($sql);
         echo "OK\n";
     }
@@ -244,8 +250,8 @@ ACTION:
 
         $id = $this->_getGrpId($params[0]);
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
-        $sql="UPDATE jacl2_group SET name=".$cnx->quote($params[1])."  WHERE id_aclgrp=".$id;
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
+        $sql="UPDATE ".$cnx->prefixTable('jacl2_group')." SET name=".$cnx->quote($params[1])."  WHERE id_aclgrp=".$id;
         $cnx->exec($sql);
         echo "OK\n";
     }
@@ -257,21 +263,25 @@ ACTION:
 
         $id = $this->_getGrpId($params[0]);
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
-        $sql = "SELECT * FROM jacl2_user_group WHERE login= ".$cnx->quote($params[1])." AND id_aclgrp = $id";
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
+
+        $sql = "SELECT * FROM ".$cnx->prefixTable('jacl2_user_group')
+                ." WHERE login= ".$cnx->quote($params[1])." AND id_aclgrp = $id";
         $rs = $cnx->query($sql);
         if($rec = $rs->fetch()){
              throw new Exception("The user is already in this group");
         }
 
-        $sql = "SELECT * FROM  jacl2_user_group u, jacl2_group g 
+        $sql = "SELECT * FROM  ".$cnx->prefixTable('jacl2_user_group')." u, ".
+                $cnx->prefixTable('jacl2_group')." g
                 WHERE u.id_aclgrp = g.id_aclgrp AND login= ".$cnx->quote($params[1])." AND grouptype = 2";
         $rs = $cnx->query($sql);
         if(! ($rec = $rs->fetch())){
              throw new Exception("The user doesn't exist");
         }
 
-        $sql="INSERT INTO jacl2_user_group (login, id_aclgrp) VALUES(".$cnx->quote($params[1]).", ".$id.")";
+        $sql="INSERT INTO ".$cnx->prefixTable('jacl2_user_group')
+            ." (login, id_aclgrp) VALUES(".$cnx->quote($params[1]).", ".$id.")";
         $cnx->exec($sql);
         echo "OK\n";
     }
@@ -283,9 +293,10 @@ ACTION:
 
         $id = $this->_getGrpId($params[0]);
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
 
-        $sql="DELETE FROM jacl2_user_group WHERE login=".$cnx->quote($params[1])." AND id_aclgrp=$id";
+        $sql="DELETE FROM ".$cnx->prefixTable('jacl2_user_group')
+            ." WHERE login=".$cnx->quote($params[1])." AND id_aclgrp=$id";
         $cnx->exec($sql);
         echo "OK\n";
     }
@@ -295,21 +306,22 @@ ACTION:
         if(!is_array($params) || count($params) != 1)
             throw new Exception("wrong parameter count");
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
         $login = $cnx->quote($params[0]);
 
-        $sql = "SELECT * FROM jacl2_user_group WHERE login = $login";
+        $sql = "SELECT * FROM ".$cnx->prefixTable('jacl2_user_group')." WHERE login = $login";
         $rs = $cnx->query($sql);
         if($rec = $rs->fetch()){
             throw new Exception("the user is already registered");
         }
 
-        $sql = "INSERT into jacl2_group (name, grouptype, ownerlogin) VALUES (";
+        $sql = "INSERT into ".$cnx->prefixTable('jacl2_group')." (name, grouptype, ownerlogin) VALUES (";
         $sql.= $login.',2, '.$login.')';
         $cnx->exec($sql);
-        $id = $cnx->lastInsertId('jacl2_group_id_aclgrp_seq'); // name of the sequence for pgsql
+        $id = $cnx->lastInsertId($cnx->prefixTable('jacl2_group_id_aclgrp_seq')); // name of the sequence for pgsql
 
-        $sql="INSERT INTO jacl2_user_group (login, id_aclgrp) VALUES(".$login.", ".$id.")";
+        $sql="INSERT INTO ".$cnx->prefixTable('jacl2_user_group')
+            ." (login, id_aclgrp) VALUES(".$login.", ".$id.")";
         $cnx->exec($sql);
         echo "OK\n";
     }
@@ -319,24 +331,28 @@ ACTION:
         if(!is_array($params) || count($params) != 1)
             throw new Exception("wrong parameter count");
 
-        $cnx = jDb::getConnection(jAclDb::getProfile());
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
 
-        $sql="DELETE FROM jacl2_group WHERE grouptype=2 and ownerlogin=".$cnx->quote($params[0]);
+        $sql="DELETE FROM ".$cnx->prefixTable('jacl2_group')
+            ." WHERE grouptype=2 and ownerlogin=".$cnx->quote($params[0]);
         $cnx->exec($sql);
 
-        $sql="DELETE FROM jacl2_user_group WHERE login=".$cnx->quote($params[0]);
+        $sql="DELETE FROM ".$cnx->prefixTable('jacl2_user_group')
+            ." WHERE login=".$cnx->quote($params[0]);
         $cnx->exec($sql);
         echo "OK\n";
     }
 
     private function _getGrpId($param){
-        $cnx = jDb::getConnection(jAclDb::getProfile());
+        $cnx = jDb::getConnection(jAcl2Db::getProfile());
+        $sql="SELECT id_aclgrp FROM ".$cnx->prefixTable('jacl2_group')
+            ." WHERE grouptype <2 ";
         if(is_numeric($param)){
             if(intval($param) <= 0)
                 throw new Exception('invalid group id');
-            $sql="SELECT id_aclgrp FROM jacl2_group WHERE grouptype <2 AND id_aclgrp = ".$param;
+            $sql .= " AND id_aclgrp = ".$param;
         }else{
-            $sql="SELECT id_aclgrp FROM jacl2_group WHERE grouptype <2 AND name = ".$cnx->quote($param);
+            $sql .= " AND name = ".$cnx->quote($param);
         }
         $rs = $cnx->query($sql);
         if($rec = $rs->fetch()){

@@ -6,6 +6,14 @@ By alphabetic order on the name
 Developers of the Jelix team
 ----------------------------
 
+Olivier Demah (aka FoxMaSk)
+ - bug fix in jFile::removeDir (#733)
+ - little improvement in jtpl_function_html_diff(#720)
+ - remove deprecated "value" attribute in breadcrumb function (#800)
+ - fix charset in htmlfragment (#948)
+ - jResponseHtml, balise meta content xhtml+xml (#984)
+ - fixed issues in the sql script of jacl2db_admin, about the anonymous groups storage (#915)
+
 Julien Issler
  - updated JSON class (#231)
  - table prefix support in jDb and jDao (#293)
@@ -142,14 +150,6 @@ Uriel Corfa
 Dandelionmood
  - added counter_records tpl plugin (#370)
 
-Olivier Demah (aka FoxMaSk)
- - bug fix in jFile::removeDir (#733)
- - little improvement in jtpl_function_html_diff(#720)
- - remove deprecated "value" attribute in breadcrumb function (#800)
- - fix charset in htmlfragment (#948)
- - jResponseHtml, balise meta content xhtml+xml (#984)
- - fixed issues in the sql script of jacl2db_admin, about the anonymous groups storage (#915)
-
 Antoine Detante (aka antoinefr)
  - support of persistant authentification in jAuth and auth plugin (#229)
 
@@ -276,4 +276,3 @@ Copix Team
     (version 2.3dev20050901), under copyright 2001-2005 Copix Team
     (http://www.copix.org)
 
-(updated svn-1213)

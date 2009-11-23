@@ -29,15 +29,15 @@
     </menu>    
 </menus>
  */
-class menus
+class hfnumenus
 {
 
     public function getMenus() {
         global $gJConfig;
         $menus = array();
         
-        if (file_exists(dirname(__FILE__).'/menus.xml')) {
-            $doc = DOMDocument::load(dirname(__FILE__).'/menus.xml');
+        if (file_exists(JELIX_APP_CONFIG_PATH.'/hfnumenus.xml')) {
+            $doc = DOMDocument::load(JELIX_APP_CONFIG_PATH.'/hfnumenus.xml');
             $xpath  = new DOMXPath($doc);
            
             

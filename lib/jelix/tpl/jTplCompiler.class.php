@@ -4,13 +4,14 @@
 * @subpackage  jtpl
 * @author      Laurent Jouanneau
 * @contributor Mathaud Loic (standalone version), Dominique Papin, dsdenes
-* @copyright   2005-2008 Laurent Jouanneau
+* @copyright   2005-2009 Laurent Jouanneau
 * @copyright   2006 Mathaud Loic, 2007 Dominique Papin, 2009 dsdenes
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 
-define('T_GOTO',333);
+if (!defined('T_GOTO'))
+    define('T_GOTO',333);
 
 
 /**
@@ -265,7 +266,15 @@ class jTplCompiler
                     $res = 'elseif('.$this->_parseFinal($args,$this->_allowedInExpr).'):';
                 break;
             case 'foreach':
-                $res = 'foreach('.$this->_parseFinal($args,$this->_allowedInForeach, array(';','!','(')).'):';
+                if ($this->trusted)
+                    $notallowed = array(';','!');
+                else
+                    $notallowed = array(';','!','(');
+
+                if (preg_match("/^\s*\((.*)\)\s*$/",$args, $m))
+                   $args = $m[1];
+
+                $res = 'foreach('.$this->_parseFinal($args,$this->_allowedInForeach, $notallowed).'):';
                 array_push($this->_blockStack,'foreach');
                 break;
             case 'while':

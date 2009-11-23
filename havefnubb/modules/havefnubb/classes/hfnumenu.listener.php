@@ -46,7 +46,7 @@ class hfnumenuListener extends jEventListener{
 			   'main'));
 	  }
 	  // dynamic menu
-	  $menus = jClasses::getService('havefnubb~menus')->getMenus();
+	  $menus = jClasses::getService('havefnubb~hfnumenus')->getMenus();
 
 	  foreach ($menus as $indx => $menu) {
 		 $event->add(new hfnuMenuItem($menu['itemName'],
