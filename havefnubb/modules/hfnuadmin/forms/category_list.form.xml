@@ -44,6 +44,11 @@
       <item value="2" locale="hfnuadmin~forum.forum_type.rss"/>
 </menulist>
 
+<input ref="expire" required="true" type="integer" defaultvalue="0">
+	<label locale="hfnuadmin~forum.forum_expire"/>
+	<hint locale="hfnuadmin~forum.forum_expire_desc"/>
+	<help locale="hfnuadmin~forum.forum_expire_desc"/>
+</input>
 <submit ref="validate">
   <label>Veuillez valider</label>
   <item value="createBt" locale="hfnuadmin~forum.createBt"/>

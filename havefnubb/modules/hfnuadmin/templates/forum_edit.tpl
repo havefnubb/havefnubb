@@ -46,8 +46,17 @@
             <label class="jforms-label jforms-required" for="jforms_hfnuadmin_forum_forum_order">{@hfnuadmin~forum.forum_order@}</label>
         </th>
         <td>
-            <input type="text" name="forum_order" id="jforms_hfnuadmin_forum_forum_order" class=" jforms-required" size="4" value="1"/>
+            <input type="text" name="forum_order" id="jforms_hfnuadmin_forum_forum_order" class=" jforms-required" size="4" value="{$forum->forum_order}"/>
         </td>
+    </tr>
+    <tr>
+        <th scope="row">
+            <label class="jforms-label jforms-required" for="jforms_hfnuadmin_forum_post_expire">{@hfnuadmin~forum.forum_expire@}</label>
+        </th>
+        <td>
+            <input type="text" name="post_expire" id="jforms_hfnuadmin_forum_post_expire" class=" jforms-required" size="5" value="{$forum->post_expire}"/><br/>
+            {@hfnuadmin~forum.forum_expire_desc@}
+        </td>        
     </tr>
 </table>
 

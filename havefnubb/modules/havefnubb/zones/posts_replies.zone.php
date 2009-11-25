@@ -17,9 +17,11 @@ class posts_repliesZone extends jZone {
         $id_post 	= (int) $this->param('id_post');
 		$id_forum 	= (int) $this->param('id_forum');
         $page 		= (int) $this->param('page');
+		$status		= (string) $this->param('status');
 		
         if (!$id_post) return;
 		if (!$id_forum) return;
+		if ($status == '') return;
 
 		if ($page < 0 ) $page = 0;
         
@@ -83,5 +85,6 @@ class posts_repliesZone extends jZone {
 		$this->_tpl->assign('parent_id',$parentPost->parent_id);
 		$this->_tpl->assign('forum_name',$parentPost->forum_name);
 		$this->_tpl->assign('groups',$groups);
+		$this->_tpl->assign('status',$status);
     }
 }

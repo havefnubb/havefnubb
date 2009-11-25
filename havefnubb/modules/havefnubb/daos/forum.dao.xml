@@ -16,7 +16,7 @@
     <property name="child_level" fieldname="child_level" datatype="int" required="true"/>
     <property name="forum_type" fieldname="forum_type" datatype="int" required="true"/>
     <property name="forum_url" fieldname="forum_url" datatype="string" maxlength="255" />
-
+    <property name="post_expire" fieldname="post_expire" datatype="int" maxlength="5"/>
     <property name="cat_name" fieldname="cat_name" datatype="string" required="true" maxlength="255"
               table="category" />
     <property name="cat_order" fieldname="cat_order" datatype="int" required="true"

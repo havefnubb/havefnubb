@@ -225,8 +225,8 @@
         </url>                
 
         <url pathinfo="/admin/auth/users/" module="jauthdb_admin" action="default:index"/>
-        <url pathinfo="/admin/auth/user/:id" module="jauthdb_admin" action="default:view">
-            <param name="id"/>
+        <url pathinfo="/admin/auth/user/:j_user_login" module="jauthdb_admin" action="default:view">
+            <param name="j_user_login"/>
         </url>
         <url pathinfo="/admin/auth/create-user" module="jauthdb_admin" action="default:create" actionoverride="default:precreate,default:savecreate"/>
         <url pathinfo="/admin/auth/user/:id/edit" module="jauthdb_admin" action="default:editupdate" actionoverride="default:preupdate,default:saveupdate">

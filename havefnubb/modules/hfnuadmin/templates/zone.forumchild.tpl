@@ -7,7 +7,8 @@
     {ifacl2 'hfnu.admin.forum.edit'} 
     <td><a href="{jurl 'hfnuadmin~forum:edit',array('id_forum'=>$forum->id_forum)}" title="{$forum->forum_name|eschtml}">{@hfnuadmin~forum.forum.edit@}</a></td>
     {/ifacl2}
-    <td>position :{$forum->forum_order}</td>     
+    <td>{$forum->forum_order}</td>
+    <td>{$forum->post_expire}</td>
 </tr>
 {zone 'hfnuadmin~forumchild',array('id_forum'=>$forum->id_forum,'lvl'=>$forum->child_level+1)}
 {/foreach}

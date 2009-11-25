@@ -291,7 +291,7 @@ li.pagelinks-current  {
 }
 
 .colicone-closed, .post-status-icon-closed {
-	background-image: url("../images/posts/closed.png");
+	background-image: url('../images/posts/closed.png');
 	background-repeat: no-repeat;
 }
 

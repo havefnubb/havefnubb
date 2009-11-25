@@ -18,7 +18,7 @@ $(document).ready(function(){
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$id_forum}
-    {if $parentStatus != "closed" and $parentStatus != 'pinedclosed'}
+     {if $parentStatus != "closed" and $parentStatus != 'pinedclosed' and $status != 'closed'}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {foreach $groups as $group}
@@ -46,7 +46,7 @@ $(document).ready(function(){
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post">
     <div class="posthead legend">     
-        <h4 class="posthead-title"><span class="post-status-icon-{$post->status}"> </span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
+        <h4 class="posthead-title"><span class="post-status-icon-{$status}"> </span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$status}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
         {* rate ON the FIRST post of the thread *}
         {if $post->parent_id == $post->id_post}
         {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
@@ -94,7 +94,9 @@ $(document).ready(function(){
                 {/ifacl2}
             {/if}
             {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
+            {if $status != 'closed'}
             <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
+            {/if}
             {/ifacl2}            
         </div>
     </div>
@@ -107,7 +109,7 @@ $(document).ready(function(){
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$id_forum}
-    {if $parentStatus != "closed" and $parentStatus != 'pinedclosed'}
+    {if $parentStatus != "closed" and $parentStatus != 'pinedclosed' and $status != 'closed'}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {foreach $groups as $group}
@@ -127,7 +129,9 @@ $(document).ready(function(){
 </div>
 {/ifacl2}
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
+{if $status != 'closed'}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
+{/if}
 {/ifacl2}
 {ifacl2 'hfnu.forum.goto'}
 {zone 'havefnubb~jumpto',array('id_forum'=>$id_forum)}

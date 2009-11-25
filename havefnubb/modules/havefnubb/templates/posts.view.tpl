@@ -6,7 +6,7 @@
 {/ifacl2}
 
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
-{zone 'havefnubb~posts_replies',array('id_post'=>$id_post,'id_forum'=>$forum->id_forum,'page'=>$page)}
+{zone 'havefnubb~posts_replies',array('id_post'=>$id_post,'id_forum'=>$forum->id_forum,'page'=>$page,'status'=>$status)}
 {/ifacl2}
 
 

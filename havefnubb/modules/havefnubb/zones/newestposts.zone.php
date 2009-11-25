@@ -18,7 +18,7 @@ class newestpostsZone extends jZone {
         $dao = jDao::get('havefnubb~newest_posts');
        
         if ($source == 'forum') {
-            $id_forum = (int) $this->param('id_forum');            
+            $id_forum = (int) $this->param('id_forum'); 
             if ($id_forum < 1) return;
             $rec = $dao->getLastPostByIdForum($id_forum);
             
@@ -30,16 +30,38 @@ class newestpostsZone extends jZone {
         elseif ($source =='post') {
             $availableStatus = array('opened','closed','pined','pinedclosed');
             if (! in_array($this->param('status'),$availableStatus)) return;
-            $id_post = (int) $this->param('id_post');
+            
+            $id_post    = (int) $this->param('id_post');
+            $id_forum   = (int) $this->param('id_forum');
+
             if ($id_post < 1) return;
+            if ($id_forum < 1) return;            
+
             $rec = $dao->getPostStatus($id_post);
             
-            if ( $rec === false ) {
+            $day_in_secondes = 24 * 60 * 60;
+    		$dateDiff =  ($rec->date_modified == '') ? floor( (time() - $rec->date_created ) / $day_in_secondes) : floor( (time() - $rec->date_modified ) / $day_in_secondes) ;
+            
+            // lets find in the forum
+            // how many time the thread can stay open in post_expire
+            $daoForum = jDao::get('havefnubb~forum');    
+            $recForum = $daoForum->get($id_forum);
+          
+            if ( $rec === false ) {                
                 
-                $status = $this->param('status');
+                if ( $recForum->post_expire > 0 and $dateDiff >= $recForum->post_expire )
+                    $status = 'closed';
+
+                else 
+                    $status = $this->param('status');
             } 
             else {
-                $status = 'post-new';
+                
+                if ( $recForum->post_expire > 0 and $dateDiff >= $recForum->post_expire )
+                    $status = 'closed';
+
+                else                 
+                    $status = 'post-new';
             }
         }
 

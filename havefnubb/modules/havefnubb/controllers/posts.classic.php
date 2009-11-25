@@ -31,7 +31,8 @@ class postsCtrl extends jController {
 		'savereply'	=> array('flood.editing'=>true,'flood.same.ip'=>true),
 		
         'lists'	=> array( 'history.add'=>true),
-        'view' 	=> array( 'history.add'=>true),		
+        'view' 	=> array( 'history.add'=>true),
+		'status' => array('jacl2.right'=>'hfnu.admin.post'),
 		
    );	
 
@@ -147,7 +148,15 @@ class postsCtrl extends jController {
             $rep 		 = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
             return $rep;			
-		}              
+		}
+		
+		$day_in_secondes = 24 * 60 * 60;
+		$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
+
+		if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire )
+			$status = 'closed';
+		else
+			$status = $post->status;
 		
         $rep = $this->getResponse('html');
         
@@ -163,8 +172,9 @@ class postsCtrl extends jController {
 		$tpl->assign('category'	,$category);
         $tpl->assign('page'		,$page);
         $tpl->assign('subject'	,$post->subject);
+		$tpl->assign('status'	,$status);
 		
-        $rep->title = $post->subject;                
+        $rep->title = '['.jLocale::get('havefnubb~post.status.'.$status).'] '.$post->subject;                
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));
         return $rep;
     }
@@ -411,13 +421,23 @@ class postsCtrl extends jController {
         }
         
 		$daoPost = jDao::get('havefnubb~posts');
-		$post = $daoPost->get($parent_id);
+		$post = $daoPost->get($parent_id);	
 		
         if (!$post) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
             return $rep;
         }
+		// check if the post is expired
+		$day_in_secondes = 24 * 60 * 60;
+		$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
+
+		if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire ) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+            return $rep;
+		}
+		
 		if ( ! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -483,7 +503,7 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
             return $rep;
         } 
-        
+       
 		if ( ! jAcl2::check('hfnu.posts.create','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
@@ -498,7 +518,16 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
             return $rep;			
 		}
-        
+		// check if the post is expired
+		$day_in_secondes = 24 * 60 * 60;
+		$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
+
+		if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire ) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+            return $rep;
+		}
+         
         $form = jForms::create('havefnubb~posts',$parent_id);
 		$form->initFromDao('havefnubb~posts');
 		
@@ -771,9 +800,10 @@ class postsCtrl extends jController {
 
 	// change the status of the post
 	function status () {
-
+		
 		$parent_id 	= (int) $this->param('parent_id');
 		$status 	= $this->param('status');
+		
 		
 		$statusAvailable = array('opened','closed','pined','pinedclosed');
 		
