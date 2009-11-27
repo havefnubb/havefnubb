@@ -1,5 +1,7 @@
 <?php
 /**
+* Controller to manage any specific Posts events
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -9,10 +11,10 @@
 */
 
 class postsCtrl extends jController {
-    /**
-    * Controller to manage any specific Posts events
-    */	
 	
+    /**
+     * plugins to manage the behavior of the controller
+     */		
     public $pluginParams = array(
         '*'		=> array( 'auth.required'=>false,
 						  'hfnu.check.installed'=>true,
@@ -36,7 +38,9 @@ class postsCtrl extends jController {
 		
    );	
 
-	// main list of all posts of a given forum ($id_forum)	
+	/**
+	 * main list of all posts of a given forum ($id_forum)
+	 */ 
     function lists() {
         global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
@@ -116,9 +120,11 @@ class postsCtrl extends jController {
         return $rep;        
     }        
 
-	// display the first post + call zone posts_replies in template to display all the thread
-	// Method 1 : default usage : list all messages of a thread (id_post known)
-	// Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
+	/**
+	 * display the first post + call zone posts_replies in template to display all the thread
+	 * 	Method 1 : default usage : list all messages of a thread (id_post known)
+	 * 	Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
+	 */
     function view() {
         $id_post 	= (int) $this->param('id_post');
 		$parent_id 	= (int) $this->param('parent_id');
@@ -179,7 +185,9 @@ class postsCtrl extends jController {
         return $rep;
     }
     
-    // display the add 'blank' form 
+    /**
+	 * display the add 'blank' form
+	 */
     function add () {
 		
 		$id_forum = (int) $this->param('id_forum');
@@ -232,7 +240,9 @@ class postsCtrl extends jController {
         return $rep;		
     }
 
-    // display the edit form with the corresponding selected post
+    /**
+	 * display the edit form with the corresponding selected post
+	 */
     function edit () {		
 		$id_post = (int) $this->param('id_post');
 			
@@ -295,7 +305,9 @@ class postsCtrl extends jController {
         return $rep;	
     }
     
-    // Save the data submitted from add/edit form
+    /**
+	 * Save the data submitted from add/edit form
+	 */
 	function save() {
 		
 		$id_forum = (int) $this->param('id_forum');
@@ -409,7 +421,9 @@ class postsCtrl extends jController {
 		}		
 	}
 	
-	//reply to a given post (from the parent_id)
+	/**
+	 * reply to a given post (from the parent_id)
+	 */
     function reply() {
 	
         $parent_id 	= (int) $this->param('id_post');
@@ -484,7 +498,9 @@ class postsCtrl extends jController {
         return $rep;		
     }
 	
-	// quote message
+	/**
+	 * quote message
+	 */
     function quote() {
 		
         $parent_id 	= (int) $this->param('parent_id');
@@ -568,7 +584,9 @@ class postsCtrl extends jController {
     }
 
 
-    // save the datas posted from the reply form
+    /**
+	 * save the datas posted from the reply form
+	 */
 	function savereply() {
 		$id_forum   = (int) $this->param('id_forum');
 		
@@ -663,7 +681,9 @@ class postsCtrl extends jController {
 	
 
 
-	// delete a post
+	/**
+	 * delete a post
+	 */
     function delete() {
 	
 		$id_post 	= (integer) $this->param('id_post');
@@ -696,7 +716,9 @@ class postsCtrl extends jController {
         return $rep;		
     }
 
-	// goto another forum
+	/**
+	 * goto another forum
+	 */
     function goesto() {
         $id_forum = (int) $this->param('id_forum');
         if ($id_forum == 0 ) {
@@ -711,7 +733,9 @@ class postsCtrl extends jController {
         return $rep;        
     }
 
-	//notify something from a given post (from the parent_id) to the admin
+	/**
+	 * notify something from a given post (from the parent_id) to the admin
+	 */
     function notify() {
 		
         $id_post = (int) $this->param('id_post');
@@ -761,7 +785,9 @@ class postsCtrl extends jController {
         return $rep;		
     }	
 
-    // save the datas posted from the notify form
+    /**
+	 * save the datas posted from the notify form
+	 */
 	function savenotify() {
 		$id_post    = (int) $this->param('id_post');
 		$id_forum   = (int) $this->param('id_forum');
@@ -798,7 +824,10 @@ class postsCtrl extends jController {
 
 	}
 
-	// change the status of the post
+	/**
+	 * change the status of the post
+	 * known status : 'opened','closed','pined','pinedclosed'
+	 */
 	function status () {
 		
 		$parent_id 	= (int) $this->param('parent_id');
@@ -836,7 +865,9 @@ class postsCtrl extends jController {
 		return $rep;
 	}
 	
-	// provide a rss feeds for each forum
+	/**
+	 * provide a rss feeds for each forum
+	 */
 	public function rss() {
         global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
@@ -912,7 +943,7 @@ class postsCtrl extends jController {
 	}
 	
 	
-	/*
+	/**
 	 * this function permits to move a complet thread to another forum
 	 */
 	public function moveToForum() {
@@ -962,7 +993,10 @@ class postsCtrl extends jController {
 		return $rep;		
 	}
 	
-	// 'Wizard' to ask to the admin where to move the selected thread, starting from the current message
+	/**
+	 * 'Wizard' to ask to the admin where to move the selected thread,
+	 * starting from the current message
+	 */
 	public function splitTo() {
 		if ( ! jAcl2::check('hfnu.admin.post') ) {
 			$rep = $this->getResponse('redirect');

@@ -37,12 +37,11 @@ class forumCtrl extends jController {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
 			return $rep;
-        }
+        }		
+		$forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 		
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8'));
-		
-		$dao = jDao::get('havefnubb~forum');
-		$forum = $dao->get($id_forum);
+
 
 		$feed_reader = new jFeedReader;
 		$feed_reader->setCacheDir(JELIX_APP_VAR_PATH.'feeds');

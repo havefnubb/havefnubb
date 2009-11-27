@@ -10,8 +10,12 @@
 *
 */
 class hfnuposts {
-
-
+    /**
+     * status of the newest post
+     * var $postStatus array
+     */    
+    public static $postStatus = array() ;
+	
     /**
      * get specific info to be display in the breadcrumb and title of each page
      * @param  integer $id_forum  the current forum
@@ -19,17 +23,9 @@ class hfnuposts {
      */
 	public function getCrumbs($id_forum) {
         if ($id_forum == 0) return array();
-        
-		// get info to display them in the breadcrumb
-        $daoForum = jDao::get('havefnubb~forum');
-        // find info for the current forum
-        $forum = $daoForum->get($id_forum);
-				
-		$daoCategory = jDao::get('havefnubb~category');
-		// find category name for the current forum
-		$category = $daoCategory->get($forum->id_cat);
+		$forum 		= jClasses::getService('havefnubb~hfnuforum')	->getForum($id_forum);		
+		$category 	= jClasses::getService('havefnubb~hfnucat')		->getCat($forum->id_cat);
 		$info = array($forum,$category);
-		
 		return $info;
 	}
     
@@ -71,17 +67,16 @@ class hfnuposts {
 
     /**
 	 * view a given thread !
+     * business check :
+     * 1) do those id exist ?
+     * 2) permission ok ?
+     * 3) if parent_id > 0 then calculate the page + assign id_post with parent_id
+     * business update :
+     * 1) update the count of view of this thread
      * @param id_post integer id post of the current post
      * @param parent_id integer parent id of the current post
      * @return array of id_post, DaoRecord of Post, Paginator
-     */
-    // business check :
-    // 1) do those id exist ?
-    // 2) permission ok ?
-    // 3) if parent_id > 0 then calculate the page + assign id_post with parent_id
-    // business update :
-    // 1) update the count of view of this thread
-    
+     */    
     public function view($id_post,$parent_id) {
         global $gJConfig;
         $dao = jDao::get('havefnubb~posts'); 
@@ -398,6 +393,17 @@ class hfnuposts {
 		$dao->deleteAllFromCurrentIdPostWithParentId($parent_id,$id_post); // delete the old records
 
 		return true;
-	}    
+	}
+
+	/**
+	 * this function permits to get the status of the posts
+	 * @param $id_post integer id post to split
+	 * @return $postStatus array
+	 */	
+	public function getPostStatus($id_post) {
+        if (!isset(self::$postStatus[$id_post])) 
+            self::$postStatus[$id_post] = jDao::get('havefnubb~newest_posts')->getPostStatus($id_post);
+        return self::$postStatus[$id_post];		
+	}
 }
 ?>

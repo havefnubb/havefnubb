@@ -17,10 +17,7 @@ class forumZone extends jZone {
         if (! $id_cat ) return;
         if (! $action ) return;        
         
-        $dao = jDao::get('havefnubb~forum');
-        
-        $forums = $dao->findParentByCatId($id_cat);
-        
+        $forums = jClasses::getService('havefnubb~hfnuforum')->findParentByCatId($id_cat);
         $this->_tpl->assign('forums',$forums);
     }
 }
