@@ -12,7 +12,7 @@
 class hfnucat {
     /**
      * content of the category
-     * var $forum array
+     * var $cat array
      */    
     public static $cat = array() ;
     

@@ -110,7 +110,23 @@ $(document).ready(function(){
             </fieldset>
             <fieldset>
                 <div class="legend"><span class="user-stats user-image">{@havefnubb~member.common.stats@}</span></div>
-                <div class="form_row">                    
+                <div class="form_row">
+                    <div class="form_property">    
+                        <label><strong>{@havefnubb~member.common.rank@}</strong></label>
+                    </div>
+                    <div class="form_value">					
+						{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}
+					</div>
+                    <div class="form_property">    
+                        <label><strong>{@havefnubb~member.memberlist.nb.posted.msg@}</strong></label>
+                    </div>
+                    <div class="form_value">
+                        {$user->nb_msg}
+                    </div>
+                    <div class="clearer">
+                        &nbsp;
+                    </div>
+					
                     <div class="form_property">        
                         <label><strong>{@havefnubb~member.common.registered.since@}</strong></label>
                     </div>
