@@ -1,5 +1,7 @@
 <?php
 /**
+* Class that handle the timeout of a connection of a visit
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -8,12 +10,17 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
+class timeout {
 
-class timeout 
-{
-
-	// this function check if :
-	// the users are idle or no more connected
+	/**
+	 * check if the users are idle or no more connected.
+	 * the parameters come from the timeout.coord.ini.php file
+	 * and pass from the timeout Coordinator
+	 * @param $daoConnected string of the DAO from where to check the connection
+	 * @param $daoMember string of the DAO from where to check the member
+	 * @param $timeoutConnected integer of the duration of a connection
+	 * @param $timeoutVisit integer of the duration of a visit
+	 */
     public static function check($daoConnected,$daoMember,$timeoutConnected,$timeoutVisit) {      
 		$daoC = jDao::get($daoConnected);
         $now = time();

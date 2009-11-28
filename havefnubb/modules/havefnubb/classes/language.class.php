@@ -1,5 +1,7 @@
 <?php
 /**
+* Language DataSource
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -7,7 +9,6 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 
 class language implements jIFormsDatasource
 {

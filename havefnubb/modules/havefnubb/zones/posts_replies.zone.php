@@ -71,7 +71,21 @@ class posts_repliesZone extends jZone {
 			$this->_tpl->assign('formStatus',$formStatus);
 			$this->_tpl->assign('formMove',$formMove);
 		}
+		$parentPostStatus = $parentPost->status;
+		// check if the post is expired
+		$day_in_secondes = 24 * 60 * 60;
+		$dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
 		
+		if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
+			$dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )
+			$status = 'closed';
+			
+		$dateDiff =  ($parentPost->date_modified == 0) ? floor( (time() - $parentPost->date_created ) / $day_in_secondes) : floor( (time() - $parentPost->date_modified ) / $day_in_secondes) ;
+		
+		if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
+			$dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )
+			$parentPostStatus = 'closed';
+			
         $this->_tpl->assign('posts',$posts);
 		$this->_tpl->assign('id_forum',$id_forum);
         $this->_tpl->assign('tags',$tags);
@@ -80,7 +94,7 @@ class posts_repliesZone extends jZone {
         $this->_tpl->assign('nbRepliesPerPage',$nbRepliesPerPage);
         $this->_tpl->assign('nbReplies',$nbReplies);        
         $this->_tpl->assign('properties',$properties);
-		$this->_tpl->assign('parentStatus',$parentPost->status);
+		$this->_tpl->assign('parentStatus',$parentPostStatus);
 		$this->_tpl->assign('ptitle',$parentPost->subject);
 		$this->_tpl->assign('parent_id',$parentPost->parent_id);
 		$this->_tpl->assign('forum_name',$parentPost->forum_name);

@@ -1,5 +1,7 @@
 <?php
 /**
+* Controller to manage any specific forum events
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -9,9 +11,10 @@
 */
 
 class forumCtrl extends jController {
+	
     /**
-    *
-    */
+     * plugins to manage the behavior of the controller
+     */		
     public $pluginParams = array(
         '*'		=> array('auth.required'=>false,
 						 'banuser.check'=>true
@@ -21,8 +24,9 @@ class forumCtrl extends jController {
 						 'history.label'=>'Accueil',
 						 'history.title'=>'Aller vers la page d\'accueil')
     );
-    /*
-	 *
+	
+    /** 
+	 * display the RSS of the forum
 	 */
 	public function read_rss() {
         $id_forum = (int) $this->param('id_forum');

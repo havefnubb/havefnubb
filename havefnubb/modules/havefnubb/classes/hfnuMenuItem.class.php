@@ -1,5 +1,7 @@
 <?php
 /**
+* MenuItem of HaveFnuBB
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk

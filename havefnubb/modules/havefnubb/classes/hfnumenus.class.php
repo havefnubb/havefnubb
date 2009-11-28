@@ -1,5 +1,7 @@
 <?php
 /**
+* class to manage menus.xml file and display the content inside of the other menu item
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -31,7 +33,10 @@
  */
 class hfnumenus
 {
-
+    /**
+     * get the menus to be added inside the ohers menu item
+     * @return $menus arry of menus
+     */
     public function getMenus() {
         global $gJConfig;
         $menus = array();

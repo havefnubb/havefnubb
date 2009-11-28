@@ -1,5 +1,7 @@
 <?php
 /**
+* Forum List DataSource that handles a dropdwon list 
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk

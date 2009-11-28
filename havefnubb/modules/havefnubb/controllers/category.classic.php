@@ -1,5 +1,7 @@
 <?php
 /**
+* Controller to manage any category events
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -9,9 +11,10 @@
 */
 
 class categoryCtrl extends jController {
+	
     /**
-    *
-    */
+     * plugins to manage the behavior of the controller
+     */	
     public $pluginParams = array(
         '*'		=>	array('auth.required'=>false,
 						  'hfnu.check.installed'=>true,
@@ -19,7 +22,9 @@ class categoryCtrl extends jController {
 					),
 		'view' 	=> 	array('history.add'=>true)
     );
-    
+    /**
+	 * View a given Category of forum then the list of forums
+	 */    
     function view() {
         $id_cat = (int) $this->param('id_cat');
         if ($id_cat == 0 ) {

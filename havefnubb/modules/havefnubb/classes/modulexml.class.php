@@ -1,5 +1,6 @@
 <?php
 /**
+* Class to parse the module.xml file of each module
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -7,11 +8,15 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-// Class to parse the module.xml file
+
 class modulexml {
+	
     public static $ns     =  'jelixmodule';
     public static $nsURL  = 'http://jelix.org/ns/module/1.0'; 
-    
+	/**
+	 * parse the module.xml file
+	 * @return $moduleInfos array of module info
+	 */
     public static function parse($theModuleName) { 
         global $gJConfig;
         
@@ -141,8 +146,12 @@ class modulexml {
      
         return $moduleInfos; 
          
-    }         
-    
+    }
+	
+    /**
+	 * generec function to 'Query' info
+	 * @return $value string of the search
+	 */
     public static function moduleInfo($file,$info) {
 
         self::$ns     =  'jelixmodule'; 

@@ -1,5 +1,7 @@
 <?php
 /**
+* Class that handle the flood protection
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -11,7 +13,12 @@
 class flood {
 
     function __construct() {}
-    
+    /**
+     * check if there is a flood
+     * @param $action string same_ip or editing
+     * @param $value integer time between two $action
+     * @return boolean
+     */
     public static function check($action,$value) {
         //we are never sure enough of the datas we get :P
         
@@ -26,6 +33,11 @@ class flood {
         return self::$action($value);
     }
     
+    /**
+     * check if there is a flood from the same ip
+     * @param $value integer time between two 'same_ip'
+     * @return boolean
+     */    
     public static function same_ip($value) {
         $dao = jDao::get('havefnubb~posts');        
         $rec = $dao->getMyLastEditedPost(  jAuth::getUserSession()->id );
@@ -35,6 +47,11 @@ class flood {
             return false;
     }
     
+    /**
+     * check if there is a flood when editing post
+     * @param $value integer time between two 'editing'
+     * @return boolean
+     */    
     public static function editing($value) {
         $dao = jDao::get('havefnubb~posts');
         $rec = $dao->getMyLastEditedPost( jAuth::getUserSession()->id );
@@ -45,4 +62,3 @@ class flood {
     }
 
 }
-?>

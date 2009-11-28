@@ -50,5 +50,5 @@
 
     </div>
 </div>
-{hook 'hfbAfterPostsEdit',array('id_post'=>$id_post)}}
+{hook 'hfbAfterPostsEdit',array('id_post'=>$id_post)}
 {zone 'havefnubb~syntax_wiki'}

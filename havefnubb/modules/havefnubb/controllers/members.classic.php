@@ -1,5 +1,7 @@
 <?php
 /**
+* Controller to manage any specific members events
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -10,8 +12,8 @@
 
 class membersCtrl extends jController {
     /**
-    *
-    */
+     * plugins to manage the behavior of the controller
+     */		
     public $pluginParams = array(
 
         '*'		=>	array('auth.required'=>true,
@@ -22,7 +24,9 @@ class membersCtrl extends jController {
 						 'history.label'=>'Accueil',
 						 'history.title'=>'Aller vers la page d\'accueil')
     );
-    
+    /** 
+	 * handle the search of specific member
+	 */    
     function index() {
 		global $gJConfig;
         $title = stripslashes($gJConfig->havefnubb['title']);
@@ -68,7 +72,9 @@ class membersCtrl extends jController {
         return $rep;
     }
 	
-	// The user want to change his password
+	/**
+	 * The user want to change his password
+	 */
     function changepwd() {
         $login = $this->param('user');
         if($login == '' || !jAuth::isConnected() || jAuth::getUserSession()->login != $login) {
@@ -138,7 +144,9 @@ class membersCtrl extends jController {
         return $rep;
     }
 
-
+	/**
+	 * call of internal messaging
+	 */
 	function mail() {
 		$rep = $this->getResponse('html');
 		$rep->body->assign('selectedMenuItem','members');

@@ -444,9 +444,10 @@ class postsCtrl extends jController {
         }
 		// check if the post is expired
 		$day_in_secondes = 24 * 60 * 60;
-		$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
+		$dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
 
-		if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire ) {
+		if ( jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum)->post_expire > 0 and
+			$dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum)->post_expire ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
             return $rep;

@@ -1,5 +1,7 @@
 <?php
 /**
+* Controller to manage any banuser events
+*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -10,8 +12,8 @@
 
 class banuserCtrl extends jController {
     /**
-    *
-    */
+	 * Page info display to banned users
+	 */
     function index() {
 		global $gJConfig;
         $title = stripslashes($gJConfig->havefnubb['title']);

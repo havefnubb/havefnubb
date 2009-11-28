@@ -1,5 +1,7 @@
 <?php
 /**
+* Class that handle the banned users
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -8,14 +10,14 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
+class bans {
 
-class bans 
-{
-
-    function __construct() {
-    }
+    function __construct() {}
     
-	//get the Bans
+	/**
+	 * get the Bans
+	 * @return recordSet 
+	 */
     public static function getBans() {
 		self::checkExpiry();		
 		$dao = jDao::get('havefnubb~bans');
@@ -23,7 +25,10 @@ class bans
 		return $bans;
     }
 
-	//get the Banned Domain
+	/**
+	 * get the Banned Domain
+	 * @return recordSet 
+	 */
     public static function getBannedDomains() {
 		self::checkExpiry();		
 		$dao = jDao::get('havefnubb~bans');
@@ -31,13 +36,18 @@ class bans
 		return $bans;
     }
 	
-	//remove bans that are expired
+	/**
+	 * remove bans that are expired
+	 */
 	public static function checkExpiry() {
 		$dao = jDao::get('havefnubb~bans');
 		$dao->deleteExpiry(time());
 	}
 	
-	// does this user banned ?
+	/**
+	 * does this user banned ?
+	 * @return boolean
+	 */
 	public static function check() {
 		$return = false;
 		$bans = self::getBans();
@@ -57,7 +67,11 @@ class bans
 		return $return;
 	}
 
-	// does this user banned ?
+	/**
+	 * does this user banned ?
+	 * @param $email string the email
+	 * @return mixed : true/false or message of ban
+	 */	  
 	public static function checkDomain($email) {
 		$return = false;
 		$bans = self::getBannedDomains();
@@ -76,12 +90,20 @@ class bans
 		return $return;
 	}
 	
-	// does this user banned ?
+	/**
+	 * check if this member name is banned
+	 * @param $userName string name of the member
+	 * @return boolean
+	 */
 	public static function bannedUserName($userName) {
 		return ($userName == jAuth::getUserSession()->login);
 	}
 	
-	// does this email banned ?
+	/**
+	 * check if this email domain is banned
+	 * @param $email string email domain of the member
+	 * @return boolean
+	 */
 	public static function bannedDomain($email) {
 		if (! jAuth::isConnected() ) return false;
 		if (strpos($email,'@') == 0 ) {
@@ -92,7 +114,11 @@ class bans
 		return ($userEmail == $email);
 	}
 	
-	// does this IP banned ?
+	/**
+	 * check if this IP is banned
+	 * @param $ip string IP of the member
+	 * @return boolean
+	 */
 	public static function bannedIp($banIp) {
         //is this IP one of them ?
 		if (strpos($banIp,',') > 0 ) {
@@ -124,6 +150,11 @@ class bans
         return false;
 	}
 	
+	/**
+	 * check the validity of an IP address
+	 * @param $ip string IP of the member
+	 * @return boolean
+	 */
     public static function checkIp($ip) {
         $validIp = false;
         $newIp = '';
@@ -174,5 +205,4 @@ class bans
         return $validIp;
     }
 
- 
 }

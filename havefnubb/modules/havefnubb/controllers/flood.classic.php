@@ -1,5 +1,7 @@
 <?php
 /**
+* Controller to manage flood events
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -10,8 +12,8 @@
 
 class floodCtrl extends jController {
     /**
-    *
-    */
+     * handle a possible flood protection from the same IP user
+     */		
     function sameip() {
 		global $gJConfig;
         $title = stripslashes($gJConfig->havefnubb['title']);
@@ -23,7 +25,10 @@ class floodCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~flood'));
         return $rep;		
 	}
- 
+	
+    /**
+     * handle a possible flood protection for editing a post
+     */		 
     function editing() {
 		global $gJConfig;
         $title = stripslashes($gJConfig->havefnubb['title']);

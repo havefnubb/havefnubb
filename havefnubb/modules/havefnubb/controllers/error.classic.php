@@ -1,5 +1,7 @@
 <?php
 /**
+* Controller to manage any errors events
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -9,13 +11,16 @@
 */
 
 class errorCtrl extends jController {
-
+	
+    /**
+     * plugins to manage the behavior of the controller
+     */		
     public $pluginParams = array(
         '*'		=> array('auth.required'=>false),
     );
     /**
-    * 404 error page
-    */
+     * 404 error page
+     */
     public function notfound() {
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
@@ -26,9 +31,8 @@ class errorCtrl extends jController {
     }
 
     /**
-    * 403 error page
-    * @since 1.0.1
-    */
+     * 403 error page
+     */
     public function badright() {
         $rep = $this->getResponse('html');
 		$tpl = new jTpl();	
