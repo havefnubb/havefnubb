@@ -46,7 +46,7 @@ $(document).ready(function(){
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post">
     <div class="posthead legend">     
-        <h4 class="posthead-title"><span class="post-status-icon-{$status}"> </span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$status}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
+        <h4 class="posthead-title"><span class="post-status-icon-{$status}"> </span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
         {* rate ON the FIRST post of the thread *}
         {if $post->parent_id == $post->id_post}
         {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
@@ -64,42 +64,57 @@ $(document).ready(function(){
         {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}        
         <div class="post-entry">
             <div class="message-content">
-                {$post->message|wiki:'wr3_to_xhtml'|stripslashes}
-                <div class="signature-content">
+               {if $post->status == 'censored'}
+                   {$post->censored_msg|wiki:'wr3_to_xhtml'|stripslashes}
+                   {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
+                   <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
+                   {$post->message|wiki:'wr3_to_xhtml'|stripslashes}
+                   {/ifacl2}
+               {else}        
+                   {$post->message|wiki:'wr3_to_xhtml'|stripslashes}
+               {/if}                
+                    <div class="signature-content">
                     {if $post->member_comment != ''}<hr/>
                     {$post->member_comment|wiki:'wr3_to_xhtml'|stripslashes}
                     {/if}
-                </div>            
-            </div>
-        </div>        
-    </div>
-    <div class="postfoot">
-        <div class="post-actions">            
-            {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
-            <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
-            {/ifacl2}
-            {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
-            <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
-             {/ifacl2}
-            {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
-            <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
-            {/ifacl2}
-            {if $post->login == $current_user}
-                {ifacl2 'hfnu.posts.edit.own','forum'.$id_forum}
-            <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
-                {/ifacl2}
-            {else}
-                {ifacl2 'hfnu.posts.edit','forum'.$id_forum}
-            <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
-                {/ifacl2}
-            {/if}
-            {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
-            {if $status != 'closed'}
-            <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
-            {/if}
-            {/ifacl2}            
-        </div>
-    </div>
+                    </div>            
+               </div>
+          </div>        
+     </div>
+      <div class="postfoot">
+          <div class="post-actions">            
+          {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
+          <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
+          {/ifacl2}
+          {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
+          {if $post->status == 'censored'}
+          <span class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
+          {else}
+          <span class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
+          {/if}
+          {/ifacl2}                    
+          {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
+          <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
+           {/ifacl2}
+          {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
+          <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
+          {/ifacl2}
+          {if $post->login == $current_user}
+              {ifacl2 'hfnu.posts.edit.own','forum'.$id_forum}
+          <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
+              {/ifacl2}
+          {else}
+              {ifacl2 'hfnu.posts.edit','forum'.$id_forum}
+          <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
+              {/ifacl2}
+          {/if}
+          {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
+          {if $status != 'closed'}
+          <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
+          {/if}
+          {/ifacl2}            
+          </div>
+     </div>
 </div>
 {/ifacl2}
 {/foreach}

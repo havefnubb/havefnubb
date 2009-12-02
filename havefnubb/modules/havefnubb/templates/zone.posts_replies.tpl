@@ -30,7 +30,7 @@
     {assign $id_forum = $post->id_forum}
     {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="box">
-    <h2>[{jlocale 'havefnubb~post.status.'.$status}] {$post->subject|eschtml}</h2>
+    <h2>[{jlocale 'havefnubb~post.status.'.$post->status}] {$post->subject|eschtml}</h2>
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
@@ -55,12 +55,20 @@
         {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}        
         </div>
         <div class="grid_12 postbody">
-        {$post->message|wiki:'wr3_to_xhtml'|stripslashes}
+        {if $post->status == 'censored'}
+            {$post->censored_msg|wiki:'wr3_to_xhtml'|stripslashes}
+            {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
+            <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
+            {$post->message|wiki:'hfb_rule'|stripslashes}
+            {/ifacl2}
+        {else}        
+            {$post->message|wiki:'hfb_rule'|stripslashes}
+        {/if}
         </div>
         <div class="clear"></div>
         <div class="prefix_4 grid_12">
         {if $post->member_comment != ''}<hr/>
-        {$post->member_comment|wiki:'wr3_to_xhtml'|stripslashes}
+        {$post->member_comment|wiki:'hfb_rule'|stripslashes}
         {/if}
         </div>
         <div class="clear"></div>
@@ -71,6 +79,13 @@
         {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
         <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}
+        {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
+        {if $post->status == 'censored'}
+        <span class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
+        {else}
+        <span class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
+        {/if}
+        {/ifacl2}        
         {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
         <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
          {/ifacl2}

@@ -13,9 +13,36 @@ class hfnuposts {
     /**
      * status of the newest post
      * var $postStatus array
-     */    
-    public static $postStatus = array() ;
-	
+     */
+	public static $posts = array();
+    public static $postStatus = array();
+	private static $statusAvailable = array('opened','closed','pined','pinedclosed','censored','uncensored');
+
+    /**
+     * get info of the current post
+     * @param  integer $id of the current post
+     * @return array composed by the post datas of the current post
+     */    		
+    public function getPost($id) {
+        if (!isset(self::$posts[$id]) and $id > 0) 
+            self::$posts[$id] = jDao::get('havefnubb~posts')->get($id);
+        return self::$posts[$id];
+    }
+    /**
+     * delete a post
+     * @param  integer $id of the current post
+     * @return boolean 
+     */    		
+    public function deletePost($id) {
+        if (isset(self::$posts[$id]) and $id > 0) {
+			self::$posts = array_shift(self::$posts[$id]);
+			$dao = jDao::get('havefnubb~posts');
+	        $dao->delete($id);			
+			return true;
+		} else {
+			return false;
+		}
+    }	
     /**
      * get specific info to be display in the breadcrumb and title of each page
      * @param  integer $id_forum  the current forum
@@ -30,7 +57,7 @@ class hfnuposts {
 	}
     
     /**
-     * get the post of the given forum
+     * get the posts of the given forum
      * @param integer $id_forum the current forum 
      * @param integer $page the current page
      * @param integer $nbPostPerPage the number of posts per page
@@ -79,8 +106,8 @@ class hfnuposts {
      */    
     public function view($id_post,$parent_id) {
         global $gJConfig;
-        $dao = jDao::get('havefnubb~posts'); 
-        $post = $dao->get($id_post);		
+		$dao = jDao::get('havefnubb~posts');
+		$post = $dao->get($id_post);
 
         if ($id_post == 0 or $post === false) {
             return array(null,null);
@@ -270,27 +297,70 @@ class hfnuposts {
     /**
      * change the status of the current THREAD (not just one post) !
      * @param $parent_id integer parent id of the thread
+     * @param $id_post integer parent id of the thread
      * @param $status string the status to switch to
+     * @param $censor_msg string of the censored message
      * @return $record DaoRecord 
      */     
-    public function switchStatus($parent_id,$status) {
-        $statusAvailable = array('opened','closed','pined','pinedclosed');
-		if (! in_array($status,$statusAvailable)) {
+    public function switchStatus($parent_id,$id_post,$status,$censor_msg='') {        
+		if (! in_array($status,self::$statusAvailable)) {
 			jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
             return false;
 		}        
-        if ($parent_id < 0 ) return false;
-        
-        $dao = jDao::get('havefnubb~posts');
-        $post = $dao->get($parent_id);
-        
-        if ( $dao->updateStatusByIdParent($parent_id,$status) ) {            
-            jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$parent_id,'status'=>$status));
+        if ( $parent_id < 0 or $id_post < 1) return false;
+		
+		$dao = jDao::get('havefnubb~posts');
+		
+		if ($id_post == $parent_id ) {
+			// we want to uncesored a post so let's open it
+			if ($status == 'uncensored') $status = 'opened';
+			
+			if ( $dao->updateStatusByIdParent($parent_id,$status,$censor_msg) )
+				jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$parent_id,'status'=>$status));
+		} else {
+			// $status can be 'uncensored' , 'censored'
+			$post = $this->$status($parent_id,$id_post,$censor_msg);
+		}
+				
+        return $dao->get($id_post);       
+    }
+	
+    /**
+     * censor the current POST
+     * @param $parent_id integer parent id of the thread
+     * @param $id_post integer parent id of the thread
+     * @param $status string the status to switch to
+     * @param $censor_msg string of the censored message
+     */     
+    public function censored($parent_id,$id_post,$censor_msg) {        
+        if ( $parent_id < 0 or $id_post < 1) return false;
+		
+        $dao = jDao::get('havefnubb~posts');                
+        if ( $dao->censorIt($id_post,$censor_msg) ) {            
+            jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$id_post,'status'=>'censored'));			
         }
-        return $post;
-        
     }
 
+    /**
+     * remove the censor of current POST
+     * To uncensor :
+     * 1) get the status of the Father Post
+     * 2) apply the Father's status to the Son Post
+     * @param $parent_id integer parent id of the thread
+     * @param $id_post integer parent id of the thread
+     * @param $status string the status to switch to
+     * @param $censor_msg string of the censored message
+     */     
+    public function uncensored($parent_id,$id_post,$censor_msg='') {
+        if ( $parent_id < 0 or $id_post < 1) return false;
+		
+		$dao = jDao::get('havefnubb~posts');
+		$status = ( $id_post == $parent_id ) ? 'opened' : $this->getPost($parent_id)->status ;
+        if ( $dao->updateStatusById($id_post,$status) ) {
+            jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$id_post,'status'=>$this->getPost($parent_id)->status));
+        }
+    }
+	
     /**
      * remove one post
      * @param $id_post integer id post to remove
@@ -298,9 +368,7 @@ class hfnuposts {
      */     
     public function delete($id_post) {
         if ($id_post == 0 ) return false;
-		$dao = jDao::get('havefnubb~posts');
-        $dao->delete($id_post);
-        return true;
+		return $this->deletePost($id_post);
     }
     
 	/**
@@ -405,5 +473,6 @@ class hfnuposts {
             self::$postStatus[$id_post] = jDao::get('havefnubb~newest_posts')->getPostStatus($id_post);
         return self::$postStatus[$id_post];		
 	}
+	
 }
-?>
+

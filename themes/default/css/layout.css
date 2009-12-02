@@ -840,14 +840,14 @@ ol.history li {
 }
 
 /* posts status */
-.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new { 
+.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-censored { 
 	text-align: center;
 	padding: 5px;
 	width: 3%;
 	background-position: center;
 }
 
-.post-status-icon-opened, .post-status-icon-closed, .post-status-icon-pined, .post-status-icon-pinedclosed {
+.post-status-icon-opened, .post-status-icon-closed, .post-status-icon-pined, .post-status-icon-pinedclosed, .post-status-icon-censored {
 	background-position: left;
 	padding-top: 0px;
 	padding-bottom: 4px;
@@ -877,6 +877,11 @@ ol.history li {
 
 .colicone-pinedclosed, .post-status-icon-pinedclosed {
 	background-image: url("../images/posts/pined-closed.png");
+	background-repeat: no-repeat;
+}
+
+.colicone-censored, .post-status-icon-censored {
+	background-image: url("../images/posts/censored.png");
 	background-repeat: no-repeat;
 }
 

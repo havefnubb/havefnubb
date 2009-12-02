@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `hf_forum` (
   `child_level` int(4) NOT NULL,
   `forum_type` INT( 1 ) NOT NULL,
   `forum_url` varchar( 255 ) DEFAULT NULL,
+  `post_expire` INT ( 5 ) DEFAULT '0',  
   PRIMARY KEY (`id_forum`),
   KEY `id_cat` (`id_cat`),
   KEY `parent_id` (`parent_id`),
@@ -500,6 +501,7 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
   `date_modified` int(12) NOT NULL,
   `viewed` int(12) NOT NULL,
   `poster_ip` varchar(15) NOT NULL,
+  `censored_msg` VARCHAR( 50 ) NULL,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`,`id_forum`,`parent_id`,`status`)
 ) DEFAULT CHARSET=utf8;

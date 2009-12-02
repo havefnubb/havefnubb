@@ -35,8 +35,12 @@ class postsCtrl extends jController {
         'lists'	=> array( 'history.add'=>true),
         'view' 	=> array( 'history.add'=>true),
 		'status' => array('jacl2.right'=>'hfnu.admin.post'),
+		'censor' => array('jacl2.right'=>'hfnu.admin.post'),
+		'savecensor' => array('jacl2.right'=>'hfnu.admin.post'),
 		
-   );	
+   );
+	
+	public static $statusClosed = array('closed','pinedclosed','censored');
 
 	/**
 	 * main list of all posts of a given forum ($id_forum)
@@ -432,10 +436,22 @@ class postsCtrl extends jController {
         if ($parent_id == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
+			return $ep;
         }
         
-		$daoPost = jDao::get('havefnubb~posts');
-		$post = $daoPost->get($parent_id);	
+		/*$daoPost = jDao::get('havefnubb~posts');
+		$post = $daoPost->get($parent_id);	*/
+		$post = jClasses::getService('havefnubb~hfnupost')->get($parent_id);
+		
+		//check if this message is close and if i am an admin/mod
+		if ( in_array($post->status,self::$statusClosed) and
+			! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum)
+			) {
+			jMessage::add(jLocale::get('havefnubb~post.status.you.cant.reply.to.this.message'));
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+			return $rep;
+		}
 		
         if (!$post) {
             $rep = $this->getResponse('redirect');
@@ -834,36 +850,28 @@ class postsCtrl extends jController {
 		$parent_id 	= (int) $this->param('parent_id');
 		$status 	= $this->param('status');
 		
-		
-		$statusAvailable = array('opened','closed','pined','pinedclosed');
-		
 		$rep = $this->getResponse('redirect');
 		
-		if (! in_array($status,$statusAvailable)) {
-			jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
+		$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+		$result = $hfnuposts->switchStatus($parent_id,$status);
+		
+		if ($result === false ) {
+			$rep->action = 'havefnubb~default:index';
 		}
 		else {
-            
-            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-            $result = $hfnuposts->switchStatus($parent_id,$status);
-            
-            if ($result === true) {                			
-				jMessage::add(jLocale::get('havefnubb~post.status.'.$status),'ok');		
-			}
-            else {
-                $post = $result;
-            }
-		
+			$post = $result;
+			jMessage::add(jLocale::get('havefnubb~post.status.'.$status),'ok');
 			$rep->action = 'havefnubb~posts:view';		
 			$rep->params = array('id_post'=>$post->id_post,
 								 'parent_id'=>$parent_id,
 								 'id_forum'=>$post->id_forum,
 								 'ftitle'=>$post->forum_name,
 								 'ptitle'=>$post->subject);
-			return $rep;
+			
 		}
-		$rep->action = 'havefnubb~default:index';		
+
 		return $rep;
+
 	}
 	
 	/**
@@ -1104,4 +1112,117 @@ class postsCtrl extends jController {
 		}
 		
 	}
+	
+	/**
+	 * censored this post (or thread if parent_id = id_post )
+	 */
+	public function censor () {
+		if ( ! jAcl2::check('hfnu.admin.post') ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';
+			return $rep;
+		}
+		
+		$rep = $this->getResponse('html');
+		
+		$id_post 	= (int) $this->param('id_post');
+		$parent_id 	= (int) $this->param('parent_id');
+		
+		if ($id_post < 1 or $parent_id < 0) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';
+			return $rep;			
+		}
+		
+		$form = jForms::create('havefnubb~censor',$id_post);
+		$form->setData('id_post',$id_post);
+		$form->setData('parent_id',$parent_id);
+		
+		$tpl = new jTpl();
+		$tpl->assign('form',$form);
+		$tpl->assign('id_post',$id_post);
+		$tpl->assign('parent_id',$parent_id);
+		$tpl->assign('title',jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
+		$rep->body->assign('MAIN',$tpl->fetch('havefnubb~censor'));
+		return $rep;
+	}
+	
+	/**
+	 * save the censored message 
+	 */	
+	public function savecencor() {
+		$rep = $this->getResponse('redirect');
+		
+		if ( ! jAcl2::check('hfnu.admin.post') ) {
+            $rep->action = 'havefnubb~default:index';
+			return $rep;
+		}
+		$id_post 	= (int) $this->param('id_post');
+		$parent_id 	= (int) $this->param('parent_id');
+		
+		if ($id_post < 1 or $parent_id < 0) {
+            $rep->action = 'havefnubb~default:index';
+			return $rep;
+		}
+		
+		$form = jForms::fill('havefnubb~censor',$id_post);
+		if (!$form->check()) {
+            $rep->action = 'havefnubb~posts:censor';
+			$rep->params = array('id_post'=>$id_post,'parent_id'=>$parent_id);
+			return $rep;			
+		}
+		else {
+			//censoring an entire thread
+			$result = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,'censored',$form->getData('censored_msg'));
+			
+			if ($result === false ) {
+				$rep->action = 'havefnubb~default:index';
+				return $rep;								
+			}
+			else {
+				$post  = $result;
+				jMessage::add(jLocale::get('havefnubb~post.status.censored'),'ok');
+				$rep->action = 'havefnubb~posts:view';		
+				$rep->params = array('id_post'=>$post->id_post,
+									 'parent_id'=>$parent_id,
+									 'id_forum'=>$post->id_forum,
+									 'ftitle'=>$post->forum_name,
+									 'ptitle'=>$post->subject);
+				return $rep;		
+			}
+
+		}
+		
+	}
+	/**
+	 * uncensored this id post (or thread if parent_id = id_post)
+	 */		
+	public function uncensor() {
+		if ( ! jAcl2::check('hfnu.admin.post') ) {
+			$rep = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';
+			return $rep;
+		}
+		$id_post 	= (int) $this->param('id_post');
+		$parent_id 	= (int) $this->param('parent_id');
+		
+		$post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,'uncensored');
+		
+		if ($post === false) {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+			return $rep;								
+		}
+		
+		$rep = $this->getResponse('redirect');
+		jMessage::add(jLocale::get('havefnubb~post.status.uncensored'),'ok');
+		$rep->action = 'havefnubb~posts:view';		
+		$rep->params = array('id_post'=>$post->id_post,
+							 'parent_id'=>$parent_id,
+							 'id_forum'=>$post->id_forum,
+							 'ftitle'=>$post->forum_name,
+							 'ptitle'=>$post->subject);
+		return $rep;		
+	}
+	
 }

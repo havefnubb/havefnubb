@@ -221,3 +221,22 @@ delicious=1
 facebook=1
 reddit=1
 netvibes=1
+
+;the rule of the forum to manage the render from wiki + smileys
+[_pluginsPathList_wr_rules]
+hfb_rule=havefnubb/plugins/rules/hfb_rule/
+
+; set here the name of the directory that contains the smileys in the dir hfnu/images/smileys/
+[smileys_pack]
+name=famfamfam
+; the available smileys are :
+; emoticon_evilgrin.png
+; emoticon_grin.png
+; emoticon_happy.png
+; emoticon_smile.png
+; emoticon_surprised.png
+; emoticon_tongue.png
+; emoticon_unhappy.png
+; emoticon_waii.png
+; emoticon_wink.png
+; so your own smileys would have to be named like them

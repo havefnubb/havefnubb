@@ -29,7 +29,7 @@ class newestpostsZone extends jZone {
         }
         elseif ($source =='post') {
             //@TODO put the $availableStatus in the config file .
-            $availableStatus = array('opened','closed','pined','pinedclosed');
+            $availableStatus = array('opened','closed','pined','pinedclosed','censored');
             if (! in_array($this->param('status'),$availableStatus)) return;
             
             $id_post    = (int) $this->param('id_post');
