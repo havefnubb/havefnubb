@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="read_forum" realname="read_forum" primarykey="id_user,id_forum,date_read" />
+        <primarytable name="read_forum" realname="read_forum" primarykey="id_user,id_forum" />
     </datasources>
     <record>
         <property name="id_user" fieldname="id_user" datatype="int" required="true"/>

@@ -1206,19 +1206,19 @@ class postsCtrl extends jController {
         $post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,'uncensored');
         
         if ($post === false) {
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~default:index';
-                return $rep;								
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';
+            return $rep;								
         }
         
         $rep = $this->getResponse('redirect');
         jMessage::add(jLocale::get('havefnubb~post.status.uncensored'),'ok');
         $rep->action = 'havefnubb~posts:view';		
         $rep->params = array('id_post'=>$post->id_post,
-                                                 'parent_id'=>$parent_id,
-                                                 'id_forum'=>$post->id_forum,
-                                                 'ftitle'=>$post->forum_name,
-                                                 'ptitle'=>$post->subject);
+                            'parent_id'=>$parent_id,
+                            'id_forum'=>$post->id_forum,
+                            'ftitle'=>$post->forum_name,
+                            'ptitle'=>$post->subject);
         return $rep;		
     }
 	

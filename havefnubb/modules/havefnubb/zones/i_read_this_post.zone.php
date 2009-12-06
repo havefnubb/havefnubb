@@ -14,7 +14,7 @@ class i_read_this_postZone extends jZone {
     protected function _prepareTpl(){
         $id_post = (int) $this->getParam('id_post');
         $id_forum = (int)  $this->getParam('id_forum');
-        //@TODO : go in read_forum table to check when we read this forum for the last time + 5mins
+
         $bool =  jClasses::getService('havefnubb~hfnuread')->getReadPost($id_post,$id_forum) === false ? false  : true;
         $this->_tpl->assign('bool',$bool);
     }
