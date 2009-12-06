@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="read_posts" realname="read_posts" primarykey="id_user,id_forum,id_post" />
+    </datasources>
+    <record>
+        <property name="id_user" fieldname="id_user" datatype="int" required="true"/>
+        <property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
+        <property name="id_post" fieldname="id_post" datatype="int" required="true"/>
+    </record>
+    <factory>
+    </factory>
+</dao>

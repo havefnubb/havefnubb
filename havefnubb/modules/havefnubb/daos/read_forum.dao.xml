@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="read_forum" realname="read_forum" primarykey="id_user,id_forum,date_read" />
+    </datasources>
+    <record>
+        <property name="id_user" fieldname="id_user" datatype="int" required="true"/>
+        <property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
+        <property name="date_read" fieldname="date_read" datatype="int" required="true"/>
+    </record>
+    <factory>
+        <method name="deleteAll" type="delete">
+
+        </method>
+    </factory>
+</dao>

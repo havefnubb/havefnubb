@@ -31,6 +31,9 @@
     <div class="clear"></div>
         
     <div class="grid_16">
+	{ifuserconnected}
+	<a href="{jurl 'havefnubb~forum:mark_all_as_read'}">Marquer tous les forums comme lu</a>
+	{/ifuserconnected}
     {$MAIN}
     </div>
     <div class="clear"></div>

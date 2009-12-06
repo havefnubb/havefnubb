@@ -130,8 +130,8 @@ class postsCtrl extends jController {
 	 * 	Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
 	 */
     function view() {
-        $id_post 	= (int) $this->param('id_post');
-		$parent_id 	= (int) $this->param('parent_id');
+        $id_post = (int) $this->param('id_post');
+	$parent_id = (int) $this->param('parent_id');
 
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 
@@ -146,27 +146,27 @@ class postsCtrl extends jController {
         if ($post === null and $goto == null) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
-			return $rep;
+	    return $rep;
         }        
 		
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($post->subject,ENT_COMPAT,'UTF-8'));
 
-		// crumbs infos
+	// crumbs infos
         
-		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
-		if (! $forum) {
-            $rep 		 = $this->getResponse('redirect');
-			$rep->action = 'havefnubb~default:index';
+	list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
+	if (! $forum) {
+            $rep  = $this->getResponse('redirect');
+	    $rep->action = 'havefnubb~default:index';
             return $rep;			
-		}
-		
-		$day_in_secondes = 24 * 60 * 60;
-		$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
+	}
+        
+        $day_in_secondes = 24 * 60 * 60;
+	$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
 
-		if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire )
-			$status = 'closed';
-		else
-			$status = $post->status;
+	if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire )
+	    $status = 'closed';
+	else
+	    $status = $post->status;
 		
         $rep = $this->getResponse('html');
         
@@ -179,10 +179,10 @@ class postsCtrl extends jController {
         $tpl = new jTpl();				
         $tpl->assign('id_post'	,$id_post);
         $tpl->assign('forum'	,$forum);
-		$tpl->assign('category'	,$category);
+	$tpl->assign('category'	,$category);
         $tpl->assign('page'		,$page);
         $tpl->assign('subject'	,$post->subject);
-		$tpl->assign('status'	,$status);
+	$tpl->assign('status'	,$status);
 		
         $rep->title = '['.jLocale::get('havefnubb~post.status.'.$status).'] '.$post->subject;                
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));

@@ -510,8 +510,8 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
 -- Contenu de la table `posts`
 --
 
-INSERT INTO `hf_posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`) VALUES
-(1, 1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1');
+INSERT INTO `hf_posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`, `censored_msg`) VALUES
+(1, 1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL);
 
 -- --------------------------------------------------------
 
@@ -700,4 +700,28 @@ CREATE TABLE IF NOT EXISTS `hf_rates` (
     INDEX ( `source` ),
     PRIMARY KEY rates_id (id_user,id_source,source)
 )DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `hf_read_forum`;
+CREATE TABLE IF NOT EXISTS `hf_read_forum` (
+  `id_user` int(12) NOT NULL,
+  `id_forum` int(12) NOT NULL,
+  `date_read` int(12) NOT NULL,
+  PRIMARY KEY  (`id_user`,`id_forum`,`date_read`),
+  KEY `id_user` (`id_user`),
+  KEY `id_forum` (`id_forum`),
+  KEY `date_read` (`date_read`)
+) DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `hf_read_posts`;
+CREATE TABLE IF NOT EXISTS `hf_read_posts` (
+  `id_user` int(12) NOT NULL,
+  `id_forum` int(12) NOT NULL,
+  `id_post` int(12) NOT NULL,
+  PRIMARY KEY  (`id_user`,`id_forum`,`id_post`),
+  KEY `id_user` (`id_user`),
+  KEY `id_forum` (`id_forum`),
+  KEY `id_post` (`id_post`)
+) DEFAULT CHARSET=utf8;
 

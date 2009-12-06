@@ -8,6 +8,7 @@
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*
 */
 class hfnuforum {
     /**
@@ -21,6 +22,7 @@ class hfnuforum {
      * var $forumsParents array
      */        
     public static $forumsParents = array() ;
+    
     /**
      * get info of the current forum
      * @param  integer $id of the current forum
@@ -43,4 +45,5 @@ class hfnuforum {
             self::$forumsParents[] = $rec;                    
         return self::$forumsParents;        
     }
+    
 }

@@ -22,7 +22,15 @@ class forumCtrl extends jController {
 		'index' => array('hfnu.check.installed'=>true,
 						 'history.add'=>true,
 						 'history.label'=>'Accueil',
-						 'history.title'=>'Aller vers la page d\'accueil')
+						 'history.title'=>'Aller vers la page d\'accueil'),
+		'mark_all_as_read' 
+        		=> array('auth.required'=>true,
+						 'banuser.check'=>true
+						 ),
+		'mark_forum_as_read' 
+        		=> array('auth.required'=>true,
+						 'banuser.check'=>true
+						 ),						
     );
 	
     /** 
@@ -60,6 +68,22 @@ class forumCtrl extends jController {
         $rep->title = $forum->forum_name;
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~forum_rss.view'));
         return $rep;	
-	}	
+	}
+	
+	public function mark_all_as_read() {
+		$rep = $this->getResponse('redirect');
+		jClasses::getService('havefnubb~hfnuforum')->markAllAsRead();
+		$rep->action = 'default:index';
+		return $rep;
+	}
+	
+	public function mark_forum_as_read() {
+		$id_forum = (int) $this->param('id_forum');
+		$rep = $this->getResponse('redirect');
+		jClasses::getService('havefnubb~hfnuforum')->markForumAsRead($id_forum);
+		$rep->action = 'posts:lists';
+		$rep->params = array('id_forum'=>$id_forum);
+		return $rep;		
+	}
 
 }

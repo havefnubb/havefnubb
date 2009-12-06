@@ -30,7 +30,7 @@
     {assign $id_forum = $post->id_forum}
     {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="box">
-    <h2>[{jlocale 'havefnubb~post.status.'.$post->status}] {$post->subject|eschtml}</h2>
+    <h2>[{jlocale 'havefnubb~post.status.'.$post->status}] {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
