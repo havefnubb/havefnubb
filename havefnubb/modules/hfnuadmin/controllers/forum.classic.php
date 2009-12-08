@@ -14,17 +14,17 @@ class forumCtrl extends jController {
     */
 
     public $pluginParams = array(
-        '*'		=>	array('auth.required'=>true,
-						  'hfnu.check.installed'=>true,
-						  'banuser.check'=>true,
-					),	
-		'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+        '*' => array('auth.required'=>true,
+		    'hfnu.check.installed'=>true,
+		    'banuser.check'=>true,
+	  ),	
+	'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
         'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
     );    
 
 	
     function index() {
-		//get list of cagetory in which we can create a forum
+	//get list of cagetory in which we can create a forum
         $form = jForms::create('hfnuadmin~category_list');
         $tpl = new jTpl();        
         $rep = $this->getResponse('html');
@@ -32,18 +32,18 @@ class forumCtrl extends jController {
         $tpl->assign('form',$form);
         
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~forum_index'));
-		$rep->body->assign('selectedMenuItem','forum');
+    	$rep->body->assign('selectedMenuItem','forum');
         return $rep;     
     }
 	
-	// creation of Forum
+    // creation of Forum
     function create () {
-		// let's define the possible actions we can do :
-		// where to add a forum :
-		// 1) in a category
-		// 2) before a given forum
-		// 3) after a given forum
-		// 4) a sub-forum
+        // let's define the possible actions we can do :
+        // where to add a forum :
+        // 1) in a category
+        // 2) before a given forum
+        // 3) after a given forum
+        // 4) a sub-forum
         $possibleActions = array('in_cat','before','after','childof');
 		
         // the choice is ?
@@ -75,7 +75,7 @@ class forumCtrl extends jController {
             switch ($choice) {
                 // my parent is the selected forum so i add one level to child_level
                 case 'childof' :
-							$parent_id      = $forum->id_forum;
+                            $parent_id      = $forum->id_forum;
                             $child_level    = $forum->child_level +1;
                             $forum_order    = 0;
                             $id_cat         = $forum->id_cat;
@@ -87,13 +87,13 @@ class forumCtrl extends jController {
                             $id_cat         = $forum->id_cat;
                             break;
                 case 'after' :   
-							$parent_id      = $forum->parent_id;
+                            $parent_id      = $forum->parent_id;
                             $child_level    = $forum->child_level;
                             $forum_order    = $forum->forum_order +1;
                             $id_cat         = $forum->id_cat;
                             break;
                 case 'in_cat' :
-							$parent_id = 0;
+                            $parent_id = 0;
                             $child_level = 0;
                             $forum_order = 0;
 /***********************************************************************************
@@ -109,7 +109,7 @@ class forumCtrl extends jController {
             $record->parent_id  = $parent_id;
             $record->child_level = $child_level;
             $record->forum_order = $forum_order;
-			$record->forum_type = (int) $this->param('forum_type');
+	    $record->forum_type = (int) $this->param('forum_type');
             $record->forum_desc = jLocale::get('hfnuadmin~forum.new.forum');
             
             $dao->insert($record);
@@ -143,7 +143,7 @@ class forumCtrl extends jController {
     
 
         $rep = $this->getResponse('html');
-		$rep->body->assign('selectedMenuItem','forum');
+	$rep->body->assign('selectedMenuItem','forum');
         $tpl = new jTpl();
 
         $gid=array(0);
@@ -223,24 +223,21 @@ class forumCtrl extends jController {
             return $rep;                 
         }
         
-        
         $dao = jDao::get('havefnubb~forum');
         
         $record = $dao->get($id_forum);
         $record->forum_name = $this->param('forum_name');
         $record->forum_desc = $this->param('forum_desc');
         $record->forum_order = $this->param('forum_order');
-		$record->forum_type = $this->param('forum_type');
-		$record->forum_url = $this->param('forum_url');
-		$record->post_expire = (int) $this->param('post_expire');
+        $record->forum_type = $this->param('forum_type');
+        $record->forum_url = $this->param('forum_url');
+        $record->post_expire = (int) $this->param('post_expire');
         
         $dao->update($record);
-
        
         jMessage::add(jLocale::get('hfnuadmin~forum.forum.modified'),'ok');
         
-        /**************/
-        
+        /**************/        
         $rights = $this->param('rights',array());
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
             $id = intval($grp->id_aclgrp);
@@ -248,18 +245,16 @@ class forumCtrl extends jController {
         }
 
         jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
-       
         /**************/
-        
         $rep = $this->getResponse('redirect');
         $rep->action='hfnuadmin~forum:index';
         return $rep;   
     }
     
     function delete() {
-		$id_forum = (integer) $this->param('id_forum');
+	$id_forum = (integer) $this->param('id_forum');
 	
-		$dao = jDao::get('havefnubb~forum');        
+	$dao = jDao::get('havefnubb~forum');        
         $dao->delete($id_forum);
         
         jMessage::add(jLocale::get('hfnuadmin~forum.forum.deleted'),'ok');
@@ -271,8 +266,8 @@ class forumCtrl extends jController {
 
 
 	
-	function defaultrights() {
-		
+    function defaultrights() {
+            
         $id_forum = (int) $this->param('id_forum');
         $hfnutoken = (string) $this->param('hfnutoken');
         
@@ -286,15 +281,15 @@ class forumCtrl extends jController {
             $rep->action='hfnuadmin~forum:index';
             return $rep;                 
         }
-		
+            
         jClasses::getService("hfnuadmin~hfnuadminrights")->resetRights($id_forum);           
         
         jMessage::add(jLocale::get('hfnuadmin~forum.forum.rights.restored'),'ok');
         $rep = $this->getResponse('redirect');
-		$rep->params = array('id_forum'=>$id_forum);
+                $rep->params = array('id_forum'=>$id_forum);
         $rep->action='hfnuadmin~forum:edit';
         return $rep;  
-	}   
+    }   
     
 
 }   

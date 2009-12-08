@@ -14,7 +14,6 @@
  * @param jTpl $tpl template engine
  * @param string $network on which we want to share
  * @param array  $params contains :
- * imgpath = path to image of the social network
  * jurl = url in jurl format
  * jurlparams = params of jUrl
  * title = title to share

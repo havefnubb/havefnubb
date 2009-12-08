@@ -13,20 +13,21 @@ class ranksCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'     => array('auth.required'=>true,
-                            'hfnu.check.installed'=>true,
-                            'banuser.check'=>true,
-					),
-        'index'    => array( 'jacl2.rights.and'=>array('hfnu.admin.rank.create',
-                                                        'hfnu.admin.rank.edit')
-							),		
-        'delete'    => array( 'jacl2.right'=>'hfnu.admin.rank.delete'),
+        '*' => array('auth.required'=>true,
+                    'hfnu.check.installed'=>true,
+                    'banuser.check'=>true,
+                    ),
+        'index' => array( 'jacl2.rights.and'=>
+                            array('hfnu.admin.rank.create',
+                                'hfnu.admin.rank.edit')
+                                ),		
+        'delete' => array( 'jacl2.right'=>'hfnu.admin.rank.delete'),
     );
     
-	function index() {
-		$tpl = new jTpl();
-		
-		$form = jForms::create('hfnuadmin~ranks');
+    function index() {
+        $tpl = new jTpl();
+        
+        $form = jForms::create('hfnuadmin~ranks');
 		
         $dao = jDao::get('havefnubb~ranks');
         $ranks = $dao->findAll();
@@ -41,9 +42,9 @@ class ranksCtrl extends jController {
 				
         $rep = $this->getResponse('html');        
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~ranks_index'));
-		$rep->body->assign('selectedMenuItem','ranks');
+        $rep->body->assign('selectedMenuItem','ranks');
         return $rep;
-	}
+    }
 
 
     function savecreate () {
@@ -67,51 +68,51 @@ class ranksCtrl extends jController {
             
             $dao->insert($record);
 
-			jForms::destroy('havefnubb~ranks');
+            jForms::destroy('havefnubb~ranks');
             
             jMessage::add(jLocale::get('hfnuadmin~rank.rank.added'),'ok');
         }
-		
-		$rep = $this->getResponse('redirect');
-		$rep->action='hfnuadmin~ranks:index';		
+        
+        $rep = $this->getResponse('redirect');
+        $rep->action='hfnuadmin~ranks:index';		
         return $rep;
 	    
     }
 
     function saveedit () {
-        $id_rank 	= $this->param('id_rank');
-		$rank_name 	= $this->param('rank_name');
-		$rank_limit = $this->param('rank_limit');
+        $id_rank = $this->param('id_rank');
+        $rank_name = $this->param('rank_name');
+        $rank_limit = $this->param('rank_limit');
         $hfnutoken  = (string) $this->param('hfnutoken');
         
         //let's check if we have a valid token in our form
         $token = jClasses::getService("havefnubb~hfnutoken"); 
         
-		if ($this->param('saveBt')== jLocale::get('hfnuadmin~rank.saveBt')) {
-		
-			if (count($id_rank) == 0) {
-				jMessage::add(jLocale::get('hfnuadmin~rank.unknown.rank'),'error');
-				$rep = $this->getResponse('redirect');
-				$rep->action='hfnuadmin~ranks:index';
-				return $rep;                 
-			} 
-	
-			$dao = jDao::get('havefnubb~ranks');
-			
-			foreach ($id_rank as $thisId) {
-				$record 			= $dao->get( (int) $id_rank[$thisId]);
-				$record->rank_name 	= (string) $rank_name[$id_rank[$thisId]];
-				$record->rank_limit = (int) $rank_limit[$id_rank[$thisId]];
-				
-				$dao->update($record);
-			}
-			jForms::destroy('havefnubb~ranks');
-			jMessage::add(jLocale::get('hfnuadmin~rank.rank.modified'),'ok');
-		}
-		else {
-			jForms::destroy('havefnubb~ranks');			
-			jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
-		}
+        if ($this->param('saveBt') == jLocale::get('hfnuadmin~rank.saveBt')) {
+        
+            if (count($id_rank) == 0) {
+                    jMessage::add(jLocale::get('hfnuadmin~rank.unknown.rank'),'error');
+                    $rep = $this->getResponse('redirect');
+                    $rep->action='hfnuadmin~ranks:index';
+                    return $rep;                 
+            } 
+
+            $dao = jDao::get('havefnubb~ranks');
+            
+            foreach ($id_rank as $thisId) {
+                    $record = $dao->get( (int) $id_rank[$thisId]);
+                    $record->rank_name 	= (string) $rank_name[$id_rank[$thisId]];
+                    $record->rank_limit = (int) $rank_limit[$id_rank[$thisId]];
+                    
+                    $dao->update($record);
+            }
+            jForms::destroy('havefnubb~ranks');
+            jMessage::add(jLocale::get('hfnuadmin~rank.rank.modified'),'ok');
+        }
+        else {
+            jForms::destroy('havefnubb~ranks');			
+            jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
+        }
 		
         $rep = $this->getResponse('redirect');
         $rep->action='hfnuadmin~ranks:index';

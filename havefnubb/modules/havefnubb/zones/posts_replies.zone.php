@@ -14,16 +14,16 @@ class posts_repliesZone extends jZone {
     protected function _prepareTpl(){
         global $gJConfig;
 		
-        $id_post 	= (int) $this->param('id_post');
-		$id_forum 	= (int) $this->param('id_forum');
-        $page 		= (int) $this->param('page');
-		$status		= (string) $this->param('status');
+        $id_post = (int) $this->param('id_post');
+	$id_forum = (int) $this->param('id_forum');
+        $page = (int) $this->param('page');
+	$status	= (string) $this->param('status');
 		
         if (!$id_post) return;
-		if (!$id_forum) return;
-		if ($status == '') return;
+        if (!$id_forum) return;
+        if ($status == '') return;
 
-		if ($page < 0 ) $page = 0;
+        if ($page < 0 ) $page = 0;
         
         $srvTags = jClasses::getService("jtags~tags");
         $tags = $srvTags->getTagsBySubject('forumscope', $id_post);
@@ -46,59 +46,58 @@ class posts_repliesZone extends jZone {
         // 4- get the posts of the current forum, limited by point 1 and 2
         $posts = $daoPost->findByIdParent($id_post,$page,$nbRepliesPerPage);
 
-		// id_post is the parent_id ; we need to know
-		// the status of it to determine if the member can
-		// reply to the current thread
-		$parentPost = $daoPost->get($id_post);
+        // id_post is the parent_id ; we need to know
+        // the status of it to determine if the member can
+        // reply to the current thread
+        $parentPost = $daoPost->get($id_post);
 
-		$groups = jAcl2DbUserGroup::getGroupList(jAuth::getUserSession ()->login);
+        $groups = jAcl2DbUserGroup::getGroupList(jAuth::getUserSession ()->login);
 
-		// check if we have found record ; 
-		if ($posts->rowCount() == 0) {
-			$posts = $daoPost->findByIdParent($parentPost->parent_id,0,$nbRepliesPerPage);
-			$page = 0;
-		}
+        // check if we have found record ; 
+        if ($posts->rowCount() == 0) {
+            $posts = $daoPost->findByIdParent($parentPost->parent_id,0,$nbRepliesPerPage);
+            $page = 0;
+        }
 
-		if(jAuth::isConnected()) 
-			$this->_tpl->assign('current_user',jAuth::getUserSession ()->login);
-		else
-			$this->_tpl->assign('current_user','');
+        if(jAuth::isConnected()) 
+            $this->_tpl->assign('current_user',jAuth::getUserSession ()->login);
+        else
+            $this->_tpl->assign('current_user','');
+
+        if ( jAcl2::check('hfnu.admin.post') ) {
+                $formStatus = jForms::create('havefnubb~posts_status');		
+                $formMove = jForms::create('havefnubb~posts_move');
+                $this->_tpl->assign('formStatus',$formStatus);
+                $this->_tpl->assign('formMove',$formMove);
+        }
+        $parentPostStatus = $parentPost->status;
+        // check if the post is expired
+        $day_in_secondes = 24 * 60 * 60;
+        $dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
         
-		if ( jAcl2::check('hfnu.admin.post') ) {
-			$formStatus = jForms::create('havefnubb~posts_status');		
-			$formMove = jForms::create('havefnubb~posts_move');
-
-			$this->_tpl->assign('formStatus',$formStatus);
-			$this->_tpl->assign('formMove',$formMove);
-		}
-		$parentPostStatus = $parentPost->status;
-		// check if the post is expired
-		$day_in_secondes = 24 * 60 * 60;
-		$dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
-		
-		if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
-			$dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )
-			$status = 'closed';
-			
-		$dateDiff =  ($parentPost->date_modified == 0) ? floor( (time() - $parentPost->date_created ) / $day_in_secondes) : floor( (time() - $parentPost->date_modified ) / $day_in_secondes) ;
-		
-		if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
-			$dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )
-			$parentPostStatus = 'closed';
+        if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
+                $dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )
+                $status = 'closed';
+                
+        $dateDiff =  ($parentPost->date_modified == 0) ? floor( (time() - $parentPost->date_created ) / $day_in_secondes) : floor( (time() - $parentPost->date_modified ) / $day_in_secondes) ;
+        
+        if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
+                $dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )
+                $parentPostStatus = 'closed';
 			
         $this->_tpl->assign('posts',$posts);
-		$this->_tpl->assign('id_forum',$id_forum);
+        $this->_tpl->assign('id_forum',$id_forum);
         $this->_tpl->assign('tags',$tags);
         $this->_tpl->assign('page',$page);
         $this->_tpl->assign('id_post',$id_post);
         $this->_tpl->assign('nbRepliesPerPage',$nbRepliesPerPage);
         $this->_tpl->assign('nbReplies',$nbReplies);        
         $this->_tpl->assign('properties',$properties);
-		$this->_tpl->assign('parentStatus',$parentPostStatus);
-		$this->_tpl->assign('ptitle',$parentPost->subject);
-		$this->_tpl->assign('parent_id',$parentPost->parent_id);
-		$this->_tpl->assign('forum_name',$parentPost->forum_name);
-		$this->_tpl->assign('groups',$groups);
-		$this->_tpl->assign('status',$status);
+        $this->_tpl->assign('parentStatus',$parentPostStatus);
+        $this->_tpl->assign('ptitle',$parentPost->subject);
+        $this->_tpl->assign('parent_id',$parentPost->parent_id);
+        $this->_tpl->assign('forum_name',$parentPost->forum_name);
+        $this->_tpl->assign('groups',$groups);
+        $this->_tpl->assign('status',$status);
     }
 }

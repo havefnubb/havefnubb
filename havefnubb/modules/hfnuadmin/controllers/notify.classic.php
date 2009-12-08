@@ -13,10 +13,10 @@ class notifyCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'		=>	array('auth.required'=>true,
-						  'hfnu.check.installed'=>true,
-						  'banuser.check'=>true,
-					),  
+        '*' => array('auth.required'=>true,
+		    'hfnu.check.installed'=>true,
+		    'banuser.check'=>true,
+	  ),  
         'index'    => array( 'jacl2.right'=>'hfnu.admin.notify.list'),
         'delete'   => array( 'jacl2.right'=>'hfnu.admin.notify.delete'),
     );
@@ -28,7 +28,7 @@ class notifyCtrl extends jController {
         $tpl->assign('notify',$notify);
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~notify_index'));
-		$rep->body->assign('selectedMenuItem','notify');
+	$rep->body->assign('selectedMenuItem','notify');
         return $rep;	
     }
     
@@ -45,7 +45,4 @@ class notifyCtrl extends jController {
         jMessage::add(jLocale::get('hfnuadmin~notify.notify.deleted'),'ok');
         return $rep;    
     }
-
-
-    
 }   

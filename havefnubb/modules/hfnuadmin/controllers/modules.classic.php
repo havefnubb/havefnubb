@@ -13,21 +13,21 @@ class modulesCtrl extends jController {
     *
     */
     public $pluginParams = array(
-        '*'		=>	array('auth.required'=>true,
-						  'hfnu.check.installed'=>true,
-						  'banuser.check'=>true,
-					),
-		'index' => array( 'jacl2.right'=>'hfnu.admin.index'),
+        '*' => array('auth.required'=>true,
+                    'hfnu.check.installed'=>true,
+                    'banuser.check'=>true,
+          ),
+        'index' => array( 'jacl2.right'=>'hfnu.admin.index'),
     );
     
     function index() {
-		$rep = $this->getResponse('html');
+        $rep = $this->getResponse('html');
         $tpl = new jTpl();
         
         $tpl->assign('modules',jEvent::notify('HfnuAboutModule')->getResponse());
 
         $rep->body->assign('MAIN',$tpl->fetch('modules'));
         $rep->body->assign('selectedMenuItem','modules');			
-		return $rep;
-	}
+        return $rep;
+    }
 }   
