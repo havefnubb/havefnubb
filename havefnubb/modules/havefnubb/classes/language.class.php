@@ -8,8 +8,8 @@
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*
 */
-
 class language implements jIFormsDatasource
 {
     protected $formId = 0; 
@@ -30,7 +30,7 @@ class language implements jIFormsDatasource
     }
     
     public function getData($form)    {
-    return ($this->data);
+        return ($this->data);
     }
     
     public function getLabel($key)    {

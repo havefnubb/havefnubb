@@ -253,23 +253,22 @@ class postsCtrl extends jController {
         if ($id_post == 0 ) {
             $rep  = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
-        return $rep;
+            return $rep;
         }
-                        
-        $daoPost = jDao::get('havefnubb~posts');
-        $post = $daoPost->get($id_post);
+        
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
         if (jAuth::getUserSession ()->id == $post->id_user) {
-                if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$post->id_forum)  ) {
-                    $rep = $this->getResponse('redirect');
-                    $rep->action = 'default:index';
-                    return $rep;
-                }
-        }        
-        else
-        if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
+            if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$post->id_forum)  ) {
                 $rep = $this->getResponse('redirect');
                 $rep->action = 'default:index';
                 return $rep;
+            }
+        }        
+        else
+        if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+            return $rep;
         }
 
         $srvTags = jClasses::getService("jtags~tags");
@@ -699,24 +698,23 @@ class postsCtrl extends jController {
      */
     function delete() {
 
-        $id_post 	= (integer) $this->param('id_post');
-        $id_forum 	= (integer) $this->param('id_forum');
+        $id_post = (integer) $this->param('id_post');
+        $id_forum = (integer) $this->param('id_forum');
         
         if ( ! jAcl2::check('hfnu.posts.delete','forum'.$id_forum) ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
             return $rep;
         }
-
+/*
         $dao = jDao::get('havefnubb~forum');
-        $forum = $dao->get($id_forum);
+        $forum = $dao->get($id_forum);*/
+        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 		
         jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));       
 		
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-        $result = $hfnuposts->delete($id_post);
-        if ($result === true) {                
-    
+        if ( jClasses::getService('havefnubb~hfnuposts')->delete($id_post) === true ) {    
+ die("jai vire le truc");   
             jEvent::notify('HfnuPostAfterDelete',array('id'=>$id_post));
             
             jEvent::notify('HfnuSearchEngineDeleteContent',array('id'=>$id_post,'havefnubb~forum'));

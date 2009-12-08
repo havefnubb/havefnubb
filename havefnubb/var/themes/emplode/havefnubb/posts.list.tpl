@@ -34,8 +34,7 @@
         <td class="coltitle linkincell">
             <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
                 {social_networks 
-                    array(  'imgpath'=>$j_themepath.'images/social-network',
-                            'jurl'=>'havefnubb~posts:view',
+                    array(  'jurl'=>'havefnubb~posts:view',
                             'jurlparams'=>array('id_post'=>$post->parent_id,
                                 'parent_id'=>$post->parent_id,
                                 'id_forum'=>$post->id_forum,

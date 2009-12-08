@@ -19,7 +19,7 @@ class hfnuread {
     /**
      * this function mark all forum as read
      */    
-    public function markAllAsRead() {
+    public static function markAllAsRead() {
         if (jAuth::getUserSession ()->id > 0) {
 
             $cnx = jDb::getConnection();
@@ -46,7 +46,7 @@ class hfnuread {
      * this function says which forum has been marked as read by which user
      * @param $id the forum id
      */    
-    public function markForumAsRead($id) {
+    public static function markForumAsRead($id) {
         if (jAuth::getUserSession ()->id > 0) {            
             $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id);
             $dao = jDao::get('havefnubb~read_forum');
@@ -68,7 +68,7 @@ class hfnuread {
      * this function says which message from which forum has been read by which user
      * @param $post record of the current read post
      */
-    public function insertReadPost($post) {
+    public static function insertReadPost($post) {
         if ($post->id_post > 0 and $post->id_forum > 0 and jAuth::getUserSession ()->id > 0) {			
             $dao = jDao::get('havefnubb~read_posts');
             $exist = $dao->get(jAuth::getUserSession ()->id ,$post->id_forum,$post->id_post);
@@ -86,7 +86,7 @@ class hfnuread {
      * @param $post record of the current read post
      * @return current read post
      */
-    public function getReadPost($id_post,$id_forum) {
+    public static function getReadPost($id_post,$id_forum) {
         if (!isset(self::$postsRead[$id_post][$id_forum]) and
             $id_post > 0 and $id_forum > 0 and jAuth::getUserSession ()->id > 0) 
             self::$postsRead[$id_post][$id_forum] =
@@ -99,7 +99,7 @@ class hfnuread {
      * the return the given record
      * @return $data record
      */
-    public function getUnreadThread() {
+    public static function getUnreadThread() {
         $cnx = jDb::getConnection();
         $posts = $cnx->query("SELECT distinct parent_id, " .
                               "rp.id_post,".

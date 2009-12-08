@@ -28,6 +28,7 @@ class newestpostsZone extends jZone {
                 $status = 'forumiconenew';
         }
         elseif ($source =='post') {
+
             //@TODO put the $availableStatus in the config file .
             $availableStatus = array('opened','closed','pined','pinedclosed','censored');
             if (! in_array($this->param('status'),$availableStatus)) return;
@@ -35,10 +36,11 @@ class newestpostsZone extends jZone {
             $id_post    = (int) $this->param('id_post');
             $id_forum   = (int) $this->param('id_forum');
 
-            if ($id_post < 1) return;
-            if ($id_forum < 1) return;
+            if ($id_post < 1) return "";
+            if ($id_forum < 1) return "";
             
             $rec = jClasses::getService('havefnubb~hfnuposts')->getPostStatus($id_post);
+
             if ( $rec === false )
                 $status = $this->param('status');
             else
@@ -48,7 +50,7 @@ class newestpostsZone extends jZone {
                     $status = 'opened';
 
             $day_in_secondes = 24 * 60 * 60;
-    		$dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $day_in_secondes) : floor( (time() - $rec->date_modified ) / $day_in_secondes) ;
+    	    $dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $day_in_secondes) : floor( (time() - $rec->date_modified ) / $day_in_secondes) ;
 
             $recForum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 

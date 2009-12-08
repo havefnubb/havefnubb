@@ -8,26 +8,25 @@
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*
 */
-
 class timeout {
-
-	/**
-	 * check if the users are idle or no more connected.
-	 * the parameters come from the timeout.coord.ini.php file
-	 * and pass from the timeout Coordinator
-	 * @param $daoConnected string of the DAO from where to check the connection
-	 * @param $daoMember string of the DAO from where to check the member
-	 * @param $timeoutConnected integer of the duration of a connection
-	 * @param $timeoutVisit integer of the duration of a visit
-	 */
+    /**
+     * check if the users are idle or no more connected.
+     * the parameters come from the timeout.coord.ini.php file
+     * and pass from the timeout Coordinator
+     * @param $daoConnected string of the DAO from where to check the connection
+     * @param $daoMember string of the DAO from where to check the member
+     * @param $timeoutConnected integer of the duration of a connection
+     * @param $timeoutVisit integer of the duration of a visit
+     */
     public static function check($daoConnected,$daoMember,$timeoutConnected,$timeoutVisit) {      
-		$daoC = jDao::get($daoConnected);
+	$daoC = jDao::get($daoConnected);
         $now = time();
         // get the user that are still connected ( where the timeout_connected is not reach )
         $timeout = $now - $timeoutConnected;
 
-		$connected = $daoC->findAllConnected($timeout);
+	$connected = $daoC->findAllConnected($timeout);
         
         foreach ($connected as $online) {
             
@@ -58,7 +57,7 @@ class timeout {
        if (jAuth::isConnected()) {
             $daoC = jDao::get($daoConnected);
             $rec = $daoC->get(jAuth::getUserSession()->id);
-			// the user id not in registered as online
+	    // the user id not in registered as online
             if ( $rec === false) {
                 $record = jDao::createRecord($daoConnected);                    
                 $record->id = jAuth::getUserSession()->id;

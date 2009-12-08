@@ -16,16 +16,17 @@ class categoryCtrl extends jController {
      * plugins to manage the behavior of the controller
      */	
     public $pluginParams = array(
-        '*'		=>	array('auth.required'=>false,
-						  'hfnu.check.installed'=>true,
-						  'banuser.check'=>true,
-					),
-		'view' 	=> 	array('history.add'=>true)
+        '*'	=> array('auth.required'=>false,
+			'hfnu.check.installed'=>true,
+			'banuser.check'=>true,
+			),
+    	'view' 	=> array('history.add'=>true)
     );
     /**
-	 * View a given Category of forum then the list of forums
-	 */    
+     * View a given Category of forum then the list of forums
+     */    
     function view() {
+	
         $id_cat = (int) $this->param('id_cat');
         if ($id_cat == 0 ) {
             $rep = $this->getResponse('redirect');
@@ -35,14 +36,14 @@ class categoryCtrl extends jController {
         // add the category name in the page title
         // so 
         // 1) get the category record
-        $dao = jDao::get('category');        
-        $category = $dao->get($id_cat);
+	$category = jClasses::getService('havefnubb~hfnucat')->getCat($id_cat);
         
         $rep = $this->getResponse('html');
+	
         // 2) assign the title page
         $rep->title = $category->cat_name;
 		
-		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
+	$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
     
         $tpl = new jTpl();
 	

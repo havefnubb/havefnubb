@@ -26,45 +26,58 @@ class hfnuposts {
      * var $statusAvailable array
      */    
     private static $statusAvailable = array('opened','closed','pined','pinedclosed','censored','uncensored');
-
+    
+    
+    /*********************************************************
+     * This part handles the "add/delete/get" data of  posts *
+     *********************************************************/
+    
+    
+    /**
+     * add the current post
+     * @param  integer $id of the current post
+     * @param  recordset $record of the current post to add
+     */    		
+    public static function addPost($id,$record) {
+        if (!isset(self::$posts[$id]) and $id > 0) 
+            self::$posts[$id] = $record;
+    }
     /**
      * get info of the current post
      * @param  integer $id of the current post
      * @return array composed by the post datas of the current post
      */    		
-    public function getPost($id) {
+    public static function getPost($id) {
         if (!isset(self::$posts[$id]) and $id > 0) 
             self::$posts[$id] = jDao::get('havefnubb~posts')->get($id);
+
         return self::$posts[$id];
     }
     /**
-     * delete a post
+     * remove one post from the database
+     * @param $id_post integer id post to remove
+     * @return boolean of the success or not
+     */     
+    public static function delete($id_post) {
+        if ($id_post == 0 ) return false;
+        if ( self::deletePost($id_post) === true ) {
+            $dao = jDao::get('havefnubb~posts');
+	    $dao->delete($id);
+            return true;
+        }
+        else
+            return false;
+    }    
+    /**
+     * delete a post from the array $posts
      * @param  integer $id of the current post
      * @return boolean 
      */    		
-    public function deletePost($id) {
+    public static function deletePost($id) {
         if (isset(self::$posts[$id]) and $id > 0) {
-			self::$posts = array_shift(self::$posts[$id]);
-			$dao = jDao::get('havefnubb~posts');
-	        $dao->delete($id);			
-			return true;
-		} else {
-			return false;
-		}
-    }	
-    /**
-     * get specific info to be display in the breadcrumb and title of each page
-     * @param  integer $id_forum  the current forum
-     * @return  array composed by the forum datas of the current forum and the category datas of the current forum
-     */
-    public function getCrumbs($id_forum) {
-        if ($id_forum == 0) return array();
-        $forum 		= jClasses::getService('havefnubb~hfnuforum')	->getForum($id_forum);		
-        $category 	= jClasses::getService('havefnubb~hfnucat')	->getCat($forum->id_cat);
-        $info = array($forum,$category);
-        return $info;
+	    self::$posts = array_shift(self::$posts[$id]);
+	}
     }
-    
     /**
      * get the posts of the given forum
      * @param integer $id_forum the current forum 
@@ -72,7 +85,7 @@ class hfnuposts {
      * @param integer $nbPostPerPage the number of posts per page
      * @return array $page,$nbPosts,$posts if no record have been found, return page = 0 otherwise return the posts 
      */
-    public function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {    
+    public static function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {    
         $daoPost = jDao::get('havefnubb~posts');
         // total number of posts
         $nbPosts = $daoPost->countPostsByForumId($id_forum);
@@ -86,18 +99,12 @@ class hfnuposts {
         return array($page,$nbPosts,$posts);        
     }
     
-    /**
-     * updateViewing : update the counter of the views of a given post
-     * @param id_post integer id post of the current post
-     */    
-    public function updateViewing($id_post) {
-        if ($id_post == 0 ) return;
-        $dao = jDao::get('havefnubb~posts'); 
-        $post = $dao->get($id_post);
-        $post->viewed = $post->viewed +1;
-	$dao->update($post);                
-    }
-
+    
+    /****************************************************
+     * This part handles the "view" statement of a post *
+     ****************************************************/
+    
+    
     /**
      * view a given thread !
      * business check :
@@ -110,9 +117,9 @@ class hfnuposts {
      * @param parent_id integer parent id of the current post
      * @return array of id_post, DaoRecord of Post, Paginator
      */    
-    public function view($id_post,$parent_id) {
+    public static function view($id_post,$parent_id) {
         global $gJConfig;
-        $post = $this->getPost($id_post);
+        $post = self::getPost($id_post);
 
         if ($id_post == 0 or $post === false) {
             return array(null,null);
@@ -137,7 +144,7 @@ class hfnuposts {
         }		
         
         // let's update the viewed counter
-        $this->updateViewing($id_post);
+        self::updateViewing($id_post);
         //let's add the user to the post_read table
         jClasses::getService('havefnubb~hfnuread')->insertReadPost($post);
         
@@ -145,13 +152,31 @@ class hfnuposts {
     }
     
     /**
+     * updateViewing : update the counter of the views of a given post
+     * @param id_post integer id post of the current post
+     */    
+    public static function updateViewing($id_post) {
+        if ($id_post == 0 ) return;
+        $dao = jDao::get('havefnubb~posts'); 
+        $post = $dao->get($id_post);
+        $post->viewed = $post->viewed +1;
+        $dao->update($post);                
+    }
+
+
+    /****************************************************
+     * This part handles the "save" statement of a post *
+     ****************************************************/
+    
+    
+    /**
      * save one post
      * @param $id_forum integer id forum of the post
      * @param id_post integer id post of the current post if editing of 0 if adding
      * @return $id_post integer id post of the editing post or the id of the post created
      */
-    public function save($id_forum,$id_post=0) {
-	global $gJConfig;
+    public static function save($id_forum,$id_post=0) {
+        global $gJConfig;
         $form = jForms::fill('havefnubb~posts',$id_post);
 
         //.. if the data are not ok, return to the form and display errors messages form
@@ -160,8 +185,8 @@ class hfnuposts {
         }
 
         //.. if the data are ok ; we get them !
-        $subject	= $form->getData('subject');
-        $message 	= $form->getData('message');
+        $subject = $form->getData('subject');
+        $message = $form->getData('message');
 		
 	if ( count($message) > $gJConfig->havefnubb['post_max_size'] and
             $gJConfig->havefnubb['post_max_size'] > 0) {
@@ -177,17 +202,17 @@ class hfnuposts {
         if ($id_post == 0) {
             jEvent::notify('HfnuPostBeforeSave',array('id'=>$id_post));
             $record = jDao::createRecord('havefnubb~posts');
-	    $record->subject		= $subject;
-	    $record->message		= $message;
-            $record->id_post  		= $id_post;
-            $record->id_user 		= jAuth::getUserSession ()->id;
-            $record->id_forum 		= $id_forum;
-            $record->parent_id  	= 0;
-            $record->status	        = 'opened';
-            $record->date_created 	= time();
-            $record->date_modified 	= time();
-            $record->viewed             = 0;
-            $record->poster_ip 		= $_SERVER['REMOTE_ADDR'];
+	    $record->subject	    = $subject;
+	    $record->message	    = $message;
+            $record->id_post  	    = $id_post;
+            $record->id_user 	    = jAuth::getUserSession ()->id;
+            $record->id_forum 	    = $id_forum;
+            $record->parent_id      = 0;
+            $record->status	    = 'opened';
+            $record->date_created   = time();
+            $record->date_modified  = time();
+            $record->viewed         = 0;
+            $record->poster_ip 	    = $_SERVER['REMOTE_ADDR'];
             
             $dao->insert($record);
             
@@ -196,22 +221,31 @@ class hfnuposts {
             $id_post = $record->id_post;
             $parent_id = $record->parent_id;
             
+            self::addPost($id_post,$record);
+            
             jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));                        
-			
+
         }
         // edit a post
         else {
             jEvent::notify('HfnuPostBeforeUpdate',array('id'=>$id_post));
+            
+            //remove the id_post of the array            
+            self::deletePost($id_post);
+             
             $record = $dao->get($id_post);
 	    $record->subject		= $subject;
 	    $record->message		= $message;
             $record->date_modified 	= time();
             jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
-			
+            
+            // add the new record to the array            
+             self::addPost($id_post,$record);
         }
         
         // in all cases (id_post = 0 or not ) 
         // we have to update as we store the last insert id in the parent_id column
+        
         $dao->update($record);
         
         jEvent::notify('HfnuPostAfterSave',array('id'=>$id_post));
@@ -233,7 +267,7 @@ class hfnuposts {
      * @param parent_id integer parent id of the current post if editing of 0 if adding
      * @return $record DaoRecord of the reply
      */    
-    public function savereply($parent_id) {
+    public static function savereply($parent_id) {
 	global $gJConfig;
         $form = jForms::fill('havefnubb~posts',$parent_id);
 
@@ -242,7 +276,7 @@ class hfnuposts {
             return false;
         }
 		
-        $message 	= $form->getData('message');
+        $message = $form->getData('message');
 	//is the size of the message limited ?
 	if ( strlen($message) > $gJConfig->havefnubb['post_max_size'] 			                    
             and  $gJConfig->havefnubb['post_max_size'] > 0)
@@ -264,7 +298,9 @@ class hfnuposts {
         $result['daorec']->id_user 	= jAuth::getUserSession ()->id;
         $result['dao']->insert($result['daorec']);
         $id_post = $result['daorec']->getPk();		
-		
+	
+        self::addPost($id_post,$result['daorec']);
+        
         jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
         
         jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
@@ -279,7 +315,7 @@ class hfnuposts {
      * @param id_post integer id post of the current post if editing of 0 if adding
      * @return boolean status of success of this submit 
      */       
-    public function savenotify($id_post) {
+    public static function savenotify($id_post) {
         
         $form = jForms::fill('havefnubb~notify',$id_post);
 
@@ -304,6 +340,11 @@ class hfnuposts {
         return true;        
     }
 
+
+    /************************************************
+     * This part handles the status a post can have *
+     ************************************************/
+    
     /**
      * change the status of the current THREAD (not just one post) !
      * @param $parent_id integer parent id of the thread
@@ -312,7 +353,7 @@ class hfnuposts {
      * @param $censor_msg string of the censored message
      * @return $record DaoRecord 
      */     
-    public function switchStatus($parent_id,$id_post,$status,$censor_msg='') {        
+    public static function switchStatus($parent_id,$id_post,$status,$censor_msg='') {        
 	if (! in_array($status,self::$statusAvailable)) {
 	    jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
             return false;
@@ -326,15 +367,30 @@ class hfnuposts {
         if ($status == 'uncensored') $status = 'opened';
         
         if ( $dao->updateStatusByIdParent($parent_id,$status,$censor_msg) )
-                jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$parent_id,'status'=>$status));
+            jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$parent_id,'status'=>$status));
         } else {
-                // $status can be 'uncensored' , 'censored'
-                $post = $this->$status($parent_id,$id_post,$censor_msg);
+            // $status can be 'uncensored' , 'censored'
+            self::$status($parent_id,$id_post,$censor_msg);
         }
-				
-        return $dao->get($id_post);       
+        //delete the post from the array $posts
+        self::deletePost($id_post);
+        // get the updated record
+        $record = $dao->get($id_post);
+        //add the post to the array $posts
+        self::addPost($id_post,$record);
+        
+        return $record;       
     }
-	
+    /**
+     * this function permits to get the status of the posts
+     * @param $id_post integer id post 
+     * @return $postStatus array
+     */	
+    public static function getPostStatus($id_post) {
+        if (!isset(self::$postStatus[$id_post])) 
+            self::$postStatus[$id_post] = jDao::get('havefnubb~newest_posts')->getPostStatus($id_post);
+        return self::$postStatus[$id_post];		
+    }	
     /**
      * censor the current POST
      * @param $parent_id integer parent id of the thread
@@ -342,7 +398,7 @@ class hfnuposts {
      * @param $status string the status to switch to
      * @param $censor_msg string of the censored message
      */     
-    public function censored($parent_id,$id_post,$censor_msg) {        
+    public static function censored($parent_id,$id_post,$censor_msg) {        
         if ( $parent_id < 0 or $id_post < 1) return false;
 		
         $dao = jDao::get('havefnubb~posts');                
@@ -353,7 +409,6 @@ class hfnuposts {
                            );			
         }
     }
-
     /**
      * remove the censor of current POST
      * To uncensor :
@@ -364,46 +419,33 @@ class hfnuposts {
      * @param $status string the status to switch to
      * @param $censor_msg string of the censored message
      */     
-    public function uncensored($parent_id,$id_post,$censor_msg='') {
+    public static function uncensored($parent_id,$id_post,$censor_msg='') {
         if ( $parent_id < 0 or $id_post < 1) return false;
 		
 	$dao = jDao::get('havefnubb~posts');
-	$status = ( $id_post == $parent_id ) ? 'opened' : $this->getPost($parent_id)->status ;
+	$status = ( $id_post == $parent_id ) ? 'opened' : self::getPost($parent_id)->status ;
         if ( $dao->updateStatusById($id_post,$status) ) {
             jEvent::notify('HfnuPostAfterStatusChanged',
                            array('id'=>$id_post,
-                                 'status'=>$this->getPost($parent_id)->status)
+                                 'status'=>self::getPost($parent_id)->status)
                            );
         }
     }
-	
-    /**
-     * remove one post
-     * @param $id_post integer id post to remove
-     * @return boolean of the success or not
-     */     
-    public function delete($id_post) {
-        if ($id_post == 0 ) return false;
-            return $this->deletePost($id_post);
-    }
+        
     
-    /**
-     * check the permissions/rights to the resources
-     * @param $rights the rights to check to the resource
-     * @param $resources the resource to check
-     * @return boolean 
-     */
-    public static function checkPerm($rights,$ressources) {
-        return jAcl2::check($rights,$ressources) ? true : false;        
-    }
-	
+    /*************************************************
+     * This part Handle the "movement" a post can do *
+     *  from forum to forum and thread to thread     *
+     *************************************************/
+    
+    
     /**
      * this function permits to move a complet thread to another forum
      * @param $id_post integer id post to move
      * @param $id_forum integer id forum to move to
      * @return boolean
      */
-    public function moveToForum($id_post,$id_forum) {
+    public static function moveToForum($id_post,$id_forum) {
         if ($id_post == 0 or $id_forum == 0) return false;
         $dao = jDao::get('havefnubb~posts');
         $dao->moveToForum($id_post,$id_forum);
@@ -417,7 +459,7 @@ class hfnuposts {
      * @param $id_forum integer id forum 
      * @return $id_post_new the new Id
      */
-    public function splitToForum($parent_id,$id_post,$id_forum) {
+    public static function splitToForum($parent_id,$id_post,$id_forum) {
         if ($id_post == 0 or $id_forum == 0 or $parent_id == 0) return false;
         $dao = jDao::get('havefnubb~posts');
 
@@ -457,7 +499,7 @@ class hfnuposts {
      * @param $new_parent_id parent id to attach to 
      * @return boolean
      */
-    public function splitToThread($id_post,$parent_id,$new_parent_id) {
+    public static function splitToThread($id_post,$parent_id,$new_parent_id) {
         if ($id_post == 0 or $parent_id == 0 or $new_parent_id == 0) return false;
             
         $dao = jDao::get('havefnubb~posts');		
@@ -479,15 +521,33 @@ class hfnuposts {
         return true;
     }
 
+
+    /******************************************************************
+     * This part handles others behaviors of post/information of post *
+     ******************************************************************/
+
     /**
-     * this function permits to get the status of the posts
-     * @param $id_post integer id post to split
-     * @return $postStatus array
-     */	
-    public function getPostStatus($id_post) {
-        if (!isset(self::$postStatus[$id_post])) 
-            self::$postStatus[$id_post] = jDao::get('havefnubb~newest_posts')->getPostStatus($id_post);
-        return self::$postStatus[$id_post];		
-    }    
+     * get specific info to be display in the breadcrumb and title of each page
+     * @param  integer $id_forum  the current forum
+     * @return  array composed by the forum datas of the current forum and the category datas of the current forum
+     */
+    public static function getCrumbs($id_forum) {
+        if ($id_forum == 0) return array();
+        $forum 		= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);		
+        $category 	= jClasses::getService('havefnubb~hfnucat')->getCat($forum->id_cat);
+        $info = array($forum,$category);
+        return $info;
+    }
+    
+    /**
+     * check the permissions/rights to the resources
+     * @param $rights the rights to check to the resource
+     * @param $resources the resource to check
+     * @return boolean 
+     */
+    public static function checkPerm($rights,$ressources) {
+        return jAcl2::check($rights,$ressources) ? true : false;        
+    }
+    
 }
 

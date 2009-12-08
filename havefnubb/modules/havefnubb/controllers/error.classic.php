@@ -26,7 +26,6 @@ class errorCtrl extends jController {
         $tpl = new jTpl();
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
         $rep->setHttpStatus('404', 'Not Found');
-
         return $rep;
     }
 
@@ -35,7 +34,7 @@ class errorCtrl extends jController {
      */
     public function badright() {
         $rep = $this->getResponse('html');
-		$tpl = new jTpl();	
+	$tpl = new jTpl();	
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
         $rep->setHttpStatus('403', 'Forbidden');        
         return $rep;

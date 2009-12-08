@@ -31,8 +31,7 @@ class forumCtrl extends jController {
 		=> array('auth.required'=>true,
 			'banuser.check'=>true
 			),						
-    );
-	
+    );	
     /** 
     * display the RSS of the forum
     */
@@ -54,7 +53,6 @@ class forumCtrl extends jController {
 	    
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8'));
 
-
 	$feed_reader = new jFeedReader;
 	$feed_reader->setCacheDir(JELIX_APP_VAR_PATH.'feeds');
 	$feed_reader->setTimeout(2);
@@ -64,7 +62,7 @@ class forumCtrl extends jController {
 	$rep = $this->getResponse('html');	
 	$tpl = new jTpl();				
 	$tpl->assign('feed',$feed);
-		$tpl->assign('forum',$forum);
+	$tpl->assign('forum',$forum);
 	$rep->title = $forum->forum_name;
 	$rep->body->assign('MAIN', $tpl->fetch('havefnubb~forum_rss.view'));
 	return $rep;	

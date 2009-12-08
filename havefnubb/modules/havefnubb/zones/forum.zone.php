@@ -15,9 +15,11 @@ class forumZone extends jZone {
         $id_cat = $this->param('id_cat');
         $action = $this->param('action');        
         if (! $id_cat ) return;
-        if (! $action ) return;        
+        if (! $action ) return;
         
-        $forums = jClasses::getService('havefnubb~hfnuforum')->findParentByCatId($id_cat);
+        $hfnu = jClasses::getService('havefnubb~hfnuforum');
+        $forums = $hfnu->findParentByCatId($id_cat);
         $this->_tpl->assign('forums',$forums);
+        $this->_tpl->assign('action',$action);
     }
 }

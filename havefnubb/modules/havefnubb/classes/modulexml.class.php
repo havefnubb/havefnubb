@@ -1,22 +1,23 @@
 <?php
 /**
 * Class to parse the module.xml file of each module
+* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*
 */
-
 class modulexml {
 	
     public static $ns     =  'jelixmodule';
     public static $nsURL  = 'http://jelix.org/ns/module/1.0'; 
-	/**
-	 * parse the module.xml file
-	 * @return $moduleInfos array of module info
-	 */
+    /**
+     * parse the module.xml file
+     * @return $moduleInfos array of module info
+     */
     public static function parse($theModuleName) { 
         global $gJConfig;
         
@@ -149,9 +150,11 @@ class modulexml {
     }
 	
     /**
-	 * generec function to 'Query' info
-	 * @return $value string of the search
-	 */
+    * generic function to 'Query' info
+    * @param $file string of xml file to load
+    * @param $info string of the XPath Query to make a search
+    * @return $value string of the search
+    */
     public static function moduleInfo($file,$info) {
 
         self::$ns     =  'jelixmodule'; 
@@ -169,7 +172,7 @@ class modulexml {
         if (!is_null($entries->item(0))) 
             $value = $entries->item(0)->nodeValue; 
  		                 
- 		return $value; 
+ 	return $value; 
     }
 }
 

@@ -8,11 +8,9 @@
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*
 */
-
-
-class hfnuforumaccess implements jIFormsDatasource
-{
+class hfnuforumaccess implements jIFormsDatasource {
     protected $formId = 0; 
     protected $data = array();  
     
