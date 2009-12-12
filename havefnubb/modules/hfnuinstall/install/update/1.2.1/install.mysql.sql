@@ -1,5 +1,6 @@
 ALTER TABLE `hf_forum` ADD `post_expire` INT( 5 ) NOT NULL DEFAULT '0';
 ALTER TABLE `hf_posts` ADD `censored_msg` VARCHAR( 50 ) NULL ;
+ALTER TABLE `hf_posts` ADD `read_by_mod` INT(1) DEFAULT '0' ;
 
 DROP TABLE IF EXISTS `hf_read_forum`;
 CREATE TABLE IF NOT EXISTS `hf_read_forum` (

@@ -502,6 +502,7 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
   `viewed` int(12) NOT NULL,
   `poster_ip` varchar(15) NOT NULL,
   `censored_msg` VARCHAR( 50 ) NULL,
+  `read_by_mod` int(1) DEFAULT '0',
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`,`id_forum`,`parent_id`,`status`)
 ) DEFAULT CHARSET=utf8;
@@ -510,8 +511,8 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
 -- Contenu de la table `posts`
 --
 
-INSERT INTO `hf_posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`, `censored_msg`) VALUES
-(1, 1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL);
+INSERT INTO `hf_posts` (`id_post`, `id_user`, `id_forum`, `parent_id`, `status`, `subject`, `message`, `date_created`, `date_modified`, `viewed`, `poster_ip`, `censored_msg`,`read_by_mod` ) VALUES
+(1, 1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL,1);
 
 -- --------------------------------------------------------
 

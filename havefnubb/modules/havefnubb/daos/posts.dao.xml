@@ -3,37 +3,38 @@
     <datasources>
         <primarytable name="posts" realname="posts"  primarykey="id_post" />
         <foreigntable name="usr"   realname="member" primarykey="id_user"  onforeignkey="id_user" />
-		<foreigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
+	<foreigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
-    <record>        
-		<property name="id_post" 		fieldname="id_post"		datatype="autoincrement"/>
-		<property name="id_user" 		fieldname="id_user" 	datatype="int" required="true"/>
-		<property name="id_forum" 		fieldname="id_forum" 	datatype="int" required="true"/>
-		<property name="parent_id" 		fieldname="parent_id" 	datatype="int" required="true"/>
-		<property name="status" 		fieldname="status" 		datatype="string" required="true"/>
-		
-		<property name="subject" 		fieldname="subject" 	datatype="string" required="true" maxlength="255"/>
-		<property name="message" 		fieldname="message" 	datatype="text" required="true"/>
-		<property name="date_created" 	fieldname="date_created" datatype="int" required="true"/>
-		<property name="date_modified" 	fieldname="date_modified" datatype="int" required="true"/>
-		<property name="viewed" 		fieldname="viewed" 		datatype="int" required="true"/> 
-		<property name="poster_ip" 		fieldname="poster_ip" 	datatype="string" required="true"/>
-		<property name="censored_msg"   fieldname="censored_msg" datatype="string" required="false" maxlength="50"/>
-		
-		<!-- properties from member table -->
-		<property name="id" 				fieldname="id_user" datatype="int" table="usr"/>
-		<property name="email" 				fieldname="member_email" datatype="string" table="usr" maxlength="255" />
-		<property name="login" 				fieldname="member_login" table="usr" required="yes" datatype="string"  maxlength="50" />
-		<property name="member_comment" 	fieldname="member_comment" datatype="string" table="usr" maxlength="255"/>
-		<property name="member_town" 		fieldname="member_town" datatype="string" table="usr" maxlength="100"/>
-		<property name="member_avatar" 		fieldname="member_avatar" datatype="string" table="usr" maxlength="255"/>
-		<property name="member_website" 	fieldname="member_website" datatype="string" table="usr" maxlength="255"/>	  
-		<property name="nb_msg" 			fieldname="member_nb_msg" table="usr" datatype="integer" />
-		<property name="member_last_post" 	fieldname="member_last_post" table="usr"  datatype="integer" />
-		
-		<!-- properties from forum table -->
-		<property name="forum_parent_id" 	fieldname="parent_id" table="forum" datatype="int" required="true"/>
-		<property name="forum_name" 		fieldname="forum_name" table="forum" datatype="int" required="true"/>
+    <record>  
+        <property name="id_post"    	fieldname="id_post"	datatype="autoincrement"/>
+        <property name="id_user"    	fieldname="id_user" 	datatype="int" required="true"/>
+        <property name="id_forum"   	fieldname="id_forum" 	datatype="int" required="true"/>
+        <property name="parent_id"  	fieldname="parent_id" 	datatype="int" required="true"/>
+        <property name="status"		fieldname="status" 	datatype="string" required="true"/>
+        
+        <property name="subject"    	fieldname="subject" 	datatype="string" required="true" maxlength="255"/>
+        <property name="message"    	fieldname="message" 	datatype="text" required="true"/>
+        <property name="date_created" 	fieldname="date_created" datatype="int" required="true"/>
+        <property name="date_modified" 	fieldname="date_modified" datatype="int" required="true"/>
+        <property name="viewed"     	fieldname="viewed" 	datatype="int" required="true"/> 
+        <property name="poster_ip"  	fieldname="poster_ip" 	datatype="string" required="true"/>
+        <property name="censored_msg"   fieldname="censored_msg" datatype="string" required="false" maxlength="50"/>
+        <property name="read_by_mod"    fieldname="read_by_mod" datatype="int" required="false" maxlength="1"/>
+        
+        <!-- properties from member table -->
+        <property name="id" 		fieldname="id_user" datatype="int" table="usr"/>
+        <property name="email"		fieldname="member_email" datatype="string" table="usr" maxlength="255" />
+        <property name="login" 		fieldname="member_login" table="usr" required="yes" datatype="string"  maxlength="50" />
+        <property name="member_comment" fieldname="member_comment" datatype="string" table="usr" maxlength="255"/>
+        <property name="member_town"    fieldname="member_town" datatype="string" table="usr" maxlength="100"/>
+        <property name="member_avatar"	fieldname="member_avatar" datatype="string" table="usr" maxlength="255"/>
+        <property name="member_website"	fieldname="member_website" datatype="string" table="usr" maxlength="255"/>	  
+        <property name="nb_msg"		fieldname="member_nb_msg" table="usr" datatype="integer" />
+        <property name="member_last_post"   fieldname="member_last_post" table="usr"  datatype="integer" />
+        
+        <!-- properties from forum table -->
+        <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
+        <property name="forum_name" 	 fieldname="forum_name" table="forum" datatype="int" required="true"/>
     </record>	
 	
 	<!-- naming convention :
@@ -44,10 +45,10 @@
     <factory>
         <method name="findAllExceptOneToSplitAndLink" type="select">
             <parameter name="parent_id" />
-			<parameter name="id_forum" />
+            <parameter name="id_forum" />
             <conditions>
                 <neq property="parent_id" expr="$parent_id" />
-				<eq property="id_forum" expr="$id_forum" />
+		    <eq property="id_forum" expr="$id_forum" />
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -61,8 +62,8 @@
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_post" expr="posts.parent_id" />
-				<neq property="status" value="pined" />
-				<neq property="status" value="pinedclosed" />
+                <neq property="status" value="pined" />
+                <neq property="status" value="pinedclosed" />
             </conditions>            
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -74,10 +75,10 @@
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_post" expr="posts.parent_id" />
-				<conditions logic="OR">
-					<eq property="status" value="pined" />
-					<eq property="status" value="pinedclosed" />
-				</conditions>
+                <conditions logic="OR">
+                        <eq property="status" value="pined" />
+                        <eq property="status" value="pinedclosed" />
+                </conditions>
             </conditions>            
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -86,10 +87,10 @@
         <method name="findAllPinedPost" type="select">
             <conditions>
                 <eq property="id_post" expr="posts.parent_id" />
-				<conditions logic="OR">
-					<eq property="status" value="pined" />
-					<eq property="status" value="pinedclosed" />
-				</conditions>
+                <conditions logic="OR">
+                        <eq property="status" value="pined" />
+                        <eq property="status" value="pinedclosed" />
+                </conditions>
             </conditions>            
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -104,7 +105,7 @@
             </conditions>            
             <order>
                 <orderitem property="parent_id" way="desc" />
-				<orderitem property="id_post" way="asc" />
+                <orderitem property="id_post" way="asc" />
             </order>
             <limit offset="$offset" count="$count"/>
         </method>    
@@ -140,10 +141,10 @@
         </method>
         <method name="countReplies" type="count">
             <parameter name="id_post" />
-			<parameter name="parent_id" />
+            <parameter name="parent_id" />
             <conditions>
                 <eq property="parent_id" expr="$parent_id" />
-				<lteq property="id_post" expr="$id_post" />
+                    <lteq property="id_post" expr="$id_post" />
             </conditions>
             <order>
                 <orderitem property="id_post" way="asc" />
@@ -208,9 +209,9 @@
             </order>
         </method>
         <method name="findByAuthor" type="select">
-			<parameter name="login"/>
+            <parameter name="login"/>
             <parameter name="count" default="25" />
-           <conditions>
+            <conditions>
                 <eq property="login" expr="$login" />
             </conditions>            
             <order>
@@ -219,74 +220,83 @@
             <limit offset="0" count="$count"/>    
         </method>
         <method name="updateStatusByIdParent" type="update">
-			<parameter name="parent_id"/>
-			<parameter name="status"/>
-			<parameter name="censored_msg" default=""/>
+            <parameter name="parent_id"/>
+            <parameter name="status"/>
+            <parameter name="censored_msg" default=""/>
            <conditions>
                 <eq property="parent_id" expr="$parent_id" />
             </conditions>            
             <values>
-				<value property="status" expr="$status" />
-				<value property="censored_msg" expr="$censored_msg" />
-			</values>
+                <value property="status" expr="$status" />
+                <value property="censored_msg" expr="$censored_msg" />
+            </values>
         </method>
         <method name="moveToForum" type="update">
-			<parameter name="id_post"/>
-			<parameter name="id_forum"/>
+            <parameter name="id_post"/>
+            <parameter name="id_forum"/>
            <conditions>
                 <eq property="parent_id" expr="$id_post" />
             </conditions>            
             <values>
-				<value property="id_forum" expr="$id_forum" />
-			</values>
+                <value property="id_forum" expr="$id_forum" />
+            </values>
         </method>
-		<!--
-			this method permits to find all the post id to move
-		     from the current post with the same parent_id
-		-->
-		<method name="getAllFromCurrentIdPostWithParentId" type="select">
-			<parameter name="parent_id"/>
-			<parameter name="id_post"/>
+        <!--
+                this method permits to find all the post id to move
+             from the current post with the same parent_id
+        -->
+        <method name="getAllFromCurrentIdPostWithParentId" type="select">
+            <parameter name="parent_id"/>
+            <parameter name="id_post"/>
            <conditions>
                 <gteq property="id_post" expr="$id_post" />
-				<eq property="parent_id" expr="$parent_id" />
+                <eq property="parent_id" expr="$parent_id" />
             </conditions>
             <order>
                 <orderitem property="id_post" way="asc" />
             </order>		   
-		</method>
-		<method name="deleteAllFromCurrentIdPostWithParentId" type="delete">
-			<parameter name="parent_id"/>
-			<parameter name="id_post"/>
+        </method>
+        <method name="deleteAllFromCurrentIdPostWithParentId" type="delete">
+            <parameter name="parent_id"/>
+            <parameter name="id_post"/>
            <conditions>
                 <gteq property="id_post" expr="$id_post" />
-				<eq property="parent_id" expr="$parent_id" />
+                <eq property="parent_id" expr="$parent_id" />
             </conditions>
             <order>
                 <orderitem property="id_post" way="asc" />
             </order>		   
 		</method>
         <method name="updateStatusById" type="update">
-			<parameter name="id_post"/>
-			<parameter name="status"/>
+            <parameter name="id_post"/>
+            <parameter name="status"/>
            <conditions>
                 <eq property="id_post" expr="$id_post" />
             </conditions>            
             <values>
-				<value property="status" expr="$status" />
-			</values>
+                <value property="status" expr="$status" />
+            </values>
         </method>
         <method name="censorIt" type="update">
-			<parameter name="id_post"/>
-			<parameter name="censored_msg"/>
+	    <parameter name="id_post"/>
+            <parameter name="censored_msg"/>
            <conditions>
                 <eq property="id_post" expr="$id_post" />
             </conditions>            
             <values>
-				<value property="censored_msg" expr="$censored_msg" />
-				<value property="status"  	   expr='"censored"' />
-			</values>
+                <value property="censored_msg" expr="$censored_msg" />
+                <value property="status"  	   expr='"censored"' />
+            </values>
         </method>
-		
+        <method name="updateReadByMod" type="update">
+            <parameter name="parent_id"/>
+           <conditions>
+                <eq property="parent_id" expr="$parent_id" />
+                <eq property="read_by_mod" value="0" />
+            </conditions>            
+            <values>
+                <value property="read_by_mod" value="1" />
+            </values>
+        </method>
     </factory>
 </dao>

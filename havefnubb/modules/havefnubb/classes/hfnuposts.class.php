@@ -27,6 +27,8 @@ class hfnuposts {
      */    
     private static $statusAvailable = array('opened','closed','pined','pinedclosed','censored','uncensored');
     
+    private static $hfAdmin = 1;    
+    private static $hfModerator = 3;
     
     /*********************************************************
      * This part handles the "add/delete/get" data of  posts *
@@ -145,12 +147,13 @@ class hfnuposts {
         
         // let's update the viewed counter
         self::updateViewing($id_post);
-        //let's add the user to the post_read table
+        // let's update the 'read by mod'
+        self::readByMod($parent_id);
+        // let's add the user to the post_read table
         jClasses::getService('havefnubb~hfnuread')->insertReadPost($post);
         
         return array($id_post,$post,$goto);
     }
-    
     /**
      * updateViewing : update the counter of the views of a given post
      * @param id_post integer id post of the current post
@@ -161,6 +164,17 @@ class hfnuposts {
         $post = $dao->get($id_post);
         $post->viewed = $post->viewed +1;
         $dao->update($post);                
+    }
+    
+    /**
+     * readByMod : update the 'read by mod' flag
+     * @param $parent_id integer parent id of the thread that will by marked as read by a moderator
+     */    
+    public static function readByMod($parent_id) {
+        if ($parent_id == 0 ) return;
+        if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfModerator) or jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) ) {    
+            jDao::get('havefnubb~posts')->updateReadByMod($parent_id);
+        }    
     }
 
 
@@ -213,6 +227,14 @@ class hfnuposts {
             $record->date_modified  = time();
             $record->viewed         = 0;
             $record->poster_ip 	    = $_SERVER['REMOTE_ADDR'];
+            //if the current user is a member of a moderator group
+            // we set this post as 'read by moderator'
+            if (jAcl2DbUserGroup::isMemberOfGroup(HF_MODERATOR) or jAcl2DbUserGroup::isMemberOfGroup(HF_ADMIN) ) {
+                $record->read_by_mod = 1;
+            }
+            else {
+                $record->read_by_mod = 0;
+            }
             
             $dao->insert($record);
             
