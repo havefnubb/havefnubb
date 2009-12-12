@@ -485,7 +485,7 @@ class hfnuposts {
         if ($id_post == 0 or $id_forum == 0 or $parent_id == 0) return false;
         $dao = jDao::get('havefnubb~posts');
 
-        $datas = $dao->getAllFromCurrentIdPostWithParentId($parent_id,$id_post);
+        $datas = $dao->findAllFromCurrentIdPostWithParentId($parent_id,$id_post);
         
         $i = 0;
         $id_post_new = 0;
@@ -525,7 +525,7 @@ class hfnuposts {
         if ($id_post == 0 or $parent_id == 0 or $new_parent_id == 0) return false;
             
         $dao = jDao::get('havefnubb~posts');		
-        $datas = $dao->getAllFromCurrentIdPostWithParentId($parent_id,$id_post);
+        $datas = $dao->findAllFromCurrentIdPostWithParentId($parent_id,$id_post);
             
         foreach($datas as $data) {
 
@@ -570,6 +570,13 @@ class hfnuposts {
     public static function checkPerm($rights,$ressources) {
         return jAcl2::check($rights,$ressources) ? true : false;        
     }
-    
+
+    /**
+     * get the list of the unread post by any moderator
+     * @return data DaoData
+     */
+    public static function findUnreadThreadByMod() {		
+        return jDao::get('havefnubb~posts')->findUnreadThreadByMod();        
+    }    
 }
 

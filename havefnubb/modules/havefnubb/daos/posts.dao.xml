@@ -245,7 +245,7 @@
                 this method permits to find all the post id to move
              from the current post with the same parent_id
         -->
-        <method name="getAllFromCurrentIdPostWithParentId" type="select">
+        <method name="findAllFromCurrentIdPostWithParentId" type="select">
             <parameter name="parent_id"/>
             <parameter name="id_post"/>
            <conditions>
@@ -298,5 +298,13 @@
                 <value property="read_by_mod" value="1" />
             </values>
         </method>
+        <method name="findUnreadThreadByMod" type="select" distinct="true" groupby="parent_id">
+            <conditions>
+		<eq property="read_by_mod" value="0" />
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>		
     </factory>
 </dao>
