@@ -229,7 +229,7 @@ class hfnuposts {
             $record->poster_ip 	    = $_SERVER['REMOTE_ADDR'];
             //if the current user is a member of a moderator group
             // we set this post as 'read by moderator'
-            if (jAcl2DbUserGroup::isMemberOfGroup(HF_MODERATOR) or jAcl2DbUserGroup::isMemberOfGroup(HF_ADMIN) ) {
+            if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) or jAcl2DbUserGroup::isMemberOfGroup(self::$hfModerator) ) {
                 $record->read_by_mod = 1;
             }
             else {
