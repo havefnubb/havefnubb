@@ -101,51 +101,9 @@ class hfnuread {
      * @return $data record
      */
     public static function getUnreadThread() {
-        $cnx = jDb::getConnection();
-        $posts = $cnx->query("SELECT distinct parent_id, " .
-                              "rp.id_post,".
-                              "rp.id_forum,".
-                              "p.subject,".
-                              "p.message,".
-                              "p.status,".
-                              "p.date_created,".
-                              "p.date_modified,".
-                              "p.viewed,".
-                              "p.poster_ip,".
-                              "p.censored_msg ".
-                              "  FROM ".
-                              $cnx->prefixTable('read_posts') . " as rp, " .
-                              $cnx->prefixTable('posts') . " as  p " .
-                              " WHERE " .
-                              " rp.id_user = '".jAuth::getUserSession()->id."' " .
-                              " AND ".
-                              " p.id_user <> '".jAuth::getUserSession()->id."' group by parent_id" 
-                              );
-        
-        if ($posts->rowCount() == 0 ) 
-            $posts = $cnx->query("SELECT distinct parent_id, " .
-                              "rf.id_forum,".
-                              "p.subject,".
-                              "p.message,".
-                              "p.status,".
-                              "p.date_created,".
-                              "p.date_modified,".
-                              "p.viewed,".
-                              "p.poster_ip,".
-                              "p.censored_msg ".
-                              "  FROM ".
-                              $cnx->prefixTable('read_forum') . " as rf, " .
-                              $cnx->prefixTable('posts') . " as  p " .
-                              " WHERE " .
-                              " rf.id_user = '".jAuth::getUserSession()->id."' " .
-                              " AND ".
-                              " p.id_user <> '".jAuth::getUserSession()->id."' " .
-                              " AND ".
-                              " (rf.date_read + 180) > ". time() . 
-                              " group by parent_id" 
-                              );
-        
-        return $posts;        
+        //@TODO : check the message the guy does not read +
+        // display the message from the forum the guy has access
+        return array();        
     }
     
 }
