@@ -36,7 +36,9 @@ class postsCtrl extends jController {
         'view' 	=> array( 'history.add'=>true),
         'status' => array('jacl2.right'=>'hfnu.admin.post'),
         'censor' => array('jacl2.right'=>'hfnu.admin.post'),
+        'uncensor' => array('jacl2.right'=>'hfnu.admin.post'),
         'savecensor' => array('jacl2.right'=>'hfnu.admin.post'),
+        'shownew'=> array('auth.required'=>true),
 		
    );
 	

@@ -881,16 +881,21 @@ ol.history li {
 }
 
 .colicone-censored, .post-status-icon-censored {
-	background-image: url("../images/posts/censored.png");
-	background-repeat: no-repeat;
+    background-image: url("../images/posts/censored.png");
+    background-repeat: no-repeat;
 }
 
 .closed a:link, .closed a:visited, .closed a:active { 
-	text-decoration: underline;
-	color: #a09898;
+    text-decoration: underline;
+    color: #a09898;
 }
 
 .closed a:hover { 
-	color: #f90; 
-	text-decoration: none;
+    color: #f90; 
+    text-decoration: none;
+}
+
+#markasread {
+    text-align: right;
+    list-style-type: none;
 }

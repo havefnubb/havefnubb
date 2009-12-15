@@ -770,3 +770,9 @@ div.comment_list {
 	text-decoration:underline;
 
 }
+
+
+#markasread {
+    text-align: right;
+    list-style-type: none;
+}
