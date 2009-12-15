@@ -94,7 +94,7 @@ class postsCtrl extends jController {
 		
         //build the rss link in the header of the html page
         $url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$forum->forum_name,
-                                                                                                'id_forum'=>$forum->id_forum	));
+                                                    'id_forum'=>$forum->id_forum	));
         $rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.htmlentities($url).'" />');
         // end rss link 
 			
@@ -119,7 +119,8 @@ class postsCtrl extends jController {
         $tpl->assign('id_forum',$id_forum);
         $tpl->assign('lvl',$forum->child_level);
         $tpl->assign('properties',$properties);
-			
+        
+        $rep->body->assign('currentIdForum',$forum->id_forum);		
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));
         return $rep;        
     }        
@@ -690,8 +691,6 @@ class postsCtrl extends jController {
             return $rep;						
         }		
     }
-	
-
 
     /**
      * delete a post
@@ -706,15 +705,13 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
             return $rep;
         }
-/*
-        $dao = jDao::get('havefnubb~forum');
-        $forum = $dao->get($id_forum);*/
+
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 		
         jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));       
 		
         if ( jClasses::getService('havefnubb~hfnuposts')->delete($id_post) === true ) {    
- die("jai vire le truc");   
+
             jEvent::notify('HfnuPostAfterDelete',array('id'=>$id_post));
             
             jEvent::notify('HfnuSearchEngineDeleteContent',array('id'=>$id_post,'havefnubb~forum'));
@@ -1219,5 +1216,15 @@ class postsCtrl extends jController {
                             'ptitle'=>$post->subject);
         return $rep;		
     }
-	
+    /**
+     * Show all new posts not read by the current user
+     */
+    public function shownew() {
+	$rep = $this->getResponse('html');
+        $tpl = new jTpl();
+        $posts = jClasses::getService('havefnubb~hfnuread')->getUnreadThread();
+        $tpl->assign('posts',$posts);
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.shownew'));
+        return $rep;
+    }
 }

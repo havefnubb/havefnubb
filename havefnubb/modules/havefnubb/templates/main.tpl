@@ -8,40 +8,40 @@
 {meta_html js $j_themepath.'js/jquery-fluid16.js'} 
 {* meta_html js $j_themepath.'js/jquery-ui.js' *}
 <div class="container_16">
-	<div class="grid_16 branding">
-		<div class="grid_11">
-			<h1 id="branding"><a href="{jurl 'havefnubb~default:index'}" >{$TITLE}</a></h1>
-		</div>
-		<div class="grid_5">
-			{zone 'jcommunity~status'}		
-		</div>
-		{hook 'hfbMainInHeader'}		
-		<div class="clear"></div>    
-	</div>
-	<div class="clear"></div>
+    <div class="grid_16 branding">
+        <div class="grid_11">
+            <h1 id="branding"><a href="{jurl 'havefnubb~default:index'}" >{$TITLE}</a></h1>
+        </div>
+        <div class="grid_5">
+            {zone 'jcommunity~status'}		
+        </div>
+        {hook 'hfbMainInHeader'}		
+        <div class="clear"></div>    
+    </div>
+    <div class="clear"></div>
 	
     <div class="grid_16">
-		{zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
     </div>
     <div class="clear"></div>    
     
     <div class="grid_16">
-		<h2 id="page-heading">{$DESC}</h2>	
+        <h2 id="page-heading">{$DESC}</h2>	
     </div>
     <div class="clear"></div>
         
     <div class="grid_16">
-	{ifuserconnected}
-	<a href="{jurl 'havefnubb~forum:mark_all_as_read'}">Marquer tous les forums comme lu</a>
-	{/ifuserconnected}
+    {ifuserconnected}
+    {zone 'havefnubb~mark_forum',array('currentIdForum'=>$currentIdForum)}
+    {/ifuserconnected}        
     {$MAIN}
     </div>
     <div class="clear"></div>
        
     <div class="grid_16">
-		<div class="box">
-			{breadcrumb 8, ' > '}
-		</div>
+	<div class="box">
+        {breadcrumb 8, ' > '}
+	</div>
     </div>    
     <div class="clear"></div>
 
@@ -49,7 +49,7 @@
         <div class="box">
             <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a>.</p>
         </div>
-		{hook 'hfbMainInFooter'}		
+        {hook 'hfbMainInFooter'}		
     </div>	
     <div class="clear"></div>       
 </div>

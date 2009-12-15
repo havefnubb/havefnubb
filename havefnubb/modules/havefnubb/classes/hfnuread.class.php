@@ -121,6 +121,30 @@ class hfnuread {
                               " AND ".
                               " p.id_user <> '".jAuth::getUserSession()->id."' group by parent_id" 
                               );
+        
+        if ($posts->rowCount() == 0 ) 
+            $posts = $cnx->query("SELECT distinct parent_id, " .
+                              "rf.id_forum,".
+                              "p.subject,".
+                              "p.message,".
+                              "p.status,".
+                              "p.date_created,".
+                              "p.date_modified,".
+                              "p.viewed,".
+                              "p.poster_ip,".
+                              "p.censored_msg ".
+                              "  FROM ".
+                              $cnx->prefixTable('read_forum') . " as rf, " .
+                              $cnx->prefixTable('posts') . " as  p " .
+                              " WHERE " .
+                              " rf.id_user = '".jAuth::getUserSession()->id."' " .
+                              " AND ".
+                              " p.id_user <> '".jAuth::getUserSession()->id."' " .
+                              " AND ".
+                              " (rf.date_read + 180) > ". time() . 
+                              " group by parent_id" 
+                              );
+        
         return $posts;        
     }
     

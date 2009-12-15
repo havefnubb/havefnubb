@@ -196,7 +196,7 @@ default="jelix/js/jforms/datepickers/default/init.js"
 [havefnubb]
 title="HaveFnuBB!"
 description="Where Everything is Fnu"
-version=1.2.0
+version=1.2.1
 rules=
 admin_email="admin@localhost.net"
 url_check_version="http://www.havefnubb.org/last_version"
@@ -221,6 +221,7 @@ delicious=1
 facebook=1
 reddit=1
 netvibes=1
+images_path="images/social-network"
 
 ;the rule of the forum to manage the render from wiki + smileys
 [_pluginsPathList_wr_rules]

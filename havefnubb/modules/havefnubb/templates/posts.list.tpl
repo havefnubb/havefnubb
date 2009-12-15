@@ -21,7 +21,6 @@
 <br/>
 <div class="box">
     <div class="block">
-    <a href="{jurl 'havefnubb~forum:mark_forum_as_read',array('id_forum'=>$forum->id_forum)}">Marquer ce forum comme lu</a>
     <table>
     <caption>{$forum->forum_name|eschtml}</caption>
         <thead>

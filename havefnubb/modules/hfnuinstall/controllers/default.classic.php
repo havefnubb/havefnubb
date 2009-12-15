@@ -34,25 +34,21 @@ class defaultCtrl extends jController {
             return $rep;            
         }
 
-		$chmod_msg = '*NIX';
-		if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-			$chmod_msg = 'WIN';
-		}
+	$chmod_msg = '*NIX';
+    	if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $chmod_msg = 'WIN';
+    	}
         
-		$step = $this->param('step');
+        $step = $this->param('step');
         
         $tpl = new jTpl();
 
         if ($step == '') {
-
             $step = 'home';
-		}
-            
+	}    
         else {
-            
-            switch($step) {
-				 case 'check':
-                    
+           switch($step) {
+		case 'check':            
                     $phpSupported = false;                    
                     if ( version_compare(phpversion(),'5.2','>=') ) {
                         $phpSupported = true;
@@ -61,10 +57,10 @@ class defaultCtrl extends jController {
                     else
                         jMessage::add(jLocale::get('hfnuinstall~install.check.php.version.is.requied',array(phpversion())),'error');
 					
-					$d = jClasses::getService('hfnuinstall~supported_drivers');
-					
-					$dbSupported = false;
-					$dbSupported = $d->check();
+                    $d = jClasses::getService('hfnuinstall~supported_drivers');
+                    
+                    $dbSupported = false;
+                    $dbSupported = $d->check();
                         
                     $continue = false;
                     if ($dbSupported === true and $phpSupported === true) $continue = true;
@@ -74,10 +70,8 @@ class defaultCtrl extends jController {
                     
                     break;
                 
-				 case 'config':                    
+                case 'config':                    
                     $submit = $this->param('validate');
-                    
-                    
                     if ($submit == jLocale::get('hfnuinstall~install.config.saveConfigBt')  ) {
                         
                         $form = jForms::fill('hfnuinstall~config');
@@ -94,7 +88,7 @@ class defaultCtrl extends jController {
                         $mainConfig->setValue('description',htmlentities($this->param('description')),'havefnubb');                        
                         $mainConfig->setValue('rules',      htmlentities($this->param('rules')),'havefnubb');      
 						
-						$mainConfig->setValue('theme',      htmlentities($this->param('theme')));
+                        $mainConfig->setValue('theme',      htmlentities($this->param('theme')));
                         $mainConfig->setValue('webmasterEmail', htmlentities($this->param('webmasterEmail')),'mailer');
                         $mainConfig->setValue('webmasterName',  htmlentities($this->param('webmasterName')),'mailer');
                         $mainConfig->setValue('mailerType',     htmlentities($this->param('mailerType')),'mailer');
@@ -137,13 +131,10 @@ class defaultCtrl extends jController {
                     
                     break;
                 
-				 case 'dbconfig':                   
-                    $submit = $this->param('validate');
-                    
+		case 'dbconfig':                   
+                    $submit = $this->param('validate');    
                     if ($submit == jLocale::get('hfnuinstall~install.dbconfig.saveDbConfigBt') ) {
-                        
                         $form = jForms::fill('hfnuinstall~dbconfig');
-               
                         if (!$form->check()) {                           
                             $rep = $this->getResponse('redirect');
                             $rep->action='hfnuinstall~default:index';
@@ -201,22 +192,20 @@ class defaultCtrl extends jController {
 				
                 case "installdb" :
                     $submit = $this->param('validate');
-                    
                     if ($submit == jLocale::get('hfnuinstall~install.installdb.saveRunSqlBt') ) {
-                        
                         $db 		= new jDb();
                         $profile 	= $db->getProfile('havefnubb');
                         $tools 		= jDb::getTools('havefnubb');
-						
-						$file = dirname(__FILE__).'/../install/sql/install.'.$profile['driver'].'.sql';
+                        
+			$file = dirname(__FILE__).'/../install/sql/install.'.$profile['driver'].'.sql';
                         
                         //default fake prefix uses in the filename if no prefix table are filled
-						$tablePrefix = 'null_';
-                        
-						$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
-                        
-						if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {						
-							$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;							
+                        $tablePrefix = 'null_';
+
+                        $dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+
+                        if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {						
+                                $tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;							
                         }
                         
                         $fileDest = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
@@ -285,8 +274,8 @@ class defaultCtrl extends jController {
                         $user->email    = $form->getData('admin_email');
                         $user->nickname = $login;
                         $user->status   = 1;
-						$user->member_gravatar = 0;
-						$user->member_created = date('Y-m-d H:i:s');
+                        $user->member_gravatar = 0;
+                        $user->member_created = date('Y-m-d H:i:s');
                         $user->request_date = date('Y-m-d H:i:s');
                         // $user->keyactivate = $key;
                         // 4) save the user !
@@ -310,8 +299,8 @@ class defaultCtrl extends jController {
                         $tpl->assign('form',$form);
                     }
                     break;				
-				 case 'end':
-					$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+                case 'end':
+                    $mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
                     $mainConfig->setValue('installed',true,'havefnubb');
                     $mainConfig->save();
                     break;				
@@ -321,18 +310,18 @@ class defaultCtrl extends jController {
         
         $rep = $this->getResponse('html');		
         $tpl->assign('step',$step);
-		$tpl->assign('chmod_msg',$chmod_msg);
+        $tpl->assign('chmod_msg',$chmod_msg);
         $rep->body->assign('MAIN', $tpl->fetch('install'));
         return $rep;		
-	}    
+    }    
 
 
 
     /**
      * Method to update from rc2 to rc3
      */	
-	function update_rc2_to_rc3() {
-		global $gJConfig;
+    function update_rc2_to_rc3() {
+        global $gJConfig;
 		
         if ($gJConfig->havefnubb['installed'] == 0) {            
             $rep = $this->getResponse('redirect');
@@ -340,69 +329,69 @@ class defaultCtrl extends jController {
             return $rep;            
         }
 		
-		if ($gJConfig->havefnubb['version'] == '1.0.0RC2') {
+        if ($gJConfig->havefnubb['version'] == '1.0.0RC2') {
 		
             self::_update_to_rc3();	
-				
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
-			return $rep;				
-		}
-		else {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
-			return $rep;		
-		}
-	}
+                    
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
+            return $rep;				
+        }
+        else {
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+                $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+                return $rep;		
+        }
+    }
     /**
      * Method to update to 1.0.0
      */	
-	function update_to_1() {
-		global $gJConfig;
-        
-		$version = $gJConfig->havefnubb['version'];
-        
+    function update_to_1() {
+        global $gJConfig;
+    
+        $version = $gJConfig->havefnubb['version'];
+    
         if ($gJConfig->havefnubb['installed'] == 0) { 
             $rep = $this->getResponse('redirect');
             $rep->action = 'hfnuinstall~default:index';
             return $rep;            
         }
         $updated == '';
-		if ($version == '1.0.0RC2') {
+                if ($version == '1.0.0RC2') {
             self::_update_to_rc3();
             $updated = 'ok';
         }
-		if ($version == '1.0.0RC3') {
-			self::_update_to_1();
+                if ($version == '1.0.0RC3') {
+                        self::_update_to_1();
             $updated = 'ok';
         }
-
+    
         if ($updated == 'ok') {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
-			return $rep;
-		}
-		else {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
-			return $rep;		
-		}
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
+            return $rep;
+        }
+        else {
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+            return $rep;		
+        }
     }
     /**
      * Method to update to 1.0.1
      */	
-	function update_to_1_0_1() {
-		global $gJConfig;
+    function update_to_1_0_1() {
+        global $gJConfig;
         
-		$version = $gJConfig->havefnubb['version'];
+        $version = $gJConfig->havefnubb['version'];
         
         if ($gJConfig->havefnubb['installed'] == 0) {       
             $rep = $this->getResponse('redirect');
@@ -410,41 +399,41 @@ class defaultCtrl extends jController {
             return $rep;            
         }
         $updated == '';
-		if ($version == '1.0.0RC2') {
+        if ($version == '1.0.0RC2') {
             self::_update_to_rc3();
             $updated = 'ok';
         }
-		if ($version == '1.0.0RC3') {
-			self::_update_to_1();
+        if ($version == '1.0.0RC3') {
+            self::_update_to_1();
             $updated = 'ok';
         }
-		if ($version == '1.0.0') {
-			self::_update_to_1_0_1();
+        if ($version == '1.0.0') {
+            self::_update_to_1_0_1();
             $updated = 'ok';
         }
         if ($updated == 'ok') {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
-			return $rep;
-		}
-		else {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
-			return $rep;		
-		}
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
+            return $rep;
+        }
+        else {
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+            return $rep;		
+        }
     }
 
     /**
      * Method to update to 1.1.0
      */	
-	function update_to_1_1_0() {
-		global $gJConfig;
+    function update_to_1_1_0() {
+        global $gJConfig;
 
-		$version = $gJConfig->havefnubb['version'];
+        $version = $gJConfig->havefnubb['version'];
         
         if ($gJConfig->havefnubb['installed'] == 0) {         
             $rep = $this->getResponse('redirect');
@@ -452,46 +441,46 @@ class defaultCtrl extends jController {
             return $rep;            
         }
         $updated == '';
-		if ($version == '1.0.0RC2') {
+        if ($version == '1.0.0RC2') {
             self::_update_to_rc3();
             $updated = 'ok';
         }
-		if ($version == '1.0.0RC3') {
-			self::_update_to_1();
+        if ($version == '1.0.0RC3') {
+            self::_update_to_1();
             $updated = 'ok';
         }
-		if ($version == '1.0.0') {
-			self::_update_to_1_0_1();
+        if ($version == '1.0.0') {
+            self::_update_to_1_0_1();
             $updated = 'ok';
         }
-		if ($version == '1.0.1') {
-			self::_update_to_1_1_0();
+        if ($version == '1.0.1') {
+            self::_update_to_1_1_0();
             $updated = 'ok';
         }		
         if ($updated == 'ok') {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
-			return $rep;
-		}
-		else {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
-			return $rep;		
-		}
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
+            return $rep;
+        }
+        else {
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+            return $rep;		
+        }
     }
 
 
     /**
      * Method to update to 1.2.0
      */	
-	function update_to_1_2_0() {
-		global $gJConfig;
+    function update_to_1_2_0() {
+        global $gJConfig;
         
-		$version = $gJConfig->havefnubb['version'];
+        $version = $gJConfig->havefnubb['version'];
         
         if ($gJConfig->havefnubb['installed'] == 0) {            
             $rep = $this->getResponse('redirect');
@@ -499,50 +488,50 @@ class defaultCtrl extends jController {
             return $rep;            
         }
         $updated == '';
-		if ($version == '1.0.0RC2') {
+        if ($version == '1.0.0RC2') {
             self::_update_to_rc3();
             $updated = 'ok';
         }
-		if ($version == '1.0.0RC3') {
-			self::_update_to_1();
+        if ($version == '1.0.0RC3') {
+            self::_update_to_1();
             $updated = 'ok';
         }
-		if ($version == '1.0.0') {
-			self::_update_to_1_0_1();
+        if ($version == '1.0.0') {
+            self::_update_to_1_0_1();
             $updated = 'ok';
         }
-		if ($version == '1.0.1') {
-			self::_update_to_1_1_0();
+        if ($version == '1.0.1') {
+            self::_update_to_1_1_0();
             $updated = 'ok';
         }
-		if ($version == '1.1.0') {
-			self::_update_to_1_2_0();
+        if ($version == '1.1.0') {
+            self::_update_to_1_2_0();
             $updated = 'ok';
         }				
         if ($updated == 'ok') {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
-			return $rep;
-		}
-		else {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
-			return $rep;		
-		}
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
+            return $rep;
+        }
+        else {
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+            return $rep;		
+        }
     }
 
 
     /**
      * Method to update to 1.2.0
      */	
-	function update_to_1_2_1() {
-		global $gJConfig;
+    function update_to_1_2_1() {
+	global $gJConfig;
         
-		$version = $gJConfig->havefnubb['version'];
+        $version = $gJConfig->havefnubb['version'];
         
         if ($gJConfig->havefnubb['installed'] == 0) {            
             $rep = $this->getResponse('redirect');
@@ -550,44 +539,44 @@ class defaultCtrl extends jController {
             return $rep;            
         }
         $updated == '';
-		if ($version == '1.0.0RC2') {
+        if ($version == '1.0.0RC2') {
             self::_update_to_rc3();
             $updated = 'ok';
         }
-		if ($version == '1.0.0RC3') {
-			self::_update_to_1();
+        if ($version == '1.0.0RC3') {
+            self::_update_to_1();
             $updated = 'ok';
         }
-		if ($version == '1.0.0') {
-			self::_update_to_1_0_1();
+        if ($version == '1.0.0') {
+            self::_update_to_1_0_1();
             $updated = 'ok';
         }
-		if ($version == '1.0.1') {
-			self::_update_to_1_1_0();
+        if ($version == '1.0.1') {
+            self::_update_to_1_1_0();
             $updated = 'ok';
         }
-		if ($version == '1.1.0') {
-			self::_update_to_1_2_0();
+        if ($version == '1.1.0') {
+            self::_update_to_1_2_0();
             $updated = 'ok';
         }
-		if ($version == '1.2.0') {
-			self::_update_to_1_2_1();
+        if ($version == '1.2.0') {
+            self::_update_to_1_2_1();
             $updated = 'ok';
         }						
         if ($updated == 'ok') {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
-			return $rep;
-		}
-		else {
-			$rep = $this->getResponse('html');
-			$tpl = new jTpl();
-			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
-			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
-			return $rep;		
-		}
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));			
+            return $rep;
+        }
+        else {
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+            $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+            return $rep;		
+        }
     }
 
         
@@ -598,7 +587,6 @@ class defaultCtrl extends jController {
         $hfnuadminEntriesPoint =  $mainConfig->getValue('hfnuadmin','simple_urlengine_entrypoints');		
         $hfnuadminEntriesPoint .= ', hfnucontact~*@classic';
         $mainConfig->setValue('hfnuadmin', $hfnuadminEntriesPoint,'simple_urlengine_entrypoints');
-        
         
         $db 		= new jDb();
         $profile 	= $db->getProfile('havefnubb');
@@ -658,8 +646,7 @@ class defaultCtrl extends jController {
         //default fake prefix uses in the filename if no prefix table are filled
         $tablePrefix = 'null_';
         
-        $dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
-        
+        $dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils); 
         
         if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {            
             $tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
@@ -715,8 +702,7 @@ class defaultCtrl extends jController {
         //default fake prefix uses in the filename if no prefix table are filled
         $tablePrefix = 'null_';
         
-        $dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
-        
+        $dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);  
         
         if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {            
             $tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
@@ -747,7 +733,7 @@ class defaultCtrl extends jController {
         $tools->execSQLScript($file);
         @unlink($file);							
 		
-		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+	$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
         $mainConfig->setValue('version','1.1.0','havefnubb');
         $mainConfig->save();
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
@@ -796,14 +782,56 @@ class defaultCtrl extends jController {
         $tools->execSQLScript($file);
         @unlink($file);							
 		
-		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+    	$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
         $mainConfig->setValue('version','1.2.0','havefnubb');
         $mainConfig->save();	
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
     }
 	
-    private  static function _update_to_1_2_1() {
-		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+    private static function _update_to_1_2_1() {
+        global $gJConfig;
+		
+        $db 		= new jDb();
+        $profile 	= $db->getProfile('havefnubb');
+        $tools 		= jDb::getTools('havefnubb');
+        
+        $file = dirname(__FILE__).'/../install/update/1.2.1/install.'.$profile['driver'].'.sql';
+        
+        //default fake prefix uses in the filename if no prefix table are filled
+        $tablePrefix = 'null_';
+        
+        $dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+        
+        if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {            
+            $tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
+        }
+        $fileDest = dirname(__FILE__).'/../install/update/1.2.1/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+        $sources = file($file);
+        $newSource = '';
+        
+        $pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO|UPDATE|ALTER TABLE) `(hf_)(.*)/';
+        
+        foreach ((array)$sources as $key=>$line) {
+            if (preg_match($pattern,$line,$match)) {
+                if ($tablePrefix != 'null_')
+                    $newSource .= $match[1] .' `'.$tablePrefix . $match[3];
+                else
+                    $newSource .= $match[1] .' `'. $match[3];
+            }
+            else {
+                $newSource .= $line;
+            }
+        }							
+
+        $fh = fopen($fileDest,'w+');
+        fwrite($fh,$newSource);
+        fclose($fh);
+        $file = dirname(__FILE__).'/../install/update/1.2.1/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+        
+        $tools->execSQLScript($file);
+        @unlink($file);							
+		
+    	$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
         $mainConfig->setValue('version','1.2.1','havefnubb');
         $mainConfig->save();	
         jFile::removeDir(JELIX_APP_TEMP_PATH, false);
