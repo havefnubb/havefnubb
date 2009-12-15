@@ -172,7 +172,8 @@ class hfnuposts {
      */    
     public static function readByMod($parent_id) {
         if ($parent_id == 0 ) return;
-        if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfModerator) or jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) ) {    
+        if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfModerator) or
+            jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) ) {    
             jDao::get('havefnubb~posts')->updateReadByMod($parent_id);
         }    
     }
@@ -229,7 +230,8 @@ class hfnuposts {
             $record->poster_ip 	    = $_SERVER['REMOTE_ADDR'];
             //if the current user is a member of a moderator group
             // we set this post as 'read by moderator'
-            if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) or jAcl2DbUserGroup::isMemberOfGroup(self::$hfModerator) ) {
+            if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) or
+                jAcl2DbUserGroup::isMemberOfGroup(self::$hfModerator) ) {
                 $record->read_by_mod = 1;
             }
             else {

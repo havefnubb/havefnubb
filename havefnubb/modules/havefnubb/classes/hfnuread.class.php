@@ -83,20 +83,21 @@ class hfnuread {
     }
     /**
      * this function says which message from which forum has been read by which user
-     * @param $post record of the current read post
-     * @return current read post
+     * @param $id_post the current id post
+     * @param $id_forum the current id forum
+     * @return boolean
      */
     public static function getReadPost($id_post,$id_forum) {
-        if (!isset(self::$postsRead[$id_post][$id_forum]) and
-            $id_post > 0 and $id_forum > 0 and jAuth::getUserSession ()->id > 0) 
-            self::$postsRead[$id_post][$id_forum] =
-                    jDao::get('havefnubb~read_posts')->get(jAuth::getUserSession()->id,$id_forum,$id_post);
-        return self::$postsRead[$id_post][$id_forum];
+        $alreadyRead = jDao::get('havefnubb~read_posts')->get(jAuth::getUserSession()->id,$id_forum,$id_post); 
+        // no record found in the read_post table, that means i marked all the forum as read
+        // let's check the last forum between now and 3min
+        if ($alreadyRead === false) 
+            return true ?  time() < jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum)->date_read + 180 : false;
     }
     /**
      * this function get the read messages of the current user,
      * and get the messages he does not made himself
-     * the return the given record
+     * then return the given record
      * @return $data record
      */
     public static function getUnreadThread() {
