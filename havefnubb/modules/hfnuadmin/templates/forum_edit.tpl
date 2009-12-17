@@ -33,7 +33,7 @@
 </table>
 
 <div class="jforms-submit-buttons">
-    <input type="submit" name="validate" id="jforms_hfnuadmin_forum_validate_saveBt" class="jforms-submit" value="{@hfnuadmin~forum.saveBt@}"/>
+    <input type="submit" name="validateright" id="jforms_hfnuadmin_forum_validate_saveBt" class="jforms-submit" value="{@hfnuadmin~forum.saveBt@}"/>
 </div>
 
 </fieldset>

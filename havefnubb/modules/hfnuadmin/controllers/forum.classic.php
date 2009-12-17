@@ -187,7 +187,7 @@ class forumCtrl extends jController {
         $id_forum = (int) $this->param('id_forum');
         
         $submit = $this->param('validate');
-        
+
         if ($submit == jLocale::get('hfnuadmin~forum.saveBt') ) {
             $form = jForms::fill('hfnuadmin~forum_edit',$id_forum);
             if (!$form->check()) {
@@ -200,60 +200,17 @@ class forumCtrl extends jController {
             $form->saveToDao('havefnubb~forum');
         }
 
-        /*
-        if ($id_forum == 0) {
-            jMessage::add(jLocale::get('hfnuadmin~forum.unknown.forum'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~forum:index';
-            return $rep;                 
+        $submitRight = $this->param('validateright');
+        if ($submitRight == jLocale::get('hfnuadmin~forum.saveBt') ) {
+            $rights = $this->param('rights',array());
+            foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
+                $id = intval($grp->id_aclgrp);
+                jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
+            }
+    
+            jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
         }
-        $error = '';
-        if ( $this->param('forum_name') == '' ) {
-            jMessage::add(jLocale::get('hfnuadmin~forum.forum_name.mandatory'),'error');
-            $error = '*';
-        }
-        if ( $this->param('forum_desc') == '' ) {
-            jMessage::add(jLocale::get('hfnuadmin~forum.forum_desc.mandatory'),'error');
-            $error = '*';
-        }
-        if ( $this->param('forum_order') == '' ) {
-            jMessage::add(jLocale::get('hfnuadmin~forum.forum_desc.mandatory'),'error');
-            $error = '*';
-        }
-        if ( $this->param('forum_url') == '' and $this->param('forum_type') > 0 ) {
-            jMessage::add(jLocale::get('hfnuadmin~forum.forum_url.mandatory'),'error');
-            $error = '*';
-        }
-        if ($error == '*') {
-            $rep = $this->getResponse('redirect');
-            $rep->action='hfnuadmin~forum:edit';
-            $rep->params = array('id_forum'=>$id_forum);
-            return $rep;                 
-        }*/
-        /*
-        $dao = jDao::get('havefnubb~forum');
         
-        $record = $dao->get($id_forum);
-        $record->forum_name = $this->param('forum_name');
-        $record->forum_desc = $this->param('forum_desc');
-        $record->forum_order = $this->param('forum_order');
-        $record->forum_type = $this->param('forum_type');
-        $record->forum_url = $this->param('forum_url');
-        $record->post_expire = (int) $this->param('post_expire');
-        
-        $dao->update($record);
-       
-        jMessage::add(jLocale::get('hfnuadmin~forum.forum.modified'),'ok');
-        */
-        /**************/        
-        $rights = $this->param('rights',array());
-        foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
-            $id = intval($grp->id_aclgrp);
-            jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
-        }
-
-        jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
-        /**************/
         $rep = $this->getResponse('redirect');
         $rep->action='hfnuadmin~forum:index';
         return $rep;   
@@ -271,8 +228,6 @@ class forumCtrl extends jController {
         $rep->action='hfnuadmin~forum:index';
         return $rep;         
     }
-
-
 	
     function defaultrights() {
             
