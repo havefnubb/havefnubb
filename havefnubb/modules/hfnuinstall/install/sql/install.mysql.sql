@@ -636,7 +636,7 @@ CREATE TABLE IF NOT EXISTS `hf_notify` (
   PRIMARY KEY (`id_notify`), 
   KEY `id_user` (`id_user`), 
   KEY `id_post` (`id_post`) 
-); 
+) DEFAULT CHARSET=utf8;
 
 
 --

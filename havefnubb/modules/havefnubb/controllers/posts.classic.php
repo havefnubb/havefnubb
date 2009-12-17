@@ -85,7 +85,7 @@ class postsCtrl extends jController {
         // 2- limit per page 
         $nbPostPerPage = 0;
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
-        
+
         // get all the posts of the current Forum by its Id
         list($page,$nbPosts,$posts) = $hfnuposts->getPostsByIdForum($id_forum,$page,$nbPostPerPage);
         		
@@ -104,7 +104,7 @@ class postsCtrl extends jController {
             $rep->title = $forum->forum_name;
         else
             $rep->title = $forum->forum_name . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1) ;
-		
+	
         $tpl = new jTpl();        
         // B- Using the collected datas
         // 1- the posts 

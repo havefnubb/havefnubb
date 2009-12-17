@@ -54,7 +54,7 @@
 </div>
 
 <div class="linkpages">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
 
 <table class="data_table" width="100%">
@@ -81,5 +81,5 @@
 </table>
 {hook 'hfbAfterMembersList'}
 <div class="linkpages">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>

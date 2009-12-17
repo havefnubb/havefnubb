@@ -15,6 +15,7 @@ class forumchildZone extends jZone {
         
         $id_forum   = $this->param('id_forum');
         $lvl        = $this->param('lvl');
+    
         $calledFrom = $this->param('calledFrom');
         
         if (! $id_forum ) return;

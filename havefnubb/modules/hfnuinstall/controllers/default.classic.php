@@ -11,8 +11,8 @@
 // Installation controller
 class defaultCtrl extends jController {
     public $pluginParams = array(
-        '*'		=>	array('auth.required'=>false,
-						  'hfnu.timeout.do.not.check'=>true)
+        '*' =>array('auth.required'=>false,
+        	'hfnu.timeout.do.not.check'=>true)
     );
     
     /**

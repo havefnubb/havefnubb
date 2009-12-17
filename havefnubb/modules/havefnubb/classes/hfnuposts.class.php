@@ -87,7 +87,7 @@ class hfnuposts {
      * @param integer $nbPostPerPage the number of posts per page
      * @return array $page,$nbPosts,$posts if no record have been found, return page = 0 otherwise return the posts 
      */
-    public static function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {    
+    public static function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {
         $daoPost = jDao::get('havefnubb~posts');
         // total number of posts
         $nbPosts = $daoPost->countPostsByForumId($id_forum);

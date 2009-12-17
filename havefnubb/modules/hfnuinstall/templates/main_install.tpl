@@ -21,9 +21,10 @@
 			<h2>{@hfnuinstall~install.home.welcome@}</h2>	
 		</div>
 		<div class="grid_4 alpha">
-			<ol id="id">
+			<ol id="id">				
 		{if $step == 'update'}
 			<li class="actif">{@hfnuinstall~install.home.update@} ></li>
+		{elseif $step == 'migrate'}
 		{else}
             <li {if $step == 'home'} class="actif"{/if}>{@hfnuinstall~install.home@}</li>
             <li {if $step == 'check'} class="actif"{/if}>{@hfnuinstall~install.checking@}</li>

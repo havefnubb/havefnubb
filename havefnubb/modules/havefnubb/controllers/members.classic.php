@@ -44,15 +44,16 @@ class membersCtrl extends jController {
 	$grpid = (int) $this->param('grpid');
 	$groupname = jLocale::get('havefnubb~member.memberlist.allgroups');
 	if ($grpid > 0 ) {
-		$dao = jDao::get('jelix~jacl2group');
-		$conditions = jDao::createConditions();
-		$conditions->addCondition('id_aclgrp','=',$grpid);
-		$grpnames = $dao->findBy($conditions);
-		foreach ($grpnames as $grpname)
-			$groupname = $grpname->name;
+            $dao = jDao::get('jelix~jacl2group');
+            $conditions = jDao::createConditions();
+            $conditions->addCondition('id_aclgrp','=',$grpid);
+            $grpnames = $dao->findBy($conditions);
+            foreach ($grpnames as $grpname)
+                    $groupname = $grpname->name;
 	}
 	$beginningBy = '';
-	if ($letter != '')
+
+	if (strlen($letter) == 1 )
 	    $beginningBy = ' - ' .jLocale::get('havefnubb~member.memberlist.members.beginning.by',array($letter));
 	// change the label of the breadcrumb
         if ($page == 0) {		
@@ -61,7 +62,7 @@ class membersCtrl extends jController {
 	}
 	else {
 	    $GLOBALS['gJCoord']->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));
-	    $rep->title = jLocale::get('havefnubb~member.members.list') . ' - ' . $groupname .$beginningBy. ' ' .($page+1) ;			
+	    $rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname .$beginningBy. ' ' .($page+1) ;			
 	}
 		
         $rep->body->assignZone('MAIN',

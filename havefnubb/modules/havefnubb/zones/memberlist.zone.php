@@ -22,7 +22,7 @@ class memberlistZone extends jZone {
         $grpid = -2;
         if ($this->param('grpid')) 
             $grpid =  intval($this->param('grpid'));
-        
+	    
         $nbMembersPerPage = (int) $gJConfig->havefnubb['members_per_page'];
         
         $p = jAcl2Db::getProfile();
@@ -34,8 +34,8 @@ class memberlistZone extends jZone {
             $dao = jDao::get('jelix~jacl2groupsofuser',$p);
             $cond = jDao::createConditions();
             $cond->addCondition('grouptype', '=', 2);
-            $cond->addCondition('status', '=', 1);
-            if ($letter != '')  {
+            $cond->addCondition('status', '=', 2);
+            if (strlen($letter) == 1)  {
                 $cond->addCondition('login', 'like', $letter . '%');                
             }
             elseif ($memberSearch != '') {
@@ -79,9 +79,9 @@ class memberlistZone extends jZone {
         }
 		
         $letters[] = jLocale::get('havefnubb~member.memberlist.select.an.initial.nickname');
-		for ($i = 0 ; $i < 26 ; $i ++) {
-			$letters[] = chr(97 + $i);
-		}
+	for ($i = 0 ; $i < 26 ; $i ++) {
+	    $letters[] = chr(97 + $i);
+	}
 
         $daoRank = jDao::get('havefnubb~ranks');
         $ranks = $daoRank->findAll();
@@ -94,7 +94,7 @@ class memberlistZone extends jZone {
                       'next-label'  => '',
                       'end-label'   => jLocale::get("havefnubb~member.pagelinks.end"),
                       'area-size'   => 5);
-		
+
         // 1- vars for pagelinks
         $this->_tpl->assign('groups', $groups);
         $this->_tpl->assign('page',$page);                

@@ -40,7 +40,7 @@
 </div>
 
 <div class="pager-posts">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
 <div class="box">
     <div class="block">
@@ -75,5 +75,5 @@
 </div>
 {hook 'hfbAfterMembersList'}
 <div class="pager-posts">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:list', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>

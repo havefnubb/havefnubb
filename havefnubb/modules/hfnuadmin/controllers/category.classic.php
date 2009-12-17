@@ -65,7 +65,7 @@ class categoryCtrl extends jController {
             
             $dao->insert($record);
 
-	    jForms::destroy('havefnubb~category');
+	    jForms::destroy('hfnuadmin~category');
     
             jMessage::add(jLocale::get('hfnuadmin~category.category.added'),'ok');
         }
@@ -103,11 +103,11 @@ class categoryCtrl extends jController {
                     
                     $dao->update($record);
             }
-            jForms::destroy('havefnubb~category');
+            jForms::destroy('hfnuadmin~category');
             jMessage::add(jLocale::get('hfnuadmin~category.category.modified'),'ok');
         }
         else {
-            jForms::destroy('havefnubb~category');
+            jForms::destroy('hfnuadmin~category');
             jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');			
         }
 		
