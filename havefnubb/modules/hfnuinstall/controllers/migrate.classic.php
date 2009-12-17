@@ -11,14 +11,14 @@
 // Migration controller
 class migrateCtrl extends jController {
     public $pluginParams = array(
-        '*' =>array('auth.required'=>false,
+        '*' =>array('auth.required'=>true,
         	'hfnu.timeout.do.not.check'=>true)
-    );        
+    );
+    
     function phorum() {
         global $gJConfig;
 
         $cnx = jDb::getConnection();
-        /*
         // Let's Migrate the config
         $data = $cnx->query("SELECT * FROM ".$cnx->prefixTable('phorum_settings') .
                           " WHERE name = 'html_title' or name = 'system_email_from_address'" );
@@ -37,17 +37,13 @@ class migrateCtrl extends jController {
         
         $mainConfig->save();
 
-        */
         // Let's Migrate the members
         $data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('phorum_users') );
         $nbUsers = $data->rowCount();
         
         $dao = jDao::get('havefnubb~member');
         foreach ($data as $member) {
-            if ( $member->active == 1 )
-                $status = 2;
-            else
-                $status = $member->active;
+
             $insertSQL = 'INSERT INTO '.$cnx->prefixTable('member') . ' ( ' .
                         'id_user,
                         member_login,
@@ -66,7 +62,7 @@ class migrateCtrl extends jController {
                             "'.$member->password.'",
                             "'.$member->email.'",
                             "'.$member->display_name.'",
-                            "'.$status.'",
+                            "'.$member->active.'",
                             "'.$member->date_last_active.'",
                             "'.date('Y-m-d h:i:s',$member->date_added).'",
                             "'.utf8_encode(addslashes($member->signature)).'",
@@ -110,7 +106,6 @@ class migrateCtrl extends jController {
         }
 
         // Let's Migrate the forums
-        /*
         $data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('phorum_forums') );
         $nbForums = $data->rowCount();
         foreach ($data as $forum) {
@@ -197,7 +192,7 @@ class migrateCtrl extends jController {
                                     "'1'".
                                     " ) " ;
             $cnx->exec($insertSQL); 			
-        }*/
+        }
 
         $rep = $this->getResponse('html');
         $tpl = new jTpl();

@@ -19,6 +19,9 @@ class forumCtrl extends jController {
 		    'banuser.check'=>true,
 	  ),	
 	'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+        'edit'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+        'saveedit'=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+        'defaultrights'=> array( 'jacl2.right'=>'hfnu.admin.forum'),
         'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
     );    
 
