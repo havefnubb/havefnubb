@@ -140,8 +140,10 @@ class forumCtrl extends jController {
         }
         $dao = jDao::get('havefnubb~forum');
         $forum = $dao->get($id_forum);
-    
 
+        $form = jForms::create('hfnuadmin~forum_edit',$id_forum);
+        $form->initFromDao("havefnubb~forum");
+        
         $rep = $this->getResponse('html');
 	$rep->body->assign('selectedMenuItem','forum');
         $tpl = new jTpl();
@@ -174,12 +176,8 @@ class forumCtrl extends jController {
             $rights[$rec->id_aclsbj][$rec->id_aclgrp] = true;
         }
         
-        //initializing of the Token
-        $token = jClasses::getService("havefnubb~hfnutoken");
-        $token->setHfnuToken();
-        
-        $tpl->assign('hfnutoken',$token->getHfnuToken());
         $tpl->assign('forum',$forum);
+        $tpl->assign('form',$form);
         $tpl->assign(compact('groups', 'rights'));        
         $rep->body->assign('MAIN',$tpl->fetch('forum_edit'));
         return $rep;        
@@ -187,12 +185,22 @@ class forumCtrl extends jController {
 
     function saveedit () {
         $id_forum = (int) $this->param('id_forum');
-        $hfnutoken = (string) $this->param('hfnutoken');
         
-        //let's check if we have a valid token in our form
-        $token = jClasses::getService("havefnubb~hfnutoken");       
-        $token->checkHfnuToken($hfnutoken);
+        $submit = $this->param('validate');
         
+        if ($submit == jLocale::get('hfnuadmin~forum.saveBt') ) {
+            $form = jForms::fill('hfnuadmin~forum_edit',$id_forum);
+            if (!$form->check()) {
+                jMessage::add(jLocale::get('hfnuadmin~forum.unknown.forum'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action='hfnuadmin~forum:edit';
+                $rep->params = array('id_forum'=>$id_forum);
+                return $rep;                
+            }
+            $form->saveToDao('havefnubb~forum');
+        }
+
+        /*
         if ($id_forum == 0) {
             jMessage::add(jLocale::get('hfnuadmin~forum.unknown.forum'),'error');
             $rep = $this->getResponse('redirect');
@@ -221,8 +229,8 @@ class forumCtrl extends jController {
             $rep->action='hfnuadmin~forum:edit';
             $rep->params = array('id_forum'=>$id_forum);
             return $rep;                 
-        }
-        
+        }*/
+        /*
         $dao = jDao::get('havefnubb~forum');
         
         $record = $dao->get($id_forum);
@@ -236,7 +244,7 @@ class forumCtrl extends jController {
         $dao->update($record);
        
         jMessage::add(jLocale::get('hfnuadmin~forum.forum.modified'),'ok');
-        
+        */
         /**************/        
         $rights = $this->param('rights',array());
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
@@ -269,11 +277,6 @@ class forumCtrl extends jController {
     function defaultrights() {
             
         $id_forum = (int) $this->param('id_forum');
-        $hfnutoken = (string) $this->param('hfnutoken');
-        
-        //let's check if we have a valid token in our form
-        $token = jClasses::getService("havefnubb~hfnutoken");       
-        $token->checkHfnuToken($hfnutoken);
         
         if ($id_forum == 0) {
             jMessage::add(jLocale::get('hfnuadmin~forum.unknown.forum'),'error');
@@ -286,7 +289,7 @@ class forumCtrl extends jController {
         
         jMessage::add(jLocale::get('hfnuadmin~forum.forum.rights.restored'),'ok');
         $rep = $this->getResponse('redirect');
-                $rep->params = array('id_forum'=>$id_forum);
+        $rep->params = array('id_forum'=>$id_forum);
         $rep->action='hfnuadmin~forum:edit';
         return $rep;  
     }   
