@@ -3,24 +3,27 @@
     <datasources>
         <primarytable name="rank" realname="rank" primarykey="id_rank" />
     </datasources>
-    <record>
-        
+    <record>        
         <property name="id_rank" fieldname="id_rank" datatype="autoincrement"/>
         <property name="rank_name" fieldname="rank_name" datatype="string" required="true" maxlength="40"/>
-        <property name="rank_limit" fieldname="rank_limit" datatype="int" required="true" maxlength="9"/>
-    
+        <property name="rank_limit" fieldname="rank_limit" datatype="int" required="true" maxlength="9"/>    
     </record>
     <factory>
-     <method name="findAll" type="select">
-         <order>
-             <orderitem property="rank_limit" way="asc" />
-         </order>
-     </method>
+        <method name="findAll" type="select">
+            <order>
+                <orderitem property="rank_limit" way="asc" />
+            </order>
+        </method>
         <method name="getMyRank" type="selectfirst">
             <parameter name="nb_msg" />
             <conditions>
                 <gteq property="rank_limit" expr="$nb_msg" />
             </conditions>
-        </method>        
+        </method>
+        <method name="getHigherRank" type="selectfirst">
+            <order>
+                <orderitem property="rank_limit" way="desc" />
+            </order>
+        </method>                
     </factory>
 </dao>

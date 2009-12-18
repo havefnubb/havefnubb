@@ -45,7 +45,7 @@ function jtpl_function_html_social_networks($tpl, $params) {
 
 function social_delicious($jurl, $jurlParams, $title) {
     global $gJConfig;
-    $params = array('width'=>32,'height'=>32,'alt'=>'delicious');
+    $params = array('width'=>16,'height'=>16,'alt'=>'delicious');
     $deliciousUrl = 'http://del.icio.us/post?';
     $deliciousUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
     $deliciousUrl .= '&amp;title='.urlencode($title);
@@ -54,7 +54,7 @@ function social_delicious($jurl, $jurlParams, $title) {
 
 function social_facebook($jurl, $jurlParams, $title) {
     global $gJConfig;
-    $params = array('width'=>32,'height'=>32,'alt'=>'facebook');
+    $params = array('width'=>16,'height'=>16,'alt'=>'facebook');
     $facebookUrl = 'http://www.facebook.com/sharer.php?';
     $facebookUrl .= 'u=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
     echo '<a href="'.$facebookUrl.'" title="facebook" >'.make_image('themes/'.$gJConfig->theme.'/'.$gJConfig->social_networks['images_path'].'/Facebook.png',$params).'</a> ';
@@ -62,7 +62,7 @@ function social_facebook($jurl, $jurlParams, $title) {
 
 function social_reddit($jurl, $jurlParams, $title) {
     global $gJConfig;
-    $params = array('width'=>32,'height'=>32,'alt'=>'reddit');
+    $params = array('width'=>16,'height'=>16,'alt'=>'reddit');
     $redditUrl = 'http://reddit.com/submit?';
     $redditUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
     $redditUrl .= '&amp;title='.urlencode($title);
@@ -71,7 +71,7 @@ function social_reddit($jurl, $jurlParams, $title) {
 
 function social_twitter($jurl, $jurlParams, $title) {
     global $gJConfig;
-    $params = array('width'=>32,'height'=>32,'alt'=>'twitter');
+    $params = array('width'=>16,'height'=>16,'alt'=>'twitter');
     $twitterUrl = 'http://twitter.com/timeline/home?status=';
     $twitterUrl .= urlencode('I Read '.$title.' ').'http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
     echo '<a href="'.$twitterUrl.'" title="twitter" >'.make_image('themes/'.$gJConfig->theme.'/'.$gJConfig->social_networks['images_path'].'/Twitter.png',$params).'</a> ';
@@ -79,7 +79,7 @@ function social_twitter($jurl, $jurlParams, $title) {
 
 function social_digg($jurl, $jurlParams, $title) {
     global $gJConfig;
-    $params = array('width'=>32,'height'=>32,'alt'=>'digg');
+    $params = array('width'=>16,'height'=>16,'alt'=>'digg');
     $diggUrl = 'http://digg.com/submit?phase=2&amp;';
     $diggUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
     $diggUrl .= '&amp;title='.urlencode($title); 
@@ -88,7 +88,7 @@ function social_digg($jurl, $jurlParams, $title) {
 
 function social_netvibes($jurl, $jurlParams, $title) {
     global $gJConfig;
-    $params = array('width'=>32,'height'=>32,'alt'=>'netvibes');
+    $params = array('width'=>16,'height'=>16,'alt'=>'netvibes');
     $netvibesUrl = 'http://www.netvibes.com/share?';
     $netvibesUrl .= 'url=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
     $netvibesUrl .= '&amp;title='.urlencode($title);

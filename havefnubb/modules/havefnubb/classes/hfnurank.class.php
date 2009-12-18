@@ -22,8 +22,12 @@ class hfnurank {
      * @return $ranks string the rank corresponding to the nb of messages
      */
     public static function getRank($nbMsg) {
-        if (!isset(self::$ranks[$nbMsg])) 
-            self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getMyRank($nbMsg);
+        if (!isset(self::$ranks[$nbMsg]))
+            if (jDao::get('havefnubb~ranks')->getMyRank($nbMsg) === false) 
+                self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getHigherRank();
+            else {
+                self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getMyRank($nbMsg);
+            }
         return self::$ranks[$nbMsg];
     }
     

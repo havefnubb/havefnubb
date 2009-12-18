@@ -9,6 +9,7 @@
       <property name="id_aclgrp" fieldname="id_aclgrp" datatype="int" required="yes"/>
       <property name="status" fieldname="member_status" table="usr" datatype="integer" />
       <property name="nb_msg" fieldname="member_nb_msg" table="usr" datatype="integer" />
+      <property name="member_created" fieldname="member_created" table="usr" datatype="datetime" />
       <property name="request_date" fieldname="member_request_date" table="usr" datatype="datetime" />
     </record>
 
@@ -36,7 +37,7 @@
             <parameter name="ordre" default="asc" />
             <conditions>
                 <eq property="id_aclgrp" expr="$grp" />
-                <eq property="status" value="2"/>
+                <eq property="status" value="1"/>
             </conditions>
             <order>
                 <orderitem property="login" way="$ordre" />
