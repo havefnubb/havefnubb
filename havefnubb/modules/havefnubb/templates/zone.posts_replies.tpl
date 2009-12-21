@@ -3,7 +3,7 @@
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$id_forum}
-    {if $parentStatus != "closed" and $parentStatus != 'pinedclosed' and $status != 'closed'}
+    {if $parentStatus != "closed" or $parentStatus != 'pinedclosed' or $status != 'closed'}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {foreach $groups as $group}
@@ -116,7 +116,7 @@
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$id_forum}
-    {if $parentStatus != "closed" or $parentStatus != 'pinedclosed' and $status != 'closed'}
+    {if $parentStatus != "closed" or $parentStatus != 'pinedclosed' or $status != 'closed'}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {foreach $groups as $group}
