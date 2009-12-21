@@ -12,17 +12,17 @@ class newestpostsZone extends jZone {
     protected $_tplname='zone.newestposts';
 
     protected function _prepareTpl(){
-        $status = '';        
+        $status = '';
         $source = $this->param('source');
 
         $dao = jDao::get('havefnubb~newest_posts');
-       
+
         if ($source == 'forum') {
-            $id_forum = (int) $this->param('id_forum'); 
+            $id_forum = (int) $this->param('id_forum');
             if ($id_forum < 1) return;
             $rec = $dao->getLastPostByIdForum($id_forum);
-            
-            if ( $rec === false) 
+
+            if ( $rec === false)
                 $status = 'forumicone';
             else
                 $status = 'forumiconenew';
@@ -32,22 +32,22 @@ class newestpostsZone extends jZone {
             //@TODO put the $availableStatus in the config file .
             $availableStatus = array('opened','closed','pined','pinedclosed','censored');
             if (! in_array($this->param('status'),$availableStatus)) return;
-            
+
             $id_post    = (int) $this->param('id_post');
             $id_forum   = (int) $this->param('id_forum');
 
             if ($id_post < 1) return "";
             if ($id_forum < 1) return "";
-            
+
             $rec = jClasses::getService('havefnubb~hfnuposts')->getPostStatus($id_post);
 
             if ( $rec === false )
                 $status = $this->param('status');
             else
-                if ($this->param('display') == 'icon')
+                if ($this->param('display') == 'icon' and $this->param('status') == 'opened' )
                     $status = 'post-new';
                 else
-                    $status = 'opened';
+                    $status = $this->param('status');
 
             $day_in_secondes = 24 * 60 * 60;
     	    $dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $day_in_secondes) : floor( (time() - $rec->date_modified ) / $day_in_secondes) ;
@@ -60,7 +60,7 @@ class newestpostsZone extends jZone {
         }
         if ($this->param('display') == 'text')
             $status = jLocale::get('havefnubb~post.status.'.$status);
-            
+
         $this->_tpl->assign('post_status',$status);
     }
 }

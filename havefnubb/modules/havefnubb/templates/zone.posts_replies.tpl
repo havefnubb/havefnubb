@@ -10,7 +10,7 @@
             {if $group->id_aclgrp == 1 or $group->id_aclgrp == 3}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
             {/if}
-        {/foreach}    
+        {/foreach}
     {/if}
 {/ifacl2}
 </div>
@@ -34,14 +34,14 @@
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
-        {if $post->parent_id == $post->id_post}        
+        {if $post->parent_id == $post->id_post}
         {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
                 'source'=>'post',
                 'return_url'=>'havefnubb~posts:view',
-                'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle) 
+                'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
                 )}
         {/if}&nbsp;
-        </div>              
+        </div>
         <div class="grid_8 postheading">
         <h5>{$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</h5>
         </div>
@@ -52,7 +52,7 @@
         {/if}
         <div class="clear"></div>
         <div class="grid_4">
-        {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}        
+        {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}
         </div>
         <div class="grid_12 postbody">
         {if $post->status == 'censored'}
@@ -61,7 +61,7 @@
             <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
             {$post->message|wiki:'hfb_rule'|stripslashes}
             {/ifacl2}
-        {else}        
+        {else}
             {$post->message|wiki:'hfb_rule'|stripslashes}
         {/if}
         </div>
@@ -76,7 +76,7 @@
     <div class="postfoot fake-button">
        &nbsp;
        {zone 'hfnucontact~send_to_friend', array('action'=>'havefnubb~posts:view','parms'=>array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum))}
-        {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}            
+        {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
         <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}
         {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
@@ -85,7 +85,7 @@
         {else}
         <span class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
         {/if}
-        {/ifacl2}        
+        {/ifacl2}
         {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
         <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
          {/ifacl2}
@@ -105,7 +105,7 @@
         {if $status != 'closed'}
         <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
         {/if}
-        {/ifacl2}            
+        {/ifacl2}
     </div>
 </div>
     {/ifacl2}
@@ -123,7 +123,7 @@
             {if $group->id_aclgrp == 1 or $group->id_aclgrp == 3}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
             {/if}
-        {/foreach}    
+        {/foreach}
     {/if}
 {/ifacl2}
 </div>
@@ -150,16 +150,16 @@
     <h2>{@havefnubb~post.status.change.the.status.of.the.post@}</h2>
 {form $formStatus, 'havefnubb~posts:status',array('parent_id'=>$parent_id)}
     <div class="block">
-    {ctrl_label 'status'} {ctrl_control 'status'} {formsubmit 'validate'} 
-    </div>    
+    {ctrl_label 'status'} {ctrl_control 'status'} {formsubmit 'validate'}
+    </div>
 {/form}
-</div>    
+</div>
 <div class="box">
     <h2>{@havefnubb~forum.move.this.thread@}</h2>
-{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post)}    
+{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post)}
     <div class="block">
     {ctrl_label 'id_forum'} {ctrl_control 'id_forum'} {formsubmit 'validate'}
     </div>
-{/form}    
+{/form}
 </div>
 {/ifacl2}

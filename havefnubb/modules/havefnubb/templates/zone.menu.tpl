@@ -7,6 +7,6 @@
 {else}{$item->content}{/if}
         </li>
 {/foreach}
-    </ul>      
+    </ul>
     {/if}
 {/foreach}

@@ -11,14 +11,15 @@
 // Migration controller
 class migrateCtrl extends jController {
     public $pluginParams = array(
-        '*' =>array('auth.required'=>true,
+        '*' =>array('auth.required'=>false,
         	'hfnu.timeout.do.not.check'=>true)
     );
-    
+
     function phorum() {
         global $gJConfig;
 
         $cnx = jDb::getConnection();
+
         // Let's Migrate the config
         $data = $cnx->query("SELECT * FROM ".$cnx->prefixTable('phorum_settings') .
                           " WHERE name = 'html_title' or name = 'system_email_from_address'" );
@@ -34,13 +35,13 @@ class migrateCtrl extends jController {
                 $nbSettings++;
             }
         }
-        
+
         $mainConfig->save();
 
         // Let's Migrate the members
         $data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('phorum_users') );
         $nbUsers = $data->rowCount();
-        
+
         $dao = jDao::get('havefnubb~member');
         foreach ($data as $member) {
 
@@ -65,7 +66,7 @@ class migrateCtrl extends jController {
                             "'.$member->active.'",
                             "'.$member->date_last_active.'",
                             "'.date('Y-m-d h:i:s',$member->date_added).'",
-                            "'.utf8_encode(addslashes($member->signature)).'",
+                            "'.addslashes($member->signature).'",
                             "'.$member->posts.'",
                             "0"
                         )';
@@ -95,26 +96,26 @@ class migrateCtrl extends jController {
             $daogroup->insert($persgrp);
             $usergrp->id_aclgrp = $persgrp->id_aclgrp;
             $daousergroup->insert($usergrp);
-            
+
             jAcl2DbUserGroup::addUserToGroup($member->username,2);
-            
+
             //if this user an admin ?
-            if ($member->admin == 1) {			
+            if ($member->admin == 1) {
                 jAcl2DbUserGroup::addUserToGroup($member->username,1);
             }
-                
+
         }
 
         // Let's Migrate the forums
         $data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('phorum_forums') );
         $nbForums = $data->rowCount();
         foreach ($data as $forum) {
-                
-            if ($forum->parent_id == 0) 
+
+            if ($forum->parent_id == 0)
                $childLevel = 0;
             else
                 $childLevel = 1;
-                    
+
             $insertSQL = 'INSERT INTO '.$cnx->prefixTable('forum') . ' ( ' .
                                     " id_forum, " .
                                     " forum_name, " .
@@ -129,9 +130,9 @@ class migrateCtrl extends jController {
                                     " ) " .
                                     " VALUES ( ".
                                     "'".$forum->forum_id."',".
-                                    "'".utf8_encode(addslashes($forum->name))."',".
+                                    "'".addslashes($forum->name)."',".
                                     "'1',".
-                                    "'".utf8_encode(addslashes($forum->description))."',".
+                                    "'".addslashes($forum->description)."',".
                                     "'".$forum->display_order."',".
                                     "'".$forum->parent_id."',".
                                     "'".$childLevel."',".
@@ -142,25 +143,25 @@ class migrateCtrl extends jController {
             $cnx->exec($insertSQL);
             // set default rights to the forum;
             jClasses::getService('hfnuadmin~hfnuadminrights')->resetRights($forum->forum_id);
-        }
+	}
 
         $daoUser = jDao::get('havefnubb~member');
         // Let's Migrate the posts
         $data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('phorum_messages') );
         $nbPosts = $data->rowCount();
         foreach ($data as $posts) {
-                
+
             if ($posts->parent_id == 0 )
                 $parent_id = $posts->message_id;
             else
                 $parent_id =  $posts->parent_id;
-                    
+
             switch ($posts->status) {
                     case 2 : $status = 'opened'; break;
                     case -1 : $status = 'pined'; break;
                     case -2 : $status = 'hidden'; break;
             }
-                    
+
             $insertSQL = 'INSERT INTO '.$cnx->prefixTable('posts') . ' ( ' .
                                     " id_post, " .
                                     " id_user, " .
@@ -182,8 +183,8 @@ class migrateCtrl extends jController {
                                     $posts->forum_id."','".
                                     $parent_id."','".
                                     $status."','".
-                                    utf8_encode(addslashes($posts->subject))."','".
-                                    utf8_encode(addslashes($posts->body))."','".
+                                    addslashes($posts->subject)."','".
+                                    addslashes($posts->body)."','".
                                     $posts->datestamp."','".
                                     $posts->modifystamp."','".
                                     $posts->viewcount."','".
@@ -191,7 +192,7 @@ class migrateCtrl extends jController {
                                     "'',".
                                     "'1'".
                                     " ) " ;
-            $cnx->exec($insertSQL); 			
+            $cnx->exec($insertSQL);
         }
 
         $rep = $this->getResponse('html');
@@ -202,6 +203,6 @@ class migrateCtrl extends jController {
         $tpl->assign('nbPosts',$nbPosts);
         $rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~migrate'));
         $rep->body->assign('step', 'migrate');
-        return $rep;	
-    }	
+        return $rep;
+    }
 }

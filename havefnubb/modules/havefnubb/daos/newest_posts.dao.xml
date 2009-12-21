@@ -4,30 +4,30 @@
         <primarytable name="posts" realname="posts" primarykey="id_post" />
         <foreigntable name="usr" realname="member" primarykey="id_user" onforeignkey="id_user" />
     </datasources>
-    <record>        
-		<property name="id_post" fieldname="id_post" datatype="autoincrement"/>
-		<property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>		
-		
-		<property name="date_created" fieldname="date_created" datatype="int" required="true"/>
-		<property name="date_modified" fieldname="date_modified" datatype="int" required="true"/>
-		
-		<!-- properties from member table -->
-		<property name="member_last_post" fieldname="member_last_post" table="usr"  datatype="integer" />				
-    </record>	
-	
+    <record>
+	<property name="id_post" fieldname="id_post" datatype="autoincrement"/>
+	<property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
+
+	<property name="date_created" fieldname="date_created" datatype="int" required="true"/>
+	<property name="date_modified" fieldname="date_modified" datatype="int" required="true"/>
+
+	<!-- properties from member table -->
+	<property name="member_last_post" fieldname="member_last_post" table="usr"  datatype="integer" />
+    </record>
+
 	<!-- naming convention :
 		findXXX uses type="select"
 		getXXX uses type="selectfirst"
-		countXXX uses type="count"		
+		countXXX uses type="count"
 	-->
-    <factory>        
+    <factory>
         <!-- get the posts to be displayed on the index of the forum page -->
         <method name="getLastPostByIdForum" type="selectfirst">
             <parameter name="id_forum" />
             <conditions>
                 <eq property="id_forum" expr="$id_forum" />
-				<gt property="date_created" expr="member_last_post" />
-            </conditions>            
+		<gt property="date_created" expr="member_last_post" />
+            </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
             </order>
@@ -36,11 +36,11 @@
             <parameter name="id_post" />
             <conditions>
                 <eq property="id_post" expr="$id_post" />
-				<gteq property="date_created" expr="member_last_post" />
-            </conditions>            
+		<gteq property="date_created" expr="member_last_post" />
+            </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
             </order>
-        </method>		
+        </method>
     </factory>
 </dao>
