@@ -1173,15 +1173,15 @@ class postsCtrl extends jController {
                 return $rep;
             }
             else {
-                    $post  = $result;
-                    jMessage::add(jLocale::get('havefnubb~post.status.censored'),'ok');
-                    $rep->action = 'havefnubb~posts:view';
-                    $rep->params = array('id_post'=>$post->id_post,
-                                        'parent_id'=>$parent_id,
-                                        'id_forum'=>$post->id_forum,
-                                        'ftitle'=>$post->forum_name,
-                                        'ptitle'=>$post->subject);
-                    return $rep;
+                $post  = $result;
+                jMessage::add(jLocale::get('havefnubb~post.status.censored'),'ok');
+                $rep->action = 'havefnubb~posts:view';
+                $rep->params = array('id_post'=>$post->id_post,
+                                    'parent_id'=>$parent_id,
+                                    'id_forum'=>$post->id_forum,
+                                    'ftitle'=>$post->forum_name,
+                                    'ptitle'=>$post->subject);
+                return $rep;
             }
 
         }

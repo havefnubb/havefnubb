@@ -5,12 +5,12 @@
 <hidden ref="parent_id"/>
 
 <input ref="censored_msg" required="true">
-    <label locale="havefnubb~main.censor.message" default="havefnubb~main.censor.default.reason" />  
+    <label locale="havefnubb~main.censor.this.message" default="havefnubb~main.censor.default.reason" />
 </input>
 
 <submit ref="validate">
   <label>Veuillez valider</label>
-  <item value="ok" locale="havefnubb~post.status.ok"/>  
+  <item value="ok" locale="havefnubb~post.status.ok"/>
 </submit>
 
 </form>

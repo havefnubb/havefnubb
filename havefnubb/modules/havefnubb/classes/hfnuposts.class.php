@@ -62,13 +62,10 @@ class hfnuposts {
      */
     public static function delete($id_post) {
         if ($id_post == 0 ) return false;
-        if ( self::deletePost($id_post) === true ) {
-            $dao = jDao::get('havefnubb~posts');
-	    $dao->delete($id);
-            return true;
-        }
-        else
-            return false;
+        self::deletePost($id_post);
+        $dao = jDao::get('havefnubb~posts');
+	$dao->delete($id_post);
+        return true;
     }
     /**
      * delete a post from the array $posts
