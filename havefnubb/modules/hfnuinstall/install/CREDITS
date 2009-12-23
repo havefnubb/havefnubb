@@ -6,6 +6,9 @@ Modules :
 * jTags - Bastien Jaillot
 * jMessenger - Bastien Jaillot
 
+Class hfnuStemmer :
+* adapted by Bastien Jaillot
+
 Plugins : 
 * jGoogleAnalytics - Loic Mathaud <loic@mathaud.net>
 
