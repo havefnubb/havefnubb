@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urls xmlns="http://jelix.org/ns/urls/1.0">
   
-    <classicentrypoint name="index" default="true" noentrypoint="true">
+    <classicentrypoint name="index" default="true" noentrypoint="false">
         <!--url pathinfo="/" module="hfnuportal" action="default:index"/-->
         <url pathinfo="/404" module="jelix" action="error:notfound"/>
         
@@ -152,7 +152,7 @@
 			<param name="dir" type="string" />
 		</url>               
 		<url pathinfo="/downloads/dl/:id" module="downloads" action="default:dl">
-			<param name="id" type="integer" />
+			<param name="id" type="number" />
 		</url>
 		<url pathinfo="/downloads/:dir/:url" module="downloads" action="default:view">
 			<param name="dir" type="string" />
@@ -176,6 +176,14 @@
         <!-- hfnurates module -->
 		<url pathinfo="/rates/it"  module="hfnurates" action="default:rate_it"/>
         <url pathinfo="/rates/ait" module="hfnurates" action="default:rate_ajax_it"/>
+        
+        <url pathinfo="/mark_all_as_read" module="havefnubb" action="forum:mark_all_as_read"/>
+        
+        <url pathinfo="/mark_forum_as_read/:id_forum" module="havefnubb" action="forum:mark_forum_as_read">
+            <param name="id_forum" type="number"/>
+        </url>
+
+        <url pathinfo="/posts/shownew" module="havefnubb" action="posts:shownew"/>
         
     </classicentrypoint>
         

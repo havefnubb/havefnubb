@@ -76,11 +76,12 @@ class forumCtrl extends jController {
     }
 	
     public function mark_forum_as_read() {
-	$id_forum = (int) $this->param('id_forum');
+	$id_forum = (int) $this->param('id_forum');        
 	$rep = $this->getResponse('redirect');
 	jClasses::getService('havefnubb~hfnuread')->markForumAsRead($id_forum);
-	$rep->action = 'posts:lists';
-	$rep->params = array('id_forum'=>$id_forum);
+	$rep->action = 'havefnubb~posts:lists';
+	$rep->params = array('id_forum'=>$id_forum,
+                             'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
 	return $rep;		
     }
 

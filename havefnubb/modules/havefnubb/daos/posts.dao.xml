@@ -300,7 +300,17 @@
         </method>
         <method name="findUnreadThreadByMod" type="select" distinct="true" groupby="parent_id">
             <conditions>
-		<eq property="read_by_mod" value="0" />
+				<eq property="read_by_mod" value="0" />
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>				
+        <method name="findUnreadThread" type="select" distinct="true" groupby="parent_id">
+			<parameter name="limit"/>
+            <conditions logic="OR">
+				<gt property="date_created" expr="$limit" />
+				<gt property="date_modified" expr="$limit" />
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />

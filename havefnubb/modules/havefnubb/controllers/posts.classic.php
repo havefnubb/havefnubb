@@ -1223,7 +1223,7 @@ class postsCtrl extends jController {
     public function shownew() {
 	$rep = $this->getResponse('html');
         $tpl = new jTpl();
-        $posts = jClasses::getService('havefnubb~hfnuread')->getUnreadThread();
+        $posts = jClasses::getService('havefnubb~hfnuread')->findUnreadThread();
         $tpl->assign('posts',$posts);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.shownew'));
         return $rep;

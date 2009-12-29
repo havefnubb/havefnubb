@@ -102,33 +102,11 @@ class hfnuread {
      * then return the given record
      * @return $data record
      */
-    public static function getUnreadThread() {
-        //@TODO : check the message the guy does not read +
-        // display the message from the forum the guy has access
-        
-        //@TODO select * from post where id_user <> jAuth::getUserSession()->id
-        // and id_post not in (select id_post from read_post)
-        $cnx = jDb::getConnection(); 
-        $posts = $cnx->query("SELECT distinct parent_id, " . 
-                              "rp.id_post,". 
-                              "rp.id_forum,". 
-                              "p.subject,". 
-                              "p.message,". 
-                              "p.status,". 
-                              "p.date_created,". 
-                              "p.date_modified,". 
-                              "p.viewed,". 
-                              "p.poster_ip,". 
-                              "p.censored_msg ". 
-                              "  FROM ". 
-                              $cnx->prefixTable('read_posts') . " as rp, " . 
-                              $cnx->prefixTable('posts') . " as  p " . 
-                              " WHERE " . 
-                              " rp.id_user = '".jAuth::getUserSession()->id."' " . 
-                              " AND ". 
-                              " p.id_user <> '".jAuth::getUserSession()->id."' group by parent_id"  
-                              ); 
-        return $posts;        
+    public static function findUnreadThread() {
+        // limit before considering the are new posts
+        $limit = time() - 900;
+        $posts = jDao::get('havefnubb~posts')->findUnreadThread($limit);
+		return $posts;    
     }
     
 }
