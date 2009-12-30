@@ -1,4 +1,4 @@
 ;<?php die(''); ?>
 ; this email will be used if the "to" param of the contact form is empty
-to_contact=foo
-email_contact=foo@bar.com
+to_contact=
+email_contact=
