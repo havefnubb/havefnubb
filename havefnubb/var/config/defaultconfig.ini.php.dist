@@ -210,8 +210,8 @@ stats_nb_of_lastpost=3
 post_max_size=1000
 
 [hfnucontact]
-to_contact="toto"
-email_contact="toto@tata.com"
+to_contact=
+email_contact=
 
 [social_networks]
 twitter=1
