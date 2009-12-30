@@ -1,0 +1,55 @@
+<?php
+/* comments & extra-whitespaces have been removed by jBuildTools*/
+/**
+* @package    jelix
+* @subpackage utils
+* @author     Loic Mathaud
+* @contributor Laurent Jouanneau
+* @copyright  2006 Loic Mathaud, 2008 Laurent Jouanneau
+* @link        http://www.jelix.org
+* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+*/
+class jIniFile{
+	public static function read($filename){
+		if( file_exists($filename)){
+			return parse_ini_file($filename, true);
+		} else{
+			return false;
+		}
+	}
+	public static function write($array, $filename, $header=''){
+		$result='';
+		foreach($array as $k => $v){
+			if(is_array($v)){
+				$result.='['.$k."]\n";
+				foreach($v as $k2 => $v2){
+					$result .= self::_iniValue($k2,$v2);
+				}
+			} else{
+				$result = self::_iniValue($k,$v).$result;
+			}
+		}
+		if($f = @fopen($filename, 'wb')){
+			fwrite($f, $header.$result);
+			fclose($f);
+		} else{
+			if(isset($GLOBALS['gJConfig'])){
+				throw new jException('jelix~errors.inifile.write.error', array($filename));
+			}else{
+				throw new Exception('(24)Error while writing ini file '.$filename);
+			}
+		}
+	}
+	static private function _iniValue($key, $value){
+		if(is_array($value)){
+			$res = '';
+			foreach($value as $v)
+				$res.=self::_iniValue($key.'[]', $v);
+			return $res;
+		}else if($value == '' || is_numeric($value) || preg_match("/^[\w]*$/", $value)){
+			return $key.'='.$value."\n";
+		} else{
+			return $key.'="'.$value."\"\n";
+		}
+	}
+}
