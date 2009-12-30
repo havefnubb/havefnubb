@@ -9,8 +9,7 @@
 */
 
 class syntax_wikiZone extends jZone {
-    protected $_tplname='zone.syntax_wiki';
+	protected $_tplname='zone.syntax_wiki';
 
-    protected function _prepareTpl(){
-    }
+	protected function _prepareTpl(){ }
 }

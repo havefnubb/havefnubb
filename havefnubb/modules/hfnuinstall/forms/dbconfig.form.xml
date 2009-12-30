@@ -8,7 +8,7 @@
 </input>
 
 <menulist ref="driver" required="true">
-	<label locale="hfnuinstall~install.dbconfig.driver"/>      
+	<label locale="hfnuinstall~install.dbconfig.driver"/>
 	<datasource class="hfnuinstall~driver" />
 </menulist>
 
@@ -21,27 +21,27 @@
 </input>
 
 <secret ref="password" required="true">
-   <label locale="hfnuinstall~install.dbconfig.password"/>
-   <hint locale="hfnuinstall~install.dbconfig.password.description"/>
-   <help locale="hfnuinstall~install.dbconfig.password.description"/>
-   <confirm locale="hfnuinstall~install.dbconfig.repeat.password"/>
+	<label locale="hfnuinstall~install.dbconfig.password"/>
+	<hint locale="hfnuinstall~install.dbconfig.password.description"/>
+	<help locale="hfnuinstall~install.dbconfig.password.description"/>
+	<confirm locale="hfnuinstall~install.dbconfig.repeat.password"/>
 </secret>
 
 <radiobuttons ref="persistent" required="true">
-    <label locale="hfnuinstall~install.dbconfig.persistent"/>
-    <item value="yes" selected="true" locale="hfnuinstall~install.dbconfig.persistent.yes"/>
-    <item value="no" locale="hfnuinstall~install.dbconfig.persistent.no"/>
-    <hint locale="hfnuinstall~install.dbconfig.persistent.description"/>
-    <help locale="hfnuinstall~install.dbconfig.persistent.description"/>
+	<label locale="hfnuinstall~install.dbconfig.persistent"/>
+	<item value="yes" selected="true" locale="hfnuinstall~install.dbconfig.persistent.yes"/>
+	<item value="no" locale="hfnuinstall~install.dbconfig.persistent.no"/>
+	<hint locale="hfnuinstall~install.dbconfig.persistent.description"/>
+	<help locale="hfnuinstall~install.dbconfig.persistent.description"/>
 </radiobuttons>
 
 <input ref="table_prefix">
-   <label locale="hfnuinstall~install.dbconfig.table_prefix"/>
+	<label locale="hfnuinstall~install.dbconfig.table_prefix"/>
 </input>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="hfnuinstall~install.dbconfig.saveDbConfigBt"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="hfnuinstall~install.dbconfig.saveDbConfigBt"/>
 </submit>
 
 </form>

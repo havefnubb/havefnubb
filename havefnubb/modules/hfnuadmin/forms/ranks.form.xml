@@ -12,7 +12,7 @@
 </input>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="saveBt" locale="hfnuadmin~rank.saveBt"/>
+	<label>Veuillez valider</label>
+	<item value="saveBt" locale="hfnuadmin~rank.saveBt"/>
 </submit>
 </form>

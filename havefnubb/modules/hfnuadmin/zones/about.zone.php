@@ -9,14 +9,14 @@
 */
 
 class aboutZone extends jZone {
-    protected $_tplname='zone.about';
-    
-    protected function _prepareTpl(){
-        $moduleName = $this->param('modulename');
+	protected $_tplname='zone.about';
 
-        if ($moduleName == '') return;
-        jClasses::inc('havefnubb~modulexml');
-        $moduleInfo = modulexml::parse($moduleName);         
-        $this->_tpl->assign('moduleInfo',$moduleInfo);  		
-    }
+	protected function _prepareTpl(){
+		$moduleName = $this->param('modulename');
+
+		if ($moduleName == '') return;
+		jClasses::inc('havefnubb~modulexml');
+		$moduleInfo = modulexml::parse($moduleName);
+		$this->_tpl->assign('moduleInfo',$moduleInfo);
+	}
 }

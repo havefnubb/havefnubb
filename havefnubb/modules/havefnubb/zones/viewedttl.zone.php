@@ -9,16 +9,16 @@
 */
 // class that manages the display of the information of the last comment !
 class viewedttlZone extends jZone {
-    protected $_tplname='zone.viewedttl';
+	protected $_tplname='zone.viewedttl';
 
-    protected function _prepareTpl(){
-        
-        $id_post = $this->param('id_post');
-        if (!$id_post) return;
-        
-        $dao = jDao::get('havefnubb~posts');       
-        $viewedttl = $dao->getNbOfViewed($id_post);
+	protected function _prepareTpl(){
 
-        $this->_tpl->assign('viewedttl',$viewedttl->viewed);
-    }
+		$id_post = $this->param('id_post');
+		if (!$id_post) return;
+
+		$dao = jDao::get('havefnubb~posts');
+		$viewedttl = $dao->getNbOfViewed($id_post);
+
+		$this->_tpl->assign('viewedttl',$viewedttl->viewed);
+	}
 }

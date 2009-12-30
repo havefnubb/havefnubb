@@ -3,7 +3,7 @@
 * @package    havefnubb
 * @subpackage coord_plugin
 * @author     foxmask
-* @contributor  
+* @contributor
 * @copyright  2008 foxmask
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -18,45 +18,43 @@
 * @since 1.0.1
 */
 class banuserCoordPlugin implements jICoordPlugin {
-    public $config;
+	public $config;
 
-    function __construct($conf){
-        $this->config = $conf;
-    }
+	function __construct($conf){
+		$this->config = $conf;
+	}
 
-    /**
-     * @param  array  $params   plugin parameters for the current action
-     * @return null or jSelectorAct  if action should change
-     */
-    public function beforeAction ($params){
-        $selector = null;
-        $banok = false;
-        $error_message = jLocale::get("hfnuadmin~ban.you.are.banned");
-        $on_error_action = 'on_error_action';
-        
-        if(isset($params['banuser.check'])) {            
+	/**
+	 * @param  array  $params   plugin parameters for the current action
+	 * @return null or jSelectorAct  if action should change
+	 */
+	public function beforeAction ($params){
+		$selector = null;
+		$banok = false;
+
+		if(isset($params['banuser.check'])) {
 			jClasses::inc('havefnubb~bans');
-            $banok = bans::check();
-        }
+			$banok = bans::check();
+		}
 
-        if($banok){
-            // disconnect the user if he was connected
-            jAuth::logout();
-            
-            if($this->config['on_error'] == 1 
-                || !$GLOBALS['gJCoord']->request->isAllowedResponse('jResponseRedirect')){
-                throw new jException($error_message);
-            }else{
-                $selector= new jSelectorAct($this->config[$on_error_action]);
-            }
-        }
+		if($banok){
+			// disconnect the user if he was connected
+			jAuth::logout();
 
-        return $selector;
-    }
+			if($this->config['on_error'] == 1
+				|| !$GLOBALS['gJCoord']->request->isAllowedResponse('jResponseRedirect')){
+				throw new jException(jLocale::get("hfnuadmin~ban.you.are.banned"));
+			}else{
+				$selector= new jSelectorAct($this->config['on_error_action']);
+			}
+		}
 
-    public function beforeOutput(){}
+		return $selector;
+	}
 
-    public function afterProcess (){}
+	public function beforeOutput(){}
+
+	public function afterProcess (){}
 
 }
 

@@ -9,14 +9,14 @@
 */
 
 class HfnuBoxWidget {
-    public $title = '';
-    public $content = '';
+	public $title = '';
+	public $content = '';
 }
 
 class hfnuboxZone extends jZone {
-    protected $_tplname='zone.hfnubox';
+	protected $_tplname='zone.hfnubox';
 
-    protected function _prepareTpl(){        
-        $this->_tpl->assign('widgets', jEvent::notify('HfnuBoxWidget')->getResponse());
-    }
+	protected function _prepareTpl(){
+		$this->_tpl->assign('widgets', jEvent::notify('HfnuBoxWidget')->getResponse());
+	}
 }

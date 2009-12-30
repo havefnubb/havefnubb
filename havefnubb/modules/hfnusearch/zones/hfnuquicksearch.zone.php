@@ -9,12 +9,11 @@
 */
 
 class hfnuquicksearchZone extends jZone {
-    protected $_tplname='zone.hfnuquicksearch';
-    
-    protected function _prepareTpl(){
-        
+	protected $_tplname='zone.hfnuquicksearch';
+
+	protected function _prepareTpl(){
 		$url = jUrl::get('hfnusearch~default:queryajax');
-        
+
 		$javascript =
 		"<script type=\"text/javascript\">"."\n".
 		"//<![CDATA["."\n".
@@ -28,6 +27,6 @@ class hfnuquicksearchZone extends jZone {
 		"//]]>"."\n".
 		"</script>"."\n";
 
-        $this->_tpl->assign('javascript',$javascript);
-    }    
+		$this->_tpl->assign('javascript',$javascript);
+	}
 }

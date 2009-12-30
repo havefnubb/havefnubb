@@ -9,29 +9,28 @@
 */
 
 class hfnuadminListener extends jEventListener{
-    
-    function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuadmin')) );
-    }
-   
-    function onHfnuTaskTodo ($event) {    
-        $dao = jDao::get('havefnubb~notify');
-        $notify = $dao->findAll();
-        $nbRec = $notify->rowCount();
-        if ($nbRec > 0 ) {
-            $link = '<a href='.jUrl::get('hfnuadmin~notify:index').'>';
-            $link .= jLocale::get('hfnuadmin~task.notification',$nbRec);
-            $link .= '</a>';
-            $event->add( $link );    
-        }
-        
-        $data = jClasses::getService('havefnubb~hfnuposts')->findUnreadThreadByMod();
-        $nbRec = $data->rowCount();
-        if ($nbRec > 0 ) {
-            $link = '<a href='.jUrl::get('hfnuadmin~posts:unread').'>';
-            $link .= jLocale::get('hfnuadmin~task.unreadpostbymod',$nbRec);
-            $link .= '</a>';
-            $event->add( $link );    
-        }        
-    }
+	function onHfnuAboutModule ($event) {
+		$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuadmin')) );
+	}
+
+	function onHfnuTaskTodo ($event) {
+		$dao = jDao::get('havefnubb~notify');
+		$notify = $dao->findAll();
+		$nbRec = $notify->rowCount();
+		if ($nbRec > 0 ) {
+			$link = '<a href='.jUrl::get('hfnuadmin~notify:index').'>';
+			$link .= jLocale::get('hfnuadmin~task.notification',$nbRec);
+			$link .= '</a>';
+			$event->add( $link );
+		}
+
+		$data = jClasses::getService('havefnubb~hfnuposts')->findUnreadThreadByMod();
+		$nbRec = $data->rowCount();
+		if ($nbRec > 0 ) {
+			$link = '<a href='.jUrl::get('hfnuadmin~posts:unread').'>';
+			$link .= jLocale::get('hfnuadmin~task.unreadpostbymod',$nbRec);
+			$link .= '</a>';
+			$event->add( $link );
+		}
+	}
 }

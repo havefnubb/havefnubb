@@ -9,14 +9,14 @@
 */
 
 class onlineZone extends jZone {
-    protected $_tplname='zone.online';
+	protected $_tplname='zone.online';
 
-    protected function _prepareTpl(){
-        
-        $dao = jDao::get('havefnubb~member');
-        $members = $dao->findAllConnected(time());
-        $nbMembers = $members->rowCount();
-        $this->_tpl->assign('members',$members);
-        $this->_tpl->assign('nbMembers',$nbMembers);
-    }
+	protected function _prepareTpl(){
+
+		$dao = jDao::get('havefnubb~member');
+		$members = $dao->findAllConnected(time());
+		$nbMembers = $members->rowCount();
+		$this->_tpl->assign('members',$members);
+		$this->_tpl->assign('nbMembers',$nbMembers);
+	}
 }

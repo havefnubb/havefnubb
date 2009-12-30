@@ -9,9 +9,7 @@
 */
 
 class statsinfosZone extends jZone {
-    protected $_tplname='zone.statsinfos';
+	protected $_tplname='zone.statsinfos';
 
-    protected function _prepareTpl(){
-        
-    }
+	protected function _prepareTpl(){ }
 }

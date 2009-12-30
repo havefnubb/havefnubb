@@ -1,7 +1,7 @@
 {if $nbMembers > 0 }
 {hook 'hfbBeforeOnlineToday'}
 <div class="headings">
-    <h3><span>{@havefnubb~main.member.online.today@}</span></h3>
+	<h3><span>{@havefnubb~main.member.online.today@}</span></h3>
 </div>
 <div id="online-today">
 {hook 'hfbOnlineToday'}

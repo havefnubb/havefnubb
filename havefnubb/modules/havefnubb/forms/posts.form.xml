@@ -16,14 +16,14 @@
 
 <textarea ref="tags" rows="2" cols="60">
 	<label locale="havefnubb~post.form.choose.your.tags"/>
-</textarea>    
+</textarea> 
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="preview" locale="havefnubb~post.form.previewBt"/>  
-  <item value="save" locale="havefnubb~post.form.saveBt"/>
+	<label>Veuillez valider</label>
+	<item value="preview" locale="havefnubb~post.form.previewBt"/>  
+	<item value="save" locale="havefnubb~post.form.saveBt"/>
 </submit>
-<reset ref="cancel">
-	<label locale="havefnubb~post.form.cancelBt"/>
+<reset ref="reset">
+	<label locale="havefnubb~post.form.resetBt"/>
 </reset>
 </form>

@@ -9,22 +9,22 @@
 */
 
 class postandmsgZone extends jZone {
-    protected $_tplname='zone.postandmsg';
+	protected $_tplname='zone.postandmsg';
 
-    protected function _prepareTpl(){
-        
-        $id_forum = $this->param('id_forum');        
-        if (!$id_forum) return;
-        
-        $dao = jDao::get('havefnubb~posts');
-        
-        $nb_msg = 0;
-        $nb_thread = 0;
-        
-        $nbMsg = $dao->countMessages($id_forum);
-        $nbThread = $dao->countThreads($id_forum);
-        
-        $this->_tpl->assign('nbMsg',$nbMsg);
-        $this->_tpl->assign('nbThread',$nbThread);
-    }
+	protected function _prepareTpl(){
+
+		$id_forum = $this->param('id_forum');
+		if (!$id_forum) return;
+
+		$dao = jDao::get('havefnubb~posts');
+
+		$nb_msg = 0;
+		$nb_thread = 0;
+
+		$nbMsg = $dao->countMessages($id_forum);
+		$nbThread = $dao->countThreads($id_forum);
+
+		$this->_tpl->assign('nbMsg',$nbMsg);
+		$this->_tpl->assign('nbThread',$nbThread);
+	}
 }

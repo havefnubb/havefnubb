@@ -21,7 +21,7 @@
         </script>
         {/literal}    
         </p>        
-        {formsubmit 'validate'} {formreset 'cancel'}
+        {formsubmit 'validate'} {formreset 'reset'} 
     </fieldset>             
     {/form}
     </div>

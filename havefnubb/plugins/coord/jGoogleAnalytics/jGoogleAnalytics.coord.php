@@ -14,41 +14,41 @@
 */
 class jGoogleAnalyticsCoordPlugin implements jICoordPlugin {
 
-    /**
-    * Url to the urchin.js file on google server
-    * @var string
-    */
-    protected $urchinJs;
-    
-    /**
-    * Your uacct number to use Google Analytics
-    * @var string
-    */
-    protected $uacct;
-    
-    /**
-    * Tells if we have to display the marker or not
-    * @var boolean
-    */
-    protected $displayMarker;
-    
+	/**
+	* Url to the urchin.js file on google server
+	* @var string
+	*/
+	protected $urchinJs;
 
-    public function __construct($config) {
-        $this->urchinJs = $config['urchin_js'];
-        $this->uacct = $config['uacct'];
-        $this->displayMarker = ($config['display_marker'] ? true : false);
-    }
-    
-    public function beforeAction($params) {
-        if (isset($params['googleanalytics.display_marker'])) {
-            $this->displayMarker = $params['googleanalytics.display_marker'];
-        }
-    }
-    
-    public function beforeOutput() {
-        global $gJCoord;
-        
-        if ($gJCoord->response instanceof jResponseHtml && $this->displayMarker) {
+	/**
+	* Your uacct number to use Google Analytics
+	* @var string
+	*/
+	protected $uacct;
+
+	/**
+	* Tells if we have to display the marker or not
+	* @var boolean
+	*/
+	protected $displayMarker;
+
+
+	public function __construct($config) {
+		$this->urchinJs = $config['urchin_js'];
+		$this->uacct = $config['uacct'];
+		$this->displayMarker = ($config['display_marker'] ? true : false);
+	}
+
+	public function beforeAction($params) {
+		if (isset($params['googleanalytics.display_marker'])) {
+			$this->displayMarker = $params['googleanalytics.display_marker'];
+		}
+	}
+
+	public function beforeOutput() {
+		global $gJCoord;
+
+		if ($gJCoord->response instanceof jResponseHtml && $this->displayMarker) {
 			$str_uacct = '
 			<script type="text/javascript">
 			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
@@ -60,12 +60,12 @@ class jGoogleAnalyticsCoordPlugin implements jICoordPlugin {
 			pageTracker._trackPageview();
 			} catch(err) {}</script>';
 			$gJCoord->response->addContent($str_uacct);
-			
-        }
-    }
-    
-    public function afterProcess () {}
-    
+
+		}
+	}
+
+	public function afterProcess () {}
+
 }
 
 ?>

@@ -9,10 +9,9 @@
 */
 
 class hfnusearchadminmenuListener extends jEventListener{
-
-   /**
-   *
-   */
+	/**
+	*
+	*/
 	function onmasteradminGetMenuContent ($event) {
 	  global $gJConfig;
 	  $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
@@ -23,9 +22,9 @@ class hfnusearchadminmenuListener extends jEventListener{
 											  jUrl::get('hfnusearch~admin:index'),
 											  100,
 											  'hfnusearch');
-         $item->icon = $chemin . 'images/search_engine.png';			
-         $event->add($item);		 
+         $item->icon = $chemin . 'images/search_engine.png';
+         $event->add($item);
 		}
-	} 
+	}
 }
 ?>

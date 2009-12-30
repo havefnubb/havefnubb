@@ -4,19 +4,19 @@
 <input ref="hfnu_q" type="string" size="80">
 	<label locale="hfnusearch~search.hfnu_q.search"/>
 	<hint locale="hfnusearch~forum.search.in.a.particular.forum"/>
-	<help locale="hfnusearch~forum.search.in.a.particular.forum"/>    
+	<help locale="hfnusearch~forum.search.in.a.particular.forum"/>
 </input>
 
 <menulist ref="param">
-  <datasource dao="havefnubb~forum" method="findAll" 
-              labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>
+	<datasource dao="havefnubb~forum" method="findAll"
+				labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>
 	<label locale="hfnusearch~forum.search.forum_name"/>
-    <emptyitem locale="hfnusearch~forum.select.a.forum"/>    
+	<emptyitem locale="hfnusearch~forum.select.a.forum"/>
 </menulist>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="hfnusearch~forum.search.okBt"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="hfnusearch~forum.search.okBt"/>
 </submit>
 
 </form>

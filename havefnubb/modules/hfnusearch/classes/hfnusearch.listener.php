@@ -9,8 +9,7 @@
 */
 
 class hfnusearchListener extends jEventListener{
-    
-   function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnusearch')) );
-   } 
+	function onHfnuAboutModule ($event) {
+		$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnusearch')) );
+	}
 }

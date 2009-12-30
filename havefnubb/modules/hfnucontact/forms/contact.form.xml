@@ -17,8 +17,8 @@
 </captcha>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="hfnucontact~contact.form.saveBt"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="hfnucontact~contact.form.saveBt"/>
 </submit>
 
 <reset ref="cancel">

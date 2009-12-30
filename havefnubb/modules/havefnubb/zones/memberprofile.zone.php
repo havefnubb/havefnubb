@@ -9,15 +9,15 @@
 */
 
 class memberprofileZone extends jZone {
-    protected $_tplname='zone.memberprofile';
+	protected $_tplname='zone.memberprofile';
+	
+	protected function _prepareTpl(){
+		$id = $this->param('id');
+		if (!$id) return;
 
-    protected function _prepareTpl(){
-        $id = $this->param('id');
-        if (!$id) return;
+		$dao = jDao::get('havefnubb~member');
+		$user = $dao->getById($id);
 
-        $dao = jDao::get('havefnubb~member');
-        $user = $dao->getById($id);
-
-        $this->_tpl->assign('user',$user);
-    }
+		$this->_tpl->assign('user',$user);
+	}
 }

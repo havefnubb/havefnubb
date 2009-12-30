@@ -9,8 +9,8 @@
 */
 
 class servinfoListener extends jEventListener{
-    
-   function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'servinfo')) );
-   }
+
+	function onHfnuAboutModule ($event) {
+		$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'servinfo')) );
+	}
 }

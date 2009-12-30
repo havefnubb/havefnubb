@@ -9,8 +9,7 @@
 */
 
 class hfnuthemesListener extends jEventListener{
-    
-   function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuthemes')) );
-   } 
+	function onHfnuAboutModule ($event) {
+		$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuthemes')) );
+	}
 }

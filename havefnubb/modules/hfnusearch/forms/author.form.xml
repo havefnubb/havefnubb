@@ -8,8 +8,8 @@
 </input>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="hfnusearch~forum.search.okBt"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="hfnusearch~forum.search.okBt"/>
 </submit>
 
 </form>

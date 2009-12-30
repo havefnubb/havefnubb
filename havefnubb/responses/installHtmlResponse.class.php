@@ -12,77 +12,76 @@ require_once (JELIX_LIB_CORE_PATH.'response/jResponseHtml.class.php');
 
 class installHtmlResponse extends jResponseHtml {
 
-    public $bodyTpl = 'hfnuinstall~main_install';
+	public $bodyTpl = 'hfnuinstall~main_install';
 
-    function __construct() {
-        parent::__construct();
+	function __construct() {
+		parent::__construct();
 
-        // Include your common CSS and JS files here
-    }
+		// Include your common CSS and JS files here
+	}
 
-    protected function doAfterActions() {
-        // Include all process in common for all actions, like the settings of the
-        // main template, the settings of the response etc..
-        global $gJConfig;
+	protected function doAfterActions() {
+		// Include all process in common for all actions, like the settings of the
+		// main template, the settings of the response etc..
+		global $gJConfig;
 
-        $chemin = $gJConfig->urlengine['basePath'].'themes/install/';
-        $this->addCssLink($chemin.'css/install.css');
+		$chemin = $gJConfig->urlengine['basePath'].'themes/install/';
+		$this->addCssLink($chemin.'css/install.css');
 		$this->addCssLink($chemin.'css/text.css');
 		$this->addCssLink($chemin.'css/grid.css');
 		$this->addCssLink($chemin.'css/layout.css');
 		$this->addCssLink($chemin.'css/nav.css');
 		$this->addCssLink($chemin.'css/ie.css');
 
-        $title = stripslashes($gJConfig->havefnubb['title']);
-        $description = stripslashes($gJConfig->havefnubb['description']);
+		$title = stripslashes($gJConfig->havefnubb['title']);
+		$description = stripslashes($gJConfig->havefnubb['description']);
 
-        if ($this->title)
-            $this->title = $title . ' - ' . $this->title;        
-        else
-            $this->title = $title;       
-        
-        $this->body->assignIfNone('TITLE',$title);
-        $this->body->assignIfNone('DESC',$description);
-        $this->body->assignIfNone('BOARD_TITLE',$title);        
-        
-        if (!empty($GLOBALS['gJCoord']->request->params)) {
-            $params = $GLOBALS['gJCoord']->request->params;
-   
-            if (!array_key_exists('step',$params))
-                $this->body->assign('step','home');
-            else   
-            switch($params['step']) {
-                 case 'check':
-                    $this->body->assign('step','check');
-                    break;
-                 case 'config':
-                    $this->body->assign('step','config');
-                    break;
-                 case 'dbconfig':
-                    $this->body->assign('step','dbconfig');
-                    break;
-                 case 'installdb':
-                    $this->body->assign('step','installdb');
-                    break;
-                 case 'adminaccount':
-                    $this->body->assign('step','adminaccount');
-                    break;                
-                 case 'end':
-                    $this->body->assign('step','end');
-                    break;
+		if ($this->title)
+			$this->title = $title . ' - ' . $this->title;
+		else
+			$this->title = $title;
+
+		$this->body->assignIfNone('TITLE',$title);
+		$this->body->assignIfNone('DESC',$description);
+		$this->body->assignIfNone('BOARD_TITLE',$title);
+
+		if (!empty($GLOBALS['gJCoord']->request->params)) {
+			$params = $GLOBALS['gJCoord']->request->params;
+
+			if (!array_key_exists('step',$params))
+				$this->body->assign('step','home');
+			else
+			switch($params['step']) {
+				 case 'check':
+					$this->body->assign('step','check');
+					break;
+				 case 'config':
+					$this->body->assign('step','config');
+					break;
+				 case 'dbconfig':
+					$this->body->assign('step','dbconfig');
+					break;
+				 case 'installdb':
+					$this->body->assign('step','installdb');
+					break;
+				 case 'adminaccount':
+					$this->body->assign('step','adminaccount');
+					break;
+				 case 'end':
+					$this->body->assign('step','end');
+					break;
 				case 'update':
-                    $this->body->assign('step','update');
-                    break;
+					$this->body->assign('step','update');
+					break;
 				case 'migrate':
-                    $this->body->assign('step','migrate');
-                    break;   				
-                default:
-                    $this->body->assign('step','home');
-                    break;
-            }
-        }
-        else
-            $this->body->assign('step','home');
-                
-    }
+					$this->body->assign('step','migrate');
+					break;
+				default:
+					$this->body->assign('step','home');
+					break;
+			}
+		}
+		else
+			$this->body->assign('step','home');
+	}
 }

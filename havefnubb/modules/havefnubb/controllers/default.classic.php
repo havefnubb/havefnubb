@@ -11,79 +11,79 @@
 */
 
 class defaultCtrl extends jController {
-	
-    /**
-     * plugins to manage the behavior of the controller
-     */		
-    public $pluginParams = array(
-        '*'	=> array('auth.required'=>false,
-                        'banuser.check'=>true
-                        ),
-        'cloud'	=> array('hfnu.check.installed'=>true),
-        'index' => array('hfnu.check.installed'=>true,
-                        'history.add'=>true,
-                        'history.label'=>'Accueil',
-                        'history.title'=>'Aller vers la page d\'accueil')
-    );
-	
-    /**
-     * Main page
-     */
-    function index() {
-	global $gJConfig;
-        $title = stripslashes($gJConfig->havefnubb['title']);
-        $rep = $this->getResponse('html');
-		
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
-        $GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
-		
-        $rep->body->assignZone('MAIN', 'havefnubb~category');
-        return $rep;
-    }
 
-    /**
-    * Display cloud of message from a given tag
-    */	
-    function cloud () {
-        $tag = $this->param('tag');
-        
-        global $gJConfig;
-        $title = stripslashes($gJConfig->havefnubb['title']);
-        $rep = $this->getResponse('html');
-		
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . jLocale::get('havefnubb~main.cloud'));
-        $GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.cloud'));
-		
-        $rep->title = jLocale::get('havefnubb~main.cloud.posts.by.tag',$tag);
-        $rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));
-        return $rep;		
-    }
+	/**
+	 * plugins to manage the behavior of the controller
+	 */		
+	public $pluginParams = array(
+		'*'	=> array('auth.required'=>false,
+						'banuser.check'=>true
+						),
+		'cloud'	=> array('hfnu.check.installed'=>true),
+		'index' => array('hfnu.check.installed'=>true,
+						'history.add'=>true,
+						'history.label'=>'Accueil',
+						'history.title'=>'Aller vers la page d\'accueil')
+	);
 
-    /**
-    * The forum is not installed
-    */		
-    function notinstalled() {
-        $rep = $this->getResponse('html');
-        $tpl = new jTpl();
-        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~notinstalled'));
-        return $rep;		
-    }
+	/**
+	 * Main page
+	 */
+	function index() {
+		global $gJConfig;
+		$title = stripslashes($gJConfig->havefnubb['title']);
+		$rep = $this->getResponse('html');
+		
+		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
+		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
+		
+		$rep->body->assignZone('MAIN', 'havefnubb~category');
+		return $rep;
+	}
 	
-    /**
-    * The rules of the forum
-    */		
-    function rules() {
-        global $gJConfig;        
-        $tpl = new jTpl();
-        if ($gJConfig->havefnubb['rules'] != '') {
-            $rep = $this->getResponse('html');
-            $tpl->assign('rules',$gJConfig->havefnubb['rules']);
-            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~rules'));
-        }
-        else {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
-        }
-        return $rep;		
-    }
+	/**
+	* Display cloud of message from a given tag
+	*/	
+	function cloud () {
+		$tag = $this->param('tag');
+
+		global $gJConfig;
+		$title = stripslashes($gJConfig->havefnubb['title']);
+		$rep = $this->getResponse('html');
+
+		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . jLocale::get('havefnubb~main.cloud'));
+		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.cloud'));
+
+		$rep->title = jLocale::get('havefnubb~main.cloud.posts.by.tag',$tag);
+		$rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));
+		return $rep;
+	}
+
+	/**
+	* The forum is not installed
+	*/
+	function notinstalled() {
+		$rep = $this->getResponse('html');
+		$tpl = new jTpl();
+		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~notinstalled'));
+		return $rep;
+	}
+
+	/**
+	* The rules of the forum
+	*/
+	function rules() {
+		global $gJConfig;
+		$tpl = new jTpl();
+		if ($gJConfig->havefnubb['rules'] != '') {
+			$rep = $this->getResponse('html');
+			$tpl->assign('rules',$gJConfig->havefnubb['rules']);
+			$rep->body->assign('MAIN', $tpl->fetch('havefnubb~rules'));
+		}
+		else {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'default:index';
+		}
+		return $rep;
+	}
 }

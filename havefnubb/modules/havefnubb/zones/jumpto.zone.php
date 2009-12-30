@@ -9,14 +9,14 @@
 */
 
 class jumptoZone extends jZone {
-    protected $_tplname='zone.jumpto';
+	protected $_tplname='zone.jumpto';
 
-    protected function _prepareTpl(){
-        $id_forum = $this->param('id_forum');
-        if (!$id_forum) return;
-       
-        $form = jForms::create('havefnubb~jumpto',$id_forum);
-        $this->_tpl->assign('form',$form);
+	protected function _prepareTpl(){
+		$id_forum = $this->param('id_forum');
+		if (!$id_forum) return;
 
-    }
+		$form = jForms::create('havefnubb~jumpto',$id_forum);
+		$this->_tpl->assign('form',$form);
+
+	}
 }

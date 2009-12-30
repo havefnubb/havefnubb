@@ -9,11 +9,11 @@
 */
 
 class hfnuaboutZone extends jZone {
-    protected $_tplname='zone.hfnuabout';
-    
-    protected function _prepareTpl(){
-        $ev = jEvent::notify('HfnuAboutModule');        
-        $moduleInfos = $ev->getResponse();
-        $this->_tpl->assign('moduleInfos',$moduleInfos);
-    }
+	protected $_tplname='zone.hfnuabout';
+
+	protected function _prepareTpl(){
+		$ev = jEvent::notify('HfnuAboutModule');
+		$moduleInfos = $ev->getResponse();
+		$this->_tpl->assign('moduleInfos',$moduleInfos);
+	}
 }

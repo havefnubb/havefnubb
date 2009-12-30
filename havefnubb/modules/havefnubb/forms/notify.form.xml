@@ -17,7 +17,8 @@
   <label>Veuillez valider</label>
   <item value="save" locale="havefnubb~post.form.saveBt"/>
 </submit>
-<reset ref="cancel">
-	<label locale="havefnubb~post.form.cancelBt"/>
+<reset ref="reset">
+	<label locale="havefnubb~post.form.resetBt"/>
 </reset>
 </form>
+

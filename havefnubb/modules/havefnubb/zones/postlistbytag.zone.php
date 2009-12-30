@@ -9,21 +9,21 @@
 */
 
 class postlistbytagZone extends jZone {
-    protected $_tplname='zone.postlistbytag';
+	protected $_tplname='zone.postlistbytag';
 
-    protected function _prepareTpl(){
-        $tag = $this->param('tag');
-       
-        $srvTags = jClasses::getService("jtags~tags");
-        $tags = $srvTags->getSubjectsByTags($tag, "forumscope");
-        
-        $posts = '';
-        $dao = jDao::get('havefnubb~posts');
-        $count = count($tags);
-        // We check the rights access to the posts in the template
-        for ($i = 0 ; $i < $count ; $i++) {            
-            $posts[] = (array) $dao->get($tags[$i]);            
-        }
-        $this->_tpl->assign(compact('posts','count'));
-    }
+	protected function _prepareTpl(){
+		$tag = $this->param('tag');
+
+		$srvTags = jClasses::getService("jtags~tags");
+		$tags = $srvTags->getSubjectsByTags($tag, "forumscope");
+
+		$posts = '';
+		$dao = jDao::get('havefnubb~posts');
+		$count = count($tags);
+		// We check the rights access to the posts in the template
+		for ($i = 0 ; $i < $count ; $i++) {
+			$posts[] = (array) $dao->get($tags[$i]);
+		}
+		$this->_tpl->assign(compact('posts','count'));
+	}
 }

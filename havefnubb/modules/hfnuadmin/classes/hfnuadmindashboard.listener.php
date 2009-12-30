@@ -10,18 +10,18 @@
 
 class hfnuadmindashboardListener extends jEventListener {
 
-    function onmasterAdminGetDashboardWidget ($event) {
+	function onmasterAdminGetDashboardWidget ($event) {
 
-        $box = new masterAdminDashboardWidget();
-        $box->title = jLocale::get('hfnuadmin~hfnuabout.infos.title');
-        $box->content = jZone::get('hfnuadmin~hfnuabout');
-        $event->add($box);
-        
-        $box = new masterAdminDashboardWidget();
-        $box->title = jLocale::get('hfnuadmin~task.todo');
-        $box->content = jZone::get('hfnuadmin~hfnutasktodo');
-        $event->add($box);
-            
-    }
-	
+		$box = new masterAdminDashboardWidget();
+		$box->title = jLocale::get('hfnuadmin~hfnuabout.infos.title');
+		$box->content = jZone::get('hfnuadmin~hfnuabout');
+		$event->add($box);
+
+		$box = new masterAdminDashboardWidget();
+		$box->title = jLocale::get('hfnuadmin~task.todo');
+		$box->content = jZone::get('hfnuadmin~hfnutasktodo');
+		$event->add($box);
+
+	}
+
 }

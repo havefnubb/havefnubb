@@ -9,17 +9,17 @@
 */
 
 class forumZone extends jZone {
-    protected $_tplname='zone.forumindex';
+	protected $_tplname='zone.forumindex';
 
-    protected function _prepareTpl(){
-        $id_cat = $this->param('id_cat');
-        if (! $id_cat ) return;
-        
-        $dao = jDao::get('havefnubb~forum');
-        
-        $forums = $dao->findParentByCatId($id_cat);
-        $this->_tpl->assign('tableclass','forumList');
-        
-        $this->_tpl->assign('forums',$forums);
-    }
+	protected function _prepareTpl(){
+		$id_cat = $this->param('id_cat');
+		if (! $id_cat ) return;
+
+		$dao = jDao::get('havefnubb~forum');
+
+		$forums = $dao->findParentByCatId($id_cat);
+		$this->_tpl->assign('tableclass','forumList');
+
+		$this->_tpl->assign('forums',$forums);
+	}
 }

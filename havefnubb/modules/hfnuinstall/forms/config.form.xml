@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form xmlns="http://jelix.org/ns/forms/1.1">
-    
+
 <hidden ref="step"/>
 
 <input ref="title" type="string" required="true" size="80">
@@ -30,9 +30,9 @@
 
 <menulist ref="mailerType" required="true">
 	<label locale="hfnuinstall~install.config.mailerType"/>
-    <item value="mail">Mail</item>
-    <item value="sendmail">Sendmail</item>
-    <item value="smtp">Smtp</item>
+	<item value="mail">Mail</item>
+	<item value="sendmail">Sendmail</item>
+	<item value="smtp">Smtp</item>
 </menulist>
 
 <input ref="hostname" type="string" size="80">
@@ -41,14 +41,14 @@
 
 <input ref="sendmailPath" type="string"  size="80">
 	<label locale="hfnuinstall~install.config.sendmailPath"/>
-    <help locale="hfnuinstall~install.config.sendmailPath.description"/>
-    <hint locale="hfnuinstall~install.config.sendmailPath.description"/>
+	<help locale="hfnuinstall~install.config.sendmailPath.description"/>
+	<hint locale="hfnuinstall~install.config.sendmailPath.description"/>
 </input>
 
 <input ref="smtpHost" type="string"  size="80">
 	<label locale="hfnuinstall~install.config.smtpHost"/>
-    <help locale="hfnuinstall~install.config.smtpHost.description"/>
-    <hint locale="hfnuinstall~install.config.smtpHost.description"/>
+	<help locale="hfnuinstall~install.config.smtpHost.description"/>
+	<hint locale="hfnuinstall~install.config.smtpHost.description"/>
 </input>
 
 <input ref="smtpPort" type="integer"  size="4">
@@ -57,8 +57,8 @@
 
 <radiobuttons ref="smtpAuth" required="true">
 	<label locale="hfnuinstall~install.config.smtpAuth"/>
-    <item value="off" selected="true">Off</item>
-    <item value="on">On</item>
+	<item value="off" selected="true">Off</item>
+	<item value="on">On</item>
 </radiobuttons>
 
 <input ref="smtpUsername" type="string" size="80">
@@ -74,8 +74,8 @@
 </input>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="hfnuinstall~install.config.saveConfigBt"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="hfnuinstall~install.config.saveConfigBt"/>
 </submit>
 
 <reset ref="cancel">

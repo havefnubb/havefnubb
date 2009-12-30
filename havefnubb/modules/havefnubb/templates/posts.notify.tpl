@@ -23,7 +23,8 @@
             </script>
             {/literal}                    
         </p>            
-        {formsubmit 'validate'} {formreset 'cancel'}
+        {formsubmit 'validate'} {formreset 'reset'}
+		<span id="fake-cancel" class="jforms-submit">{gobackto 'havefnubb~main.go.back.to'}</span>
     </fieldset>         
     {/form}
     </div>    

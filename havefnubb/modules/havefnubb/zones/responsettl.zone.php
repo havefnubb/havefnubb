@@ -9,16 +9,16 @@
 */
 // class that manages the display of the information of the last comment !
 class responsettlZone extends jZone {
-    protected $_tplname='zone.responsettl';
+	protected $_tplname='zone.responsettl';
 
-    protected function _prepareTpl(){
-        
-        $id_post = $this->param('id_post');
-        if (!$id_post) return;
-        
-        $dao = jDao::get('havefnubb~posts');       
-        $responsettl = $dao->countResponse($id_post);
+	protected function _prepareTpl(){
 
-        $this->_tpl->assign('responsettl',$responsettl);
-    }
+		$id_post = $this->param('id_post');
+		if (!$id_post) return;
+
+		$dao = jDao::get('havefnubb~posts');
+		$responsettl = $dao->countResponse($id_post);
+
+		$this->_tpl->assign('responsettl',$responsettl);
+	}
 }

@@ -10,21 +10,20 @@
 
 class defaultCtrl extends jController {
 
-    public $pluginParams = array(
+	public $pluginParams = array(
 
-        '*'	=> array('jacl2.right'=>'hfnu.admin.serverinfo'),
+		'*'	=> array('jacl2.right'=>'hfnu.admin.serverinfo'),
 
-        '*'		=>	array('auth.required'=>true,
-						  'hfnu.check.installed'=>true,
-						  'banuser.check'=>true,
-					),        
-    );    
-    
-    public function phpinfo() {
-        $rep = $this->getResponse('html');        
-        $tpl = new jTpl();
-        $rep->body->assign('MAIN',$tpl->fetch('servinfo~phpinfo'));
-        return $rep;
-    }    
+		'*'	=>	array('auth.required'=>true,
+					'hfnu.check.installed'=>true,
+					'banuser.check'=>true,
+					),
+	);
+
+	public function phpinfo() {
+		$rep = $this->getResponse('html');
+		$tpl = new jTpl();
+		$rep->body->assign('MAIN',$tpl->fetch('servinfo~phpinfo'));
+		return $rep;
+	}
 }
-

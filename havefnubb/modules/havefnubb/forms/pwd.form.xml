@@ -4,21 +4,21 @@
 <hidden ref="id"/>
 <hidden ref="login"/>
 <secret ref="old_password"  required="true">
-    <label locale="havefnubb~member.pwd.enter.your.actual.pwd"/>
-    <hint locale="havefnubb~member.pwd.enter.your.actual.pwd.description"/>
+	<label locale="havefnubb~member.pwd.enter.your.actual.pwd"/>
+	<hint locale="havefnubb~member.pwd.enter.your.actual.pwd.description"/>
 </secret>
 
 <secret ref="conf_password"  required="true">
-    <label locale="havefnubb~member.pwd.enter.your.new.pwd"/>
-    <hint locale="havefnubb~member.pwd.enter.your.new.pwd.description"/>
-    <confirm locale="havefnubb~member.pwd.enter.your.new.pwd2" />
+	<label locale="havefnubb~member.pwd.enter.your.new.pwd"/>
+	<hint locale="havefnubb~member.pwd.enter.your.new.pwd.description"/>
+	<confirm locale="havefnubb~member.pwd.enter.your.new.pwd2" />
 </secret>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="havefnubb~member.pwd.form.saveBt"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="havefnubb~member.pwd.form.saveBt"/>
 </submit>
-<reset ref="cancel">
-	<label locale="havefnubb~member.pwd.form.cancelBt"/>
+<reset ref="reset">
+	<label locale="havefnubb~member.pwd.form.resetBt"/>
 </reset>
 </form>

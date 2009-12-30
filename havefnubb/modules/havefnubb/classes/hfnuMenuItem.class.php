@@ -12,11 +12,10 @@
 require JELIX_LIB_PATH . DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR . 'jelix-admin-modules'. DIRECTORY_SEPARATOR . 'master_admin' .DIRECTORY_SEPARATOR . 'classes' .DIRECTORY_SEPARATOR . 'masterAdminMenuItem.class.php';
 
 class hfnuMenuItem extends masterAdminMenuItem {
-    
 
 }
 
 function hfnuItemSort($itemA, $itemB)
 {
-    return ($itemA->order - $itemB->order);
+	return ($itemA->order - $itemB->order);
 }

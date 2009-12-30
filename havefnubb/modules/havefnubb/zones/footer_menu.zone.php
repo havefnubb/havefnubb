@@ -9,8 +9,7 @@
 */
 
 class footer_menuZone extends jZone {
-    protected $_tplname='zone.footer_menu';
+	protected $_tplname='zone.footer_menu';
 
-    protected function _prepareTpl(){
-    }
+	protected function _prepareTpl(){ }
 }

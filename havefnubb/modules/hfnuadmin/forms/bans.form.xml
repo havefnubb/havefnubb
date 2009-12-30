@@ -4,35 +4,35 @@
 <hidden ref="ban_id"/>
 
 <menulist ref="ban_username">
-      <datasource dao="havefnubb~member" method="findAll"
-                  labelproperty="login" valueproperty="login"/>
-    <label locale="hfnuadmin~ban.username"/>
-    <hint locale="hfnuadmin~ban.username.description"/>
-    <help locale="hfnuadmin~ban.username.description"/>    
+	<datasource dao="havefnubb~member" method="findAll"
+		labelproperty="login" valueproperty="login"/>
+	<label locale="hfnuadmin~ban.username"/>
+	<hint locale="hfnuadmin~ban.username.description"/>
+	<help locale="hfnuadmin~ban.username.description"/>
 </menulist>
 
 <input ref="ban_ip" type="string">
-    <label locale="hfnuadmin~ban.ip"/>
-    <hint locale="hfnuadmin~ban.ip.description"/>
-    <help locale="hfnuadmin~ban.ip.description"/>
+	<label locale="hfnuadmin~ban.ip"/>
+	<hint locale="hfnuadmin~ban.ip.description"/>
+	<help locale="hfnuadmin~ban.ip.description"/>
 </input>
 <input ref="ban_email" type="string">
-    <label locale="hfnuadmin~ban.email"/>
-    <hint locale="hfnuadmin~ban.email.description"/>
-    <help locale="hfnuadmin~ban.email.description"/>
-</input>    
+	<label locale="hfnuadmin~ban.email"/>
+	<hint locale="hfnuadmin~ban.email.description"/>
+	<help locale="hfnuadmin~ban.email.description"/>
+</input>
 <textarea ref="ban_message" rows="3" cols="30" required="true">
-    <label locale="hfnuadmin~ban.message"/>
-    <hint locale="hfnuadmin~ban.message.description"/>
-    <help locale="hfnuadmin~ban.message.description"/>    
+	<label locale="hfnuadmin~ban.message"/>
+	<hint locale="hfnuadmin~ban.message.description"/>
+	<help locale="hfnuadmin~ban.message.description"/>
 </textarea>
 <date ref="ban_expire">
-    <label locale="hfnuadmin~ban.expire"/>
-    <hint locale="hfnuadmin~ban.expire.description"/>
-    <help locale="hfnuadmin~ban.expire.description"/>
+	<label locale="hfnuadmin~ban.expire"/>
+	<hint locale="hfnuadmin~ban.expire.description"/>
+	<help locale="hfnuadmin~ban.expire.description"/>
 </date>
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="hfnuadmin~ban.saveBt"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="hfnuadmin~ban.saveBt"/>
 </submit>
 </form>

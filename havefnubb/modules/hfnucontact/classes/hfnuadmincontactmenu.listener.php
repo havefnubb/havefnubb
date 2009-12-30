@@ -10,24 +10,24 @@
 
 class hfnuadmincontactmenuListener extends jEventListener{
 
-   /**
-   *
-   */
-    function onmasteradminGetMenuContent ($event) {
-        global $gJConfig;
-        $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
-	  
-        if ( jAcl2::check('hfnu.admin.contact'))    {
-            $event->add(new masterAdminMenuItem('hfnucontact','Contact', '', 40));
+	/**
+	*
+	*/
+	 function onmasteradminGetMenuContent ($event) {
+		 global $gJConfig;
+		 $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
 
-            $item = new masterAdminMenuItem('contact',
-                                            jLocale::get('hfnucontact~contact.contact'),
-                                            jUrl::get('hfnucontact~admin:index'),
-                                            100,
-                                            'hfnucontact');
-            $item->icon = $chemin . 'images/contact.png';			
-            $event->add($item);		 
-        }
-	  
-    } 
+		 if ( jAcl2::check('hfnu.admin.contact'))    {
+			 $event->add(new masterAdminMenuItem('hfnucontact','Contact', '', 40));
+
+			 $item = new masterAdminMenuItem('contact',
+											 jLocale::get('hfnucontact~contact.contact'),
+											 jUrl::get('hfnucontact~admin:index'),
+											 100,
+											 'hfnucontact');
+			 $item->icon = $chemin . 'images/contact.png';
+			 $event->add($item);
+		 }
+
+	 }
 }

@@ -9,9 +9,7 @@
 */
 
 class hookaboutListener extends jEventListener{
-    
-   function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hook')) );
-   } 
+	function onHfnuAboutModule ($event) {
+		$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hook')) );
+	}
 }
-

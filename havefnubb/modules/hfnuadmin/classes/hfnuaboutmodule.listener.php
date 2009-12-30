@@ -9,13 +9,13 @@
 */
 
 class hfnuadminListener extends jEventListener{
-    
-    public function onHfnuAboutModule($event) {
-        global $gJConfig;
-        $modulexml = jClasses::getService('havefnubb~modulexml');
-        
-        $moduleInfos = $modulexml->parse('hfnuadmin');
 
-        $event->Add(array('moduleInfos'=>$moduleInfos));
-    }
+	public function onHfnuAboutModule($event) {
+		global $gJConfig;
+		$modulexml = jClasses::getService('havefnubb~modulexml');
+
+		$moduleInfos = $modulexml->parse('hfnuadmin');
+
+		$event->Add(array('moduleInfos'=>$moduleInfos));
+	}
 }

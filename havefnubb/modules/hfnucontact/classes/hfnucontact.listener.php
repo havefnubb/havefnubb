@@ -9,8 +9,8 @@
 */
 
 class hfnucontactListener extends jEventListener{
-    
-   function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnucontact')) );
-   } 
+
+	function onHfnuAboutModule ($event) {
+		$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnucontact')) );
+	}
 }

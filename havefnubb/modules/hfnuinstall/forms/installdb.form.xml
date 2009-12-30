@@ -4,8 +4,8 @@
 <hidden ref="step"/>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="hfnuinstall~install.installdb.saveRunSqlBt"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="hfnuinstall~install.installdb.saveRunSqlBt"/>
 </submit>
 
 </form>

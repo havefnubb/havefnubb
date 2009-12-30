@@ -2,16 +2,16 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <input ref="login" required="true" maxlength="50">
-   <label locale="jauthdb_admin~crud.form.login"/>
+	<label locale="jauthdb_admin~crud.form.login"/>
 </input>
 
 <input ref="email" required="true" maxlength="255">
-   <label locale="jauthdb_admin~crud.form.email"/>
+	<label locale="jauthdb_admin~crud.form.email"/>
 </input>
 
 <secret ref="password" maxlength="50">
-   <label locale="jauthdb_admin~crud.form.password"/>
-   <confirm locale="jauthdb_admin~crud.form.password.confirm"/>
+	<label locale="jauthdb_admin~crud.form.password"/>
+	<confirm locale="jauthdb_admin~crud.form.password.confirm"/>
 </secret>
 
 <menulist ref="status"  required="true">
@@ -25,6 +25,6 @@
 </menulist>
 
 <submit ref="_submit">
-   <label locale="jauthdb_admin~crud.form.submit"/>
+	<label locale="jauthdb_admin~crud.form.submit"/>
 </submit>
 </form>

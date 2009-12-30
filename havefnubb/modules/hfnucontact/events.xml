@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <events xmlns="http://jelix.org/ns/events/1.0">
-   <listener name="hfnucontact">
+	<listener name="hfnucontact">
 		 <event name="HfnuAboutModule" />
-   </listener>
-   <listener name="hfnuadmincontactmenu">
+	</listener>
+	<listener name="hfnuadmincontactmenu">
 		 <event name="masteradminGetMenuContent"/>
-   </listener>
+	</listener>
 </events>

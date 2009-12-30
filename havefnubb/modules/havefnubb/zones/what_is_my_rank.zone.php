@@ -9,11 +9,13 @@
 */
 
 class what_is_my_rankZone extends jZone {
-    protected $_tplname='zone.what_is_my_rank';
+	protected $_tplname='zone.what_is_my_rank';
 
-    protected function _prepareTpl(){
+	protected function _prepareTpl(){
 		$nbMsg = (int) $this->param('nbMsg');
-        $this->_tpl->assign('myRank',
-					jClasses::getService('havefnubb~hfnurank')->getRank($nbMsg));
-    }
+
+		$this->_tpl->assign('myRank',
+				jClasses::getService('havefnubb~hfnurank')->getRank($nbMsg)
+		);
+	}
 }

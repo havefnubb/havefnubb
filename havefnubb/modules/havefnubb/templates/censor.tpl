@@ -14,7 +14,7 @@
             <legend>{@havefnubb~main.censor.this.message@} : "{$title|eschtml}"</legend>
             {/if}            
             {ctrl_label 'censored_msg'} {ctrl_control 'censored_msg'} <br/>
-            {formsubmit 'validate'}
+            {formsubmit 'validate'} <span id="fake-cancel" class="jforms-submit">{gobackto 'havefnubb~main.go.back.to'}</span>
         </fieldset>
     {/form}
     </div>

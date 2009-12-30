@@ -8,10 +8,10 @@ charset=UTF-8
 ; see http://www.php.net/manual/en/timezones.php for supported values
 timeZone="Europe/Paris"
 
-checkTrustedModules=off
+checkTrustedModules=on
 
 ; list of modules : module,module,module
-trustedModules=
+trustedModules=havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,servinfo,jacl2db_admin,jauthdb_admin,master_admin
 
 pluginsPath="app:plugins/"
 
@@ -22,8 +22,6 @@ theme=default
 [coordplugins]
 auth=auth.coord.ini.php
 jacl2=jacl2.coord.ini.php
-history=history.coord.ini.php
-flood=flood.coord.ini.php
 hfnuinstalled=hfnuinstalled.coord.ini.php
 banuser=banuser.coord.ini.php
 timeout=timeout.coord.ini.php
@@ -57,8 +55,9 @@ force=off
 [urlengine]
 ; name of url engine :  "simple" or "significant"
 ; engine=simple
-; engine=significant
-engine=basic_significant
+; engine=basic_significant
+engine=significant
+
 
 ; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
 ; because the jelix-www directory is outside the yourapp/www/ directory, you should create a link to

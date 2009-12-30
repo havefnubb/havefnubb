@@ -9,11 +9,11 @@
 */
 
 class categoryZone extends jZone {
-    protected $_tplname='zone.category';
+	protected $_tplname='zone.category';
 
-    protected function _prepareTpl(){
-        $dao = jDao::get('havefnubb~category');
-        $categories = $dao->findAll();
-        $this->_tpl->assign('categories',$categories);
-    }
+	protected function _prepareTpl(){
+		$dao = jDao::get('havefnubb~category');
+		$categories = $dao->findAll();
+		$this->_tpl->assign('categories',$categories);
+	}
 }

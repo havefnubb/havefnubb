@@ -7,41 +7,41 @@
 		<label locale="hfnuadmin~forum.in.category"/>
 		<menulist ref="put_in_cat" required="true">
 			<label>...</label>
-			<datasource dao="havefnubb~category" method="findAll" 
-					  labelproperty="cat_name" labelseparator=" = " valueproperty="id_cat"/>   
+			<datasource dao="havefnubb~category" method="findAll"
+					  labelproperty="cat_name" labelseparator=" = " valueproperty="id_cat"/>
 		</menulist>
-	</item>	
+	</item>
 	<item value="childof">
 		<label locale="hfnuadmin~forum.order.child.of"/>
 		<menulist ref="put_childof" required="true">
 			<label>...</label>
-			<datasource dao="havefnubb~forum" method="findAll" 
-					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
+			<datasource dao="havefnubb~forum" method="findAll"
+					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>
 		</menulist>
 	</item>
 	<item value="before">
 		<label locale="hfnuadmin~forum.order.before"/>
 		<menulist ref="put_before" required="true">
 			<label>...</label>
-			<datasource dao="havefnubb~forum" method="findAll" 
-					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
+			<datasource dao="havefnubb~forum" method="findAll"
+					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>
 		</menulist>
 	</item>
 	<item value="after">
 		<label locale="hfnuadmin~forum.order.after"/>
 		<menulist ref="put_after" required="true">
 			<label>...</label>
-			<datasource dao="havefnubb~forum" method="findAll" 
-					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
+			<datasource dao="havefnubb~forum" method="findAll"
+					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>
 		</menulist>
 	</item>
 </choice>
 
 <menulist ref="forum_type" required="true">
-      <label locale="hfnuadmin~forum.forum_type"/>
-      <item value="0" locale="hfnuadmin~forum.forum_type.classic"/>
-      <item value="1" locale="hfnuadmin~forum.forum_type.redirect"/>
-      <item value="2" locale="hfnuadmin~forum.forum_type.rss"/>
+	<label locale="hfnuadmin~forum.forum_type"/>
+	<item value="0" locale="hfnuadmin~forum.forum_type.classic"/>
+	<item value="1" locale="hfnuadmin~forum.forum_type.redirect"/>
+	<item value="2" locale="hfnuadmin~forum.forum_type.rss"/>
 </menulist>
 
 <input ref="expire" required="true" type="integer" defaultvalue="0">

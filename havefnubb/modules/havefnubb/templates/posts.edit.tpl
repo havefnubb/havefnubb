@@ -10,8 +10,8 @@
     <fieldset>
     <legend>{@havefnubb~post.form.title.preview.page@}</legend>
         <div class="signature-content form_value">
-        {$previewsubject|eschtml}    
-        {$previewtext|wiki:'wr3_to_xhtml'}      
+        {$previewsubject|eschtml}
+        {$previewtext|wiki:'wr3_to_xhtml'}
         {if $signature != ''}<hr/>
         {$signature|wiki:'wr3_to_xhtml'|stripslashes}
         {/if}
@@ -37,15 +37,15 @@
         {literal}
         <script type="text/javascript">
         //<![CDATA[
-        $(document).ready(function()	{
+        $(document).ready(function() {
             $('#jforms_havefnubb_posts_message').markItUp(mySettings);
         });
         //]]>
         </script>
-        {/literal}               
+        {/literal}
     </p>
-    {formsubmit 'validate'} {formreset 'cancel'}   
-    </fieldset>        
+    {formsubmit 'validate'} {formreset 'reset'} <span class="jforms-submit" id="fake-cancel">{@havefnubb~main.go.back.to@} {gobackto}</span
+    </fieldset>
     {/form}
 
     </div>

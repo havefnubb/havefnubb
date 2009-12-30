@@ -9,27 +9,23 @@
 */
 
 // class that list the themes directory.
-class themes 
-{
-    
-    static function lists() {
-        $themes = array();
+class themes  {
 
-        $dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
-        foreach ($dir as $dirContent) {
-            if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..' and $dirContent != '.svn') 
-                $themes[] = self::readManifest($dirContent->getFilename());
-        }
-        return $themes;
-    }
+	static function lists() {
+		$themes = array();
 
-    static function readManifest($theme) {
-        
-        $themeInfos = array(); 
-                 
-        include JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.php';
+		$dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
+		foreach ($dir as $dirContent) {
+			if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..' and $dirContent != '.svn')
+				$themes[] = self::readManifest($dirContent->getFilename());
+		}
+		return $themes;
+	}
 
-        return $themeInfos; 
-         
-    }     
+	static function readManifest($theme) {
+		$themeInfos = array();
+		include JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.php';
+		return $themeInfos;
+	}
+	
 }

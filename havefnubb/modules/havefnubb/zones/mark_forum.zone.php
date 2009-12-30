@@ -9,8 +9,7 @@
 */
 
 class mark_forumZone extends jZone {
-    protected $_tplname='zone.mark_forum';
+	protected $_tplname='zone.mark_forum';
 
-    protected function _prepareTpl(){
-    }
+	protected function _prepareTpl(){ }
 }

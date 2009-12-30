@@ -9,9 +9,9 @@
 */
 
 class samplebanner_accouncementZone extends jZone {
-    protected $_tplname='zone.samplebanner_accouncement';
-    
-    protected function _prepareTpl(){    
-        $this->_tpl->assign('text',jLocale::get('hook~main.welcome'));
-    }        
+	protected $_tplname='zone.samplebanner_accouncement';
+
+	protected function _prepareTpl(){
+		$this->_tpl->assign('text',jLocale::get('hook~main.welcome'));
+	}        
 }

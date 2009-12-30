@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <events xmlns="http://jelix.org/ns/events/1.0">
-   <listener name="hfnuadminmenu">
+	<listener name="hfnuadminmenu">
 		<event name="masteradminGetMenuContent" />
-   </listener>
-   <listener name="hfnuadmindashboard">
+	</listener>
+	<listener name="hfnuadmindashboard">
 		<event name="masterAdminGetDashboardWidget"/>
-   </listener>
-   <listener name="hfnuadmininfobox">
-         <event name="masteradminGetInfoBoxContent"/>
-   </listener>
-   <listener name="hfnumanageuser">
+	</listener>
+	<listener name="hfnuadmininfobox">
+		<event name="masteradminGetInfoBoxContent"/>
+	</listener>
+	<listener name="hfnumanageuser">
 		 <event name="AuthNewUser" />
-   </listener>
-   <listener name="hfnuadmin">
+	</listener>
+	<listener name="hfnuadmin">
 		 <event name="HfnuAboutModule" />
 		 <event name="HfnuTaskTodo" />
-   </listener>   
+	</listener>
 </events>

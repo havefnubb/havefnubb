@@ -12,30 +12,30 @@
 */
 
 class postStuffListener extends jEventListener{
-   /**
-    * Event to handle statistics data of the current member after inserting data
-    * @pararm event $event Object of a listener
-    */
-    function onHfnuPostAfterInsert ($event) {
-        $daoUser = jDao::get('havefnubb~member');			
-        $daoUser->updateNbMsg(jAuth::getUserSession ()->id);
-        $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());   
-    }
-   /**
-    * Event to handle statistics data of the current member after updating data
-    * @pararm event $event Object of a listener
-    */   
-    function onHfnuPostAfterUpdate ($event) {
-        $daoUser = jDao::get('havefnubb~member');
-        $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());	  
-    }
-   /**
-    * Event to handle statistics data of the current member after replying
-    * @pararm event $event Object of a listener
-    */  
-   function onHfnuPostAfterSaveReply ($event) {
-        $daoUser = jDao::get('havefnubb~member');			
-        $daoUser->updateNbMsg(jAuth::getUserSession ()->id);
-        $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
-    }  
+	/**
+	 * Event to handle statistics data of the current member after inserting data
+	 * @pararm event $event Object of a listener
+	 */
+	 function onHfnuPostAfterInsert ($event) {
+		 $daoUser = jDao::get('havefnubb~member');
+		 $daoUser->updateNbMsg(jAuth::getUserSession ()->id);
+		 $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());   
+	 }
+	/**
+	 * Event to handle statistics data of the current member after updating data
+	 * @pararm event $event Object of a listener
+	 */   
+	 function onHfnuPostAfterUpdate ($event) {
+		 $daoUser = jDao::get('havefnubb~member');
+		 $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
+	 }
+	/**
+	 * Event to handle statistics data of the current member after replying
+	 * @pararm event $event Object of a listener
+	 */  
+	function onHfnuPostAfterSaveReply ($event) {
+		 $daoUser = jDao::get('havefnubb~member');
+		 $daoUser->updateNbMsg(jAuth::getUserSession ()->id);
+		 $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
+	 }  
 }

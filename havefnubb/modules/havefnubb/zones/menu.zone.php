@@ -9,36 +9,36 @@
 */
 
 class menuZone extends jZone {
-    protected $_tplname='zone.menu';
+	protected $_tplname='zone.menu';
 
-    protected function _prepareTpl(){
-        jClasses::inc('havefnubb~hfnuMenuItem');
+	protected function _prepareTpl(){
+		jClasses::inc('havefnubb~hfnuMenuItem');
 
-        $menu = array();
-        $items = jEvent::notify('hfnuGetMenuContent')->getResponse();
+		$menu = array();
+		$items = jEvent::notify('hfnuGetMenuContent')->getResponse();
 
-        foreach ($items as $item) {
-            if($item->parentId) {
-                if(!isset($menu[$item->parentId])) {
-                    $menu[$item->parentId] = new hfnuMenuItem($item->parentId, '', '');
-                }
-                $menu[$item->parentId]->childItems[] = $item;
-            }
-            else {
-                if(isset($menu[$item->id])) {
-                    $menu[$item->id]->copyFrom($item);
-                }
-                else {
-                    $menu[$item->id] = $item;
-                }
-            }
-        }
+		foreach ($items as $item) {
+			if($item->parentId) {
+				if(!isset($menu[$item->parentId])) {
+					$menu[$item->parentId] = new hfnuMenuItem($item->parentId, '', '');
+				}
+				$menu[$item->parentId]->childItems[] = $item;
+			}
+			else {
+				if(isset($menu[$item->id])) {
+					$menu[$item->id]->copyFrom($item);
+				}
+				else {
+					$menu[$item->id] = $item;
+				}
+			}
+		}
 
-        usort($menu, "hfnuItemSort");
-        foreach($menu as $topitem) {
-            usort($topitem->childItems, "hfnuItemSort");
-        }
-        $this->_tpl->assign('menuitems', $menu);
-        $this->_tpl->assign('selectedMenuItem', $this->param('selectedMenuItem',''));
-    }
+		usort($menu, "hfnuItemSort");
+		foreach($menu as $topitem) {
+			usort($topitem->childItems, "hfnuItemSort");
+		}
+		$this->_tpl->assign('menuitems', $menu);
+		$this->_tpl->assign('selectedMenuItem', $this->param('selectedMenuItem',''));
+	}
 }

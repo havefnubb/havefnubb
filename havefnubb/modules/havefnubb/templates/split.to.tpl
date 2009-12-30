@@ -5,7 +5,8 @@
     {form $form, 'havefnubb~posts:splitTo'}    
         <fieldset>
             <legend>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</legend>
-            {ctrl_label 'choice'} {ctrl_control 'choice'} {formsubmit 'validate'} {formreset 'cancel'}
+            {ctrl_label 'choice'} {ctrl_control 'choice'} {formsubmit 'validate'} {formreset 'reset'}
+			<span id="fake-cancel" class="jforms-submit">{gobackto 'havefnubb~main.go.back.to'}</span>
         </fieldset>
     {/form}
     </div>

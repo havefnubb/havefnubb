@@ -11,47 +11,47 @@
 */
 
 class categoryCtrl extends jController {
-	
-    /**
-     * plugins to manage the behavior of the controller
-     */	
-    public $pluginParams = array(
-        '*'	=> array('auth.required'=>false,
+
+	/**
+	 * plugins to manage the behavior of the controller
+	 */	
+	public $pluginParams = array(
+		'*'	=> array('auth.required'=>false,
 			'hfnu.check.installed'=>true,
 			'banuser.check'=>true,
 			),
-    	'view' 	=> array('history.add'=>true)
-    );
-    /**
-     * View a given Category of forum then the list of forums
-     */    
-    function view() {
-	
-        $id_cat = (int) $this->param('id_cat');
-        if ($id_cat == 0 ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
-        }
-        
-        // add the category name in the page title
-        // so 
-        // 1) get the category record
-	$category = jClasses::getService('havefnubb~hfnucat')->getCat($id_cat);
-        
-        $rep = $this->getResponse('html');
-	
-        // 2) assign the title page
-        $rep->title = $category->cat_name;
+		'view' 	=> array('history.add'=>true)
+	);
+	/**
+	 * View a given Category of forum then the list of forums
+	 */
+	function view() {
+
+		$id_cat = (int) $this->param('id_cat');
+		if ($id_cat == 0 ) {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+		}
+
+		// add the category name in the page title
+		// so 
+		// 1) get the category record
+		$category = jClasses::getService('havefnubb~hfnucat')->getCat($id_cat);
+
+		$rep = $this->getResponse('html');
+
+		// 2) assign the title page
+		$rep->title = $category->cat_name;
+
+		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
+
+		$tpl = new jTpl();
+
+		$tpl->assign('action','view');
+		$tpl->assign('category',$category);		
 		
-	$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
-    
-        $tpl = new jTpl();
-	
-        $tpl->assign('action','view');
-        $tpl->assign('category',$category);		
-		
-        $rep->body->assign('MAIN', $tpl->fetch('zone.category'));
-        return $rep;
-    }    
+		$rep->body->assign('MAIN', $tpl->fetch('zone.category'));
+		return $rep;
+	}
 }
 

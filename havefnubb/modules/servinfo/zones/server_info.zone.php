@@ -9,14 +9,13 @@
 */
 
 class server_infoZone extends jZone {
-    protected $_tplname='zone.server_info';
+	protected $_tplname='zone.server_info';
 
-    protected function _prepareTpl(){
+	protected function _prepareTpl(){
+		$dao = jDao::get('havefnubb~member');
+		$members = $dao->findAllConnected(time());
+		$nbMembers = $members->rowCount();
 
-        $dao = jDao::get('havefnubb~member');
-        $members = $dao->findAllConnected(time());
-        $nbMembers = $members->rowCount();
-		
 		$srvinfos = jClasses::getService("servinfo~serverinfos");
 
 		list($records,$size)=$srvinfos->dbSize();
@@ -29,6 +28,5 @@ class server_infoZone extends jZone {
 		$this->_tpl->assign('DB_SIZE',$size);
 		$this->_tpl->assign('DB_RECORDS',$records);
 		$this->_tpl->assign('ONLINE_USERS',$nbMembers);
-
-    }
+	}
 }

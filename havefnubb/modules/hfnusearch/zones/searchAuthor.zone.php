@@ -9,11 +9,11 @@
 */
 
 class searchAuthorZone extends jZone {
-    protected $_tplname='zone.searchAuthor';
-    
-    protected function _prepareTpl(){
-        $form = jForms::create('hfnusearch~author');
-        $form->setDAta('perform_search_in','authors');
-        $this->_tpl->assign('form',$form);         
-    }    
+	protected $_tplname='zone.searchAuthor';
+
+	protected function _prepareTpl(){
+		$form = jForms::create('hfnusearch~author');
+		$form->setDAta('perform_search_in','authors');
+		$this->_tpl->assign('form',$form);
+	}
 }

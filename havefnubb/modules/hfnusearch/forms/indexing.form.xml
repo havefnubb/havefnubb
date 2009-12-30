@@ -2,16 +2,16 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <radiobuttons ref="confirm" required="true">
-    <label>Confirmation:</label>
-    <item value="Y" locale="hfnusearch~search.admin.yes"/>
-    <item value="N" locale="hfnusearch~search.admin.no" selected="true"/>
-    <help locale="hfnusearch~search.admin.description"/>
-    <hint locale="hfnusearch~search.admin.description"/>
+	<label>Confirmation:</label>
+	<item value="Y" locale="hfnusearch~search.admin.yes"/>
+	<item value="N" locale="hfnusearch~search.admin.no" selected="true"/>
+	<help locale="hfnusearch~search.admin.description"/>
+	<hint locale="hfnusearch~search.admin.description"/>
 </radiobuttons>
 
 <submit ref="validate">
-  <label>Veuillez valider</label>
-  <item value="save" locale="hfnusearch~search.admin.ok"/>
+	<label>Veuillez valider</label>
+	<item value="save" locale="hfnusearch~search.admin.ok"/>
 </submit>
 
 </form>

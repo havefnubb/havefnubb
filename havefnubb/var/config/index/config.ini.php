@@ -6,6 +6,8 @@ startAction="default:index"
 
 [coordplugins]
 autolocale=autolocale.coord.ini.php
+history=history.coord.ini.php
+flood=flood.coord.ini.php
 
 [responses]
 html=fnuHtmlResponse

@@ -9,11 +9,11 @@
 */
 
 class searchForumZone extends jZone {
-    protected $_tplname='zone.searchForum';
-    
-    protected function _prepareTpl(){
-        $form = jForms::create('hfnusearch~forum');
-        $form->setDAta('perform_search_in','forums');
-        $this->_tpl->assign('form',$form);         
-    }    
+	protected $_tplname='zone.searchForum';
+
+	protected function _prepareTpl(){
+		$form = jForms::create('hfnusearch~forum');
+		$form->setDAta('perform_search_in','forums');
+		$this->_tpl->assign('form',$form);
+	}
 }

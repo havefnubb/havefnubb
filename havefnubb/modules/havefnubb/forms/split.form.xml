@@ -16,7 +16,7 @@
 		<menulist ref="other_forum">
 			<label>...</label>
 			<datasource dao="havefnubb~forum" method="findAllExceptOneToSplitAndLink" criteriafrom="id_forum"
-					  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
+				  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
 		</menulist>
 	</item>
 	<item value="existings">
@@ -24,7 +24,7 @@
 		<menulist ref="existing_thread">
 			<label>...</label>
 			<datasource dao="havefnubb~posts" method="findAllExceptOneToSplitAndLink"  criteriafrom="parent_id,id_forum"
-					  labelproperty="subject" labelseparator=" = " valueproperty="parent_id"/>   
+				  labelproperty="subject" labelseparator=" = " valueproperty="parent_id"/>   
 		</menulist>
 	</item>	
 </choice>
@@ -33,7 +33,7 @@
   <label>Veuillez valider</label>
   <item value="save" locale="havefnubb~post.form.saveBt"/>
 </submit>
-<reset ref="cancel">
-	<label locale="havefnubb~post.form.cancelBt"/>
+<reset ref="reset">
+	<label locale="havefnubb~post.form.resetBt"/>
 </reset>
 </form>
