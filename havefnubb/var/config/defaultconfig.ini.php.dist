@@ -20,9 +20,9 @@ modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
 theme=default
 
 [coordplugins]
+hfnuinstalled=hfnuinstalled.coord.ini.php
 auth=auth.coord.ini.php
 jacl2=jacl2.coord.ini.php
-hfnuinstalled=hfnuinstalled.coord.ini.php
 banuser=banuser.coord.ini.php
 timeout=timeout.coord.ini.php
 
