@@ -1,4 +1,4 @@
-/*  
+/*
 Template name: Emplode
 Template URI: http://templates.arcsin.se/emplode-website-template/
 Release date: 2008-12-19
@@ -11,30 +11,30 @@ http://templates.arcsin.se/license/
 */
 
 
-/* 
+/*
    Reset (http://meyerweb.com/eric/tools/css/reset/)
 ------------------------------------------------------------------- */
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, 
-blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, 
-img, ins, kbd, q, s, samp, small, strike, strong, sub, tt, var, b, u, i, 
-center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, 
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font,
+img, ins, kbd, q, s, samp, small, strike, strong, sub, tt, var, b, u, i,
+center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption,
 tbody, tfoot, thead, tr, th, td {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	outline: 0; 
+	outline: 0;
 	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
 }
 
-body { 
+body {
 	line-height: 1;
 }
 
 ol, ul { list-style: none; }
-blockquote, q { quotes: none; } 
+blockquote, q { quotes: none; }
 blockquote:before, blockquote:after, q:before, q:after {
 	content: ''; content: none;
 }
@@ -44,8 +44,8 @@ del { text-decoration: line-through; }
 table { border-collapse: collapse; border-spacing: 0; }
 
 
-/* 
-   General 
+/*
+   General
 ------------------------------------------------------------------- */
 
 html {
@@ -62,8 +62,8 @@ body {
 }
 
 
-/* 
-   Typography 
+/*
+   Typography
 ------------------------------------------------------------------- */
 
 p {
@@ -91,7 +91,7 @@ blockquote {
 }
 
 
-/* 
+/*
    Tables
 ------------------------------------------------------------------- */
 
@@ -114,7 +114,7 @@ table.data_table td {
 }
 
 
-/* 
+/*
    Lists
 ------------------------------------------------------------------- */
 
@@ -133,8 +133,8 @@ dd {
 }
 
 
-/* 
-   Links 
+/*
+   Links
 ------------------------------------------------------------------- */
 
 a {color: #543;}
@@ -144,8 +144,8 @@ a:hover {
 }
 
 
-/* 
-   Forms 
+/*
+   Forms
 ------------------------------------------------------------------- */
 
 fieldset {
@@ -166,7 +166,7 @@ input, textarea, select {
 input.button, .jforms-submit, .jforms-reset, .newmessage a, .replymessage a {
 	background: #E9E8E8 url('../img/backgrounds.gif') repeat-x 0 -366px;
 	border: 1px solid #888;
-	border-color: #BBB #888 #888 #CCC;		
+	border-color: #BBB #888 #888 #CCC;
 	color: #444;
 	cursor: pointer;
 	font: normal 1em Verdana,sans-serif;
@@ -178,7 +178,7 @@ input.button, .jforms-submit, .jforms-reset, .newmessage a, .replymessage a {
 .submit-rates {
 	background: #E9E8E8 url('../img/backgrounds.gif') repeat-x 0 -366px;
 	border: 1px solid #888;
-	border-color: #BBB #888 #888 #CCC;		
+	border-color: #BBB #888 #888 #CCC;
 	color: #444;
 	cursor: pointer;
 	font: normal 1em Verdana,sans-serif;
@@ -203,6 +203,12 @@ input.button:hover,input.button:focus,
 input.button:hover, input.button:focus,.replymessage a:hover, .replymessage a:focus,.newmessage a:hover, .newmessage a:focus, .jforms-submit:hover, .jforms-submit:focus, .jforms-reset:hover, .jforms-reset:focus, .submit-rates:hover, .submit-rates:focus {
 	color: #123;
 	cursor: pointer;
+}
+
+input.button:active, .replymessage a:active, .newmessage a:active, .jforms-submit:active, .jforms-reset:active, .submit-rates:active {
+	position:relative;
+	top: 1px;
+	left: 1px;
 }
 
 textarea {overflow: auto;}
@@ -237,8 +243,8 @@ input.image {
 .form_row_submit .form_value {padding-left: 132px;}
 
 
-/* 
-   Images 
+/*
+   Images
 ------------------------------------------------------------------- */
 
 img.bordered {
@@ -251,7 +257,7 @@ img.left {margin: 0 15px 12px 0;}
 img.right {margin: 0 0 15px 12px;}
 
 
-/* 
+/*
    Floats
 ------------------------------------------------------------------- */
 
@@ -262,12 +268,12 @@ img.right {margin: 0 0 15px 12px;}
 .clearer {
 	display: block;
 	font-size: 0;
-	line-height: 0;	
+	line-height: 0;
 }
 
 
-/* 
-   Misc 
+/*
+   Misc
 ------------------------------------------------------------------- */
 
 .content_separator, .archive_separator {
@@ -283,8 +289,8 @@ img.right {margin: 0 0 15px 12px;}
 .archive_separator {margin: 0 0 12px;}
 
 
-/* 
-   Layout 
+/*
+   Layout
 ------------------------------------------------------------------- */
 
 /* General */
@@ -314,12 +320,12 @@ img.right {margin: 0 0 15px 12px;}
 	font-size: xx-small;
 }
 #toplinks_inner li {
-    display:inline;	
+    display:inline;
 }
 
 #toplinks_inner a {
 	color: #FFF;
-	text-decoration: none;	
+	text-decoration: none;
 }
 #toplinks_inner a:hover {
 	color: #FFB;
@@ -438,8 +444,8 @@ img.right {margin: 0 0 15px 12px;}
 #footer a:hover {color: #CCB;}
 
 
-/* 
-   Posts 
+/*
+   Posts
 ------------------------------------------------------------------- */
 
 .post {margin-bottom: 24px;}
@@ -480,12 +486,12 @@ img.right {margin: 0 0 15px 12px;}
 .archive_post_day {font: normal 1.8em Georgia,serif;}
 
 
-/* 
+/*
    Thumbnails
 ------------------------------------------------------------------- */
 
 .thumbnails {margin: 0 -0 2em -8px;}
-.thumbnails a.thumb {	
+.thumbnails a.thumb {
 	background: url('../img/grain_dark.gif');
 	display: block;
 	float: left;
@@ -496,7 +502,7 @@ img.right {margin: 0 0 15px 12px;}
 .thumbnails .thumb img {display: block;}
 
 
-/* 
+/*
    Box
 ------------------------------------------------------------------- */
 
@@ -515,12 +521,12 @@ img.right {margin: 0 0 15px 12px;}
 .box li:first-child {border-top: none;}
 
 
-/* 
-   Comments 
+/*
+   Comments
 ------------------------------------------------------------------- */
 
 div.comment_list {
-	border-top: 1px solid #D6D6C6; 
+	border-top: 1px solid #D6D6C6;
 	margin: 1em 0 2em;
 }
 
@@ -551,7 +557,7 @@ div.comment_list {
 .comment_author {padding-top: 3px;}
 
 
-/* 
+/*
    IE float/background fixes
 ------------------------------------------------------------------- */
 
@@ -581,7 +587,7 @@ div.comment_list {
 
 .ui-tabs-nav li {
 	float:left;
-	list-style-type:none;	
+	list-style-type:none;
 	background-color:#f1f1e5;
 }
 
@@ -595,22 +601,22 @@ div.comment_list {
     background-position: 100% 0;
     text-decoration: none;
     white-space: nowrap; /* @ IE 6 */
-    outline: 0; /* @ Firefox, prevent dotted border after click */    
+    outline: 0; /* @ Firefox, prevent dotted border after click */
 }
 
-.ui-tabs-nav a {	
+.ui-tabs-nav a {
 	color:#543;
-	text-decoration:none;	
+	text-decoration:none;
 	display:block;
 	margin:0 3px 0 0;
 	padding:6px 10px;
 	border: 1px solid;
 	border-color:#dedec1 #acac9c #acac9c #dedec1;
-	background-color: #e1e1cd;	
+	background-color: #e1e1cd;
 }
 
 .ui-tabs-nav a:link, .ui-tabs-nav a:visited {
-    color: #543; 
+    color: #543;
 }
 
 .ui-tabs-nav .ui-tabs-selected a:link, .ui-tabs-nav .ui-tabs-selected a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
@@ -623,7 +629,7 @@ div.comment_list {
 	background-color: #f1f1e5;
 	color: #C40;
 	border:1px solid;
-	border-color:#acac9c #acac9c #f1f1e5 #acac9c;	
+	border-color:#acac9c #acac9c #f1f1e5 #acac9c;
 }
 
 .ui-tabs-panel {
@@ -654,7 +660,7 @@ div.comment_list {
 
 /* help wiki syntaxe */
 .wiki-image {
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 	padding-left: 20px;
 	height: 20px;
 
@@ -739,11 +745,11 @@ div.comment_list {
 }
 
 .breadcrumb {
-	background: url('../img/grain.gif');	
+	background: url('../img/grain.gif');
 }
 
 .breadcrumb ol {
-	background: url('../img/grain_light.gif');	
+	background: url('../img/grain_light.gif');
 	margin: 0 auto;
 	padding-left: 8px;
 	padding-top: 5px;
@@ -753,14 +759,14 @@ div.comment_list {
 .breadcrumb li {
 	font-size: x-small;
     display:inline;
-    list-style-type:none; 
+    list-style-type:none;
 }
 
 .breadcrumb a {
 	padding: 2px;
 	color:#4D5431;
 	text-decoration:underline;
-	cursor: pointer;    
+	cursor: pointer;
 }
 
 .breadcrumb a:hover,.breadcrumb a:focus,.breadcrumb a:active {
