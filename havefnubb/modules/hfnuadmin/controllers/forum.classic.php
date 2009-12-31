@@ -111,6 +111,7 @@ class forumCtrl extends jController {
 			$record->parent_id  = $parent_id;
 			$record->child_level = $child_level;
 			$record->forum_order = $forum_order;
+			$record->post_expire = 0;
 			$record->forum_type = (int) $this->param('forum_type');
 			$record->forum_desc = jLocale::get('hfnuadmin~forum.new.forum');
 
@@ -241,7 +242,7 @@ class forumCtrl extends jController {
 		}
 
 		jClasses::getService("hfnuadmin~hfnuadminrights")->resetRights($id_forum);
-		
+
 		jMessage::add(jLocale::get('hfnuadmin~forum.forum.rights.restored'),'ok');
 		$rep = $this->getResponse('redirect');
 		$rep->params = array('id_forum'=>$id_forum);
