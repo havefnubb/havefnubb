@@ -752,8 +752,8 @@ class postsCtrl extends jController {
 			return $rep;
 		}
 
-		$daoPost = jDao::get('havefnubb~posts');
-		$post = $daoPost->get($id_post);
+        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+        $post = $hfnuposts->getPost($id_post);
 
 		if ( ! jAcl2::check('hfnu.posts.notify','forum'.$post->id_forum) ) {
 			$rep = $this->getResponse('redirect');
@@ -761,7 +761,6 @@ class postsCtrl extends jController {
 			return $rep;
 		}
 
-		$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 		// crumbs infos
 		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
 		if (! $forum) {
