@@ -142,5 +142,13 @@ class hookListener extends jEventListener{
 	}
 	function onhfbMainInFooter($event) {
 
-	}         
+	}
+	function onhfbPostRepliesFooter($event) {
+		$action = $event->getParam('action');
+		$parms = $event->getParam('parms');
+		// we avoid to pass the url from module to module
+		$_SESSION[$config['session_name']]['send_to_friend_url'] = jUrl::get($action,$parms);
+		$zone = jZone::get('hfnucontact~send_to_friend');
+		$event->add( $zone );
+	}
 }

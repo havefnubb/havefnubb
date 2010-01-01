@@ -1,10 +1,14 @@
 <div id="post-message">{jmessage}</div>
 <div class="box">
-	<h2>{@hfnucontact~contact.send.an.email@}</h2>
+	<h2>{@hfnucontact~contact.send.an.email.to.a.friend@}</h2>
 	<div class="block">
 	{form $form, $action}
 	<fieldset>
-		<legend>{jlocale 'hfnucontact~contact.send.an.email.to',$to}</legend>
+		<legend>{@hfnucontact~contact.send.an.email.to.a.friend@}</legend>
+		<p>
+		{ctrl_label 'email_to'}<br/>
+		{ctrl_control 'email_to'}
+		</p>
 		<p>
 		{ctrl_label 'subject'}<br/>
 		{ctrl_control 'subject'}

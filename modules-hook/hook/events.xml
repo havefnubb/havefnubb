@@ -24,6 +24,7 @@
 
 		<event name="hfbBeforePostsReplies"/>
 		<event name="hfbPostsReplies"/>
+		<event name="hfbPostRepliesFooter"/>
 		<event name="hfbAfterPostReplies"/>
 
 		<event name="hfbBeforeStats"/>
@@ -64,4 +65,3 @@
 
 	</listener>
 </events>
-

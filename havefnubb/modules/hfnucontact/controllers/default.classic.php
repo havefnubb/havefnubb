@@ -29,7 +29,7 @@ class defaultCtrl extends jController {
 			if ($user === false) {
 				throw new jException('hfnucontact~contact.contact.does.not.exist');
 			}
-	}
+		}
 		else {
 				$to = $gJConfig->hfnucontact['to_contact'];
 		}
@@ -41,8 +41,10 @@ class defaultCtrl extends jController {
 		$form = jForms::create('hfnucontact~contact');
 		$form->setData('to',$to);
 		$rep = $this->getResponse('html');
+		$rep->title = jLocale::get('contact.send.an.email.to',$to);
 		$tpl = new jTpl();
 		$tpl->assign('form',$form);
+		$tpl->assign('to',$to);
 		$tpl->assign('action','hfnucontact~default:send_a_message');
 		$rep->body->assign('MAIN',$tpl->fetch('hfnucontact~contact'));
 		return $rep;
@@ -112,14 +114,65 @@ class defaultCtrl extends jController {
 	}
 
 	public function send_to_friend() {
-		$url = (string) $this->param('url');
-		$form = jForms::create('hfnucontact~contact');
-		$form->setData('url',$url);
+		$url = $_SESSION[$config['session_name']]['send_to_friend_url'];
+
+		$message = jLocale::get('contact.a.page.to.read.message') .
+					"\n\n" .
+					'http://'. $_SERVER['SERVER_NAME'] .'/'. $url;
+
+		$subject = jLocale::get('contact.a.page.to.read.subject',
+								'http://'. $_SERVER['SERVER_NAME'] .'/'.$url);
+
+		$form = jForms::create('hfnucontact~send_to_friend');
+		$form->setData('message',$message);
+		$form->setData('subject',$subject);
 		$rep = $this->getResponse('html');
+		$rep->title = jLocale::get('contact.send.an.email.to.a.friend');
 		$tpl = new jTpl();
 		$tpl->assign('form',$form);
-		$tpl->assign('action','hfnucontact~default:send_a_message');
-		$rep->body->assign('MAIN',$tpl->fetch('hfnucontact~contact'));
+		$tpl->assign('action','hfnucontact~default:send_a_message_to_friend');
+		$rep->body->assign('MAIN',$tpl->fetch('hfnucontact~send_to_friend'));
+		return $rep;
+	}
+
+	public function send_a_message_to_friend() {
+		global $gJConfig;
+		$form = jForms::fill('hfnucontact~send_to_friend');
+
+		if (! $form->check()) {
+			$rep = $this->getResponse('redirect');
+			$rep->action='hfnucontact~default:index';
+			return $rep;
+		}
+
+		// the sender is  not connected and use contact form to send a message
+		// to the contact defined in hfnucontact.ini.php
+		if (! jAuth::isConnected()) {
+			$email = $gJConfig->mailer['webmasterEmail'];
+			$login = $gJConfig->mailer['webmasterName'];
+		}
+		else {
+			$email = jAuth::getUserSession ()->email ;
+			$login = jAuth::getUserSession ()->login ;
+		}
+
+		$mail = new jMailer();
+		$mail->From       = $email;
+		$mail->FromName   = $login;
+		$mail->Sender     = $email;
+		$mail->Subject    = $form->getData('subject');
+		$mail->ContentType = 'text/html';
+
+		$tpl = new jTpl();
+		$tpl->assign('login',$login);
+		$tpl->assign('message',$form->getData('message'));
+		$mail->Body = $tpl->fetch('hfnucontact~send_an_email', 'text');
+		$mail->AddAddress($form->getData('email_to'));
+		$mail->Send();
+
+		jForms::destroy('hfnucontact~send_to_friend');
+		$rep = $this->getResponse('redirect');
+		$rep->action='hfnucontact~default:contacted';
 		return $rep;
 	}
 

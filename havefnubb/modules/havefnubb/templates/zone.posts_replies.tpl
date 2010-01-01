@@ -74,8 +74,12 @@
         <div class="clear"></div>
     </div>
     <div class="postfoot fake-button">
-       &nbsp;
-       {zone 'hfnucontact~send_to_friend', array('action'=>'havefnubb~posts:view','parms'=>array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum))}
+        &nbsp;
+		{hook 'hfbPostRepliesFooter',
+					array('action'=>'havefnubb~posts:view',
+						  'parms'=>array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
+						  )
+		}
         {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
         <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}
