@@ -24,6 +24,7 @@ class quickreplyZone extends jZone {
 		$form->setData('id_user',$user->id);
 		$form->setData('id_post',0);
 		$form->setData('parent_id',$id_post);
+		$form->setData('subject',jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
 
 		$this->_tpl->assign('form',$form);
 		$this->_tpl->assign('id_post',$id_post);

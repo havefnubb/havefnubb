@@ -488,6 +488,7 @@ class postsCtrl extends jController {
 		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',0);
 		$form->setData('parent_id',$id_post);
+        $form->setData('subject',jLocale::get('havefnubb~post.subject.reply').' ' .jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
 		$form->setData('message','');
 
 		//set the needed parameters to the template
