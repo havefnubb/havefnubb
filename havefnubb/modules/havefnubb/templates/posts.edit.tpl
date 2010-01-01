@@ -5,7 +5,7 @@
 
 <div class="box">
     <div class="block">
-        
+
     {if $previewsubject !== null}
     <fieldset>
     <legend>{@havefnubb~post.form.title.preview.page@}</legend>
@@ -28,9 +28,9 @@
     </p>
     <p>
         {ctrl_label 'tags'}<br/>
-        {ctrl_control 'tags'} 
+        {ctrl_control 'tags'}
     </p>
-    
+
     <p>
         {ctrl_label 'message'}<br/>
         {ctrl_control 'message'}
@@ -44,7 +44,7 @@
         </script>
         {/literal}
     </p>
-    {formsubmit 'validate'} {formreset 'reset'} <span class="jforms-submit" id="fake-cancel">{@havefnubb~main.go.back.to@} {gobackto}</span
+    {formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}
     </fieldset>
     {/form}
 

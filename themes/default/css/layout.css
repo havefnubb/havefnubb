@@ -20,9 +20,12 @@ a {
 	text-decoration: none;
 }
 a:hover {
-	color:#333;
+	color:#a3a6ab;
 }
-
+a:active:hover {
+	color:#000;
+	background-color:#fff;
+}
 
 /* 960 grid system container background
 ----------------------------------------------- */

@@ -68,7 +68,7 @@ class ranksCtrl extends jController {
 
 			$dao->insert($record);
 
-			jForms::destroy('havefnubb~ranks');
+			jForms::destroy('hfnuadmin~ranks');
 
 			jMessage::add(jLocale::get('hfnuadmin~rank.rank.added'),'ok');
 		}

@@ -12,9 +12,9 @@
             <legend>{@havefnubb~main.censor.this.thread.from.this.message@} : "{$title|eschtml}"</legend>
             {else}
             <legend>{@havefnubb~main.censor.this.message@} : "{$title|eschtml}"</legend>
-            {/if}            
+            {/if}
             {ctrl_label 'censored_msg'} {ctrl_control 'censored_msg'} <br/>
-            {formsubmit 'validate'} <span id="fake-cancel" class="jforms-submit">{gobackto 'havefnubb~main.go.back.to'}</span>
+            {formsubmit 'validate'} {gobackto 'havefnubb~main.go.back.to'}
         </fieldset>
     {/form}
     </div>

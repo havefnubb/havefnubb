@@ -19,13 +19,13 @@
     <tr>
         <td class="colredirect"> </td>
         <td><h4 class="forumtitle"><a href="{$forum->forum_url}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-        <td>&nbsp;</td>
-    </tr>    
+        <td colspan="2">&nbsp;</td>
+    </tr>
 {elseif $forum->forum_type == 2}
     <tr>
         <td class="colrss"> &nbsp;</td>
         <td><h4><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-        <td>&nbsp;</td>
+        <td colspan="2">&nbsp;</td>
     </tr>
 {/if}
 {/ifacl2}
@@ -45,13 +45,13 @@
     <tr>
         <td class="colredirect"> </td>
         <td><h4 class="forumtitle"><a href="{$forum->forum_url}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-        <td>&nbsp;</td>
-    </tr>    
+        <td colspan="2">&nbsp;</td>
+    </tr>
 {elseif $forum->forum_type == 2}
     <tr>
         <td class="colrss"> &nbsp;</td>
         <td><h4><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-        <td>&nbsp;</td>
+        <td colspan="2">&nbsp;</td>
     </tr>
 {/if}
 {/ifacl2}

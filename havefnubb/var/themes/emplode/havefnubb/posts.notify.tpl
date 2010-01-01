@@ -27,7 +27,7 @@
 
 			<div class="form_row form_row_submit">
 				<div class="form_value">
-					{formsubmit 'validate'} {formreset 'reset'} <span id="fake-cancel" class="jforms-submit">{gobackto 'havefnubb~main.go.back.to'}</span>
+					{formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}
 				</div>
 				<div class="clearer">&nbsp;</div>
 			</div>

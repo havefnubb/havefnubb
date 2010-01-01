@@ -2,11 +2,10 @@
     <h2>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</h2>
     <div class="block">
 {if $step == 1}
-    {form $form, 'havefnubb~posts:splitTo'}    
+    {form $form, 'havefnubb~posts:splitTo'}
         <fieldset>
             <legend>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</legend>
-            {ctrl_label 'choice'} {ctrl_control 'choice'} {formsubmit 'validate'} {formreset 'reset'}
-			<span id="fake-cancel" class="jforms-submit">{gobackto 'havefnubb~main.go.back.to'}</span>
+            {ctrl_label 'choice'} {ctrl_control 'choice'} {formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}
         </fieldset>
     {/form}
     </div>

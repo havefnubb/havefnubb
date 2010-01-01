@@ -22,6 +22,10 @@ a {
 a:hover {
 	color:#cd9c18;
 }
+a:active:hover {
+	color:#6b5f49;
+	background-color:#cd9c18;
+}
 
 
 /* 960 grid system container background

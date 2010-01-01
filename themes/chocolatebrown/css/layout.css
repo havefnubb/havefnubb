@@ -22,13 +22,15 @@ a:hover {
 	color:#c39253;
 }
 
+a:active:hover {
+	color:#FFF3D1;
+	background-color:#c39253;
+}
 
 /* 960 grid system container background
 ----------------------------------------------- */
 .container_12,
-.container_16 {
-	/*background:#FFF3D1 url('../images/img01.jpg') repeat-x left top;	*/
-}
+.container_16 {}
 
 
 /* headings
@@ -195,57 +197,57 @@ ul.section li {
 	text-transform:uppercase;
 }
 ul.section li a {
-	background:#bbb;
+	background-color: #d9c9a3;
 }
 ul.section li a:hover {
-	background:#aaa;
+	background-color: #d9c9a3;
 }
 ul.section li a:active {
 	color:#fff;
-	background:#666;
+	background-color: #d9c9a3;
 }
 ul.section li li a {
-	background:#ddd;
-	border-bottom:1px solid #eee;
+	background-color: #d9c9a3;
+	border-bottom:1px solid #d9c9a3;
 }
 ul.section li li a:hover {
-	background:#ccc;
+	background-color: #d9c9a3;
 }
 ul.section li li a:active {
 	color:#000;
-	background:#fff;
+	background-color: #d9c9a3;
 }
 ul.section ul li {
 	text-transform:none;
 }
 ul.section ul.current li a {
-	background:#eee;
-	border-bottom:1px solid #fff;
+	background-color: #d9c9a3;
+	border-bottom:1px solid #d9c9a3;
 }
 ul.section ul.current li a:hover {
-	background:#ddd;
+	background-color: #d9c9a3;
 }
 ul.section ul.current li a:active {
-	background:#fff;
+	background-color: #d9c9a3;
 }
 ul.section li a.current {
 	color:#fff;
-	background:#666;
+	background-color: #d9c9a3;
 }
 ul.section li a.current:hover {
-	background:#555;
+	background-color: #d9c9a3;
 }
 ul.section li a.current:active {
-	background:#444;
+	background-color: #d9c9a3;
 }
 ul.section li a.active {
-	background:#fff;
+	background-color: #d9c9a3;
 	cursor:default;
 }
 ul.section li.current > a.active,
 ul.section li.current > a.active:hover {
 	color:#fff;
-	background:#666;
+	background-color: #d9c9a3;
 	cursor:default;
 }
 

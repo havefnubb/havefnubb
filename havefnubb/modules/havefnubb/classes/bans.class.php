@@ -1,7 +1,7 @@
 <?php
 /**
 * Class that handle the banned users
-* 
+*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -11,15 +11,12 @@
 */
 
 class bans {
-
-	private function __construct() {}
-	
 	/**
 	 * get the Bans
-	 * @return recordSet 
+	 * @return recordSet
 	 */
 	public static function getBans() {
-		self::checkExpiry();		
+		self::checkExpiry();
 		$dao = jDao::get('havefnubb~bans');
 		$bans = $dao->findAll();
 		return $bans;
@@ -27,10 +24,10 @@ class bans {
 
 	/**
 	 * get the Banned Domain
-	 * @return recordSet 
+	 * @return recordSet
 	 */
 	public static function getBannedDomains() {
-		self::checkExpiry();		
+		self::checkExpiry();
 		$dao = jDao::get('havefnubb~bans');
 		$bans = $dao->findAllDomains();
 		return $bans;
@@ -71,7 +68,7 @@ class bans {
 	 * does this user banned ?
 	 * @param $email string the email
 	 * @return mixed : true/false or message of ban
-	 */	  
+	 */
 	public static function checkDomain($email) {
 		$return = false;
 		$bans = self::getBannedDomains();
@@ -80,12 +77,12 @@ class bans {
 				list($bannedAddress,$bannedDomain) = preg_split('/@/',$ban->ban_email);
 			else
 				$bannedDomain = $ban->ban_email;
-			
+
 			list($userAddress,$userDomain) = preg_split('/@/',$email);
-	
+
 			if ( $bannedDomain == $userDomain ) {
 				return $ban->ban_message;
-			}			
+			}
 		}
 		return $return;
 	}
@@ -113,7 +110,7 @@ class bans {
 			$userEmail = jAuth::getUserSession()->email;
 		return ($userEmail == $email);
 	}
-	
+
 	/**
 	 * check if this IP is banned
 	 * @param $ip string IP of the member
@@ -122,7 +119,7 @@ class bans {
 	public static function bannedIp($banIp) {
 	//is this IP one of them ?
 		if (strpos($banIp,',') > 0 ) {
-			$list = preg_split('/,/',$banIp);			
+			$list = preg_split('/,/',$banIp);
 			foreach ($list as $item) {
 				if  ($item == $_SERVER['REMOTE_ADDR']) return true;
 			}
@@ -137,8 +134,8 @@ class bans {
 			$start = $list[0];
 			// end is xxx.yyy.aaa
 			$end = substr($list[0],0,$pos) . '.'.$list[1];
-			// validate each of them    
-			if ($start >=  $_SERVER['REMOTE_ADDR'] and $_SERVER['REMOTE_ADDR'] <= $end ) 
+			// validate each of them
+			if ($start >=  $_SERVER['REMOTE_ADDR'] and $_SERVER['REMOTE_ADDR'] <= $end )
 				return true;
 		}
 		// is this IP the same ?
@@ -148,7 +145,7 @@ class bans {
 		//otherwise no ban by ip!
 		return false;
 	}
-	
+
 	/**
 	 * check the validity of an IP address
 	 * @param $ip string IP of the member
@@ -184,7 +181,7 @@ class bans {
 			// end is xxx.yyy.aaa
 			$end = substr($list[0],0,$pos) . '.'.$list[1];
 			// validate each of them
-			
+
 			$validIp1 = jFilter::isIPv4($start);
 			$validIp2 = jFilter::isIPv4($end);
 			if ($validIp1 === false or $validIp2 === false) {
