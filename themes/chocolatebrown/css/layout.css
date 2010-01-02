@@ -370,11 +370,19 @@ input.search.button {
 	background:#D0C6A3;
 	margin-bottom:10px;
 }
+
 #site_info a {
 	color:#704A21;
 }
+
 #site_info a:hover {
 	color: #c39253;
+	background-color: #D0C6A3;
+}
+
+#site_info a:hover:active {
+	color: #c39253;
+	background-color: #704A21;
 }
 
 /* posts management */
@@ -853,12 +861,22 @@ ol.history {
 	list-style: none;
 	padding-top: 13px;
 	height: 32px;
+	color: #FFF3D1;
 }
 
 ol.history li {
 	display:inline;
 }
 
+ol.history li a:hover {
+	color:#c39253;
+	background-color: #d9c9a3;
+}
+
+ol.history li a:hover:active {
+	color:#FFF3D1;
+	background-color: #5d5236;
+}
 .syntax_wiki{
 	color: #5d5236;
 }

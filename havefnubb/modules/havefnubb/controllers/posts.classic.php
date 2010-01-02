@@ -782,6 +782,7 @@ class postsCtrl extends jController {
 		$tpl->assign('form', $form);
 		$tpl->assign('forum', $forum);
 		$tpl->assign('category', $category);
+        $tpl->assign('subject', $post->subject);
 		$tpl->assign('heading',jLocale::get("havefnubb~post.form.notify.message") . ' - ' . $post->subject);
 		$tpl->assign('submitAction','havefnubb~posts:savenotify');
 

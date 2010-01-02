@@ -5,10 +5,12 @@
     <div class="block">
     {form $form, $submitAction, array('id_post'=>$id_post)}
     <fieldset>
+		{jlocale 'havefnubb~post.form.notify.description',$subject}
+		
         <legend>{$heading}</legend>
         <p>
-            {ctrl_label 'subject'}<br/>
-            {ctrl_control 'subject'}
+            {ctrl_label 'reason'}<br/>
+            {ctrl_control 'reason'}
         </p>
         <p>
             {ctrl_label 'message'}<br />

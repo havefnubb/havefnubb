@@ -5,11 +5,17 @@
 <hidden ref="id_forum"/>
 <hidden ref="id_user"/>
 
-<input ref="subject" type="string" required="true" size="80">
-	<label locale="havefnubb~post.form.subject"/>
-</input>
+<menulist ref="reason" required="true">
+	<label locale="havefnubb~post.form.reason.notification"/>
+	<item value="spam" 		locale="havefnubb~post.form.reason.notification.spam"/>
+	<item value="insults" 	locale="havefnubb~post.form.reason.notification.insults"/>
+	<item value="porn" 		locale="havefnubb~post.form.reason.notification.porn"/>
+	<item value="racism" 	locale="havefnubb~post.form.reason.notification.racism"/>
+	<item value="others" 	locale="havefnubb~post.form.reason.notification.others"/>
+	<item value="forum_rules" locale="havefnubb~post.form.reason.notification.forum_rules"/>
+</menulist>
 
-<textarea ref="message" required="true"  rows="10" cols="80">
+<textarea ref="message" rows="10" cols="80">
 	<label locale="havefnubb~post.form.message"/>
 </textarea>
 
@@ -21,4 +27,3 @@
 	<label locale="havefnubb~post.form.resetBt"/>
 </reset>
 </form>
-
