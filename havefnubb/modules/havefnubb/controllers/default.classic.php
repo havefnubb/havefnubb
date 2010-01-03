@@ -1,7 +1,7 @@
 <?php
 /**
 * Controller to manage any default events
-* 
+*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -14,7 +14,7 @@ class defaultCtrl extends jController {
 
 	/**
 	 * plugins to manage the behavior of the controller
-	 */		
+	 */
 	public $pluginParams = array(
 		'*'	=> array('auth.required'=>false,
 						'banuser.check'=>true
@@ -33,17 +33,17 @@ class defaultCtrl extends jController {
 		global $gJConfig;
 		$title = stripslashes($gJConfig->havefnubb['title']);
 		$rep = $this->getResponse('html');
-		
+
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
-		
+
 		$rep->body->assignZone('MAIN', 'havefnubb~category');
 		return $rep;
 	}
-	
+
 	/**
 	* Display cloud of message from a given tag
-	*/	
+	*/
 	function cloud () {
 		$tag = $this->param('tag');
 

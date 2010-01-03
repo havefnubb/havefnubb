@@ -18,8 +18,8 @@
 	{/if}
 {/if}
 {if $step == 'config'}
+	{if $err === false}
 {form $form, 'hfnuinstall~default:index'}
-
 <fieldset>
 	<legend>{@hfnuinstall~install.config.general@}</legend>
 	{formcontrols}
@@ -29,6 +29,9 @@
 
 <div>{formsubmit 'validate'} {formreset 'cancel'}</div>
 {/form}
+	{else}
+	{@hfnuinstall~install.reload.the.page.after.having.fixed.those.errors@}
+	{/if}
 {/if}
 {if $step == 'dbconfig'}
 {form $form, 'hfnuinstall~default:index'}

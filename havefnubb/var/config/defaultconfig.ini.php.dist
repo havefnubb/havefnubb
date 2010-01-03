@@ -207,7 +207,7 @@ posts_per_page=10
 replies_per_page=10
 members_per_page=25
 stats_nb_of_lastpost=3
-post_max_size=1000
+post_max_size=0
 
 [hfnucontact]
 to_contact=

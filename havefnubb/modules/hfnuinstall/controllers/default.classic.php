@@ -34,7 +34,7 @@ class defaultCtrl extends jController {
 			return $rep;
 		}
 
-	$chmod_msg = '*NIX';
+		$chmod_msg = '*NIX';
 		if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
 			$chmod_msg = 'WIN';
 		}
@@ -45,10 +45,10 @@ class defaultCtrl extends jController {
 
 		if ($step == '') {
 			$step = 'home';
-	}
+		}
 		else {
 		   switch($step) {
-		case 'check':
+				case 'check':
 					$phpSupported = false;
 					if ( version_compare(phpversion(),'5.2','>=') ) {
 						$phpSupported = true;
@@ -71,6 +71,7 @@ class defaultCtrl extends jController {
 					break;
 
 				case 'config':
+
 					$submit = $this->param('validate');
 					if ($submit == jLocale::get('hfnuinstall~install.config.saveConfigBt')  ) {
 
@@ -109,29 +110,53 @@ class defaultCtrl extends jController {
 						return $rep;
 					}
 					else  {
+						$err = false;
 						$form = jForms::create('hfnuinstall~config');
-						$form->setData('title',         stripslashes($gJConfig->havefnubb['title']));
-						$form->setData('description',   stripslashes($gJConfig->havefnubb['description']));
-						$form->setData('theme',         stripslashes($gJConfig->theme));
-						$form->setData('rules',         stripslashes($gJConfig->havefnubb['rules']));
-						$form->setData('webmasterEmail',stripslashes($gJConfig->mailer['webmasterEmail']));
-						$form->setData('webmasterName', stripslashes($gJConfig->mailer['webmasterName']));
-						$form->setData('mailerType',    stripslashes($gJConfig->mailer['mailerType']));
-						$form->setData('hostname',      stripslashes($gJConfig->mailer['hostname']));
-						$form->setData('sendmailPath',  stripslashes($gJConfig->mailer['sendmailPath']));
-						$form->setData('smtpHost',      stripslashes($gJConfig->mailer['smtpHost']));
-						$form->setData('smtpPort',      stripslashes($gJConfig->mailer['smtpPort']));
-						$form->setData('smtpAuth',      stripslashes($gJConfig->mailer['smtpAuth']));
-						$form->setData('smtpUsername',  stripslashes($gJConfig->mailer['smtpUsername']));
-						$form->setData('smtpPassword',  stripslashes($gJConfig->mailer['smtpPassword']));
-						$form->setData('smtpTimeout',   stripslashes($gJConfig->mailer['smtpTimeout']));
 						$form->setData('step','config');
+						
+						if (! is_writable(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php') )  {
+							$err = true;
+							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php'),'error');
+						}
+						if (! is_writable(JELIX_APP_CONFIG_PATH . 'dbprofils.ini.php') )  {
+							$err = true;
+							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'dbprofils.ini.php'),'error');
+						}
+						if (! is_writable(JELIX_APP_CONFIG_PATH . 'flood.coord.ini.php') )  {
+							$err = true;
+							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'flood.coord.ini.php'),'error');
+						}
+						if (! is_writable(JELIX_APP_CONFIG_PATH . 'timeout.coord.ini.php') )  {
+							$err = true;
+							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'timeout.coord.ini.php'),'error');
+						}
+
+						$tpl->assign('err',$err);
+						if ($err == false) {
+
+							$form->setData('title',         stripslashes($gJConfig->havefnubb['title']));
+							$form->setData('description',   stripslashes($gJConfig->havefnubb['description']));
+							$form->setData('theme',         stripslashes($gJConfig->theme));
+							$form->setData('rules',         stripslashes($gJConfig->havefnubb['rules']));
+							$form->setData('webmasterEmail',stripslashes($gJConfig->mailer['webmasterEmail']));
+							$form->setData('webmasterName', stripslashes($gJConfig->mailer['webmasterName']));
+							$form->setData('mailerType',    stripslashes($gJConfig->mailer['mailerType']));
+							$form->setData('hostname',      stripslashes($gJConfig->mailer['hostname']));
+							$form->setData('sendmailPath',  stripslashes($gJConfig->mailer['sendmailPath']));
+							$form->setData('smtpHost',      stripslashes($gJConfig->mailer['smtpHost']));
+							$form->setData('smtpPort',      stripslashes($gJConfig->mailer['smtpPort']));
+							$form->setData('smtpAuth',      stripslashes($gJConfig->mailer['smtpAuth']));
+							$form->setData('smtpUsername',  stripslashes($gJConfig->mailer['smtpUsername']));
+							$form->setData('smtpPassword',  stripslashes($gJConfig->mailer['smtpPassword']));
+							$form->setData('smtpTimeout',   stripslashes($gJConfig->mailer['smtpTimeout']));
+							$form->setData('step','config');
+						}
 						$tpl->assign('form',$form);
 					}
 
 					break;
 
-		case 'dbconfig':
+				case 'dbconfig':
 					$submit = $this->param('validate');
 					if ($submit == jLocale::get('hfnuinstall~install.dbconfig.saveDbConfigBt') ) {
 						$form = jForms::fill('hfnuinstall~dbconfig');
@@ -176,7 +201,7 @@ class defaultCtrl extends jController {
 
 							$dbProfile->save();
 
-							jMessage::add(jLocale::get('hfnuinstall~install.dbconfig.parameters.invalids'));
+							jMessage::add(jLocale::get('hfnuinstall~install.dbconfig.parameters.invalids'),'error');
 							$rep = $this->getResponse('redirect');
 							$rep->action ='hfnuinstall~default:index';
 							$rep->params = array('step'=>'dbconfig');
@@ -197,7 +222,7 @@ class defaultCtrl extends jController {
 						$profile 	= $db->getProfile('havefnubb');
 						$tools 		= jDb::getTools('havefnubb');
 
-			$file = dirname(__FILE__).'/../install/sql/install.'.$profile['driver'].'.sql';
+						$file = dirname(__FILE__).'/../install/sql/install.'.$profile['driver'].'.sql';
 
 						//default fake prefix uses in the filename if no prefix table are filled
 						$tablePrefix = 'null_';
