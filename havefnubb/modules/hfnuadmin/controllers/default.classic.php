@@ -19,7 +19,6 @@ class defaultCtrl extends jController {
 		),
 		'index' => array( 'jacl2.right'=>'hfnu.admin.index'),
 		'config'=> array( 'jacl2.right'=>'hfnu.admin.config'),
-		'check_upgrade'=> array( 'jacl2.right'=>'hfnu.admin.config'),
 	);
 
 	function index() {
@@ -31,13 +30,14 @@ class defaultCtrl extends jController {
 	function config() {
 		global $gJConfig;
 
-		$floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
-		$timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
-
 		$rep = $this->getResponse('html');
 		$submit = $this->param('validate');
 
 		if ($submit == jLocale::get('hfnuadmin~config.saveBt') ) {
+
+			$floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
+			$timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
+
 			$form = jForms::fill('hfnuadmin~config');
 
 			if (!$form->check()) {
@@ -82,75 +82,46 @@ class defaultCtrl extends jController {
 			$timeoutConfig->save();
 
 			jForms::destroy('hfnuadmin~config');
+			jMessage::add(jLocale::get('hfnuadmin~config.config.modified'));
 			$rep->action ='hfnuadmin~default:config';
 			return $rep;
 		}
-		else
-			$form = jForms::create('hfnuadmin~config');
-
-		$form->setData('title',           stripslashes($gJConfig->havefnubb['title']));
-		$form->setData('description',     stripslashes($gJConfig->havefnubb['description']));
-		$form->setData('rules',           stripslashes($gJConfig->havefnubb['rules']));
-		$form->setData('webmaster_email', stripslashes($gJConfig->mailer['webmasterEmail']));
-		$form->setData('admin_email',     stripslashes($gJConfig->havefnubb['admin_email']));
-		$form->setData('posts_per_page',  (int) $gJConfig->havefnubb['posts_per_page']);
-		$form->setData('replies_per_page',(int) $gJConfig->havefnubb['replies_per_page']);
-		$form->setData('members_per_page',(int) $gJConfig->havefnubb['members_per_page']);
-		$form->setData('avatar_max_width',(int) $gJConfig->havefnubb['avatar_max_width']);
-		$form->setData('avatar_max_height',(int) $gJConfig->havefnubb['avatar_max_height']);
-		$form->setData('stats_nb_of_lastpost',(int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
-		$form->setData('elapsed_time_after_posting_before_editing',(int) $floodConfig->getValue('elapsed_time_after_posting_before_editing'));
-		$form->setData('elapsed_time_between_two_post_by_same_ip',(int) $floodConfig->getValue('elapsed_time_between_two_post_by_same_ip'));
-
-		$form->setData('timeout_connected',(int) $timeoutConfig->getValue('timeout_connected'));
-		$form->setData('timeout_visit',(int) $timeoutConfig->getValue('timeout_visit'));
-
-		$form->setData('post_max_size',(int) $gJConfig->havefnubb['post_max_size']);
-
-		$form->setData('social_network_twitter', $gJConfig->social_networks['twitter']);
-		$form->setData('social_network_digg', $gJConfig->social_networks['digg']);
-		$form->setData('social_network_delicious', $gJConfig->social_networks['delicious']);
-		$form->setData('social_network_facebook', $gJConfig->social_networks['facebook']);
-		$form->setData('social_network_reddit', $gJConfig->social_networks['reddit']);
-		$form->setData('social_network_netvibes', $gJConfig->social_networks['netvibes']);
-
-		$tpl = new jTpl();
-		$tpl->assign('form', $form);
-		$rep->body->assign('MAIN',$tpl->fetch('config'));
-		$rep->body->assign('selectedMenuItem','config');
-		return $rep;
-	}
-
-	public function check_upgrade() {
-
-		global $gJConfig;
-		$url = $gJConfig->havefnubb['url_check_version'];
-
-		if (!ini_get('allow_url_fopen'))
-			jMessage::add('Impossible de vérifier les mises à jour tant que \'allow_url_fopen\' est désactivé sur ce système.');
 		else {
-			$fp = @fopen($url, 'r');
-			$latestVersion = trim(@fread($fp, 16));
-			@fclose($fp);
+			$form = jForms::create('hfnuadmin~config');
+			$floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
+			$timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
 
-			if ($latestVersion == '')
-				jMessage::add('La vérification de mise à jour a échouée pour une raison inconnue.');
-			else {
-				$curVersion = str_replace(array('.', 'dev', 'beta', ' '), '', strtolower($gJConfig->havefnubb['version']));
-				$curVersion = (strlen($curVersion) == 2) ? intval($curVersion) * 10 : intval($curVersion);
+			$form->setData('title',           stripslashes($gJConfig->havefnubb['title']));
+			$form->setData('description',     stripslashes($gJConfig->havefnubb['description']));
+			$form->setData('rules',           stripslashes($gJConfig->havefnubb['rules']));
+			$form->setData('webmaster_email', stripslashes($gJConfig->mailer['webmasterEmail']));
+			$form->setData('admin_email',     stripslashes($gJConfig->havefnubb['admin_email']));
+			$form->setData('posts_per_page',  (int) $gJConfig->havefnubb['posts_per_page']);
+			$form->setData('replies_per_page',(int) $gJConfig->havefnubb['replies_per_page']);
+			$form->setData('members_per_page',(int) $gJConfig->havefnubb['members_per_page']);
+			$form->setData('avatar_max_width',(int) $gJConfig->havefnubb['avatar_max_width']);
+			$form->setData('avatar_max_height',(int) $gJConfig->havefnubb['avatar_max_height']);
+			$form->setData('stats_nb_of_lastpost',(int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
+			$form->setData('elapsed_time_after_posting_before_editing',(int) $floodConfig['elapsed_time_after_posting_before_editing']);
+			$form->setData('elapsed_time_between_two_post_by_same_ip',(int) $floodConfig['elapsed_time_between_two_post_by_same_ip']);
 
-				$latestVersion = str_replace('.', '', strtolower($latestVersion));
-				$latestVersion = (strlen($latestVersion) == 2) ? intval($latestVersion) * 10 : intval($latestVersion);
+			$form->setData('timeout_connected',(int) $timeoutConfig['timeout_connected']);
+			$form->setData('timeout_visit',(int) $timeoutConfig['timeout_visit']);
 
-				if ($curVersion >= $latestVersion)
-					jMessage::add('Vous utilisez la dernière version de HaveFnuBB.');
-				else
-					jMessage::add('Une nouvelle version de HaveFnuBB est disponible ! Vous pouvez télécharger cette dernière version sur <a href="http://forge.jelix.org/projects/havefnubb/">HaveFnuBB!</a>.');
-			}
+			$form->setData('post_max_size',(int) $gJConfig->havefnubb['post_max_size']);
+
+			$form->setData('social_network_twitter', $gJConfig->social_networks['twitter']);
+			$form->setData('social_network_digg', $gJConfig->social_networks['digg']);
+			$form->setData('social_network_delicious', $gJConfig->social_networks['delicious']);
+			$form->setData('social_network_facebook', $gJConfig->social_networks['facebook']);
+			$form->setData('social_network_reddit', $gJConfig->social_networks['reddit']);
+			$form->setData('social_network_netvibes', $gJConfig->social_networks['netvibes']);
+
+			$tpl = new jTpl();
+			$tpl->assign('form', $form);
+			$rep->body->assign('MAIN',$tpl->fetch('config'));
+			$rep->body->assign('selectedMenuItem','config');
+			return $rep;
 		}
-		$rep = $this->getResponse('redirect');
-		$rep->action = 'hfnuadmin~default:index';
-		return $rep;
-
 	}
 }
