@@ -82,7 +82,7 @@ class defaultCtrl extends jController {
 			$timeoutConfig->save();
 
 			jForms::destroy('hfnuadmin~config');
-			jMessage::add(jLocale::get('hfnuadmin~config.config.modified'));
+			jMessage::add(jLocale::get('hfnuadmin~config.config.modified'),'ok');
 			$rep->action ='hfnuadmin~default:config';
 			return $rep;
 		}

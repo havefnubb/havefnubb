@@ -5,7 +5,7 @@
 <hidden ref="parent_id"/>
 
 <input ref="censored_msg" required="true">
-	<label locale="havefnubb~main.censor.this.message" default="havefnubb~main.censor.default.reason" />
+	<label locale="havefnubb~main.reason.censor.this.message" default="havefnubb~main.censor.default.reason" />
 </input>
 
 <submit ref="validate">
