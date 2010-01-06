@@ -11,7 +11,7 @@ timeZone="Europe/Paris"
 checkTrustedModules=on
 
 ; list of modules : module,module,module
-trustedModules=havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,servinfo,jacl2db_admin,jauthdb_admin,master_admin,jauth,jacl2
+trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,servinfo,jacl2db_admin,jauthdb_admin,master_admin,jauth,jacl2"
 
 pluginsPath="app:plugins/"
 
@@ -195,7 +195,7 @@ default="jelix/js/jforms/datepickers/default/init.js"
 [havefnubb]
 title="HaveFnuBB!"
 description="Where Everything is Fnu"
-version=1.3.0
+version=1.3.1
 rules=
 admin_email="admin@localhost.net"
 url_check_version="http://www.havefnubb.org/last_version"
@@ -224,7 +224,7 @@ images_path="images/social-network"
 
 ;the rule of the forum to manage the render from wiki + smileys
 [_pluginsPathList_wr_rules]
-hfb_rule=havefnubb/plugins/rules/hfb_rule/
+hfb_rule="havefnubb/plugins/rules/hfb_rule/"
 
 ; set here the name of the directory that contains the smileys in the dir hfnu/images/smileys/
 [smileys_pack]

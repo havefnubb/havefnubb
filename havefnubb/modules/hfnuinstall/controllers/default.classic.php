@@ -556,6 +556,8 @@ class defaultCtrl extends jController {
 	function update_to_1_3_0() {
 		global $gJConfig;
 
+		$step = $this->param('step');
+
 		$version = $gJConfig->havefnubb['version'];
 
 		if ($gJConfig->havefnubb['installed'] == 0) {
@@ -591,6 +593,7 @@ class defaultCtrl extends jController {
 		if ($updated == 'ok') {
 			$rep = $this->getResponse('html');
 			$tpl = new jTpl();
+			$tpl->assign('step',$step);
 			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
 			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
 			return $rep;
@@ -598,6 +601,7 @@ class defaultCtrl extends jController {
 		else {
 			$rep = $this->getResponse('html');
 			$tpl = new jTpl();
+			$tpl->assign('step',$step);
 			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
 			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
 			return $rep;
@@ -609,6 +613,8 @@ class defaultCtrl extends jController {
 	 */
 	function update_to_1_3_1() {
 		global $gJConfig;
+
+		$step = $this->param('step');
 
 		$version = $gJConfig->havefnubb['version'];
 
@@ -649,6 +655,7 @@ class defaultCtrl extends jController {
 		if ($updated == 'ok') {
 			$rep = $this->getResponse('html');
 			$tpl = new jTpl();
+			$tpl->assign('step',$step);
 			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
 			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
 			return $rep;
@@ -656,6 +663,7 @@ class defaultCtrl extends jController {
 		else {
 			$rep = $this->getResponse('html');
 			$tpl = new jTpl();
+			$tpl->assign('step',$step);
 			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
 			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
 			return $rep;

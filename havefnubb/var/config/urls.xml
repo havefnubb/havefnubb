@@ -206,6 +206,12 @@
         <url pathinfo="/:step/1_2_0" module="hfnuinstall" action="default:update_to_1_2_0">
             <param name="step" type="string"/>
         </url>
+        <url pathinfo="/:step/1_3_0" module="hfnuinstall" action="default:update_to_1_3_0">
+            <param name="step" type="string"/>
+        </url>
+        <url pathinfo="/:step/1_3_1" module="hfnuinstall" action="default:update_to_1_3_1">
+            <param name="step" type="string"/>
+        </url>
     </classicentrypoint>
 
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
