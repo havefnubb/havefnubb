@@ -1,3 +1,1617 @@
+Revision: 497
+Author: foxmask
+Date: 20:29:48, mercredi 6 janvier 2010
+Message:
+vers une 1.3.1
+----
+Added : /trunk/README.txt
+Modified : /trunk/havefnubb/modules/havefnubb/module.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/module.xml
+Added : /trunk/havefnubb/modules/hfnucontact/forms/send_to_friend.form.xml
+Modified : /trunk/havefnubb/modules/hfnucontact/module.xml
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/VERSION
+Added : /trunk/havefnubb/modules/hfnuinstall/install/docs/en/UPDATE-TO-1.3.1
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/docs/fr/UPDATE-TO-1.2.1
+Added : /trunk/havefnubb/modules/hfnuinstall/install/docs/fr/UPDATE-TO-1.3.1
+Modified : /trunk/havefnubb/modules/hfnuinstall/module.xml
+Modified : /trunk/havefnubb/modules/hfnurates/module.xml
+Modified : /trunk/havefnubb/modules/hfnusearch/module.xml
+Modified : /trunk/havefnubb/modules/hfnuthemes/module.xml
+Modified : /trunk/havefnubb/modules/servinfo/module.xml
+Modified : /trunk/havefnubb/plugins/coord/banuser/plugin.xml
+Modified : /trunk/havefnubb/plugins/coord/flood/plugin.xml
+Modified : /trunk/havefnubb/plugins/coord/timeout/plugin.xml
+Added : /trunk/havefnubb/plugins/tpl/html/function.gobackto.php
+Added : /trunk/havefnubb/var/themes/emplode/havefnubb/censor.tpl
+Added : /trunk/havefnubb/var/themes/emplode/hfnucontact/send_to_friend.tpl
+Modified : /trunk/modules-hook/hook/module.xml
+
+Revision: 496
+Author: foxmask
+Date: 20:09:14, mercredi 6 janvier 2010
+Message:
+vers une 1.3.1
+----
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/havefnubb/var/config/urls.xml
+Deleted : /trunk/temp/havefnubb-cli
+Deleted : /trunk/temp/havefnubb-jelix-scripts
+
+Revision: 495
+Author: foxmask
+Date: 22:42:50, mardi 5 janvier 2010
+Message:
+- Amélioration de la page de censure
+- ajout des liens manquants dans urls.xml
+- amélioration css admin
+----
+Modified : /trunk/havefnubb/modules/havefnubb/forms/censor.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/main.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/main.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/havefnubb/var/config/flood.coord.ini.php
+Modified : /trunk/havefnubb/var/config/timeout.coord.ini.php
+Modified : /trunk/havefnubb/var/config/urls.xml
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.edit.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumindex.tpl
+Modified : /trunk/jelix/design/master_admin.css
+
+Revision: 494
+Author: foxmask
+Date: 00:58:02, mardi 5 janvier 2010
+Message:
+ticket #154 parse_ini_file vs jIniFileModifier
+----
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/config.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/config.UTF-8.properties
+Modified : /trunk/havefnubb/var/config/flood.coord.ini.php
+Modified : /trunk/havefnubb/var/config/timeout.coord.ini.php
+
+Revision: 493
+Author: foxmask
+Date: 11:41:48, dimanche 3 janvier 2010
+Message:
+ticket #142 better error handling in the installer
+----
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/locales/en_EN/install.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnuinstall/locales/fr_FR/install.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates/install.tpl
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+
+Revision: 492
+Author: foxmask
+Date: 11:02:59, samedi 2 janvier 2010
+Message:
+ticket #149 notification form confused
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuposts.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/daos/notify.dao.xml
+Modified : /trunk/havefnubb/modules/havefnubb/daos/posts.dao.xml
+Modified : /trunk/havefnubb/modules/havefnubb/forms/notify.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/post.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/post.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.notify.tpl
+Modified : /trunk/themes/chocolatebrown/css/layout.css
+
+Revision: 491
+Author: foxmask
+Date: 00:47:45, samedi 2 janvier 2010
+Message:
+perf improv
+----
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
+
+Revision: 490
+Author: foxmask
+Date: 00:34:02, samedi 2 janvier 2010
+Message:
+ticket #146 "send to a friend" is confused and incomplet
+----
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/modules/hfnucontact/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnucontact/locales/en_EN/contact.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnucontact/locales/fr_FR/contact.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnucontact/templates/contact.tpl
+Added : /trunk/havefnubb/modules/hfnucontact/templates/send_to_friend.tpl
+Modified : /trunk/havefnubb/modules/hfnucontact/templates/zone.send_to_friend.tpl
+Modified : /trunk/havefnubb/modules/hfnucontact/zones/send_to_friend.zone.php
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/modules-hook/hook/classes/hook.listener.php
+Modified : /trunk/modules-hook/hook/events.xml
+
+Revision: 489
+Author: foxmask
+Date: 13:18:18, vendredi 1 janvier 2010
+Message:
+ticket #145 : the subject of a new response should be filled by default.
+----
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/post.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/post.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/zones/quickreply.zone.php
+
+Revision: 488
+Author: foxmask
+Date: 13:03:46, vendredi 1 janvier 2010
+Message:
+many improvements : css render ; rss/redirect forum displayed sharper ; {gotbackto } plugin ; restore of jFeedReader
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/bans.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/templates/censor.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.edit.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.notify.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/split.to.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.forumchild.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.forumindex.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/ranks.classic.php
+Modified : /trunk/havefnubb/modules/hfnucontact/templates/contact.tpl
+Modified : /trunk/havefnubb/var/config/flood.coord.ini.php
+Modified : /trunk/havefnubb/var/config/timeout.coord.ini.php
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.edit.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.notify.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/split.to.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumchild.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumindex.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/hfnucontact/contact.tpl
+Added : /trunk/lib/clearbricks/net.http.feed
+Added : /trunk/lib/clearbricks/net.http.feed/class.feed.parser.php
+Added : /trunk/lib/clearbricks/net.http.feed/class.feed.reader.php
+Added : /trunk/lib/jelix/utils/jFeedReader.class.php
+Modified : /trunk/themes/chocolatebrown/css/layout.css
+Modified : /trunk/themes/default/css/layout.css
+Modified : /trunk/themes/dust/css/layout.css
+
+Revision: 487
+Author: foxmask
+Date: 18:37:08, jeudi 31 décembre 2009
+Message:
+ticket #155 css button behavior
+----
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.notify.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.notify.tpl
+Modified : /trunk/themes/chocolatebrown/css/layout.css
+Modified : /trunk/themes/default/css/layout.css
+Modified : /trunk/themes/dust/css/layout.css
+Modified : /trunk/themes/emplode/css/havefnuboard.css
+
+Revision: 486
+Author: foxmask
+Date: 18:09:38, jeudi 31 décembre 2009
+Message:
+ticket #153 cant create new forum.
+----
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/forum.classic.php
+
+Revision: 485
+Author: foxmask
+Date: 19:32:29, mercredi 30 décembre 2009
+Message:
+ticket #150 : default config values for hfnucontact should be empty
+----
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+
+Revision: 484
+Author: foxmask
+Date: 19:26:03, mercredi 30 décembre 2009
+Message:
+ticket #150 : default config values should be empty
+----
+Modified : /trunk/havefnubb/modules/hfnucontact/install/hfnucontact.ini.php.dist
+
+Revision: 483
+Author: foxmask
+Date: 19:20:51, mercredi 30 décembre 2009
+Message:
+ticket #141 hfnuinstalled plugin should be declared as first plugin
+----
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+
+Revision: 482
+Author: foxmask
+Date: 19:18:11, mercredi 30 décembre 2009
+Message:
+ticket #137 jelix opt edition
+----
+Added : /trunk/lib
+Added : /trunk/lib/.htaccess
+Added : /trunk/lib/clearbricks
+Added : /trunk/lib/clearbricks/LICENCE
+Added : /trunk/lib/clearbricks/README.jelix
+Added : /trunk/lib/clearbricks/VERSION
+Added : /trunk/lib/clearbricks/common
+Added : /trunk/lib/clearbricks/common/lib.files.php
+Added : /trunk/lib/clearbricks/jelix.inc.php
+Added : /trunk/lib/clearbricks/net
+Added : /trunk/lib/clearbricks/net/class.net.socket.php
+Added : /trunk/lib/clearbricks/net.http
+Added : /trunk/lib/clearbricks/net.http/class.net.http.php
+Added : /trunk/lib/diff
+Added : /trunk/lib/diff/README
+Added : /trunk/lib/diff/diffhtml.php
+Added : /trunk/lib/diff/difflib.php
+Added : /trunk/lib/diff/difftableformatter.php
+Added : /trunk/lib/jelix
+Added : /trunk/lib/jelix/BUILD
+Added : /trunk/lib/jelix/CHANGELOG
+Added : /trunk/lib/jelix/CREDITS
+Added : /trunk/lib/jelix/INSTALL
+Added : /trunk/lib/jelix/LICENCE
+Added : /trunk/lib/jelix/VERSION
+Added : /trunk/lib/jelix/acl
+Added : /trunk/lib/jelix/acl/jAcl.class.php
+Added : /trunk/lib/jelix/acl/jAcl2.class.php
+Added : /trunk/lib/jelix/acl/jAcl2Db.class.php
+Added : /trunk/lib/jelix/acl/jAcl2DbManager.class.php
+Added : /trunk/lib/jelix/acl/jAcl2DbUserGroup.class.php
+Added : /trunk/lib/jelix/acl/jAclDb.class.php
+Added : /trunk/lib/jelix/acl/jAclDbManager.class.php
+Added : /trunk/lib/jelix/acl/jAclDbUserGroup.class.php
+Added : /trunk/lib/jelix/auth
+Added : /trunk/lib/jelix/auth/jAuth.class.php
+Added : /trunk/lib/jelix/auth/jAuthDummyUser.class.php
+Added : /trunk/lib/jelix/auth/jAuthUser.class.php
+Added : /trunk/lib/jelix/checker.php
+Added : /trunk/lib/jelix/controllers
+Added : /trunk/lib/jelix/controllers/jControllerCmdLine.class.php
+Added : /trunk/lib/jelix/controllers/jControllerDaoCrud.class.php
+Added : /trunk/lib/jelix/controllers/jControllerDaoCrudDfk.class.php
+Added : /trunk/lib/jelix/core
+Added : /trunk/lib/jelix/core/defaultconfig.ini.php
+Added : /trunk/lib/jelix/core/jCmdlineCoordinator.class.php
+Added : /trunk/lib/jelix/core/jConfigCompiler.class.php
+Added : /trunk/lib/jelix/core/jInstallChecker.class.php
+Added : /trunk/lib/jelix/core/jSoapCoordinator.class.php
+Added : /trunk/lib/jelix/core/request
+Added : /trunk/lib/jelix/core/request/jClassicRequest.class.php
+Added : /trunk/lib/jelix/core/request/jCmdLineRequest.class.php
+Added : /trunk/lib/jelix/core/request/jCssRequest.class.php
+Added : /trunk/lib/jelix/core/request/jJsonRpcRequest.class.php
+Added : /trunk/lib/jelix/core/request/jRdfRequest.class.php
+Added : /trunk/lib/jelix/core/request/jSoapRequest.class.php
+Added : /trunk/lib/jelix/core/request/jXmlRpcRequest.class.php
+Added : /trunk/lib/jelix/core/request/jXulRequest.class.php
+Added : /trunk/lib/jelix/core/response
+Added : /trunk/lib/jelix/core/response/jResponseAtom10.class.php
+Added : /trunk/lib/jelix/core/response/jResponseBinary.class.php
+Added : /trunk/lib/jelix/core/response/jResponseCmdline.class.php
+Added : /trunk/lib/jelix/core/response/jResponseCss.class.php
+Added : /trunk/lib/jelix/core/response/jResponseHtml.class.php
+Added : /trunk/lib/jelix/core/response/jResponseHtmlFragment.class.php
+Added : /trunk/lib/jelix/core/response/jResponseJson.class.php
+Added : /trunk/lib/jelix/core/response/jResponseJsonrpc.class.php
+Added : /trunk/lib/jelix/core/response/jResponseLatexToPdf.class.php
+Added : /trunk/lib/jelix/core/response/jResponseRdf.class.php
+Added : /trunk/lib/jelix/core/response/jResponseRedirect.class.php
+Added : /trunk/lib/jelix/core/response/jResponseRedirectUrl.class.php
+Added : /trunk/lib/jelix/core/response/jResponseRss20.class.php
+Added : /trunk/lib/jelix/core/response/jResponseSoap.class.php
+Added : /trunk/lib/jelix/core/response/jResponseTcpdf.class.php
+Added : /trunk/lib/jelix/core/response/jResponseText.class.php
+Added : /trunk/lib/jelix/core/response/jResponseXml.class.php
+Added : /trunk/lib/jelix/core/response/jResponseXmlFeed.class.php
+Added : /trunk/lib/jelix/core/response/jResponseXmlrpc.class.php
+Added : /trunk/lib/jelix/core/response/jResponseXul.class.php
+Added : /trunk/lib/jelix/core/response/jResponseXulDialog.class.php
+Added : /trunk/lib/jelix/core/response/jResponseXulOverlay.class.php
+Added : /trunk/lib/jelix/core/response/jResponseXulPage.class.php
+Added : /trunk/lib/jelix/core/response/jResponseZip.class.php
+Added : /trunk/lib/jelix/core-modules
+Added : /trunk/lib/jelix/core-modules/jelix
+Added : /trunk/lib/jelix/core-modules/jelix/controllers
+Added : /trunk/lib/jelix/core-modules/jelix/controllers/error.classic.php
+Added : /trunk/lib/jelix/core-modules/jelix/controllers/error.jsonrpc.php
+Added : /trunk/lib/jelix/core-modules/jelix/controllers/error.rdf.php
+Added : /trunk/lib/jelix/core-modules/jelix/controllers/error.xmlrpc.php
+Added : /trunk/lib/jelix/core-modules/jelix/controllers/error.xul.php
+Added : /trunk/lib/jelix/core-modules/jelix/controllers/help.cmdline.php
+Added : /trunk/lib/jelix/core-modules/jelix/daos
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jacl2group.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jacl2groupsofuser.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jacl2rights.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jacl2subject.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jacl2usergroup.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jaclgroup.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jaclgroupsofuser.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jaclrights.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jaclrightvalues.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jaclrightvaluesandgroup.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jaclrightvaluesgroup.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jaclsubject.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jaclusergroup.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/daos/jsession.dao.xml
+Added : /trunk/lib/jelix/core-modules/jelix/install
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/delete.mysql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/delete.pgsql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl.data.mysql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl.data.pgsql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl.schema.mysql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl.schema.pgsql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl2.data.mysql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl2.data.pgsql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl2.schema.mysql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jacl2.schema.pgsql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jauth.data.mysql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jauth.data.pgsql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jauth.schema.mysql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jauth.schema.pgsql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jsession.schema.mysql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/install/sql/install_jsession.schema.pgsql.sql
+Added : /trunk/lib/jelix/core-modules/jelix/locales
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/acl2db.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/acl2db.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/acl2db.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/acldb.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/acldb.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/acldb.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/auth.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/auth.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/auth.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/captcha.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/captcha.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/captcha.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/common.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/common.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/common.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/crud.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/crud.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/crud.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/dao.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/dao.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/dao.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/daoxml.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/daoxml.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/daoxml.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/date_time.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/date_time.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/date_time.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/db.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/db.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/db.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/errors.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/errors.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/errors.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/format.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/format.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/format.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/formserr.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/formserr.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/formserr.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/jelix.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/jelix.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/jelix.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/jforms.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/jforms.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/jforms.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/ui.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/ui.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_EN/ui.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/acl2db.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/acl2db.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/acl2db.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/acldb.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/acldb.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/acldb.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/auth.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/auth.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/auth.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/captcha.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/captcha.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/captcha.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/common.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/common.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/common.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/crud.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/crud.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/crud.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/dao.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/dao.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/dao.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/daoxml.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/daoxml.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/daoxml.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/date_time.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/date_time.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/date_time.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/db.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/db.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/db.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/errors.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/errors.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/errors.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/format.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/format.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/format.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/formserr.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/formserr.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/formserr.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/jelix.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/jelix.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/jelix.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/jforms.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/jforms.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/jforms.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/ui.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/ui.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/en_US/ui.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/acl2db.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/acl2db.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/acl2db.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/acldb.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/acldb.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/acldb.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/auth.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/auth.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/auth.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/captcha.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/captcha.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/captcha.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/common.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/common.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/common.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/crud.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/crud.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/crud.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/dao.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/dao.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/dao.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/daoxml.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/daoxml.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/daoxml.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/date_time.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/date_time.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/date_time.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/db.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/db.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/db.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/errors.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/errors.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/errors.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/format.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/format.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/format.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/formserr.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/formserr.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/formserr.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/jelix.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/jelix.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/jelix.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/jforms.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/jforms.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/jforms.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/ui.ISO-8859-1.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/ui.ISO-8859-15.properties
+Added : /trunk/lib/jelix/core-modules/jelix/locales/fr_FR/ui.UTF-8.properties
+Added : /trunk/lib/jelix/core-modules/jelix/module.xml
+Added : /trunk/lib/jelix/core-modules/jelix/templates
+Added : /trunk/lib/jelix/core-modules/jelix/templates/403.html.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/404.html.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/404.xul.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/atom10.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/crud_edit.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/crud_list.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/crud_view.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/cruddfk_edit.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/cruddfk_list.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/cruddfk_view.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/defaultmain.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/en_EN
+Added : /trunk/lib/jelix/core-modules/jelix/templates/en_EN/check_install.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/en_US
+Added : /trunk/lib/jelix/core-modules/jelix/templates/en_US/check_install.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/fr_FR
+Added : /trunk/lib/jelix/core-modules/jelix/templates/fr_FR/check_install.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/templates/rss20.tpl
+Added : /trunk/lib/jelix/core-modules/jelix/zones
+Added : /trunk/lib/jelix/core-modules/jelix/zones/check_install.zone.php
+Added : /trunk/lib/jelix/dao
+Added : /trunk/lib/jelix/dao/jDao.class.php
+Added : /trunk/lib/jelix/dao/jDaoCompiler.class.php
+Added : /trunk/lib/jelix/dao/jDaoConditions.class.php
+Added : /trunk/lib/jelix/dao/jDaoFactoryBase.class.php
+Added : /trunk/lib/jelix/dao/jDaoRecordBase.class.php
+Added : /trunk/lib/jelix/db
+Added : /trunk/lib/jelix/db/jDb.class.php
+Added : /trunk/lib/jelix/db/jDbPDOConnection.class.php
+Added : /trunk/lib/jelix/db/jDbTools.class.php
+Added : /trunk/lib/jelix/db/jDbWidget.class.php
+Added : /trunk/lib/jelix/events
+Added : /trunk/lib/jelix/events/jEvent.class.php
+Added : /trunk/lib/jelix/events/jEventCompiler.class.php
+Added : /trunk/lib/jelix/forms
+Added : /trunk/lib/jelix/forms/jForms.class.php
+Added : /trunk/lib/jelix/forms/jFormsBase.class.php
+Added : /trunk/lib/jelix/forms/jFormsBuilderBase.class.php
+Added : /trunk/lib/jelix/forms/jFormsCompiler.class.php
+Added : /trunk/lib/jelix/forms/jFormsCompiler_jf_1_0.class.php
+Added : /trunk/lib/jelix/forms/jFormsCompiler_jf_1_1.class.php
+Added : /trunk/lib/jelix/forms/jFormsControl.class.php
+Added : /trunk/lib/jelix/forms/jFormsDataContainer.class.php
+Added : /trunk/lib/jelix/forms/jFormsDatasource.class.php
+Added : /trunk/lib/jelix/init.php
+Added : /trunk/lib/jelix/installer
+Added : /trunk/lib/jelix/installer/jIInstallReporter.iface.php
+Added : /trunk/lib/jelix/installer/jInstallerApp.class.php
+Added : /trunk/lib/jelix/installer/jInstallerBase.class.php
+Added : /trunk/lib/jelix/installer/jInstallerModule.class.php
+Added : /trunk/lib/jelix/installer/jInstallerPlugin.class.php
+Added : /trunk/lib/jelix/plugins
+Added : /trunk/lib/jelix/plugins/acl
+Added : /trunk/lib/jelix/plugins/acl/db
+Added : /trunk/lib/jelix/plugins/acl/db/db.acl.php
+Added : /trunk/lib/jelix/plugins/acl2
+Added : /trunk/lib/jelix/plugins/acl2/db
+Added : /trunk/lib/jelix/plugins/acl2/db/db.acl2.php
+Added : /trunk/lib/jelix/plugins/auth
+Added : /trunk/lib/jelix/plugins/auth/class
+Added : /trunk/lib/jelix/plugins/auth/class/class.auth.php
+Added : /trunk/lib/jelix/plugins/auth/db
+Added : /trunk/lib/jelix/plugins/auth/db/db.auth.php
+Added : /trunk/lib/jelix/plugins/auth/lds
+Added : /trunk/lib/jelix/plugins/auth/lds/lds.auth.php
+Added : /trunk/lib/jelix/plugins/coord
+Added : /trunk/lib/jelix/plugins/coord/auth
+Added : /trunk/lib/jelix/plugins/coord/auth/auth.coord.ini.php.dist
+Added : /trunk/lib/jelix/plugins/coord/auth/auth.coord.php
+Added : /trunk/lib/jelix/plugins/coord/auth/plugin.xml
+Added : /trunk/lib/jelix/plugins/coord/autolocale
+Added : /trunk/lib/jelix/plugins/coord/autolocale/autolocale.coord.ini.php.dist
+Added : /trunk/lib/jelix/plugins/coord/autolocale/autolocale.coord.php
+Added : /trunk/lib/jelix/plugins/coord/autolocale/plugin.xml
+Added : /trunk/lib/jelix/plugins/coord/history
+Added : /trunk/lib/jelix/plugins/coord/history/history.coord.ini.php.dist
+Added : /trunk/lib/jelix/plugins/coord/history/history.coord.php
+Added : /trunk/lib/jelix/plugins/coord/history/plugin.xml
+Added : /trunk/lib/jelix/plugins/coord/jacl
+Added : /trunk/lib/jelix/plugins/coord/jacl/jacl.coord.ini.php.dist
+Added : /trunk/lib/jelix/plugins/coord/jacl/jacl.coord.php
+Added : /trunk/lib/jelix/plugins/coord/jacl/plugin.xml
+Added : /trunk/lib/jelix/plugins/coord/jacl2
+Added : /trunk/lib/jelix/plugins/coord/jacl2/jacl2.coord.ini.php.dist
+Added : /trunk/lib/jelix/plugins/coord/jacl2/jacl2.coord.php
+Added : /trunk/lib/jelix/plugins/coord/jacl2/plugin.xml
+Added : /trunk/lib/jelix/plugins/coord/magicquotes
+Added : /trunk/lib/jelix/plugins/coord/magicquotes/magicquotes.coord.php
+Added : /trunk/lib/jelix/plugins/coord/magicquotes/plugin.xml
+Added : /trunk/lib/jelix/plugins/coord/zendframework
+Added : /trunk/lib/jelix/plugins/coord/zendframework/plugin.xml
+Added : /trunk/lib/jelix/plugins/coord/zendframework/zendframework.coord.ini.php.dist
+Added : /trunk/lib/jelix/plugins/coord/zendframework/zendframework.coord.php
+Added : /trunk/lib/jelix/plugins/db
+Added : /trunk/lib/jelix/plugins/db/intuition
+Added : /trunk/lib/jelix/plugins/db/intuition/intuition.daobuilder.php
+Added : /trunk/lib/jelix/plugins/db/intuition/intuition.dbconnection.php
+Added : /trunk/lib/jelix/plugins/db/intuition/intuition.dbresultset.php
+Added : /trunk/lib/jelix/plugins/db/intuition/intuition.dbtools.php
+Added : /trunk/lib/jelix/plugins/db/mysql
+Added : /trunk/lib/jelix/plugins/db/mysql/mysql.daobuilder.php
+Added : /trunk/lib/jelix/plugins/db/mysql/mysql.dbconnection.php
+Added : /trunk/lib/jelix/plugins/db/mysql/mysql.dbresultset.php
+Added : /trunk/lib/jelix/plugins/db/mysql/mysql.dbtools.php
+Added : /trunk/lib/jelix/plugins/db/oci
+Added : /trunk/lib/jelix/plugins/db/oci/oci.daobuilder.php
+Added : /trunk/lib/jelix/plugins/db/oci/oci.dbtools.php
+Added : /trunk/lib/jelix/plugins/db/pgsql
+Added : /trunk/lib/jelix/plugins/db/pgsql/pgsql.daobuilder.php
+Added : /trunk/lib/jelix/plugins/db/pgsql/pgsql.dbconnection.php
+Added : /trunk/lib/jelix/plugins/db/pgsql/pgsql.dbresultset.php
+Added : /trunk/lib/jelix/plugins/db/pgsql/pgsql.dbtools.php
+Added : /trunk/lib/jelix/plugins/db/sqlite
+Added : /trunk/lib/jelix/plugins/db/sqlite/sqlite.daobuilder.php
+Added : /trunk/lib/jelix/plugins/db/sqlite/sqlite.dbconnection.php
+Added : /trunk/lib/jelix/plugins/db/sqlite/sqlite.dbresultset.php
+Added : /trunk/lib/jelix/plugins/db/sqlite/sqlite.dbtools.php
+Added : /trunk/lib/jelix/plugins/jforms
+Added : /trunk/lib/jelix/plugins/jforms/html
+Added : /trunk/lib/jelix/plugins/jforms/html/html.jformsbuilder.php
+Added : /trunk/lib/jelix/plugins/jforms/htmllight
+Added : /trunk/lib/jelix/plugins/jforms/htmllight/htmllight.jformsbuilder.php
+Added : /trunk/lib/jelix/plugins/tpl
+Added : /trunk/lib/jelix/plugins/tpl/common
+Added : /trunk/lib/jelix/plugins/tpl/common/block.ifacl.php
+Added : /trunk/lib/jelix/plugins/tpl/common/block.ifacl2.php
+Added : /trunk/lib/jelix/plugins/tpl/common/block.ifnotacl.php
+Added : /trunk/lib/jelix/plugins/tpl/common/block.ifnotacl2.php
+Added : /trunk/lib/jelix/plugins/tpl/common/block.ifuserconnected.php
+Added : /trunk/lib/jelix/plugins/tpl/common/block.ifusernotconnected.php
+Added : /trunk/lib/jelix/plugins/tpl/common/block.stripws.php
+Added : /trunk/lib/jelix/plugins/tpl/common/cfunction.fetchzone.php
+Added : /trunk/lib/jelix/plugins/tpl/common/cfunction.zone.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.counter.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.counter_init.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.counter_reset.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.counter_reset_all.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.cycle.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.cycle_init.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.cycle_reset.php
+Added : /trunk/lib/jelix/plugins/tpl/common/function.repeat_string.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.cat.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.count_array.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.count_characters.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.count_paragraphs.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.count_records.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.count_sentences.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.count_words.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.date_format.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.indent.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.jdatetime.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.number_format.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.regex_replace.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.replace.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.spacify.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.sprintf.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.strip.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.truncate.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.wiki.php
+Added : /trunk/lib/jelix/plugins/tpl/common/modifier.wordwrap.php
+Added : /trunk/lib/jelix/plugins/tpl/html
+Added : /trunk/lib/jelix/plugins/tpl/html/block.form.php
+Added : /trunk/lib/jelix/plugins/tpl/html/block.formcontrols.php
+Added : /trunk/lib/jelix/plugins/tpl/html/block.formdata.php
+Added : /trunk/lib/jelix/plugins/tpl/html/block.formsubmits.php
+Added : /trunk/lib/jelix/plugins/tpl/html/block.ifctrl.php
+Added : /trunk/lib/jelix/plugins/tpl/html/block.swf.php
+Added : /trunk/lib/jelix/plugins/tpl/html/block.swfjs.php
+Added : /trunk/lib/jelix/plugins/tpl/html/cfunction.const.php
+Added : /trunk/lib/jelix/plugins/tpl/html/cfunction.formfull.php
+Added : /trunk/lib/jelix/plugins/tpl/html/cfunction.swfbiscuit.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.breadcrumb.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.ctrl_control.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.ctrl_label.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.ctrl_value.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.diff.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.formdatafull.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.formreset.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.formsubmit.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.formurl.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.formurlparam.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.image.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.jlocale.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.jmessage.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.jurl.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.link_to_remote.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.pagelinks.php
+Added : /trunk/lib/jelix/plugins/tpl/html/function.urljsstring.php
+Added : /trunk/lib/jelix/plugins/tpl/html/meta.html.php
+Added : /trunk/lib/jelix/plugins/tpl/html/modifier.nl2br.php
+Added : /trunk/lib/jelix/plugins/tpl/ltx2pdf
+Added : /trunk/lib/jelix/plugins/tpl/ltx2pdf/block.lcmd.php
+Added : /trunk/lib/jelix/plugins/tpl/ltx2pdf/block.lenv.php
+Added : /trunk/lib/jelix/plugins/tpl/ltx2pdf/function.jlocale.php
+Added : /trunk/lib/jelix/plugins/tpl/ltx2pdf/function.jurl.php
+Added : /trunk/lib/jelix/plugins/tpl/ltx2pdf/modifier.latex.php
+Added : /trunk/lib/jelix/plugins/tpl/text
+Added : /trunk/lib/jelix/plugins/tpl/text/cfunction.const.php
+Added : /trunk/lib/jelix/plugins/tpl/text/function.formdatafull.php
+Added : /trunk/lib/jelix/plugins/tpl/text/function.jlocale.php
+Added : /trunk/lib/jelix/plugins/tpl/text/function.jurl.php
+Added : /trunk/lib/jelix/plugins/tpl/xml
+Added : /trunk/lib/jelix/plugins/tpl/xml/cfunction.const.php
+Added : /trunk/lib/jelix/plugins/tpl/xml/function.jlocale.php
+Added : /trunk/lib/jelix/plugins/tpl/xml/function.jurl.php
+Added : /trunk/lib/jelix/plugins/tpl/xml/meta.xml.php
+Added : /trunk/lib/jelix/plugins/tpl/xul
+Added : /trunk/lib/jelix/plugins/tpl/xul/cfunction.const.php
+Added : /trunk/lib/jelix/plugins/tpl/xul/function.jlocale.php
+Added : /trunk/lib/jelix/plugins/tpl/xul/function.jurl.php
+Added : /trunk/lib/jelix/plugins/tpl/xul/function.urljsstring.php
+Added : /trunk/lib/jelix/plugins/tpl/xul/meta.xul.php
+Added : /trunk/lib/jelix/plugins/urls
+Added : /trunk/lib/jelix/plugins/urls/basic_significant
+Added : /trunk/lib/jelix/plugins/urls/basic_significant/basic_significant.urls.php
+Added : /trunk/lib/jelix/plugins/urls/significant
+Added : /trunk/lib/jelix/plugins/urls/significant/jSignificantUrlsCompiler.class.php
+Added : /trunk/lib/jelix/plugins/urls/significant/significant.urls.php
+Added : /trunk/lib/jelix/plugins/urls/simple
+Added : /trunk/lib/jelix/plugins/urls/simple/simple.urls.php
+Added : /trunk/lib/jelix/tpl
+Added : /trunk/lib/jelix/tpl/jTpl.class.php
+Added : /trunk/lib/jelix/tpl/jTplCompiler.class.php
+Added : /trunk/lib/jelix/utils
+Added : /trunk/lib/jelix/utils/jAppManager.class.php
+Added : /trunk/lib/jelix/utils/jClassBinding.class.php
+Added : /trunk/lib/jelix/utils/jClasses.class.php
+Added : /trunk/lib/jelix/utils/jCmdUtils.class.php
+Added : /trunk/lib/jelix/utils/jCrypt.class.php
+Added : /trunk/lib/jelix/utils/jDatatype.class.php
+Added : /trunk/lib/jelix/utils/jDateTime.class.php
+Added : /trunk/lib/jelix/utils/jDuration.class.php
+Added : /trunk/lib/jelix/utils/jFile.class.php
+Added : /trunk/lib/jelix/utils/jFilter.class.php
+Added : /trunk/lib/jelix/utils/jHttp.class.php
+Added : /trunk/lib/jelix/utils/jImageModifier.class.php
+Added : /trunk/lib/jelix/utils/jIniFile.class.php
+Added : /trunk/lib/jelix/utils/jIniFileModifier.class.php
+Added : /trunk/lib/jelix/utils/jIniMultiFilesModifier.class.php
+Added : /trunk/lib/jelix/utils/jJson.class.php
+Added : /trunk/lib/jelix/utils/jJsonRpc.class.php
+Added : /trunk/lib/jelix/utils/jLog.class.php
+Added : /trunk/lib/jelix/utils/jMailer.class.php
+Added : /trunk/lib/jelix/utils/jMessage.class.php
+Added : /trunk/lib/jelix/utils/jSmtp.class.php
+Added : /trunk/lib/jelix/utils/jTcpdf.class.php
+Added : /trunk/lib/jelix/utils/jWSDL.class.php
+Added : /trunk/lib/jelix/utils/jWiki.class.php
+Added : /trunk/lib/jelix/utils/jXmlRpc.class.php
+Added : /trunk/lib/jelix/utils/jZipCreator.class.php
+Added : /trunk/lib/jelix/utils/jZone.class.php
+Added : /trunk/lib/jelix-admin-modules
+Added : /trunk/lib/jelix-admin-modules/CREDITS
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/classes
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/classes/jacl2db_admin.listener.php
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/controllers
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/controllers/groups.classic.php
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/controllers/users.classic.php
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/events.xml
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/install
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/install/urls_example.xml
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/en_EN
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/en_EN/acl2.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/en_EN/acl2.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/en_EN/acl2.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/fr_FR
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/fr_FR/acl2.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/fr_FR/acl2.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/locales/fr_FR/acl2.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/module.xml
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/group_rights_res.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/group_rights_res_view.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/groups_edit.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/groups_right.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/groups_right_view.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/user_rights.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/user_rights_res.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/user_rights_res_view.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/user_rights_view.tpl
+Added : /trunk/lib/jelix-admin-modules/jacl2db_admin/templates/users_list.tpl
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/classes
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/classes/jauthdb_admin.listener.php
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/controllers
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/controllers/default.classic.php
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/controllers/password.classic.php
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/controllers/user.classic.php
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/events.xml
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/forms
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/forms/jelixuser.form.xml
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/install
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/install/urls_example.xml
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/auth.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/auth.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/auth.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/crud.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/crud.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/crud.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/user.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/user.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/en_EN/user.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/auth.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/auth.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/auth.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/crud.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/crud.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/crud.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/user.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/user.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/locales/fr_FR/user.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/module.xml
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates/crud_delete.tpl
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates/crud_edit.tpl
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates/crud_list.tpl
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates/crud_view.tpl
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates/password_change.tpl
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates/user_edit.tpl
+Added : /trunk/lib/jelix-admin-modules/jauthdb_admin/templates/user_view.tpl
+Added : /trunk/lib/jelix-admin-modules/master_admin
+Added : /trunk/lib/jelix-admin-modules/master_admin/classes
+Added : /trunk/lib/jelix-admin-modules/master_admin/classes/masterAdminMenuItem.class.php
+Added : /trunk/lib/jelix-admin-modules/master_admin/controllers
+Added : /trunk/lib/jelix-admin-modules/master_admin/controllers/default.classic.php
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales/en_EN
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales/en_EN/gui.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales/en_EN/gui.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales/en_EN/gui.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales/fr_FR
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales/fr_FR/gui.ISO-8859-1.properties
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales/fr_FR/gui.ISO-8859-15.properties
+Added : /trunk/lib/jelix-admin-modules/master_admin/locales/fr_FR/gui.UTF-8.properties
+Added : /trunk/lib/jelix-admin-modules/master_admin/module.xml
+Added : /trunk/lib/jelix-admin-modules/master_admin/templates
+Added : /trunk/lib/jelix-admin-modules/master_admin/templates/index_login.tpl
+Added : /trunk/lib/jelix-admin-modules/master_admin/templates/main.tpl
+Added : /trunk/lib/jelix-admin-modules/master_admin/templates/zone_admin_infobox.tpl
+Added : /trunk/lib/jelix-admin-modules/master_admin/templates/zone_admin_menu.tpl
+Added : /trunk/lib/jelix-admin-modules/master_admin/templates/zone_dashboard.tpl
+Added : /trunk/lib/jelix-admin-modules/master_admin/zones
+Added : /trunk/lib/jelix-admin-modules/master_admin/zones/admin_infobox.zone.php
+Added : /trunk/lib/jelix-admin-modules/master_admin/zones/admin_menu.zone.php
+Added : /trunk/lib/jelix-admin-modules/master_admin/zones/dashboard.zone.php
+Added : /trunk/lib/jelix-modules
+Added : /trunk/lib/jelix-modules/CREDITS
+Added : /trunk/lib/jelix-modules/INSTALL
+Added : /trunk/lib/jelix-modules/LICENCE
+Added : /trunk/lib/jelix-modules/jWSDL
+Added : /trunk/lib/jelix-modules/jWSDL/controllers
+Added : /trunk/lib/jelix-modules/jWSDL/controllers/WSDL.classic.php
+Added : /trunk/lib/jelix-modules/jWSDL/locales
+Added : /trunk/lib/jelix-modules/jWSDL/locales/en_EN
+Added : /trunk/lib/jelix-modules/jWSDL/locales/en_EN/errors.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jWSDL/locales/en_EN/errors.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jWSDL/locales/en_EN/errors.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jWSDL/locales/en_US
+Added : /trunk/lib/jelix-modules/jWSDL/locales/en_US/errors.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jWSDL/locales/en_US/errors.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jWSDL/locales/en_US/errors.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jWSDL/locales/fr_FR
+Added : /trunk/lib/jelix-modules/jWSDL/locales/fr_FR/errors.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jWSDL/locales/fr_FR/errors.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jWSDL/locales/fr_FR/errors.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jWSDL/module.xml
+Added : /trunk/lib/jelix-modules/jWSDL/templates
+Added : /trunk/lib/jelix-modules/jWSDL/templates/soap_doc.tpl
+Added : /trunk/lib/jelix-modules/jacl2db
+Added : /trunk/lib/jelix-modules/jacl2db/classes
+Added : /trunk/lib/jelix-modules/jacl2db/classes/jacl2db.listener.php
+Added : /trunk/lib/jelix-modules/jacl2db/events.xml
+Added : /trunk/lib/jelix-modules/jacl2db/module.xml
+Added : /trunk/lib/jelix-modules/jacldb
+Added : /trunk/lib/jelix-modules/jacldb/classes
+Added : /trunk/lib/jelix-modules/jacldb/classes/jacldb.listener.php
+Added : /trunk/lib/jelix-modules/jacldb/events.xml
+Added : /trunk/lib/jelix-modules/jacldb/module.xml
+Added : /trunk/lib/jelix-modules/jauth
+Added : /trunk/lib/jelix-modules/jauth/classes
+Added : /trunk/lib/jelix-modules/jauth/classes/jauth.listener.php
+Added : /trunk/lib/jelix-modules/jauth/controllers
+Added : /trunk/lib/jelix-modules/jauth/controllers/login.classic.php
+Added : /trunk/lib/jelix-modules/jauth/controllers/loginsw.classic.php
+Added : /trunk/lib/jelix-modules/jauth/daos
+Added : /trunk/lib/jelix-modules/jauth/daos/jelixuser.dao.xml
+Added : /trunk/lib/jelix-modules/jauth/events.xml
+Added : /trunk/lib/jelix-modules/jauth/install
+Added : /trunk/lib/jelix-modules/jauth/install/var
+Added : /trunk/lib/jelix-modules/jauth/install/var/config
+Added : /trunk/lib/jelix-modules/jauth/install/var/config/auth.coord.ini.php
+Added : /trunk/lib/jelix-modules/jauth/install/var/config/authsw.coord.ini.php
+Added : /trunk/lib/jelix-modules/jauth/locales
+Added : /trunk/lib/jelix-modules/jauth/locales/en_EN
+Added : /trunk/lib/jelix-modules/jauth/locales/en_EN/auth.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_EN/auth.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_EN/auth.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_EN/autherror.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_EN/autherror.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_EN/autherror.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_US
+Added : /trunk/lib/jelix-modules/jauth/locales/en_US/auth.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_US/auth.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_US/auth.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_US/autherror.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_US/autherror.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/en_US/autherror.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/fr_FR
+Added : /trunk/lib/jelix-modules/jauth/locales/fr_FR/auth.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/fr_FR/auth.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/fr_FR/auth.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/fr_FR/autherror.ISO-8859-1.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/fr_FR/autherror.ISO-8859-15.properties
+Added : /trunk/lib/jelix-modules/jauth/locales/fr_FR/autherror.UTF-8.properties
+Added : /trunk/lib/jelix-modules/jauth/module.xml
+Added : /trunk/lib/jelix-modules/jauth/templates
+Added : /trunk/lib/jelix-modules/jauth/templates/index.tpl
+Added : /trunk/lib/jelix-modules/jauth/templates/login.form.tpl
+Added : /trunk/lib/jelix-modules/jauth/zones
+Added : /trunk/lib/jelix-modules/jauth/zones/loginform.zone.php
+Added : /trunk/lib/jelix-plugins
+Added : /trunk/lib/jelix-www
+Added : /trunk/lib/jelix-www/design
+Added : /trunk/lib/jelix-www/design/images
+Added : /trunk/lib/jelix-www/design/images/dashboard.png
+Added : /trunk/lib/jelix-www/design/images/fond-bandeau.png
+Added : /trunk/lib/jelix-www/design/images/fond-cellule.png
+Added : /trunk/lib/jelix-www/design/images/group.png
+Added : /trunk/lib/jelix-www/design/images/jelix_powered.png
+Added : /trunk/lib/jelix-www/design/images/logo_jelix_moyen.png
+Added : /trunk/lib/jelix-www/design/images/rights.png
+Added : /trunk/lib/jelix-www/design/images/user.png
+Added : /trunk/lib/jelix-www/design/jacl2.css
+Added : /trunk/lib/jelix-www/design/jelix.css
+Added : /trunk/lib/jelix-www/design/jform.css
+Added : /trunk/lib/jelix-www/design/jforms
+Added : /trunk/lib/jelix-www/design/jforms/calendar.gif
+Added : /trunk/lib/jelix-www/design/master_admin.css
+Added : /trunk/lib/jelix-www/design/records_list.css
+Added : /trunk/lib/jelix-www/design/tooltip.css
+Added : /trunk/lib/jelix-www/jquery
+Added : /trunk/lib/jelix-www/jquery/GPL-LICENSE.txt
+Added : /trunk/lib/jelix-www/jquery/MIT-LICENSE.txt
+Added : /trunk/lib/jelix-www/jquery/README
+Added : /trunk/lib/jelix-www/jquery/VERSION
+Added : /trunk/lib/jelix-www/jquery/date_input
+Added : /trunk/lib/jelix-www/jquery/date_input/LICENCE
+Added : /trunk/lib/jelix-www/jquery/date_input/README
+Added : /trunk/lib/jelix-www/jquery/date_input/date_input.css
+Added : /trunk/lib/jelix-www/jquery/date_input/jquery.date_input.fr_FR.js
+Added : /trunk/lib/jelix-www/jquery/date_input/jquery.date_input.min.js
+Added : /trunk/lib/jelix-www/jquery/flash
+Added : /trunk/lib/jelix-www/jquery/flash/jquery.flash.js
+Added : /trunk/lib/jelix-www/jquery/include
+Added : /trunk/lib/jelix-www/jquery/include/jquery.include.js
+Added : /trunk/lib/jelix-www/jquery/jquery.js
+Added : /trunk/lib/jelix-www/jquery/themes
+Added : /trunk/lib/jelix-www/jquery/themes/default
+Added : /trunk/lib/jelix-www/jquery/themes/default/images
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_arrows_leftright.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_arrows_updown.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_close.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_doc.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_folder_closed.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_folder_open.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_minus.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_plus.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_11x11_icon_resize_se.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_7x7_arrow_down.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_7x7_arrow_left.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_7x7_arrow_right.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/222222_7x7_arrow_up.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_11x11_icon_arrows_leftright.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_11x11_icon_arrows_updown.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_11x11_icon_close.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_11x11_icon_doc.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_11x11_icon_folder_closed.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_11x11_icon_folder_open.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_11x11_icon_minus.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_11x11_icon_plus.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_7x7_arrow_down.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_7x7_arrow_left.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_7x7_arrow_right.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/454545_7x7_arrow_up.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_11x11_icon_arrows_leftright.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_11x11_icon_arrows_updown.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_11x11_icon_close.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_11x11_icon_doc.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_11x11_icon_folder_closed.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_11x11_icon_folder_open.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_11x11_icon_minus.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_11x11_icon_plus.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_7x7_arrow_down.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_7x7_arrow_left.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_7x7_arrow_right.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/888888_7x7_arrow_up.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/bg.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_background.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_hex.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_hsb_b.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_hsb_h.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_hsb_s.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_indic.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_overlay.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_rgb_b.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_rgb_g.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_rgb_r.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_select.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/colorpicker_submit.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_background.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_hex.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_hsb_b.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_hsb_h.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_hsb_s.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_indic.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_rgb_b.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_rgb_g.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_rgb_r.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/custom_submit.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/dadada_40x100_textures_02_glass_75.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/e6e6e6_40x100_textures_02_glass_75.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/ffffff_40x100_textures_02_glass_65.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/progress-bg.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/select.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/select2.png
+Added : /trunk/lib/jelix-www/jquery/themes/default/images/spinner-bg.gif
+Added : /trunk/lib/jelix-www/jquery/themes/default/ui.all.css
+Added : /trunk/lib/jelix-www/jquery/themes/default/ui.datepicker.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora
+Added : /trunk/lib/jelix-www/jquery/themes/flora/flora.accordion.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora/flora.all.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora/flora.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora/flora.datepicker.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora/flora.dialog.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora/flora.resizable.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora/flora.slider.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora/flora.tabs.css
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-left-act.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-left-over.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-left.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-middle-act.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-middle-over.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-middle.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-right-act.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-right-over.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/accordion-right.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-e.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-n.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-ne.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-nw.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-s.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-se.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-sw.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-title.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-titlebar-close-hover.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-titlebar-close.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/dialog-w.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/resizable-e.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/resizable-n.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/resizable-ne.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/resizable-nw.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/resizable-s.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/resizable-se.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/resizable-sw.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/resizable-w.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/slider-bg-1.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/slider-bg-2.png
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/slider-handle.gif
+Added : /trunk/lib/jelix-www/jquery/themes/flora/i/tabs.png
+Added : /trunk/lib/jelix-www/jquery/ui
+Added : /trunk/lib/jelix-www/jquery/ui/GPL-LICENSE.txt
+Added : /trunk/lib/jelix-www/jquery/ui/MIT-LICENSE.txt
+Added : /trunk/lib/jelix-www/jquery/ui/effects.blind.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.bounce.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.clip.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.core.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.drop.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.explode.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.fold.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.highlight.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.pulsate.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.scale.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.shake.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.slide.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/effects.transfer.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/jquery.ui.i18n.all.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-ar.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-bg.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-ca.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-cs.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-da.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-de.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-eo.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-es.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-fi.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-fr.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-he.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-hr.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-hu.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-hy.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-id.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-is.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-it.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-ja.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-ko.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-lt.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-lv.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-nl.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-no.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-pl.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-pt-BR.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-ro.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-ru.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-sk.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-sl.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-sv.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-th.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-tr.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-uk.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-zh-CN.js
+Added : /trunk/lib/jelix-www/jquery/ui/i18n/ui.datepicker-zh-TW.js
+Added : /trunk/lib/jelix-www/jquery/ui/jquery.ui.all.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.accordion.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.autocomplete.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.colorpicker.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.core.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.datepicker.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.dialog.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.draggable.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.droppable.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.magnifier.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.progressbar.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.resizable.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.selectable.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.slider.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.sortable.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.spinner.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/ui.tabs.min.js
+Added : /trunk/lib/jelix-www/jquery/ui/version.txt
+Added : /trunk/lib/jelix-www/js
+Added : /trunk/lib/jelix-www/js/jforms
+Added : /trunk/lib/jelix-www/js/jforms/datepickers
+Added : /trunk/lib/jelix-www/js/jforms/datepickers/default
+Added : /trunk/lib/jelix-www/js/jforms/datepickers/default/init.js
+Added : /trunk/lib/jelix-www/js/jforms_jquery.js
+Added : /trunk/lib/jelix-www/js/jforms_light.js
+Added : /trunk/lib/jelix-www/js/json.js
+Added : /trunk/lib/jelix-www/js/json2.js
+Added : /trunk/lib/jelix-www/js/tooltip.js
+Added : /trunk/lib/jelix-www/wymeditor
+Added : /trunk/lib/jelix-www/wymeditor/GPL-license.txt
+Added : /trunk/lib/jelix-www/wymeditor/MIT-license.txt
+Added : /trunk/lib/jelix-www/wymeditor/README
+Added : /trunk/lib/jelix-www/wymeditor/config
+Added : /trunk/lib/jelix-www/wymeditor/config/default.js
+Added : /trunk/lib/jelix-www/wymeditor/iframe
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-blockquote.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-h1.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-h2.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-h3.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-h4.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-h5.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-h6.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-p.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/lbl-pre.png
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/wymiframe.css
+Added : /trunk/lib/jelix-www/wymeditor/iframe/default/wymiframe.html
+Added : /trunk/lib/jelix-www/wymeditor/jquery.wymeditor.js
+Added : /trunk/lib/jelix-www/wymeditor/lang
+Added : /trunk/lib/jelix-www/wymeditor/lang/ca.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/de.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/en.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/es.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/fr.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/hu.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/it.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/nl.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/pl.js
+Added : /trunk/lib/jelix-www/wymeditor/lang/sv.js
+Added : /trunk/lib/jelix-www/wymeditor/plugins
+Added : /trunk/lib/jelix-www/wymeditor/plugins/hovertools
+Added : /trunk/lib/jelix-www/wymeditor/plugins/hovertools/jquery.wymeditor.hovertools.js
+Added : /trunk/lib/jelix-www/wymeditor/plugins/tidy
+Added : /trunk/lib/jelix-www/wymeditor/plugins/tidy/README
+Added : /trunk/lib/jelix-www/wymeditor/plugins/tidy/jquery.wymeditor.tidy.js
+Added : /trunk/lib/jelix-www/wymeditor/plugins/tidy/tidy.php
+Added : /trunk/lib/jelix-www/wymeditor/plugins/tidy/wand.png
+Added : /trunk/lib/jelix-www/wymeditor/skins
+Added : /trunk/lib/jelix-www/wymeditor/skins/default
+Added : /trunk/lib/jelix-www/wymeditor/skins/default/icons.png
+Added : /trunk/lib/jelix-www/wymeditor/skins/default/screen.css
+Added : /trunk/lib/jelix-www/wymeditor/skins/wymeditor_icon.png
+Added : /trunk/lib/jelix-www/wymeditor/wym_css_parser.js
+Added : /trunk/lib/jelix-www/wymeditor/xhtml_parser.js
+Added : /trunk/lib/jelix-www/xul
+Added : /trunk/lib/jelix-www/xul/jsonrpc.js
+Added : /trunk/lib/jelix-www/xul/jxbl.css
+Added : /trunk/lib/jelix-www/xul/jxbl.xml
+Added : /trunk/lib/jelix-www/xul/jxulform.css
+Added : /trunk/lib/jelix-www/xul/jxulform.xml
+Added : /trunk/lib/jelix-www/xul/throbber.gif
+Added : /trunk/lib/jelix_check_server.php
+Added : /trunk/lib/phpMailer
+Added : /trunk/lib/phpMailer/LICENSE
+Added : /trunk/lib/phpMailer/README
+Added : /trunk/lib/phpMailer/class.phpmailer.php
+Added : /trunk/lib/phpMailer/class.pop3.php
+Added : /trunk/lib/phpMailer/class.smtp.php
+Added : /trunk/lib/phpMailer/language
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-br.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-ca.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-cz.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-de.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-dk.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-en.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-es.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-et.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-fi.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-fo.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-fr.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-hu.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-it.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-ja.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-nl.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-no.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-pl.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-ro.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-ru.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-se.php
+Added : /trunk/lib/phpMailer/language/phpmailer.lang-tr.php
+Added : /trunk/lib/tcpdf
+Added : /trunk/lib/tcpdf/CHANGELOG.TXT
+Added : /trunk/lib/tcpdf/LICENSE.TXT
+Added : /trunk/lib/tcpdf/README.TXT
+Added : /trunk/lib/tcpdf/barcodes.php
+Added : /trunk/lib/tcpdf/config
+Added : /trunk/lib/tcpdf/config/tcpdf_config.php
+Added : /trunk/lib/tcpdf/htmlcolors.php
+Added : /trunk/lib/tcpdf/images
+Added : /trunk/lib/tcpdf/images/_blank.png
+Added : /trunk/lib/tcpdf/tcpdf.php
+Added : /trunk/lib/tcpdf/unicode_data.php
+Added : /trunk/lib/wikirenderer
+Added : /trunk/lib/wikirenderer/CHANGELOG
+Added : /trunk/lib/wikirenderer/CREDITS
+Added : /trunk/lib/wikirenderer/LICENCE
+Added : /trunk/lib/wikirenderer/VERSION
+Added : /trunk/lib/wikirenderer/WikiRenderer.lib.php
+Added : /trunk/lib/wikirenderer/rules
+Added : /trunk/lib/wikirenderer/rules/classicwr_to_text.php
+Added : /trunk/lib/wikirenderer/rules/classicwr_to_wr3.php
+Added : /trunk/lib/wikirenderer/rules/classicwr_to_xhtml.php
+Added : /trunk/lib/wikirenderer/rules/dokuwiki_to_docbook.php
+Added : /trunk/lib/wikirenderer/rules/dokuwiki_to_xhtml.php
+Added : /trunk/lib/wikirenderer/rules/trac_to_xhtml.php
+Added : /trunk/lib/wikirenderer/rules/wr3_to_docbook.php
+Added : /trunk/lib/wikirenderer/rules/wr3_to_text.php
+Added : /trunk/lib/wikirenderer/rules/wr3_to_xhtml.php
+Added : /trunk/lib/wshelper
+Added : /trunk/lib/wshelper/CREDITS
+Added : /trunk/lib/wshelper/IPPhpDoc.class.php
+Added : /trunk/lib/wshelper/IPReflectionClass.class.php
+Added : /trunk/lib/wshelper/IPReflectionCommentParser.class.php
+Added : /trunk/lib/wshelper/IPReflectionMethod.class.php
+Added : /trunk/lib/wshelper/IPReflectionProperty.class.php
+Added : /trunk/lib/wshelper/IPXMLSchema.class.php
+Added : /trunk/lib/wshelper/LICENCE
+Added : /trunk/lib/wshelper/README
+Added : /trunk/lib/wshelper/WSDLException.class.php
+Added : /trunk/lib/wshelper/WSDLStruct.class.php
+Added : /trunk/lib/wshelper/WSException.class.php
+
+Revision: 481
+Author: foxmask
+Date: 19:11:23, mercredi 30 décembre 2009
+Message:
+ticket #152 : code indent
+ticket #151 : unneeded controler
+ticket #148 : home and community
+ticket #147 #144 : cancel button
+ticket #143 : error in censor message
+ticket #141 : banuser improvment
+ticket #140 : hfnuinstall coord
+ticket #139 : history+flood coord moved in index/config.ini.php
+ticket #138 : private constructor
+ticket #137 : jelix opt
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/authhavefnubb.listener.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/bans.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/flags.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/flood.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/havefnubb.listener.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuMenuItem.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnucat.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuforum.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuforumaccess.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnumenu.listener.php
+Deleted : /trunk/havefnubb/modules/havefnubb/classes/hfnumenus.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnumenusbar.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuposts.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnurank.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuread.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnutoken.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/language.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/modulexml.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/postStuff.listener.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/timeout.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/banuser.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/category.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/error.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/flood.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/forum.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/members.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/events.xml
+Modified : /trunk/havefnubb/modules/havefnubb/forms/censor.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/forms/jumpto.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/forms/notify.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/forms/posts.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/forms/posts_move.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/forms/pwd.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/forms/split.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/main.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/post.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/main.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/post.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/module.xml
+Modified : /trunk/havefnubb/modules/havefnubb/templates/censor.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.edit.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.notify.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/split.to.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.jumpto.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.quickreply.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/zones/category.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/footer_menu.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/forum.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/forumchild.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/hfnubox.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/i_read_this_post.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/jumpto.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/lastposts.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/mark_forum.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/memberlist.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/memberprofile.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/menu.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/newestposts.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/online.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/online_offline.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/online_today.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/pinedposts.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/postandmsg.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/postlc.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/postlistbytag.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/posts_replies.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/quickreply.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/responsettl.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/stats.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/statsinfos.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/syntax_wiki.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/viewedttl.zone.php
+Modified : /trunk/havefnubb/modules/havefnubb/zones/what_is_my_rank.zone.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuaboutmodule.listener.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadmin.listener.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadmindashboard.listener.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadmininfobox.listener.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadminmenu.listener.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadminrights.class.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnumanageuser.listener.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/themes.class.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/themes_datasource.class.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/ban.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/cache.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/category.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/forum.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/modules.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/notify.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/posts.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/ranks.classic.php
+Deleted : /trunk/havefnubb/modules/hfnuadmin/controllers/theme.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/events.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms/bans.form.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms/cache.form.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms/category_list.form.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms/config.form.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms/forum_edit.form.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms/ranks.form.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms/user_admin.form.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/bans_edit.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/category_index.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/config.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/forum_edit.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/modules.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/notify_index.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/posts.list.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/ranks_index.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/theme.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/zone.about.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/zone.category.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/zone.forumchild.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/zone.forumindex.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/zones/about.zone.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/zones/category.zone.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/zones/forum.zone.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/zones/forumchild.zone.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/zones/hfnuabout.zone.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/zones/hfnutasktodo.zone.php
+Modified : /trunk/havefnubb/modules/hfnucontact/classes/hfnuadmincontactmenu.listener.php
+Modified : /trunk/havefnubb/modules/hfnucontact/classes/hfnucontact.listener.php
+Modified : /trunk/havefnubb/modules/hfnucontact/controllers/admin.classic.php
+Modified : /trunk/havefnubb/modules/hfnucontact/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnucontact/events.xml
+Modified : /trunk/havefnubb/modules/hfnucontact/forms/admincontact.form.xml
+Modified : /trunk/havefnubb/modules/hfnucontact/forms/contact.form.xml
+Modified : /trunk/havefnubb/modules/hfnucontact/install/urls_example.xml
+Modified : /trunk/havefnubb/modules/hfnucontact/locales/en_EN/contact.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnucontact/locales/fr_FR/contact.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnucontact/module.xml
+Modified : /trunk/havefnubb/modules/hfnucontact/templates/contact.tpl
+Modified : /trunk/havefnubb/modules/hfnucontact/templates/contacted.tpl
+Modified : /trunk/havefnubb/modules/hfnucontact/templates/zone.send_to_friend.tpl
+Modified : /trunk/havefnubb/modules/hfnucontact/zones/about.zone.php
+Modified : /trunk/havefnubb/modules/hfnucontact/zones/send_to_friend.zone.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/classes/driver.class.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/classes/hfnuinstall.listener.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/classes/supported_drivers.class.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/classes/themes_datasource.class.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/migrate.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/events.xml
+Modified : /trunk/havefnubb/modules/hfnuinstall/forms/config.form.xml
+Modified : /trunk/havefnubb/modules/hfnuinstall/forms/dbconfig.form.xml
+Modified : /trunk/havefnubb/modules/hfnuinstall/forms/installdb.form.xml
+Modified : /trunk/havefnubb/modules/hfnuinstall/module.xml
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates/en_EN/zone.rights.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates/fr_FR/zone.rights.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates/install.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates/main_install.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/templates/migrate.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/zones/rights_msg.zone.php
+Modified : /trunk/havefnubb/modules/hfnurates/classes/rates.class.php
+Modified : /trunk/havefnubb/modules/hfnurates/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnurates/daos/rates.dao.xml
+Modified : /trunk/havefnubb/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/havefnubb/modules/hfnurates/zones/rates.zone.php
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/hfnuStemmer.class.php
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/hfnusearch.listener.php
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/hfnusearchadminmenu.listener.php
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/search_in.class.php
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/search_index.class.php
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/search_index_havefnubb.class.php
+Modified : /trunk/havefnubb/modules/hfnusearch/classes/searchwords.listener.php
+Modified : /trunk/havefnubb/modules/hfnusearch/controllers/admin.classic.php
+Modified : /trunk/havefnubb/modules/hfnusearch/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnusearch/daos/searchwords.dao.xml
+Modified : /trunk/havefnubb/modules/hfnusearch/events.xml
+Modified : /trunk/havefnubb/modules/hfnusearch/forms/author.form.xml
+Modified : /trunk/havefnubb/modules/hfnusearch/forms/forum.form.xml
+Modified : /trunk/havefnubb/modules/hfnusearch/forms/indexing.form.xml
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/result.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.hfnuquicksearch.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.hfnusearch.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.searchAuthor.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/templates/zone.searchForum.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/zones/hfnuquicksearch.zone.php
+Modified : /trunk/havefnubb/modules/hfnusearch/zones/hfnusearch.zone.php
+Modified : /trunk/havefnubb/modules/hfnusearch/zones/searchAuthor.zone.php
+Modified : /trunk/havefnubb/modules/hfnusearch/zones/searchForum.zone.php
+Modified : /trunk/havefnubb/modules/hfnuthemes/classes/hfnuthemes.listener.php
+Modified : /trunk/havefnubb/modules/hfnuthemes/classes/hfnuthemesadminmenu.listener.php
+Modified : /trunk/havefnubb/modules/hfnuthemes/classes/themes.class.php
+Modified : /trunk/havefnubb/modules/hfnuthemes/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuthemes/events.xml
+Modified : /trunk/havefnubb/modules/hfnuthemes/templates/theme.tpl
+Modified : /trunk/havefnubb/modules/servinfo/classes/serverinfos.class.php
+Modified : /trunk/havefnubb/modules/servinfo/classes/servinfo.listener.php
+Modified : /trunk/havefnubb/modules/servinfo/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/servinfo/events.xml
+Modified : /trunk/havefnubb/modules/servinfo/templates/zone.server_info.tpl
+Modified : /trunk/havefnubb/modules/servinfo/zones/server_info.zone.php
+Modified : /trunk/havefnubb/plugins/coord/banuser/banuser.coord.php
+Modified : /trunk/havefnubb/plugins/coord/flood/flood.coord.php
+Modified : /trunk/havefnubb/plugins/coord/hfnuinstalled/hfnuinstalled.coord.php
+Modified : /trunk/havefnubb/plugins/coord/jGoogleAnalytics/jGoogleAnalytics.coord.php
+Modified : /trunk/havefnubb/plugins/coord/timeout/timeout.coord.php
+Modified : /trunk/havefnubb/plugins/rules/hfb_rule/hfb_rule.rule.php
+Modified : /trunk/havefnubb/plugins/tpl/html/function.age.php
+Modified : /trunk/havefnubb/plugins/tpl/html/function.gravatar.php
+Modified : /trunk/havefnubb/plugins/tpl/html/function.hook.php
+Modified : /trunk/havefnubb/plugins/tpl/html/function.mailto.php
+Modified : /trunk/havefnubb/plugins/tpl/html/function.phpinfo.php
+Modified : /trunk/havefnubb/plugins/tpl/html/function.social_networks.php
+Modified : /trunk/havefnubb/responses/adminHtmlResponse.class.php
+Modified : /trunk/havefnubb/responses/adminLoginHtmlResponse.class.php
+Modified : /trunk/havefnubb/responses/fnuHtmlResponse.class.php
+Modified : /trunk/havefnubb/responses/installHtmlResponse.class.php
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/havefnubb/var/config/index/config.ini.php
+Modified : /trunk/havefnubb/var/overloads/jcommunity/daos/user.dao.xml
+Modified : /trunk/havefnubb/var/overloads/jcommunity/forms/account.form.xml
+Modified : /trunk/havefnubb/var/overloads/jelix/daos/jacl2group.dao.xml
+Modified : /trunk/havefnubb/var/overloads/jelix/daos/jacl2groupsofuser.dao.xml
+Modified : /trunk/havefnubb/var/overloads/jelix/daos/jacl2rights.dao.xml
+Modified : /trunk/havefnubb/var/overloads/jelix/daos/jacl2subject.dao.xml
+Modified : /trunk/havefnubb/var/overloads/jelix/daos/jacl2usergroup.dao.xml
+Modified : /trunk/havefnubb/var/overloads/jmessenger/daos/jmessenger.dao.xml
+Modified : /trunk/havefnubb/var/themes/chocolatebrown/havefnubb/main.tpl
+Modified : /trunk/havefnubb/var/themes/chocolatebrown/jcommunity/status.tpl
+Modified : /trunk/havefnubb/var/themes/chocolatebrown/theme.php
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/account_edit.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/login.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/password_confirmation.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/passwordform.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/registration.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/registration_confirmation.tpl
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/status.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/links.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/listmsg.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/new.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/view.tpl
+Modified : /trunk/havefnubb/var/themes/default/jtags/tagscloud.tpl
+Modified : /trunk/havefnubb/var/themes/default/theme.php
+Modified : /trunk/havefnubb/var/themes/dust/jmessenger/links.tpl
+Modified : /trunk/havefnubb/var/themes/dust/jmessenger/listmsg.tpl
+Modified : /trunk/havefnubb/var/themes/dust/jmessenger/new.tpl
+Modified : /trunk/havefnubb/var/themes/dust/jmessenger/view.tpl
+Modified : /trunk/havefnubb/var/themes/dust/jtags/tagscloud.tpl
+Modified : /trunk/havefnubb/var/themes/dust/theme.php
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/403.html.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/404.html.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/banuser.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/flood.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/main.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/member_changepwd.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.edit.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.list.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.notify.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.shownew.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/split.to.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.category.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumchild.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.forumindex.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.jumpto.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.lastposts.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.mark_forum.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.memberlist.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.online.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.online_today.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.postlistbytag.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.quickreply.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.stats.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.statsinfos.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/hfnucontact/contact.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/hfnurates/zone.rates.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.hfnusearch.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.searchAuthor.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/hfnusearch/zone.searchForum.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/account_edit.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/login.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/password_confirmation.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/passwordform.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/registration.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/registration_confirmation.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/status.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jmessenger/links.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jmessenger/listmsg.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jmessenger/new.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jmessenger/view.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jtags/tagscloud.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/theme.php
+Deleted : /trunk/lib
+Modified : /trunk/modules-hook/hook/classes/hook.listener.php
+Modified : /trunk/modules-hook/hook/classes/hookabout.listener.php
+Modified : /trunk/modules-hook/hook/controllers/default.classic.php
+Modified : /trunk/modules-hook/hook/events.xml
+Modified : /trunk/modules-hook/hook/templates/zone.samplebanner_accouncement.tpl
+Modified : /trunk/modules-hook/hook/zones/samplebanner_accouncement.zone.php
+
+Revision: 480
+Author: foxmask
+Date: 18:43:47, mardi 29 décembre 2009
+Message:
+fixed : ticket #135 mark as read - ticket #134 list on unread post
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuread.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/forum.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/daos/posts.dao.xml
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/post.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/post.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.shownew.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.mark_forum.tpl
+Modified : /trunk/havefnubb/var/config/urls.xml
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.shownew.tpl
+
+Revision: 477
+Author: foxmask
+Date: 15:18:35, mercredi 23 décembre 2009
+Message:
+1.3.0 update
+----
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Deleted : /trunk/havefnubb/modules/hfnuinstall/install/update/1.2.1
+Added : /trunk/havefnubb/modules/hfnuinstall/install/update/1.3.0 (Copy from path: /trunk/havefnubb/modules/hfnuinstall/install/update/1.2.1, Revision, 472)
+
+
 Revision: 472
 Author: foxmask
 Date: 14:46:57, mercredi 23 décembre 2009
@@ -13,7 +1627,7 @@ Revision: 471
 Author: foxmask
 Date: 09:48:09, mercredi 23 décembre 2009
 Message:
-preparing 1.3.0 
+preparing 1.3.0
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/module.xml
 Modified : /trunk/havefnubb/modules/hfnuadmin/module.xml
@@ -73,7 +1687,7 @@ Revision: 466
 Author: foxmask
 Date: 20:42:58, lundi 21 décembre 2009
 Message:
-some fixes 
+some fixes
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuposts.class.php
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
@@ -89,7 +1703,7 @@ Revision: 465
 Author: foxmask
 Date: 19:33:54, vendredi 18 décembre 2009
 Message:
-fix issue in rank + search option nto set correctly 
+fix issue in rank + search option nto set correctly
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnurank.class.php
 Modified : /trunk/havefnubb/modules/havefnubb/daos/ranks.dao.xml
@@ -136,7 +1750,7 @@ Revision: 461
 Author: foxmask
 Date: 22:45:14, jeudi 17 décembre 2009
 Message:
-migration tools to migrate from Phroum : ignored imported features : ACL / GROUP ; replaces by the default ACL of HaveFnuBB ; ignore download files ; just managed : POST/MEMBERS/FORUM 
+migration tools to migrate from Phroum : ignored imported features : ACL / GROUP ; replaces by the default ACL of HaveFnuBB ; ignore download files ; just managed : POST/MEMBERS/FORUM
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuposts.class.php
 Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuread.class.php
@@ -263,7 +1877,7 @@ Revision: 451
 Author: foxmask
 Date: 10:25:47, samedi 12 décembre 2009
 Message:
- ajout du flag et de gestion de sa mise jour 
+ ajout du flag et de gestion de sa mise jour
 
 @todo : afficher les messages non lus coté admin
 ----
@@ -371,7 +1985,7 @@ Revision: 445
 Author: foxmask
 Date: 16:12:31, dimanche 6 décembre 2009
 Message:
-debut de gestion des messages non lus - ticket #124 
+debut de gestion des messages non lus - ticket #124
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuforum.class.php
 Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuposts.class.php
@@ -476,7 +2090,7 @@ Revision: 441
 Author: foxmask
 Date: 23:27:21, vendredi 27 novembre 2009
 Message:
-ticket #123 
+ticket #123
 ----
 Added : /trunk/havefnubb/modules/havefnubb/classes/hfnucat.class.php
 Added : /trunk/havefnubb/modules/havefnubb/classes/hfnuforum.class.php
@@ -492,7 +2106,7 @@ Revision: 440
 Author: foxmask
 Date: 00:44:43, jeudi 26 novembre 2009
 Message:
-ticket #123 automatic closed thread 
+ticket #123 automatic closed thread
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
 Modified : /trunk/havefnubb/modules/havefnubb/daos/forum.dao.xml
@@ -520,7 +2134,7 @@ Revision: 439
 Author: foxmask
 Date: 22:04:00, lundi 23 novembre 2009
 Message:
-ticket #121 - Jelix 1.1.5 + menu config in var/config 
+ticket #121 - Jelix 1.1.5 + menu config in var/config
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnumenu.listener.php
 Added : /trunk/havefnubb/modules/havefnubb/classes/hfnumenus.class.php
@@ -885,7 +2499,7 @@ Revision: 422
 Author: foxmask
 Date: 10:00:06, mercredi 11 novembre 2009
 Message:
-Hook in Account Page 
+Hook in Account Page
 ----
 Modified : /trunk/havefnubb/modules/hfnusearch/locales/en_EN/forum.UTF-8.properties
 Modified : /trunk/havefnubb/modules/hfnusearch/locales/fr_FR/forum.UTF-8.properties
@@ -1368,7 +2982,7 @@ Revision: 399
 Author: foxmask
 Date: 22:17:37, jeudi 29 octobre 2009
 Message:
-Gestion Themes 
+Gestion Themes
 ----
 Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadminmenu.listener.php
 Modified : /trunk/havefnubb/modules/hfnuadmin/templates/modules.tpl
@@ -1384,7 +2998,7 @@ Revision: 398
 Author: foxmask
 Date: 21:57:49, jeudi 29 octobre 2009
 Message:
-allegeons tout cela 
+allegeons tout cela
 ----
 Deleted : /trunk/themes/chocolatebrown/images/admin
 Deleted : /trunk/themes/default/images/admin
@@ -1460,7 +3074,7 @@ Revision: 393
 Author: foxmask
 Date: 21:58:58, mercredi 28 octobre 2009
 Message:
-Gestion des themes 
+Gestion des themes
 ----
 Modified : /trunk/havefnubb/application.init.php
 Modified : /trunk/havefnubb/modules/hfnuadmin/classes/themes.class.php
@@ -1469,7 +3083,7 @@ Revision: 392
 Author: foxmask
 Date: 21:47:58, mercredi 28 octobre 2009
 Message:
-descriptor outside webcontent 
+descriptor outside webcontent
 ----
 Added : /trunk/havefnubb/var/themes/chocolatebrown/theme.xml
 Added : /trunk/havefnubb/var/themes/default/theme.xml
@@ -1680,7 +3294,7 @@ Revision: 376
 Author: foxmask
 Date: 22:54:45, jeudi 3 septembre 2009
 Message:
-Default themes with its own css 
+Default themes with its own css
 ----
 Added : /trunk/themes/default/css/960.css
 Added : /trunk/themes/default/css/grid.css
@@ -1715,7 +3329,7 @@ Revision: 374
 Author: foxmask
 Date: 18:12:59, jeudi 3 septembre 2009
 Message:
-remove unneeded theme 
+remove unneeded theme
 ----
 Deleted : /trunk/themes/fluid
 
@@ -1723,12 +3337,12 @@ Revision: 373
 Author: foxmask
 Date: 18:12:13, jeudi 3 septembre 2009
 Message:
-Big Big Changes in Themes 
+Big Big Changes in Themes
 1) Replace the "default" template by the 960gs one "fluid".
 2) remove default and box themes ; home made
 3) rename fluid to default
 4) for all the next themes, we will need to just adapt the CSS and no need to copy all the templates at all
- 
+
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/templates/403.html.tpl
 Modified : /trunk/havefnubb/modules/havefnubb/templates/404.html.tpl
@@ -2074,7 +3688,7 @@ Revision: 366
 Author: foxmask
 Date: 14:21:45, dimanche 23 août 2009
 Message:
-Plugin Social Netwrok : Switch to another icon set because of a non compliant License 
+Plugin Social Netwrok : Switch to another icon set because of a non compliant License
 ----
 Added : /trunk/cache
 Added : /trunk/cache/images
@@ -2210,7 +3824,7 @@ Revision: 365
 Author: foxmask
 Date: 10:20:12, dimanche 23 août 2009
 Message:
-next step will be 1.1.0 
+next step will be 1.1.0
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/module.xml
 Modified : /trunk/havefnubb/modules/hfnuadmin/module.xml
@@ -2325,8 +3939,8 @@ Revision: 362
 Author: foxmask
 Date: 22:17:08, samedi 22 août 2009
 Message:
-1) new plugin : Gravatar 
-2) adding "you are here >" 
+1) new plugin : Gravatar
+2) adding "you are here >"
 3) adding "page:" in page link
 4) new column in member table "member_gravatar"
 ----
@@ -4032,8 +5646,8 @@ Revision: 351
 Author: foxmask
 Date: 22:37:42, dimanche 16 août 2009
 Message:
-1) next version 
-2) admin of hnfupoll 
+1) next version
+2) admin of hnfupoll
 ----
 Modified : /trunk/modules/havefnubb/module.xml
 Modified : /trunk/modules/hfnuadmin/module.xml
@@ -4075,7 +5689,7 @@ Revision: 349
 Author: foxmask
 Date: 23:32:49, samedi 15 août 2009
 Message:
-1) start of the module Poll (ticket #78) 
+1) start of the module Poll (ticket #78)
 2) change of the URL of the Project in all files
 ----
 Modified : /trunk
@@ -4418,7 +6032,7 @@ Revision: 340
 Author: foxmask
 Date: 10:42:18, dimanche 9 août 2009
 Message:
-New Theme based on 960gs "fluid" 
+New Theme based on 960gs "fluid"
 ----
 Added : /trunk/themes/fluid
 Added : /trunk/themes/fluid/css
@@ -5092,7 +6706,7 @@ Revision: 313
 Author: foxmask
 Date: 15:00:01, dimanche 28 juin 2009
 Message:
-standard Rewrite 
+standard Rewrite
 ----
 Modified : /trunk/.htaccess
 
@@ -9838,7 +11452,7 @@ Revision: 280
 Author: foxmask
 Date: 17:38:47, vendredi 5 juin 2009
 Message:
-process de mise à jour automatique 
+process de mise à jour automatique
 ----
 Modified : /trunk/modules/hfnuinstall/controllers/default.classic.php
 Modified : /trunk/modules/hfnuinstall/install/UPDATE-TO-RC3
@@ -9880,7 +11494,7 @@ Revision: 276
 Author: foxmask
 Date: 11:10:49, vendredi 5 juin 2009
 Message:
-update of hfnucontact install tree + update of the update/1.1.0RC3/install.mysql.sql script 
+update of hfnucontact install tree + update of the update/1.1.0RC3/install.mysql.sql script
 ----
 Added : /trunk/modules/hfnucontact/install/sql
 Added : /trunk/modules/hfnucontact/install/sql/install.mysql.sql
@@ -10076,7 +11690,7 @@ Revision: 266
 Author: foxmask
 Date: 13:10:23, vendredi 29 mai 2009
 Message:
-ticket #72 : 
+ticket #72 :
 nouvelle fonctionnalité : lecteur de flux atom+rss (CSS d'affichage des flux + template + controleur + repertoire de stockage des flux)
 fix un bug de regression dans l'admin lors de la creation des forum depuis l'ajout des type de forum
 ----
@@ -10141,7 +11755,7 @@ Revision: 261
 Author: foxmask
 Date: 23:43:51, mardi 26 mai 2009
 Message:
-same as previous commit : member_created 
+same as previous commit : member_created
 ----
 Modified : /trunk/havefnubb/var/overloads/jcommunity/daos/user.dao.xml
 Modified : /trunk/havefnubb/var/overloads/jelix/daos/jacl2groupsofuser.dao.xml
@@ -10262,7 +11876,7 @@ Revision: 253
 Author: foxmask
 Date: 18:15:09, samedi 23 mai 2009
 Message:
-some css improvement 
+some css improvement
 ----
 Modified : /trunk/havefnubb/www/themes/default/css/havefnuboard.css
 Modified : /trunk/modules/havefnubb/templates/zone.forumindex.tpl
@@ -10314,7 +11928,7 @@ Revision: 249
 Author: foxmask
 Date: 12:03:53, samedi 23 mai 2009
 Message:
-update footer + version of next release 
+update footer + version of next release
 ----
 Modified : /trunk/havefnubb/project.xml
 Modified : /trunk/havefnubb/var/config/havefnu.ini.php.dist
@@ -10439,7 +12053,7 @@ Revision: 240
 Author: foxmask
 Date: 18:44:11, dimanche 17 mai 2009
 Message:
-contact 
+contact
 ----
 Modified : /trunk/havefnubb/www/themes/box/css/havefnuboard.css
 Modified : /trunk/modules/havefnubb/locales/en_EN/main.UTF-8.properties
@@ -10493,7 +12107,7 @@ Revision: 234
 Author: foxmask
 Date: 14:25:28, samedi 16 mai 2009
 Message:
-fix the template name of the reply 
+fix the template name of the reply
 ----
 Modified : /trunk/modules/havefnubb/controllers/posts.classic.php
 
@@ -10650,7 +12264,7 @@ Revision: 223
 Author: foxmask
 Date: 23:48:51, mardi 12 mai 2009
 Message:
-- Dublin Core 
+- Dublin Core
 - Improvement of User Info used when storing posts : drop the call of the member dao as the user id is in the session !
 - issue When Quoting :-( pb with Token !
 ----
@@ -10780,7 +12394,7 @@ Revision: 212
 Author: foxmask
 Date: 18:14:03, vendredi 8 mai 2009
 Message:
-ticket #56 fixed 
+ticket #56 fixed
 ----
 Modified : /trunk/havefnubb/var/overloads/jcommunity/forms/account.form.xml
 Modified : /trunk/havefnubb/var/themes/box/jcommunity/account_edit.tpl
@@ -11203,7 +12817,7 @@ Revision: 195
 Author: foxmask
 Date: 12:26:55, samedi 2 mai 2009
 Message:
-#38 fixed : UTF-8 issue with htmlentities 
+#38 fixed : UTF-8 issue with htmlentities
 ----
 Modified : /trunk/modules/havefnubb/controllers/banuser.classic.php
 Modified : /trunk/modules/havefnubb/controllers/category.classic.php
@@ -11266,7 +12880,7 @@ Revision: 192
 Author: foxmask
 Date: 01:04:08, vendredi 1 mai 2009
 Message:
-- improvment of the render 
+- improvment of the render
 - history fo search engine
 - fix an issue in the last comment link
 ----
@@ -11323,7 +12937,7 @@ Revision: 187
 Author: foxmask
 Date: 00:19:05, jeudi 30 avril 2009
 Message:
-HfnuSearch  : big big stuff 
+HfnuSearch  : big big stuff
 ----
 Modified : /trunk/havefnubb/var/config/havefnu.search.ini.php
 Modified : /trunk/modules/havefnubb/classes/hfnuposts.class.php
@@ -11583,7 +13197,7 @@ Revision: 177
 Author: foxmask
 Date: 20:29:41, samedi 25 avril 2009
 Message:
-#30 -> Wiki Help  Syntax 
+#30 -> Wiki Help  Syntax
 ----
 Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php
 Modified : /trunk/havefnubb/www/themes/default/css/havefnuboard.css
@@ -12084,7 +13698,7 @@ Revision: 153
 Author: foxmask
 Date: 17:50:56, lundi 13 avril 2009
 Message:
-Country support 
+Country support
 ----
 Modified : /trunk/havefnubb/var/themes/default/jcommunity/account_show.tpl
 Modified : /trunk/havefnubb/www/themes/default/css/havefnuboard.css
@@ -12258,7 +13872,7 @@ Revision: 144
 Author: foxmask
 Date: 18:46:38, samedi 11 avril 2009
 Message:
-Posts Status 
+Posts Status
 ----
 Added : /trunk/havefnubb/www/images/avatars/empty
 Modified : /trunk/havefnubb/www/themes/default/css/havefnuboard.css
@@ -12734,7 +14348,7 @@ Author: foxmask
 Date: 15:39:30, samedi 4 avril 2009
 Message:
 - ban coord plugin
-- flood coord plugin 
+- flood coord plugin
 
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/classes/bans.class.php
@@ -14462,7 +16076,7 @@ Message:
 ticket #34
 - the user can now change his password
 ticket #32
-- tags can now be removed / updated / add 
+- tags can now be removed / updated / add
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/members.classic.php
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
@@ -14570,7 +16184,7 @@ Revision: 116
 Author: foxmask
 Date: 07:39:05, vendredi 27 mars 2009
 Message:
-Real Error 404/403 
+Real Error 404/403
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
 Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/main.UTF-8.properties
@@ -14698,7 +16312,7 @@ Revision: 106
 Author: foxmask
 Date: 22:13:29, mardi 17 mars 2009
 Message:
-url engine Significant 
+url engine Significant
 ----
 Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php
 Modified : /trunk/havefnubb/var/config/hfnuadmin/config.ini.php
@@ -14710,7 +16324,7 @@ Revision: 105
 Author: foxmask
 Date: 21:31:54, mardi 17 mars 2009
 Message:
-patch jacl2db_admin to use table_prefix 
+patch jacl2db_admin to use table_prefix
 urls.xml for significant url engine
 ----
 Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php
@@ -14764,8 +16378,8 @@ Revision: 102
 Author: foxmask
 Date: 18:37:04, samedi 14 mars 2009
 Message:
-- Personnal Messaging 
-- SEO URL 
+- Personnal Messaging
+- SEO URL
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/members.classic.php
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
@@ -14793,7 +16407,7 @@ Revision: 101
 Author: foxmask
 Date: 00:28:22, samedi 14 mars 2009
 Message:
-- some css : install / ban list 
+- some css : install / ban list
 - rights to ban
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
@@ -16313,7 +17927,7 @@ Revision: 89
 Author: foxmask
 Date: 19:57:57, vendredi 27 février 2009
 Message:
-add login 
+add login
 ----
 Modified : /trunk/modules/jmessenger/zones/inbox.zone.php
 Modified : /trunk/modules/jmessenger/zones/links.zone.php
@@ -16323,7 +17937,7 @@ Revision: 88
 Author: foxmask
 Date: 19:57:33, vendredi 27 février 2009
 Message:
-1) hfnuMenu 
+1) hfnuMenu
 2) group of members
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/classes/authhavefnubb.listener.php
@@ -16500,7 +18114,7 @@ Revision: 79
 Author: foxmask
 Date: 19:25:38, mardi 24 février 2009
 Message:
-fix config issue 
+fix config issue
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
 Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuaboutmodule.listener.php
@@ -17993,7 +19607,7 @@ Revision: 69
 Author: foxmask
 Date: 23:55:44, mardi 17 février 2009
 Message:
-Search Engine on the road 
+Search Engine on the road
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
@@ -18107,7 +19721,7 @@ Message:
 add tags to posts :P
 cloud added on the main page.
 
-todo : make a page that will list the post containing a given tags ; ordered by date 
+todo : make a page that will list the post containing a given tags ; ordered by date
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
 Modified : /trunk/havefnubb/modules/havefnubb/forms/posts.form.xml
@@ -18227,7 +19841,7 @@ Revision: 56
 Author: foxmask
 Date: 23:49:14, lundi 9 février 2009
 Message:
-some css ; lighter smaller 
+some css ; lighter smaller
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/templates/main.tpl
 Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.edit.tpl
@@ -18342,7 +19956,7 @@ Revision: 50
 Author: foxmask
 Date: 22:04:49, vendredi 6 février 2009
 Message:
-introducing of module servinfo 
+introducing of module servinfo
 ----
 Deleted : /trunk/havefnubb/modules/hfnuadmin/classes/havefnubbdashboard.listener.php
 Added : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuadmindashboard.listener.php
@@ -18398,9 +20012,9 @@ Message:
 - admin :
 * ranks
 * category
-* forum 
+* forum
 
-- rights apply all over the forum 
+- rights apply all over the forum
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/daos/category.dao.xml
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
@@ -18481,7 +20095,7 @@ Date: 20:13:06, mercredi 4 février 2009
 Message:
 - admin category
 - admin rank
-- admin forum 
+- admin forum
 ----
 Added : /trunk/havefnubb/modules/havefnubb/daos/ranks.dao.xml
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
@@ -18514,7 +20128,7 @@ Author: foxmask
 Date: 00:26:53, mercredi 4 février 2009
 Message:
 - member infos
-- admin 
+- admin
 ----
 Added : /trunk/havefnubb/modules/havefnubb/classes/language.class.php
 Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
@@ -18933,7 +20547,7 @@ Revision: 25
 Author: foxmask
 Date: 16:28:33, samedi 24 janvier 2009
 Message:
-add stats 
+add stats
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/daos/member.dao.xml
 Modified : /trunk/havefnubb/modules/havefnubb/daos/posts.dao.xml
@@ -19131,7 +20745,7 @@ Revision: 15
 Author: foxmask
 Date: 19:09:40, dimanche 18 janvier 2009
 Message:
-post preview ok 
+post preview ok
 
 todo : refactoring the post controller to be lighter
 ----
@@ -19141,7 +20755,7 @@ Revision: 14
 Author: foxmask
 Date: 12:00:13, dimanche 18 janvier 2009
 Message:
-regstration processs tested 
+regstration processs tested
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/daos/member.dao.xml
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
@@ -19205,7 +20819,7 @@ Author: foxmask
 Date: 14:14:27, vendredi 16 janvier 2009
 Message:
 - module jcommunity : switch the auth.required to true when consulting an account.classic.php
-- several adds in template 
+- several adds in template
 - little change in CSS for "tabs" behavior.
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
@@ -19314,9 +20928,9 @@ Revision: 7
 Author: foxmask
 Date: 23:21:26, mardi 13 janvier 2009
 Message:
-- Introducing : 
+- Introducing :
 * navbar
-* jcommunity status 
+* jcommunity status
 * jtags
 ----
 Modified : /trunk/havefnubb/modules/havefnubb/install/install.mysql.sql
@@ -19352,7 +20966,7 @@ Revision: 6
 Author: foxmask
 Date: 17:36:07, mardi 13 janvier 2009
 Message:
-- heading like "foo > bar > forum > subform " 
+- heading like "foo > bar > forum > subform "
 - user status introducing
 - bottom with breadcrumb
 - dropping oldies css
@@ -21342,4 +22956,3 @@ Added : /trunk/modules/jmessenger/zones/outbox.zone.php
 Added : /trunk/temp
 Added : /trunk/temp/.htaccess
 Added : /trunk/temp/havefnubb
-
