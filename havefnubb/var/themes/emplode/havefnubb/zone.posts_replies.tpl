@@ -66,7 +66,7 @@ $(document).ready(function(){
 			<div class="message-content">
 			   {if $post->status == 'censored'}
 				   {$post->censored_msg|wiki:'wr3_to_xhtml'|stripslashes}
-				   {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
+				   {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
 				   <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
 				   {$post->message|wiki:'wr3_to_xhtml'|stripslashes}
 				   {/ifacl2}
@@ -89,10 +89,10 @@ $(document).ready(function(){
 						  'parms'=>array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
 						  )
 		}
-		  {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
+		  {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
 		  <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
 		  {/ifacl2}
-		  {ifacl2 'hfnu.admin.post', 'forum'.$id_froum}
+		  {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
 		  {if $post->status == 'censored'}
 		  <span class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
 		  {else}
