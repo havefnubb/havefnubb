@@ -4,7 +4,6 @@
 {ifacl2 'hfnu.forum.list','forum'.$id_forum}
 {zone 'havefnubb~forumchild', array('id_forum'=>$id_forum,'lvl'=>$lvl+1,'calledFrom'=>'posts.list')}
 {/ifacl2}
-{hook 'hfbBeforePostsLists',array('id_post'=>$id_post)}
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <div id="post-message">{jmessage}</div>
 {/ifacl2}
@@ -36,7 +35,7 @@
         {zone 'havefnubb~pinedposts', array('id_forum'=>$id_forum)}
         <tbody>
         {foreach $posts as $post}
-        {hook 'hfbPostsLists',array('id_post'=>$id_post)}
+        {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
         <tr>
             <td class="colicone-{zone 'havefnubb~newestposts',array('source'=>'post',
                         'id_post'=>$post->id_post,
@@ -87,7 +86,6 @@
 <div class="clear"></div>
 <br/>
 {/ifacl2}
-{hook 'hfbAfterPostsLists',array('id_post'=>$id_post)}
 {ifacl2 'hfnu.forum.goto'}
 {zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
 {/ifacl2}

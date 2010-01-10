@@ -41,17 +41,18 @@ class newestpostsZone extends jZone {
 
 			$rec = jClasses::getService('havefnubb~hfnuposts')->getPostStatus($id_post);
 
-			if ( $rec === false )
+			if ( $rec === false ) {
 				$status = $this->param('status');
-			else
+				$dateDiff = 0;
+			} else {
 				if ($this->param('display') == 'icon' and $this->param('status') == 'opened' )
 					$status = 'post-new';
 				else
 					$status = $this->param('status');
 
-			$day_in_secondes = 24 * 60 * 60;
-			$dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $day_in_secondes) : floor( (time() - $rec->date_modified ) / $day_in_secondes) ;
-
+				$day_in_secondes = 24 * 60 * 60;
+				$dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $day_in_secondes) : floor( (time() - $rec->date_modified ) / $day_in_secondes) ;
+			}
 			$recForum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
 			if ( $recForum->post_expire > 0 and $dateDiff >= $recForum->post_expire )
