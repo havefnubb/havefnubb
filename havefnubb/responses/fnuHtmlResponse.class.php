@@ -47,57 +47,74 @@ class fnuHtmlResponse extends jResponseHtml {
 		else
 			$this->title = $title;
 
-		list($ctrl,$method) = preg_split('/:/',$GLOBALS['gJCoord']->request->params['action']);
-		switch ($GLOBALS['gJCoord']->request->params['module']) {
-			case 'havefnubb' :
-				switch ($ctrl) {
-					case 'members':
-						if ($method != 'mail') {
+		if (empty($GLOBALS['gJCoord']->request->params)) {
+			$this->body->assign('home',0);
+			$this->body->assign('selectedMenuItem','members');
+			$this->body->assign('currentIdForum',0);
+		}
+		else {
+			list($ctrl,$method) = preg_split('/:/',$GLOBALS['gJCoord']->request->params['action']);
+
+			switch ($GLOBALS['gJCoord']->request->params['module']) {
+				case 'havefnubb' :
+					switch ($ctrl) {
+						case 'members':
+							if ($method != 'mail') {
+								$this->body->assign('home',0);
+								$this->body->assign('selectedMenuItem','members');
+								$this->body->assign('currentIdForum',0);
+							}
+							else  {
+								$this->body->assign('home',0);
+								$this->body->assign('selectedMenuItem','users');
+								$this->body->assign('currentIdForum',0);
+							}
+							break;
+						case 'posts':
 							$this->body->assign('home',0);
-							$this->body->assign('selectedMenuItem','members');
-						}
-						else  {
+							$this->body->assign('selectedMenuItem','community');
+							$toolbarConfig  = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'wikitoolbar.ini.php');
+							$this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.engine.file','wikitoolbar'));
+							$this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .$gJConfig->locale . '.js');
+							$this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.skin','wikitoolbar'));
+							$this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .'style.css');
+							$this->body->assign('currentIdForum',$GLOBALS['gJCoord']->request->params['id_forum']);
+							break;
+						case 'forum':
+						case 'cat':
 							$this->body->assign('home',0);
-							$this->body->assign('selectedMenuItem','users');
-						}
-						break;
-					case 'posts':
+							$this->body->assign('selectedMenuItem','community');
+							$this->body->assign('currentIdForum',0);
+							break;
+						default:
+							$this->body->assign('home',1);
+							$this->body->assign('selectedMenuItem','community');
+							$this->body->assign('currentIdForum',0);
+							break;
+					}
+					break;
+				case 'hfnusearch' :
 						$this->body->assign('home',0);
-						$this->body->assign('selectedMenuItem','community');
-						$toolbarConfig  = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'wikitoolbar.ini.php');
-						$this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.engine.file','wikitoolbar'));
-						$this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .$gJConfig->locale . '.js');
-						$this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.skin','wikitoolbar'));
-						$this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .'style.css');
+						$this->body->assign('selectedMenuItem','search');
+						$this->body->assign('currentIdForum',0);
 						break;
-					case 'forum':
-					case 'cat':
+				case 'jcommunity':
+				case 'jmessenger':
 						$this->body->assign('home',0);
-						$this->body->assign('selectedMenuItem','community');
+						$this->body->assign('selectedMenuItem','users');
+						$this->body->assign('currentIdForum',0);
 						break;
-					default:
+				case 'downloads':
+						$this->body->assign('home',0);
+						$this->body->assign('selectedMenuItem','downloads');
+						$this->body->assign('currentIdForum',0);
+						break;
+				default:
 						$this->body->assign('home',1);
 						$this->body->assign('selectedMenuItem','community');
+						$this->body->assign('currentIdForum',0);
 						break;
-				}
-				break;
-			case 'hfnusearch' :
-					$this->body->assign('home',0);
-					$this->body->assign('selectedMenuItem','search');
-					break;
-			case 'jcommunity':
-			case 'jmessenger':
-					$this->body->assign('home',0);
-					$this->body->assign('selectedMenuItem','users');
-					break;
-			case 'downloads':
-					$this->body->assign('home',0);
-					$this->body->assign('selectedMenuItem','downloads');
-					break;
-			default:
-					$this->body->assign('home',1);
-					$this->body->assign('selectedMenuItem','community');
-					break;
+			}
 		}
 
 		$this->body->assignIfNone('MAIN','');

@@ -31,7 +31,7 @@ html=fnuHtmlResponse
 ; name of url engine :  "simple" or "significant"
 ; engine=simple
 ; engine=basic_significant
-engine=significant
+engine=basic_significant
 
 enableParser=on
 multiview=on

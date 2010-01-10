@@ -114,7 +114,7 @@ class defaultCtrl extends jController {
 	}
 
 	public function send_to_friend() {
-		$url = $_SESSION[$config['session_name']]['send_to_friend_url'];
+		$url = $_SESSION['SENDTOFRIEND']['send_to_friend_url'];
 
 		$message = jLocale::get('contact.a.page.to.read.message') .
 					"\n\n" .

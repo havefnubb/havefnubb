@@ -71,9 +71,10 @@ class posts_repliesZone extends jZone {
 				$this->_tpl->assign('formMove',$formMove);
 		}
 		$parentPostStatus = $parentPost->status;
+
 		// check if the post is expired
 		$day_in_secondes = 24 * 60 * 60;
-		$dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
+		$dateDiff =  ($parentPost->date_modified == 0) ? floor( (time() - $parentPost->date_created ) / $day_in_secondes) : floor( (time() - $parentPost->date_modified ) / $day_in_secondes) ;
 
 		if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
 				$dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )

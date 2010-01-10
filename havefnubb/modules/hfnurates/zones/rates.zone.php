@@ -69,11 +69,14 @@ class ratesZone extends jZone {
 		$rates 	= jClasses::getService('hfnurates~rates');
 		$result =  $rates->getTotalRatesBySource($id_source,$source);
 
-		$resultText = jLocale::get('hfnurates~main.total.of.rates') . ':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level;
-
-		if ($result->avg_level > 0)
-			$checked = round(100 * $result->avg_level / SCALE);
-		else $checked = 0;
+		if ($result !== false) {
+			$resultText = jLocale::get('hfnurates~main.total.of.rates') . ':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level;
+			if ($result->avg_level > 0)
+				$checked = round(100 * $result->avg_level / SCALE);
+			else $checked = 0;
+		}
+		else
+			$checked = 0;
 
 		$this->_tpl->assign('checked',$checked);
 		$this->_tpl->assign('js',$js);
