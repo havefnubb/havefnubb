@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urls xmlns="http://jelix.org/ns/urls/1.0">
 
-    <classicentrypoint name="index" default="true" noentrypoint="false">
+    <classicentrypoint name="forums" default="true" noentrypoint="false">
         <!--url pathinfo="/" module="hfnuportal" action="default:index"/-->
         <url pathinfo="/404" module="jelix" action="error:notfound"/>
 

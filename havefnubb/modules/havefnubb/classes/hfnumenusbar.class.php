@@ -40,8 +40,8 @@ class hfnumenusbar {
 		global $gJConfig;
 		$menus = array();
 		
-		if (file_exists(JELIX_APP_CONFIG_PATH.'/hfnumenus.xml')) {
-			$doc = DOMDocument::load(JELIX_APP_CONFIG_PATH.'/hfnumenus.xml');
+		if (file_exists(JELIX_APP_CONFIG_PATH.'/havefnubb/hfnumenus.xml')) {
+			$doc = DOMDocument::load(JELIX_APP_CONFIG_PATH.'/havefnubb/hfnumenus.xml');
 			$xpath  = new DOMXPath($doc);
 		   
 			

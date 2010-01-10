@@ -35,8 +35,8 @@ class defaultCtrl extends jController {
 
 		if ($submit == jLocale::get('hfnuadmin~config.saveBt') ) {
 
-			$floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
-			$timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
+			$floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
+			$timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/timeout.coord.ini.php');
 
 			$form = jForms::fill('hfnuadmin~config');
 
@@ -88,8 +88,8 @@ class defaultCtrl extends jController {
 		}
 		else {
 			$form = jForms::create('hfnuadmin~config');
-			$floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'flood.coord.ini.php');
-			$timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'timeout.coord.ini.php');
+			$floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
+			$timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/timeout.coord.ini.php');
 
 			$form->setData('title',           stripslashes($gJConfig->havefnubb['title']));
 			$form->setData('description',     stripslashes($gJConfig->havefnubb['description']));
