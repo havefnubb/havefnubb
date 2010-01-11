@@ -1,7 +1,7 @@
 <?php
 /**
 * main UI to manage the statement of the forums of HaveFnuBB!
-* 
+*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -14,28 +14,28 @@ class hfnuread {
 	/**
 	 * the read posts
 	 * var $postsRead array
-	 */    
+	 */
 	public static $postsRead = array();
 	/**
 	 * this function mark all forum as read
-	 */    
+	 */
 	public static function markAllAsRead() {
-		if (jAuth::getUserSession ()->id > 0) {
-	
+		if ( jAuth::getUserSession ()->login != '' ) {
+
 			$cnx = jDb::getConnection();
 			// delete all previous forum the current user has read
 			$cnx->exec("DELETE FROM " .$cnx->prefixTable('read_forum') .
 					" WHERE id_user = '".jAuth::getUserSession ()->id ."'");
-			
+
 			$forums = $cnx->query("SELECT id_forum FROM ".$cnx->prefixTable('forum'));
-			
+
 			$dao = jDao::create('havefnubb~read_forum');
 			foreach ($forums as $forum) {
 				$rec = jDao::createRecord('havefnubb~read_forum');
 				$rec->id_forum = $forum->id_forum;
 				$rec->date_read = time();
 				$rec->id_user = jAuth::getUserSession ()->id;
-				$dao->insert($rec); 
+				$dao->insert($rec);
 			}
 			// delete all previous posts the current user has read
 			$cnx->exec("DELETE FROM " .$cnx->prefixTable('read_posts') .
@@ -45,13 +45,13 @@ class hfnuread {
 	/**
 	 * this function says which forum has been marked as read by which user
 	 * @param $id the forum id
-	 */    
+	 */
 	public static function markForumAsRead($id) {
-		if (jAuth::getUserSession ()->id > 0) {            
+		if ( jAuth::getUserSession ()->login != '' ) {
 			$forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id);
 			$dao = jDao::get('havefnubb~read_forum');
 			$exist = $dao->get(jAuth::getUserSession ()->id,$forum->id_forum);
-			if ($exist === false) {            
+			if ($exist === false) {
 				$rec = jDao::createRecord('havefnubb~read_forum');
 				$rec->id_forum = $forum->id_forum;
 				$rec->date_read = time();
@@ -62,14 +62,15 @@ class hfnuread {
 				$exist->date_read = time();
 				$dao->update($exist);
 			}
-		}                           
+		}
 	}
 	/**
 	 * this function says which message from which forum has been read by which user
 	 * @param $post record of the current read post
 	 */
 	public static function insertReadPost($post) {
-		if ($post->id_post > 0 and $post->id_forum > 0 and jAuth::getUserSession ()->id > 0) {			
+
+		if ($post->id_post > 0 and $post->id_forum > 0 and jAuth::getUserSession ()->login != '') {
 			$dao = jDao::get('havefnubb~read_posts');
 			$exist = $dao->get(jAuth::getUserSession ()->id ,$post->id_forum,$post->id_post);
 			if ($exist === false) {
@@ -88,10 +89,11 @@ class hfnuread {
 	 * @return boolean
 	 */
 	public static function getReadPost($id_post,$id_forum) {
-		$alreadyRead = jDao::get('havefnubb~read_posts')->get(jAuth::getUserSession()->id,$id_forum,$id_post); 
+		if ( jAuth::getUserSession ()->login == '' ) return false;
+		$alreadyRead = jDao::get('havefnubb~read_posts')->get(jAuth::getUserSession()->id,$id_forum,$id_post);
 		// no record found in the read_post table, that means i marked all the forum as read
 		// let's check the last forum between now and 3min
-		if ($alreadyRead === false) 
+		if ($alreadyRead === false)
 			return true ?  time() < jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum)->date_read + 180 : false;
 		else
 			return true;
@@ -106,7 +108,7 @@ class hfnuread {
 		// limit before considering the are new posts
 		$limit = time() - 900;
 		$posts = jDao::get('havefnubb~posts')->findUnreadThread($limit);
-		return $posts;    
+		return $posts;
 	}
 
 }

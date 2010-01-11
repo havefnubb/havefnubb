@@ -26,7 +26,7 @@ class rates {
 	function saveRatesBySource($id_source, $source, $rate) {
 
 		$dao = jDao::get('hfnurates~rates');
-		$id_user =  jAuth::getUserSession ()->id == NULL ? 0 : jAuth::getUserSession ()->id;
+		$id_user =  jAuth::getUserSession ()->login == '' ? 0 : jAuth::getUserSession ()->id;
 
 		$rec = $dao->getByIdSourceSourceRate($id_user, $id_source, $source);
 

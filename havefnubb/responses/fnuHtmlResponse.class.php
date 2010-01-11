@@ -71,6 +71,7 @@ class fnuHtmlResponse extends jResponseHtml {
 							}
 							break;
 						case 'posts':
+
 							$this->body->assign('home',0);
 							$this->body->assign('selectedMenuItem','community');
 							$toolbarConfig  = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'wikitoolbar.ini.php');
@@ -78,7 +79,10 @@ class fnuHtmlResponse extends jResponseHtml {
 							$this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .$gJConfig->locale . '.js');
 							$this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.skin','wikitoolbar'));
 							$this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .'style.css');
-							$this->body->assign('currentIdForum',$GLOBALS['gJCoord']->request->params['id_forum']);
+							if ($method == 'view' )
+								$this->body->assign('currentIdForum',$GLOBALS['gJCoord']->request->params['id_forum']);
+							else
+								$this->body->assign('currentIdForum',0);
 							break;
 						case 'forum':
 						case 'cat':
