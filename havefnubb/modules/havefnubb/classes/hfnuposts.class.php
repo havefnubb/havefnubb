@@ -289,7 +289,7 @@ class hfnuposts {
 	 * @return $record DaoRecord of the reply
 	 */
 	public static function savereply($parent_id) {
-	global $gJConfig;
+		global $gJConfig;
 		$form = jForms::fill('havefnubb~posts',$parent_id);
 
 		//.. if the data are not ok, return to the form and display errors messages form
@@ -298,14 +298,14 @@ class hfnuposts {
 		}
 
 		$message = $form->getData('message');
-	//is the size of the message limited ?
-	if ( strlen($message) > $gJConfig->havefnubb['post_max_size']
-			and  $gJConfig->havefnubb['post_max_size'] > 0)
-		{
-		jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
-							array($gJConfig->havefnubb['post_max_size'])),'error');
-		return false;
-	}
+		//is the size of the message limited ?
+		if ( strlen($message) > $gJConfig->havefnubb['post_max_size']
+				and  $gJConfig->havefnubb['post_max_size'] > 0)
+			{
+			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
+								array($gJConfig->havefnubb['post_max_size'])),'error');
+			return false;
+		}
 
 		jEvent::notify('HfnuPostBeforeSaveReply',array('id'=>$parent_id));
 

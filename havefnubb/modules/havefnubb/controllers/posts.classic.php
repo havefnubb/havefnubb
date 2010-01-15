@@ -149,7 +149,7 @@ class postsCtrl extends jController {
 		if ($post === null and $goto == null) {
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
-		return $rep;
+            return $rep;
 		}
 
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($post->subject,ENT_COMPAT,'UTF-8'));
@@ -157,9 +157,9 @@ class postsCtrl extends jController {
 		// crumbs infos
 		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
 		if (! $forum) {
-				$rep  = $this->getResponse('redirect');
+			$rep  = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
-				return $rep;
+			return $rep;
 		}
 
 		$day_in_secondes = 24 * 60 * 60;
@@ -664,24 +664,26 @@ class postsCtrl extends jController {
 
 			//let's save the reply
 			$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-			$result = $hfnuposts->savereply($parent_id);
+			$record = $hfnuposts->savereply($parent_id);
 
-			if ($result === false ) {
-				$rep->action = 'havefnubb~posts:lists';
-				$rep->param = array('id_forum'=>$id_forum);
-				return $rep;
+			if ($record === false ) {
+				$record = $hfnuposts->getPost($parent_id);
+				$rep->action = 'havefnubb~posts:view';
+				$rep->params = array('ftitle'=>$record->forum_name,
+									'ptitle'=>$record->subject,
+									'id_forum'=>$id_forum,
+									'id_post'=>$record->id_post,
+									'parent_id'=>$record->parent_id);
 			} else {
-				$record = $result;
+				jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
+
+				$rep->params = array('ftitle'=>$record->forum_name,
+									'ptitle'=>$record->subject,
+									'id_forum'=>$id_forum,
+									'id_post'=>$record->id_post,
+									'parent_id'=>$record->parent_id);
+				$rep->action ='havefnubb~posts:view';
 			}
-
-			jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
-
-			$rep->params = array('ftitle'=>$record->forum_name,
-								'ptitle'=>$record->subject,
-								'id_forum'=>$id_forum,
-								'id_post'=>$record->id_post,
-								'parent_id'=>$record->parent_id);
-			$rep->action ='havefnubb~posts:view';
 			return $rep;
 		}
 		else {
