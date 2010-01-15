@@ -121,11 +121,11 @@ class hfnuposts {
 		$post = self::getPost($id_post);
 
 		if ($id_post == 0 or $post === false) {
-			return array(null,null);
+			return array(null,null,null);
 		}
 
 		if ( ! self::checkPerm('hfnu.posts.view','forum'.$post->id_forum) ) {
-			return array(null,null);
+			return array(null,null,null);
 		}
 
 		$goto = 0;
