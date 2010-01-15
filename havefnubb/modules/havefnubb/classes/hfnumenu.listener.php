@@ -1,7 +1,7 @@
 <?php
 /**
  * Menu Listener to manage the nav bar
- * 
+ *
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -17,7 +17,7 @@ class hfnumenuListener extends jEventListener{
 	*/
 	function onhfnuGetMenuContent ($event) {
 		 global $gJConfig;
-		 
+
 		 $event->add(new hfnuMenuItem('home',
 			jLocale::get('havefnubb~main.home'),
 			jUrl::get('havefnubb~default:index'),
@@ -42,13 +42,15 @@ class hfnumenuListener extends jEventListener{
 		}
 		// dynamic menu
 		$menus = jClasses::getService('havefnubb~hfnumenusbar')->getMenus();
-		foreach ($menus as $indx => $menu) {
-			$event->add(new hfnuMenuItem($menu['itemName'],
-				$menu['name'],
-				$menu['url'],
-				50 + $menu['order'],
-				'main'));
-		}
+		 if (!empty($menus)) {
+		 	 foreach ($menus as $indx => $menu) {
+			   $event->add(new hfnuMenuItem($menu['itemName'],
+				  $menu['name'],
+				  $menu['url'],
+				  50 + $menu['order'],
+				  'main'));
+			}
+		 }
 		if ( jAcl2::check('hfnu.admin.index')) {
 			 $event->add(new hfnuMenuItem('admin',
 				jLocale::get('havefnubb~main.admin.panel'),

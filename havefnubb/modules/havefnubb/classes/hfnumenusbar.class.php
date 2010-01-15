@@ -1,7 +1,7 @@
 <?php
 /**
 * class to manage menus.xml file and display the content inside of the other menu item
-* 
+*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -12,7 +12,7 @@
 
 /*
  * Menus class to build nav bar on public part
- * example of file 
+ * example of file
 <?xml version="1.0" encoding="utf-8"?>
 <menus>
     <menu>
@@ -28,7 +28,7 @@
         <itemName>help</itemName>
         <url>http://mydomain.com/help.php</url>
         <order>39</order>
-    </menu>    
+    </menu>
 </menus>
  */
 class hfnumenusbar {
@@ -39,41 +39,42 @@ class hfnumenusbar {
 	public function getMenus() {
 		global $gJConfig;
 		$menus = array();
-		
+
 		if (file_exists(JELIX_APP_CONFIG_PATH.'/havefnubb/hfnumenus.xml')) {
-			$doc = DOMDocument::load(JELIX_APP_CONFIG_PATH.'/havefnubb/hfnumenus.xml');
+			$doc = new DOMDocument();
+			$doc->load(realpath(JELIX_APP_CONFIG_PATH).'/havefnubb/hfnumenus.xml');
 			$xpath  = new DOMXPath($doc);
-		   
-			
+
+
 			$query = '/menus/menu';
-			 
-			$entries = $xpath->query($query); 
-	 
+
+			$entries = $xpath->query($query);
+
 			foreach ($entries as $idx => $menu) {
-	
+
 				$queryName = '//name[@lang="'.$gJConfig->locale.'"]';
 				$items = $xpath->query($queryName);
 				$name =  $items->item($idx)->nodeValue;
-							
+
 				$queryItemName = '//menu/itemName';
 				$items = $xpath->query($queryItemName);
 				$itemName = $items->item($idx)->nodeValue;
-	
+
 				$queryUrl = '//menu/url';
 				$items = $xpath->query($queryUrl);
 				$url = $items->item($idx)->nodeValue;
-	
+
 				$queryOrder = '//menu/order';
 				$items = $xpath->query($queryOrder);
 				$order = $items->item($idx)->nodeValue;
-					
+
 				$menus[] = array('itemName'=>$itemName,
 								 'name' =>$name,
 								 'url'  =>$url,
 								 'order'=>$order);
-			}         
+			}
 		}
-	
+
 		return $menus;
 	}
 }
