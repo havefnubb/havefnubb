@@ -19,6 +19,6 @@
 	<item value="save" locale="havefnubb~member.pwd.form.saveBt"/>
 </submit>
 <reset ref="reset">
-	<label locale="havefnubb~member.pwd.form.resetBt"/>
+	<label locale="havefnubb~member.pwd.form.cancelBt"/>
 </reset>
 </form>
