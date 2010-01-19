@@ -6,6 +6,7 @@
 <menulist ref="ban_username">
 	<datasource dao="havefnubb~member" method="findAll"
 		labelproperty="login" valueproperty="login"/>
+	<emptyitem locale="hfnuadmin~ban.username.choose"/>
 	<label locale="hfnuadmin~ban.username"/>
 	<hint locale="hfnuadmin~ban.username.description"/>
 	<help locale="hfnuadmin~ban.username.description"/>

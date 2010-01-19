@@ -8,10 +8,10 @@
 		<th  class="records-list-notify-subjet">{@hfnuadmin~notify.message@}</th>
 	</tr>
 	</thead>
+	{if $notify->rowCount() > 0}
 	<tbody>
 		{assign $line = true}
 		{foreach $notify as $notif}
-
 		<tr class="{if $line}odd{else}even{/if}">
 			<td>{$notif->member_login|eschtml}</td>
 			<td>{$notif->date_created|jdatetime:'timestamp':'lang_datetime'}</td>
@@ -25,4 +25,5 @@
 		{assign $line = !$line}
 		{/foreach}
 	</tbody>
+	{/if}
 </table>

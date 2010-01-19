@@ -1,6 +1,6 @@
 <table class="records-list" width="98%">
 	<thead>
-		<th colspan="2">{$moduleInfo['name']}</th>
+		<tr><th colspan="2">{$moduleInfo['name']}</th></tr>
 	</thead>
 	<tbody>
 		<tr class="odd">
