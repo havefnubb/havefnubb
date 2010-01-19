@@ -15,27 +15,27 @@ class havefnubbListener extends jEventListener{
 	* @pararm event $event Object of a listener
 	*/
 	function onHfnuAboutModule ($event) {
-	$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'havefnubb')));
+		$event->add( jZone::get('hfnuadmin~about',array('modulename'=>'havefnubb')));
 	}
 	/**
 	* function to get the statistics content + footer content
 	* @pararm event $event Object of a listener
-	*/   
+	*/
 	function onHfnuBoxWidget ($event) {
-	
+
 		$box = new HfnuBoxWidget();
 		$box->title = '';
 		$box->content = jZone::get('havefnubb~footer_menu');
 		$event->add($box);
-	
+
 		$box = new HfnuBoxWidget();
 		$box->title = '';
 		$box->content = jZone::get('havefnubb~lastposts');
 		$event->add($box);
-	
+
 		$box = new HfnuBoxWidget();
 		$box->title = '';
 		$box->content = jZone::get('havefnubb~stats');
-		$event->add($box);            
+		$event->add($box);
 	}
 }

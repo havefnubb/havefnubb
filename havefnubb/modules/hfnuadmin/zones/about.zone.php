@@ -15,8 +15,9 @@ class aboutZone extends jZone {
 		$moduleName = $this->param('modulename');
 
 		if ($moduleName == '') return;
-		jClasses::inc('havefnubb~modulexml');
-		$moduleInfo = modulexml::parse($moduleName);
-		$this->_tpl->assign('moduleInfo',$moduleInfo);
+
+		$this->_tpl->assign('moduleInfo',
+							jClasses::getService('havefnubb~modulexml')->parse($moduleName)
+							);
 	}
 }

@@ -20,11 +20,6 @@ modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
 theme=default
 
 [coordplugins]
-hfnuinstalled=hfnuinstalled.coord.ini.php
-auth=auth.coord.ini.php
-jacl2=jacl2.coord.ini.php
-banuser=banuser.coord.ini.php
-timeout=timeout.coord.ini.php
 
 [tplplugins]
 defaultJformsBuilder=html
@@ -40,13 +35,13 @@ emailHeaders="Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.
 quietMessage="Une erreur technique est survenue. Désolé pour ce désagrément."
 
 ; mots clés que vous pouvez utiliser : ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
-default="ECHOQUIET EXIT LOGFILE"
-error="ECHOQUIET EXIT LOGFILE"
-warning="ECHOQUIET LOGFILE"
+default="EXIT LOGFILE"
+error="EXIT LOGFILE"
+warning="LOGFILE"
 notice=
 strict=
 ; pour les exceptions, il y a implicitement un EXIT
-exception="ECHOQUIET LOGFILE"
+exception="LOGFILE"
 
 [compilation]
 checkCacheFiletime=on
@@ -56,7 +51,7 @@ force=off
 ; name of url engine :  "simple" or "significant"
 ; engine=simple
 ; engine=basic_significant
-engine=significant
+; engine=basic_significant
 
 
 ; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
@@ -71,7 +66,7 @@ jelixWWWPath="jelix/"
 ; you use the significant engine. If you use the simple url engine, you can set to off.
 enableParser=on
 
-multiview=on
+multiview=off
 
 ; basePath corresponds to the path to the base directory of your application.
 ; so if the url to access to your application is http://foo.com/aaa/bbb/www/index.php, you should
@@ -195,7 +190,7 @@ default="jelix/js/jforms/datepickers/default/init.js"
 [havefnubb]
 title="HaveFnuBB!"
 description="Where Everything is Fnu"
-version=1.3.1
+version=1.3.2
 rules=
 admin_email="admin@localhost.net"
 url_check_version="http://www.havefnubb.org/last_version"
