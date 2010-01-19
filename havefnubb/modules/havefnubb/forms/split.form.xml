@@ -15,18 +15,20 @@
 		<label locale="havefnubb~main.split.to.another.forum"/>
 		<menulist ref="other_forum">
 			<label>...</label>
+			<emptyitem locale="havefnubb~main.split.select.a.forum"/>
 			<datasource dao="havefnubb~forum" method="findAllExceptOneToSplitAndLink" criteriafrom="id_forum"
-				  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>   
+				  labelproperty="forum_name" labelseparator=" = " valueproperty="id_forum"/>
 		</menulist>
 	</item>
 	<item value="existings">
 		<label locale="havefnubb~main.split.to.link.to.another.thread.in.the.same.forum"/>
 		<menulist ref="existing_thread">
 			<label>...</label>
+			<emptyitem locale="havefnubb~main.split.select.a.forum"/>
 			<datasource dao="havefnubb~posts" method="findAllExceptOneToSplitAndLink"  criteriafrom="parent_id,id_forum"
-				  labelproperty="subject" labelseparator=" = " valueproperty="parent_id"/>   
+				  labelproperty="subject" labelseparator=" = " valueproperty="parent_id"/>
 		</menulist>
-	</item>	
+	</item>
 </choice>
 
 <submit ref="validate">

@@ -16,6 +16,6 @@
 		<div class="form_value">{formsubmit}</div>
 		<div class="clearer">&nbsp;</div>
 	</div>
-{/form}
 </fieldset>
+{/form}
 </div>

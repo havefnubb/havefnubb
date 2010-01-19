@@ -3,28 +3,26 @@
     <ul class="member-ident">
 		{hook 'hfbMemberProfile',array('user'=>$user->id)}
         <li class="user-name user-image">{zone 'online_offline',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->login)}">{$user->login|eschtml}</a></li>
-        <li>
 		{if $user->member_gravatar == 1}
-			{gravatar $user->email,array('username'=>$user->login)}
+			<li>{gravatar $user->email,array('username'=>$user->login)}</li>
 		{else}
 			{if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
-			{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+			<li>{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}</li>
 			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
-			{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+			<li>{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}</li>
 			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
-			{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+			<li>{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}</li>
 			{elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
-			{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}		
+			<li>{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}</li>
 			{/if}
 		{/if}
-        </li>
         {if $user->member_town != ''}
         <li class="user-town user-image">{@havefnubb~member.common.town@} : {$user->member_town|eschtml}</li>
-        {/if}        
+        {/if}
         {if $user->member_country != ''}
         <li class="user-country user-image">{image 'hfnu/images/flags/'.$user->member_country.'.gif',array('alt'=>$user->member_country)}  {$user->member_country|eschtml}</li>
         {/if}
-        <li class="user-rank user-image"><span>{@havefnubb~rank.rank_name@} : {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}</span></li>        
+        <li class="user-rank user-image"><span>{@havefnubb~rank.rank_name@} : {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}</span></li>
     </ul>
     <ul class="member-info">
         <li class="user-posts user-image">{@havefnubb~member.common.nb.messages@}: {$user->nb_msg}</li>

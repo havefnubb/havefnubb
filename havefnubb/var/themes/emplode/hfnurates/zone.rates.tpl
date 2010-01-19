@@ -1,9 +1,9 @@
 {meta_html css $j_basepath.'hfnu/images/star-rating/jquery.rating.css'}
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 {meta_html js $j_jelixwww.'jquery/include/jquery.include.js'}
-{meta_html js $j_jelixwww.'jquery/jquery.MetaData.js'}
+{meta_html js $j_basepath.'hfnu/js/jquery.MetaData.js'}
 {meta_html js $j_jelixwww.'jquery/jquery.form.js'}
-{meta_html js $j_jelixwww.'jquery/jquery.rating.pack.js'}
+{meta_html js $j_basepath.'hfnu/js/jquery.rating.pack.js'}
 
 {* javascript and ajax code *}
 {$js}

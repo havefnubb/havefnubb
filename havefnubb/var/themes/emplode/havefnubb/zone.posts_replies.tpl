@@ -46,7 +46,7 @@ $(document).ready(function(){
 {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="post">
 	<div class="posthead legend">
-		<h4 class="posthead-title"><span class="post-status-icon-{$status}"> </span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
+		<h4 class="posthead-title"><span class="post-status-icon-{$status}">&nbsp;</span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
 		{* rate ON the FIRST post of the thread *}
 		{if $post->parent_id == $post->id_post}
 		{zone 'hfnurates~rates' , array('id_source'=>$post->id_post,

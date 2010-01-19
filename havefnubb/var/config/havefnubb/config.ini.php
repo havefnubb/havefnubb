@@ -12,7 +12,6 @@ trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch
 pluginsPath="app:plugins/"
 
 modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
-theme=default
 
 [coordplugins]
 autolocale = "autolocale.coord.ini.php"
@@ -30,11 +29,11 @@ html=fnuHtmlResponse
 [urlengine]
 ; name of url engine :  "simple" or "significant"
 ; engine=simple
-; engine=basic_significant
-engine=significant
+engine=basic_significant
+; engine=significant
 
 enableParser=on
-multiview=on
+multiview=off
 
 defaultEntrypoint=forums
 entrypointExtension=.php

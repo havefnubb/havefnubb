@@ -29,7 +29,7 @@
 	{foreach $posts as $post}
 	{hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
 	<tr>
-		<td><span class="post-status-icon-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$post->status,'id_forum'=>$id_forum)}" > </span> </td>
+		<td><span class="post-status-icon-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$post->status,'id_forum'=>$id_forum)}" >&nsbp;</span> </td>
 		<td class="coltitle linkincell">{zone 'havefnubb~newestposts',array('source'=>'post',
 												'id_post'=>$post->id_post,
 												'status'=>$post->status,

@@ -10,7 +10,6 @@
 		</tr>
 	{for $i = 0 ; $i < $count ; $i++}
 		{ifacl2 'hfnu.posts.view','forum'.$posts[$i]['id_forum']}
-	</tr>
 		<tr>
 			<td class="coltitle linkincell"><a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$posts[$i]['id_forum'],'id_post'=>$posts[$i]['id_post'],'parent_id'=>$posts[$i]['parent_id'],'ptitle'=>$posts[$i]['subject'],'ftitle'=>$posts[$i]['forum_name'])}">{$posts[$i]['subject']|eschtml}</a></td>
 			<td class="coltitle linkincell"><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$posts[$i]['id_forum'],'ftitle'=>$posts[$i]['forum_name'])}">{$posts[$i]['forum_name']|eschtml}</a></td>
@@ -20,3 +19,4 @@
 	{/for}
 	</table>
 </div>
+

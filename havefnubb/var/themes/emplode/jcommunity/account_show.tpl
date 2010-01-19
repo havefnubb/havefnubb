@@ -102,7 +102,9 @@ $(document).ready(function(){
 						<label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong></label>
 					</div>
 					<div class="fom_value">
+						{if $user->member_website != ''}
 						<a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>
+						{/if}
 					</div>
 					<div class="clearer">&nbsp;</div>
 				</div>

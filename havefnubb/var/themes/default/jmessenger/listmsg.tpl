@@ -13,6 +13,7 @@
 				<th>{@jmessenger~message.list.actions@}</th>
 			</tr>
 		</thead>
+		{if $msg->rowCount() > 0}
 		<tbody>
 	{foreach $msg as $m}
 		<tr id="mail{$m->id}" {if $m->isSeen == 0 && !isset($send)}class="new"{/if}>
@@ -37,6 +38,7 @@
 		</tr>
 	{/foreach}
 		</tbody>
+		{/if}
 		</table>
 	</fieldset>
 	</div>
