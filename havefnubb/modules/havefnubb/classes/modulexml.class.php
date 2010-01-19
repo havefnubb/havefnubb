@@ -22,11 +22,8 @@ class modulexml {
 		global $gJConfig;
 
 		$moduleList = $gJConfig->_modulesPathList;
-echo "<pre>$theModuleName<br/>";
-var_dump($moduleList);
-echo "</pre>";
 		if (! array_key_exists($theModuleName,$moduleList) ) return false;
-echo "module $theModuleName<br/>";
+
 		$ns =  'jelixmodule';
 		$nsURL = 'http://jelix.org/ns/module/1.0';
 
