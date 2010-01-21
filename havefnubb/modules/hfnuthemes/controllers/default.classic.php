@@ -37,9 +37,10 @@ class defaultCtrl extends jController {
 		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
 		$mainConfig->setValue('theme',strtolower($theme));
 		$mainConfig->save();
+		jFile::removeDir(JELIX_APP_TEMP_PATH, false);
 		jMessage::add(jLocale::get('theme.selected'),'information');
 		$rep = $this->getResponse('redirect');
 		$rep->action = 'default:index';
 		return $rep;
 	}
-}   
+}

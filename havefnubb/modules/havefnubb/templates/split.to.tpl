@@ -2,7 +2,7 @@
     <h2>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</h2>
     <div class="block">
 {if $step == 1}
-    {form $form, 'havefnubb~posts:splitTo'}
+    {form $form, 'havefnubb~posts:splitedTo'}
         <fieldset>
             <legend>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</legend>
             {ctrl_label 'choice'} {ctrl_control 'choice'} {formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}

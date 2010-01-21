@@ -68,7 +68,7 @@ class ratesZone extends jZone {
 
 		$rates 	= jClasses::getService('hfnurates~rates');
 		$result =  $rates->getTotalRatesBySource($id_source,$source);
-
+		$resultText = '';
 		if ($result !== false) {
 			$resultText = jLocale::get('hfnurates~main.total.of.rates') . ':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level;
 			if ($result->avg_level > 0)

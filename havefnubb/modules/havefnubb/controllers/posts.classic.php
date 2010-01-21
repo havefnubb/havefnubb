@@ -1006,15 +1006,17 @@ class postsCtrl extends jController {
 		$id_post 	= (int) $this->param('id_post');
 		$parent_id 	= (int) $this->param('parent_id');
 		$id_forum 	= (int) $this->param('id_forum');
-		$step 		= (int) $this->param('step');
+		//$step 		= (int) $this->param('step');
 
-		if ($id_post == 0 or $id_forum == 0 or $parent_id == 0) {
+		if (($id_post == 0 or $id_forum == 0 or $parent_id == 0) or
+			($id_post == 0 and $id_forum == 0 and $parent_id == 0))
+			{
 			$rep = $this->getResponse('redirect');
 			$rep->action 	= 'havefnubb~default:index';
 			return $rep;
 		}
 
-		if ($step == 0) {
+		//if ($step == 0) {
 			$form = jForms::create('havefnubb~split');
 			$form->setData('id_post',	$id_post);
 			$form->setData('parent_id',	$parent_id);
@@ -1032,7 +1034,8 @@ class postsCtrl extends jController {
 			$rep->body->assign('MAIN', $tpl->fetch('havefnubb~split.to'));
 			$rep->title = jLocale::get("havefnubb~main.split.this.thread.from.this.message") . ' : ' . $post->subject;
 			return $rep;
-		}
+		//}
+		/*
 		elseif ($step == 1) {
 			$submit = $this->param('validate');
 			if ( $submit == jLocale::get('havefnubb~post.form.saveBt') ) {
@@ -1096,9 +1099,90 @@ class postsCtrl extends jController {
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
+		}*/
+
+	}
+
+	/**
+	 * 'Wizard' to ask to the admin where to move the selected thread,
+	 * starting from the current message
+	 */
+	public function splitedTo() {
+		if ( ! jAcl2::check('hfnu.admin.post') ) {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+			return $rep;
+		}
+
+		$form = jForms::fill('havefnubb~split');
+
+		$submit = $this->param('validate');
+		if ( $submit == jLocale::get('havefnubb~post.form.saveBt') ) {
+			// let's define the possible actions we can do :
+			// where to split this thread  :
+			// 1) in the same forum and create a new one
+			// 2) in another forum and create a new one
+			// 3) link to an existing thread in the SAME forum
+			$possibleActions = array('same_forum','others','existings');
+			// the choice is ?
+			$choice = (string) $this->param('choice');
+
+			if (! in_array($choice,$possibleActions) ) {
+					$rep = $this->getResponse('redirect');
+					$rep->action = 'havefnubb~default:index';
+					return $rep;
+			}
+
+			$dao = jDao::get('havefnubb~posts');
+			$post = $dao->get($form->getData('id_post'));
+			switch ($choice) {
+				case 'same_forum' :
+					$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+					$id_forum = (int) $this->param('id_forum');
+					$id_post = $hfnuposts->splitToForum($form->getData('parent_id'),$form->getData('id_post'),$form->getData('id_forum'));
+					if ($id_post > 0 ) $result = true; else $result = false;
+					break;
+				case 'others' :
+					// the id_forum change to the new selected one
+					$id_forum = (int) $this->param('other_forum');
+					$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+					$id_post = $hfnuposts->splitToForum($form->getData('parent_id'),$form->getData('id_post'),$id_forum);
+					if ($id_post > 0 ) $result = true; else $result = false;
+					break;
+				case 'existings' :
+					// the parent_id change to the new selected one
+					$new_parent_id = (int) $this->param('existing_thread');
+					$id_forum = $new_parent_id;
+					$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+					$result = $hfnuposts->splitToThread($form->getData('id_post'),$form->getData('parent_id'),$new_parent_id);
+					$id_post = (int) $this->param('existing_thread');
+					break;
+			}
+			$dao = jDao::get('havefnubb~posts');
+			$post = $dao->get($id_post);
+			if ($result === false) {
+				jMessage::add(jLocale::get('havefnubb~main.common.thread.cant.be.moved'),'error');
+			}
+			else {
+				jMessage::add(jLocale::get('havefnubb~main.common.thread.moved'),'ok');
+			}
+			$rep = $this->getResponse('redirect');
+			$rep->params = array('ftitle'=>$post->forum_name,
+								'ptitle'=>$post->subject,
+								'id_forum'=>$id_forum,
+								'id_post'=>$post->id_post,
+								'parent_id'=>$post->parent_id);
+			$rep->action ='havefnubb~posts:view';
+			return $rep;
+		}
+		else {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+			return $rep;
 		}
 
 	}
+
 
 	/**
 	 * censored this post (or thread if parent_id = id_post )

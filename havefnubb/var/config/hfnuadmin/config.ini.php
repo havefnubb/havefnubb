@@ -8,15 +8,21 @@ modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../mod
 
 [coordplugins]
 autolocale = autolocale.coord.ini.php
-
 auth="hfnuadmin/auth.coord.ini.php"
 jacl2="hfnuadmin/jacl2.coord.ini.php"
-[responses]
 
+[responses]
 html=adminHtmlResponse
 htmlauth=adminLoginHtmlResponse
+
 [acl2]
 enableAcl2DbEventListener=on
 
 [simple_urlengine_entrypoints]
 hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~*@classic hfnucontact~*@classic servinfo~*@classic hfnuthemes~*@classic"
+
+[urlengine]
+; name of url engine :  "simple" or "significant"
+; engine=simple
+engine=basic_significant
+; engine=significant

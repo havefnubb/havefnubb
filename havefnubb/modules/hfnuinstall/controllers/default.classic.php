@@ -122,13 +122,13 @@ class defaultCtrl extends jController {
 							$err = true;
 							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'dbprofils.ini.php'),'error');
 						}
-						if (! is_writable(JELIX_APP_CONFIG_PATH . 'flood.coord.ini.php') )  {
+						if (! is_writable(JELIX_APP_CONFIG_PATH .'havefnubb/flood.coord.ini.php') )  {
 							$err = true;
-							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'flood.coord.ini.php'),'error');
+							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'havefnubb/flood.coord.ini.php'),'error');
 						}
-						if (! is_writable(JELIX_APP_CONFIG_PATH . 'timeout.coord.ini.php') )  {
+						if (! is_writable(JELIX_APP_CONFIG_PATH . 'havefnubb/timeout.coord.ini.php') )  {
 							$err = true;
-							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'timeout.coord.ini.php'),'error');
+							jMessage::add(jLocale::get('hfnuinstall~install.config.impossible.to.write.in.file',JELIX_APP_CONFIG_PATH . 'havefnubb/timeout.coord.ini.php'),'error');
 						}
 
 						$tpl->assign('err',$err);
@@ -145,7 +145,6 @@ class defaultCtrl extends jController {
 							$form->setData('sendmailPath',  stripslashes($gJConfig->mailer['sendmailPath']));
 							$form->setData('smtpHost',      stripslashes($gJConfig->mailer['smtpHost']));
 							$form->setData('smtpPort',      stripslashes($gJConfig->mailer['smtpPort']));
-							$form->setData('smtpAuth',      stripslashes($gJConfig->mailer['smtpAuth']));
 							$form->setData('smtpUsername',  stripslashes($gJConfig->mailer['smtpUsername']));
 							$form->setData('smtpPassword',  stripslashes($gJConfig->mailer['smtpPassword']));
 							$form->setData('smtpTimeout',   stripslashes($gJConfig->mailer['smtpTimeout']));

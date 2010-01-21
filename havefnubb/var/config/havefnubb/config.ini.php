@@ -40,4 +40,3 @@ entrypointExtension=.php
 notfoundAct="havefnubb~error:notfound"
 [acl2]
 driver=db
-
