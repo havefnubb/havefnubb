@@ -13,21 +13,21 @@
 class tagscloudZone extends jZone {
 
     protected $_tplname='tagscloud';
-    protected $_useCache = true;
-    
+    protected $_useCache = false;
+
 
     protected function _prepareTpl(){
         $matfactory = jDao::get("jtags~tags");
-        
+
         $destination = $this->getParam("destination", null);
-        
+
         $tags = $matfactory->findAll();
-        
+
         define("MIN_SIZE", 0.5);
         define("MAX_SIZE", 2);
 
         $min = $max = 0;
-        
+
         foreach ($tags as $t) {
             if ($t->nbuse < $min) $min = $t->nbuse;
             if ($t->nbuse > $max) $max = $t->nbuse;
@@ -40,10 +40,10 @@ class tagscloudZone extends jZone {
         foreach ($tags as $t) {
             $size[$t->tag_id] = intval($min_size + (($t->nbuse - $min) * (($max_size - $min_size) / ($max - $min))));
         }
-        
-        
+
+
         $nbObjects = $matfactory->countAll();
-        
+
         $this->_tpl->assign(compact('tags', 'size', 'nbObjects', 'destination'));
     }
 }

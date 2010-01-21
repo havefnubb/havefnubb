@@ -202,16 +202,11 @@
     </classicentrypoint>
 
     <classicentrypoint name="install" default="false" noentrypoint="false">
-        <url pathinfo="/" module="hfnuinstall" action="default:index"/>
-        <url pathinfo="/:step/1_2_0" module="hfnuinstall" action="default:update_to_1_2_0">
-            <param name="step" type="string"/>
-        </url>
-        <url pathinfo="/:step/1_3_0" module="hfnuinstall" action="default:update_to_1_3_0">
-            <param name="step" type="string"/>
-        </url>
-        <url pathinfo="/:step/1_3_1" module="hfnuinstall" action="default:update_to_1_3_1">
-            <param name="step" type="string"/>
-        </url>
+        <url pathinfo="/"             module="hfnuinstall" action="default:index"/>
+        <url pathinfo="/update/1_2_0" module="hfnuinstall" action="default:update_to_1_2_0"/>
+        <url pathinfo="/update/1_3_0" module="hfnuinstall" action="default:update_to_1_3_0"/>
+        <url pathinfo="/update/1_3_1" module="hfnuinstall" action="default:update_to_1_3_1"/>
+        <url pathinfo="/update/1_3_2" module="hfnuinstall" action="default:update_to_1_3_2"/>
     </classicentrypoint>
 
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">

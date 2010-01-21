@@ -12,3 +12,9 @@ html = installHtmlResponse
 
 [simple_urlengine_entrypoints]
 install="hfnuinstall~*@classic"
+
+[urlengine]
+; name of url engine :  "simple" or "significant"
+; engine=simple
+; engine=basic_significant
+engine=significant
