@@ -1,3 +1,260 @@
+Revision: 517
+Author: foxmask
+Date: 00:25:09, vendredi 22 janvier 2010
+Message:
+1.3.2 to release ; all tests done
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuread.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
+Modified : /trunk/havefnubb/modules/havefnubb/templates/split.to.tpl
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnurates/zones/rates.zone.php
+Modified : /trunk/havefnubb/modules/hfnuthemes/controllers/default.classic.php
+Modified : /trunk/havefnubb/var/config/havefnubb/config.ini.php
+Modified : /trunk/havefnubb/var/config/hfnuadmin/config.ini.php
+
+Revision: 516
+Author: foxmask
+Date: 22:39:16, jeudi 21 janvier 2010
+Message:
+1.3.2 on the road
+----
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/install/VERSION
+Added : /trunk/havefnubb/modules/hfnuinstall/install/docs/en/UPDATE-TO-1.3.2
+Added : /trunk/havefnubb/modules/hfnuinstall/install/docs/fr/UPDATE-TO-1.3.2
+Modified : /trunk/havefnubb/modules/jtags/zones/tagscloud.zone.php
+Modified : /trunk/havefnubb/var/config/havefnubb/config.ini.php
+Modified : /trunk/havefnubb/var/config/index/config.ini.php
+Modified : /trunk/havefnubb/var/config/install/config.ini.php
+Modified : /trunk/havefnubb/var/config/urls.xml
+
+Revision: 515
+Author: foxmask
+Date: 12:16:52, mardi 19 janvier 2010
+Message:
+Hunting non-W3C Compliant page
+----
+Modified : /trunk/havefnubb/modules/havefnubb/forms/split.form.xml
+Modified : /trunk/havefnubb/modules/havefnubb/locales/en_EN/main.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/locales/fr_FR/main.UTF-8.properties
+Modified : /trunk/havefnubb/modules/havefnubb/templates/member_changepwd.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.memberprofile.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.postlistbytag.tpl
+Modified : /trunk/havefnubb/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/havefnubb/modules/hfnusearch/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnusearch/module.xml
+Modified : /trunk/havefnubb/var/config/havefnubb/config.ini.php
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/default/jmessenger/listmsg.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/member_changepwd.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.list.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.postlistbytag.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/hfnurates/zone.rates.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/account_show.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jmessenger/listmsg.tpl
+
+Revision: 514
+Author: foxmask
+Date: 11:28:40, mardi 19 janvier 2010
+Message:
+apply some W3C Compliant rules :)
+----
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/notify.classic.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/forms/bans.form.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/ban.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/ban.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/bans_edit.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/notify_index.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/zone.about.tpl
+Modified : /trunk/havefnubb/modules/hfnucontact/templates/admincontact.tpl
+
+Revision: 513
+Author: foxmask
+Date: 10:50:03, mardi 19 janvier 2010
+Message:
+debugging off ;)
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/modulexml.class.php
+
+Revision: 512
+Author: foxmask
+Date: 10:49:15, mardi 19 janvier 2010
+Message:
+fix "modulepath" in config.ini.php of hfnuadmin entrypoint
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/modulexml.class.php
+Modified : /trunk/havefnubb/var/config/hfnuadmin/config.ini.php
+Modified : /trunk/modules-hook/hook/events.xml
+Modified : /trunk/modules-hook/hook/module.xml
+
+Revision: 511
+Author: foxmask
+Date: 10:24:29, mardi 19 janvier 2010
+Message:
+on the road of 1.3.2
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/havefnubb.listener.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/modulexml.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/module.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/classes/hfnuaboutmodule.listener.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales/en_EN/hfnuabout.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnuadmin/locales/fr_FR/hfnuabout.UTF-8.properties
+Modified : /trunk/havefnubb/modules/hfnuadmin/module.xml
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/modules.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/templates/zone.about.tpl
+Modified : /trunk/havefnubb/modules/hfnuadmin/zones/about.zone.php
+Modified : /trunk/havefnubb/modules/hfnucontact/classes/hfnucontact.listener.php
+Modified : /trunk/havefnubb/modules/hfnucontact/module.xml
+Modified : /trunk/havefnubb/modules/hfnuinstall/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnuinstall/module.xml
+Added : /trunk/havefnubb/modules/hfnurates/classes/hfnurates.listener.php
+Added : /trunk/havefnubb/modules/hfnurates/events.xml
+Modified : /trunk/havefnubb/modules/hfnurates/module.xml
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/havefnubb/var/config/havefnubb/config.ini.php
+Modified : /trunk/havefnubb/var/config/havefnubb/flood.coord.ini.php
+Modified : /trunk/havefnubb/var/config/havefnubb/timeout.coord.ini.php
+Modified : /trunk/havefnubb/var/themes/default/theme.php
+Modified : /trunk/havefnubb/var/themes/emplode/theme.php
+
+Revision: 510
+Author: foxmask
+Date: 10:38:57, dimanche 17 janvier 2010
+Message:
+typo
+----
+Modified : /trunk/havefnubb/modules/havefnubb/forms/pwd.form.xml
+
+Revision: 509
+Author: foxmask
+Date: 22:33:30, vendredi 15 janvier 2010
+Message:
+ticket #156 taille limite des messages
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuposts.class.php
+Modified : /trunk/havefnubb/modules/havefnubb/controllers/posts.classic.php
+
+Revision: 508
+Author: foxmask
+Date: 22:16:12, vendredi 15 janvier 2010
+Message:
+fix a behavior on the menubar
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnumenu.listener.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnumenusbar.class.php
+
+Revision: 507
+Author: foxmask
+Date: 21:48:11, vendredi 15 janvier 2010
+Message:
+fix a config behavior about invalid url 
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuposts.class.php
+Modified : /trunk/havefnubb/var/config/defaultconfig.ini.php.dist
+Modified : /trunk/havefnubb/var/config/havefnubb/config.ini.php
+
+Revision: 506
+Author: foxmask
+Date: 00:39:32, mardi 12 janvier 2010
+Message:
+some layout improvement 
+some notice removed
+some js moved from jelix to hfnu where they had to be from the begginning
+----
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnuread.class.php
+Modified : /trunk/havefnubb/modules/hfnurates/classes/rates.class.php
+Modified : /trunk/havefnubb/modules/hfnurates/templates/zone.rates.tpl
+Modified : /trunk/havefnubb/responses/fnuHtmlResponse.class.php
+Added : /trunk/hfnu/js/jquery.MetaData.js
+Added : /trunk/hfnu/js/jquery.rating.pack.js
+Deleted : /trunk/jelix/jquery/jquery.MetaData.js
+Deleted : /trunk/jelix/jquery/jquery.rating.pack.js
+
+Revision: 505
+Author: foxmask
+Date: 23:30:42, lundi 11 janvier 2010
+Message:
+little layout issue + remove a notice.
+----
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/status.tpl
+Modified : /trunk/themes/default/css/layout.css
+
+Revision: 504
+Author: foxmask
+Date: 11:52:40, dimanche 10 janvier 2010
+Message:
+multiple notices erased
+----
+Modified : /trunk/havefnubb/modules/havefnubb/templates/posts.list.tpl
+Modified : /trunk/havefnubb/modules/havefnubb/zones/newestposts.zone.php
+Modified : /trunk/havefnubb/var/themes/default/jcommunity/account_edit.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/posts.list.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/jcommunity/account_edit.tpl
+
+Revision: 503
+Author: foxmask
+Date: 11:31:58, dimanche 10 janvier 2010
+Message:
+Multiple Notice "erased"
+----
+Modified : /trunk/havefnubb/modules/havefnubb/zones/posts_replies.zone.php
+Modified : /trunk/havefnubb/modules/hfnucontact/controllers/default.classic.php
+Modified : /trunk/havefnubb/modules/hfnurates/zones/rates.zone.php
+Modified : /trunk/havefnubb/responses/fnuHtmlResponse.class.php
+Modified : /trunk/havefnubb/var/config/havefnubb/config.ini.php
+Modified : /trunk/modules-hook/hook/classes/hook.listener.php
+
+Revision: 502
+Author: foxmask
+Date: 10:57:27, dimanche 10 janvier 2010
+Message:
+uneeded
+----
+Deleted : /trunk/havefnubb/var/config/havefnubb/hfnumenus.xml
+
+Revision: 501
+Author: foxmask
+Date: 10:56:31, dimanche 10 janvier 2010
+Message:
+config refactoring
+----
+Added : /trunk/forums.php
+Modified : /trunk/havefnubb/modules/havefnubb/classes/hfnumenusbar.class.php
+Modified : /trunk/havefnubb/modules/hfnuadmin/controllers/default.classic.php
+Deleted : /trunk/havefnubb/var/config/auth.coord.ini.php
+Deleted : /trunk/havefnubb/var/config/banuser.coord.ini.php
+Deleted : /trunk/havefnubb/var/config/flood.coord.ini.php
+Added : /trunk/havefnubb/var/config/havefnubb
+Added : /trunk/havefnubb/var/config/havefnubb/auth.coord.ini.php
+Added : /trunk/havefnubb/var/config/havefnubb/banuser.coord.ini.php
+Added : /trunk/havefnubb/var/config/havefnubb/config.ini.php
+Added : /trunk/havefnubb/var/config/havefnubb/flood.coord.ini.php
+Added : /trunk/havefnubb/var/config/havefnubb/hfnuinstalled.coord.ini.php
+Added : /trunk/havefnubb/var/config/havefnubb/hfnumenus.xml
+Added : /trunk/havefnubb/var/config/havefnubb/hfnumenus.xml.dist
+Added : /trunk/havefnubb/var/config/havefnubb/history.coord.ini.php
+Added : /trunk/havefnubb/var/config/havefnubb/jacl2.coord.ini.php
+Added : /trunk/havefnubb/var/config/havefnubb/timeout.coord.ini.php
+Deleted : /trunk/havefnubb/var/config/hfnuinstalled.coord.ini.php
+Deleted : /trunk/havefnubb/var/config/hfnumenus.xml.dist
+Deleted : /trunk/havefnubb/var/config/history.coord.ini.php
+Deleted : /trunk/havefnubb/var/config/jacl2.coord.ini.php
+Deleted : /trunk/havefnubb/var/config/timeout.coord.ini.php
+Modified : /trunk/havefnubb/var/config/urls.xml
+Modified : /trunk/index.php
+
+Revision: 500
+Author: foxmask
+Date: 09:40:13, dimanche 10 janvier 2010
+Message:
+Typo ! id_forum vs id_forum 
+----
+Modified : /trunk/havefnubb/modules/havefnubb/templates/zone.posts_replies.tpl
+Modified : /trunk/havefnubb/var/themes/emplode/havefnubb/zone.posts_replies.tpl
+
+
 Revision: 497
 Author: foxmask
 Date: 20:29:48, mercredi 6 janvier 2010
