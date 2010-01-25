@@ -207,6 +207,7 @@
         <url pathinfo="/update/1_3_0" module="hfnuinstall" action="default:update_to_1_3_0"/>
         <url pathinfo="/update/1_3_1" module="hfnuinstall" action="default:update_to_1_3_1"/>
         <url pathinfo="/update/1_3_2" module="hfnuinstall" action="default:update_to_1_3_2"/>
+        <url pathinfo="/update/1_3_3" module="hfnuinstall" action="default:update_to_1_3_3"/>
     </classicentrypoint>
 
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
