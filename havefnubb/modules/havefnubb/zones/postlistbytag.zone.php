@@ -17,13 +17,12 @@ class postlistbytagZone extends jZone {
 		$srvTags = jClasses::getService("jtags~tags");
 		$tags = $srvTags->getSubjectsByTags($tag, "forumscope");
 
-		$posts = '';
-		$dao = jDao::get('havefnubb~posts');
-		$count = count($tags);
+		$posts = array();
 		// We check the rights access to the posts in the template
-		for ($i = 0 ; $i < $count ; $i++) {
-			$posts[] = (array) $dao->get($tags[$i]);
-		}
-		$this->_tpl->assign(compact('posts','count'));
+		foreach ($tags as $tag)
+			if ( jClasses::getService('havefnubb~hfnuposts')->getPost($tag) !== false)
+				$posts[] = jClasses::getService('havefnubb~hfnuposts')->getPost($tag);
+
+		$this->_tpl->assign('posts',$posts);
 	}
 }

@@ -37,16 +37,16 @@ class tags {
         // 2) check if the tag is still use  in sc_tags (nbuse > 1)
         // 2.1) if yes ; then nbuse-- of this tag
         // 2.2) if no ; remove the tag from sc_tags + sc_tags_tagged
-        
+
         $cond = jDao::createConditions();
-        //find all subject id 
+        //find all subject id
         $cond->addCondition('tt_subject_id','=',$id);
         // 1)
         $tagsToDelete = $factory_objects_tags->findBy($cond);
         foreach($tagsToDelete as $delete) {
             //2)
             $myTag = $factory_tags->get($delete->tag_id);
-            
+
             if ($myTag->nbuse > 1) {
                 // 2.1)
                 // delete the tag from the tag_id found earlier
@@ -58,29 +58,29 @@ class tags {
                 $factory_tags->delete($delete->tag_id);
                 $factory_objects_tags->delete($delete->tt_id);
             }
-        }        
-        
+        }
+
         foreach($tags as $t) {
             $t = trim($t);
-            if ($t == "")  continue;                      
+            if ($t == "")  continue;
             if ($tag = $factory_tags->tagExiste($t)) {
                 $idTag = $tag->tag_id;
                 $tag->nbuse++;
                 $factory_tags->update($tag);
-            } 
+            }
             else {
                 $idTag = $this->createTag($t);
             }
 
             $objectTags = jDao::get($this->dao_object_tags);
             if ( ! $objectTags->tagAndsubjectExists($idTag,$id)) {
-                
+
                 // insertion dans objects_tags
                 $snippets_tag = jDao::createRecord($this->dao_object_tags);
                 $snippets_tag->tag_id = $idTag;
                 $snippets_tag->tt_scope_id = $scope;
                 $snippets_tag->tt_subject_id = $id;
-    
+
                 $factory_objects_tags->insert($snippets_tag);
             }
         }
@@ -174,4 +174,3 @@ class tags {
 
     }
 }
-
