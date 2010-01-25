@@ -20,6 +20,8 @@ modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
 theme=default
 
 [coordplugins]
+hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
+auth="havefnubb/auth.coord.ini.php"
 
 [tplplugins]
 defaultJformsBuilder=html

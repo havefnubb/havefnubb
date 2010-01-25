@@ -19,7 +19,7 @@ class supported_drivers {
 		if ( function_exists('pg_connect') )
 			$data['pgsql'] = 'PostgreSQL';
 
-		if ( function_exists('sqlite_connect') )
+		if ( function_exists('sqlite_open') )
 			$data['sqlite'] = 'SQLite';
 
 		return $data;
@@ -41,7 +41,7 @@ class supported_drivers {
 		else
 			jMessage::add(jLocale::get('hfnuinstall~install.check.module.is.not.present',array('PostGresql')),'warning') ;
 
-		if ( function_exists('sqlite_connect') ) {
+		if ( function_exists('sqlite_open') ) {
 			$dbSupported = true;
 			jMessage::add(jLocale::get('hfnuinstall~install.check.module.is.present',array('SQLite')),'ok') ;
 		}

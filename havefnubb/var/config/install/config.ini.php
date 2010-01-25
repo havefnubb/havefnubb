@@ -5,7 +5,9 @@ startModule = "hfnuinstall"
 startAction = "default:index"
 
 [coordplugins]
+hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
 autolocale = autolocale.coord.ini.php
+auth="havefnubb/auth.coord.ini.php"
 
 [responses]
 html = installHtmlResponse
@@ -18,3 +20,5 @@ install="hfnuinstall~*@classic"
 ; engine=simple
 ; engine=basic_significant
 engine=significant
+enableParser=on
+multiview=on
