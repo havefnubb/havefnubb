@@ -11,9 +11,6 @@
            <param name="ftitle"  type="string" escape="true" />
         </url>
 
-        <!-- community access -->
-        <url pathinfo="/community" module="havefnubb" action="default:index"/>
-
         <!-- portal access -->
         <url pathinfo="/" module="havefnubb" action="default:index"/>
 

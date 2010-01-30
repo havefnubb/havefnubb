@@ -4,7 +4,7 @@
     <li>{@havefnubb~forum.forumchild.subforum@} :</li>
 {foreach $forumChilds as $forum}
 	{if $forum->forum_type != 1}
-    <li><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>,</li>
+    <li><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a> ({zone 'havefnubb~postlc',array('id_forum'=>$forum->id_forum)}), </li>
     {else}
     <li><a href="{$forum->forum_url}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>,</li>
     {/if}
@@ -27,7 +27,7 @@
 {elseif $forum->forum_type == 1}
     <tr>
         <td class="colredirect"> </td>
-        <td><h4 class="forumtitle"><a href="{$forum->forum_url}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
+        <td><h4 class="forumtitle"><a href="{$forum->forum_url}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span> (</td>
         <td colspan="2">&nbsp;</td>
     </tr>
 {elseif $forum->forum_type == 2}
