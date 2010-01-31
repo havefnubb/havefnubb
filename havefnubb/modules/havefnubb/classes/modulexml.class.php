@@ -109,8 +109,11 @@ class modulexml {
 		$updateURL = '';
 		$query = '//'.$ns.':updateURL/text()';
 		$entries = $xpath->query($query);
-		$updateURL = $entries->item(0)->nodeValue;
 
+		foreach ($entries as $entry) {
+			$updateURL = $entry->nodeValue;
+		}
+		
 		$homepageURL = '';
 		$query = '//'.$ns.':homepageURL/text()';
 		$entries = $xpath->query($query);

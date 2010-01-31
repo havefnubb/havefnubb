@@ -27,7 +27,7 @@
 		</tr>
 		{/foreach}
 		<tr>
-			<td>{@hfnuadmin~hfnuabout.about.links@}</td><td><a href="{$moduleInfo['homepageURL']}">{@hfnuadmin~hfnuabout.about.homepageURL@}</a> - <a href="{$moduleInfo['updateURL']}">{@hfnuadmin~hfnuabout.about.updateURL@}</a></td>
+			<td>{@hfnuadmin~hfnuabout.about.links@}</td><td><a href="{$moduleInfo['homepageURL']}">{@hfnuadmin~hfnuabout.about.homepageURL@}</a>{if $moduleInfo['updateURL'] != ''} - <a href="{$moduleInfo['updateURL']}">{@hfnuadmin~hfnuabout.about.updateURL@}</a>{/if}</td>
 		</tr>
 	</tbody>
 </table>
