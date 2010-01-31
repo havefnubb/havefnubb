@@ -37,7 +37,24 @@ class defaultCtrl extends jController {
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
 		$GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
 
-		$rep->body->assignZone('MAIN', 'havefnubb~category');
+		$dao = jDao::get('havefnubb~forum_cat');
+		$categories = $dao->findAllCatWithFathers();
+		$nbCat = $categories->rowCount();
+		$data = array();
+
+		foreach ($categories as $cat) {
+			if ( jAcl2::check('hfnu.forum.list','forum'.$cat->id_forum) ) {
+				$data[] = $cat;
+				// get the list of forum to build the RSS link
+				$forums = jClasses::getService('havefnubb~hfnuforum')->findParentByCatId($cat->id_cat);
+				foreach ($forums as $forum) {
+					$url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$forum->forum_name,
+															'id_forum'=>$forum->id_forum));
+					$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.htmlentities($url).'" />');
+				}
+			}
+		}
+		$rep->body->assignZone('MAIN', 'havefnubb~category',array('data'=>$data,'nbCat'=>$nbCat));
 		return $rep;
 	}
 

@@ -1,7 +1,7 @@
 <?php
 /**
 * Controller to manage any category events
-* 
+*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -14,7 +14,7 @@ class categoryCtrl extends jController {
 
 	/**
 	 * plugins to manage the behavior of the controller
-	 */	
+	 */
 	public $pluginParams = array(
 		'*'	=> array('auth.required'=>false,
 			'hfnu.check.installed'=>true,
@@ -34,7 +34,7 @@ class categoryCtrl extends jController {
 		}
 
 		// add the category name in the page title
-		// so 
+		// so
 		// 1) get the category record
 		$category = jClasses::getService('havefnubb~hfnucat')->getCat($id_cat);
 
@@ -45,13 +45,19 @@ class categoryCtrl extends jController {
 
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
 
+		$forums = jClasses::getService('havefnubb~hfnuforum')->findParentByCatId($id_cat);
+		foreach ($forums as $forum) {
+			$url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$forum->forum_name,
+													'id_forum'=>$forum->id_forum));
+			$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.htmlentities($url).'" />');
+		}
+
 		$tpl = new jTpl();
 
 		$tpl->assign('action','view');
-		$tpl->assign('category',$category);		
-		
+		$tpl->assign('category',$category);
+
 		$rep->body->assign('MAIN', $tpl->fetch('zone.category'));
 		return $rep;
 	}
 }
-
