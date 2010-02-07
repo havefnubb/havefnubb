@@ -1,5 +1,5 @@
 --
--- Base de données: `havefnu`
+-- Base de donnï¿½es: `havefnu`
 --
 
 -- --------------------------------------------------------
@@ -677,7 +677,7 @@ CREATE TABLE IF NOT EXISTS `hf_jmessenger` (
 
 --
 -- Structure de la table `hf_connected`
--- table utilisée pour conserver l'activité des utilisateurs : (non-)connecté / (in)actif
+-- table utilisï¿½e pour conserver l'activitï¿½ des utilisateurs : (non-)connectï¿½ / (in)actif
 --
 
 DROP TABLE IF EXISTS `hf_connected`;
@@ -726,3 +726,9 @@ CREATE TABLE IF NOT EXISTS `hf_read_posts` (
   KEY `id_post` (`id_post`)
 ) DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `hf_subscriptions`;
+CREATE TABLE IF NOT EXISTS `hf_subscriptions` (
+	`id_user` int(12) NOT NULL,
+	`id_post` int(12) NOT NULL,
+	PRIMARY KEY (`id_user` , `id_post`)
+) DEFAULT CHARSET=utf8;

@@ -200,12 +200,12 @@ class hfnuposts {
 		$subject = $form->getData('subject');
 		$message = $form->getData('message');
 
-	if ( count($message) > $gJConfig->havefnubb['post_max_size'] and
-			$gJConfig->havefnubb['post_max_size'] > 0) {
-		jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
-					array($gJConfig->havefnubb['post_max_size'])),'error');
-		return false;
-	}
+		if ( count($message) > $gJConfig->havefnubb['post_max_size'] and
+				$gJConfig->havefnubb['post_max_size'] > 0) {
+			jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
+						array($gJConfig->havefnubb['post_max_size'])),'error');
+			return false;
+		}
 
 		//CreateRecord object
 		$dao = jDao::get('havefnubb~posts');
@@ -220,7 +220,7 @@ class hfnuposts {
 			$record->id_user 	    = jAuth::getUserSession ()->id;
 			$record->id_forum 	    = $id_forum;
 			$record->parent_id      = 0;
-			$record->status	    = 'opened';
+			$record->status	        = 'opened';
 			$record->date_created   = time();
 			$record->date_modified  = time();
 			$record->viewed         = 0;
@@ -277,6 +277,14 @@ class hfnuposts {
 
 		jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
 
+		//subscription management
+		if ($form->subscribe == 1) {
+            jClasses::getService('havefnubb~hfnusub')->subscribe($id_post);
+		}
+		else {
+		    jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post);
+		}
+		
 		jForms::destroy('havefnubb~posts', $id_post);
 
 		return $id_post;
@@ -312,11 +320,11 @@ class hfnuposts {
 		$result = $form->prepareDaoFromControls('havefnubb~posts');
 		$result['daorec']->date_created	= time();
 		$result['daorec']->date_modified= time();
-		$result['daorec']->status	= 'opened';
+		$result['daorec']->status	    = 'opened';
 		$result['daorec']->poster_ip	= $_SERVER['REMOTE_ADDR'];
-		$result['daorec']->viewed 	= 0;
+		$result['daorec']->viewed 	    = 0;
 		$result['daorec']->id_post  	= 0;
-		$result['daorec']->id_user 	= jAuth::getUserSession ()->id;
+		$result['daorec']->id_user 	    = jAuth::getUserSession ()->id;
 		$result['dao']->insert($result['daorec']);
 		$id_post = $result['daorec']->getPk();
 

@@ -39,6 +39,7 @@ class postsCtrl extends jController {
 		'uncensor' => array('jacl2.right'=>'hfnu.admin.post'),
 		'savecensor' => array('jacl2.right'=>'hfnu.admin.post'),
 		'shownew'=> array('auth.required'=>true),
+		'unsubscribe'=> array('auth.required'=>true),
 
 	);
 
@@ -1301,11 +1302,23 @@ class postsCtrl extends jController {
 	 * Show all new posts not read by the current user
 	 */
 	public function shownew() {
-		$rep = $this->getResponse('html');
-		$tpl = new jTpl();
 		$posts = jClasses::getService('havefnubb~hfnuread')->findUnreadThread();
-		$tpl->assign('posts',$posts);
+		$rep = $this->getResponse('redirect');
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.shownew'));
+		return $rep;
+	}
+	/**
+	 * Unsubscribe to a given posts
+	 */
+	public function unsubscribe() {
+		$id_post = (int) $this->param('id_post');
+		if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post)) {
+		    jMessage::add(jLocale::get('havefnubb~post.unsubscribed'),'ok');
+		} else {
+		    jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
+		}
+		$rep = $this->getResponse('redirect');
+		$rep->action = 'havefnubb~default:index';
 		return $rep;
 	}
 }

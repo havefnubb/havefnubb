@@ -195,6 +195,10 @@
         </url>
 
         <url pathinfo="/posts/shownew" module="havefnubb" action="posts:shownew"/>
+        
+        <url pathinfo="/posts/unsubscribe/:id_post" module="havefnubb" action="posts:unsubscribe">
+            <param name="id_post" type="number"/>
+        </url>        
 
     </classicentrypoint>
 
