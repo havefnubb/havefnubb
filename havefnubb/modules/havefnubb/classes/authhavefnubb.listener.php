@@ -16,7 +16,7 @@ class authhavefnubbListener extends jEventListener{
 	* @param $event the given event to answer to
 	*/
 	function onAuthLogin ($event) {
-		global $gJConfig;    
+		global $gJConfig;
 		$login = $event->getParam('login');
 	
 		// update the last connection access
@@ -39,7 +39,7 @@ class authhavefnubbListener extends jEventListener{
 	/**
 	* to answer to AuthLogout event
 	* @param $event the given event to answer to
-	*/   
+	*/
 	function onAuthLogout($event) {
 		$_SESSION['JX_LANG'] = '';
 		unset($_SESSION['JX_LANG']);
@@ -48,7 +48,7 @@ class authhavefnubbListener extends jEventListener{
 	/**
 	* to answer to jcommunity_save_account event
 	* @param $event the given event to answer to
-	*/      
+	*/
 	function onjcommunity_save_account ($event) {
 		global $gJConfig;
 		$form = $event->getParam('form');
@@ -95,7 +95,7 @@ class authhavefnubbListener extends jEventListener{
 	
 	/**
 	 * to answer to AuthNewUser event
-	 * @param $event the given event to answer to	 
+	 * @param $event the given event to answer to
 	 */
 	function onAuthNewUser ($event) {
 		global $gJConfig;
@@ -103,7 +103,7 @@ class authhavefnubbListener extends jEventListener{
 		$toEmail = ($gJConfig->havefnubb['admin_email'] != '') ? $gJConfig->havefnubb['admin_email'] : $gJConfig->mailer['webmasterEmail'];
 	
 		if ($toEmail == '') {
-			throw new jException('havefnubb~mail.email.config.not.done.properly');		 
+			throw new jException('havefnubb~mail.email.config.not.done.properly');
 		}
 		// send an email only if the forum is installed
 		// this avoid to send an email when the forum is installing
@@ -138,8 +138,8 @@ class authhavefnubbListener extends jEventListener{
 	}
 	/**
 	 * to answer to jcommunity_registration_prepare_save event
-	 * @param $event the given event to answer to	 
-	 */   
+	 * @param $event the given event to answer to
+	 */
 	function onjcommunity_registration_prepare_save($event) {
 		$user = $event->getParam('user');
 	

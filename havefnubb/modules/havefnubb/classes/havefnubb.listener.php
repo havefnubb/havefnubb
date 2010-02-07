@@ -38,9 +38,5 @@ class havefnubbListener extends jEventListener{
 		$box->content = jZone::get('havefnubb~stats');
 		$event->add($box);
 	}
-	
-	function onHfnuPostAfterSaveReply ($event) {
-	    //send message to anyone who subscribes to this thread
-	    jClasses::getService('havefnubb~hnusub')->sendMail( $event->getParam('id_post') );
-	}
+
 }
