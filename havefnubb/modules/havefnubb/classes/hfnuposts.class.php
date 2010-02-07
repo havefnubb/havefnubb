@@ -278,7 +278,7 @@ class hfnuposts {
 		jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
 
 		//subscription management
-		if ($form->subscribe == 1) {
+		if ($form->getData('subscribe') == 1) {
             jClasses::getService('havefnubb~hfnusub')->subscribe($id_post);
 		}
 		else {
@@ -329,8 +329,15 @@ class hfnuposts {
 		$id_post = $result['daorec']->getPk();
 
 		self::addPost($id_post,$result['daorec']);
+		
+        jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
 
-		jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
+		if ( $form->getData('subscribe') == 1 ) {
+    	    //subscribe to a post
+    	    jClasses::getService('havefnubb~hfnusub')->subscribe($id_post);
+    	    //send message to anyone who subscribes to this thread
+	        jClasses::getService('havefnubb~hfnusub')->sendMail( $id_post );
+		}
 
 		jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
 

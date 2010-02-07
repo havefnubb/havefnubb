@@ -22,28 +22,26 @@
     {form $form, $submitAction, array('id_post'=>$id_post)}
     <fieldset>
     <legend>{$heading}</legend>
-    <p>
-        {ctrl_label 'subject'}<br/>
-        {ctrl_control 'subject'}
-    </p>
-    <p>
-        {ctrl_label 'tags'}<br/>
-        {ctrl_control 'tags'}
-    </p>
+    {ctrl_label 'subject'}<br/>
+    {ctrl_control 'subject'}<br/>
+    
+    {ctrl_label 'tags'}<br/>
+    {ctrl_control 'tags'}<br/>
+    
+    {ctrl_label 'message'}<br/>
+    {ctrl_control 'message'}
+    {literal}
+    <script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function() {
+        $('#jforms_havefnubb_posts_message').markItUp(mySettings);
+    });
+    //]]>
+    </script>
+    {/literal}
 
-    <p>
-        {ctrl_label 'message'}<br/>
-        {ctrl_control 'message'}
-        {literal}
-        <script type="text/javascript">
-        //<![CDATA[
-        $(document).ready(function() {
-            $('#jforms_havefnubb_posts_message').markItUp(mySettings);
-        });
-        //]]>
-        </script>
-        {/literal}
-    </p>
+    {ctrl_label 'subscribe'} : {ctrl_control 'subscribe'}<br/><br/>
+   
     {formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}
     </fieldset>
     {/form}

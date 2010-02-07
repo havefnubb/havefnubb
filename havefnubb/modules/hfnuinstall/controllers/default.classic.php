@@ -799,7 +799,74 @@ class defaultCtrl extends jController {
 			return $rep;
 		}
 	}
+	/**
+	 * Method to update to 1.3.4
+	 */
+	function update_to_1_3_4() {
+		global $gJConfig;
 
+		$version = $gJConfig->havefnubb['version'];
+
+		if ($gJConfig->havefnubb['installed'] == 0) {
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'hfnuinstall~default:index';
+			return $rep;
+		}
+		$updated = '';
+		if ($version == '1.0.0RC2') {
+			self::_update_to_rc3();
+			$updated = 'ok';
+		}
+		if ($version == '1.0.0RC3') {
+			self::_update_to_1();
+			$updated = 'ok';
+		}
+		if ($version == '1.0.0') {
+			self::_update_to_1_0_1();
+			$updated = 'ok';
+		}
+		if ($version == '1.0.1') {
+			self::_update_to_1_1_0();
+			$updated = 'ok';
+		}
+		if ($version == '1.1.0') {
+			self::_update_to_1_2_0();
+			$updated = 'ok';
+		}
+		if ($version == '1.2.0') {
+			self::_update_to_1_3_0();
+			$updated = 'ok';
+		}
+		if ($version == '1.3.0') {
+			self::_update_to_1_3_1();
+			$updated = 'ok';
+		}
+		if ($version == '1.3.1') {
+			self::_update_to_1_3_2();
+			$updated = 'ok';
+		}
+		if ($version == '1.3.3') {
+			self::_update_to_1_3_4();
+			$updated = 'ok';
+		}
+		if ($updated == 'ok') {
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			$tpl->assign('step','update');
+			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.updated'),'ok');
+			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+			return $rep;
+		}
+		else {
+			$rep = $this->getResponse('html');
+			$tpl = new jTpl();
+			$tpl->assign('step','update');
+			jMessage::add(jLocale::get('hfnuinstall~install.havefnubb.still.uptodate'),'error');
+			$rep->body->assign('MAIN', $tpl->fetch('hfnuinstall~update'));
+			return $rep;
+		}
+	}
+	
 	private  static function _update_to_rc3() {
 		global $gJConfig;
 
@@ -1078,5 +1145,53 @@ class defaultCtrl extends jController {
 		jFile::removeDir(JELIX_APP_TEMP_PATH, false);
 	}
 
+	private static function _update_to_1_3_4() {
+		global $gJConfig;
 
+		$db 		= new jDb();
+		$profile 	= $db->getProfile('havefnubb');
+		$tools 		= jDb::getTools('havefnubb');
+
+		$file = dirname(__FILE__).'/../install/update/1.3.4/install.'.$profile['driver'].'.sql';
+
+		//default fake prefix uses in the filename if no prefix table are filled
+		$tablePrefix = 'null_';
+
+		$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+
+		if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {
+			$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
+		}
+		$fileDest = dirname(__FILE__).'/../install/update/1.3.4/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+		$sources = file($file);
+		$newSource = '';
+
+		$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO|UPDATE|ALTER TABLE) `(hf_)(.*)/';
+
+		foreach ((array)$sources as $key=>$line) {
+			if (preg_match($pattern,$line,$match)) {
+				if ($tablePrefix != 'null_')
+					$newSource .= $match[1] .' `'.$tablePrefix . $match[3];
+				else
+					$newSource .= $match[1] .' `'. $match[3];
+			}
+			else {
+				$newSource .= $line;
+			}
+		}
+
+		$fh = fopen($fileDest,'w+');
+		fwrite($fh,$newSource);
+		fclose($fh);
+		$file = dirname(__FILE__).'/../install/update/1.3.4/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+
+		$tools->execSQLScript($file);
+		@unlink($file);
+
+		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+		$mainConfig->setValue('version','1.3.4','havefnubb');
+		$mainConfig->save();
+		jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+	}
+		
 }

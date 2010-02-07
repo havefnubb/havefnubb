@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="subscription" realname="subscription" primarykey="id_post,id_user" />
+        <primarytable name="subscriptions" realname="subscriptions" primarykey="id_post,id_user" />
     </datasources>
     <record>        
-        <property name="id_user" fieldname="id_user" datatype="int" required="true"/>
         <property name="id_post" fieldname="id_post" datatype="int" required="true"/>
+        <property name="id_user" fieldname="id_user" datatype="int" required="true"/>
     </record>
     <factory>
         <method name="findSubscribedPost" type="select">
             <parameter name="id_post" />
+            <parameter name="id_user" />
             <conditions>
 			    <eq property="id_post" expr="$id_post" />
 			    <neq property="id_user" expr="$id_user" />

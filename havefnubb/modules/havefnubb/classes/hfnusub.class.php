@@ -15,10 +15,10 @@ class hfnusub {
     private static $daoSub = 'havefnubb~sub';
     
 	public static function subscribe($id) {
-		$dao = jDao::get($this->daoSub);
+		$dao = jDao::get(self::$daoSub);
 
 		if (! $dao->get($id,jAuth::getUserSession ()->id)) {
-			$record = jDao::createRecord('havefnubb~subscription');
+			$record = jDao::createRecord(self::$daoSub);
 			$record->id_post = $id;
 			$record->id_user = jAuth::getUserSession ()->id;
 			$dao->insert($record);
@@ -26,7 +26,7 @@ class hfnusub {
 	}
 
 	public static function unsubscribe($id) {
-		$dao = jDao::get($this->daoSub);
+		$dao = jDao::get(self::$daoSub);
 		if ( $dao->get($id,jAuth::getUserSession ()->id)) {
 			$dao->delete($id,jAuth::getUserSession ()->id);
 			return true;
@@ -34,15 +34,17 @@ class hfnusub {
 		return false;
 	}
 	
-	public static function sendMail() {
-        $dao = jDao::get($this->daoSub);
+	public static function sendMail($id) {
+
+        $dao = jDao::get(self::$daoSub);
         //get all the members that subscribe to this thread except "me"
-        $records = $dao->findSubscribedPost($id_post,jAuth::getUserSession ()->id);
+        $records = $dao->findSubscribedPost($id,jAuth::getUserSession ()->id);
+
         // then send them a mail
         $daoMember = jDao::get('havefnubb~member');
         foreach ($records as $record) {
             
-            $post = jClasses::getService('havefnubb~hfnupost')->get($id_post);
+            $post = jClasses::getService('havefnubb~hfnupost')->get($id);
             
             $member = $daoMember->get(jAuth::getUserSession ()->id);
             $subject = $post->subject . jLocale::get('havefnubb~post.new.comment.received');

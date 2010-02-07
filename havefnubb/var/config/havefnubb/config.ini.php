@@ -4,7 +4,7 @@
 startModule=havefnubb
 startAction="default:index"
 
-checkTrustedModules=off
+checkTrustedModules=on
 
 ; list of modules : module,module,module
 trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,servinfo,jacl2db_admin,jauthdb_admin,master_admin,jauth,jacl2"

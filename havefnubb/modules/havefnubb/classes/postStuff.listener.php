@@ -37,9 +37,5 @@ class postStuffListener extends jEventListener{
 		 $daoUser = jDao::get('havefnubb~member');
 		 $daoUser->updateNbMsg(jAuth::getUserSession ()->id);
 		 $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
-
-	    //send message to anyone who subscribes to this thread
-	    jClasses::getService('havefnubb~hnusub')->sendMail( $event->getParam('id_post') );
-	 
 	 }
 }
