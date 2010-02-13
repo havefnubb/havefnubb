@@ -16,7 +16,11 @@ class flags implements jIFormsDatasource {
 	function __construct($id) {
         global $gJConfig;
 
+        $supportedLanguage = array('fr','en');
         $language = preg_split('/_/',$gJConfig->locale);
+        $data = array();
+        
+        if (! in_array($language[0], $supportedLanguage)) return $data;
 
 		$fh = @fopen (dirname(__FILE__).'/iso_3166-1_list_'.$language[0].'.txt','r');
 
