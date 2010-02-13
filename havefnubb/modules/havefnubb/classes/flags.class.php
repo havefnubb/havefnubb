@@ -14,6 +14,21 @@ class flags implements jIFormsDatasource {
 	protected $data = array();  
 	
 	function __construct($id) {
+        global $gJConfig;
+
+        $language = preg_split('/_/',$gJConfig->locale);
+
+		$fh = @fopen (dirname(__FILE__).'/iso_3166-1_list_'.$language[0].'.txt','r');
+
+       if ($fh) {
+           while (!feof($fh)) {
+                $buffer = fgets($fh, 4096);
+                list($countryName,$countryCode) = preg_split('/;/',$buffer);
+                $data[$countryCode] = utf8_encode($countryName);
+           }
+       }
+/*
+
 		$data = array();
 		$dir = JELIX_APP_WWW_PATH.DIRECTORY_SEPARATOR.'hfnu'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'flags';
 		$dh = opendir($dir);
@@ -22,7 +37,7 @@ class flags implements jIFormsDatasource {
 				list($file) = preg_split('/\.gif/',$file_complet);
 				$data[$file] = $file;
 			}
-		}
+		}*/
 
 		$this->formId = $id;
 		$this->data = $data;
