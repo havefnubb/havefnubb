@@ -53,7 +53,7 @@ force=off
 ; name of url engine :  "simple" or "significant"
 ; engine=simple
 ; engine=basic_significant
-; engine=basic_significant
+; engine=significant
 
 
 ; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)

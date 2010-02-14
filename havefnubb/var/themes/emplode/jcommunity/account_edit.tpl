@@ -11,11 +11,11 @@ $(document).ready(function(){
 </script>
 {/literal}
 <div id="breadcrumbtop" class="headbox box_title">
-	<h3 id="user" class="user-image">{@havefnubb~member.edit.account.header@} - <a class="user-private-message  user-image" href="{jurl 'havefnubb~members:mail'}" >{@havefnubb~member.internal.messenger@}</a>
+	<h5 id="user" class="user-image">{@havefnubb~member.edit.account.header@} - <a class="user-private-message  user-image" href="{jurl 'havefnubb~members:mail'}" >{@havefnubb~member.internal.messenger@}</a>
 {ifacl2 'auth.users.change.password'}
 > <a class="user-edit-password user-image" href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a>
 {/ifacl2}
-	</h3>
+	</h5>
 </div>
 {hook 'hfbAccountEditBefore',array('user'=>$username)}
 <div id="profile">

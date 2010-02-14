@@ -11,7 +11,7 @@ $(document).ready(function(){
 </script>
 {/literal}
 <div id="breadcrumbtop" class="headbox box_title">
-	<h3>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}
+    <h5>{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}
 {if $himself}
 > <a id="user" class="user-image" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
 {ifacl2 'auth.users.change.password'}
@@ -20,7 +20,7 @@ $(document).ready(function(){
 {else}
 > <a href="{jurl 'hfnucontact~default:index',array('to'=>$user->login)}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>
 {/if}
-	</h3>
+	</h5>
 </div>
 {hook 'hfbAccountShowBefore',array($user->login)}
 <div id="post-message">{jmessage}</div>

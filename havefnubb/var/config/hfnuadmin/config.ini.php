@@ -5,6 +5,10 @@ startModule=master_admin
 startAction="default:index"
 
 modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
+checkTrustedModules=on
+
+; list of modules : module,module,module
+trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,servinfo,jacl2db_admin,jauthdb_admin,master_admin,jauth,jacl2"
 
 [coordplugins]
 autolocale = autolocale.coord.ini.php
@@ -24,5 +28,5 @@ hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_adm
 [urlengine]
 ; name of url engine :  "simple" or "significant"
 ; engine=simple
-engine=basic_significant
-; engine=significant
+; engine=basic_significant
+engine=significant

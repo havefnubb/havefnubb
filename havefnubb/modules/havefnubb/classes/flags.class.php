@@ -17,31 +17,22 @@ class flags implements jIFormsDatasource {
         global $gJConfig;
 
         $supportedLanguage = array('fr','en');
-        $language = preg_split('/_/',$gJConfig->locale);
+        //get the member language
+        $language = preg_split('/_/',$_SESSION['JX_LANG']);
         $data = array();
         
         if (! in_array($language[0], $supportedLanguage)) return $data;
 
 		$fh = @fopen (dirname(__FILE__).'/iso_3166-1_list_'.$language[0].'.txt','r');
-
-       if ($fh) {
+        if ($fh) {
            while (!feof($fh)) {
-                $buffer = fgets($fh, 4096);
-                list($countryName,$countryCode) = preg_split('/;/',$buffer);
-                $data[$countryCode] = utf8_encode($countryName);
+                $buffer = utf8_encode(fgets($fh, 4096));
+                if (strpos($buffer,';') > 0) {
+                    list($countryName,$countryCode) = preg_split('/;/',$buffer);
+                    $data[rtrim($countryCode)] = $countryName;
+                }
            }
        }
-/*
-
-		$data = array();
-		$dir = JELIX_APP_WWW_PATH.DIRECTORY_SEPARATOR.'hfnu'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'flags';
-		$dh = opendir($dir);
-		 while (($file_complet = readdir($dh)) !== false) {
-			if ( strpos($file_complet,".") > 2) {
-				list($file) = preg_split('/\.gif/',$file_complet);
-				$data[$file] = $file;
-			}
-		}*/
 
 		$this->formId = $id;
 		$this->data = $data;
