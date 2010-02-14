@@ -11,11 +11,11 @@ $(document).ready(function(){
 {/literal}
 </script>
 <div id="breadcrumbtop" class="headbox box_title">
-	<h3 id="user" class="user-image"><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a> - <span class="user-private-message user-image">{@havefnubb~member.internal.messenger@}</span>
+	<h5 id="user" class="user-image"><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a> - <span class="user-private-message user-image">{@havefnubb~member.internal.messenger@}</span>
 {ifacl2 'auth.users.change.password'}
 > <a class="user-edit-password user-image" href="{jurl 'havefnubb~members:changepwd', array('user'=>$login)}">{@havefnubb~member.pwd.change.of.password@}</a>
 {/ifacl2}
-	</h3>
+	</h5>
 </div>
 
 <div id="messenger-index" class="form_row">

@@ -11,7 +11,7 @@ $(document).ready(function(){
 {/literal}
 </script>
 <div class="box">
-	<h2><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a></h2>
+	<h5><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a></h5>
 	<div class="block">
 		<ul class="nav main">
 			<li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-general">{@havefnubb~member.general@}</a></li>

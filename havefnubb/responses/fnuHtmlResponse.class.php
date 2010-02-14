@@ -107,6 +107,13 @@ class fnuHtmlResponse extends jResponseHtml {
 						$this->body->assign('home',0);
 						$this->body->assign('selectedMenuItem','users');
 						$this->body->assign('currentIdForum',0);
+
+                        $toolbarConfig  = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'wikitoolbar.ini.php');
+                        $this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.engine.file','wikitoolbar'));
+                        $this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .$gJConfig->locale . '.js');
+                        $this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.skin','wikitoolbar'));
+                        $this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .'style.css');
+
 						break;
 				case 'downloads':
 						$this->body->assign('home',0);
