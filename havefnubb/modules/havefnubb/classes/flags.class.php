@@ -14,25 +14,8 @@ class flags implements jIFormsDatasource {
 	protected $data = array();  
 	
 	function __construct($id) {
-        global $gJConfig;
 
-        $supportedLanguage = array('fr','en');
-        //get the member language
-        $language = preg_split('/_/',$_SESSION['JX_LANG']);
-        $data = array();
-        
-        if (! in_array($language[0], $supportedLanguage)) return $data;
-
-		$fh = @fopen (dirname(__FILE__).'/iso_3166-1_list_'.$language[0].'.txt','r');
-        if ($fh) {
-           while (!feof($fh)) {
-                $buffer = utf8_encode(fgets($fh, 4096));
-                if (strpos($buffer,';') > 0) {
-                    list($countryName,$countryCode) = preg_split('/;/',$buffer);
-                    $data[rtrim($countryCode)] = $countryName;
-                }
-           }
-       }
+        $data = jClasses::getService('havefnubb~country')->getCountries();
 
 		$this->formId = $id;
 		$this->data = $data;

@@ -85,7 +85,7 @@ $(document).ready(function(){
 					</div>
 					<div class="form_value">
 						{if $user->member_country != ''}
-						{image 'hfnu/images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {$user->member_country|eschtml}
+						{image 'hfnu/images/flags/'.$user->member_country.'.gif', array('alt'=>$user->member_country)} {country $user->member_country}
 						{/if}
 					</div>
 					<div class="form_property">
