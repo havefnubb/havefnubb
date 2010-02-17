@@ -20,7 +20,7 @@ $(document).ready(function(){
 				<li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
 				<li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
 				<li><a href="#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>	
-				<li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>
+				<li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>                
 				{hook 'hfbAccountEditTab',array('user'=>$username)}
 			</ul>    
 			<div id="user-profile-general">

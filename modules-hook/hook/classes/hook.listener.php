@@ -151,4 +151,17 @@ class hookListener extends jEventListener{
 		$zone = jZone::get('hfnucontact~send_to_friend');
 		$event->add( $zone );
 	}
+    function onhfbAccountEditBefore($event) {
+        
+    }
+    function onhfbAccountEditTab($event) {
+        $event->add(  jZone::get('havefnubb~member_subscriptions_tab') );
+    }
+    function onhfbAccountEditDiv($event) {
+        $event->add(  jZone::get('havefnubb~member_subscriptions_list') );
+    }
+    function onhfbAccountEditAfter($event) {
+	   
+    }
+
 }

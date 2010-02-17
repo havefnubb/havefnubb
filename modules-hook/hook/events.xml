@@ -60,6 +60,11 @@
 		<event name="hfbMainInHeader"/>
 		<event name="hfbMainInFooter"/>
 
+        <event name="hfbAccountEditBefore"/>
+        <event name="hfbAccountEditTab"/>
+        <event name="hfbAccountEditDiv"/>
+        <event name="hfbAccountEditAfter"/>
+
 	</listener>
 
 	<listener name="hookabout">

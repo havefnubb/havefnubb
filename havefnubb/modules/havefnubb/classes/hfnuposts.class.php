@@ -258,6 +258,7 @@ class hfnuposts {
 			$record->subject		= $subject;
 			$record->message		= $message;
 			$record->date_modified 	= time();
+            $parent_id = $record->parent_id;
 			jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
 
 			// add the new record to the array
@@ -279,10 +280,10 @@ class hfnuposts {
 
 		//subscription management
 		if ($form->getData('subscribe') == 1) {
-            jClasses::getService('havefnubb~hfnusub')->subscribe($id_post);
+            jClasses::getService('havefnubb~hfnusub')->subscribe($parent_id);
 		}
 		else {
-		    jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post);
+		    jClasses::getService('havefnubb~hfnusub')->unsubscribe($parent_id);
 		}
 		
 		jForms::destroy('havefnubb~posts', $id_post);
@@ -334,9 +335,9 @@ class hfnuposts {
 
 		if ( $form->getData('subscribe') == 1 ) {
     	    //subscribe to a post
-    	    jClasses::getService('havefnubb~hfnusub')->subscribe($id_post);
+    	    jClasses::getService('havefnubb~hfnusub')->subscribe($parent_id);
     	    //send message to anyone who subscribes to this thread
-	        jClasses::getService('havefnubb~hfnusub')->sendMail( $id_post );
+	        jClasses::getService('havefnubb~hfnusub')->sendMail( $parent_id );
 		}
 
 		jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
