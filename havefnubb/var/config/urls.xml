@@ -223,6 +223,7 @@
         <url pathinfo="/admin/board" module="master_admin" action="default:index" />
 
         <url pathinfo="/admin/phpinfo" module="servinfo" action="default:phpinfo" />
+        <url pathinfo="/admin/unreadposts" module="hfnuadmin" action="posts:unread" />
 
         <url pathinfo="/admin"          module="hfnuadmin" action="default:index" />
         <url pathinfo="/admin/config"   module="hfnuadmin" action="default:config" />
