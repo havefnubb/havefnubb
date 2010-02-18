@@ -1,7 +1,6 @@
 <h1>{@hfnuadmin~admin.unread.posts@}</h1>
 <h2>{@hfnuadmin~admin.unread.posts.list@}</h2>
 <table width="100%" class="records-list">
-	<caption>{$forum->forum_name|eschtml}</caption>
 	<thead>
 		<tr class="{cycle array('odd,even')}">
 			<th>{@havefnubb~forum.forumlist.title@}</th>
