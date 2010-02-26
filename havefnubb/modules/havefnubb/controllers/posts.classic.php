@@ -400,7 +400,7 @@ class postsCtrl extends jController {
 
 			if ($result === false) {
 				$rep->action = 'havefnubb~posts:lists';
-				$rep->param = array('id_forum'=>$id_forum);
+				$rep->params = array('id_forum'=>$id_forum);
 				return $rep;
 			}
 			else $id_post = $result;
@@ -959,7 +959,7 @@ class postsCtrl extends jController {
 		if ($id_post == 0) {
 				$rep = $this->getResponse('redirect');
 				$rep->action = 'havefnubb~posts:lists';
-				$rep->param = array('id_forum'=>$id_forum);
+				$rep->params = array('id_forum'=>$id_forum);
 				return $rep;
 		}
 
@@ -976,7 +976,7 @@ class postsCtrl extends jController {
 		if ($result === false ) {
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~posts:lists';
-			$rep->param = array('id_forum'=>$id_forum);
+			$rep->params = array('id_forum'=>$id_forum);
 			return $rep;
 		}
 
@@ -1308,17 +1308,61 @@ class postsCtrl extends jController {
 		return $rep;
 	}
 	/**
-	 * Unsubscribe to a given posts
+	 * Unsubscribe to a given posts from the list of posts
 	 */
 	public function unsubscribe() {
 		$id_post = (int) $this->param('id_post');
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
 		if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post)) {
 		    jMessage::add(jLocale::get('havefnubb~post.unsubscribed'),'ok');
 		} else {
 		    jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
 		}
 		$rep = $this->getResponse('redirect');
-		$rep->action = 'havefnubb~default:index';
+		$rep->action = 'havefnubb~posts:view';
+        $rep->params = array('id_post'=>$id_post,
+                            'parent_id'=>$post->parent_id,
+                            'id_forum'=>$post->id_forum,
+                            'ftitle'=>$post->forum_name,
+                            'ptitle'=>$post->subject);
 		return $rep;
 	}
+	/**
+	 * Unsubscribe to a given posts from the profile page
+	 */
+	public function unsub() {
+		$id_post = (int) $this->param('id_post');
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
+		if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post)) {
+		    jMessage::add(jLocale::get('havefnubb~post.unsubscribed'),'ok');
+		} else {
+		    jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
+		}
+		$rep = $this->getResponse('redirect');
+		$rep->action = 'jcommunity~account:prepareedit';
+        $rep->params = array('user'=>jAuth::getUserSession ()->login);
+		return $rep;
+	}
+	/**
+	 * Subscribe to a given posts
+	 */
+	public function subscribe() {
+		$id_post = (int) $this->param('id_post');
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
+
+		if (jClasses::getService('havefnubb~hfnusub')->subscribe($id_post)) {
+		    jMessage::add(jLocale::get('havefnubb~post.subscribed'),'ok');
+		} else {
+		    jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
+		}
+		$rep = $this->getResponse('redirect');
+		$rep->action = 'havefnubb~posts:view';
+        $rep->params = array('id_post'=>$id_post,
+                            'parent_id'=>$post->parent_id,
+                            'id_forum'=>$post->id_forum,
+                            'ftitle'=>$post->forum_name,
+                            'ptitle'=>$post->subject);
+		return $rep;
+	}
+
 }

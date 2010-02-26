@@ -199,6 +199,13 @@
         <url pathinfo="/posts/unsubscribe/:id_post" module="havefnubb" action="posts:unsubscribe">
             <param name="id_post" type="number"/>
         </url>        
+        <url pathinfo="/posts/unsub/:id_post" module="havefnubb" action="posts:unsub">
+            <param name="id_post" type="number"/>
+        </url>
+
+        <url pathinfo="/posts/subscribe/:id_post" module="havefnubb" action="posts:subscribe">
+            <param name="id_post" type="number"/>
+        </url>
 
     </classicentrypoint>
 
