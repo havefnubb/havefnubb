@@ -836,7 +836,7 @@ class postsCtrl extends jController {
 
 	/**
 	 * change the status of the post
-	 * known status : 'opened','closed','pined','pinedclosed'
+	 * known status : 'opened','closed','pined','pinedclosed','hidden'
 	 */
 	function status () {
 
@@ -852,14 +852,14 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
 		}
 		else {
-		$post = $result;
-		jMessage::add(jLocale::get('havefnubb~post.status.'.$status),'ok');
-		$rep->action = 'havefnubb~posts:view';
-		$rep->params = array('id_post'=>$post->id_post,
-				'parent_id'=>$parent_id,
-				'id_forum'=>$post->id_forum,
-				'ftitle'=>$post->forum_name,
-				'ptitle'=>$post->subject);
+            $post = $result;
+            jMessage::add(jLocale::get('havefnubb~post.status.'.$status),'ok');
+            $rep->action = 'havefnubb~posts:view';
+            $rep->params = array('id_post'=>$post->id_post,
+                    'parent_id'=>$parent_id,
+                    'id_forum'=>$post->id_forum,
+                    'ftitle'=>$post->forum_name,
+                    'ptitle'=>$post->subject);
 		}
 
 		return $rep;

@@ -25,7 +25,7 @@ class hfnuposts {
 	 * the authorized status of the post
 	 * var $statusAvailable array
 	 */
-	private static $statusAvailable = array('opened','closed','pined','pinedclosed','censored','uncensored');
+	private static $statusAvailable = array('opened','closed','pined','pinedclosed','censored','uncensored','hidden');
 
 	private static $hfAdmin = 1;
 	private static $hfModerator = 3;
@@ -55,6 +55,18 @@ class hfnuposts {
 
 		return self::$posts[$id];
 	}
+	/**
+	 * get info of the current post that is not "hidden"
+	 * @param  integer $id of the current post
+	 * @return array composed by the post datas of the current post
+	 */
+	public static function getPostVisible($id) {
+		if (!isset(self::$posts[$id]) and $id > 0)
+			self::$posts[$id] = jDao::get('havefnubb~posts')->getPostVisible($id);
+
+		return self::$posts[$id];
+	}
+
 	/**
 	 * remove one post from the database
 	 * @param $id_post integer id post to remove
@@ -89,12 +101,21 @@ class hfnuposts {
 		// total number of posts
 		$nbPosts = $daoPost->countPostsByForumId($id_forum);
 		// get the posts of the current forum, limited by point 1 and 2
-		$posts = $daoPost->findByIdForum($id_forum,$page,$nbPostPerPage);
-		// check if we have found record ;
-		if ($posts->rowCount() == 0) {
-				$posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);
-				$page = 0;
-		}
+        if ( ! jAcl2::check('hfnu.admin.post') ) {
+            $posts = $daoPost->findByIdForumVisible($id_forum,$page,$nbPostPerPage);
+            if ($posts->rowCount() == 0) {
+                    $posts = $daoPost->findByIdForumVisible($id_forum,0,$nbPostPerPage);
+                    $page = 0;
+            }
+        }
+        else {
+            $posts = $daoPost->findByIdForum($id_forum,$page,$nbPostPerPage);
+            // check if we have found record ;
+            if ($posts->rowCount() == 0) {
+                    $posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);
+                    $page = 0;
+            }
+        }
 		return array($page,$nbPosts,$posts);
 	}
 
@@ -118,7 +139,11 @@ class hfnuposts {
 	 */
 	public static function view($id_post,$parent_id) {
 		global $gJConfig;
-		$post = self::getPost($id_post);
+        if ( ! jAcl2::check('hfnu.admin.post') ) {
+            $post = self::getPostVisible($id_post);
+        }
+        else
+            $post = self::getPost($id_post);
 
 		if ($id_post == 0 or $post === false) {
 			return array(null,null,null);
