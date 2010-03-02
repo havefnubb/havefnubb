@@ -387,8 +387,8 @@ class hfnuposts {
 		}
 
 		jEvent::notify('HfnuPostBeforeSaveNotify',array('id'=>$id_post));
-
-		if ($dao = jDao::get('havefnubb~notify')->getNotifByUserId($id_post,$form->getData('id_user')) != null) {
+                $dao = jDao::get('havefnubb~notify')->getNotifByUserId($id_post,$form->getData('id_user'));
+		if ($dao != null) {
 			jMessage::add(jLocale::get('havefnubb~post.notification.already.done'),'error');
 			return false;
 		}
