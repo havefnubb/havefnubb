@@ -15,9 +15,10 @@ class hfnusub {
     private static $daoSub = 'havefnubb~sub';
 
     public function getSubscribed($id) {
-        return jDao::get(self::$daoSub)->get($id,jAuth::getUserSession ()->id);
+		if (jAuth::isConnected())
+			return jDao::get(self::$daoSub)->get($id,jAuth::getUserSession ()->id);
     }
-    
+
 	public static function subscribe($id) {
 		$dao = jDao::get(self::$daoSub);
 
@@ -28,7 +29,7 @@ class hfnusub {
 			$dao->insert($record);
             return true;
 		}
-        else 
+        else
             return false;
 
 	}
@@ -41,7 +42,7 @@ class hfnusub {
 		}
 		return false;
 	}
-	
+
 	public static function sendMail($id) {
         global $gJConfig;
         $dao = jDao::get(self::$daoSub);
@@ -50,25 +51,25 @@ class hfnusub {
 
         // then send them a mail
         foreach ($records as $record) {
-            
+
             $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id);
-            
+
             $subject = $post->subject . jLocale::get('havefnubb~post.new.comment.received');
-            
+
 			$mail = new jMailer();
 			$mail->From       = $gJConfig->mailer['webmasterEmail'];
 			$mail->FromName   = $gJConfig->mailer['webmasterName'];
 			$mail->Sender     = $gJConfig->mailer['webmasterEmail'];
 			$mail->Subject    = $subject;
-	
+
 			$tpl = new jTpl();
 			$tpl->assign('server',$_SERVER['SERVER_NAME']);
 			$tpl->assign('post',$post);
 			$mail->Body = $tpl->fetch('havefnubb~new_comment_received', 'text');
-	
+
 			$mail->AddAddress(jDao::get('havefnubb~member')->get(jAuth::getUserSession ()->login)->email);
 			$mail->Send();
-            
+
         }
 	}
 }

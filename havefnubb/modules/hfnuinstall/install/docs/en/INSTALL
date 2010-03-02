@@ -32,9 +32,7 @@ When the archive in uncompressed you have the following directories :
 more infos on http://jelix.org/articles/en/manual-1.1/application-configuration
 
 - If you cant specify the document root :
-a) have a look at the chapter "If you can't change the document root" on http://jelix.org/articles/en/manual-1.1/application-configuration
-b) edit the file the www/.htaccess and add this line on top of the file :
-Options +Multiviews
+have a look at the chapter "If you can't change the document root" on http://jelix.org/articles/en/manual-1.1/application-configuration
 
 1) rename the file havefnubb/var/config/defaultconfig.ini.php.dist in havefnubb/var/config/defaultconfig.ini.php
 2) rename the file havefnubb/var/config/dbprofils.ini.php.dist in havefnubb/var/config/dbprofils.ini.php
@@ -49,7 +47,11 @@ find . -type f -exec chmod 644 {} \;
 
 chmod 664 var/config/defaultconfig.ini.php
 chmod 664 var/config/dbprofils.ini.php
-chmod 664 var/config/flood.coord.ini.php
-chmod 664 var/config/timeout.coord.ini.php
+chmod 664 var/config/havefnubb/flood.coord.ini.php
+chmod 664 var/config/havefnubb/timeout.coord.ini.php
+chmod 770 cache/images
+
+additionnaly, you could have to change the rights on the temp directory,
+effectively it have to be writable to generate the cache
 
 4) go to http://_your_domain.com_/install and follow the steps

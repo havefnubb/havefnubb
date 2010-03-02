@@ -31,10 +31,8 @@ Quand l'archive est décompressée vous obtenez les répertoires suivants :
 plus d'infos ici : http://jelix.org/articles/fr/manuel-1.1/configurer-application
 
 - Si vous ne pouvez pas spécifier le document root :
-a) rendez vous sur la page http://jelix.org/articles/fr/manuel-1.1/configurer-application 
+rendez vous sur la page http://jelix.org/articles/fr/manuel-1.1/configurer-application 
 sur la paragraphe "Si vous ne pouvez pas spécifier le document root", qui vous indiquera la marche à suivre pour que l'application puisse fonctionner.
-b) editer le fichier fichier www/.htaccess et ajouter au début du fichier :
-Options +Multiviews
 
 1) renommer le fichier havefnubb/var/config/defaultconfig.ini.php.dist en havefnubb/var/config/defaultconfig.ini.php
 2) renommer le fichier havefnubb/var/config/dbprofils.ini.php.dist en havefnubb/var/config/dbprofils.ini.php
@@ -49,7 +47,12 @@ find . -type f -exec chmod 644 {} \;
 
 chmod 664 var/config/defaultconfig.ini.php
 chmod 664 var/config/dbprofils.ini.php
-chmod 664 var/config/flood.coord.ini.php
-chmod 664 var/config/timeout.coord.ini.php
+chmod 664 var/config/havefnubb/flood.coord.ini.php
+chmod 664 var/config/havefnubb/timeout.coord.ini.php
+chmod 770 cache/images
 
-6) acceder à http://_votre_domaine.com_/install et suivez les étapes
+vous pouvez rencontrer des problemes de droits sur le repertoire temp
+effectviement il faut autoriser l'écriture à l'interieure de temp/havefnubb afin 
+qu'il y génère son cache
+
+4) acceder à http://_votre_domaine.com_/install et suivez les étapes

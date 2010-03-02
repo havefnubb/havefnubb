@@ -226,14 +226,23 @@ class defaultCtrl extends jController {
 						//default fake prefix uses in the filename if no prefix table are filled
 						$tablePrefix = 'null_';
 
-						$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+						$dbProfile = jIniFile::read(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
 
-						if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {
-								$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
+						if ($dbProfile['havefnubb']['table_prefix'] != '' ) {
+								$tablePrefix = $dbProfile['havefnubb']['table_prefix'] ;
 						}
 
-						$fileDest = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+						$fileDest = JELIX_APP_TEMP_PATH.$tablePrefix.'install.'.$profile['driver'].'.sql';
 
+						if (! is_writable(JELIX_APP_TEMP_PATH)) {
+							//throw new jException('hfnuinstall~install.installdb.directory.not.writable',JELIX_APP_TEMP_PATH );
+						//}
+							jMessage::add(jLocale::get('hfnuinstall~install.installdb.directory.not.writable',JELIX_APP_TEMP_PATH ),'error');
+							$rep = $this->getResponse('redirect');
+							$rep->action ='hfnuinstall~default:index';
+							$rep->params = array('step'=>'installdb');
+							return $rep;
+						}
 						$sources = file($file);
 						$newSource = '';
 
@@ -254,7 +263,7 @@ class defaultCtrl extends jController {
 						$fh = fopen($fileDest,'w+');
 						fwrite($fh,$newSource);
 						fclose($fh);
-						$file = dirname(__FILE__).'/../install/sql/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+						$file = JELIX_APP_TEMP_PATH.$tablePrefix.'install.'.$profile['driver'].'.sql';
 
 						$tools->execSQLScript($file);
 						@unlink($file);
@@ -265,6 +274,10 @@ class defaultCtrl extends jController {
 						return $rep;
 					}
 					else {
+						if (! is_writable(JELIX_APP_TEMP_PATH)) {
+//							throw new jException('hfnuinstall~install.installdb.directory.not.writable',JELIX_APP_TEMP_PATH );
+							jMessage::add(jLocale::get('hfnuinstall~install.installdb.directory.not.writable',JELIX_APP_TEMP_PATH ),'error');
+						}
 						$form = jForms::create('hfnuinstall~installdb');
 						$form->setData('step','installdb');
 						$tpl->assign('form',$form);
@@ -866,7 +879,7 @@ class defaultCtrl extends jController {
 			return $rep;
 		}
 	}
-	
+
 	private  static function _update_to_rc3() {
 		global $gJConfig;
 
@@ -1157,12 +1170,12 @@ class defaultCtrl extends jController {
 		//default fake prefix uses in the filename if no prefix table are filled
 		$tablePrefix = 'null_';
 
-		$dbProfile = new jIniFileModifier(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+		$dbProfile = jIniFile::read(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
 
-		if ($dbProfile->getValue('table_prefix','havefnubb') != '' ) {
-			$tablePrefix = $dbProfile->getValue('table_prefix','havefnubb') ;
+		if ($dbProfile['havefnubb']['table_prefix'] != '' ) {
+			$tablePrefix = $dbProfile['havefnubb']['table_prefix'] ;
 		}
-		$fileDest = dirname(__FILE__).'/../install/update/1.3.4/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+		$fileDest = JELIX_APP_TEMP_PATH.$tablePrefix.'install-1.3.4.'.$profile['driver'].'.sql';
 		$sources = file($file);
 		$newSource = '';
 
@@ -1183,7 +1196,7 @@ class defaultCtrl extends jController {
 		$fh = fopen($fileDest,'w+');
 		fwrite($fh,$newSource);
 		fclose($fh);
-		$file = dirname(__FILE__).'/../install/update/1.3.4/'.$tablePrefix.'install.'.$profile['driver'].'.sql';
+		$file = JELIX_APP_TEMP_PATH.$tablePrefix.'install-1.3.4.'.$profile['driver'].'.sql';
 
 		$tools->execSQLScript($file);
 		@unlink($file);
@@ -1193,5 +1206,5 @@ class defaultCtrl extends jController {
 		$mainConfig->save();
 		jFile::removeDir(JELIX_APP_TEMP_PATH, false);
 	}
-		
+
 }
