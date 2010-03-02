@@ -105,6 +105,13 @@
         <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
             {/ifacl2}
         {/if}
+        {ifacl2 'hfnu.posts.edit','forum'.$id_forum}
+            {if $subscribed}
+            <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('id_post'=>$parent_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
+            {else}
+            <span class="postsub"><a href="{jurl 'posts:subscribe' ,array('id_post'=>$parent_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </span>
+            {/if}
+        {/ifacl2}
         {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
         {if $status != 'closed'}
         <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>

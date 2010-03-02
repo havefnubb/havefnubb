@@ -28,6 +28,7 @@ $(document).ready(function(){
 			<li><a href="#user-profile-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
 			{hook 'hfbAccountEditTab',array('user'=>$username)}
 		</ul>
+        {jmessage}
 		<div id="user-profile-general">
 			<fieldset>
 				<div class="legend"><span class="user-general user-image">{@havefnubb~member.general@}</span></div>

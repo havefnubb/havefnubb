@@ -1,0 +1,15 @@
+INTRODUCTION :
+this module will manage the themes of your web site by reading the tree of the var/themes and
+modifing the defaultcofig.ini.php file to store the choosen theme
+
+PREREQUISITES :
+module master_admin
+
+INSTALLATION :
+- Copy the hfnuthemes directory in your backoffice side (in the modules directory)
+- run the install.mysql.sql SQL script to add the expected rights
+if you use prefix to your table name, modify the install.mysql.sql script and add your prefix.
+
+that's all!
+
+the module will respond to the Events of the master_module to display itself

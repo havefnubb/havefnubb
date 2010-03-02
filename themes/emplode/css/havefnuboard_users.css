@@ -63,7 +63,7 @@
 	background-color: #f1f1e5;
 }
 
-#user-profile-general, #user-profile-messenger, #user-profile-hardware, #user-profile-pref {
+#user-profile-general, #user-profile-messenger, #user-profile-hardware, #user-profile-pref, #user-profile-subscription {
     padding-top: 0px;    
 }
 
@@ -304,8 +304,8 @@
 /* profile - end */
 
 
-#user-profile-identity fieldset, #user-profile-pref fieldset, #user-profile-hardware fieldset {
-	
+#user-profile-identity fieldset, #user-profile-pref fieldset,
+#user-profile-hardware fieldset, #user-profile-subscription	fieldset {
 	border-color: #f1f1e5;
 }
 
@@ -341,4 +341,9 @@
 
 #user-profile-avatar {
 	float: left;
+}
+
+.user-subscription {
+	background-image: url("../images/users/user_sub.png");
+	height: 16px;
 }

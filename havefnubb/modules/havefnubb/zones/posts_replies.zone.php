@@ -100,5 +100,6 @@ class posts_repliesZone extends jZone {
 		$this->_tpl->assign('forum_name',$parentPost->forum_name);
 		$this->_tpl->assign('groups',$groups);
 		$this->_tpl->assign('status',$status);
+        $this->_tpl->assign('subscribed',jClasses::getService('havefnubb~hfnusub')->getSubscribed($parentPost->parent_id));
 	}
 }

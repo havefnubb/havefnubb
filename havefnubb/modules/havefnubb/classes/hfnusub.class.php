@@ -13,6 +13,10 @@
 class hfnusub {
 
     private static $daoSub = 'havefnubb~sub';
+
+    public function getSubscribed($id) {
+        return jDao::get(self::$daoSub)->get($id,jAuth::getUserSession ()->id);
+    }
     
 	public static function subscribe($id) {
 		$dao = jDao::get(self::$daoSub);
@@ -22,7 +26,11 @@ class hfnusub {
 			$record->id_post = $id;
 			$record->id_user = jAuth::getUserSession ()->id;
 			$dao->insert($record);
+            return true;
 		}
+        else 
+            return false;
+
 	}
 
 	public static function unsubscribe($id) {
