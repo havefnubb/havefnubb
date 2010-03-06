@@ -8,7 +8,9 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE
 *
 */
-
+/**
+ * havefnubbListener that handle any events related to any havefnubb 'public' access
+ */
 class havefnubbListener extends jEventListener{
 	/**
 	* function to get the content of the module.xml file

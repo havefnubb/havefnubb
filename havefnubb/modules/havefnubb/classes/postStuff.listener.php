@@ -1,16 +1,15 @@
 <?php
 /**
-* Member Statistic datas handling
-*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*
 */
-
+/**
+* Member Statistic datas handling
+*/
 class postStuffListener extends jEventListener{
 	/**
 	 * Event to handle statistics data of the current member after inserting data

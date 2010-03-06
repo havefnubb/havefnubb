@@ -1,15 +1,15 @@
 <?php
 /**
-* class to manage menus.xml file and display the content inside of the other menu item
-*
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*/
-
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
+ * class to manage menus.xml file and display the content inside of the other menu item
+ */
 /*
  * Menus class to build nav bar on public part
  * example of file
@@ -34,7 +34,7 @@
 class hfnumenusbar {
     /**
      * get the menus to be added inside the ohers menu item
-     * @return $menus arry of menus
+     * @return $menus array of menus
      */
 	public function getMenus() {
 		global $gJConfig;

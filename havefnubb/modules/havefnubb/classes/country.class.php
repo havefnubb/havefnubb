@@ -1,16 +1,20 @@
 <?php
 /**
- * classes that read the ISO country file
- *
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @copyright 2008 FoxMaSk
  * @link      http://havefnubb.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*/
+ */
+/**
+ * classes that reads the ISO country file
+ */
 class country {
-    //get the list of all countries
+    /**
+	 * get the list of all ISO countries code
+	 * @return array $data return an array of ISO country code
+	 */
     public static function getCountries() {
         global $gJConfig;
 
@@ -38,10 +42,12 @@ class country {
        return $data;
     }
 
-    //get the name of a given country code
+    /**
+	 * get the name of a given country code
+	 * @param string $code of the country to get its name
+	 */
     public static function getCountryName($code) {
         $data = self::getCountries();
         return $data[$code];
     }
 }
-?>

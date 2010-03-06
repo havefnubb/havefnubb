@@ -1,7 +1,5 @@
 <?php
 /**
-* Controller to manage any default events
-*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -9,11 +7,12 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+* Controller to manage any default events
+*/
 class defaultCtrl extends jController {
-
 	/**
-	 * plugins to manage the behavior of the controller
+	 * @var plugins to manage the behavior of the controller
 	 */
 	public $pluginParams = array(
 		'*'	=> array('auth.required'=>false,
@@ -25,7 +24,6 @@ class defaultCtrl extends jController {
 						'history.label'=>'Accueil',
 						'history.title'=>'Aller vers la page d\'accueil')
 	);
-
 	/**
 	 * Main page
 	 */
@@ -57,7 +55,6 @@ class defaultCtrl extends jController {
 		$rep->body->assignZone('MAIN', 'havefnubb~category',array('data'=>$data,'nbCat'=>$nbCat));
 		return $rep;
 	}
-
 	/**
 	* Display cloud of message from a given tag
 	*/
@@ -75,7 +72,6 @@ class defaultCtrl extends jController {
 		$rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));
 		return $rep;
 	}
-
 	/**
 	* The forum is not installed
 	*/
@@ -85,7 +81,6 @@ class defaultCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~notinstalled'));
 		return $rep;
 	}
-
 	/**
 	* The rules of the forum
 	*/

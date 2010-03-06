@@ -1,19 +1,19 @@
 <?php
 /**
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
 * main UI to manage the statement of the forums of HaveFnuBB!
-*
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*
 */
 class hfnuread {
 	/**
 	 * the read posts
-	 * var $postsRead array
+	 * @var $postsRead array
 	 */
 	public static $postsRead = array();
 	/**
@@ -44,7 +44,7 @@ class hfnuread {
 	}
 	/**
 	 * this function says which forum has been marked as read by which user
-	 * @param $id the forum id
+	 * @param integer $id the forum id
 	 */
 	public static function markForumAsRead($id) {
 		if ( jAuth::getUserSession ()->login != '' ) {
@@ -66,7 +66,7 @@ class hfnuread {
 	}
 	/**
 	 * this function says which message from which forum has been read by which user
-	 * @param $post record of the current read post
+	 * @param record $post record of the current read post
 	 */
 	public static function insertReadPost($post) {
 
@@ -84,8 +84,8 @@ class hfnuread {
 	}
 	/**
 	 * this function says which message from which forum has been read by which user
-	 * @param $id_post the current id post
-	 * @param $id_forum the current id forum
+	 * @param  integer $id_post the current id post
+	 * @param integer $id_forum the current id forum
 	 * @return boolean
 	 */
 	public static function getReadPost($id_post,$id_forum) {

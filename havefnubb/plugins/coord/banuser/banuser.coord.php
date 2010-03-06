@@ -7,16 +7,15 @@
 * @copyright  2008 foxmask
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 /**
- *
+ * banuser coordplugin
  */
-
 /**
 * @package    jelix
 * @subpackage coord_plugin
 * @since 1.0.1
 */
+
 class banuserCoordPlugin implements jICoordPlugin {
 	public $config;
 
@@ -57,4 +56,3 @@ class banuserCoordPlugin implements jICoordPlugin {
 	public function afterProcess (){}
 
 }
-

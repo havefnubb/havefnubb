@@ -1,24 +1,24 @@
 <?php
 /**
-* main UI to manage the statement of the categories of HaveFnuBB!
-*
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*
-*/
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
+ * main UI to manage the statement of the categories of HaveFnuBB!
+ */
 class hfnucat {
 	/**
 	 * content of the category
-	 * var $cat array
+	 * @var $cat array
 	 */
 	public static $cat = array() ;
 	/**
 	 * get the category from the given id
-	 * @param $id integer current category
+	 * @param integer $id current category
 	 * @return $cat array
 	 */
 	public static function getCat($id) {

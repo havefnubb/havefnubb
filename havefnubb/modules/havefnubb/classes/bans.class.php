@@ -1,15 +1,15 @@
 <?php
 /**
-* Class that handle the banned users
-*
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*/
-
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
+ * Class that handle the banned users
+ */
 class bans {
 	/**
 	 * get the Bans
@@ -66,7 +66,7 @@ class bans {
 
 	/**
 	 * does this user banned ?
-	 * @param $email string the email
+	 * @param string $email the email
 	 * @return mixed : true/false or message of ban
 	 */
 	public static function checkDomain($email) {
@@ -89,7 +89,7 @@ class bans {
 
 	/**
 	 * check if this member name is banned
-	 * @param $userName string name of the member
+	 * @param string $userName name of the member
 	 * @return boolean
 	 */
 	public static function bannedUserName($userName) {
@@ -98,7 +98,7 @@ class bans {
 
 	/**
 	 * check if this email domain is banned
-	 * @param $email string email domain of the member
+	 * @param string $email email domain of the member
 	 * @return boolean
 	 */
 	public static function bannedDomain($email) {
@@ -113,7 +113,7 @@ class bans {
 
 	/**
 	 * check if this IP is banned
-	 * @param $ip string IP of the member
+	 * @param string $banIp IP of the member
 	 * @return boolean
 	 */
 	public static function bannedIp($banIp) {
@@ -148,7 +148,7 @@ class bans {
 
 	/**
 	 * check the validity of an IP address
-	 * @param $ip string IP of the member
+	 * @param string $ip IP of the member
 	 * @return boolean
 	 */
 	public static function checkIp($ip) {

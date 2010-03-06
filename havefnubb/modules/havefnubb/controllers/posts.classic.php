@@ -1,7 +1,5 @@
 <?php
 /**
-* Controller to manage any specific Posts events
-*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -9,11 +7,12 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+* Controller to manage any specific Posts events
+*/
 class postsCtrl extends jController {
-
 	/**
-	 * plugins to manage the behavior of the controller
+	 * @var $pluginParams plugins to manage the behavior of the controller
 	 */
 	public $pluginParams = array(
 		'*'		=> array( 'auth.required'=>false,
@@ -42,9 +41,10 @@ class postsCtrl extends jController {
 		'unsubscribe'=> array('auth.required'=>true),
 
 	);
-
+	/**
+	 * @var static $statusClosed array of the 'closed' status
+	 */
 	public static $statusClosed = array('closed','pinedclosed','censored');
-
 	/**
 	 * main list of all posts of a given forum ($id_forum)
 	 */
@@ -127,7 +127,6 @@ class postsCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));
 		return $rep;
 	}
-
 	/**
 	 * display the first post + call zone posts_replies in template to display all the thread
 	 * 	Method 1 : default usage : list all messages of a thread (id_post known)
@@ -191,9 +190,8 @@ class postsCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));
 		return $rep;
 	}
-
 	/**
-	* display the add 'blank' form
+	* display the add 'blank' form to add a new post
 	*/
 	function add () {
 		$id_forum = (int) $this->param('id_forum');
@@ -245,7 +243,6 @@ class postsCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
 		return $rep;
 	}
-
 	/**
 	* display the edit form with the corresponding selected post
 	*/
@@ -309,7 +306,6 @@ class postsCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
 		return $rep;
 	}
-
 	/**
 	* Save the data submitted from add/edit form
 	*/
@@ -424,7 +420,6 @@ class postsCtrl extends jController {
 			return $rep;
 		}
 	}
-
 	/**
 	 * reply to a given post (from the parent_id)
 	 */
@@ -513,7 +508,6 @@ class postsCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
 		return $rep;
 	}
-
 	/**
 	 * quote message
 	 */
@@ -597,7 +591,6 @@ class postsCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
 		return $rep;
 	}
-
 	/**
 	* save the datas posted from the reply form
 	*/
@@ -693,7 +686,6 @@ class postsCtrl extends jController {
 			return $rep;
 		}
 	}
-
 	/**
 	 * delete a post
 	 */
@@ -725,7 +717,6 @@ class postsCtrl extends jController {
 		$rep->params=array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name);
 		return $rep;
 	}
-
 	/**
 	 * goto another forum
 	 */
@@ -742,7 +733,6 @@ class postsCtrl extends jController {
 		$rep->params=array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name);
 		return $rep;
 	}
-
 	/**
 	 * notify something from a given post (from the parent_id) to the admin
 	 */
@@ -794,7 +784,6 @@ class postsCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.notify'));
 		return $rep;
 	}
-
 	/**
 	* save the datas posted from the notify form
 	*/
@@ -833,7 +822,6 @@ class postsCtrl extends jController {
 		return $rep;
 
 	}
-
 	/**
 	 * change the status of the post
 	 * known status : 'opened','closed','pined','pinedclosed','hidden'
@@ -865,7 +853,6 @@ class postsCtrl extends jController {
 		return $rep;
 
 	}
-
 	/**
 	 * provide a rss feeds for each forum
 	 */
@@ -992,7 +979,6 @@ class postsCtrl extends jController {
 		$rep->action ='havefnubb~posts:view';
 		return $rep;
 	}
-
 	/**
 	 * 'Wizard' to ask to the admin where to move the selected thread,
 	 * starting from the current message
@@ -1103,7 +1089,6 @@ class postsCtrl extends jController {
 		}*/
 
 	}
-
 	/**
 	 * 'Wizard' to ask to the admin where to move the selected thread,
 	 * starting from the current message
@@ -1181,10 +1166,7 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
 		}
-
 	}
-
-
 	/**
 	 * censored this post (or thread if parent_id = id_post )
 	 */
@@ -1218,7 +1200,6 @@ class postsCtrl extends jController {
 		$rep->body->assign('MAIN',$tpl->fetch('havefnubb~censor'));
 		return $rep;
 	}
-
 	/**
 	 * save the censored message
 	 */
