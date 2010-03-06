@@ -7,17 +7,9 @@
 * @copyright  2008 foxmask
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 /**
- *
+ * Class that checkes if the forum is installed
  */
-
-
-/**
-* @package    jelix
-* @subpackage coord_plugin
-* @since 1.0.1
-*/
 class hfnuinstalledCoordPlugin implements jICoordPlugin {
 	public $config;
 

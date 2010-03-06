@@ -6,7 +6,6 @@
 * @copyright    Loic Mathaud 2007
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 /**
 * Plugin to add tracking code for Google Analytics into your site
 * @package      plugins

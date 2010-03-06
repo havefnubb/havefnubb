@@ -1,6 +1,5 @@
 <?php
 /**
- * Plugin from smarty project and adapted for jtpl
  * @package    jelix
  * @subpackage jtpl_plugin
  * @link http://smarty.php.net/manual/en/language.function.mailto.php {mailto}
@@ -11,6 +10,7 @@
  */
 
 /**
+ * Plugin from smarty project and adapted for jtpl
  * Examples:
  * <pre>
  * {mailto array(address=>"me@domain.com")}

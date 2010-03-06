@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     jelix
+ * @package     havefnubb
  * @subpackage  jtpl_plugin
  * @author      Olivier Demah
  * @copyright  2009

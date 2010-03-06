@@ -8,14 +8,8 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * banuser coordplugin
+ * Class that checkes if a user is banned
  */
-/**
-* @package    jelix
-* @subpackage coord_plugin
-* @since 1.0.1
-*/
-
 class banuserCoordPlugin implements jICoordPlugin {
 	public $config;
 

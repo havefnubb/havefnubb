@@ -8,13 +8,8 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * flood coord plugin
+ * Class that checkes if a member is currently flooding
  */
-/**
-* @package    jelix
-* @subpackage coord_plugin
-* @since 1.0.1
-*/
 class floodCoordPlugin implements jICoordPlugin {
 	public $config;
 

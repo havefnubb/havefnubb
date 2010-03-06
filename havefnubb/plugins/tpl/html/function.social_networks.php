@@ -1,24 +1,21 @@
 <?php
 /**
- * @package     jelix
+ * @package     havefnubb
  * @subpackage  jtpl_plugin
  * @author      Olivier Demah
  * @copyright  2009
  * @link        http://www.jelix.org
  * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-
 /**
- * share_delicious plugin :  display a picture of delicous + generate an url to share the current content on delicious
+ * social network plugin :  displays a picture of delicous + generate an url to share the current content on delicious
  *
  * @param jTpl $tpl template engine
- * @param string $network on which we want to share
  * @param array  $params contains :
  * jurl = url in jurl format
  * jurlparams = params of jUrl
  * title = title to share
  */
-
 function jtpl_function_html_social_networks($tpl, $params) {
 	global $gJConfig;
 	echo '<div class="social-network">';
@@ -42,7 +39,12 @@ function jtpl_function_html_social_networks($tpl, $params) {
 	}
 	echo "</div>";
 }
-
+/**
+ * function that links to delicious
+ * @param string $jurl url to link to
+ * @param array  $jurlParams parms to give to the links
+ * @param string $title title of the link
+ */
 function social_delicious($jurl, $jurlParams, $title) {
 	global $gJConfig;
 	$params = array('width'=>16,'height'=>16,'alt'=>'delicious');
@@ -51,7 +53,12 @@ function social_delicious($jurl, $jurlParams, $title) {
 	$deliciousUrl .= '&amp;title='.urlencode($title);
 	echo '<a href="'.$deliciousUrl.'" title="delicious" >'.make_image('themes/'.$gJConfig->theme.'/'.$gJConfig->social_networks['images_path'].'/Delicious.png',$params).'</a> ';
 }
-
+/**
+ * function that links to facebook
+ * @param string $jurl url to link to
+ * @param array  $jurlParams parms to give to the links
+ * @param string $title title of the link
+ */
 function social_facebook($jurl, $jurlParams, $title) {
 	global $gJConfig;
 	$params = array('width'=>16,'height'=>16,'alt'=>'facebook');
@@ -59,7 +66,12 @@ function social_facebook($jurl, $jurlParams, $title) {
 	$facebookUrl .= 'u=http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
 	echo '<a href="'.$facebookUrl.'" title="facebook" >'.make_image('themes/'.$gJConfig->theme.'/'.$gJConfig->social_networks['images_path'].'/Facebook.png',$params).'</a> ';
 }
-
+/**
+ * function that links to reddit
+ * @param string $jurl url to link to
+ * @param array  $jurlParams parms to give to the links
+ * @param string $title title of the link
+ */
 function social_reddit($jurl, $jurlParams, $title) {
 	global $gJConfig;
 	$params = array('width'=>16,'height'=>16,'alt'=>'reddit');
@@ -68,7 +80,12 @@ function social_reddit($jurl, $jurlParams, $title) {
 	$redditUrl .= '&amp;title='.urlencode($title);
 	echo '<a href="'.$redditUrl.'" title="reddit" >'.make_image('themes/'.$gJConfig->theme.'/'.$gJConfig->social_networks['images_path'].'/Reddit.png',$params).'</a> ';
 }
-
+/**
+ * function that links to twitter
+ * @param string $jurl url to link to
+ * @param array  $jurlParams parms to give to the links
+ * @param string $title title of the link
+ */
 function social_twitter($jurl, $jurlParams, $title) {
 	global $gJConfig;
 	$params = array('width'=>16,'height'=>16,'alt'=>'twitter');
@@ -76,7 +93,12 @@ function social_twitter($jurl, $jurlParams, $title) {
 	$twitterUrl .= urlencode('I Read '.$title.' ').'http://'.$_SERVER['SERVER_NAME'].urlencode(jUrl::get($jurl, $jurlParams));
 	echo '<a href="'.$twitterUrl.'" title="twitter" >'.make_image('themes/'.$gJConfig->theme.'/'.$gJConfig->social_networks['images_path'].'/Twitter.png',$params).'</a> ';
 }
-
+/**
+ * function that links to digg
+ * @param string $jurl url to link to
+ * @param array  $jurlParams parms to give to the links
+ * @param string $title title of the link
+ */
 function social_digg($jurl, $jurlParams, $title) {
 	global $gJConfig;
 	$params = array('width'=>16,'height'=>16,'alt'=>'digg');
@@ -85,7 +107,12 @@ function social_digg($jurl, $jurlParams, $title) {
 	$diggUrl .= '&amp;title='.urlencode($title);
 	echo '<a href="'.$diggUrl.'" title="digg" >'.make_image('themes/'.$gJConfig->theme.'/'.$gJConfig->social_networks['images_path'].'/Digg.png',$params).'</a> ';
 }
-
+/**
+ * function that links to netvibes
+ * @param string $jurl url to link to
+ * @param array  $jurlParams parms to give to the links
+ * @param string $title title of the link
+ */
 function social_netvibes($jurl, $jurlParams, $title) {
 	global $gJConfig;
 	$params = array('width'=>16,'height'=>16,'alt'=>'netvibes');
@@ -96,7 +123,11 @@ function social_netvibes($jurl, $jurlParams, $title) {
 }
 
 
-
+/**
+ * function that builds the image of the social network
+ * @param string $src url to link to
+ * @param array  $params parms to build the image
+ */
 function make_image($src,$params) {
 
 	$att = jImageModifier::get($src, $params, false);

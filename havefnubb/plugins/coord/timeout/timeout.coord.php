@@ -7,9 +7,9 @@
 * @copyright  2008 foxmask
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-/*
-* class that manages the timeout of the connection of the user
-*/
+/**
+ * Class that manages the timeout of the connection of the user
+ */
 class timeoutCoordPlugin implements jICoordPlugin {
 	public $config;
 
