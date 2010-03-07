@@ -1,19 +1,24 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage havefnubb
+* @subpackage responses
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 require_once (JELIX_LIB_CORE_PATH.'response/jResponseHtml.class.php');
-
+/**
+ * Class that manages the Response of the Admin part of HaveFnuBB
+ */
 class adminHtmlResponse extends jResponseHtml {
-
+	/**
+	 * @var $bodyTpl the main template of the entire application
+	 */
 	public $bodyTpl = 'master_admin~main';
-
+	/**
+	 * method which manages the things that go to <HEAD>...</HEAD>
+	 */
 	function __construct() {
 		parent::__construct();
 
@@ -24,7 +29,9 @@ class adminHtmlResponse extends jResponseHtml {
 		$chemin = $GLOBALS['gJConfig']->urlengine['basePath'].'themes/'.$GLOBALS['gJConfig']->theme.'/';
 		$this->addCSSLink($chemin.'css/downloads.css');
 	}
-
+	/**
+	 * method which manages 'globales' behavior/var
+	 */
 	protected function doAfterActions() {
 		// Include all process in common for all actions, like the settings of the
 		// main template, the settings of the response etc..

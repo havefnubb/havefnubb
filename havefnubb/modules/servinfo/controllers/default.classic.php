@@ -7,9 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * Controller that display some Server Informations
+ */
 class defaultCtrl extends jController {
-
+	/**
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 
 		'*'	=> array('jacl2.right'=>'hfnu.admin.serverinfo'),
@@ -19,7 +23,9 @@ class defaultCtrl extends jController {
 					'banuser.check'=>true,
 					),
 	);
-
+	/**
+	 * call to phpinfo
+	 */
 	public function phpinfo() {
 		$rep = $this->getResponse('html');
 		$tpl = new jTpl();

@@ -1,25 +1,30 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage havefnubb
+* @subpackage responses
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 require_once (JELIX_LIB_CORE_PATH.'response/jResponseHtml.class.php');
-
+/**
+ * Class that manages of all the template of the installation process of HaveFnuBB
+ */
 class installHtmlResponse extends jResponseHtml {
-
+	/**
+	 * @var $bodyTpl the main template of the entire application
+	 */
 	public $bodyTpl = 'hfnuinstall~main_install';
-
+	/**
+	 * method which manages the things that go to <HEAD>...</HEAD>
+	 */
 	function __construct() {
 		parent::__construct();
-
-		// Include your common CSS and JS files here
 	}
-
+	/**
+	 * method which manages 'globales' behavior/var
+	 */
 	protected function doAfterActions() {
 		// Include all process in common for all actions, like the settings of the
 		// main template, the settings of the response etc..
