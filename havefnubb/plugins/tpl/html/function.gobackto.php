@@ -13,7 +13,7 @@
  *
  * {gobackto 'string to display'}
  * @param jTpl $tpl template engine
- * @param $msg a string display before the name of the visited page formated like jLocale expects to receive it
+ * @param string $msg string displayed before the name of the visited page formated like jLocale expects to receive it
  */
 function jtpl_function_html_gobackto($tpl,$msg='') {
 	global $gJCoord;

@@ -7,11 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+/**
+ * Class that manage the responds of the Events on the Requests
+ */
 class searchwordsListener extends jEventListener{
 	/**
 	* updating the search_words table for each of the following event
 	*/
-
 	function onHfnuSearchEngineAddContent ($event) {
 		$id 			= $event->getParam('id');
 		$dataSource 	= $event->getParam('datasource');

@@ -7,9 +7,11 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+/**
+ * Class that clean the search by removing unwanted words
+ */
 class Cleaner {
-
-	/*
+	/**
 	 * remove unuseful words for the index
 	 * @param array $words list of words to analyze
 	 * @return array without the stopwords
@@ -23,7 +25,9 @@ class Cleaner {
 		return array_diff($words, $stopwords);
 
 	}
-
+	/**
+	 *
+	 */
 	public static function stemPhrase($phrase)
 	{
 		// split into words

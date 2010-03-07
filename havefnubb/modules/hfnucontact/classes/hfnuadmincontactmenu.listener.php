@@ -7,11 +7,14 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ *Class that display menu item to manage the Contact
+ */
 class hfnuadmincontactmenuListener extends jEventListener{
-
 	/**
-	*
+	* the menu item
+	* @param object $event
+	* @return void
 	*/
 	 function onmasteradminGetMenuContent ($event) {
 		 global $gJConfig;

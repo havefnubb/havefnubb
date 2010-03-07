@@ -7,11 +7,19 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+/**
+* Controller to manage the rates
+*/
 class defaultCtrl extends jController {
-
+	/**
+	 * @var plugins to manage the behavior of the controller
+	 */
     public $pluginParams = array(
         '*'		=> array('auth.required'=>false),
     );
+	/**
+	 *Put a rate
+	 */
 	function rate_it() {
 		//info about the "source" from where the datas come from
 		$id_source 	= (int) $this->param('id_source');
@@ -25,6 +33,9 @@ class defaultCtrl extends jController {
 		$rep->params= (array) $this->param('return_url_params');
 		return $rep;
 	}
+	/**
+	 *Put a rate (in ajax)
+	 */
 	function rate_ajax_it() {
 		//info about the "source" from where the datas come from
 		$id_source 	= (int) $this->param('id_source');

@@ -7,11 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+* Controller to manage the Searching requests
+*/
 class defaultCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'index' => array( 'jacl2.right' =>'hfnu.search'),
 		'query' => array( 'jacl2.right' =>'hfnu.search'),
@@ -28,7 +30,9 @@ class defaultCtrl extends jController {
 					),
 
 	);
-
+	/**
+	 * Main page of search
+	 */
 	public function index() {
 		$rep = $this->getResponse('html');
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label',jLocale::get('hfnusearch~search.search.perform'));
@@ -36,7 +40,9 @@ class defaultCtrl extends jController {
 		$rep->body->assignZone('MAIN', 'hfnusearch~hfnusearch');
 		return $rep;
 	}
-
+	/**
+	 * Query
+	 */
 	public function query() {
 		$string = $this->param('hfnu_q');
 
@@ -80,6 +86,9 @@ class defaultCtrl extends jController {
 		$rep->body->assign('MAIN',$tpl->fetch('hfnusearch~result'));
 		return $rep;
 	}
+	/**
+	 * Autocomplete Query
+	 */
 
 	public function queryajax () {
 		$string = (string) $this->param('q');

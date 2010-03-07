@@ -7,9 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+* Controller to manage the sending of mails
+*/
 class defaultCtrl extends jController {
-
+	/**
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 
 		'*' => array('auth.required'=>false,
@@ -17,7 +21,9 @@ class defaultCtrl extends jController {
 					'banuser.check'=>true,
 					),
 	);
-
+	/**
+	 * Main page
+	 */
 	public function index() {
 		global $gJConfig;
 		$to = $this->param('to');
@@ -49,7 +55,9 @@ class defaultCtrl extends jController {
 		$rep->body->assign('MAIN',$tpl->fetch('hfnucontact~contact'));
 		return $rep;
 	}
-
+	/**
+	 * Send a message to the contact defined in the defautconfig.ini.php file
+	 */
 	public function send_a_message() {
 		global $gJConfig;
 		$form = jForms::fill('hfnucontact~contact');
@@ -105,14 +113,18 @@ class defaultCtrl extends jController {
 		$rep->action='hfnucontact~default:contacted';
 		return $rep;
 	}
-
+	/**
+	 * "Response" displayed after a sending mail
+	 */
 	public function contacted() {
 		$rep = $this->getResponse('html');
 		$tpl = new jTpl();
 		$rep->body->assign('MAIN',$tpl->fetch('hfnucontact~contacted'));
 		return $rep;
 	}
-
+	/**
+	 * Send a thread  to a friend
+	 */
 	public function send_to_friend() {
 		$url = $_SESSION['SENDTOFRIEND']['send_to_friend_url'];
 
@@ -134,7 +146,9 @@ class defaultCtrl extends jController {
 		$rep->body->assign('MAIN',$tpl->fetch('hfnucontact~send_to_friend'));
 		return $rep;
 	}
-
+	/**
+	 * Send a message to a friend
+	 */
 	public function send_a_message_to_friend() {
 		global $gJConfig;
 		$form = jForms::fill('hfnucontact~send_to_friend');
