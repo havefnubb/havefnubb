@@ -8,7 +8,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * Class that clean the search by removing unwanted words
+ * Class that cleans the search by removing unwanted words
  */
 class Cleaner {
 	/**

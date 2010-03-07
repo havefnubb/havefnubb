@@ -7,18 +7,22 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * Controller that manages the search engine index
+ */
 class adminCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 			'hfnu.check.installed'=>true,
 			'banuser.check'=>true,
 		  ),
 		);
-
+	/**
+	 * form to ask to reindex
+	 */
 	function index() {
 		$rep = $this->getResponse('html');
 
@@ -29,7 +33,9 @@ class adminCtrl extends jController {
 		$rep->body->assign('selectedMenuItem','searchengine');
 		return $rep;
 	}
-
+	/**
+	 * Reindexing the search engine
+	 */
 	function reindexing() {
 		$confirm = $this->param('confirm');
 
