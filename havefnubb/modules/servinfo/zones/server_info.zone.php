@@ -7,10 +7,17 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * Class that grabs info on the server where it runs
+ */
 class server_infoZone extends jZone {
+	/**
+	 *@var string $_tplname the template name used by the zone
+	 */
 	protected $_tplname='zone.server_info';
-
+	/**
+	 * function to manage data before assigning to the template of its zone
+	 */
 	protected function _prepareTpl(){
 		$dao = jDao::get('havefnubb~member');
 		$members = $dao->findAllConnected(time());

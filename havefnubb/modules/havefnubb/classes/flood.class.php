@@ -1,22 +1,22 @@
 <?php
 /**
-* Class that handle the flood protection
-*
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*/
-
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
+ * Class that handle the flood protection
+ */
 class flood {
 
 	function __construct() {}
 	/**
 	 * check if there is a flood
-	 * @param $action string same_ip or editing
-	 * @param $value integer time between two $action
+	 * @param string $action same_ip or editing
+	 * @param integer $value time between two $action
 	 * @return boolean
 	 */
 	public static function check($action,$value) {
@@ -35,7 +35,7 @@ class flood {
 
 	/**
 	 * check if there is a flood from the same ip
-	 * @param $value integer time between two 'same_ip'
+	 * @param integer $value time between two 'same_ip'
 	 * @return boolean
 	 */
 	public static function same_ip($value) {
@@ -49,7 +49,7 @@ class flood {
 
 	/**
 	 * check if there is a flood when editing post
-	 * @param $value integer time between two 'editing'
+	 * @param integer $value time between two 'editing'
 	 * @return boolean
 	 */
 	public static function editing($value) {

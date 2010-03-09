@@ -7,9 +7,15 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+/**
+ * Class that manage specific behavior of the search engine for HaveFnuBB
+ */
 jClasses::inc('hfnusearch~search_index');
 class search_index_havefnubb extends search_index {
-
+	/**
+	 * searchEngineRun methode which make a search from the engine by querying the table define in the dao of the hfnusearch.ini.php file
+	 * @param object $event
+	 */
 	function searchEngineRun ($event) {
 
 		$cleaner = jClasses::getService('hfnusearch~cleaner');

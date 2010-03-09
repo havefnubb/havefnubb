@@ -1,7 +1,5 @@
 <?php
 /**
-* Controller to manage any banuser events
-*
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -9,7 +7,9 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+* Controller to manage any banuser events
+*/
 class banuserCtrl extends jController {
 	/**
 	* Page info display to banned users

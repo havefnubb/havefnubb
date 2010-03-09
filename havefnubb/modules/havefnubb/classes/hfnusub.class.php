@@ -1,24 +1,34 @@
 <?php
 /**
-* main UI to manage subscriptions of member to posts in HaveFnuBB!
-*
-* @package   havefnubb
-* @subpackage hfnusub
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
+ * main UI to manage subscriptions of member to posts in HaveFnuBB!
 */
 class hfnusub {
-
+	/**
+	 * @var string $daoSub dao of the subscription table
+	 */
     private static $daoSub = 'havefnubb~sub';
-
+	/**
+	 * Have I SubScribe to this post ?
+	 * @param integer $id of the subscribed post
+	 * @return record
+	 */
     public function getSubscribed($id) {
 		if (jAuth::isConnected())
 			return jDao::get(self::$daoSub)->get($id,jAuth::getUserSession ()->id);
     }
-
+	/**
+	 * Subscribe to a thread
+	 * @param integer $id of the post to subscribe
+	 * @return boolean
+	 */
 	public static function subscribe($id) {
 		$dao = jDao::get(self::$daoSub);
 
@@ -33,7 +43,11 @@ class hfnusub {
             return false;
 
 	}
-
+	/**
+	 * Unsubscribe to a thread
+	 * @param integer $id of the post to unsubscribe
+	 * @return boolean
+	 */
 	public static function unsubscribe($id) {
 		$dao = jDao::get(self::$daoSub);
 		if ( $dao->get($id,jAuth::getUserSession ()->id)) {
@@ -42,7 +56,11 @@ class hfnusub {
 		}
 		return false;
 	}
-
+	/**
+	 * Send an email to the members that have subsribe to this post
+	 * @param integer $id of the subscribed post
+	 * @return void
+	 */
 	public static function sendMail($id) {
         global $gJConfig;
         $dao = jDao::get(self::$daoSub);

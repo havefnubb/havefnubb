@@ -7,16 +7,9 @@
 * @copyright  2008 foxmask
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 /**
- *
+ * Class that checkes if a member is currently flooding
  */
-
-/**
-* @package    jelix
-* @subpackage coord_plugin
-* @since 1.0.1
-*/
 class floodCoordPlugin implements jICoordPlugin {
 	public $config;
 
@@ -70,4 +63,3 @@ class floodCoordPlugin implements jICoordPlugin {
 	public function afterProcess (){}
 
 }
-

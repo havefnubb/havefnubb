@@ -1,33 +1,38 @@
 <?php
 /**
-* main UI to manage the statement of the posts  of the forum HaveFnuBB!
-*
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*
-*/
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
+ * main UI to manage the statement of the posts  of the forum HaveFnuBB!
+ */
 class hfnuposts {
 	/**
 	 * the posts
-	 * var $posts array
+	 * @var array $posts
 	 */
 	public static $posts = array();
 	/**
 	 * status of the newest post
-	 * var $postStatus array
+	 * @var array $postStatus
 	 */
 	public static $postStatus = array();
 	/**
 	 * the authorized status of the post
-	 * var $statusAvailable array
+	 * @var array $statusAvailable
 	 */
 	private static $statusAvailable = array('opened','closed','pined','pinedclosed','censored','uncensored','hidden');
-
+	/**
+	 * @var integer $hfAdmin the ID that defines the Admin
+	 */
 	private static $hfAdmin = 1;
+	/**
+	 * @var integer $hfAdmin the ID that defines the Moderator
+	 */
 	private static $hfModerator = 3;
 
 	/*********************************************************
@@ -69,7 +74,7 @@ class hfnuposts {
 
 	/**
 	 * remove one post from the database
-	 * @param $id_post integer id post to remove
+	 * @param integer $id_post  id post to remove
 	 * @return boolean of the success or not
 	 */
 	public static function delete($id_post) {
@@ -133,8 +138,8 @@ class hfnuposts {
 	 * 3) if parent_id > 0 then calculate the page + assign id_post with parent_id
 	 * business update :
 	 * 1) update the count of view of this thread
-	 * @param id_post integer id post of the current post
-	 * @param parent_id integer parent id of the current post
+	 * @param integer $id_post id of the current post
+	 * @param integer $parent_id parent if of the current post
 	 * @return array of id_post, DaoRecord of Post, Paginator
 	 */
 	public static function view($id_post,$parent_id) {
@@ -178,7 +183,7 @@ class hfnuposts {
 	}
 	/**
 	 * updateViewing : update the counter of the views of a given post
-	 * @param id_post integer id post of the current post
+	 * @param integer $id_post post id of the current post
 	 */
 	public static function updateViewing($id_post) {
 		if ($id_post == 0 ) return;
@@ -190,7 +195,7 @@ class hfnuposts {
 
 	/**
 	 * readByMod : update the 'read by mod' flag
-	 * @param $parent_id integer parent id of the thread that will by marked as read by a moderator
+	 * @param integer $parent_id parent id of the thread that will by marked as read by a moderator
 	 */
 	public static function readByMod($parent_id) {
 		if ($parent_id == 0 ) return;
@@ -208,9 +213,9 @@ class hfnuposts {
 
 	/**
 	 * save one post
-	 * @param $id_forum integer id forum of the post
-	 * @param id_post integer id post of the current post if editing of 0 if adding
-	 * @return $id_post integer id post of the editing post or the id of the post created
+	 * @param integer $id_forum id forum of the post
+	 * @param integer $id_post  id post of the current post if editing of 0 if adding
+	 * @return mixed boolean or $id_post id post of the editing post or the id of the post created
 	 */
 	public static function save($id_forum,$id_post=0) {
 		global $gJConfig;
@@ -310,7 +315,7 @@ class hfnuposts {
 		else {
 		    jClasses::getService('havefnubb~hfnusub')->unsubscribe($parent_id);
 		}
-		
+
 		jForms::destroy('havefnubb~posts', $id_post);
 
 		return $id_post;
@@ -319,8 +324,8 @@ class hfnuposts {
 
 	/**
 	 * save a reply to one post
-	 * @param parent_id integer parent id of the current post if editing of 0 if adding
-	 * @return $record DaoRecord of the reply
+	 * @param integer $parent_id parent id of the current post if editing of 0 if adding
+	 * @return mixed boolean / DaoRecord $record of the reply
 	 */
 	public static function savereply($parent_id) {
 		global $gJConfig;
@@ -355,7 +360,7 @@ class hfnuposts {
 		$id_post = $result['daorec']->getPk();
 
 		self::addPost($id_post,$result['daorec']);
-		
+
         jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
 
 		if ( $form->getData('subscribe') == 1 ) {
@@ -374,7 +379,7 @@ class hfnuposts {
 
 	/**
 	 * save a notification posted by a user
-	 * @param id_post integer id post of the current post if editing of 0 if adding
+	 * @param integer $id_post id post of the current post if editing of 0 if adding
 	 * @return boolean status of success of this submit
 	 */
 	public static function savenotify($id_post) {
@@ -416,10 +421,10 @@ class hfnuposts {
 
 	/**
 	 * change the status of the current THREAD (not just one post) !
-	 * @param $parent_id integer parent id of the thread
-	 * @param $status string the status to switch to
-	 * @param $censor_msg string of the censored message
-	 * @return $record DaoRecord
+	 * @param integer $parent_id parent id of the thread
+	 * @param string $status the status to switch to
+	 * @param string $censor_msg the censored message
+	 * @return DaoRecord $record
 	 */
 	public static function switchStatus($parent_id,$id_post,$status,$censor_msg='') {
 	if (! in_array($status,self::$statusAvailable)) {
@@ -451,8 +456,8 @@ class hfnuposts {
 	}
 	/**
 	 * this function permits to get the status of the posts
-	 * @param $id_post integer id post
-	 * @return $postStatus array
+	 * @param integer $id_post id post
+	 * @return array $postStatus return the status of the given post
 	 */
 	public static function getPostStatus($id_post) {
 		if (!isset(self::$postStatus[$id_post]))
@@ -461,10 +466,10 @@ class hfnuposts {
 	}
 	/**
 	 * censor the current POST
-	 * @param $parent_id integer parent id of the thread
-	 * @param $id_post integer parent id of the thread
-	 * @param $status string the status to switch to
-	 * @param $censor_msg string of the censored message
+	 * @param integer $parent_id parent id of the thread
+	 * @param integer $id_post post id of the thread
+	 * @param string $status the status to switch to
+	 * @param string $censor_msg the censored message
 	 */
 	public static function censored($parent_id,$id_post,$censor_msg) {
 		if ( $parent_id < 0 or $id_post < 1) return false;
@@ -482,10 +487,10 @@ class hfnuposts {
 	 * To uncensor :
 	 * 1) get the status of the Father Post
 	 * 2) apply the Father's status to the Son Post
-	 * @param $parent_id integer parent id of the thread
-	 * @param $id_post integer parent id of the thread
-	 * @param $status string the status to switch to
-	 * @param $censor_msg string of the censored message
+	 * @param integer $parent_id parent id of the thread
+	 * @param integer $id_post integer parent id of the thread
+	 * @param string $status string the status to switch to
+	 * @param string $censor_msg string of the censored message
 	 */
 	public static function uncensored($parent_id,$id_post,$censor_msg='') {
 		if ( $parent_id < 0 or $id_post < 1) return false;
@@ -509,8 +514,8 @@ class hfnuposts {
 
 	/**
 	 * this function permits to move a complet thread to another forum
-	 * @param $id_post integer id post to move
-	 * @param $id_forum integer id forum to move to
+	 * @param integer $id_post id post to move
+	 * @param integer $id_forum id forum to move to
 	 * @return boolean
 	 */
 	public static function moveToForum($id_post,$id_forum) {
@@ -522,10 +527,10 @@ class hfnuposts {
 
 	/**
 	 * this function permits to split the thread to a forum
-	 * @param $parent_id integer parent_id
-	 * @param $id_post integer id post
-	 * @param $id_forum integer id forum
-	 * @return $id_post_new the new Id
+	 * @param integer $parent_id parent_id
+	 * @param integer $id_post id post
+	 * @param integer $id_forum id forum
+	 * @return integer $id_post_new the new Id
 	 */
 	public static function splitToForum($parent_id,$id_post,$id_forum) {
 		if ($id_post == 0 or $id_forum == 0 or $parent_id == 0) return false;
@@ -562,9 +567,9 @@ class hfnuposts {
 
 	/**
 	 * this function permits to split the thread to another thread
-	 * @param $id_post integer id post to split
-	 * @param $parent_id integer parent_id  of the current id post
-	 * @param $new_parent_id parent id to attach to
+	 * @param integer $id_post id post to split
+	 * @param integer $parent_id parent_id  of the current id post
+	 * @param integer  $new_parent_id parent id to attach to
 	 * @return boolean
 	 */
 	public static function splitToThread($id_post,$parent_id,$new_parent_id) {
@@ -596,8 +601,8 @@ class hfnuposts {
 
 	/**
 	 * get specific info to be display in the breadcrumb and title of each page
-	 * @param  integer $id_forum  the current forum
-	 * @return  array composed by the forum datas of the current forum and the category datas of the current forum
+	 * @param integer $id_forum the current forum
+	 * @return array $info array composed by the forum datas of the current forum and the category datas of the current forum
 	 */
 	public static function getCrumbs($id_forum) {
 		if ($id_forum == 0) return array();
@@ -609,8 +614,8 @@ class hfnuposts {
 
 	/**
 	 * check the permissions/rights to the resources
-	 * @param $rights the rights to check to the resource
-	 * @param $resources the resource to check
+	 * @param string $rights the rights to check to the resource
+	 * @param string $resources the resource to check
 	 * @return boolean
 	 */
 	public static function checkPerm($rights,$ressources) {

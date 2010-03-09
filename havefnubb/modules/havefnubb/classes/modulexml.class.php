@@ -1,18 +1,25 @@
 <?php
 /**
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
 * Class to parse the module.xml file of each module
-*
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*
 */
 class modulexml {
-
+	/**
+	 * namespace
+	 * var $ns string
+	 */
 	public static $ns     =  'jelixmodule';
+	/**
+	 * URL
+	 * var $nsURL string
+	 */
 	public static $nsURL  = 'http://jelix.org/ns/module/1.0';
 	/**
 	 * parse the module.xml file
@@ -113,7 +120,7 @@ class modulexml {
 		foreach ($entries as $entry) {
 			$updateURL = $entry->nodeValue;
 		}
-		
+
 		$homepageURL = '';
 		$query = '//'.$ns.':homepageURL/text()';
 		$entries = $xpath->query($query);
@@ -157,9 +164,9 @@ class modulexml {
 
 	/**
 	* generic function to 'Query' info
-	* @param $file string of xml file to load
-	* @param $info string of the XPath Query to make a search
-	* @return $value string of the search
+	* @param string $file string of xml file to load
+	* @param string $info string of the XPath Query to make a search
+	* @return string $value string of the search
 	*/
 	public static function moduleInfo($file,$info) {
 
@@ -178,6 +185,6 @@ class modulexml {
 		if (!is_null($entries->item(0)))
 			$value = $entries->item(0)->nodeValue;
 
-	return $value;
+		return $value;
 	}
 }

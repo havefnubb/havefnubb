@@ -7,11 +7,25 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+/**
+ * Class that manage the search engine
+ */
 class search_index {
-
+	/**
+	 *@var string $message
+	 */
 	public $message 	= '';
+	/**
+	 *@var string $subject
+	 */
 	public $subject 	= '';
+	/**
+	 *@var integer $id
+	 */
 	public $id 			= '';
+	/**
+	 *@var string $dataSource
+	 */
 	public $dataSource 	= '';
 
 	/*
@@ -21,13 +35,12 @@ class search_index {
 	$this->message 	= $message;
 	$this->subject 	= $subject;
 	}*/
-	/*
+	/**
 	* split the search request sentence in several words
 	* and add the weight for each case
 	*
 	* @return array $words list of the words
 	*/
-
 	function getWords() {
 		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
 		// body
@@ -43,11 +56,10 @@ class search_index {
 		return $words;
 	}
 
-	/*
+	/**
 	* manages the content of the search_words table
 	* for one post, we update all the words in search_words table
-	*
-	* @param integer $id to update
+	* @return void
 	*/
 	function searchEngineUpdate() {
 		if ($this->id == '' or $this->dataSource == '') return;
@@ -66,10 +78,8 @@ class search_index {
 		}
 	}
 
-	/*
+	/**
 	* delete the words stored in the engine
-	*
-	* @param integer $id to delete
 	*/
 	function searchEngineDelete() {
 		if ($this->id == '' or $this->dataSource == '') return;
@@ -78,8 +88,9 @@ class search_index {
 		$dao->deleteByIdDataSource($this->id,$this->dataSource);
 	}
 
-	/*
+	/**
 	* reindexing of the search engine from the Daos define in the search config file
+	* @return integer record count
 	*/
 	function searchEngineReindexing() {
 		set_time_limit(0);
@@ -111,10 +122,13 @@ class search_index {
 			$this->searchEngineUpdate();
 			}
 		}
-	return $records->rowCount();
+		return $records->rowCount();
 	}
 
-	// default searchEngineRun methode which make a search from the engine by querying the table define in the dao of the hfnusearch.ini.php file
+	/**
+	 * default searchEngineRun methode which make a search from the engine by querying the table define in the dao of the hfnusearch.ini.php file
+	 * @param object $event
+	 */
 	function searchEngineRun ($event) {
 		$cleaner = jClasses::getService('hfnusearch~cleaner');
 		$words = $cleaner->stemPhrase($event->getParam('string'));

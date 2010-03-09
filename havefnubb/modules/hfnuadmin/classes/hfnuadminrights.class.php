@@ -8,10 +8,15 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-// class that manage the rights of the forum
+/**
+ * class that manage the rights of the forum
+*/
 class hfnuadminrights {
 
-// set the defaults rights
+	/**
+	 * set the defaults rights
+	 * var $__defaultRights array
+	 */
 	private  static $__defaultRights = array(
 		//anonymous
 		'0'=>array('hfnu.forum.list'=>'on',
@@ -62,7 +67,7 @@ class hfnuadminrights {
 				);
 	/**
 	 * reset/set default rights
-	 * @param int    $id_forum the id_forum.
+	 * @param integer $id_forum the id_forum.
 	 */
 	public static function resetRights($id_forum) {
 		// default 'normal' rights for a given forum.
@@ -78,9 +83,9 @@ class hfnuadminrights {
 
 	/**
 	 * set rights on the given forum
-	 * @param int    $group the group id.
-	 * @param array  $rights, list of rights key=subject, value=true
-	 *  @param string  $resource, the resource corresponding to the "forum" string + id_forum
+	 * @param integer $group the group id.
+	 * @param array $rights list of rights key = subject, value = true
+	 * @param string $resource the resource corresponding to the "forum" string + id_forum
 	 */
 	public static function setRightsOnForum($group, $rights, $resource){
 		$dao = jDao::get('jelix~jacl2rights', jAcl2Db::getProfile());

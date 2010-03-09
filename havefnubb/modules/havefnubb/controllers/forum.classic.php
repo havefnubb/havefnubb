@@ -1,19 +1,18 @@
 <?php
 /**
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @copyright 2008 FoxMaSk
+ * @link      http://havefnubb.org
+ * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
 * Controller to manage any specific forum events
-* 
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
-* @link      http://havefnubb.org
-* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 class forumCtrl extends jController {
-	
 	/**
-	 * plugins to manage the behavior of the controller
+	 * @var $pluginParams plugins to manage the behavior of the controller
 	 */
 	public $pluginParams = array(
 		'*'		=> array('auth.required'=>false,
@@ -29,13 +28,13 @@ class forumCtrl extends jController {
 		'mark_forum_as_read' => array('auth.required'=>true,
 				'banuser.check'=>true
 				),
-	);	
-	/** 
+	);
+	/**
 	* display the RSS of the forum
 	*/
 	public function read_rss() {
 		$id_forum = (int) $this->param('id_forum');
-		
+
 		if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
@@ -57,7 +56,7 @@ class forumCtrl extends jController {
 		$feed_reader->setUserAgent('HaveFnuBB - http://www.havefnubb.org/');
 		$feed = $feed_reader->parse($forum->forum_url);
 
-		$rep = $this->getResponse('html');	
+		$rep = $this->getResponse('html');
 		$tpl = new jTpl();
 		$tpl->assign('feed',$feed);
 		$tpl->assign('forum',$forum);
@@ -65,22 +64,26 @@ class forumCtrl extends jController {
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~forum_rss.view'));
 		return $rep;
 	}
-
-	public function mark_all_as_read() {
+	/**
+	 * Mark all forum as read
+	 */
+ 	public function mark_all_as_read() {
 		$rep = $this->getResponse('redirect');
 		jClasses::getService('havefnubb~hfnuread')->markAllAsRead();
 		$rep->action = 'default:index';
 		return $rep;
 	}
-
+	/**
+	 * Mark one given forum as read
+	 */
 	public function mark_forum_as_read() {
-		$id_forum = (int) $this->param('id_forum');        
+		$id_forum = (int) $this->param('id_forum');
 		$rep = $this->getResponse('redirect');
 		jClasses::getService('havefnubb~hfnuread')->markForumAsRead($id_forum);
 		$rep->action = 'havefnubb~posts:lists';
 		$rep->params = array('id_forum'=>$id_forum,
 							 'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
-	return $rep;
+		return $rep;
 	}
 
 }

@@ -7,9 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+* Controller to manage the default contact email of the website
+*/
 class adminCtrl extends jController {
-
+	/**
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 				'hfnu.check.installed'=>true,
@@ -17,7 +21,9 @@ class adminCtrl extends jController {
 				'hfnu.admin.contact'=>true,
 				),
 	);
-
+	/**
+	 * Main page
+	 */
 	public function index() {
 		global $gJConfig;
 		$submit = $this->param('validate');

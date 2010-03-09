@@ -1,7 +1,5 @@
 <?php
 /**
-* Controller to manage any specific members events
-* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
@@ -9,10 +7,12 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+* Controller to manage any specific members events
+*/
 class membersCtrl extends jController {
 	/**
-	 * plugins to manage the behavior of the controller
+	 * @var $pluginParams plugins to manage the behavior of the controller
 	 */
 	public $pluginParams = array (
 		'*' => array('auth.required'=>true,
@@ -23,7 +23,7 @@ class membersCtrl extends jController {
 			'history.label'=>'Accueil',
 			'history.title'=>'Aller vers la page d\'accueil')
 	);
-	/** 
+	/**
 	* handle the search of specific member
 	*/
 	function index() {
@@ -61,7 +61,7 @@ class membersCtrl extends jController {
 		}
 		else {
 			$GLOBALS['gJCoord']->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));
-			$rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname .$beginningBy. ' ' .($page+1) ;			
+			$rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname .$beginningBy. ' ' .($page+1) ;
 		}
 
 		$rep->body->assignZone('MAIN',
@@ -94,11 +94,12 @@ class membersCtrl extends jController {
 
 		$rep->body->assign('selectedMenuItem','members');
 		$rep->body->assign('MAIN', $tpl->fetch('member_changepwd'));
-	
+
 		return $rep;
 	}
-	
-	// let's change the user password
+	/**
+	* let's change the user password
+	*/
 	function savenewpwd() {
 		$login = $this->param('user');
 
@@ -109,7 +110,7 @@ class membersCtrl extends jController {
 		if($login == '' || !jAuth::isConnected() || jAuth::getUserSession()->login != $login) {
 			return $rep;
 		}
-	
+
 		$form = jForms::fill('havefnubb~pwd', $login);
 		if(!$form) {
 			return $rep;
@@ -118,9 +119,9 @@ class membersCtrl extends jController {
 	// check the form !
 		$form->check();
 		//if error go back to the form to retry to change the password
-		if(count($form->getErrors())){			
+		if(count($form->getErrors())){
 			$rep->action = 'havefnubb~members:changepwd';
-			
+
 		// check if the new password is different from the actual one
 		} else {
 			if ($form->getData('conf_password') == $form->getData('old_password')) {
@@ -142,7 +143,6 @@ class membersCtrl extends jController {
 		jMessage::add(jLocale::get('havefnubb~member.pwd.passwd.successfully.changed'),'ok');
 		return $rep;
 	}
-	
 	/**
 	 * call of internal messaging
 	 */
@@ -154,4 +154,3 @@ class membersCtrl extends jController {
 	}
 
 }
-

@@ -7,9 +7,14 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * Class that grabs server informations
+ */
 class ServerInfos {
-
+	/**
+	 * Loads Average
+	 * @return string the load average
+	 */
 	public static function loadsAvg() {
 		// Get the server load averages (if possible)
 		if (@file_exists('/proc/loadavg') && is_readable('/proc/loadavg'))
@@ -29,7 +34,10 @@ class ServerInfos {
 
 		return $serverLoad;
 	}
-
+	/**
+	 * Cache Engine detection
+	 * @return string cache engine
+	 */
 	public static function cacheEngine() {
 		// See if MMCache or PHPA is loaded
 		if (function_exists('mmcache'))
@@ -40,8 +48,10 @@ class ServerInfos {
 			$phpAccelerator = 'N/A';
 		return $phpAccelerator;
 	}
-
-
+	/**
+	 * Database Engine detection
+	 * @return string the database versin
+	 */
 	public static function dbVersion() {
 		$profile = jDb::getProfile();
 		//@TODO get the current dbLink to give it to each RDBMS function
@@ -54,7 +64,10 @@ class ServerInfos {
 
 		return $profile['driver'] . ' ' . $version;
 	}
-
+	/**
+	 * Size of the database
+	 * @return array the total size and record of the database
+	 */
 	public static function dbSize() {
 		$profile = jDb::getProfile();
 		$con = jDb::getConnection();

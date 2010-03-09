@@ -1,19 +1,24 @@
 <?php
 /**
-* Forum List DataSource that handles a dropdwon list 
-* 
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*
+*/
+/**
+* Forum List DataSource that handles a dropdwon list
 */
 class hfnuforumaccess implements jIFormsDatasource {
-	protected $formId = 0; 
-	protected $data = array();  
-	
+	/**
+	 * @var integer $formId id of the form
+	 */
+	protected $formId = 0;
+	/**
+	 * @var array $data
+	 */
+	protected $data = array();
 	function __construct($id)  {
 		// " jump to " will display all the forum except :
 		// 1) the current one
@@ -30,11 +35,19 @@ class hfnuforumaccess implements jIFormsDatasource {
 		$this->data = $data;
 
 	}
-	
+
+	/**
+	 * @param object $form object of the form
+	 * @return array the data
+	 */
 	public function getData($form) {
 		return ($this->data);
 	}
-	
+
+	/**
+	 * @param string $key
+	 * @return mixed
+	 */
 	public function getLabel($key) {
 		if(isset($this->data[$key]))
 			return $this->data[$key];
