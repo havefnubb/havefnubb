@@ -1303,7 +1303,9 @@ class postsCtrl extends jController {
 	 */
 	public function shownew() {
 		$posts = jClasses::getService('havefnubb~hfnuread')->findUnreadThread();
-		$rep = $this->getResponse('redirect');
+		$tpl = new jTpl();
+		$rep = $this->getResponse('html');
+		$tpl->assign('posts', $posts);
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.shownew'));
 		return $rep;
 	}
@@ -1347,7 +1349,7 @@ class postsCtrl extends jController {
 	 * Subscribe to a given posts
 	 */
 	public function subscribe() {
-		$id_post = (int) $this->param('id_post');
+        $id_post = (int) $this->param('id_post');
         $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
 
 		if (jClasses::getService('havefnubb~hfnusub')->subscribe($id_post)) {
