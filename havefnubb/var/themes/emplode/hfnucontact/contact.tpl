@@ -5,6 +5,16 @@
 
 {form $form, 'hfnucontact~default:send_a_message'}
 <div class="form_row">
+	<div class="form_property">{ctrl_label 'email_name'}</div>
+	<div class="form_value">{ctrl_control 'email_name'}</div>
+	<div class="clearer">&nbsp;</div>
+</div>
+<div class="form_row">
+	<div class="form_property">{ctrl_label 'email_from'}</div>
+	<div class="form_value">{ctrl_control 'email_from'}</div>
+	<div class="clearer">&nbsp;</div>
+</div>
+<div class="form_row">
 	<div class="form_property">{ctrl_label 'subject'} </div>
 	<div class="form_value">{ctrl_control 'subject'} </div>
 	<div class="clearer">&nbsp;</div>
@@ -29,3 +39,4 @@
 	<div class="clearer">&nbsp;</div>
 </div>
 {/form}
+

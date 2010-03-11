@@ -73,8 +73,8 @@ class defaultCtrl extends jController {
 		if (! jAuth::isConnected()) {
 			$toContact = $gJConfig->hfnucontact['to_contact'];
 			$emailTo = $gJConfig->hfnucontact['email_contact'];
-			$email = $gJConfig->mailer['webmasterEmail'];
-			$login = $gJConfig->mailer['webmasterName'];
+			$email = $form->getData('email_from');
+			$login =  $form->getData('email_name');
 		}
 		else {
 			$email = jAuth::getUserSession ()->email ;

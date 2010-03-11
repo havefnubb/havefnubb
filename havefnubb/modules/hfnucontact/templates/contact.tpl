@@ -6,6 +6,14 @@
 	<fieldset>
 		<legend>{jlocale 'hfnucontact~contact.send.an.email.to',$to}</legend>
 		<p>
+		{ctrl_label 'email_name'}<br/>
+		{ctrl_control 'email_name'}
+		</p>
+		<p>
+		{ctrl_label 'email_from'}<br/>
+		{ctrl_control 'email_from'}
+		</p>
+		<p>
 		{ctrl_label 'subject'}<br/>
 		{ctrl_control 'subject'}
 		</p>

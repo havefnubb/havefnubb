@@ -4,6 +4,15 @@
 <hidden ref="to"/>
 <hidden ref="url"/>
 
+<input ref="email_from" type="email" required="true">
+	<label locale="hfnucontact~contact.from.email"/>
+</input>
+
+<input ref="email_name" type="string" required="true" size="40">
+	<label locale="hfnucontact~contact.from.name"/>
+</input>
+
+
 <input ref="subject" type="string" required="true" size="80">
 	<label locale="hfnucontact~contact.form.subject"/>
 </input>
