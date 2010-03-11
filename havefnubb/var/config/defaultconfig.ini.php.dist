@@ -37,13 +37,13 @@ emailHeaders="Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.
 quietMessage="Une erreur technique est survenue. Désolé pour ce désagrément."
 
 ; mots clés que vous pouvez utiliser : ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
-default="EXIT LOGFILE"
-error="EXIT LOGFILE"
-warning="LOGFILE"
+default="ECHOQUIET LOGFILE"
+error="ECHOQUIET LOGFILE"
+warning="ECHOQUIET LOGFILE"
 notice=
 strict=
 ; pour les exceptions, il y a implicitement un EXIT
-exception="LOGFILE"
+exception="ECHOQUIET LOGFILE"
 
 [compilation]
 checkCacheFiletime=on
