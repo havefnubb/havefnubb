@@ -522,7 +522,7 @@ class postsCtrl extends jController {
 		}
 
 		$daoPost = jDao::get('havefnubb~posts');
-		$post = $daoPost->get($parent_id);
+		$post = $daoPost->get($id_post);
 
 		if (!$post) {
 			$rep = $this->getResponse('redirect');
@@ -541,9 +541,9 @@ class postsCtrl extends jController {
 		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
 		if (! $forum) {
 			$rep = $this->getResponse('redirect');
-		$rep->action = 'havefnubb~default:index';
+			$rep->action = 'havefnubb~default:index';
 			return $rep;
-	}
+		}
 		// check if the post is expired
 		$day_in_secondes = 24 * 60 * 60;
 		$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
@@ -571,7 +571,7 @@ class postsCtrl extends jController {
 
 		$form->setData('message',$quoteMessage);
 
-	//set the needed parameters to the template
+		//set the needed parameters to the template
 		$tpl = new jTpl();
 		$tpl->assign('forum',		$forum);
 		$tpl->assign('id_post',		0);

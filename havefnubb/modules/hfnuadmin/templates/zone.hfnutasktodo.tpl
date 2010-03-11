@@ -3,6 +3,6 @@
 <li>{@hfnuadmin~task.none@}</li>
 {/if}
 {for $i = 0 ; $i < count($tasks) ; $i++}
-<li>{$tasks[0]}</li>
+<li>{$tasks[$i]}</li>
 {/for}
 </ul>

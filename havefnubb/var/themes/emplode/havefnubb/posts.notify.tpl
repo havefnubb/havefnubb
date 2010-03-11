@@ -6,8 +6,8 @@
 	<fieldset>
 		<div class="legend">{$heading}</div>
 			<div class="form_row">
-				<div class="form_property">{ctrl_label 'subject'} </div>
-				<div class="form_value">{ctrl_control 'subject'}</div>
+				<div class="form_property">{ctrl_label 'reason'}</div>
+				<div class="form_value">{ctrl_control 'reason'}</div>
 				<div class="clearer">&nbsp;</div>
 			</div>
 			<div class="form_row">
