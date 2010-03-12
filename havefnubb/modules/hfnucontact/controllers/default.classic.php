@@ -75,7 +75,7 @@ class defaultCtrl extends jController {
 		// to the contact defined in hfnucontact.ini.php
 		if (! jAuth::isConnected()) {
 			$email = $form->getData('email_from');
-			$login =  $form->getData('email_name');
+			$login = $form->getData('email_name');
 		}
 		else {
 			$email = jAuth::getUserSession ()->email ;
