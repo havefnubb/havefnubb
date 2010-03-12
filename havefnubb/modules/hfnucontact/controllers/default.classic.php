@@ -68,20 +68,18 @@ class defaultCtrl extends jController {
 			return $rep;
 		}
 
+		$toContact = $gJConfig->hfnucontact['to_contact'];
+		$emailTo = $gJConfig->hfnucontact['email_contact'];
+
 		// the sender is  not connected and use contact form to send a message
 		// to the contact defined in hfnucontact.ini.php
 		if (! jAuth::isConnected()) {
-			$toContact = $gJConfig->hfnucontact['to_contact'];
-			$emailTo = $gJConfig->hfnucontact['email_contact'];
 			$email = $form->getData('email_from');
 			$login =  $form->getData('email_name');
 		}
 		else {
 			$email = jAuth::getUserSession ()->email ;
 			$login = jAuth::getUserSession ()->login ;
-			$dao = jDao::get('jcommunity~user');
-			$user = $dao->getByLogin($form->getData('to'));
-			$emailTo = $user->email;
 		}
 
 		$mail = new jMailer();
@@ -105,7 +103,7 @@ class defaultCtrl extends jController {
 		$tpl->assign('message',$message);
 		$tpl->assign('server',$_SERVER['SERVER_NAME']);
 		$mail->Body = $tpl->fetch('hfnucontact~send_an_email', 'text');
-		$mail->AddAddress($emailTo);
+		$mail->AddAddress($emailTo,$toContact);
 		$mail->Send();
 
 		jForms::destroy('hfnucontact~contact');
