@@ -192,7 +192,7 @@ default="jelix/js/jforms/datepickers/default/init.js"
 [havefnubb]
 title="HaveFnuBB!"
 description="Where Everything is Fnu"
-version=1.3.4
+version=1.3.5
 rules=
 admin_email="admin@localhost.net"
 url_check_version="http://www.havefnubb.org/last_version"

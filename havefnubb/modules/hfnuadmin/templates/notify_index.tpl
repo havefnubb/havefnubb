@@ -12,11 +12,21 @@
 	<tbody>
 		{assign $line = true}
 		{foreach $notify as $notif}
-		<tr class="{if $line}odd{else}even{/if}">
+		<tr class="{cycle array('odd','even')}">
 			<td>{$notif->member_login|eschtml}</td>
 			<td>{$notif->date_created|jdatetime:'timestamp':'lang_datetime'}</td>
-			<td><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$notif->id_forum)}" >{$notif->forum_name|eschtml}</a></td>
-			<td>{@hfnuadmin~notify.subject@}: <a href="{jurl 'havefnubb~posts:view',array('id_post'=>$notif->id_post)}" >{$notif->subject|eschtml}</a></td>
+			<td><a href="{jurl 'havefnubb~posts:lists',
+			array(	'ftitle'=>$notif->forum_name,
+					'id_forum'=>$notif->id_forum
+					)
+					}">{$notif->forum_name|eschtml}</a></td>
+			<td>{@hfnuadmin~notify.subject@}: <a href="{jurl 'havefnubb~posts:view',
+			array(	'id_post'=>$notif->id_post,
+					'ftitle'=>$notif->forum_name,
+					'id_forum'=>$notif->id_forum,
+					'parent_id'=>$notif->parent_id,
+					'ptitle'=>$notif->subject,
+					)}" >{$notif->subject|eschtml}</a></td>
 		</tr>
 		<tr>
 			<td>{ifacl2 'hfnu.admin.notify.delete'}<a href="{jurl 'hfnuadmin~notify:delete',array('id_notify'=>$notif->id_notify)}" title="{@hfnuadmin~notify.delete.this.notify@}" onclick="return confirm('{jlocale 'hfnuadmin~notify.confirm.deletion',array('')}')">{@hfnuadmin~common.delete@}</a>{/ifacl2}</td>

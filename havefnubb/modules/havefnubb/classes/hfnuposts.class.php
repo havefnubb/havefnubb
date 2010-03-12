@@ -382,7 +382,7 @@ class hfnuposts {
 	 * @param integer $id_post id post of the current post if editing of 0 if adding
 	 * @return boolean status of success of this submit
 	 */
-	public static function savenotify($id_post) {
+	public static function savenotify($id_post,$parent_id) {
 
 		$form = jForms::fill('havefnubb~notify',$id_post);
 
@@ -399,6 +399,7 @@ class hfnuposts {
 		}
 
 		$result = $form->prepareDaoFromControls('havefnubb~notify');
+		$result['daorec']->parent_id	= $parent_id;
 		$result['daorec']->subject		= '['.$form->getData('reason').'] ' . self::getPost($id_post)->subject;
 		$result['daorec']->message		= $form->getData('message');
 		$result['daorec']->date_created	= time();

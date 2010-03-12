@@ -766,6 +766,7 @@ class postsCtrl extends jController {
 		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',$id_post);
 		$form->setData('id_forum',$post->id_forum);
+		$form->setData('parent_id',$post->parent_id);
 
 		//set the needed parameters to the template
 		$tpl = new jTpl();
@@ -789,6 +790,7 @@ class postsCtrl extends jController {
 	*/
 	function savenotify() {
 		$id_post    = (int) $this->param('id_post');
+		$parent_id  = (int) $this->param('parent_id');
 		$id_forum   = (int) $this->param('id_forum');
 
 		if ( ! jAcl2::check('hfnu.posts.notify','forum'.$id_forum) ) {
@@ -808,7 +810,7 @@ class postsCtrl extends jController {
 
 			//let's save the post
 			$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-			$result = $hfnuposts->savenotify($id_post);
+			$result = $hfnuposts->savenotify($id_post,$parent_id);
 			if ($result === false) {
 				$rep->action = 'havefnubb~default:index';
 				return $rep;

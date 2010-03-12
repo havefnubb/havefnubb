@@ -10,6 +10,7 @@
 		<property name="id_notify" fieldname="id_notify" datatype="autoincrement"/>
 		<property name="id_user" fieldname="id_user" datatype="int" required="true"/>
 		<property name="id_post" fieldname="id_post" datatype="int" required="true"/>
+		<property name="parent_id" fieldname="parent_id" datatype="int" required="true"/>
 		<property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
 
 		<property name="subject" fieldname="subject" datatype="string" required="true" maxlength="255"/>

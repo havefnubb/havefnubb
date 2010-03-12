@@ -2,6 +2,7 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <hidden ref="id_post"/>
+<hidden ref="parent_id"/>
 <hidden ref="id_forum"/>
 <hidden ref="id_user"/>
 

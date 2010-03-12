@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `hf_forum` (
   `child_level` int(4) NOT NULL,
   `forum_type` INT( 1 ) NOT NULL,
   `forum_url` varchar( 255 ) DEFAULT NULL,
-  `post_expire` INT ( 5 ) DEFAULT '0',  
+  `post_expire` INT ( 5 ) DEFAULT '0',
   PRIMARY KEY (`id_forum`),
   KEY `id_cat` (`id_cat`),
   KEY `parent_id` (`parent_id`),
@@ -444,7 +444,7 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
   `member_password` varchar(50) NOT NULL,
   `member_email` varchar(255) NOT NULL,
   `member_nickname` varchar(50) DEFAULT NULL,
-  `member_status` tinyint(4) NOT NULL default '0',  
+  `member_status` tinyint(4) NOT NULL default '0',
   `member_keyactivate` varchar(10) DEFAULT NULL,
   `member_request_date` datetime DEFAULT NULL,
   `member_website` varchar(255) DEFAULT NULL,
@@ -477,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
   `member_nb_msg` int(12) DEFAULT '0',
   `member_last_post` int(12) NOT NULL DEFAULT '0',
   `member_created` datetime DEFAULT NULL,
-  `member_gravatar` INT( 1 ) NOT NULL DEFAULT '0', 
+  `member_gravatar` INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY (`member_login`),
   UNIQUE KEY `id_user` (`id_user`)
 ) DEFAULT CHARSET=utf8;
@@ -494,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `hf_posts` (
   `id_user` int(12) NOT NULL,
   `id_forum` int(12) NOT NULL,
   `parent_id` int(12) NOT NULL,
-  `status` varchar(12) NOT NULL DEFAULT 'opened',  
+  `status` varchar(12) NOT NULL DEFAULT 'opened',
   `subject` varchar(255) NOT NULL,
   `message` text NOT NULL,
   `date_created` int(12) NOT NULL,
@@ -623,19 +623,20 @@ INSERT INTO `hf_search_words` (`id`, `words`, `weight`) VALUES
 
 
 
-DROP TABLE IF EXISTS `hf_notify`; 
-CREATE TABLE IF NOT EXISTS `hf_notify` ( 
-  `id_notify` int(12) NOT NULL AUTO_INCREMENT, 
-  `id_user` int(12) NOT NULL, 
+DROP TABLE IF EXISTS `hf_notify`;
+CREATE TABLE IF NOT EXISTS `hf_notify` (
+  `id_notify` int(12) NOT NULL AUTO_INCREMENT,
+  `id_user` int(12) NOT NULL,
   `id_post` int(12) NOT NULL,
-  `id_forum` int(12) NOT NULL,  
-  `subject` varchar(255) NOT NULL, 
-  `message` text NOT NULL, 
+  `parent_id` int(12) NOT NULL,
+  `id_forum` int(12) NOT NULL,
+  `subject` varchar(255) NOT NULL,
+  `message` text NOT NULL,
   `date_created` int(12) NOT NULL,
   `date_modified` int(12) NOT NULL,
-  PRIMARY KEY (`id_notify`), 
-  KEY `id_user` (`id_user`), 
-  KEY `id_post` (`id_post`) 
+  PRIMARY KEY (`id_notify`),
+  KEY `id_user` (`id_user`),
+  KEY `id_post` (`id_post`)
 ) DEFAULT CHARSET=utf8;
 
 
@@ -690,14 +691,14 @@ CREATE TABLE IF NOT EXISTS `hf_connected` (
 ) DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `hf_rates`;
-CREATE TABLE IF NOT EXISTS `hf_rates` (	
+CREATE TABLE IF NOT EXISTS `hf_rates` (
     `id_user`   INT NOT NULL ,
     `id_source` INT NOT NULL ,
     `source`    VARCHAR(40) NOT NULL,
     `ip`        VARCHAR(80) NOT NULL,
     level FLOAT NOT NULL ,
     INDEX ( `id_user` ),
-    INDEX ( `id_source` ),    
+    INDEX ( `id_source` ),
     INDEX ( `source` ),
     PRIMARY KEY rates_id (id_user,id_source,source)
 )DEFAULT CHARSET=utf8;
