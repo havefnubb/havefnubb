@@ -199,7 +199,8 @@ url_check_version="http://www.havefnubb.org/last_version"
 avatar_max_width=60
 avatar_max_height=75
 installed=0
-
+important_nb_views=100
+important_nb_replies=100
 posts_per_page=10
 replies_per_page=10
 members_per_page=25

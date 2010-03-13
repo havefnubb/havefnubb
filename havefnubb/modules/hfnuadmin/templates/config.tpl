@@ -17,6 +17,7 @@
 	<li><a href="#hfnuadmin-general"><span>{@hfnuadmin~config.general@}</span></a></li>
 	<li><a href="#hfnuadmin-messages"><span>{@hfnuadmin~config.messages@}</span></a></li>
 	<li><a href="#hfnuadmin-timeout"><span>{@hfnuadmin~config.timeout@}</span></a></li>
+	<li><a href="#hfnuadmin-important"><span>{@hfnuadmin~config.important_posts@}</span></a></li>
 	<li><a href="#hfnuadmin-flood"><span>{@hfnuadmin~config.flood_protection@}</span></a></li>
 	<li><a href="#hfnuadmin-members"><span>{@hfnuadmin~config.members@}</span></a></li>
 	<li><a href="#hfnuadmin-social-networks"><span>{@hfnuadmin~config.social.networks@}</span></a></li>
@@ -61,6 +62,19 @@
 	<p>{@hfnuadmin~config.post_max_size.description@}</p>
 </fieldset>
 </div>
+
+<div id="hfnuadmin-important">
+<fieldset>
+	<legend>{@hfnuadmin~config.important_posts@}</legend>
+	<p>{@hfnuadmin~config.important.description@}</p>
+	<p>{ctrl_label 'important_nb_replies'} </p>
+	<p>{ctrl_control 'important_nb_replies'} </p>
+
+	<p>{ctrl_label 'important_nb_views'} </p>
+	<p>{ctrl_control 'important_nb_views'} </p>
+</fieldset>
+</div>
+
 
 <div id="hfnuadmin-flood">
 <fieldset>

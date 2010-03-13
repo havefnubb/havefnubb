@@ -15,38 +15,39 @@
 #admin-message .jelix-msg li.jelix-msg-item-warning {
     background-color: #F6B1B1;
     background-image: url(../images/exclamation.png);
-	background-repeat: no-repeat;		
+	background-repeat: no-repeat;
 }
 #admin-message .jelix-msg li.jelix-msg-item-error {
     background-color: #F6CAB1;
     background-image: url(../images/error.png);
-	background-repeat: no-repeat;		
+	background-repeat: no-repeat;
 }
 
 #admin-message .jelix-msg li.jelix-msg-item-ok,
 #admin-message .jelix-msg li.jelix-msg-item-notice {
     background-color: #E5F6D4;
     background-image: url(../images/information.png);
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 }
 
 
-#hfnuadmin-general, #hfnuadmin-messages, #hfnuadmin-members, #hfnuadmin-timeout, #hfnuadmin-flood, #hfnuadmin-social-networks  {
+#hfnuadmin-general, #hfnuadmin-messages, #hfnuadmin-members, #hfnuadmin-timeout, #hfnuadmin-flood, #hfnuadmin-social-networks, #hfnuadmin-important  {
     background-color:#eff4f6;
     border: 1px solid #B0C4CB;
-}	
-	
-#hfnuadmin-general fieldset, #hfnuadmin-messages fieldset, #hfnuadmin-members  fieldset, #hfnuadmin-timeout fieldset, #hfnuadmin-flood fieldset, #hfnuadmin-social-networks fieldset  {
+}
+
+#hfnuadmin-general fieldset, #hfnuadmin-messages fieldset, #hfnuadmin-members  fieldset, #hfnuadmin-timeout fieldset, #hfnuadmin-flood fieldset, #hfnuadmin-social-networks fieldset
+#hfnuadmin-flood fielset {
     background-color:#eff4f6;
     border: 1px solid #B0C4CB;
-}	
+}
 
 
 #hfnuadmin-tasktodo {
     background-image: url(../images/admin/todos.png);
-	background-repeat: no-repeat;	
-}	
-	
+	background-repeat: no-repeat;
+}
+
 table.records-list thead th.records-list-forum-category {
 	border: 1px solid #d7d7d7;
 	border-bottom-color: #999;
@@ -63,7 +64,7 @@ table.records-list thead th.records-list-rank-name{
 	width: 70%;
 }
 table.records-list thead th.records-list-forum-action,
-table.records-list thead th.records-list-rank-limit, th.records-list-notify-date {	
+table.records-list thead th.records-list-rank-limit, th.records-list-notify-date {
 	width: 20%
 }
 
@@ -72,13 +73,13 @@ table.records-list thead th.records-list-rank-action {
 	width: 10%;
 }
 
-th.records-list-notify-forum {	
+th.records-list-notify-forum {
 	width: 20%
 }
-th.records-list-notify-subject {	
+th.records-list-notify-subject {
 	width: 20%
 }
-th.records-list-notify-author {	
+th.records-list-notify-author {
 	width: 20%
 }
 td.td-notify-message {
@@ -107,7 +108,7 @@ td.td-notify-message {
 	margin:0;
 	padding:0;
 	float:left;
-	list-style-type:none;	
+	list-style-type:none;
 	background-color:#eff4f6;
 }
 
@@ -121,23 +122,23 @@ td.td-notify-message {
     background-position: 100% 0;
     text-decoration: none;
     white-space: nowrap; /* @ IE 6 */
-    outline: 0; /* @ Firefox, prevent dotted border after click */    
+    outline: 0; /* @ Firefox, prevent dotted border after click */
 }
 
-.ui-tabs-nav a {	
+.ui-tabs-nav a {
 	color:#4D5431;
 	font-size:11px;
-	text-decoration:none;	
+	text-decoration:none;
 	display:block;
 	margin:0 3px 0 0;
 	padding:6px 10px;
 	border: 1px solid;
 	border-color:#B0C4CB;
-	background: #eff4f6;	
+	background: #eff4f6;
 }
 
 .ui-tabs-nav a:link, .ui-tabs-nav a:visited {
-    color: #4D5431; 
+    color: #4D5431;
 }
 
 .ui-tabs-nav .ui-tabs-selected a:link, .ui-tabs-nav .ui-tabs-selected a:visited { /* @ Opera, use pseudo classes otherwise it confuses cursor... */
@@ -185,7 +186,7 @@ td.td-notify-message {
 	font-size:11px;
 	text-decoration:none;
 	font-weight: bold;
-	background-color:#D5E6EC;	
+	background-color:#D5E6EC;
 }
 
 #database {

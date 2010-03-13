@@ -857,7 +857,8 @@ ol.history li {
 }
 
 /* posts status */
-.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-censored {
+.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-censored
+.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important {
 	text-align: center;
 	padding: 5px;
 	width: 3%;
@@ -899,6 +900,11 @@ ol.history li {
 
 .colicone-censored, .post-status-icon-censored {
     background-image: url("../images/posts/censored.png");
+    background-repeat: no-repeat;
+}
+
+.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important {
+    background-image: url("../images/posts/important.png");
     background-repeat: no-repeat;
 }
 

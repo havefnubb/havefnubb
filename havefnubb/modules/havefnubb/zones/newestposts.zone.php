@@ -19,6 +19,7 @@ class newestpostsZone extends jZone {
 	 * function to manage data before assigning to the template of its zone
 	 */
 	protected function _prepareTpl(){
+		global $gJConfig;
 		$status = '';
 		$source = $this->param('source');
 
@@ -48,6 +49,7 @@ class newestpostsZone extends jZone {
 
 			$rec = jClasses::getService('havefnubb~hfnuposts')->getPostStatus($id_post);
 
+			$viewed = 0;
 			if ( $rec === false ) {
 				$status = $this->param('status');
 				$dateDiff = 0;
@@ -60,10 +62,23 @@ class newestpostsZone extends jZone {
 				$day_in_secondes = 24 * 60 * 60;
 				$dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $day_in_secondes) : floor( (time() - $rec->date_modified ) / $day_in_secondes) ;
 			}
+			$viewed = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->viewed;
 			$recForum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
 			if ( $recForum->post_expire > 0 and $dateDiff >= $recForum->post_expire )
 				$status = 'closed';
+
+			//important one ?
+			$dao = jDao::get('havefnubb~posts');
+			$responsettl = $dao->countResponse($id_post);
+			$important = false;
+			if ($responsettl >= $gJConfig->havefnubb['important_nb_replies']) {
+				$important = true;
+			}
+			if ($viewed >= $gJConfig->havefnubb['important_nb_views']) {
+				$important = true;
+			}
+			$status = ($important === true) ? $status . '_important' : $status;
 
 		}
 		if ($this->param('display') == 'text')

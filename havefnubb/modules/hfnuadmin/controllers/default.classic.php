@@ -61,6 +61,8 @@ class defaultCtrl extends jController {
 			$defaultConfig->setValue('post_max_size',htmlentities($this->param('post_max_size')),'havefnubb');
 			$defaultConfig->setValue('avatar_max_width',htmlentities($this->param('avatar_max_width')),'havefnubb');
 			$defaultConfig->setValue('avatar_max_height',htmlentities($this->param('avatar_max_height')),'havefnubb');
+			$defaultConfig->setValue('important_nb_replies',(int) $this->param('important_nb_replies'),'havefnubb');
+			$defaultConfig->setValue('important_nb_views',(int) $this->param('important_nb_views'),'havefnubb');
 
 			$defaultConfig->setValue('twitter',(int) $this->param('social_network_twitter'),'social_networks');
 			$defaultConfig->setValue('digg',(int) $this->param('social_network_digg'),'social_networks');
@@ -104,6 +106,10 @@ class defaultCtrl extends jController {
 			$form->setData('stats_nb_of_lastpost',(int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
 			$form->setData('elapsed_time_after_posting_before_editing',(int) $floodConfig['elapsed_time_after_posting_before_editing']);
 			$form->setData('elapsed_time_between_two_post_by_same_ip',(int) $floodConfig['elapsed_time_between_two_post_by_same_ip']);
+
+			$form->setData('important_nb_replies',(int) $gJConfig->havefnubb['important_nb_replies']);
+			$form->setData('important_nb_views',(int) $gJConfig->havefnubb['important_nb_views']);
+
 
 			$form->setData('timeout_connected',(int) $timeoutConfig['timeout_connected']);
 			$form->setData('timeout_visit',(int) $timeoutConfig['timeout_visit']);

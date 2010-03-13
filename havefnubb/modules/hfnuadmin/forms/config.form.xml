@@ -108,6 +108,27 @@
 	<label locale="hfnuadmin~config.post_max_size"/>
 </input>
 
+<menulist ref="important_nb_views"  required="true">
+	<label locale="hfnuadmin~config.important_nb_views"/>
+	<item value="50">50</item>
+	<item value="100">100</item>
+	<item value="150">150</item>
+	<item value="300">300</item>
+	<item value="1000">1000</item>
+	<item value="2000">2000</item>
+</menulist>
+
+<menulist ref="important_nb_replies"  required="true">
+	<label locale="hfnuadmin~config.important_nb_replies"/>
+	<item value="50">50</item>
+	<item value="100">100</item>
+	<item value="150">150</item>
+	<item value="300">300</item>
+	<item value="1000">1000</item>
+	<item value="2000">2000</item>
+</menulist>
+
+
 <menulist ref="timeout_visit"  required="true">
 	<label locale="hfnuadmin~config.timeout_visit"/>
 	<item value="60">60</item>

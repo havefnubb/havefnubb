@@ -8,6 +8,8 @@
 	<property name="id_post" fieldname="id_post" datatype="autoincrement"/>
 	<property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
 
+	<property name="viewed" fieldname="viewed" datatype="int"/>
+
 	<property name="date_created" fieldname="date_created" datatype="int" required="true"/>
 	<property name="date_modified" fieldname="date_modified" datatype="int" required="true"/>
 
@@ -26,7 +28,7 @@
             <parameter name="id_forum" />
             <conditions>
                 <eq property="id_forum" expr="$id_forum" />
-		<gt property="date_created" expr="member_last_post" />
+				<gt property="date_created" expr="member_last_post" />
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -36,7 +38,7 @@
             <parameter name="id_post" />
             <conditions>
                 <eq property="id_post" expr="$id_post" />
-		<gteq property="date_created" expr="member_last_post" />
+				<gteq property="date_created" expr="member_last_post" />
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
