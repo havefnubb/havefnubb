@@ -81,7 +81,7 @@ class banCtrl extends jController {
 					$expire['hour'] 	= 0;
 					$expire['minute']	= 0;
 					$expire['second']	= 0;
-					$expire['day'] 	= (int) $expire['day'];
+					$expire['day'] 		= (int) $expire['day'];
 					$expire['month'] 	= (int) $expire['month'];
 					$expire['year'] 	= (int) $expire['year'];
 

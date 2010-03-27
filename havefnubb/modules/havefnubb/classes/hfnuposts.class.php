@@ -73,14 +73,20 @@ class hfnuposts {
 	}
 
 	/**
-	 * remove one post from the database
+	 * remove one post or complet thread from the database
 	 * @param integer $id_post  id post to remove
 	 * @return boolean of the success or not
 	 */
 	public static function delete($id_post) {
 		if ($id_post == 0 ) return false;
+		$post = self::getPost($id_post);
 		self::deletePost($id_post);
 		$dao = jDao::get('havefnubb~posts');
+		//thread post ?
+		if ($post->id_post == $post->parent_id)
+			//remove the "sons"
+			$dao->deleteSonsPost($post->parent_id);
+		//remove the "father"
 		$dao->delete($id_post);
 		return true;
 	}
@@ -91,8 +97,8 @@ class hfnuposts {
 	 */
 	public static function deletePost($id) {
 		if (isset(self::$posts[$id]) and $id > 0) {
-		self::$posts = array_shift(self::$posts[$id]);
-	}
+			self::$posts = array_pop(self::$posts);
+		}
 	}
 	/**
 	 * get the posts of the given forum

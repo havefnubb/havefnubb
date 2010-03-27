@@ -79,13 +79,13 @@ class migrateCtrl extends jController {
 			$usergrp->login =$member->username;
 
 			// si $defaultGroup -> assign le user aux groupes par defaut
-			if($defaultGroup){
+			/*if($defaultGroup){
 				$defgrp = $daogroup->getDefaultGroups();
 				foreach($defgrp as $group){
 					$usergrp->id_aclgrp = $group->id_aclgrp;
 					$daousergroup->insert($usergrp);
 				}
-			}
+			}*/
 
 			// creation d'un groupe personnel
 			$persgrp = jDao::createRecord('jelix~jacl2group',$p);

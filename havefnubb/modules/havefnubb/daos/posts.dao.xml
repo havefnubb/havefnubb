@@ -348,5 +348,11 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
+		<method name="deleteSonsPost" type="delete">
+            <parameter name="parent_id"/>
+           <conditions>
+                <eq property="parent_id" expr="$parent_id" />
+            </conditions>
+		</method>
     </factory>
 </dao>
