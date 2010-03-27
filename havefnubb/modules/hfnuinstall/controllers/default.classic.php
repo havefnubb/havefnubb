@@ -862,6 +862,10 @@ class defaultCtrl extends jController {
 			self::_update_to_1_3_4();
 			$updated = 'ok';
 		}
+		if ($version == '1.3.4') {
+			self::_update_to_1_3_5();
+			$updated = 'ok';
+		}
 		if ($updated == 'ok') {
 			$rep = $this->getResponse('html');
 			$tpl = new jTpl();
@@ -1203,4 +1207,49 @@ class defaultCtrl extends jController {
 		jFile::removeDir(JELIX_APP_TEMP_PATH, false);
 	}
 
+
+	private static function _update_to_1_3_5() {
+		global $gJConfig;
+		//default fake prefix uses in the filename if no prefix table are filled
+		$tablePrefix = 'null_';
+
+		$dbProfile = jIniFile::read(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+
+		$tools 		= jDb::getTools($dbProfile['default']);
+
+		$file = dirname(__FILE__).'/../install/update/1.3.5/install.'.$dbProfile[$dbProfile['default']]['driver'].'.sql';
+		if ($dbProfile[$dbProfile['default']]['table_prefix'] != '' ) {
+			$tablePrefix = $dbProfile[$dbProfile['default']]['table_prefix'] ;
+		}
+		$fileDest = JELIX_APP_TEMP_PATH.$tablePrefix.'install-1.3.5.'.$dbProfile[$dbProfile['default']]['driver'].'.sql';
+		$sources = file($file);
+		$newSource = '';
+
+		$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO|UPDATE|ALTER TABLE) `(hf_)(.*)/';
+
+		foreach ((array)$sources as $key=>$line) {
+			if (preg_match($pattern,$line,$match)) {
+				if ($tablePrefix != 'null_')
+					$newSource .= $match[1] .' `'.$tablePrefix . $match[3];
+				else
+					$newSource .= $match[1] .' `'. $match[3];
+			}
+			else {
+				$newSource .= $line;
+			}
+		}
+
+		$fh = fopen($fileDest,'w+');
+		fwrite($fh,$newSource);
+		fclose($fh);
+		$file = JELIX_APP_TEMP_PATH.$tablePrefix.'install-1.3.5.'.$dbProfile[$dbProfile['default']]['driver'].'.sql';
+
+		$tools->execSQLScript($file);
+		@unlink($file);
+
+		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+		$mainConfig->setValue('version','1.3.5','havefnubb');
+		$mainConfig->save();
+		jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+	}
 }
