@@ -35,6 +35,7 @@ class statsZone extends jZone {
 			$lastPost->parent_id = '';
 			$lastPost->subject = '';
 			$lastPost->id_forum = '';
+			$lastPost->date_created = '';
 		}
 		else {
 			$dao = jDao::get('havefnubb~forum');

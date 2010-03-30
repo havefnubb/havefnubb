@@ -195,10 +195,10 @@
         </url>
 
         <url pathinfo="/posts/shownew" module="havefnubb" action="posts:shownew"/>
-        
+
         <url pathinfo="/posts/unsubscribe/:id_post" module="havefnubb" action="posts:unsubscribe">
             <param name="id_post" type="number"/>
-        </url>        
+        </url>
         <url pathinfo="/posts/unsub/:id_post" module="havefnubb" action="posts:unsub">
             <param name="id_post" type="number"/>
         </url>
@@ -217,6 +217,7 @@
         <url pathinfo="/update/1_3_2" module="hfnuinstall" action="default:update_to_1_3_2"/>
         <url pathinfo="/update/1_3_3" module="hfnuinstall" action="default:update_to_1_3_3"/>
         <url pathinfo="/update/1_3_4" module="hfnuinstall" action="default:update_to_1_3_4"/>
+        <url pathinfo="/update/1_3_5" module="hfnuinstall" action="default:update_to_1_3_5"/>
     </classicentrypoint>
 
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
