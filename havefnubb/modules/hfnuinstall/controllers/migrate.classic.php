@@ -21,7 +21,7 @@ class migrateCtrl extends jController {
 		$cnx = jDb::getConnection();
 
 		// Let's Migrate the config
-		$data = $cnx->query("SELECT * FROM ".$cnx->prefixTable('phorum_settings') .
+		$data = $cnx->query("SELECT * FROM ".$cnx->prefixTable('settings') .
 						  " WHERE name = 'html_title' or name = 'system_email_from_address'" );
 		$mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
 		$nbSettings = 0;
@@ -39,7 +39,7 @@ class migrateCtrl extends jController {
 		$mainConfig->save();
 
 		// Let's Migrate the members
-		$data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('phorum_users') );
+		$data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('users') );
 		$nbUsers = $data->rowCount();
 
 		$dao = jDao::get('havefnubb~member');
@@ -107,7 +107,7 @@ class migrateCtrl extends jController {
 		}
 
 		// Let's Migrate the forums
-		$data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('phorum_forums') );
+		$data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('forums') );
 		$nbForums = $data->rowCount();
 		foreach ($data as $forum) {
 
@@ -147,7 +147,7 @@ class migrateCtrl extends jController {
 
 		$daoUser = jDao::get('havefnubb~member');
 		// Let's Migrate the posts
-		$data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('phorum_messages') );
+		$data = $cnx->query('SELECT * FROM '.$cnx->prefixTable('messages') );
 		$nbPosts = $data->rowCount();
 		foreach ($data as $posts) {
 
