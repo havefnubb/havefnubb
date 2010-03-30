@@ -1,3 +1,14 @@
+summary:     jquery.form.js moved - issue #23 + 1.3.5
+summary:     introducing 1.3.5
+summary:     Deleted thread - issue #24
+summary:     important topic - issue #17
+summary:     improvment of hfnucontact module
+summary:     notification improved
+summary:     error messages hidden
+summary:     fix an issue in the display of the task to do by an admin + issue in a template in theme emplode + quoting on parent_id instead of id_post
+summary:     specifiy the name and email of the sender in the contact form
+summary:     fixed an issu in the shownew method
+summary:     Added comment for Rarangi Documentation
 summary:     HaveFnuBB 1.3.4
 summary:     hfnuinstall improvment, now the temp sql are generated in the temp dir and remove as soon as they are used
 summary:     checking ressource - issue #16
