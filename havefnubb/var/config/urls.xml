@@ -43,13 +43,14 @@
         </url>
 
 
-        <url pathinfo="/post/create/:id_forum" module="havefnubb" action="posts:add">
+        <url pathinfo="/post/create/:id_forum" module="havefnubb" action="posts:add" actionoverride="posts:save">
             <param name="id_forum" type="number"/>
         </url>
 
-        <url pathinfo="/post/reply/:id_post" module="havefnubb" action="posts:reply">
+        <url pathinfo="/post/reply/:id_post" module="havefnubb" action="posts:reply"  actionoverride="posts:savereply">
             <param name="id_post" type="number"/>
         </url>
+
 
         <url pathinfo="/post/notify/:id_post" module="havefnubb" action="posts:notify">
             <param name="id_post" type="number"/>
