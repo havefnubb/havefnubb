@@ -56,7 +56,7 @@
         </div>
         <div class="grid_12 postbody">
         {if $post->status == 'censored'}
-            {$post->censored_msg|wiki:'wr3_to_xhtml'|stripslashes}
+            {$post->censored_msg|wiki:'hfb_rule'|stripslashes}
             {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
             <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
             {$post->message|wiki:'hfb_rule'|stripslashes}

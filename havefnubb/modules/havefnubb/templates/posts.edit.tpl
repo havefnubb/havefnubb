@@ -11,9 +11,9 @@
     <legend>{@havefnubb~post.form.title.preview.page@}</legend>
         <div class="signature-content form_value">
         {$previewsubject|eschtml}
-        {$previewtext|wiki:'wr3_to_xhtml'}
+        {$previewtext|wiki:'hfb_rule'}
         {if $signature != ''}<hr/>
-        {$signature|wiki:'wr3_to_xhtml'|stripslashes}
+        {$signature|wiki:'hfb_rule'|stripslashes}
         {/if}
         </div>
     </fieldset>
