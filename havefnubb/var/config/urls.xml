@@ -2,8 +2,11 @@
 <urls xmlns="http://jelix.org/ns/urls/1.0">
 
     <classicentrypoint name="forums" default="true" noentrypoint="false">
-        <!--url pathinfo="/" module="hfnuportal" action="default:index"/-->
-        <url pathinfo="/404" module="jelix" action="error:notfound"/>
+        <!--url pathinfo="/" module="havefnubb" action="default:index"/-->
+        <url pathinfo="/cat/:id_cat-:ctitle" module="havefnubb" action="category:view">
+           <param name="id_cat" type="number"/>
+           <param name="ctitle"  type="string" escape="true" />
+        </url>
 
         <!-- rss posts management -->
         <url pathinfo="/rss/:id_forum-:ftitle" module="havefnubb" action="posts:rss">
@@ -11,8 +14,11 @@
            <param name="ftitle"  type="string" escape="true" />
         </url>
 
+        <!-- community access -->
+        <!--url pathinfo="/community" module="havefnubb" action="default:index"/-->
+
         <!-- portal access -->
-        <url pathinfo="/" module="havefnubb" action="default:index"/>
+        <url pathinfo="/forum" module="havefnubb" action="default:index"/>
 
         <!-- categories management -->
         <url pathinfo="/cat/:id_cat-:ctitle" module="havefnubb" action="category:view">
@@ -51,14 +57,28 @@
             <param name="id_post" type="number"/>
         </url>
 
-
-        <url pathinfo="/post/notify/:id_post" module="havefnubb" action="posts:notify">
+        <url pathinfo="/post/notify/:id_post" module="havefnubb" action="posts:notify" actionoverride="posts:savenotify">
             <param name="id_post" type="number"/>
         </url>
 
         <url pathinfo="/post/edit/:id_post" module="havefnubb" action="posts:edit">
             <param name="id_post" type="number"/>
         </url>
+
+        <url pathinfo="/post/jump" module="havefnubb" action="posts:goesto">
+
+        </url>
+
+        <url pathinfo="/post/status/:parent_id" module="havefnubb" action="posts:status">
+            <param name="parent_id" type="number"/>
+            <param name="status" type="string"/>
+        </url>
+
+        <url pathinfo="/post/moveto/:id_post" module="havefnubb" action="posts:moveToForum">
+
+            <param name="id_post" type="number"/>
+        </url>
+
 
         <url pathinfo="/post/quote/:id_post/:parent_id" module="havefnubb" action="posts:quote">
             <param name="id_post" type="number"/>
@@ -76,7 +96,7 @@
             <param name="id_forum" type="number"/>
         </url>
 
-        <url pathinfo="/post/censor/forum-:id_forum/parent-:parent_id/post-:id_post" module="havefnubb" action="posts:censor">
+        <url pathinfo="/post/censor/forum-:id_forum/parent-:parent_id/post-:id_post" module="havefnubb" action="posts:censor" actionoverride="posts:savecensor">
             <param name="id_forum" type="number"/>
             <param name="parent_id" type="number"/>
             <param name="id_forum" type="number"/>
@@ -106,10 +126,16 @@
         <url pathinfo="/messages"  module="jmessenger" action="jmessenger:index"/>
         <url pathinfo="/messages"  module="jmessenger" action="jmessenger:inbox"/>
         <url pathinfo="/messages/outbox"  module="jmessenger" action="jmessenger:outbox"/>
-        <url pathinfo="/messages/new"  module="jmessenger" action="jmessenger:create"/>
+        <url pathinfo="/messages/new"  module="jmessenger" action="jmessenger:create" actionoverride="jmessenger:savecreate"/>
         <url pathinfo="/messages/new"  module="jmessenger" action="jmessenger:precreate"/>
         <url pathinfo="/messages/edit/:id"  module="jmessenger" action="jmessenger:preupdate">
             <param id="id" type="number"/>
+        </url>
+        <url pathinfo="/messages/editupdate/:id"  module="jmessenger" action="jmessenger:editupdate">
+            <param id="id" type="number"/>
+        </url>
+        <url pathinfo="/messages/saveupdate"  module="jmessenger" action="jmessenger:saveupdate">
+
         </url>
         <url pathinfo="/messages/read/:id"  module="jmessenger" action="jmessenger:view">
             <param id="id" type="number"/>
@@ -155,26 +181,6 @@
         <url pathinfo="/registration/password/confirm"  module="jcommunity" action="password:confirm"/>
         <url pathinfo="/registration/password/confirmform" module="jcommunity" action="password:confirmform"/>
         <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
-
-        <!-- downloads module -->
-		<url pathinfo="/downloads/" module="downloads" action="default:index"/>
-
-		<url pathinfo="/downloads/:dir" module="downloads" action="default:index">
-			<param name="dir" type="string" />
-		</url>
-		<url pathinfo="/downloads/dl/:id" module="downloads" action="default:dl">
-			<param name="id" type="number" />
-		</url>
-		<url pathinfo="/downloads/:dir/:url" module="downloads" action="default:view">
-			<param name="dir" type="string" />
-			<param name="url" type="string" />
-		</url>
-		<url pathinfo="/downloads/feeds/lastest/:dir" module="downloads" action="feeds:lastest">
-			<param name="dir" type="string" />
-		</url>
-		<url pathinfo="/downloads/feeds/mostpopular/:dir" module="downloads" action="feeds:mostpopular">
-			<param name="dir" type="string" />
-		</url>
 
         <!-- hfnucontact module -->
 		<url pathinfo="/contactme/:to" module="hfnucontact" action="default:index">

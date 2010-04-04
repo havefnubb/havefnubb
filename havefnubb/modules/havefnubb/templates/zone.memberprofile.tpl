@@ -20,7 +20,7 @@
         <li class="user-town user-image">{@havefnubb~member.common.town@} : {$user->member_town|eschtml}</li>
         {/if}
         {if $user->member_country != ''}
-        <li class="user-country user-image">{image 'hfnu/images/flags/'.$user->member_country.'.gif',array('alt'=>$user->member_country)}  {country $user->member_country}</li>
+        <li class="user-country user-image">{image 'hfnu/images/flags/'.strtolower($user->member_country).'.gif',array('alt'=>$user->member_country)}  {country $user->member_country}</li>
         {/if}
         <li class="user-rank user-image"><span>{@havefnubb~rank.rank_name@} : {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}</span></li>
     </ul>
