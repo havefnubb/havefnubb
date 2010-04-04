@@ -191,6 +191,7 @@
 		<url pathinfo="/contacted" module="hfnucontact" action="default:contacted"/>
 
 		<url pathinfo="/send_to_friend" module="hfnucontact" action="default:send_to_friend"/>
+        <url pathinfo="/send_a_message" module="hfnucontact" action="default:send_a_message"/>
         <!-- hfnurates module -->
 		<url pathinfo="/rates/it"  module="hfnurates" action="default:rate_it"/>
         <url pathinfo="/rates/ait" module="hfnurates" action="default:rate_ajax_it"/>
