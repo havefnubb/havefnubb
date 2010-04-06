@@ -228,7 +228,9 @@
         <url pathinfo="/update/1_3_5" module="hfnuinstall" action="default:update_to_1_3_5"/>
     </classicentrypoint>
 
+<!-- debut admin forum -->
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
+        <url pathinfo="/" module="master_admin" action="default:index" />
 
         <url pathinfo="/admin/themes" module="hfnuthemes" action="default:index" />
         <url pathinfo="/admin/themes/useit" module="hfnuthemes" action="default:useit">
@@ -248,9 +250,23 @@
         <url pathinfo="/admin/forum"    module="hfnuadmin" action="forum:index" />
         <url pathinfo="/admin/ranks"    module="hfnuadmin" action="ranks:index" />
         <url pathinfo="/admin/notify"   module="hfnuadmin" action="notify:index" />
+        <url pathinfo="/admin/notify/delete/:id_notify"   module="hfnuadmin" action="notify:delete">
+            <param name="id_notify" type="integer"/>
+        </url>
         <url pathinfo="/admin/cache"    module="hfnuadmin" action="cache:index" />
         <url pathinfo="/admin/ban"      module="hfnuadmin" action="ban:index" />
+        <url pathinfo="/admin/ban/saveban"      module="hfnuadmin" action="ban:saveban" />
+        <url pathinfo="/admin/ban/delete"      module="hfnuadmin" action="ban:delete">
+            <param name="id_ban" type="number"/>
+        </url>
         <url pathinfo="/admin/search"   module="hfnusearch" action="admin:index" />
+
+        <url pathinfo="/admin/category/savecreate"  module="hfnuadmin" action="category:savecreate"/>
+        <url pathinfo="/admin/category/saveedit"  module="hfnuadmin" action="category:saveedit"/>
+
+        <url pathinfo="/admin/category/edit/:id_cat"  module="hfnuadmin" action="category:edit">
+            <param name="id_cat" type="number"/>
+        </url>
 
         <url pathinfo="/admin/category/delete/:id_cat"  module="hfnuadmin" action="category:delete">
             <param name="id_cat" type="number"/>
@@ -262,10 +278,13 @@
         <url pathinfo="/admin/forum/edit/:id_forum"     module="hfnuadmin" action="forum:edit">
             <param name="id_forum" type="number"/>
         </url>
-
+        <url pathinfo="/admin/forum/saveedit"     module="hfnuadmin" action="forum:saveedit"/>
+        <url pathinfo="/admin/forum/defaultrights"     module="hfnuadmin" action="forum:defaultrights"/>
         <url pathinfo="/admin/ranks/delete/:id_rank"    module="hfnuadmin" action="ranks:delete">
             <param name="id_rank" type="number"/>
         </url>
+        <url pathinfo="/admin/ranks/savecreate"    module="hfnuadmin" action="ranks:savecreate"/>
+        <url pathinfo="/admin/ranks/saveedit"    module="hfnuadmin" action="ranks:saveedit"/>
 
       <url pathinfo="/admin/auth/users/" module="jauthdb_admin" action="default:index"/>
       <url pathinfo="/admin/auth/user/:j_user_login" module="jauthdb_admin" action="default:view">
@@ -337,7 +356,7 @@
 		</url>
 
     </classicentrypoint>
-
+<!-- fin admin forum -->
     <xmlrpcentrypoint name="xmlrpc" default="true" />
     <jsonrpcentrypoint name="jsonrpc" default="true" />
 </urls>
