@@ -147,7 +147,7 @@
                 <eq property="parent_id" expr="$id_post" />
             </conditions>
             <order>
-                <orderitem property="date_modified" way="desc" />
+                <orderitem property="date_created" way="desc" />
             </order>
         </method>
         <method name="getUserLastCommentOnForums" type="selectfirst">
@@ -156,7 +156,7 @@
                 <eq property="id_forum" expr="$id_forum" />
             </conditions>
             <order>
-                <orderitem property="date_modified" way="desc" />
+                <orderitem property="date_created" way="desc" />
             </order>
         </method>
         <method name="countMessages" type="count">
