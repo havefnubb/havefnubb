@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-	<info id="havefnubb@havefnubb.org" name="HaveFnuBB!" createdate="2008-12-16">
+	<info id="havefnubb@havefnubb.org" name="havefnubb" createdate="2008-12-16">
 		<version stability="stable" date="2010-03-30">1.3.5</version>
 		<label lang="en_EN">HaveFnuBB! The Official Module of the Bulletin Board</label>
 		<description lang="en_EN">This module can manage a complet bulletin board</description>
@@ -14,8 +14,11 @@
 	</info>
 	<dependencies>
 		<jelix minversion="1.1.5" maxversion="1.1.5" />
-		<jcommunity minversion="0.1" maxversion="0.2" />
-		<jtags minversion="0.1" maxversion="0.2" />
-		<jmessenger minversion="0.1" maxversion="0.1" />
+		<module name="jcommunity" minversion="0.1" maxversion="0.2" />
+		<module name="jtags" minversion="0.1" maxversion="0.2" />
+		<module name="jmessenger" minversion="0.1" maxversion="0.1" />
+		<module name="hfnusearch"/>
+    <module name="hfnurates" />
+    <module name="hfnucontact" />
 	</dependencies>
 </module>

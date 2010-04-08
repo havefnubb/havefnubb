@@ -13,41 +13,38 @@
         <updateURL>http://community.havefnubb.org/last_update</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1.5" maxversion="1.1.5"/>
-		<module id="jcommunity@jelix.org" maxversion="1.0" minversion="0.9" name="jcommunity" />
-		<module id="jtags@jelix.org" maxversion="1.0" minversion="0.9" name="jtags" />
-		<module id="jmessenger@jelix.org" maxversion="1.0" minversion="0.9" name="jmessenger" />
-		<module id="havefnubb@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="havefnubb" />
-		<module id="hfnuadmin@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnuadmin" />
-		<module id="hfnucontact@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnucontact" />
-        <module id="hfnuinstall@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnuinstall" />
-		<module id="hfnurates@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnurates" />
-		<module id="hfnusearch@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnusearch" />
-		<module id="hfnuthemes@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnuthemes" />
-		<module id="servinfo@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="servinfo" />
-		<module id="hook@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hook" />
-		<plugin id="age@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="age" />
-		<plugin id="banuser@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="banuser" />
-       	<plugin id="flood@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="flood" />
-		<plugin id="gravatar@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="gravatar" />
-        <plugin id="hfnuinstalled@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnuinstalled" />
-        <plugin id="hook@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hook" />
-        <plugin id="mailto@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="mailto" />
-        <plugin id="phpinfo@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="phpinfo" />
-		<plugin id="social_network@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="social_network" />
-		<plugin id="timeout@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="timeout" />
+      <jelix minversion="1.1.5" maxversion="1.1.5"/>
+      <module id="havefnubb@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="havefnubb" />
+      <module id="hfnuadmin@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnuadmin" />
+      <module id="hfnucontact@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnucontact" />
+      <module id="hfnuinstall@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnuinstall" />
+      <module id="hfnurates@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnurates" />
+      <module id="hfnusearch@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnusearch" />
+      <module id="hfnuthemes@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnuthemes" />
+      <module id="servinfo@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="servinfo" />
+      <module id="hook@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hook" />
+      <plugin id="age@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="age" />
+      <plugin id="banuser@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="banuser" />
+      <plugin id="flood@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="flood" />
+  		<plugin id="gravatar@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="gravatar" />
+      <plugin id="hfnuinstalled@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hfnuinstalled" />
+      <plugin id="hook@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="hook" />
+      <plugin id="mailto@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="mailto" />
+      <plugin id="phpinfo@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="phpinfo" />
+      <plugin id="social_network@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="social_network" />
+      <plugin id="timeout@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="timeout" />
     </dependencies>
     <directories>
-        <config/>
-        <log/>
-        <var/>
-        <www/>
-        <temp>temp</temp>
+        <config>var/config/</config>
+        <log>var/log/</log>
+        <var>var/</var>
+        <www>..</www>
+        <temp>../temp/havefnubb/</temp>
     </directories>
     <entrypoints>
         <entry file="index.php" config="havefnubb/config.ini.php"/>
         <entry file="forums.php" config="havefnubb/config.ini.php"/>
-		<entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/>
-		<entry file="install.php" config="install/config.ini.php"/>
+        <entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/>
+        <entry file="install.php" config="install/config.ini.php"/>
     </entrypoints>
 </project>

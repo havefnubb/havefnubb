@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-    <info id="hfnuthemes@havefnubb.org" name="HfnuThemes" createdate="2009-11-03">
+    <info id="hfnuthemes@havefnubb.org" name="hfnuthemes" createdate="2009-11-03">
         <version stability="stable" date="2010-03-01">1.3.4</version>
         <label lang="en_EN">hfnuthemes</label>
         <description lang="en_EN">Themes management</description>

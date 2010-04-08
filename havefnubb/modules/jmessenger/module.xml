@@ -1,3 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
+      <info id="jmessenger@jelix.org" name="jmessenger">
+        <version>0.1</version>
+        <label>jMessenger</label>
+        <description>internal messaging system</description>
+        <licence URL="http://www.gnu.org/licenses/gpl.html">GPL</licence>
+        <copyright>Copyright 2008 Bastien Jaillot</copyright>
+        <creator name="Bastien Jaillot" email="bastnicj@gmail.com" active="true" />
+        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
+        <homepageURL>http://bitbucket.org/laurentj/jcommunity/</homepageURL>
+    </info>
+    <dependencies>
+        <jelix minversion="1.1" maxversion="1.1.*" />
+    </dependencies>
 </module>
