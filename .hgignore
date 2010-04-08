@@ -1,0 +1,8 @@
+
+~$
+(^|/)\.DS_Store$
+
+^havefnubb/var/config/dbprofils\.ini\.php$
+^havefnubb/var/config/defaultconfig\.ini\.php$
+^havefnubb/var/log
+^temp/havefnubb/
