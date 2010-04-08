@@ -6,3 +6,4 @@
 ^havefnubb/var/config/defaultconfig\.ini\.php$
 ^havefnubb/var/log
 ^temp/havefnubb/
+^cache/images/

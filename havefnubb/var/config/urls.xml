@@ -230,7 +230,7 @@
 
 <!-- debut admin forum -->
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
-        <url pathinfo="/" module="master_admin" action="default:index" />
+        <url pathinfo="/" module="master_admin" action="default:index"  optionalTrailingSlash="true"/>
 
         <url pathinfo="/admin/themes" module="hfnuthemes" action="default:index" />
         <url pathinfo="/admin/themes/useit" module="hfnuthemes" action="default:useit">
@@ -357,6 +357,4 @@
 
     </classicentrypoint>
 <!-- fin admin forum -->
-    <xmlrpcentrypoint name="xmlrpc" default="true" />
-    <jsonrpcentrypoint name="jsonrpc" default="true" />
 </urls>
