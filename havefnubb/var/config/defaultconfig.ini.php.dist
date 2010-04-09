@@ -206,6 +206,9 @@ replies_per_page=10
 members_per_page=25
 stats_nb_of_lastpost=3
 post_max_size=0
+; if the hfnuadmin module is in an other web site or application, set its url here
+admin_url=
+
 
 [hfnucontact]
 to_contact=

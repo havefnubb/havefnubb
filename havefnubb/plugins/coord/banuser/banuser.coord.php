@@ -36,7 +36,7 @@ class banuserCoordPlugin implements jICoordPlugin {
 
 			if($this->config['on_error'] == 1
 				|| !$GLOBALS['gJCoord']->request->isAllowedResponse('jResponseRedirect')){
-				throw new jException(jLocale::get("hfnuadmin~ban.you.are.banned"));
+				throw new jException(jLocale::get("havefnubb~ban.you.are.banned"));
 			}else{
 				$selector= new jSelectorAct($this->config['on_error_action']);
 			}

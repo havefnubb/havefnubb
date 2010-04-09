@@ -52,11 +52,23 @@ class hfnumenuListener extends jEventListener{
 			}
 		 }
 		if ( jAcl2::check('hfnu.admin.index')) {
-			 $event->add(new hfnuMenuItem('admin',
-				jLocale::get('havefnubb~main.admin.panel'),
-				jUrl::get('hfnuadmin~default:index'),
-				100,
-				'main'));
+            $url = '';
+            try {
+                // let's try to retrieve the url of the admin, if the admin is in
+                // the same app
+                $url = jUrl::get('hfnuadmin~default:index');
+            }
+            catch(Exception $e) {
+                if (isset($gJConfig->havefnubb["admin_url"]))
+                    $url = $gJConfig->havefnubb["admin_url"];
+            }
+            if ($url) {
+                $event->add(new hfnuMenuItem('admin',
+                   jLocale::get('havefnubb~main.admin.panel'),
+                   $url,
+                   100,
+                   'main'));
+            }
 		}
 	}
 }

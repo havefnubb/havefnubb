@@ -156,7 +156,7 @@ class bans {
 		$newIp = '';
 		//0) checking the content : list or range but not list AND range :
 		if (strpos($ip,',') > 0 and strpos($ip,'-') > 0 ) {
-			jMessage::add(jLocale::get('hfnuadmin~ban.list.or.range'));
+			jMessage::add(jLocale::get('havefnubb~ban.list.ip.or.range'));
 			return false;
 		}
 		//1) list of IP with commas
@@ -165,7 +165,7 @@ class bans {
 			foreach ($list as $item) {
 				$validIp = jFilter::isIPv4($item);
 				if ($validIp === false) {
-					jMessage::add(jLocale::get('hfnuadmin~ban.invalid.list.of.ip'));
+					jMessage::add(jLocale::get('havefnubb~ban.invalid.list.of.ip'));
 					return false;
 				}
 			}
@@ -185,7 +185,7 @@ class bans {
 			$validIp1 = jFilter::isIPv4($start);
 			$validIp2 = jFilter::isIPv4($end);
 			if ($validIp1 === false or $validIp2 === false) {
-				jMessage::add(jLocale::get('hfnuadmin~ban.invalid.range.of.ip'). ' end '.$end.' start '.$start);
+				jMessage::add(jLocale::get('havefnubb~ban.invalid.range.of.ip', array($start,$end)));
 				return false;
 			}
 			else return true;
@@ -193,7 +193,7 @@ class bans {
 		else {
 			$validIp = jFilter::isIPv4($ip);
 			if ($validIp === false) {
-				jMessage::add(jLocale::get('hfnuadmin~ban.invalid.ip'));
+				jMessage::add(jLocale::get('havefnubb~ban.invalid.ip'));
 				return false;
 			}
 		}
