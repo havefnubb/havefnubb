@@ -223,10 +223,6 @@ reddit=1
 netvibes=1
 images_path="images/social-network"
 
-;the rule of the forum to manage the render from wiki + smileys
-[_pluginsPathList_wr_rules]
-hfb_rule="havefnubb/plugins/rules/hfb_rule/"
-
 ; set here the name of the directory that contains the smileys in the dir hfnu/images/smileys/
 [smileys_pack]
 name=famfamfam
