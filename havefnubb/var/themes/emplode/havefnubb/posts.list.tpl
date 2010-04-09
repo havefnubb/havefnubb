@@ -14,7 +14,7 @@
 </div>
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
 <div class="pager-posts">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+{@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
 <table class="data_table" width="100%">
 	<tr>

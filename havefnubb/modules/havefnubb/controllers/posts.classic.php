@@ -286,7 +286,6 @@ class postsCtrl extends jController {
 		$form->initFromDao("havefnubb~posts");
 
 		$form->setData('id_forum',$post->id_forum);
-		$form->setData('id_user',jAuth::getUserSession ()->id);
 		$form->setData('id_post',$id_post);
 		$form->setData('tags', $tags);
 
@@ -348,15 +347,16 @@ class postsCtrl extends jController {
 		// preview ?
 		if ($submit == jLocale::get('havefnubb~post.form.previewBt') ) {
 			$daoUser = jDao::get('havefnubb~member');
-			$user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
 
 			$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 			list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
 
 			$form = jForms::fill('havefnubb~posts',$id_post);
 
+			$user = $daoUser->getById( (int) $form->getData('id_user'));
+
 			$form->setData('id_forum',$id_forum);
-			$form->setData('id_user',jAuth::getUserSession ()->id);
+			$form->setData('id_user',$form->getData('id_user'));
 			$form->setData('id_post',$id_post);
 			$form->setData('parent_id',$parent_id);
 			$form->setData('subject',$form->getData('subject'));
