@@ -65,11 +65,19 @@ class defaultCtrl extends jController {
 		// let's build the appropriate service to call
 		$function = 'searchIn'.ucfirst($this->param('perform_search_in'));
 
+		$page = 0;
+		if ( $this->param('page') > 0 )
+			$page = (int) $this->param('page');
+
+		if ($page < 0) $page = 0;
+
+		$resultsPerPage = (int) $HfnuSearchConfig->getValue('results_per_page');
+
 		$perform = jClasses::getService('hfnusearch~search_in');
 
-		$result = $perform->$function($string,$additionnalParam);
+		$result = $perform->$function($string,$additionnalParam,$page,$resultsPerPage);
 
-		$count = count($result);
+		$count = $result['total'];
 
 		if ($count == 0 ) {
 			jMessage::add(jLocale::get('hfnusearch~search.no.result'),'ok');
@@ -77,10 +85,18 @@ class defaultCtrl extends jController {
 			$rep->action = 'hfnusearch~default:index';
 			return $rep;
 		}
-
+		$properties = array('start-label' => ' ',
+					  'prev-label'  => '',
+					  'next-label'  => '',
+					  'end-label'   => jLocale::get("havefnubb~main.common.pagelinks.end"),
+					  'area-size'   => 5);
 		$tpl = new jTpl();
+		$tpl->assign('string',$string);
 		$tpl->assign('count',$count);
-		$tpl->assign('datas',$result);
+		$tpl->assign('datas',$result['datas']);
+		$tpl->assign('page',$page);
+		$tpl->assign('resultsPerPage',$resultsPerPage);
+		$tpl->assign('properties',$properties);
 		$rep = $this->getResponse('html');
 		$rep->title = jLocale::get('hfnusearch~search.results.of.search');
 		$rep->body->assign('MAIN',$tpl->fetch('hfnusearch~result'));

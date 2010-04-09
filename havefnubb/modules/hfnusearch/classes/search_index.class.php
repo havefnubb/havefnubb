@@ -132,7 +132,9 @@ class search_index {
 	function searchEngineRun ($event) {
 		$cleaner = jClasses::getService('hfnusearch~cleaner');
 		$words = $cleaner->stemPhrase($event->getParam('string'));
-		$nb_words = count($words);
+		$page = $event->getParam('page');
+		$limit = $event->getParam('limit');
+
 		// no words ; go back with nothing :P
 		if (!$words) {
 			return array('count'=>0,'result'=>array());
@@ -149,24 +151,30 @@ class search_index {
 			$dsCfg = str_replace('~','',$ds);
 			//4) get a factory of the current DAO
 			$dao = jDao::get($ds);
-			//5) get all the record
-
-			$conditions = jDao::createConditions();
-			if (count($words) > 0 )
-			$conditions->startGroup('OR');
 
 			//getting the column name on which we need to make the query
 			$indexSubject = $HfnuSearchConfig->getValue('index_subject',$dsCfg);
 			$indexMessage = $HfnuSearchConfig->getValue('index_message',$dsCfg);
 
-			foreach ($words as $word) {
-			$conditions->addCondition($indexSubject,'=',$word);
-			$conditions->addCondition($indexMessage,'=',$word);
-			}
-			$record = $dao->findBy($conditions);
+			//5) get all the record
+			$conditions = jDao::createConditions();
+			$conditions->startGroup('AND');
 
-			foreach ($record as $rec)
-			$event->Add(array('SearchEngineResult'=>$rec));
+			foreach ($words as $word) {
+				$conditions->addCondition($indexSubject,'LIKE','%'.$word.'%');
+				$conditions->addCondition($indexMessage,'LIKE','%'.$word.'%');
+			}
+			$conditions->endGroup();
+
+			$allRecord = $dao->findBy($conditions);
+			$record = $dao->findBy($conditions, $page, $limit);
+
+			foreach ($record as $rec) {
+				$event->Add(array('SearchEngineResult'=>$rec,
+								  'SearchEngineResultTotal'=>$allRecord->rowCount()
+								  )
+						);
+			}
 		}
 	}
 }

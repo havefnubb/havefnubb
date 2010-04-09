@@ -17,15 +17,23 @@ class search_in {
 	 * @param string $param
 	 * @return recordset
 	 */
-	function searchInWords($string,$param='') {
-		$eventresp = jEvent::notify('HfnuSearchEngineRun', array('string'=>$string) );
+	function searchInWords($string,$param='',$page=0,$limit=0) {
+		$eventresp = jEvent::notify('HfnuSearchEngineRun',
+									array(	'string'=>$string,
+											'page'=>$page,
+											'limit'=>$limit
+										  )
+									);
 
-		$result = array();
+		$result = array('datas'=>'','total'=>0);
 		foreach($eventresp->getResponse() as $rep){
-			if(!isset($rep['SearchEngineResult']) )
-				return false;
-			else {
-				$result[] = (array) $rep['SearchEngineResult'];
+			if(!isset($rep['SearchEngineResult']) ) {
+				$result['datas'] = array();
+				$result['total'] = 0;
+			} else {
+				$result['datas'][] = (array) $rep['SearchEngineResult'];
+				$result['total'] = (int) $rep['SearchEngineResultTotal'];
+
 			}
 		}
 		return $result;
