@@ -23,7 +23,10 @@ class lastpostsZone extends jZone {
 		$dao = jDao::get('havefnubb~posts');
 
 		//last 'x' posts
-		$lastPost  = $dao->findLastPosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
+		if (  jAcl2::check('hfnu.admin.post') )
+			$lastPost  = $dao->findLastPosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
+		else
+			$lastPost  = $dao->findLastVisiblePosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
 		$this->_tpl->assign('lastPost',$lastPost);
 	}
 }

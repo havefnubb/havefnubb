@@ -150,6 +150,16 @@
                 <orderitem property="date_created" way="desc" />
             </order>
         </method>
+        <method name="getUserLastVisibleCommentOnPosts" type="selectfirst">
+            <parameter name="id_post" />
+            <conditions>
+                <eq property="parent_id" expr="$id_post" />
+				<neq property="status" value="hidden" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
         <method name="getUserLastCommentOnForums" type="selectfirst">
             <parameter name="id_forum" />
             <conditions>
@@ -159,6 +169,17 @@
                 <orderitem property="date_created" way="desc" />
             </order>
         </method>
+        <method name="getUserLastVisibleCommentOnForums" type="selectfirst">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum" expr="$id_forum" />
+				<neq property="status" value="hidden" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
+
         <method name="countMessages" type="count">
             <parameter name="id_forum" />
             <conditions>
@@ -231,6 +252,18 @@
             </order>
             <limit offset="0" count="$count"/>
         </method>
+        <method name="findLastVisiblePosts" type="select">
+            <parameter name="count" default="5" />
+           <conditions>
+                <eq property="id_post" expr="posts.parent_id" />
+				<neq property="status" value="hidden" />
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+            <limit offset="0" count="$count"/>
+        </method>
+
         <method name="getMyLastEditedPost" type="selectfirst">
             <parameter name="id_user" />
            <conditions>

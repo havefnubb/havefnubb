@@ -26,11 +26,21 @@ class postlcZone extends jZone {
 
 		$dao = jDao::get('havefnubb~posts');
 		if ($id_post) {
-			$userPost = $dao->getUserLastCommentOnPosts($id_post);
+			if (  jAcl2::check('hfnu.admin.post') ) {
+				$userPost = $dao->getUserLastCommentOnPosts($id_post);
+			}
+			else {
+				$userPost = $dao->getUserLastVisibleCommentOnPosts($id_post);
+			}
 		}
 
 		if ($id_forum) {
-			$userPost = $dao->getUserLastCommentOnForums($id_forum);
+			if (  jAcl2::check('hfnu.admin.post') ) {
+				$userPost = $dao->getUserLastCommentOnForums($id_forum);
+			}
+			else {
+				$userPost = $dao->getUserLastVisibleCommentOnForums($id_forum);
+			}
 		}
 
 		$user = '';
