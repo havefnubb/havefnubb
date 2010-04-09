@@ -89,7 +89,7 @@ class hfnuread {
 	 * @return boolean
 	 */
 	public static function getReadPost($id_post,$id_forum) {
-		if ( jAuth::getUserSession ()->login == '' ) return false;
+		if ( jAuth::getUserSession ()->login == '' ) return true;
 		$alreadyRead = jDao::get('havefnubb~read_posts')->get(jAuth::getUserSession()->id,$id_forum,$id_post);
 		// no record found in the read_post table, that means i marked all the forum as read
 		// let's check the last forum between now and 3min
