@@ -1,6 +1,6 @@
 {hook 'hfbBeforeBan'}
 <div class="box">	
-	<h2>{@hfnuadmin~ban.title@}</h2>
+	<h2>{@havefnubb~ban.title@}</h2>
 	<div class="block">
 		{hook 'hfbBan'}
 		{$message}
