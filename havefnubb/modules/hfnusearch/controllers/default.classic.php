@@ -88,7 +88,7 @@ class defaultCtrl extends jController {
 		$properties = array('start-label' => ' ',
 					  'prev-label'  => '',
 					  'next-label'  => '',
-					  'end-label'   => jLocale::get("havefnubb~main.common.pagelinks.end"),
+					  'end-label'   => jLocale::get("hfnusearch~search.pagelinks.end"),
 					  'area-size'   => 5);
 		$tpl = new jTpl();
 		$tpl->assign('string',$string);
