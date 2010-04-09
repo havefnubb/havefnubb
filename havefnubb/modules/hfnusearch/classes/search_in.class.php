@@ -59,7 +59,7 @@ class search_in {
 	function searchInAuthors($string,$param='') {
 		$dao = jDao::get('havefnubb~posts');
 		$records = $dao->findByAuthor($string);
-
+		$result = array();
 		foreach ($records as $record)
 			$result[] = (array) $record;
 
