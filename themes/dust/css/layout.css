@@ -914,3 +914,7 @@ ol.history li {
 	color: #f90;
 	text-decoration: none;
 }
+
+span.newestposts{
+	display: none;
+}

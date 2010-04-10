@@ -96,8 +96,15 @@ class hfnuread {
 		if ($alreadyRead === false)
 			if (jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum) === false)
 				return false;
-			else
-				return true ?  time() < jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum)->date_read + 180 : false;
+			else {
+				if (  jAcl2::check('hfnu.admin.post') )
+					$postRead = jDao::get('havefnubb~posts')->getUserLastCommentOnPosts($id_post)->date_modified;
+				else
+					$postRead = jDao::get('havefnubb~posts')->getUserLastVisibleCommentOnPosts($id_post)->date_modified;
+
+				$dateReadForum = jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum)->date_read;
+				return ($postRead> $dateReadForum) ? false : true;
+			}
 		else
 			return true;
 	}

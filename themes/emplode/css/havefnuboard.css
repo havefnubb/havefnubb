@@ -782,3 +782,7 @@ div.comment_list {
     text-align: right;
     list-style-type: none;
 }
+
+span.newestposts{
+	display: none;
+}

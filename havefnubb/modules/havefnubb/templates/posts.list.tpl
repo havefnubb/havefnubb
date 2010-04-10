@@ -42,11 +42,11 @@
                         'status'=>$post->status,
                         'id_forum'=>$id_forum,
                         'display'=>'icon')}" > </td>
-            <td>{zone 'havefnubb~newestposts',array('source'=>'post',
+            <td><span class="newestposts">{zone 'havefnubb~newestposts',array('source'=>'post',
                         'id_post'=>$post->id_post,
                         'status'=>$post->status,
                         'id_forum'=>$id_forum,
-                        'display'=>'text')} <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
+                        'display'=>'text')}</span> <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
                         {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}
                 {social_networks
                 array(  'jurl'=>'havefnubb~posts:view',

@@ -922,3 +922,7 @@ ol.history li {
     text-align: right;
     list-style-type: none;
 }
+
+span.newestposts{
+	display: none;
+}

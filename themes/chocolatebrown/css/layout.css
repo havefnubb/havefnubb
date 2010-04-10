@@ -880,3 +880,7 @@ ol.history li a:hover:active {
 .syntax_wiki{
 	color: #5d5236;
 }
+
+span.newestposts{
+	display: none;
+}
