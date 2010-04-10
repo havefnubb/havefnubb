@@ -65,17 +65,17 @@ $(document).ready(function(){
 		<div class="post-entry">
 			<div class="message-content">
 			   {if $post->status == 'censored'}
-				   {$post->censored_msg|wiki:'hfb_rule'|stripslashes}
+				   {$post->censored_msg|wiki:'hfb_rule'}
 				   {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
 				   <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
-				   {$post->message|wiki:'hfb_rule'|stripslashes}
+				   {$post->message|wiki:'hfb_rule'}
 				   {/ifacl2}
 			   {else}
-				   {$post->message|wiki:'hfb_rule'|stripslashes}
+				   {$post->message|wiki:'hfb_rule'}
 			   {/if}
 					<div class="signature-content">
 					{if $post->member_comment != ''}<hr/>
-					{$post->member_comment|wiki:'hfb_rule'|stripslashes}
+					{$post->member_comment|wiki:'hfb_rule'}
 					{/if}
 					</div>
 			   </div>
