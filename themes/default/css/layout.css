@@ -926,3 +926,20 @@ ol.history li {
 span.newestposts{
 	display: none;
 }
+
+.status-post-new {
+	color: #000;
+	font-weight: bold;
+}
+
+.status-opened {
+	color: #747070;
+}
+
+.status-closed {
+	color: #a09898;
+}
+
+.status-hidden {
+	color: #a7a7a7;
+}

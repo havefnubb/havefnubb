@@ -1,3 +1,3 @@
 {if $bool === false}
-**{@havefnubb~main.common.new@}**
+<span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
 {/if}

@@ -18,7 +18,7 @@
 {foreach $forumChilds as $forum}
 {if $forum->forum_type == 0}
     <tr>
-        <td class="{zone 'havefnubb~newestposts',array('id_forum'=>$forum->id_forum)}"></td>
+        <td class="{zone 'havefnubb~newestposts',array('id_forum'=>$forum->id_forum,'display'=>'icon')}"></td>
         <td>
             <h4 class="forumtitle">
                 <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>

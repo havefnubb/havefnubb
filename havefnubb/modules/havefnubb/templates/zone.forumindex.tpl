@@ -8,7 +8,7 @@
 {hook 'hfbForumIndex',array('id_forum'=>$forum->id_forum)}
 {if $forum->forum_type == 0}
     <tr>
-        <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum)}"></td>
+        <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum,'display'=>'icon')}"></td>
         <td>
             <h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
                 <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$forum->forum_name)}</a>
@@ -37,7 +37,7 @@
 {hook 'hfbForumIndex',array('id_forum'=>$forum->id_forum)}
 {if $forum->forum_type == 0}
     <tr>
-        <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum)}"></td>
+        <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum,'display'=>'icon')}"></td>
         <td class="colmain linkincell">
             <h4 class="forumtitle">
                 <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>

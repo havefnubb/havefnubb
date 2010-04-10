@@ -29,22 +29,23 @@
 	{foreach $posts as $post}
 	{hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
 	<tr>
-		<td><span class="post-status-icon-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$post->status,'id_forum'=>$id_forum)}" >&nsbp;</span> </td>
-		<td class="coltitle linkincell"><span class="newestposts">{zone 'havefnubb~newestposts',array('source'=>'post',
-												'id_post'=>$post->id_post,
-												'status'=>$post->status,
-												'id_forum'=>$id_forum,
-												'display'=>'text')}</span>
-			<a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->parent_id,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
-				{zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}
-				{social_networks
-					array(  'jurl'=>'havefnubb~posts:view',
-							'jurlparams'=>array('id_post'=>$post->parent_id,
-								'parent_id'=>$post->parent_id,
-								'id_forum'=>$post->id_forum,
-								'ftitle'=>$post->forum_name,
-								'ptitle'=>$post->subject),
-							'title'=>$post->subject)}
+		<td><span class="post-status-icon-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$post->status,'id_forum'=>$id_forum,'display'=>'icon')}" > </span> </td>
+		<td class="coltitle linkincell">{zone 'havefnubb~newestposts',
+                    array(  'source'=>'post',
+                            'id_post'=>$post->id_post,
+                            'status'=>$post->status,
+                            'id_forum'=>$id_forum,
+                            'display'=>'text')}
+                {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}
+                {social_networks
+                    array(  'jurl'=>'havefnubb~posts:view',
+                            'jurlparams'=>array('id_post'=>$post->parent_id,
+                                'parent_id'=>$post->parent_id,
+                                'id_forum'=>$post->id_forum,
+                                'ftitle'=>$post->forum_name,
+                                'ptitle'=>$post->subject),
+                            'title'=>$post->subject)}
+            </td>
 		</td>
 		<td class="colposter linkincell">
 			<a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>

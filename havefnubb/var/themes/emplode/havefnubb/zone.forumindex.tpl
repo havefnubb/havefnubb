@@ -6,7 +6,7 @@
 {hook 'hfbForumIndex',array('id_forum'=>$forum->id_forum)}
 {if $forum->forum_type == 0}
 	<tr>
-		<td class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum)}"></td>
+		<td class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum,'display'=>'icon')}"></td>
 		<td class="colmain linkincell">
 			<h4>
 			<a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
@@ -29,7 +29,7 @@
 	<tr>
 		<td class="colleft colrss"> &nbsp;</td>
 		<td class="colmain linkincell"><h4><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-		<td class="colstats linkincell" colspan="2">&nbsp;</td>
+		<td class="colstats linkincell" colspan="2">&nbsp;</td>'
 	</tr>
 {/if}
 {/ifacl2}
@@ -37,7 +37,7 @@
 {ifacl2 'hfnu.forum.list','forum'.$forum->id_forum}
 {if $forum->forum_type == 0}
 	<tr>
-		<td class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum)}"></td>
+		<td class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum,'display'=>'icon')}"></td>
 		<td class="colmain linkincell">
 			<h4 class="forumtitle">
 				<a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
