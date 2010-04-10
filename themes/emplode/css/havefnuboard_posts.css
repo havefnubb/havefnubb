@@ -36,8 +36,8 @@
 	margin: 3px;
     -moz-border-radius:0px 0px 0px 0px;
     -webkit-border-top-right-radius: 0px;
-    -webkit-border-top-left-radius: 0px; 
-    border-radius:0px 0px 0px 0px;	
+    -webkit-border-top-left-radius: 0px;
+    border-radius:0px 0px 0px 0px;
 }
 
 .pagelinks li {
@@ -49,16 +49,16 @@
 	font-weight: normal;
 }
 li.pagelinks-current  {
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 .pagelinks-current:before {
 	content : '[';
-	font-weight: bold;	
+	font-weight: bold;
 }
 .pagelinks-current:after {
 	content : ']';
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 /* posts form */
@@ -97,7 +97,7 @@ li.pagelinks-current  {
 #post-message .jelix-msg li.jelix-msg-item-notice {
     background-color: #E5F6D4;
     background-image: url("../images/information.png");
-	background-repeat: no-repeat;	
+	background-repeat: no-repeat;
 }
 
 #postadd {
@@ -110,7 +110,7 @@ li.pagelinks-current  {
     text-align: left;
 }
 .posthead-title {
-	margin-left: 9em ; 
+	margin-left: 9em ;
 	padding-left: 12px;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -119,7 +119,7 @@ li.pagelinks-current  {
 }
 
 .posthead-date {
-	margin-left: 16em ; 
+	margin-left: 16em ;
 	padding-left: 12px;
 	margin-top: 0;
 	margin-bottom: 1px;
@@ -151,7 +151,7 @@ li.pagelinks-current  {
 
 .posthead  .posthead-date {
 	font-size: small;
-	
+
 }
 
 
@@ -162,13 +162,13 @@ li.pagelinks-current  {
    display: inline;
    padding: 0 1em 0.5em 1.5em;
    overflow: hidden;
-   
+
    border-right-style: dotted;
    border-color: #baba9b;
    border-right-width: thin;
 }
-	
-	
+
+
 .postbody .post-author ul{
 	margin: 0;
 	padding: 0 0 0.5em 0;
@@ -198,7 +198,7 @@ li.pagelinks-current  {
 	list-style-type:  decimal;
 }
 
-.postbody .message-content pre {	
+.postbody .message-content pre {
 	border-left: 3px solid;
 	border-right: 1px solid;
 	border-bottom: 1px solid;
@@ -212,7 +212,7 @@ li.pagelinks-current  {
 }
 
 .postbody .message-content dl dt {
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 .postbody .message-content dl dd {
@@ -244,14 +244,14 @@ li.pagelinks-current  {
 	color:#4D5431;
 
 	text-decoration:underline;
-	text-align: center;    	
+	text-align: center;
     font-size: 11px;
 	background-color:#f1f1e5;
-    
-	cursor: pointer;    
+
+	cursor: pointer;
 }
 
-.post-actions a:hover,.post-actions a:focus,.post-actions a:active {	
+.post-actions a:hover,.post-actions a:focus,.post-actions a:active {
 
     cursor: pointer;
 	color:#c40;
@@ -264,7 +264,8 @@ li.pagelinks-current  {
 }
 
 /* posts status */
-.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-post-censored  { 
+.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-post-censored ,
+.colicone-hidden {
 	text-align: center;
 	padding: 5px;
 	width: 3%;
@@ -310,14 +311,18 @@ li.pagelinks-current  {
 	background-repeat: no-repeat;
 }
 
+.colicone-hidden {
+	background-image: url("../images/posts/hidden.png");
+	background-repeat: no-repeat;
+}
 
-.closed a:link, .closed a:visited, .closed a:active { 
+.closed a:link, .closed a:visited, .closed a:active {
 	text-decoration: underline;
 	color: #a09898;
 }
 
-.closed a:hover { 
-	color: #f90; 
+.closed a:hover {
+	color: #f90;
 	text-decoration: none;
 }
 

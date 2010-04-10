@@ -858,7 +858,8 @@ ol.history li {
 
 /* posts status */
 .colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-censored
-.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important {
+.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important,
+.colicone-hidden{
 	text-align: center;
 	padding: 5px;
 	width: 3%;
@@ -906,6 +907,11 @@ ol.history li {
 .colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important {
     background-image: url("../images/posts/important.png");
     background-repeat: no-repeat;
+}
+
+.colicone-hidden {
+	background-image: url("../images/posts/hidden.png");
+	background-repeat: no-repeat;
 }
 
 .closed a:link, .closed a:visited, .closed a:active {
