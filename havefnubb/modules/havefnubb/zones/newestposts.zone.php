@@ -64,7 +64,7 @@ class newestpostsZone extends jZone {
 					$status = $this->param('status');
 
 				$dayInSecondes = 24 * 60 * 60;
-				$dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $day_in_secondes) : floor( (time() - $rec->date_modified ) / $day_in_secondes) ;
+				$dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $dayInSecondes) : floor( (time() - $rec->date_modified ) / $dayInSecondes) ;
 			}
 			$viewed = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->viewed;
 			$recForum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
