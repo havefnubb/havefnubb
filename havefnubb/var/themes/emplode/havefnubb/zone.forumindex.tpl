@@ -23,13 +23,13 @@
 	<tr>
 		<td class="colleft colredirect"> </td>
 		<td class="colmain linkincell"><h4 class="forumtitle"><a href="{$forum->forum_url}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-		<td class="colstats linkincell" colspan="2"> </td>
+		<td class="colstats linkincell" colspan="2">&nsbp;</td>
 	</tr>
 {elseif $forum->forum_type == 2}
 	<tr>
 		<td class="colleft colrss"> &nbsp;</td>
 		<td class="colmain linkincell"><h4><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-		<td class="colstats linkincell" colspan="2">&nbsp;</td>'
+		<td class="colstats linkincell" colspan="2">&nbsp;</td>
 	</tr>
 {/if}
 {/ifacl2}
