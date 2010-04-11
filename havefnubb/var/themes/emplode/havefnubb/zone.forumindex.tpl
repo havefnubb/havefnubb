@@ -6,7 +6,7 @@
 {hook 'hfbForumIndex',array('id_forum'=>$forum->id_forum)}
 {if $forum->forum_type == 0}
 	<tr>
-		<td class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum,'display'=>'icon')}"></td>
+		<td><span class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum,'display'=>'icon')}">&nbsp;</span></td>
 		<td class="colmain linkincell">
 			<h4>
 			<a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
@@ -21,7 +21,7 @@
 	</tr>
 {elseif $forum->forum_type == 1}
 	<tr>
-		<td class="colleft colredirect"> </td>
+		<td class="colleft colredirect">&nbsp;</td>
 		<td class="colmain linkincell"><h4 class="forumtitle"><a href="{$forum->forum_url}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
 		<td class="colstats linkincell" colspan="2">&nsbp;</td>
 	</tr>
@@ -37,7 +37,7 @@
 {ifacl2 'hfnu.forum.list','forum'.$forum->id_forum}
 {if $forum->forum_type == 0}
 	<tr>
-		<td class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum,'display'=>'icon')}"></td>
+		<td><span class="colleft {zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$forum->id_forum,'display'=>'icon')}">&nbsp;</span></td>
 		<td class="colmain linkincell">
 			<h4 class="forumtitle">
 				<a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
@@ -52,7 +52,7 @@
 	</tr>
 {elseif $forum->forum_type == 1}
 	<tr>
-		<td class="colleft_index colredirect"> </td>
+		<td class="colleft_index colredirect">&nbsp; </td>
 		<td class="colmain_index linkincell"><h4 class="forumtitle"><a href="{$forum->forum_url}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
 		<td class="colstats_index linkincell" colspan="2"> </td>
 	</tr>

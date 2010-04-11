@@ -264,16 +264,25 @@ li.pagelinks-current  {
 }
 
 /* posts status */
-.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-post-censored ,
-.colicone-hidden {
+.colicone-closed, .colicone-opened,
+.colicone-pined, .colicone-pinedclosed,
+.colicone-post-new, .colicone-post-censored ,
+.colicone-hidden, .colicone-pined_important {
 	text-align: center;
-	padding: 5px;
+	padding: 8px;
 	width: 3%;
-	background-color: #c9c9a7;
 	background-position: center;
 }
 
-.post-status-icon-opened, .post-status-icon-closed, .post-status-icon-pined, .post-status-icon-pinedclosed, .post-status-icon-censored {
+.post-status-opened, .post-status-closed,
+.post-status-pined, .post-status-pinedclosed,
+.post-status-censored {
+	display:none;
+}
+
+.post-status-icon-opened, .post-status-icon-closed,
+.post-status-icon-pined, .post-status-icon-pinedclosed,
+.post-status-icon-censored,.post-status-icon-hidden {
 	background-position: left;
 	padding-top: 0px;
 	padding-bottom: 4px;
@@ -311,7 +320,12 @@ li.pagelinks-current  {
 	background-repeat: no-repeat;
 }
 
-.colicone-hidden {
+.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important {
+    background-image: url("../images/posts/important.png");
+    background-repeat: no-repeat;
+}
+
+.colicone-hidden, .post-status-icon-hidden {
 	background-image: url("../images/posts/hidden.png");
 	background-repeat: no-repeat;
 }
@@ -329,4 +343,21 @@ li.pagelinks-current  {
 #post-split-to {
 	padding-left : 20px;
 	padding-right : 20px;
+}
+
+.status-post-new {
+	color: #9f8063;
+	font-weight: bold;
+}
+
+.status-opened {
+	color: #543;
+}
+
+.status-closed {
+	color: #a09898;
+}
+
+.status-hidden {
+	color: #a7a7a7;
 }

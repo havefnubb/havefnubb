@@ -34,6 +34,7 @@
         </thead>
         {zone 'havefnubb~pinedposts', array('id_forum'=>$id_forum)}
         <tbody>
+        {if $posts->rowCount() > 0}
         {foreach $posts as $post}
         {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
         <tr>
@@ -71,6 +72,9 @@
             </td>
         </tr>
         {/foreach}
+        {else}
+            <tr><td colspan="6"></td></tr>
+        {/if}
         </tbody>
     </table>
     </div>

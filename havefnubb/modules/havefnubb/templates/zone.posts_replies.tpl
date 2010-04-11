@@ -24,13 +24,14 @@
 {/ifacl2}
 <div class="clear"></div>
 <br/>
+{assign $i=0}
 {foreach $posts as $post}
     {hook 'hfbPostReplies',array('id_post'=>$id_post)}
     {assign $parent_id = $post->parent_id}
     {assign $id_forum = $post->id_forum}
     {ifacl2 'hfnu.posts.view','forum'.$id_forum}
 <div class="box">
-    <h2>[{jlocale 'havefnubb~post.status.'.$post->status}] {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
+    <h2><span class="post-status-icon-{$status}">&nbsp;</span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
@@ -43,7 +44,7 @@
         {/if}&nbsp;
         </div>
         <div class="grid_8 postheading">
-        <h5>{$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</h5>
+        <h5><a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if} {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</a></h5>
         </div>
         {if count($tags) > 0}
         <div class="grid_2 postheading-tags">
@@ -120,6 +121,7 @@
     </div>
 </div>
     {/ifacl2}
+    {assign $i++}
 {/foreach}
 
 <div class="fake-button-left grid_8 alpha">&nbsp;

@@ -26,10 +26,11 @@
 		<th class="listcol">{@havefnubb~forum.forumlist.last.comments@}</th>
 	</tr>
 	{zone 'havefnubb~pinedposts', array('id_forum'=>$id_forum)}
+	{if $posts->rowCount() > 0}
 	{foreach $posts as $post}
 	{hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
 	<tr>
-		<td><span class="post-status-icon-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$post->status,'id_forum'=>$id_forum,'display'=>'icon')}" > </span> </td>
+		<td><span class="colicone-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$post->status,'id_forum'=>$id_forum,'display'=>'icon')}" >&nbsp;</span></td>
 		<td class="coltitle linkincell">{zone 'havefnubb~newestposts',
                     array(  'source'=>'post',
                             'id_post'=>$post->id_post,
@@ -45,7 +46,6 @@
                                 'ftitle'=>$post->forum_name,
                                 'ptitle'=>$post->subject),
                             'title'=>$post->subject)}
-            </td>
 		</td>
 		<td class="colposter linkincell">
 			<a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>
@@ -60,6 +60,9 @@
 		</td>
 	</tr>
 	{/foreach}
+	{else}
+		<tr><td colspan="6"></td></tr>
+	{/if}
 </table>
 
 <div class="newmessage">

@@ -39,6 +39,7 @@ $(document).ready(function(){
 {/ifacl2}
 
 <div class="postlist">
+{assign $i=0}
 {foreach $posts as $post}
 {hook 'hfbPostReplies',array('id_post'=>$id_post)}
 {assign $parent_id = $post->parent_id}
@@ -55,7 +56,10 @@ $(document).ready(function(){
 										'return_url_params'=>array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
 										)}
 		{/if}
-		<div class="posthead-date">{$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</div>
+		<div class="posthead-date">
+            <a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
+            {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</a>
+        </div>
 		{if count($tags) > 0}
 		<div class="posthead-tags"><ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul></div>
 		{/if}
@@ -130,6 +134,7 @@ $(document).ready(function(){
 	 </div>
 </div>
 {/ifacl2}
+{assign $i++}
 {/foreach}
 </div>
 <div class="newmessage">

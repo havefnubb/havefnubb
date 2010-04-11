@@ -866,6 +866,14 @@ ol.history li {
 	background-position: center;
 }
 
+
+.post-status-opened, .post-status-closed,
+.post-status-pined, .post-status-pinedclosed,
+.post-status-censored {
+	display:none;
+}
+
+
 .post-status-icon-opened, .post-status-icon-closed, .post-status-icon-pined, .post-status-icon-pinedclosed, .post-status-icon-censored {
 	background-position: left;
 	padding-top: 0px;
