@@ -110,7 +110,8 @@ class hfnuposts {
 	public static function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {
 		$daoPost = jDao::get('havefnubb~posts');
 		// total number of posts
-		$nbPosts = $daoPost->countPostsByForumId($id_forum);
+		$nbTtlPosts = $daoPost->countPostsByForumId($id_forum);
+		$nbPinedPosts = $daoPost->countPinedPostsByForumId($id_forum);
 		// get the posts of the current forum, limited by point 1 and 2
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             $posts = $daoPost->findByIdForumVisible($id_forum,$page,$nbPostPerPage);
@@ -127,6 +128,7 @@ class hfnuposts {
                     $page = 0;
             }
         }
+		$nbPosts = abs($nbTtlPosts - $nbPinedPosts);
 		return array($page,$nbPosts,$posts);
 	}
 

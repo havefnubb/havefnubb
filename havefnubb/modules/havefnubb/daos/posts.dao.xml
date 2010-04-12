@@ -216,6 +216,17 @@
                 <eq property="id_post" expr="posts.parent_id" />
             </conditions>
         </method>
+        <method name="countPinedPostsByForumId" type="count">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <eq property="id_post" expr="posts.parent_id" />
+                <conditions logic="OR">
+                        <eq property="status" value="pined" />
+                        <eq property="status" value="pinedclosed" />
+                </conditions>
+            </conditions>
+        </method>
         <method name="countThreads" type="count">
             <parameter name="id_forum" />
             <conditions logic="AND">
