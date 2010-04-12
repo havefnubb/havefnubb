@@ -72,7 +72,7 @@
 </div>
 
 <div class="pager-posts">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+{@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
 {/ifacl2}
 {ifacl2 'hfnu.forum.goto'}
