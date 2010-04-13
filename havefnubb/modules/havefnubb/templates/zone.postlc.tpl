@@ -4,7 +4,7 @@
         'parent_id'=>$post->parent_id,
         'id_forum'=>$post->id_forum,
         'ftitle'=>$post->forum_name,
-        'ptitle'=>$post->subject)}"
+        'ptitle'=>$post->subject)}#p{$post->id_post}"
    title="{@havefnubb~main.goto_this_message@}">{$post->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@} <a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{$user->login|eschtml}">{$user->login|eschtml}</a>
 {else}
 {$msg}
