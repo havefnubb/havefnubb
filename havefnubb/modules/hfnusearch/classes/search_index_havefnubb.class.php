@@ -54,7 +54,10 @@ class search_index_havefnubb extends search_index {
 			$conditions->endGroup();
 
 			$allRecord = $dao->findBy($conditions);
-			$record = $dao->findBy($conditions, $page, $limit);
+			if ($page > 0 and $limit > 0)
+				$record = $dao->findBy($conditions, $page, $limit);
+			else
+				$record = $allRecord;
 
 			foreach ($record as $rec) {
 				if (jAcl2::check('hfnu.forum.view','forum'.$rec->id_forum))

@@ -25,7 +25,7 @@ class search_in {
 										  )
 									);
 
-		$result = array('datas'=>'','total'=>0);
+		$result = array('total'=>0,'datas'=>'');
 		foreach($eventresp->getResponse() as $rep){
 			if(!isset($rep['SearchEngineResult']) ) {
 				$result['datas'] = array();

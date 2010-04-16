@@ -96,6 +96,7 @@ class defaultCtrl extends jController {
 		$tpl->assign('datas',$result['datas']);
 		$tpl->assign('page',$page);
 		$tpl->assign('resultsPerPage',$resultsPerPage);
+		$tpl->assign('perform_search_in',$perform);
 		$tpl->assign('properties',$properties);
 		$rep = $this->getResponse('html');
 		$rep->title = jLocale::get('hfnusearch~search.results.of.search');
@@ -105,17 +106,26 @@ class defaultCtrl extends jController {
 	/**
 	 * Autocomplete Query
 	 */
-
 	public function queryajax () {
 		$string = (string) $this->param('q');
 		if ($string == '') return;
+
+		$additionnalParam = '';
+
+		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
+
 		$perform = jClasses::getService('hfnusearch~search_in');
 
-		$result = $perform->searchInWords($string,$additionnalParam);
+		$page = 0;
+
+		$resultsPerPage = (int) $HfnuSearchConfig->getValue('results_per_page');
+
+		$result = $perform->searchInWords($string,$additionnalParam,$page,$resultsPerPage);
 
 		$rep = $this->getResponse('htmlfragment');
-		for ($i = 0 ; $i < count($result) ; $i++ ) {
-			echo $result[$i]['subject']."\n";
+		if ($result['total'] > 0)
+		for ($i = 0 ; $i < count($result['datas']) ; $i++ ) {
+			echo $result['datas'][$i]['subject']."\n";
 		}
 
 		return $rep;
