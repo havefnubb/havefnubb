@@ -102,8 +102,10 @@ class hfnuread {
 				else
 					$postRead = jDao::get('havefnubb~posts')->getUserLastVisibleCommentOnPosts($id_post)->date_modified;
 
+                if ($postRead == false) return false;
+
 				$dateReadForum = jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum)->date_read;
-				return ($postRead> $dateReadForum) ? false : true;
+                return ($postRead->date_modified > $dateReadForum) ? false : true;
 			}
 		else
 			return true;
