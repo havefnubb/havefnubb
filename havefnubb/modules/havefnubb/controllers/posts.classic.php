@@ -71,7 +71,7 @@ class postsCtrl extends jController {
 		// let's build the pagelink var
 		// A Preparing / Collecting datas
 		// 0- the properties of the pager
-		$properties = array('start-label' => ' ',
+		$properties = array('start-label' => '',
 					  'prev-label'  => '',
 					  'next-label'  => '',
 					  'end-label'   => jLocale::get("havefnubb~main.common.pagelinks.end"),
@@ -122,7 +122,7 @@ class postsCtrl extends jController {
 		$tpl->assign('id_forum',$id_forum);
 		$tpl->assign('lvl',$forum->child_level);
 		$tpl->assign('properties',$properties);
-
+		$tpl->assign('currentIdForum',$forum->id_forum);
 		$rep->body->assign('currentIdForum',$forum->id_forum);
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));
 		return $rep;
@@ -185,7 +185,7 @@ class postsCtrl extends jController {
 		$tpl->assign('page'	,$page);
 		$tpl->assign('subject'	,$post->subject);
 		$tpl->assign('status'	,$status);
-
+		$tpl->assign('currentIdForum',$forum->id_forum);
 		$rep->title = '['.jLocale::get('havefnubb~post.status.'.$status).'] '.$post->subject;
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));
 		return $rep;

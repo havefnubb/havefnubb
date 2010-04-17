@@ -38,7 +38,7 @@ class posts_repliesZone extends jZone {
 		// let's build the pagelink var
 		// A Preparing / Collecting datas
 		// 0- the properties of the pager
-		$properties = array('start-label' => ' ',
+		$properties = array('start-label' => '',
 					  'prev-label'  => '',
 					  'next-label'  => '',
 					  'end-label'   => jLocale::get("havefnubb~main.common.pagelinks.end"),

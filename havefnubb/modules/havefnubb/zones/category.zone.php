@@ -23,6 +23,7 @@ class categoryZone extends jZone {
 		$nbCat = (int) $this->getParam('nbCat');
 
 		$this->_tpl->assign('selectedMenuItem','community');
+		$this->_tpl->assign('currentIdForum',0);
 		$this->_tpl->assign('action','index');
 		$this->_tpl->assign('categories',$data);
 		$this->_tpl->assign('nbCat',$nbCat);

@@ -1,6 +1,11 @@
 <div class="box">
     <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>{if $action == 'view'} > {$category->cat_name|eschtml}{/if}</h3>
 </div>
+{zone 'hfnusearch~hfnuquicksearch'}
+{ifuserconnected}
+{zone 'havefnubb~mark_forum',array('currentIdForum'=>$currentIdForum)}
+{/ifuserconnected}
+<div class="clear"></div>
 <div id="post-message">{jmessage}</div>
 {hook 'hfbBeforeCategoryList'}
 {if $action == 'index'}
@@ -21,7 +26,7 @@
 {hook 'hfbAfterCategoryList'}
 <div class="grid_5 alpha">
     {zone 'havefnubb~lastposts'}
-    {zone 'havefnubb~stats'}		
+    {zone 'havefnubb~stats'}
 </div>
 
 <div class="grid_5">
@@ -30,7 +35,6 @@
 </div>
 
 <div class="grid_6 omega">
-    {zone 'hfnusearch~hfnuquicksearch'}
-    {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}    					
+    {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}
 </div>
 <div class="clear"></div>

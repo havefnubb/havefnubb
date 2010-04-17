@@ -55,7 +55,7 @@ class categoryCtrl extends jController {
 
 		$tpl->assign('action','view');
 		$tpl->assign('category',$category);
-
+		$tpl->assign('currentIdForum',0);
 		$rep->body->assign('MAIN', $tpl->fetch('zone.category'));
 		return $rep;
 	}

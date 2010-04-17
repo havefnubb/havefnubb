@@ -29,7 +29,17 @@
     {hook 'hfbPostReplies',array('id_post'=>$id_post)}
     {assign $parent_id = $post->parent_id}
     {assign $id_forum = $post->id_forum}
+
     {ifacl2 'hfnu.posts.view','forum'.$id_forum}
+    {social_networks
+        array(  'jurl'=>'havefnubb~posts:view',
+                'jurlparams'=>array('id_post'=>$post->parent_id,
+                    'parent_id'=>$post->parent_id,
+                    'id_forum'=>$post->id_forum,
+                    'ftitle'=>$post->forum_name,
+                    'ptitle'=>$post->subject),
+                'title'=>$post->subject)}
+
 <div class="box">
     <h2><span class="post-status-icon-{$status}">&nbsp;</span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
     <div class="block">

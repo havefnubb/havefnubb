@@ -85,7 +85,7 @@ class defaultCtrl extends jController {
 			$rep->action = 'hfnusearch~default:index';
 			return $rep;
 		}
-		$properties = array('start-label' => ' ',
+		$properties = array('start-label' => '',
 					  'prev-label'  => '',
 					  'next-label'  => '',
 					  'end-label'   => jLocale::get("hfnusearch~search.pagelinks.end"),
