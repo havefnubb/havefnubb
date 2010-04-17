@@ -18,7 +18,7 @@ class defaultCtrl extends jController {
         '*'		=> array('auth.required'=>false),
     );
 	/**
-	 *Put a rate
+	 * Put a rate
 	 */
 	function rate_it() {
 		//info about the "source" from where the datas come from
@@ -44,10 +44,9 @@ class defaultCtrl extends jController {
 		//check if the cancel button was selected
 		if ($id_source == 0 or $source == '') return;
 
-		$rate 		= (float) $this->param('star1');
-		$rates 		= jClasses::getService('hfnurates~rates');
-		$rates->saveRatesBySource($id_source,$source,$rate);
-		$result     = $rates->getTotalRatesBySource($id_source,$source);
+		$rate 	= (float) $this->param('star1');
+		jClasses::getService('hfnurates~rates')->saveRatesBySource($id_source,$source,$rate);
+		$result = jClasses::getService('hfnurates~rates')->getTotalRatesBySource($id_source,$source);
 
 		$rep = $this->getResponse('htmlfragment');
 		$rep->addContent( jLocale::get('hfnurates~main.total.of.rates').':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level );

@@ -72,7 +72,7 @@ class hfnusub {
 
             $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id);
 
-            $subject = $post->subject . jLocale::get('havefnubb~post.new.comment.received');
+            $subject = jLocale::get('havefnubb~post.new.comment.received') . " :" .$post->subject ;
 
 			$mail = new jMailer();
 			$mail->From       = $gJConfig->mailer['webmasterEmail'];

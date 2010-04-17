@@ -43,7 +43,7 @@ class rates {
 
 		$rec = $dao->getByIdSourceSourceRate($id_user, $id_source, $source);
 
-		if ($rec->id_source == null) {
+		if ($rec == false) {
 			$record = jDao::createRecord('hfnurates~rates');
 			$record->id_source  = $id_source;
 			$record->id_user    = $id_user;

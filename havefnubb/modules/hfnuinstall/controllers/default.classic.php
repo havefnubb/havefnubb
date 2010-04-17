@@ -246,14 +246,14 @@ class defaultCtrl extends jController {
 						$sources = file($file);
 						$newSource = '';
 
-						$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) `(hf_)(.*)/';
+						$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) `?(hf_)(.*)/';
 
 						foreach ((array)$sources as $key=>$line) {
 							if (preg_match($pattern,$line,$match)) {
 								if ($tablePrefix != 'null_')
-									$newSource .= $match[1] .' `'.$tablePrefix . $match[3];
+									$newSource .= $match[1] .' '.$tablePrefix . $match[3];
 								else
-									$newSource .= $match[1] .' `'. $match[3];
+									$newSource .= $match[1] .' '. $match[3];
 							}
 							else {
 								$newSource .= $line;
