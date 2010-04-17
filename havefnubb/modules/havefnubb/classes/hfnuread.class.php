@@ -98,9 +98,9 @@ class hfnuread {
 				return false;
 			else {
 				if (  jAcl2::check('hfnu.admin.post') )
-					$postRead = jDao::get('havefnubb~posts')->getUserLastCommentOnPosts($id_post)->date_modified;
+					$postRead = jDao::get('havefnubb~posts')->getUserLastCommentOnPosts($id_post);
 				else
-					$postRead = jDao::get('havefnubb~posts')->getUserLastVisibleCommentOnPosts($id_post)->date_modified;
+					$postRead = jDao::get('havefnubb~posts')->getUserLastVisibleCommentOnPosts($id_post);
 
                 if ($postRead == false) return false;
 
