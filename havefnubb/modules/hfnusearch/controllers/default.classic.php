@@ -129,7 +129,7 @@ class defaultCtrl extends jController {
 		$rep = $this->getResponse('htmlfragment');
 		if ($result['total'] > 0)
 		for ($i = 0 ; $i < count($result['datas']) ; $i++ ) {
-			echo $result['datas'][$i]['subject']."\n";
+			$rep->addContent( $result['datas'][$i]['subject']."\n" );
 		}
 
 		return $rep;
