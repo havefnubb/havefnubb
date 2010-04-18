@@ -28,7 +28,11 @@ class defaultCtrl extends jController {
 						  'banuser.check'=>true,
 						  'history.add'=>true,
 					),
-
+		'queryajax'	=>	array('auth.required'=>false,
+						  'hfnu.check.installed'=>true,
+						  'banuser.check'=>true,
+						  'history.add'=>false,
+					),
 	);
 	/**
 	 * Main page of search
@@ -96,7 +100,7 @@ class defaultCtrl extends jController {
 		$tpl->assign('datas',$result['datas']);
 		$tpl->assign('page',$page);
 		$tpl->assign('resultsPerPage',$resultsPerPage);
-		$tpl->assign('perform_search_in',$perform);
+		$tpl->assign('perform_search_in',$this->param('perform_search_in'));
 		$tpl->assign('properties',$properties);
 		$rep = $this->getResponse('html');
 		$rep->title = jLocale::get('hfnusearch~search.results.of.search');
