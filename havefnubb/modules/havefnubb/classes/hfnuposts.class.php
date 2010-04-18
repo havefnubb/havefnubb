@@ -197,9 +197,12 @@ class hfnuposts {
 		if ($id_post == 0 ) return;
 		$dao = jDao::get('havefnubb~posts');
 		$post = $dao->get($id_post);
-		$post->viewed = $post->viewed +1;
-		$dao->update($post);
+		if ($post !== false)  {
+			$post->viewed = $post->viewed +1;
+			$dao->update($post);
+		}
 	}
+
 
 	/**
 	 * readByMod : update the 'read by mod' flag
