@@ -18,7 +18,11 @@ class defaultCtrl extends jController {
 		'*'	=> array('auth.required'=>false,
 						'banuser.check'=>true
 						),
-		'cloud'	=> array('hfnu.check.installed'=>true),
+		'cloud'	=> array('hfnu.check.installed'=>true,
+						'history.add'=>true,
+						'history.label'=>'Accueil',
+						'history.title'=>'Aller vers la page d\'accueil'
+						 ),
 		'index' => array('hfnu.check.installed'=>true,
 						'history.add'=>true,
 						'history.label'=>'Accueil',
