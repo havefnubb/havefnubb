@@ -109,6 +109,7 @@
         <!-- hfnusearch -->
         <url pathinfo="/search" module="hfnusearch" action="default:index"/>
         <url pathinfo="/search/results" module="hfnusearch" action="default:query" />
+        <url pathinfo="/search/ajxresults" module="hfnusearch" action="default:queryajax" />
 
         <!-- jtag -->
         <url pathinfo="/tag/:tag"  module="havefnubb" action="default:cloud">
