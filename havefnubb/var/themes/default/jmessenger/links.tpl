@@ -16,8 +16,8 @@ $(document).ready(function(){
 		<ul class="nav main">
 			<li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-general">{@havefnubb~member.general@}</a></li>
 			<li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-pref">{@havefnubb~member.pref@}</a></li>
-			<li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>
-			<li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>
+			<li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-messenger">{@hfnuim~im.instant.messenger@}</a></li>
+			<li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-hardware">{@hfnuhardware~hw.hardware@}</a></li>
 		</ul>
 	</div>
 </div>

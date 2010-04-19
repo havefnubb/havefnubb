@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+	<info id="hfnuim@havefnubb.org" name="havefnubb" createdate="2010-04-19">
+		<version>1.0</version>
+		<label lang="en_EN">Member IM properties</label>
+		<description lang="en_EN">Add instant messaging properties into the member account</description>
+		<label lang="fr_FR">Propriétés IM d'un membre</label>
+		<description lang="fr_FR">Ajoute des propriétés de compte de messagerie instantannée dans les comptes utilisateurs</description>
+		<license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
+		<copyright>2010 Laurentj</copyright>
+		<creator name="Laurentj" email="laurent@jelix.org" active="true" />
+		<homepageURL>http://www.havefnubb.org/</homepageURL>
+	</info>
+	<dependencies>
+		<jelix minversion="1.1.5" maxversion="1.1.5" />
+		<module name="jcommunity" minversion="0.1" maxversion="0.2" />
+		<module name="havefunbb"/>
+	</dependencies>
+</module>

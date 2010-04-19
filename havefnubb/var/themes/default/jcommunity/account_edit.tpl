@@ -19,8 +19,6 @@ $(document).ready(function(){
 			<ul class="nav main">
 				<li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
 				<li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
-				<li><a href="#user-profile-messenger">{@havefnubb~member.instant.messenger@}</a></li>
-				<li><a href="#user-profile-hardware">{@havefnubb~member.hardware@}</a></li>                
 				{hook 'hfbAccountEditTab',array('user'=>$username)}
 			</ul>
             {jmessage}
@@ -48,6 +46,13 @@ $(document).ready(function(){
 					{/ifacl2}
 					<div class="clearer">&nbsp;</div>
 				</div>
+        <div class="form_row">
+					<div class="form_property">
+						<label class="user-email user-image">&nbsp;</label>
+					</div>
+					<div class="form_value"><a href="{jurl 'havefnubb~members:mail'}">{@havefnubb~member.internal.messenger@}</a></div>
+					<div class="clearer">&nbsp;</div>
+				</div>
 			</fieldset>
 			<fieldset>
 				<legend><span class="user-location user-image">{@havefnubb~member.common.location@}</span></legend>
@@ -67,58 +72,6 @@ $(document).ready(function(){
 						<label class="user-website user-image"><strong>{ctrl_label 'member_website'}</strong></label>
 					</div>
 					<div class="form_value">{ctrl_control 'member_website'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-			</fieldset>
-			</div>
-			<div id="user-profile-messenger">
-			<fieldset>
-				<legend><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></legend>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-email user-image">&nbsp;</label>
-					</div>
-					<div class="form_value"><a href="{jurl 'havefnubb~members:mail'}">{@havefnubb~member.internal.messenger@}</a></div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-xfire user-image"><strong>{ctrl_label 'member_xfire'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_xfire'}</div>
-					<div class="form_property">
-						<label class="user-icq user-image"><strong>{ctrl_label 'member_icq'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_icq'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-yim user-image"><strong>{ctrl_label 'member_yim'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_yim'}</div>
-					<div class="form_property">
-						<label class="user-msn user-image"><strong>{ctrl_label 'member_hotmail'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_hotmail'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-aim user-image"><strong>{ctrl_label 'member_aol'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_aol'}</div>
-					<div class="form_property">
-						<label class="user-gtalk user-image"><strong>{ctrl_label 'member_gtalk'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_gtalk'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-jabber user-image"><strong>{ctrl_label 'member_jabber'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_jabber'}</div>
 					<div class="clearer">&nbsp;</div>
 				</div>
 			</fieldset>
@@ -168,66 +121,7 @@ $(document).ready(function(){
 				</div>
 			</fieldset>
 			</div>
-			<div id="user-profile-hardware">
-			<fieldset>
-				<legend><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></legend>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-connect user-image"><strong>{ctrl_label 'member_connection'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_connection'}</div>
-					<div class="form_property">
-						<label class="user-os user-image"><strong>{ctrl_label 'member_os'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_os'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-processor user-image"><strong>{ctrl_label 'member_proc'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_proc'}</div>
-					<div class="form_property">
-						<label class="user-motherboard user-image"><strong>{ctrl_label 'member_mb'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_mb'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-card user-image"><strong>{ctrl_label 'member_card'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_card'}</div>
-					<div class="form_property">
-						<label class="user-ram user-image"><strong>{ctrl_label 'member_ram'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_ram'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-display user-image"><strong>{ctrl_label 'member_display'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_display'}</div>
-					<div class="form_property">
-						<label class="user-screen user-image"><strong>{ctrl_label 'member_screen'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_screen'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-mouse user-image"><strong>{ctrl_label 'member_mouse'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_mouse'}</div>
-					<div class="form_property">
-						<label class="user-keyboard user-image"><strong>{ctrl_label 'member_keyb'}</strong></label>
-					</div>
-					<div class="form_value">{ctrl_control 'member_keyb'}</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-			</fieldset>
-			</div>
+      {hookinclude 'hfbAccountEditInclude',array('user'=>$username)}
 			{hook 'hfbAccountEditDiv',array('user'=>$username)}
 		</div> <!-- #container -->
 		<div class="form_row form_row_submit">

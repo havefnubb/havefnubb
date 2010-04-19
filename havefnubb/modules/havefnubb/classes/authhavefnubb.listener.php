@@ -46,6 +46,11 @@ class authhavefnubbListener extends jEventListener{
 		unset($_SESSION['JX_LANG']);
 	}
 
+    function onAuthRemoveUser($event) {
+        $dao = jDao::get('havefunbb~member_custom_fields');
+        $dao->deleteByUser($event->getParam('user')->id);
+    }
+
 	/**
 	* to answer to jcommunity_save_account event
 	* @param object $event the given event to answer to

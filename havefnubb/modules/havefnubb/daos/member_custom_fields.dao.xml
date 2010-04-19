@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="member_custom_fields" realname="member_custom_fields" primarykey="id_user,type" />
+    </datasources>
+    <record>        
+      <property name="id" fieldname="id_user" required="true" datatype="integer"/>
+    	<property name="type" required="yes" datatype="string"  maxlength="30" />
+    	<property name="data" datatype="string" />
+   </record>
+   <factory>
+     <method name="getByUser" type="select">
+         <parameter name="user" />
+         <conditions>
+             <eq property="id" expr="$user" />
+         </conditions>
+     </method>
+
+     <method name="deleteByUser" type="delete">
+         <parameter name="user" />
+         <conditions>
+             <eq property="id" expr="$user" />
+         </conditions>
+     </method>
+
+     <method name="getByUserAndType" type="select">
+         <parameter name="user" />
+         <parameter name="type" />
+         <conditions>
+             <eq property="id" expr="$user" />
+             <eq property="type" expr="$type" />
+         </conditions>
+     </method>
+
+     <method name="getByUserAndFamilyType" type="select">
+         <parameter name="user" />
+         <parameter name="type" />
+         <conditions>
+             <eq property="id" expr="$user" />
+             <like property="type" expr="$type" />
+         </conditions>
+     </method>
+   </factory>
+</dao>

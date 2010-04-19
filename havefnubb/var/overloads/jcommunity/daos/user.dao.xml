@@ -35,25 +35,6 @@
 	<property name="member_avatar" fieldname="member_avatar" datatype="string" maxlength="255"/>
 	<property name="member_gravatar" fieldname="member_gravatar" datatype="integer" default="0"/>
 
-	<property name="member_xfire" fieldname="member_xfire" datatype="string" maxlength="80"/>
-	<property name="member_icq" fieldname="member_icq" datatype="string" maxlength="80"/>
-	<property name="member_hotmail" fieldname="member_hotmail" datatype="string" maxlength="255"/>
-	<property name="member_yim" fieldname="member_yim" datatype="string" maxlength="255"/>
-    <property name="member_aol" fieldname="member_aol" datatype="string" maxlength="255"/>
-	<property name="member_gtalk" fieldname="member_gtalk" datatype="string" maxlength="255"/>
-	<property name="member_jabber" fieldname="member_jabber" datatype="string" maxlength="255"/>
-
-	<property name="member_proc" fieldname="member_proc" datatype="string" default="" maxlength="40"/>
-	<property name="member_mb" fieldname="member_mb" datatype="string" default="" maxlength="40"/>
-	<property name="member_card" fieldname="member_card" datatype="string" default="" maxlength="40"/>
-	<property name="member_ram" fieldname="member_ram" datatype="string" default="" maxlength="40"/>
-	<property name="member_display" fieldname="member_display" datatype="string" default="" maxlength="40"/>
-	<property name="member_screen" fieldname="member_screen" datatype="string" default="" maxlength="40"/>
-	<property name="member_mouse" fieldname="member_mouse" datatype="string" default="" maxlength="40"/>
-	<property name="member_keyb" fieldname="member_keyb" datatype="string" default="" maxlength="40"/>
-	<property name="member_os" fieldname="member_os" datatype="string" default="" maxlength="40"/>
-	<property name="member_connection" fieldname="member_connection" datatype="string" default="" maxlength="40"/>
-
 	<property name="member_last_connect" fieldname="member_last_connect" datatype="integer" default="0" />
 
     <property name="member_show_email" fieldname="member_show_email" datatype="string" maxlength="1"/>

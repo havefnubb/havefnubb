@@ -178,23 +178,6 @@ CREATE TABLE hf_member (
     member_town character varying(100) DEFAULT NULL::character varying,
     member_comment character varying(255) DEFAULT NULL::character varying,
     member_avatar character varying(255) DEFAULT NULL::character varying,
-    member_xfire character varying(80) DEFAULT NULL::character varying,
-    member_icq character varying(80) DEFAULT NULL::character varying,
-    member_hotmail character varying(255) DEFAULT NULL::character varying,
-    member_yim character varying(255) DEFAULT NULL::character varying,
-    member_aol character varying(255) DEFAULT NULL::character varying,
-    member_gtalk character varying(255) DEFAULT NULL::character varying,
-    member_jabber character varying(255) DEFAULT NULL::character varying,
-    member_proc character varying(40) DEFAULT NULL::character varying,
-    member_mb character varying(40) DEFAULT NULL::character varying,
-    member_card character varying(40) DEFAULT NULL::character varying,
-    member_ram character varying(40) DEFAULT NULL::character varying,
-    member_display character varying(40) DEFAULT NULL::character varying,
-    member_screen character varying(40) DEFAULT NULL::character varying,
-    member_mouse character varying(40) DEFAULT NULL::character varying,
-    member_keyb character varying(40) DEFAULT NULL::character varying,
-    member_os character varying(40) DEFAULT NULL::character varying,
-    member_connection character varying(40) DEFAULT NULL::character varying,
     member_last_connect integer,
     member_show_email character varying(1) DEFAULT 'N'::character varying,
     member_language character varying(40) DEFAULT 'fr_FR'::character varying,
@@ -204,6 +187,15 @@ CREATE TABLE hf_member (
     CONSTRAINT id_user UNIQUE (id_user)    
 );
 SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('hf_member', 'id_user'), 1, false);
+
+DROP TABLE IF EXISTS hf_member_custom_fields;
+CREATE TABLE hf_member_custom_fields (
+  id_user integer NOT NULL,
+  type character varying(30) NOT NULL,
+  data text NOT NULL,
+  CONSTRAINT PRIMARY KEY  (id_user,type)
+);
+
 
 drop table if exists hf_notify;
 CREATE TABLE hf_notify (

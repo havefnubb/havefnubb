@@ -454,23 +454,6 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
   `member_town` varchar(100) DEFAULT NULL,
   `member_comment` varchar(255) DEFAULT NULL,
   `member_avatar` varchar(255) DEFAULT NULL,
-  `member_xfire` varchar(80) DEFAULT NULL,
-  `member_icq` varchar(80) DEFAULT NULL,
-  `member_hotmail` varchar(255) DEFAULT NULL,
-  `member_yim` varchar(255) DEFAULT NULL,
-  `member_aol` varchar(255) DEFAULT NULL,
-  `member_gtalk` varchar(255) DEFAULT NULL,
-  `member_jabber` varchar(255) DEFAULT NULL,
-  `member_proc` varchar(40) DEFAULT NULL,
-  `member_mb` varchar(40) DEFAULT NULL,
-  `member_card` varchar(40) DEFAULT NULL,
-  `member_ram` varchar(40) DEFAULT NULL,
-  `member_display` varchar(40) DEFAULT NULL,
-  `member_screen` varchar(40) DEFAULT NULL,
-  `member_mouse` varchar(40) DEFAULT NULL,
-  `member_keyb` varchar(40) DEFAULT NULL,
-  `member_os` varchar(40) DEFAULT NULL,
-  `member_connection` varchar(40) DEFAULT NULL,
   `member_last_connect` int(12) DEFAULT NULL,
   `member_show_email` varchar(1) DEFAULT 'N',
   `member_language` varchar(40) DEFAULT 'fr_FR',
@@ -482,6 +465,13 @@ CREATE TABLE IF NOT EXISTS `hf_member` (
   UNIQUE KEY `id_user` (`id_user`)
 ) DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `hf_member_custom_fields`;
+CREATE TABLE `hf_member_custom_fields` (
+  `id_user` int(11) NOT NULL,
+  `type` varchar(30) NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY  (`id_user`,`type`)
+) DEFAULT  CHARSET=utf8;
 -- --------------------------------------------------------
 
 --

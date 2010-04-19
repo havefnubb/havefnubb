@@ -4,6 +4,7 @@
 		<event name="AuthLogin" />
 		<event name="AuthLogout" />
 		<event name="AuthNewUser" />
+    <event name="AuthRemoveUser" />
 		<event name="jcommunity_save_account" />
 		<event name="jcommunity_registration_prepare_save"/>
 	</listener>

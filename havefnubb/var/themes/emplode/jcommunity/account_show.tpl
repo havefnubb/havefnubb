@@ -44,8 +44,6 @@ $(document).ready(function(){
 		<ul>
 			<li><a href="#user-profile-general"><span class="user-general user-image">{@havefnubb~member.general@}</span></a></li>
 			<li><a href="#user-profile-pref"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></a></li>
-			<li><a href="#user-profile-messenger"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></a></li>
-			<li><a href="#user-profile-hardware"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></a></li>
 			{hook 'hfbAccountShowTab',array($user->login)}
 		</ul>
 		<div id="user-profile-general">
@@ -147,68 +145,6 @@ $(document).ready(function(){
 				</div>
 			</fieldset>
 		</div>
-		<div id="user-profile-messenger">
-			<fieldset>
-				<div class="legend"><span class="user-messenger user-image">{@havefnubb~member.instant.messenger@}</span></div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-xfire user-image"><strong>{@havefnubb~member.xfire@}</strong></label>
-					</div>
-					<div class="fom_value">
-						{$user->member_xfire|eschtml}
-					</div>
-					<div class="form_property">
-						<label class="user-icq user-image"><strong>{@havefnubb~member.icq@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_icq|eschtml}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				 <div class="form_row">
-					<div class="form_property">
-						<label class="user-yim user-image"><strong>{@havefnubb~member.yim@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_yim|eschtml}
-					</div>
-					<div class="form_property">
-						<label class="user-msn user-image"><strong>{@havefnubb~member.hotmail@}</strong></label>
-					</div>
-					<div class="form_value">
-						{if $user->member_hotmail != ''}
-						{mailto array('address'=>$user->member_hotmail,'encode'=>'hex','text'=>@havefnubb~member.common.email@)}
-						{/if}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				 <div class="form_row">
-					<div class="form_property">
-						<label class="user-aim user-image"><strong>{@havefnubb~member.aol@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_aol|eschtml}
-					</div>
-					<div class="form_property">
-						<label class="user-gtalk user-image"><strong>{@havefnubb~member.gtalk@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_gtalk|eschtml}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				 <div class="form_row">
-					<div class="form_property">
-						<label class="user-jabber user-image"><strong>{@havefnubb~member.jabber@}</strong></label>
-					</div>
-					<div class="forum_value">
-						{$user->member_jabber|eschtml}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-
-			</fieldset>
-		</div>
 
 		<div id="user-profile-pref">
 			<fieldset>
@@ -234,87 +170,7 @@ $(document).ready(function(){
 			</fieldset>
 		</div>
 
-		<div id="user-profile-hardware">
-			<fieldset>
-				<div class="legend"><span class="user-hw user-image">{@havefnubb~member.hardware@}</span></div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-connect user-image"><strong>{@havefnubb~member.connection@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_connection|eschtml}
-					</div>
-					<div class="form_property">
-						<label class="user-os user-image"><strong>{@havefnubb~member.os@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_os|eschtml}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-processor  user-image"><strong>{@havefnubb~member.proc@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_proc|eschtml}
-					</div>
-					<div class="form_property">
-						<label class="user-motherboard user-image"><strong>{@havefnubb~member.mb@}</strong></label>
-					</div>
-					<div class="fom_value">
-						{$user->member_mb|eschtml}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-card user-image"><strong>{@havefnubb~member.card@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_card|eschtml}
-					</div>
-					<div class="form_property">
-						<label class="user-ram user-image"><strong>{@havefnubb~member.ram@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_ram|eschtml}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-display user-image"><strong>{@havefnubb~member.display@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_display|eschtml}
-					</div>
-					<div class="form_property">
-						<label class="user-screen user-image"><strong>{@havefnubb~member.screen@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_screen|eschtml}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-				<div class="form_row">
-					<div class="form_property">
-						<label class="user-mouse user-image"><strong>{@havefnubb~member.mouse@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_mouse|eschtml}
-					</div>
-					<div class="form_property">
-						<label class="user-keyboard user-image"><strong>{@havefnubb~member.keyb@}</strong></label>
-					</div>
-					<div class="form_value">
-						{$user->member_keyb|eschtml}
-					</div>
-					<div class="clearer">&nbsp;</div>
-				</div>
-			</fieldset>
-		</div>
-		{hook 'hfbAccountShowDiv',array($user->login)}
+		{hook 'hfbAccountShowDiv',array('user'=>$user->login)}
 	</div>
 </div>
 {hook 'hfbAccountShowBefore',array($user->login)}

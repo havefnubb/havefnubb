@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<events xmlns="http://jelix.org/ns/events/1.0">
+	<listener name="authhfnuhardware">
+    <event name="jcommunity_init_edit_form_account" />
+    <event name="jcommunity_prepare_edit_account" />
+    <event name="hfbAccountShowTab" />
+    <event name="hfbAccountShowDiv" />
+    <event name="hfbAccountEditTab" />
+    <event name="hfbAccountEditInclude" />
+    <event name="jcommunity_save_account" />
+	</listener>
+</events>
