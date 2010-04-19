@@ -4,14 +4,10 @@
 startModule=havefnubb
 startAction="default:index"
 
-checkTrustedModules=on
-
 ; list of modules : module,module,module
-trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,servinfo,jacl2db_admin,jauthdb_admin,master_admin,jauth,jacl2"
-
-pluginsPath="app:plugins/"
-
-modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
+trustedModules = "jauth,jacl2db,havefnubb,hfnucontact,hfnusearch,hfnurates,hfnuthemes,jcommunity,jmessenger,jtags,hook,hfnuim,hfnuhardware"
+hiddenModules =  "hfnuadmin,hfnuinstall"
+unusedModules = "jacldb,junittests,jWSDL,servinfo"
 
 [coordplugins]
 hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
@@ -26,18 +22,5 @@ flood="havefnubb/flood.coord.ini.php"
 [responses]
 html=fnuHtmlResponse
 
-[urlengine]
-; name of url engine :  "simple" or "significant"
-; engine=simple
-; engine=basic_significant
-engine=significant
-
-enableParser=on
-multiview=on
-
-defaultEntrypoint=forums
-entrypointExtension=.php
-
-notfoundAct="havefnubb~error:notfound"
 [acl2]
 driver=db

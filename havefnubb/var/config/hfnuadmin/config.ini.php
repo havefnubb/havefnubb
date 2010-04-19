@@ -5,10 +5,11 @@ startModule=master_admin
 startAction="default:index"
 
 modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
-checkTrustedModules=on
 
-; list of modules : module,module,module
-trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,servinfo,jacl2db_admin,jauthdb_admin,master_admin,jauth,jacl2"
+trustedModules = "hfnuadmin,servinfo,jacl2db_admin,jauthdb_admin,master_admin,hfnucontact,hfnusearch,hfnuthemes,hfnuim,hfnuhardware"
+hiddenModules =  "hook,jauth,jacl2db,jcommunity,jmessenger,jtags,havefnubb,hfnurates"
+unusedModules = "jacldb,junittests,jWSDL,hfnuinstall"
+
 
 [coordplugins]
 autolocale = autolocale.coord.ini.php
@@ -25,8 +26,3 @@ enableAcl2DbEventListener=on
 [simple_urlengine_entrypoints]
 hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~*@classic hfnucontact~*@classic servinfo~*@classic hfnuthemes~*@classic"
 
-[urlengine]
-; name of url engine :  "simple" or "significant"
-; engine=simple
-; engine=basic_significant
-engine=significant

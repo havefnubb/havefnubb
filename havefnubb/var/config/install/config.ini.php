@@ -4,6 +4,13 @@
 startModule = "hfnuinstall"
 startAction = "default:index"
 
+modulesPath = "lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
+pluginsPath = "app:plugins/"
+
+trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,jauth,jacl2,jauth,jacl2db,hfnuim,hfnuhardware"
+unusedModules = "jacldb,junittests,jWSDL"
+
+
 [coordplugins]
 hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
 autolocale = autolocale.coord.ini.php

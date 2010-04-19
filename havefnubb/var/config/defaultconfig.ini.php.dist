@@ -10,12 +10,12 @@ timeZone="Europe/Paris"
 
 checkTrustedModules=on
 
-; list of modules : module,module,module
-trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnuinstall,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,servinfo,jacl2db_admin,jauthdb_admin,master_admin,jauth,jacl2"
+modulesPath = "lib:jelix-modules/,app:modules/,app:../modules-hook/"
+pluginsPath = "app:plugins/"
 
-pluginsPath="app:plugins/"
-
-modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
+trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,jauth,jacl2,jauth"
+hiddenModules = "jacl2db"
+unusedModules = "jacldb,junittests,jWSDL"
 
 theme=default
 
@@ -53,7 +53,7 @@ force=off
 ; name of url engine :  "simple" or "significant"
 ; engine=simple
 ; engine=basic_significant
-; engine=significant
+engine=significant
 
 
 ; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
@@ -80,7 +80,6 @@ multiview=on
 ; : basePath="/aaa/" )
 basePath=
 
-
 defaultEntrypoint=forums
 
 entrypointExtension=.php
@@ -103,11 +102,7 @@ simple_urlengine_https=
 ;   m~*@r    -> for all actions of the module "m" and for the request of type "r"
 ;   @r       -> for all actions for the request of type "r"
 
-index="@classic"
-
-xmlrpc="@xmlrpc"
-jsonrpc="@jsonrpc"
-rdf="@rdf"
+forums = "@classic"
 
 ; hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~admin@classic, hfnupoll~admin@classic hfnucontact~admin@classic downloads~mgr:index@classic downloads~mgr:manage@classic downloads~mgr:config@classic downloads~mgr:dls@classic"
 hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~*@classic"
@@ -116,11 +111,7 @@ install="hfnuinstall~*@classic"
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name
 ; should be include in the url or not
-index=on
-xmlrpc=on
-jsonrpc=on
-rdf=on
-
+forums=on
 hfnuadmin=on
 install=on
 

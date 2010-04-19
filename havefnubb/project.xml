@@ -42,7 +42,6 @@
         <temp>../temp/havefnubb/</temp>
     </directories>
     <entrypoints>
-        <entry file="index.php" config="havefnubb/config.ini.php"/>
         <entry file="forums.php" config="havefnubb/config.ini.php"/>
         <entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/>
         <entry file="install.php" config="install/config.ini.php"/>
