@@ -116,8 +116,8 @@ class hfnuposts {
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             $posts = $daoPost->findByIdForumVisible($id_forum,$page,$nbPostPerPage);
             if ($posts->rowCount() == 0) {
-                    $posts = $daoPost->findByIdForumVisible($id_forum,0,$nbPostPerPage);
-                    $page = 0;
+                $posts = $daoPost->findByIdForumVisible($id_forum,0,$nbPostPerPage);
+                $page = 0;
             }
         }
         else {

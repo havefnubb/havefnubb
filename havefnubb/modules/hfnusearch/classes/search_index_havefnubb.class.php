@@ -19,8 +19,9 @@ class search_index_havefnubb extends search_index {
 	function searchEngineRun ($event) {
 		$cleaner = jClasses::getService('hfnusearch~cleaner');
 		$words = $cleaner->stemPhrase($event->getParam('string'));
-		$page = $event->getParam('page');
-		$limit = $event->getParam('limit');
+		$page 	    = (int) $event->getParam('page');
+		$limit 	    = (int) $event->getParam('limit');
+		$id_forum   = (int) $event->getParam('id_forum');
 
 		// no words ; go back with nothing :P
 		if (!$words) {
@@ -45,7 +46,13 @@ class search_index_havefnubb extends search_index {
 
 			//5) get all the record
 			$conditions = jDao::createConditions();
-			$conditions->startGroup('AND');
+
+			if ($id_forum > 0) {
+				$conditions->addCondition('id_forum','=',$id_forum);
+    			$conditions->startGroup('OR');
+            }
+            else
+                $conditions->startGroup('AND');
 
 			foreach ($words as $word) {
 				$conditions->addCondition($indexSubject,'LIKE','%'.$word.'%');
@@ -60,7 +67,12 @@ class search_index_havefnubb extends search_index {
 				$record = $allRecord;
 
 			foreach ($record as $rec) {
-				if (jAcl2::check('hfnu.forum.view','forum'.$rec->id_forum))
+                if ($rec->status == 'hidden' and jAcl2::check('hfnu.admin.post') )
+					$event->Add(array('SearchEngineResult'=>$rec,
+								  'SearchEngineResultTotal'=>$allRecord->rowCount()
+								  )
+						);
+                elseif ($rec->status != 'hidden' and jAcl2::check('hfnu.forum.view','forum'.$rec->id_forum))
 					$event->Add(array('SearchEngineResult'=>$rec,
 								  'SearchEngineResultTotal'=>$allRecord->rowCount()
 								  )

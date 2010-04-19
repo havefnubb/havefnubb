@@ -24,12 +24,10 @@
     <legend>{$heading}</legend>
     {ctrl_label 'subject'}<br/>
     {ctrl_control 'subject'}<br/>
-    
-    {ctrl_label 'tags'}<br/>
-    {ctrl_control 'tags'}<br/>
-    
+
     {ctrl_label 'message'}<br/>
-    {ctrl_control 'message'}
+    {ctrl_control 'message'}<br/>
+
     {literal}
     <script type="text/javascript">
     //<![CDATA[
@@ -39,9 +37,15 @@
     //]]>
     </script>
     {/literal}
-
-    {ctrl_label 'subscribe'} : {ctrl_control 'subscribe'}<br/><br/>
-   
+    <fieldset>
+        <legend>{ctrl_label 'tags'}</legend>
+        {@havefnubb~post.form.tags.description@}<br/>
+        {ctrl_control 'tags'}
+    </fieldset>
+    <fieldset>
+        <legend>{ctrl_label 'subscribe'}</legend>
+        {@havefnubb~post.subscribe.to.this.post.help@} {ctrl_control 'subscribe'}
+    </fieldset>
     {formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}
     </fieldset>
     {/form}
