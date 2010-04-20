@@ -30,7 +30,7 @@ class defaultCtrl extends jController {
 
 		if (! $form->check()) {
 			$rep = $this->getResponse('redirect');
-			$rep->action='hfnucontact~default:index';
+			$rep->action='jelix~error:404';
 			return $rep;
 		}
 
@@ -90,6 +90,11 @@ class defaultCtrl extends jController {
 	 * Send a thread  to a friend
 	 */
 	public function send_to_friend() {
+		if (! array_key_exists('SENDTOFRIEND',$_SESSION)) {
+			$rep = $this->getResponse('redirect');
+			$rep->action='jelix~error:404';
+			return $rep;
+		}
 		$url = $_SESSION['SENDTOFRIEND']['send_to_friend_url'];
 
 		$message = jLocale::get('contact.a.page.to.read.message') .
