@@ -2,7 +2,8 @@
 <urls xmlns="http://jelix.org/ns/urls/1.0">
 
     <classicentrypoint name="forums" default="true" noentrypoint="false">
-        <!--url pathinfo="/" module="havefnubb" action="default:index"/-->
+        <url pathinfo="/" module="havefnubb" action="default:index"  optionalTrailingSlash="true"/>
+        <url pathinfo="/forum" module="havefnubb" action="default:index" optionalTrailingSlash="true"/>
         <url pathinfo="/cat/:id_cat-:ctitle" module="havefnubb" action="category:view">
            <param name="id_cat" type="number"/>
            <param name="ctitle"  type="string" escape="true" />
@@ -17,8 +18,6 @@
         <!-- community access -->
         <!--url pathinfo="/community" module="havefnubb" action="default:index"/-->
 
-        <!-- portal access -->
-        <url pathinfo="/forum" module="havefnubb" action="default:index"/>
 
         <!-- categories management -->
         <url pathinfo="/cat/:id_cat-:ctitle" module="havefnubb" action="category:view">
@@ -102,14 +101,31 @@
             <param name="id_forum" type="number"/>
         </url>
 
+        <url pathinfo="/mark_all_as_read" module="havefnubb" action="forum:mark_all_as_read"/>
 
+        <url pathinfo="/mark_forum_as_read/:id_forum" module="havefnubb" action="forum:mark_forum_as_read">
+            <param name="id_forum" type="number"/>
+        </url>
+
+        <url pathinfo="/posts/shownew" module="havefnubb" action="posts:shownew"/>
+
+        <url pathinfo="/posts/unsubscribe/:id_post" module="havefnubb" action="posts:unsubscribe">
+            <param name="id_post" type="number"/>
+        </url>
+        <url pathinfo="/posts/unsub/:id_post" module="havefnubb" action="posts:unsub">
+            <param name="id_post" type="number"/>
+        </url>
+
+        <url pathinfo="/posts/subscribe/:id_post" module="havefnubb" action="posts:subscribe">
+            <param name="id_post" type="number"/>
+        </url>
          <!-- members management -->
         <url pathinfo="/members" module="havefnubb" action="members:index"/>
 
         <!-- hfnusearch -->
         <url pathinfo="/search" module="hfnusearch" action="default:index"/>
-        <url pathinfo="/search/results" module="hfnusearch" action="default:query" />
-        <url pathinfo="/search/ajxresults" module="hfnusearch" action="default:queryajax" />
+        <url pathinfo="/search/results" module="hfnusearch" action="default:query"/>
+        <url pathinfo="/searchajax" module="hfnusearch" action="default:queryajax"/>
 
         <!-- jtag -->
         <url pathinfo="/tag/:tag"  module="havefnubb" action="default:cloud">
@@ -184,11 +200,6 @@
         <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
 
         <!-- hfnucontact module -->
-		<url pathinfo="/contactme/:to" module="hfnucontact" action="default:index">
-			<param name="to" type="string" />
-		</url>
-		<url pathinfo="/contactme/" module="hfnucontact" action="default:index"/>
-
 		<url pathinfo="/contacted" module="hfnucontact" action="default:contacted"/>
 
 		<url pathinfo="/send_to_friend" module="hfnucontact" action="default:send_to_friend"/>
@@ -196,25 +207,6 @@
         <!-- hfnurates module -->
 		<url pathinfo="/rates/it"  module="hfnurates" action="default:rate_it"/>
         <url pathinfo="/rates/ait" module="hfnurates" action="default:rate_ajax_it"/>
-
-        <url pathinfo="/mark_all_as_read" module="havefnubb" action="forum:mark_all_as_read"/>
-
-        <url pathinfo="/mark_forum_as_read/:id_forum" module="havefnubb" action="forum:mark_forum_as_read">
-            <param name="id_forum" type="number"/>
-        </url>
-
-        <url pathinfo="/posts/shownew" module="havefnubb" action="posts:shownew"/>
-
-        <url pathinfo="/posts/unsubscribe/:id_post" module="havefnubb" action="posts:unsubscribe">
-            <param name="id_post" type="number"/>
-        </url>
-        <url pathinfo="/posts/unsub/:id_post" module="havefnubb" action="posts:unsub">
-            <param name="id_post" type="number"/>
-        </url>
-
-        <url pathinfo="/posts/subscribe/:id_post" module="havefnubb" action="posts:subscribe">
-            <param name="id_post" type="number"/>
-        </url>
 
     </classicentrypoint>
 
@@ -229,7 +221,7 @@
         <url pathinfo="/update/1_3_5" module="hfnuinstall" action="default:update_to_1_3_5"/>
 		<url pathinfo="/migrate/phorum" module="hfnuinstall" action="migrate:phorum"/>
     </classicentrypoint>
-
+<!-- fin forum -->
 <!-- debut admin forum -->
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
         <url pathinfo="/" module="master_admin" action="default:index"  optionalTrailingSlash="true"/>

@@ -22,40 +22,6 @@ class defaultCtrl extends jController {
 					),
 	);
 	/**
-	 * Main page
-	 */
-	public function index() {
-		global $gJConfig;
-		$to = $this->param('to');
-
-		if ($to != '') {
-			$dao = jDao::get('jcommunity~user');
-			$user = $dao->getByLogin($to);
-
-			if ($user === false) {
-				throw new jException('hfnucontact~contact.contact.does.not.exist');
-			}
-		}
-		else {
-				$to = $gJConfig->hfnucontact['to_contact'];
-		}
-		// is the 'To' still empty ??
-		if ( $to == '' ) {
-			throw new jException('hfnucontact~contact.email.config.not.done.properly');
-		}
-
-		$form = jForms::create('hfnucontact~contact');
-		$form->setData('to',$to);
-		$rep = $this->getResponse('html');
-		$rep->title = jLocale::get('contact.send.an.email.to',$to);
-		$tpl = new jTpl();
-		$tpl->assign('form',$form);
-		$tpl->assign('to',$to);
-		$tpl->assign('action','hfnucontact~default:send_a_message');
-		$rep->body->assign('MAIN',$tpl->fetch('hfnucontact~contact'));
-		return $rep;
-	}
-	/**
 	 * Send a message to the contact defined in the defautconfig.ini.php file
 	 */
 	public function send_a_message() {
