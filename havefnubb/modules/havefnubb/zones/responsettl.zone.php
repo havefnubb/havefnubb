@@ -24,7 +24,8 @@ class responsettlZone extends jZone {
 		if (!$id_post) return;
 
 		$dao = jDao::get('havefnubb~posts');
-		$responsettl = $dao->countResponse($id_post);
+		//number of posts "minus" the current post
+		$responsettl = $dao->countResponse($id_post) - 1;
 
 		$this->_tpl->assign('responsettl',$responsettl);
 	}

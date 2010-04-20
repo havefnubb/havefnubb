@@ -22,7 +22,7 @@ class i_read_this_postZone extends jZone {
 		$id_post = (int) $this->getParam('id_post');
 		$id_forum = (int)  $this->getParam('id_forum');
 
-		$bool =  jClasses::getService('havefnubb~hfnuread')->getReadPost($id_post,$id_forum) === false ? false  : true;
+		$bool =  jClasses::getService('havefnubb~hfnuread')->getReadPost($id_post,$id_forum);
 		$this->_tpl->assign('bool',$bool);
 	}
 }

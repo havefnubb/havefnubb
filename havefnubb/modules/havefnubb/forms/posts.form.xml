@@ -14,19 +14,20 @@
 	<label locale="havefnubb~post.form.message"/>
 </textarea>
 
-<textarea ref="tags" rows="2" cols="60">
+<input ref="tags" size="80">
 	<label locale="havefnubb~post.form.choose.your.tags"/>
-</textarea> 
+	<help  locale="havefnubb~post.form.tags.description"/>
+</input>
 
 <checkbox ref="subscribe" >
 	<label locale="havefnubb~post.subscribe.to.this.post"/>
-	<help  locale="havefnubb~post.subscribe.to.this.post.help"/>	
+	<help  locale="havefnubb~post.subscribe.to.this.post.help"/>
 </checkbox>
 
 
 <submit ref="validate">
 	<label>Veuillez valider</label>
-	<item value="preview" locale="havefnubb~post.form.previewBt"/>  
+	<item value="preview" locale="havefnubb~post.form.previewBt"/>
 	<item value="save" locale="havefnubb~post.form.saveBt"/>
 </submit>
 <reset ref="reset">

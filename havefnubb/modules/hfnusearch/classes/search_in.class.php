@@ -25,7 +25,7 @@ class search_in {
 										  )
 									);
 
-		$result = array('datas'=>'','total'=>0);
+		$result = array('datas'=>array(),'total'=>0);
 		foreach($eventresp->getResponse() as $rep){
 			if(!isset($rep['SearchEngineResult']) ) {
 				$result['datas'] = array();
@@ -33,7 +33,6 @@ class search_in {
 			} else {
 				$result['datas'][] = (array) $rep['SearchEngineResult'];
 				$result['total'] = (int) $rep['SearchEngineResultTotal'];
-
 			}
 		}
 		return $result;
@@ -44,15 +43,23 @@ class search_in {
 	 * @param integer $id_forum the id forum in which to make the request
 	 * @return recordset
 	 */
-	function searchInForums($string,$id_forum) {
-		$eventresp = jEvent::notify('HfnuSearchEngineRun', array('string'=>$string,'id_forum'=>$id_forum) );
+	function searchInForums($string,$id_forum,$page=0,$limit) {
+		$eventresp = jEvent::notify('HfnuSearchEngineRun',
+									array(	'string'=>$string,
+											'page'=>$page,
+											'limit'=>$limit,
+											'id_forum'=>$id_forum
+										  )
+									);
 
-		$result = array();
+		$result = array('datas'=>array(),'total'=>0);
 		foreach($eventresp->getResponse() as $rep){
-			if(!isset($rep['SearchEngineResult']) )
-				return false;
-			else {
-				$result[] = (array) $rep['SearchEngineResult'];
+			if(!isset($rep['SearchEngineResult']) ) {
+				$result['datas'] = array();
+				$result['total'] = 0;
+			} else {
+				$result['datas'][] = (array) $rep['SearchEngineResult'];
+				$result['total'] = (int) $rep['SearchEngineResultTotal'];
 			}
 		}
 		return $result;
@@ -64,13 +71,13 @@ class search_in {
 	 * @return recordset
 	 */
 
-	function searchInAuthors($string,$param='') {
+	function searchInAuthors($string,$param='',$page=0,$limit) {
 		$dao = jDao::get('havefnubb~posts');
-		$records = $dao->findByAuthor($string);
+		$records = $dao->findByAuthor($string,$page,$limit);
 		$result = array();
 		foreach ($records as $record)
 			$result[] = (array) $record;
 
-		return $result;
+		return array('datas'=>$result,'total'=>count($result));
 	}
 }
