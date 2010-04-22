@@ -64,9 +64,7 @@ class defaultCtrl extends jController {
         $form->setData('social_network_facebook',   $gJConfig->social_networks['facebook']);
         $form->setData('social_network_reddit',     $gJConfig->social_networks['reddit']);
         $form->setData('social_network_netvibes',   $gJConfig->social_networks['netvibes']);
-
     }
-    
 
     /*function loadconfig() {
         $resp = $this->getResponse('redirect');
@@ -75,7 +73,6 @@ class defaultCtrl extends jController {
         $this->initform($form);
         return $resp;
     }*/
-
 
 	function config() {
 		global $gJConfig;
@@ -133,8 +130,7 @@ class defaultCtrl extends jController {
         $defaultConfig->setValue('reddit',      $form->getData('social_network_reddit'),'social_networks');
         $defaultConfig->setValue('netvibes',    $form->getData('social_network_netvibes'),'social_networks');
         $defaultConfig->save();
-            
-            
+
         $floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
 
         $floodConfig->setValue('only_same_ip',                  $form->getData('only_same_ip'));
@@ -148,7 +144,7 @@ class defaultCtrl extends jController {
 
         jForms::destroy('hfnuadmin~config');
         jMessage::add(jLocale::get('hfnuadmin~config.config.modified'),'ok');
-        
+
         return $resp;
     }
 }

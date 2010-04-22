@@ -16,18 +16,18 @@ class floodCtrl extends jController {
 	 * handle a possible flood protection from the same IP user
 	 */
 	function error() {
-		global $gJConfig;
-		$resp = $this->getResponse('html');
-		$title = stripslashes($gJConfig->havefnubb['title']);
-        
+        global $gJConfig;
+        $resp = $this->getResponse('html');
+        $title = stripslashes($gJConfig->havefnubb['title']);
+
         $history = $GLOBALS['gJCoord']->getPlugin('history');
-		$history->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
-		$history->change('title', jLocale::get('havefnubb~main.goto_homepage'));
-        
-		$tpl = new jTpl();
-		$tpl->assign('message',jLocale::get('havefnubb~flood.detected'));
-		$resp->body->assign('MAIN', $tpl->fetch('havefnubb~flood'));
-		return $resp;
+        $history->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
+        $history->change('title', jLocale::get('havefnubb~main.goto_homepage'));
+
+        $tpl = new jTpl();
+        $tpl->assign('message',jLocale::get('havefnubb~flood.detected'));
+        $resp->body->assign('MAIN', $tpl->fetch('havefnubb~flood'));
+        return $resp;
 	}
 
 }

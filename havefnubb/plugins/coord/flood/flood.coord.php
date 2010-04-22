@@ -24,12 +24,12 @@ class floodCoordPlugin implements jICoordPlugin {
 	public function beforeAction ($params){
 		$selector = null;
 		$floodok = true;
-        
+
         if (isset($params['check.flood'])
             && $params['check.flood']
             && $this->config['time_interval']) {
     		jClasses::inc('havefnubb~flood');
-            
+
             $hasflood = flood::check($this->config['time_interval'], $this->config['only_same_ip']);
             if ($hasflood) {
     			if($this->config['on_error'] == 1
