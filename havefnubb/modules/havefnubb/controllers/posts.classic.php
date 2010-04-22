@@ -28,8 +28,8 @@ class postsCtrl extends jController {
 		'reply'	=> array('auth.required'=>true),
 		'moveToForum' => array('auth.required'=>true),
 
-		'save'		=> array('flood.editing'=>true,'flood.same.ip'=>true),
-		'savereply'	=> array('flood.editing'=>true,'flood.same.ip'=>true),
+		'save'		=> array('auth.required'=>true, 'check.flood'=>true),
+		'savereply'	=> array('auth.required'=>true, 'check.flood'=>true),
 
 		'lists'	=> array( 'history.add'=>true),
 		'view' 	=> array( 'history.add'=>true),
@@ -39,7 +39,6 @@ class postsCtrl extends jController {
 		'savecensor' => array('jacl2.right'=>'hfnu.admin.post'),
 		'shownew'=> array('auth.required'=>true),
 		'unsubscribe'=> array('auth.required'=>true),
-
 	);
 	/**
 	 * @var static $statusClosed array of the 'closed' status

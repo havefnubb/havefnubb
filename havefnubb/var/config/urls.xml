@@ -238,8 +238,7 @@
         <url pathinfo="/admin/unreadposts" module="hfnuadmin" action="posts:unread" />
 
         <url pathinfo="/admin"          module="hfnuadmin" action="default:index" />
-        <url pathinfo="/admin/config"   module="hfnuadmin" action="default:config" />
-        <url pathinfo="/admin/modules"   module="hfnuadmin" action="modules:index" />
+        <url pathinfo="/admin/config"   module="hfnuadmin" action="default:config" actionoverride="default:saveconfig"/>
         <url pathinfo="/admin/category" module="hfnuadmin" action="category:index" />
         <url pathinfo="/admin/forum"    module="hfnuadmin" action="forum:index" />
         <url pathinfo="/admin/ranks"    module="hfnuadmin" action="ranks:index" />

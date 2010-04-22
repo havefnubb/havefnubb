@@ -3,8 +3,8 @@
 * @package    havefnubb
 * @subpackage coord_plugin
 * @author     foxmask
-* @contributor
-* @copyright  2008 foxmask
+* @contributor Laurent Jouanneau
+* @copyright  2008 foxmask, 2010 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
@@ -24,37 +24,23 @@ class floodCoordPlugin implements jICoordPlugin {
 	public function beforeAction ($params){
 		$selector = null;
 		$floodok = true;
-		$error_message = '';
-		$on_error_action = '';
-		jClasses::inc('havefnubb~flood');
-		if(isset($params['flood.same.ip'])) {
-
-			if ($this->config['elapsed_time_between_two_post_by_same_ip'] > 0) {
-
-				$error_message = jLocale::get("havefnubb~flood.elapsed_time_between_two_post_by_same_ip");
-				$on_error_action = 'on_error_action_same_ip';
-				$floodok = flood::check('same_ip',$this->config['elapsed_time_between_two_post_by_same_ip']);
-			}
-
-		}
-		if(isset($params['flood.editing'])) {
-
-			if ($this->config['elapsed_time_after_posting_before_editing'] > 0) {
-				$error_message = jLocale::get("havefnubb~flood.elapsed_time_after_posting_before_editing");
-				$on_error_action = 'on_error_action_editing';
-				$floodok = flood::check('editing',$this->config['elapsed_time_after_posting_before_editing']);
-			}
-		}
-
-		if(!$floodok){
-			if($this->config['on_error'] == 1
-				|| !$GLOBALS['gJCoord']->request->isAllowedResponse('jResponseRedirect')){
-				throw new jException($error_message);
-			}else{
-				$selector= new jSelectorAct($this->config[$on_error_action]);
-			}
-		}
-
+        
+        if (isset($params['check.flood'])
+            && $params['check.flood']
+            && $this->config['time_interval']) {
+    		jClasses::inc('havefnubb~flood');
+            
+            $hasflood = flood::check($this->config['time_interval'], $this->config['only_same_ip']);
+            if ($hasflood) {
+    			if($this->config['on_error'] == 1
+    				|| !$GLOBALS['gJCoord']->request->isAllowedResponse('jResponseRedirect')){
+                    throw new jException("havefnubb~flood.elapsed_time_between_two_post");
+                }
+                else {
+                    $selector = new jSelectorAct($this->config['on_error_action']);
+                }
+            }
+        }
 		return $selector;
 	}
 

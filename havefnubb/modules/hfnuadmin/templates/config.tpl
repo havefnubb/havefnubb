@@ -11,7 +11,7 @@
 </script>
 {/literal}
 <h1>{@hfnuadmin~admin.config@}</h1>
-{form $form, 'hfnuadmin~default:config'}
+{form $form, 'hfnuadmin~default:saveconfig'}
 <div id="hfnuadmin-config">
 <ul>
 	<li><a href="#hfnuadmin-general"><span>{@hfnuadmin~config.general@}</span></a></li>
@@ -79,13 +79,12 @@
 <div id="hfnuadmin-flood">
 <fieldset>
 	<legend>{@hfnuadmin~config.flood_protection@}</legend>
-	<p>{ctrl_label 'elapsed_time_between_two_post_by_same_ip'} </p>
-	<p>{ctrl_control 'elapsed_time_between_two_post_by_same_ip'} </p>
-	<p>{@hfnuadmin~config.elapsed_time_between_two_post_by_same_ip.description@}</p>
+	<p>{ctrl_label 'elapsed_time_between_two_post'} </p>
+	<p>{ctrl_control 'elapsed_time_between_two_post'} </p>
+	<p>{@hfnuadmin~config.flood.elapsed_time_between_two_post.description@}</p>
 
-	<p>{ctrl_label 'elapsed_time_after_posting_before_editing'} </p>
-	<p>{ctrl_control 'elapsed_time_after_posting_before_editing'} </p>
-	<p>{@hfnuadmin~config.elapsed_time_after_posting_before_editing.description@}</p>
+	<p>{ctrl_control 'only_same_ip'} {ctrl_label 'only_same_ip'} </p>
+	<p>{@hfnuadmin~config.flood.only_same_ip.description@}</p>
 </fieldset>
 </div>
 
