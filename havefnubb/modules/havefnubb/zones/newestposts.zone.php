@@ -30,10 +30,7 @@ class newestpostsZone extends jZone {
 			$id_forum = (int) $this->param('id_forum');
 			if ($id_forum < 1) return false;
 
-			if (jAuth::isConnected())
-                $rec = jClasses::getService('havefnubb~hfnuread')->getReadForum($id_forum);
-			else
-				$rec = true;
+            $rec = jClasses::getService('havefnubb~hfnuread')->getReadForum($id_forum);
 
 			if ( $rec === true)
 				$status = 'forumicone';

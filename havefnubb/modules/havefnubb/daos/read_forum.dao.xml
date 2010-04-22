@@ -12,5 +12,11 @@
         <method name="deleteAll" type="delete">
 
         </method>
+        <method name="deleteByUser" type="delete">
+          <parameter name="id_user" />
+          <conditions>
+            <eq property="id_user" expr="$id_user" />
+          </conditions>
+        </method>
     </factory>
 </dao>

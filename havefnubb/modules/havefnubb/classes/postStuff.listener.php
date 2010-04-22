@@ -17,8 +17,9 @@ class postStuffListener extends jEventListener{
 	 */
 	 function onHfnuPostAfterInsert ($event) {
 		 $daoUser = jDao::get('havefnubb~member');
-		 $daoUser->updateNbMsg(jAuth::getUserSession ()->id);
-		 $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
+         $id_user = jAuth::getUserSession ()->id;
+		 $daoUser->updateNbMsg($id_user);
+		 $daoUser->updateLastPostedMsg($id_user,time());
 	 }
 	/**
 	 * Event to handle statistics data of the current member after updating data
@@ -34,7 +35,8 @@ class postStuffListener extends jEventListener{
 	 */
 	function onHfnuPostAfterSaveReply ($event) {
 		 $daoUser = jDao::get('havefnubb~member');
-		 $daoUser->updateNbMsg(jAuth::getUserSession ()->id);
-		 $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
+         $id_user = jAuth::getUserSession ()->id;
+		 $daoUser->updateNbMsg($id_user);
+		 $daoUser->updateLastPostedMsg($id_user,time());
 	 }
 }

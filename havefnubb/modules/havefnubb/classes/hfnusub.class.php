@@ -31,17 +31,17 @@ class hfnusub {
 	 */
 	public static function subscribe($id) {
 		$dao = jDao::get(self::$daoSub);
-
-		if (! $dao->get($id,jAuth::getUserSession ()->id)) {
-			$record = jDao::createRecord(self::$daoSub);
-			$record->id_post = $id;
-			$record->id_user = jAuth::getUserSession ()->id;
-			$dao->insert($record);
-            return true;
-		}
-        else
-            return false;
-
+        if (jAuth::isConnected()) {
+            $id_user = jAuth::getUserSession ()->id;
+            if (! $dao->get($id, $id_user)) {
+                $record = jDao::createRecord(self::$daoSub);
+                $record->id_post = $id;
+                $record->id_user = $id_user;
+                $dao->insert($record);
+                return true;
+            }
+        }
+        return false;
 	}
 	/**
 	 * Unsubscribe to a thread
@@ -50,7 +50,7 @@ class hfnusub {
 	 */
 	public static function unsubscribe($id) {
 		$dao = jDao::get(self::$daoSub);
-		if ( $dao->get($id,jAuth::getUserSession ()->id)) {
+		if ( jAuth::isConnected() && $dao->get($id,jAuth::getUserSession ()->id)) {
 			$dao->delete($id,jAuth::getUserSession ()->id);
 			return true;
 		}
@@ -63,9 +63,15 @@ class hfnusub {
 	 */
 	public static function sendMail($id) {
         global $gJConfig;
+
+        if (!jAuth::isConnected())
+            return;
+
         $dao = jDao::get(self::$daoSub);
+        $user = jAuth::getUserSession ();
+        $member = jDao::get('havefnubb~member')->get($user->login);
         //get all the members that subscribe to this thread except "me"
-        $records = $dao->findSubscribedPost($id,jAuth::getUserSession ()->id);
+        $records = $dao->findSubscribedPost($id,$user->id);
 
         // then send them a mail
         foreach ($records as $record) {
@@ -85,9 +91,8 @@ class hfnusub {
 			$tpl->assign('post',$post);
 			$mail->Body = $tpl->fetch('havefnubb~new_comment_received', 'text');
 
-			$mail->AddAddress(jDao::get('havefnubb~member')->get(jAuth::getUserSession ()->login)->email);
+			$mail->AddAddress($member->email); // FIXME email is not in $user ??
 			$mail->Send();
-
         }
 	}
 }
