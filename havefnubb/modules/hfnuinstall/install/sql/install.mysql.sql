@@ -723,3 +723,10 @@ CREATE TABLE IF NOT EXISTS `hf_subscriptions` (
 	`id_post` int(12) NOT NULL,
 	PRIMARY KEY (`id_user` , `id_post`)
 ) DEFAULT CHARSET=utf8;
+
+CREATE TABLE `hf_member_custom_fields` (
+  `id_user` int(11) NOT NULL,
+  `type` varchar(30) NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY  (`id_user`,`type`)
+) DEFAULT  CHARSET=utf8;

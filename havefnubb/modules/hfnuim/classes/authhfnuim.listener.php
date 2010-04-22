@@ -15,7 +15,7 @@ class authhfnuimListener extends jEventListener{
 
 
     // jcommunity_account_show', array('login'=>$user->login, 'user'=>$user,'tpl'=>$tpl));
-    
+
     /**
      * init the form by adding the control we need
      */
@@ -63,10 +63,10 @@ class authhfnuimListener extends jEventListener{
     function onjcommunity_prepare_edit_account ($event) {
         $login = $event->getParam('login');
         $form =  $event->getParam('form');
-        
+
         $members = jDao::get('jcommunity~user');
         $user = $members->getByLogin($login);
-    
+
         $fields = jDao::get('havefnubb~member_custom_fields');
         $values = $fields->getByUserAndFamilyType($user->id, 'im:%');
         foreach($values as $val) {
@@ -82,12 +82,12 @@ class authhfnuimListener extends jEventListener{
 
     function onhfbAccountShowDiv($event) {
         $tpl = new jTpl();
-        
+
         $login = $event->getParam('user');
-        
+
         $members = jDao::get('jcommunity~user');
         $user = $members->getByLogin($login);
-    
+
         $fields = jDao::get('havefnubb~member_custom_fields');
         $records = $fields->getByUserAndFamilyType($user->id, 'im:%');
         $im = array(
@@ -110,11 +110,11 @@ class authhfnuimListener extends jEventListener{
     /**
      * prepare the display of the form
      */
-    
+
     function onhfbAccountEditTab($event) {
         $event->add(  '<li><a href="#user-profile-messenger">'.jLocale::get('hfnuim~im.instant.messenger').'</a></li>');
     }
-    
+
     function onhfbAccountEditInclude($event) {
         $event->add('hfnuim~account_edit');
     }
@@ -129,7 +129,7 @@ class authhfnuimListener extends jEventListener{
     }*/
 
     // jcommunity_check_before_save_account', array('login'=>$user,'form'=>$form));
-    
+
 	/**
 	* to answer to jcommunity_save_account event
 	* @param object $event the given event to answer to

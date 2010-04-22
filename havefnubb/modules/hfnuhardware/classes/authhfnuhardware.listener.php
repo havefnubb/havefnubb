@@ -15,7 +15,7 @@ class authhfnuhardwareListener extends jEventListener{
 
 
     // jcommunity_account_show', array('login'=>$user->login, 'user'=>$user,'tpl'=>$tpl));
-    
+
     function onjcommunity_init_edit_form_account($event) {
         //$login = $event->getParam('login');
         $form =  $event->getParam('form');
@@ -60,17 +60,17 @@ class authhfnuhardwareListener extends jEventListener{
         $ctrl->label=jLocale::get('hfnuhardware~hw.card');
         $form->addControlBefore($ctrl, 'acc_submit');
     }
-    
+
     /**
      * prepare the form by initializing fields value
      */
     function onjcommunity_prepare_edit_account ($event) {
         $login = $event->getParam('login');
         $form =  $event->getParam('form');
-        
+
         $members = jDao::get('jcommunity~user');
         $user = $members->getByLogin($login);
-    
+
         $fields = jDao::get('havefnubb~member_custom_fields');
         $values = $fields->getByUserAndFamilyType($user->id, 'hw:%');
         foreach($values as $val) {
@@ -86,12 +86,12 @@ class authhfnuhardwareListener extends jEventListener{
 
     function onhfbAccountShowDiv($event) {
         $tpl = new jTpl();
-        
+
         $login = $event->getParam('user');
-        
+
         $members = jDao::get('jcommunity~user');
         $user = $members->getByLogin($login);
-    
+
         $fields = jDao::get('havefnubb~member_custom_fields');
         $records = $fields->getByUserAndFamilyType($user->id, 'hw:%');
         $hw = array(
@@ -118,11 +118,11 @@ class authhfnuhardwareListener extends jEventListener{
     /**
      * prepare the display of the form
      */
-    
+
     function onhfbAccountEditTab($event) {
 		$event->add(  '<li><a href="#user-profile-hardware">'.jLocale::get('hfnuhardware~hw.hardware').'</a></li>');
     }
-    
+
     function onhfbAccountEditInclude($event) {
         $event->add('hfnuhardware~account_edit');
     }
@@ -135,7 +135,7 @@ class authhfnuhardwareListener extends jEventListener{
     }*/
 
     // jcommunity_check_before_save_account', array('login'=>$user,'form'=>$form));
-    
+
 	/**
 	* to answer to jcommunity_save_account event
 	* @param object $event the given event to answer to
@@ -184,4 +184,3 @@ class authhfnuhardwareListener extends jEventListener{
 	}
 
 }
-

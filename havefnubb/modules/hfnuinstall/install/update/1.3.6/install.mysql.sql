@@ -41,7 +41,7 @@ insert into `hf_member_custom_fields` (id_user, type, `data`)
 insert into `hf_member_custom_fields` (id_user, type, `data`)
  SELECT id_user, 'hw:card', member_card FROM hf_member WHERE member_card <> '' AND member_card IS NOT NULL;
 
-alter table `hf_member_custom_fields` drop member_icq, drop member_xfire, drop member_yim,
+alter table `hf_member` drop member_icq, drop member_xfire, drop member_yim,
 drop member_hotmail, drop member_aol, drop member_gtalk, drop member_jabber,
 drop member_connection, drop member_os, drop member_proc, drop member_ram, drop member_display,
 drop member_screen, drop member_mouse, drop member_keyb, drop member_mb, drop member_card;
