@@ -88,6 +88,38 @@ class hfnuread {
 	 * @param integer $id_forum the current id forum
 	 * @return boolean
 	 */
+	public static function getReadForum($id_forum) {
+        if ($id_forum < 1 ) return true;
+		if ( jAuth::getUserSession ()->login == '' ) return true;
+
+		if (jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum) !== false)
+            return true;
+        else {
+            $nbReadPosts = jDao::get('havefnubb~read_posts')->countReadPosts(jAuth::getUserSession()->id,$id_forum) ;
+            // i dont read that forum so display a "new" indicator
+			if ( jAcl2::check('hfnu.admin.post') ) {
+                $nbPosts = jDao::get('havefnubb~posts')->findAllByIdForum($id_forum);
+                // do we have read all the posts ?
+                if ($nbReadPosts == $nbPosts) return true;
+                $forumRead = jDao::get('havefnubb~posts')->getUserLastCommentOnForums($id_forum);
+			}
+			else {
+                $nbPosts = jDao::get('havefnubb~posts')->findAllByIdForumVisible($id_forum);
+                // do we have read all the posts ?
+                if ($nbReadPosts == $nbPosts) return true;
+                $forumRead = jDao::get('havefnubb~posts')->getUserLastVisibleCommentOnForums($id_forum);
+			}
+
+            if ($forumRead === false) return true; else return false;
+        }
+	}
+
+	/**
+	 * this function says which message from which forum has been read by which user
+	 * @param  integer $id_post the current id post
+	 * @param integer $id_forum the current id forum
+	 * @return boolean
+	 */
 	public static function getReadPost($id_post,$id_forum) {
 		if ( jAuth::getUserSession ()->login == '' ) return true;
 		$alreadyRead = jDao::get('havefnubb~read_posts')->get(jAuth::getUserSession()->id,$id_forum,$id_post);

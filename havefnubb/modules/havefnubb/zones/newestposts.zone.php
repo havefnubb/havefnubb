@@ -28,13 +28,18 @@ class newestpostsZone extends jZone {
 		$statusCss='';
 		if ($source == 'forum') {
 			$id_forum = (int) $this->param('id_forum');
-			if ($id_forum < 1) return;
-			$rec = $dao->getLastPostByIdForum($id_forum);
+			if ($id_forum < 1) return false;
 
-			if ( $rec === false)
+			if (jAuth::getUserSession ()->id > 0)
+                $rec = jClasses::getService('havefnubb~hfnuread')->getReadForum($id_forum);
+			else
+				$rec = true;
+
+			if ( $rec === true)
 				$status = 'forumicone';
 			else
-				$status = 'forumiconenew';
+                $status = 'forumiconenew';
+
 		}
 		elseif ($source =='post') {
 
@@ -58,7 +63,10 @@ class newestpostsZone extends jZone {
 				$dateDiff = 0;
 			} else {
 				if ($this->param('display') == 'icon' and $this->param('status') == 'opened' ) {
-					$status = 'post-new';
+                    if ( jClasses::getService('havefnubb~hfnuread')->getReadPost($id_post,$id_forum) === false )
+                        $status = 'post-new';
+                    else
+                        $status = 'opened';
 				}
 				else
 					$status = $this->param('status');
@@ -66,8 +74,8 @@ class newestpostsZone extends jZone {
 				$dayInSecondes = 24 * 60 * 60;
 				$dateDiff =  ($rec->date_modified == 0) ? floor( (time() - $rec->date_created ) / $dayInSecondes) : floor( (time() - $rec->date_modified ) / $dayInSecondes) ;
 			}
-			$viewed = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->viewed;
-			$recForum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
+			$viewed     = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->viewed;
+			$recForum   = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
 			if ( $recForum->post_expire > 0 and $dateDiff >= $recForum->post_expire )
 				$status = 'closed';

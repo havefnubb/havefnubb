@@ -121,6 +121,21 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
+        <method name="findAllByIdForum" type="count">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+				<eq property="id_post" expr="posts.parent_id" />
+            </conditions>
+        </method>
+        <method name="findAllByIdForumVisible" type="count">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <eq property="id_post" expr="posts.parent_id" />
+                <neq property="status" value="hidden" />
+            </conditions>
+        </method>
         <method name="findByIdParent" type="select">
             <parameter name="parent_id" />
             <parameter name="offset" default="0" />
@@ -286,14 +301,15 @@
         </method>
         <method name="findByAuthor" type="select">
             <parameter name="login"/>
-            <parameter name="count" default="25" />
+            <parameter name="limit" default="0" />
+			<parameter name="count" default="25" />
             <conditions>
                 <eq property="login" expr="$login" />
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
             </order>
-            <limit offset="0" count="$count"/>
+			<limit offset="$limit" count="$count"/>
         </method>
         <method name="updateStatusByIdParent" type="update">
             <parameter name="parent_id"/>
