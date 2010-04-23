@@ -219,6 +219,7 @@
         <url pathinfo="/update/1_3_3" module="hfnuinstall" action="default:update_to_1_3_3"/>
         <url pathinfo="/update/1_3_4" module="hfnuinstall" action="default:update_to_1_3_4"/>
         <url pathinfo="/update/1_3_5" module="hfnuinstall" action="default:update_to_1_3_5"/>
+		<url pathinfo="/update/1_3_6" module="hfnuinstall" action="default:update_to_1_3_6"/>
 		<url pathinfo="/migrate/phorum" module="hfnuinstall" action="migrate:phorum"/>
     </classicentrypoint>
 <!-- fin forum -->
