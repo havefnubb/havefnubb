@@ -83,5 +83,4 @@ class searchwordsListener extends jEventListener{
 		$service = jClasses::getService($HfnuSearchConfig->getValue('classToPerformSearchEngine'));
 		$result = $service->searchEngineRun($event);
 	}
-
 }

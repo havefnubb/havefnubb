@@ -24,6 +24,5 @@ class jumptoZone extends jZone {
 
 		$form = jForms::create('havefnubb~jumpto',$id_forum);
 		$this->_tpl->assign('form',$form);
-
 	}
 }

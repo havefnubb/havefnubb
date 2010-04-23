@@ -29,7 +29,7 @@ class hfnuread {
 			$dao = jDao::create('havefnubb~read_forum');
 			// delete all previous forum the current user has read
             $dao->deleteByUser($id_user);
-            
+
 			foreach ($forums as $forum) {
 				$rec = jDao::createRecord('havefnubb~read_forum');
 				$rec->id_forum = $forum->id_forum;
@@ -93,13 +93,13 @@ class hfnuread {
 	public static function getReadForum($id_forum) {
         if ($id_forum < 1 ) return true;
 		if (!jAuth::isConnected() ) return true;
-
+        //FIXME : when i mark all forum as read ; i always return true...
 		if (jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum) !== false)
             return true;
         else {
             $nbReadPosts = jDao::get('havefnubb~read_posts')->countReadPosts(jAuth::getUserSession()->id,$id_forum) ;
             $daoPosts = jDao::get('havefnubb~posts');
-            
+
             // i dont read that forum so display a "new" indicator
 			if ( jAcl2::check('hfnu.admin.post') ) {
                 $nbPosts = $daoPosts->findAllByIdForum($id_forum);
@@ -159,5 +159,4 @@ class hfnuread {
 		$posts = jDao::get('havefnubb~posts')->findUnreadThread($limit);
 		return $posts;
 	}
-
 }

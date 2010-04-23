@@ -12,4 +12,3 @@
 		<dd>{$ONLINE_USERS}</dd>
 	</dl>
 </div>
-

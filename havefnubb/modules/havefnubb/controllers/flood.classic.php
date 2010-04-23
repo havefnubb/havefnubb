@@ -29,5 +29,4 @@ class floodCtrl extends jController {
         $resp->body->assign('MAIN', $tpl->fetch('havefnubb~flood'));
         return $resp;
 	}
-
 }

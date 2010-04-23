@@ -12,6 +12,6 @@
 				{formsubmit 'validate'} {formreset 'reset'}
 		</div>
 		<div class="clearer">&nbsp;</div>
-	</div> 
-	{/form} 
+	</div>
+	{/form}
 </div>

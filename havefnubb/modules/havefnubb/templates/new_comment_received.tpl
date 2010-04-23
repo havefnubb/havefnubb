@@ -12,3 +12,4 @@ array('id_post'=>$post->parent_id,
 
 {@havefnubb~post.new.comment.received.unsubscribe@} :
 http://{$server}{jurl 'havefnubb~posts:unsubscribe',array('id_post'=>$post->id_post)}
+

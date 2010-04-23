@@ -1348,5 +1348,4 @@ class postsCtrl extends jController {
                             'ptitle'=>$post->subject);
 		return $rep;
 	}
-
 }

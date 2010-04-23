@@ -855,6 +855,22 @@ ol.history {
 ol.history li {
 	display:inline;
 }
+/* forum status */
+/*
+.forumicone, .forumiconenew {
+	text-align: center;
+	padding: 5px;
+	width: 3%;
+	background-position: center;
+}
+.forumicone {
+	background-image: url("../images/posts/folder.png");
+	background-repeat: no-repeat;
+}
+.forumiconenew {
+	background-image: url("../images/posts/folder_new.png");
+	background-repeat: no-repeat;
+}*/
 
 /* posts status */
 .colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-censored

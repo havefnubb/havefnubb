@@ -40,7 +40,6 @@ class menuZone extends jZone {
 				}
 			}
 		}
-
 		usort($menu, "hfnuItemSort");
 		foreach($menu as $topitem) {
 			usort($topitem->childItems, "hfnuItemSort");

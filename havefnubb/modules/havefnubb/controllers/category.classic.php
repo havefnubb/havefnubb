@@ -50,7 +50,6 @@ class categoryCtrl extends jController {
 													'id_forum'=>$forum->id_forum));
 			$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.htmlentities($url).'" />');
 		}
-
 		$tpl = new jTpl();
 
 		$tpl->assign('action','view');

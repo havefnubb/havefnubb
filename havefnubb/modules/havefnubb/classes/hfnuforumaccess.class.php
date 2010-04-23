@@ -54,5 +54,4 @@ class hfnuforumaccess implements jIFormsDatasource {
 		else
 		  return null;
 	}
-
 }

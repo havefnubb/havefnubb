@@ -163,4 +163,3 @@ class authhavefnubbListener extends jEventListener{
 		}
 	}
 }
-?>

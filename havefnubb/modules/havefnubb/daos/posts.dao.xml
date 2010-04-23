@@ -2,8 +2,8 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="posts" realname="posts"  primarykey="id_post" />
-        <foreigntable name="usr"   realname="member" primarykey="id_user"  onforeignkey="id_user" />
-	<foreigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
+        <optionalforeigntable name="usr"   realname="member" primarykey="id_user"  onforeignkey="id_user" />
+		<optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
         <property name="id_post"    	fieldname="id_post"	datatype="autoincrement"/>

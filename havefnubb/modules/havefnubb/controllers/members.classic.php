@@ -152,5 +152,4 @@ class membersCtrl extends jController {
 		$rep->body->assignZone('MAIN', 'jmessenger~links');
 		return $rep;
 	}
-
 }

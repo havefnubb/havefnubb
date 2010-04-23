@@ -43,5 +43,4 @@ class hfnuforum {
 			self::$forumsParents[] = $rec;
 		return self::$forumsParents;
 	}
-
 }

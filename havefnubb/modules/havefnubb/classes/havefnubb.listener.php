@@ -40,5 +40,4 @@ class havefnubbListener extends jEventListener{
 		$box->content = jZone::get('havefnubb~stats');
 		$event->add($box);
 	}
-
 }

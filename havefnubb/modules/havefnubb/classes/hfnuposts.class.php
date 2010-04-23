@@ -606,7 +606,6 @@ class hfnuposts {
 		return true;
 	}
 
-
 	/******************************************************************
 	 * This part handles others behaviors of post/information of post *
 	 ******************************************************************/

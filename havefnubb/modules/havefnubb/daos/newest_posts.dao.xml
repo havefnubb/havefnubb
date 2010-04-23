@@ -16,7 +16,6 @@
 	<!-- properties from member table -->
 	<property name="member_last_post" fieldname="member_last_post" table="usr"  datatype="integer" />
     </record>
-
 	<!-- naming convention :
 		findXXX uses type="select"
 		getXXX uses type="selectfirst"

@@ -1,5 +1,5 @@
 {hook 'hfbBeforeBan'}
-<div class="box">	
+<div class="box">
 	<h2>{@havefnubb~ban.title@}</h2>
 	<div class="block">
 		{hook 'hfbBan'}

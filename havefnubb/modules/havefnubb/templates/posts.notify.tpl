@@ -6,7 +6,7 @@
     {form $form, $submitAction, array('id_post'=>$id_post)}
     <fieldset>
 		{jlocale 'havefnubb~post.form.notify.description',$subject}
-		
+
         <legend>{$heading}</legend>
         <p>
             {ctrl_label 'reason'}<br/>

@@ -3,13 +3,11 @@
     <datasources>
         <primarytable name="connected" realname="connected" primarykey="id_user"  />
     </datasources>
-    <record>        
+    <record>
     <property name="id" fieldname="id_user" datatype="autoincrement"/>
-
     <property name="member_ip"  fieldname="member_ip"   datatype="string"   />
     <property name="connected"  fieldname="connected"   datatype="integer"  />
     <property name="idle"       fieldname="idle"        datatype="integer"  />
-	
    </record>
    <factory>
      <method name="findAllConnected" type="select">
@@ -25,6 +23,6 @@
              <lt property="connected" expr="$time" />
 			 <eq property="id" expr="$id_user" />
          </conditions>
-     </method>	 
+     </method>
    </factory>
 </dao>

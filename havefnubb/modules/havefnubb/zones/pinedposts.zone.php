@@ -22,7 +22,6 @@ class pinedpostsZone extends jZone {
 
 		$id_forum = $this->param('id_forum');
 		if (!$id_forum) return;
-
 		$dao = jDao::get('havefnubb~posts');
 		$posts = $dao->findPinedPostByIdForum($id_forum);
 		$this->_tpl->assign('posts',$posts);

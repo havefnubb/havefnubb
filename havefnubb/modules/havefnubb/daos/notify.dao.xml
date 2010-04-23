@@ -6,7 +6,6 @@
 		<foreigntable name="member" realname="member" primarykey="id_user" onforeignkey="id_user"/>
     </datasources>
     <record>
-
 		<property name="id_notify" fieldname="id_notify" datatype="autoincrement"/>
 		<property name="id_user" fieldname="id_user" datatype="int" required="true"/>
 		<property name="id_post" fieldname="id_post" datatype="int" required="true"/>
@@ -20,7 +19,6 @@
 
 		<property name="member_login" fiedname="member_login" datatype="string" table="member"/>
 		<property name="forum_name" fieldname="forum_name" datatype="string" table="forum"/>
-
     </record>
     <factory>
         <method name="findAll" type="select">

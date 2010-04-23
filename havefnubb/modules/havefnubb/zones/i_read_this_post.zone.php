@@ -26,3 +26,4 @@ class i_read_this_postZone extends jZone {
 		$this->_tpl->assign('bool',$bool);
 	}
 }
+

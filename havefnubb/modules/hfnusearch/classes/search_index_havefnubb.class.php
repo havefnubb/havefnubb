@@ -80,5 +80,4 @@ class search_index_havefnubb extends search_index {
 			}
 		}
 	}
-
 }

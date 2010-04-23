@@ -19,12 +19,10 @@
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
-
     <div class="grid_16">
         {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
     </div>
     <div class="clear"></div>
-
     <div class="grid_16">
         <h2 id="page-heading">{$DESC}</h2>
     </div>

@@ -30,5 +30,4 @@ class hfnurank {
 			}
 		return self::$ranks[$nbMsg];
 	}
-
 }

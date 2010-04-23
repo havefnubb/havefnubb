@@ -3,11 +3,12 @@
     <datasources>
         <primarytable name="member_custom_fields" realname="member_custom_fields" primarykey="id_user,type" />
     </datasources>
-    <record>        
-      <property name="id" fieldname="id_user" required="true" datatype="integer"/>
+    <record>
+        <property name="id" fieldname="id_user" required="true" datatype="integer"/>
     	<property name="type" required="yes" datatype="string"  maxlength="30" />
     	<property name="data" datatype="string" />
    </record>
+
    <factory>
      <method name="getByUser" type="select">
          <parameter name="user" />

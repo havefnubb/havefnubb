@@ -74,7 +74,6 @@ class memberlistZone extends jZone {
 			}
 			$members[] = $u;
 		}
-
 		$groups=array();
 		$o = new StdClass;
 		$o->id_aclgrp ='-2';
@@ -84,15 +83,12 @@ class memberlistZone extends jZone {
 		foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
 			$groups[]=$grp;
 		}
-
 		$letters[] = jLocale::get('havefnubb~member.memberlist.select.an.initial.nickname');
 		for ($i = 0 ; $i < 26 ; $i ++) {
 			$letters[] = chr(97 + $i);
 		}
-
 		$daoRank = jDao::get('havefnubb~ranks');
 		$ranks = $daoRank->findAll();
-
 		// let's build the pagelink var
 		// A Preparing / Collecting datas
 		// 0- the properties of the pager
@@ -101,7 +97,6 @@ class memberlistZone extends jZone {
 					  'next-label'  => '',
 					  'end-label'   => jLocale::get("havefnubb~member.pagelinks.end"),
 					  'area-size'   => 5);
-
 		// 1- vars for pagelinks
 		$this->_tpl->assign('groups', $groups);
 		$this->_tpl->assign('page',$page);

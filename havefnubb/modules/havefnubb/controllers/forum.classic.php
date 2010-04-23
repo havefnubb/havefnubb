@@ -85,5 +85,4 @@ class forumCtrl extends jController {
 							 'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
 		return $rep;
 	}
-
 }

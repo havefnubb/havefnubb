@@ -21,7 +21,6 @@ class lastpostsZone extends jZone {
 	protected function _prepareTpl(){
 		global $gJConfig;
 		$dao = jDao::get('havefnubb~posts');
-
 		//last 'x' posts
 		if (  jAcl2::check('hfnu.admin.post') )
 			$lastPost  = $dao->findLastPosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);

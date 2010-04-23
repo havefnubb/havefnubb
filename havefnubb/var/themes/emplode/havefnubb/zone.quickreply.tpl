@@ -3,7 +3,7 @@
 	<fieldset>
 		<div class="legend">
 			<h3><span>{@havefnubb~post.quickreply.quickreply@}</span></h3>
-		</div>        
+		</div>
 		<div class="form_row">
 			<div class="form_property">{ctrl_label 'subject'} </div>
 			<div class="form_value">{ctrl_control 'subject'}</div>
@@ -23,7 +23,7 @@
 			{/literal}
 			<div class="clearer">&nbsp;</div>
 		</div>
-		
+
 		<div class="form_row form_row_submit">
 			<div class="form_value">
 				{formsubmit 'validate'} {formreset 'reset'}
@@ -33,5 +33,4 @@
 	</fieldset>
 {/form}
 </div>
-
 {zone 'havefnubb~syntax_wiki'}
