@@ -243,6 +243,7 @@
         <url pathinfo="/admin/modules"   module="hfnuadmin" action="modules:index" />
         <url pathinfo="/admin/category" module="hfnuadmin" action="category:index" />
         <url pathinfo="/admin/forum"    module="hfnuadmin" action="forum:index" />
+        <url pathinfo="/admin/forum/create" module="hfnuadmin" action="forum:create" />
         <url pathinfo="/admin/ranks"    module="hfnuadmin" action="ranks:index" />
         <url pathinfo="/admin/notify"   module="hfnuadmin" action="notify:index" />
         <url pathinfo="/admin/notify/delete/:id_notify"   module="hfnuadmin" action="notify:delete">

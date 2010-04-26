@@ -40,6 +40,7 @@
         <property name="member_website"	fieldname="member_website" datatype="string" table="usr" maxlength="255"/>
         <property name="nb_msg"		fieldname="member_nb_msg" table="usr" datatype="integer" />
         <property name="member_last_post"   fieldname="member_last_post" table="usr"  datatype="integer" />
+		<property name="member_last_connect"   fieldname="member_last_connect" table="usr"  datatype="integer" />
 
         <!-- properties from forum table -->
         <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
@@ -91,7 +92,7 @@
                 <neq property="status" value="hidden" />
             </conditions>
             <order>
-                <orderitem property="date_modified" way="desc" />
+                <orderitem property="date_created" way="desc" />
             </order>
             <limit offset="$offset" count="$count"/>
         </method>
@@ -398,14 +399,29 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
-        <method name="findUnreadThread" type="select" distinct="true" groupby="parent_id">
-			<parameter name="limit"/>
-            <conditions logic="OR">
-				<gt property="date_created" expr="$limit" />
-				<gt property="date_modified" expr="$limit" />
+        <method name="findAllUnreadThread" type="count" groupby="parent_id">
+			<parameter name="start"/>
+			<parameter name="end"/>
+            <conditions logic="AND">
+				<gteq property="date_created" expr="$start" />
+				<lteq property="date_created" expr="$end" />
             </conditions>
             <order>
-                <orderitem property="date_modified" way="desc" />
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
+        <method name="findUnreadThread" type="select" distinct="true" groupby="parent_id">
+			<parameter name="start"/>
+			<parameter name="end"/>
+			<parameter name="offset"/>
+			<parameter name="count"/>
+            <conditions logic="AND">
+				<gteq property="date_created" expr="$start" />
+				<lteq property="date_created" expr="$end" />
+            </conditions>
+			<limit offset="$offset" count="$count"/>
+            <order>
+                <orderitem property="date_created" way="desc" />
             </order>
         </method>
 		<method name="deleteSonsPost" type="delete">

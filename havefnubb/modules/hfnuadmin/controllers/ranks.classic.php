@@ -7,11 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * this controller manages the ranks of the user
+ */
 class ranksCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 					'hfnu.check.installed'=>true,
@@ -48,13 +50,8 @@ class ranksCtrl extends jController {
 
 
 	function savecreate () {
-		$form = jForms::get('hfnuadmin~ranks');
-		if ($form->check()) {
-			jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
-			$rep = $this->getResponse('redirect');
-			$rep->action='hfnuadmin~default:ranks';
-			return $rep;
-		}
+		$rep = $this->getResponse('redirect');
+		$rep->action='hfnuadmin~ranks:index';
 
 		if ($this->param('validate') == jLocale::get('hfnuadmin~rank.saveBt')) {
 
@@ -62,6 +59,14 @@ class ranksCtrl extends jController {
 
 			$form = jForms::fill('hfnuadmin~ranks');
 
+			if (!$form) {
+				jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
+				return $rep;
+			}
+			if (!$form->check()) {
+				jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
+				return $rep;
+			}
 			$record = jDao::createRecord('havefnubb~ranks');
 			$record->rank_name = $form->getData('rank_name');
 			$record->rank_limit = $form->getData('rank_limit');
@@ -73,8 +78,6 @@ class ranksCtrl extends jController {
 			jMessage::add(jLocale::get('hfnuadmin~rank.rank.added'),'ok');
 		}
 
-		$rep = $this->getResponse('redirect');
-		$rep->action='hfnuadmin~ranks:index';
 		return $rep;
 
 	}

@@ -52,6 +52,7 @@ class postsCtrl extends jController {
 		$id_forum = (int) $this->param('id_forum');
 
 		if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -132,8 +133,8 @@ class postsCtrl extends jController {
 	 * 	Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
 	 */
 	function view() {
-		$id_post = (int) $this->param('id_post');
-		$parent_id = (int) $this->param('parent_id');
+		$id_post    = (int) $this->param('id_post');
+		$parent_id  = (int) $this->param('parent_id');
 
 		$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 
@@ -196,6 +197,7 @@ class postsCtrl extends jController {
 		$id_forum = (int) $this->param('id_forum');
 
 		if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -257,6 +259,7 @@ class postsCtrl extends jController {
 		$post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
 		if (jAuth::getUserSession ()->id == $post->id_user) {
 			if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$post->id_forum)  ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 				$rep = $this->getResponse('redirect');
 				$rep->action = 'default:index';
 				return $rep;
@@ -264,6 +267,7 @@ class postsCtrl extends jController {
 		}
 		else
 		if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -318,6 +322,7 @@ class postsCtrl extends jController {
 			//it's my post
 			if (jAuth::getUserSession ()->id == $post->id_user) {
 				if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$post->id_forum)  ) {
+                    jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 					$rep = $this->getResponse('redirect');
 					$rep->action = 'default:index';
 					return $rep;
@@ -326,6 +331,7 @@ class postsCtrl extends jController {
 			// am i an admin or modo to be able to edit this post which is not mine ?
 			else {
 				if (! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
+                    jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 					$rep = $this->getResponse('redirect');
 					$rep->action = 'default:index';
 					return $rep;
@@ -334,6 +340,7 @@ class postsCtrl extends jController {
 		}
 		else {
 			if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 				$rep = $this->getResponse('redirect');
 				$rep->action = 'default:index';
 				return $rep;
@@ -351,6 +358,13 @@ class postsCtrl extends jController {
 			list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
 
 			$form = jForms::fill('havefnubb~posts',$id_post);
+
+            if (!$form) {
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'default:lists';
+                $rep->params = array('id_forum'=>$id_forum);
+                return $rep;
+            }
 
 			$user = $daoUser->getById( (int) $form->getData('id_user'));
 
@@ -386,8 +400,8 @@ class postsCtrl extends jController {
 			$rep = $this->getResponse('redirect');
 
 			if ($id_forum == 0  ) {
-					$rep->action = 'havefnubb~default:index';
-					return $rep;
+                $rep->action = 'havefnubb~default:index';
+                return $rep;
 			}
 			//let's save the post
 			$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
@@ -462,7 +476,8 @@ class postsCtrl extends jController {
 		}
 
 		if ( ! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum) ) {
-				$rep = $this->getResponse('redirect');
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
 		}
@@ -530,6 +545,7 @@ class postsCtrl extends jController {
 		}
 
 		if ( ! jAcl2::check('hfnu.posts.create','forum'.$post->id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -598,6 +614,7 @@ class postsCtrl extends jController {
 
 		if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) and
 			! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -617,6 +634,19 @@ class postsCtrl extends jController {
 			list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
 
 			$form = jForms::fill('havefnubb~posts',$parent_id);
+
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'default:index';
+
+            if (!$form) {
+                jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+                return $rep;
+            }
+
+            if(!$form->check()){
+                jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+                return $rep;
+            }
 
 			$form->setData('id_forum',$id_forum);
 			$form->setData('id_user',jAuth::getUserSession ()->id);
@@ -651,6 +681,7 @@ class postsCtrl extends jController {
 			$rep = $this->getResponse('redirect');
 
 			if ($id_forum == 0 ) {
+                jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 				$rep->action = 'havefnubb~default:index';
 				return $rep;
 			}
@@ -660,6 +691,7 @@ class postsCtrl extends jController {
 			$record = $hfnuposts->savereply($parent_id);
 
 			if ($record === false ) {
+                jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 				$record = $hfnuposts->getPost($parent_id);
 				$rep->action = 'havefnubb~posts:view';
 				$rep->params = array('ftitle'=>$record->forum_name,
@@ -694,6 +726,7 @@ class postsCtrl extends jController {
 		$id_forum = (integer) $this->param('id_forum');
 
 		if ( ! jAcl2::check('hfnu.posts.delete','forum'.$id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -748,6 +781,7 @@ class postsCtrl extends jController {
         $post = $hfnuposts->getPost($id_post);
 
 		if ( ! jAcl2::check('hfnu.posts.notify','forum'.$post->id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -793,6 +827,7 @@ class postsCtrl extends jController {
 		$id_forum   = (int) $this->param('id_forum');
 
 		if ( ! jAcl2::check('hfnu.posts.notify','forum'.$id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -803,14 +838,16 @@ class postsCtrl extends jController {
 			$rep = $this->getResponse('redirect');
 
 			if ($id_post ==  0 or $id_forum == 0) {
-					$rep->action = 'havefnubb~default:index';
-					return $rep;
+                jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+                $rep->action = 'havefnubb~default:index';
+                return $rep;
 			}
 
 			//let's save the post
 			$hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 			$result = $hfnuposts->savenotify($id_post,$parent_id);
 			if ($result === false) {
+                jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 				$rep->action = 'havefnubb~default:index';
 				return $rep;
 			}
@@ -864,6 +901,7 @@ class postsCtrl extends jController {
 		// if the forum is accessible by anonymous then the rss will be available
 		// otherwise NO RSS will be available
 		if ( ! jAcl2::check('hfnu.posts.rss','forum'.$id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'default:index';
 			return $rep;
@@ -939,19 +977,22 @@ class postsCtrl extends jController {
 		$id_post = (int) $this->param('id_post');
 
 		if ( $id_forum == 0) {
-				$rep = $this->getResponse('redirect');
-				$rep->action = 'havefnubb~default:index';
-				return $rep;
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';
+            return $rep;
 		}
 
 		if ($id_post == 0) {
-				$rep = $this->getResponse('redirect');
-				$rep->action = 'havefnubb~posts:lists';
-				$rep->params = array('id_forum'=>$id_forum);
-				return $rep;
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+            $rep = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~posts:lists';
+            $rep->params = array('id_forum'=>$id_forum);
+            return $rep;
 		}
 
 		if ( ! jAcl2::check('hfnu.admin.post') ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
@@ -962,6 +1003,7 @@ class postsCtrl extends jController {
 		$result = $hfnuposts->moveToForum($id_post,$id_forum);
 
 		if ($result === false ) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~posts:lists';
 			$rep->params = array('id_forum'=>$id_forum);
@@ -986,6 +1028,7 @@ class postsCtrl extends jController {
 	 */
 	public function splitTo() {
 		if ( ! jAcl2::check('hfnu.admin.post') ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
@@ -999,6 +1042,7 @@ class postsCtrl extends jController {
 		if (($id_post == 0 or $id_forum == 0 or $parent_id == 0) or
 			($id_post == 0 and $id_forum == 0 and $parent_id == 0))
 			{
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action 	= 'havefnubb~default:index';
 			return $rep;
@@ -1096,13 +1140,25 @@ class postsCtrl extends jController {
 	 */
 	public function splitedTo() {
 		if ( ! jAcl2::check('hfnu.admin.post') ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
 		}
 
 		$form = jForms::fill('havefnubb~split');
-
+        if (!$form) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+			return $rep;
+        }
+        if (!$form->check()) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+			$rep = $this->getResponse('redirect');
+			$rep->action = 'havefnubb~default:index';
+			return $rep;
+        }
 		$submit = $this->param('validate');
 		if ( $submit == jLocale::get('havefnubb~post.form.saveBt') ) {
 			// let's define the possible actions we can do :
@@ -1173,6 +1229,7 @@ class postsCtrl extends jController {
 	 */
 	public function censor () {
 		if ( ! jAcl2::check('hfnu.admin.post') ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
@@ -1184,6 +1241,7 @@ class postsCtrl extends jController {
 		$parent_id  = (int) $this->param('parent_id');
 
 		if ($id_post < 1 or $parent_id < 0) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
@@ -1208,6 +1266,7 @@ class postsCtrl extends jController {
 		$rep = $this->getResponse('redirect');
 
 		if ( ! jAcl2::check('hfnu.admin.post') ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
 		}
@@ -1215,38 +1274,46 @@ class postsCtrl extends jController {
 		$parent_id 	= (int) $this->param('parent_id');
 
 		if ($id_post < 1 or $parent_id < 0) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
 		}
 
 		$form = jForms::fill('havefnubb~censor',$id_post);
-		if (!$form->check()) {
+		if (!$form) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 			$rep->action = 'havefnubb~posts:censor';
 			$rep->params = array('id_post'=>$id_post,'parent_id'=>$parent_id);
 			return $rep;
 		}
-		else {
-			//censoring an entire thread
-			$result = jClasses::getService('havefnubb~hfnuposts')->switchStatus(
-										$parent_id,$id_post,'censored',$form->getData('censored_msg')
-										);
 
-			if ($result === false ) {
-				$rep->action = 'havefnubb~default:index';
-				return $rep;
-			}
-			else {
-				$post  = $result;
-				jMessage::add(jLocale::get('havefnubb~post.status.censored'),'ok');
-				$rep->action = 'havefnubb~posts:view';
-				$rep->params = array('id_post'=>$post->id_post,
-									'parent_id'=>$parent_id,
-									'id_forum'=>$post->id_forum,
-									'ftitle'=>$post->forum_name,
-									'ptitle'=>$post->subject);
-				return $rep;
-			}
+		if (!$form->check()) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+			$rep->action = 'havefnubb~posts:censor';
+			$rep->params = array('id_post'=>$id_post,'parent_id'=>$parent_id);
+			return $rep;
+		}
 
+        //censoring an entire thread
+        $result = jClasses::getService('havefnubb~hfnuposts')
+                    ->switchStatus($parent_id,$id_post,'censored',$form->getData('censored_msg')
+                        );
+
+        if ($result === false ) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+            $rep->action = 'havefnubb~default:index';
+            return $rep;
+        }
+        else {
+            $post  = $result;
+            jMessage::add(jLocale::get('havefnubb~post.status.censored'),'ok');
+            $rep->action = 'havefnubb~posts:view';
+            $rep->params = array('id_post'=>$post->id_post,
+                                'parent_id'=>$parent_id,
+                                'id_forum'=>$post->id_forum,
+                                'ftitle'=>$post->forum_name,
+                                'ptitle'=>$post->subject);
+            return $rep;
 		}
 
 	}
@@ -1255,6 +1322,7 @@ class postsCtrl extends jController {
 	 */
 	public function uncensor() {
 		if ( ! jAcl2::check('hfnu.admin.post') ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
@@ -1265,6 +1333,7 @@ class postsCtrl extends jController {
 		$post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,'uncensored');
 
 		if ($post === false) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
@@ -1284,10 +1353,38 @@ class postsCtrl extends jController {
 	 * Show all new posts not read by the current user
 	 */
 	public function shownew() {
-		$posts = jClasses::getService('havefnubb~hfnuread')->findUnreadThread();
+		global $gJConfig;
+
+		// let's build the pagelink var
+		// A Preparing / Collecting datas
+		// 0- the properties of the pager
+		$properties = array('start-label' => '',
+					  'prev-label'  => '',
+					  'next-label'  => '',
+					  'end-label'   => jLocale::get("havefnubb~main.common.pagelinks.end"),
+					  'area-size'   => 5);
+		// 1- get the offset parm if exist
+		$page = 0;
+		if ( $this->param('page') > 0 )
+			$page = (int) $this->param('page');
+
+		if ($page < 0) $page = 0;
+
+		// 2- limit per page
+		$nbPostPerPage = 0;
+		$nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
+		$nbPosts = 0;
+		$posts = array();
+		$unread= jClasses::getService('havefnubb~hfnuread');
+		$datas = $unread->findUnreadThread($page,$nbPostPerPage);
+
 		$tpl = new jTpl();
 		$rep = $this->getResponse('html');
-		$tpl->assign('posts', $posts);
+		$tpl->assign('posts', $datas['posts']);
+		$tpl->assign('page',$page);
+		$tpl->assign('nbPostPerPage',$nbPostPerPage);
+		$tpl->assign('nbPosts',$datas['nbPosts']);
+		$tpl->assign('properties',$properties);
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.shownew'));
 		return $rep;
 	}

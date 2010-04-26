@@ -7,11 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * This controller manages the ban of members
+ */
 class banCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 			'hfnu.check.installed'=>true,
@@ -101,15 +103,23 @@ class banCtrl extends jController {
 						return $rep;
 					}
 			}
+			$rep = $this->getResponse('redirect');
+			$rep->action='hfnuadmin~ban:index';
 
 			$dao 	= jDao::get('havefnubb~bans');
 			$form 	= jForms::fill('hfnuadmin~bans');
+
+			if (!$form) {
+				jMessage::add(jLocale::get('hfnuadmin~ban.invalid.datas'),'error');
+				return $rep;
+			}
+			if (!$form->check()) {
+				jMessage::add(jLocale::get('hfnuadmin~ban.invalid.datas'),'error');
+				return $rep;
+			}
 			$form->saveToDao('havefnubb~bans');
 
 			jMessage::add(jLocale::get('hfnuadmin~ban.added'),'ok');
-
-			$rep = $this->getResponse('redirect');
-			$rep->action='hfnuadmin~ban:index';
 			return $rep;
 		}
 	}

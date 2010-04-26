@@ -7,21 +7,24 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * This controller manages the creation/edit/deletion of the forum
+ * and this rights associated to them
+ */
 class forumCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 			'hfnu.check.installed'=>true,
 			'banuser.check'=>true,
-	  ),
-	'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
-		'edit'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
-		'saveedit'=> array( 'jacl2.right'=>'hfnu.admin.forum'),
-		'defaultrights'=> array( 'jacl2.right'=>'hfnu.admin.forum'),
-		'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
+		),
+	  'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+		  'edit'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+		  'saveedit'=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+		  'defaultrights'=> array( 'jacl2.right'=>'hfnu.admin.forum'),
+		  'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
 	);
 
 
@@ -40,6 +43,10 @@ class forumCtrl extends jController {
 
 	// creation of Forum
 	function create () {
+
+		$rep = $this->getResponse('redirect');
+		$rep->action='hfnuadmin~forum:index';
+
 		// let's define the possible actions we can do :
 		// where to add a forum :
 		// 1) in a category
@@ -58,8 +65,6 @@ class forumCtrl extends jController {
 		//check if submitted data are ok.
 		if ($id_forum == 0 or ! in_array($choice,$possibleActions) ) {
 			jMessage::add(jLocale::get('hfnuadmin~forum.invalid.datas'),'error');
-			$rep = $this->getResponse('redirect');
-			$rep->action='hfnuadmin~forum:index';
 			return $rep;
 		}
 
@@ -121,13 +126,9 @@ class forumCtrl extends jController {
 			jClasses::getService("hfnuadmin~hfnuadminrights")->resetRights($record->id_forum);
 
 			jMessage::add(jLocale::get('hfnuadmin~forum.forum.added'),'ok');
-			$rep = $this->getResponse('redirect');
-			$rep->action='hfnuadmin~forum:index';
 			return $rep;
 		}
 		else {
-			$rep = $this->getResponse('redirect');
-			$rep->action='hfnuadmin~forum:index';
 			return $rep;
 		}
 	}

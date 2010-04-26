@@ -7,11 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * This controller manages the cache of the forum
+ */
 class cacheCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 			'hfnu.check.installed'=>true,
@@ -27,7 +29,7 @@ class cacheCtrl extends jController {
 		$tpl->assign('form',$form);
 		$rep = $this->getResponse('html');
 		$rep->body->assign('MAIN', $tpl->fetch('hfnuadmin~cache_index'));
-	$rep->body->assign('selectedMenuItem','cache');
+		$rep->body->assign('selectedMenuItem','cache');
 		return $rep;
 	}
 

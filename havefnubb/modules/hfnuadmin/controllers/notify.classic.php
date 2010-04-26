@@ -7,16 +7,18 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * This controller manages the notification send by members
+ */
 class notifyCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 			'hfnu.check.installed'=>true,
 			'banuser.check'=>true,
-	  ),
+		),
 		'index'    => array( 'jacl2.right'=>'hfnu.admin.notify.list'),
 		'delete'   => array( 'jacl2.right'=>'hfnu.admin.notify.delete'),
 	);
@@ -31,7 +33,6 @@ class notifyCtrl extends jController {
 		$rep->body->assign('selectedMenuItem','notify');
 		return $rep;
 	}
-
 
 	function delete () {
 		$id_notify = (int) $this->param('id_notify');

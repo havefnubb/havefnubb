@@ -7,11 +7,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
-	class categoryCtrl extends jController {
+/**
+ * This controller manages the Category of the forum
+ */
+class categoryCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 					'hfnu.check.installed'=>true,
@@ -45,19 +47,23 @@
 	}
 
 	function savecreate () {
-		$form = jForms::get('hfnuadmin~category');
-		if ($form->check()) {
-			jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
-			$rep = $this->getResponse('redirect');
-			$rep->action='hfnuadmin~category:index';
-			return $rep;
-		}
+		$rep = $this->getResponse('redirect');
+		$rep->action='hfnuadmin~category:index';
 
 		if ($this->param('validate') == jLocale::get('hfnuadmin~category.saveBt')) {
 
 			$dao = jDao::get('havefnubb~category');
 
 			$form = jForms::fill('hfnuadmin~category');
+			if (!$form) {
+				jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
+				return $rep;
+			}
+
+			if (!$form->check()) {
+				jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
+				return $rep;
+			}
 
 			$record = jDao::createRecord('havefnubb~category');
 			$record->cat_name = $form->getData('cat_name');
@@ -65,12 +71,11 @@
 
 			$dao->insert($record);
 
-		jForms::destroy('hfnuadmin~category');
+			jForms::destroy('hfnuadmin~category');
 
 			jMessage::add(jLocale::get('hfnuadmin~category.category.added'),'ok');
 		}
-		$rep = $this->getResponse('redirect');
-		$rep->action='hfnuadmin~category:index';
+
 		return $rep;
 
 	}

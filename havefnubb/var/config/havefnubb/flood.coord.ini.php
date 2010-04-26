@@ -12,3 +12,7 @@ on_error=2
 ; action to execute on a missing authentification when on_error=2
 on_error_action="havefnubb~flood:error"
 
+
+elapsed_time_between_two_post=0
+
+

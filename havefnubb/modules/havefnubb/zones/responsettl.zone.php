@@ -27,6 +27,8 @@ class responsettlZone extends jZone {
 		//number of posts "minus" the current post
 		$responsettl = $dao->countResponse($id_post) - 1;
 
+		if ($responsettl < 0 ) $responsettl = 0;
+
 		$this->_tpl->assign('responsettl',$responsettl);
 	}
 }

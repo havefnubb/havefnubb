@@ -41,7 +41,7 @@
         <td class="colmain linkincell">
             <h4 class="forumtitle">
                 <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
-                <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$forum->forum_name)}</a>
+                <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{@havefnubb~main.rss.link@} {$forum->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$forum->forum_name)}</a>
             </h4>
             <span class="forumdesc">{$forum->forum_desc|eschtml}</span>
                 {zone 'havefnubb~forumchild',array('id_forum'=>$forum->id_forum,'lvl'=>1,'calledFrom'=>'home')}

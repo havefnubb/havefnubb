@@ -124,8 +124,8 @@ class hfnuposts {
             $posts = $daoPost->findByIdForum($id_forum,$page,$nbPostPerPage);
             // check if we have found record ;
             if ($posts->rowCount() == 0) {
-                    $posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);
-                    $page = 0;
+                $posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);
+                $page = 0;
             }
         }
 		$nbPosts = abs($nbTtlPosts - $nbPinedPosts);
@@ -232,6 +232,9 @@ class hfnuposts {
 		global $gJConfig;
 		$form = jForms::fill('havefnubb~posts',$id_post);
 
+		if (!$form) {
+			return false;
+		}
 		//.. if the data are not ok, return to the form and display errors messages form
 		if (!$form->check()) {
 			return false;
@@ -341,6 +344,9 @@ class hfnuposts {
 	public static function savereply($parent_id) {
 		global $gJConfig;
 		$form = jForms::fill('havefnubb~posts',$parent_id);
+        if (!$form) {
+			return false;
+        }
 
 		//.. if the data are not ok, return to the form and display errors messages form
 		if (!$form->check()) {
@@ -396,14 +402,16 @@ class hfnuposts {
 	public static function savenotify($id_post,$parent_id) {
 
 		$form = jForms::fill('havefnubb~notify',$id_post);
-
+		if (!$form) {
+			return false;
+		}
 		//.. if the data are not ok, return to the form and display errors messages form
 		if (!$form->check()) {
 			return false;
 		}
 
 		jEvent::notify('HfnuPostBeforeSaveNotify',array('id'=>$id_post));
-                $dao = jDao::get('havefnubb~notify')->getNotifByUserId($id_post,$form->getData('id_user'));
+        $dao = jDao::get('havefnubb~notify')->getNotifByUserId($id_post,$form->getData('id_user'));
 		if ($dao != null) {
 			jMessage::add(jLocale::get('havefnubb~post.notification.already.done'),'error');
 			return false;

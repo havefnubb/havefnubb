@@ -27,7 +27,11 @@ class defaultCtrl extends jController {
 	public function send_a_message() {
 		global $gJConfig;
 		$form = jForms::fill('hfnucontact~contact');
-
+		if (! $form ) {
+			$rep = $this->getResponse('redirect');
+			$rep->action='jelix~error:403';
+			return $rep;
+		}
 		if (! $form->check()) {
 			$rep = $this->getResponse('redirect');
 			$rep->action='jelix~error:404';
@@ -121,9 +125,13 @@ class defaultCtrl extends jController {
 	public function send_a_message_to_friend() {
 		global $gJConfig;
 		$form = jForms::fill('hfnucontact~send_to_friend');
+		$rep = $this->getResponse('redirect');
+		if (! $form ) {
+			$rep->action='hfnucontact~default:index';
+			return $rep;
+		}
 
 		if (! $form->check()) {
-			$rep = $this->getResponse('redirect');
 			$rep->action='hfnucontact~default:index';
 			return $rep;
 		}
@@ -154,7 +162,7 @@ class defaultCtrl extends jController {
 		$mail->Send();
 
 		jForms::destroy('hfnucontact~send_to_friend');
-		$rep = $this->getResponse('redirect');
+
 		$rep->action='hfnucontact~default:contacted';
 		return $rep;
 	}

@@ -8,11 +8,13 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * this controller manages the configuration of the forum
+ */
 class defaultCtrl extends jController {
 	/**
-	*
-	*/
+	 * @var plugins to manage the behavior of the controller
+	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
 					'hfnu.check.installed'=>true,
@@ -29,7 +31,7 @@ class defaultCtrl extends jController {
 		$rep->action = 'master_admin~default:index';
 		return $rep;
 	}
-    
+
     protected function initform($form) {
         global $gJConfig;
         $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
@@ -91,8 +93,8 @@ class defaultCtrl extends jController {
         $resp->body->assign('selectedMenuItem','config');
         return $resp;
 	}
-    
-    
+
+
     function saveconfig() {
 		global $gJConfig;
 

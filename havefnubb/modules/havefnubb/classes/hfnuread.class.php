@@ -148,15 +148,17 @@ class hfnuread {
         return ($postRead->date_modified > $dateReadForum) ? false : true;
 	}
 	/**
-	 * this function get the read messages of the current user,
-	 * and get the messages he does not made himself
+	 * this function get the messages that the current user does not read yet between his last connection and last 15min
 	 * then return the given record
-	 * @return $data record
+	 * @return array : the limited records + total of records
 	 */
-	public static function findUnreadThread() {
-		// limit before considering the are new posts
-		$limit = time() - 900;
-		$posts = jDao::get('havefnubb~posts')->findUnreadThread($limit);
-		return $posts;
+	public static function findUnreadThread($page=0,$nbPostPerPage=25) {
+		if ( !jAuth::isConnected() )
+			return array('posts'=>0,'nbPosts'=>0);
+		$start = jAuth::getUserSession()->member_last_connect - 900;
+		$end = time();
+		$nbPosts = jDao::get('havefnubb~posts')->findAllUnreadThread($start,$end);
+		$posts = jDao::get('havefnubb~posts')->findUnreadThread($start,$end,$page,$nbPostPerPage);
+		return array('posts'=>$posts,'nbPosts'=>$nbPosts);
 	}
 }
