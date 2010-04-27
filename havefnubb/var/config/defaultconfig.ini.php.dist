@@ -85,7 +85,7 @@ defaultEntrypoint=forums
 entrypointExtension=.php
 
 ; leave empty to have jelix error messages
-notfoundAct="havefnubb~error:notfound"
+notfoundAct="havefnubb~hfnuerror:notfound"
 ;notfoundAct = "jelix~error:notfound"
 
 ; list of actions which require https protocol for the simple url engine

@@ -10,7 +10,7 @@
 /**
 * Controller to manage any errors events
 */
-class errorCtrl extends jController {
+class hfnuerrorCtrl extends jController {
 	/**
 	 * @var plugins to manage the behavior of the controller
 	 */
