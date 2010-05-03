@@ -1,3 +1,15 @@
+{if $user === false }
+<div class="post-author">
+    <ul class="member-ident">
+	{hook 'hfbMemberProfile',array('user'=>0)}
+		<li class="user-name user-image">{@havefnubb~member.guest@}</li>
+		<li class="user-rank user-image"><span>{@havefnubb~rank.rank_name@} : </span></li>
+    </ul>
+    <ul class="member-info">
+		<li class="user-posts user-image">{@havefnubb~member.common.nb.messages@}: 0</li>
+	</ul>
+</div>
+{else}
 {hook 'hfbBeforeMemberProfile',array('user'=>$user->id)}
 <div class="post-author">
     <ul class="member-ident">
@@ -31,3 +43,4 @@
     </ul>
 </div>
 {hook 'hfbAfterMemberProfile',array('user'=>$user->id)}
+{/if}

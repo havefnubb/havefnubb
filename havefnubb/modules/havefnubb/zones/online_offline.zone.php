@@ -19,17 +19,17 @@ class online_offlineZone extends jZone {
 	 * function to manage data before assigning to the template of its zone
 	 */
 	protected function _prepareTpl(){
-		$userId = $this->param('userId');
-		if (!$userId ) return;
+		$userId = (int) $this->param('userId');
+		$status = 'offline';
+		if ($userId > 0) {
+			$dao = jDao::get('havefnubb~timeout');
+			$user = $dao->getConnectedByIdUser(time(),$userId);
 
-		$dao = jDao::get('havefnubb~timeout');
-		$user = $dao->getConnectedByIdUser(time(),$userId);
-
-		if ( $user === false )
-			$status = 'offline';
-		else
-			$status = 'online';
-
+			if ( $user === false )
+				$status = 'offline';
+			else
+				$status = 'online';
+		}
 		$this->_tpl->assign('status',$status);
 	}
 }
