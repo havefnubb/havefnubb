@@ -1414,20 +1414,31 @@ class defaultCtrl extends jController {
 		$sources = file($file);
 		$newSource = '';
 
-		$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO|UPDATE|ALTER TABLE) `(hf_)(.*)/';
+		$pattern1 = '/(INSERT INTO) (hf_)(.+) SELECT(.+) FROM (hf_)(.+)/i';		
+		$pattern2 = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|DROP TABLE|CREATE TABLE|INSERT INTO|UPDATE|ALTER TABLE) (hf_)(.+)|(INSERT INTO) (hf_)(.+) SELECT(.+) FROM (hf_)(.+)/i';
 
 		foreach ((array)$sources as $key=>$line) {
-			if (preg_match($pattern,$line,$match)) {
-				if ($tablePrefix != 'null_')
-					$newSource .= $match[1] .' `'.$tablePrefix . $match[3];
-				else
-					$newSource .= $match[1] .' `'. $match[3];
+
+			if (preg_match($pattern1,$line,$match)) {
+				if ($tablePrefix != 'null_') {
+					$newSource .= ' ' . $match[1] .' '.$tablePrefix . $match[3] . ' SELECT ' . $match[4] . ' FROM ' .' '.$tablePrefix . $match[6] ;
+				}
+				else {
+					$newSource .= ' ' . $match[1]  . $match[3] . ' SELECT ' . $match[4] . ' FROM ' .' '.$tablePrefix . $match[6] ;
+				}
+			}
+			elseif (preg_match($pattern2,$line,$match)) {			
+				if ($tablePrefix != 'null_') {
+					$newSource .= ' ' . $match[1] .' '.$tablePrefix . $match[3];
+				}
+				else {
+					$newSource .= ' ' . $match[1] . $match[3] ;
+				}
 			}
 			else {
 				$newSource .= $line;
 			}
-		}
-
+		}		
 		$fh = fopen($fileDest,'w+');
 		fwrite($fh,$newSource);
 		fclose($fh);
@@ -1440,5 +1451,6 @@ class defaultCtrl extends jController {
 		$mainConfig->setValue('version','1.3.6','havefnubb');
 		$mainConfig->save();
 		jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+
 	}
 }
