@@ -64,7 +64,7 @@ $(document).ready(function(){
 					<div class="form_property">
 						<label class="user-messenger user-image"> &nbsp;</label>
 					</div>
-					<div class="form_value"><a href="{jurl 'hfnucontact~default:index',array('to'=>$user->login)}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a></div>
+					<div class="form_value"><a href="{jurl 'jmessenger~jmessenger:create'}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a></div>
 	{/if}
 
 					<div class="form_property">
