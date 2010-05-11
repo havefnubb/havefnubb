@@ -54,4 +54,11 @@ chmod 770 cache/images
 additionnaly, you could have to change the rights on the temp directory,
 effectively it have to be writable to generate the cache
 
-4) go to http://_your_domain.com_/install and follow the steps
+4) URLs settings with HaveFnuBB : 
+the default behavior of havefnubb is to use the URL engine significant with the parm multiview to on et enableParser to on.
+
+if you wish to use the URL engine basic_significant, then :
+with multiview set to on the URLs will take the form http://localhost/forums.php/ but this one http://localhost/forums.php will lead to a 404 eror page
+with multiview set to off the URLs of the form http://localhost/forums.php/ or http://localhost/forums.php will work without any 404 error
+
+5) go to http://_your_domain.com_/install and follow the steps

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-	<info id="hfnuim@havefnubb.org" name="havefnubb" createdate="2010-04-19">
-		<version>1.0</version>
+	<info id="hfnuim@havefnubb.org" name="hfnuim" createdate="2010-04-19">
+		<version date="2010-05-11">1.0</version>
 		<label lang="en_EN">Member IM properties</label>
 		<description lang="en_EN">Add instant messaging properties into the member account</description>
 		<label lang="fr_FR">Propriétés IM d'un membre</label>
@@ -14,6 +14,6 @@
 	<dependencies>
 		<jelix minversion="1.1.5" maxversion="1.1.5" />
 		<module name="jcommunity" minversion="0.1" maxversion="0.2" />
-		<module name="havefunbb"/>
+		<module name="havefunbb" minversion="1.3.6" maxversion="1.3.6" />
 	</dependencies>
 </module>

@@ -246,10 +246,13 @@ class defaultCtrl extends jController {
 						$sources = file($file);
 						$newSource = '';
 
-						$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) `?(hf_)(.*)/';
+						$pattern = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|INSERT INTO) (hf_)(.*)/';
 
 						foreach ((array)$sources as $key=>$line) {
 							if (preg_match($pattern,$line,$match)) {
+echo "<pre>";
+var_dump($match);
+echo "</pre>";
 								if ($tablePrefix != 'null_')
 									$newSource .= $match[1] .' '.$tablePrefix . $match[3];
 								else
@@ -1414,7 +1417,7 @@ class defaultCtrl extends jController {
 		$sources = file($file);
 		$newSource = '';
 
-		$pattern1 = '/(INSERT INTO) (hf_)(.+) SELECT(.+) FROM (hf_)(.+)/i';		
+		$pattern1 = '/(INSERT INTO) (hf_)(.+) SELECT(.+) FROM (hf_)(.+)/i';
 		$pattern2 = '/(DROP TABLE IF EXISTS|CREATE TABLE IF NOT EXISTS|DROP TABLE|CREATE TABLE|INSERT INTO|UPDATE|ALTER TABLE) (hf_)(.+)|(INSERT INTO) (hf_)(.+) SELECT(.+) FROM (hf_)(.+)/i';
 
 		foreach ((array)$sources as $key=>$line) {
@@ -1427,7 +1430,7 @@ class defaultCtrl extends jController {
 					$newSource .= ' ' . $match[1]  . $match[3] . ' SELECT ' . $match[4] . ' FROM ' .' '.$tablePrefix . $match[6] ;
 				}
 			}
-			elseif (preg_match($pattern2,$line,$match)) {			
+			elseif (preg_match($pattern2,$line,$match)) {
 				if ($tablePrefix != 'null_') {
 					$newSource .= ' ' . $match[1] .' '.$tablePrefix . $match[3];
 				}
@@ -1438,7 +1441,7 @@ class defaultCtrl extends jController {
 			else {
 				$newSource .= $line;
 			}
-		}		
+		}
 		$fh = fopen($fileDest,'w+');
 		fwrite($fh,$newSource);
 		fclose($fh);

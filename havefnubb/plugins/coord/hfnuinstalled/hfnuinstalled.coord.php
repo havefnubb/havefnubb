@@ -23,12 +23,19 @@ class hfnuinstalledCoordPlugin implements jICoordPlugin {
 	 */
 	public function beforeAction ($params){
 		global $gJConfig;
+
 		$selector = null;
 		$ok = true;
 		$error_message = '';
 		$on_error_action = '';
 
-		if(isset($params['hfnu.check.installed'])) {
+		if (! file_exists ( JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php') ) {
+			$on_error_action = 'on_error_action';
+			$ok = false;
+			$error_message = jLocale::get('havefnubb~main.forum.is.not.installed');
+		}
+
+		elseif(isset($params['hfnu.check.installed'])) {
 			if ($gJConfig->havefnubb['installed'] == 1)
 				$ok = true;
 			else {

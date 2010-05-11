@@ -52,7 +52,15 @@ chmod 664 var/config/havefnubb/timeout.coord.ini.php
 chmod 770 cache/images
 
 vous pouvez rencontrer des problemes de droits sur le repertoire temp
-effectviement il faut autoriser l'écriture à l'interieure de temp/havefnubb afin 
+effectivement il faut autoriser l'écriture à l'interieure de temp/havefnubb afin 
 qu'il y génère son cache
 
-4) acceder à http://_votre_domaine.com_/install et suivez les étapes
+4) configuration des URLs par défaut avec HaveFnuBB : 
+le comportement par défaut de havefnubb est d'utiliser le moteur d'url significant avec le multiview à on et enableParser à on.
+
+si vous souhaitez utiliser le moteur d'URL basic_significant alors :
+avec multiview à on les URLs seront de la forme http://localhost/forums.php/ mais http://localhost/forums.php aboutira à une erreur 404
+avec multiview à off les URLs de la forme http://localhost/forums.php/ ou http://localhost/forums.php fonctionneront sans erreur 404.
+
+
+5) acceder à http://_votre_domaine.com_/install et suivez les étapes
