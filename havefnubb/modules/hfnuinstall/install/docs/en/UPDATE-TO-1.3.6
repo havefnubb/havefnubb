@@ -1,0 +1,27 @@
+************************************************************************************
+
+                           English
+
+************************************************************************************
+
+Update from 1.3.6 to 1.3.6
+
+0)  backup your database, this vesion create a new table and will reduce the member one.
+
+1) backup your files :
+var/config/dbprofils.ini.php
+var/config/defaultconfig.ini.php
+var/config/havefnu.search.ini.php
+var/config/havefnubb
+var/config/hfnuadmin
+
+Files
+2) remove everything of the previous installation
+3) upload the content of the archive on your website
+4) restore your backup of var/config
+5) set your havefnubb/modules/hfnuinstall/install/sql dir writable (chmod 755 or 777)
+6) access to the following URL regarding your url engine :
+* basic_significant : http://youresite.com/install.php?action=default:update_to_1_3_5&step=update
+* significant       : http://youresite.com/install/update/1_3_6
+
+this will update your database and your config files with the correct version number of HaveFnuBB
