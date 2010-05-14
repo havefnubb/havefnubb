@@ -54,7 +54,7 @@ class jResponseTcpdf  extends jResponse{
 			   echo '['.$e[0].' '.$e[1].'] '.$e[2]." \t".$e[3]." \t".$e[4]."\n";
 		}
 		else
-			echo "[unknow error]\n";
+			echo "[unknown error]\n";
 	}
 	public function initPdf($orientation='P', $unit='mm', $format='A4', $encoding=null){
 		$this->tcpdf = new jTcpdf($orientation, $unit, $format, $encoding);

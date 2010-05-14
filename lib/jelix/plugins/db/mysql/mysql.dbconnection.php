@@ -6,7 +6,7 @@
 * @author     Croes Gérald, Laurent Jouanneau
 * @contributor Laurent Jouanneau
 * @contributor Sylvain de Vathaire, Julien Issler
-* @copyright  2001-2005 CopixTeam, 2005-2007 Laurent Jouanneau
+* @copyright  2001-2005 CopixTeam, 2005-2010 Laurent Jouanneau
 * @copyright  2009 Julien Issler
 * This class was get originally from the Copix project (CopixDbConnectionMysql, Copix 2.3dev20050901, http://www.copix.org)
 * Few lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
@@ -96,7 +96,7 @@ class mysqlDbConnection extends jDbConnection{
 	protected function _autoCommitNotify($state){
 		$this->query('SET AUTOCOMMIT='.$state ? '1' : '0');
 	}
-	protected function _quote($text){
+	protected function _quote($text, $binary){
 		return mysql_real_escape_string($text,  $this->_connection);
 	}
 }

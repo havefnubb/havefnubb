@@ -122,23 +122,28 @@ Christophe Thiriot (aka Doubleface)
  - implementation of "live" exit in command line (#406)
  - automatic timezone setting (#600)
  - bug in jFilter tests (#842)
+ - fixed php bug on jtpl about ?>+line feed (#1025)
 
 Contributors
 ------------
 
 Arnall
  - bug in jReponseRedirectUrl (#894)
- 
+
 Yoan Blanc (aka Greut)
  - bug fix in jDaoFactoryBase::findBy : it should not ignore limit=0 (#665)
 
 Vincent Bonnard
  - bug fix in jXmlRpc.class.php (#190)
 
+Brunto
+ - bug fix in the formdatafull plugin (#1027)
+
 Catsoup
  - bug fixed in jEvent for multi entry point (#1004)
  - invalid error locale in jMailer class  (#983)
  - meta_html plugin should allow additionnal parameters (#996)
+ - fixed issue with history plugin and session (#1068)
 
 Cedric
  - bug fix in jFile::read
@@ -193,6 +198,9 @@ Julien Jacottet
 Nicolas Jeudy (aka njeudy)
  - auth driver: jAuthDriverLDS (pour les annuaires ldap LDS)
  - jResponseCss
+
+johannb
+ - fixed issue in jResponseLatexToPdf (#1070)
 
 Gwendal Jouannic (aka obewan)
  - oracle support with PDO-OCI (#615)

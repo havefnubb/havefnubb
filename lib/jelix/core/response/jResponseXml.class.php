@@ -64,7 +64,7 @@ class jResponseXml extends jResponse{
 				echo '<error xmlns="http://jelix.org/ns/xmlerror/1.0" type="'. $e[0] .'" code="'. $e[1] .'" file="'. $e[3] .'" line="'. $e[4] .'">'.htmlspecialchars($e[2], ENT_NOQUOTES, $this->_charset). '</error>'. "\n";
 			}
 		} else{
-			echo '<error>Unknow Error</error>';
+			echo '<error>Unknown Error</error>';
 		}
 		echo '</errors>';
 	}

@@ -96,7 +96,7 @@ class intuitionDbConnection extends jDbConnection{
 			'jelix~db.error.feature.unsupported',
 			array('intuition','_autoCommitNotify'));
 	}
-	protected function _quote($text){
+	protected function _quote($text, $binary){
 		return quote($text);
 	}
 }

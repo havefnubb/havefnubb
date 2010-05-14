@@ -4,7 +4,8 @@
 * @package     jelix
 * @subpackage  core_response
 * @author      Aubanel MONNIER
-* @contributor Laurent Jouanneau (better integration into jelix)
+* @contributor Laurent Jouanneau
+* @contributor johannb
 * @copyright   2007 Aubanel MONNIER
 * @link        http://aubanel.info
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
@@ -64,7 +65,7 @@ class jResponseLatexToPdf extends jResponse{
 				exec('
             TEXMFOUTPUT='.$this->cachePath.' && export TEXMFOUTPUT && TEXINPUTS=:'.$this->cachePath.' && export TEXINPUTS &&
             '.$this->pdflatexPath.' --interaction=batchmode '.$texFile, $output, $retVal);
-			if($retVal==0){
+			if($retVal!=0){
 				$outputStr=implode('<br />',$output);
 				throw new jException('jelix~errors.ltx2pdf.exec',array($this->pdflatexPath, $outputStr));
 			}
@@ -90,7 +91,7 @@ class jResponseLatexToPdf extends jResponse{
 				echo '['.$e[0].' '.$e[1].'] '.$e[2]." \t".$e[3]." \t".$e[4]."\n";
 			}
 		}else{
-			echo "[unknow error]\n";
+			echo "[unknown error]\n";
 		}
 	}
 }

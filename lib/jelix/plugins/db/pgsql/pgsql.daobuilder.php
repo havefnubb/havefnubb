@@ -5,7 +5,7 @@
 * @subpackage db_driver
 * @author     Laurent Jouanneau
 * @contributor
-* @copyright  2007 Laurent Jouanneau
+* @copyright  2007-2010 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -39,5 +39,21 @@ class pgsqlDaoBuilder extends jDaoGenerator{
 			}
 		}
 		return null;
+	}
+	protected function genEndOfClass(){
+		$fields = $this->_getPropertiesBy('BinaryField');
+		if(count($fields)){
+			$src = '    protected function finishInitResultSet($rs) {
+        $rs->setFetchMode(8,$this->_DaoRecordClassName);
+        $rs->addModifier(array($this, \'unescapeRecord\'));
+    }'."\n";
+			$src .= 'public function unescapeRecord($record, $resultSet) {'."\n";
+			foreach($fields as $f){
+				$src .= '$record->'.$f->name.' = $resultSet->unescapeBin($record->'.$f->name.");\n";
+			}
+			$src .= '}';
+			return $src;
+		}
+		return '';
 	}
 }

@@ -31,6 +31,8 @@ class jCrypt{
 	protected static function mcryptEncrypt($string,$key){
 		if($key=='')
 			throw new jException('jelix~auth.error.key.empty');
+		if(strlen($key)<15)
+			throw new jException('jelix~auth.error.key.tooshort',15);
 		$td = mcrypt_module_open(MCRYPT_WAKE, '', MCRYPT_MODE_STREAM, '');
 		$ks = mcrypt_enc_get_key_size($td);
 		$key = substr($key, 0, $ks);

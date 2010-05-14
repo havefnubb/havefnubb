@@ -4,9 +4,9 @@
 * @package     jelix
 * @subpackage  jtpl
 * @author      Laurent Jouanneau
-* @contributor Mathaud Loic (standalone version), Dominique Papin, dsdenes
+* @contributor Mathaud Loic (standalone version), Dominique Papin, dsdenes, Thiriot Christophe
 * @copyright   2005-2009 Laurent Jouanneau
-* @copyright   2006 Mathaud Loic, 2007 Dominique Papin, 2009 dsdenes
+* @copyright   2006 Mathaud Loic, 2007 Dominique Papin, 2009 dsdenes, 2010 Thiriot Christophe
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -104,12 +104,19 @@ class jTplCompiler
 		preg_match_all("!{literal}(.*?){/literal}!s", $tplcontent, $_match);
 		$this->_literals = $_match[1];
 		$tplcontent = preg_replace("!{literal}(.*?){/literal}!s", '{literal}', $tplcontent);
+		$tplcontent = preg_replace_callback("/{((.).*?)}(\n)/sm", array($this,'_callbackLineFeed'), $tplcontent);
 		$tplcontent = preg_replace_callback("/{((.).*?)}/sm", array($this,'_callback'), $tplcontent);
-		$tplcontent = preg_replace('/\?>\n?<\?php/', '', $tplcontent);
 		$tplcontent = preg_replace('/<\?php\\s+\?>/', '', $tplcontent);
 		if(count($this->_blockStack))
 			$this->doError1('errors.tpl.tag.block.end.missing', end($this->_blockStack));
 		return $tplcontent;
+	}
+	public function _callbackLineFeed($matches){
+		list($full, , $firstcar, $lastcar) = $matches;
+		if($firstcar == '=' || $firstcar == '$' || $firstcar == '@'){
+			return "$full\n";
+		}
+		else return $full;
 	}
 	public function _callback($matches){
 		list(,$tag, $firstcar) = $matches;

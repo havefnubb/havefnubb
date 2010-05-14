@@ -68,4 +68,7 @@ class jFile{
 			rmdir($path);
 		}
 	}
+	public static function getMimeType($file){
+		return mime_content_type($file);
+	}
 }

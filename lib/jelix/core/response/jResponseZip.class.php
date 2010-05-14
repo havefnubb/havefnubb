@@ -45,7 +45,7 @@ class jResponseZip extends jResponse{
 			   echo '['.$e[0].' '.$e[1].'] '.$e[2]." \t".$e[3]." \t".$e[4]."\n";
 			}
 		}else{
-			echo "[unknow error]\n";
+			echo "[unknown error]\n";
 		}
 	}
 }

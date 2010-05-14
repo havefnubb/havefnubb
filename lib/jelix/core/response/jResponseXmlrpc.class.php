@@ -29,7 +29,7 @@ final class jResponseXmlRpc extends jResponse{
 			$errorCode = $e[1];
 			$errorMessage = '['.$e[0].'] '.$e[2].' (file: '.$e[3].', line: '.$e[4].')';
 		}else{
-			$errorMessage = 'Unknow error';
+			$errorMessage = 'Unknown error';
 			$errorCode = -1;
 		}
 		$this->clearHttpHeaders();

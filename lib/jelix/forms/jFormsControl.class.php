@@ -450,9 +450,7 @@ class jFormsControlUpload extends jFormsControl{
 			if($this->maxsize && $this->fileInfo['size'] > $this->maxsize)
 				return $this->container->errors[$this->ref] = jForms::ERRDATA_INVALID;
 			if(count($this->mimetype)){
-				if($this->fileInfo['type']==''){
-					$this->fileInfo['type'] = mime_content_type($this->fileInfo['tmp_name']);
-				}
+				$this->fileInfo['type'] = jFile::getMimeType($this->fileInfo['tmp_name']);
 				if(!in_array($this->fileInfo['type'], $this->mimetype))
 					return $this->container->errors[$this->ref] = jForms::ERRDATA_INVALID;
 			}

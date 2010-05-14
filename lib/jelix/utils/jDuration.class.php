@@ -4,9 +4,8 @@
 * @package     jelix
 * @subpackage  utils
 * @author      Florian Hatat
-* @contributor
-* @copyright   2008 Florian Hatat
-*
+* @contributor Laurent Jouanneau
+* @copyright   2008 Florian Hatat, 2010 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -37,7 +36,13 @@ class jDuration{
 			}
 		}
 		elseif(is_int($init)){
-			$this->seconds = $init;
+			if($init > 86400){
+				$this->days = intval($init/86400);
+				$this->seconds = $init % 86400;
+			}
+			else{
+				$this->seconds = $init;
+			}
 		}
 	}
 	function add(jDuration $data){

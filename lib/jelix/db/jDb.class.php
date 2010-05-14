@@ -59,11 +59,11 @@ abstract class jDbConnection{
 		$result = $this->_doExec($query);
 		return $result;
 	}
-	public function quote($text, $checknull=true){
+	public function quote($text, $checknull=true, $binary = false){
 		if($checknull)
-			return(is_null($text) ? 'NULL' : "'".$this->_quote($text)."'");
+			return(is_null($text) ? 'NULL' : "'".$this->_quote($text, $binary)."'");
 		else
-			return "'".$this->_quote($text)."'";
+			return "'".$this->_quote($text, $binary)."'";
 	}
 	public function encloseName($fieldName){
 		return $fieldName;
@@ -105,7 +105,7 @@ abstract class jDbConnection{
 	abstract protected function _doQuery($queryString);
 	abstract protected function _doExec($queryString);
 	abstract protected function _doLimitQuery($queryString, $offset, $number);
-	protected function _quote($text){
+	protected function _quote($text, $binary){
 		return addslashes($text);
 	}
 }
@@ -114,7 +114,7 @@ abstract class jDbResultSet implements Iterator{
 	protected $_fetchMode = 0;
 	protected $_fetchModeParam = null;
 	protected $_fetchModeCtoArgs = null;
-	function __construct(  $idResult){
+	function __construct($idResult){
 		$this->_idResult = $idResult;
 	}
 	function __destruct(){
@@ -124,6 +124,13 @@ abstract class jDbResultSet implements Iterator{
 		}
 	}
 	public function id(){ return $this->_idResult;}
+	public function unescapeBin($text){
+		return $text;
+	}
+	protected $modifier = array();
+	public function addModifier($function){
+		$this->modifier[] = $function;
+	}
 	public function setFetchMode($fetchmode, $param=null, $ctoargs=null){
 		$this->_fetchMode = $fetchmode;
 		$this->_fetchModeParam = $param;
@@ -131,7 +138,13 @@ abstract class jDbResultSet implements Iterator{
 	}
 	public function fetch(){
 		$result = $this->_fetch();
-		if(!$result || $this->_fetchMode == jDbConnection::FETCH_OBJ)
+		if(!$result)
+			return $result;
+		if(count($this->modifier)){
+			foreach($this->modifier as $m)
+				call_user_func_array($m, array($result, $this));
+		}
+		if($this->_fetchMode == jDbConnection::FETCH_OBJ)
 			return $result;
 		if($this->_fetchMode == jDbConnection::FETCH_CLASS){
 			if($result instanceof $this->_fetchModeParam)

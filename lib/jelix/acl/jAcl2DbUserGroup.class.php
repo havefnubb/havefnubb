@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  acl
 * @author      Laurent Jouanneau
-* @copyright   2006-2008 Laurent Jouanneau
+* @copyright   2006-2010 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 * @since 1.1
@@ -71,8 +71,8 @@ class jAcl2DbUserGroup{
 		$privategrp = $daogroup->getPrivateGroup($login);
 		if(!$privategrp) return;
 		jDao::get('jelix~jacl2rights',$p)->deleteByGroup($privategrp->id_aclgrp);
-		$daogroup->delete($privategrp->id_aclgrp);
 		jDao::get('jelix~jacl2usergroup',$p)->deleteByUser($login);
+		$daogroup->delete($privategrp->id_aclgrp);
 	}
 	public static function createGroup($name){
 		$p = jAcl2Db::getProfile();

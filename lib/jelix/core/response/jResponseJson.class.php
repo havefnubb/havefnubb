@@ -32,7 +32,7 @@ final class jResponseJson extends jResponse{
 			$message['errorCode'] = $e[1];
 			$message['errorMessage'] = '['.$e[0].'] '.$e[2].' (file: '.$e[3].', line: '.$e[4].')';
 		}else{
-			$message['errorMessage'] = 'Unknow error';
+			$message['errorMessage'] = 'Unknown error';
 			$message['errorCode'] = -1;
 		}
 		$this->clearHttpHeaders();

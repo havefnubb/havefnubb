@@ -173,14 +173,14 @@ class jDaoProperty{
 					   array('autoincrement', 'bigautoincrement', 'int',
 							  'datetime', 'time', 'integer', 'varchar', 'string',
 							  'text', 'varchardate', 'date', 'numeric', 'double',
-							  'float', 'boolean'))){
+							  'float', 'boolean', 'varbinary'))){
 		   throw new jDaoXmlException('wrong.attr', array($params['datatype'],
 														   $this->fieldName,
 														   'property'));
 		}
 		$this->datatype = strtolower($params['datatype']);
 		$this->needsQuotes = in_array($params['datatype'],
-				array('string', 'varchar', 'text', 'date', 'datetime', 'time'));
+				array('string', 'varchar', 'text', 'date', 'datetime', 'time', 'varbinary'));
 		$this->isPK = in_array($this->fieldName, $tables[$this->table]['pk']);
 		if(!$this->isPK){
 			$this->isFK = isset($tables[$this->table]['fk'][$this->fieldName]);
@@ -751,7 +751,7 @@ class jDaoGenerator{
 								$this->_preparePHPValue($value[0],$updatefields[$propname]->datatype,false);
 						}
 					}
-					$src[] =substr($sqlSet,1).'\';';
+					$src[] = substr($sqlSet,1).'\';';
 					$glueCondition =' WHERE ';
 					break;
 				case 'php':
@@ -828,7 +828,7 @@ class jDaoGenerator{
 					break;
 				case 'selectfirst':
 					$src[] = '    $__rs = $this->_conn->limitQuery($__query,0,1);';
-					$src[] = '    $__rs->setFetchMode(8,\''.$this->_DaoRecordClassName.'\');';
+					$src[] = '    $this->finishInitResultSet($__rs);';
 					$src[] = '    return $__rs->fetch();';
 					break;
 				case 'select':
@@ -837,11 +837,12 @@ class jDaoGenerator{
 						$src[] = '    $__rs = $this->_conn->limitQuery($__query'.$limit.');';
 					else
 						$src[] = '    $__rs = $this->_conn->query($__query);';
-					$src[] = '    $__rs->setFetchMode(8,\''.$this->_DaoRecordClassName.'\');';
+					$src[] = '    $this->finishInitResultSet($__rs);';
 					$src[] = '    return $__rs;';
 			}
 			$src[] = '}';
 		}
+		$src[] = $this->genEndOfClass();
 		$src[] = '}';
 		return implode("\n",$src);
 	}
@@ -917,6 +918,9 @@ class jDaoGenerator{
 		}
 		return $field;
 	}
+	protected function genEndOfClass(){
+		return '';
+	}
 	protected function _writeFieldsInfoWith($info, $start = '', $end='', $beetween = '', $using = null){
 		$result = array();
 		if($using === null){
@@ -969,6 +973,9 @@ class jDaoGenerator{
 				&& !$field->isFK
 				&&( $field->datatype == 'autoincrement' || $field->datatype == 'bigautoincrement'
 					||($field->updatePattern != '%s' && $field->selectPattern != '')));
+	}
+	protected function _captureBinaryField(&$field){
+		return($field->datatype == 'varbinary');
 	}
 	protected function _getAutoIncrementPKField($using = null){
 		if($using === null){
@@ -1153,7 +1160,7 @@ class jDaoGenerator{
 				return $this->getBooleanValue($value);
 			default:
 				if(strpos($value,"'") !== false){
-					return '\'.$this->_conn->quote(\''.str_replace('\'','\\\'',$value).'\').\'';
+					return '\'.$this->_conn->quote(\''.str_replace('\'','\\\'',$value).'\''.($fieldType == 'varbinary' ? ',true,true':'').').\'';
 				}else{
 					return "\\'".$value."\\'";
 				}
@@ -1213,9 +1220,9 @@ class jDaoGenerator{
 				break;
 			default:
 				if($checknull){
-					$expr= '('.$expr.' === null ? \''.$opnull.'NULL\' : '.$forCondition.'$this->_conn->quote('.$expr.',false))';
+					$expr= '('.$expr.' === null ? \''.$opnull.'NULL\' : '.$forCondition.'$this->_conn->quote('.$expr.',false'.($type=='varbinary'?',true':'').'))';
 				}else{
-					$expr= $forCondition.'$this->_conn->quote('.$expr.')';
+					$expr= $forCondition.'$this->_conn->quote('.$expr.($type=='varbinary'?',true,true':'').')';
 				}
 		}
 		return $expr;
