@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `community_users` (
   `status` tinyint(4) NOT NULL default '0',
   `keyactivate` varchar(10) default NULL,
   `request_date` datetime default NULL,
+  `create_date` datetime NOT NULL,
   PRIMARY KEY  (`login`),
   UNIQUE KEY `id` (`id`)
 );

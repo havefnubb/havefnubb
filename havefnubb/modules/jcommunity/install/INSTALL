@@ -56,6 +56,9 @@ You can integrate the "status" zone into your main template (directly into the t
 
 It show links to the login form, the register form if the user isn't authenticated, or to the logout page and account page if he is authenticated.
 
+Integration into administration
+-------------------------------
 
-
+If you have a admin application, using jauthdb_admin, indicate into the auth.coord.ini.php
+of the application the form jcommunity~account_admin
 

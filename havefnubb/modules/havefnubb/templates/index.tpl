@@ -105,6 +105,7 @@
         </table>
     </div>
 </div>
+{hook 'hfbAfterForumIndex'}
 {/if}
 {hook 'hfbAfterCategoryList'}
 <div class="grid_5 alpha">

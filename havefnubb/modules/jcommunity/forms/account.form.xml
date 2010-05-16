@@ -10,14 +10,14 @@
 @licence      http://www.gnu.org/licenses/gpl.html GNU General Public Licence, see LICENCE file
 -->
    <input ref="nickname" required="true">
-      <label locale="account.form.nickname"/>
+      <label locale="jcommunity~account.form.nickname"/>
    </input>
 
    <input ref="email"  required="true" type="email">
-       <label locale="account.form.email"/>
+       <label locale="jcommunity~account.form.email"/>
    </input>
 
    <submit ref="acc_submit">
-       <label locale="account.form.submit" />
+       <label locale="jcommunity~account.form.submit" />
    </submit>
 </forms>

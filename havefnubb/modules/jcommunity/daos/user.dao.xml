@@ -25,7 +25,8 @@
       <property name="nickname" fieldname="nickname" datatype="string" required="yes" maxlength="50" />
       <property name="keyactivate" fieldname="keyactivate"  datatype="string" required="yes" maxlength="10" />
       <property name="request_date" fieldname="request_date" datatype="datetime" />
-
+      <property name="create_date" fieldname="create_date" datatype="datetime"
+                insertpattern="now()" updatepattern=""/>
    </record>
    <factory>
      <method name="getByLoginPassword" type="selectfirst">
