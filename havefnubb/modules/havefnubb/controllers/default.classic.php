@@ -43,20 +43,26 @@ class defaultCtrl extends jController {
 		$categories = $dao->findAllCatWithFathers();
 		$nbCat = $categories->rowCount();
 		$data = array();
-
+		$id_cat = '';
 		foreach ($categories as $cat) {
-			if ( jAcl2::check('hfnu.forum.list','forum'.$cat->id_forum) ) {
-				$data[] = $cat;
-				// get the list of forum to build the RSS link
-				$forums = jClasses::getService('havefnubb~hfnuforum')->findParentByCatId($cat->id_cat);
-				foreach ($forums as $forum) {
-					$url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$forum->forum_name,
-															'id_forum'=>$forum->id_forum));
-					$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.htmlentities($url).'" />');
+			if ($id_cat == 0 or $id_cat != $cat->cat_id) {
+				if ( jAcl2::check('hfnu.forum.list','forum'.$cat->id_forum) ) {
+					$data[] = $cat;
+					// get the list of forum to build the RSS link
+					$url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$cat->forum_name,
+															'id_forum'=>$cat->id_forum));
+					$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$cat->forum_name.'" href="'.htmlentities($url).'" />');
 				}
 			}
 		}
-		$rep->body->assignZone('MAIN', 'havefnubb~category',array('data'=>$data,'nbCat'=>$nbCat));
+		$tpl = new jTpl();
+		//$rep->body->assignZone('MAIN', 'havefnubb~category',array('data'=>$data,'nbCat'=>$nbCat));
+		$tpl->assign('selectedMenuItem','community');
+		$tpl->assign('currentIdForum',0);
+		$tpl->assign('action','index');
+		$tpl->assign('categories',$data);
+		$tpl->assign('nbCat',$nbCat);
+		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~index'));
 		return $rep;
 	}
 	/**

@@ -3,14 +3,14 @@
     <datasources>
         <primarytable name="posts" realname="posts"  primarykey="id_post" />
         <optionalforeigntable name="usr"   realname="member" primarykey="id_user"  onforeignkey="id_user" />
-		<optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
+        <optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
-        <property name="id_post"    	fieldname="id_post"	datatype="autoincrement"/>
-        <property name="id_user"    	fieldname="id_user" 	datatype="int" required="true"/>
-        <property name="id_forum"   	fieldname="id_forum" 	datatype="int" required="true"/>
-        <property name="parent_id"  	fieldname="parent_id" 	datatype="int" required="true"/>
-        <property name="status"		fieldname="status" 	datatype="string" required="true"/>
+        <property name="id_post"        fieldname="id_post" datatype="autoincrement"/>
+        <property name="id_user"        fieldname="id_user" datatype="int" required="true"/>
+        <property name="id_forum"       fieldname="id_forum" datatype="int" required="true"/>
+        <property name="parent_id"      fieldname="parent_id" datatype="int" required="true"/>
+        <property name="status"         fieldname="status"  datatype="string" required="true"/>
         <!--
         status :opened
                 closed
@@ -40,7 +40,7 @@
         <property name="member_website"	fieldname="member_website" datatype="string" table="usr" maxlength="255"/>
         <property name="nb_msg"		fieldname="member_nb_msg" table="usr" datatype="integer" />
         <property name="member_last_post"   fieldname="member_last_post" table="usr"  datatype="integer" />
-		<property name="member_last_connect"   fieldname="member_last_connect" table="usr"  datatype="integer" />
+        <property name="member_last_connect"   fieldname="member_last_connect" table="usr"  datatype="integer" />
 
         <!-- properties from forum table -->
         <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
@@ -58,7 +58,7 @@
             <parameter name="id_forum" />
             <conditions>
                 <neq property="parent_id" expr="$parent_id" />
-			    <eq property="id_forum" expr="$id_forum" />
+                <eq property="id_forum" expr="$id_forum" />
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -126,7 +126,7 @@
             <parameter name="id_forum" />
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
-				<eq property="id_post" expr="posts.parent_id" />
+                <eq property="id_post" expr="posts.parent_id" />
             </conditions>
         </method>
         <method name="findAllByIdForumVisible" type="count">
@@ -170,7 +170,7 @@
             <parameter name="id_post" />
             <conditions>
                 <eq property="parent_id" expr="$id_post" />
-				<neq property="status" value="hidden" />
+                <neq property="status" value="hidden" />
             </conditions>
             <order>
                 <orderitem property="date_created" way="desc" />
@@ -189,7 +189,7 @@
             <parameter name="id_forum" />
             <conditions>
                 <eq property="id_forum" expr="$id_forum" />
-				<neq property="status" value="hidden" />
+                <neq property="status" value="hidden" />
             </conditions>
             <order>
                 <orderitem property="date_created" way="desc" />

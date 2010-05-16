@@ -23,7 +23,7 @@ class hfnucat {
 	 */
 	public static function getCat($id) {
 		if (!isset(self::$cat[$id]))
-			self::$cat[$id] = jDao::get('havefnubb~category')->get($id);
+			self::$cat[$id] = jDao::get('havefnubb~forum_cat')->get($id);
 		return self::$cat[$id];
 	}
 }

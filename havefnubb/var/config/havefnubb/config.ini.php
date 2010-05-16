@@ -24,3 +24,6 @@ html=fnuHtmlResponse
 
 [acl2]
 driver=db
+
+[logfiles]
+DEBUG=havefnubbdebug.log

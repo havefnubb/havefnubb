@@ -19,7 +19,9 @@ class categoryCtrl extends jController {
 			'hfnu.check.installed'=>true,
 			'banuser.check'=>true,
 			),
-		'view' 	=> array('history.add'=>true)
+		'view' 	=> array('history.add'=>true,
+						'history.label'=>'Accueil',
+						'history.title'=>'Aller vers la page d\'accueil')
 	);
 	/**
 	 * View a given Category of forum then the list of forums
@@ -43,19 +45,24 @@ class categoryCtrl extends jController {
 		$rep->title = $category->cat_name;
 
 		$GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
+		$GLOBALS['gJCoord']->getPlugin('history')->change('title', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
 
-		$forums = jClasses::getService('havefnubb~hfnuforum')->findParentByCatId($id_cat);
-		foreach ($forums as $forum) {
-			$url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$forum->forum_name,
-													'id_forum'=>$forum->id_forum));
-			$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.htmlentities($url).'" />');
+		$categories = jDao::get('havefnubb~forum')->findParentByCatId($id_cat);
+		foreach ($categories as $cat) {
+			if ( jAcl2::check('hfnu.forum.list','forum'.$cat->id_forum) ) {
+				$data[] = $cat;
+				// get the list of forum to build the RSS link
+				$url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$cat->forum_name,
+														'id_forum'=>$cat->id_forum));
+				$rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$cat->forum_name.'" href="'.htmlentities($url).'" />');
+			}
 		}
 		$tpl = new jTpl();
 
 		$tpl->assign('action','view');
-		$tpl->assign('category',$category);
+		$tpl->assign('categories',$categories);
 		$tpl->assign('currentIdForum',0);
-		$rep->body->assign('MAIN', $tpl->fetch('zone.category'));
+		$rep->body->assign('MAIN', $tpl->fetch('index'));
 		return $rep;
 	}
 }
