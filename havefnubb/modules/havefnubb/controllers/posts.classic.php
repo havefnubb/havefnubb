@@ -49,6 +49,8 @@ class postsCtrl extends jController {
 	 */
 	function lists() {
 		global $gJConfig;
+        $ftitle = jUrl::escape($this->param('ftitle'),true);
+
 		$id_forum = (int) $this->param('id_forum');
 
 		if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
@@ -67,6 +69,13 @@ class postsCtrl extends jController {
 
 		// crumbs infos
 		list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
+
+		if (jUrl::escape($forum->forum_name,true) != $ftitle )
+		{
+			$rep = $this->getResponse('redirect');
+			$rep->action = $gJConfig->urlengine['notfoundAct'];
+			return $rep;
+		}
 
 		// let's build the pagelink var
 		// A Preparing / Collecting datas
@@ -133,6 +142,9 @@ class postsCtrl extends jController {
 	 * 	Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
 	 */
 	function view() {
+		global $gJConfig;
+        $ftitle = jUrl::escape($this->param('ftitle'),true);
+		$ptitle = jUrl::escape($this->param('ptitle'),true);
 		$id_post    = (int) $this->param('id_post');
 		$parent_id  = (int) $this->param('parent_id');
 
@@ -156,9 +168,18 @@ class postsCtrl extends jController {
 
 		// crumbs infos
 		list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
+
 		if (! $forum) {
 			$rep  = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
+			return $rep;
+		}
+
+		if (jUrl::escape($forum->forum_name,true) != $ftitle or
+			jUrl::escape($post->subject,true) != $ptitle)
+		{
+			$rep = $this->getResponse('redirect');
+			$rep->action = $gJConfig->urlengine['notfoundAct'];
 			return $rep;
 		}
 
@@ -896,6 +917,7 @@ class postsCtrl extends jController {
 	 */
 	public function rss() {
 		global $gJConfig;
+		$ftitle = jUrl::escape($this->param('ftitle'),true);
 		$id_forum = (int) $this->param('id_forum');
 
 		// if the forum is accessible by anonymous then the rss will be available
@@ -926,6 +948,13 @@ class postsCtrl extends jController {
 
 		$dao = jDao::get('havefnubb~forum');
 		$forum = $dao->get($id_forum);
+
+		if (jUrl::escape($forum->forum_name,true) != $ftitle )
+		{
+			$rep = $this->getResponse('redirect');
+			$rep->action = $gJConfig->urlengine['notfoundAct'];
+			return $rep;
+		}
 
 		// 1- limit of posts
 		$nbPostPerPage = 0;

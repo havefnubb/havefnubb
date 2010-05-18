@@ -27,17 +27,29 @@ class categoryCtrl extends jController {
 	 * View a given Category of forum then the list of forums
 	 */
 	function view() {
-
+		global $gJConfig;
+		$ctitle = $this->param('ctitle');
 		$id_cat = (int) $this->param('id_cat');
 		if ($id_cat == 0 ) {
 			$rep = $this->getResponse('redirect');
 			$rep->action = 'havefnubb~default:index';
+			return $rep;
 		}
+
 
 		// add the category name in the page title
 		// so
 		// 1) get the category record
 		$category = jClasses::getService('havefnubb~hfnucat')->getCat($id_cat);
+
+		// check that the title of the category exist
+		// if not => error404
+
+		if (jUrl::escape($ctitle,true) != jUrl::escape($category->cat_name,true)) {
+			$rep = $this->getResponse('redirect');
+			$rep->action = $gJConfig->urlengine['notfoundAct'];
+			return $rep;
+		}
 
 		$rep = $this->getResponse('html');
 

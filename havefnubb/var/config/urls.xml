@@ -9,6 +9,7 @@
            <param name="ctitle"  type="string" escape="true" />
         </url>
 
+        <url pathinfo="/404" module="havefnubb" action="hfnuerror:notfound" />
         <!-- rss posts management -->
         <url pathinfo="/rss/:id_forum-:ftitle" module="havefnubb" action="posts:rss">
            <param name="id_forum" type="number"/>
