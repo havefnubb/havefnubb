@@ -30,7 +30,6 @@
 
 {ifacl2 'hfnu.forum.list','forum'.$category->id_forum}
     {hook 'hfbCategoryList',array('id_cat'=>$category->id_cat)}
-    {* zone 'havefnubb~forum',array('action'=>'index','id_cat'=>$category->id_cat) *}
     {if $category->forum_type == 0}
             <tr>
                 <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$category->id_forum,'display'=>'icon')}"></td>
@@ -67,7 +66,6 @@
     {/if}
 {/foreach}
 {elseif $action == 'view'}
-    {* zone 'havefnubb~forum',array('action'=>'view','id_cat'=>$category->id_cat,'ctitle'=>$category->cat_name) *}
 <div class="box">
     <div class="block">
         <table>
