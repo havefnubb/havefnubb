@@ -43,7 +43,11 @@ class postsCtrl extends jController {
 	/**
 	 * @var static $statusClosed array of the 'closed' status
 	 */
-	public static $statusClosed = array('closed','pinedclosed','censored');
+	//4='closed',2='pinedclosed',5='censored'
+	public static $statusClosed = array(4,2,5);
+
+	public static $statusAvailable = array('pined','pinedclosed','opened','closed','censored','uncensored','hidden');
+
 	/**
 	 * main list of all posts of a given forum ($id_forum)
 	 */
@@ -132,6 +136,7 @@ class postsCtrl extends jController {
 		$tpl->assign('lvl',$forum->child_level);
 		$tpl->assign('properties',$properties);
 		$tpl->assign('currentIdForum',$forum->id_forum);
+		$tpl->assign('statusAvailable',self::$statusAvailable);
 		$rep->body->assign('currentIdForum',$forum->id_forum);
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));
 		return $rep;
@@ -187,7 +192,7 @@ class postsCtrl extends jController {
 		$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
 
 		if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire )
-			$status = 'closed';
+			$status = 4; //closed
 		else
 			$status = $post->status;
 
@@ -207,7 +212,7 @@ class postsCtrl extends jController {
 		$tpl->assign('subject'	,$post->subject);
 		$tpl->assign('status'	,$status);
 		$tpl->assign('currentIdForum',$forum->id_forum);
-		$rep->title = '['.jLocale::get('havefnubb~post.status.'.$status).'] '.$post->subject;
+		$rep->title = '['.jLocale::get('havefnubb~post.status.'.self::$statusAvailable[$status -1]).'] '.$post->subject;
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));
 		return $rep;
 	}
@@ -887,8 +892,8 @@ class postsCtrl extends jController {
 	 */
 	function status () {
 
-		$parent_id = (int) $this->param('parent_id');
-		$status = $this->param('status');
+		$parent_id 	= (int) $this->param('parent_id');
+		$status 	= (int) $this->param('status');
 
 		$rep = $this->getResponse('redirect');
 
@@ -900,7 +905,7 @@ class postsCtrl extends jController {
 		}
 		else {
             $post = $result;
-            jMessage::add(jLocale::get('havefnubb~post.status.'.$status),'ok');
+            jMessage::add(jLocale::get('havefnubb~post.status.'.self::$statusAvailable[$status -1]),'ok');
             $rep->action = 'havefnubb~posts:view';
             $rep->params = array('id_post'=>$post->id_post,
                     'parent_id'=>$parent_id,
@@ -1325,7 +1330,8 @@ class postsCtrl extends jController {
 
         //censoring an entire thread
         $result = jClasses::getService('havefnubb~hfnuposts')
-                    ->switchStatus($parent_id,$id_post,'censored',$form->getData('censored_msg')
+                    //->switchStatus($parent_id,$id_post,'censored',$form->getData('censored_msg')
+					->switchStatus($parent_id,$id_post,5,$form->getData('censored_msg')
                         );
 
         if ($result === false ) {
@@ -1359,7 +1365,7 @@ class postsCtrl extends jController {
 		$id_post = (int) $this->param('id_post');
 		$parent_id = (int) $this->param('parent_id');
 
-		$post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,'uncensored');
+		$post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,6);//'uncensored'
 
 		if ($post === false) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');

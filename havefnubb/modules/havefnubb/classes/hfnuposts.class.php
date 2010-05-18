@@ -25,7 +25,8 @@ class hfnuposts {
 	 * the authorized status of the post
 	 * @var array $statusAvailable
 	 */
-	private static $statusAvailable = array('opened','closed','pined','pinedclosed','censored','uncensored','hidden');
+	//private static $statusAvailable = array('pined','pinedclosed','opened','closed','censored','uncensored','hidden');
+	private static $statusAvailable = array(1,2,3,4,5,6,7);
 	/**
 	 * @var integer $hfAdmin the ID that defines the Admin
 	 */
@@ -368,7 +369,7 @@ class hfnuposts {
 		$result = $form->prepareDaoFromControls('havefnubb~posts');
 		$result['daorec']->date_created	= time();
 		$result['daorec']->date_modified= time();
-		$result['daorec']->status	    = 'opened';
+		$result['daorec']->status	    = 3;//'opened'
 		$result['daorec']->poster_ip	= $_SERVER['REMOTE_ADDR'];
 		$result['daorec']->viewed 	    = 0;
 		$result['daorec']->id_post  	= 0;
@@ -447,17 +448,18 @@ class hfnuposts {
 	 * @return DaoRecord $record
 	 */
 	public static function switchStatus($parent_id,$id_post,$status,$censor_msg='') {
-	if (! in_array($status,self::$statusAvailable)) {
-		jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
-			return false;
-	}
+		if (! in_array($status,self::$statusAvailable)) {
+			jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
+				return false;
+		}
 		if ( $parent_id < 0 or $id_post < 1) return false;
 
 		$dao = jDao::get('havefnubb~posts');
 
 		if ($id_post == $parent_id ) {
 		// we want to uncesored a post so let's open it
-		if ($status == 'uncensored') $status = 'opened';
+		//if ($status == 'uncensored') $status = 'opened';
+		if ($status == 6) $status = 3;
 
 		if ( $dao->updateStatusByIdParent($parent_id,$status,$censor_msg) )
 			jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$parent_id,'status'=>$status));
@@ -498,7 +500,7 @@ class hfnuposts {
 		if ( $dao->censorIt($id_post,$censor_msg) ) {
 			jEvent::notify('HfnuPostAfterStatusChanged',
 						   array('id'=>$id_post,
-								 'status'=>'censored')
+								 'status'=>5) //'censored'
 						   );
 		}
 	}
@@ -515,8 +517,9 @@ class hfnuposts {
 	public static function uncensored($parent_id,$id_post,$censor_msg='') {
 		if ( $parent_id < 0 or $id_post < 1) return false;
 
-	$dao = jDao::get('havefnubb~posts');
-	$status = ( $id_post == $parent_id ) ? 'opened' : self::getPost($parent_id)->status ;
+		$dao = jDao::get('havefnubb~posts');
+		//'opened'
+		$status = ( $id_post == $parent_id ) ? 3 : self::getPost($parent_id)->status ;
 		if ( $dao->updateStatusById($id_post,$status) ) {
 			jEvent::notify('HfnuPostAfterStatusChanged',
 						   array('id'=>$id_post,

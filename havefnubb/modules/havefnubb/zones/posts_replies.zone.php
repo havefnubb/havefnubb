@@ -15,6 +15,7 @@ class posts_repliesZone extends jZone {
 	 *@var string $_tplname the template name used by the zone
 	 */
 	protected $_tplname='zone.posts_replies';
+	protected static $_statusAvailable = array('pined','pinedclosed','opened','closed','censored','uncensored','hidden');
 	/**
 	 * function to manage data before assigning to the template of its zone
 	 */
@@ -24,11 +25,11 @@ class posts_repliesZone extends jZone {
 		$id_post = (int) $this->param('id_post');
 		$id_forum = (int) $this->param('id_forum');
 		$page = (int) $this->param('page');
-		$status	= (string) $this->param('status');
+		$status	= (int) $this->param('status');
 
 		if (!$id_post) return;
 		if (!$id_forum) return;
-		if ($status == '') return;
+		if ($status == 0) return;
 
 		if ($page < 0 ) $page = 0;
 
@@ -85,13 +86,13 @@ class posts_repliesZone extends jZone {
 
 		if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
 				$dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )
-			$status = 'closed';
+			$status = 4; //'closed';
 
 		$dateDiff =  ($parentPost->date_modified == 0) ? floor( (time() - $parentPost->date_created ) / $day_in_secondes) : floor( (time() - $parentPost->date_modified ) / $day_in_secondes) ;
 
 		if ( jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire > 0 and
 				$dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->post_expire )
-			$parentPostStatus = 'closed';
+			$parentPostStatus = 4; //'closed';
 
 		$this->_tpl->assign('posts',$posts);
 		$this->_tpl->assign('id_forum',$id_forum);
@@ -106,7 +107,8 @@ class posts_repliesZone extends jZone {
 		$this->_tpl->assign('parent_id',$parentPost->parent_id);
 		$this->_tpl->assign('forum_name',$parentPost->forum_name);
 		$this->_tpl->assign('groups',$groups);
-		$this->_tpl->assign('status',$status);
+		$this->_tpl->assign('status',self::$_statusAvailable[$status]);
+		$this->_tpl->assign('statusAvailable',self::$_statusAvailable);
         $this->_tpl->assign('subscribed',jClasses::getService('havefnubb~hfnusub')->getSubscribed($parentPost->parent_id));
 	}
 }

@@ -3,7 +3,8 @@
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$id_forum}
-    {if $parentStatus != "closed" or $parentStatus != 'pinedclosed' or $status != 'closed'}
+    {* if $parentStatus != "closed" or $parentStatus != 'pinedclosed' or $status != 'closed' *}
+    {if $parentStatus <> 4 or $parentStatus <> 2 or $status <> 4}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {foreach $groups as $group}
@@ -41,7 +42,7 @@
                 'title'=>$post->subject)}
 
 <div class="box">
-    <h2><span class="post-status-icon-{$status}">&nbsp;</span><span class="post-status-{$post->status}">[{jlocale 'havefnubb~post.status.'.$post->status}]</span> {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
+    <h2><span class="post-status-icon-{$statusAvailable[$status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
@@ -66,7 +67,8 @@
         {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}
         </div>
         <div class="grid_12 postbody">
-        {if $post->status == 'censored'}
+        {* 'censored' *}
+        {if $post->status == 5}
             {$post->censored_msg|wiki:'hfb_rule'}
             {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
             <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
@@ -95,7 +97,8 @@
         <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}
         {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
-        {if $post->status == 'censored'}
+        {* 'censored' *}
+        {if $post->status == 5}
         <span class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
         {else}
         <span class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
@@ -124,7 +127,8 @@
             {/if}
         {/ifacl2}
         {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
-        {if $status != 'closed'}
+        {* 'closed' *}
+        {if $status != 4}
         <span class="postquote"><a href="{jurl 'posts:quote' ,array('parent_id'=>$post->parent_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
         {/if}
         {/ifacl2}
@@ -139,7 +143,8 @@
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$id_forum}
-    {if $parentStatus != "closed" or $parentStatus != 'pinedclosed' or $status != 'closed'}
+    {* if $parentStatus != "closed" or $parentStatus != 'pinedclosed' or $status != 'closed' *}
+    {if $parentStatus <> 4 or $parentStatus <> 2 or $status <> 4}
 <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {foreach $groups as $group}
@@ -161,7 +166,8 @@
 <div class="clear"></div>
 <br/>
 {ifacl2 'hfnu.posts.create','forum'.$id_forum}
-{if $status != 'closed'}
+{* 'closed' *}
+{if $status != 4}
 {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$id_forum)}
 {/if}
 {/ifacl2}

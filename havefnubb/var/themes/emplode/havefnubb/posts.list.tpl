@@ -25,16 +25,15 @@
 		<th class="listcol">{@havefnubb~forum.forumlist.views@}</th>
 		<th class="listcol">{@havefnubb~forum.forumlist.last.comments@}</th>
 	</tr>
-	{zone 'havefnubb~pinedposts', array('id_forum'=>$id_forum)}
 	{if $posts->rowCount() > 0}
 	{foreach $posts as $post}
 	{hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
 	<tr>
-		<td><span class="colicone-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$post->status,'id_forum'=>$id_forum,'display'=>'icon')}" >&nbsp;</span></td>
+		<td><span class="colicone-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$statusAvailable[$post->status -1],'id_forum'=>$id_forum,'display'=>'icon')}" >&nbsp;</span></td>
 		<td class="coltitle linkincell">{zone 'havefnubb~newestposts',
                     array(  'source'=>'post',
                             'id_post'=>$post->id_post,
-                            'status'=>$post->status,
+                            'status'=>$statusAvailable[$post->status -1],
                             'id_forum'=>$id_forum,
                             'display'=>'text')}
                 {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}

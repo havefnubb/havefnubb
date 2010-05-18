@@ -2,18 +2,18 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <menulist ref="status">
-  <item value="opened" locale="havefnubb~post.status.opened"/> <!-- opened -->
-  <item value="closed" locale="havefnubb~post.status.closed"/> <!-- closed -->
-  <item value="pined" locale="havefnubb~post.status.pined"/> <!-- pined -->
-  <item value="pinedclosed" locale="havefnubb~post.status.pinedclosed"/> <!-- closed and pined -->
-  <item value="hidden" locale="havefnubb~post.status.hidden"/> <!-- closed and pined -->
+  <item value="1" locale="havefnubb~post.status.pined"/> <!-- pined -->
+  <item value="2" locale="havefnubb~post.status.pinedclosed"/> <!-- closed and pined -->
+  <item value="3" locale="havefnubb~post.status.opened"/> <!-- opened -->
+  <item value="4" locale="havefnubb~post.status.closed"/> <!-- closed -->
+  <item value="7" locale="havefnubb~post.status.hidden"/> <!-- hidden -->
   <emptyitem locale="havefnubb~post.select.a.status"/>
-  <label locale="havefnubb~post.change.status">Status :</label>	
+  <label locale="havefnubb~post.change.status">Status :</label>
 </menulist>
 
 <submit ref="validate">
   <label>Veuillez valider</label>
-  <item value="ok" locale="havefnubb~post.status.ok"/>  
+  <item value="ok" locale="havefnubb~post.status.ok"/>
 </submit>
 
 </form>

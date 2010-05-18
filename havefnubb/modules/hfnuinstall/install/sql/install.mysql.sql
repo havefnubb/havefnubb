@@ -427,7 +427,7 @@ CREATE TABLE IF NOT EXISTS hf_posts (
   id_user int(12) NOT NULL,
   id_forum int(12) NOT NULL,
   parent_id int(12) NOT NULL,
-  status varchar(12) NOT NULL DEFAULT 'opened',
+  status int(2) NOT NULL DEFAULT 3,
   subject varchar(255) NOT NULL,
   message text NOT NULL,
   date_created int(12) NOT NULL,
@@ -443,7 +443,7 @@ CREATE TABLE IF NOT EXISTS hf_posts (
 
 
 INSERT INTO hf_posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod ) VALUES
-(1, 1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL,1);
+(1, 1, 1, 1, 3, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL,1);
 
 
 
@@ -624,4 +624,3 @@ CREATE TABLE IF NOT EXISTS hf_subscriptions (
 	id_post int(12) NOT NULL,
 	PRIMARY KEY (id_user , id_post)
 ) DEFAULT CHARSET=utf8;
-

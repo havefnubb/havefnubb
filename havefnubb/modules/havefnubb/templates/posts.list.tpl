@@ -37,7 +37,6 @@
                 <th>{@havefnubb~forum.forumlist.last.comments@}</th>
             </tr>
         </thead>
-        {zone 'havefnubb~pinedposts', array('id_forum'=>$id_forum)}
         <tbody>
         {if $posts->rowCount() > 0}
         {foreach $posts as $post}
@@ -45,13 +44,13 @@
         <tr>
             <td class="colicone-{zone 'havefnubb~newestposts',array('source'=>'post',
                         'id_post'=>$post->id_post,
-                        'status'=>$post->status,
+                        'status'=>$statusAvailable[$post->status -1],
                         'id_forum'=>$id_forum,
                         'display'=>'icon')}"> </td>
             <td>{zone 'havefnubb~newestposts',
                     array(  'source'=>'post',
                             'id_post'=>$post->id_post,
-                            'status'=>$post->status,
+                            'status'=>$statusAvailable[$post->status -1],
                             'id_forum'=>$id_forum,
                             'display'=>'text')}
                 {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}
