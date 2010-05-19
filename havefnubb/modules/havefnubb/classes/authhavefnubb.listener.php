@@ -121,7 +121,7 @@ class authhavefnubbListener extends jEventListener{
 
 			$user = $dao->getByLogin($user->login);
 			if (!$user) {
-			  die("");
+				throw new jException('havefnubb~member.member.does.not.exist');
 			}
 			// put the current date
 			$user->member_created = date('Y-m-d H:i:s');

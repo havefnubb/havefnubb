@@ -46,7 +46,14 @@ class postsCtrl extends jController {
 	//4='closed',2='pinedclosed',5='censored'
 	public static $statusClosed = array(4,2,5);
 
-	public static $statusAvailable = array('pined','pinedclosed','opened','closed','censored','uncensored','hidden');
+	public static $statusAvailable = array('pined',
+										   'pinedclosed',
+										   'opened',
+										   'closed',
+										   'censored',
+										   'uncensored',
+										   'hidden');
+
 
 	/**
 	 * main list of all posts of a given forum ($id_forum)
@@ -191,10 +198,12 @@ class postsCtrl extends jController {
 		$day_in_secondes = 24 * 60 * 60;
 		$dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
 
-		if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire )
+		if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire ) {
 			$status = 4; //closed
-		else
+		}
+		else {
 			$status = $post->status;
+		}
 
 		$rep = $this->getResponse('html');
 
@@ -204,13 +213,75 @@ class postsCtrl extends jController {
 
 		if ($goto > 0 ) $page = $goto;
 
+
+
+
+
+
+        // let's build the pagelink var
+        // A Preparing / Collecting datas
+        // 0- the properties of the pager
+        $properties = array('start-label' => '',
+                      'prev-label'  => '',
+                      'next-label'  => '',
+                      'end-label'   => jLocale::get("havefnubb~main.common.pagelinks.end"),
+                      'area-size'   => 5);
+        // 1- get the nb of replies per page
+        $nbRepliesPerPage = 0;
+        $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
+        // 2- get the post
+        $daoPost = jDao::get('havefnubb~posts');
+        // 3- total number of posts
+        $nbReplies = $daoPost->countResponse($id_post);
+        // 4- get the posts of the current forum, limited by point 1 and 2
+        $posts = $daoPost->findByIdParent($id_post,$page,$nbRepliesPerPage);
+
+        // id_post is the parent_id ; we need to know
+        // the status of it to determine if the member can
+        // reply to the current thread
+
+        // check if we have found record ;
+        if ($posts->rowCount() == 0) {
+            $posts = $daoPost->findByIdParent($parent_id,0,$nbRepliesPerPage);
+            $page = 0;
+        }
+
 		$tpl = new jTpl();
+
+        if(jAuth::isConnected())
+            $tpl->assign('current_user',jAuth::getUserSession ()->login);
+        else
+            $tpl->assign('current_user','');
+
+        if ( jAcl2::check('hfnu.admin.post') ) {
+            $formStatus = jForms::create('havefnubb~posts_status');
+            $formMove = jForms::create('havefnubb~posts_move');
+            $tpl->assign('formStatus',$formStatus);
+            $tpl->assign('formMove',$formMove);
+        }
+
 		$tpl->assign('id_post'	,$id_post);
 		$tpl->assign('forum'	,$forum);
 		$tpl->assign('category'	,$category);
-		$tpl->assign('page'	,$page);
+
+
+        $tpl->assign('posts',$posts);
+        //$tpl->assign('id_forum',$id_forum);
+        $tpl->assign('tags',$tags);
+        $tpl->assign('page',$page);
+
+
+        $tpl->assign('nbRepliesPerPage',$nbRepliesPerPage);
+        $tpl->assign('nbReplies',$nbReplies);
+        $tpl->assign('properties',$properties);
+        $tpl->assign('ptitle',$post->subject);
+        $tpl->assign('parent_id',$post->parent_id);
+        $tpl->assign('forum_name',$post->forum_name);
+		$tpl->assign('subscribed',jClasses::getService('havefnubb~hfnusub')->getSubscribed($parentPost->parent_id));
+
 		$tpl->assign('subject'	,$post->subject);
-		$tpl->assign('status'	,$status);
+		$tpl->assign('status'	,self::$statusAvailable[$status -1]);
+		$tpl->assign('statusAvailable',self::$statusAvailable);
 		$tpl->assign('currentIdForum',$forum->id_forum);
 		$rep->title = '['.jLocale::get('havefnubb~post.status.'.self::$statusAvailable[$status -1]).'] '.$post->subject;
 		$rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.view'));
@@ -1362,8 +1433,8 @@ class postsCtrl extends jController {
 			$rep->action = 'havefnubb~default:index';
 			return $rep;
 		}
-		$id_post = (int) $this->param('id_post');
-		$parent_id = (int) $this->param('parent_id');
+		$id_post 	= (int) $this->param('id_post');
+		$parent_id 	= (int) $this->param('parent_id');
 
 		$post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,6);//'uncensored'
 

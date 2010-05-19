@@ -99,8 +99,15 @@
         <url pathinfo="/post/censor/forum-:id_forum/parent-:parent_id/post-:id_post" module="havefnubb" action="posts:censor" actionoverride="posts:savecensor">
             <param name="id_forum" type="number"/>
             <param name="parent_id" type="number"/>
-            <param name="id_forum" type="number"/>
+            <param name="id_post" type="number"/>
         </url>
+
+        <url pathinfo="/post/uncensor/forum-:id_forum/parent-:parent_id/post-:id_post" module="havefnubb" action="posts:uncensor">
+            <param name="id_forum" type="number"/>
+            <param name="parent_id" type="number"/>
+            <param name="id_post" type="number"/>
+        </url>
+
 
         <url pathinfo="/mark_all_as_read" module="havefnubb" action="forum:mark_all_as_read"/>
 

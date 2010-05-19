@@ -81,14 +81,18 @@ class newestpostsZone extends jZone {
 			$dao = jDao::get('havefnubb~posts');
 			$responseTtl = $dao->countResponse($id_post);
 			$important = false;
-			if ($responseTtl >= $gJConfig->havefnubb['important_nb_replies']) {
-				$important = true;
-			}
-			if ($viewed >= $gJConfig->havefnubb['important_nb_views']) {
-				$important = true;
+
+			if ($status != 'censored' and $status != 'hidden') {
+				if ($responseTtl >= $gJConfig->havefnubb['important_nb_replies']) {
+					$important = true;
+				}
+				if ($viewed >= $gJConfig->havefnubb['important_nb_views']) {
+					$important = true;
+				}
 			}
 			$status = ($important === true) ? $status . '_important' : $status;
 			$statusCss = $status;
+
 		}
 		if ($this->param('display') == 'text')
 			$status = jLocale::get('havefnubb~post.status.'.$status);
