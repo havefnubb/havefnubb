@@ -39,6 +39,9 @@
 
 	<p>{ctrl_label 'admin_email'} </p>
 	<p>{ctrl_control 'admin_email'} </p>
+
+	<p>{ctrl_label 'timezone'} </p>
+	<p>{ctrl_control 'timezone'} </p>
 </fieldset>
 </div>
 

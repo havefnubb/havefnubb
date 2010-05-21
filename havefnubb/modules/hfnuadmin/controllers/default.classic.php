@@ -37,6 +37,13 @@ class defaultCtrl extends jController {
         $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
 		$timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/timeout.coord.ini.php');
 
+        $tzId = DateTimeZone::listIdentifiers();
+        for ($i = 0 ; $i < count($tzId) ; $i++) {
+            if ($gJConfig->timeZone == $tzId[$i])
+                $selectedTimeZone = $i;
+        }
+
+        $form->setData('timezone'   ,$selectedTimeZone);
         $form->setData('title',           stripslashes($gJConfig->havefnubb['title']));
         $form->setData('description',     stripslashes($gJConfig->havefnubb['description']));
         $form->setData('rules',           stripslashes($gJConfig->havefnubb['rules']));
@@ -131,6 +138,10 @@ class defaultCtrl extends jController {
         $defaultConfig->setValue('facebook',    $form->getData('social_network_facebook'),'social_networks');
         $defaultConfig->setValue('reddit',      $form->getData('social_network_reddit'),'social_networks');
         $defaultConfig->setValue('netvibes',    $form->getData('social_network_netvibes'),'social_networks');
+
+        $tz = DateTimeZone::listIdentifiers();
+
+        $defaultConfig->setValue('timeZone',    $tz[$form->getData('timezone')]);
         $defaultConfig->save();
 
         $floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
