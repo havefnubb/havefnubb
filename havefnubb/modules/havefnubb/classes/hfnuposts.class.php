@@ -265,7 +265,7 @@ class hfnuposts {
 			$record->id_user 	    = jAuth::getUserSession ()->id;
 			$record->id_forum 	    = $id_forum;
 			$record->parent_id      = 0;
-			$record->status	        = 'opened';
+			$record->status	        = 3; //'opened'
 			$record->date_created   = time();
 			$record->date_modified  = time();
 			$record->viewed         = 0;
@@ -413,7 +413,8 @@ class hfnuposts {
 
 		jEvent::notify('HfnuPostBeforeSaveNotify',array('id'=>$id_post));
         $dao = jDao::get('havefnubb~notify')->getNotifByUserId($id_post,$form->getData('id_user'));
-		if ($dao != null) {
+
+		if ($dao > 0) {
 			jMessage::add(jLocale::get('havefnubb~post.notification.already.done'),'error');
 			return false;
 		}

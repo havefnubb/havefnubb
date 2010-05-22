@@ -26,15 +26,13 @@
                 <orderitem property="date_created" way="asc" />
             </order>
         </method>
-        <method name="getNotifByUserId" type="selectfirst">
-            <order>
+        <method name="getNotifByUserId" type="count">
             <parameter name="id_post" />
             <parameter name="id_user" />
             <conditions>
                 <eq property="id_post" expr="$id_post" />
 				<eq property="id_user" expr="$id_user" />
             </conditions>
-            </order>
         </method>
     </factory>
 </dao>
