@@ -1,0 +1,74 @@
+/* tableaux */
+table.hfnucal {
+	border: 1px solid #CCB;
+	margin-bottom: 2em;
+	width: 100%;
+}
+table.minihfnucal {
+	float: left;
+	width: 49%;
+	border: 1px solid #CCB;
+	margin-bottom: 2em;
+}
+
+table.minihfnucal caption {
+}
+
+/* bloc de texte */
+div#infos_cal {
+	float: right;
+	width: 60%;
+	margin-top: 1em;
+}
+div#infos_cal h3 {
+	margin-top: 1em;
+}
+
+/* cellules */
+table.hfnucal td {
+	height: 75px;
+	width: 14%;
+	vertical-align: top;
+}
+table.hfnucal td.inactive {
+	background: #ddd;
+}
+table.hfnucal td.past {
+	color: #ccc;
+}
+table.hfnucal td.today {
+	background: #fff;
+}
+table.hfnucal td.active {
+	border: 1px solid #c00;
+}
+
+/* liens */
+table.hfnucal td.past a {
+	color: #ccc;
+}
+table.hfnucal td.today a {}
+table.hfnucal td.active a {}
+
+/* numero jour */
+table.hfnucal td p.daynumber {}
+
+/* liste événement dans cellules */
+table.hfnucal td ul.eventlist {
+	font-size: 0.9em;
+}
+table.hfnucal td ul.eventlist li {
+	list-style: square inside
+}
+table.hfnucal th, .minihfnucal th {
+	background: url('../img/grain_dark.gif');
+	border: 1px solid #CCB;
+	color: #555;
+	text-align: left;
+}
+table.hfnucal tr, .minihfnucal tr {border-bottom: 1px solid #DDD;}
+table.hfnucal td, table th, .minihfnucal td, .minihfnucal th {padding: 10px;}
+table.hfnucal td, .minihfnucal td {
+	background: url('../img/grain_light.gif');
+	border: 1px solid #DDC;
+}

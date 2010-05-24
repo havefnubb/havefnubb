@@ -208,13 +208,26 @@
         <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
 
         <!-- hfnucontact module -->
-		<url pathinfo="/contacted" module="hfnucontact" action="default:contacted"/>
+        <url pathinfo="/contacted" module="hfnucontact" action="default:contacted"/>
 
-		<url pathinfo="/send_to_friend" module="hfnucontact" action="default:send_to_friend"/>
+        <url pathinfo="/send_to_friend" module="hfnucontact" action="default:send_to_friend"/>
         <url pathinfo="/send_a_message" module="hfnucontact" action="default:send_a_message"/>
         <!-- hfnurates module -->
-		<url pathinfo="/rates/it"  module="hfnurates" action="default:rate_it"/>
+        <url pathinfo="/rates/it"  module="hfnurates" action="default:rate_it"/>
         <url pathinfo="/rates/ait" module="hfnurates" action="default:rate_ajax_it"/>
+
+
+        <url pathinfo="/cal/:year/:month" module="hfnucal" action="default:index"/>
+        <url pathinfo="/cal/:year/:month" module="hfnucal" action="default:index">
+            <param name="year" type="number"/>
+            <param name="month" type="number"/>
+        </url>
+
+        <url pathinfo="/cal/:year/:month/:day" module="hfnucal" action="default:view">
+            <param name="year" type="number"/>
+            <param name="month" type="number"/>
+            <param name="day" type="number"/>
+        </url>
 
     </classicentrypoint>
 
@@ -227,8 +240,9 @@
         <url pathinfo="/update/1_3_3" module="hfnuinstall" action="default:update_to_1_3_3"/>
         <url pathinfo="/update/1_3_4" module="hfnuinstall" action="default:update_to_1_3_4"/>
         <url pathinfo="/update/1_3_5" module="hfnuinstall" action="default:update_to_1_3_5"/>
-		<url pathinfo="/update/1_3_6" module="hfnuinstall" action="default:update_to_1_3_6"/>
-		<url pathinfo="/migrate/phorum" module="hfnuinstall" action="migrate:phorum"/>
+        <url pathinfo="/update/1_3_6" module="hfnuinstall" action="default:update_to_1_3_6"/>
+        <url pathinfo="/update/1_4_0" module="hfnuinstall" action="default:update_to_1_4_0"/>
+        <url pathinfo="/migrate/phorum" module="hfnuinstall" action="migrate:phorum"/>
     </classicentrypoint>
 <!-- fin forum -->
 <!-- debut admin forum -->

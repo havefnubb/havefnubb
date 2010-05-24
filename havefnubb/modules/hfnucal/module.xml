@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="hfnucal@havefnubb.org" name="hfnucal" createdate="2010-05-24">
+        <version stability="stable" date="2010-05-24">1.0.0</version>
+        <label lang="en_EN">HfnuCal</label>
+        <description lang="en_EN">Module Calendar that displays the to post by date</description>
+        <label lang="fr_FR">HfnuCal</label>
+        <description lang="fr_FR">Module Calendrier affichant les discussion par date</description>
+        <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
+        <copyright>2010 FoxMaSk</copyright>
+        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
+        <homepageURL>http://www.havefnubb.org</homepageURL>
+        <updateURL>http://www.havefnubb.org/update.php?module=hfnucal</updateURL>
+    </info>
+    <dependencies>
+        <jelix minversion="1.1.5" maxversion="1.1.5" />
+    </dependencies>
+</module>
