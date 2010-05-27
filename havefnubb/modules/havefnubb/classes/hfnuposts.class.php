@@ -386,7 +386,7 @@ class hfnuposts {
             jClasses::getService('havefnubb~hfnusub')->subscribe($parent_id);
             //send message to anyone who subscribes to this thread
         }
-        jClasses::getService('havefnubb~hfnusub')->sendMail( $parent_id );
+        jClasses::getService('havefnubb~hfnusub')->sendMail( $parent_id,$id_post );
 
         jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
 

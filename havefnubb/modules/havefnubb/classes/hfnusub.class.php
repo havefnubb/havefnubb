@@ -11,26 +11,26 @@
  * main UI to manage subscriptions of member to posts in HaveFnuBB!
 */
 class hfnusub {
-	/**
-	 * @var string $daoSub dao of the subscription table
-	 */
+    /**
+     * @var string $daoSub dao of the subscription table
+     */
     private static $daoSub = 'havefnubb~sub';
-	/**
-	 * Have I SubScribe to this post ?
-	 * @param integer $id of the subscribed post
-	 * @return record
-	 */
+    /**
+     * Have I SubScribe to this post ?
+     * @param integer $id of the subscribed post
+     * @return record
+     */
     public function getSubscribed($id) {
-		if (jAuth::isConnected())
-			return jDao::get(self::$daoSub)->get($id,jAuth::getUserSession ()->id);
+        if (jAuth::isConnected())
+            return jDao::get(self::$daoSub)->get($id,jAuth::getUserSession ()->id);
     }
-	/**
-	 * Subscribe to a thread
-	 * @param integer $id of the post to subscribe
-	 * @return boolean
-	 */
-	public static function subscribe($id) {
-		$dao = jDao::get(self::$daoSub);
+    /**
+     * Subscribe to a thread
+     * @param integer $id of the post to subscribe
+     * @return boolean
+     */
+    public static function subscribe($id) {
+        $dao = jDao::get(self::$daoSub);
         if (jAuth::isConnected()) {
             $id_user = jAuth::getUserSession ()->id;
             if (! $dao->get($id, $id_user)) {
@@ -42,26 +42,26 @@ class hfnusub {
             }
         }
         return false;
-	}
-	/**
-	 * Unsubscribe to a thread
-	 * @param integer $id of the post to unsubscribe
-	 * @return boolean
-	 */
-	public static function unsubscribe($id) {
-		$dao = jDao::get(self::$daoSub);
-		if ( jAuth::isConnected() && $dao->get($id,jAuth::getUserSession ()->id)) {
-			$dao->delete($id,jAuth::getUserSession ()->id);
-			return true;
-		}
-		return false;
-	}
-	/**
-	 * Send an email to the members that have subsribe to this post
-	 * @param integer $id of the subscribed post
-	 * @return void
-	 */
-	public static function sendMail($id) {
+    }
+    /**
+     * Unsubscribe to a thread
+     * @param integer $id of the post to unsubscribe
+     * @return boolean
+     */
+    public static function unsubscribe($id) {
+        $dao = jDao::get(self::$daoSub);
+        if ( jAuth::isConnected() && $dao->get($id,jAuth::getUserSession ()->id)) {
+            $dao->delete($id,jAuth::getUserSession ()->id);
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Send an email to the members that have subsribe to this post
+     * @param integer $id of the subscribed post
+     * @return void
+     */
+    public static function sendMail($id_post,$parent_id) {
         global $gJConfig;
 
         if (!jAuth::isConnected())
@@ -71,7 +71,7 @@ class hfnusub {
         $user = jAuth::getUserSession ();
         $member = jDao::get('havefnubb~member')->get($user->login);
         //get all the members that subscribe to this thread except "me"
-        $records = $dao->findSubscribedPost($id,$user->id);
+        $records = $dao->findSubscribedPost($parent_id,$user->id);
 
         // then send them a mail
         foreach ($records as $record) {
@@ -80,19 +80,21 @@ class hfnusub {
 
             $subject = jLocale::get('havefnubb~post.new.comment.received') . " :" .$post->subject ;
 
-			$mail = new jMailer();
-			$mail->From       = $gJConfig->mailer['webmasterEmail'];
-			$mail->FromName   = $gJConfig->mailer['webmasterName'];
-			$mail->Sender     = $gJConfig->mailer['webmasterEmail'];
-			$mail->Subject    = $subject;
+            $mail = new jMailer();
+            $mail->From       = $gJConfig->mailer['webmasterEmail'];
+            $mail->FromName   = $gJConfig->mailer['webmasterName'];
+            $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+            $mail->Subject    = $subject;
 
-			$tpl = new jTpl();
-			$tpl->assign('server',$_SERVER['SERVER_NAME']);
-			$tpl->assign('post',$post);
-			$mail->Body = $tpl->fetch('havefnubb~new_comment_received', 'text');
+            $tpl = new jTpl();
+            $tpl->assign('server',$_SERVER['SERVER_NAME']);
+            $tpl->assign('post',$post);
+            $tpl->assign('id_post',$id_post);
+            $mail->Body = $tpl->fetch('havefnubb~new_comment_received', 'text');
 
-			$mail->AddAddress($member->email); // FIXME email is not in $user ??
-			$mail->Send();
+            $mail->AddAddress($member->email); // FIXME email is not in $user ??
+            $mail->Send();
         }
-	}
+    }
+
 }
