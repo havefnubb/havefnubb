@@ -213,11 +213,6 @@ class postsCtrl extends jController {
 
         if ($goto > 0 ) $page = $goto;
 
-
-
-
-
-
         // let's build the pagelink var
         // A Preparing / Collecting datas
         // 0- the properties of the pager
@@ -260,8 +255,9 @@ class postsCtrl extends jController {
             $tpl->assign('formMove',$formMove);
         }
 
-        $tpl->assign('id_post'	,$id_post);
-        $tpl->assign('forum'	,$forum);
+        /*$tpl->assign('parent_id',$parent_id);*/
+        $tpl->assign('id_post'  ,$id_post);
+        $tpl->assign('forum'    ,$forum);
         $tpl->assign('category'	,$category);
 
 
@@ -502,14 +498,18 @@ class postsCtrl extends jController {
             }
             //let's save the post
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-            $result = $hfnuposts->save($id_forum,$id_post);
+            $post = $hfnuposts->save($id_forum,$id_post);
 
-            if ($result === false) {
+            //if ($result === false) {
+            if ($post === false) {
                 $rep->action = 'havefnubb~posts:lists';
                 $rep->params = array('id_forum'=>$id_forum);
                 return $rep;
             }
-            else $id_post = $result;
+            else {
+                $id_post = $post->id_post;
+                $parent_id = $post->parent_id;
+            }
 
             jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'ok');
             //after editing, returning to the parent_id post !
@@ -535,7 +535,7 @@ class postsCtrl extends jController {
      */
     function reply() {
 
-        $parent_id = (int) $this->param('id_post');
+        $parent_id = (int) $this->param('parent_id');
         $id_post = (int) $this->param('id_post');
 
         if ($parent_id == 0 ) {
@@ -754,15 +754,15 @@ class postsCtrl extends jController {
 
             //set the needed parameters to the template
             $tpl = new jTpl();
-            $tpl->assign('id_post', 	0);
-            $tpl->assign('parent_id', 	$parent_id);
-            $tpl->assign('id_forum', 	$id_forum);
+            $tpl->assign('id_post',     0);
+            $tpl->assign('parent_id',   $parent_id);
+            $tpl->assign('id_forum',    $id_forum);
             $tpl->assign('previewsubject', $form->getData('subject'));
             $tpl->assign('previewtext', $form->getData('message'));
-            $tpl->assign('form', 		$form);
-            $tpl->assign('forum', 		$forum);
-            $tpl->assign('category', 	$category);
-            $tpl->assign('signature',	$user->member_comment);
+            $tpl->assign('form',        $form);
+            $tpl->assign('forum',       $forum);
+            $tpl->assign('category',    $category);
+            $tpl->assign('signature',   $user->member_comment);
 
             $rep = $this->getResponse('html');
             $rep->title = jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject');
@@ -790,16 +790,18 @@ class postsCtrl extends jController {
             if ($record === false ) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
                 $record = $hfnuposts->getPost($parent_id);
+                $forum = jDao::get('havefnubb~forum')->get($id_forum);
                 $rep->action = 'havefnubb~posts:view';
-                $rep->params = array('ftitle'=>$record->forum_name,
+                $rep->params = array('ftitle'=>$forum->forum_name,
                                     'ptitle'=>$record->subject,
                                     'id_forum'=>$id_forum,
                                     'id_post'=>$record->id_post,
                                     'parent_id'=>$record->parent_id);
             } else {
                 jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
+                $forum = jDao::get('havefnubb~forum')->get($id_forum);
 
-                $rep->params = array('ftitle'=>$record->forum_name,
+                $rep->params = array('ftitle'=>$forum->forum_name,
                                     'ptitle'=>$record->subject,
                                     'id_forum'=>$id_forum,
                                     'id_post'=>$record->id_post,

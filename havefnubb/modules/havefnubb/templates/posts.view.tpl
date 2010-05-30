@@ -40,6 +40,7 @@
 <br/>
 {assign $i=0}
 {foreach $posts as $post}
+
     {hook 'hfbPostReplies',array('id_post'=>$id_post)}
     {assign $parent_id = $post->parent_id}
     {assign $id_forum = $post->id_forum}
@@ -100,11 +101,11 @@
     </div>
     <div class="postfoot fake-button">
         &nbsp;
-		{hook 'hfbPostRepliesFooter',
-					array('action'=>'havefnubb~posts:view',
-						  'parms'=>array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
-						  )
-		}
+        {hook 'hfbPostRepliesFooter',
+                    array('action'=>'havefnubb~posts:view',
+                          'parms'=>array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
+                          )
+        }
         {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
         <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}
@@ -179,10 +180,10 @@
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 {* 'closed' *}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-{zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$forum->id_forum)}
+        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$forum->id_forum)}
     {else}
         {ifacl2 'hfnu.admin.post'}
-        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'id_forum'=>$forum->id_forum)}
+        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$forum->id_forum)}
         {/ifacl2}
     {/if}
 {/ifacl2}

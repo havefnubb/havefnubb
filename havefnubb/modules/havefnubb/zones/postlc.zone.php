@@ -11,49 +11,49 @@
  * class that manages the display of the information of the last comment !
  */
 class postlcZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.postlc';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.postlc';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
 
-		$id_post = $this->param('id_post');
-		$id_forum = $this->param('id_forum');
-		if (!$id_post and !$id_forum) return;
+        $parent_id = (int) $this->param('parent_id');
+        $id_forum = (int) $this->param('id_forum');
+        if (!$parent_id and !$id_forum) return;
 
-		$dao = jDao::get('havefnubb~posts');
-		if ($id_post) {
-			if (  jAcl2::check('hfnu.admin.post') ) {
-				$userPost = $dao->getUserLastCommentOnPosts($id_post);
-			}
-			else {
-				$userPost = $dao->getUserLastVisibleCommentOnPosts($id_post);
-			}
-		}
+        $dao = jDao::get('havefnubb~posts');
+        if ($parent_id) {
+            if (  jAcl2::check('hfnu.admin.post') ) {
+                $userPost = $dao->getUserLastCommentOnPosts($parent_id);
+            }
+            else {
+                $userPost = $dao->getUserLastVisibleCommentOnPosts($parent_id);
+            }
+        }
 
-		if ($id_forum) {
-			if (  jAcl2::check('hfnu.admin.post') ) {
-				$userPost = $dao->getUserLastCommentOnForums($id_forum);
-			}
-			else {
-				$userPost = $dao->getUserLastVisibleCommentOnForums($id_forum);
-			}
-		}
+        if ($id_forum) {
+            if (  jAcl2::check('hfnu.admin.post') ) {
+                $userPost = $dao->getUserLastCommentOnForums($id_forum);
+            }
+            else {
+                $userPost = $dao->getUserLastVisibleCommentOnForums($id_forum);
+            }
+        }
 
-		$user = '';
-		$noMsg = '';
+        $user = '';
+        $noMsg = '';
 
-		$dao = jDao::get('havefnubb~member');
-		if ($userPost)
-			$user = $dao->getById($userPost->id_user);
-		else
-			$noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
+        $dao = jDao::get('havefnubb~member');
+        if ($userPost)
+            $user = $dao->getById($userPost->id_user);
+        else
+            $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
 
-		$this->_tpl->assign('user',$user);
-		$this->_tpl->assign('post',$userPost);
-		$this->_tpl->assign('msg',$noMsg);
-	}
+        $this->_tpl->assign('user',$user);
+        $this->_tpl->assign('post',$userPost);
+        $this->_tpl->assign('msg',$noMsg);
+    }
 }

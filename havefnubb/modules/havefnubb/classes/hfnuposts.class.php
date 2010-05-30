@@ -82,11 +82,18 @@ class hfnuposts {
         if ($id_post == 0 ) return false;
         $post = self::getPost($id_post);
         self::deletePost($id_post);
+        $daoThreads = jDao::get('havefnubb~threads_alone');
         $dao = jDao::get('havefnubb~posts');
         //thread post ?
-        if ($post->id_post == $post->parent_id)
+        if ($post->id_post == $post->parent_id) {
             //remove the "sons"
             $dao->deleteSonsPost($post->parent_id);
+            $daoThreads->delete($post->parent_id);
+        } else {
+            $threadRec = $daoThreads->get($post->parent_id);
+            $threadRec->nb_replies=$threadRec->nb_replies - 1;
+            $daoThreads->update($threadRec);
+        }
         //remove the "father"
         $dao->delete($id_post);
         return true;
@@ -109,23 +116,24 @@ class hfnuposts {
      * @return array $page,$nbPosts,$posts if no record have been found, return page = 0 otherwise return the posts
      */
     public static function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {
-        $daoPost = jDao::get('havefnubb~posts');
+        //$daoPost = jDao::get('havefnubb~posts');
+        $daoThreads = jDao::get('havefnubb~threads');
         // total number of posts
-        $nbTtlPosts = $daoPost->countPostsByForumId($id_forum);
-        $nbPinedPosts = $daoPost->countPinedPostsByForumId($id_forum);
+        $nbTtlPosts = $daoThreads->countPostsByForumId($id_forum);
+        $nbPinedPosts = $daoThreads->countPinedPostsByForumId($id_forum);
         // get the posts of the current forum, limited by point 1 and 2
         if ( ! jAcl2::check('hfnu.admin.post') ) {
-            $posts = $daoPost->findByIdForumVisible($id_forum,$page,$nbPostPerPage);
+            $posts = $daoThreads->findByIdForumVisible($id_forum,$page,$nbPostPerPage);
             if ($posts->rowCount() == 0) {
-                $posts = $daoPost->findByIdForumVisible($id_forum,0,$nbPostPerPage);
+                $posts = $daoThreads->findByIdForumVisible($id_forum,0,$nbPostPerPage);
                 $page = 0;
             }
         }
         else {
-            $posts = $daoPost->findByIdForum($id_forum,$page,$nbPostPerPage);
+            $posts = $daoThreads->findByIdForum($id_forum,$page,$nbPostPerPage);
             // check if we have found record ;
             if ($posts->rowCount() == 0) {
-                $posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);
+                $posts = $daoThreads->findByIdForum($id_forum,0,$nbPostPerPage);
                 $page = 0;
             }
         }
@@ -177,12 +185,10 @@ class hfnuposts {
             // calculate the offset of this id_post
             $goto = (ceil ($child/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
             if ($goto < 0 ) $goto = 0;
-            // replacing the id_post by parent_id for the posts_replies.zones.php
-            $id_post = $parent_id;
         }
 
         // let's update the viewed counter
-        self::updateViewing($id_post);
+        self::updateViewing($id_post,$parent_id);
         // let's update the 'read by mod'
         self::readByMod($parent_id);
         // let's add the user to the post_read table
@@ -194,7 +200,7 @@ class hfnuposts {
      * updateViewing : update the counter of the views of a given post
      * @param integer $id_post post id of the current post
      */
-    public static function updateViewing($id_post) {
+    public static function updateViewing($id_post,$parent_id) {
         if ($id_post == 0 ) return;
         $dao = jDao::get('havefnubb~posts');
         $post = $dao->get($id_post);
@@ -202,6 +208,13 @@ class hfnuposts {
             $post->viewed = $post->viewed +1;
             $dao->update($post);
         }
+        $dao = jDao::get('havefnubb~threads');
+        $thread = $dao->get($parent_id);
+        if ($thread !== false)  {
+            $thread->nb_viewed = $thread->nb_viewed +1;
+            $dao->update($thread);
+        }
+
     }
 
 
@@ -259,17 +272,18 @@ class hfnuposts {
         if ($id_post == 0) {
             jEvent::notify('HfnuPostBeforeSave',array('id'=>$id_post));
             $record = jDao::createRecord('havefnubb~posts');
-            $record->subject	    = $subject;
-            $record->message	    = $message;
-            $record->id_post  	    = $id_post;
-            $record->id_user 	    = jAuth::getUserSession ()->id;
-            $record->id_forum 	    = $id_forum;
+            $datePost = time();
+            $record->subject        = $subject;
+            $record->message        = $message;
+            $record->id_post        = $id_post;
+            $record->id_user        = jAuth::getUserSession ()->id;
+            $record->id_forum       = $id_forum;
             $record->parent_id      = 0;
-            $record->status	        = 3; //'opened'
-            $record->date_created   = time();
-            $record->date_modified  = time();
+            $record->status         = 3; //'opened'
+            $record->date_created   = $datePost;
+            $record->date_modified  = $datePost;
             $record->viewed         = 0;
-            $record->poster_ip 	    = $_SERVER['REMOTE_ADDR'];
+            $record->poster_ip      = $_SERVER['REMOTE_ADDR'];
             //if the current user is a member of a moderator group
             // we set this post as 'read by moderator'
             if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) or
@@ -282,8 +296,22 @@ class hfnuposts {
 
             $dao->insert($record);
 
+            $threadDao = jDao::get('havefnubb~threads');
+            $threadRec = jDao::createRecord('havefnubb~threads');
+            $threadRec->id_user_thread  = jAuth::getUserSession ()->id;
+            $threadRec->status_thread   = 3; //'opened'
+            $threadRec->id_forum_thread = $id_forum;
+            $threadRec->nb_replies      = 0;
+            $threadRec->nb_viewed       = 0;
+            $threadRec->id_first_msg    = $record->id_post;
+            $threadRec->id_last_msg     = $record->id_post;
+            $threadRec->date_created    = $datePost;
+            $threadRec->date_last_post  = $datePost;
+            $threadDao->insert($threadRec);
+
             // now let's get the inserted id to put this one in parent_id column !
-            $record->parent_id = $record->id_post;
+            $record->parent_id = $threadRec->id_thread;
+
             $id_post = $record->id_post;
             $parent_id = $record->parent_id;
 
@@ -300,9 +328,9 @@ class hfnuposts {
             self::deletePost($id_post);
 
             $record = $dao->get($id_post);
-            $record->subject		= $subject;
-            $record->message		= $message;
-            $record->date_modified 	= time();
+            $record->subject        = $subject;
+            $record->message        = $message;
+            $record->date_modified  = time();
             $parent_id = $record->parent_id;
             jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
 
@@ -333,7 +361,7 @@ class hfnuposts {
 
         jForms::destroy('havefnubb~posts', $id_post);
 
-        return $id_post;
+        return $record;
 
     }
 
@@ -366,18 +394,29 @@ class hfnuposts {
 
         jEvent::notify('HfnuPostBeforeSaveReply',array('id'=>$parent_id));
 
+        $dateReply = time();
         $result = $form->prepareDaoFromControls('havefnubb~posts');
-        $result['daorec']->date_created	= time();
-        $result['daorec']->date_modified= time();
-        $result['daorec']->status	    = 3;//'opened'
-        $result['daorec']->poster_ip	= $_SERVER['REMOTE_ADDR'];
-        $result['daorec']->viewed 	    = 0;
-        $result['daorec']->id_post  	= 0;
-        $result['daorec']->id_user 	    = jAuth::getUserSession ()->id;
+        $result['daorec']->parent_id    = $parent_id;
+        $result['daorec']->date_created = $dateReply;
+        $result['daorec']->date_modified= $dateReply;
+        $result['daorec']->status       = 3;//'opened'
+        $result['daorec']->poster_ip    = $_SERVER['REMOTE_ADDR'];
+        $result['daorec']->viewed       = 0;
+        $result['daorec']->id_post      = 0;
+        $result['daorec']->id_user      = jAuth::getUserSession ()->id;
         $result['dao']->insert($result['daorec']);
         $id_post = $result['daorec']->getPk();
 
         self::addPost($id_post,$result['daorec']);
+
+        //update Threads record
+        $threads = jDao::get('havefnubb~threads');
+        $threadRec = $threads->get($parent_id);
+        $threadRec->nb_replies      = $threadRec->nb_replies +1;
+        $threadRec->nb_viewed       = $threadRec->nb_viewed +1;
+        $threadRec->id_last_msg     = $id_post;
+        $threadRec->date_last_post  = $dateReply;
+        $threads->update($threadRec);
 
         jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
 

@@ -421,6 +421,28 @@ CREATE TABLE IF NOT EXISTS hf_member_custom_fields (
 ) DEFAULT  CHARSET=utf8;
 
 
+
+DROP TABLE IF EXISTS hf_threads;
+CREATE TABLE IF NOT EXISTS hf_threads (
+  id_thread int(11) NOT NULL AUTO_INCREMENT,
+  id_forum int(11) NOT NULL,
+  id_user INT NOT NULL,
+  status int(11) NOT NULL,
+  id_first_msg int(11) NOT NULL,
+  id_last_msg int(11) NOT NULL,
+  date_created int(11) NOT NULL,
+  date_last_post int(11),
+  PRIMARY KEY (id_thread),
+  KEY id_forum (id_forum),
+  KEY id_user (id_user),
+  KEY status (status),
+  KEY id_first_msg (id_first_msg),
+  KEY id_last_msg (id_last_msg)
+) DEFAULT CHARSET=utf8;
+
+INSERT INTO hf_threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post)
+VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),0);
+
 DROP TABLE IF EXISTS hf_posts;
 CREATE TABLE IF NOT EXISTS hf_posts (
   id_post int(12) NOT NULL AUTO_INCREMENT,
@@ -441,11 +463,8 @@ CREATE TABLE IF NOT EXISTS hf_posts (
 ) DEFAULT CHARSET=utf8;
 
 
-
 INSERT INTO hf_posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod ) VALUES
 (1, 1, 1, 1, 3, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL,1);
-
-
 
 DROP TABLE IF EXISTS hf_rank;
 CREATE TABLE IF NOT EXISTS hf_rank (

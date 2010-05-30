@@ -65,51 +65,6 @@
             </order>
         </method>
         <!-- get the posts to be displayed on the index of the forum page -->
-        <method name="findByIdForum" type="select">
-            <parameter name="id_forum" />
-            <parameter name="offset" default="0" />
-            <parameter name="count" default="200" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="posts.parent_id" />
-                <neq property="status" value="pined" />
-                <neq property="status" value="pinedclosed" />
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-            <limit offset="$offset" count="$count"/>
-        </method>
-        <method name="findByIdForumVisible" type="select">
-            <parameter name="id_forum" />
-            <parameter name="offset" default="0" />
-            <parameter name="count" default="200" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="posts.parent_id" />
-                <neq property="status" value="pined" />
-                <neq property="status" value="pinedclosed" />
-                <neq property="status" value="hidden" />
-            </conditions>
-            <order>
-                <orderitem property="date_created" way="desc" />
-            </order>
-            <limit offset="$offset" count="$count"/>
-        </method>
-        <method name="findPinedPostByIdForum" type="select">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="posts.parent_id" />
-                <conditions logic="OR">
-                        <eq property="status" value="pined" />
-                        <eq property="status" value="pinedclosed" />
-                </conditions>
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-        </method>
         <method name="findAllPinedPost" type="select">
             <conditions>
                 <eq property="id_post" expr="posts.parent_id" />
@@ -158,9 +113,9 @@
             </conditions>
         </method>
         <method name="getUserLastCommentOnPosts" type="selectfirst">
-            <parameter name="id_post" />
+            <parameter name="parent_id" />
             <conditions>
-                <eq property="parent_id" expr="$id_post" />
+                <eq property="parent_id" expr="$parent_id" />
             </conditions>
             <order>
                 <orderitem property="date_created" way="desc" />
@@ -225,31 +180,6 @@
                 <eq property="id_post" expr="$id_post" />
             </conditions>
         </method>
-        <method name="countPostsByForumId" type="count">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="posts.parent_id" />
-            </conditions>
-        </method>
-        <method name="countPinedPostsByForumId" type="count">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="posts.parent_id" />
-                <conditions logic="OR">
-                        <eq property="status" value="pined" />
-                        <eq property="status" value="pinedclosed" />
-                </conditions>
-            </conditions>
-        </method>
-        <method name="countThreads" type="count">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="posts.parent_id" />
-            </conditions>
-        </method>
         <method name="countMsgsByIdUser" type="count">
             <parameter name="id_user" />
             <conditions>
@@ -259,38 +189,11 @@
        <!-- for stats purpose -->
         <method name="countAllPosts" type="count">
         </method>
-        <method name="countAllThreads" type="count">
-            <conditions>
-                <eq property="id_post" expr="posts.parent_id" />
-            </conditions>
-        </method>
         <method name="getLastPost" type="selectfirst">
             <order>
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
-        <method name="findLastPosts" type="select">
-            <parameter name="count" default="5" />
-           <conditions>
-                <eq property="id_post" expr="posts.parent_id" />
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-            <limit offset="0" count="$count"/>
-        </method>
-        <method name="findLastVisiblePosts" type="select">
-            <parameter name="count" default="5" />
-           <conditions>
-                <eq property="id_post" expr="posts.parent_id" />
-                <neq property="status" value="hidden" />
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-            <limit offset="0" count="$count"/>
-        </method>
-
         <method name="getMyLastEditedPost" type="selectfirst">
             <parameter name="id_user" />
            <conditions>
@@ -390,39 +293,6 @@
             <values>
                 <value property="read_by_mod" value="1" />
             </values>
-        </method>
-        <method name="findUnreadThreadByMod" type="select" distinct="true" groupby="parent_id">
-            <conditions>
-                <eq property="read_by_mod" value="0" />
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-        </method>
-        <method name="findAllUnreadThread" type="count" groupby="parent_id">
-            <parameter name="start"/>
-            <parameter name="end"/>
-            <conditions logic="AND">
-                <gteq property="date_created" expr="$start" />
-                <lteq property="date_created" expr="$end" />
-            </conditions>
-            <order>
-                <orderitem property="date_created" way="desc" />
-            </order>
-        </method>
-        <method name="findUnreadThread" type="select" distinct="true" groupby="parent_id">
-            <parameter name="start"/>
-            <parameter name="end"/>
-            <parameter name="offset"/>
-            <parameter name="count"/>
-            <conditions logic="AND">
-                <gteq property="date_created" expr="$start" />
-                <lteq property="date_created" expr="$end" />
-            </conditions>
-            <limit offset="$offset" count="$count"/>
-            <order>
-                <orderitem property="date_created" way="desc" />
-            </order>
         </method>
         <method name="deleteSonsPost" type="delete">
             <parameter name="parent_id"/>

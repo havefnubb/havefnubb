@@ -59,12 +59,12 @@
                 <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>
             </td>
             <td>
-                {zone 'havefnubb~responsettl',array('id_post'=>$post->id_post)}
+                {$post->nb_replies}
             </td>
             <td>
-                {zone 'havefnubb~viewedttl',array('id_post'=>$post->id_post)}
+                {$post->nb_viewed}
             </td>
-            <td>{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}
+            <td>{zone 'havefnubb~postlc',array('parent_id'=>$post->parent_id)}
             </td>
         </tr>
         {/foreach}

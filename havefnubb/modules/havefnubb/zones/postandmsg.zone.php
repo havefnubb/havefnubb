@@ -11,27 +11,23 @@
  * Class the displays the nb of post and thread
  */
 class postandmsgZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.postandmsg';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.postandmsg';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
 
-		$id_forum = $this->param('id_forum');
-		if (!$id_forum) return;
+        $id_forum = $this->param('id_forum');
+        if (!$id_forum) return;
 
-		$dao = jDao::get('havefnubb~posts');
+        $nbMsg = jDao::get('havefnubb~posts')->countMessages($id_forum);
 
-		$nb_msg = 0;
-		$nb_thread = 0;
+        $nbThread = jDao::get('havefnubb~threads_alone')->countThreads($id_forum);
 
-		$nbMsg = $dao->countMessages($id_forum);
-		$nbThread = $dao->countThreads($id_forum);
-
-		$this->_tpl->assign('nbMsg',$nbMsg);
-		$this->_tpl->assign('nbThread',$nbThread);
-	}
+        $this->_tpl->assign('nbMsg',$nbMsg);
+        $this->_tpl->assign('nbThread',$nbThread);
+    }
 }
