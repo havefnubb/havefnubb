@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="threads" realname="threads"  primarykey="id_thread" />
+    </datasources>
+    <record>
+        <property name="id_thread"     fieldname="id_thread" datatype="autoincrement"/>
+        <property name="id_user_thread" fieldname="id_user" datatype="int" required="true"/>
+        <property name="id_forum_thread" fieldname="id_forum" datatype="int" required="true"/>
+        <property name="status_thread" fieldname="status"  datatype="int" required="true"/>
+        <property name="nb_viewed"     fieldname="nb_viewed"  datatype="int" required="true"/>
+        <property name="nb_replies"    fieldname="nb_replies"  datatype="int" required="true"/>
+        <property name="id_first_msg"  fieldname="id_first_msg"  datatype="int" required="true"/>
+        <property name="id_last_msg"   fieldname="id_last_msg"  datatype="int" required="true"/>
+        <property name="date_created"  fieldname="date_created" datatype="int" required="true"/>
+        <property name="date_last_post" fieldname="date_last_post" datatype="int" />
+    </record>
+
+    <!-- naming convention :
+        findXXX uses type="select"
+        getXXX uses type="selectfirst"
+        countXXX uses type="count"
+    -->
+    <factory>
+       <!-- for stats purpose -->
+        <method name="countAllThreads" type="count">
+        </method>
+        <method name="countThreads" type="count">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum_thread" expr="$id_forum" />
+            </conditions>
+        </method>
+    </factory>
+</dao>

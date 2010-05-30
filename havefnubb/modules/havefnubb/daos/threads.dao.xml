@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="threads" realname="threads"  primarykey="id_thread" />
+        <foreigntable name="posts" realname="posts"  primarykey="parent_id" onforeignkey="id_thread" />
+        <optionalforeigntable name="usr"   realname="member" primarykey="id_user"  onforeignkey="id_user" />
+        <optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
+    </datasources>
+    <record>
+        <property name="id_thread"     fieldname="id_thread" datatype="autoincrement"/>
+        <property name="id_user_thread" fieldname="id_user" datatype="int" required="true"/>
+        <property name="id_forum_thread" fieldname="id_forum" datatype="int" required="true"/>
+        <property name="status_thread" fieldname="status"  datatype="int" required="true"/>
+        <property name="nb_viewed"     fieldname="nb_viewed"  datatype="int" required="true"/>
+        <property name="nb_replies"    fieldname="nb_replies"  datatype="int" required="true"/>
+        <property name="id_first_msg"  fieldname="id_first_msg"  datatype="int" required="true"/>
+        <property name="id_last_msg"   fieldname="id_last_msg"  datatype="int" required="true"/>
+        <property name="date_created"  fieldname="date_created" datatype="int" required="true"/>
+        <property name="date_last_post" fieldname="date_last_post" datatype="int" />
+
+        <!-- properties from posts table -->
+        <property name="id_post"    table="posts"    fieldname="id_post" datatype="autoincrement"/>
+        <property name="id_user"    table="posts"    fieldname="id_user" datatype="int" required="true"/>
+        <property name="id_forum"   table="posts"    fieldname="id_forum" datatype="int" required="true"/>
+        <property name="parent_id"  table="posts"    fieldname="parent_id" datatype="int" required="true"/>
+        <property name="status"     table="posts"    fieldname="status"  datatype="int" required="true"/>
+        <!--
+        status :
+                1 - pined
+                2 - pinedclosed
+                3 - opened
+                4 - closed
+                5 - censored
+                6 - uncensored
+                7 - hidden
+        -->
+        <property name="subject"       table="posts"  fieldname="subject"     datatype="string" required="true" maxlength="255"/>
+        <property name="message"       table="posts"  fieldname="message"     datatype="text" required="true"/>
+        <property name="p_date_created" table="posts"  fieldname="date_created" datatype="int" required="true"/>
+        <property name="date_modified" table="posts"  fieldname="date_modified" datatype="int" required="true"/>
+        <property name="viewed"        table="posts"  fieldname="viewed"  datatype="int" required="true"/>
+        <property name="poster_ip"     table="posts"  fieldname="poster_ip" datatype="string" required="true"/>
+        <property name="censored_msg"  table="posts"  fieldname="censored_msg" datatype="string" required="false" maxlength="50"/>
+        <property name="read_by_mod"   table="posts"  fieldname="read_by_mod" datatype="int" required="false" maxlength="1"/>
+        <!-- properties from member table -->
+        <property name="id"         fieldname="id_user" datatype="int" table="usr"/>
+        <property name="email"      fieldname="member_email" datatype="string" table="usr" maxlength="255" />
+        <property name="login"      fieldname="member_login" table="usr" required="yes" datatype="string"  maxlength="50" />
+        <property name="member_comment" fieldname="member_comment" datatype="string" table="usr" maxlength="255"/>
+        <property name="member_town"    fieldname="member_town" datatype="string" table="usr" maxlength="100"/>
+        <property name="member_avatar"  fieldname="member_avatar" datatype="string" table="usr" maxlength="255"/>
+        <property name="member_website"	fieldname="member_website" datatype="string" table="usr" maxlength="255"/>
+        <property name="nb_msg"     fieldname="member_nb_msg" table="usr" datatype="integer" />
+        <property name="member_last_post"   fieldname="member_last_post" table="usr"  datatype="integer" />
+        <property name="member_last_connect"   fieldname="member_last_connect" table="usr"  datatype="integer" />
+        <!-- properties from forum table -->
+        <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
+        <property name="forum_name"      fieldname="forum_name" table="forum" datatype="int" required="true"/>
+    </record>
+
+    <!-- naming convention :
+        findXXX uses type="select"
+        getXXX uses type="selectfirst"
+        countXXX uses type="count"
+    -->
+    <factory>
+        <!-- get the posts to be displayed on the index of the forum page -->
+        <method name="findByIdForum" type="select" distinct="true" groupby="parent_id">
+            <parameter name="id_forum" />
+            <parameter name="offset" default="0" />
+            <parameter name="count" default="200" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <neq property="status" value="1" />
+                <neq property="status" value="2" />
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+            <limit offset="$offset" count="$count"/>
+        </method>
+        <method name="findByIdForumVisible" type="select" distinct="true" groupby="parent_id">
+            <parameter name="id_forum" />
+            <parameter name="offset" default="0" />
+            <parameter name="count" default="200" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <neq property="status" value="1" />
+                <neq property="status" value="2" />
+                <neq property="status" value="7" />
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+            <limit offset="$offset" count="$count"/>
+        </method>
+        <method name="findPinedPostByIdForum" type="select">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <conditions logic="OR">
+                    <eq property="status" value="1" />
+                    <eq property="status" value="2" />
+                </conditions>
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>
+
+        <method name="countPostsByForumId" type="count">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum" expr="$id_forum" />
+            </conditions>
+        </method>
+        <method name="countPinedPostsByForumId" type="count">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <conditions logic="OR">
+                    <eq property="status" value="1" />
+                    <eq property="status" value="2" />
+                </conditions>
+            </conditions>
+        </method>
+
+       <!-- for stats purpose -->
+        <method name="countAllThreads" type="count">
+        </method>
+
+        <method name="findUnreadThreadByMod" type="select">
+            <conditions>
+                <eq property="read_by_mod" value="0" />
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>
+        <method name="findAllUnreadThread" type="count">
+            <parameter name="start"/>
+            <parameter name="end"/>
+            <conditions logic="AND">
+                <gteq property="date_last_post" expr="$start" />
+                <lteq property="date_last_post" expr="$end" />
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+        </method>
+        <method name="findUnreadThread" type="select">
+            <parameter name="start"/>
+            <parameter name="end"/>
+            <parameter name="offset"/>
+            <parameter name="count"/>
+            <conditions logic="AND">
+                <gteq property="date_last_post" expr="$start" />
+                <lteq property="date_last_post" expr="$end" />
+            </conditions>
+            <limit offset="$offset" count="$count"/>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+        </method>
+        <method name="findLastPosts" type="select" groupby="id_thread">
+            <parameter name="count" default="5" />
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+            <limit offset="0" count="$count"/>
+        </method>
+        <method name="findLastVisiblePosts" type="select" groupby="id_thread">
+            <parameter name="count" default="5" />
+           <conditions>
+                <neq property="status" value="7" />
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+            <limit offset="0" count="$count"/>
+        </method>
+    </factory>
+</dao>
