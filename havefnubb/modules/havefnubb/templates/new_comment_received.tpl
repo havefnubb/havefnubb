@@ -9,6 +9,8 @@ array('id_post'=>$post->parent_id,
         'ftitle'=>$post->forum_name,
         'ptitle'=>$post->subject)}#p{$id_post}
 
+{@havefnubb~member.your.subscriptions@} :
+http://{$server}{jurl 'jcommunity~account:prepareedit', array('user'=>$login)}
 
 {@havefnubb~post.new.comment.received.unsubscribe@} :
 http://{$server}{jurl 'havefnubb~posts:unsubscribe',array('id_post'=>$post->parent_id)}
