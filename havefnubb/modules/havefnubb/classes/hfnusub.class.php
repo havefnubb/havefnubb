@@ -61,22 +61,24 @@ class hfnusub {
      * @param integer $id of the subscribed post
      * @return void
      */
-    public static function sendMail($id_post,$parent_id) {
+    public static function sendMail($id) {
         global $gJConfig;
 
         if (!jAuth::isConnected())
             return;
 
         $dao = jDao::get(self::$daoSub);
-        $user = jAuth::getUserSession ();
-        $member = jDao::get('havefnubb~member')->get($user->login);
-        //get all the members that subscribe to this thread except "me"
-        $records = $dao->findSubscribedPost($parent_id,$user->id);
+        $memberDao = jDao::get('havefnubb~member');
+
+        //get all the members that subscribe to this thread except "ME" !!!
+        $records = $dao->findSubscribedPost($id,jAuth::getUserSession ()->id);
 
         // then send them a mail
         foreach ($records as $record) {
-
+            //get all the member that subscript to the thread id $id (called be hfnupost -> savereply )
             $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id);
+            //get the email of the member that subscribes this thread
+            $member = $memberDao->getById($record->id_user);
 
             $subject = jLocale::get('havefnubb~post.new.comment.received') . " :" .$post->subject ;
 
@@ -89,10 +91,10 @@ class hfnusub {
             $tpl = new jTpl();
             $tpl->assign('server',$_SERVER['SERVER_NAME']);
             $tpl->assign('post',$post);
-            $tpl->assign('id_post',$id_post);
+            $tpl->assign('login',$member->login);
             $mail->Body = $tpl->fetch('havefnubb~new_comment_received', 'text');
 
-            $mail->AddAddress($member->email); // FIXME email is not in $user ??
+            $mail->AddAddress($member->email);
             $mail->Send();
         }
     }
