@@ -20,19 +20,19 @@
  */
 function jtpl_function_html_gravatar($tpl, $email, $params=array()) {
 
-	// if no default url is given for the default gravatar,
-	// this will display the default Gravatar Image from gravatar.com
-	if ( ! array_key_exists('default',$params))
-		$params['default'] = null;
-	if ( !array_key_exists('size',$params))
-		$params['size'] = 60;
+    // if no default url is given for the default gravatar,
+    // this will display the default Gravatar Image from gravatar.com
+    if ( ! array_key_exists('default',$params))
+        $params['default'] = null;
+    if ( !array_key_exists('size',$params))
+        $params['size'] = 60;
 
-	$gravatarUrl = "http://www.gravatar.com/avatar.php?";
-	$gravatarUrl .= "gravatar_id=".md5( strtolower($email) );
-	if ($params['default'] != null)
-		$gravatarUrl .= "&amp;default=".urlencode($params['default']);
-	$gravatarUrl .= "&amp;size=".$params['size'];
+    $gravatarUrl = "http://www.gravatar.com/avatar.php?";
+    $gravatarUrl .= "gravatar_id=".md5( strtolower($email) );
+    if ($params['default'] != null)
+        $gravatarUrl .= "&amp;default=".urlencode($params['default']);
+    $gravatarUrl .= "&amp;size=".$params['size'];
 
-	echo '<img src="'.$gravatarUrl. '" class="gravatar" alt="'.htmlentities($params['username']).'"/>';
+    echo '<img src="'.$gravatarUrl. '" class="gravatar" alt="'.htmlentities($params['username']).'"/>';
 
 }

@@ -13,6 +13,6 @@
         <updateURL>http://www.havefnubb.org/update.php?module=hfnuthemes</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1.5" maxversion="1.1.5" />
+        <jelix minversion="1.1.5" maxversion="1.1.6" />
     </dependencies>
 </module>

@@ -5,8 +5,8 @@
     </datasources>
     <record>
         <property name="id" fieldname="id_user" required="true" datatype="integer"/>
-    	<property name="type" required="yes" datatype="string"  maxlength="30" />
-    	<property name="data" datatype="string" />
+        <property name="type" required="yes" datatype="string"  maxlength="30" />
+        <property name="data" datatype="string" />
    </record>
 
    <factory>

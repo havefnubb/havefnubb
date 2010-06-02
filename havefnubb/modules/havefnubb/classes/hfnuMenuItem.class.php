@@ -21,5 +21,5 @@ class hfnuMenuItem extends masterAdminMenuItem {
  */
 function hfnuItemSort($itemA, $itemB)
 {
-	return ($itemA->order - $itemB->order);
+    return ($itemA->order - $itemB->order);
 }

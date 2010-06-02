@@ -11,7 +11,7 @@
  * function that display the age of the member
  */
 function jtpl_function_html_age($tpl, $date) {
-	$year_in_secondes = (365 * 24 * 60 * 60);
+    $year_in_secondes = (365 * 24 * 60 * 60);
 
-	echo floor( (time() - strtotime($date) ) / $year_in_secondes);
+    echo floor( (time() - strtotime($date) ) / $year_in_secondes);
 }

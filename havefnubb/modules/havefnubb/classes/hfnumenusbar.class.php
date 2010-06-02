@@ -36,45 +36,45 @@ class hfnumenusbar {
      * get the menus to be added inside the ohers menu item
      * @return $menus array of menus
      */
-	public function getMenus() {
-		global $gJConfig;
-		$menus = array();
+    public function getMenus() {
+        global $gJConfig;
+        $menus = array();
 
-		if (file_exists(JELIX_APP_CONFIG_PATH.'/havefnubb/hfnumenus.xml')) {
-			$doc = new DOMDocument();
-			$doc->load(realpath(JELIX_APP_CONFIG_PATH).'/havefnubb/hfnumenus.xml');
-			$xpath  = new DOMXPath($doc);
+        if (file_exists(JELIX_APP_CONFIG_PATH.'/havefnubb/hfnumenus.xml')) {
+            $doc = new DOMDocument();
+            $doc->load(realpath(JELIX_APP_CONFIG_PATH).'/havefnubb/hfnumenus.xml');
+            $xpath  = new DOMXPath($doc);
 
 
-			$query = '/menus/menu';
+            $query = '/menus/menu';
 
-			$entries = $xpath->query($query);
+            $entries = $xpath->query($query);
 
-			foreach ($entries as $idx => $menu) {
+            foreach ($entries as $idx => $menu) {
 
-				$queryName = '//name[@lang="'.$gJConfig->locale.'"]';
-				$items = $xpath->query($queryName);
-				$name =  $items->item($idx)->nodeValue;
+                $queryName = '//name[@lang="'.$gJConfig->locale.'"]';
+                $items = $xpath->query($queryName);
+                $name =  $items->item($idx)->nodeValue;
 
-				$queryItemName = '//menu/itemName';
-				$items = $xpath->query($queryItemName);
-				$itemName = $items->item($idx)->nodeValue;
+                $queryItemName = '//menu/itemName';
+                $items = $xpath->query($queryItemName);
+                $itemName = $items->item($idx)->nodeValue;
 
-				$queryUrl = '//menu/url';
-				$items = $xpath->query($queryUrl);
-				$url = $items->item($idx)->nodeValue;
+                $queryUrl = '//menu/url';
+                $items = $xpath->query($queryUrl);
+                $url = $items->item($idx)->nodeValue;
 
-				$queryOrder = '//menu/order';
-				$items = $xpath->query($queryOrder);
-				$order = $items->item($idx)->nodeValue;
+                $queryOrder = '//menu/order';
+                $items = $xpath->query($queryOrder);
+                $order = $items->item($idx)->nodeValue;
 
-				$menus[] = array('itemName'=>$itemName,
-								 'name' =>$name,
-								 'url'  =>$url,
-								 'order'=>$order);
-			}
-		}
+                $menus[] = array('itemName'=>$itemName,
+                                 'name' =>$name,
+                                 'url'  =>$url,
+                                 'order'=>$order);
+            }
+        }
 
-		return $menus;
-	}
+        return $menus;
+    }
 }

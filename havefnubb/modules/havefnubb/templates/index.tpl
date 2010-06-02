@@ -32,7 +32,7 @@
     {hook 'hfbCategoryList',array('id_cat'=>$category->id_cat)}
     {if $category->forum_type == 0}
             <tr>
-                <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$category->id_forum,'display'=>'icon')}"></td>
+                <td class="{post_status 'forum',$category->id_forum}"></td>
                 <td>
                     <h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
                         <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
@@ -75,7 +75,7 @@
 {hook 'hfbForumIndex',array('id_forum'=>$category->id_forum)}
         {if $category->forum_type == 0}
             <tr>
-                <td class="{zone 'havefnubb~newestposts',array('source'=>'forum','id_forum'=>$category->id_forum,'display'=>'icon')}"></td>
+                <td class="{post_status 'forum',$category->id_forum}"></td>
                 <td>
                     <h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
                         <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>

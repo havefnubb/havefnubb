@@ -5,10 +5,10 @@
     </datasources>
     <record>
     <property name="id" fieldname="id_user" datatype="autoincrement"/>
-	<property name="login" fieldname="member_login"
-		required="yes" datatype="string"  maxlength="50" />
+    <property name="login" fieldname="member_login"
+        required="yes" datatype="string"  maxlength="50" />
 
-	<property name="password" fieldname="member_password" datatype="string"
-			  maxlength="50" selectpattern="%s" updatepattern="" insertpattern="%s" />
+    <property name="password" fieldname="member_password" datatype="string"
+              maxlength="50" selectpattern="%s" updatepattern="" insertpattern="%s" />
    </record>
 </dao>

@@ -41,18 +41,17 @@
         {if $posts->rowCount() > 0}
         {foreach $posts as $post}
         {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
+        {assign $status = $statusAvailable[ $post->status_thread - 1]}
         <tr>
-            <td class="colicone-{zone 'havefnubb~newestposts',array('source'=>'post',
-                        'id_post'=>$post->id_post,
-                        'status'=>$statusAvailable[$post->status -1],
-                        'id_forum'=>$id_forum,
-                        'display'=>'icon')}"> </td>
-            <td>{zone 'havefnubb~newestposts',
-                    array(  'source'=>'post',
-                            'id_post'=>$post->id_post,
-                            'status'=>$statusAvailable[$post->status -1],
-                            'id_forum'=>$id_forum,
-                            'display'=>'text')}
+            <td class="colicone-{post_status 'post',$post}"> </td>
+            <td><span class="newestposts">{@havefnubb~post.status.$status@}</span>
+                <a class="status-{$status}" href="{jurl 'havefnubb~posts:view',
+                                                array(  'id_post'=>$post->id_post,
+                                                        'parent_id'=>$post->parent_id,
+                                                        'id_forum'=>$post->id_forum,
+                                                        'ftitle'=>$post->forum_name,
+                                                        'ptitle'=>$post->subject)}"
+                    title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
                 {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}
             </td>
             <td>
@@ -64,7 +63,8 @@
             <td>
                 {$post->nb_viewed}
             </td>
-            <td>{zone 'havefnubb~postlc',array('parent_id'=>$post->parent_id)}
+            <td>
+                {zone 'havefnubb~postlc',array('parent_id'=>$post->parent_id)}
             </td>
         </tr>
         {/foreach}

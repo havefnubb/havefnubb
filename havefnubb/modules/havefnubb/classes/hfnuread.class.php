@@ -131,18 +131,17 @@ class hfnuread {
         $alreadyRead = jDao::get('havefnubb~read_posts')->get($id_user,$id_forum,$id_post);
         // no record found in the read_post table, that means i marked all the forum as read
         // let's check the last forum between now and 3min
-        if ($alreadyRead !== false)
-            return true;
+        if ($alreadyRead !== false) return true;
+
         $readForum = jDao::get('havefnubb~read_forum')->get($id_user,$id_forum);
-        if ( $readForum === false)
-            return false;
+        if ( $readForum === false) return false;
 
         if (  jAcl2::check('hfnu.admin.post') )
             $postRead = jDao::get('havefnubb~posts')->getUserLastCommentOnPosts($id_post);
         else
             $postRead = jDao::get('havefnubb~posts')->getUserLastVisibleCommentOnPosts($id_post);
 
-        if ($postRead == false) return false;
+        if ($postRead === false) return false;
 
         $dateReadForum = $readForum->date_read;
         return ($postRead->date_modified > $dateReadForum) ? false : true;

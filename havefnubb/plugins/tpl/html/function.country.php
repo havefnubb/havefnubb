@@ -12,5 +12,5 @@
  */
 function jtpl_function_html_country($tpl,$code)
 {
-	echo jClasses::getService('havefnubb~country')->getCountryName($code);
+    echo jClasses::getService('havefnubb~country')->getCountryName($code);
 }

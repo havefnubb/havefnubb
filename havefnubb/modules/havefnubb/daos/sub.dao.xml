@@ -12,14 +12,14 @@
             <parameter name="id_post" />
             <parameter name="id_user" />
             <conditions>
-			    <eq property="id_post" expr="$id_post" />
-			    <neq property="id_user" expr="$id_user" />
+                <eq property="id_post" expr="$id_post" />
+                <neq property="id_user" expr="$id_user" />
             </conditions>
         </method>
         <method name="findSubscribedPostByUser" type="select">
             <parameter name="id_user" />
             <conditions>
-			    <eq property="id_user" expr="$id_user" />
+                <eq property="id_user" expr="$id_user" />
             </conditions>
         </method>
     </factory>

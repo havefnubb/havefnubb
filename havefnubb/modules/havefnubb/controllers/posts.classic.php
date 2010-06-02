@@ -139,6 +139,8 @@ class postsCtrl extends jController {
         $tpl->assign('page',$page);
         $tpl->assign('nbPostPerPage',$nbPostPerPage);
         $tpl->assign('nbPosts',$nbPosts);
+        $tpl->assign('important_nb_replies',$gJConfig->havefnubb['important_nb_replies']);
+        $tpl->assign('important_nb_views',$gJConfig->havefnubb['important_nb_views']);
         $tpl->assign('id_forum',$id_forum);
         $tpl->assign('lvl',$forum->child_level);
         $tpl->assign('properties',$properties);
@@ -625,7 +627,7 @@ class postsCtrl extends jController {
     function quote() {
 
         $parent_id 	= (int) $this->param('parent_id');
-        $id_post 	= (int) $this->param('id_post');
+        $id_post    = (int) $this->param('id_post');
 
         if ($parent_id == 0 ) {
             $rep = $this->getResponse('redirect');

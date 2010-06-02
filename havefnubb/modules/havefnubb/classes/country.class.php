@@ -12,9 +12,9 @@
  */
 class country {
     /**
-	 * get the list of all ISO countries code
-	 * @return array $data return an array of ISO country code
-	 */
+     * get the list of all ISO countries code
+     * @return array $data return an array of ISO country code
+     */
     public static function getCountries() {
         global $gJConfig;
 
@@ -29,7 +29,7 @@ class country {
 
         if (! in_array($language[0], $supportedLanguage)) return $data;
 
-		$fh = @fopen (dirname(__FILE__).'/iso_3166-1_list_'.$language[0].'.txt','r');
+        $fh = @fopen (dirname(__FILE__).'/iso_3166-1_list_'.$language[0].'.txt','r');
         if ($fh) {
            while (!feof($fh)) {
                 $buffer = utf8_encode(fgets($fh, 4096));
@@ -43,9 +43,9 @@ class country {
     }
 
     /**
-	 * get the name of a given country code
-	 * @param string $code of the country to get its name
-	 */
+     * get the name of a given country code
+     * @param string $code of the country to get its name
+     */
     public static function getCountryName($code) {
         $data = self::getCountries();
         return $data[$code];

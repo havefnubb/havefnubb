@@ -2,14 +2,20 @@ Credits
 =======
 
 Modules :
-* jCommunity - Laurent Jouanneau
-* jTags - Bastien Jaillot
-* jMessenger - Bastien Jaillot
+by Laurent Jouanneau
+* jCommunity
+* hfnuim
+* hfnuhardware
 
-Class hfnuStemmer :
-* adapted by Bastien Jaillot
+by Bastien Jaillot
+* jTags
+* jMessenger
 
-Plugins : 
+Classes :
+by Bastien Jaillot
+* hfnuStemmer
+
+Plugins :
 * jGoogleAnalytics - Loic Mathaud <loic@mathaud.net>
 
 Iconeset :
@@ -18,6 +24,6 @@ Iconeset :
 
 Social Network icons set :
 
-Author :	Quaqe9
-HomePage :	http://www.quake9.com/
-License :	Creative Commons Attribution-No Derivative Works
+Author :    Quaqe9
+HomePage :  http://www.quake9.com/
+License :   Creative Commons Attribution-No Derivative Works

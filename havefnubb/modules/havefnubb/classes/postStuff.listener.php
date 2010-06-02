@@ -11,32 +11,32 @@
 * Member Statistic datas handling
 */
 class postStuffListener extends jEventListener{
-	/**
-	 * Event to handle statistics data of the current member after inserting data
-	 * @pararm event $event Object of a listener
-	 */
-	 function onHfnuPostAfterInsert ($event) {
-		 $daoUser = jDao::get('havefnubb~member');
+    /**
+     * Event to handle statistics data of the current member after inserting data
+     * @pararm event $event Object of a listener
+     */
+     function onHfnuPostAfterInsert ($event) {
+         $daoUser = jDao::get('havefnubb~member');
          $id_user = jAuth::getUserSession ()->id;
-		 $daoUser->updateNbMsg($id_user);
-		 $daoUser->updateLastPostedMsg($id_user,time());
-	 }
-	/**
-	 * Event to handle statistics data of the current member after updating data
-	 * @pararm event $event Object of a listener
-	 */
-	 function onHfnuPostAfterUpdate ($event) {
-		 $daoUser = jDao::get('havefnubb~member');
-		 $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
-	 }
-	/**
-	 * Event to handle statistics data of the current member after replying
-	 * @pararm event $event Object of a listener
-	 */
-	function onHfnuPostAfterSaveReply ($event) {
-		 $daoUser = jDao::get('havefnubb~member');
+         $daoUser->updateNbMsg($id_user);
+         $daoUser->updateLastPostedMsg($id_user,time());
+     }
+    /**
+     * Event to handle statistics data of the current member after updating data
+     * @pararm event $event Object of a listener
+     */
+     function onHfnuPostAfterUpdate ($event) {
+         $daoUser = jDao::get('havefnubb~member');
+         $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
+     }
+    /**
+     * Event to handle statistics data of the current member after replying
+     * @pararm event $event Object of a listener
+     */
+    function onHfnuPostAfterSaveReply ($event) {
+         $daoUser = jDao::get('havefnubb~member');
          $id_user = jAuth::getUserSession ()->id;
-		 $daoUser->updateNbMsg($id_user);
-		 $daoUser->updateLastPostedMsg($id_user,time());
-	 }
+         $daoUser->updateNbMsg($id_user);
+         $daoUser->updateLastPostedMsg($id_user,time());
+     }
 }

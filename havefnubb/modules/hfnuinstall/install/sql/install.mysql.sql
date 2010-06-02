@@ -432,6 +432,8 @@ CREATE TABLE IF NOT EXISTS hf_threads (
   id_last_msg int(11) NOT NULL,
   date_created int(11) NOT NULL,
   date_last_post int(11),
+  nb_viewed int(11) DEFAULT '0',
+  nb_replies int(11) DEFAULT '0',
   PRIMARY KEY (id_thread),
   KEY id_forum (id_forum),
   KEY id_user (id_user),

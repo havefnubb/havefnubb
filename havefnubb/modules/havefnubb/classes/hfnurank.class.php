@@ -11,23 +11,23 @@
 * main UI to have a look on ranks
 */
 class hfnurank {
-	/**
-	 * content of the ranks
-	 * @var $ranks array
-	 */
-	public static $ranks = array() ;
-	/**
-	 * get the rank from the given nb of messages
-	 * @param integer $nbMsg nb of messages the user has
-	 * @return string $ranks the rank corresponding to the nb of messages
-	 */
-	public static function getRank($nbMsg) {
-		if (!isset(self::$ranks[$nbMsg]))
-			if (jDao::get('havefnubb~ranks')->getMyRank($nbMsg) === false)
-				self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getHigherRank();
-			else {
-				self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getMyRank($nbMsg);
-			}
-		return self::$ranks[$nbMsg];
-	}
+    /**
+     * content of the ranks
+     * @var $ranks array
+     */
+    public static $ranks = array() ;
+    /**
+     * get the rank from the given nb of messages
+     * @param integer $nbMsg nb of messages the user has
+     * @return string $ranks the rank corresponding to the nb of messages
+     */
+    public static function getRank($nbMsg) {
+        if (!isset(self::$ranks[$nbMsg]))
+            if (jDao::get('havefnubb~ranks')->getMyRank($nbMsg) === false)
+                self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getHigherRank();
+            else {
+                self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getMyRank($nbMsg);
+            }
+        return self::$ranks[$nbMsg];
+    }
 }

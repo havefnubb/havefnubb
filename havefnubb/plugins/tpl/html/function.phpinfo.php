@@ -12,5 +12,5 @@
  */
 function jtpl_function_html_phpinfo($tpl)
 {
-	phpinfo();
+    phpinfo();
 }

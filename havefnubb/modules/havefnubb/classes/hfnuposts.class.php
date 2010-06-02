@@ -689,6 +689,6 @@ class hfnuposts {
      * @return data DaoData
      */
     public static function findUnreadThreadByMod() {
-        return jDao::get('havefnubb~posts')->findUnreadThreadByMod();
+        return jDao::get('havefnubb~threads')->findUnreadThreadByMod();
     }
 }

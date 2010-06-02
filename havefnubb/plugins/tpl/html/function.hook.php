@@ -16,11 +16,11 @@
  */
 function jtpl_function_html_hook($tpl, $event, $params=array()) {
 
-	if ($event == '') return;
+    if ($event == '') return;
 
-	$events = jEvent::notify($event,$params)->getResponse();
+    $events = jEvent::notify($event,$params)->getResponse();
 
-	foreach ($events as $event)
-		echo $event;
+    foreach ($events as $event)
+        echo $event;
 
 }
