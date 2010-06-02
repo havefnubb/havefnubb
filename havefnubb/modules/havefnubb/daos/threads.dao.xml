@@ -126,9 +126,6 @@
         </method>
 
        <!-- for stats purpose -->
-        <method name="countAllThreads" type="count">
-        </method>
-
         <method name="findUnreadThreadByMod" type="select">
             <conditions>
                 <eq property="read_by_mod" value="0" />
@@ -137,18 +134,7 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
-        <method name="findAllUnreadThread" type="count">
-            <parameter name="start"/>
-            <parameter name="end"/>
-            <conditions logic="AND">
-                <gteq property="date_last_post" expr="$start" />
-                <lteq property="date_last_post" expr="$end" />
-            </conditions>
-            <order>
-                <orderitem property="date_last_post" way="desc" />
-            </order>
-        </method>
-        <method name="findUnreadThread" type="select">
+        <method name="findUnreadThread" type="select" groupby="id_thread">
             <parameter name="start"/>
             <parameter name="end"/>
             <parameter name="offset"/>
@@ -156,6 +142,21 @@
             <conditions logic="AND">
                 <gteq property="date_last_post" expr="$start" />
                 <lteq property="date_last_post" expr="$end" />
+            </conditions>
+            <limit offset="$offset" count="$count"/>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+        </method>
+        <method name="findUnreadThreadVisible" type="select" groupby="id_thread">
+            <parameter name="start"/>
+            <parameter name="end"/>
+            <parameter name="offset"/>
+            <parameter name="count"/>
+            <conditions logic="AND">
+                <gteq property="date_last_post" expr="$start" />
+                <lteq property="date_last_post" expr="$end" />
+                <neq property="status" value="7"/>
             </conditions>
             <limit offset="$offset" count="$count"/>
             <order>

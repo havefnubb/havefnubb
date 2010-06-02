@@ -25,7 +25,7 @@ class postandmsgZone extends jZone {
 
         $nbMsg = jDao::get('havefnubb~posts')->countMessages($id_forum);
 
-        $nbThread = jDao::get('havefnubb~threads_alone')->countThreads($id_forum);
+        $nbThread = jDao::get('havefnubb~threads_alone')->countThreadsByIdForum($id_forum);
 
         $this->_tpl->assign('nbMsg',$nbMsg);
         $this->_tpl->assign('nbThread',$nbThread);

@@ -16,20 +16,48 @@
         <property name="date_last_post" fieldname="date_last_post" datatype="int" />
     </record>
 
-    <!-- naming convention :
-        findXXX uses type="select"
-        getXXX uses type="selectfirst"
-        countXXX uses type="count"
-    -->
+        <!--
+        status :
+                1 - pined
+                2 - pinedclosed
+                3 - opened
+                4 - closed
+                5 - censored
+                6 - uncensored
+                7 - hidden
+        -->
     <factory>
        <!-- for stats purpose -->
         <method name="countAllThreads" type="count">
         </method>
-        <method name="countThreads" type="count">
+        <method name="countThreadsByIdForum" type="count">
             <parameter name="id_forum" />
             <conditions>
                 <eq property="id_forum_thread" expr="$id_forum" />
             </conditions>
+        </method>
+        <method name="countUnreadThread" type="count">
+            <parameter name="start"/>
+            <parameter name="end"/>
+            <conditions logic="AND">
+                <gteq property="date_last_post" expr="$start" />
+                <lteq property="date_last_post" expr="$end" />
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+        </method>
+        <method name="countUnreadThreadVisible" type="count">
+            <parameter name="start"/>
+            <parameter name="end"/>
+            <conditions logic="AND">
+                <gteq property="date_last_post" expr="$start" />
+                <lteq property="date_last_post" expr="$end" />
+                <neq property="status_thread" value="7"/>
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
         </method>
     </factory>
 </dao>

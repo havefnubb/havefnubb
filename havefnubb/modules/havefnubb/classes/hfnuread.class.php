@@ -156,8 +156,15 @@ class hfnuread {
             return array('posts'=>0,'nbPosts'=>0);
         $start = jAuth::getUserSession()->member_last_connect - 900;
         $end = time();
-        $nbPosts = jDao::get('havefnubb~threads')->findAllUnreadThread($start,$end);
-        $posts = jDao::get('havefnubb~threads')->findUnreadThread($start,$end,$page,$nbPostPerPage);
+        if (  jAcl2::check('hfnu.admin.post') ) {
+            $nbPosts = jDao::get('havefnubb~threads_alone')->countUnreadThread($start,$end);
+            $posts = jDao::get('havefnubb~threads')->findUnreadThread($start,$end,$page,$nbPostPerPage);
+        }
+        else {
+            $nbPosts = jDao::get('havefnubb~threads_alone')->countUnreadThreadVisible($start,$end);
+            $posts = jDao::get('havefnubb~threads')->findUnreadThreadVisible($start,$end,$page,$nbPostPerPage);
+        }
+
         return array('posts'=>$posts,'nbPosts'=>$nbPosts);
     }
 }
