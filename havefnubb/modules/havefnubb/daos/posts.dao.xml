@@ -194,6 +194,15 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
+        <method name="getLastCreatedPostByThreadId" type="selectfirst">
+            <parameter name="parent_id" />
+           <conditions>
+                <eq property="parent_id" expr="$parent_id" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
         <method name="getMyLastEditedPost" type="selectfirst">
             <parameter name="id_user" />
            <conditions>

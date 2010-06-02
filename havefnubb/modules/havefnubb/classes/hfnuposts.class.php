@@ -76,26 +76,38 @@ class hfnuposts {
     /**
      * remove one post or complet thread from the database
      * @param integer $id_post  id post to remove
+     * @param integer $parent_id parent id to remove
      * @return boolean of the success or not
      */
     public static function delete($id_post) {
         if ($id_post == 0 ) return false;
-        $post = self::getPost($id_post);
+
         self::deletePost($id_post);
-        $daoThreads = jDao::get('havefnubb~threads_alone');
+
         $dao = jDao::get('havefnubb~posts');
-        //thread post ?
-        if ($post->id_post == $post->parent_id) {
-            //remove the "sons"
-            $dao->deleteSonsPost($post->parent_id);
-            $daoThreads->delete($post->parent_id);
+        $post = $dao->get($id_post);
+
+        if ($post !== false) {
+            //search if it's first post of the thread
+            $daoThreads = jDao::get('havefnubb~threads_alone');
+            $daoThreadsRec = $daoThreads->getFirstIdPost($post->id_post);
+
+            if ($daoThreadsRec !== false) {
+                $dao->deleteSonsPost($post->parent_id);
+                $daoThreads->delete($post->parent_id);
+            } else {
+                jDao::get('havefnubb~posts')->delete($id_post);
+                //remove one post + get the last post id
+                $threadRec = jDao::get('havefnubb~threads_alone')->get($post->parent_id);
+                $threadRec->nb_replies=$threadRec->nb_replies - 1;
+                $threadRec->id_last_msg = $dao->getLastCreatedPostByThreadId($post->parent_id)->id_post;
+                $daoThreads->update($threadRec);
+
+            }
+
         } else {
-            $threadRec = $daoThreads->get($post->parent_id);
-            $threadRec->nb_replies=$threadRec->nb_replies - 1;
-            $daoThreads->update($threadRec);
+            return false;
         }
-        //remove the "father"
-        $dao->delete($id_post);
         return true;
     }
     /**

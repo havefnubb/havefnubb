@@ -59,5 +59,11 @@
                 <orderitem property="date_last_post" way="desc" />
             </order>
         </method>
+        <method name="getFirstIdPost" type="selectfirst">
+            <parameter name="id_first_msg" />
+            <conditions>
+                <eq property="id_first_msg" expr="$id_first_msg" />
+            </conditions>
+        </method>
     </factory>
 </dao>
