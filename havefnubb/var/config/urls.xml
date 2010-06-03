@@ -41,6 +41,15 @@
            <param name="parent_id" type="number"/>
         </url>
 
+        <url pathinfo="/forum/:id_forum-:ftitle/posts/:id_post-:parent_id-:ptitle/go/:go" module="havefnubb" action="posts:viewtogo">
+           <param name="id_forum" type="number"/>
+           <param name="ftitle"  type="string" escape="true" />
+           <param name="id_post" type="number"/>
+           <param name="ptitle"  type="string" escape="true" />
+           <param name="parent_id" type="number"/>
+           <param name="go" type="number"/>
+        </url>
+
 
         <!-- forums management -->
         <url pathinfo="/readrss/:id_forum-:ftitle" module="havefnubb" action="forum:read_rss">

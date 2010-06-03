@@ -11,25 +11,25 @@
  * Class the displays the members the status of the members
  */
 class online_offlineZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.online_offline';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
-		$userId = (int) $this->param('userId');
-		$status = 'offline';
-		if ($userId > 0) {
-			$dao = jDao::get('havefnubb~timeout');
-			$user = $dao->getConnectedByIdUser(time(),$userId);
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.online_offline';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
+        $userId = (int) $this->param('userId');
+        $status = 'offline';
+        if ($userId > 0) {
+            $dao = jDao::get('havefnubb~timeout');
+            $user = $dao->getConnectedByIdUser(time(),$userId);
 
-			if ( $user === false )
-				$status = 'offline';
-			else
-				$status = 'online';
-		}
-		$this->_tpl->assign('status',$status);
-	}
+            if ( $user === false )
+                $status = 'offline';
+            else
+                $status = 'online';
+        }
+        $this->_tpl->assign('status',$status);
+    }
 }

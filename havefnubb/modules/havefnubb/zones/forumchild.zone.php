@@ -11,31 +11,31 @@
  * Zone to Handle a child forum
  */
 class forumchildZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.forumchild';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.forumchild';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
 
-		$id_forum   = $this->param('id_forum');
-		$lvl        = $this->param('lvl');
+        $id_forum   = $this->param('id_forum');
+        $lvl        = $this->param('lvl');
 
-		$calledFrom = $this->param('calledFrom');
+        $calledFrom = $this->param('calledFrom');
 
-		if (! $id_forum ) return;
-		if (! $lvl ) return;
-		if (! $calledFrom ) return;
+        if (! $id_forum ) return;
+        if (! $lvl ) return;
+        if (! $calledFrom ) return;
 
-		$dao = jDao::get('havefnubb~forum');
+        $dao = jDao::get('havefnubb~forum');
 
-		$forumChilds = $dao->findChild($id_forum,$lvl);
+        $forumChilds = $dao->findChild($id_forum,$lvl);
 
-		$this->_tpl->assign('childs',$forumChilds->rowCount());
-		$this->_tpl->assign('calledFrom',$calledFrom);
-		$this->_tpl->assign('lvl',$lvl);
-		$this->_tpl->assign('forumChilds',$forumChilds);
-	}
+        $this->_tpl->assign('childs',$forumChilds->rowCount());
+        $this->_tpl->assign('calledFrom',$calledFrom);
+        $this->_tpl->assign('lvl',$lvl);
+        $this->_tpl->assign('forumChilds',$forumChilds);
+    }
 }

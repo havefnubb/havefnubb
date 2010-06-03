@@ -12,12 +12,12 @@
  * to write their own post
  */
 class syntax_wikiZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.syntax_wiki';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){ }
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.syntax_wiki';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){ }
 }

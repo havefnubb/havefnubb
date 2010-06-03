@@ -11,12 +11,12 @@
  * Class the displays link mark as ...
  */
 class mark_forumZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.mark_forum';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){ }
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.mark_forum';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){ }
 }

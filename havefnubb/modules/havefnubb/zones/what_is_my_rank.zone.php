@@ -11,18 +11,18 @@
  * class the displays the rank of one member
  */
 class what_is_my_rankZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.what_is_my_rank';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
-		$nbMsg = (int) $this->param('nbMsg');
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.what_is_my_rank';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
+        $nbMsg = (int) $this->param('nbMsg');
 
-		$this->_tpl->assign('myRank',
-				jClasses::getService('havefnubb~hfnurank')->getRank($nbMsg)
-		);
-	}
+        $this->_tpl->assign('myRank',
+                jClasses::getService('havefnubb~hfnurank')->getRank($nbMsg)
+        );
+    }
 }

@@ -11,25 +11,25 @@
  * Class the displays the posts by tag of the forum
  */
 class postlistbytagZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.postlistbytag';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
-		$tag = $this->param('tag');
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.postlistbytag';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
+        $tag = $this->param('tag');
 
-		$srvTags = jClasses::getService("jtags~tags");
-		$tags = $srvTags->getSubjectsByTags($tag, "forumscope");
+        $srvTags = jClasses::getService("jtags~tags");
+        $tags = $srvTags->getSubjectsByTags($tag, "forumscope");
 
-		$posts = array();
-		// We check the rights access to the posts in the template
-		foreach ($tags as $tag)
-			if ( jClasses::getService('havefnubb~hfnuposts')->getPost($tag) !== false)
-				$posts[] = jClasses::getService('havefnubb~hfnuposts')->getPost($tag);
+        $posts = array();
+        // We check the rights access to the posts in the template
+        foreach ($tags as $tag)
+            if ( jClasses::getService('havefnubb~hfnuposts')->getPost($tag) !== false)
+                $posts[] = jClasses::getService('havefnubb~hfnuposts')->getPost($tag);
 
-		$this->_tpl->assign('posts',$posts);
-	}
+        $this->_tpl->assign('posts',$posts);
+    }
 }

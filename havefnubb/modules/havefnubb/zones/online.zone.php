@@ -11,19 +11,19 @@
  * Class the displays the online members
  */
 class onlineZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.online';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.online';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
 
-		$dao = jDao::get('havefnubb~member');
-		$members = $dao->findAllConnected(time());
-		$nbMembers = $members->rowCount();
-		$this->_tpl->assign('members',$members);
-		$this->_tpl->assign('nbMembers',$nbMembers);
-	}
+        $dao = jDao::get('havefnubb~member');
+        $members = $dao->findAllConnected(time());
+        $nbMembers = $members->rowCount();
+        $this->_tpl->assign('members',$members);
+        $this->_tpl->assign('nbMembers',$nbMembers);
+    }
 }

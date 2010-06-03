@@ -15,12 +15,12 @@ class postsCtrl extends jController {
      * @var $pluginParams plugins to manage the behavior of the controller
      */
     public $pluginParams = array(
-        '*'     => array( 'auth.required'=>false,
-                                'hfnu.check.installed'=>true,
-                                'banuser.check'=>true
-                                ),
+        '*' => array('auth.required'=>false,
+                    'hfnu.check.installed'=>true,
+                    'banuser.check'=>true
+                    ),
 
-        'goesto'    => array( 'jacl2.right'=>'hfnu.forum.goto'),
+        'goesto' => array( 'jacl2.right'=>'hfnu.forum.goto'),
 
         'add'   => array('auth.required'=>true),
         'edit'  => array('auth.required'=>true),
@@ -31,8 +31,9 @@ class postsCtrl extends jController {
         'save'      => array('auth.required'=>true, 'check.flood'=>true),
         'savereply' => array('auth.required'=>true, 'check.flood'=>true),
 
-        'lists'	=> array( 'history.add'=>true),
-        'view' 	=> array( 'history.add'=>true),
+        'lists'=> array( 'history.add'=>true),
+        'view' => array( 'history.add'=>true),
+        'viewtogo' => array( 'history.add'=>false),
         'status' => array('jacl2.right'=>'hfnu.admin.post'),
         'censor' => array('jacl2.right'=>'hfnu.admin.post'),
         'uncensor' => array('jacl2.right'=>'hfnu.admin.post'),
@@ -151,6 +152,49 @@ class postsCtrl extends jController {
         return $rep;
     }
     /**
+     * display determine the page number of the post id then redirect to the view function
+     */
+    function viewtogo () {
+        global $gJConfig;
+        $rep = $this->getResponse('redirect');
+        if ($this->param('go')) {
+            $gotoPostId = (int) $this->param('go');
+            $parent_id = (int) $this->param('parent_id');
+            $rec = jDao::get('havefnubb~posts')->findAllPostByIdParent($parent_id);
+            $nbRec = 0;
+            if ($rec->rowCount() > 0 ) {
+                $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
+                $nbRec = $rec->rowCount();
+                for ($nbReplies = 0; $nbReplies < $nbRec; ++$nbReplies) {
+                    if ($gotoPostId = $rec->id_post) break;
+                }
+                $page = (ceil ($nbReplies/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
+
+                $rep->action = 'posts:view';
+                if ($page == 0 )
+                    $rep->params = array('ftitle'=>jUrl::escape($this->param('ftitle'),true),
+                                'ptitle'=>jUrl::escape($this->param('ptitle'),true),
+                                'id_forum'=>$this->param('id_forum'),
+                                'id_post'=>$this->param('id_post'),
+                                'parent_id'=>$parent_id
+                                );
+                else
+                    $rep->params = array('ftitle'=>jUrl::escape($this->param('ftitle'),true),
+                                'ptitle'=>jUrl::escape($this->param('ptitle'),true),
+                                'id_forum'=>$this->param('id_forum'),
+                                'id_post'=>$this->param('id_post'),
+                                'parent_id'=>$parent_id,
+                                'page'=>$page
+                                );
+            }else {
+                $rep->action = 'default:index';
+            }
+        } else {
+            $rep->action = 'default:index';
+        }
+        return $rep;
+    }
+    /**
      * display the first post + call zone posts_replies in template to display all the thread
      * 	Method 1 : default usage : list all messages of a thread (id_post known)
      * 	Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
@@ -170,9 +214,9 @@ class postsCtrl extends jController {
         // 3) if parent_id > 0 then calculate the page + assign id_post with parent_id
         // business update :
         // 1) update the count of view of this thread
-        list($id_post,$post,$goto) = $hfnuposts->view($id_post,$parent_id);
+        list($id_post,$post,$goto,$nbReplies) = $hfnuposts->view($id_post,$parent_id);
 
-        if ($post === null and $goto == null) {
+        if ($post === null and $goto === null) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
             return $rep;
@@ -211,9 +255,9 @@ class postsCtrl extends jController {
 
         $page = 0;
         if ( $this->param('page') )
-            $page = (int) $this->param('page');
+            $page = (integer) $this->param('page');
 
-        if ($goto > 0 ) $page = $goto;
+        //if ($goto > 0 ) $page = $goto;
 
         // let's build the pagelink var
         // A Preparing / Collecting datas
@@ -229,9 +273,11 @@ class postsCtrl extends jController {
         // 2- get the post
         $daoPost = jDao::get('havefnubb~posts');
         // 3- total number of posts
-        $nbReplies = $daoPost->countResponse($id_post);
+        //$nbReplies = $daoPost->countResponse($id_post);
+        $nbReplies = jDao::get('havefnubb~threads_alone')->get($parent_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
         // 4- get the posts of the current forum, limited by point 1 and 2
-        $posts = $daoPost->findByIdParent($id_post,$page,$nbRepliesPerPage);
+
+        $posts = $daoPost->findByIdParent($parent_id,$page,$nbRepliesPerPage);
 
         // id_post is the parent_id ; we need to know
         // the status of it to determine if the member can
@@ -257,17 +303,13 @@ class postsCtrl extends jController {
             $tpl->assign('formMove',$formMove);
         }
 
-        /*$tpl->assign('parent_id',$parent_id);*/
         $tpl->assign('id_post'  ,$id_post);
         $tpl->assign('forum'    ,$forum);
         $tpl->assign('category'	,$category);
 
-
         $tpl->assign('posts',$posts);
-        //$tpl->assign('id_forum',$id_forum);
         $tpl->assign('tags',$tags);
         $tpl->assign('page',$page);
-
 
         $tpl->assign('nbRepliesPerPage',$nbRepliesPerPage);
         $tpl->assign('nbReplies',$nbReplies);
@@ -277,8 +319,8 @@ class postsCtrl extends jController {
         $tpl->assign('forum_name',$post->forum_name);
         $tpl->assign('subscribed',jClasses::getService('havefnubb~hfnusub')->getSubscribed($parentPost->parent_id));
 
-        $tpl->assign('subject'	,$post->subject);
-        $tpl->assign('status'	,self::$statusAvailable[$status -1]);
+        $tpl->assign('subject'  ,$post->subject);
+        $tpl->assign('status'   ,self::$statusAvailable[$status -1]);
         $tpl->assign('statusAvailable',self::$statusAvailable);
         $tpl->assign('currentIdForum',$forum->id_forum);
         $rep->title = '['.jLocale::get('havefnubb~post.status.'.self::$statusAvailable[$status -1]).'] '.$post->subject;
@@ -806,9 +848,11 @@ class postsCtrl extends jController {
                 $rep->params = array('ftitle'=>$forum->forum_name,
                                     'ptitle'=>$record->subject,
                                     'id_forum'=>$id_forum,
-                                    'id_post'=>$record->id_post,
-                                    'parent_id'=>$record->parent_id);
-                $rep->action ='havefnubb~posts:view';
+                                    'id_post'=>$record->id_first_msg,
+                                    'parent_id'=>$record->parent_id,
+                                    'go'=>$record->id_post
+                                    );
+                $rep->action ='havefnubb~posts:viewtogo';
             }
             return $rep;
         }

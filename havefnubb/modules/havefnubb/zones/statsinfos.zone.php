@@ -11,12 +11,12 @@
  * class that 'calls' differents other zone for the stats purpose
  */
 class statsinfosZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.statsinfos';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){ }
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.statsinfos';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){ }
 }

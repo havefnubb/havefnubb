@@ -24,14 +24,22 @@ class postlcZone extends jZone {
         $id_forum = (int) $this->param('id_forum');
         if (!$parent_id and !$id_forum) return;
 
-        $dao = jDao::get('havefnubb~posts');
+        $user = '';
+        $noMsg = '';
+
+        $dao = jDao::get('havefnubb~threads');
         if ($parent_id) {
             if (  jAcl2::check('hfnu.admin.post') ) {
-                $userPost = $dao->getUserLastCommentOnPosts($parent_id);
+                $userPost = $dao->get($parent_id);
             }
             else {
                 $userPost = $dao->getUserLastVisibleCommentOnPosts($parent_id);
             }
+
+            if ($userPost->nb_replies > 0)
+                $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
+            else
+                $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
         }
 
         if ($id_forum) {
@@ -41,16 +49,10 @@ class postlcZone extends jZone {
             else {
                 $userPost = $dao->getUserLastVisibleCommentOnForums($id_forum);
             }
+            $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
+
+            if ($userPost === false) $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
         }
-
-        $user = '';
-        $noMsg = '';
-
-        $dao = jDao::get('havefnubb~member');
-        if ($userPost)
-            $user = $dao->getById($userPost->id_user);
-        else
-            $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
 
         $this->_tpl->assign('user',$user);
         $this->_tpl->assign('post',$userPost);

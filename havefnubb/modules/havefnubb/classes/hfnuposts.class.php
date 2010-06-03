@@ -128,13 +128,13 @@ class hfnuposts {
      * @return array $page,$nbPosts,$posts if no record have been found, return page = 0 otherwise return the posts
      */
     public static function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {
-        //$daoPost = jDao::get('havefnubb~posts');
-        $daoThreads = jDao::get('havefnubb~threads');
+        $daoThreads = jDao::get('havefnubb~threads_alone');
         // total number of posts
         $nbTtlPosts = $daoThreads->countPostsByForumId($id_forum);
         $nbPinedPosts = $daoThreads->countPinedPostsByForumId($id_forum);
         // get the posts of the current forum, limited by point 1 and 2
         if ( ! jAcl2::check('hfnu.admin.post') ) {
+            $daoThreads = jDao::get('havefnubb~threads');
             $posts = $daoThreads->findByIdForumVisible($id_forum,$page,$nbPostPerPage);
             if ($posts->rowCount() == 0) {
                 $posts = $daoThreads->findByIdForumVisible($id_forum,0,$nbPostPerPage);
@@ -142,6 +142,7 @@ class hfnuposts {
             }
         }
         else {
+            $daoThreads = jDao::get('havefnubb~threads');
             $posts = $daoThreads->findByIdForum($id_forum,$page,$nbPostPerPage);
             // check if we have found record ;
             if ($posts->rowCount() == 0) {
@@ -189,13 +190,13 @@ class hfnuposts {
 
         $goto = 0;
         if ($parent_id > 0) {
-            $dao = jDao::get('havefnubb~posts');
             // the number of post between the current post_id and the parent_id
-            $child = (int) $dao->countReplies($post->id_post,$post->parent_id);
+            $nbReplies = (int) jDao::get('havefnubb~threads_alone')->get($parent_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
 
             $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
             // calculate the offset of this id_post
-            $goto = (ceil ($child/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
+            $goto = (ceil ($nbReplies/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
+
             if ($goto < 0 ) $goto = 0;
         }
 
@@ -206,7 +207,7 @@ class hfnuposts {
         // let's add the user to the post_read table
         jClasses::getService('havefnubb~hfnuread')->insertReadPost($post);
 
-        return array($id_post,$post,$goto);
+        return array($id_post,$post,$goto,$nbReplies);
     }
     /**
      * updateViewing : update the counter of the views of a given post
@@ -429,6 +430,11 @@ class hfnuposts {
         $threadRec->id_last_msg     = $id_post;
         $threadRec->date_last_post  = $dateReply;
         $threads->update($threadRec);
+
+        //add a "fake" column just to return it to the posts controller
+        // and then being able to redirect to the correct page where this
+        // post has been added
+        $result['daorec']->id_first_msg = $threadRec->id_first_msg;
 
         jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
 

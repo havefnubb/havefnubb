@@ -180,5 +180,24 @@
             </order>
             <limit offset="0" count="$count"/>
         </method>
+        <method name="getUserLastCommentOnForums" type="selectfirst">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum" expr="$id_forum" />
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+        </method>
+        <method name="getUserLastVisibleCommentOnForums" type="selectfirst">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum" expr="$id_forum" />
+                <neq property="status_thread" value="7" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
     </factory>
 </dao>

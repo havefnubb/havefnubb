@@ -65,18 +65,6 @@
             </order>
         </method>
         <!-- get the posts to be displayed on the index of the forum page -->
-        <method name="findAllPinedPost" type="select">
-            <conditions>
-                <eq property="id_post" expr="posts.parent_id" />
-                <conditions logic="OR">
-                        <eq property="status" value="pined" />
-                        <eq property="status" value="pinedclosed" />
-                </conditions>
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-        </method>
         <method name="findAllByIdForum" type="count">
             <parameter name="id_forum" />
             <conditions logic="AND">
@@ -89,14 +77,14 @@
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_post" expr="posts.parent_id" />
-                <neq property="status" value="hidden" />
+                <neq property="status" value="7" />
             </conditions>
         </method>
         <method name="findByIdParent" type="select">
             <parameter name="parent_id" />
             <parameter name="offset" default="0" />
             <parameter name="count" default="200" />
-            <conditions logic="AND">
+            <conditions>
                 <eq property="parent_id" expr="$parent_id" />
             </conditions>
             <order>
@@ -105,11 +93,20 @@
             </order>
             <limit offset="$offset" count="$count"/>
         </method>
+        <method name="findAllPostByIdParent" type="select">
+            <parameter name="parent_id" />
+            <conditions>
+                <eq property="parent_id" expr="$parent_id" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="asc" />
+            </order>
+        </method>
         <method name="getPostVisible" type="selectfirst">
             <parameter name="id_post" />
             <conditions>
                 <eq property="id_post" expr="$id_post" />
-                <neq property="status" value="hidden" />
+                <neq property="status" value="7" />
             </conditions>
         </method>
         <method name="getUserLastCommentOnPosts" type="selectfirst">
@@ -125,7 +122,7 @@
             <parameter name="id_post" />
             <conditions>
                 <eq property="parent_id" expr="$id_post" />
-                <neq property="status" value="hidden" />
+                <neq property="status" value="7" />
             </conditions>
             <order>
                 <orderitem property="date_created" way="desc" />
@@ -144,41 +141,11 @@
             <parameter name="id_forum" />
             <conditions>
                 <eq property="id_forum" expr="$id_forum" />
-                <neq property="status" value="hidden" />
+                <neq property="status" value="7" />
             </conditions>
             <order>
                 <orderitem property="date_created" way="desc" />
             </order>
-        </method>
-
-        <method name="countMessages" type="count">
-            <parameter name="id_forum" />
-            <conditions>
-                <eq property="id_forum" expr="$id_forum" />
-            </conditions>
-        </method>
-        <method name="countResponse" type="count">
-            <parameter name="id_post" />
-            <conditions>
-                <eq property="parent_id" expr="$id_post" />
-            </conditions>
-        </method>
-        <method name="countReplies" type="count">
-            <parameter name="id_post" />
-            <parameter name="parent_id" />
-            <conditions>
-                <eq property="parent_id" expr="$parent_id" />
-                    <lteq property="id_post" expr="$id_post" />
-            </conditions>
-            <order>
-                <orderitem property="id_post" way="asc" />
-            </order>
-        </method>
-        <method name="getNbOfViewed" type="selectfirst">
-            <parameter name="id_post" />
-            <conditions>
-                <eq property="id_post" expr="$id_post" />
-            </conditions>
         </method>
         <method name="countMsgsByIdUser" type="count">
             <parameter name="id_user" />
@@ -187,8 +154,6 @@
             </conditions>
         </method>
        <!-- for stats purpose -->
-        <method name="countAllPosts" type="count">
-        </method>
         <method name="getLastPost" type="selectfirst">
             <order>
                 <orderitem property="date_modified" way="desc" />

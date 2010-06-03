@@ -11,40 +11,40 @@
  * Class the displays the main nav bar
  */
 class menuZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.menu';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
-		jClasses::inc('havefnubb~hfnuMenuItem');
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.menu';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
+        jClasses::inc('havefnubb~hfnuMenuItem');
 
-		$menu = array();
-		$items = jEvent::notify('hfnuGetMenuContent')->getResponse();
+        $menu = array();
+        $items = jEvent::notify('hfnuGetMenuContent')->getResponse();
 
-		foreach ($items as $item) {
-			if($item->parentId) {
-				if(!isset($menu[$item->parentId])) {
-					$menu[$item->parentId] = new hfnuMenuItem($item->parentId, '', '');
-				}
-				$menu[$item->parentId]->childItems[] = $item;
-			}
-			else {
-				if(isset($menu[$item->id])) {
-					$menu[$item->id]->copyFrom($item);
-				}
-				else {
-					$menu[$item->id] = $item;
-				}
-			}
-		}
-		usort($menu, "hfnuItemSort");
-		foreach($menu as $topitem) {
-			usort($topitem->childItems, "hfnuItemSort");
-		}
-		$this->_tpl->assign('menuitems', $menu);
-		$this->_tpl->assign('selectedMenuItem', $this->param('selectedMenuItem',''));
-	}
+        foreach ($items as $item) {
+            if($item->parentId) {
+                if(!isset($menu[$item->parentId])) {
+                    $menu[$item->parentId] = new hfnuMenuItem($item->parentId, '', '');
+                }
+                $menu[$item->parentId]->childItems[] = $item;
+            }
+            else {
+                if(isset($menu[$item->id])) {
+                    $menu[$item->id]->copyFrom($item);
+                }
+                else {
+                    $menu[$item->id] = $item;
+                }
+            }
+        }
+        usort($menu, "hfnuItemSort");
+        foreach($menu as $topitem) {
+            usort($topitem->childItems, "hfnuItemSort");
+        }
+        $this->_tpl->assign('menuitems', $menu);
+        $this->_tpl->assign('selectedMenuItem', $this->param('selectedMenuItem',''));
+    }
 }

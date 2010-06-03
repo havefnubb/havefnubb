@@ -11,14 +11,14 @@
  * Class the displays the list of subscription on the profile page
  */
 class member_subscriptions_listZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.member.subscriptions.list';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.member.subscriptions.list';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
         $subs = array();
         $posts = jDao::get('havefnubb~sub')->findSubscribedPostByUser(jAuth::getUserSession()->id);
         foreach ($posts as $post) {
@@ -34,6 +34,6 @@ class member_subscriptions_listZone extends jZone {
                 'ftitle'    => $forum->forum_name
                     );
         }
-		$this->_tpl->assign('subs',$subs);
-	}
+        $this->_tpl->assign('subs',$subs);
+    }
 }

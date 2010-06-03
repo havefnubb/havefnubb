@@ -26,6 +26,7 @@ class lastpostsZone extends jZone {
             $lastPost  = $dao->findLastPosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
         else
             $lastPost  = $dao->findLastVisiblePosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
+        
         $this->_tpl->assign('lastPost',$lastPost);
     }
 }

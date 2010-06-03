@@ -11,19 +11,19 @@
  * Class the displays the member profile
  */
 class memberprofileZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.memberprofile';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
-		$id = (int) $this->param('id');
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.memberprofile';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
+        $id = (int) $this->param('id');
 
-		$dao = jDao::get('havefnubb~member');
-		$user = $dao->getById($id);
+        $dao = jDao::get('havefnubb~member');
+        $user = $dao->getById($id);
 
-		$this->_tpl->assign('user',$user);
-	}
+        $this->_tpl->assign('user',$user);
+    }
 }

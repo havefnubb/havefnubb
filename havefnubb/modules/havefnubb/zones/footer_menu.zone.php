@@ -11,12 +11,12 @@
  * Zone to Handle the footer page
  */
 class footer_menuZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.footer_menu';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){ }
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.footer_menu';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){ }
 }

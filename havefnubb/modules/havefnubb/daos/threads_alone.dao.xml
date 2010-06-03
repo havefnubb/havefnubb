@@ -27,6 +27,23 @@
                 7 - hidden
         -->
     <factory>
+        <method name="countPostsByForumId" type="count">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum_thread" expr="$id_forum" />
+            </conditions>
+        </method>
+        <method name="countPinedPostsByForumId" type="count">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum_thread" expr="$id_forum" />
+                <conditions logic="OR">
+                    <eq property="status_thread" value="1" />
+                    <eq property="status_thread" value="2" />
+                </conditions>
+            </conditions>
+        </method>
+
        <!-- for stats purpose -->
         <method name="countAllThreads" type="count">
         </method>
@@ -58,6 +75,34 @@
             <order>
                 <orderitem property="date_last_post" way="desc" />
             </order>
+        </method>
+        <method name="countMessagesByIdForum" type="php">
+            <parameter name="id_forum" />
+            <body>
+<![CDATA[
+    $query = 'SELECT SUM(nb_replies) AS nb_replies, COUNT(nb_replies) AS total_replies '.$this->_fromClause.$this->_whereClause;
+    $query .= ($this->_whereClause == ''?' WHERE ':' AND ');
+    $query .= ' id_forum = '. $this->_prepareValue($id_forum,'integer');
+
+    $rs = $this->_conn->query($query);
+    $rs->setFetchMode(8,$this->_DaoRecordClassName);
+    $record = $rs->fetch();
+
+    return $record;
+]]>
+            </body>
+        </method>
+        <method name="countAllPosts" type="php">
+            <body>
+<![CDATA[
+    $query = 'SELECT SUM(nb_replies) AS nb_replies, COUNT(nb_replies) AS total_replies '.$this->_fromClause.$this->_whereClause;
+    $rs = $this->_conn->query($query);
+    $rs->setFetchMode(8,$this->_DaoRecordClassName);
+    $record = $rs->fetch();
+
+    return $record;
+]]>
+            </body>
         </method>
         <method name="getFirstIdPost" type="selectfirst">
             <parameter name="id_first_msg" />
