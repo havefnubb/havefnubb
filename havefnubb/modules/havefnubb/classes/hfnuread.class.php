@@ -105,7 +105,7 @@ class hfnuread {
                 $nbPosts = $daoPosts->findAllByIdForum($id_forum);
                 // do we have read all the posts ?
                 if ($nbReadPosts == $nbPosts) return true;
-                $forumRead = $daoPosts->getUserLastCommentOnForums($id_forum);
+                $forumRead = jDao::get('havefnubb~threads')->getUserLastCommentOnForums($id_forum);
             }
             else {
                 $nbPosts = $daoPosts->findAllByIdForumVisible($id_forum);

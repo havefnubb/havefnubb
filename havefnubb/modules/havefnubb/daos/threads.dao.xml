@@ -17,6 +17,8 @@
         <property name="id_last_msg"   fieldname="id_last_msg"  datatype="int" required="true"/>
         <property name="date_created"  fieldname="date_created" datatype="int" required="true"/>
         <property name="date_last_post" fieldname="date_last_post" datatype="int" />
+        <property name="ispined_thread"       fieldname="ispined"  datatype="int"/>
+        <property name="iscensored_thread"    fieldname="iscensored"  datatype="int"/>
 
         <!-- properties from posts table -->
         <property name="id_post"    table="posts"    fieldname="id_post" datatype="autoincrement"/>
@@ -24,6 +26,8 @@
         <property name="id_forum"   table="posts"    fieldname="id_forum" datatype="int" required="true"/>
         <property name="parent_id"  table="posts"    fieldname="parent_id" datatype="int" required="true"/>
         <property name="status"     table="posts"    fieldname="status"  datatype="int" required="true"/>
+        <property name="ispined"    table="posts"    fieldname="ispined"  datatype="int"/>
+        <property name="iscensored" table="posts"    fieldname="iscensored"  datatype="int"/>
         <!--
         status :
                 1 - pined
@@ -69,12 +73,11 @@
             <parameter name="id_forum" />
             <parameter name="offset" default="0" />
             <parameter name="count" default="200" />
-            <conditions logic="AND">
+            <conditions>
                 <eq property="id_forum" expr="$id_forum" />
-                <neq property="status" value="1" />
-                <neq property="status" value="2" />
             </conditions>
             <order>
+                <orderitem property="ispined_thread" way="desc" />
                 <orderitem property="date_last_post" way="desc" />
             </order>
             <limit offset="$offset" count="$count"/>
@@ -85,46 +88,14 @@
             <parameter name="count" default="200" />
             <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
-                <neq property="status" value="1" />
-                <neq property="status" value="2" />
                 <neq property="status" value="7" />
             </conditions>
             <order>
                 <orderitem property="date_last_post" way="desc" />
+                <orderitem property="ispined_thread" way="asc" />
             </order>
             <limit offset="$offset" count="$count"/>
         </method>
-        <method name="findPinedPostByIdForum" type="select">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <conditions logic="OR">
-                    <eq property="status" value="1" />
-                    <eq property="status" value="2" />
-                </conditions>
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-        </method>
-
-        <method name="countPostsByForumId" type="count">
-            <parameter name="id_forum" />
-            <conditions>
-                <eq property="id_forum" expr="$id_forum" />
-            </conditions>
-        </method>
-        <method name="countPinedPostsByForumId" type="count">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <conditions logic="OR">
-                    <eq property="status" value="1" />
-                    <eq property="status" value="2" />
-                </conditions>
-            </conditions>
-        </method>
-
        <!-- for stats purpose -->
         <method name="findUnreadThreadByMod" type="select">
             <conditions>

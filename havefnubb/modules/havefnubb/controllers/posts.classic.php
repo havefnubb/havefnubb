@@ -298,6 +298,8 @@ class postsCtrl extends jController {
 
         if ( jAcl2::check('hfnu.admin.post') ) {
             $formStatus = jForms::create('havefnubb~posts_status');
+            $formStatus->setData('id_post',$post->id_post);
+            $formStatus->setData('parent_id',$post->parent_id);
             $formMove = jForms::create('havefnubb~posts_move');
             $tpl->assign('formStatus',$formStatus);
             $tpl->assign('formMove',$formMove);
@@ -1011,26 +1013,40 @@ class postsCtrl extends jController {
      */
     function status () {
 
-        $parent_id 	= (int) $this->param('parent_id');
-        $status 	= (int) $this->param('status');
+        $parent_id = (int) $this->param('parent_id');
+        $id_post = (int) $this->param('id_post');
+        $status  = (int) $this->param('status');
 
         $rep = $this->getResponse('redirect');
 
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-        $result = $hfnuposts->switchStatus($parent_id,$parent_id,$status);
+        $form = jForms::fill('havefnubb~posts_status');
+        if (!$form) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+            $rep->action = 'havefnubb~default:index';
+            return $rep;
+        }
 
-        if ($result === false ) {
+        if (!$form->check()) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+            $rep->action = 'havefnubb~default:index';
+            return $rep;
+        }
+
+        $post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,$status);
+
+        if ($post === false ) {
+            jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep->action = 'havefnubb~default:index';
         }
         else {
-            $post = $result;
             jMessage::add(jLocale::get('havefnubb~post.status.'.self::$statusAvailable[$status -1]),'ok');
-            $rep->action = 'havefnubb~posts:view';
+            $rep->action = 'havefnubb~posts:viewtogo';
             $rep->params = array('id_post'=>$post->id_post,
                     'parent_id'=>$parent_id,
                     'id_forum'=>$post->id_forum,
                     'ftitle'=>$post->forum_name,
-                    'ptitle'=>$post->subject);
+                    'ptitle'=>$post->subject,
+                    'go'=>$post->id_post);
         }
 
         return $rep;
@@ -1187,10 +1203,9 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        $id_post 	= (int) $this->param('id_post');
-        $parent_id 	= (int) $this->param('parent_id');
-        $id_forum 	= (int) $this->param('id_forum');
-        //$step 		= (int) $this->param('step');
+        $id_post    = (int) $this->param('id_post');
+        $parent_id  = (int) $this->param('parent_id');
+        $id_forum   = (int) $this->param('id_forum');
 
         if (($id_post == 0 or $id_forum == 0 or $parent_id == 0) or
             ($id_post == 0 and $id_forum == 0 and $parent_id == 0))
@@ -1201,90 +1216,23 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        //if ($step == 0) {
-            $form = jForms::create('havefnubb~split');
-            $form->setData('id_post',	$id_post);
-            $form->setData('parent_id',	$parent_id);
-            $form->setData('id_forum',	$id_forum);
-            $form->setData('step',	1);
+        $form = jForms::create('havefnubb~split');
+        $form->setData('id_post',$id_post);
+        $form->setData('parent_id',$parent_id);
+        $form->setData('id_forum',$id_forum);
+        $form->setData('step',1);
 
-            $dao = jDao::get('havefnubb~posts');
-            $post = $dao->get($id_post);
+        $dao = jDao::get('havefnubb~posts');
+        $post = $dao->get($id_post);
 
-            $rep = $this->getResponse('html');
-            $tpl = new jTpl();
-            $tpl->assign('title',$post->subject);
-            $tpl->assign('form',$form);
-            $tpl->assign('step',1);
-            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~split.to'));
-            $rep->title = jLocale::get("havefnubb~main.split.this.thread.from.this.message") . ' : ' . $post->subject;
-            return $rep;
-        //}
-        /*
-        elseif ($step == 1) {
-            $submit = $this->param('validate');
-            if ( $submit == jLocale::get('havefnubb~post.form.saveBt') ) {
-                // let's define the possible actions we can do :
-                // where to split this thread  :
-                // 1) in the same forum and create a new one
-                // 2) in another forum and create a new one
-                // 3) link to an existing thread in the SAME forum
-                $possibleActions = array('same_forum','others','existings');
-                // the choice is ?
-                $choice = (string) $this->param('choice');
-
-                if (! in_array($choice,$possibleActions) ) {
-                        $rep = $this->getResponse('redirect');
-                        $rep->action = 'havefnubb~default:index';
-                        return $rep;
-                }
-
-                $dao = jDao::get('havefnubb~posts');
-                $post = $dao->get($id_post);
-                switch ($choice) {
-                    case 'same_forum' :
-                        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-                        $id_post = $hfnuposts->splitToForum($parent_id,$id_post,$id_forum);
-                        if ($id_post > 0 ) $result = true; else $result = false;
-                        break;
-                    case 'others' :
-                        // the id_forum change to the new selected one
-                        $id_forum = (int) $this->param('other_forum');
-                        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-                        $id_post = $hfnuposts->splitToForum($parent_id,$id_post,$id_forum);
-                        if ($id_post > 0 ) $result = true; else $result = false;
-                        break;
-                    case 'existings' :
-                        // the parent_id change to the new selected one
-                        $new_parent_id = (int) $this->param('existing_thread');
-                        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-                        $result = $hfnuposts->splitToThread($id_post,$parent_id,$new_parent_id);
-                        $id_post = (int) $this->param('existing_thread');
-                        break;
-                }
-                $dao = jDao::get('havefnubb~posts');
-                $post = $dao->get($id_post);
-                if ($result === false) {
-                    jMessage::add(jLocale::get('havefnubb~main.common.thread.cant.be.moved'),'error');
-                }
-                else {
-                    jMessage::add(jLocale::get('havefnubb~main.common.thread.moved'),'ok');
-                }
-                $rep = $this->getResponse('redirect');
-                $rep->params = array('ftitle'=>$post->forum_name,
-                                    'ptitle'=>$post->subject,
-                                    'id_forum'=>$id_forum,
-                                    'id_post'=>$post->id_post,
-                                    'parent_id'=>$post->parent_id);
-                $rep->action ='havefnubb~posts:view';
-                return $rep;
-            }
-        }
-        else {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
-            return $rep;
-        }*/
+        $rep = $this->getResponse('html');
+        $tpl = new jTpl();
+        $tpl->assign('title',$post->subject);
+        $tpl->assign('form',$form);
+        $tpl->assign('step',1);
+        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~split.to'));
+        $rep->title = jLocale::get("havefnubb~main.split.this.thread.from.this.message") . ' : ' . $post->subject;
+        return $rep;
 
     }
     /**
@@ -1415,7 +1363,7 @@ class postsCtrl extends jController {
     /**
      * save the censored message
      */
-    public function savecencor() {
+    public function savecensor() {
         $rep = $this->getResponse('redirect');
 
         if ( ! jAcl2::check('hfnu.admin.post') ) {
@@ -1449,8 +1397,7 @@ class postsCtrl extends jController {
 
         //censoring an entire thread
         $result = jClasses::getService('havefnubb~hfnuposts')
-                    //->switchStatus($parent_id,$id_post,'censored',$form->getData('censored_msg')
-                    ->switchStatus($parent_id,$id_post,5,$form->getData('censored_msg')
+                    ->censor($parent_id,$id_post,$form->getData('censored_msg')
                         );
 
         if ($result === false ) {
@@ -1461,12 +1408,13 @@ class postsCtrl extends jController {
         else {
             $post  = $result;
             jMessage::add(jLocale::get('havefnubb~post.status.censored'),'ok');
-            $rep->action = 'havefnubb~posts:view';
+            $rep->action = 'havefnubb~posts:viewtogo';
             $rep->params = array('id_post'=>$post->id_post,
                                 'parent_id'=>$parent_id,
                                 'id_forum'=>$post->id_forum,
                                 'ftitle'=>$post->forum_name,
-                                'ptitle'=>$post->subject);
+                                'ptitle'=>$post->subject,
+                                'go'=>$post->id_post);
             return $rep;
         }
 
@@ -1484,7 +1432,7 @@ class postsCtrl extends jController {
         $id_post 	= (int) $this->param('id_post');
         $parent_id 	= (int) $this->param('parent_id');
 
-        $post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,6);//'uncensored'
+        $post = jClasses::getService('havefnubb~hfnuposts')->uncensor($parent_id,$id_post);//'uncensored'
 
         if ($post === false) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');

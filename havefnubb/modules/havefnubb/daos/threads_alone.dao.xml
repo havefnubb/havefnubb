@@ -14,8 +14,9 @@
         <property name="id_last_msg"   fieldname="id_last_msg"  datatype="int" required="true"/>
         <property name="date_created"  fieldname="date_created" datatype="int" required="true"/>
         <property name="date_last_post" fieldname="date_last_post" datatype="int" />
+        <property name="ispined_thread"       fieldname="ispined"  datatype="int" required="true"/>
+        <property name="iscensored_thread"    fieldname="iscensored"  datatype="int" required="true"/>
     </record>
-
         <!--
         status :
                 1 - pined
@@ -33,17 +34,6 @@
                 <eq property="id_forum_thread" expr="$id_forum" />
             </conditions>
         </method>
-        <method name="countPinedPostsByForumId" type="count">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum_thread" expr="$id_forum" />
-                <conditions logic="OR">
-                    <eq property="status_thread" value="1" />
-                    <eq property="status_thread" value="2" />
-                </conditions>
-            </conditions>
-        </method>
-
        <!-- for stats purpose -->
         <method name="countAllThreads" type="count">
         </method>

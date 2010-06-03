@@ -5,7 +5,7 @@
     <h2>{@havefnubb~main.censor.this.message@} : "{$title|eschtml}"</h2>
     {/if}
     <div class="block">
-    {form $form, 'havefnubb~posts:savecencor',array('id_post'=>$id_post,'parent_id'=>$parent_id)}
+    {form $form, 'havefnubb~posts:savecensor',array('id_post'=>$id_post,'parent_id'=>$parent_id)}
         {@havefnubb~main.censor.description@}
         <fieldset>
             {if $parent_id == $id_post}
@@ -19,4 +19,3 @@
     {/form}
     </div>
 </div>
-

@@ -12,6 +12,13 @@
  */
 function jtpl_function_html_post_status($tpl, $source, $data) {
     global $gJConfig;
+    $statusAvailable = array('pined',
+                            'pinedclosed',
+                            'opened',
+                            'closed',
+                            'censored',
+                            'uncensored',
+                            'hidden');
     if ($source == 'forum') {
         $id_forum = $data;
         $rec = jClasses::getService('havefnubb~hfnuread')->getReadForum($id_forum);
@@ -23,7 +30,7 @@ function jtpl_function_html_post_status($tpl, $source, $data) {
     }
     elseif ($source == 'post') {
         $post = $data;
-        $status = $post->status_thread;
+        $status = $statusAvailable[ $post->status_thread - 1];
 
         //opened thread ?
         if ($post->status_thread == 3) {

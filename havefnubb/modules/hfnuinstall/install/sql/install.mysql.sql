@@ -460,6 +460,8 @@ CREATE TABLE IF NOT EXISTS hf_posts (
   poster_ip varchar(15) NOT NULL,
   censored_msg VARCHAR( 50 ) NULL,
   read_by_mod int(1) DEFAULT '0',
+  ispined INT( 1 ) NOT NULL DEFAULT '0',
+  iscensored INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY (id_post),
   KEY id_user (id_user,id_forum,parent_id,status)
 ) DEFAULT CHARSET=utf8;

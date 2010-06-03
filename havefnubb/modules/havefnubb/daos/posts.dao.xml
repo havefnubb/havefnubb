@@ -6,11 +6,14 @@
         <optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
-        <property name="id_post"        fieldname="id_post" datatype="autoincrement"/>
-        <property name="id_user"        fieldname="id_user" datatype="int" required="true"/>
-        <property name="id_forum"       fieldname="id_forum" datatype="int" required="true"/>
-        <property name="parent_id"      fieldname="parent_id" datatype="int" required="true"/>
-        <property name="status"         fieldname="status"  datatype="int" required="true"/>
+        <property name="id_post"    fieldname="id_post" datatype="autoincrement"/>
+        <property name="id_user"    fieldname="id_user" datatype="int" required="true"/>
+        <property name="id_forum"   fieldname="id_forum" datatype="int" required="true"/>
+        <property name="parent_id"  fieldname="parent_id" datatype="int" required="true"/>
+        <property name="status"     fieldname="status"  datatype="int" required="true"/>
+        <property name="ispined"    fieldname="ispined"  datatype="int"/>
+        <property name="iscensored" fieldname="iscensored"  datatype="int" />
+
         <!--
         status :
                 1 - pined
@@ -154,13 +157,11 @@
         <method name="updateStatusByIdParent" type="update">
             <parameter name="parent_id"/>
             <parameter name="status"/>
-            <parameter name="censored_msg" default=""/>
            <conditions>
                 <eq property="parent_id" expr="$parent_id" />
             </conditions>
             <values>
                 <value property="status" expr="$status" />
-                <value property="censored_msg" expr="$censored_msg" />
             </values>
         </method>
         <method name="moveToForum" type="update">
@@ -217,7 +218,17 @@
             </conditions>
             <values>
                 <value property="censored_msg" expr="$censored_msg" />
-                <value property="status"  	   expr='"censored"' />
+                <value property="status"  	   expr="5" />
+            </values>
+        </method>
+        <method name="unCensorIt" type="update">
+        <parameter name="id_post"/>
+           <conditions>
+                <eq property="id_post" expr="$id_post" />
+            </conditions>
+            <values>
+                <value property="censored_msg" expr="" />
+                <value property="status"  	   expr="3" />
             </values>
         </method>
         <method name="updateReadByMod" type="update">

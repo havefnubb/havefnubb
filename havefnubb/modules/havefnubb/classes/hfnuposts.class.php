@@ -130,8 +130,8 @@ class hfnuposts {
     public static function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {
         $daoThreads = jDao::get('havefnubb~threads_alone');
         // total number of posts
-        $nbTtlPosts = $daoThreads->countPostsByForumId($id_forum);
-        $nbPinedPosts = $daoThreads->countPinedPostsByForumId($id_forum);
+        //$daoThreads = jDao::get('havefnubb~threads');
+        $nbPosts = $daoThreads->countPostsByForumId($id_forum);
         // get the posts of the current forum, limited by point 1 and 2
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             $daoThreads = jDao::get('havefnubb~threads');
@@ -150,7 +150,6 @@ class hfnuposts {
                 $page = 0;
             }
         }
-        $nbPosts = abs($nbTtlPosts - $nbPinedPosts);
         return array($page,$nbPosts,$posts);
     }
 
@@ -407,16 +406,25 @@ class hfnuposts {
 
         jEvent::notify('HfnuPostBeforeSaveReply',array('id'=>$parent_id));
 
+        //get the thread record to keep the status of the thread and apply it
+        //to this new reply.
+        $threadRec = jDao::get('havefnubb~threads')->get($parent_id);
+        if ($threadRec === false) {
+            return false;
+        }
+
         $dateReply = time();
         $result = $form->prepareDaoFromControls('havefnubb~posts');
         $result['daorec']->parent_id    = $parent_id;
         $result['daorec']->date_created = $dateReply;
         $result['daorec']->date_modified= $dateReply;
-        $result['daorec']->status       = 3;//'opened'
+        $result['daorec']->status       = $threadRec->status;//'opened'
         $result['daorec']->poster_ip    = $_SERVER['REMOTE_ADDR'];
         $result['daorec']->viewed       = 0;
         $result['daorec']->id_post      = 0;
         $result['daorec']->id_user      = jAuth::getUserSession ()->id;
+        $result['daorec']->iscensored   = $threadRec->iscensored;
+        $result['daorec']->ispined      = $threadRec->ispined;
         $result['dao']->insert($result['daorec']);
         $id_post = $result['daorec']->getPk();
 
@@ -502,37 +510,30 @@ class hfnuposts {
      * change the status of the current THREAD (not just one post) !
      * @param integer $parent_id parent id of the thread
      * @param string $status the status to switch to
-     * @param string $censor_msg the censored message
      * @return DaoRecord $record
      */
-    public static function switchStatus($parent_id,$id_post,$status,$censor_msg='') {
+    public static function switchStatus($parent_id,$id_post,$status) {
+
         if (! in_array($status,self::$statusAvailable)) {
             jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
-                return false;
+            return false;
         }
-        if ( $parent_id < 0 or $id_post < 1) return false;
 
-        $dao = jDao::get('havefnubb~posts');
+        if ( $parent_id < 0 ) return false;
 
-        if ($id_post == $parent_id ) {
-        // we want to uncesored a post so let's open it
-        //if ($status == 'uncensored') $status = 'opened';
-        if ($status == 6) $status = 3;
-
-        if ( $dao->updateStatusByIdParent($parent_id,$status,$censor_msg) )
+        if ( jDao::get('havefnubb~posts')->updateStatusByIdParent($parent_id,$status) )
             jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$parent_id,'status'=>$status));
-        } else {
-            // $status can be 'uncensored' , 'censored'
-            self::$status($parent_id,$id_post,$censor_msg);
-        }
-        //delete the post from the array $posts
-        self::deletePost($id_post);
-        // get the updated record
-        $record = $dao->get($id_post);
-        //add the post to the array $posts
-        self::addPost($id_post,$record);
 
-        return $record;
+        $daoThread = jDao::get('havefnubb~threads');
+        $rec = $daoThread->get($parent_id);
+        $rec->status_thread = $status;
+        if ($status == 1 or $status == 2)
+            $rec->ispined_thread = 1;
+        else
+            $rec->ispined_thread = 0;
+        $daoThread->update($rec);
+
+        return self::getPost($id_post);
     }
     /**
      * this function permits to get the status of the posts
@@ -551,16 +552,23 @@ class hfnuposts {
      * @param string $status the status to switch to
      * @param string $censor_msg the censored message
      */
-    public static function censored($parent_id,$id_post,$censor_msg) {
+    public static function censor($parent_id,$id_post,$censor_msg) {
         if ( $parent_id < 0 or $id_post < 1) return false;
-
+        $return = false;
         $dao = jDao::get('havefnubb~posts');
         if ( $dao->censorIt($id_post,$censor_msg) ) {
             jEvent::notify('HfnuPostAfterStatusChanged',
                            array('id'=>$id_post,
-                                 'status'=>5) //'censored'
+                                 'status'=>5)
                            );
+            $daoThread = jDao::get('havefnubb~threads');
+            $rec = $daoThread->get($parent_id);
+            $rec->iscensored = 1;
+            $daoThread->update($rec);
+
+            $return = self::getPost($id_post);
         }
+        return $return;
     }
     /**
      * remove the censor of current POST
@@ -572,18 +580,25 @@ class hfnuposts {
      * @param string $status string the status to switch to
      * @param string $censor_msg string of the censored message
      */
-    public static function uncensored($parent_id,$id_post,$censor_msg='') {
+    public static function uncensor($parent_id,$id_post) {
         if ( $parent_id < 0 or $id_post < 1) return false;
-
+        $return = false;
         $dao = jDao::get('havefnubb~posts');
-        //'opened'
-        $status = ( $id_post == $parent_id ) ? 3 : self::getPost($parent_id)->status ;
-        if ( $dao->updateStatusById($id_post,$status) ) {
+        $status = ( $id_post == $parent_id ) ? 3 : 5 ;
+        if ( $dao->unCensorIt($id_post) ) {
             jEvent::notify('HfnuPostAfterStatusChanged',
-                           array('id'=>$id_post,
-                                 'status'=>self::getPost($parent_id)->status)
+                           array('id'       =>$id_post,
+                                 'status'   =>3)
                            );
+
+            $daoThread = jDao::get('havefnubb~threads');
+            $rec = $daoThread->get($parent_id);
+            $rec->iscensored = 0;
+            $daoThread->update($rec);
+
+            $return = self::getPost($id_post);
         }
+        return $return;
     }
 
 

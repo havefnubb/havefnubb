@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form xmlns="http://jelix.org/ns/forms/1.1">
-
+<hidden ref="id_post"/>
+<hidden ref="parent_id"/>
 <menulist ref="status">
   <item value="1" locale="havefnubb~post.status.pined"/> <!-- pined -->
   <item value="2" locale="havefnubb~post.status.pinedclosed"/> <!-- closed and pined -->
