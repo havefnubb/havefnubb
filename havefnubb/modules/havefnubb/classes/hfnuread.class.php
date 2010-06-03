@@ -111,7 +111,7 @@ class hfnuread {
                 $nbPosts = $daoPosts->findAllByIdForumVisible($id_forum);
                 // do we have read all the posts ?
                 if ($nbReadPosts == $nbPosts) return true;
-                $forumRead = $daoPosts->getUserLastVisibleCommentOnForums($id_forum);
+                $forumRead = jDao::get('havefnubb~threads')->getUserLastVisibleCommentOnForums($id_forum);
             }
 
             if ($forumRead === false) return true;
@@ -137,9 +137,10 @@ class hfnuread {
         if ( $readForum === false) return false;
 
         if (  jAcl2::check('hfnu.admin.post') )
-            $postRead = jDao::get('havefnubb~posts')->getUserLastCommentOnPosts($id_post);
+            $postRead = jDao::get('havefnubb~threads_alone')->getUserLastCommentOnPosts($id_post);
         else
-            $postRead = jDao::get('havefnubb~posts')->getUserLastVisibleCommentOnPosts($id_post);
+            //$postRead = jDao::get('havefnubb~posts')->getUserLastVisibleCommentOnPosts($id_post);
+            $postRead = jDao::get('havefnubb~threads')->getUserLastVisibleCommentOnPosts($id_post);
 
         if ($postRead === false) return false;
 

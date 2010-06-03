@@ -30,16 +30,16 @@ class postlcZone extends jZone {
         $dao = jDao::get('havefnubb~threads');
         if ($parent_id) {
             if (  jAcl2::check('hfnu.admin.post') ) {
-                $userPost = $dao->get($parent_id);
+                $userPost = $dao->getUserLastCommentOnPosts($parent_id);
             }
             else {
                 $userPost = $dao->getUserLastVisibleCommentOnPosts($parent_id);
             }
-
             if ($userPost->nb_replies > 0)
                 $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
             else
                 $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
+
         }
 
         if ($id_forum) {
