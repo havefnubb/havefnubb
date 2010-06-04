@@ -386,7 +386,7 @@ class hfnuposts {
      * @param integer $parent_id parent id of the current post if editing of 0 if adding
      * @return mixed boolean / DaoRecord $record of the reply
      */
-    public static function savereply($parent_id) {
+    public static function savereply($parent_id,$id_post) {
         global $gJConfig;
         $form = jForms::fill('havefnubb~posts',$parent_id);
         if (!$form) {

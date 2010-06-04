@@ -62,7 +62,8 @@
             <param name="id_forum" type="number"/>
         </url>
 
-        <url pathinfo="/post/reply/:id_post" module="havefnubb" action="posts:reply"  actionoverride="posts:savereply">
+        <url pathinfo="/post/reply/:parent_id/:id_post" module="havefnubb" action="posts:reply"  actionoverride="posts:savereply">
+            <param name="parent_id" type="number"/>
             <param name="id_post" type="number"/>
         </url>
 

@@ -186,6 +186,7 @@ class postsCtrl extends jController {
                                 'parent_id'=>$parent_id,
                                 'page'=>$page
                                 );
+
             }else {
                 $rep->action = 'default:index';
             }
@@ -234,7 +235,7 @@ class postsCtrl extends jController {
         }
 
         if (jUrl::escape($forum->forum_name,true) != $ftitle or
-            jUrl::escape($post->subject,true) != $ptitle)
+            jUrl::escape($hfnuposts->getPost($id_post)->subject,true) != $ptitle)
         {
             $rep = $this->getResponse('redirect');
             $rep->action = $gJConfig->urlengine['notfoundAct'];
@@ -587,10 +588,10 @@ class postsCtrl extends jController {
         if ($parent_id == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
-            return $ep;
+            return $rep;
         }
 
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($parent_id);
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
 
         //check if this message is close and if i am an admin/mod
         if ( in_array($post->status,self::$statusClosed) and
@@ -636,19 +637,20 @@ class postsCtrl extends jController {
         }
 
         $form = jForms::create('havefnubb~posts',$parent_id);
-        $form->initFromDao('havefnubb~posts');
+        //$form->initFromDao('havefnubb~posts');
 
         $form->setData('id_user',jAuth::getUserSession ()->id);
         $form->setData('id_post',0);
-        $form->setData('parent_id',$id_post);
+        $form->setData('id_forum',$post->id_forum);
+        $form->setData('parent_id',$post->parent_id);
         $form->setData('subject',jLocale::get('havefnubb~post.subject.reply').' ' .jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
         $form->setData('message','');
 
         //set the needed parameters to the template
         $tpl = new jTpl();
         $tpl->assign('forum',$forum);
-        $tpl->assign('id_post',$id_post);
-        $tpl->assign('parent_id',$parent_id);
+        $tpl->assign('id_post',$post->id_post);
+        $tpl->assign('parent_id',$post->parent_id);
         $tpl->assign('category',$category);
         $tpl->assign('id_forum', $forum->id_forum);
         $tpl->assign('previewtext', null);
@@ -731,17 +733,17 @@ class postsCtrl extends jController {
 
         //set the needed parameters to the template
         $tpl = new jTpl();
-        $tpl->assign('forum',		$forum);
-        $tpl->assign('id_post',		0);
-        $tpl->assign('parent_id',	$parent_id);
-        $tpl->assign('category',	$category);
-        $tpl->assign('id_forum', 	$forum->id_forum);
+        $tpl->assign('forum',       $forum);
+        $tpl->assign('id_post',     0);
+        $tpl->assign('parent_id',   $parent_id);
+        $tpl->assign('category',    $category);
+        $tpl->assign('id_forum',    $forum->id_forum);
         $tpl->assign('previewtext', null);
         $tpl->assign('previewsubject',null);
-        $tpl->assign('form', 		$form);
-        $tpl->assign('forum', 		$forum);
-        $tpl->assign('category', 	$category);
-        $tpl->assign('heading',		jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject);
+        $tpl->assign('form',        $form);
+        $tpl->assign('forum',       $forum);
+        $tpl->assign('category',    $category);
+        $tpl->assign('heading',     jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject);
         $tpl->assign('submitAction','havefnubb~posts:savereply');
 
         $rep = $this->getResponse('html');
@@ -831,13 +833,13 @@ class postsCtrl extends jController {
 
             //let's save the reply
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-            $record = $hfnuposts->savereply($parent_id);
+            $record = $hfnuposts->savereply($parent_id,$id_post);
 
             if ($record === false ) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
                 $record = $hfnuposts->getPost($parent_id);
                 $forum = jDao::get('havefnubb~forum')->get($id_forum);
-                $rep->action = 'havefnubb~posts:view';
+                $rep->action = 'havefnubb~default:index';
                 $rep->params = array('ftitle'=>$forum->forum_name,
                                     'ptitle'=>$record->subject,
                                     'id_forum'=>$id_forum,
@@ -848,7 +850,7 @@ class postsCtrl extends jController {
                 $forum = jDao::get('havefnubb~forum')->get($id_forum);
 
                 $rep->params = array('ftitle'=>$forum->forum_name,
-                                    'ptitle'=>$record->subject,
+                                    'ptitle'=>$hfnuposts->getPost(jDao::get('havefnubb~threads_alone')->get($record->parent_id)->id_first_msg)->subject,
                                     'id_forum'=>$id_forum,
                                     'id_post'=>$record->id_first_msg,
                                     'parent_id'=>$record->parent_id,

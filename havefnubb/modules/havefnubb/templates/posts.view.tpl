@@ -12,7 +12,6 @@
 
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
 
-{* zone 'havefnubb~posts_replies',array('id_post'=>$id_post,'id_forum'=>$forum->id_forum,'page'=>$page,'status'=>$status) *}
 
 <div class="fake-button-left grid_8 alpha">&nbsp;
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
@@ -20,10 +19,10 @@
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'parent_id'=>$parent_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {ifacl2 'hfnu.admin.post'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'parent_id'=>$parent_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
         {/ifacl2}
     {/if}
 {/ifacl2}
@@ -56,7 +55,7 @@
                 'title'=>$post->subject)}
 
 <div class="box">
-    <h2><span class="post-status-icon-{$statusAvailable[$status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
+    <h2><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
@@ -159,10 +158,10 @@
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'parent_id'=>$parent_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {ifacl2 'hfnu.admin.post'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'parent_id'=>$parent_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
         {/ifacl2}
     {/if}
 {/ifacl2}

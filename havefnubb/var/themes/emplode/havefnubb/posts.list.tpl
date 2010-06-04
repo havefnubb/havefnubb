@@ -28,14 +28,18 @@
     {if $posts->rowCount() > 0}
     {foreach $posts as $post}
     {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
+    {assign $status = $statusAvailable[ $post->status_thread - 1]}
     <tr>
-        <td><span class="colicone-{zone 'havefnubb~newestposts',array('source'=>'post','id_post'=>$post->id_post,'status'=>$statusAvailable[$post->status -1],'id_forum'=>$id_forum,'display'=>'icon')}" >&nbsp;</span></td>
-        <td class="coltitle linkincell">{zone 'havefnubb~newestposts',
-                    array(  'source'=>'post',
-                            'id_post'=>$post->id_post,
-                            'status'=>$statusAvailable[$post->status -1],
-                            'id_forum'=>$id_forum,
-                            'display'=>'text')}
+        <td><span class="colicone-{post_status 'post',$post}" >&nbsp;</span></td>
+        <td class="coltitle linkincell">{@havefnubb~post.status.$status@}
+                <a class="status-{$status}" href="{jurl 'havefnubb~posts:view',
+                                                array(  'id_post'=>$post->id_post,
+                                                        'parent_id'=>$post->parent_id,
+                                                        'id_forum'=>$post->id_forum,
+                                                        'ftitle'=>$post->forum_name,
+                                                        'ptitle'=>$post->subject)}"
+                    title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
+
                 {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}
                 {social_networks
                     array(  'jurl'=>'havefnubb~posts:view',
@@ -55,7 +59,8 @@
         <td class="colnum">
             {$post->nb_viewed}
         </td>
-        <td class="colright linkincell">{zone 'havefnubb~postlc',array('id_post'=>$post->id_post)}
+        <td class="colright linkincell">
+            {zone 'havefnubb~postlc',array('parent_id'=>$post->parent_id)}
         </td>
     </tr>
     {/foreach}

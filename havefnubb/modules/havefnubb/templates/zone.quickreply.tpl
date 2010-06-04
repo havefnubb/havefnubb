@@ -14,7 +14,7 @@
         {literal}
         <script type="text/javascript">
         //<![CDATA[
-        $(document).ready(function()	{
+        $(document).ready(function()    {
             $('#jforms_havefnubb_posts_message').markItUp(mySettings);
         });
         //]]>

@@ -31,9 +31,11 @@ class postlcZone extends jZone {
         if ($parent_id) {
             if (  jAcl2::check('hfnu.admin.post') ) {
                 $userPost = $dao->getUserLastCommentOnPosts($parent_id);
+                $title = jClasses::getService('havefnubb~hfnuposts')->getPost(jDao::get('havefnubb~threads_alone')->get($userPost->parent_id)->id_first_msg)->subject;
             }
             else {
                 $userPost = $dao->getUserLastVisibleCommentOnPosts($parent_id);
+                $title = jClasses::getService('havefnubb~hfnuposts')->getPost(jDao::get('havefnubb~threads_alone')->get($userPost->parent_id)->id_first_msg)->subject;
             }
             if ($userPost->nb_replies > 0)
                 $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
@@ -45,9 +47,11 @@ class postlcZone extends jZone {
         if ($id_forum) {
             if (  jAcl2::check('hfnu.admin.post') ) {
                 $userPost = $dao->getUserLastCommentOnForums($id_forum);
+                $title = jClasses::getService('havefnubb~hfnuposts')->getPost(jDao::get('havefnubb~threads_alone')->get($userPost->parent_id)->id_first_msg)->subject;
             }
             else {
                 $userPost = $dao->getUserLastVisibleCommentOnForums($id_forum);
+                $title = jClasses::getService('havefnubb~hfnuposts')->getPost(jDao::get('havefnubb~threads_alone')->get($userPost->parent_id)->id_first_msg)->subject;
             }
             $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
 
@@ -56,6 +60,7 @@ class postlcZone extends jZone {
 
         $this->_tpl->assign('user',$user);
         $this->_tpl->assign('post',$userPost);
+        $this->_tpl->assign('title',$title);
         $this->_tpl->assign('msg',$noMsg);
     }
 }

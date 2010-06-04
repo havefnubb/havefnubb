@@ -29,10 +29,10 @@ $(document).ready(function(){
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+<a href="{jurl 'havefnubb~posts:reply',array('parent_id'=>$parent_id,'id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {ifacl2 'hfnu.admin.post'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+<a href="{jurl 'havefnubb~posts:reply',array('parent_id'=>$parent_id,'id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
         {/ifacl2}
     {/if}
 {/ifacl2}
@@ -155,10 +155,10 @@ $(document).ready(function(){
 {/ifacl2}
 {ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+<a href="{jurl 'havefnubb~posts:reply',array('parent_id'=>$parent_id,'id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
     {else}
         {ifacl2 'hfnu.admin.post'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+<a href="{jurl 'havefnubb~posts:reply',array('parent_id'=>$parent_id,'id_post'=>$id_post)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
         {/ifacl2}
     {/if}
 {/ifacl2}
