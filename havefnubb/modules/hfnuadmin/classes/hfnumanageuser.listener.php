@@ -9,13 +9,13 @@
 */
 
 class hfnumanageuserListener extends jEventListener {
-	// setting the default number of message to 0
-	// this will avoid an error about rank !
-	public function onAuthNewUser($event) {
-		$id = $event->getParam('user')->id;
-		if (! $id or $id == 0) return;
-		$request_date = date('Y-m-d H:i:s');
-		$dao = jDao::get('havefnubb~member');
-		$dao->updateNbMsgAfterCreatingAccount($id,$request_date);
-	}
+    // setting the default number of message to 0
+    // this will avoid an error about rank !
+    public function onAuthNewUser($event) {
+        $id = $event->getParam('user')->id;
+        if (! $id or $id == 0) return;
+        $request_date = date('Y-m-d H:i:s');
+        $dao = jDao::get('havefnubb~member');
+        $dao->updateNbMsgAfterCreatingAccount($id,$request_date);
+    }
 }

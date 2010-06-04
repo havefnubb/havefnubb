@@ -10,11 +10,11 @@
 
 class hfnuadminListener extends jEventListener{
 
-	public function onHfnuAboutModule($event) {
+    public function onHfnuAboutModule($event) {
 
-		$event->Add(array(
-					'moduleInfos'=>
-					jClasses::getService('havefnubb~modulexml')->parse('hfnuadmin'))
-					);
-	}
+        $event->Add(array(
+                    'moduleInfos'=>
+                    jClasses::getService('havefnubb~modulexml')->parse('hfnuadmin'))
+                    );
+    }
 }

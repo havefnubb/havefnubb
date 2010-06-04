@@ -10,13 +10,13 @@
 
 class hfnuadmininfoboxListener extends jEventListener{
 
-	function onmasteradminGetInfoBoxContent ($event) {
-		if ( jAcl2::check('hfnu.admin.index'))    {
-			$event->add(new masterAdminMenuItem('portal',
-				jLocale::get('hfnuadmin~admin.back.to.havefnubb'),
-				jUrl::get('havefnubb~default:index'),
-				100,
-				'havefnubb'));
-		}
-	}
+    function onmasteradminGetInfoBoxContent ($event) {
+        if ( jAcl2::check('hfnu.admin.index'))    {
+            $event->add(new masterAdminMenuItem('portal',
+                jLocale::get('hfnuadmin~admin.back.to.havefnubb'),
+                jUrl::get('havefnubb~default:index'),
+                100,
+                'havefnubb'));
+        }
+    }
 }

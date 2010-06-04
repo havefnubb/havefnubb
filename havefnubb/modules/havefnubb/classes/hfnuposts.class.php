@@ -295,6 +295,8 @@ class hfnuposts {
             $record->date_created   = $datePost;
             $record->date_modified  = $datePost;
             $record->viewed         = 0;
+            $record->ispined        = 0;
+            $record->iscensored     = 0;
             $record->poster_ip      = $_SERVER['REMOTE_ADDR'];
             //if the current user is a member of a moderator group
             // we set this post as 'read by moderator'
@@ -319,6 +321,8 @@ class hfnuposts {
             $threadRec->id_last_msg     = $record->id_post;
             $threadRec->date_created    = $datePost;
             $threadRec->date_last_post  = $datePost;
+            $threadRec->ispined_thread  = 0;
+            $threadRec->iscensored_thread= 0;
             $threadDao->insert($threadRec);
 
             // now let's get the inserted id to put this one in parent_id column !
