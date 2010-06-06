@@ -16,7 +16,7 @@
 <div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
-<table class="data_table" width="100%">
+<table class="data_table">
     <tr>
         <th class="listcol"> </th>
         <th class="listcol">{@havefnubb~forum.forumlist.title@}</th>
@@ -28,10 +28,11 @@
     {if $posts->rowCount() > 0}
     {foreach $posts as $post}
     {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
+
     {assign $status = $statusAvailable[ $post->status_thread - 1]}
     <tr>
-        <td><span class="colicone-{post_status 'post',$post}" >&nbsp;</span></td>
-        <td class="coltitle linkincell">{@havefnubb~post.status.$status@}
+        <td><span class="colicone-{post_status 'post',$post}" ></span></td>
+        <td class="coltitle linkincell"><span class="newestposts">{@havefnubb~post.status.$status@}</span>
                 <a class="status-{$status}" href="{jurl 'havefnubb~posts:view',
                                                 array(  'id_post'=>$post->id_post,
                                                         'parent_id'=>$post->parent_id,
@@ -40,15 +41,7 @@
                                                         'ptitle'=>$post->subject)}"
                     title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
 
-                {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}
-                {social_networks
-                    array(  'jurl'=>'havefnubb~posts:view',
-                            'jurlparams'=>array('id_post'=>$post->parent_id,
-                                'parent_id'=>$post->parent_id,
-                                'id_forum'=>$post->id_forum,
-                                'ftitle'=>$post->forum_name,
-                                'ptitle'=>$post->subject),
-                            'title'=>$post->subject)}
+                {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum)}
         </td>
         <td class="colposter linkincell">
             <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>

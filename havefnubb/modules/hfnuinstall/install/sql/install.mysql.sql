@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS hf_forum (
   forum_type INT( 1 ) NOT NULL,
   forum_url varchar( 255 ) DEFAULT NULL,
   post_expire INT ( 5 ) DEFAULT '0',
+  id_last_msg int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (id_forum),
   KEY id_cat (id_cat),
   KEY parent_id (parent_id),

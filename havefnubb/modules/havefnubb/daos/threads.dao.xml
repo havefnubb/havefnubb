@@ -61,7 +61,6 @@
         <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
         <property name="forum_name"      fieldname="forum_name" table="forum" datatype="int" required="true"/>
     </record>
-
     <!-- naming convention :
         findXXX uses type="select"
         getXXX uses type="selectfirst"
@@ -91,8 +90,8 @@
                 <neq property="status" value="7" />
             </conditions>
             <order>
+                <orderitem property="ispined_thread" way="desc" />
                 <orderitem property="date_last_post" way="desc" />
-                <orderitem property="ispined_thread" way="asc" />
             </order>
             <limit offset="$offset" count="$count"/>
         </method>
@@ -103,35 +102,6 @@
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
-            </order>
-        </method>
-        <method name="findUnreadThread" type="select" groupby="id_thread">
-            <parameter name="start"/>
-            <parameter name="end"/>
-            <parameter name="offset"/>
-            <parameter name="count"/>
-            <conditions logic="AND">
-                <gteq property="date_last_post" expr="$start" />
-                <lteq property="date_last_post" expr="$end" />
-            </conditions>
-            <limit offset="$offset" count="$count"/>
-            <order>
-                <orderitem property="date_last_post" way="desc" />
-            </order>
-        </method>
-        <method name="findUnreadThreadVisible" type="select" groupby="id_thread">
-            <parameter name="start"/>
-            <parameter name="end"/>
-            <parameter name="offset"/>
-            <parameter name="count"/>
-            <conditions logic="AND">
-                <gteq property="date_last_post" expr="$start" />
-                <lteq property="date_last_post" expr="$end" />
-                <neq property="status" value="7"/>
-            </conditions>
-            <limit offset="$offset" count="$count"/>
-            <order>
-                <orderitem property="date_last_post" way="desc" />
             </order>
         </method>
         <method name="findLastPosts" type="select" groupby="id_thread">
@@ -189,5 +159,32 @@
                 <orderitem property="p_date_created" way="desc" />
             </order>
         </method>
+
+        <method name="findUnreadThread" type="select">
+            <parameter name="date_last_post"/>
+            <parameter name="offset"/>
+            <parameter name="count"/>
+            <conditions>
+                <gt property="date_last_post" expr="$date_last_post"/>
+            </conditions>
+            <limit offset="$offset" count="$count"/>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
+        <method name="findUnreadThreadVisible" type="select">
+            <parameter name="date_last_post"/>
+            <parameter name="offset"/>
+            <parameter name="count"/>
+            <conditions logic="AND">
+                <neq property="status" expr="7"/>
+                <gt property="date_last_post" expr="$date_last_post"/>
+            </conditions>
+            <limit offset="$offset" count="$count"/>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+        </method>
+
     </factory>
 </dao>

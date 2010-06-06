@@ -8,7 +8,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * function that display the age of the member
+ * function that display the status of one post or post in a given forum
  */
 function jtpl_function_html_post_status($tpl, $source, $data) {
     global $gJConfig;
@@ -21,10 +21,14 @@ function jtpl_function_html_post_status($tpl, $source, $data) {
                             'hidden');
     if ($source == 'forum') {
         $id_forum = $data;
+
+        // does the user still read everything in that forum ?
         $rec = jClasses::getService('havefnubb~hfnuread')->getReadForum($id_forum);
 
+        //yes
         if ( $rec === true)
             $status = 'forumicone';
+        //no
         else
             $status = 'forumiconenew';
     }
@@ -35,7 +39,7 @@ function jtpl_function_html_post_status($tpl, $source, $data) {
         //opened thread ?
         if ($post->status_thread == 3) {
             //do the member already read that post ?
-            if ( jClasses::getService('havefnubb~hfnuread')->getReadPost($post->id_post,$post->id_forum) === false )
+            if ( jClasses::getService('havefnubb~hfnuread')->getReadPost($post->id_post,$post->parent_id,$post->id_forum) === false )
                 // no so post is new
                 $status = 'post-new';
             else

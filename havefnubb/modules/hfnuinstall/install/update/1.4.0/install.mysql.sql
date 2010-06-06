@@ -45,3 +45,6 @@ UPDATE hf_threads SET id_last_msg = ( SELECT id_post FROM hf_posts WHERE hf_thre
 UPDATE hf_threads SET nb_replies = (SELECT count(id_post) -1 FROM hf_posts WHERE hf_threads.id_thread = parent_id);
 
 
+ALTER TABLE hf_forum ADD id_last_msg int(11) NOT NULL DEFAULT '0';
+
+UPDATE hf_forum AS f SET id_last_msg = (SELECT max(id_last_msg) FROM hf_threads AS t WHERE f.id_forum = t.id_forum )

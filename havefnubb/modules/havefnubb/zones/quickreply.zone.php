@@ -41,5 +41,6 @@ class quickreplyZone extends jZone {
 
         $this->_tpl->assign('form',$form);
         $this->_tpl->assign('id_post',$id_post);
+        $this->_tpl->assign('parent_id',$parent_id);
     }
 }

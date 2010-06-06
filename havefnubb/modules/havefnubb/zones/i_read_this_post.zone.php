@@ -20,10 +20,13 @@ class i_read_this_postZone extends jZone {
      */
     protected function _prepareTpl(){
         $id_post = (int) $this->getParam('id_post');
+        $parent_id = (int) $this->getParam('parent_id');
         $id_forum = (int)  $this->getParam('id_forum');
 
-        $bool =  jClasses::getService('havefnubb~hfnuread')->getReadPost($id_post,$id_forum);
+        if ($id_post < 1 or $parent_id < 1 or $id_forum < 1 or !jAuth::isConnected() )
+            $bool = true;
+        else
+            $bool =  jClasses::getService('havefnubb~hfnuread')->getReadPost($id_post,$parent_id,$id_forum);
         $this->_tpl->assign('bool',$bool);
     }
 }
-

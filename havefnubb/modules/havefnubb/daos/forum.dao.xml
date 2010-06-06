@@ -5,13 +5,14 @@
         <foreigntable name="category" realname="category" primarykey="id_cat" onforeignkey="id_cat"/>
     </datasources>
     <record>
-        
+
     <property name="id_forum" fieldname="id_forum" datatype="autoincrement"/>
     <property name="forum_name" fieldname="forum_name" datatype="string" required="true" maxlength="255"/>
     <property name="id_cat" fieldname="id_cat" datatype="int" required="true"/>
     <property name="forum_desc" fieldname="forum_desc" datatype="string" required="true" maxlength="255"/>
     <property name="forum_order" fieldname="forum_order" datatype="int" required="true"/>
-    
+    <property name="id_last_msg" fieldname="id_last_msg" datatype="int" required="true"/>
+
     <property name="parent_id" fieldname="parent_id" datatype="int" required="true"/>
     <property name="child_level" fieldname="child_level" datatype="int" required="true"/>
     <property name="forum_type" fieldname="forum_type" datatype="int" required="true"/>
@@ -24,7 +25,7 @@
 
     </record>
     <factory>
-        <method name="findAll" type="select">           
+        <method name="findAll" type="select">
             <order>
                 <orderitem property="cat_order" way="asc" />
                 <orderitem property="forum_order" way="asc" />
@@ -39,25 +40,25 @@
             <order>
                 <orderitem property="cat_order" way="asc" />
                 <orderitem property="forum_order" way="asc" />
-            </order>            
+            </order>
         </method>
         <method name="findChild" type="select">
             <parameter name="id_forum" />
-            <parameter name="lvl" />            
+            <parameter name="lvl" />
             <conditions>
                 <eq property="parent_id" expr="$id_forum" />
                 <eq property="child_level" expr="$lvl" />
-            </conditions>             
+            </conditions>
             <order>
                 <orderitem property="cat_order" way="asc" />
                 <orderitem property="forum_order" way="asc" />
             </order>
-        </method>        
+        </method>
         <method name="findByCatId" type="select">
             <parameter name="id_cat" />
             <conditions>
                 <eq property="id_cat" expr="$id_cat" />
-            </conditions>            
+            </conditions>
         </method>
         <method name="findParentByCatId" type="select">
             <parameter name="id_cat" />
@@ -67,13 +68,13 @@
             </conditions>
             <order>
                 <orderitem property="forum_order" way="asc" />
-            </order>            
-        </method>                        
+            </order>
+        </method>
         <method name="findIt" type="select">
             <parameter name="id_forum" />
             <conditions>
                 <eq property="id_forum" expr="$id_forum" />
-            </conditions>            
+            </conditions>
         </method>
         <method name="findAllExceptOne" type="select">
             <parameter name="id_forum" />
@@ -82,10 +83,10 @@
             </conditions>
             <order>
                <orderitem property="parent_id" way="asc" />
-            </order>            
+            </order>
         </method>
         <method name="findAllCatWithFathers" type="select" groupby="id_cat">
             <eq property="parent_id" expr="0" />
-        </method>        
+        </method>
     </factory>
 </dao>

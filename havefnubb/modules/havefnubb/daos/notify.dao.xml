@@ -4,6 +4,7 @@
         <primarytable name="notify" realname="notify" primarykey="id_notify" />
         <foreigntable name="forum" realname="forum" primarykey="id_forum" onforeignkey="id_forum"/>
         <foreigntable name="member" realname="member" primarykey="id_user" onforeignkey="id_user"/>
+        <foreigntable name="threads" realname="threads" primarykey="id_thread" onforeignkey="parent_id"/>
     </datasources>
     <record>
         <property name="id_notify" fieldname="id_notify" datatype="autoincrement"/>
@@ -19,6 +20,8 @@
 
         <property name="member_login" fiedname="member_login" datatype="string" table="member"/>
         <property name="forum_name" fieldname="forum_name" datatype="string" table="forum"/>
+
+        <property name="id_first_msg"  fieldname="id_first_msg"  datatype="int" table="threads"/>
     </record>
     <factory>
         <method name="findAll" type="select">

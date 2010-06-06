@@ -18,10 +18,10 @@
      </method>
      <method name="getConnectedByIdUser" type="selectfirst">
          <parameter name="time" />
-         <parameter name="id_user" />
+		 <parameter name="id_user" />
          <conditions>
              <lt property="connected" expr="$time" />
-             <eq property="id" expr="$id_user" />
+			 <eq property="id" expr="$id_user" />
          </conditions>
      </method>
    </factory>

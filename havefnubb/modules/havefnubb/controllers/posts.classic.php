@@ -637,7 +637,6 @@ class postsCtrl extends jController {
         }
 
         $form = jForms::create('havefnubb~posts',$parent_id);
-        //$form->initFromDao('havefnubb~posts');
 
         $form->setData('id_user',jAuth::getUserSession ()->id);
         $form->setData('id_post',0);
@@ -649,7 +648,7 @@ class postsCtrl extends jController {
         //set the needed parameters to the template
         $tpl = new jTpl();
         $tpl->assign('forum',$forum);
-        $tpl->assign('id_post',$post->id_post);
+        $tpl->assign('id_post',0);
         $tpl->assign('parent_id',$post->parent_id);
         $tpl->assign('category',$category);
         $tpl->assign('id_forum', $forum->id_forum);
@@ -672,7 +671,7 @@ class postsCtrl extends jController {
      */
     function quote() {
 
-        $parent_id 	= (int) $this->param('parent_id');
+        $parent_id  = (int) $this->param('parent_id');
         $id_post    = (int) $this->param('id_post');
 
         if ($parent_id == 0 ) {
@@ -715,7 +714,6 @@ class postsCtrl extends jController {
         }
 
         $form = jForms::create('havefnubb~posts',$parent_id);
-        $form->initFromDao('havefnubb~posts');
 
         $form->setData('subject',$post->subject);
         $form->setData('id_forum',$post->id_forum);

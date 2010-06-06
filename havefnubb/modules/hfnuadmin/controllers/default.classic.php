@@ -12,30 +12,30 @@
  * this controller manages the configuration of the forum
  */
 class defaultCtrl extends jController {
-	/**
-	 * @var plugins to manage the behavior of the controller
-	 */
-	public $pluginParams = array(
-		'*' => array('auth.required'=>true,
-					'hfnu.check.installed'=>true,
-					'banuser.check'=>true,
-		),
-		'index' => array( 'jacl2.right'=>'hfnu.admin.index'),
-		'config'=> array( 'jacl2.right'=>'hfnu.admin.config'),
-		//'loadconfig'=> array( 'jacl2.right'=>'hfnu.admin.config'),
-		'saveconfig'=> array( 'jacl2.right'=>'hfnu.admin.config'),
-	);
+    /**
+     * @var plugins to manage the behavior of the controller
+     */
+    public $pluginParams = array(
+        '*' => array('auth.required'=>true,
+                    'hfnu.check.installed'=>true,
+                    'banuser.check'=>true,
+        ),
+        'index' => array( 'jacl2.right'=>'hfnu.admin.index'),
+        'config'=> array( 'jacl2.right'=>'hfnu.admin.config'),
+        //'loadconfig'=> array( 'jacl2.right'=>'hfnu.admin.config'),
+        'saveconfig'=> array( 'jacl2.right'=>'hfnu.admin.config'),
+    );
 
-	function index() {
-		$rep = $this->getResponse('redirect');
-		$rep->action = 'master_admin~default:index';
-		return $rep;
-	}
+    function index() {
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'master_admin~default:index';
+        return $rep;
+    }
 
     protected function initform($form) {
         global $gJConfig;
         $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
-		$timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/timeout.coord.ini.php');
+        $timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/timeout.coord.ini.php');
 
         $tzId = DateTimeZone::listIdentifiers();
         for ($i = 0 ; $i < count($tzId) ; $i++) {
@@ -83,10 +83,10 @@ class defaultCtrl extends jController {
         return $resp;
     }*/
 
-	function config() {
-		global $gJConfig;
+    function config() {
+        global $gJConfig;
 
-		$resp = $this->getResponse('html');
+        $resp = $this->getResponse('html');
 
         $form =  jForms::get('hfnuadmin~config');
         if (!$form) {
@@ -99,13 +99,13 @@ class defaultCtrl extends jController {
         $resp->body->assign('MAIN',$tpl->fetch('config'));
         $resp->body->assign('selectedMenuItem','config');
         return $resp;
-	}
+    }
 
 
     function saveconfig() {
-		global $gJConfig;
+        global $gJConfig;
 
-		$resp = $this->getResponse('redirect');
+        $resp = $this->getResponse('redirect');
         $resp->action ='hfnuadmin~default:config';
 
         $form = jForms::fill('hfnuadmin~config');

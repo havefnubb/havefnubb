@@ -1,7 +1,7 @@
     <div class="pager-posts">
     {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}
     </div>
-    <table class="data_table" width="100%">
+    <table class="data_table">
         <caption>{@havefnubb~post.list.of.new.posts@} : {$nbPosts}</caption>
         <thead>
             <tr><th></th>
@@ -16,7 +16,7 @@
     {if $posts->rowCount() > 0}
         {foreach $posts as $post}
         <tr>
-            <td class="colicone-{post_status 'post',$post}" > </td>
+            <td><span class="colicone-{post_status 'post',$post}" ></span></td>
             <td> <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}#p{$post->id_last_msg}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
             <td>
                 <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>

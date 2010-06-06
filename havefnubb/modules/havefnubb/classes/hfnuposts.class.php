@@ -331,6 +331,13 @@ class hfnuposts {
             $id_post = $record->id_post;
             $parent_id = $record->parent_id;
 
+
+            //update Forum record
+            $forum = jDao::get('havefnubb~forum');
+            $forumRec = $forum->get($id_forum);
+            $forum->id_last_msg = $id_post;
+            $forum->update($forumRec);
+
             self::addPost($id_post,$record);
 
             jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));
@@ -443,6 +450,14 @@ class hfnuposts {
         $threadRec->date_last_post  = $dateReply;
         $threads->update($threadRec);
 
+        //update Forum record
+        $forum = jDao::get('havefnubb~forum');
+        $forumRec = $forum->get($threadRec->id_forum);
+        $forum->id_last_msg = $id_post;
+        $forum->update($forumRec);
+
+        jClasses::getService('havefnubb~hfnuread')->insertReadPost($result['daorec']);
+
         //add a "fake" column just to return it to the posts controller
         // and then being able to redirect to the correct page where this
         // post has been added
@@ -489,9 +504,9 @@ class hfnuposts {
         }
 
         $result = $form->prepareDaoFromControls('havefnubb~notify');
-        $result['daorec']->parent_id	= $parent_id;
-        $result['daorec']->subject		= '['.$form->getData('reason').'] ' . self::getPost($id_post)->subject;
-        $result['daorec']->message		= $form->getData('message');
+        $result['daorec']->parent_id    = $parent_id;
+        $result['daorec']->subject      = self::getPost(jDao::get('havefnubb~threads_alone')->get($parent_id)->id_last_msg)->subject;
+        $result['daorec']->message      = '['.$form->getData('reason').'] ' .$form->getData('message');
         $result['daorec']->date_created	= time();
         $result['daorec']->date_modified= time();
         $result['dao']->insert($result['daorec']);

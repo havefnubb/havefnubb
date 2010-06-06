@@ -43,7 +43,7 @@
         {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
         {assign $status = $statusAvailable[ $post->status_thread - 1]}
         <tr>
-            <td class="colicone-{post_status 'post',$post}"> </td>
+            <td class="colicone-{post_status 'post',$post}">&nbsp;</td>
             <td><span class="newestposts">{@havefnubb~post.status.$status@}</span>
                 <a class="status-{$status}" href="{jurl 'havefnubb~posts:view',
                                                 array(  'id_post'=>$post->id_post,
@@ -52,7 +52,7 @@
                                                         'ftitle'=>$post->forum_name,
                                                         'ptitle'=>$post->subject)}"
                     title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
-                {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}
+                {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum)}
             </td>
             <td>
                 <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>

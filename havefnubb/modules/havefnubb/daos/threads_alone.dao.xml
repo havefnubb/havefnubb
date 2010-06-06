@@ -44,27 +44,10 @@
             </conditions>
         </method>
         <method name="countUnreadThread" type="count">
-            <parameter name="start"/>
-            <parameter name="end"/>
-            <conditions logic="AND">
-                <gteq property="date_last_post" expr="$start" />
-                <lteq property="date_last_post" expr="$end" />
+            <parameter name="date" />
+            <conditions>
+                <gt property="date_last_post" expr="$date" />
             </conditions>
-            <order>
-                <orderitem property="date_last_post" way="desc" />
-            </order>
-        </method>
-        <method name="countUnreadThreadVisible" type="count">
-            <parameter name="start"/>
-            <parameter name="end"/>
-            <conditions logic="AND">
-                <gteq property="date_last_post" expr="$start" />
-                <lteq property="date_last_post" expr="$end" />
-                <neq property="status_thread" value="7"/>
-            </conditions>
-            <order>
-                <orderitem property="date_last_post" way="desc" />
-            </order>
         </method>
         <method name="countMessagesByIdForum" type="php">
             <parameter name="id_forum" />
@@ -99,6 +82,25 @@
             <conditions>
                 <eq property="id_first_msg" expr="$id_first_msg" />
             </conditions>
+        </method>
+        <method name="getLastThreadByIdForum" type="selectfirst">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum_thread" expr="$id_first_msg" />
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+        </method>
+        <method name="getLastVisibleThreadByIdForum" type="selectfirst">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum_thread" expr="$id_forum" />
+                <neq property="status_thread" value="7"/>
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
         </method>
     </factory>
 </dao>

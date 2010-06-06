@@ -12,10 +12,34 @@
         <method name="countReadPosts" type="count">
             <parameter name="id_user" />
             <parameter name="id_forum" />
-            <conditions>
+            <conditions logic="AND">
                 <eq property="id_forum" expr="$id_forum" />
                 <eq property="id_user" expr="$id_user" />
             </conditions>
         </method>
-    </factory>
+        <method name="deleteByUserId" type="delete">
+            <parameter name="id_user" />
+            <conditions>
+                <eq property="id_user" expr="$id_user" />
+            </conditions>
+        </method>
+        <method name="deleteByUserIdAndIdForum" type="delete">
+            <parameter name="id_user" />
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_user" expr="$id_user" />
+                <eq property="id_forum" expr="$id_forum" />
+            </conditions>
+        </method>
+        <method name="getUnReadPosts" type="selectfirst">
+            <parameter name="id_user" />
+            <parameter name="id_forum" />
+            <parameter name="id_post" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <eq property="id_user" expr="$id_user" />
+                <gt property="id_post" expr="$id_post" />
+            </conditions>
+        </method>
+   </factory>
 </dao>

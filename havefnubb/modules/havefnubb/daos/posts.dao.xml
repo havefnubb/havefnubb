@@ -68,21 +68,6 @@
             </order>
         </method>
         <!-- get the posts to be displayed on the index of the forum page -->
-        <method name="findAllByIdForum" type="count">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="posts.parent_id" />
-            </conditions>
-        </method>
-        <method name="findAllByIdForumVisible" type="count">
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_post" expr="posts.parent_id" />
-                <neq property="status" value="7" />
-            </conditions>
-        </method>
         <method name="findByIdParent" type="select">
             <parameter name="parent_id" />
             <parameter name="offset" default="0" />
@@ -105,10 +90,81 @@
                 <orderitem property="date_created" way="asc" />
             </order>
         </method>
-        <method name="getPostVisible" type="selectfirst">
-            <parameter name="id_post" />
+        <method name="findByAuthor" type="select">
+            <parameter name="login"/>
+            <parameter name="limit" default="0" />
+            <parameter name="count" default="25" />
             <conditions>
-                <eq property="id_post" expr="$id_post" />
+                <eq property="login" expr="$login" />
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+            <limit offset="$limit" count="$count"/>
+        </method>
+        <!--
+                this method permits to find all the post id to move
+             from the current post with the same parent_id
+        -->
+        <method name="findAllFromCurrentIdPostWithParentId" type="select">
+            <parameter name="parent_id"/>
+            <parameter name="id_post"/>
+           <conditions>
+                <gteq property="id_post" expr="$id_post" />
+                <eq property="parent_id" expr="$parent_id" />
+            </conditions>
+            <order>
+                <orderitem property="id_post" way="asc" />
+            </order>
+        </method>
+
+        <method name="findAllByIdForum" type="count">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <eq property="id_post" expr="posts.parent_id" />
+            </conditions>
+        </method>
+        <method name="findAllByIdForumVisible" type="count">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
+                <eq property="id_post" expr="posts.parent_id" />
+                <neq property="status" value="hidden" />
+            </conditions>
+        </method>
+
+        <method name="findUnreadThreadByMod" type="select" distinct="true" groupby="parent_id">
+            <conditions>
+                <eq property="read_by_mod" value="0" />
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>
+        <method name="findUnreadThread" type="select" distinct="true" groupby="parent_id">
+            <parameter name="limit"/>
+            <conditions logic="OR">
+                <gt property="date_created" expr="$limit" />
+                <gt property="date_modified" expr="$limit" />
+            </conditions>
+            <order>
+                <orderitem property="date_modified" way="desc" />
+            </order>
+        </method>
+
+
+        <!-- countXXX -->
+        <method name="countAllByIdForum" type="count">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum" expr="$id_forum" />
+            </conditions>
+        </method>
+        <method name="countAllByIdForumVisible" type="count">
+            <parameter name="id_forum" />
+            <conditions logic="AND">
+                <eq property="id_forum" expr="$id_forum" />
                 <neq property="status" value="7" />
             </conditions>
         </method>
@@ -116,6 +172,52 @@
             <parameter name="id_user" />
             <conditions>
                 <eq property="id_user" expr="$id_user" />
+            </conditions>
+        </method>
+        <!-- getXXX -->
+        <method name="getUserLastCommentOnPosts" type="selectfirst">
+            <parameter name="id_post" />
+            <conditions>
+                <eq property="parent_id" expr="$id_post" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
+        <method name="getUserLastVisibleCommentOnPosts" type="selectfirst">
+            <parameter name="id_post" />
+            <conditions>
+                <eq property="parent_id" expr="$id_post" />
+                <neq property="status" value="hidden" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
+        <method name="getUserLastCommentOnForums" type="selectfirst">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum" expr="$id_forum" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
+        <method name="getUserLastVisibleCommentOnForums" type="selectfirst">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum" expr="$id_forum" />
+                <neq property="status" value="hidden" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
+        <method name="getPostVisible" type="selectfirst">
+            <parameter name="id_post" />
+            <conditions>
+                <eq property="id_post" expr="$id_post" />
+                <neq property="status" value="7" />
             </conditions>
         </method>
        <!-- for stats purpose -->
@@ -142,18 +244,7 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
-        <method name="findByAuthor" type="select">
-            <parameter name="login"/>
-            <parameter name="limit" default="0" />
-            <parameter name="count" default="25" />
-            <conditions>
-                <eq property="login" expr="$login" />
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-            <limit offset="$limit" count="$count"/>
-        </method>
+        <!-- all update statement -->
         <method name="updateStatusByIdParent" type="update">
             <parameter name="parent_id"/>
             <parameter name="status"/>
@@ -173,21 +264,6 @@
             <values>
                 <value property="id_forum" expr="$id_forum" />
             </values>
-        </method>
-        <!--
-                this method permits to find all the post id to move
-             from the current post with the same parent_id
-        -->
-        <method name="findAllFromCurrentIdPostWithParentId" type="select">
-            <parameter name="parent_id"/>
-            <parameter name="id_post"/>
-           <conditions>
-                <gteq property="id_post" expr="$id_post" />
-                <eq property="parent_id" expr="$parent_id" />
-            </conditions>
-            <order>
-                <orderitem property="id_post" way="asc" />
-            </order>
         </method>
         <method name="deleteAllFromCurrentIdPostWithParentId" type="delete">
             <parameter name="parent_id"/>
@@ -218,7 +294,7 @@
             </conditions>
             <values>
                 <value property="censored_msg" expr="$censored_msg" />
-                <value property="status"  	   expr="5" />
+                <value property="status"       expr="5" />
             </values>
         </method>
         <method name="unCensorIt" type="update">
@@ -247,5 +323,7 @@
                 <eq property="parent_id" expr="$parent_id" />
             </conditions>
         </method>
+
+
     </factory>
 </dao>
