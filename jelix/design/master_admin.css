@@ -179,7 +179,6 @@ fieldset {
 }
 
 #admin-message .jelix-msg li.jelix-msg-item-ok,
-#admin-message .jelix-msg li.jelix-msg-item-default,
 #admin-message .jelix-msg li.jelix-msg-item-notice {
     background-color: #E5F6D4;
 }
@@ -225,6 +224,14 @@ table.jforms-table th {
     text-align:right;
     background-color: #f7f7f7
 }
+
+table.jforms-table th.jforms-group {
+    text-align: center;
+    font-size: 140%;
+}
+
 table.jforms-table td {
     background-color: #fcfcfc
 }
+
+
