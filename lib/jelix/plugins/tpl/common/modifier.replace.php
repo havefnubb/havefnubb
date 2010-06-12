@@ -10,7 +10,7 @@
  * @link http://jelix.org/
  * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_modifier_common_replace($string, $search, $replace)
+function jtpl_modifier_common_replace($string,$search,$replace)
 {
-	return str_replace($search, $replace, $string);
+	return str_replace($search,$replace,$string);
 }

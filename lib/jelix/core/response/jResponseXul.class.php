@@ -5,62 +5,63 @@
 * @subpackage  core_response
 * @author      Laurent Jouanneau
 * @contributor Dominique Papin, Julien Issler
-* @copyright   2005-2008 Laurent Jouanneau, 2007 Dominique Papin
+* @copyright   2005-2009 Laurent Jouanneau, 2007 Dominique Papin
 * @copyright   2008 Julien Issler
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 require_once(JELIX_LIB_PATH.'tpl/jTpl.class.php');
 class jResponseXul extends jResponse{
-	protected $_type = 'xul';
-	protected $_overlays  = array();
-	protected $_CSSLink = array();
-	protected $_JSLink  = array();
-	protected $_JSCode  = array();
-	protected $_root = 'window';
-	public $rootAttributes= array();
-	public $title = '';
-	public $body = null;
-	public $bodyTpl = '';
+	protected $_type='xul';
+	protected $_overlays=array();
+	protected $_CSSLink=array();
+	protected $_JSLink=array();
+	protected $_JSCode=array();
+	protected $_root='window';
+	public $rootAttributes=array();
+	public $title='';
+	public $body=null;
+	public $bodyTpl='';
 	public $fetchOverlays=false;
-	protected $_bodyTop = array();
-	protected $_bodyBottom = array();
-	protected $_headSent = false;
+	protected $_bodyTop=array();
+	protected $_bodyBottom=array();
+	protected $_headSent=false;
 	function __construct(){
-		$this->body = new jTpl();
+		$this->body=new jTpl();
 		parent::__construct();
 	}
 	public function output(){
-		$this->_headSent = false;
+		$this->_headSent=false;
 		$this->_httpHeaders['Content-Type']='application/vnd.mozilla.xul+xml;charset='.$GLOBALS['gJConfig']->charset;
 		$this->sendHttpHeaders();
 		$this->doAfterActions();
-		if($this->bodyTpl != '')
+		if($this->bodyTpl!='')
 			$this->body->meta($this->bodyTpl);
 		$this->outputHeader();
-		$this->_headSent = true;
+		$this->_headSent=true;
 		echo implode('',$this->_bodyTop);
-		if($this->bodyTpl != '')
+		if($this->bodyTpl!='')
 			$this->body->display($this->bodyTpl);
 		if($this->hasErrors()){
 			if($GLOBALS['gJConfig']->error_handling['showInFirebug']){
 				echo '<script type="text/javascript">if(console){';
-				foreach( $GLOBALS['gJCoord']->errorMessages  as $e){
+				foreach($GLOBALS['gJCoord']->errorMessages  as $e){
 					switch($e[0]){
-					  case 'warning':
+					case 'warning':
 						echo 'console.warn("[warning ';
 						break;
-					  case 'notice':
+					case 'notice':
 						echo 'console.info("[notice ';
 						break;
-					  case 'strict':
+					case 'strict':
 						echo 'console.info("[strict ';
 						break;
-					  case 'error':
+					case 'error':
 						echo 'console.error("[error ';
 						break;
 					}
-					echo $e[1],'] ',str_replace(array('"',"\n","\r","\t"),array('\"','\\n','\\r','\\t'),$e[2]),' (',str_replace('\\','\\\\',$e[3]),' ',$e[4],')");';
+					$m=$e[2].($e[5]?"\n".$e[5]:"");
+					echo $e[1],'] ',str_replace(array('"',"\n","\r","\t"),array('\"','\\n','\\r','\\t'),$m),' (',str_replace('\\','\\\\',$e[3]),' ',$e[4],')");';
 				}
 				echo '}else{alert("there are some errors, you should activate Firebug to see them");}</script>';
 			}else{
@@ -106,12 +107,15 @@ class jResponseXul extends jResponse{
 	}
 	protected function getFormatedErrorMsg(){
 		$errors='';
-		foreach( $GLOBALS['gJCoord']->errorMessages  as $e){
-			$errors .=  '<description style="color:#FF0000;">['.$e[0].' '.$e[1].'] '.htmlspecialchars($e[2], ENT_NOQUOTES, $GLOBALS['gJConfig']->charset)." \t".$e[3]." \t".$e[4]."</description>\n";
+		foreach($GLOBALS['gJCoord']->errorMessages  as $e){
+			$errors.='<description style="color:#FF0000;">['.$e[0].' '.$e[1].'] ';
+			$errors.=htmlspecialchars($e[2],ENT_NOQUOTES,$GLOBALS['gJConfig']->charset)." \t".$e[3]." \t".$e[4]."</description>\n";
+			if($e[5])
+			$errors.='<div xmlns="http://www.w3.org/1999/xhtml"><pre>'.htmlspecialchars($e[5],ENT_NOQUOTES,$GLOBALS['gJConfig']->charset).'</pre></div>';
 		}
 		return $errors;
 	}
-	function addContent($content, $beforeTpl = false){
+	function addContent($content,$beforeTpl=false){
 		if($beforeTpl){
 			$this->_bodyTop[]=$content;
 		}else{
@@ -119,34 +123,34 @@ class jResponseXul extends jResponse{
 		}
 	}
 	function addOverlay($src){
-		$this->_overlays[$src] = true;
+		$this->_overlays[$src]=true;
 	}
-	function addJSLink($src, $params=array()){
+	function addJSLink($src,$params=array()){
 		if(!isset($this->_JSLink[$src])){
-			$this->_JSLink[$src] = $params;
+			$this->_JSLink[$src]=$params;
 		}
 	}
-	function addCSSLink($src, $params=array()){
+	function addCSSLink($src,$params=array()){
 		if(!isset($this->_CSSLink[$src])){
-			$this->_CSSLink[$src] = $params;
+			$this->_CSSLink[$src]=$params;
 		}
 	}
 	function addJSCode($code){
-		$this->_JSCode[] = $code;
+		$this->_JSCode[]=$code;
 	}
 	protected function outputHeader(){
-		$charset = $GLOBALS['gJConfig']->charset;
+		$charset=$GLOBALS['gJConfig']->charset;
 		echo '<?xml version="1.0" encoding="'.$charset.'" ?>'."\n";
 		foreach($this->_CSSLink as $src=>$param){
 			if(is_string($param))
-				echo  '<?xml-stylesheet type="text/css" href="',htmlspecialchars($src,ENT_COMPAT, $charset),'" '.$param.'?>',"\n";
+				echo  '<?xml-stylesheet type="text/css" href="',htmlspecialchars($src,ENT_COMPAT,$charset),'" '.$param.'?>',"\n";
 			else
-				echo  '<?xml-stylesheet type="text/css" href="',htmlspecialchars($src,ENT_COMPAT, $charset),'" ?>',"\n";
+				echo  '<?xml-stylesheet type="text/css" href="',htmlspecialchars($src,ENT_COMPAT,$charset),'" ?>',"\n";
 		}
 		$this->_otherthings();
 		echo '<',$this->_root;
 		foreach($this->rootAttributes as $name=>$value){
-			echo ' ',$name,'="',htmlspecialchars($value,ENT_COMPAT, $charset),'"';
+			echo ' ',$name,'="',htmlspecialchars($value,ENT_COMPAT,$charset),'"';
 		}
 		echo "  xmlns:html=\"http://www.w3.org/1999/xhtml\"
         xmlns=\"http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul\">\n";
@@ -156,27 +160,24 @@ class jResponseXul extends jResponse{
 		if(count($this->_JSCode)){
 			echo '<script type="application/x-javascript">
 <![CDATA[
- '.implode("\n", $this->_JSCode).'
+ '.implode("\n",$this->_JSCode).'
 ]]>
 </script>';
 		}
 	}
 	protected function doAfterActions(){
-		$this->_commonProcess();
-	}
-	protected function _commonProcess(){
 	}
 	protected function _otherthings(){
-		$escape = false;
+		$escape=false;
 		if(preg_match('!^Mozilla/5.0 \(.* rv:(\d)\.(\d).*\) Gecko/\d+.*$!',$_SERVER["HTTP_USER_AGENT"],$m)){
-			if(version_compare($m[1].'.'.$m[2], '1.9') >= 0){
-				$escape = true;
+			if(version_compare($m[1].'.'.$m[2],'1.9')>=0){
+				$escape=true;
 			}
 		}
 		if($this->fetchOverlays){
-			$sel = new jSelectorTpl($this->bodyTpl);
-			$eventresp = jEvent::notify('FetchXulOverlay', array('tpl'=>$sel->toString()));
-			foreach($eventresp->getResponse() as $rep){
+			$sel=new jSelectorTpl($this->bodyTpl);
+			$eventresp=jEvent::notify('FetchXulOverlay',array('tpl'=>$sel->toString()));
+			foreach($eventresp->getResponse()as $rep){
 				if(is_array($rep)){
 					$this->_overlays[jUrl::get($rep[0],$rep[1])]=true;
 				}elseif(is_string($rep)){
@@ -190,13 +191,13 @@ class jResponseXul extends jResponse{
 		$this->rootAttributes['title']=$this->title;
 	}
 	public function clearHeader($what){
-		$cleanable = array('CSSLink', 'JSLink', 'JSCode', 'overlays');
+		$cleanable=array('CSSLink','JSLink','JSCode','overlays');
 		foreach($what as $elem){
-			if(in_array($elem, $cleanable)){
-				$name = '_'.$elem;
-				$this->$name = array();
+			if(in_array($elem,$cleanable)){
+				$name='_'.$elem;
+				$this->$name=array();
 			}
 		}
 	}
-	public function getFormatType(){ return 'xul';}
+	public function getFormatType(){return 'xul';}
 }

@@ -13,19 +13,19 @@
 class jJsonRpc{
 	private function __construct(){}
 	public static function decodeRequest($content){
-		$obj = json_decode($content,true);
+		$obj=json_decode($content,true);
 		return $obj;
 	}
-	public static function encodeRequest($methodname, $params, $id=1){
+	public static function encodeRequest($methodname,$params,$id=1){
 		return '{"method":"'.$methodname.'","params":'.json_encode($params).',"id":'.json_encode($id).'}';
 	}
 	public static function decodeResponse($content){
 		return json_decode($content,true);
 	}
-	public static function encodeResponse($params, $id=1){
+	public static function encodeResponse($params,$id=1){
 		return '{"result":'.json_encode($params).',"error":null,"id":'.json_encode($id).'}';
 	}
-	public static function encodeFaultResponse($code, $message, $id=1){
+	public static function encodeFaultResponse($code,$message,$id=1){
 		return '{"result":null,"error":{"code": '.json_encode($code).', "string":'.json_encode($message).' },"id":'.json_encode($id).'}';
 	}
 }

@@ -10,10 +10,10 @@
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 class jXulRequest extends jRequest{
-	public $type = 'xul';
-	public $defaultResponseType = 'xul';
+	public $type='xul';
+	public $defaultResponseType='xul';
 	protected function _initParams(){
-		$url  = jUrl::parseFromRequest($this, $_GET);
-		$this->params = array_merge($url->params, $_POST);
+		$url=jUrl::parseFromRequest($this,$_GET);
+		$this->params=array_merge($url->params,$_POST);
 	}
 }

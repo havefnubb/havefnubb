@@ -5,21 +5,21 @@
 * @subpackage  core_response
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2006-2008 Laurent Jouanneau
+* @copyright   2006-2009 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 include JELIX_LIB_UTILS_PATH.'jZipCreator.class.php';
 class jResponseZip extends jResponse{
-	protected $_type = 'zip';
-	public $content = null;
+	protected $_type='zip';
+	public $content=null;
 	public $zipFilename='';
 	function __construct(){
-		$this->content = new jZipCreator();
+		$this->content=new jZipCreator();
 		parent::__construct();
 	}
 	public function output(){
-		$zipContent = $this->content->getContent();
+		$zipContent=$this->content->getContent();
 		if($this->hasErrors()){
 			return false;
 		}
@@ -41,8 +41,10 @@ class jResponseZip extends jResponse{
 		header("HTTP/1.0 500 Internal Server Error");
 		header('Content-Type: text/plain;charset='.$gJConfig->charset);
 		if($this->hasErrors()){
-			foreach( $GLOBALS['gJCoord']->errorMessages  as $e){
-			   echo '['.$e[0].' '.$e[1].'] '.$e[2]." \t".$e[3]." \t".$e[4]."\n";
+			foreach($GLOBALS['gJCoord']->errorMessages  as $e){
+				echo '['.$e[0].' '.$e[1].'] '.$e[2]." \t".$e[3]." \t".$e[4]."\n";
+				if($e[5])
+				echo $e[5]."\n\n";
 			}
 		}else{
 			echo "[unknown error]\n";

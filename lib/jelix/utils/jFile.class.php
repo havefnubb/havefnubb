@@ -16,48 +16,48 @@
 */
 class jFile{
 	public static function read($filename){
-		return @file_get_contents($filename, false);
+		return @file_get_contents($filename,false);
 	}
-	public static function write($file, $data){
-		$_dirname = dirname($file);
+	public static function write($file,$data){
+		$_dirname=dirname($file);
 		self::createDir($_dirname);
 		if(!@is_writable($_dirname)){
 			if(!@is_dir($_dirname)){
-				throw new jException('jelix~errors.file.directory.notexists', array($_dirname));
+				throw new jException('jelix~errors.file.directory.notexists',array($_dirname));
 			}
-			throw new jException('jelix~errors.file.directory.notwritable', array($file, $_dirname));
+			throw new jException('jelix~errors.file.directory.notwritable',array($file,$_dirname));
 		}
-		$_tmp_file = tempnam($_dirname, 'wrt');
-		if(!($fd = @fopen($_tmp_file, 'wb'))){
-			$_tmp_file = $_dirname . '/' . uniqid('wrt');
-			if(!($fd = @fopen($_tmp_file, 'wb'))){
-				throw new jException('jelix~errors.file.write.error', array($file, $_tmp_file));
+		$_tmp_file=tempnam($_dirname,'wrt');
+		if(!($fd=@fopen($_tmp_file,'wb'))){
+			$_tmp_file=$_dirname . '/' . uniqid('wrt');
+			if(!($fd=@fopen($_tmp_file,'wb'))){
+				throw new jException('jelix~errors.file.write.error',array($file,$_tmp_file));
 			}
 		}
-		fwrite($fd, $data);
+		fwrite($fd,$data);
 		fclose($fd);
-		if($GLOBALS['gJConfig']->isWindows && file_exists($file)){
+		if($GLOBALS['gJConfig']->isWindows&&file_exists($file)){
 			unlink($file);
 		}
-		rename($_tmp_file, $file);
-		@chmod($file,  0664);
+		rename($_tmp_file,$file);
+		@chmod($file,0664);
 		return true;
 	}
 	public static function createDir($dir){
 		if(!file_exists($dir)){
 			self::createDir(dirname($dir));
-			mkdir($dir, 0775);
+			mkdir($dir,0775);
 		}
 	}
-	public static function removeDir($path, $deleteParent=true){
-		if($path == '' || $path == '/' || $path == DIRECTORY_SEPARATOR)
+	public static function removeDir($path,$deleteParent=true){
+		if($path==''||$path=='/'||$path==DIRECTORY_SEPARATOR)
 			throw new jException('jelix~errors.file.directory.cannot.remove.fs.root');
-		$dir = new DirectoryIterator($path);
+		$dir=new DirectoryIterator($path);
 		foreach($dir as $dirContent){
-			if($dirContent->isFile() || $dirContent->isLink()){
+			if($dirContent->isFile()||$dirContent->isLink()){
 				unlink($dirContent->getPathName());
-			} else{
-				if(!$dirContent->isDot() && $dirContent->isDir()){
+			}else{
+				if(!$dirContent->isDot()&&$dirContent->isDir()){
 					self::removeDir($dirContent->getPathName());
 				}
 			}

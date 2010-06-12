@@ -12,11 +12,11 @@
 require(LIB_PATH.'clearbricks/net/class.net.socket.php');
 require(LIB_PATH.'clearbricks/net.http/class.net.http.php');
 class jHttp extends netHttp{
-	protected $user_agent = 'Clearbricks/Jelix HTTP Client';
+	protected $user_agent='Clearbricks/Jelix HTTP Client';
 	protected function debug($msg,$object=false){
 		if($this->debug){
 			if($object){
-				jLog::dump($object, 'jhttp debug, '.$msg);
+				jLog::dump($object,'jhttp debug, '.$msg);
 			}
 			else{
 				jLog::log('jhttp debug, '.$msg);

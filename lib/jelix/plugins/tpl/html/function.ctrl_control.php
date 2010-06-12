@@ -9,26 +9,26 @@
 * @link         http://www.jelix.org
 * @licence      GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_function_html_ctrl_control($tpl, $ctrlname='')
+function jtpl_function_html_ctrl_control($tpl,$ctrlname='')
 {
-	if((!isset($tpl->_privateVars['__ctrlref']) || $tpl->_privateVars['__ctrlref'] == '') && $ctrlname ==''){
+	if((!isset($tpl->_privateVars['__ctrlref'])||$tpl->_privateVars['__ctrlref']=='')&&$ctrlname==''){
 		return;
 	}
-	if($ctrlname ==''){
-		$ctrl = $tpl->_privateVars['__ctrl'];
-		$ctrlname = $tpl->_privateVars['__ctrlref'];
+	if($ctrlname==''){
+		$ctrl=$tpl->_privateVars['__ctrl'];
+		$ctrlname=$tpl->_privateVars['__ctrlref'];
 	}
 	else{
-		$ctrls = $tpl->_privateVars['__form']->getControls();
+		$ctrls=$tpl->_privateVars['__form']->getControls();
 		if(!isset($ctrls[$ctrlname])){
-			throw new jException('jelix~formserr.unknow.control',
-				array($ctrlname, $tpl->_privateVars['__form']->getSelector(),$tpl->_templateName));
+			throw new jException('jelix~formserr.unknown.control',
+				array($ctrlname,$tpl->_privateVars['__form']->getSelector(),$tpl->_templateName));
 		}
-		$ctrl = $ctrls[$ctrlname];
+		$ctrl=$ctrls[$ctrlname];
 	}
-	if( $ctrl->type == 'submit' || $ctrl->type == 'reset' || $ctrl->type == 'hidden')
+	if($ctrl->type=='submit'||$ctrl->type=='reset'||$ctrl->type=='hidden')
 		return;
-	$tpl->_privateVars['__displayed_ctrl'][$ctrlname] = true;
+	$tpl->_privateVars['__displayed_ctrl'][$ctrlname]=true;
 	if($tpl->_privateVars['__form']->isActivated($ctrlname)){
 		$tpl->_privateVars['__formbuilder']->outputControl($ctrl);
 	}

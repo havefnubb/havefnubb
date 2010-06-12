@@ -11,75 +11,51 @@
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-class jDbPDOResultSet extends PDOStatement{
-	const FETCH_CLASS = 8;
-	protected $_fetchMode = 0;
-	public function fetch($fetch_style = PDO::FETCH_BOTH, $cursor_orientation = PDO::FETCH_ORI_NEXT, $cursor_offset = 0){
-		$rec = parent::fetch();
-		if($rec && count($this->modifier)){
-			foreach($this->modifier as $m)
-				call_user_func_array($m, array($rec, $this));
-		}
-		return $rec;
-	}
-	public function fetchAll( $fetch_style = PDO::FETCH_OBJ, $column_index=0, $ctor_arg=null){
-		if($this->_fetchMode){
-			if( $this->_fetchMode != PDO::FETCH_COLUMN)
-				return parent::fetchAll($this->_fetchMode);
-			else
-				return parent::fetchAll($this->_fetchMode, $column_index);
-		}else{
-			return parent::fetchAll(PDO::FETCH_OBJ);
-		}
-	}
-	public function setFetchMode($mode, $arg1=null , $arg2=null){
-		$this->_fetchMode = $mode;
-		if($arg1 === null)
-			return parent::setFetchMode($mode);
-		else if($arg2 === null)
-			return parent::setFetchMode($mode, $arg1);
-		return parent::setFetchMode($mode, $arg1, $arg2);
-	}
-	public function unescapeBin($text){
-		return $text;
-	}
-	protected $modifier = array();
-	public function addModifier($function){
-		$this->modifier[] = $function;
-	}
-}
 class jDbPDOConnection extends PDO{
-	private $_mysqlCharsets =array( 'UTF-8'=>'utf8', 'ISO-8859-1'=>'latin1');
-	private $_pgsqlCharsets =array( 'UTF-8'=>'UNICODE', 'ISO-8859-1'=>'LATIN1');
+	private $_mysqlCharsets=array('UTF-8'=>'utf8','ISO-8859-1'=>'latin1');
+	private $_pgsqlCharsets=array('UTF-8'=>'UNICODE','ISO-8859-1'=>'LATIN1');
 	public $profile;
 	public $dbms;
 	function __construct($profile){
-		$this->profile = $profile;
-		$this->dbms = substr($profile['dsn'],0,strpos($profile['dsn'],':'));
+		$this->profile=$profile;
 		$prof=$profile;
-		$user= '';
+		$user='';
 		$password='';
-		unset($prof['dsn']);
+		$dsn='';
+		if(isset($profile['dsn'])){
+			$this->dbms=substr($profile['dsn'],0,strpos($profile['dsn'],':'));
+			$dsn=$profile['dsn'];
+			unset($prof['dsn']);
+		}
+		else{
+			$this->dbms=$profile['driver'];
+			$dsn=$this->dbms.':host='.$profile['host'].';dbname='.$profile['database'];
+		}
+		if(isset($prof['usepdo']))
+			unset($prof['usepdo']);
 		if(isset($prof['user'])){
-			$user =$prof['user'];
+			$user=$prof['user'];
 			unset($prof['user']);
 		}
 		if(isset($prof['password'])){
-			$password = $profile['password'];
+			$password=$profile['password'];
 			unset($prof['password']);
 		}
 		unset($prof['driver']);
-		parent::__construct($profile['dsn'], $user, $password, $prof);
-		$this->setAttribute(PDO::ATTR_STATEMENT_CLASS, array('jDbPDOResultSet'));
-		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		if($this->dbms == 'mysql')
-			$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-		if($this->dbms == 'oci')
-			$this->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
-		if(isset($prof['force_encoding']) && $prof['force_encoding']==true){
-			if($this->dbms == 'mysql' && isset($this->_mysqlCharsets[$GLOBALS['gJConfig']->charset])){
+		if($this->dbms=='sqlite')
+			$dsn=str_replace(array('app:','lib:'),array(JELIX_APP_PATH,LIB_PATH),$dsn);
+		parent::__construct($dsn,$user,$password,$prof);
+		$this->setAttribute(PDO::ATTR_STATEMENT_CLASS,array('jDbPDOResultSet'));
+		$this->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+		if($this->dbms=='mysql')
+			$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY,true);
+		if($this->dbms=='oci')
+			$this->setAttribute(PDO::ATTR_CASE,PDO::CASE_LOWER);
+		if(isset($prof['force_encoding'])&&$prof['force_encoding']==true){
+			if($this->dbms=='mysql'&&isset($this->_mysqlCharsets[$GLOBALS['gJConfig']->charset])){
 				$this->exec("SET NAMES '".$this->_mysqlCharsets[$GLOBALS['gJConfig']->charset]."'");
-			}elseif($this->dbms == 'pgsql' && isset($this->_pgsqlCharsets[$GLOBALS['gJConfig']->charset])){
+			}
+			elseif($this->dbms=='pgsql'&&isset($this->_pgsqlCharsets[$GLOBALS['gJConfig']->charset])){
 				$this->exec("SET client_encoding to '".$this->_pgsqlCharsets[$GLOBALS['gJConfig']->charset]."'");
 			}
 		}
@@ -88,40 +64,37 @@ class jDbPDOConnection extends PDO{
 		$args=func_get_args();
 		switch(count($args)){
 		case 1:
-			$rs = parent::query($args[0]);
+			$rs=parent::query($args[0]);
 			$rs->setFetchMode(PDO::FETCH_OBJ);
 			return $rs;
-			break;
 		case 2:
-			return parent::query($args[0], $args[1]);
-			break;
+			return parent::query($args[0],$args[1]);
 		case 3:
-			return parent::query($args[0], $args[1], $args[2]);
-			break;
+			return parent::query($args[0],$args[1],$args[2]);
 		default:
-			trigger_error('bad argument number in query',E_USER_ERROR);
+			throw new Exception('jDbPDOConnection: bad argument number in query');
 		}
 	}
-	public function limitQuery($queryString, $limitOffset = null, $limitCount = null){
-		if($limitOffset !== null && $limitCount !== null){
-		   if($this->dbms == 'mysql' || $this->dbms == 'sqlite'){
-			   $queryString.= ' LIMIT '.intval($limitOffset).','. intval($limitCount);
-		   }elseif($this->dbms == 'pgsql'){
-			   $queryString.= ' LIMIT '.intval($limitCount).' OFFSET '.intval($limitOffset);
-		   }
+	public function limitQuery($queryString,$limitOffset=null,$limitCount=null){
+		if($limitOffset!==null&&$limitCount!==null){
+			if($this->dbms=='mysql'||$this->dbms=='sqlite'){
+				$queryString.=' LIMIT '.intval($limitOffset).','. intval($limitCount);
+			}
+			elseif($this->dbms=='pgsql'){
+				$queryString.=' LIMIT '.intval($limitCount).' OFFSET '.intval($limitOffset);
+			}
 		}
-		$result = $this->query($queryString);
-		return $result;
+		return $this->query($queryString);
 	}
 	public function setAutoCommit($state=true){
 		$this->setAttribute(PDO::ATTR_AUTOCOMMIT,$state);
 	}
-	public function lastIdInTable($fieldName, $tableName){
-	  $rs = $this->query('SELECT MAX('.$fieldName.') as ID FROM '.$tableName);
-	  if(($rs !== null) && $r = $rs->fetch()){
-		 return $r->ID;
-	  }
-	  return 0;
+	public function lastIdInTable($fieldName,$tableName){
+	$rs=$this->query('SELECT MAX('.$fieldName.') as ID FROM '.$tableName);
+	if(($rs!==null)&&$r=$rs->fetch()){
+		return $r->ID;
+	}
+	return 0;
 	}
 	public function prefixTable($table_name){
 		if(!isset($this->profile['table_prefix']))
@@ -129,7 +102,7 @@ class jDbPDOConnection extends PDO{
 		return $this->profile['table_prefix'].$table_name;
 	}
 	public function hasTablePrefix(){
-		return(isset($this->profile['table_prefix']) && $this->profile['table_prefix']!='');
+		return(isset($this->profile['table_prefix'])&&$this->profile['table_prefix']!='');
 	}
 	public function encloseName($fieldName){
 		switch($this->dbms){
@@ -137,5 +110,25 @@ class jDbPDOConnection extends PDO{
 			case 'pgsql': return '"'.$fieldName.'"';
 			default: return $fieldName;
 		}
+	}
+	public function quote2($text,$checknull=true,$binary=false){
+		if($checknull)
+			return(is_null($text)? 'NULL' : "'".$this->quote($text)."'");
+		else
+			return "'".$this->quote($text)."'";
+	}
+	protected $_tools=null;
+	public function tools(){
+		if(!$this->_tools){
+			global $gJConfig;
+			if(!isset($gJConfig->_pluginsPathList_db[$this->dbms])
+				||!file_exists($gJConfig->_pluginsPathList_db[$this->dbms])){
+				throw new jException('jelix~db.error.driver.notfound',$this->dbms);
+			}
+			require_once($gJConfig->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbtools.php');
+			$class=$this->dbms.'DbTools';
+			$this->_tools=new $class($this);
+		}
+		return $this->_tools;
 	}
 }

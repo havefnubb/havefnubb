@@ -3,8 +3,8 @@
 
 ;============= Main parameters
 
-; driver name : "Db", "Class" or "LDS" (respect the case of characters)
-driver = Db
+; driver name : "ldap", "Db", "Class" or "LDS" (respect the case of characters)
+driver = 
 
 ;============ Parameters for the plugin
 ; session variable name
@@ -16,7 +16,7 @@ secure_with_ip = 0
 
 ;Timeout. After the given time (in minutes) without activity, the user is disconnected.
 ; If the value is 0 : no timeout
-timeout = 0
+timeout = 30
 
 ; If the value is "on", the user must be authentificated for all actions, except those
 ; for which a plugin parameter  auth.required is false
@@ -81,7 +81,17 @@ dao = ""
 profile = ""
 
 ; name of the php function to crypt the password in the database
-password_crypt_function = md5
+password_crypt_function = sha1
+; if you want to use a salt with sha1:
+;password_crypt_function = "1:sha1WithSalt"
+;password_salt = "here_your_salt"
+
+; name of the form for the jauthdb_admin module
+form = ""
+
+; path of the directory where to store files uploaded by the form (jauthdb_admin module)
+; should be related to the var directory of the application
+uploadsDirectory= ""
 
 ;------- parameters for the "Class" driver
 [Class]
@@ -89,8 +99,36 @@ password_crypt_function = md5
 class = ""
 
 ; name of the php function to crypt the password in the database
-password_crypt_function = md5
+password_crypt_function = sha1
+; if you want to use a salt with sha1:
+;password_crypt_function = "1:sha1WithSalt"
+;password_salt = "here_your_salt"
 
 ;------- parameters for the "LDS" driver
 [LDS]
 
+;------- parameters for the "ldap" driver
+[ldap]
+; default "localhost"
+hostname=
+; default 389
+port=
+
+; DOMAIN\user or user@DOMAIN to connect with LDAP (user who has at least search right)
+ldapUser=
+; password used to connect with LDAP
+ldapPassword=
+
+; LDAP search params 
+; search base, example for Active Directory: "ou=ADAM users,o=Microsoft,c=US"
+searchBaseDN=
+; search filter, example for Active Directory: "(objectClass=user)"
+searchFilter=
+; attributes to retrieve for the search, example for Active Directory: "cn,distinguishedName,name"
+searchAttributes=
+
+; name of the php function to crypt the password in the database
+password_crypt_function = sha1
+; if you want to use a salt with sha1:
+;password_crypt_function = "1:sha1WithSalt"
+;password_salt = "here_your_salt"

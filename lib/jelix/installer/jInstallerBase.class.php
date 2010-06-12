@@ -5,42 +5,136 @@
 * @subpackage  installer
 * @author      Laurent Jouanneau
 * @contributor 
-* @copyright   2008 Laurent Jouanneau
-* @link        http://www.jelix.org
+* @copyright   2009-2010 Laurent Jouanneau
+* @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 abstract class jInstallerBase{
-	protected $path = '';
-	function __construct($name){
+	public $componentName;
+	public $name;
+	public $version='0';
+	public $config;
+	public $entryPoint;
+	protected $path;
+	protected $dbProfile='';
+	protected $installWholeApp=false;
+	function __construct($componentName,$name,$path,$version,$installWholeApp=false){
+		$this->path=$path;
+		$this->version=$version;
+		$this->name=$name;
+		$this->componentName=$componentName;
+		$this->installWholeApp=$installWholeApp;
 	}
-	abstract function isInstalled();
-	abstract function isActivated();
-	abstract function install();
-	abstract function uninstall();
-	abstract function activate();
-	abstract function deactivate();
-	public function execSQLScript($name, $profile=''){
-		$tools = jDb::getTools($profile);
-		$p = jDb::getProfile($profile);
-		$driver = $p['driver'];
-		if($driver == 'pdo'){
-			preg_match('/^(\w+)\:.*$/',$p['dsn'], $m);
-			$driver = $m[1];
+	private $_dbTool=null;
+	private $_dbConn=null;
+	public function setEntryPoint($ep,$config,$dbProfile){
+		$this->config=$config;
+		$this->entryPoint=$ep;
+		$this->dbProfile=$dbProfile;
+		return "0";
+	}
+	protected function dbTool(){
+		return $this->dbConnection()->tools();
+	}
+	protected function dbConnection(){
+		if(!$this->_dbConn)
+			$this->_dbConn=jDb::getConnection($this->dbProfile);
+		return $this->_dbConn;
+	}
+	final protected function execSQLScript($name,$profile=null,$module=null){
+		if(!$profile){
+			$profile=$this->dbProfile;
+			$tools=$this->dbTool();
 		}
-		$tools->execSQLScript($this->path.'install/sql/'.$name.'.'.$driver.'.sql');
+		else{
+			$cnx=jDb::getConnection($profile);
+			$tools=$cnx->tools();
+		}
+		$p=jDb::getProfile($profile);
+		$driver=$p['driver'];
+		if($driver=='pdo'){
+			preg_match('/^(\w+)\:.*$/',$p['dsn'],$m);
+			$driver=$m[1];
+		}
+		if($module){
+			$conf=$this->entryPoint->config->_modulesPathList;
+			if(!isset($conf[$module])){
+				throw new Exception('execSQLScript : invalid module name');
+			}
+			$path=$conf[$module];
+		}
+		else{
+			$path=$this->path;
+		}
+		$file=$path.'install/'.$name.'.'.$driver.'.sql';
+		$tools->execSQLScript($path.'install/'.$name.'.'.$driver.'.sql');
 	}
-	static function copyDirectoryContent($sourcePath, $targetPath){
+	final protected function copyDirectoryContent($relativeSourcePath,$targetPath){
+		$this->_copyDirectoryContent($this->path.'install/'.$relativeSourcePath,$targetPath);
+	}
+	private function _copyDirectoryContent($sourcePath,$targetPath){
 		jFile::createDir($targetPath);
-		$dir = new DirectoryIterator($sourcePath);
+		$dir=new DirectoryIterator($sourcePath);
 		foreach($dir as $dirContent){
 			if($dirContent->isFile()){
-				copy($dirContent->getPathName(), $targetPath.substr($dirContent->getPathName(), strlen($dirContent->getPath())));
-			} else{
-				if(!$dirContent->isDot() && $dirContent->isDir()){
-					$newTarget = $targetPath.substr($dirContent->getPathName(), strlen($dirContent->getPath()));
-					$this->copyDirectoryContent($dirContent->getPathName(),$newTarget);
+				copy($dirContent->getPathName(),$targetPath.substr($dirContent->getPathName(),strlen($dirContent->getPath())));
+			}else{
+				if(!$dirContent->isDot()&&$dirContent->isDir()){
+					$newTarget=$targetPath.substr($dirContent->getPathName(),strlen($dirContent->getPath()));
+					$this->_copyDirectoryContent($dirContent->getPathName(),$newTarget);
 				}
 			}
 		}
+	}
+	final protected function copyFile($relativeSourcePath,$targetPath){
+		copy($this->path.'install/'.$relativeSourcePath,$targetPath);
+	}
+	protected function declareDbProfile($name,$sectionContent=null,$force=true){
+		$dbProfilesFile=$this->config->getValue('dbProfils');
+		if($dbProfilesFile=='')
+			$dbProfilesFile='dbprofils.ini.php';
+		$dbprofiles=new jIniFileModifier(JELIX_APP_CONFIG_PATH.$dbProfilesFile);
+		if($sectionContent==null){
+			if(!$dbprofiles->isSection($name)){
+				if($dbprofiles->getValue($name)&&!$force){
+					return false;
+				}
+			}
+			else if($force){
+				$dbprofiles->removeValue('',$name);
+			}
+			else{
+				return false;
+			}
+			$default=$dbprofiles->getValue('default');
+			if($default){
+				$dbprofiles->setValue($name,$default);
+			}
+			else
+				$dbprofiles->setValue($name,'default');
+		}
+		else{
+			if($dbprofiles->getValue($name)!==null){
+				if(!$force)
+					return false;
+				$dbprofiles->removeValue($name);
+			}
+			if(is_array($sectionContent)){
+				foreach($sectionContent as $k=>$v){
+					$dbprofiles->setValue($k,$v,$name);
+				}
+			}
+			else{
+				$profile=$dbprofiles->getValue($sectionContent);
+				if($profile!==null){
+					$dbprofiles->setValue($name,$profile);
+				}
+				else
+					$dbprofiles->setValue($name,$sectionContent);
+			}
+		}
+		$dbprofiles->save();
+		jDb::clearProfiles();
+		return true;
 	}
 }

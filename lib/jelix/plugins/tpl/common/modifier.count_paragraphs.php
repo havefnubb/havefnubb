@@ -12,5 +12,5 @@
  */
 function jtpl_modifier_common_count_paragraphs($string)
 {
-	return count(preg_split('/[\r\n]+/', $string));
+	return count(preg_split('/[\r\n]+/',$string));
 }

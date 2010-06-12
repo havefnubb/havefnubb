@@ -18,38 +18,38 @@
 class jDbWidget{
 	private $_conn;
 	function __construct($connection){
-		$this->_conn = $connection;
+		$this->_conn=$connection;
 	}
 	public function  fetchFirst($query){
-		$rs	 = $this->_conn->limitQuery($query,0,1);
-		$result = $rs->fetch();
+		$rs=$this->_conn->limitQuery($query,0,1);
+		$result=$rs->fetch();
 		return $result;
 	}
-	public function fetchFirstInto($query, $classname){
-		$rs	 = $this->_conn->query($query);
-		$rs->setFetchMode(8, $classname);
-		$result = $rs->fetch();
+	public function fetchFirstInto($query,$classname){
+		$rs=$this->_conn->query($query);
+		$rs->setFetchMode(8,$classname);
+		$result=$rs->fetch();
 		return $result;
 	}
-	public function fetchAll($query, $limitOffset=null, $limitCount=null){
-		if($limitOffset===null || $limitCount===null){
-			$rs = $this->_conn->query($query);
+	public function fetchAll($query,$limitOffset=null,$limitCount=null){
+		if($limitOffset===null||$limitCount===null){
+			$rs=$this->_conn->query($query);
 		}else{
-			$rs = $this->_conn->limitQuery($query, $limitOffset, $limitCount);
+			$rs=$this->_conn->limitQuery($query,$limitOffset,$limitCount);
 		}
 		return $rs->fetchAll();
 	}
-	public function fetchAllInto($query, $className, $limitOffset=null, $limitCount=null){
-		if($limitOffset===null || $limitCount===null){
-			$rs = $this->_conn->query($query);
+	public function fetchAllInto($query,$className,$limitOffset=null,$limitCount=null){
+		if($limitOffset===null||$limitCount===null){
+			$rs=$this->_conn->query($query);
 		}else{
-			$rs = $this->_conn->limitQuery($query, $limitOffset, $limitCount);
+			$rs=$this->_conn->limitQuery($query,$limitOffset,$limitCount);
 		}
-		$result = array();
+		$result=array();
 		if($rs){
-			$rs->setFetchMode(8, $className);
-			while($res = $rs->fetch()){
-				$result[] = $res;
+			$rs->setFetchMode(8,$className);
+			while($res=$rs->fetch()){
+				$result[]=$res;
 			}
 		}
 		return $result;

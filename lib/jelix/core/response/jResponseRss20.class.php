@@ -15,24 +15,24 @@
 require_once(JELIX_LIB_PATH.'tpl/jTpl.class.php');
 require_once(JELIX_LIB_CORE_PATH.'response/jResponseXmlFeed.class.php');
 class jResponseRss20 extends jResponseXMLFeed{
-	protected $_type = 'rss2.0';
+	protected $_type='rss2.0';
 	function __construct(){
-		$this->_template	 = new jTpl();
-		$this->_mainTpl	 = 'jelix~rss20';
-		$this->infos = new jRSS20Info();
+		$this->_template=new jTpl();
+		$this->_mainTpl='jelix~rss20';
+		$this->infos=new jRSS20Info();
 		parent::__construct();
-		$this->infos->language = $this->lang;
+		$this->infos->language=$this->lang;
 	}
 	final public function output(){
-		$this->_headSent = false;
-		$this->_httpHeaders['Content-Type'] =
+		$this->_headSent=false;
+		$this->_httpHeaders['Content-Type']=
 				'application/xml;charset=' . $this->charset;
 		$this->sendHttpHeaders();
-		echo '<?xml version="1.0" encoding="'. $this->charset .'"?>', "\n";
+		echo '<?xml version="1.0" encoding="'. $this->charset .'"?>',"\n";
 		$this->_outputXmlHeader();
-		$this->_headSent = true;
-		$this->_template->assign('rss', $this->infos);
-		$this->_template->assign('items', $this->itemList);
+		$this->_headSent=true;
+		$this->_template->assign('rss',$this->infos);
+		$this->_template->assign('items',$this->itemList);
 		$this->_template->display($this->_mainTpl);
 		if($this->hasErrors()){
 			echo $this->getFormatedErrorMsg();
@@ -42,32 +42,36 @@ class jResponseRss20 extends jResponseXMLFeed{
 	}
 	final public function outputErrors(){
 		if(!$this->_headSent){
-			 if(!$this->_httpHeadersSent){
+			if(!$this->_httpHeadersSent){
 				header("HTTP/1.0 500 Internal Server Error");
 				header('Content-Type: text/xml;charset='.$this->charset);
-			 }
-			 echo '<?xml version="1.0" encoding="'. $this->charset .'"?>';
+			}
+			echo '<?xml version="1.0" encoding="'. $this->charset .'"?>';
 		}
 		echo '<errors xmlns="http://jelix.org/ns/xmlerror/1.0">';
 		if($this->hasErrors()){
 			echo $this->getFormatedErrorMsg();
-		} else{
+		}else{
 			echo '<error>Unknown Error</error>';
 		}
 		echo '</errors>';
 	}
 	protected function getFormatedErrorMsg(){
-		$errors = '';
+		$errors='';
 		foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-		   $errors .=  '<error xmlns="http://jelix.org/ns/xmlerror/1.0" type="'. $e[0] .'" code="'. $e[1] .'" file="'. $e[3] .'" line="'. $e[4] .'">'.htmlentities($e[2], ENT_NOQUOTES, $this->charset). '</error>'. "\n";
+			$errors.='<error xmlns="http://jelix.org/ns/xmlerror/1.0" type="'. $e[0] .'" code="'. $e[1] .'" file="'. $e[3] .'" line="'. $e[4] .'">';
+			$errors.=htmlspecialchars($e[2],ENT_NOQUOTES,$this->charset);
+			if($e[5])
+			$errors.="\n".htmlspecialchars($e[5],ENT_NOQUOTES,$this->charset);
+			$errors.='</error>'. "\n";
 		}
 		return $errors;
 	}
-	public function createItem($title,$link, $date){
-		$item = new jRSSItem();
-		$item->title = $title;
-		$item->id = $item->link = $link;
-		$item->published = $date;
+	public function createItem($title,$link,$date){
+		$item=new jRSSItem();
+		$item->title=$title;
+		$item->id=$item->link=$link;
+		$item->published=$date;
 		return $item;
 	}
 }
@@ -89,7 +93,7 @@ class jRSS20Info extends jXMLFeedInfo{
 	public $skipHours;
 	public $skipDays;
 	function __construct(){
-			$this->_mandatory = array( 'title', 'webSiteUrl', 'description');
+			$this->_mandatory=array('title','webSiteUrl','description');
 	}
 }
 class jRSSItem extends jXMLFeedItem{

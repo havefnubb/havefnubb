@@ -11,7 +11,7 @@
 */
 require_once(JELIX_LIB_CORE_PATH.'response/jResponseXul.class.php');
 class jResponseXulOverlay extends jResponseXul{
-	protected $_type = 'xuloverlay';
-	protected $_root = 'overlay';
+	protected $_type='xuloverlay';
+	protected $_root='overlay';
 	function _otherthings(){}
 }

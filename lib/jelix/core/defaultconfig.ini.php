@@ -14,22 +14,26 @@ timeZone =
 pluginsPath = app:plugins/
 modulesPath = lib:jelix-modules/,app:modules/
 
-; says if jelix should check trustedModules
-checkTrustedModules = off
-
-; list of modules which can be accessed from the web
-;    module,module,module
-trustedModules =
-
-; list of modules which are not used by the application
-; or not installed.
-unusedModules = 
-
 dbProfils = dbprofils.ini.php
+
+cacheProfiles = cache.ini.php
 
 use_error_handler = on
 
 enableOldActionSelector =
+
+; default domain name to use with jfullurl for example.
+; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
+domainName =
+
+[modules]
+; modulename.access = x   where x : 0= unused/forbidden, 1 = private access, 2 = public access
+
+jelix.access = 2
+
+; jacldb is deprecated. keep it uninstall if possible
+jacldb.access = 0
+
 
 [coordplugins]
 
@@ -61,6 +65,7 @@ tcpdf = jResponseTcpdf
 soap = jResponseSoap
 htmlfragment = jResponseHtmlFragment
 htmlauth = jResponseHtml
+sitemap = jResponseSitemap
 
 [_coreResponses]
 html = jResponseHtml
@@ -87,6 +92,21 @@ tcpdf = jResponseTcpdf
 soap = jResponseSoap
 htmlfragment = jResponseHtmlFragment
 htmlauth = jResponseHtml
+sitemap = jResponseSitemap
+
+[jResponseHtml]
+;concatenate and minify CSS and/or JS files :
+minifyCSS = off
+minifyJS = off
+; check all filemtime() of source files to check if minify's cache should be generated again. Should be set to "off" on production servers :
+minifyCheckCacheFiletime = on
+; list of filenames (no path) which shouldn't be minified :
+minifyExcludeCSS = ""
+minifyExcludeJS = ""
+; add a unique ID to CSS and/or JS files URLs ( this gives for exemple /file.js?1267704635 ). This ID is actually the filemtime of each served file :
+jsUniqueUrlId = off
+cssUniqueUrlId = off
+
 
 [error_handling]
 messageLogFormat = "%date%\t[%code%]\t%msg%\t%file%\t%line%\n"
@@ -185,6 +205,7 @@ urlScriptIdenc=
 ; script_name_without_suffix = "list of action selectors separated by a space"
 ; selector syntax :
 ;   m~a@r    -> for the action "a" of the module "m" and for the request of type "r"
+;   m~c:*@r  -> for all actions of the controller "c" of the module "m" and for the request of type "r"
 ;   m~*@r    -> for all actions of the module "m" and for the request of type "r"
 ;   @r       -> for all actions for the request of type "r"
 
@@ -208,13 +229,18 @@ default=messages.log
 webmasterEmail = root@localhost
 webmasterName =
 
-; How to send mail : "mail" (mail()), "sendmail" (call sendmail), or "smtp" (send directly to a smtp)
+; How to send mail : "mail" (mail()), "sendmail" (call sendmail), "smtp" (send directly to a smtp)
+;                   or "file" (store the mail into a file, in filesDir directory)
 mailerType = mail
 ; Sets the hostname to use in Message-Id and Received headers
 ; and as default HELO string. If empty, the value returned
 ; by SERVER_NAME is used or 'localhost.localdomain'.
 hostname =
 sendmailPath = "/usr/sbin/sendmail"
+
+; if mailer = file, fill the following parameters
+; this should be the directory in the var/ directory, where to store mail as files
+filesDir = "mails/"
 
 ; if mailer = smtp , fill the following parameters
 
@@ -296,3 +322,13 @@ disableCache = off
 [classbindings]
 ; bindings for class and interfaces : selector_of_class/iface = selector_of_implementation
 
+[wikieditors]
+default.engine.name = wr3
+default.wiki.rules = wr3_to_xhtml
+; path to the engine file
+default.engine.file = jelix/markitup/jquery.markitup.js
+; define the path to the "internationalized" file to translate the label of each button
+default.config.path = jelix/markitup/sets/wr3/
+; define the path to the image of buttons of the toolbar
+default.image.path = jelix/markitup/sets/wr3/images/
+default.skin = jelix/markitup/skins/simple/style.css

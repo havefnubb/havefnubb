@@ -13,6 +13,20 @@ Olivier Demah (aka FoxMaSk)
  - fix charset in htmlfragment (#948)
  - jResponseHtml, balise meta content xhtml+xml (#984)
  - fixed issues in the sql script of jacl2db_admin, about the anonymous groups storage (#915)
+ - little improvements on date_format tpl plugins (#654)
+ - improvements in jInstallChecker.class.php (#1022)
+ - tpl plugin hook (#1019)
+ - tpl plugin gravatar (#993) 
+ - meta supplementaires (author,generator) (#1063)
+
+Mickaël Fradin (aka mike/kewix)
+ - improvements in the jtpl plugin: formcontrols (#223)
+ - added style feature in the meta_html plugin (#553)
+ - little other improvements (#835)
+ - fixed bugs (#884)
+ - correct _generateCondition doesn't handle some operators with NULL values (#992)
+ - added jfullurl tpl plugin (#938)
+ - bug fixed on number_format (#995)
 
 Julien Issler
  - updated JSON class (#231)
@@ -78,6 +92,7 @@ Yannick Le Guédart (aka Torgan)
  - resolved memory exhausted errors in truncate modifier (#511)
  - fixed bug on jBundle (#639)
  - fixed bug on jDaoConditions (#906)
+ - created jKVDb (#1048)
 
 Kévin Lepeltier (aka Lipki)
  - plugin image for jtpl (#474, #502, #558, #559, #560)
@@ -96,6 +111,7 @@ Loic Mathaud (bballizlife):
  - documentation
  - many improvements (jClasses::inc(), jIniFile, jAppManager, jelix-scripts etc )
  - coord plugin for Zend Framework (#651)
+ - added title feature in the meta_html plugin (#810)
  - translations in the config file (#940)
  - jelix-script createdao should'nt validate fieldname with '-' (#980) 
 
@@ -104,7 +120,7 @@ Dominique Papin (aka bibo)
  - improved addCssLink usability for IE (#348)
  - added support of 'else' keyword for block plugin in jtpl (#349)
  - added support of <reset> in jforms (#258)
- - fixed some bugs (#362,#585,#718,#713)
+ - fixed some bugs (#362,#585,#718,#713,#822,#872)
  - jforms dao datasource : enhancements (#581,#582)
  - added ifctrl block plugin (#601)
  - added addContent method to jResponseHtmlFragment (#610)
@@ -123,6 +139,12 @@ Christophe Thiriot (aka Doubleface)
  - automatic timezone setting (#600)
  - bug in jFilter tests (#842)
  - fixed php bug on jtpl about ?>+line feed (#1025)
+
+Baptiste Toinot (aka Surfoo)
+ - double / in path for locale selector
+ - fixed little bugs in jForms (#789, #790)
+ - little improvement in number_format modifier (#875)
+ - support of sitemap (#12)
 
 Contributors
 ------------
@@ -161,17 +183,11 @@ Antoine Detante (aka antoinefr)
 dsdenes
  - fix little thing in crud template (#844)
  - added a native modifier in jtpl (#845)
+ - little improvement in formdatafull (#847)
 
 F. Fernandez (aka e-media)
  - little improvement in jLog.(#344)
  - little improvement in formcontrols plugin (#353)
-
-Mickaël Fradin (aka mike/kewix)
- - improvements in the jtpl plugin: formcontrols (#223)
- - added style feature in the meta_html plugin (#553)
- - little other improvements (#835)
- - fixed bugs (#884)
- - correct _generateCondition doesn't handle some operators with NULL values (#992)
 
 Olivier Gambier (aka d-m-p)
  - code reviewer, bug fixes
@@ -179,6 +195,7 @@ Olivier Gambier (aka d-m-p)
 Geekbay
  - fixed bug in jMailer about the support of html plugins into the template (#898)
  - fixed bug in jImageModifier (#945)
+ - improved the simple url engine (#917)
 
 Gildas Givaja (aka Giviz)
  - testor, bug fixes
@@ -191,6 +208,12 @@ Frédéric Guillot (aka fg)
 Florian Hatat (aka flh)
  - improvements on jDateTime + RFC2822 support (#379)
  - Fix bugs on duration calculation + new jDuration class (#425, #453)
+
+Emmanuel Hesry (aka m@noo)
+ - improvement on jDateTime plugin for full date format (#796)
+
+Didier Huguet (aka isepman)
+ - tpl plugin: modifier truncatehtml (#760)
 
 Julien Jacottet
  - tpl plugin link_to_remote (#30)
@@ -208,11 +231,20 @@ Gwendal Jouannic (aka obewan)
 Xavier L. (aka afroxav)
  - improved the conformance with HTTP specification in redirections (#957)
 
+Denis Lallement (dlalleme)
+ - tpl plugin break (#808)
+
+Hadrien Lanneau
+ - jDateTime::substract() (#623)
+
 Nicolas Lassalle
  - bug fix in jResponseBinary (#188)
 
 Hugues Magnier (aka BaGroN)
  - tpl plugin stripws (#140)
+
+Yann Lecommandoux (aka YannL)
+ - mssql driver for jDb (#799)
 
 Alexis Métaireau
  - improvements on jtpl plugin formcontrol (#652)
@@ -234,6 +266,10 @@ Pulsation
 Rahal
  - improvement on locale selectors : possibility to overload locales (#358)
 
+Tahina Ramaroson
+ - ldap driver for jAuth (#787)
+ - jCache (#540)
+
 Philippe Schelte (aka dubphil)
  - plugin tpl cycle (#149)
  - error in checkTrustedModules function (#715)
@@ -248,12 +284,7 @@ Thomas
  - jDbPDOConnection : fixed bug in query method with 3 arguments (#839)
  - better display of date/datetime values with jforms (#866)
  - jforms: attribute type on output control (#855)
-
-Baptiste Toinot (aka Surfoo)
- - double / in path for locale selector
- - fixed little bugs in jForms (#789, #790)
- - little improvement in number_format modifier (#875)
- - impossible to use width and height attributes with image plugin (#963)
+ - Improvements on jResponseLatexPdf (#864)
  
 Christian Tritten
  - improvements on pagelinks plugin (#340)
@@ -269,6 +300,13 @@ Sylvain de Vathaire (aka sylvain261)
  - little bug fix in jZone (#508)
  - jResponseHtmlFragment for Ajax content response (#501)
  - little bug fix in mysql.dbconnection.php (#97bis)
+ - jCache (#540)
+ - additional generated events by jAuth (#1051)
+
+Brice Tence (aka brayce/bricet)
+ - small testapp bug solved about missing tables (#1064)
+ - fixed bug in jInstallChecker (#1087)
+ - introduced optional jMinifier for jResponseHtml for JS/CSS concatenation and minification (#860)
 
 Thanks for all users, especially those who reported bugs. :-)
 

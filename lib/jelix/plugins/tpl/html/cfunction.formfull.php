@@ -10,25 +10,25 @@
 * @link         http://www.jelix.org
 * @licence      GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_cfunction_html_formfull($compiler, $params=array())
+function jtpl_cfunction_html_formfull($compiler,$params=array())
 {
 	global $gJConfig;
-	if(count($params) < 2 || count($params) > 5){
+	if(count($params)< 2||count($params)> 5){
 		$compiler->doError2('errors.tplplugin.cfunction.bad.argument.number','formfull','2-5');
 	}
-	if(isset($params[3]) && trim($params[3]) != '""'  && trim($params[3]) != "''")
-		$builder = $params[3];
+	if(isset($params[3])&&trim($params[3])!='""'&&trim($params[3])!="''")
+		$builder=$params[3];
 	else
-		$builder = "'".$gJConfig->tplplugins['defaultJformsBuilder']."'";
+		$builder="'".$gJConfig->tplplugins['defaultJformsBuilder']."'";
 	$compiler->addMetaContent('if(isset('.$params[0].')) { '.$params[0].'->getBuilder('.$builder.')->outputMetaContent($t);}');
-	if(count($params) == 2){
-		$params[2] = 'array()';
+	if(count($params)==2){
+		$params[2]='array()';
 	}
 	if(isset($params[4]))
-		$options = $params[4];
+		$options=$params[4];
 	else
-		$options = "array()";
-	$content = ' $formfull = '.$params[0].';
+		$options="array()";
+	$content=' $formfull = '.$params[0].';
     $formfullBuilder = $formfull->getBuilder('.$builder.');
     $formfullBuilder->setAction('.$params[1].','.$params[2].');
     $formfullBuilder->outputHeader('.$options.');

@@ -9,12 +9,12 @@
  * @link http://jelix.org/
  * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_cfunction_xml_const($compiler, $param=array()){
+function jtpl_cfunction_xml_const($compiler,$param=array()){
 	if(!$compiler->trusted){
 		$compiler->doError1('errors.tplplugin.untrusted.not.available','const');
 		return '';
 	}
-	if(count($param) == 1){
+	if(count($param)==1){
 		return 'echo htmlspecialchars(constant('.$param[0].'));';
 	}else{
 		$compiler->doError2('errors.tplplugin.cfunction.bad.argument.number','const','1');

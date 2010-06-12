@@ -11,17 +11,17 @@
 class jEventCompiler implements jIMultiFileCompiler{
 	private $eventList;
 	function __construct(){
-		$this->eventList = array();
+		$this->eventList=array();
 	}
-	public function compileItem($sourceFile, $module){
+	public function compileItem($sourceFile,$module){
 		if(is_readable($sourceFile)){
-			$xml = simplexml_load_file($sourceFile);
+			$xml=simplexml_load_file($sourceFile);
 			if(isset($xml->listener)){
 				foreach($xml->listener as $listener){
-					$listenerName = (string)$listener['name'];
+					$listenerName=(string)$listener['name'];
 					foreach($listener->event as $eventListened){
-						$name = (string) $eventListened['name'];
-						$this->eventList[$name][] = array($module,$listenerName);
+						$name=(string) $eventListened['name'];
+						$this->eventList[$name][]=array($module,$listenerName);
 					}
 				}
 			}
@@ -29,7 +29,7 @@ class jEventCompiler implements jIMultiFileCompiler{
 		return true;
 	}
 	public function endCompile($cachefile){
-		$content = '<?php $GLOBALS["JELIX_EVENTS"] = '.var_export($this->eventList,true).";\n?>";
-		jFile::write($cachefile, $content);
+		$content='<?php $GLOBALS["JELIX_EVENTS"] = '.var_export($this->eventList,true).";\n?>";
+		jFile::write($cachefile,$content);
 	}
 }

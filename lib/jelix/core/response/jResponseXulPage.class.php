@@ -11,6 +11,6 @@
 */
 require_once(JELIX_LIB_CORE_PATH.'response/jResponseXul.class.php');
 class jResponseXulPage extends jResponseXul{
-	protected $_type =  'xulpage';
-	protected $_root = 'page';
+	protected $_type='xulpage';
+	protected $_root='page';
 }

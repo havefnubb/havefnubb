@@ -12,17 +12,17 @@
 class intuitionDbResultSet extends jDbResultSet{
 	protected $_stmtId;
 	protected $_cnt;
-	function __construct($idResult, $stmtId = null, $cnt = null){
-		$this->_idResult = $idResult;
-		$this->_stmtId   = $stmtId;
-		$this->_cnt	  = $cnt;
+	function __construct($idResult,$stmtId=null,$cnt=null){
+		$this->_idResult=$idResult;
+		$this->_stmtId=$stmtId;
+		$this->_cnt=$cnt;
 	}
 	public function fetch(){
-		$res = false;
-		if($row = $this->_idResult->in_fetch_array()){
-			$res = new stdClass();
-			foreach($row as $key => $value){
-				$res->$key = $value;
+		$res=false;
+		if($row=$this->_idResult->in_fetch_array()){
+			$res=new stdClass();
+			foreach($row as $key=>$value){
+				$res->$key=$value;
 			}
 		}
 		return $res;
@@ -37,18 +37,18 @@ class intuitionDbResultSet extends jDbResultSet{
 	public  function rowCount(){
 		return $this->_idResult->in_num_rows();
 	}
-	public function bindColumn($column, &$param , $type=null){
+	public function bindColumn($column,&$param,$type=null){
 		throw new JException(
 			'jelix~db.error.feature.unsupported',
 			array('pgsql','bindColumn'));
 	}
-	public function bindParam(	$parameter, &$variable , $data_type = null,
-			$length = null, $driver_options = null){
+	public function bindParam($parameter,&$variable,$data_type=null,
+			$length=null,$driver_options=null){
 		throw new JException(
 			'jelix~db.error.feature.unsupported',
 			array('pgsql','bindParam'));
 	}
-	public function bindValue($parameter, $value, $data_type){
+	public function bindValue($parameter,$value,$data_type){
 		throw new JException(
 			'jelix~db.error.feature.unsupported',
 			array('pgsql','bindValue'));
@@ -56,7 +56,7 @@ class intuitionDbResultSet extends jDbResultSet{
 	public function columnCount(){
 		return $this->_idResult->_fields();
 	}
-	public function execute($parameters = array()){
+	public function execute($parameters=array()){
 		throw new JException(
 			'jelix~db.error.feature.unsupported',
 			array('pgsql','bindValue'));

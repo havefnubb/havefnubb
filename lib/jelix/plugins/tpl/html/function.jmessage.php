@@ -8,32 +8,32 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_function_html_jmessage($tpl, $type = ''){
-	if($type == ''){
-		$messages = jMessage::getAll();
-	} else{
-		$messages = jMessage::get($type);
+function jtpl_function_html_jmessage($tpl,$type=''){
+	if($type==''){
+		$messages=jMessage::getAll();
+	}else{
+		$messages=jMessage::get($type);
 	}
 	if(!$messages){
 		return;
 	}
-	if($type == ''){
+	if($type==''){
 		echo '<ul class="jelix-msg">';
-		foreach($messages as $type_msg => $all_msg){
+		foreach($messages as $type_msg=>$all_msg){
 			foreach($all_msg as $msg){
 				echo '<li class="jelix-msg-item-'.$type_msg.'">'.htmlspecialchars($msg).'</li>';
 			}
 		}
-	} else{
+	}else{
 		echo '<ul class="jelix-msg-'. $type .'">';
 		foreach($messages as $msg){
 			echo '<li class="jelix-msg-item-'.$type.'">'.htmlspecialchars($msg).'</li>';
 		}
 	}
 	echo '</ul>';
-	if($type == ''){
+	if($type==''){
 		jMessage::clearAll();
-	} else{
+	}else{
 		jMessage::clear($type);
 	}
 }

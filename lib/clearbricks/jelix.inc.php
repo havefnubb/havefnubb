@@ -1,13 +1,13 @@
 <?php
 /* comments & extra-whitespaces have been removed by jBuildTools*/
-$dirname = dirname(__FILE__).'/';
+$dirname=dirname(__FILE__).'/';
 function __($str)
 {
 	return $str;
 }
-$GLOBALS['_jelix_cb_autoload'] = array(
-	'files'	=> $dirname.'common/lib.files.php',
-	'path'	=> $dirname.'common/lib.files.php',
+$GLOBALS['_jelix_cb_autoload']=array(
+	'files'=>$dirname.'common/lib.files.php',
+	'path'=>$dirname.'common/lib.files.php',
 );
 function jelix_cb_autoload($name){
 	global $_jelix_cb_autoload;

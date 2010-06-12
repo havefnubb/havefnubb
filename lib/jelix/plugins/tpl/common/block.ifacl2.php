@@ -11,19 +11,19 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_block_common_ifacl2($compiler, $begin, $param=array())
+function jtpl_block_common_ifacl2($compiler,$begin,$param=array())
 {
 	if($begin){
-		if(count($param) == 1){
-			$content = ' if(jAcl2::check('.$param[0].')):';
-		}elseif(count($param) == 2){
-			$content = ' if(jAcl2::check('.$param[0].','.$param[1].')):';
+		if(count($param)==1){
+			$content=' if(jAcl2::check('.$param[0].')):';
+		}elseif(count($param)==2){
+			$content=' if(jAcl2::check('.$param[0].','.$param[1].')):';
 		}else{
 			$content='';
 			$compiler->doError2('errors.tplplugin.block.bad.argument.number','ifacl2',1);
 		}
 	}else{
-		$content = ' endif; ';
+		$content=' endif; ';
 	}
 	return $content;
 }

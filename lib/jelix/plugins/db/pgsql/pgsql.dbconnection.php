@@ -19,13 +19,13 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 class pgsqlDbConnection extends jDbConnection{
-	protected $_charsets =array( 'UTF-8'=>'UNICODE', 'ISO-8859-1'=>'LATIN1');
+	protected $_charsets=array('UTF-8'=>'UNICODE','ISO-8859-1'=>'LATIN1');
 	function __construct($profile){
 		if(!function_exists('pg_connect')){
 			throw new jException('jelix~db.error.nofunction','posgresql');
 		}
 		parent::__construct($profile);
-		if(isset($this->profile['single_transaction']) &&($this->profile['single_transaction'])){
+		if(isset($this->profile['single_transaction'])&&($this->profile['single_transaction'])){
 			$this->beginTransaction();
 			$this->setAutoCommit(false);
 		}
@@ -38,7 +38,7 @@ class pgsqlDbConnection extends jDbConnection{
 		return '"'.$fieldName.'"';
 	}
 	function __destruct(){
-		if(isset($this->profile['single_transaction']) &&($this->profile['single_transaction'])){
+		if(isset($this->profile['single_transaction'])&&($this->profile['single_transaction'])){
 			$this->commit();
 		}
 		parent::__destruct();
@@ -54,53 +54,53 @@ class pgsqlDbConnection extends jDbConnection{
 	}
 	public function prepare($query){
 		$id=(string)mktime();
-		$res = pg_prepare($this->_connection, $id, $query);
+		$res=pg_prepare($this->_connection,$id,$query);
 		if($res){
-			$rs= new pgsqlDbResultSet($res, $id, $this->_connection);
+			$rs=new pgsqlDbResultSet($res,$id,$this->_connection);
 		}else{
-			throw new jException('jelix~db.error.query.bad',  pg_last_error($this->_connection).'('.$query.')');
+			throw new jException('jelix~db.error.query.bad',pg_last_error($this->_connection).'('.$query.')');
 		}
 		return $rs;
 	}
 	public function errorInfo(){
-		return array( 'HY000' ,pg_last_error($this->_connection), pg_last_error($this->_connection));
+		return array('HY000',pg_last_error($this->_connection),pg_last_error($this->_connection));
 	}
 	public function errorCode(){
 		return pg_last_error($this->_connection);
 	}
 	protected function _connect(){
-		$funcconnect=(isset($this->profile['persistent']) && $this->profile['persistent'] ? 'pg_pconnect':'pg_connect');
-		$str = '';
-		if($this->profile['host'] != '')
-			$str = 'host=\''.$this->profile['host'].'\''.$str;
+		$funcconnect=(isset($this->profile['persistent'])&&$this->profile['persistent'] ? 'pg_pconnect':'pg_connect');
+		$str='';
+		if($this->profile['host']!='')
+			$str='host=\''.$this->profile['host'].'\''.$str;
 		if(isset($this->profile['port'])){
-			$str .= ' port=\''.$this->profile['port'].'\'';
+			$str.=' port=\''.$this->profile['port'].'\'';
 		}
-		if($this->profile['database'] != ''){
-			$str .= ' dbname=\''.$this->profile['database'].'\'';
+		if($this->profile['database']!=''){
+			$str.=' dbname=\''.$this->profile['database'].'\'';
 		}
 		if(isset($this->profile['user'])){
-			$str .= ' user=\''.$this->profile['user'].'\'';
+			$str.=' user=\''.$this->profile['user'].'\'';
 		}
 		if(isset($this->profile['password'])){
-			$str .= ' password=\''.$this->profile['password'].'\'';
+			$str.=' password=\''.$this->profile['password'].'\'';
 		}
-		if(isset($this->profile['timeout']) && $this->profile['timeout'] != ''){
-			$str .= ' connect_timeout=\''.$this->profile['timeout'].'\'';
+		if(isset($this->profile['timeout'])&&$this->profile['timeout']!=''){
+			$str.=' connect_timeout=\''.$this->profile['timeout'].'\'';
 		}
-		if($cnx = @$funcconnect($str)){
-			if(isset($this->profile['force_encoding']) && $this->profile['force_encoding'] == true
-			   && isset($this->_charsets[$GLOBALS['gJConfig']->charset])){
-				pg_set_client_encoding($cnx, $this->_charsets[$GLOBALS['gJConfig']->charset]);
+		if($cnx=@$funcconnect($str)){
+			if(isset($this->profile['force_encoding'])&&$this->profile['force_encoding']==true
+				&&isset($this->_charsets[$GLOBALS['gJConfig']->charset])){
+				pg_set_client_encoding($cnx,$this->_charsets[$GLOBALS['gJConfig']->charset]);
 			}
 		}
 		else{
 			throw new jException('jelix~db.error.connection',$this->profile['host']);
 		}
-		if(isset($this->profile['search_path']) && trim($this->profile['search_path']) != ''){
-			$sql = 'SET search_path TO '.$this->profile['search_path'];
-			if(! @pg_query($cnx, $sql)){
-				throw new jException('jelix~db.error.query.bad',  pg_last_error($cnx).'('.$sql.')');
+		if(isset($this->profile['search_path'])&&trim($this->profile['search_path'])!=''){
+			$sql='SET search_path TO '.$this->profile['search_path'];
+			if(! @pg_query($cnx,$sql)){
+				throw new jException('jelix~db.error.query.bad',pg_last_error($cnx).'('.$sql.')');
 			}
 		}
 		return $cnx;
@@ -109,30 +109,30 @@ class pgsqlDbConnection extends jDbConnection{
 		return pg_close($this->_connection);
 	}
 	protected function _doQuery($queryString){
-		if($qI = @pg_query($this->_connection, $queryString)){
-			$rs= new pgsqlDbResultSet($qI);
-			$rs->_connector = $this;
+		if($qI=@pg_query($this->_connection,$queryString)){
+			$rs=new pgsqlDbResultSet($qI);
+			$rs->_connector=$this;
 		}else{
-			$rs = false;
-			throw new jException('jelix~db.error.query.bad',  pg_last_error($this->_connection).'('.$queryString.')');
+			$rs=false;
+			throw new jException('jelix~db.error.query.bad',pg_last_error($this->_connection).'('.$queryString.')');
 		}
 		return $rs;
 	}
 	protected function _doExec($query){
-		if($rs = $this->_doQuery($query)){
+		if($rs=$this->_doQuery($query)){
 			return pg_affected_rows($rs->id());
 		}else
 			return 0;
 	}
-	protected function _doLimitQuery($queryString, $offset, $number){
+	protected function _doLimitQuery($queryString,$offset,$number){
 		if($number < 0)
 			$number='ALL';
-		$queryString.= ' LIMIT '.$number.' OFFSET '.$offset;
-		$result = $this->_doQuery($queryString);
+		$queryString.=' LIMIT '.$number.' OFFSET '.$offset;
+		$result=$this->_doQuery($queryString);
 		return $result;
 	}
 	public function lastInsertId($seqname=''){
-		if($seqname == ''){
+		if($seqname==''){
 			trigger_error(get_class($this).'::lastInstertId invalide sequence name',E_USER_WARNING);
 			return false;
 		}
@@ -151,10 +151,10 @@ class pgsqlDbConnection extends jDbConnection{
 	protected function _autoCommitNotify($state){
 		$this->_doExec('SET AUTOCOMMIT TO '.($state ? 'ON' : 'OFF'));
 	}
-	protected function _quote($text, $binary){
+	protected function _quote($text,$binary){
 		if($binary)
-			return pg_escape_bytea($this->_connection, $text);
+			return pg_escape_bytea($this->_connection,$text);
 		else
-			return pg_escape_string($this->_connection, $text);
+			return pg_escape_string($this->_connection,$text);
 	}
 }

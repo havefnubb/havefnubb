@@ -11,6 +11,6 @@
 */
 require_once(JELIX_LIB_CORE_PATH.'response/jResponseXul.class.php');
 class jResponseXulDialog extends jResponseXul{
-	protected $_type =  'xuldialog';
-	protected $_root = 'dialog';
+	protected $_type='xuldialog';
+	protected $_root='dialog';
 }

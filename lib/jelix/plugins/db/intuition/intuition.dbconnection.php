@@ -37,23 +37,23 @@ class intuitionDbConnection extends jDbConnection{
 		return $this->_iSession->status();
 	}
 	protected function _connect(){
-		$this->_iSession = new iSession();
+		$this->_iSession=new iSession();
 		if(!isset($this->profile['port'])){
-			$this->profile['port'] = 8088;
+			$this->profile['port']=8088;
 		}
-		$connectionArray = array(
-			'host'			  => $this->profile['host'],
-			'port'			  => $this->profile['port'],
-			'read_only'		 => 1,
-			'charset'		   => in_UTF8,
-			'database'		  => $this->profile['database'],
-			'user'			  => $this->profile['user'],
-			'password'		  => $this->profile['password'],
-			'page_size'		 => 20,
-			'max_answers_count' => 1000,
-			'default-language'  => 'en'
+		$connectionArray=array(
+			'host'=>$this->profile['host'],
+			'port'=>$this->profile['port'],
+			'read_only'=>1,
+			'charset'=>in_UTF8,
+			'database'=>$this->profile['database'],
+			'user'=>$this->profile['user'],
+			'password'=>$this->profile['password'],
+			'page_size'=>20,
+			'max_answers_count'=>1000,
+			'default-language'=>'en'
 			);
-		$cnx = @$this->_iSession->connect($connectionArray);
+		$cnx=@$this->_iSession->connect($connectionArray);
 		if($cnx){
 			return $this->_iSession;
 		}else{
@@ -64,26 +64,26 @@ class intuitionDbConnection extends jDbConnection{
 		return $this->_connection->in_close();
 	}
 	protected function _doQuery($queryString){
-		$queryString = str_replace(array("\n", "\r"), " ", $queryString);
-		$queryResult = $this->_connection->in_query($queryString);
-		if(is_object($queryResult) or
-			(is_numeric($queryResult) and $queryResult > 0)){
-			$rs				 = new intuitionDbResultSet($queryResult);
-			$rs->_connector	 = $this;
+		$queryString=str_replace(array("\n","\r")," ",$queryString);
+		$queryResult=$this->_connection->in_query($queryString);
+		if(is_object($queryResult)or
+			(is_numeric($queryResult)and $queryResult > 0)){
+			$rs=new intuitionDbResultSet($queryResult);
+			$rs->_connector=$this;
 		}else{
-			$rs = false;
+			$rs=false;
 			throw new Exception($this->_iSession->status());
 		}
 		return $rs;
 	}
-	protected function _doLimitQuery( $queryString, $offset, $number){
-		$queryString.= ' SKIP ' . $offset . ' COUNT ' . $number;
-		$result = $this->_doQuery($queryString);
+	protected function _doLimitQuery($queryString,$offset,$number){
+		$queryString.=' SKIP ' . $offset . ' COUNT ' . $number;
+		$result=$this->_doQuery($queryString);
 		return $result;
 	}
 	protected function _doExec($query){
-		$queryString = str_replace(array("\n", "\r"), " ", $queryString);
-		$queryResult = $this->_connection->in_query($queryString);
+		$queryString=str_replace(array("\n","\r")," ",$queryString);
+		$queryResult=$this->_connection->in_query($queryString);
 		return $queryResult;
 	}
 	public function lastInsertId($fromSequence=''){
@@ -96,7 +96,7 @@ class intuitionDbConnection extends jDbConnection{
 			'jelix~db.error.feature.unsupported',
 			array('intuition','_autoCommitNotify'));
 	}
-	protected function _quote($text, $binary){
+	protected function _quote($text,$binary){
 		return quote($text);
 	}
 }

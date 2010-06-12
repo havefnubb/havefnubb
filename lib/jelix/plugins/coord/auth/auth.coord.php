@@ -23,14 +23,6 @@ require(JELIX_LIB_PATH.'auth/jAuth.class.php');
 require(JELIX_LIB_PATH.'auth/jAuthDummyUser.class.php');
 
 /**
- * deprecated class. It is here only for a soft migrating from jelix 1.0b3 to 1.0
- * when a jDummyAuthUser object is stored in a session
- * @deprecated
- */
-class jDummyAuthUser extends jAuthUser {
-}
-
-/**
 * @package    jelix
 * @subpackage coord_plugin
 */
@@ -149,13 +141,7 @@ class AuthCoordPlugin implements jICoordPlugin {
     private function _getIpForSecure (){
         //this method is heavily based on the article found on
         // phpbuilder.com, and from the comments on the official phpdoc.
-        if (isset ($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR']){
-            $IP_ADDR = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }else if (isset ($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP']){
-            $IP_ADDR =  $_SERVER['HTTP_CLIENT_IP'];
-        }else{
-            $IP_ADDR = $_SERVER['REMOTE_ADDR'];
-        }
+        $IP_ADDR = $GLOBALS['gJCoord']->request->getIP();
 
         // get server ip and resolved it
         $FIRE_IP_ADDR = $_SERVER['REMOTE_ADDR'];
@@ -168,3 +154,11 @@ class AuthCoordPlugin implements jICoordPlugin {
     }
 }
 
+
+/**
+ * function to use to crypt password. use the password_salt value in the config
+ * file of the plugin.
+ */
+function sha1WithSalt($salt, $password) {
+    return sha1($salt.':'.$password);
+}

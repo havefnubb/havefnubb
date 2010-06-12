@@ -10,30 +10,30 @@
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 class jFormsDataContainer{
-	public $data = array();
-	public $originalData = array();
-	public $privateData = array();
+	public $data=array();
+	public $originalData=array();
+	public $privateData=array();
 	public $formId;
 	public $formSelector;
-	public $errors = array();
-	public $updatetime = 0;
-	public $token = '';
-	protected $readOnly = array();
-	protected $deactivated = array();
+	public $errors=array();
+	public $updatetime=0;
+	public $token='';
+	protected $readOnly=array();
+	protected $deactivated=array();
 	function __construct($formSelector,$formId){
-		$this->formId = $formId;
-		$this->formSelector =$formSelector;
+		$this->formId=$formId;
+		$this->formSelector=$formSelector;
 	}
 	function unsetData($name){
 		unset($this->data[$name]);
 	}
 	function clear(){
-		$this->data = array();
-		$this->errors = array();
-		$this->originalData = array();
-		$this->privateData = array();
+		$this->data=array();
+		$this->errors=array();
+		$this->originalData=array();
+		$this->privateData=array();
 	}
-	public function deactivate($name, $deactivation=true){
+	public function deactivate($name,$deactivation=true){
 		if($deactivation){
 			$this->deactivated[$name]=true;
 		}
@@ -42,7 +42,7 @@ class jFormsDataContainer{
 				unset($this->deactivated[$name]);
 		}
 	}
-	public function setReadOnly($name, $readonly=true){
+	public function setReadOnly($name,$readonly=true){
 		if($readonly){
 			$this->readOnly[$name]=true;
 		}

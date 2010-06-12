@@ -4,8 +4,8 @@
 * @package     jelix
 * @subpackage  events
 * @author      Croes Gérald, Patrice Ferlet
-* @contributor Laurent Jouanneau, Catsoup
-* @copyright 2001-2005 CopixTeam, 2005-2007 Laurent Jouanneau
+* @contributor Laurent Jouanneau, Dominique Papin, Catsoup
+* @copyright 2001-2005 CopixTeam, 2005-2009 Laurent Jouanneau, 2009 Dominique Papin
 * This classes were get originally from the Copix project
 * (CopixEvent*, CopixListener* from Copix 2.3dev20050901, http://www.copix.org)
 * Some lines of code are copyrighted 2001-2005 CopixTeam (LGPL licence).
@@ -17,39 +17,39 @@
 */
 class jEventListener{
 	function performEvent($event){
-		$methodName = 'on'.$event->getName();
+		$methodName='on'.$event->getName();
 		$this->$methodName($event);
 	}
 }
 class jEvent{
-	protected $_name = null;
-	protected $_params = null;
-	protected $_responses = array();
-	function __construct($name, $params=array()){
-		$this->_name   = $name;
-		$this->_params = & $params;
+	protected $_name=null;
+	protected $_params=null;
+	protected $_responses=array();
+	function __construct($name,$params=array()){
+		$this->_name=$name;
+		$this->_params=& $params;
 	}
 	public function getName(){
 		return $this->_name;
 	}
 	public function getParam($name){
 		if(isset($this->_params[$name])){
-			$ret = $this->_params[$name];
+			$ret=$this->_params[$name];
 		}else{
-			$ret = null;
+			$ret=null;
 		}
 		return $ret;
 	}
 	public function add($response){
-		$this->_responses[] = & $response;
+		$this->_responses[]=& $response;
 	}
-	public function inResponse($responseName, $value, & $response){
-		$founded  = false;
-		$response = array();
+	public function inResponse($responseName,$value,& $response){
+		$founded=false;
+		$response=array();
 		foreach($this->_responses as $key=>$listenerResponse){
-			if(isset($listenerResponse[$responseName]) && $listenerResponse[$responseName] == $value){
-				$founded = true;
-				$response[] = & $this->_responses[$key];
+			if(isset($listenerResponse[$responseName])&&$listenerResponse[$responseName]==$value){
+				$founded=true;
+				$response[]=& $this->_responses[$key];
 			}
 		}
 		return $founded;
@@ -57,46 +57,43 @@ class jEvent{
 	public function getResponse(){
 		return $this->_responses;
 	}
-	public static function notify($eventname, $params=array()){
-		$event = new jEvent($eventname, $params);
+	public static function notify($eventname,$params=array()){
+		$event=new jEvent($eventname,$params);
 		if(!isset(self::$hashListened[$eventname])){
 			self::loadListenersFor($eventname);
 		}
-		$list = & self::$hashListened[$eventname];
-		foreach(array_keys($list) as $key){
+		$list=& self::$hashListened[$eventname];
+		foreach(array_keys($list)as $key){
 			$list[$key]->performEvent($event);
 		}
 		return $event;
-   }
-	protected static $compilerData = array('jEventCompiler',
+	}
+	protected static $compilerData=array('jEventCompiler',
 					'events/jEventCompiler.class.php',
 					'events.xml',
 					'events.php'
 					);
-	protected static $listenersSingleton = array();
-	protected static $hashListened = array();
+	protected static $listenersSingleton=array();
+	protected static $hashListened=array();
 	protected static function loadListenersFor($eventName){
 		if(!isset($GLOBALS['JELIX_EVENTS'])){
-			self::$compilerData[3] = $GLOBALS['gJConfig']->urlengine['urlScriptId'].'.'.self::$compilerData[3];
+			self::$compilerData[3]=$GLOBALS['gJConfig']->urlengine['urlScriptId'].'.'.self::$compilerData[3];
 			jIncluder::incAll(self::$compilerData);
 		}
-		$inf = & $GLOBALS['JELIX_EVENTS'];
-		self::$hashListened[$eventName] = array();
+		$inf=& $GLOBALS['JELIX_EVENTS'];
+		self::$hashListened[$eventName]=array();
 		if(isset($inf[$eventName])){
-			$modules = & $GLOBALS['gJConfig']->_modulesPathList;
+			$modules=& $GLOBALS['gJConfig']->_modulesPathList;
 			foreach($inf[$eventName] as $listener){
-				list($module,$listenerName) = $listener;
+				list($module,$listenerName)=$listener;
 				if(! isset($modules[$module]))
 					continue;
 				if(! isset(self::$listenersSingleton[$module][$listenerName])){
 					require_once($modules[$module].'classes/'.$listenerName.'.listener.php');
-					$className = $listenerName.'Listener';
-					if(!class_exists($className,false)){
-						$className = 'Listener'.$listenerName;
-					}
-					self::$listenersSingleton[$module][$listenerName] =  new $className();
+					$className=$listenerName.'Listener';
+					self::$listenersSingleton[$module][$listenerName]=new $className();
 				}
-				self::$hashListened[$eventName][] = self::$listenersSingleton[$module][$listenerName];
+				self::$hashListened[$eventName][]=self::$listenersSingleton[$module][$listenerName];
 			}
 		}
 	}

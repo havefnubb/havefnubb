@@ -11,33 +11,33 @@
 */
 require(JELIX_LIB_UTILS_PATH.'jJsonRpc.class.php');
 class jJsonRpcRequest extends jRequest{
-	public $type = 'jsonrpc';
-	public $defaultResponseType = 'jsonrpc';
+	public $type='jsonrpc';
+	public $defaultResponseType='jsonrpc';
 	public $jsonRequestId=null;
 	protected function _initParams(){
 		global $HTTP_RAW_POST_DATA;
 		if(isset($HTTP_RAW_POST_DATA)){
-			$request = $HTTP_RAW_POST_DATA;
+			$request=$HTTP_RAW_POST_DATA;
 		}else{
-			$request = file('php://input');
-			$request = implode("\n",$request);
+			$request=file('php://input');
+			$request=implode("\n",$request);
 		}
-		$requestobj = jJsonRpc::decodeRequest($request);
+		$requestobj=jJsonRpc::decodeRequest($request);
 		if($requestobj['method']){
-			list($module, $action) = explode('~',$requestobj['method']);
+			list($module,$action)=explode('~',$requestobj['method']);
 		}else{
 			$module='';
 			$action='';
 		}
-		if(isset( $requestobj['id']))
-			$this->jsonRequestId = $requestobj['id'];
+		if(isset($requestobj['id']))
+			$this->jsonRequestId=$requestobj['id'];
 		if(is_array($requestobj['params']))
-			$this->params = $requestobj['params'];
-		$this->params['params'] = $requestobj['params'];
-		$this->params['module'] = $module;
-		$this->params['action'] = $action;
+			$this->params=$requestobj['params'];
+		$this->params['params']=$requestobj['params'];
+		$this->params['module']=$module;
+		$this->params['action']=$action;
 	}
 	public function isAllowedResponse($respclass){
-		return('jResponseJsonrpc' == $respclass);
+		return('jResponseJsonrpc'==$respclass);
 	}
 }

@@ -1,12 +1,11 @@
 <?php
 /* comments & extra-whitespaces have been removed by jBuildTools*/
-
 /**
 * @package     jelix
 * @subpackage  utils
 * @author      Antoine Detante
-* @contributor
-* @copyright   2007 Antoine Detante
+* @contributor Laurent Jouanneau
+* @copyright   2007 Antoine Detante, 2009 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 **/
@@ -28,28 +27,28 @@ class jCrypt{
 			$encrypted=jCrypt::simpleCrypt($string,$key);
 		return base64_encode($encrypted);
 	}
-	protected static function mcryptEncrypt($string,$key){
+	public static function mcryptEncrypt($string,$key){
 		if($key=='')
 			throw new jException('jelix~auth.error.key.empty');
 		if(strlen($key)<15)
 			throw new jException('jelix~auth.error.key.tooshort',15);
-		$td = mcrypt_module_open(MCRYPT_WAKE, '', MCRYPT_MODE_STREAM, '');
-		$ks = mcrypt_enc_get_key_size($td);
-		$key = substr($key, 0, $ks);
-		mcrypt_generic_init($td, $key, null);
-		$encrypted = mcrypt_generic($td, $string);
+		$td=mcrypt_module_open(MCRYPT_WAKE,'',MCRYPT_MODE_STREAM,'');
+		$ks=mcrypt_enc_get_key_size($td);
+		$key=substr($key,0,$ks);
+		mcrypt_generic_init($td,$key,null);
+		$encrypted=mcrypt_generic($td,$string);
 		mcrypt_generic_deinit($td);
 		mcrypt_module_close($td);
 		return $encrypted;
 	}
-	protected static function mcryptDecrypt($string,$key){
+	public static function mcryptDecrypt($string,$key){
 		if($key=='')
 			throw new jException('jelix~auth.error.key.empty');
-		$td = mcrypt_module_open(MCRYPT_WAKE, '', MCRYPT_MODE_STREAM, '');
-		$ks = mcrypt_enc_get_key_size($td);
-		$key = substr($key, 0, $ks);
-		mcrypt_generic_init($td, $key, null);
-		$decrypted = mdecrypt_generic($td, $string);
+		$td=mcrypt_module_open(MCRYPT_WAKE,'',MCRYPT_MODE_STREAM,'');
+		$ks=mcrypt_enc_get_key_size($td);
+		$key=substr($key,0,$ks);
+		mcrypt_generic_init($td,$key,null);
+		$decrypted=mdecrypt_generic($td,$string);
 		mcrypt_generic_deinit($td);
 		mcrypt_module_close($td);
 		return $decrypted;

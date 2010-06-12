@@ -12,9 +12,9 @@
  *
  * Inspired by the method satay Drew McLellan (http://www.alistapart.com/articles/flashsatay/)
  */
-function jtpl_block_html_swf($compiler, $begin, $params){
+function jtpl_block_html_swf($compiler,$begin,$params){
 	if($begin){
-		$sortie  = '
+		$sortie='
         $src = '.$params[0].';
         $options = '.$params[1].';
         $params = '.$params[2].';
@@ -37,7 +37,7 @@ function jtpl_block_html_swf($compiler, $begin, $params){
             echo \'<param name="\'.$key.\'" value="\'.$val.\'" />\'."\n";
         ';
 		return $sortie;
-	} else{
+	}else{
 		return 'echo \'</object>\';';
 	}
 }

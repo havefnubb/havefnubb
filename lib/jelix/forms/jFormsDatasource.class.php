@@ -14,10 +14,8 @@ interface jIFormsDatasource{
 	public function getData($form);
 	public function getLabel($key);
 }
-interface jIFormDatasource extends jIFormsDatasource{
-}
 class jFormsStaticDatasource implements jIFormsDatasource{
-	public $data = array();
+	public $data=array();
 	public function getData($form){
 		return $this->data;
 	}
@@ -31,69 +29,69 @@ class jFormsStaticDatasource implements jIFormsDatasource{
 class jFormsDaoDatasource implements jIFormsDatasource{
 	protected $selector;
 	protected $method;
-	protected $labelProperty = array();
+	protected $labelProperty=array();
 	protected $labelSeparator;
 	protected $keyProperty;
 	protected $profile;
-	protected $criteria = null;
-	protected $criteriaFrom = null;
-	protected $dao = null;
-	function __construct($selector ,$method , $label, $key, $profile='', $criteria=null, $criteriaFrom=null, $labelSeparator=''){
-		$this->selector  = $selector;
-		$this->profile = $profile;
-		$this->method = $method ;
-		$this->labelProperty = preg_split('/[\s,]+/',$label);
-		$this->labelSeparator = $labelSeparator;
-		if( $criteria !== null)
-			$this->criteria = preg_split('/[\s,]+/',$criteria) ;
-		if( $criteriaFrom !== null)
-			$this->criteriaFrom = preg_split('/[\s,]+/',$criteriaFrom) ;
-		if($key == ''){
-			$rec = jDao::createRecord($this->selector, $this->profile);
-			$pfields = $rec->getPrimaryKeyNames();
-			$key = $pfields[0];
+	protected $criteria=null;
+	protected $criteriaFrom=null;
+	protected $dao=null;
+	function __construct($selector,$method,$label,$key,$profile='',$criteria=null,$criteriaFrom=null,$labelSeparator=''){
+		$this->selector=$selector;
+		$this->profile=$profile;
+		$this->method=$method;
+		$this->labelProperty=preg_split('/[\s,]+/',$label);
+		$this->labelSeparator=$labelSeparator;
+		if($criteria!==null)
+			$this->criteria=preg_split('/[\s,]+/',$criteria);
+		if($criteriaFrom!==null)
+			$this->criteriaFrom=preg_split('/[\s,]+/',$criteriaFrom);
+		if($key==''){
+			$rec=jDao::createRecord($this->selector,$this->profile);
+			$pfields=$rec->getPrimaryKeyNames();
+			$key=$pfields[0];
 		}
-		$this->keyProperty = $key;
+		$this->keyProperty=$key;
 	}
 	public function getData($form){
-		if($this->dao === null)
-			$this->dao = jDao::get($this->selector, $this->profile);
-		if($this->criteria !== null){
-			$found = call_user_func_array( array($this->dao, $this->method), $this->criteria);
-		} else if($this->criteriaFrom !== null){
-			$args = array() ;
-			foreach( (array)$this->criteriaFrom as $criteria){
-			  array_push( $args, $form->getData($criteria)) ;
+		if($this->dao===null)
+			$this->dao=jDao::get($this->selector,$this->profile);
+		if($this->criteria!==null){
+			$found=call_user_func_array(array($this->dao,$this->method),$this->criteria);
+		}else if($this->criteriaFrom!==null){
+			$args=array();
+			foreach((array)$this->criteriaFrom as $criteria){
+			array_push($args,$form->getData($criteria));
 			}
-			$found = call_user_func_array( array($this->dao, $this->method), $args);
-		} else{
-			$found = $this->dao->{$this->method}();
+			$found=call_user_func_array(array($this->dao,$this->method),$args);
+		}else{
+			$found=$this->dao->{$this->method}();
 		}
 		$result=array();
 		foreach($found as $obj){
-			$label = '' ;
-			foreach( (array)$this->labelProperty as $property){
-				if(!empty( $obj->{$property}))
-					$label .= $obj->{$property}.$this->labelSeparator;
+			$label='';
+			foreach((array)$this->labelProperty as $property){
+				if(!empty($obj->{$property}))
+					$label.=$obj->{$property}.$this->labelSeparator;
 			}
-			if($this->labelSeparator != '')
-				$label = substr($label, 0, -strlen($this->labelSeparator));
-			$result[$obj->{$this->keyProperty}] = $label ;
+			if($this->labelSeparator!='')
+				$label=substr($label,0,-strlen($this->labelSeparator));
+			$result[$obj->{$this->keyProperty}]=$label;
 		}
 		return $result;
 	}
 	public function getLabel($key){
-		if($this->dao === null) $this->dao = jDao::get($this->selector, $this->profile);
-		$rec = $this->dao->get($key);
+		if($this->dao===null)$this->dao=jDao::get($this->selector,$this->profile);
+		$rec=$this->dao->get($key);
 		if($rec){
-			$label = '' ;
-			foreach( (array)$this->labelProperty as $property){
-				if(!empty( $rec->{$property}))
-					$label .= $rec->{$property}.$this->labelSeparator;
+			$label='';
+			foreach((array)$this->labelProperty as $property){
+				if(!empty($rec->{$property}))
+					$label.=$rec->{$property}.$this->labelSeparator;
 			}
-			if($this->labelSeparator != '')
-				$label = substr($label, 0, -strlen($this->labelSeparator));
-			return $label ;
+			if($this->labelSeparator!='')
+				$label=substr($label,0,-strlen($this->labelSeparator));
+			return $label;
 		}
 		else
 			return null;

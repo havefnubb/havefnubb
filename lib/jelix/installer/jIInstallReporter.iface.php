@@ -5,13 +5,12 @@
 * @subpackage  installer
 * @author      Laurent Jouanneau
 * @contributor 
-* @copyright   2008 Laurent Jouanneau
-* @link        http://www.jelix.org
+* @copyright   2008-2009 Laurent Jouanneau
+* @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 interface jIInstallReporter{
-	function error($string);
-	function warning($string);
-	function notice($string);
-	function message($string);
+	function start();
+	function message($message,$type='');
+	function end($results);
 }

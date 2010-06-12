@@ -10,10 +10,10 @@
 class zendframeworkCoordPlugin implements jICoordPlugin{
 	public $config;
 	public function __construct($config){
-		$this->config = $config;
+		$this->config=$config;
 	}
 	public function beforeAction($params){
-		if(isset($params['zf.active']) && $params['zf.active'] == 'true'){
+		if(isset($params['zf.active'])&&$params['zf.active']=='true'){
 			set_include_path(get_include_path().PATH_SEPARATOR.$this->config['zendLibPath']);
 			include_once($this->config['zendLibPath'].'/Zend/Loader.php');
 		}
