@@ -9,7 +9,7 @@
 */
 
 class rights_msgZone extends jZone {
-	protected $_tplname='zone.rights';
+    protected $_tplname='zone.rights';
 
-	protected function _prepareTpl(){ }
+    protected function _prepareTpl(){ }
 }

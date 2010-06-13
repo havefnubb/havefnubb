@@ -8,32 +8,32 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-class driver implements jIFormDatasource {
-	protected $formId = 0;
+class driver implements jIFormsDatasource {
+    protected $formId = 0;
 
-	protected $data = array();
+    protected $data = array();
 
-	function __construct($id)
-	{
-		$data = array();
+    function __construct($id)
+    {
+        $data = array();
 
-		$d = jClasses::getService('hfnuinstall~supported_drivers');
-		$data = $d->getSupportedDrivers();
+        $d = jClasses::getService('hfnuinstall~supported_drivers');
+        $data = $d->getSupportedDrivers();
 
-		$this->formId = $id;
-		$this->data = $data;
-	}
+        $this->formId = $id;
+        $this->data = $data;
+    }
 
-	public function getData($form)
-	{
-		return ($this->data);
-	}
+    public function getData($form)
+    {
+        return ($this->data);
+    }
 
-	public function getLabel($key)
-	{
-		if(isset($this->data[$key]))
-		  return $this->data[$key];
-		else
-		  return null;
-	}
+    public function getLabel($key)
+    {
+        if(isset($this->data[$key]))
+          return $this->data[$key];
+        else
+          return null;
+    }
 }

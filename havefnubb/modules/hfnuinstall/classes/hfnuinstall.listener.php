@@ -10,7 +10,7 @@
 
 class hfnuinstallListener extends jEventListener{
 
-	function onHfnuAboutModule ($event) {
-		 $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuinstall')) );
-	}  
+    function onHfnuAboutModule ($event) {
+         $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuinstall')) );
+    }
 }
