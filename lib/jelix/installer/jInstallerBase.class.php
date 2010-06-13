@@ -17,6 +17,7 @@ abstract class jInstallerBase{
 	public $entryPoint;
 	protected $path;
 	protected $dbProfile='';
+	protected $defaultDbProfile='';
 	protected $installWholeApp=false;
 	function __construct($componentName,$name,$path,$version,$installWholeApp=false){
 		$this->path=$path;
@@ -31,6 +32,21 @@ abstract class jInstallerBase{
 		$this->config=$config;
 		$this->entryPoint=$ep;
 		$this->dbProfile=$dbProfile;
+		$dbProfilesFile=$config->getValue('dbProfils');
+		if($dbProfilesFile=='')
+			$dbProfilesFile='dbprofils.ini.php';
+		$dbprofiles=parse_ini_file(JELIX_APP_CONFIG_PATH.$dbProfilesFile);
+		if(isset($dbprofiles[$dbProfile])&&is_string($dbprofiles[$dbProfile])){
+			$this->dbProfile=$dbprofiles[$dbProfile];
+		}
+		if($this->defaultDbProfile!=''){
+			if(isset($dbprofiles[$this->defaultDbProfile])){
+				if(is_string($dbprofiles[$this->defaultDbProfile]))
+					$this->dbProfile=$dbprofiles[$this->defaultDbProfile];
+				else
+					$this->dbProfile=$this->defaultDbProfile;
+			}
+		}
 		return "0";
 	}
 	protected function dbTool(){
