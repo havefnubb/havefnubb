@@ -9,7 +9,7 @@
 */
 
 // class that list the themes directory.
-class themes_datasource implements jIFormDatasource {
+class themes_datasource implements jIFormsDatasource {
 	protected $formId = 0;
 
 	protected $data = array();

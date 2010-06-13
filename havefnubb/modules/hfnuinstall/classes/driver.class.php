@@ -8,7 +8,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-class driver implements jIFormDatasource {
+class driver implements jIFormsDatasource {
 	protected $formId = 0;
 
 	protected $data = array();
