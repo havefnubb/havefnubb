@@ -435,16 +435,20 @@ CREATE TABLE IF NOT EXISTS hf_threads (
   date_last_post int(11),
   nb_viewed int(11) DEFAULT '0',
   nb_replies int(11) DEFAULT '0',
+  ispined INT( 1 ) NOT NULL DEFAULT '0',
+  iscensored INT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY (id_thread),
   KEY id_forum (id_forum),
   KEY id_user (id_user),
   KEY status (status),
   KEY id_first_msg (id_first_msg),
-  KEY id_last_msg (id_last_msg)
+  KEY id_last_msg (id_last_msg),
+  KEY ispined (ispined),
+  KEY iscensored (iscensored)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO hf_threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post)
-VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),0);
+INSERT INTO hf_threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
+VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),0,0,0,0);
 
 DROP TABLE IF EXISTS hf_posts;
 CREATE TABLE IF NOT EXISTS hf_posts (
@@ -466,10 +470,10 @@ CREATE TABLE IF NOT EXISTS hf_posts (
   PRIMARY KEY (id_post),
   KEY id_user (id_user,id_forum,parent_id,status)
 ) DEFAULT CHARSET=utf8;
+ALTER TABLE hf_posts ADD INDEX ( ispined ) ;
 
-
-INSERT INTO hf_posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod ) VALUES
-(1, 1, 1, 1, 3, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL,1);
+INSERT INTO hf_posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod,ispined,iscensored ) VALUES
+(1, 1, 1, 1, 3, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL,1,0,0);
 
 DROP TABLE IF EXISTS hf_rank;
 CREATE TABLE IF NOT EXISTS hf_rank (
