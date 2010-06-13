@@ -1,23 +1,21 @@
 ;<?php die(''); ?>
 ;for security reasons , don't remove or modify the first line
 
-startModule = "hfnuinstall"
-startAction = "default:index"
+startModule=hfnuinstall
+startAction="default:index"
 
-modulesPath = "lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
-pluginsPath = "app:plugins/"
+modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
+pluginsPath="app:plugins/"
 
-trustedModules="hfnuinstall,havefnubb,hfnuadmin,hfnucontact,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,jauth,jacl2,jauth,jacl2db,hfnuim,hfnuhardware"
-unusedModules = "jacldb,junittests,jWSDL"
 
 
 [coordplugins]
 hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
-autolocale = autolocale.coord.ini.php
+autolocale=autolocale.coord.ini.php
 auth="havefnubb/auth.coord.ini.php"
 
 [responses]
-html = installHtmlResponse
+html=installHtmlResponse
 
 [simple_urlengine_entrypoints]
 install="hfnuinstall~*@classic"
@@ -29,3 +27,12 @@ install="hfnuinstall~*@classic"
 engine=significant
 enableParser=on
 multiview=on
+
+[modules]
+master_admin.access=1
+jacl2db_admin.access=1
+jauthdb_admin.access=1
+jacl2db.access=2
+hfnuhardware.access=2
+hfnuinstall.access=2
+hfnuim.access=2

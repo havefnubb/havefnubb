@@ -12,6 +12,6 @@
     </info>
     <dependencies>
        <jelix minversion="1.2pre.1532" maxversion="1.2pre.*"/>
-      <module name="jauth" />
+      <module name="jauth"/>
     </dependencies>
 </module>

@@ -13,6 +13,6 @@
     </info>
     <dependencies>
        <jelix minversion="1.2pre.1532" maxversion="1.2pre.*"/>
-        <module name="jauthdb" />
+        <module name="jauthdb"/>
     </dependencies>
 </module>

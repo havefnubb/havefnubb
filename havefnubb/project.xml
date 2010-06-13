@@ -8,12 +8,12 @@
         <description lang="fr_FR">HaveFnuBB! Where everything is Fnu !</description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
         <copyright>2008 FoxMaSk</copyright>
-        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
+        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
         <homepageURL>http://www.havefnubb.org/</homepageURL>
         <updateURL>http://community.havefnubb.org/last_update</updateURL>
     </info>
     <dependencies>
-      <jelix minversion="1.1.5" maxversion="1.1.*"/>
+      <jelix minversion="1.1.5" maxversion="1.2.*"/>
     </dependencies>
     <directories>
         <config>var/config/</config>
@@ -25,6 +25,5 @@
     <entrypoints>
         <entry file="forums.php" config="havefnubb/config.ini.php"/>
         <entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/>
-        <entry file="install.php" config="install/config.ini.php"/>
     </entrypoints>
 </project>

@@ -4,14 +4,9 @@
 startModule=havefnubb
 startAction="default:index"
 
-; list of modules : module,module,module
-trustedModules = "jauth,jacl2db,havefnubb,hfnucontact,hfnusearch,hfnurates,hfnuthemes,jcommunity,jmessenger,jtags,hook,hfnuim,hfnuhardware,hfnucal"
-hiddenModules =  "hfnuadmin,hfnuinstall,jauthdb"
-unusedModules = "jacldb,junittests,jWSDL,servinfo"
-
 [coordplugins]
 hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
-autolocale = "autolocale.coord.ini.php"
+autolocale=autolocale.coord.ini.php
 auth="havefnubb/auth.coord.ini.php"
 jacl2="havefnubb/jacl2.coord.ini.php"
 banuser="havefnubb/banuser.coord.ini.php"
@@ -27,3 +22,11 @@ driver=db
 
 [logfiles]
 DEBUG=havefnubbdebug.log
+[modules]
+jacl2db.access=2
+hfnuhardware.access=2
+servinfo.access=0
+hfnuadmin.access=1
+hfnuim.access=2
+hfnucal.access=2
+hook.access=2
