@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
-	<datasources>
-		<primarytable name="rates" realname="rates" primarykey="id_user,id_source,source" />
-	</datasources>
-	<record>
-		<property name="id_user"    fieldname="id_user"    datatype="int"/>
-		<property name="id_source"  fieldname="id_source"  datatype="int"/>
-		<property name="source"     fieldname="source"     datatype="string" maxlength="40"/>
-		<property name="ip"         fieldname="ip"         datatype="string" maxlength="80"/>
-		<property name="level"      fieldname="level"      datatype="float"/>
-	</record>
-	<factory>
-		<method name="getByIdSourceSourceRate" type="selectfirst">
-			<parameter name="id_user" />
-			<parameter name="id_source" />
-			<parameter name="source" />
-			<conditions>
-				<eq property="id_user"     expr="$id_user" />
-				<eq property="id_source"   expr="$id_source" />
-				<eq property="source"      expr="$source" />
-			</conditions>
-		</method>
-		<method name="getTotalRatesBySource" type="count">
-			<parameter name="id_source" />
-			<parameter name="source" />
-			<conditions>
-				<eq property="id_source"   expr="$id_source" />
-				<eq property="source"      expr="$source" />
-			</conditions>
-		</method>
+    <datasources>
+        <primarytable name="rates" realname="rates" primarykey="id_user,id_source,source" />
+    </datasources>
+    <record>
+        <property name="id_user"    fieldname="id_user"    datatype="int"/>
+        <property name="id_source"  fieldname="id_source"  datatype="int"/>
+        <property name="source"     fieldname="source"     datatype="string" maxlength="40"/>
+        <property name="ip"         fieldname="ip"         datatype="string" maxlength="80"/>
+        <property name="level"      fieldname="level"      datatype="float"/>
+    </record>
+    <factory>
+        <method name="getByIdSourceSourceRate" type="selectfirst">
+            <parameter name="id_user" />
+            <parameter name="id_source" />
+            <parameter name="source" />
+            <conditions>
+                <eq property="id_user"     expr="$id_user" />
+                <eq property="id_source"   expr="$id_source" />
+                <eq property="source"      expr="$source" />
+            </conditions>
+        </method>
+        <method name="getTotalRatesBySource" type="count">
+            <parameter name="id_source" />
+            <parameter name="source" />
+            <conditions>
+                <eq property="id_source"   expr="$id_source" />
+                <eq property="source"      expr="$source" />
+            </conditions>
+        </method>
 
-	</factory>
+    </factory>
 </dao>

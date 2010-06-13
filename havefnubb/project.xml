@@ -13,25 +13,22 @@
         <updateURL>http://community.havefnubb.org/last_update</updateURL>
     </info>
     <dependencies>
-      <jelix minversion="1.1.5" maxversion="1.1.5"/>
-      <module id="havefnubb@havefnubb.org" maxversion="1.3.6" minversion="1.3.6" name="havefnubb"/>
-      <module id="hfnuadmin@havefnubb.org" maxversion="1.3.5" minversion="1.3.5" name="hfnuadmin"/>
-      <module id="hfnucontact@havefnubb.org" maxversion="1.3.5" minversion="1.3.5" name="hfnucontact"/>
-	  <module id="hfnuhardware@havefnubb.org" maxversion="1.0" minversion="1.0" name="hfnuhardware"/>
-	  <module id="hfnuim@havefnubb.org" maxversion="1.0" minversion="1.0" name="hfnuim"/>
-      <module id="hfnuinstall@havefnubb.org" maxversion="1.3.6" minversion="1.3.6" name="hfnuinstall"/>
-      <module id="hfnurates@havefnubb.org" maxversion="1.3.5" minversion="1.3.5" name="hfnurates"/>
-      <module id="hfnusearch@havefnubb.org" maxversion="1.3.5" minversion="1.3.5" name="hfnusearch"/>
-      <module id="hfnuthemes@havefnubb.org" maxversion="1.3.4" minversion="1.3.4" name="hfnuthemes"/>
-      <module id="servinfo@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="servinfo"/>
-      <module id="hook@havefnubb.org" maxversion="1.3.4" minversion="1.3.4" name="hook"/>
-	  
-	  <plugin id="banuser@havefnubb.org" maxversion="1.3.1" minversion="1.3.1" name="banuser"/>
-	  
-	  <plugin id="flood@havefnubb.org" maxversion="1.3.1" minversion="1.3.1" name="flood"/>
-      <plugin id="hfnuinstalled@havefnubb.org" maxversion="1.3.0" minversion="1.3.0" name="hfnuinstalled"/>
-      <plugin id="timeout@havefnubb.org" maxversion="1.3.1" minversion="1.3.1" name="timeout"/>
-
+        <jelix minversion="1.1.5" maxversion="1.1.5"/>
+        <module id="havefnubb@havefnubb.org" maxversion="1.3.6" minversion="1.3.6" name="havefnubb"/>
+        <module id="hfnuadmin@havefnubb.org" maxversion="1.3.5" minversion="1.3.5" name="hfnuadmin"/>
+        <module id="hfnucontact@havefnubb.org" maxversion="1.3.5" minversion="1.3.5" name="hfnucontact"/>
+        <module id="hfnuhardware@havefnubb.org" maxversion="1.0" minversion="1.0" name="hfnuhardware"/>
+        <module id="hfnuim@havefnubb.org" maxversion="1.0" minversion="1.0" name="hfnuim"/>
+        <module id="hfnuinstall@havefnubb.org" maxversion="1.3.6" minversion="1.3.6" name="hfnuinstall"/>
+        <module id="hfnurates@havefnubb.org" maxversion="1.3.5" minversion="1.3.5" name="hfnurates"/>
+        <module id="hfnusearch@havefnubb.org" maxversion="1.3.5" minversion="1.3.5" name="hfnusearch"/>
+        <module id="hfnuthemes@havefnubb.org" maxversion="1.3.4" minversion="1.3.4" name="hfnuthemes"/>
+        <module id="servinfo@havefnubb.org" maxversion="1.3.3" minversion="1.3.3" name="servinfo"/>
+        <module id="hook@havefnubb.org" maxversion="1.3.4" minversion="1.3.4" name="hook"/>
+        <plugin id="banuser@havefnubb.org" maxversion="1.3.1" minversion="1.3.1" name="banuser"/>
+        <plugin id="flood@havefnubb.org" maxversion="1.3.1" minversion="1.3.1" name="flood"/>
+        <plugin id="hfnuinstalled@havefnubb.org" maxversion="1.3.0" minversion="1.3.0" name="hfnuinstalled"/>
+        <plugin id="timeout@havefnubb.org" maxversion="1.3.1" minversion="1.3.1" name="timeout"/>
     </dependencies>
     <directories>
         <config>var/config/</config>

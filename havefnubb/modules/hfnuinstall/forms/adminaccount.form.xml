@@ -4,7 +4,7 @@
 <hidden ref="step"/>
 
 <input ref="login" required="true">
-	<label locale="hfnuinstall~install.adminaccount.login"/>
+    <label locale="hfnuinstall~install.adminaccount.login"/>
 </input>
 
 <secret ref="password" required="true">
@@ -15,7 +15,7 @@
 </secret>
 
 <input ref="admin_email" type="email" required="true" size="80">
-	<label locale="hfnuinstall~install.adminaccount.admin_email"/>
+    <label locale="hfnuinstall~install.adminaccount.admin_email"/>
 </input>
 
 

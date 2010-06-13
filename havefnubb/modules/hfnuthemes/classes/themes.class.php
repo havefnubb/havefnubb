@@ -11,29 +11,29 @@
  * class that lists the themes directory.
  */
 class themes  {
-	/**
-	 * get the themes
-	 * @return array the list of theme
-	 */
-	static function lists() {
-		$themes = array();
+    /**
+     * get the themes
+     * @return array the list of theme
+     */
+    static function lists() {
+        $themes = array();
 
-		$dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
-		foreach ($dir as $dirContent) {
-			if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..' and $dirContent != '.svn')
-				$themes[] = self::readManifest($dirContent->getFilename());
-		}
-		return $themes;
-	}
-	/**
-	 * get the info of a given theme
-	 * @param string $theme the name of the theme
-	 * @return array details of the theme
-	 */
-	static function readManifest($theme) {
-		$themeInfos = array();
-		include JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.php';
-		return $themeInfos;
-	}
+        $dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
+        foreach ($dir as $dirContent) {
+            if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..' and $dirContent != '.svn')
+                $themes[] = self::readManifest($dirContent->getFilename());
+        }
+        return $themes;
+    }
+    /**
+     * get the info of a given theme
+     * @param string $theme the name of the theme
+     * @return array details of the theme
+     */
+    static function readManifest($theme) {
+        $themeInfos = array();
+        include JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.php';
+        return $themeInfos;
+    }
 
 }

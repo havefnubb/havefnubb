@@ -9,12 +9,12 @@
 */
 
 class defaultCtrl extends jController {
-	/**
-	*
-	*/
-	function index() {
-		$rep = $this->getResponse('html');
+    /**
+    *
+    */
+    function index() {
+        $rep = $this->getResponse('html');
 
-		return $rep;
-	}
+        return $rep;
+    }
 }
