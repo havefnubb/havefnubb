@@ -5,5 +5,5 @@
 ^havefnubb/var/config/dbprofils\.ini\.php$
 ^havefnubb/var/config/defaultconfig\.ini\.php$
 ^havefnubb/var/log
-^temp/havefnubb/
+^temp/havefnubb
 ^cache/images/
