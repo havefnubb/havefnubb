@@ -6,7 +6,7 @@ startAction="default:index"
 
 ; list of modules : module,module,module
 trustedModules = "jauth,jacl2db,havefnubb,hfnucontact,hfnusearch,hfnurates,hfnuthemes,jcommunity,jmessenger,jtags,hook,hfnuim,hfnuhardware,hfnucal"
-hiddenModules =  "hfnuadmin,hfnuinstall"
+hiddenModules =  "hfnuadmin,hfnuinstall,jauthdb"
 unusedModules = "jacldb,junittests,jWSDL,servinfo"
 
 [coordplugins]
