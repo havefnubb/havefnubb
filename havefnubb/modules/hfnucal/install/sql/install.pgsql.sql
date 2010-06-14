@@ -1,5 +1,5 @@
-CREATE TABLE  %%PREFIX%%hfcalendar (
-    id INT(10) NOT NULL AUTO_INCREMENT ,
+CREATE TABLE %%PREFIX%%hfcalendar (
+    id SERIAL NOT NULL ,
     date INT(10) NOT NULL ,
     title VARCHAR(255) NOT NULL ,
     content TEXT NOT NULL ,
@@ -10,7 +10,7 @@ CREATE TABLE  %%PREFIX%%hfcalendar (
     cat_id INT(10),
     INDEX (cat_id),
     PRIMARY KEY (id)
-) DEFAULT CHARSET=utf8;
+);
 
 
 CREATE TABLE  %%PREFIX%%hfcalendar_cat (
@@ -23,4 +23,4 @@ CREATE TABLE  %%PREFIX%%hfcalendar_cat (
     PRIMARY KEY ( `cat_id` ) ,
     UNIQUE KEY `cat_name` ( `cat_name` ) ,
     UNIQUE KEY `cat_url` ( `cat_url` )
-) DEFAULT CHARSET=utf8;
+);
