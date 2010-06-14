@@ -14,5 +14,6 @@
     </info>
     <dependencies>
         <jelix minversion="1.1.5" maxversion="1.2.*"/>
+        <module name="jacl2db"/>
     </dependencies>
 </module>
