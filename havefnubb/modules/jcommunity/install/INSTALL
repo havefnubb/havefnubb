@@ -7,14 +7,14 @@ Copying files
 Copy the jcommunity module in your application or anywhere. Verify that the module repository where it is installed is declared into modulePath property in the general configuration of your application.
 
 
-About the jauth module
-----------------------
+About the jauth and jauthdb module
+----------------------------------
 
-You should nothing about it, you can deactivate it. You don't have to install the sql script provided by this module
+You should do nothing about it, uninstall and deactivate them.
 
 
-General configuration
----------------------
+Configuration for jelix 1.1 applications
+------------------------------------------------
 
 in the defaultconfig.ini.php:
 - if you have checkTrustedModules=on, you should add jcommunity module in trustedModules.
@@ -27,26 +27,42 @@ execute the install.mysql.sql script on your database. It creates a `community_u
 If you have already a table of users, you can add new fields of community_users in your table.
 You should then override all DAOs of the jcommunity module to change the fieldname and the table.
 
-Activation of the auth coordplugin
-----------------------------------
+*** Activation of the auth coordplugin
 
 You must activate the auth coordplugin in your configuration. Inside your config.ini.php:
 
     [coordplugins]
     auth = auth.coord.ini.php
 
-And copy the lib/jelix/plugins/coord/auth/auth.coord.ini.php.dist file into yourapp/var/config/auth.coord.ini.php.
+And copy the auth.coord.ini.php provided in the jcommunity module, install/var/config/auth.coord.ini.php
 
-In this ini file, you should at least change the values of this properties : 
+In this ini file, you should at least change the values of this properties :
 
-    driver = Db
-    on_error_action = "jcommunity~login:out"
-    bad_ip_action = "jcommunity~login:out"
-    persistant_enable=on
     persistant_crypt_key=  "INSERT HERE A SENTENCE"
-    [Db]
-    dao = "jcommunity~user"
 
+Configuration for jelix 1.2 applications
+------------------------------------------------
+
+in the defaultconfig.ini.php:
+- Configure all parameters in the mailer section. jCommunity needs to send mail to users.
+
+if you use significant urls, link urls_account.xml, urls_auth.xml and urls_registration.xml to the main urls.xml of the application
+
+        <url pathinfo="/auth"     module="jcommunity" include="urls_auth.xml"/>
+        <url pathinfo="/profile"  module="jcommunity" include="urls_account.xml"/>
+        <url pathinfo="/registration"  module="jcommunity" include="urls_registration.xml"/>
+
+Install the module (installmodule command), it then creates a `community_users` table.
+If you have already a table of users, you can add new fields of community_users in your table.
+You should then override all DAOs of the jcommunity module to change the fieldname and the table.
+
+*** Activation of the auth coordplugin
+
+the auth coordplugin is automatically activated in your configuration.
+In the ini file yourapp/var/config/auth.coord.ini.php, you should at least
+change the values of this properties : 
+
+    persistant_crypt_key=  "INSERT HERE A SENTENCE"
 
 Integration into your application
 ---------------------------------

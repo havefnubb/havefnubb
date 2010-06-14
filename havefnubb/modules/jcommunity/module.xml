@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
       <info id="jcommunity@jelix.org" name="jcommunity">
-        <version stability="stable">0.2</version>
+        <version stability="stable">0.2.1</version>
         <label>jCommunity</label>
         <description>module for a portal, to bring registration, profile editing for users</description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GPL</licence>
@@ -11,8 +11,6 @@
         <homepageURL>http://bitbucket.org/laurentj/jcommunity/</homepageURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1" maxversion="1.2"/>
-        <module name="jauth"/>
-        <module name="jauthdb"/>
+        <jelix minversion="1.1" maxversion="1.2.*"/>
     </dependencies>
 </module>

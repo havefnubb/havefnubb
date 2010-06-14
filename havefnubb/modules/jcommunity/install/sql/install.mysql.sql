@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `community_users`;
-CREATE TABLE IF NOT EXISTS `community_users` (
+
+CREATE TABLE IF NOT EXISTS `%%PREFIX%%community_users` (
   `id` int(11) NOT NULL auto_increment,
   `login` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
