@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suburls xmlns="http://jelix.org/ns/suburls/1.0">
+        <url pathinfo="/contacted" action="default:contacted"/>
+        <url pathinfo="/send_to_friend" action="default:send_to_friend"/>
+        <url pathinfo="/send_a_message" action="default:send_a_message"/>
+        <url pathinfo="/send_a_message_to_friend" action="default:send_a_message_to_friend"/>
+</suburls>
