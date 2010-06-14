@@ -1,6 +1,6 @@
 <?php
 /**
-* @package     hfnucal
+* @package     havefnubb
 * @author      Laurent Jouanneau
 * @contributor
 * @copyright   2010 Laurent Jouanneau
@@ -9,9 +9,12 @@
 */
 
 
-class hfnucalModuleInstaller extends jInstallerModule {
+class hfnuratesModuleInstaller extends jInstallerModule {
+
+    protected $useDatabase = true;
 
     function install() {
-        $this->copyFile('www/themes/default/hfnucal.css', 'www:themes/default/hfnucal.css');
+        $this->execSQLScript('sql/install');
+        $this->copyDirectoryContent('www/images/', 'www:images/');
     }
 }
