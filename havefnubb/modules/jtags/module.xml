@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="jtags@sharecode" name="jtags">
-        <version stability="stable">0.1</version>
+        <version stability="stable">0.1.1</version>
         <label>jTags</label>
         <description/>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GPL</licence>
