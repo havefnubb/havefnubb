@@ -18,8 +18,8 @@ class banCtrl extends jController {
         '*' => array('auth.required'=>true,
             'hfnu.check.installed'=>true,
             'banuser.check'=>true,
-      ),
-        'index' => array( 'jacl2.right'=>'hfnu.admin.ban'),
+            'jacl2.right'=>'hfnu.admin.ban'
+        ),
     );
 
     function index() {

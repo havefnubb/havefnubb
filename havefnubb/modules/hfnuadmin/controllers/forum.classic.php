@@ -19,12 +19,9 @@ class forumCtrl extends jController {
 		'*' => array('auth.required'=>true,
 			'hfnu.check.installed'=>true,
 			'banuser.check'=>true,
+            'jacl2.right'=>'hfnu.admin.forum'
 		),
-	  'index'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
-		  'edit'	=> array( 'jacl2.right'=>'hfnu.admin.forum'),
-		  'saveedit'=> array( 'jacl2.right'=>'hfnu.admin.forum'),
-		  'defaultrights'=> array( 'jacl2.right'=>'hfnu.admin.forum'),
-		  'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
+		'delete'=> array( 'jacl2.right'=>'hfnu.admin.forum.delete'),
 	);
 
 

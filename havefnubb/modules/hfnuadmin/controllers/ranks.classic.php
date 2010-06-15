@@ -23,6 +23,14 @@ class ranksCtrl extends jController {
 							array('hfnu.admin.rank.create',
 								'hfnu.admin.rank.edit')
 								),
+        'savecreate' => array( 'jacl2.rights.and'=>
+							array('hfnu.admin.rank.create',
+								'hfnu.admin.rank.edit')
+								),
+        'saveedit' => array( 'jacl2.rights.and'=>
+							array('hfnu.admin.rank.create',
+								'hfnu.admin.rank.edit')
+								),
 		'delete' => array( 'jacl2.right'=>'hfnu.admin.rank.delete'),
 	);
 
