@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urls xmlns="http://jelix.org/ns/urls/1.0">
+    <classicentrypoint name="index" default="true">
+        <url pathinfo="/messages"  module="jmessenger" action="jmessenger:index"/>
+        <url pathinfo="/messages/inbox"  module="jmessenger" action="jmessenger:inbox"/>
+        <url pathinfo="/messages/outbox"  module="jmessenger" action="jmessenger:outbox"/>
+        
+        <url pathinfo="/messages/new/precreate"  module="jmessenger" action="jmessenger:precreate"/>
+        <url pathinfo="/messages/new"  module="jmessenger" action="jmessenger:create"/>
+        <url pathinfo="/messages/new/save"  module="jmessenger" action="jmessenger:savecreate"/>
+        
+        <url pathinfo="/messages/edit/:id"  module="jmessenger" action="jmessenger:editupdate" actionoverride="jmessenger:preupdate">
+            <param id="id" type="number"/>
+        </url>
+        <url pathinfo="/messages/edit/:id/save"  module="jmessenger" action="jmessenger:saveupdate">
+            <param id="id" type="number"/>
+        </url>
+        <url pathinfo="/messages/read/:id"  module="jmessenger" action="jmessenger:view">
+            <param id="id" type="number"/>
+        </url>
+        <url pathinfo="/messages/answer/:id"  module="jmessenger" action="jmessenger:answer">
+            <param id="id" type="number"/>
+        </url>
+        <url pathinfo="/messages/delete/:id"  module="jmessenger" action="jmessenger:delete">
+            <param id="id" type="number"/>
+        </url>
+    </classicentrypoint>
+</urls>

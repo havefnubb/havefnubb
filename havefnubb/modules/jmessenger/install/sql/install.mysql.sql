@@ -1,9 +1,7 @@
 --
 -- Structure de la table `message`
 --
-
-DROP TABLE IF EXISTS `jmessenger`;
-CREATE TABLE IF NOT EXISTS `jmessenger` (
+CREATE TABLE IF NOT EXISTS `%%PREFIX%%jmessenger` (
   `id` int(11) NOT NULL auto_increment,
   `id_from` int(11) NOT NULL default '0',
   `id_for` int(11) NOT NULL default '0',

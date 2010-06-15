@@ -16,26 +16,14 @@
         <td><input class='msg_select' type='checkbox' value="{$m->id}" name='msg_select[]'/></td>
         <td><a href="{jurl 'jmessenger~jmessenger:view', array('id'=>$m->id)}">{$m->title}</a> {if $m->isSeen == 0 && !isset($send)}({@jmessenger~message.new@} !){/if}</td>
         <td>{if isset($send)}
-                        <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFor}</a>
-                    {else}
-                        <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFrom}</a>
-                    {/if}
+            <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFor}</a>
+        {else}
+            <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFrom}</a>
+        {/if}
         </td>
         <td>
             Le {$m->date|jdatetime:'db_datetime':'lang_date'} à {$m->date|jdatetime:'db_datetime':'db_time'}
         </td>
-            
-<!--             <div class="span-11 prepend-2 last deroulant-div hide">
-                {$m->content}
-
-                {if isset($send)}
-                    {$m->id_for}
-                {else}
-                    {$m->id_from}
-                {/if}
-            </div> -->
-            
-
         <td>
             {if !isset($send)}
             
