@@ -7,7 +7,6 @@ INSERT INTO hf_jacl2_group (id_aclgrp, name, grouptype, ownerlogin) VALUES (3, '
 INSERT INTO hf_jacl2_group (id_aclgrp, name, grouptype, ownerlogin) VALUES (4, 'admin', 2, 'admin');
 
 
-
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('acl.group.create', 1, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('acl.group.delete', 1, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('acl.group.modify', 1, '');
@@ -26,52 +25,8 @@ INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.user
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.users.list', 1, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.users.modify', 1, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.users.view', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.ban', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.ban', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.cache', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.cache', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.cache.clear', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.category', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.category', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.category.create', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.category.delete', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.category.edit', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.config', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.config', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.config.edit', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.contact', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.forum', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.forum.create', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.forum.delete', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.forum.edit', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.index', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.index', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member.ban', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member.ban', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member.create', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member.create', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member.delete', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member.delete', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member.edit', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.member.edit', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.notify.delete', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.notify.delete', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.notify.list', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.notify.list', 3, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.post', 1, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.post', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.rank.create', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.rank.create', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.rank.delete', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.rank.delete', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.rank.edit', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.rank.edit', 3, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.search', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.server.info', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.serverinfo', 1, '');
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.themes', 1, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.forum.goto', 1, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.forum.goto', 2, '');
 INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.forum.goto', 3, '');
@@ -258,25 +213,6 @@ INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('auth.users.delete',
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('auth.users.list', 'jelix~auth.acl.users.list');
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('auth.users.modify', 'jelix~auth.acl.users.modify');
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('auth.users.view', 'jelix~auth.acl.users.view');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.category.create', 'havefnubb~acl2.admin.category.create');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.category.delete', 'havefnubb~acl2.admin.category.delete');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.category.edit', 'havefnubb~acl2.admin.category.edit');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.config.edit', 'havefnubb~acl2.admin.config.edit');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.category', 'havefnubb~acl2.admin.category');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.forum.create', 'havefnubb~acl2.admin.forum.create');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.forum.delete', 'havefnubb~acl2.admin.forum.delete');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.forum.edit', 'havefnubb~acl2.admin.forum.edit');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.index', 'havefnubb~acl2.admin.index');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.member.ban', 'havefnubb~acl2.admin.member.ban');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.member.create', 'havefnubb~acl2.admin.member.create');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.member.delete', 'havefnubb~acl2.admin.member.delete');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.member.edit', 'havefnubb~acl2.admin.member.edit');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.notify.delete', 'havefnubb~acl2.admin.notify.delete');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.notify.list', 'havefnubb~acl2.admin.notify.list');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.rank.create', 'havefnubb~acl2.admin.rank.create');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.rank.delete', 'havefnubb~acl2.admin.rank.delete');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.rank.edit', 'havefnubb~acl2.admin.rank.edit');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.server.info', 'havefnubb~acl2.admin.server.info');
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.category.list', 'havefnubb~acl2.category.list');
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.category.view', 'havefnubb~acl2.category.view');
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.forum.goto', 'havefnubb~acl2.forum.goto');
@@ -297,18 +233,7 @@ INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.posts.view', '
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.posts.rss', 'havefnubb~acl2.posts.rss');
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.search', 'havefnubb~acl2.search');
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.posts.edit.own', 'havefnubb~acl2.posts.edit.own');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.cache.clear', 'havefnu~acl2.admin.cache.clear');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.search', 'havefnubb~acl2.admin.search');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.cache', 'havefnubb~acl2.admin.cache');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.config', 'havefnubb~acl2.admin.config');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.forum', 'havefnubb~acl2.admin.forum');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.member', 'havefnubb~acl2.admin.member');
 INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.post', 'havefnubb~acl2.admin.post');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.ban', 'havefnubb~acl2.admin.ban');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.serverinfo', 'havefnubb~acl2.admin.serverinfo');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.contact', 'hfnucontact~acl2.admin.contact');
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.themes', 'havefnubb~acl2.admin.themes');
-
 
 
 INSERT INTO hf_jacl2_user_group (login, id_aclgrp) VALUES ('admin', 1);
@@ -317,13 +242,7 @@ INSERT INTO hf_jacl2_user_group (login, id_aclgrp) VALUES ('admin', 4);
 INSERT INTO hf_member (id_user, member_login, member_password, member_email, member_nickname, member_status, member_keyactivate, member_request_date, member_website, member_firstname, member_birth, member_country, member_town, member_comment, member_avatar, member_last_connect, member_show_email, member_language, member_nb_msg, member_last_post, member_created, member_gravatar) VALUES (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@admin.net', 'admin', 1, NULL, '2010-06-08 10:21:43', NULL, NULL, '1980-01-01', NULL, NULL, NULL, NULL, 1276004461, NULL, NULL, 0, 0, '2010-06-08 10:21:43', 0);
 
 
-
-
-
-
-
 INSERT INTO hf_sc_tags (tag_id, tag_name, nbuse) VALUES (1, 'install', 1);
-
 INSERT INTO hf_sc_tags_tagged (tt_id, tag_id, tt_scope_id, tt_subject_id) VALUES (1, 1, 'forumscope', 1);
 
 

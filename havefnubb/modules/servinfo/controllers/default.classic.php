@@ -18,7 +18,7 @@ class defaultCtrl extends jController {
         '*'	=>	array('auth.required'=>true,
                     'hfnu.check.installed'=>true,
                     'banuser.check'=>true,
-                    'jacl2.right'=>'hfnu.admin.serverinfo'
+                    'jacl2.right'=>'hfnu.admin.server.info'
                     ),
     );
 
