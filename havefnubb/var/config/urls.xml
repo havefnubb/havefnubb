@@ -2,363 +2,43 @@
 <urls xmlns="http://jelix.org/ns/urls/1.0">
 
     <classicentrypoint name="forums" default="true" noentrypoint="false">
+
         <url pathinfo="/" module="havefnubb" action="default:index"  optionalTrailingSlash="true"/>
-        <url pathinfo="/forum" module="havefnubb" action="default:index" optionalTrailingSlash="true"/>
-        <url pathinfo="/cat/:id_cat-:ctitle" module="havefnubb" action="category:view">
-           <param name="id_cat" type="number"/>
-           <param name="ctitle"  type="string" escape="true" />
-        </url>
+        <url pathinfo="/forum"        module="havefnubb" include="urls_forum.xml"/>
+        <url pathinfo="/post"         module="havefnubb" include="urls_post.xml"/>
 
-        <url pathinfo="/404" module="havefnubb" action="hfnuerror:notfound" />
-        <!-- rss posts management -->
-        <url pathinfo="/rss/:id_forum-:ftitle" module="havefnubb" action="posts:rss">
-           <param name="id_forum" type="number"/>
-           <param name="ftitle"  type="string" escape="true" />
-        </url>
+        <url pathinfo="/messages"     module="jmessenger"  include="urls.xml"/>
+        <url pathinfo="/auth"         module="jcommunity"  include="urls_auth.xml"/>
 
-        <!-- community access -->
-        <!--url pathinfo="/community" module="havefnubb" action="default:index"/-->
-
-
-        <!-- categories management -->
-        <url pathinfo="/cat/:id_cat-:ctitle" module="havefnubb" action="category:view">
-           <param name="id_cat" type="number"/>
-           <param name="ctitle"  type="string" escape="true" />
-        </url>
-
-        <!-- forums management -->
-        <url pathinfo="/forum/:id_forum-:ftitle" module="havefnubb" action="posts:lists">
-           <param name="id_forum" type="number"/>
-           <param name="ftitle"  type="string" escape="true" />
-        </url>
-
-        <!-- posts management -->
-        <url pathinfo="/forum/:id_forum-:ftitle/posts/:id_post-:parent_id-:ptitle" module="havefnubb" action="posts:view">
-           <param name="id_forum" type="number"/>
-           <param name="ftitle"  type="string" escape="true" />
-           <param name="id_post" type="number"/>
-           <param name="ptitle"  type="string" escape="true" />
-           <param name="parent_id" type="number"/>
-        </url>
-
-        <url pathinfo="/forum/:id_forum-:ftitle/posts/:id_post-:parent_id-:ptitle/go/:go" module="havefnubb" action="posts:viewtogo">
-           <param name="id_forum" type="number"/>
-           <param name="ftitle"  type="string" escape="true" />
-           <param name="id_post" type="number"/>
-           <param name="ptitle"  type="string" escape="true" />
-           <param name="parent_id" type="number"/>
-           <param name="go" type="number"/>
-        </url>
-
-
-        <!-- forums management -->
-        <url pathinfo="/readrss/:id_forum-:ftitle" module="havefnubb" action="forum:read_rss">
-           <param name="id_forum" type="number"/>
-           <param name="ftitle"  type="string" escape="true" />
-        </url>
-
-
-        <url pathinfo="/post/create/:id_forum" module="havefnubb" action="posts:add" actionoverride="posts:save">
-            <param name="id_forum" type="number"/>
-        </url>
-
-        <url pathinfo="/post/reply/:parent_id/:id_post" module="havefnubb" action="posts:reply"  actionoverride="posts:savereply">
-            <param name="parent_id" type="number"/>
-            <param name="id_post" type="number"/>
-        </url>
-
-        <url pathinfo="/post/notify/:id_post" module="havefnubb" action="posts:notify" actionoverride="posts:savenotify">
-            <param name="id_post" type="number"/>
-        </url>
-
-        <url pathinfo="/post/edit/:id_post" module="havefnubb" action="posts:edit">
-            <param name="id_post" type="number"/>
-        </url>
-
-        <url pathinfo="/post/jump" module="havefnubb" action="posts:goesto">
-
-        </url>
-
-        <url pathinfo="/post/status/:parent_id" module="havefnubb" action="posts:status">
-            <param name="parent_id" type="number"/>
-            <param name="status" type="string"/>
-        </url>
-
-        <url pathinfo="/post/moveto/:id_post" module="havefnubb" action="posts:moveToForum">
-
-            <param name="id_post" type="number"/>
-        </url>
-
-
-        <url pathinfo="/post/quote/:id_post/:parent_id" module="havefnubb" action="posts:quote">
-            <param name="id_post" type="number"/>
-            <param name="parent_id" type="number"/>
-        </url>
-
-        <url pathinfo="/post/delete/:id_post/:id_forum" module="havefnubb" action="posts:delete">
-            <param name="id_post" type="number"/>
-            <param name="id_forum" type="number"/>
-        </url>
-
-        <url pathinfo="/post/split/forum-:id_forum/parent-:parent_id/post-:id_post" module="havefnubb" action="posts:splitTo">
-            <param name="id_forum" type="number"/>
-            <param name="parent_id" type="number"/>
-            <param name="id_forum" type="number"/>
-        </url>
-
-        <url pathinfo="/post/censor/forum-:id_forum/parent-:parent_id/post-:id_post" module="havefnubb" action="posts:censor" actionoverride="posts:savecensor">
-            <param name="id_forum" type="number"/>
-            <param name="parent_id" type="number"/>
-            <param name="id_post" type="number"/>
-        </url>
-
-        <url pathinfo="/post/uncensor/forum-:id_forum/parent-:parent_id/post-:id_post" module="havefnubb" action="posts:uncensor">
-            <param name="id_forum" type="number"/>
-            <param name="parent_id" type="number"/>
-            <param name="id_post" type="number"/>
-        </url>
-
-
-        <url pathinfo="/mark_all_as_read" module="havefnubb" action="forum:mark_all_as_read"/>
-
-        <url pathinfo="/mark_forum_as_read/:id_forum" module="havefnubb" action="forum:mark_forum_as_read">
-            <param name="id_forum" type="number"/>
-        </url>
-
-        <url pathinfo="/posts/shownew" module="havefnubb" action="posts:shownew"/>
-
-        <url pathinfo="/posts/unsubscribe/:id_post" module="havefnubb" action="posts:unsubscribe">
-            <param name="id_post" type="number"/>
-        </url>
-        <url pathinfo="/posts/unsub/:id_post" module="havefnubb" action="posts:unsub">
-            <param name="id_post" type="number"/>
-        </url>
-
-        <url pathinfo="/posts/subscribe/:id_post" module="havefnubb" action="posts:subscribe">
-            <param name="id_post" type="number"/>
-        </url>
-         <!-- members management -->
-        <url pathinfo="/members" module="havefnubb" action="members:index"/>
-
-        <!-- hfnusearch -->
-        <url pathinfo="/search" module="hfnusearch" action="default:index"/>
-        <url pathinfo="/search/results" module="hfnusearch" action="default:query"/>
-        <url pathinfo="/searchajax" module="hfnusearch" action="default:queryajax"/>
-
-        <!-- jtag -->
-        <url pathinfo="/tag/:tag"  module="havefnubb" action="default:cloud">
-            <param name="tag" type="string" escape="true" />
-        </url>
-
-        <!-- change password -->
+        <url pathinfo="/profile"      module="jcommunity"  include="urls_account.xml"/>
         <url pathinfo="/profile/:user/changepwd" module="havefnubb" action="members:changepwd">
             <param name="user" />
         </url>
-        <!-- private messaging -->
-        <url pathinfo="/profile/pm" module="havefnubb" action="members:mail"/>
+        <url pathinfo="/profile/pm"   module="havefnubb" action="members:mail"/>
 
-        <!-- jmessenger -->
-        <url pathinfo="/messages"  module="jmessenger" action="jmessenger:index"/>
-        <url pathinfo="/messages"  module="jmessenger" action="jmessenger:inbox"/>
-        <url pathinfo="/messages/outbox"  module="jmessenger" action="jmessenger:outbox"/>
-        <url pathinfo="/messages/new"  module="jmessenger" action="jmessenger:create" actionoverride="jmessenger:savecreate"/>
-        <url pathinfo="/messages/new"  module="jmessenger" action="jmessenger:precreate"/>
-        <url pathinfo="/messages/edit/:id"  module="jmessenger" action="jmessenger:preupdate">
-            <param id="id" type="number"/>
-        </url>
-        <url pathinfo="/messages/editupdate/:id"  module="jmessenger" action="jmessenger:editupdate">
-            <param id="id" type="number"/>
-        </url>
-        <url pathinfo="/messages/saveupdate"  module="jmessenger" action="jmessenger:saveupdate">
-
-        </url>
-        <url pathinfo="/messages/read/:id"  module="jmessenger" action="jmessenger:view">
-            <param id="id" type="number"/>
-        </url>
-        <url pathinfo="/messages/answer/:id"  module="jmessenger" action="jmessenger:answer">
-            <param id="id" type="number"/>
-        </url>
-        <url pathinfo="/messages/delete/:id"  module="jmessenger" action="jmessenger:delete">
-            <param id="id" type="number"/>
-        </url>
-
-        <!-- jauth -->
-        <url pathinfo="/auth/dologout" module="jauth" action="login:out"/>
-
-        <!--  jcommunity  -->
-        <url pathinfo="/auth/login"     module="jcommunity" action="login:index"/>
-        <url pathinfo="/auth/dologin"   module="jcommunity" action="login:in"/>
-        <url pathinfo="/auth/dologout"  module="jcommunity" action="login:out"/>
-
-        <url pathinfo="/profile" module="jcommunity" action="default:index"/>
-        <url pathinfo="/profile/:user/prepareedit" module="jcommunity" action="account:prepareedit">
-            <param name="user" />
-        </url>
-
-        <url pathinfo="/profile/:user"            module="jcommunity" action="account:show">
-            <param name="user" />
-        </url>
-        <url pathinfo="/profile/:user/edit" module="jcommunity" action="account:edit" actionoverride="account:prepareedit,account:save">
-            <param name="user" />
-        </url>
-        <url pathinfo="/profile/:user/destroy"    module="jcommunity" action="account:destroy" actionoverride="account:dodestroy">
-            <param name="user" />
-        </url>
-
-        <url pathinfo="/registration"                   module="jcommunity" action="registration:index"/>
-        <url pathinfo="/registration/save"              module="jcommunity" action="registration:save"/>
-        <url pathinfo="/registration/confirm"           module="jcommunity" action="registration:confirm"/>
-        <url pathinfo="/registration/confirmform"       module="jcommunity" action="registration:confirmform"/>
-        <url pathinfo="/registration/confirmok"         module="jcommunity" action="registration:confirmok"/>
-
-        <url pathinfo="/registration/password"          module="jcommunity" action="password:index" />
-        <url pathinfo="/registration/password/send"     module="jcommunity" action="password:send"/>
-        <url pathinfo="/registration/password/confirm"  module="jcommunity" action="password:confirm"/>
-        <url pathinfo="/registration/password/confirmform" module="jcommunity" action="password:confirmform"/>
-        <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
-
-        <!-- hfnucontact module -->
-        <url pathinfo="/contacted" module="hfnucontact" action="default:contacted"/>
-
-        <url pathinfo="/send_to_friend" module="hfnucontact" action="default:send_to_friend"/>
-        <url pathinfo="/send_a_message" module="hfnucontact" action="default:send_a_message"/>
-        <!-- hfnurates module -->
-        <url pathinfo="/rates/it"  module="hfnurates" action="default:rate_it"/>
-        <url pathinfo="/rates/ait" module="hfnurates" action="default:rate_ajax_it"/>
-
-
-        <url pathinfo="/cal/:year/:month" module="hfnucal" action="default:index"/>
-        <url pathinfo="/cal/:year/:month" module="hfnucal" action="default:index">
-            <param name="year" type="number"/>
-            <param name="month" type="number"/>
-        </url>
-
-        <url pathinfo="/cal/:year/:month/:day" module="hfnucal" action="default:view">
-            <param name="year" type="number"/>
-            <param name="month" type="number"/>
-            <param name="day" type="number"/>
-        </url>
+        <url pathinfo="/registration" module="jcommunity"  include="urls_registration.xml"/>
+        <url pathinfo="/contact"      module="hfnucontact" include="urls.xml"/>
+        <url pathinfo="/rates"        module="hfnurates"   include="urls.xml"/>
+        <url pathinfo="/cal"          module="hfnucal"     include="urls.xml" />
+        <url pathinfo="/search" module="hfnusearch" include="urls.xml"/>
 
     </classicentrypoint>
 
-    <classicentrypoint name="install" default="false" noentrypoint="false">
-        <url pathinfo="/"             module="hfnuinstall" action="default:index"/>
-        <url pathinfo="/update/1_2_0" module="hfnuinstall" action="default:update_to_1_2_0"/>
-        <url pathinfo="/update/1_3_0" module="hfnuinstall" action="default:update_to_1_3_0"/>
-        <url pathinfo="/update/1_3_1" module="hfnuinstall" action="default:update_to_1_3_1"/>
-        <url pathinfo="/update/1_3_2" module="hfnuinstall" action="default:update_to_1_3_2"/>
-        <url pathinfo="/update/1_3_3" module="hfnuinstall" action="default:update_to_1_3_3"/>
-        <url pathinfo="/update/1_3_4" module="hfnuinstall" action="default:update_to_1_3_4"/>
-        <url pathinfo="/update/1_3_5" module="hfnuinstall" action="default:update_to_1_3_5"/>
-        <url pathinfo="/update/1_3_6" module="hfnuinstall" action="default:update_to_1_3_6"/>
-        <url pathinfo="/update/1_4_0" module="hfnuinstall" action="default:update_to_1_4_0"/>
-        <url pathinfo="/migrate/phorum" module="hfnuinstall" action="migrate:phorum"/>
-    </classicentrypoint>
-<!-- fin forum -->
-<!-- debut admin forum -->
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
         <url pathinfo="/" module="master_admin" action="default:index"  optionalTrailingSlash="true"/>
+        <!--<url pathinfo="/admin/board"  module="master_admin" action="default:index" />-->
 
-        <url pathinfo="/admin/themes" module="hfnuthemes" action="default:index" />
-        <url pathinfo="/admin/themes/useit" module="hfnuthemes" action="default:useit">
-            <param name="theme" type="string"/>
-        </url>
+        <url pathinfo="/admin/themes"  module="hfnuthemes" include="urls_admin.xml" />
+        <url pathinfo="/admin/search"  module="hfnusearch" include="urls.xml" />
+        <url pathinfo="/admin/server"  module="servinfo" include="urls.xml" />
+        <url pathinfo="/admin/auth"    module="jauthdb_admin" include="urls.xml"/>
+        <url pathinfo="/admin/acl"     module="jacl2db_admin" include="urls.xml"/>
+        <url pathinfo="/admin/contact" module="hfnucontact" include="urls_admin.xml"/>
+        <url pathinfo="/admin/hfn"     module="hfnuadmin" include="urls_admin.xml" />
 
-        <url pathinfo="/admin/checkupgrade" module="hfnuadmin" action="default:check_upgrade" />
-        <url pathinfo="/admin/board" module="master_admin" action="default:index" />
-
-        <url pathinfo="/admin/phpinfo" module="servinfo" action="default:phpinfo" />
-        <url pathinfo="/admin/unreadposts" module="hfnuadmin" action="posts:unread" />
-
-        <url pathinfo="/admin"          module="hfnuadmin" action="default:index" />
-        <url pathinfo="/admin/config"   module="hfnuadmin" action="default:config" actionoverride="default:saveconfig"/>
-        <url pathinfo="/admin/modules"   module="hfnuadmin" action="modules:index" />
-        <url pathinfo="/admin/category" module="hfnuadmin" action="category:index" />
-        <url pathinfo="/admin/forum"    module="hfnuadmin" action="forum:index" />
-        <url pathinfo="/admin/forum/create" module="hfnuadmin" action="forum:create" />
-        <url pathinfo="/admin/ranks"    module="hfnuadmin" action="ranks:index" />
-        <url pathinfo="/admin/notify"   module="hfnuadmin" action="notify:index" />
-        <url pathinfo="/admin/notify/delete/:id_notify"   module="hfnuadmin" action="notify:delete">
-            <param name="id_notify" type="integer"/>
-        </url>
-        <url pathinfo="/admin/cache"    module="hfnuadmin" action="cache:index" />
-        <url pathinfo="/admin/ban"      module="hfnuadmin" action="ban:index" />
-        <url pathinfo="/admin/ban/saveban"      module="hfnuadmin" action="ban:saveban" />
-        <url pathinfo="/admin/ban/delete"      module="hfnuadmin" action="ban:delete">
-            <param name="id_ban" type="number"/>
-        </url>
-        <url pathinfo="/admin/search"   module="hfnusearch" action="admin:index" />
-
-        <url pathinfo="/admin/category/savecreate"  module="hfnuadmin" action="category:savecreate"/>
-        <url pathinfo="/admin/category/saveedit"  module="hfnuadmin" action="category:saveedit"/>
-
-        <url pathinfo="/admin/category/edit/:id_cat"  module="hfnuadmin" action="category:edit">
-            <param name="id_cat" type="number"/>
-        </url>
-
-        <url pathinfo="/admin/category/delete/:id_cat"  module="hfnuadmin" action="category:delete">
-            <param name="id_cat" type="number"/>
-        </url>
-
-        <url pathinfo="/admin/forum/delete/:id_forum"   module="hfnuadmin" action="forum:delete">
-            <param name="id_forum" type="number"/>
-        </url>
-        <url pathinfo="/admin/forum/edit/:id_forum"     module="hfnuadmin" action="forum:edit">
-            <param name="id_forum" type="number"/>
-        </url>
-        <url pathinfo="/admin/forum/saveedit"     module="hfnuadmin" action="forum:saveedit"/>
-        <url pathinfo="/admin/forum/defaultrights"     module="hfnuadmin" action="forum:defaultrights"/>
-        <url pathinfo="/admin/ranks/delete/:id_rank"    module="hfnuadmin" action="ranks:delete">
-            <param name="id_rank" type="number"/>
-        </url>
-        <url pathinfo="/admin/ranks/savecreate"    module="hfnuadmin" action="ranks:savecreate"/>
-        <url pathinfo="/admin/ranks/saveedit"    module="hfnuadmin" action="ranks:saveedit"/>
-
-      <url pathinfo="/admin/auth/users/" module="jauthdb_admin" action="default:index"/>
-      <url pathinfo="/admin/auth/user/:j_user_login" module="jauthdb_admin" action="default:view">
-        <param name="j_user_login"/>
-      </url>
-      <url pathinfo="/admin/auth/create-user" module="jauthdb_admin" action="default:create" actionoverride="default:precreate,default:savecreate"/>
-      <url pathinfo="/admin/auth/user/:j_user_login/edit" module="jauthdb_admin" action="default:editupdate" actionoverride="default:preupdate,default:saveupdate">
-        <param name="j_user_login"/>
-      </url>
-      <url pathinfo="/admin/auth/user/:j_user_login/confirmdelete" module="jauthdb_admin" action="default:confirmdelete">
-        <param name="j_user_login"/>
-      </url>
-      <url pathinfo="/admin/auth/user/:j_user_login/delete" module="jauthdb_admin" action="default:delete">
-        <param name="j_user_login"/>
-      </url>
-
-      <url pathinfo="/admin/auth/profile/:j_user_login" module="jauthdb_admin" action="user:index">
-        <param name="j_user_login"/>
-      </url>
-      <url pathinfo="/admin/auth/profile/:j_user_login/edit" module="jauthdb_admin" action="user:editupdate" actionoverride="user:preupdate,user:saveupdate">
-        <param name="j_user_login"/>
-      </url>
-
-      <url pathinfo="/admin/auth/user/:j_user_login/password" module="jauthdb_admin" action="password:index">
-        <param name="j_user_login"/>
-      </url>
-      <url pathinfo="/admin/auth/user/:j_user_login/password-save" module="jauthdb_admin" action="password:update">
-        <param name="j_user_login"/>
-      </url>
-
-        <url pathinfo="/admin/acl/groups"             module="jacl2db_admin" action="groups:index"/>
-        <url pathinfo="/admin/acl/groups/rights"      module="jacl2db_admin" action="groups:rights"/>
-        <url pathinfo="/admin/acl/groups/saverights"  module="jacl2db_admin" action="groups:saverights"/>
-        <url pathinfo="/admin/acl/groups/resource-rights" module="jacl2db_admin" action="groups:rightres"/>
-        <url pathinfo="/admin/acl/groups/save-resource-rights" module="jacl2db_admin" action="groups:saverightres"/>
-        <url pathinfo="/admin/acl/groups/new"         module="jacl2db_admin" action="groups:newgroup"/>
-        <url pathinfo="/admin/acl/groups/rename"      module="jacl2db_admin" action="groups:changename"/>
-        <url pathinfo="/admin/acl/groups/delete"      module="jacl2db_admin" action="groups:delgroup"/>
-        <url pathinfo="/admin/acl/users"              module="jacl2db_admin" action="users:index"/>
-        <url pathinfo="/admin/acl/users/:user"        module="jacl2db_admin" action="users:rights"
-                actionoverride="users:removegroup,users:addgroup,users:saverights,users:rightres,users:saverightres"/>
-
-
-        <url pathinfo="/admin/contact"          module="hfnucontact" action="admin:index" />
 
         <!-- downloads module -->
+        <!--
 		<url pathinfo="/downloads/manage" module="downloads" action="mgr:manage"/>
 		<url pathinfo="/downloads/manage/:id" module="downloads" action="mgr:manage">
 			<param name="id" type="integer" />
@@ -381,8 +61,8 @@
 		</url>
 		<url pathinfo="/downloads/disable/:id" module="downloads" action="mgr:dl_disable">
 			<param name="id" type="integer" />
-		</url>
+		</url>-->
 
     </classicentrypoint>
-<!-- fin admin forum -->
+
 </urls>
