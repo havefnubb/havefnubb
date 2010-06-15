@@ -11,25 +11,24 @@
  * Controller that displays some Server Informations
  */
 class defaultCtrl extends jController {
-	/**
-	 * @var plugins to manage the behavior of the controller
-	 */
-	public $pluginParams = array(
+    /**
+     * @var plugins to manage the behavior of the controller
+     */
+    public $pluginParams = array(
+        '*'	=>	array('auth.required'=>true,
+                    'hfnu.check.installed'=>true,
+                    'banuser.check'=>true,
+                    'jacl2.right'=>'hfnu.admin.serverinfo'
+                    ),
+    );
 
-		'*'	=> array('jacl2.right'=>'hfnu.admin.serverinfo'),
-
-		'*'	=>	array('auth.required'=>true,
-					'hfnu.check.installed'=>true,
-					'banuser.check'=>true,
-					),
-	);
-	/**
-	 * call to phpinfo
-	 */
-	public function phpinfo() {
-		$rep = $this->getResponse('html');
-		$tpl = new jTpl();
-		$rep->body->assign('MAIN',$tpl->fetch('servinfo~phpinfo'));
-		return $rep;
-	}
+    /**
+     * call to phpinfo
+     */
+    public function phpinfo() {
+        $rep = $this->getResponse('html');
+        $tpl = new jTpl();
+        $rep->body->assign('MAIN',$tpl->fetch('servinfo~phpinfo'));
+        return $rep;
+    }
 }
