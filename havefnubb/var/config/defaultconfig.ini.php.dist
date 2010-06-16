@@ -8,16 +8,33 @@ charset=UTF-8
 ; see http://www.php.net/manual/en/timezones.php for supported values
 timeZone="Europe/Paris"
 
-checkTrustedModules=on
-
 modulesPath = "lib:jelix-modules/,app:modules/,app:../modules-hook/"
 pluginsPath = "app:plugins/"
 
-trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,jauth,jacl2,jauth"
-hiddenModules = "jacl2db"
-unusedModules = "jacldb,junittests,jWSDL"
-
 theme=default
+
+[modules]
+jelix.access=2
+jWSDL.access=0
+jauthdb.access=1
+jacl2db.access=1
+jacldb.access=0
+jauth.access=2
+hfnuhardware.access=1
+hfnuthemes.access=2
+jtags.access=2
+servinfo.access=1
+jcommunity.access=2
+hfnuinstall.access=1
+havefnubb.access=2
+jmessenger.access=2
+hfnusearch.access=2
+hfnucontact.access=2
+hfnuadmin.access=2
+hfnuim.access=1
+hfnucal.access=1
+hfnurates.access=2
+hook.access=1
 
 [coordplugins]
 hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
@@ -179,6 +196,17 @@ datepicker=default
 
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
+
+[wikieditors]
+default.engine.name = wr3
+default.wiki.rules = wr3_to_xhtml
+; path to the engine file
+default.engine.file = jelix/markitup/jquery.markitup.js
+; define the path to the "internationalized" file to translate the label of each button
+default.config.path = jelix/markitup/sets/wr3/
+; define the path to the image of buttons of the toolbar
+default.image.path = jelix/markitup/sets/wr3/images/
+default.skin = jelix/markitup/skins/simple/style.css
 
 [havefnubb]
 title="HaveFnuBB!"

@@ -89,11 +89,12 @@ class fnuHtmlResponse extends jResponseHtml {
 
                             $this->body->assign('home',0);
                             $this->body->assign('selectedMenuItem','community');
-                            $toolbarConfig  = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'wikitoolbar.ini.php');
-                            $this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.engine.file','wikitoolbar'));
-                            $this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .$gJConfig->locale . '.js');
-                            $this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.skin','wikitoolbar'));
-                            $this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .'style.css');
+                            //FIXME delete this when jforms will use the new element wiki editor
+                            $toolbarConfig  = $gJConfig->wikieditors;
+                            $this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.engine.file']);
+                            $this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.config.path'] .$gJConfig->locale . '.js');
+                            $this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.skin']);
+                            $this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.config.path'] .'style.css');
                             if ($method == 'view' or $method == 'lists')
                                 $this->body->assign('currentIdForum',$GLOBALS['gJCoord']->request->params['id_forum']);
                             else
@@ -122,12 +123,12 @@ class fnuHtmlResponse extends jResponseHtml {
                         $this->body->assign('home',0);
                         $this->body->assign('selectedMenuItem','users');
                         $this->body->assign('currentIdForum',0);
-
-                        $toolbarConfig  = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'wikitoolbar.ini.php');
-                        $this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.engine.file','wikitoolbar'));
-                        $this->addJSLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .$gJConfig->locale . '.js');
-                        $this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.skin','wikitoolbar'));
-                        $this->addCssLink($gJConfig->urlengine['basePath'].'hfnu/'.$toolbarConfig->getValue('default.config.path','wikitoolbar') .'style.css');
+                        //FIXME delete this when jforms will use the new element wiki editor
+                        $toolbarConfig  = $gJConfig->wikieditors;
+                        $this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.engine.file']);
+                        $this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.config.path'] .$gJConfig->locale . '.js');
+                        $this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.skin']);
+                        $this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.config.path'] .'style.css');
 
                         break;
                 case 'downloads':
