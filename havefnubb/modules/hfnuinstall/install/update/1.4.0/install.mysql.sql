@@ -4,13 +4,13 @@ ALTER TABLE hf_posts ADD INDEX ( ispined ) ;
 ALTER TABLE hf_posts ADD iscensored INT( 1 ) NOT NULL DEFAULT '0';
 ALTER TABLE hf_posts ADD INDEX ( iscensored ) ;
 
-update hf_posts set status = 3,ispined=1,iscensored=0 where status = "pined";
-update hf_posts set status = 4,ispined=1,iscensored=0 where status = "pinedclosed";
-update hf_posts set status = 3,ispined=0,iscensored=0 where status = "opened";
-update hf_posts set status = 4,ispined=0,iscensored=0 where status = "closed";
-update hf_posts set status = 4,ispined=0,iscensored=1 where status = "censored";
-update hf_posts set status = 3,ispined=0,iscensored=0 where status = "uncensored";
-update hf_posts set status = 7,ispined=0,iscensored=0 where status = "hidden";
+UPDATE hf_posts set status = 3,ispined=1,iscensored=0 where status = "pined";
+UPDATE hf_posts set status = 4,ispined=1,iscensored=0 where status = "pinedclosed";
+UPDATE hf_posts set status = 3,ispined=0,iscensored=0 where status = "opened";
+UPDATE hf_posts set status = 4,ispined=0,iscensored=0 where status = "closed";
+UPDATE hf_posts set status = 4,ispined=0,iscensored=1 where status = "censored";
+UPDATE hf_posts set status = 3,ispined=0,iscensored=0 where status = "uncensored";
+UPDATE hf_posts set status = 7,ispined=0,iscensored=0 where status = "hidden";
 
 
 ALTER TABLE hf_posts CHANGE status status INT( 2 ) NOT NULL DEFAULT '3';

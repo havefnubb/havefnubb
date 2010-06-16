@@ -28,7 +28,7 @@ class authhavefnubbListener extends jEventListener{
           throw new jException('havefnubb~mail.email.config.not.done.properly');
         }
         // put the current date
-        $user->member_last_connect = time();
+        $user->member_last_connect = $user->connected;
         $user->connected = time();
 
         $dao->update($user);

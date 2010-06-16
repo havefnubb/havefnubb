@@ -160,7 +160,7 @@
             </order>
         </method>
 
-        <method name="findUnreadThread" type="select">
+        <method name="findUnreadThread" type="select" distinct="true" groupby="id_thread">
             <parameter name="date_last_post"/>
             <parameter name="offset"/>
             <parameter name="count"/>
@@ -172,7 +172,7 @@
                 <orderitem property="date_created" way="desc" />
             </order>
         </method>
-        <method name="findUnreadThreadVisible" type="select">
+        <method name="findUnreadThreadVisible" type="select" distinct="true" groupby="id_thread">
             <parameter name="date_last_post"/>
             <parameter name="offset"/>
             <parameter name="count"/>
