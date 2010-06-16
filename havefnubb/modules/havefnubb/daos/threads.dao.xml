@@ -3,7 +3,7 @@
     <datasources>
         <primarytable name="threads" realname="threads"  primarykey="id_thread" />
         <foreigntable name="posts" realname="posts"  primarykey="parent_id" onforeignkey="id_thread" />
-        <optionalforeigntable name="usr"   realname="member" primarykey="id_user"  onforeignkey="id_user" />
+        <optionalforeigntable name="usr"   realname="community_users" primarykey="id"  onforeignkey="id_user" />
         <optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
@@ -48,15 +48,15 @@
         <property name="read_by_mod"   table="posts"  fieldname="read_by_mod" datatype="int" required="false" maxlength="1"/>
         <!-- properties from member table -->
         <property name="id"         fieldname="id_user" datatype="int" table="usr"/>
-        <property name="email"      fieldname="member_email" datatype="string" table="usr" maxlength="255" />
-        <property name="login"      fieldname="member_login" table="usr" required="yes" datatype="string"  maxlength="50" />
-        <property name="member_comment" fieldname="member_comment" datatype="string" table="usr" maxlength="255"/>
-        <property name="member_town"    fieldname="member_town" datatype="string" table="usr" maxlength="100"/>
-        <property name="member_avatar"  fieldname="member_avatar" datatype="string" table="usr" maxlength="255"/>
-        <property name="member_website"	fieldname="member_website" datatype="string" table="usr" maxlength="255"/>
-        <property name="nb_msg"     fieldname="member_nb_msg" table="usr" datatype="integer" />
-        <property name="member_last_post"   fieldname="member_last_post" table="usr"  datatype="integer" />
-        <property name="member_last_connect"   fieldname="member_last_connect" table="usr"  datatype="integer" />
+        <property name="email"      fieldname="email" datatype="string" table="usr" maxlength="255" />
+        <property name="login"      fieldname="login" table="usr" required="yes" datatype="string"  maxlength="50" />
+        <property name="member_comment" fieldname="comment" datatype="string" table="usr" maxlength="255"/>
+        <property name="member_town"    fieldname="town" datatype="string" table="usr" maxlength="100"/>
+        <property name="member_avatar"  fieldname="avatar" datatype="string" table="usr" maxlength="255"/>
+        <property name="member_website"	fieldname="website" datatype="string" table="usr" maxlength="255"/>
+        <property name="nb_msg"     fieldname="nb_msg" table="usr" datatype="integer" />
+        <property name="member_last_post"   fieldname="last_post" table="usr"  datatype="integer" />
+        <property name="member_last_connect"   fieldname="last_connect" table="usr"  datatype="integer" />
         <!-- properties from forum table -->
         <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
         <property name="forum_name"      fieldname="forum_name" table="forum" datatype="int" required="true"/>

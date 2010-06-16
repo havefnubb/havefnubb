@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="usr" realname="member" primarykey="member_login" />
+        <primarytable name="usr" realname="community_users" primarykey="login" />
     </datasources>
     <record>
-    <property name="id" fieldname="id_user" datatype="autoincrement"/>
-    <property name="login" fieldname="member_login"
+    <property name="id" fieldname="id" datatype="autoincrement"/>
+    <property name="login" fieldname="login"
         required="yes" datatype="string"  maxlength="50" />
 
-    <property name="password" fieldname="member_password" datatype="string"
+    <property name="password" fieldname="password" datatype="string"
               maxlength="50" selectpattern="%s" updatepattern="" insertpattern="%s" />
    </record>
 </dao>

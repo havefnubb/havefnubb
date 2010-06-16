@@ -1,13 +1,13 @@
 
-INSERT INTO hf_sc_tags (tag_id, tag_name, nbuse) VALUES
+INSERT INTO %%PREFIX%%sc_tags (tag_id, tag_name, nbuse) VALUES
 (1, 'install', 1);
 
 
-INSERT INTO hf_sc_tags_tagged (tt_id, tag_id, tt_scope_id, tt_subject_id) VALUES
+INSERT INTO %%PREFIX%%sc_tags_tagged (tt_id, tag_id, tt_scope_id, tt_subject_id) VALUES
 (1, 1, 'forumscope', 1);
 
 
-INSERT INTO hf_search_words (id, words, weight) VALUES
+INSERT INTO %%PREFIX%%search_words (id, words, weight) VALUES
 (1, 'first', 1),
 (1, 'life', 2),
 (1, 'new', 2),
@@ -28,13 +28,13 @@ INSERT INTO hf_search_words (id, words, weight) VALUES
 
 
 --- TODO VERIFIER
-INSERT INTO hf_jacl2_group (id_aclgrp, name, grouptype, ownerlogin) VALUES
+INSERT INTO %%PREFIX%%jacl2_group (id_aclgrp, name, grouptype, ownerlogin) VALUES
 (1, 'admins', 0, NULL),
 (2, 'users', 1, NULL),
 (3, 'moderators', 0, NULL);
 
 
-INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES
+INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES
 ('acl.group.create', 1, ''),
 ('acl.group.delete', 1, ''),
 ('acl.group.modify', 1, ''),
@@ -222,11 +222,11 @@ INSERT INTO hf_jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES
 ('hfnu.search', 0, ''),
 ('hfnu.search', 1, ''),
 ('hfnu.search', 2, ''),
-('hfnu.search', 3, ''),
+('hfnu.search', 3, '');
 
 
 
-INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES
+INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES
 ('acl.group.create', 'jelix~acl2db.acl.group.create'),
 ('acl.group.delete', 'jelix~acl2db.acl.group.delete'),
 ('acl.group.modify', 'jelix~acl2db.acl.group.modify'),
@@ -262,7 +262,7 @@ INSERT INTO hf_jacl2_subject (id_aclsbj, label_key) VALUES
 ('hfnu.posts.view', 'havefnubb~acl2.posts.view'),
 ('hfnu.posts.rss', 'havefnubb~acl2.posts.rss'),
 ('hfnu.search', 'havefnubb~acl2.search'),
-('hfnu.posts.edit.own', 'havefnubb~acl2.posts.edit.own'),
+('hfnu.posts.edit.own', 'havefnubb~acl2.posts.edit.own');
 
 
 

@@ -50,3 +50,29 @@ ALTER TABLE %%PREFIX%%forum ADD id_last_msg int(11) NOT NULL DEFAULT '0';
 UPDATE %%PREFIX%%forum AS f SET id_last_msg = (SELECT max(id_last_msg) FROM %%PREFIX%%threads AS t WHERE f.id_forum = t.id_forum )
 
 RENAME TABLE `%%PREFIX%%member`  TO `%%PREFIX%%community_users` ;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE `id_user` `id` INT( 12 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_login` `login` varchar(50) NOT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_password` `password` varchar(50) NOT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_email` `email` varchar(255) NOT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_nickname` `nickname` varchar(50) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_status` `status` tinyint(4) NOT NULL DEFAULT '0';
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_keyactivate` `keyactivate` varchar(10) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_request_date` `request_date` datetime DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_website` `website` varchar(255) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_firstname` `firstname` varchar(40) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_birth` `birth` date NOT NULL DEFAULT '1980-01-01';
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_country` `country` varchar(100) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_town` `town` varchar(100) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_comment` `comment` varchar(255) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_avatar` `avatar` varchar(255) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_last_connect` `last_connect` int(12) DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_show_email` `show_email` varchar(1) DEFAULT 'N';
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_language` `language` varchar(40) DEFAULT 'fr_FR';
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_nb_msg` `nb_msg` int(12) DEFAULT '0';
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_last_post` `last_post` int(12) NOT NULL DEFAULT '0';
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_created` `create_date` datetime DEFAULT NULL;
+ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_gravatar` `gravatar` int(1) NOT NULL DEFAULT '0';
+
+
+
+--- TODO  supprimer les droits obsolètes
