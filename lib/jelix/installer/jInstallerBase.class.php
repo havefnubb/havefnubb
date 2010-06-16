@@ -19,6 +19,8 @@ abstract class jInstallerBase{
 	protected $dbProfile='';
 	protected $defaultDbProfile='';
 	protected $installWholeApp=false;
+	protected $forEachEntryPointsConfig=true;
+	protected $useDatabase=false;
 	function __construct($componentName,$name,$path,$version,$installWholeApp=false){
 		$this->path=$path;
 		$this->version=$version;
@@ -47,7 +49,12 @@ abstract class jInstallerBase{
 					$this->dbProfile=$this->defaultDbProfile;
 			}
 		}
-		return "0";
+		$sessionid="0";
+		if($this->forEachEntryPointsConfig)
+			$sessionid.="-".$ep->configFile;
+		if($this->useDatabase)
+			$sessionid.=$this->dbProfile;
+		return md5($sessionid);
 	}
 	protected function dbTool(){
 		return $this->dbConnection()->tools();
@@ -85,15 +92,18 @@ abstract class jInstallerBase{
 		$file=$path.'install/'.$name.'.'.$driver.'.sql';
 		$tools->execSQLScript($path.'install/'.$name.'.'.$driver.'.sql');
 	}
-	final protected function copyDirectoryContent($relativeSourcePath,$targetPath){
-		$this->_copyDirectoryContent($this->path.'install/'.$relativeSourcePath,$targetPath);
+	final protected function copyDirectoryContent($relativeSourcePath,$targetPath,$overwrite=false){
+		$targetPath=$this->expandPath($targetPath);
+		$this->_copyDirectoryContent($this->path.'install/'.$relativeSourcePath,$targetPath,$overwrite);
 	}
-	private function _copyDirectoryContent($sourcePath,$targetPath){
+	private function _copyDirectoryContent($sourcePath,$targetPath,$overwrite){
 		jFile::createDir($targetPath);
 		$dir=new DirectoryIterator($sourcePath);
 		foreach($dir as $dirContent){
 			if($dirContent->isFile()){
-				copy($dirContent->getPathName(),$targetPath.substr($dirContent->getPathName(),strlen($dirContent->getPath())));
+				$p=$targetPath.substr($dirContent->getPathName(),strlen($dirContent->getPath()));
+				if($overwrite||!file_exists($p))
+					copy($dirContent->getPathName(),$p);
 			}else{
 				if(!$dirContent->isDot()&&$dirContent->isDir()){
 					$newTarget=$targetPath.substr($dirContent->getPathName(),strlen($dirContent->getPath()));
@@ -102,8 +112,31 @@ abstract class jInstallerBase{
 			}
 		}
 	}
-	final protected function copyFile($relativeSourcePath,$targetPath){
+	final protected function copyFile($relativeSourcePath,$targetPath,$overwrite=false){
+		$targetPath=$this->expandPath($targetPath);
+		if(!$overwrite&&file_exists($targetPath))
+			return;
+		$dir=dirname($targetPath);
+		jFile::createDir($dir);
 		copy($this->path.'install/'.$relativeSourcePath,$targetPath);
+	}
+	protected function expandPath($path){
+		if(strpos($path,'www:')===0)
+			$path=str_replace('www:',JELIX_APP_WWW_PATH,$path);
+		elseif(strpos($path,'jelixwww:')===0){
+			$p=$this->config->getValue('jelixWWWPath','urlengine');
+			if(substr($p,-1)!='/')
+				$p.='/';
+			$path=str_replace('jelixwww:',JELIX_APP_WWW_PATH.$p,$path);
+		}
+		elseif(strpos($path,'config:')===0){
+			$path=str_replace('config:',JELIX_APP_CONFIG_PATH,$path);
+		}
+		elseif(strpos($path,'epconfig:')===0){
+			$p=dirname(JELIX_APP_CONFIG_PATH.$this->entryPoint->configFile);
+			$path=str_replace('epconfig:',$p.'/',$path);
+		}
+		return $path;
 	}
 	protected function declareDbProfile($name,$sectionContent=null,$force=true){
 		$dbProfilesFile=$this->config->getValue('dbProfils');
