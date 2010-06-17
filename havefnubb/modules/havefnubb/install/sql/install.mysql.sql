@@ -182,7 +182,7 @@ INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_ord
 (4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0,'',0);
 
 INSERT INTO %%PREFIX%%threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
-VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),0,0,0,0);
+VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),0,0,0,0,0);
 
 
 INSERT INTO %%PREFIX%%posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod,ispined,iscensored ) VALUES

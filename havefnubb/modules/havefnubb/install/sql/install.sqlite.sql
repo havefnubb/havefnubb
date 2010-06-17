@@ -158,6 +158,11 @@ INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_ord
 INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire) VALUES (4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0,'',0);
 
 
+INSERT INTO %%PREFIX%%threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
+VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),0,0,0,0,0);
+
+
+
 INSERT INTO %%PREFIX%%posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod ) VALUES
 (1, 1, 1, 1, 3, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)',
 strftime('%s','now') ,strftime('%s','now') , 1, '127.0.0.1',NULL,1);
