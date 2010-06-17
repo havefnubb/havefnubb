@@ -107,7 +107,7 @@ abstract class jInstallerBase{
 			}else{
 				if(!$dirContent->isDot()&&$dirContent->isDir()){
 					$newTarget=$targetPath.substr($dirContent->getPathName(),strlen($dirContent->getPath()));
-					$this->_copyDirectoryContent($dirContent->getPathName(),$newTarget);
+					$this->_copyDirectoryContent($dirContent->getPathName(),$newTarget,$overwrite);
 				}
 			}
 		}

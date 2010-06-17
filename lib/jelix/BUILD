@@ -1,4 +1,4 @@
-; --- build date:  2010-06-16 14:19
+; --- build date:  2010-06-17 18:04
 ; --- lib version: 1.2pre.1535
 PHP_VERSION_TARGET=5.2
 EDITION_NAME=opt
