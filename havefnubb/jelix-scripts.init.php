@@ -15,9 +15,9 @@ define ('JELIX_APP_PATH', dirname (__FILE__).DIRECTORY_SEPARATOR); // don't chan
 define ('JELIX_APP_TEMP_PATH',     realpath(JELIX_APP_PATH.'../temp/havefnubb-jelix-scripts/').DIRECTORY_SEPARATOR);
 define ('JELIX_APP_TEMP_CLI_PATH', realpath(JELIX_APP_PATH.'../temp/havefnubb-cli/').'/');
 define ('JELIX_APP_REAL_TEMP_PATH',realpath(JELIX_APP_PATH.'../temp/havefnubb/').'/');
-define ('JELIX_APP_VAR_PATH',     realpath(JELIX_APP_PATH.'var/').DIRECTORY_SEPARATOR);
-define ('JELIX_APP_LOG_PATH',     realpath(JELIX_APP_PATH.'var/log/').DIRECTORY_SEPARATOR);
-define ('JELIX_APP_CONFIG_PATH',  realpath(JELIX_APP_PATH.'var/config/').DIRECTORY_SEPARATOR);
-define ('JELIX_APP_WWW_PATH',     realpath(JELIX_APP_PATH).'../'.DIRECTORY_SEPARATOR);
-define ('JELIX_APP_CMD_PATH',     realpath(JELIX_APP_PATH.'scripts/').DIRECTORY_SEPARATOR);
+define ('JELIX_APP_VAR_PATH',     JELIX_APP_PATH.'var/'.DIRECTORY_SEPARATOR);
+define ('JELIX_APP_LOG_PATH',     JELIX_APP_PATH.'var/log/'.DIRECTORY_SEPARATOR);
+define ('JELIX_APP_CONFIG_PATH',  JELIX_APP_PATH.'var/config/'.DIRECTORY_SEPARATOR);
+define ('JELIX_APP_WWW_PATH',     realpath(JELIX_APP_PATH.'../').DIRECTORY_SEPARATOR);
+define ('JELIX_APP_CMD_PATH',     JELIX_APP_PATH.'scripts/'.DIRECTORY_SEPARATOR);
 

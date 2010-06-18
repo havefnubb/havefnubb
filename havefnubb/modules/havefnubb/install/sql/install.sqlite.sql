@@ -144,7 +144,7 @@ CREATE TABLE %%PREFIX%%subscriptions (
 CREATE UNIQUE INDEX %%PREFIX%%subscriptions_id ON %%PREFIX%%subscriptions (id_user , id_post);
 
 
---- ========================= DATA
+-- ========================= DATA
 
 
 INSERT INTO %%PREFIX%%category (id_cat, cat_name, cat_order) VALUES (1, 'My First Forum', 1);

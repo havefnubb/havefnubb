@@ -165,7 +165,7 @@ CREATE INDEX id_user_read_forum_idx ON %%PREFIX%%read_forum USING btree (id_user
 CREATE INDEX id_user_read_posts_idx ON %%PREFIX%%read_posts USING btree (id_user);
 CREATE INDEX parent_id ON %%PREFIX%%forum USING btree (parent_id);
 
---- ================================== DATA
+-- ================================== DATA
 
 
 INSERT INTO %%PREFIX%%category (id_cat, cat_name, cat_order) VALUES (1, 'My First Forum', 1);

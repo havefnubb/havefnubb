@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%subscriptions (
 
 
 
---- ============================================ DATA
+-- ============================================ DATA
 
 INSERT INTO %%PREFIX%%category (id_cat, cat_name, cat_order) VALUES
 (1, 'My First Forum', 1),
