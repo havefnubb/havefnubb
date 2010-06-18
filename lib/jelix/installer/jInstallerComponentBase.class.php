@@ -51,6 +51,12 @@ abstract class jInstallerComponentBase{
 	public function setInstalledVersion($epId,$version){
 		$this->moduleInfos[$epId]->version=$version;
 	}
+	public function setInstallParameters($epId,$parameters){
+		$this->moduleInfos[$epId]->parameters=$parameters;
+	}
+	public function getInstallParameters($epId){
+		return $this->moduleInfos[$epId]->parameters;
+	}
 	abstract function getInstaller($config,$epId,$installWholeApp);
 	abstract function getUpgraders($config,$epId);
 	protected $identityReaded=false;

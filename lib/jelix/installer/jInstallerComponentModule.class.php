@@ -57,6 +57,12 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 												$installWholeApp
 												);
 		}
+		$this->moduleInstaller->setParameters($this->moduleInfos[$epId]->parameters);
+		$sparam=$config->getValue($this->name.'.installparam','modules');
+		$sp=$this->moduleInfos[$epId]->serializeParameters();
+		if($sparam!=$sp){
+			$config->setValue($this->name.'.installparam',$sp,'modules');
+		}
 		$sessionId=$this->moduleInstaller->setEntryPoint($this->moduleInfos[$epId]->entryPoint,
 															$config,
 															$this->moduleInfos[$epId]->dbProfile);
@@ -114,6 +120,7 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 			if(jVersionComparator::compareVersion($this->moduleInfos[$epId]->version,$upgrader->version)>=0){
 				continue;
 			}
+			$upgrader->setParameters($this->moduleInfos[$epId]->parameters);
 			$class=get_class($upgrader);
 			$sessionId=$upgrader->setEntryPoint($this->moduleInfos[$epId]->entryPoint,
 												$config,

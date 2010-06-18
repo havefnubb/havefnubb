@@ -21,12 +21,22 @@ abstract class jInstallerBase{
 	protected $installWholeApp=false;
 	protected $forEachEntryPointsConfig=true;
 	protected $useDatabase=false;
+	protected $parameters=array();
 	function __construct($componentName,$name,$path,$version,$installWholeApp=false){
 		$this->path=$path;
 		$this->version=$version;
 		$this->name=$name;
 		$this->componentName=$componentName;
 		$this->installWholeApp=$installWholeApp;
+	}
+	function setParameters($parameters){
+		$this->parameters=$parameters;
+	}
+	function getParameter($name){
+		if(isset($this->parameters[$name]))
+			return $this->parameters[$name];
+		else
+			return null;
 	}
 	private $_dbTool=null;
 	private $_dbConn=null;
@@ -53,7 +63,7 @@ abstract class jInstallerBase{
 		if($this->forEachEntryPointsConfig)
 			$sessionid.="-".$ep->configFile;
 		if($this->useDatabase)
-			$sessionid.=$this->dbProfile;
+			$sessionid.="-".$this->dbProfile;
 		return md5($sessionid);
 	}
 	protected function dbTool(){
@@ -64,6 +74,17 @@ abstract class jInstallerBase{
 			$this->_dbConn=jDb::getConnection($this->dbProfile);
 		return $this->_dbConn;
 	}
+	protected function getDbType($profile=null){
+		if(!$profile)
+			$profile=$this->dbProfile;
+		$p=jDb::getProfile($profile);
+		$driver=$p['driver'];
+		if($driver=='pdo'){
+			preg_match('/^(\w+)\:.*$/',$p['dsn'],$m);
+			$driver=$m[1];
+		}
+		return $driver;
+	}
 	final protected function execSQLScript($name,$profile=null,$module=null){
 		if(!$profile){
 			$profile=$this->dbProfile;
@@ -73,12 +94,7 @@ abstract class jInstallerBase{
 			$cnx=jDb::getConnection($profile);
 			$tools=$cnx->tools();
 		}
-		$p=jDb::getProfile($profile);
-		$driver=$p['driver'];
-		if($driver=='pdo'){
-			preg_match('/^(\w+)\:.*$/',$p['dsn'],$m);
-			$driver=$m[1];
-		}
+		$driver=$this->getDbType($profile);
 		if($module){
 			$conf=$this->entryPoint->config->_modulesPathList;
 			if(!isset($conf[$module])){
@@ -89,8 +105,10 @@ abstract class jInstallerBase{
 		else{
 			$path=$this->path;
 		}
-		$file=$path.'install/'.$name.'.'.$driver.'.sql';
-		$tools->execSQLScript($path.'install/'.$name.'.'.$driver.'.sql');
+		$file=$path.'install/'.$name;
+		if(substr($name,-4)!='.sql')
+			$file.='.'.$driver.'.sql';
+		$tools->execSQLScript($file);
 	}
 	final protected function copyDirectoryContent($relativeSourcePath,$targetPath,$overwrite=false){
 		$targetPath=$this->expandPath($targetPath);

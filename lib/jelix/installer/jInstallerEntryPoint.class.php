@@ -9,25 +9,6 @@
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-class jInstallerModuleInfos{
-	public $name;
-	public $access;
-	public $dbProfile;
-	public $isInstalled;
-	public $version;
-	public $sessionId;
-	public $entryPoint;
-	function __construct($name,$entryPoint){
-		$this->name=$name;
-		$this->entryPoint=$entryPoint;
-		$config=$entryPoint->config;
-		$this->access=$config->modules[$name.'.access'];
-		$this->dbProfile=$config->modules[$name.'.dbprofile'];
-		$this->isInstalled=$config->modules[$name.'.installed'];
-		$this->version=$config->modules[$name.'.version'];
-		$this->sessionId=$config->modules[$name.'.sessionid'];
-	}
-}
 class jInstallerEntryPoint{
 	public $config;
 	public $configFile;

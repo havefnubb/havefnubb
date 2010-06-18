@@ -14,6 +14,7 @@ require_once(JELIX_LIB_PATH.'installer/jIInstallerComponent.iface.php');
 require_once(JELIX_LIB_PATH.'installer/jInstallerException.class.php');
 require_once(JELIX_LIB_PATH.'installer/jInstallerBase.class.php');
 require_once(JELIX_LIB_PATH.'installer/jInstallerModule.class.php');
+require_once(JELIX_LIB_PATH.'installer/jInstallerModuleInfos.class.php');
 require_once(JELIX_LIB_PATH.'installer/jInstallerComponentBase.class.php');
 require_once(JELIX_LIB_PATH.'installer/jInstallerComponentModule.class.php');
 require_once(JELIX_LIB_PATH.'installer/jInstallerEntryPoint.class.php');
@@ -135,6 +136,24 @@ class jInstaller{
 			$modules=array();
 			if(isset($this->modules[$epId][$moduleName])){
 				$this->modules[$epId][$moduleName]->setInstalledVersion($epId,$version);
+			}
+		}
+	}
+	public function setModuleParameters($moduleName,$parameters,$entrypoint=null){
+		if($entrypoint!==null){
+			if(!isset($this->epId[$entrypoint]))
+				return;
+			$epId=$this->epId[$entrypoint];
+			if(isset($this->entryPoints[$epId])&&isset($this->modules[$epId][$moduleName])){
+				$this->modules[$epId][$moduleName]->setInstallParameters($epId,$parameters);
+			}
+		}
+		else{
+			foreach(array_keys($this->entryPoints)as $epId){
+				$modules=array();
+				if(isset($this->modules[$epId][$moduleName])){
+					$this->modules[$epId][$moduleName]->setInstallParameters($epId,$parameters);
+				}
 			}
 		}
 	}
