@@ -46,7 +46,7 @@ UPDATE %%PREFIX%%threads SET nb_replies = (SELECT count(id_post) -1 FROM %%PREFI
 
 
 ALTER TABLE %%PREFIX%%forum ADD id_last_msg int(11) NOT NULL DEFAULT '0';
-ALTER TABLE %%PREFIX%%forum ADD date_last_msg int(11) NOT NULL DEFAULT '0',
+ALTER TABLE %%PREFIX%%forum ADD date_last_msg int(11) NOT NULL DEFAULT '0';
 
 UPDATE %%PREFIX%%forum AS f SET id_last_msg = (SELECT max(id_last_msg) FROM %%PREFIX%%threads AS t WHERE f.id_forum = t.id_forum )
 -- TODO update date_last_msg

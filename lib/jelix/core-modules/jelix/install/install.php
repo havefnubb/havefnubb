@@ -11,6 +11,8 @@
 */
 class jelixModuleInstaller extends jInstallerModule{
 	function install(){
+		if(!$this->firstDbExec())
+			return;
 		$sessionStorage=$this->config->getValue("storage","sessions");
 		$sessionDao=$this->config->getValue("dao_selector","sessions");
 		$sessionProfile=$this->config->getValue("dao_db_profile","sessions");
@@ -24,18 +26,14 @@ class jelixModuleInstaller extends jInstallerModule{
 			$cachefile=JELIX_APP_CONFIG_PATH.$cachefile;
 			if(file_exists($cachefile)){
 				$ini=new jIniFileModifier($cachefile);
-				$dbprofiles=array();
 				foreach($ini->getSectionList()as $section){
 					$driver=$ini->getValue('driver',$section);
 					$dao=$ini->getValue('dao',$section);
-					$dbprofile=$ini->getValue('dbprofile',$section);
-					if(!$dbprofile)
-						$dbprofile='default';
+					$this->useDbProfile($ini->getValue('dbprofile',$section));
 					if($driver=='db'&&
 						$dao=='jelix~jcache'&&
-						!in_array($dbprofile,$dbprofiles)){
-						$this->execSQLScript('sql/install_jcache.schema',$dbprofile);
-						$dbprofiles[]=$dbprofile;
+						$this->firstExec('cachedb:'.$this->dbProfile)){
+						$this->execSQLScript('sql/install_jcache.schema');
 					}
 				}
 			}

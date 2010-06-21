@@ -19,8 +19,6 @@ abstract class jInstallerBase{
 	protected $dbProfile='';
 	protected $defaultDbProfile='';
 	protected $installWholeApp=false;
-	protected $forEachEntryPointsConfig=true;
-	protected $useDatabase=false;
 	protected $parameters=array();
 	function __construct($componentName,$name,$path,$version,$installWholeApp=false){
 		$this->path=$path;
@@ -40,31 +38,53 @@ abstract class jInstallerBase{
 	}
 	private $_dbTool=null;
 	private $_dbConn=null;
-	public function setEntryPoint($ep,$config,$dbProfile){
+	public function setEntryPoint($ep,$config,$dbProfile,$contexts){
 		$this->config=$config;
 		$this->entryPoint=$ep;
+		$this->contextId=$contexts;
+		$this->newContextId=array();
+		if($this->defaultDbProfile!=''){
+			$this->useDbProfile($this->defaultDbProfile);
+		}
+		else
+			$this->useDbProfile($dbProfile);
+	}
+	protected function useDbProfile($dbProfile){
+		if($dbProfile=='')
+			$dbProfile='default';
 		$this->dbProfile=$dbProfile;
-		$dbProfilesFile=$config->getValue('dbProfils');
+		$dbProfilesFile=$this->config->getValue('dbProfils');
 		if($dbProfilesFile=='')
 			$dbProfilesFile='dbprofils.ini.php';
-		$dbprofiles=parse_ini_file(JELIX_APP_CONFIG_PATH.$dbProfilesFile);
-		if(isset($dbprofiles[$dbProfile])&&is_string($dbprofiles[$dbProfile])){
-			$this->dbProfile=$dbprofiles[$dbProfile];
+		if(file_exists(JELIX_APP_CONFIG_PATH.$dbProfilesFile)){
+			$dbprofiles=parse_ini_file(JELIX_APP_CONFIG_PATH.$dbProfilesFile);
+			if(isset($dbprofiles[$dbProfile])&&is_string($dbprofiles[$dbProfile]))
+				$this->dbProfile=$dbprofiles[$dbProfile];
 		}
-		if($this->defaultDbProfile!=''){
-			if(isset($dbprofiles[$this->defaultDbProfile])){
-				if(is_string($dbprofiles[$this->defaultDbProfile]))
-					$this->dbProfile=$dbprofiles[$this->defaultDbProfile];
-				else
-					$this->dbProfile=$this->defaultDbProfile;
-			}
+	}
+	protected $contextId=array();
+	protected $newContextId=array();
+	protected function firstExec($contextId){
+		if(in_array($contextId,$this->contextId)){
+			return false;
 		}
-		$sessionid="0";
-		if($this->forEachEntryPointsConfig)
-			$sessionid.="-".$ep->configFile;
-		if($this->useDatabase)
-			$sessionid.="-".$this->dbProfile;
-		return md5($sessionid);
+		if(!in_array($contextId,$this->newContextId)){
+			$this->newContextId[]=$contextId;
+		}
+		return true;
+	}
+	protected function firstDbExec($profile=''){
+		if($profile=='')
+			$profile=$this->dbProfile;
+		return $this->firstExec('db:'.$profile);
+	}
+	protected function firstConfExec($config=''){
+		if($config=='')
+			$config=$this->entryPoint->configFile;
+		return $this->firstExec('cf:'.$config);
+	}
+	public function getContexts(){
+		return array_unique(array_merge($this->contextId,$this->newContextId));
 	}
 	protected function dbTool(){
 		return $this->dbConnection()->tools();
@@ -85,16 +105,9 @@ abstract class jInstallerBase{
 		}
 		return $driver;
 	}
-	final protected function execSQLScript($name,$profile=null,$module=null){
-		if(!$profile){
-			$profile=$this->dbProfile;
-			$tools=$this->dbTool();
-		}
-		else{
-			$cnx=jDb::getConnection($profile);
-			$tools=$cnx->tools();
-		}
-		$driver=$this->getDbType($profile);
+	final protected function execSQLScript($name,$module=null){
+		$tools=$this->dbTool();
+		$driver=$this->getDbType($this->dbProfile);
 		if($module){
 			$conf=$this->entryPoint->config->_modulesPathList;
 			if(!isset($conf[$module])){

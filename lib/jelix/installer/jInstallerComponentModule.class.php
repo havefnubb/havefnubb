@@ -15,17 +15,15 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 	protected $identityFile='module.xml';
 	protected $moduleInstaller=null;
 	protected $moduleUpgraders=null;
-	protected $installerSessionsId=array();
-	protected $upgradersSessionsId=array();
+	protected $installerContexts=array();
+	protected $upgradersContexts=array();
 	function __construct($name,$path,$mainInstaller){
 		parent::__construct($name,$path,$mainInstaller);
 		if($mainInstaller){
 			$ini=$mainInstaller->installerIni;
-			foreach($ini->getSectionList()as $section){
-				$sessid=$ini->getValue($this->name.'.sessionid',$section);
-				if($sessid!==null&&$sessid!==""){
-					$this->installerSessionsId=array_merge($this->installerSessionsId,explode(',',$sessid));
-				}
+			$contexts=$ini->getValue($this->name.'.contexts','__modules_data');
+			if($contexts!==null&&$contexts!==""){
+				$this->installerContexts=explode(',',$contexts);
 			}
 		}
 	}
@@ -36,8 +34,8 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 			$config->save();
 		}
 	}
-	function getInstaller($config,$epId,$installWholeApp){
-		$this->_setAccess($config);
+	function getInstaller($ep,$installWholeApp){
+		$this->_setAccess($ep->configIni);
 		if($this->moduleInstaller===false){
 			return null;
 		}
@@ -57,34 +55,21 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 												$installWholeApp
 												);
 		}
+		$epId=$ep->getEpId();
 		$this->moduleInstaller->setParameters($this->moduleInfos[$epId]->parameters);
-		$sparam=$config->getValue($this->name.'.installparam','modules');
+		$sparam=$ep->configIni->getValue($this->name.'.installparam','modules');
 		$sp=$this->moduleInfos[$epId]->serializeParameters();
 		if($sparam!=$sp){
-			$config->setValue($this->name.'.installparam',$sp,'modules');
+			$ep->configIni->setValue($this->name.'.installparam',$sp,'modules');
 		}
-		$sessionId=$this->moduleInstaller->setEntryPoint($this->moduleInfos[$epId]->entryPoint,
-															$config,
-															$this->moduleInfos[$epId]->dbProfile);
-		if(is_array($sessionId)){
-			if(count(array_intersect($sessionId,$this->installerSessionsId))!=0){
-				return false;
-			}
-			else{
-				$this->installerSessionsId=array_merge($this->installerSessionsId,$sessionId);
-				$sessionId=implode(',',$sessionId);
-			}
-		}
-		else if(in_array($sessionId,$this->installerSessionsId)){
-			return false;
-		}
-		else
-			$this->installerSessionsId[]=$sessionId;
-		if($this->mainInstaller)
-			$this->mainInstaller->installerIni->setValue($this->name.'.sessionid',$sessionId,$epId);
+		$this->moduleInstaller->setEntryPoint($ep,
+											$ep->configIni,
+											$this->moduleInfos[$epId]->dbProfile,
+											$this->installerContexts);
 		return $this->moduleInstaller;
 	}
-	function getUpgraders($config,$epId){
+	function getUpgraders($ep){
+		$epId=$ep->getEpId();
 		if($this->moduleUpgraders===null){
 			$this->moduleUpgraders=array();
 			$p=$this->path.'install/';
@@ -122,26 +107,27 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 			}
 			$upgrader->setParameters($this->moduleInfos[$epId]->parameters);
 			$class=get_class($upgrader);
-			$sessionId=$upgrader->setEntryPoint($this->moduleInfos[$epId]->entryPoint,
-												$config,
-												$this->moduleInfos[$epId]->dbProfile);
-			if(!isset($this->upgradersSessionsId[$class])){
-				$this->upgradersSessionsId[$class]=array();
+			if(!isset($this->upgradersContexts[$class])){
+				$this->upgradersContexts[$class]=array();
 			}
-			if(is_array($sessionId)){
-				if(count(array_intersect($sessionId,$this->upgradersSessionsId[$class]))==0){
-					$this->upgradersSessionsId[$class]=array_merge($this->upgradersSessionsId[$class],$sessionId);
-					$list[]=$upgrader;
-				}
-			}
-			else if(!in_array($sessionId,$this->upgradersSessionsId[$class])){
-				$this->upgradersSessionsId[$class][]=$sessionId;
-				$list[]=$upgrader;
-			}
+			$upgrader->setEntryPoint($ep,
+									$ep->configIni,
+									$this->moduleInfos[$epId]->dbProfile,
+									$this->upgradersContexts[$class]);
+			$list[]=$upgrader;
 		}
 		return $list;
 	}
 	function sortFileList($fileA,$fileB){
 		return jVersionComparator::compareVersion($fileA[1],$fileB[1]);
+	}
+	public function installFinished($ep){
+		$this->installerContexts=$this->moduleInstaller->getContexts();
+		if($this->mainInstaller)
+			$this->mainInstaller->installerIni->setValue($this->name.'.contexts',implode(',',$this->installerContexts),'__modules_data');
+	}
+	public function upgradeFinished($ep,$upgrader){
+		$class=get_class($upgrader);
+		$this->upgradersContexts[$class]=$upgrader->getContexts();
 	}
 }

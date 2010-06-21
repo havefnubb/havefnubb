@@ -15,20 +15,15 @@ class jInstallerModuleInfos{
 	public $dbProfile;
 	public $isInstalled;
 	public $version;
-	public $sessionId;
-	public $entryPoint;
 	public $parameters=array();
-	function __construct($name,$entryPoint){
+	function __construct($name,$config){
 		$this->name=$name;
-		$this->entryPoint=$entryPoint;
-		$config=$entryPoint->config;
-		$this->access=$config->modules[$name.'.access'];
-		$this->dbProfile=$config->modules[$name.'.dbprofile'];
-		$this->isInstalled=$config->modules[$name.'.installed'];
-		$this->version=$config->modules[$name.'.version'];
-		$this->sessionId=$config->modules[$name.'.sessionid'];
+		$this->access=$config[$name.'.access'];
+		$this->dbProfile=$config[$name.'.dbprofile'];
+		$this->isInstalled=$config[$name.'.installed'];
+		$this->version=$config[$name.'.version'];
 		if(isset($config->modules[$name.'.installparam'])){
-			$params=explode(';',$config->modules[$name.'.installparam']);
+			$params=explode(';',$config[$name.'.installparam']);
 			foreach($params as $param){
 				$kp=explode("=",$param);
 				if(count($kp)> 1)

@@ -39,7 +39,7 @@ class dbprofileWizPage extends installWizardPage{
 		return true;
 	}
 	function process(){
-		$ini=new jIniFileModifier(JELIX_APP_CONFIG_PATH.'dbProfils.ini.php');
+		$ini=new jIniFileModifier(JELIX_APP_CONFIG_PATH.'dbprofils.ini.php');
 		$hasErrors=false;
 		$_SESSION['dbprofiles']['data']=$_POST;
 		foreach($_SESSION['dbprofiles']['profiles'] as $profile){
@@ -125,11 +125,11 @@ class dbprofileWizPage extends installWizardPage{
 		return 0;
 	}
 	protected function loadProfiles(){
-		$file=JELIX_APP_CONFIG_PATH.'dbProfils.ini.php';
+		$file=JELIX_APP_CONFIG_PATH.'dbprofils.ini.php';
 		if(file_exists($file)){
 		}
-		elseif(file_exists(JELIX_APP_CONFIG_PATH.'dbProfils.ini.php.dist')){
-			copy(JELIX_APP_CONFIG_PATH.'dbProfils.ini.php.dist',$file);
+		elseif(file_exists(JELIX_APP_CONFIG_PATH.'dbprofils.ini.php.dist')){
+			copy(JELIX_APP_CONFIG_PATH.'dbprofils.ini.php.dist',$file);
 		}
 		else{
 			file_put_contents($file,";<?php die(''); ?>

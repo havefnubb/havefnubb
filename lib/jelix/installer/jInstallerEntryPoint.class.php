@@ -12,16 +12,18 @@
 class jInstallerEntryPoint{
 	public $config;
 	public $configFile;
+	public $configIni;
 	public $isCliScript;
 	public $scriptName;
 	public $file;
 	public $type;
-	function __construct($configFile,$file,$type){
+	function __construct($defaultConfig,$configFile,$file,$type){
 		$this->type=$type;
 		$this->isCliScript=($type=='cmdline');
 		$this->configFile=$configFile;
 		$this->scriptName=($this->isCliScript?$file:'/'.$file);
 		$this->file=$file;
+		$this->configIni=new jIniMultiFilesModifier($defaultConfig,JELIX_APP_CONFIG_PATH.$configFile);
 		$this->config=jConfigCompiler::read($configFile,true,
 											$this->isCliScript,
 											$this->scriptName);
@@ -33,7 +35,7 @@ class jInstallerEntryPoint{
 		return $this->config->_allModulesPathList;
 	}
 	function getModule($moduleName){
-		return new jInstallerModuleInfos($moduleName,$this);
+		return new jInstallerModuleInfos($moduleName,$this->config->modules);
 	}
 	function isModuleInstalled($moduleName){
 		$n=$moduleName.'.installed';

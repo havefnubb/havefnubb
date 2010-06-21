@@ -5,16 +5,22 @@
 * @subpackage utils
 * @author     Laurent Jouanneau
 * @contributor
-* @copyright  2008-2009 Laurent Jouanneau
+* @copyright  2008-2010 Laurent Jouanneau
 * @link       http://jelix.org
 * @licence    http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 class jIniMultiFilesModifier{
 	protected $master;
 	protected $overrider;
-	function __construct($masterfilename,$overriderFilename){
-		$this->master=new jIniFileModifier($masterfilename);
-		$this->overrider=new jIniFileModifier($overriderFilename);
+	function __construct($master,$overrider){
+		if(is_object($master))
+			$this->master=$master;
+		else
+			$this->master=new jIniFileModifier($master);
+		if(is_object($overrider))
+			$this->overrider=$overrider;
+		else
+			$this->overrider=new jIniFileModifier($overrider);
 	}
 	public function setValue($name,$value,$section=0,$key=null,$master=false){
 		if($master){

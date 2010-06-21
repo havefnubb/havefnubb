@@ -32,8 +32,8 @@ abstract class jInstallerComponentBase{
 	public function getPath(){return $this->path;}
 	public function getSourceVersion(){return $this->sourceVersion;}
 	public function getJelixVersion(){return array($this->jelixMinVersion,$this->jelixMaxVersion);}
-	public function addModuleInfos($module){
-		$this->moduleInfos[$module->entryPoint->getEpId()]=$module;
+	public function addModuleInfos($epId,$module){
+		$this->moduleInfos[$epId]=$module;
 	}
 	public function getAccessLevel($epId){
 		return $this->moduleInfos[$epId]->access;
@@ -57,8 +57,10 @@ abstract class jInstallerComponentBase{
 	public function getInstallParameters($epId){
 		return $this->moduleInfos[$epId]->parameters;
 	}
-	abstract function getInstaller($config,$epId,$installWholeApp);
-	abstract function getUpgraders($config,$epId);
+	abstract function getInstaller($ep,$installWholeApp);
+	abstract function getUpgraders($ep);
+	public function installFinished($ep){}
+	public function upgradeFinished($ep,$upgrader){}
 	protected $identityReaded=false;
 	public function init(){
 		if($this->identityReaded)

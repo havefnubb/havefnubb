@@ -74,9 +74,11 @@ class jInstaller{
 	public $nbOk=0;
 	public $nbWarning=0;
 	public $nbNotice=0;
+	public $defaultConfig;
 	function __construct($reporter,$lang=''){
 		$this->reporter=$reporter;
 		$this->messages=new jInstallerMessageProvider($lang);
+		$this->defaultConfig=new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
 		$this->installerIni=$this->getInstallerIni();
 		$this->readEntryPointData(simplexml_load_file(JELIX_APP_PATH.'project.xml'));
 		$this->installerIni->save();
@@ -112,18 +114,17 @@ class jInstaller{
 				$module=$ep->getModule($name);
 				$this->installerIni->setValue($name.'.installed',$module->isInstalled,$epId);
 				$this->installerIni->setValue($name.'.version',$module->version,$epId);
-				$this->installerIni->setValue($name.'.sessionid',$module->sessionId,$epId);
 				if(!isset($this->allModules[$path])){
 					$this->allModules[$path]=$this->getComponentModule($name,$path,$this);
 				}
 				$m=$this->allModules[$path];
-				$m->addModuleInfos($module);
+				$m->addModuleInfos($epId,$module);
 				$this->modules[$epId][$name]=$m;
 			}
 		}
 	}
 	protected function getEntryPointObject($configFile,$file,$type){
-		return new jInstallerEntryPoint($configFile,$file,$type);
+		return new jInstallerEntryPoint($this->defaultConfig,$configFile,$file,$type);
 	}
 	protected function getComponentModule($name,$path,$installer){
 		return new jInstallerComponentModule($name,$path,$installer);
@@ -229,8 +230,6 @@ class jInstaller{
 		$this->notice('install.entrypoint.start',$epId);
 		$ep=$this->entryPoints[$epId];
 		$GLOBALS['gJConfig']=$ep->config;
-		$epConfig=new jIniMultiFilesModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php',
-												JELIX_APP_CONFIG_PATH.$ep->configFile);
 		$result=$this->checkDependencies($modules,$epId);
 		if(!$result){
 			$this->error('install.bad.dependencies');
@@ -247,7 +246,7 @@ class jInstaller{
 													1,$epId);
 					$this->installerIni->setValue($component->getName().'.version',
 													$component->getSourceVersion(),$epId);
-					$upgraders=$component->getUpgraders($epConfig,$epId);
+					$upgraders=$component->getUpgraders($ep);
 					if(count($upgraders)==0){
 						$this->ok('install.module.installed',$component->getName());
 						continue;
@@ -258,7 +257,7 @@ class jInstaller{
 					$componentsToInstall[]=array($upgraders,$component,false);
 				}
 				else if($toInstall){
-					$installer=$component->getInstaller($epConfig,$epId,$installWholeApp);
+					$installer=$component->getInstaller($ep,$installWholeApp);
 					if($installer===null||$installer===false){
 						$this->installerIni->setValue($component->getName().'.installed',
 														1,$epId);
@@ -272,7 +271,7 @@ class jInstaller{
 						$installer->preInstall();
 				}
 				else{
-					$upgraders=$component->getUpgraders($epConfig,$epId);
+					$upgraders=$component->getUpgraders($ep);
 					if(count($upgraders)==0){
 						$this->installerIni->setValue($component->getName().'.version',
 													$component->getSourceVersion(),$epId);
@@ -332,7 +331,7 @@ class jInstaller{
 					}
 					$installedModules[]=array($installer,$component,false);
 				}
-				$epConfig->save();
+				$ep->configIni->save();
 				$GLOBALS['gJConfig']=$ep->config=
 					jConfigCompiler::read($ep->configFile,true,
 										$ep->isCliScript,
@@ -353,15 +352,18 @@ class jInstaller{
 			try{
 				list($installer,$component,$toInstall)=$item;
 				if($toInstall){
-					if($installer&&($flags & self::FLAG_INSTALL_MODULE))
+					if($installer&&($flags & self::FLAG_INSTALL_MODULE)){
 						$installer->postInstall();
+						$component->installFinished($ep);
+					}
 				}
 				else if($flags & self::FLAG_UPGRADE_MODULE){
 					foreach($installer as $upgrader){
 						$upgrader->postInstall();
+						$component->upgradeFinished($ep,$upgrader);
 					}
 				}
-				$epConfig->save();
+				$ep->configIni->save();
 				$GLOBALS['gJConfig']=$ep->config=
 					jConfigCompiler::read($ep->configFile,true,
 										$ep->isCliScript,
