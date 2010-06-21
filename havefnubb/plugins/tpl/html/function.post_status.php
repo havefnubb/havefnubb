@@ -22,11 +22,9 @@ function jtpl_function_html_post_status($tpl, $source, $data) {
     if ($source == 'forum') {
         $id_forum = $data;
 
-        // does the user still read everything in that forum ?
-        $rec = jClasses::getService('havefnubb~hfnuread')->getReadForum($id_forum);
-
+        // does the user still read everything in the forum ?
+        if ( jClasses::getService('havefnubb~hfnuread')->getReadForum($id_forum) )
         //yes
-        if ( $rec === true)
             $status = 'forumicone';
         //no
         else

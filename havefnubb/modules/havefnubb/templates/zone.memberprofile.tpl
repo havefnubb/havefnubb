@@ -38,7 +38,21 @@
     </ul>
     <ul class="member-info">
         <li class="user-posts user-image">{@havefnubb~member.common.nb.messages@}: {$user->nb_msg}</li>
-        <li class="user-email user-image"><span>{if $user->member_show_email == 'Y'}{mailto array('address'=>$user->email,'encode'=>'hex','text'=>@havefnubb~member.common.email@)}{else}<a href="{jurl 'jmessenger~jmessenger:create'}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>{/if}</span></li>
+        <li class="user-email user-image">
+            <span>
+            {if $user->member_show_email == 'Y'}{mailto array('address'=>$user->email,'encode'=>'hex','text'=>@havefnubb~member.common.email@)}
+            {else}
+            <a href="{jurl 'jmessenger~jmessenger:create'}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>
+            {/if}</span>
+        </li>
+        {ifacl2 'hfnu.admin.member'}
+        <li class="user-ip user-image">
+            {ifacl2 'hfnu.admin.member'}
+            {mailto array('address'=>$user->email,'encode'=>'hex','text'=>$user->email)}<br/>
+            {/ifacl2}
+            {@havefnubb~member.common.ip@}:{$user->member_ip}<br/>
+        </li>
+        {/ifacl2}
         {if $user->member_website != ''}<li class="user-website user-image"><span><a href="{$user->member_website}" title="{jlocale 'havefnubb~member.common.website.of',array($user->login)}">{@havefnubb~member.common.website@}</a></span></li>{/if}
     </ul>
 </div>

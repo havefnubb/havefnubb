@@ -204,7 +204,6 @@ class hfnuposts {
         // let's update the 'read by mod'
         self::readByMod($parent_id);
         // let's add the user to the post_read table
-        jClasses::getService('havefnubb~hfnuread')->insertReadPost($post);
 
         return array($id_post,$post,$goto,$nbReplies);
     }
@@ -335,7 +334,8 @@ class hfnuposts {
             //update Forum record
             $forum = jDao::get('havefnubb~forum');
             $forumRec = $forum->get($id_forum);
-            $forum->id_last_msg = $id_post;
+            $forumRec->id_last_msg = $id_post;
+            $forumRec->date_last_msg = $dateReply;
             $forum->update($forumRec);
 
             self::addPost($id_post,$record);
@@ -453,10 +453,9 @@ class hfnuposts {
         //update Forum record
         $forum = jDao::get('havefnubb~forum');
         $forumRec = $forum->get($threadRec->id_forum);
-        $forum->id_last_msg = $id_post;
+        $forumRec->id_last_msg = $id_post;
+        $forumRec->date_last_msg = $dateReply;
         $forum->update($forumRec);
-
-        jClasses::getService('havefnubb~hfnuread')->insertReadPost($result['daorec']);
 
         //add a "fake" column just to return it to the posts controller
         // and then being able to redirect to the correct page where this

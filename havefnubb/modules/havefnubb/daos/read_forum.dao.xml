@@ -18,5 +18,15 @@
             <eq property="id_user" expr="$id_user" />
           </conditions>
         </method>
+        <method name="getUnreadForum" type="selectfirst">
+          <parameter name="id_user" />
+          <parameter name="id_forum" />
+          <parameter name="date_read" />
+          <conditions>
+            <eq property="id_user" expr="$id_user" />
+            <eq property="id_forum" expr="$id_forum" />
+            <gt property="date_read" expr="$date_read" />
+          </conditions>
+        </method>
     </factory>
 </dao>

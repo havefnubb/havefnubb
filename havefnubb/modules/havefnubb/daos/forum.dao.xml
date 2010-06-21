@@ -12,6 +12,7 @@
     <property name="forum_desc" fieldname="forum_desc" datatype="string" required="true" maxlength="255"/>
     <property name="forum_order" fieldname="forum_order" datatype="int" required="true"/>
     <property name="id_last_msg" fieldname="id_last_msg" datatype="int" required="true"/>
+    <property name="date_last_msg" fieldname="date_last_msg" datatype="int" required="true"/>
 
     <property name="parent_id" fieldname="parent_id" datatype="int" required="true"/>
     <property name="child_level" fieldname="child_level" datatype="int" required="true"/>

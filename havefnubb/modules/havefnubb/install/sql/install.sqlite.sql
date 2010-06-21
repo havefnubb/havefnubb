@@ -16,7 +16,9 @@ CREATE TABLE %%PREFIX%%forum  (
     child_level INT ( 4  )  NOT NULL  ,
     forum_type INT ( 1  )  NOT NULL  ,
     forum_url VARCHAR ( 255  )  NOT NULL  ,
-    post_expire INT ( 5  )  NOT NULL
+    post_expire INT ( 5  )  NOT NULL,
+    id_last_msg INTEGER NOT NULL,
+    date_last_msg INTEGER NOT NULL
 );
 CREATE INDEX %%PREFIX%%forum_id_cat  ON %%PREFIX%%forum  (  id_cat ) ;
 CREATE INDEX %%PREFIX%%forum_parent_id  ON %%PREFIX%%forum  (  parent_id ) ;
@@ -152,14 +154,14 @@ INSERT INTO %%PREFIX%%category (id_cat, cat_name, cat_order) VALUES (2, 'My Seco
 
 
 
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire) VALUES (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0,'',0);
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire) VALUES (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0,'',0);
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire) VALUES (3, 'Light', 2, 'Soo light', 1, 0, 0, 0,'',0);
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire) VALUES (4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0,'',0);
+INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg) VALUES (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0,'',0, 1,0);
+INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg) VALUES (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0,'',0, 0,0);
+INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg) VALUES (3, 'Light', 2, 'Soo light', 1, 0, 0, 0,'',0, 0,0);
+INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg) VALUES (4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0,'',0, 0,0);
 
 
 INSERT INTO %%PREFIX%%threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
-VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),0,0,0,0,0);
+VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,0,0,0);
 
 
 
