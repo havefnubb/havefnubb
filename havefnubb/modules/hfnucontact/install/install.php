@@ -11,17 +11,15 @@
 
 class hfnucontactModuleInstaller extends jInstallerModule {
 
-    protected $useDatabase = true;
-
     function install() {
-        $this->config->setValue('to_contact','', 'hfnucontact', null, true);
-        $this->config->setValue('email_contact','', 'hfnucontact', null, true);
+        if ($this->firstConfExec()) {
+            $this->config->setValue('to_contact','', 'hfnucontact', null, true);
+            $this->config->setValue('email_contact','', 'hfnucontact', null, true);
+        }
     }
 
     function postInstall() {
-        try {
+        if ($this->firstDbExec())
             $this->execSQLScript('sql/postinstall');
-        }
-        catch(Exception $e) {}
     }
 }

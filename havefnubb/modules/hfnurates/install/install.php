@@ -11,10 +11,12 @@
 
 class hfnuratesModuleInstaller extends jInstallerModule {
 
-    protected $useDatabase = true;
-
     function install() {
-        $this->execSQLScript('sql/install');
-        $this->copyDirectoryContent('www/images/', 'www:images/');
+
+        if ($this->firstDbExec())
+            $this->execSQLScript('sql/install');
+
+        if ($this->firstExec('copyfile'))
+            $this->copyDirectoryContent('www/images/', 'www:images/');
     }
 }

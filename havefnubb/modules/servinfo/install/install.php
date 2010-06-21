@@ -11,9 +11,8 @@
 
 class servinfoModuleInstaller extends jInstallerModule {
 
-    protected $useDatabase = true;
-
     function postInstall() {
-        $this->execSQLScript('sql/postinstall');
+        if ($this->firstDbExec())
+            $this->execSQLScript('sql/postinstall');
     }
 }

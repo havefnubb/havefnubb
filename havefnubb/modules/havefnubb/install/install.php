@@ -11,13 +11,14 @@
 
 class havefnubbModuleInstaller extends jInstallerModule {
 
-    protected $useDatabase = true;
-
     function install() {
-        $this->execSQLScript('sql/install');
+        if ($this->firstDbExec())
+            $this->execSQLScript('sql/install');
     }
 
     function postInstall() {
+        if (!$this->firstDbExec())
+            return;
         $cn = $this->dbConnection();
         $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, code, grouptype, ownerlogin) VALUES (1, 'admins', 'admins', 0, NULL)");
         $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, code, grouptype, ownerlogin) VALUES (2, 'users', 'users', 1, NULL)");

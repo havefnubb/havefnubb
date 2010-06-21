@@ -11,17 +11,17 @@
 
 class hfnusearchModuleInstaller extends jInstallerModule {
 
-    protected $forEachEntryPointsConfig = true;
-
-    protected $useDatabase = true;
-
     function install() {
-        $this->execSQLScript('sql/install');
-        $this->copyFile('havefnu.search.ini.php.dist', 'config:havefnu.search.ini.php');
-        $this->copyFile('hfnusearch.css', 'www:themes/default/hfnusearch.css');
+        if ($this->firstDbExec())
+            $this->execSQLScript('sql/install');
+        if ($this->firstExec('copyfile')) {
+            $this->copyFile('havefnu.search.ini.php.dist', 'config:havefnu.search.ini.php');
+            $this->copyFile('hfnusearch.css', 'www:themes/default/hfnusearch.css');
+        }
     }
 
     function postInstall() {
-        $this->execSQLScript('sql/postinstall');
+        if ($this->firstDbExec())
+            $this->execSQLScript('sql/postinstall');
     }
 }

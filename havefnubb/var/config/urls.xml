@@ -20,7 +20,7 @@
         <url pathinfo="/contact"      module="hfnucontact" include="urls.xml"/>
         <url pathinfo="/rates"        module="hfnurates"   include="urls.xml"/>
         <url pathinfo="/cal"          module="hfnucal"     include="urls.xml" />
-        <url pathinfo="/search" module="hfnusearch" include="urls.xml"/>
+        <url pathinfo="/search"       module="hfnusearch"  include="urls.xml"/>
 
     </classicentrypoint>
 

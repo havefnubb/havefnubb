@@ -12,3 +12,4 @@ CREATE TABLE %%PREFIX%%community_users (
 );
 
 SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('%%PREFIX%%community_users', 'id'), 1, false);
+

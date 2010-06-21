@@ -12,6 +12,9 @@
 class hfnucalModuleInstaller extends jInstallerModule {
 
     function install() {
-        $this->copyFile('www/themes/default/hfnucal.css', 'www:themes/default/hfnucal.css');
+        //if ($this->firstDbExec())
+        //    $this->execSQLscript('sql/install');
+        if ($this->firstExec('copyfile'))
+            $this->copyFile('www/themes/default/hfnucal.css', 'www:themes/default/hfnucal.css');
     }
 }

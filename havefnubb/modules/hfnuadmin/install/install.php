@@ -11,9 +11,8 @@
 
 class hfnuadminModuleInstaller extends jInstallerModule {
 
-    protected $useDatabase = true;
-
     function postinstall() {
-        $this->execSQLscript('sql/postinstall');
+        if ($this->firstDbExec())
+            $this->execSQLscript('sql/postinstall');
     }
 }

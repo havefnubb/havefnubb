@@ -11,9 +11,8 @@
 
 class jtagsModuleInstaller extends jInstallerModule {
 
-    protected $useDatabase = true;
-
     function install() {
-        $this->execSQLScript('sql/install');
+        if ($this->firstDbExec())
+            $this->execSQLScript('sql/install');
     }
 }
