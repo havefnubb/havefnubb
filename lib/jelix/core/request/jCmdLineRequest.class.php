@@ -24,7 +24,6 @@ class jCmdLineRequest extends jRequest{
 		return('jResponseCmdline'==$respclass);
 	}
 	protected function _initUrlData(){
-		global $gJConfig;
 		$this->urlScriptPath='/';
 		$this->urlScriptName=$this->urlScript=$_SERVER['SCRIPT_NAME'];
 		$this->urlPathInfo='';

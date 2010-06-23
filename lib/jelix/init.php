@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.2pre.1543');
+define('JELIX_VERSION','1.2pre.1544');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -295,8 +295,10 @@ class jSelectorActFast extends jSelectorModule{
 	}
 }
 class jSelectorAct extends jSelectorActFast{
-	function __construct($sel,$enableRequestPart=false){
+	protected $forUrl=false;
+	function __construct($sel,$enableRequestPart=false,$toRetrieveUrl=false){
 		global $gJCoord;
+		$this->forUrl=$toRetrieveUrl;
 		if(preg_match("/^(?:([a-zA-Z0-9_\.]+|\#)~)?([a-zA-Z0-9_:]+|\#)?(?:@([a-zA-Z0-9_]+))?$/",$sel,$m)){
 			$m=array_pad($m,4,'');
 			if($m[1]!=''){
@@ -328,6 +330,17 @@ class jSelectorAct extends jSelectorActFast{
 		}else{
 			throw new jExceptionSelector('jelix~errors.selector.invalid.syntax',array($sel,$this->type));
 		}
+	}
+	protected function _createPath(){
+		global $gJConfig;
+		if(isset($gJConfig->_modulesPathList[$this->module])){
+			$p=$gJConfig->_modulesPathList[$this->module];
+		}else if($this->forUrl&&isset($gJConfig->_externalModulesPathList[$this->module])){
+			$p=$gJConfig->_externalModulesPathList[$this->module];
+		}
+		else
+			throw new jExceptionSelector('jelix~errors.selector.module.unknown',$this->toString());
+		$this->_path=$p.'controllers/'.$this->controller.'.'.$this->request.'.php';
 	}
 }
 class jSelectorClass extends jSelectorModule{
@@ -786,7 +799,7 @@ class jUrl extends jUrlBase{
 		}
 	}
 	static function get($actSel,$params=array(),$what=0){
-		$sel=new jSelectorAct($actSel,true);
+		$sel=new jSelectorAct($actSel,true,true);
 		$params['module']=$sel->module;
 		$params['action']=$sel->resource;
 		$ua=new jUrlAction($params,$sel->request);
@@ -1075,12 +1088,18 @@ class jCoordinator{
 	public function isPluginEnabled($pluginName){
 		return isset($this->plugins[strtolower($pluginName)]);
 	}
-	public function isModuleEnabled($moduleName){
+	public function isModuleEnabled($moduleName,$includingExternal=false){
+		if($includingExternal&&isset($GLOBALS['gJConfig']->_externalModulesPathList[$moduleName])){
+			return true;
+		}
 		return isset($GLOBALS['gJConfig']->_modulesPathList[$moduleName]);
 	}
-	public function getModulePath($module){
+	public function getModulePath($module,$includingExternal=false){
 		global $gJConfig;
 		if(!isset($gJConfig->_modulesPathList[$module])){
+			if($includingExternal&&isset($gJConfig->_externalModulesPathList[$module])){
+				return $gJConfig->_externalModulesPathList[$module];
+			}
 			throw new Exception('getModulePath : invalid module name');
 		}
 		return $gJConfig->_modulesPathList[$module];

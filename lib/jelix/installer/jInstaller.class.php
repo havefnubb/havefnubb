@@ -166,7 +166,8 @@ class jInstaller{
 		foreach(array_keys($this->entryPoints)as $epId){
 			$modules=array();
 			foreach($this->modules[$epId] as $name=>$module){
-				if($module->getAccessLevel($epId)==0)
+				$access=$module->getAccessLevel($epId);
+				if($access!=1&&$access!=2)
 					continue;
 				$modules[$name]=$module;
 			}
@@ -186,7 +187,8 @@ class jInstaller{
 		$epId=$this->epId[$entrypoint];
 		$modules=array();
 		foreach($this->modules[$epId] as $name=>$module){
-			if($module->getAccessLevel($epId)==0)
+			$access=$module->getAccessLevel($epId);
+			if($access!=1&&$access!=2)
 				continue;
 			$modules[$name]=$module;
 		}

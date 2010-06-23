@@ -11,6 +11,7 @@
 * @licence      GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 class jConfigCompiler{
+	static protected $commonConfig;
 	private function __construct(){}
 	static public function read($configFile,$allModuleInfo=false,$isCli=false,$pseudoScriptName=''){
 		if(JELIX_APP_TEMP_PATH=='/'){
@@ -19,9 +20,10 @@ class jConfigCompiler{
 		if(!is_writable(JELIX_APP_TEMP_PATH)){
 			die('Jelix Error: Application temp directory is not writable');
 		}
+		self::$commonConfig=jIniFile::read(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php',true);
 		$config=jIniFile::read(JELIX_LIB_CORE_PATH.'defaultconfig.ini.php');
-		if($commonConfig=parse_ini_file(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php',true)){
-			self::_mergeConfig($config,$commonConfig);
+		if(self::$commonConfig){
+			self::_mergeConfig($config,self::$commonConfig);
 		}
 		if($configFile!='defaultconfig.ini.php'){
 			if(!file_exists(JELIX_APP_CONFIG_PATH.$configFile))
@@ -32,6 +34,7 @@ class jConfigCompiler{
 		}
 		$config=(object) $config;
 		self::prepareConfig($config,$allModuleInfo,$isCli,$pseudoScriptName);
+		self::$commonConfig=null;
 		return $config;
 	}
 	static public function readAndCache($configFile,$isCli=null,$pseudoScriptName=''){
@@ -173,16 +176,21 @@ class jConfigCompiler{
 		if(!isset($installation[$section]))
 			$installation[$section]=array();
 		$list=preg_split('/ *, */',$config->modulesPath);
+		$list=array_merge($list,preg_split('/ *, */',self::$commonConfig['modulesPath']));
 		array_unshift($list,JELIX_LIB_PATH.'core-modules/');
+		$pathChecked=array();
 		foreach($list as $k=>$path){
 			if(trim($path)=='')continue;
 			$p=str_replace(array('lib:','app:'),array(LIB_PATH,JELIX_APP_PATH),$path);
 			if(!file_exists($p)){
-				throw new Exception('The path, '.$path.' given in the jelix config, doesn\'t exists !',E_USER_ERROR);
+				throw new Exception('The path, '.$path.' given in the jelix config, doesn\'t exist !',E_USER_ERROR);
 			}
 			if(substr($p,-1)!='/')
 				$p.='/';
-			if($k!=0)
+			if(in_array($p,$pathChecked))
+				continue;
+			$pathChecked[]=$p;
+			if($k!=0&&$config->compilation['checkCacheFiletime'])
 				$config->_allBasePath[]=$p;
 			if($handle=opendir($p)){
 				while(false!==($f=readdir($handle))){
@@ -193,9 +201,18 @@ class jConfigCompiler{
 							$config->modules['jelix.access']=2;
 						}
 						else{
-							if(!isset($config->modules[$f.'.access'])
-								||(!$installation[$section][$f.'.installed']&&!$allModuleInfo))
+							if(!isset($config->modules[$f.'.access'])){
 								$config->modules[$f.'.access']=0;
+							}
+							else if($config->modules[$f.'.access']==0){
+								if(isset(self::$commonConfig['modules'][$f.'.access'])
+									&&self::$commonConfig['modules'][$f.'.access'] > 0)
+									$config->modules[$f.'.access']=3;
+							}
+							else if(!$installation[$section][$f.'.installed']){
+								if(!$allModuleInfo)
+									$config->modules[$f.'.access']=0;
+							}
 						}
 						if(!isset($installation[$section][$f.'.dbprofile']))
 							$config->modules[$f.'.dbprofile']='default';
@@ -213,7 +230,10 @@ class jConfigCompiler{
 							$config->modules[$f.'.installed']=$installation[$section][$f.'.installed'];
 							$config->_allModulesPathList[$f]=$p.$f.'/';
 						}
-						if($config->modules[$f.'.access'])
+						if($config->modules[$f.'.access']==3){
+							$config->_externalModulesPathList[$f]=$p.$f.'/';
+						}
+						elseif($config->modules[$f.'.access'])
 							$config->_modulesPathList[$f]=$p.$f.'/';
 					}
 				}
@@ -237,7 +257,7 @@ class jConfigCompiler{
 				while(false!==($f=readdir($handle))){
 					if($f[0]!='.'&&is_dir($p.$f)){
 						if($subdir=opendir($p.$f)){
-							if($k!=0)
+							if($k!=0&&$config->compilation['checkCacheFiletime'])
 								$config->_allBasePath[]=$p.$f.'/';
 							while(false!==($subf=readdir($subdir))){
 								if($subf[0]!='.'&&is_dir($p.$f.'/'.$subf)){
