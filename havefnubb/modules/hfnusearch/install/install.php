@@ -14,9 +14,9 @@ class hfnusearchModuleInstaller extends jInstallerModule {
     function install() {
         if ($this->firstDbExec())
             $this->execSQLScript('sql/install');
-        if ($this->firstExec('copyfile')) {
+        if (!$this->getParameter('nocopyfiles') && $this->firstExec('copyfile')) {
             $this->copyFile('havefnu.search.ini.php.dist', 'config:havefnu.search.ini.php');
-            $this->copyFile('hfnusearch.css', 'www:themes/default/hfnusearch.css');
+            $this->copyFile('hfnusearch.css', 'www:themes/default/css/hfnusearch.css');
         }
     }
 

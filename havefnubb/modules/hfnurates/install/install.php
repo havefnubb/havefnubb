@@ -16,7 +16,16 @@ class hfnuratesModuleInstaller extends jInstallerModule {
         if ($this->firstDbExec())
             $this->execSQLScript('sql/install');
 
-        if ($this->firstExec('copyfile'))
+        if (!$this->getParameter('nocopyfiles') && $this->firstExec('copyfile')) {
+echo "  ------ bordel : ";
+var_export($this->getParameter('nocopyfiles'));
+echo "\n";
+var_export(!$this->getParameter('nocopyfiles'));
+echo "\n";
+var_export($this->config->getValue('hfnucal.installparam','modules'));
+echo "\n";
             $this->copyDirectoryContent('www/images/', 'www:images/');
+        }
+        else echo " ----- no copy\n";
     }
 }

@@ -47,7 +47,7 @@
         <property name="censored_msg"  table="posts"  fieldname="censored_msg" datatype="string" required="false" maxlength="50"/>
         <property name="read_by_mod"   table="posts"  fieldname="read_by_mod" datatype="int" required="false" maxlength="1"/>
         <!-- properties from member table -->
-        <property name="id"         fieldname="id_user" datatype="int" table="usr"/>
+        <property name="id"         fieldname="id" datatype="int" table="usr"/>
         <property name="email"      fieldname="email" datatype="string" table="usr" maxlength="255" />
         <property name="login"      fieldname="login" table="usr" required="yes" datatype="string"  maxlength="50" />
         <property name="member_comment" fieldname="comment" datatype="string" table="usr" maxlength="255"/>

@@ -34,7 +34,7 @@
         <property name="read_by_mod"    fieldname="read_by_mod"   datatype="int" required="false" maxlength="1"/>
 
         <!-- properties from member table -->
-        <property name="id"             fieldname="id_user" table="usr" datatype="int"/>
+        <property name="id"             fieldname="id" table="usr" datatype="int"/>
         <property name="email"          fieldname="email"   table="usr" datatype="string" maxlength="255" />
         <property name="login"          fieldname="login"   table="usr" required="yes" datatype="string"  maxlength="50" />
         <property name="member_comment" fieldname="comment" table="usr" datatype="string" maxlength="255"/>
