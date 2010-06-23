@@ -22,7 +22,7 @@ class jInstallerModuleInfos{
 		$this->dbProfile=$config[$name.'.dbprofile'];
 		$this->isInstalled=$config[$name.'.installed'];
 		$this->version=$config[$name.'.version'];
-		if(isset($config->modules[$name.'.installparam'])){
+		if(isset($config[$name.'.installparam'])){
 			$params=explode(';',$config[$name.'.installparam']);
 			foreach($params as $param){
 				$kp=explode("=",$param);
@@ -41,6 +41,8 @@ class jInstallerModuleInfos{
 			else
 				$p.=';'.$name.'='.$v;
 		}
+		if($p=='')
+			return '';
 		return substr($p,1);
 	}
 }
