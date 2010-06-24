@@ -54,25 +54,27 @@
 }
 #footer a:hover { color: #232320; }
 
-#msg-install .jelix-msg li {
-	list-style: none;
+ .jelix-msg li {
+    list-style: none;
     padding:3px 19px;
     margin:0;
+    background-repeat: no-repeat;
 }
-#msg-install .jelix-msg li.jelix-msg-item-ok {
+.jelix-msg li.jelix-msg-item-ok {
     background-color: #e5f6d4;
-    background-image: url(../images/information.png);
-	background-repeat: no-repeat;			
+    /*background-image: url(../images/information.png);*/
 }
-#msg-install .jelix-msg li.jelix-msg-item-warning {
+.jelix-msg li.jelix-msg-item-notice {
+    background-color: #FEFFE8;
+    background-image: url(../images/information.png);
+}
+.jelix-msg li.jelix-msg-item-warning {
     background-color: #f8e794;
     background-image: url(../images/exclamation.png);
-	background-repeat: no-repeat;		
 }
-#msg-install .jelix-msg li.jelix-msg-item-error {
+.jelix-msg li.jelix-msg-item-error {
     background-color: #f6cab1;
     background-image: url(../images/error.png);
-	background-repeat: no-repeat;		
 }
 
 .submit-next, .jforms-submit, .jforms-reset {
