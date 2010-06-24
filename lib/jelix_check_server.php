@@ -81,34 +81,33 @@ class jInstallerMessageProvider {
 
     protected $messages = array(
         'fr'=>array(
-     'checker.title'=>'Vérification de votre serveur pour Jelix 1.2pre.1545',
+     'checker.title'=>'Vérification de votre serveur pour Jelix 1.2pre.1547',
         'number.errors'         =>' erreurs.',
         'number.error'          =>' erreur.',
         'number.warnings'       =>' avertissements.',
         'number.warning'        =>' avertissement.',
         'number.notices'        =>' remarques.',
         'number.notice'         =>' remarque.',
-    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.2pre.1545.',
-    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.2pre.1545.',
-    'conclusion.warning'    =>'Une application Jelix 1.2pre.1545 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
-    'conclusion.warnings'   =>'Une application Jelix 1.2pre.1545 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
-    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.2pre.1545 malgré la remarque.',
-    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.2pre.1545 malgré les remarques.',
-    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.2pre.1545',
+    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.2pre.1547.',
+    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.2pre.1547.',
+    'conclusion.warning'    =>'Une application Jelix 1.2pre.1547 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
+    'conclusion.warnings'   =>'Une application Jelix 1.2pre.1547 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
+    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.2pre.1547 malgré la remarque.',
+    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.2pre.1547 malgré les remarques.',
+    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.2pre.1547',
         'cannot.continue'       =>'Les vérifications ne peuvent continuer : ',
-        'extension.dom'         =>'L\'extension DOM n\'est pas installée',
-        'extension.spl'         =>'L\'extension spl  n\'est pas installée',
-        'extension.simplexml'   =>'L\'extension simplexml n\'est pas installée',
-        'extension.pcre'        =>'L\'extension pcre n\'est pas installée',
-        'extension.session'     =>'L\'extension session n\'est pas installée',
-        'extension.tokenizer'   =>'L\'extension tokenizer n\'est pas installée',
-        'extension.iconv'       =>'L\'extension iconv n\'est pas installée',
-        'extensions.required.ok'=>'Toutes les extensions obligatoires sont installées',
-        'extension.filter'      =>'Cette édition de Jelix a besoin de l\'extension filter',
-        'extension.json'        =>'Cette édition de Jelix a besoin de l\'extension json',
-        'extension.xmlrpc'      =>'Cette édition de Jelix a besoin de l\'extension xmlrpc',
-        'extension.jelix'       =>'Cette édition de Jelix a besoin de l\'extension jelix',
+        'extension.not.installed'=>'L\'extension %s n\'est pas disponible',
+        'extension.optional.not.installed'=>'L\'extension %s optionnelle n\'est pas disponible',
+        'extension.required.not.installed'=>'L\'extension %s obligatoire n\'est pas disponible',
+        'extension.installed'=>'L\'extension %s est disponible',
+        'extension.optional.installed'=>'L\'extension %s optionnelle est disponible',
+        'extension.required.installed'=>'L\'extension %s obligatoire est disponible',
+        'extensions.required.ok'=>'Toutes les extensions PHP obligatoires sont disponibles',
         'extension.opcode.cache'=>'Cette édition de Jelix a besoin d\'une extension de cache d\'opcode (apc, eaccelerator...)',
+        'extension.database.ok'=>'L\'application utilisera une base de donnée SQL',
+        'extension.database.ok2'=>'L\'application pourra utiliser une base de donnée SQL',
+        'extension.database.missing'=>'L\'application a besoin d\'une base de donnée SQL',
+        'extension.database.missing2'=>'L\'application ne pourra pas utiliser de base de donnée SQL',
         'path.core'             =>'Le fichier init.php  de jelix ou le fichier application.ini.php de votre application n\'est pas chargé',
         'path.temp'             =>'Le repertoire temporaire n\'est pas accessible en écriture ou alors JELIX_APP_TEMP_PATH n\'est pas configurée comme il faut',
         'path.log'              =>'Le repertoire var/log dans votre application n\'est pas accessible en écriture ou alors JELIX_APP_LOG_PATH n\'est pas configurée comme il faut',
@@ -116,8 +115,9 @@ class jInstallerMessageProvider {
         'path.config'           =>'JELIX_APP_CONFIG_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
         'path.www'              =>'JELIX_APP_WWW_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
         'php.bad.version'       =>'Mauvaise version de PHP',
-        'php.version.current'   =>'Version courante :',
-        'php.version.required'  =>'Cette édition de Jelix nécessite au moins PHP ',
+        'php.version.current'   =>'Version PHP courante : %s',
+        'php.ok.version'        =>'La version PHP %s installée est correcte',
+        'php.version.required'  =>'L\'application nécessite au moins PHP %s',
         'too.critical.error'    =>'Trop d\'erreurs critiques sont apparues. Corrigez les.',
         'config.file'           =>'La variable $config_file n\'existe pas ou le fichier qu\'elle indique n\'existe pas',
         'paths.ok'              =>'Les répertoires temp, log, var, config et www sont ok',
@@ -158,34 +158,31 @@ class jInstallerMessageProvider {
         ),
 
         'en'=>array(
-  'checker.title'   =>'Check your configuration server for Jelix 1.2pre.1545',
+  'checker.title'   =>'Check your configuration server for Jelix 1.2pre.1547',
         'number.errors'     =>' errors.',
         'number.error'      =>' error.',
         'number.warnings'   =>' warnings.',
         'number.warning'    =>' warning.',
         'number.notices'    =>' notices.',
         'number.notice'     =>' notice.',
-      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.2pre.1545.',
-      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.2pre.1545.',
-      'conclusion.warning'  =>'Your application for Jelix 1.2pre.1545 may run without problems, but it is recommanded to fix the warning.',
-      'conclusion.warnings' =>'Your application for Jelix 1.2pre.1545 may run without problems, but it is recommanded to fix warnings.',
-      'conclusion.notice'   =>'You can install an application for Jelix 1.2pre.1545, although there is a notice.',
-      'conclusion.notices'  =>'You can install an application for Jelix 1.2pre.1545, although there are notices.',
-      'conclusion.ok'       =>'You can install an application for Jelix 1.2pre.1545.',
+      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.2pre.1547.',
+      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.2pre.1547.',
+      'conclusion.warning'  =>'Your application for Jelix 1.2pre.1547 may run without problems, but it is recommanded to fix the warning.',
+      'conclusion.warnings' =>'Your application for Jelix 1.2pre.1547 may run without problems, but it is recommanded to fix warnings.',
+      'conclusion.notice'   =>'You can install an application for Jelix 1.2pre.1547, although there is a notice.',
+      'conclusion.notices'  =>'You can install an application for Jelix 1.2pre.1547, although there are notices.',
+      'conclusion.ok'       =>'You can install an application for Jelix 1.2pre.1547.',
         'cannot.continue'       =>'Cannot continue the checking: ',
-        'extension.dom'         =>'DOM extension is not installed',
-        'extension.spl'         =>'SPL extension is not installed',
-        'extension.simplexml'   =>'simplexml extension is not installed',
-        'extension.pcre'        =>'pcre extension is not installed',
-        'extension.session'     =>'session extension is not installed',
-        'extension.tokenizer'   =>'tokenizer extension is not installed',
-        'extension.iconv'       =>'iconv extension is not installed',
-        'extensions.required.ok'=>'All needed PHP extensions are installed',
-        'extension.filter'      =>'This Jelix edition require the filter extension',
-        'extension.json'        =>'This Jelix edition require the json extension',
-        'extension.xmlrpc'      =>'This Jelix edition require the xmlrpc extension',
-        'extension.jelix'       =>'This Jelix edition require the jelix extension',
-        'extension.opcode.cache'=>'This Jelix edition require an extension for opcode cache (apc, eaccelerator...)',
+        'extension.optional.not.installed'=>'the optional extension %s is not available',
+        'extension.required.not.installed'=>'the required extension %s is not available',
+        'extension.optional.installed'=>'the optional extension %s is available',
+        'extension.required.installed'=>'the required extension %s is available',
+        'extensions.required.ok'=>'All needed PHP extensions are available',
+        'extension.opcode.cache'=>'The application requires an extension for opcode cache (apc, eaccelerator...)',
+        'extension.database.ok'=>'The application will use a SQL database',
+        'extension.database.ok2'=>'The application can use SQL databases',
+        'extension.database.missing'=>'The application needs a SQL database',
+        'extension.database.missing2'=>'The application couldn\'t use a SQL database',
         'path.core'             =>'jelix init.php file or application.ini.php file is not loaded',
         'path.temp'             =>'temp/yourApp directory is not writable or JELIX_APP_TEMP_PATH is not correctly set !',
         'path.log'              =>'var/log directory (in the directory of your application) is not writable or JELIX_APP_LOG_PATH is not correctly set!',
@@ -193,8 +190,9 @@ class jInstallerMessageProvider {
         'path.config'           =>'JELIX_APP_CONFIG_PATH is not correctly set: config directory  doesn\'t exist!',
         'path.www'              =>'JELIX_APP_WWW_PATH is not correctly set: www directory  doesn\'t exist!',
         'php.bad.version'       =>'Bad PHP version',
-        'php.version.current'   =>'Current version:',
-        'php.version.required'  =>'This edition of Jelix require at least PHP ',
+        'php.version.current'   =>'Current PHP version: %s',
+        'php.ok.version'        =>'The PHP version %s is ok',
+        'php.version.required'  =>'The application requires at least PHP %s',
         'too.critical.error'    =>'Too much critical errors. Fix them.',
         'config.file'           =>'$config_file variable does not exist or doesn\'t contain a correct application config file name',
         'paths.ok'              =>'temp, log, var, config and www directory are ok',
@@ -259,8 +257,8 @@ class jInstallerMessageProvider {
         }else{
             throw new Exception ("Error : don't find error message '$key'");
         }
-        
-        if ($params !== null) {
+
+        if ($params !== null || (is_array($params) && count($params) > 0)) {
             $msg = call_user_func_array('sprintf', array_merge (array ($msg), is_array ($params) ? $params : array ($params)));
         }
         return $msg;
@@ -312,6 +310,8 @@ class jInstallCheck {
 
     protected $buildProperties;
 
+    public $verbose = false; 
+
     function __construct ($reporter, $lang=''){
         $this->reporter = $reporter;
         $this->messages = new jInstallerMessageProvider($lang);
@@ -324,6 +324,23 @@ class jInstallCheck {
         );
     }
 
+    protected $otherExtensions = array();
+
+    function addExtensionCheck($extension, $required) {
+        $this->otherExtensions[$extension] = $required;
+    }
+
+    protected $databases = array();
+    protected $dbRequired = false;
+
+    function addDatabaseCheck($databases, $required) {
+        $this->databases = $databases;
+        $this->dbRequired = $required;
+    }
+
+    /**
+     * run the ckecking
+     */
     function run(){
         $this->nbError = 0;
         $this->nbOk = 0;
@@ -340,30 +357,30 @@ class jInstallCheck {
         $this->reporter->end($results);
     }
 
-    protected function error($msg, $extraMsg=''){
+    protected function error($msg, $msgparams=array(), $extraMsg=''){
         if($this->reporter)
-            $this->reporter->message($this->messages->get($msg).$extraMsg, 'error');
+            $this->reporter->message($this->messages->get($msg, $msgparams).$extraMsg, 'error');
         $this->nbError ++;
     }
 
-    protected function ok($msg){
+    protected function ok($msg, $msgparams=array()){
         if($this->reporter)
-            $this->reporter->message($this->messages->get($msg), 'ok');
+            $this->reporter->message($this->messages->get($msg, $msgparams), 'ok');
         $this->nbOk ++;
     }
     /**
      * generate a warning
      * @param string $msg  the key of the message to display
      */
-    protected function warning($msg){
+    protected function warning($msg, $msgparams=array()){
         if($this->reporter)
-            $this->reporter->message($this->messages->get($msg), 'warning');
+            $this->reporter->message($this->messages->get($msg, $msgparams), 'warning');
         $this->nbWarning ++;
     }
 
-    protected function notice($msg){
+    protected function notice($msg, $msgparams=array()){
         if($this->reporter) {
-            $this->reporter->message($this->messages->get($msg), 'notice');
+            $this->reporter->message($this->messages->get($msg, $msgparams), 'notice');
         }
         $this->nbNotice ++;
     }
@@ -372,50 +389,35 @@ class jInstallCheck {
         $ok=true;
         if(!version_compare($this->buildProperties['PHP_VERSION_TARGET'], phpversion(), '<=')){
             $this->error('php.bad.version');
-            $notice = $this->messages->get('php.version.required')
-                     .$this->buildProperties['PHP_VERSION_TARGET'];
-            $notice.= '. '.$this->messages->get('php.version.current').phpversion();
+            $notice = $this->messages->get('php.version.required', $this->buildProperties['PHP_VERSION_TARGET']);
+            $notice.= '. '.$this->messages->get('php.version.current',phpversion());
             $this->reporter->showNotice($notice);
             $ok=false;
         }
-        if(!class_exists('DOMDocument',false)){
-            $this->error('extension.dom');
-            $ok=false;
-        }
-        if(!class_exists('DirectoryIterator',false)){
-            $this->error('extension.spl');
-            $ok=false;
+        else if ($this->verbose) {
+            $this->ok('php.ok.version', phpversion());
         }
 
-        $funcs=array(
-            'simplexml_load_file'=>'simplexml',
-            'preg_match'=>'pcre',
-            'session_start'=>'session',
-            'token_get_all'=>'tokenizer',
-            'iconv_set_encoding'=>'iconv',
-        );
-        foreach($funcs as $f=>$name){
-            if(!function_exists($f)){
-                $this->error('extension.'.$name);
+        $extensions = array( 'dom', 'SPL', 'SimpleXML', 'pcre', 'session',
+            'tokenizer', 'iconv',);
+
+        if($this->buildProperties['ENABLE_PHP_FILTER'] == '1')
+            $extensions[] = 'filter';
+        if($this->buildProperties['ENABLE_PHP_JSON'] == '1')
+            $extensions[] = 'json';
+        if($this->buildProperties['ENABLE_PHP_JELIX'] == '1')
+            $extensions[] = 'jelix';
+
+        foreach($extensions as $name){
+            if(!extension_loaded($name)){
+                $this->error('extension.required.not.installed', $name);
                 $ok=false;
             }
+            else if ($this->verbose) {
+                $this->ok('extension.required.installed', $name);
+            }
         }
-        if($this->buildProperties['ENABLE_PHP_FILTER'] == '1' && !extension_loaded ('filter')) {
-            $this->error('extension.filter');
-            $ok=false;
-        }
-        if($this->buildProperties['ENABLE_PHP_JSON'] == '1' && !extension_loaded ('json')) {
-            $this->error('extension.json');
-            $ok=false;
-        }
-        /*if($this->buildProperties['ENABLE_PHP_XMLRPC'] == '1' && !extension_loaded ('xmlrpc')) {
-            $this->error('extension.xmlrpc');
-            $ok=false;
-        }*/
-        if($this->buildProperties['ENABLE_PHP_JELIX'] == '1' && !extension_loaded ('jelix')) {
-            $this->error('extension.jelix');
-            $ok=false;
-        }
+
         if($this->buildProperties['WITH_BYTECODE_CACHE'] != 'auto' &&
            $this->buildProperties['WITH_BYTECODE_CACHE'] != '') {
             if(!extension_loaded ('apc') && !extension_loaded ('eaccelerator') && !extension_loaded ('xcache')) {
@@ -423,6 +425,61 @@ class jInstallCheck {
                 $ok=false;
             }
         }
+
+        if (count($this->databases)) {
+            $req = ($this->dbRequired?'required':'optional');
+            $okdb = false;
+            if (class_exists('PDO'))
+                $pdodrivers = PDO::getAvailableDrivers();
+            else
+                $pdodrivers = array();
+
+            foreach($this->databases as $name){
+                if(!extension_loaded($name) && !in_array($name, $pdodrivers)){
+                    $this->notice('extension.not.installed', $name);
+                }
+                else {
+                    $okdb = true;
+                    if ($this->verbose)
+                        $this->ok('extension.installed', $name);
+                }
+            }
+            if ($this->dbRequired) {
+                if ($okdb) {
+                    $this->ok('extension.database.ok');
+                }
+                else {
+                    $this->error('extension.database.missing');
+                    $ok = false;
+                }
+            }
+            else {
+                if ($okdb) {
+                    $this->ok('extension.database.ok2');
+                }
+                else {
+                    $this->notice('extension.database.missing2');
+                }
+            }
+            
+        }
+
+        foreach($this->otherExtensions as $name=>$required){
+            $req = ($required?'required':'optional');
+            if(!extension_loaded($name)){
+                if ($required) {
+                    $this->error('extension.'.$req.'.not.installed', $name);
+                    $ok=false;
+                }
+                else {
+                    $this->notice('extension.'.$req.'.not.installed', $name);
+                }
+            }
+            else if ($this->verbose) {
+                $this->ok('extension.'.$req.'.installed', $name);
+            }
+        }
+
         if($ok)
             $this->ok('extensions.required.ok');
 
@@ -515,6 +572,7 @@ class jHtmlInstallChecker implements jIInstallReporter {
 
 $reporter = new jHtmlInstallChecker();
 $check = new jInstallCheck($reporter);
+$check->addDatabaseCheck(array('mysql','sqlite','pgsql'), false);
 $reporter->messageProvider = $check->messages;
 
 header("Content-type:text/html;charset=UTF-8");

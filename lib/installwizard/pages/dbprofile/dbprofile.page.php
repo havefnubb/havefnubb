@@ -33,8 +33,21 @@ class dbprofileWizPage extends installWizardPage{
 			$tpl->assign('profiles',$sections);
 		}
 		$tpl->assign($data);
-		$drivers=isset($this->config['availabledDrivers'])?$this->config['availabledDrivers']:'mysql';
-		$drivers=preg_split("/ *, */",$drivers);
+		$drivers=isset($this->config['availabledDrivers'])?$this->config['availabledDrivers']:'mysql,sqlite,pgsql';
+		$list=preg_split("/ *, */",$drivers);
+		$drivers=array();
+		foreach($list as $drv){
+			if(extension_loaded($drv))
+				$drivers[$drv]=$drv;
+		}
+		if(class_exists('PDO')){
+			$pdodrivers=PDO::getAvailableDrivers();
+			foreach($pdodrivers as $drv){
+				if(in_array($drv,$list)){
+					$drivers[$drv.'_pdo']=$drv.' (PDO)';
+				}
+			}
+		}
 		$tpl->assign('drivers',$drivers);
 		return true;
 	}
@@ -45,12 +58,17 @@ class dbprofileWizPage extends installWizardPage{
 		foreach($_SESSION['dbprofiles']['profiles'] as $profile){
 			$errors=array();
 			$params=array();
-			$driver='';
-			if(isset($_POST['usepdo'][$profile])&&$_POST['usepdo'][$profile]=='on'){
+			$driver=$_POST['driver'][$profile];
+			$usepdo=false;
+			if(substr($driver,-4)=='_pdo'){
 				$ini->setValue('usepdo',true,$profile);
+				$usepdo=true;
+				$realdriver=subst($driver,0,-4);
 			}
-			else
+			else{
 				$ini->removeValue('usepdo',$profile);
+				$realdriver=$driver;
+			}
 			if(isset($_POST['persistent'][$profile])&&$_POST['persistent'][$profile]=='on'){
 				$ini->setValue('persistent',true,$profile);
 			}
@@ -69,11 +87,10 @@ class dbprofileWizPage extends installWizardPage{
 			}
 			$params['database']=$database;
 			$ini->setValue('database',$database,$profile);
-			$driver=$_POST['driver'][$profile];
-			$params['driver']=$driver;
-			if($driver!='sqlite'){
+			$params['driver']=$realdriver;
+			if($realdriver!='sqlite'){
 				$host=trim($_POST['host'][$profile]);
-				if($host==''&&$driver!='pgsql'){
+				if($host==''&&$realdriver!='pgsql'){
 					$errors[]=$this->locales['error.missing.host'];
 				}
 				else{
@@ -106,7 +123,7 @@ class dbprofileWizPage extends installWizardPage{
 						$m='check_PDO';
 					}
 					else{
-						$m='check_'.$driver;
+						$m='check_'.$realdriver;
 					}
 					$this->$m($params);
 				}
@@ -155,16 +172,14 @@ force_encoding = on
 			'passwordconfirm'=>array(),
 			'persistent'=>array(),
 			'prefix'=>array(),
-			'usepdo'=>array(),
 			'force_encoding'=>array(),
 		);
 		$profiles=$ini->getSectionList();
 		foreach($profiles as $profile){
 			$driver=$ini->getValue('driver',$profile);
 			if($driver=='pdo'){
-				$data['usepdo'][$profile]=true;
 				$dsn=$ini->getValue('dsn',$profile);
-				$data['driver'][$profile]=substr($dsn,0,strpos($dsn,':'));
+				$data['driver'][$profile]=substr($dsn,0,strpos($dsn,':')).'_pdo';
 				if(preg_match("/host=([^;]*)(;|$)/",$dsn,$m)){
 					$data['host'][$profile]=$m[1];
 				}
@@ -181,8 +196,8 @@ force_encoding = on
 				}
 			}
 			else{
-				$data['usepdo'][$profile]=$ini->getValue('usepdo',$profile);
-				$data['driver'][$profile]=$ini->getValue('driver',$profile);
+				$usepdo=(bool)$ini->getValue('usepdo',$profile);
+				$data['driver'][$profile]=$ini->getValue('driver',$profile).($usepdo?'_pdo':'');
 				$data['database'][$profile]=$ini->getValue('database',$profile);
 				$data['host'][$profile]=$ini->getValue('host',$profile);
 			}
