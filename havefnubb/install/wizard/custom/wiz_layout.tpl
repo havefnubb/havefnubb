@@ -54,9 +54,9 @@
               </div>
 
             <div class="box">
-            {if $messageHeader}<div id="contentheader">{@$messageHeader@|eschtml}</div>{/if}
+            {if $messageHeader}<div id="contentheader">{@$messageHeader@}</div>{/if}
             {$MAIN}
-            {if $messageFooter}<div id="contentFooter">{@$messageFooter@|eschtml}</div>{/if}
+            {if $messageFooter}<div id="contentFooter">{@$messageFooter@}</div>{/if}
             </div>
 
               <div id="buttons" class="box">

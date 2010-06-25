@@ -12,7 +12,7 @@ appname = HaveFnuBB
 next=checkjelix
 
 [checkjelix.step]
-next=confmail
+next=hfnconf
 databases=mysql,pgsql,sqlite
 
 [hfnconf.step]
