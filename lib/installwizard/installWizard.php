@@ -151,7 +151,7 @@ class installWizard{
 			$this->initPath();
 			$laststep=$this->initPrevious();
 			$this->lang=$this->guessLanguage();
-			if($isAlreadyDone&&!isset($_POST['doprocess'])){
+			if($isAlreadyDone&&!isset($_SESSION['__install__wizard'])){
 				if(isset($this->config['onalreadydone']))
 					$laststep=$this->config['onalreadydone'];
 				if($laststep!=''&&isset($this->pages[$laststep])){
@@ -161,16 +161,16 @@ class installWizard{
 					throw new Exception("Application is installed. The script cannot be runned.");
 				}
 			}
-			else
+			else{
+				if(!isset($_SESSION['__install__wizard'])&&!$isAlreadyDone)
+					$_SESSION['__install__wizard']=true;
 				$this->stepName=$this->getStepName();
+			}
 			jTplConfig::$lang=$this->lang;
 			jTplConfig::$localesGetter=array($this,'getLocale');
 			jTplConfig::$cachePath=$this->tempPath;
 			$page=$this->loadPage();
 			if(isset($_POST['doprocess'])&&$_POST['doprocess']=="1"){
-				if($isAlreadyDone)
-					$result=true;
-				else
 					$result=$page->process();
 				if($result!==false){
 					header("location: ?step=".$this->getNextStep($page));
@@ -184,6 +184,9 @@ class installWizard{
 			$continue=$page->show($tpl);
 			$content=$tpl->fetch($this->stepName.'.tpl','html');
 			$this->showMainTemplate($page,$content,$continue);
+			if($laststep==$this->stepName){
+				session_destroy();
+			}
 		}catch(Exception $e){
 			$error=$e->getMessage();
 			header("HTTP/1.1 500 Application error");

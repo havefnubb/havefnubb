@@ -81,21 +81,21 @@ class jInstallerMessageProvider {
 
     protected $messages = array(
         'fr'=>array(
-     'checker.title'=>'Vérification de votre serveur pour Jelix 1.2pre.1547',
+     'checker.title'=>'Vérification de votre serveur pour Jelix 1.2pre.1550',
         'number.errors'         =>' erreurs.',
         'number.error'          =>' erreur.',
         'number.warnings'       =>' avertissements.',
         'number.warning'        =>' avertissement.',
         'number.notices'        =>' remarques.',
         'number.notice'         =>' remarque.',
-    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.2pre.1547.',
-    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.2pre.1547.',
-    'conclusion.warning'    =>'Une application Jelix 1.2pre.1547 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
-    'conclusion.warnings'   =>'Une application Jelix 1.2pre.1547 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
-    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.2pre.1547 malgré la remarque.',
-    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.2pre.1547 malgré les remarques.',
-    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.2pre.1547',
-        'cannot.continue'       =>'Les vérifications ne peuvent continuer : ',
+    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.2pre.1550.',
+    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.2pre.1550.',
+    'conclusion.warning'    =>'Une application Jelix 1.2pre.1550 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
+    'conclusion.warnings'   =>'Une application Jelix 1.2pre.1550 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
+    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.2pre.1550 malgré la remarque.',
+    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.2pre.1550 malgré les remarques.',
+    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.2pre.1550',
+        'cannot.continue'       =>'Les vérifications ne peuvent continuer : %s',
         'extension.not.installed'=>'L\'extension %s n\'est pas disponible',
         'extension.optional.not.installed'=>'L\'extension %s optionnelle n\'est pas disponible',
         'extension.required.not.installed'=>'L\'extension %s obligatoire n\'est pas disponible',
@@ -114,6 +114,10 @@ class jInstallerMessageProvider {
         'path.var'              =>'JELIX_APP_VAR_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
         'path.config'           =>'JELIX_APP_CONFIG_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
         'path.www'              =>'JELIX_APP_WWW_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
+        'path.config.writable' =>'Le répertoire var/config n\'a pas les droits en écriture',
+        'path.dbprofile.writable'=>'Le fichier dbprofils.ini.php n\'a pas les droits en écriture',
+        'path.defaultconfig.writable'=>'Le fichier defaultconfig.ini.php n\'a pas les droits en écriture',
+        'path.installer.writable'=>'Le fichier installer.ini.php n\'a pas les droits en écriture',
         'php.bad.version'       =>'Mauvaise version de PHP',
         'php.version.current'   =>'Version PHP courante : %s',
         'php.ok.version'        =>'La version PHP %s installée est correcte',
@@ -158,21 +162,21 @@ class jInstallerMessageProvider {
         ),
 
         'en'=>array(
-  'checker.title'   =>'Check your configuration server for Jelix 1.2pre.1547',
+  'checker.title'   =>'Check your configuration server for Jelix 1.2pre.1550',
         'number.errors'     =>' errors.',
         'number.error'      =>' error.',
         'number.warnings'   =>' warnings.',
         'number.warning'    =>' warning.',
         'number.notices'    =>' notices.',
         'number.notice'     =>' notice.',
-      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.2pre.1547.',
-      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.2pre.1547.',
-      'conclusion.warning'  =>'Your application for Jelix 1.2pre.1547 may run without problems, but it is recommanded to fix the warning.',
-      'conclusion.warnings' =>'Your application for Jelix 1.2pre.1547 may run without problems, but it is recommanded to fix warnings.',
-      'conclusion.notice'   =>'You can install an application for Jelix 1.2pre.1547, although there is a notice.',
-      'conclusion.notices'  =>'You can install an application for Jelix 1.2pre.1547, although there are notices.',
-      'conclusion.ok'       =>'You can install an application for Jelix 1.2pre.1547.',
-        'cannot.continue'       =>'Cannot continue the checking: ',
+      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.2pre.1550.',
+      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.2pre.1550.',
+      'conclusion.warning'  =>'Your application for Jelix 1.2pre.1550 may run without problems, but it is recommanded to fix the warning.',
+      'conclusion.warnings' =>'Your application for Jelix 1.2pre.1550 may run without problems, but it is recommanded to fix warnings.',
+      'conclusion.notice'   =>'You can install an application for Jelix 1.2pre.1550, although there is a notice.',
+      'conclusion.notices'  =>'You can install an application for Jelix 1.2pre.1550, although there are notices.',
+      'conclusion.ok'       =>'You can install an application for Jelix 1.2pre.1550.',
+        'cannot.continue'       =>'Cannot continue the checking: %s',
         'extension.optional.not.installed'=>'the optional extension %s is not available',
         'extension.required.not.installed'=>'the required extension %s is not available',
         'extension.optional.installed'=>'the optional extension %s is available',
@@ -189,6 +193,10 @@ class jInstallerMessageProvider {
         'path.var'              =>'JELIX_APP_VAR_PATH is not correctly set: var directory  doesn\'t exist!',
         'path.config'           =>'JELIX_APP_CONFIG_PATH is not correctly set: config directory  doesn\'t exist!',
         'path.www'              =>'JELIX_APP_WWW_PATH is not correctly set: www directory  doesn\'t exist!',
+        'path.config.writable' =>'',
+        'path.dbprofile.writable'=>'',
+        'path.defaultconfig.writable'=>'',
+        'path.installer.writable'=>'',
         'php.bad.version'       =>'Bad PHP version',
         'php.version.current'   =>'Current PHP version: %s',
         'php.ok.version'        =>'The PHP version %s is ok',
@@ -310,7 +318,9 @@ class jInstallCheck {
 
     protected $buildProperties;
 
-    public $verbose = false; 
+    public $verbose = false;
+
+    public $checkForInstallation = false;
 
     function __construct ($reporter, $lang=''){
         $this->reporter = $reporter;

@@ -85,6 +85,7 @@ class confmailWizPage extends installWizardPage{
 			return false;
 		}
 		$ini->save();
+		unset($_SESSION['confmail']);
 		return 0;
 	}
 	protected function loadconf(){
