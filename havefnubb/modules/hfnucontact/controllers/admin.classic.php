@@ -16,7 +16,6 @@ class adminCtrl extends jController {
 	 */
 	public $pluginParams = array(
 		'*' => array('auth.required'=>true,
-				'hfnu.check.installed'=>true,
 				'banuser.check'=>true,
 				'hfnu.admin.contact'=>true,
 				),

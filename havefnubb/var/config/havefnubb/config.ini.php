@@ -7,7 +7,6 @@ startAction="default:index"
 modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
 
 [coordplugins]
-hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
 autolocale=autolocale.coord.ini.php
 auth="havefnubb/auth.coord.ini.php"
 jacl2="havefnubb/jacl2.coord.ini.php"

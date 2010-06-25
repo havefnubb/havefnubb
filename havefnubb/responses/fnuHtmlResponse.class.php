@@ -27,18 +27,10 @@ class fnuHtmlResponse extends jResponseHtml {
      */
     protected function doAfterActions() {
         global $gJConfig;
-        if (! file_exists ( JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php') ) {
-            $this->bodyTpl = 'havefnubb~main_not_installed';
-            $title = 'HaveFnuBB - installation';
-            $description = jLocale::get('havefnubb~main.defaultconfig.is.missing',JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
-        }
-        else {
-            $title = $gJConfig->havefnubb['title'];
-            $description = $gJConfig->havefnubb['description'];
 
-            if ($gJConfig->havefnubb['installed'] == 0)
-            $this->bodyTpl = 'havefnubb~main_not_installed';
-        }
+        $title = $gJConfig->havefnubb['title'];
+        $description = $gJConfig->havefnubb['description'];
+
 
         $language = preg_split('/_/',$gJConfig->locale);
 
