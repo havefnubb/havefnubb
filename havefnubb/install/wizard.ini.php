@@ -25,7 +25,6 @@ next=dbprofile
 next=installapp
 availabledDrivers="mysql,sqlite,pgsql"
 ignoreProfiles=""
-messageHeader="message.header.dbProfile"
 
 [installapp.step]
 next=adminaccount
