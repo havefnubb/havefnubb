@@ -33,7 +33,6 @@ hfnucal.installparam = nocopyfiles
 hfnucontact.access=2
 hfnuhardware.access=1
 hfnuim.access=1
-hfnuinstall.access=1
 hfnurates.access=2
 hfnurates.installparam = nocopyfiles
 hfnusearch.access=2
