@@ -44,7 +44,6 @@ hfnucal.access=2
 hfnucontact.access=2
 hfnuhardware.access=2
 hfnuim.access=2
-hfnuinstall.access=1
 hfnurates.access=2
 hfnusearch.access=1
 hfnuthemes.access=1
