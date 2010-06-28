@@ -9,18 +9,18 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_block_html_formsubmits($compiler, $begin, $param=array())
+function jtpl_block_html_formsubmits($compiler,$begin,$param=array())
 {
 	if(!$begin){
 		return '}} $t->_privateVars[\'__submitref\']=\'\';';
 	}
-	if(count($param) > 2){
+	if(count($param)> 2){
 		$compiler->doError2('errors.tplplugin.block.bad.argument.number','formsubmits',2);
 		return '';
 	}
 	if(count($param)){
-		if(count($param) == 1){
-			$content = 'if(is_array('.$param[0].')){
+		if(count($param)==1){
+			$content='if(is_array('.$param[0].')){
                 $submits_to_display = '.$param[0].';
             }
             else {
@@ -29,13 +29,13 @@ function jtpl_block_html_formsubmits($compiler, $begin, $param=array())
             }';
 		}
 		else{
-			$content = ' $t->_privateVars[\'__form\'] = '.$param[0].";\n";
-			$content .= ' $submits_to_display = '.$param[1].'; ';
+			$content=' $t->_privateVars[\'__form\'] = '.$param[0].";\n";
+			$content.=' $submits_to_display = '.$param[1].'; ';
 		}
 	}else{
-		$content = '$submits_to_display=null;';
+		$content='$submits_to_display=null;';
 	}
-	$content .= '
+	$content.='
 if (!isset($t->_privateVars[\'__displayed_submits\'])) {
     $t->_privateVars[\'__displayed_submits\'] = array();
 }

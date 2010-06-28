@@ -4,11 +4,11 @@
 
         <!-- all urls for the jcommunity module -->
 
-        <url pathinfo="/auth/login" module="jcommunity" action="login:index" />
+        <url pathinfo="/auth/login"   module="jcommunity" action="login:index" />
         <url pathinfo="/auth/dologin" module="jcommunity" action="login:in"/>
-        <url pathinfo="/auth/logout" module="jcommunity" action="login:out"/>
+        <url pathinfo="/auth/logout"  module="jcommunity" action="login:out"/>
 
-        <url pathinfo="/users" module="jcommunity" action="default:index"/>
+        <url pathinfo="/users"       module="jcommunity" action="default:index" optionalTrailingSlash="true"/>
         <url pathinfo="/users/:user" module="jcommunity" action="account:show">
             <param name="user" />
         </url>
@@ -19,17 +19,18 @@
             <param name="user" />
         </url>
 
-        <url pathinfo="/registration" module="jcommunity" action="registration:index"/>
-        <url pathinfo="/registration/save" module="jcommunity" action="registration:save"/>
-        <url pathinfo="/registration/confirm" module="jcommunity" action="registration:confirm"/>
-        <url pathinfo="/registration/confirmform" module="jcommunity" action="registration:confirmform"/>
-        <url pathinfo="/registration/confirmok" module="jcommunity" action="registration:confirmok"/>
+        <url pathinfo="/registration"                   module="jcommunity" action="registration:index" optionalTrailingSlash="true"/>
+        <url pathinfo="/registration/save"              module="jcommunity" action="registration:save"/>
+        <url pathinfo="/registration/confirm"           module="jcommunity" action="registration:confirm"/>
+        <url pathinfo="/registration/confirmform"       module="jcommunity" action="registration:confirmform"/>
+        <url pathinfo="/registration/confirmok"         module="jcommunity" action="registration:confirmok"/>
 
-        <url pathinfo="/registration/password" module="jcommunity" action="password:index"/>
-        <url pathinfo="/registration/password/send" module="jcommunity" action="password:send"/>
-        <url pathinfo="/registration/password/confirm" module="jcommunity" action="password:confirm"/>
+        <url pathinfo="/registration/password"          module="jcommunity" action="password:index" />
+        <url pathinfo="/registration/password/send"     module="jcommunity" action="password:send"/>
+        <url pathinfo="/registration/password/confirm"  module="jcommunity" action="password:confirm"/>
         <url pathinfo="/registration/password/confirmform" module="jcommunity" action="password:confirmform"/>
-        <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok" />
+        <url pathinfo="/registration/password/confirmok" module="jcommunity" action="password:confirmok"/>
+
 
     </classicentrypoint>
 

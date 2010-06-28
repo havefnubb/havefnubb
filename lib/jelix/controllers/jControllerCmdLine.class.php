@@ -11,40 +11,40 @@
 *
 */
 class jControllerCmdLine extends jController{
-	public $help = array();
+	public $help=array();
 	protected $allowed_options;
 	protected $allowed_parameters;
 	protected $_options;
 	protected $_parameters;
 	function __construct($request){
-		if($request == null)
+		if($request==null)
 			return;
-		$this->request = $request;
-		$params = $this->request->params;
+		$this->request=$request;
+		$params=$this->request->params;
 		unset($params['module']);
 		unset($params['action']);
-		$action = new jSelectorAct($this->request->params['action']);
-		if( !in_array($action->method, get_class_methods(get_class($this)))){
-			throw new jException('jelix~errors.cli.unknow.command', $action->method);
+		$action=new jSelectorAct($this->request->params['action']);
+		if(!in_array($action->method,get_class_methods(get_class($this)))){
+			throw new jException('jelix~errors.cli.unknown.command',$action->method);
 		}
-		$opt = isset($this->allowed_options[$action->method]) ? $this->allowed_options[$action->method]: array();
-		$par = isset($this->allowed_parameters[$action->method]) ? $this->allowed_parameters[$action->method]: array();
-		list($this->_options,$this->_parameters) = jCmdUtils::getOptionsAndParams($params, $opt, $par);
+		$opt=isset($this->allowed_options[$action->method])? $this->allowed_options[$action->method]: array();
+		$par=isset($this->allowed_parameters[$action->method])? $this->allowed_parameters[$action->method]: array();
+		list($this->_options,$this->_parameters)=jCmdUtils::getOptionsAndParams($params,$opt,$par);
 	}
-	protected function param($parName, $parDefaultValue=null, $useDefaultIfEmpty=false){
+	protected function param($parName,$parDefaultValue=null,$useDefaultIfEmpty=false){
 		if(isset($this->_parameters[$parName])){
-			if($this->_parameters[$parName] == '' && $useDefaultIfEmpty)
+			if($this->_parameters[$parName]==''&&$useDefaultIfEmpty)
 				return $parDefaultValue;
 			else
 				return $this->_parameters[$parName];
-		} else{
+		}else{
 			return $parDefaultValue;
 		}
 	}
 	protected function option($name){
 		if(isset($this->_options[$name])){
 			return $this->_options[$name];
-		} else{
+		}else{
 			return false;
 		}
 	}

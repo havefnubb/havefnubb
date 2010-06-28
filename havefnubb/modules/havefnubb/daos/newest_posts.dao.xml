@@ -2,7 +2,7 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="posts" realname="posts" primarykey="id_post" />
-        <foreigntable name="usr" realname="member" primarykey="id_user" onforeignkey="id_user" />
+        <foreigntable name="usr" realname="community_users" primarykey="id" onforeignkey="id_user" />
     </datasources>
     <record>
     <property name="id_post" fieldname="id_post" datatype="autoincrement"/>
@@ -14,7 +14,7 @@
     <property name="date_modified" fieldname="date_modified" datatype="int" required="true"/>
 
     <!-- properties from member table -->
-    <property name="member_last_post" fieldname="member_last_post" table="usr"  datatype="integer" />
+    <property name="member_last_post" fieldname="last_post" table="usr"  datatype="integer" />
     </record>
     <!-- naming convention :
         findXXX uses type="select"
@@ -27,7 +27,7 @@
             <parameter name="id_forum" />
             <conditions>
                 <eq property="id_forum" expr="$id_forum" />
-                <gt property="date_created" expr="member_last_post" />
+                <gt property="date_created" expr="last_post" />
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />
@@ -37,7 +37,7 @@
             <parameter name="id_post" />
             <conditions>
                 <eq property="id_post" expr="$id_post" />
-                <gteq property="date_created" expr="member_last_post" />
+                <gteq property="date_created" expr="last_post" />
             </conditions>
             <order>
                 <orderitem property="date_modified" way="desc" />

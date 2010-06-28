@@ -9,18 +9,18 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('SERVICES_JSON_STRICT_TYPE', 0);
-define('SERVICES_JSON_LOOSE_TYPE', 16);
+define('SERVICES_JSON_STRICT_TYPE',0);
+define('SERVICES_JSON_LOOSE_TYPE',16);
 class jJson{
 	private $use;
-	function jJSON($use = 0)
+	function jJSON($use=0)
 	{
-		$this->use = $use;
+		$this->use=$use;
 	}
 	function encode($var){
 		return json_encode($var);
 	}
 	function decode($str){
-		return json_decode($str,($this->use == SERVICES_JSON_LOOSE_TYPE));
+		return json_decode($str,($this->use==SERVICES_JSON_LOOSE_TYPE));
 	}
 }

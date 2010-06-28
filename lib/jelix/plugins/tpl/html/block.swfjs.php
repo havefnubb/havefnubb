@@ -12,9 +12,9 @@
  *
  * This script uses the jQuery script written by Luke Lutman "jquery.flash.js"
  */
-function jtpl_block_html_swfjs($compiler, $begin, $params){
+function jtpl_block_html_swfjs($compiler,$begin,$params){
 	if($begin){
-		$meta  = '
+		$meta='
         global $gJCoord, $gJConfig;
         if( isset($gJCoord->response) && $gJCoord->response->getType() ==\'html\') {
             $src = '.$params[0].';
@@ -52,7 +52,7 @@ function jtpl_block_html_swfjs($compiler, $begin, $params){
         }
         ';
 		$compiler->addMetaContent($meta);
-		$sortie  = '
+		$sortie='
         $options = '.$params[1].';
 
         $att = \'\';
@@ -63,7 +63,7 @@ function jtpl_block_html_swfjs($compiler, $begin, $params){
         echo \'<div \'.$att.\'>\';
         ';
 		return $sortie;
-	} else{
+	}else{
 		return 'echo \'</div>\'';
 	}
 }

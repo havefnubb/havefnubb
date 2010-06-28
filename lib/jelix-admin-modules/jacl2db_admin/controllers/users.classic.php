@@ -1,11 +1,13 @@
 <?php
 /**
-* @package   jelix_admin_modules
-* @subpackage jacl2db_admin
-* @author    Laurent Jouanneau
-* @copyright 2008 Laurent Jouanneau
-* @link      http://jelix.org
-* @licence   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public Licence, see LICENCE file
+* @package     jelix_admin_modules
+* @subpackage  jacl2db_admin
+* @author      Laurent Jouanneau
+* @contributor Julien Issler
+* @copyright   2008 Laurent Jouanneau
+* @copyright   2009 Julien Issler
+* @link        http://jelix.org
+* @licence     http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public Licence, see LICENCE file
 */
 
 class usersCtrl extends jController {
@@ -43,11 +45,11 @@ class usersCtrl extends jController {
         $offset = $this->intParam('idx',0,true);
         $grpid = $this->intParam('grpid',-2,true);
 
-        $p = jAcl2Db::getProfile();
+        $p = 'jacl2_profile';
 
         if($grpid == -2) {
             //all users
-            $dao = jDao::get('jelix~jacl2groupsofuser',$p);
+            $dao = jDao::get('jacl2db~jacl2groupsofuser',$p);
             $cond = jDao::createConditions();
             $cond->addCondition('grouptype', '=', 2);
             $rs = $dao->findBy($cond,$offset,$listPageSize);
@@ -56,12 +58,12 @@ class usersCtrl extends jController {
         } elseif($grpid == -1) {
             $cnx = jDb::getConnection($p);
             //only those who have no groups
-            if($cnx->dbms != 'pgsql') { 
-                // with MYSQL 4.0.12, you must use an alias with the count to use it with HAVING 
+            if($cnx->dbms != 'pgsql') {
+                // with MYSQL 4.0.12, you must use an alias with the count to use it with HAVING
                 $sql = 'SELECT login, count(id_aclgrp) as nbgrp FROM '.$cnx->prefixTable('jacl2_user_group').'
                         GROUP BY login HAVING nbgrp < 2 ORDER BY login';
-            } else { 
-                // But PgSQL doesn't support the HAVING structure with an alias. 
+            } else {
+                // But PgSQL doesn't support the HAVING structure with an alias.
                 $sql = 'SELECT login, count(id_aclgrp) as nbgrp FROM '.$cnx->prefixTable('jacl2_user_group').'
                         GROUP BY login HAVING count(id_aclgrp) < 2 ORDER BY login';
             }
@@ -70,12 +72,12 @@ class usersCtrl extends jController {
             $usersCount = $rs->rowCount();
         } else {
             //in a specific group
-            $dao = jDao::get('jelix~jacl2usergroup',$p);
+            $dao = jDao::get('jacl2db~jacl2usergroup',$p);
             $rs = $dao->getUsersGroupLimit($grpid, $offset, $listPageSize);
             $usersCount = $dao->getUsersGroupCount($grpid);
         }
         $users=array();
-        $dao2 = jDao::get('jelix~jacl2groupsofuser',$p);
+        $dao2 = jDao::get('jacl2db~jacl2groupsofuser',$p);
         foreach($rs as $u){
             $u->groups = array();
             $gl = $dao2->getGroupsUser($u->login);
@@ -123,15 +125,16 @@ class usersCtrl extends jController {
         }
 
         $rights=array();
-        $p = jAcl2Db::getProfile();
-        $rs = jDao::get('jelix~jacl2subject',$p)->findAllSubject();
+        $subjects_localized = array();
+        $rs = jDao::get('jacl2db~jacl2subject','jacl2_profile')->findAllSubject();
         foreach($rs as $rec){
             $rights[$rec->id_aclsbj] = $grouprights;
+            $subjects_localized[$rec->id_aclsbj] = jLocale::get($rec->label_key);
         }
 
         $rightsWithResources = array_fill_keys(array_keys($rights),0);
-        $daorights = jDao::get('jelix~jacl2rights',$p);
-        
+        $daorights = jDao::get('jacl2db~jacl2rights','jacl2_profile');
+
         $rs = $daorights->getRightsHavingRes($hisgroup->id_aclgrp);
         $hasRightsOnResources = false;
         foreach($rs as $rec){
@@ -145,7 +148,8 @@ class usersCtrl extends jController {
         }
 
         $tpl = new jTpl();
-        $tpl->assign(compact('hisgroup', 'groupsuser', 'groups', 'rights','user', 'rightsWithResources', 'hasRightsOnResources'));
+        $tpl->assign(compact('hisgroup', 'groupsuser', 'groups', 'rights','user',
+                             'subjects_localized', 'rightsWithResources', 'hasRightsOnResources'));
         $tpl->assign('nbgrp', count($groups));
 
         if(jAcl2::check('acl.user.modify')) {
@@ -170,7 +174,7 @@ class usersCtrl extends jController {
         $rep->action = 'jacl2db_admin~users:rights';
         $rep->params=array('user'=>$login);
 
-        $dao = jDao::get('jelix~jacl2groupsofuser',jAcl2Db::getProfile());
+        $dao = jDao::get('jacl2db~jacl2groupsofuser','jacl2_profile');
         $grp = $dao->getPrivateGroup($login);
 
         jAcl2DbManager::setRightsOnGroup($grp->id_aclgrp, $rights);
@@ -187,14 +191,13 @@ class usersCtrl extends jController {
             return $rep;
         }
 
-        $p = jAcl2Db::getProfile();
-        $daogroup = jDao::get('jelix~jacl2group',$p);
+        $daogroup = jDao::get('jacl2db~jacl2group','jacl2_profile');
 
         $group = $daogroup->getPrivateGroup($user);
 
         $rightsWithResources = array();
-        $daorights = jDao::get('jelix~jacl2rights',$p);
-        
+        $daorights = jDao::get('jacl2db~jacl2rights','jacl2_profile');
+
         $rs = $daorights->getRightsHavingRes($group->id_aclgrp);
         $hasRightsOnResources = false;
         foreach($rs as $rec){
@@ -203,9 +206,15 @@ class usersCtrl extends jController {
             $rightsWithResources[$rec->id_aclsbj][] = $rec->id_aclres;
             $hasRightsOnResources = true;
         }
-
+        $subjects_localized = array();
+        if(!empty($rightsWithResources)){
+            $conditions = jDao::createConditions();
+            $conditions->addCondition('id_aclsbj', 'in', array_keys($rightsWithResources));
+            foreach(jDao::get('jacl2db~jacl2subject','jacl2_profile')->findBy($conditions) as $rec)
+                $subjects_localized[$rec->id_aclsbj] = jLocale::get($rec->label_key);
+        }
         $tpl = new jTpl();
-        $tpl->assign(compact('user', 'rightsWithResources', 'hasRightsOnResources'));
+        $tpl->assign(compact('user', 'subjects_localized', 'rightsWithResources', 'hasRightsOnResources'));
 
         if(jAcl2::check('acl.user.modify')) {
             $rep->body->assign('MAIN', $tpl->fetch('user_rights_res'));
@@ -229,18 +238,18 @@ class usersCtrl extends jController {
         $rep->action = 'jacl2db_admin~users:rightres';
         $rep->params=array('user'=>$login);
 
-        $daogroup = jDao::get('jelix~jacl2group', jAcl2Db::getProfile());
+        $daogroup = jDao::get('jacl2db~jacl2group', 'jacl2_profile');
         $grp = $daogroup->getPrivateGroup($login);
 
         $subjectsToRemove = array();
 
         foreach($subjects as $sbj=>$val) {
             if ($val != '' || $val == true) {
-                $subjectsToRemove[] = $sbj; 
+                $subjectsToRemove[] = $sbj;
             }
         }
 
-        jDao::get('jelix~jacl2rights', jAcl2Db::getProfile())
+        jDao::get('jacl2db~jacl2rights', 'jacl2_profile')
             ->deleteRightsOnResource($grp->id_aclgrp, $subjectsToRemove);
         jMessage::add(jLocale::get('acl2.message.user.rights.ok'), 'ok');
         return $rep;
@@ -272,7 +281,6 @@ class usersCtrl extends jController {
         }else{
             $rep->action = 'jacl2db_admin~users:index';
         }
-
         return $rep;
     }
 

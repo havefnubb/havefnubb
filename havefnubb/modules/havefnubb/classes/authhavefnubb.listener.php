@@ -111,36 +111,32 @@ class authhavefnubbListener extends jEventListener{
         if ($toEmail == '') {
             throw new jException('havefnubb~mail.email.config.not.done.properly');
         }
-        // send an email only if the forum is installed
-        // this avoid to send an email when the forum is installing
-        // and send an email to the admin after creating his account
-        if ( $gJConfig->havefnubb['installed'] == 1 ) {
-            $user = $event->getParam('user');
-            // update the creation date
-            $dao = jDao::get('havefnubb~member');
 
-            $user = $dao->getByLogin($user->login);
-            if (!$user) {
-                throw new jException('havefnubb~member.member.does.not.exist');
-            }
-            // put the current date
-            $user->member_created = date('Y-m-d H:i:s');
-            $dao->update($user);
+        $user = $event->getParam('user');
+        // update the creation date
+        $dao = jDao::get('havefnubb~member');
 
-            $mail = new jMailer();
-            $mail->From       = $gJConfig->mailer['webmasterEmail'];
-            $mail->FromName   = $gJConfig->mailer['webmasterName'];
-            $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
-            $mail->Subject    = jLocale::get('havefnubb~member.registration.new.member.registered');
-
-            $tpl = new jTpl();
-            $tpl->assign('login',$user->login);
-            $tpl->assign('server',$_SERVER['SERVER_NAME']);
-            $mail->Body = $tpl->fetch('havefnubb~warn_new_registration', 'text');
-
-            $mail->AddAddress($toEmail);
-            $mail->Send();
+        $user = $dao->getByLogin($user->login);
+        if (!$user) {
+            throw new jException('havefnubb~member.member.does.not.exist');
         }
+        // put the current date
+        $user->member_created = date('Y-m-d H:i:s');
+        $dao->update($user);
+
+        $mail = new jMailer();
+        $mail->From       = $gJConfig->mailer['webmasterEmail'];
+        $mail->FromName   = $gJConfig->mailer['webmasterName'];
+        $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+        $mail->Subject    = jLocale::get('havefnubb~member.registration.new.member.registered');
+
+        $tpl = new jTpl();
+        $tpl->assign('login',$user->login);
+        $tpl->assign('server',$_SERVER['SERVER_NAME']);
+        $mail->Body = $tpl->fetch('havefnubb~warn_new_registration', 'text');
+
+        $mail->AddAddress($toEmail);
+        $mail->Send();
     }
     /**
      * to answer to jcommunity_registration_prepare_save event

@@ -9,8 +9,8 @@
 * @link        http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_function_html_formurl($tpl, $selector, $params=array())
+function jtpl_function_html_formurl($tpl,$selector,$params=array())
 {
-	$url = jUrl::get($selector, $params, 2);
+	$url=jUrl::get($selector,$params,2);
 	echo $url->getPath();
 }

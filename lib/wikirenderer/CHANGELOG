@@ -1,5 +1,11 @@
 Changelog of WikiRenderer
 
+Version 3.1.1
+
+- better compatibility with PHP 5.3
+- fixed a notice on an undefined variable
+- fixed a bug: WR3 rule didn't generate good markup when </code> was on the same line of <code>
+
 Version 3.1
 
 - no more PHP4 version, only PHP5
@@ -9,13 +15,19 @@ Version 3.1
 - escape char is now configurable
 - inline parser now takes care about attribute which don't allow wiki tags in them
 - renamed WikiRendererConfig::$textLineContainer to WikiRendererConfig::$defaultTextLineContainer
-- new property WikiRendererConfig::$availabledTextLineContainers
+- new property WikiRendererConfig::$textLineContainers
+- property WikiRendererConfig::$inlineTag is deprecated
 - renamed WikiTag::$separator to WikiTag::$currentSeparator
 - WikiTag::addContent and WikiTag::addSeparator are no more final methods
 - WikiTag::addSeparator receive now the separator as  argument
 - renamed WikiTag::getCurrentSeparator() to WikiTag::isCurrentSeparator($token)
+- fixed a little bug when the content of a wiki tag contains only 0
+- fixed default values in WikiTag
 - CamelCaseWord can be ignored with a ! before the word
+- support of utf8 characters in CamelCaseWord
 - checkWikiWordFunction can be an array to indicate a method of an object
+- new rules: wr3_to_docbook, dokuwiki_to_docbook, dokuwiki_to_xhtml,
+  trac_to_xhtml, phpwiki_to_dokuwiki, jwiki_to_xhtml
 
 Version 3.0
 

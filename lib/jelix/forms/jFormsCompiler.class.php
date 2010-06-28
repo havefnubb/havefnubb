@@ -18,32 +18,32 @@ class jFormsCompiler implements jISimpleCompiler{
 	public function compile($selector){
 		global $gJCoord;
 		global $gJConfig;
-		$sel = clone $selector;
-		$this->sourceFile = $selector->getPath();
-		$doc = new DOMDocument();
+		$sel=clone $selector;
+		$this->sourceFile=$selector->getPath();
+		$doc=new DOMDocument();
 		if(!$doc->load($this->sourceFile)){
 			throw new jException('jelix~formserr.invalid.xml.file',array($this->sourceFile));
 		}
-		if($doc->documentElement->namespaceURI == JELIX_NAMESPACE_BASE.'forms/1.0'){
+		if($doc->documentElement->namespaceURI==JELIX_NAMESPACE_BASE.'forms/1.0'){
 			require_once(JELIX_LIB_PATH.'forms/jFormsCompiler_jf_1_0.class.php');
-			$compiler = new jFormsCompiler_jf_1_0($this->sourceFile);
-		} elseif($doc->documentElement->namespaceURI == JELIX_NAMESPACE_BASE.'forms/1.1'){
-			if($doc->documentElement->localName != 'form'){
-				throw new jException('jelix~formserr.bad.root.tag',array($doc->documentElement->localName, $this->sourceFile));
+			$compiler=new jFormsCompiler_jf_1_0($this->sourceFile);
+		}elseif($doc->documentElement->namespaceURI==JELIX_NAMESPACE_BASE.'forms/1.1'){
+			if($doc->documentElement->localName!='form'){
+				throw new jException('jelix~formserr.bad.root.tag',array($doc->documentElement->localName,$this->sourceFile));
 			}
 			require_once(JELIX_LIB_PATH.'forms/jFormsCompiler_jf_1_1.class.php');
-			$compiler = new jFormsCompiler_jf_1_1($this->sourceFile);
-		} else{
-		   throw new jException('jelix~formserr.namespace.wrong',array($this->sourceFile));
+			$compiler=new jFormsCompiler_jf_1_1($this->sourceFile);
+		}else{
+			throw new jException('jelix~formserr.namespace.wrong',array($this->sourceFile));
 		}
 		$source=array();
 		$source[]='<?php ';
 		$source[]='class '.$selector->getClass().' extends jFormsBase {';
 		$source[]=' public function __construct($sel, &$container, $reset = false){';
 		$source[]='          parent::__construct($sel, $container, $reset);';
-		$compiler->compile($doc, $source);
+		$compiler->compile($doc,$source);
 		$source[]="  }\n} ?>";
-		jFile::write($selector->getCompiledFilePath(), implode("\n", $source));
+		jFile::write($selector->getCompiledFilePath(),implode("\n",$source));
 		return true;
 	}
 }

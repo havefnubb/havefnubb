@@ -1,7 +1,7 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage hfnuinstall
+* @subpackage hfnusearch
 * @author    FoxMaSk
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org

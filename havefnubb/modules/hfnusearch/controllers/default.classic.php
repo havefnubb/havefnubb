@@ -19,17 +19,14 @@ class defaultCtrl extends jController {
 		'query' => array( 'jacl2.right' =>'hfnu.search'),
 
 		'index'	=>	array('auth.required'=>false,
-						  'hfnu.check.installed'=>true,
 						  'banuser.check'=>true,
 						  'history.add'=>true,
 					),
 		'query'	=>	array('auth.required'=>false,
-						  'hfnu.check.installed'=>true,
 						  'banuser.check'=>true,
 						  'history.add'=>true,
 					),
 		'queryajax'	=>	array('auth.required'=>false,
-						  'hfnu.check.installed'=>true,
 						  'banuser.check'=>true,
 						  'history.add'=>false,
 					),
@@ -55,10 +52,10 @@ class defaultCtrl extends jController {
 			$additionnalParam = $this->param('param');
 		}
 
-		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
+		$HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
 
 		// get the list of authorized function we will find in the search_in "service" below
-		$authorizedSearch = explode(',', $HfnuSearchConfig->getValue('perform_search_in'));
+		$authorizedSearch = explode(',', $HfnuSearchConfig['perform_search_in']);
 
 		if (! in_array($this->param('perform_search_in'),$authorizedSearch) or $string == '' or strlen($string) < 3) {
 			jMessage::add(jLocale::get('hfnusearch~search.query.too.short'),'warning');
@@ -75,7 +72,7 @@ class defaultCtrl extends jController {
 
 		if ($page < 0) $page = 0;
 
-		$resultsPerPage = (int) $HfnuSearchConfig->getValue('results_per_page');
+		$resultsPerPage = (int) $HfnuSearchConfig['results_per_page'];
 
 		$perform = jClasses::getService('hfnusearch~search_in');
 
@@ -116,13 +113,13 @@ class defaultCtrl extends jController {
 
 		$additionnalParam = '';
 
-		$HfnuSearchConfig  =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php');
+		$HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
 
 		$perform = jClasses::getService('hfnusearch~search_in');
 
 		$page = 0;
 
-		$resultsPerPage = (int) $HfnuSearchConfig->getValue('results_per_page');
+		$resultsPerPage = (int) $HfnuSearchConfig['results_per_page'];
 
 		$result = $perform->searchInWords($string,$additionnalParam,$page,$resultsPerPage);
 

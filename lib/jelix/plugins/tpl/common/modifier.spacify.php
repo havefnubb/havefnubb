@@ -10,8 +10,8 @@
  * @link http://jelix.org/
  * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_modifier_common_spacify($string, $spacify_char = ' ')
+function jtpl_modifier_common_spacify($string,$spacify_char=' ')
 {
 	return implode($spacify_char,
-				   preg_split('//', $string, -1, PREG_SPLIT_NO_EMPTY));
+					preg_split('//',$string,-1,PREG_SPLIT_NO_EMPTY));
 }

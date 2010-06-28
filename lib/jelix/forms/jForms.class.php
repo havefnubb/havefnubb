@@ -11,81 +11,81 @@
 */
 require_once(JELIX_LIB_PATH.'forms/jFormsBase.class.php');
 class jForms{
-	const ID_PARAM = '__forms_id__';
-	const DEFAULT_ID = 0;
-	const ERRDATA_INVALID = 1;
-	const ERRDATA_REQUIRED = 2;
+	const ID_PARAM='__forms_id__';
+	const DEFAULT_ID=0;
+	const ERRDATA_INVALID=1;
+	const ERRDATA_REQUIRED=2;
 	private function __construct(){}
-	public static function create($formSel, $formId=null){
-		$sel = new jSelectorForm($formSel);
-		$formSel = $sel->toString();
+	public static function create($formSel,$formId=null){
+		$sel=new jSelectorForm($formSel);
+		$formSel=$sel->toString();
 		jIncluder::inc($sel);
-		$c = $sel->getClass();
-		if($formId === null)
-			$formId = self::DEFAULT_ID;
-		$fid = is_array($formId) ? serialize($formId) : $formId;
+		$c=$sel->getClass();
+		if($formId===null)
+			$formId=self::DEFAULT_ID;
+		$fid=is_array($formId)? serialize($formId): $formId;
 		if(!isset($_SESSION['JFORMS'][$formSel][$fid])){
-			$dc = $_SESSION['JFORMS'][$formSel][$fid]= new jFormsDataContainer($formSel, $formId);
-			if($formId == self::DEFAULT_ID){
-				$dc->refcount = 1;
+			$dc=$_SESSION['JFORMS'][$formSel][$fid]=new jFormsDataContainer($formSel,$formId);
+			if($formId==self::DEFAULT_ID){
+				$dc->refcount=1;
 			}
 		}
 		else{
-			$dc = $_SESSION['JFORMS'][$formSel][$fid];
-			if($formId == self::DEFAULT_ID)
+			$dc=$_SESSION['JFORMS'][$formSel][$fid];
+			if($formId==self::DEFAULT_ID)
 				$dc->refcount++;
 		}
-		$form = new $c($formSel, $dc, true);
+		$form=new $c($formSel,$dc,true);
 		return $form;
 	}
-	static public function get($formSel, $formId=null){
+	static public function get($formSel,$formId=null){
 		global $gJCoord;
-		if($formId === null)
-			$formId= self::DEFAULT_ID;
-		$fid = is_array($formId) ? serialize($formId) : $formId;
-		$sel = new jSelectorForm($formSel);
-		$formSel = $sel->toString();
+		if($formId===null)
+			$formId=self::DEFAULT_ID;
+		$fid=is_array($formId)? serialize($formId): $formId;
+		$sel=new jSelectorForm($formSel);
+		$formSel=$sel->toString();
 		if(!isset($_SESSION['JFORMS'][$formSel][$fid])){
 			return null;
 		}
 		jIncluder::inc($sel);
-		$c = $sel->getClass();
-		$form = new $c($formSel, $_SESSION['JFORMS'][$formSel][$fid],false);
+		$c=$sel->getClass();
+		$form=new $c($formSel,$_SESSION['JFORMS'][$formSel][$fid],false);
 		return $form;
 	}
 	static public function fill($formSel,$formId=null){
-		$form = self::get($formSel,$formId);
+		$form=self::get($formSel,$formId);
 		if($form)
 			$form->initFromRequest();
 		return $form;
 	}
-	static public function destroy($formSel, $formId=null){
+	static public function destroy($formSel,$formId=null){
 		global $gJCoord;
-		if($formId === null)  $formId = self::DEFAULT_ID;
-		if(is_array($formId)) $formId = serialize($formId);
-		$sel = new jSelectorForm($formSel);
-		$formSel = $sel->toString();
+		if($formId===null)$formId=self::DEFAULT_ID;
+		if(is_array($formId))$formId=serialize($formId);
+		$sel=new jSelectorForm($formSel);
+		$formSel=$sel->toString();
 		if(isset($_SESSION['JFORMS'][$formSel][$formId])){
-			if($formId == self::DEFAULT_ID){
-				if((--$_SESSION['JFORMS'][$formSel][$formId]->refcount) > 0){
-				  $_SESSION['JFORMS'][$formSel][$formId]->clear();
+			if($formId==self::DEFAULT_ID){
+				if((--$_SESSION['JFORMS'][$formSel][$formId]->refcount)> 0){
+				$_SESSION['JFORMS'][$formSel][$formId]->clear();
 					return;
 				}
 			}
 			unset($_SESSION['JFORMS'][$formSel][$formId]);
 		}
 	}
-	static public function clean($formSel='', $life=86400){
-		if(!isset($_SESSION['JFORMS'])) return;
+	static public function clean($formSel='',$life=86400){
+		if(!isset($_SESSION['JFORMS']))return;
 		if($formSel==''){
 			foreach($_SESSION['JFORMS'] as $sel=>$f){
-				self::clean($sel, $life);
+				self::clean($sel,$life);
 			}
-		} else{
-			$sel = new jSelectorForm($formSel);
-			$formSel = $sel->toString();
+		}else{
+			$sel=new jSelectorForm($formSel);
+			$formSel=$sel->toString();
 			if(isset($_SESSION['JFORMS'][$formSel])){
-				$t = time();
+				$t=time();
 				foreach($_SESSION['JFORMS'][$formSel] as $id=>$cont){
 					if($t-$cont->updatetime > $life)
 						unset($_SESSION['JFORMS'][$formSel][$id]);

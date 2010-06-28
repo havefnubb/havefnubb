@@ -8,19 +8,44 @@ charset=UTF-8
 ; see http://www.php.net/manual/en/timezones.php for supported values
 timeZone="Europe/Paris"
 
-checkTrustedModules=on
-
-modulesPath = "lib:jelix-modules/,app:modules/,app:../modules-hook/"
+modulesPath = "lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
 pluginsPath = "app:plugins/"
-
-trustedModules="havefnubb,hfnuadmin,hfnucontact,hfnurates,hfnusearch,hfnuthemes,jcommunity,jmessenger,jtags,jauth,jacl2,jauth"
-hiddenModules = "jacl2db"
-unusedModules = "jacldb,junittests,jWSDL"
 
 theme=default
 
+[modules]
+jelix.access=2
+
+master_admin.access=1
+jacl2db_admin.access=1
+jauthdb_admin.access=1
+
+jacl2db.access=1
+jacldb.access=0
+jauth.access=2
+jauthdb.access=1
+jWSDL.access=0
+
+havefnubb.access=2
+hfnuadmin.access=2
+hfnucal.access=1
+hfnucal.installparam = nocopyfiles
+hfnucontact.access=2
+hfnuhardware.access=1
+hfnuim.access=1
+hfnurates.access=2
+hfnurates.installparam = nocopyfiles
+hfnusearch.access=2
+hfnusearch.installparam = nocopyfiles
+hfnuthemes.access=2
+jcommunity.access=2
+jmessenger.access=2
+jtags.access=2
+servinfo.access=1
+
+hook.access=1
+
 [coordplugins]
-hfnuinstalled="havefnubb/hfnuinstalled.coord.ini.php"
 auth="havefnubb/auth.coord.ini.php"
 
 [tplplugins]
@@ -106,7 +131,6 @@ forums = "@classic"
 
 ; hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~admin@classic, hfnupoll~admin@classic hfnucontact~admin@classic downloads~mgr:index@classic downloads~mgr:manage@classic downloads~mgr:config@classic downloads~mgr:dls@classic"
 hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~*@classic"
-install="hfnuinstall~*@classic"
 
 [basic_significant_urlengine_entrypoints]
 ; for each entry point, it indicates if the entry point name
@@ -180,6 +204,17 @@ datepicker=default
 [datepickers]
 default="jelix/js/jforms/datepickers/default/init.js"
 
+[wikieditors]
+default.engine.name = wr3
+default.wiki.rules = wr3_to_xhtml
+; path to the engine file
+default.engine.file = jelix/markitup/jquery.markitup.js
+; define the path to the "internationalized" file to translate the label of each button
+default.config.path = jelix/markitup/sets/wr3/
+; define the path to the image of buttons of the toolbar
+default.image.path = jelix/markitup/sets/wr3/images/
+default.skin = jelix/markitup/skins/simple/style.css
+
 [havefnubb]
 title="HaveFnuBB!"
 description="Where Everything is Fnu"
@@ -189,7 +224,6 @@ admin_email="admin@localhost.net"
 url_check_version="http://www.havefnubb.org/last_version"
 avatar_max_width=60
 avatar_max_height=75
-installed=0
 important_nb_views=100
 important_nb_replies=100
 posts_per_page=10

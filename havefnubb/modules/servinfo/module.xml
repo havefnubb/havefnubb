@@ -8,11 +8,12 @@
         <description lang="fr_FR">Affichage des données propres au serveur où fonctionne ce module</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2008 FoxMaSk</copyright>
-        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
+        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
         <homepageURL>http://www.havefnubb.org/</homepageURL>
         <updateURL>http://www.havefnubb.org/update.php?module=servinfo</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1.5" maxversion="1.1.6" />
+        <jelix minversion="1.1.5" maxversion="1.2.*"/>
+        <module name="jacl2db" />
     </dependencies>
 </module>

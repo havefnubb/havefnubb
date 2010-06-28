@@ -10,17 +10,17 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_block_common_ifuserconnected($compiler, $begin, $params=array())
+function jtpl_block_common_ifuserconnected($compiler,$begin,$params=array())
 {
 	if($begin){
 		if(count($params)){
 			$content='';
 			$compiler->doError1('errors.tplplugin.block.too.many.arguments','ifuserconnected');
 		}else{
-			$content = ' if(jAuth::isConnected()):';
+			$content=' if(jAuth::isConnected()):';
 		}
 	}else{
-		$content = ' endif; ';
+		$content=' endif; ';
 	}
 	return $content;
 }

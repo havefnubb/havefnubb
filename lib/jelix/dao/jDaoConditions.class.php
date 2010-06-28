@@ -17,63 +17,63 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 class jDaoCondition{
-	public $parent = null;
-	public $conditions = array();
-	public $group = array();
+	public $parent=null;
+	public $conditions=array();
+	public $group=array();
 	public $glueOp;
-	function __construct($glueOp='AND', $parent =null){
-		$this->parent = $parent;
-		$this->glueOp = $glueOp;
+	function __construct($glueOp='AND',$parent=null){
+		$this->parent=$parent;
+		$this->glueOp=$glueOp;
 	}
 	public function isEmpty(){
-		return empty($this->conditions) && empty($this->group);
+		return empty($this->conditions)&&empty($this->group);
 	}
 }
 class jDaoConditions{
 	public $condition;
-	public $order = array();
-	public $group = array();
+	public $order=array();
+	public $group=array();
 	private $_currentCondition;
-	function __construct($glueOp = 'AND'){
-		$this->condition = new jDaoCondition($glueOp);
-		$this->_currentCondition = $this->condition;
+	function __construct($glueOp='AND'){
+		$this->condition=new jDaoCondition($glueOp);
+		$this->_currentCondition=$this->condition;
 	}
-	function addItemOrder($field_id, $way='ASC'){
+	function addItemOrder($field_id,$way='ASC'){
 		$this->order[$field_id]=$way;
 	}
 	function addItemGroup($field_id){
-		$this->group[] = $field_id;
+		$this->group[]=$field_id;
 	}
 	function isEmpty(){
-		return(count($this->condition->group) == 0) &&
-		(count($this->condition->conditions) == 0) &&
-		(count($this->order) == 0) ;
+		return(count($this->condition->group)==0)&&
+		(count($this->condition->conditions)==0)&&
+		(count($this->order)==0);
 	}
 	function hasConditions(){
-		return(count($this->condition->group) || count($this->condition->conditions));
+		return(count($this->condition->group)||count($this->condition->conditions));
 	}
-	function startGroup($glueOp = 'AND'){
-		$cond= new jDaoCondition($glueOp, $this->_currentCondition);
-		$this->_currentCondition = $cond;
+	function startGroup($glueOp='AND'){
+		$cond=new jDaoCondition($glueOp,$this->_currentCondition);
+		$this->_currentCondition=$cond;
 	}
 	function endGroup(){
-		if($this->_currentCondition->parent !== null){
+		if($this->_currentCondition->parent!==null){
 			if(!$this->_currentCondition->isEmpty())
-				$this->_currentCondition->parent->group[] = $this->_currentCondition;
-			$this->_currentCondition = $this->_currentCondition->parent;
+				$this->_currentCondition->parent->group[]=$this->_currentCondition;
+			$this->_currentCondition=$this->_currentCondition->parent;
 		}
 	}
-	function addCondition($field_id, $operator, $value, $foo = false){
-		$operator = trim(strtoupper($operator));
-		if(preg_match('/^[^\w\d\s;\(\)]+$/', $operator) ||
-		   in_array($operator, array('LIKE', 'NOT LIKE', 'ILIKE', 'IN', 'NOT IN', 'IS', 'IS NOT', 'IS NULL',
-					'IS NOT NULL', 'MATCH', 'REGEXP', 'NOT REGEXP', 'RLIKE', 'SOUNDS LIKE'))){
-			$this->_currentCondition->conditions[] = array(
-			   'field_id'=>$field_id,
-			   'value'=>$value,
-			   'operator'=>$operator, 'isExpr'=>$foo);
+	function addCondition($field_id,$operator,$value,$foo=false){
+		$operator=trim(strtoupper($operator));
+		if(preg_match('/^[^\w\d\s;\(\)]+$/',$operator)||
+			in_array($operator,array('LIKE','NOT LIKE','ILIKE','IN','NOT IN','IS','IS NOT','IS NULL',
+					'IS NOT NULL','MATCH','REGEXP','NOT REGEXP','RLIKE','SOUNDS LIKE'))){
+			$this->_currentCondition->conditions[]=array(
+				'field_id'=>$field_id,
+				'value'=>$value,
+				'operator'=>$operator,'isExpr'=>$foo);
 		}
 		else
-			throw new jException('jelix~dao.error.bad.operator', $operator);
+			throw new jException('jelix~dao.error.bad.operator',$operator);
 	}
 }

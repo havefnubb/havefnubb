@@ -86,8 +86,6 @@ class tags {
         }
         jZone::clear("jtags~tagscloud");
         jZone::clear("jtags~tagsbyobject", array("scope"=>$scope, "id"=>$id));
-
-
     }
 
     function getJsonAll() {
@@ -100,7 +98,6 @@ class tags {
         $newtags .= "]";
         return $newtags;
     }
-
 
     function getSubjectsByTags($tags, $scope) {
 
@@ -171,6 +168,5 @@ class tags {
         $newTag->nbuse = 1;
         $factory_tags->insert($newTag);
         return $newTag->getPk();
-
     }
 }

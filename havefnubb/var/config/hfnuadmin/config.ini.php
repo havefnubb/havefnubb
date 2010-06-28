@@ -6,13 +6,8 @@ startAction="default:index"
 
 modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
 
-trustedModules = "hfnuadmin,servinfo,jacl2db_admin,jauthdb_admin,master_admin,hfnucontact,hfnusearch,hfnuthemes,hfnuim,hfnuhardware"
-hiddenModules =  "hook,jauth,jacl2db,jcommunity,jmessenger,jtags,havefnubb,hfnurates"
-unusedModules = "jacldb,junittests,jWSDL,hfnuinstall"
-
-
 [coordplugins]
-autolocale = autolocale.coord.ini.php
+autolocale=autolocale.coord.ini.php
 auth="hfnuadmin/auth.coord.ini.php"
 jacl2="hfnuadmin/jacl2.coord.ini.php"
 
@@ -29,3 +24,33 @@ hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_adm
 
 [logfiles]
 DEBUG=havefnubbdebug.log
+
+[modules]
+jelix.access=2
+
+master_admin.access=2
+jacl2db_admin.access=2
+jauthdb_admin.access=2
+
+jacl2db.access=2
+jacldb.access=0
+jauth.access=2
+jauthdb.access=2
+jWSDL.access=0
+
+havefnubb.access=1
+hfnuadmin.access=2
+hfnucal.access=2
+hfnucontact.access=2
+hfnuhardware.access=2
+hfnuim.access=2
+hfnurates.access=2
+hfnusearch.access=1
+hfnuthemes.access=1
+jcommunity.access=1
+jmessenger.access=1
+jtags.access=1
+servinfo.access=2
+
+hook.access=1
+

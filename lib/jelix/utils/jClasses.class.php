@@ -12,13 +12,13 @@
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 class jClasses{
-	static protected $_instances = array();
-	static protected $_bindings = array();
+	static protected $_instances=array();
+	static protected $_bindings=array();
 	private function __construct(){}
 	static public function create($selector){
-		$sel = new jSelectorClass($selector);
+		$sel=new jSelectorClass($selector);
 		require_once($sel->getPath());
-		$class = $sel->className;
+		$class=$sel->className;
 		return new $class();
 	}
 	static public function createBinded($selector){
@@ -28,12 +28,12 @@ class jClasses{
 		return self::create($selector);
 	}
 	static public function getService($selector){
-		$sel = new jSelectorClass($selector);
-		$s = $sel->toString();
+		$sel=new jSelectorClass($selector);
+		$s=$sel->toString();
 		if(isset(self::$_instances[$s])){
 			return self::$_instances[$s];
-		} else{
-			$o = self::create($selector);
+		}else{
+			$o=self::create($selector);
 			self::$_instances[$s]=$o;
 			return $o;
 		}
@@ -42,22 +42,22 @@ class jClasses{
 		return self::bind($selector)->getInstance();
 	}
 	static public function bind($selector){
-		$osel = jSelectorFactory::create($selector, 'iface');
-		$s	= $osel->toString(true);
+		$osel=jSelectorFactory::create($selector,'iface');
+		$s=$osel->toString(true);
 		if(!isset(self::$_bindings[$s])){
-			self::$_bindings[$s] = new jClassBinding($osel);
+			self::$_bindings[$s]=new jClassBinding($osel);
 		}
 		return self::$_bindings[$s];
 	}
 	static public function resetBindings(){
-		self::$_bindings = array();
+		self::$_bindings=array();
 	}
 	static public function inc($selector){
-		$sel = new jSelectorClass($selector);
+		$sel=new jSelectorClass($selector);
 		require_once($sel->getPath());
 	}
 	static public function incIface($selector){
-		$sel = new jSelectorIface($selector);
+		$sel=new jSelectorIface($selector);
 		require_once($sel->getPath());
 	}
 }

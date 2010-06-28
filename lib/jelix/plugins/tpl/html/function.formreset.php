@@ -10,7 +10,7 @@
 */
 function jtpl_function_html_formreset($tpl)
 {
-	if($ctrl = $tpl->_privateVars['__form']->getReset()){
+	if($ctrl=$tpl->_privateVars['__form']->getReset()){
 		if($tpl->_privateVars['__form']->isActivated($ctrl->ref))
 			$tpl->_privateVars['__formbuilder']->outputControl($ctrl);
 	}

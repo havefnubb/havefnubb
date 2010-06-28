@@ -5,7 +5,7 @@
 * @author       Bastien Jaillot <bastnicj@gmail.com>
 * @contributor
 * @copyright    2008 Bastien Jaillot
-* @link         http://forge.jelix.org/projects/jcommunity
+* @link         http://bitbucket.org/laurentj/jcommunity/
 * @licence      http://www.gnu.org/licenses/gpl.html GNU General Public Licence, see LICENCE file
 */
 
@@ -15,8 +15,6 @@ class archiveZone extends jZone {
     protected $_tplname = "jmessenger~listmsg";
     protected $dao = "jmessenger~message";
     protected $_tplOuputType = "html";
-    // protected $_useCache = true;
-    
 
     protected function _prepareTpl(){
         $id = $this->getParam("id", jAuth::getUserSession()->id);
@@ -29,4 +27,4 @@ class archiveZone extends jZone {
         $this->_tpl->assign(compact('msg', 'id', 'title', 'send'));
     }
 }
-?>
+

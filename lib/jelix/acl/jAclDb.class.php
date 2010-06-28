@@ -12,19 +12,10 @@
 class jAclDb{
 	private function __construct(){}
 	public static function getProfile(){
-		static $profile='';
-		if($profile== ''){
-			try{
-				$prof = jDb::getProfile('jacl_profile', true);
-			}catch(Exception $e){
-				$prof = jDb::getProfile();
-			}
-			$profile = $prof['name'];
-		}
-		return $profile;
+		return 'jacl_profile';
 	}
 	public static function getProfil(){
-		trigger_error("jAclDb::getProfil() is deprecated, you should use jAclDb::getProfile()", E_USER_NOTICE);
-		return self::getProfile();
+		trigger_error("jAclDb::getProfil() is deprecated, you should use jAclDb::getProfile()",E_USER_NOTICE);
+		return 'jacl_profile';
 	}
 }

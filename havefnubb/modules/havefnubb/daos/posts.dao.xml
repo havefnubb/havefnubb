@@ -2,16 +2,16 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="posts" realname="posts"  primarykey="id_post" />
-        <optionalforeigntable name="usr"   realname="member" primarykey="id_user"  onforeignkey="id_user" />
+        <optionalforeigntable name="usr"   realname="community_users" primarykey="id"  onforeignkey="id_user" />
         <optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
-        <property name="id_post"    fieldname="id_post" datatype="autoincrement"/>
-        <property name="id_user"    fieldname="id_user" datatype="int" required="true"/>
-        <property name="id_forum"   fieldname="id_forum" datatype="int" required="true"/>
-        <property name="parent_id"  fieldname="parent_id" datatype="int" required="true"/>
-        <property name="status"     fieldname="status"  datatype="int" required="true"/>
-        <property name="ispined"    fieldname="ispined"  datatype="int"/>
+        <property name="id_post"    fieldname="id_post"     datatype="autoincrement"/>
+        <property name="id_user"    fieldname="id_user"     datatype="int" required="true"/>
+        <property name="id_forum"   fieldname="id_forum"    datatype="int" required="true"/>
+        <property name="parent_id"  fieldname="parent_id"   datatype="int" required="true"/>
+        <property name="status"     fieldname="status"      datatype="int" required="true"/>
+        <property name="ispined"    fieldname="ispined"     datatype="int"/>
         <property name="iscensored" fieldname="iscensored"  datatype="int" />
 
         <!--
@@ -24,26 +24,26 @@
                 6 - uncensored
                 7 - hidden
         -->
-        <property name="subject"        fieldname="subject"     datatype="string" required="true" maxlength="255"/>
-        <property name="message"        fieldname="message"     datatype="text" required="true"/>
-        <property name="date_created"   fieldname="date_created" datatype="int" required="true"/>
+        <property name="subject"        fieldname="subject"       datatype="string" required="true" maxlength="255"/>
+        <property name="message"        fieldname="message"       datatype="text" required="true"/>
+        <property name="date_created"   fieldname="date_created"  datatype="int" required="true"/>
         <property name="date_modified"  fieldname="date_modified" datatype="int" required="true"/>
-        <property name="viewed"         fieldname="viewed"  datatype="int" required="true"/>
-        <property name="poster_ip"      fieldname="poster_ip" datatype="string" required="true"/>
-        <property name="censored_msg"   fieldname="censored_msg" datatype="string" required="false" maxlength="50"/>
-        <property name="read_by_mod"    fieldname="read_by_mod" datatype="int" required="false" maxlength="1"/>
+        <property name="viewed"         fieldname="viewed"        datatype="int" required="true"/>
+        <property name="poster_ip"      fieldname="poster_ip"     datatype="string" required="true"/>
+        <property name="censored_msg"   fieldname="censored_msg"  datatype="string" required="false" maxlength="50"/>
+        <property name="read_by_mod"    fieldname="read_by_mod"   datatype="int" required="false" maxlength="1"/>
 
         <!-- properties from member table -->
-        <property name="id"         fieldname="id_user" datatype="int" table="usr"/>
-        <property name="email"      fieldname="member_email" datatype="string" table="usr" maxlength="255" />
-        <property name="login"      fieldname="member_login" table="usr" required="yes" datatype="string"  maxlength="50" />
-        <property name="member_comment" fieldname="member_comment" datatype="string" table="usr" maxlength="255"/>
-        <property name="member_town"    fieldname="member_town" datatype="string" table="usr" maxlength="100"/>
-        <property name="member_avatar"  fieldname="member_avatar" datatype="string" table="usr" maxlength="255"/>
-        <property name="member_website"	fieldname="member_website" datatype="string" table="usr" maxlength="255"/>
-        <property name="nb_msg"     fieldname="member_nb_msg" table="usr" datatype="integer" />
-        <property name="member_last_post"   fieldname="member_last_post" table="usr"  datatype="integer" />
-        <property name="member_last_connect"   fieldname="member_last_connect" table="usr"  datatype="integer" />
+        <property name="id"             fieldname="id" table="usr" datatype="int"/>
+        <property name="email"          fieldname="email"   table="usr" datatype="string" maxlength="255" />
+        <property name="login"          fieldname="login"   table="usr" required="yes" datatype="string"  maxlength="50" />
+        <property name="member_comment" fieldname="comment" table="usr" datatype="string" maxlength="255"/>
+        <property name="member_town"    fieldname="town"    table="usr" datatype="string" maxlength="100"/>
+        <property name="member_avatar"  fieldname="avatar"  table="usr" datatype="string" maxlength="255"/>
+        <property name="member_website" fieldname="website" table="usr" datatype="string" maxlength="255"/>
+        <property name="nb_msg"         fieldname="nb_msg"  table="usr" datatype="integer" />
+        <property name="member_last_post"    fieldname="last_post"    table="usr" datatype="integer" />
+        <property name="member_last_connect" fieldname="last_connect" table="usr" datatype="integer" />
 
         <!-- properties from forum table -->
         <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>

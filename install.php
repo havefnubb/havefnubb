@@ -2,18 +2,21 @@
 /**
 * @package   havefnubb
 * @subpackage havefnubb
-* @author    FoxMaSk
-* @copyright 2008 FoxMaSk
+* @author    Laurent Jouanneau
+* @copyright 2010 Laurent Jouanneau
 * @link      http://havefnubb.org
 * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
 require ('havefnubb/application.init.php');
-require (JELIX_LIB_CORE_PATH.'request/jClassicRequest.class.php');
 
-$config_file = 'install/config.ini.php';
+require('lib/installwizard/installWizard.php');
 
-$jelix = new jCoordinator($config_file);
-$jelix->process(new jClassicRequest());
+$config = 'havefnubb/install/wizard.ini.php';
+
+$install = new installWizard($config);
+$install->run(isAppInstalled());
+
+
+
 
 

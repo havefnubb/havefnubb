@@ -14,84 +14,84 @@
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 class jFormsCompiler_jf_1_0{
-	const NS = 'http://jelix.org/ns/forms/1.0';
+	const NS='http://jelix.org/ns/forms/1.0';
 	protected $sourceFile;
 	public function __construct($sourceFile){
-		$this->sourceFile = $sourceFile;
+		$this->sourceFile=$sourceFile;
 	}
-	public function compile($doc, &$source){
+	public function compile($doc,&$source){
 		global $gJConfig;
-		$xml = simplexml_import_dom($doc);
-		if(count($xml->reset) > 1)
+		$xml=simplexml_import_dom($doc);
+		if(count($xml->reset)> 1)
 			throw new jException('jelix~formserr.notunique.tag',array('reset',$this->sourceFile));
-		foreach($xml->children() as $controltype=>$control){
-			$source[] = $this->generatePHPControl($controltype, $control);
+		foreach($xml->children()as $controltype=>$control){
+			$source[]=$this->generatePHPControl($controltype,$control);
 		}
-		$this->_compile($xml, $source);
+		$this->_compile($xml,$source);
 	}
-	protected function _compile($xml, &$source){
+	protected function _compile($xml,&$source){
 	}
-	protected function generatePHPControl($controltype, $control){
-		$source = array();
-		$twocontrols = $this->_generatePHPControl($source, $controltype, $control);
+	protected function generatePHPControl($controltype,$control){
+		$source=array();
+		$twocontrols=$this->_generatePHPControl($source,$controltype,$control);
 		$source[]='$this->addControl($ctrl);';
 		if($twocontrols)
 			$source[]='$this->addControl($ctrl2);';
-		return implode("\n", $source);
+		return implode("\n",$source);
 	}
-	protected function _generatePHPControl(&$source, $controltype, $control){
-		$class = 'jFormsControl'.$controltype;
-		$attributes = array();
-		foreach($control->attributes() as $name=>$value){
+	protected function _generatePHPControl(&$source,$controltype,$control){
+		$class='jFormsControl'.$controltype;
+		$attributes=array();
+		foreach($control->attributes()as $name=>$value){
 			$attributes[$name]=(string)$value;
 		}
-		$method = 'generate'.$controltype;
-		if(!class_exists($class,false) || !method_exists($this, $method)){
-			throw new jException('jelix~formserr.unknow.tag',array($controltype,$this->sourceFile));
+		$method='generate'.$controltype;
+		if(!class_exists($class,false)||!method_exists($this,$method)){
+			throw new jException('jelix~formserr.unknown.tag',array($controltype,$this->sourceFile));
 		}
-		if(!isset($attributes['ref']) || $attributes['ref'] == ''){
+		if(!isset($attributes['ref'])||$attributes['ref']==''){
 			throw new jException('jelix~formserr.attribute.missing',array('ref',$controltype,$this->sourceFile));
 		}
 		$source[]='$ctrl= new '.$class.'(\''.$attributes['ref'].'\');';
 		unset($attributes['ref']);
-		$twocontrols = $this->$method($source, $control, $attributes);
+		$twocontrols=$this->$method($source,$control,$attributes);
 		if(count($attributes)){
 			reset($attributes);
 			throw new jException('jelix~formserr.attribute.not.allowed',array(key($attributes),$controltype,$this->sourceFile));
 		}
 		return $twocontrols;
 	}
-	protected $allowedType = array('string','boolean','decimal','integer','hexadecimal',
-									  'datetime','date','time','localedatetime','localedate','localetime',
-									  'url','email','ipv4','ipv6');
-	protected function generateInput(&$source, $control, &$attributes){
-		$type = $this->attrType($source, $attributes);
-		$this->attrRequired($source, $attributes);
-		$this->attrDefaultvalue($source, $attributes);
+	protected $allowedType=array('string','boolean','decimal','integer','hexadecimal',
+									'datetime','date','time','localedatetime','localedate','localetime',
+									'url','email','ipv4','ipv6');
+	protected function generateInput(&$source,$control,&$attributes){
+		$type=$this->attrType($source,$attributes);
+		$this->attrRequired($source,$attributes);
+		$this->attrDefaultvalue($source,$attributes);
 		if(isset($attributes['minlength'])){
-			if($type != 'string' && $type != 'html'  && $type != 'xhtml'){
+			if($type!='string'&&$type!='html'&&$type!='xhtml'){
 				throw new jException('jelix~formserr.attribute.not.allowed',array('minlength','input',$this->sourceFile));
 			}
 			$source[]='$ctrl->datatype->addFacet(\'minLength\','.intval($attributes['minlength']).');';
 			unset($attributes['minlength']);
 		}
 		if(isset($attributes['maxlength'])){
-			if($type != 'string' && $type != 'html' && $type != 'xhtml'){
+			if($type!='string'&&$type!='html'&&$type!='xhtml'){
 				throw new jException('jelix~formserr.attribute.not.allowed',array('maxlength','input',$this->sourceFile));
 			}
 			$source[]='$ctrl->datatype->addFacet(\'maxLength\','.intval($attributes['maxlength']).');';
 			unset($attributes['maxlength']);
 		}
-		$this->readLabel($source, $control, 'input');
-		$this->readHelpHintAlert($source, $control);
-		$this->attrSize($source, $attributes);
-		$this->attrReadOnly($source, $attributes);
+		$this->readLabel($source,$control,'input');
+		$this->readHelpHintAlert($source,$control);
+		$this->attrSize($source,$attributes);
+		$this->attrReadOnly($source,$attributes);
 		return false;
 	}
-	protected function generateTextarea(&$source, $control, &$attributes){
-		$this->attrRequired($source, $attributes);
-		$this->attrDefaultvalue($source, $attributes);
-		$this->attrReadOnly($source, $attributes);
+	protected function generateTextarea(&$source,$control,&$attributes){
+		$this->attrRequired($source,$attributes);
+		$this->attrDefaultvalue($source,$attributes);
+		$this->attrReadOnly($source,$attributes);
 		if(isset($attributes['minlength'])){
 			$source[]='$ctrl->datatype->addFacet(\'minLength\','.intval($attributes['minlength']).');';
 			unset($attributes['minlength']);
@@ -100,110 +100,110 @@ class jFormsCompiler_jf_1_0{
 			$source[]='$ctrl->datatype->addFacet(\'maxLength\','.intval($attributes['maxlength']).');';
 			unset($attributes['maxlength']);
 		}
-		$this->readLabel($source, $control, 'textarea');
-		$this->readHelpHintAlert($source, $control);
+		$this->readLabel($source,$control,'textarea');
+		$this->readHelpHintAlert($source,$control);
 		if(isset($attributes['rows'])){
-			$rows = intval($attributes['rows']);
-			if($rows < 2) $rows = 2;
+			$rows=intval($attributes['rows']);
+			if($rows < 2)$rows=2;
 			$source[]='$ctrl->rows='.$rows.';';
 			unset($attributes['rows']);
 		}
 		if(isset($attributes['cols'])){
-			$cols = intval($attributes['cols']);
-			if($cols < 2) $cols = 2;
+			$cols=intval($attributes['cols']);
+			if($cols < 2)$cols=2;
 			$source[]='$ctrl->cols='.$cols.';';
 			unset($attributes['cols']);
 		}
 		return false;
 	}
-	protected function generateOutput(&$source, $control, &$attributes){
-		$type = $this->attrType($source, $attributes);
-		$this->attrDefaultvalue($source, $attributes);
-		$this->readLabel($source, $control, 'output');
+	protected function generateOutput(&$source,$control,&$attributes){
+		$type=$this->attrType($source,$attributes);
+		$this->attrDefaultvalue($source,$attributes);
+		$this->readLabel($source,$control,'output');
 		return false;
 	}
-	protected function generateSubmit(&$source, $control, &$attributes){
-		$this->readLabel($source, $control, 'submit');
-		$this->readHelpHintAlert($source, $control);
-		$this->readDatasource($source, $control, 'submit', $attributes);
+	protected function generateSubmit(&$source,$control,&$attributes){
+		$this->readLabel($source,$control,'submit');
+		$this->readHelpHintAlert($source,$control);
+		$this->readDatasource($source,$control,'submit',$attributes);
 		return false;
 	}
-	protected function generateReset(&$source, $control, &$attributes){
-		$this->readLabel($source, $control, 'reset');
-		$this->readHelpHintAlert($source, $control);
+	protected function generateReset(&$source,$control,&$attributes){
+		$this->readLabel($source,$control,'reset');
+		$this->readHelpHintAlert($source,$control);
 		return false;
 	}
-	protected function generateCheckbox(&$source, $control, &$attributes){
-		$this->attrDefaultvalue($source, $attributes);
-		$this->readLabel($source, $control, 'checkbox');
-		$this->readHelpHintAlert($source, $control);
-		$this->attrReadOnly($source, $attributes);
+	protected function generateCheckbox(&$source,$control,&$attributes){
+		$this->attrDefaultvalue($source,$attributes);
+		$this->readLabel($source,$control,'checkbox');
+		$this->readHelpHintAlert($source,$control);
+		$this->attrReadOnly($source,$attributes);
 		if(isset($attributes['valueoncheck'])){
-			$source[]='$ctrl->valueOnCheck=\''.str_replace("'","\\'", $attributes['valueoncheck']) ."';";
+			$source[]='$ctrl->valueOnCheck=\''.str_replace("'","\\'",$attributes['valueoncheck'])."';";
 			unset($attributes['valueoncheck']);
 		}
 		if(isset($attributes['valueonuncheck'])){
-			$source[]='$ctrl->valueOnUncheck=\''.str_replace("'","\\'", $attributes['valueonuncheck']) ."';";
+			$source[]='$ctrl->valueOnUncheck=\''.str_replace("'","\\'",$attributes['valueonuncheck'])."';";
 			unset($attributes['valueonuncheck']);
 		}
-		$this->attrRequired($source, $attributes);
+		$this->attrRequired($source,$attributes);
 		return false;
 	}
-	protected function generateCheckboxes(&$source, $control, &$attributes){
-		$this->attrRequired($source, $attributes);
-		$this->readLabel($source, $control, 'checkboxes');
-		$this->readHelpHintAlert($source, $control);
-		$this->attrReadOnly($source, $attributes);
-		$hasSelectedValues = $this->readSelectedValue($source, $control, 'checkboxes', $attributes);
-		$this->readDatasource($source, $control, 'checkboxes', $attributes, $hasSelectedValues);
+	protected function generateCheckboxes(&$source,$control,&$attributes){
+		$this->attrRequired($source,$attributes);
+		$this->readLabel($source,$control,'checkboxes');
+		$this->readHelpHintAlert($source,$control);
+		$this->attrReadOnly($source,$attributes);
+		$hasSelectedValues=$this->readSelectedValue($source,$control,'checkboxes',$attributes);
+		$this->readDatasource($source,$control,'checkboxes',$attributes,$hasSelectedValues);
 		return false;
 	}
-	protected function generateRadiobuttons(&$source, $control, &$attributes){
-		$this->attrRequired($source, $attributes);
-		$this->readLabel($source, $control, 'radiobuttons');
-		$this->readHelpHintAlert($source, $control);
-		$this->attrReadOnly($source, $attributes);
-		$hasSelectedValues = $this->readSelectedValue($source, $control, 'radiobuttons', $attributes);
-		$this->readDatasource($source, $control, 'radiobuttons', $attributes, $hasSelectedValues);
+	protected function generateRadiobuttons(&$source,$control,&$attributes){
+		$this->attrRequired($source,$attributes);
+		$this->readLabel($source,$control,'radiobuttons');
+		$this->readHelpHintAlert($source,$control);
+		$this->attrReadOnly($source,$attributes);
+		$hasSelectedValues=$this->readSelectedValue($source,$control,'radiobuttons',$attributes);
+		$this->readDatasource($source,$control,'radiobuttons',$attributes,$hasSelectedValues);
 		return false;
 	}
-	protected function generateMenulist(&$source, $control, &$attributes){
-		$this->attrRequired($source, $attributes);
-		$this->readLabel($source, $control, 'menulist');
-		$this->readHelpHintAlert($source, $control);
-		$this->attrReadOnly($source, $attributes);
-		$hasSelectedValues = $this->readSelectedValue($source, $control, 'menulist', $attributes);
-		$this->readDatasource($source, $control, 'menulist', $attributes, $hasSelectedValues);
+	protected function generateMenulist(&$source,$control,&$attributes){
+		$this->attrRequired($source,$attributes);
+		$this->readLabel($source,$control,'menulist');
+		$this->readHelpHintAlert($source,$control);
+		$this->attrReadOnly($source,$attributes);
+		$hasSelectedValues=$this->readSelectedValue($source,$control,'menulist',$attributes);
+		$this->readDatasource($source,$control,'menulist',$attributes,$hasSelectedValues);
 		return false;
 	}
-	protected function generateListbox(&$source, $control, &$attributes){
-		$this->attrRequired($source, $attributes);
-		$this->readLabel($source, $control, 'listbox');
-		$this->readHelpHintAlert($source, $control);
-		$this->attrReadOnly($source, $attributes);
-		$this->attrSize($source, $attributes);
-		$hasSelectedValues = $this->readSelectedValue($source, $control, 'listbox', $attributes);
-		$this->readDatasource($source, $control, 'listbox', $attributes, $hasSelectedValues);
+	protected function generateListbox(&$source,$control,&$attributes){
+		$this->attrRequired($source,$attributes);
+		$this->readLabel($source,$control,'listbox');
+		$this->readHelpHintAlert($source,$control);
+		$this->attrReadOnly($source,$attributes);
+		$this->attrSize($source,$attributes);
+		$hasSelectedValues=$this->readSelectedValue($source,$control,'listbox',$attributes);
+		$this->readDatasource($source,$control,'listbox',$attributes,$hasSelectedValues);
 		if(isset($attributes['multiple'])){
-			if('true' == $attributes['multiple'])
+			if('true'==$attributes['multiple'])
 				$source[]='$ctrl->multiple=true;';
 			unset($attributes['multiple']);
 		}
 		return false;
 	}
-	protected function generateSecret(&$source, $control, &$attributes){
-		$this->attrRequired($source, $attributes);
-		$this->readLabel($source, $control, 'secret');
-		list($alertInvalid, $alertRequired)=$this->readHelpHintAlert($source, $control);
-		$this->attrSize($source, $attributes);
-		$hasRo =(isset($attributes['readonly']) && 'true' == $attributes['readonly']);
-		$this->attrReadOnly($source, $attributes);
+	protected function generateSecret(&$source,$control,&$attributes){
+		$this->attrRequired($source,$attributes);
+		$this->readLabel($source,$control,'secret');
+		list($alertInvalid,$alertRequired)=$this->readHelpHintAlert($source,$control);
+		$this->attrSize($source,$attributes);
+		$hasRo=(isset($attributes['readonly'])&&'true'==$attributes['readonly']);
+		$this->attrReadOnly($source,$attributes);
 		if(isset($control->confirm)){
 			$label='';
 			if(isset($control->confirm['locale'])){
-				$label = "jLocale::get('".(string)$control->confirm['locale']."');";
-			}elseif( "" != (string)$control->confirm){
-				$label = "'".str_replace("'","\\'",(string)$control->confirm)."';";
+				$label="jLocale::get('".(string)$control->confirm['locale']."');";
+			}elseif(""!=(string)$control->confirm){
+				$label="'".str_replace("'","\\'",(string)$control->confirm)."';";
 			}else{
 				throw new jException('jelix~formserr.content.missing',array('confirm',$this->sourceFile));
 			}
@@ -230,67 +230,67 @@ class jFormsCompiler_jf_1_0{
 		}
 		return false;
 	}
-	protected function generateUpload(&$source, $control, &$attributes){
-		$this->attrRequired($source, $attributes);
-		$this->readLabel($source, $control, 'input');
-		$this->readHelpHintAlert($source, $control);
-		$this->attrReadOnly($source, $attributes);
+	protected function generateUpload(&$source,$control,&$attributes){
+		$this->attrRequired($source,$attributes);
+		$this->readLabel($source,$control,'input');
+		$this->readHelpHintAlert($source,$control);
+		$this->attrReadOnly($source,$attributes);
 		if(isset($attributes['maxsize'])){
 			$source[]='$ctrl->maxsize='.intval($attributes['maxsize']).';';
 			unset($attributes['maxsize']);
 		}
 		if(isset($attributes['mimetype'])){
-			$mime = preg_split('/[,; ]/',$attributes['mimetype']);
-			$mime = array_diff($mime, array(''));
+			$mime=preg_split('/[,; ]/',$attributes['mimetype']);
+			$mime=array_diff($mime,array(''));
 			$source[]='$ctrl->mimetype='.var_export($mime,true).';';
 			unset($attributes['mimetype']);
 		}
 		return false;
 	}
-	protected function attrReadOnly(&$source, &$attributes){
+	protected function attrReadOnly(&$source,&$attributes){
 		if(isset($attributes['readonly'])){
-			if('true' == $attributes['readonly'])
+			if('true'==$attributes['readonly'])
 				$source[]='$ctrl->initialReadOnly=true;';
 			unset($attributes['readonly']);
 		}
 	}
-	protected function attrRequired(&$source, &$attributes){
+	protected function attrRequired(&$source,&$attributes){
 		if(isset($attributes['required'])){
-			if('true' == $attributes['required'])
+			if('true'==$attributes['required'])
 				$source[]='$ctrl->required=true;';
 			unset($attributes['required']);
 		}
 	}
-	protected function attrDefaultvalue(&$source, &$attributes){
+	protected function attrDefaultvalue(&$source,&$attributes){
 		if(isset($attributes['defaultvalue'])){
 			$source[]='$ctrl->defaultValue=\''.str_replace('\'','\\\'',$attributes['defaultvalue']).'\';';
 			unset($attributes['defaultvalue']);
 		}
 	}
-	protected function attrSize(&$source, &$attributes){
+	protected function attrSize(&$source,&$attributes){
 		if(isset($attributes['size'])){
-			$size = intval($attributes['size']);
-			if($size < 2) $size = 2;
+			$size=intval($attributes['size']);
+			if($size < 2)$size=2;
 			$source[]='$ctrl->size='.$size.';';
 			unset($attributes['size']);
 		}
 	}
-	protected function attrType(&$source, &$attributes){
-		$type = 'string';
+	protected function attrType(&$source,&$attributes){
+		$type='string';
 		if(isset($attributes['type'])){
-			$type = strtolower($attributes['type']);
-			if(!in_array($type, $this->allowedType)){
-				throw new jException('jelix~formserr.datatype.unknow',array($type,'input',$this->sourceFile));
+			$type=strtolower($attributes['type']);
+			if(!in_array($type,$this->allowedType)){
+				throw new jException('jelix~formserr.datatype.unknown',array($type,'input',$this->sourceFile));
 			}
-			if($type == 'xhtml')
+			if($type=='xhtml')
 				$source[]='$ctrl->datatype= new jDatatypeHtml(true);';
-			else if($type != 'string')
+			else if($type!='string')
 				$source[]='$ctrl->datatype= new jDatatype'.$type.'();';
 			unset($attributes['type']);
 		}
 		return $type;
 	}
-	protected function readLabel(&$source, $control, $controltype){
+	protected function readLabel(&$source,$control,$controltype){
 		if(!isset($control->label)){
 			throw new jException('jelix~formserr.tag.missing',array('label',$controltype,$this->sourceFile));
 		}
@@ -304,7 +304,7 @@ class jFormsCompiler_jf_1_0{
 			$source[]='$ctrl->label=\''.str_replace("'","\\'",$label).'\';';
 		}
 	}
-	protected function readHelpHintAlert(&$source, $control){
+	protected function readHelpHintAlert(&$source,$control){
 		if(isset($control->help)){
 			if(isset($control->help['locale'])){
 				$source[]='$ctrl->help=jLocale::get(\''.(string)$control->help['locale'].'\');';
@@ -329,103 +329,103 @@ class jFormsCompiler_jf_1_0{
 					$msg='\''.str_replace("'","\\'",(string)$alert).'\';';
 				}
 				if(isset($alert['type'])){
-					if((string)$alert['type'] == 'required')
-						$alertRequired = '$ctrl->alertRequired='.$msg;
+					if((string)$alert['type']=='required')
+						$alertRequired='$ctrl->alertRequired='.$msg;
 					else
-						$alertInvalid = '$ctrl->alertInvalid='.$msg;
-				} else{
-					$alertInvalid = '$ctrl->alertInvalid='.$msg;
+						$alertInvalid='$ctrl->alertInvalid='.$msg;
+				}else{
+					$alertInvalid='$ctrl->alertInvalid='.$msg;
 				}
 			}
-			if($alertRequired !='') $source[]=$alertRequired;
-			if($alertInvalid !='') $source[]=$alertInvalid;
+			if($alertRequired!='')$source[]=$alertRequired;
+			if($alertInvalid!='')$source[]=$alertInvalid;
 		}
-		return array($alertInvalid, $alertRequired);
+		return array($alertInvalid,$alertRequired);
 	}
-	protected function readSelectedValue(&$source, $control, $controltype, &$attributes){
-		if(isset($attributes['selectedvalue']) && isset($control->selectedvalues)){
+	protected function readSelectedValue(&$source,$control,$controltype,&$attributes){
+		if(isset($attributes['selectedvalue'])&&isset($control->selectedvalues)){
 			throw new jException('jelix~formserr.attribute.not.allowed',array('selectedvalue',$controltype,$this->sourceFile));
 		}
-		$hasSelectedValues = false;
-		if(isset($control->selectedvalues) && isset($control->selectedvalues->value)){
-			if(($controltype == 'listbox' && isset($control['multiple']) && 'true' != (string)$control['multiple'])
-				|| $controltype == 'radiobuttons' || $controltype == 'menulist'
+		$hasSelectedValues=false;
+		if(isset($control->selectedvalues)&&isset($control->selectedvalues->value)){
+			if(($controltype=='listbox'&&isset($control['multiple'])&&'true'!=(string)$control['multiple'])
+				||$controltype=='radiobuttons'||$controltype=='menulist'
 				){
 				throw new jException('jelix~formserr.defaultvalues.not.allowed',$this->sourceFile);
 			}
-			$str =' array(';
+			$str=' array(';
 			foreach($control->selectedvalues->value as $value){
-				$str.="'". str_replace("'","\\'", (string)$value) ."',";
+				$str.="'". str_replace("'","\\'",(string)$value)."',";
 			}
 			$source[]='$ctrl->defaultValue='.$str.');';
-			$hasSelectedValues = true;
+			$hasSelectedValues=true;
 		}elseif(isset($attributes['selectedvalue'])){
-			if($controltype == 'menulist' ||  $controltype == 'radiobuttons'){
-				$source[]='$ctrl->defaultValue=\''. str_replace("'","\\'", (string)$control['selectedvalue']) .'\';';
-			} else{
-				$source[]='$ctrl->defaultValue=array(\''. str_replace("'","\\'", (string)$control['selectedvalue']) .'\');';
+			if($controltype=='menulist'||$controltype=='radiobuttons'){
+				$source[]='$ctrl->defaultValue=\''. str_replace("'","\\'",(string)$control['selectedvalue']).'\';';
+			}else{
+				$source[]='$ctrl->defaultValue=array(\''. str_replace("'","\\'",(string)$control['selectedvalue']).'\');';
 			}
-			$hasSelectedValues = true;
+			$hasSelectedValues=true;
 			unset($attributes['selectedvalue']);
 		}
 		return $hasSelectedValues;
 	}
-	protected function readDatasource(&$source, $control, $controltype, &$attributes, $hasSelectedValues=false){
+	protected function readDatasource(&$source,$control,$controltype,&$attributes,$hasSelectedValues=false){
 		if(isset($attributes['dao'])){
 			if(isset($attributes['daovalueproperty'])){
-				$daovalue = $attributes['daovalueproperty'];
+				$daovalue=$attributes['daovalueproperty'];
 				unset($attributes['daovalueproperty']);
-			} else
-				$daovalue = '';
+			}else
+				$daovalue='';
 			$source[]='$ctrl->datasource = new jFormsDaoDatasource(\''.$attributes['dao'].'\',\''.
 							$attributes['daomethod'].'\',\''.$attributes['daolabelproperty'].'\',\''.$daovalue.'\');';
 			unset($attributes['dao']);
 			unset($attributes['daomethod']);
 			unset($attributes['daolabelproperty']);
-			if($controltype == 'submit'){
+			if($controltype=='submit'){
 				$source[]='$ctrl->standalone=false;';
 			}
 		}elseif(isset($attributes['dsclass'])){
-			$dsclass = $attributes['dsclass'];
+			$dsclass=$attributes['dsclass'];
 			unset($attributes['dsclass']);
-			$class = new jSelectorClass($dsclass);
+			$class=new jSelectorClass($dsclass);
 			$source[]='jClasses::inc(\''.$dsclass.'\');';
 			$source[]='$datasource = new '.$class->className.'($this->id());';
 			$source[]='if ($datasource instanceof jIFormsDatasource){$ctrl->datasource=$datasource;}';
 			$source[]='else{$ctrl->datasource=new jFormsStaticDatasource();}';
-			if($controltype == 'submit'){
+			if($controltype=='submit'){
 				$source[]='$ctrl->standalone=false;';
 			}
 		}elseif(isset($control->item)){
-			if($controltype == 'submit'){
+			if($controltype=='submit'){
 				$source[]='$ctrl->standalone=false;';
 			}
 			$source[]='$ctrl->datasource= new jFormsStaticDatasource();';
 			$source[]='$ctrl->datasource->data = array(';
 			$selectedvalues=array();
 			foreach($control->item as $item){
-				$value ="'".str_replace("'","\\'",(string)$item['value'])."'=>";
+				$value="'".str_replace("'","\\'",(string)$item['value'])."'=>";
 				if(isset($item['locale'])){
-					$source[] = $value."jLocale::get('".(string)$item['locale']."'),";
-				}elseif( "" != (string)$item){
-					$source[] = $value."'".str_replace("'","\\'",(string)$item)."',";
+					$source[]=$value."jLocale::get('".(string)$item['locale']."'),";
+				}elseif(""!=(string)$item){
+					$source[]=$value."'".str_replace("'","\\'",(string)$item)."',";
 				}else{
-					$source[] = $value."'".str_replace("'","\\'",(string)$item['value'])."',";
+					$source[]=$value."'".str_replace("'","\\'",(string)$item['value'])."',";
 				}
 				if(isset($item['selected'])){
-					if($hasSelectedValues || $controltype == 'submit'){
+					if($hasSelectedValues||$controltype=='submit'){
 						throw new jException('jelix~formserr.selected.attribute.not.allowed',$this->sourceFile);
 					}
-					if((string)$item['selected']== 'true'){
+					if((string)$item['selected']=='true'){
 						$selectedvalues[]=(string)$item['value'];
 					}
 				}
 			}
 			$source[]=");";
 			if(count($selectedvalues)){
-				if(count($selectedvalues)>1 &&
-						(($controltype == 'listbox' && isset($control['multiple']) && 'true' != (string)$control['multiple'])
-						|| $controltype == 'radiobuttons' || $controltype == 'menulist')){
+				if(count($selectedvalues)>1&&
+						(($controltype=='listbox'&&isset($control['multiple'])&&'true'!=(string)$control['multiple'])
+						||$controltype=='radiobuttons'||$controltype=='menulist')){
 					throw new jException('jelix~formserr.multiple.selected.not.allowed',$this->sourceFile);
 				}
 				$source[]='$ctrl->defaultValue='.var_export($selectedvalues,true).';';

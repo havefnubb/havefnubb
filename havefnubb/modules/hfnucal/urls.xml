@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suburls xmlns="http://jelix.org/ns/suburls/1.0">
+
+    <url pathinfo="/:year/:month" action="default:index">
+        <param name="year" type="number"/>
+        <param name="month" type="number"/>
+    </url>
+
+    <url pathinfo="/:year/:month/:day" action="default:view">
+        <param name="year" type="number"/>
+        <param name="month" type="number"/>
+        <param name="day" type="number"/>
+    </url>
+</suburls>

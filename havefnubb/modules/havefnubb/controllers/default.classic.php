@@ -18,12 +18,12 @@ class defaultCtrl extends jController {
         '*'	=> array('auth.required'=>false,
                         'banuser.check'=>true
                         ),
-        'cloud'	=> array('hfnu.check.installed'=>true,
+        'cloud'	=> array(
                         'history.add'=>true,
                         'history.label'=>'Accueil',
                         'history.title'=>'Aller vers la page d\'accueil'
                          ),
-        'index' => array('hfnu.check.installed'=>true,
+        'index' => array(
                         'history.add'=>true,
                         'history.label'=>'Accueil',
                         'history.title'=>'Aller vers la page d\'accueil')
@@ -82,15 +82,7 @@ class defaultCtrl extends jController {
         $rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));
         return $rep;
     }
-    /**
-    * The forum is not installed
-    */
-    function notinstalled() {
-        $rep = $this->getResponse('html');
-        $tpl = new jTpl();
-        $rep->body->assign('MAIN', $tpl->fetch('havefnubb~notinstalled'));
-        return $rep;
-    }
+
     /**
     * The rules of the forum
     */

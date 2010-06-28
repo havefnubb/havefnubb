@@ -1,4 +1,4 @@
-CREATE TABLE hf_calendar (
+CREATE TABLE  %%PREFIX%%hfcalendar (
     id INT(10) NOT NULL AUTO_INCREMENT ,
     date INT(10) NOT NULL ,
     title VARCHAR(255) NOT NULL ,
@@ -13,7 +13,7 @@ CREATE TABLE hf_calendar (
 ) DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE hf_calendar_cat (
+CREATE TABLE  %%PREFIX%%hfcalendar_cat (
     `cat_id` int( 10 ) NOT NULL AUTO_INCREMENT ,
     `cat_name` varchar( 255 )  NOT NULL default '',
     `cat_url` varchar( 255 ) NOT NULL default '',

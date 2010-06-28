@@ -10,7 +10,7 @@
  * @link http://jelix.org/
  * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_modifier_common_strip($text, $replace = ' ')
+function jtpl_modifier_common_strip($text,$replace=' ')
 {
-	return preg_replace('!\s+!', $replace, $text);
+	return preg_replace('!\s+!',$replace,$text);
 }

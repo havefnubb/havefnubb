@@ -13,48 +13,48 @@ class jDuration{
 	public $months;
 	public $days;
 	public $seconds;
-	function __construct($init = 0){
-		$this->days = $this->months = $this->seconds = 0;
+	function __construct($init=0){
+		$this->days=$this->months=$this->seconds=0;
 		if(is_array($init)){
 			if(isset($init['year'])){
-				$this->months += intval($init['year']) * 12;
+				$this->months+=intval($init['year'])* 12;
 			}
 			if(isset($init['month'])){
-				$this->months += intval($init['month']);
+				$this->months+=intval($init['month']);
 			}
 			if(isset($init['day'])){
-				$this->days += intval($init['day']);
+				$this->days+=intval($init['day']);
 			}
 			if(isset($init['hour'])){
-				$this->seconds += intval($init['hour']) * 3600;
+				$this->seconds+=intval($init['hour'])* 3600;
 			}
 			if(isset($init['minute'])){
-				$this->seconds += intval($init['minute']) * 60;
+				$this->seconds+=intval($init['minute'])* 60;
 			}
 			if(isset($init['second'])){
-				$this->seconds += intval($init['second']);
+				$this->seconds+=intval($init['second']);
 			}
 		}
 		elseif(is_int($init)){
 			if($init > 86400){
-				$this->days = intval($init/86400);
-				$this->seconds = $init % 86400;
+				$this->days=intval($init/86400);
+				$this->seconds=$init % 86400;
 			}
 			else{
-				$this->seconds = $init;
+				$this->seconds=$init;
 			}
 		}
 	}
 	function add(jDuration $data){
-		$this->days += $data->days;
-		$this->months += $data->months;
-		$this->seconds += $data->seconds;
+		$this->days+=$data->days;
+		$this->months+=$data->months;
+		$this->seconds+=$data->seconds;
 	}
 	function mult($scale){
 		if(is_int($scale)){
-			$this->days *= $scale;
-			$this->months *= $scale;
-			$this->seconds *= $scale;
+			$this->days*=$scale;
+			$this->months*=$scale;
+			$this->seconds*=$scale;
 		}
 	}
 }

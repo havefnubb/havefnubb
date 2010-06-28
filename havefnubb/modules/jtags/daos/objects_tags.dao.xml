@@ -6,23 +6,11 @@
         
     </datasources>
     <record>
-
-
-        
-    <property name="tt_id" fieldname="tt_id" datatype="autoincrement"/>
-    <property name="tag_id" fieldname="tag_id" datatype="int" required="true"/>
-    <property name="tt_scope_id" fieldname="tt_scope_id" datatype="string" required="true" maxlength="50"/>
-    <property name="tt_subject_id" fieldname="tt_subject_id" datatype="int" required="true"/>
-
-    <property name="tag_name" fieldname="tag_name" datatype="string" table="sc_tags"/>
-
-
-    <!--<property name="" fieldname="" datatype="string/int/float/autoincrement/date"
-        required="yes"
-        maxlength="" minlength="" regexp=""
-        sequence=""
-        updatepattern="" insertpattern="" selectpattern=""
-    />-->
+        <property name="tt_id" fieldname="tt_id" datatype="autoincrement"/>
+        <property name="tag_id" fieldname="tag_id" datatype="int" required="true"/>
+        <property name="tt_scope_id" fieldname="tt_scope_id" datatype="string" required="true" maxlength="50"/>
+        <property name="tt_subject_id" fieldname="tt_subject_id" datatype="int" required="true"/>
+        <property name="tag_name" fieldname="tag_name" datatype="string" table="sc_tags"/>
     </record>
     <factory>
          <!-- <method name="findAllSnippets" type="select">
@@ -51,40 +39,21 @@
                  <eq property="tag_name" expr="$tag" />
              </conditions>
              <!-- <limit offset="0" count="10" /> -->
-         </method>         
-	     
+         </method> 
 
         <method name="tagAndsubjectExists" type="selectfirst">
              <parameter name="tag_id" />
              <parameter name="subject_id" />
              <conditions>
-				<eq property="tag_id" expr="$tag_id" />
+                <eq property="tag_id" expr="$tag_id" />
                 <eq property="tt_subject_id" expr="$subject_id" />
              </conditions>
-        </method>		 
+        </method>
          <!-- <method name="countByCat" type="count">
              <parameter name="cat" />
              <conditions>
                  <eq property="idmat" expr="$cat" />
              </conditions>
          </method> -->
-	     
     </factory>
-    <!--<factory>
-        <method name="findByStage" type="select/selectfirst/delete/update/php">
-            <parameter name="" />
-            <values>
-                <value property="" value="" />
-            </values>
-            <conditions logic="and/or">
-                <eq property="" value="" />
-            </conditions>
-            <order>
-                <orderitem property="" way="asc/desc" />
-            </order>
-            <limit offset="" count=""/>
-            <body><![CDATA[
-            ]]></body>
-        </method>
-    </factory>-->
 </dao>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suburls xmlns="http://jelix.org/ns/suburls/1.0">
+        <url pathinfo="/:parent_id/reply/:id_post" action="posts:reply"  actionoverride="posts:savereply">
+            <param name="parent_id" type="number"/>
+            <param name="id_post" type="number"/>
+        </url>
+
+        <url pathinfo="/:id_post/notify" action="posts:notify" actionoverride="posts:savenotify">
+            <param name="id_post" type="number"/>
+        </url>
+
+        <url pathinfo="/:id_post/edit" action="posts:edit">
+            <param name="id_post" type="number"/>
+        </url>
+
+        <url pathinfo="/:parent_id/status" action="posts:status">
+            <param name="parent_id" type="number"/>
+            <param name="status" type="string"/>
+        </url>
+
+        <url pathinfo="/:id_post/moveto" action="posts:moveToForum">
+            <param name="id_post" type="number"/>
+        </url>
+
+        <url pathinfo="/:parent_id/quote/:id_post" action="posts:quote">
+            <param name="id_post" type="number"/>
+            <param name="parent_id" type="number"/>
+        </url>
+
+        <url pathinfo="/jump" action="posts:goesto"/>
+        <url pathinfo="/shownew" action="posts:shownew"/>
+
+
+        <url pathinfo="/:id_post/unsubscribe" action="posts:unsubscribe">
+            <param name="id_post" type="number"/>
+        </url>
+        <url pathinfo="/:id_post/unsub" action="posts:unsub">
+            <param name="id_post" type="number"/>
+        </url>
+
+        <url pathinfo="/:id_post/subscribe" action="posts:subscribe">
+            <param name="id_post" type="number"/>
+        </url>
+
+</suburls>

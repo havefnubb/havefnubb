@@ -15,18 +15,18 @@ class jSoapCoordinator extends jCoordinator{
 	protected $soapServer;
 	public function processSoap(){
 		global $gJConfig;
-		$this->wsdl = new jWSDL($this->request->params['module'], $this->request->params['action']);
-		$this->soapServer = $this->getSoapServer($this->wsdl);
-		$this->soapServer->setclass('jSoapHandler', $this);
+		$this->wsdl=new jWSDL($this->request->params['module'],$this->request->params['action']);
+		$this->soapServer=$this->getSoapServer($this->wsdl);
+		$this->soapServer->setclass('jSoapHandler',$this);
 		$this->soapServer->handle($this->request->soapMsg);
 	}
-	public function getSoapServer($wsdl = null){
+	public function getSoapServer($wsdl=null){
 		global $gJConfig;
 		if(is_null($this->soapServer)){
 			if(is_null($wsdl)){
-				$this->soapServer = new SoapServer(null, array('soap_version' => SOAP_1_1, 'encoding' => $gJConfig->charset, 'uri' => $_SERVER['PHP_SELF']));
+				$this->soapServer=new SoapServer(null,array('soap_version'=>SOAP_1_1,'encoding'=>$gJConfig->charset,'uri'=>$_SERVER['PHP_SELF']));
 			}else{
-				$this->soapServer = new SoapServer($wsdl->getWSDLFilePath(), array('soap_version' => SOAP_1_1, 'encoding' => $gJConfig->charset));
+				$this->soapServer=new SoapServer($wsdl->getWSDLFilePath(),array('soap_version'=>SOAP_1_1,'encoding'=>$gJConfig->charset));
 			}
 		}
 		return $this->soapServer;
@@ -35,14 +35,14 @@ class jSoapCoordinator extends jCoordinator{
 class jSoapHandler{
 	protected $coord;
 	function __construct($coordinator){
-		$this->coord = $coordinator;
+		$this->coord=$coordinator;
 	}
 	function __call($soapOperationName,$soapArgs){
-	   $this->coord->request->params['action'] .= ':'.$soapOperationName;
-	   $operationParams = $this->coord->wsdl->getOperationParams($soapOperationName);
-	   foreach(array_keys($operationParams) as $i=>$paramName){
-		   $this->coord->request->params[$paramName] = $soapArgs[$i];
-	   }
+		$this->coord->request->params['action'].=':'.$soapOperationName;
+		$operationParams=$this->coord->wsdl->getOperationParams($soapOperationName);
+		foreach(array_keys($operationParams)as $i=>$paramName){
+			$this->coord->request->params[$paramName]=$soapArgs[$i];
+		}
 		$this->coord->process($this->coord->request);
 		return $this->coord->response->data;
 	}

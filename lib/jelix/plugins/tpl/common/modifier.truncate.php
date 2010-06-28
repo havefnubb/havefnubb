@@ -13,29 +13,29 @@
  * @link http://jelix.org/
  * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_modifier_common_truncate($string, $length = 80, $etc = '...',
-																  $break_words = false)
+function jtpl_modifier_common_truncate($string,$length=80,$etc='...',
+																$break_words=false)
 {
 	if(function_exists('mb_strlen')){
-		$f_strlen = 'mb_strlen';
+		$f_strlen='mb_strlen';
 	}
 	else{
-		$f_strlen = 'iconv_strlen';
+		$f_strlen='iconv_strlen';
 	}
 	if(function_exists('mb_substr')){
-		$f_substr = 'mb_substr';
+		$f_substr='mb_substr';
 	}
 	else{
-		$f_substr = 'iconv_substr';
+		$f_substr='iconv_substr';
 	}
-	if($length == 0)
+	if($length==0)
 		return '';
-	$charset = jTpl::getEncoding();
-	if($f_strlen($string,$charset) > $length){
-		$length -= $f_strlen($etc,$charset);
+	$charset=jTpl::getEncoding();
+	if($f_strlen($string,$charset)> $length){
+		$length-=$f_strlen($etc,$charset);
 		if(!$break_words)
-			$string = preg_replace('/\s+?(\S+)?$/', '', $f_substr($string, 0, $length+1,$charset));
-		return $f_substr($string, 0, $length,$charset).$etc;
-	} else
+			$string=preg_replace('/\s+?(\S+)?$/','',$f_substr($string,0,$length+1,$charset));
+		return $f_substr($string,0,$length,$charset).$etc;
+	}else
 		return $string;
 }

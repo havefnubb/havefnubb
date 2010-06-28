@@ -17,32 +17,32 @@
 class pgsqlDbResultSet extends jDbResultSet{
 	protected $_stmtId;
 	protected $_cnt;
-	function __construct($idResult, $stmtId = null, $cnt=null){
-		$this->_idResult = $idResult;
-		$this->_stmtId = $stmtId;
-		$this->_cnt = $cnt;
+	function __construct($idResult,$stmtId=null,$cnt=null){
+		$this->_idResult=$idResult;
+		$this->_stmtId=$stmtId;
+		$this->_cnt=$cnt;
 	}
 	public function fetch(){
-		if($this->_fetchMode == jDbConnection::FETCH_CLASS){
+		if($this->_fetchMode==jDbConnection::FETCH_CLASS){
 			if($this->_fetchModeCtoArgs)
-				$res = pg_fetch_object($this->_idResult, -1 , $this->_fetchModeParam, $this->_fetchModeCtoArgs);
+				$res=pg_fetch_object($this->_idResult,-1,$this->_fetchModeParam,$this->_fetchModeCtoArgs);
 			else
-				$res = pg_fetch_object($this->_idResult, -1 , $this->_fetchModeParam);
+				$res=pg_fetch_object($this->_idResult,-1,$this->_fetchModeParam);
 		}
-		else if($this->_fetchMode == jDbConnection::FETCH_INTO){
-			$res = pg_fetch_object($this->_idResult);
-			$values = get_object_vars($res);
-			$res = $this->_fetchModeParam;
+		else if($this->_fetchMode==jDbConnection::FETCH_INTO){
+			$res=pg_fetch_object($this->_idResult);
+			$values=get_object_vars($res);
+			$res=$this->_fetchModeParam;
 			foreach($values as $k=>$value){
-				$res->$k = $value;
+				$res->$k=$value;
 			}
 		}
 		else{
-			$res = pg_fetch_object($this->_idResult);
+			$res=pg_fetch_object($this->_idResult);
 		}
-		if($res && count($this->modifier)){
+		if($res&&count($this->modifier)){
 			foreach($this->modifier as $m)
-				call_user_func_array($m, array($res, $this));
+				call_user_func_array($m,array($res,$this));
 		}
 		return $res;
 	}
@@ -51,22 +51,22 @@ class pgsqlDbResultSet extends jDbResultSet{
 		return pg_free_result($this->_idResult);
 	}
 	protected function _rewind(){
-		return pg_result_seek( $this->_idResult, 0);
+		return pg_result_seek($this->_idResult,0);
 	}
 	public  function rowCount(){
 		return pg_num_rows($this->_idResult);
 	}
-	public function bindColumn($column, &$param , $type=null)
-	  {throw new jException('jelix~db.error.feature.unsupported', array('pgsql','bindColumn'));}
-	public function bindParam($parameter, &$variable , $data_type =null, $length=null,  $driver_options=null)
-	   {throw new jException('jelix~db.error.feature.unsupported', array('pgsql','bindParam'));}
-	public function bindValue($parameter, $value, $data_type)
-	   {throw new jException('jelix~db.error.feature.unsupported', array('pgsql','bindValue'));}
+	public function bindColumn($column,&$param,$type=null)
+	{throw new jException('jelix~db.error.feature.unsupported',array('pgsql','bindColumn'));}
+	public function bindParam($parameter,&$variable,$data_type=null,$length=null,$driver_options=null)
+		{throw new jException('jelix~db.error.feature.unsupported',array('pgsql','bindParam'));}
+	public function bindValue($parameter,$value,$data_type)
+		{throw new jException('jelix~db.error.feature.unsupported',array('pgsql','bindValue'));}
 	public function columnCount(){
 		return pg_num_fields($this->_idResult);
 	}
 	public function execute($parameters=array()){
-		$this->_idResult = pg_execute($this->_cnt,$this->_stmtId, $parameters);
+		$this->_idResult=pg_execute($this->_cnt,$this->_stmtId,$parameters);
 		return true;
 	}
 	public function unescapeBin($text){

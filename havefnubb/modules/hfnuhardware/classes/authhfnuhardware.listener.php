@@ -81,7 +81,7 @@ class authhfnuhardwareListener extends jEventListener{
     }
 
     function onhfbAccountShowTab($event) {
-		$event->add(  '<li><a href="#user-profile-hardware">'.jLocale::get('hfnuhardware~hw.hardware').'</a></li>');
+        $event->add(  '<li><a href="#user-profile-hardware">'.jLocale::get('hfnuhardware~hw.hardware').'</a></li>');
     }
 
     function onhfbAccountShowDiv($event) {
@@ -120,7 +120,7 @@ class authhfnuhardwareListener extends jEventListener{
      */
 
     function onhfbAccountEditTab($event) {
-		$event->add(  '<li><a href="#user-profile-hardware">'.jLocale::get('hfnuhardware~hw.hardware').'</a></li>');
+        $event->add(  '<li><a href="#user-profile-hardware">'.jLocale::get('hfnuhardware~hw.hardware').'</a></li>');
     }
 
     function onhfbAccountEditInclude($event) {
@@ -136,11 +136,11 @@ class authhfnuhardwareListener extends jEventListener{
 
     // jcommunity_check_before_save_account', array('login'=>$user,'form'=>$form));
 
-	/**
-	* to answer to jcommunity_save_account event
-	* @param object $event the given event to answer to
-	*/
-	function onjcommunity_save_account ($event) {
+    /**
+    * to answer to jcommunity_save_account event
+    * @param object $event the given event to answer to
+    */
+    function onjcommunity_save_account ($event) {
         $login = $event->getParam('login');
         $form =  $event->getParam('form');
         $user = $event->getParam('record');

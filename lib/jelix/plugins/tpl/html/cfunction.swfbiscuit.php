@@ -10,8 +10,8 @@
  * @link        http://www.jelix.org
  * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_cfunction_html_swfbiscuit($tpl, $params){
-	$sortie  = '
+function jtpl_cfunction_html_swfbiscuit($tpl,$params){
+	$sortie='
         $src = '.$params[0].';
         $options = '.$params[1].';
         $params = '.$params[2].';

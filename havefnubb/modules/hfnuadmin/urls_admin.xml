@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suburls xmlns="http://jelix.org/ns/suburls/1.0">
+    <url pathinfo="/"           action="default:index" />
+    <url pathinfo="/checkupgrade"  action="default:check_upgrade" />
+    <url pathinfo="/unreadposts"  action="posts:unread" />
+    <url pathinfo="/config"    action="default:config" actionoverride="default:saveconfig"/>
+    <url pathinfo="/modules"    action="modules:index" />
+    <url pathinfo="/category"  action="category:index" />
+    <url pathinfo="/forum"     action="forum:index" />
+    <url pathinfo="/forum/create"  action="forum:create" />
+    <url pathinfo="/ranks"     action="ranks:index" />
+    <url pathinfo="/notify"    action="notify:index" />
+    <url pathinfo="/notify/delete/:id_notify"    action="notify:delete">
+        <param name="id_notify" type="integer"/>
+    </url>
+    <url pathinfo="/cache"     action="cache:index" />
+    <url pathinfo="/ban"       action="ban:index" />
+    <url pathinfo="/ban/saveban"       action="ban:saveban" />
+    <url pathinfo="/ban/delete"       action="ban:delete">
+        <param name="id_ban" type="number"/>
+    </url>
+
+    <url pathinfo="/category/savecreate"   action="category:savecreate"/>
+    <url pathinfo="/category/saveedit"   action="category:saveedit"/>
+    <url pathinfo="/category/edit/:id_cat"   action="category:edit">
+        <param name="id_cat" type="number"/>
+    </url>
+
+    <url pathinfo="/category/delete/:id_cat"   action="category:delete">
+        <param name="id_cat" type="number"/>
+    </url>
+
+    <url pathinfo="/forum/delete/:id_forum"    action="forum:delete">
+        <param name="id_forum" type="number"/>
+    </url>
+    <url pathinfo="/forum/edit/:id_forum"      action="forum:edit">
+        <param name="id_forum" type="number"/>
+    </url>
+    <url pathinfo="/forum/saveedit"      action="forum:saveedit"/>
+    <url pathinfo="/forum/defaultrights"      action="forum:defaultrights"/>
+    <url pathinfo="/ranks/delete/:id_rank"     action="ranks:delete">
+        <param name="id_rank" type="number"/>
+    </url>
+    <url pathinfo="/ranks/savecreate"     action="ranks:savecreate"/>
+    <url pathinfo="/ranks/saveedit"     action="ranks:saveedit"/>
+
+</suburls>

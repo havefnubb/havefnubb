@@ -8,10 +8,10 @@
 * @link       http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_meta_xml_xml($tpl, $method, $param)
+function jtpl_meta_xml_xml($tpl,$method,$param)
 {
-	global $gJCoord, $gJConfig;
-	if($gJCoord->response->getFormatType() != 'xml'){
+	global $gJCoord,$gJConfig;
+	if($gJCoord->response->getFormatType()!='xml'){
 		return;
 	}
 	switch($method){

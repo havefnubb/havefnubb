@@ -9,31 +9,31 @@
  * @link        http://www.jelix.org
  * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_function_html_breadcrumb($tpl, $nb=null, $separator = ''){
+function jtpl_function_html_breadcrumb($tpl,$nb=null,$separator=''){
 	global $gJCoord;
-	$plugin = $gJCoord->getPlugin('history', true);
-	if($plugin === null){
+	$plugin=$gJCoord->getPlugin('history',true);
+	if($plugin===null){
 		return;
 	}
-	$config = & $plugin->config;
+	$config=& $plugin->config;
 	if(!isset($config['session_name'])
-		|| $config['session_name'] == ''){
-		$config['session_name'] = 'HISTORY';
+		||$config['session_name']==''){
+		$config['session_name']='HISTORY';
 	}
-	if( !isset($_SESSION[$config['session_name']])){
+	if(!isset($_SESSION[$config['session_name']])){
 		return;
 	}
 	echo '<ol class="history">';
-	$leng = count($_SESSION[$config['session_name']]);
-	$nb =($nb !== null)? count($_SESSION[$config['session_name']])-$nb:0;
-	$nb =($nb < 0)? 0:$nb;
-	for( $i = $nb; $i < $leng; $i++){
-		$page = $_SESSION[$config['session_name']][$i];
+	$leng=count($_SESSION[$config['session_name']]);
+	$nb=($nb!==null)? count($_SESSION[$config['session_name']])-$nb:0;
+	$nb=($nb < 0)? 0:$nb;
+	for($i=$nb;$i < $leng;$i++){
+		$page=$_SESSION[$config['session_name']][$i];
 		echo '<li'.($i==$nb?' class="first"':($i==$leng-1?' class="end"':'')).'>';
-		if( $i!=$leng-1)
-			echo '<a href="'.jUrl::get($page['action'], $page['params'], jUrl::XMLSTRING).'" '.($page['title']!=''?'title="'.$page['title'].'"':'').'>';
+		if($i!=$leng-1)
+			echo '<a href="'.jUrl::get($page['action'],$page['params'],jUrl::XMLSTRING).'" '.($page['title']!=''?'title="'.$page['title'].'"':'').'>';
 		echo $_SESSION[$config['session_name']][$i]['label'];
-		if( $i!=$leng-1)
+		if($i!=$leng-1)
 			echo '</a>';
 		echo($i==$leng-1?'':$separator).'</li>';
 	}

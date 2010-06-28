@@ -16,7 +16,6 @@ class postsCtrl extends jController {
      */
     public $pluginParams = array(
         '*' => array('auth.required'=>false,
-                    'hfnu.check.installed'=>true,
                     'banuser.check'=>true
                     ),
 

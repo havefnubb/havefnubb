@@ -11,9 +11,9 @@
  * @link http://jelix.org/
  * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_modifier_common_count_characters($string, $include_spaces = false)
+function jtpl_modifier_common_count_characters($string,$include_spaces=false)
 {
 	if($include_spaces)
-	   return(iconv_strlen($string, jTpl::getEncoding()));
-	return preg_match_all("/[^\s]/",$string, $match);
+		return(iconv_strlen($string,jTpl::getEncoding()));
+	return preg_match_all("/[^\s]/",$string,$match);
 }

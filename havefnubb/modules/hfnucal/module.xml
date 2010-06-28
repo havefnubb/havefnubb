@@ -8,12 +8,12 @@
         <description lang="fr_FR">Module Calendrier affichant les discussion par date</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2010 FoxMaSk</copyright>
-        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true" />
+        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
         <homepageURL>http://www.havefnubb.org</homepageURL>
         <updateURL>http://www.havefnubb.org/update.php?module=hfnucal</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1.5" maxversion="1.1.6" />
-        <module name="havefnubb" minversion="1.3.6" maxversion="1.4.0" />
+        <jelix minversion="1.1.5" maxversion="1.2.*"/>
+        <module name="havefnubb" minversion="1.3.6" maxversion="1.4.0"/>
     </dependencies>
 </module>

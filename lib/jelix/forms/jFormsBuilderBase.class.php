@@ -13,21 +13,21 @@
 abstract class jFormsBuilderBase{
 	protected $_form;
 	protected $_action;
-	protected $_actionParams = array();
+	protected $_actionParams=array();
 	protected $_name;
-	protected $_endt = '/>';
+	protected $_endt='/>';
 	public function __construct($form){
-		$this->_form = $form;
+		$this->_form=$form;
 	}
-	public function setAction( $action, $actionParams){
-		$this->_action = $action;
-		$this->_actionParams = $actionParams;
-		$this->_name = jFormsBuilderBase::generateFormName($this->_form->getSelector());
-		if($GLOBALS['gJCoord']->response!= null && $GLOBALS['gJCoord']->response->getType() == 'html'){
-			$this->_endt =($GLOBALS['gJCoord']->response->isXhtml()?'/>':'>');
+	public function setAction($action,$actionParams){
+		$this->_action=$action;
+		$this->_actionParams=$actionParams;
+		$this->_name=jFormsBuilderBase::generateFormName($this->_form->getSelector());
+		if($GLOBALS['gJCoord']->response!=null&&$GLOBALS['gJCoord']->response->getType()=='html'){
+			$this->_endt=($GLOBALS['gJCoord']->response->isXhtml()?'/>':'>');
 		}
 	}
-	public function getName(){ return  $this->_name;}
+	public function getName(){return  $this->_name;}
 	abstract public function outputMetaContent($tpl);
 	abstract public function outputHeader($params);
 	abstract public function outputFooter();
@@ -35,12 +35,12 @@ abstract class jFormsBuilderBase{
 	abstract public function outputControl($ctrl);
 	abstract public function outputControlLabel($ctrl);
 	protected static function generateFormName($sel){
-		static $forms = array();
-		$name = 'jforms_'.str_replace('~','_',$sel);
+		static $forms=array();
+		$name='jforms_'.str_replace('~','_',$sel);
 		if(isset($forms[$sel])){
 			return $name.(++$forms[$sel]);
-		} else
-			$forms[$sel] = 0;
+		}else
+			$forms[$sel]=0;
 		return $name;
 	}
 }

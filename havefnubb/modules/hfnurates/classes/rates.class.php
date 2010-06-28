@@ -49,7 +49,7 @@ class rates {
             $record->id_user    = $id_user;
             $record->source     = $source;
             $record->level      = $rate;
-            $record->ip 	    = $_SERVER['REMOTE_ADDR'];
+            $record->ip         = $_SERVER['REMOTE_ADDR'];
             $dao->insert($record);
         } else {
             $rec->level = $rate;

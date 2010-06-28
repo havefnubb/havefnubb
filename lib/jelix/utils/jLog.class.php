@@ -11,30 +11,30 @@
 */
 class jLog{
 	private function __construct(){}
-	public static function dump($obj, $label='', $type='default'){
+	public static function dump($obj,$label='',$type='default'){
 		if($label!=''){
-			$message = $label.': '.var_export($obj,true);
+			$message=$label.': '.var_export($obj,true);
 		}else{
-			$message = var_export($obj,true);
+			$message=var_export($obj,true);
 		}
-		self::log($message, $type);
+		self::log($message,$type);
 	}
-	public static function log($message, $type='default'){
-		$f = $GLOBALS['gJConfig']->logfiles[$type];
-		if($f[0] == '!'){
-			$GLOBALS['gJCoord']->addLogMsg("log $type: $message", substr($f, 1));
+	public static function log($message,$type='default'){
+		$f=$GLOBALS['gJConfig']->logfiles[$type];
+		if($f[0]=='!'){
+			$GLOBALS['gJCoord']->addLogMsg("log $type: $message",substr($f,1));
 		}
 		else{
 			if(!isset($_SERVER['REMOTE_ADDR'])){
-				$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+				$_SERVER['REMOTE_ADDR']='127.0.0.1';
 			}
-			$f = str_replace('%ip%', $_SERVER['REMOTE_ADDR'], $f);
-			$f = str_replace('%m%', date("m"), $f);
-			$f = str_replace('%Y%', date("Y"), $f);
-			$f = str_replace('%d%', date("d"), $f);
-			$f = str_replace('%H%', date("H"), $f);
-			$sel = new jSelectorLog($f);
-			error_log(date("Y-m-d H:i:s")."\t".$_SERVER['REMOTE_ADDR']."\t$type\t$message\n", 3, $sel->getPath());
+			$f=str_replace('%ip%',$_SERVER['REMOTE_ADDR'],$f);
+			$f=str_replace('%m%',date("m"),$f);
+			$f=str_replace('%Y%',date("Y"),$f);
+			$f=str_replace('%d%',date("d"),$f);
+			$f=str_replace('%H%',date("H"),$f);
+			$sel=new jSelectorLog($f);
+			error_log(date("Y-m-d H:i:s")."\t".$_SERVER['REMOTE_ADDR']."\t$type\t$message\n",3,$sel->getPath());
 		}
 	}
 }

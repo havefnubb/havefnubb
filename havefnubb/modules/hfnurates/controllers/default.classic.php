@@ -21,15 +21,16 @@ class defaultCtrl extends jController {
      * Put a rate
      */
     function rate_it() {
+        $this->
         //info about the "source" from where the datas come from
-        $id_source = (int) $this->param('id_source');
-        $source= (string) $this->param('source');
+        $id_source = $this->intParam('id_source');
+        $source= $this->param('source');
         // the star
-        $rate = (float) $this->param('star1');
+        $rate = $this->floatParam('star1');
         $rates = jClasses::getService('hfnurates~rates');
         $result= $rates->saveRatesBySource($id_source,$source,$rate);
         $rep = $this->getResponse('redirect');
-        $rep->action= (string) $this->param('return_url');
+        $rep->action= $this->param('return_url');
         $rep->params= (array) $this->param('return_url_params');
         return $rep;
     }
@@ -38,13 +39,13 @@ class defaultCtrl extends jController {
      */
     function rate_ajax_it() {
         //info about the "source" from where the datas come from
-        $id_source = (int) $this->param('id_source');
-        $source= (string) $this->param('source');
+        $id_source = $this->intParam('id_source');
+        $source= $this->param('source');
 
         //check if the cancel button was selected
         if ($id_source == 0 or $source == '') return;
 
-        $rate 	= (float) $this->param('star1');
+        $rate = $this->floatParam('star1');
         jClasses::getService('hfnurates~rates')->saveRatesBySource($id_source,$source,$rate);
         $result = jClasses::getService('hfnurates~rates')->getTotalRatesBySource($id_source,$source);
 

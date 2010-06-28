@@ -5,19 +5,19 @@
 * @author       Bastien Jaillot <bastnicj@gmail.com>
 * @contributor
 * @copyright    2008 Bastien Jaillot
-* @link         http://forge.jelix.org/projects/jcommunity
+* @link         http://bitbucket.org/laurentj/jcommunity/
 * @licence      http://www.gnu.org/licenses/gpl.html GNU General Public Licence, see LICENCE file
 */
 
 
 class jmessenger {
-    
+
     function getNewMessage() {
         $dao = jDao::get("jmessenger~jmessenger");
         $nb = $dao->getNbNewMessage(jAuth::getUserSession()->id);
         return $nb;
     }
-    
+
     function getLibelleNewMessage() {
         $nb = $this->getNewMessage();
         switch ($nb) {
@@ -33,7 +33,4 @@ class jmessenger {
         }
         return $libelle;
     }
-    
 }
-
-?>

@@ -9,18 +9,18 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_block_html_formcontrols($compiler, $begin, $param=array())
+function jtpl_block_html_formcontrols($compiler,$begin,$param=array())
 {
 	if(!$begin){
 		return '}} $t->_privateVars[\'__ctrlref\']=\'\';';
 	}
-	if(count($param) > 3){
+	if(count($param)> 3){
 		$compiler->doError2('errors.tplplugin.block.bad.argument.number','formcontrols',3);
 		return '';
 	}
 	if(count($param)){
-		if(count($param) == 1){
-			$content = 'if(is_array('.$param[0].')){
+		if(count($param)==1){
+			$content='if(is_array('.$param[0].')){
                 $ctrls_to_display = '.$param[0].';
                 $ctrls_notto_display = null;
             }
@@ -30,8 +30,8 @@ function jtpl_block_html_formcontrols($compiler, $begin, $param=array())
                 $ctrls_notto_display = null;
             }';
 		}
-		elseif(count($param) == 2){
-			$content = 'if(is_array('.$param[0].') || '.$param[0].' === null){
+		elseif(count($param)==2){
+			$content='if(is_array('.$param[0].') || '.$param[0].' === null){
                 $ctrls_to_display = '.$param[0].';
                 $ctrls_notto_display = '.$param[1].';
             }
@@ -42,25 +42,25 @@ function jtpl_block_html_formcontrols($compiler, $begin, $param=array())
             }';
 		}
 		else{
-			$content = ' $t->_privateVars[\'__form\'] = '.$param[0].";\n";
-			$content .= ' $ctrls_to_display = '.$param[1].'; ';
-			$content .= ' $ctrls_notto_display = '.$param[2].'; ';
+			$content=' $t->_privateVars[\'__form\'] = '.$param[0].";\n";
+			$content.=' $ctrls_to_display = '.$param[1].'; ';
+			$content.=' $ctrls_notto_display = '.$param[2].'; ';
 		}
 	}else{
-		$content = '$ctrls_to_display=null;';
-		$content .= '$ctrls_notto_display=null;';
+		$content='$ctrls_to_display=null;';
+		$content.='$ctrls_notto_display=null;';
 	}
-	$_frmctrlInsideForm = $compiler->isInsideBlock('form');
-	$content .= '
+	$_frmctrlInsideForm=$compiler->isInsideBlock('form');
+	$content.='
 if (!isset($t->_privateVars[\'__displayed_ctrl\'])) {
     $t->_privateVars[\'__displayed_ctrl\'] = array();
 }
 $t->_privateVars[\'__ctrlref\']=\'\';
 ';
 if($_frmctrlInsideForm){
-	$list = 'getRootControls()';
+	$list='getRootControls()';
 }else{
-	$list = 'getControls()';
+	$list='getControls()';
 }
 $content.='
 foreach($t->_privateVars[\'__form\']->'.$list.' as $ctrlref=>$ctrl){

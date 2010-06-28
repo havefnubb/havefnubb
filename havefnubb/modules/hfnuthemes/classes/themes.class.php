@@ -20,7 +20,7 @@ class themes  {
 
         $dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
         foreach ($dir as $dirContent) {
-            if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..' and $dirContent != '.svn')
+            if ($dirContent->isDir() and !$dirContent->isDot())
                 $themes[] = self::readManifest($dirContent->getFilename());
         }
         return $themes;
@@ -32,7 +32,9 @@ class themes  {
      */
     static function readManifest($theme) {
         $themeInfos = array();
-        include JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.php';
+        $path = JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.php';
+        if (file_exists($path))
+            include $path;
         return $themeInfos;
     }
 

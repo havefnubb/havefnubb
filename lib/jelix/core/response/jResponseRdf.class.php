@@ -5,30 +5,30 @@
 * @subpackage  core_response
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2006-2008 Laurent Jouanneau
+* @copyright   2006-2009 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 final class jResponseRdf extends jResponse{
-	protected $_type = 'rdf';
+	protected $_type='rdf';
 	protected $_acceptSeveralErrors=true;
 	public $data;
 	public $template;
 	public $resNs="http://dummy/rdf#";
 	public $resNsPrefix='row';
-	public $resUriPrefix = "urn:data:row:";
-	public $resUriRoot = "urn:data:row";
+	public $resUriPrefix="urn:data:row:";
+	public $resUriRoot="urn:data:row";
 	public $asAttribute=array();
 	public $asElement=array();
 	protected $prologSent=false;
 	public function output(){
-		if($this->hasErrors()) return false;
+		if($this->hasErrors())return false;
 		$this->_httpHeaders['Content-Type']='text/xml;charset='.$GLOBALS['gJConfig']->charset;
 		$this->sendHttpHeaders();
 		echo '<?xml version="1.0" encoding="'.$GLOBALS['gJConfig']->charset.'"?>';
-		$this->prologSent = true;
-		if($this->template !=''){
-			$tpl= new jTpl();
+		$this->prologSent=true;
+		if($this->template!=''){
+			$tpl=new jTpl();
 			$tpl->assign('data',$this->data);
 			$tpl->display($this->template);
 		}else{
@@ -45,7 +45,7 @@ final class jResponseRdf extends jResponse{
 			echo "<li>\n<Description ";
 			if(is_object($dt))
 				$dt=get_object_vars($dt);
-			if(count($this->asAttribute) || count($this->asElement)){
+			if(count($this->asAttribute)||count($this->asElement)){
 				foreach($this->asAttribute as $name){
 					echo $this->resNsPrefix,':',$name,'="',htmlspecialchars($dt[$name]),'" ';
 				}
@@ -89,6 +89,7 @@ final class jResponseRdf extends jResponse{
 				echo "<li>\n";
 				echo '<Description err:code="'.$e[1].'" err:type="'.$e[0].'" err:file="'.$e[3].'" err:line="'.$e[4].'">';
 				echo '<err:message>'.htmlspecialchars($e[2]).'</err:message>';
+				echo '<err:trace>'.htmlspecialchars($e[5]).'</err:trace>';
 				echo "</Description>\n";
 				echo "</li>\n";
 			}

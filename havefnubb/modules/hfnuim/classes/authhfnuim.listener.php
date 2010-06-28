@@ -130,11 +130,11 @@ class authhfnuimListener extends jEventListener{
 
     // jcommunity_check_before_save_account', array('login'=>$user,'form'=>$form));
 
-	/**
-	* to answer to jcommunity_save_account event
-	* @param object $event the given event to answer to
-	*/
-	function onjcommunity_save_account ($event) {
+    /**
+    * to answer to jcommunity_save_account event
+    * @param object $event the given event to answer to
+    */
+    function onjcommunity_save_account ($event) {
         $login = $event->getParam('login');
         $form =  $event->getParam('form');
         $user = $event->getParam('record');
@@ -173,6 +173,6 @@ class authhfnuimListener extends jEventListener{
                 }
             }
         }
-	}
+    }
 
 }
