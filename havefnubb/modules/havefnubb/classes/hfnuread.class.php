@@ -20,12 +20,13 @@ class hfnuread {
      * this function mark all forum as read
      */
     public static function markAllAsRead() {
+        //@FIXME : update not done ?!
         if (jAuth::isConnected()) {
             $user = jAuth::getUserSession();
-
+            $connected =jDao::get('havefnubb~connected')->get($user->id)->connected;
             $dao = jDao::get('havefnubb~member');
             $rec = $dao->get($user->login);
-            $rec->member_last_connect = jDao::get('havefnubb~connected' )->get($user->id_user)->connected;
+            $rec->member_last_connect = $connected;
             $dao->update($rec);
         }
     }
@@ -67,7 +68,7 @@ class hfnuread {
         if ($postRead === false)
             return false;
         else {
-            if ($postRead->date_last_msg > jAuth::getUserSession()->member_last_connect)
+            if ($postRead->date_last_post > jAuth::getUserSession()->member_last_connect)
                 return false;
             else
                 return true;
@@ -82,7 +83,6 @@ class hfnuread {
         if ( !jAuth::isConnected() )
             return array('posts'=>0,'nbPosts'=>0);
         $memberLastConnect = jAuth::getUserSession()->member_last_connect;
-        $nbPosts = jDao::get('havefnubb~threads_alone')->countUnreadThread($memberLastConnect);
         if (  jAcl2::check('hfnu.admin.post') ) {
                 $posts = jDao::get('havefnubb~threads')
                         ->findUnreadThread(

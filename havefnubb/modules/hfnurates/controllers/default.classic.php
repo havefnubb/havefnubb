@@ -21,7 +21,6 @@ class defaultCtrl extends jController {
      * Put a rate
      */
     function rate_it() {
-        $this->
         //info about the "source" from where the datas come from
         $id_source = $this->intParam('id_source');
         $source= $this->param('source');

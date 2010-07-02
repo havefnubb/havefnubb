@@ -2,15 +2,15 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
 	<datasources>
 		<primarytable name="ug" realname="jacl2_user_group" primarykey="login,id_aclgrp" />
-		<optionalforeigntable name="usr" realname="member" primarykey="member_login" onforeignkey="login"/>
+		<optionalforeigntable name="usr" realname="community_users" primarykey="login" onforeignkey="login"/>
 	</datasources>
 	<record>
 		<property name="login" fieldname="login" datatype="string" required="yes"/>
 		<property name="id_aclgrp" fieldname="id_aclgrp" datatype="int" required="yes"/>
-		<property name="status" fieldname="member_status" table="usr" datatype="integer" />
-		<property name="nb_msg" fieldname="member_nb_msg" table="usr" datatype="integer" />
-		<property name="member_created" fieldname="member_created" table="usr" datatype="datetime" />
-		<property name="request_date" fieldname="member_request_date" table="usr" datatype="datetime" />
+		<property name="status" fieldname="status" table="usr" datatype="integer" />
+		<property name="nb_msg" fieldname="nb_msg" table="usr" datatype="integer" />
+		<property name="member_created" fieldname="create_date" table="usr" datatype="datetime" />
+		<property name="request_date" fieldname="request_date" table="usr" datatype="datetime" />
 	</record>
 
 	<factory>

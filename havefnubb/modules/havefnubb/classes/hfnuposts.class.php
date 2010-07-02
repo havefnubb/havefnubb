@@ -335,7 +335,7 @@ class hfnuposts {
             $forum = jDao::get('havefnubb~forum');
             $forumRec = $forum->get($id_forum);
             $forumRec->id_last_msg = $id_post;
-            $forumRec->date_last_msg = $dateReply;
+            $forumRec->date_last_msg = $datePost;
             $forum->update($forumRec);
 
             self::addPost($id_post,$record);
