@@ -36,7 +36,7 @@
                 <td>
                     <h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
                         <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
-                    </h4>{$category->forum_desc|eschtml}
+                    </h4>{$category->forum_name|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
                 <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>
                 <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>

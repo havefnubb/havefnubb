@@ -70,9 +70,13 @@
         <div class="grid_8 postheading">
         <h5><a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if} {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</a></h5>
         </div>
-        {if count($tags) > 0}
+        {if count($tags) > 1}
         <div class="grid_2 postheading-tags">
         <ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul>
+        </div>
+        {elseif count($tags) ==1}
+        <div class="grid_2 postheading-tags">
+        <ul><li>{$tags}</li></ul>
         </div>
         {/if}
         <div class="clear"></div>

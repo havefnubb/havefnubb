@@ -55,6 +55,7 @@ class defaultCtrl extends jController {
                 }
             }
         }
+
         $tpl = new jTpl();
         //$rep->body->assignZone('MAIN', 'havefnubb~category',array('data'=>$data,'nbCat'=>$nbCat));
         $tpl->assign('selectedMenuItem','community');

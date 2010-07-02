@@ -32,6 +32,7 @@ function jtpl_function_html_post_status($tpl, $source, $data) {
     }
     elseif ($source == 'post') {
         $post = $data;
+
         $status = $statusAvailable[ $post->status_thread - 1];
 
         //opened thread ?
@@ -47,7 +48,7 @@ function jtpl_function_html_post_status($tpl, $source, $data) {
 
         // does this forum manage auto-expiration ?
         $dayInSecondes = 24 * 60 * 60;
-        $dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $dayInSecondes) : floor( (time() - $rec->date_modified ) / $dayInSecondes) ;
+        $dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $dayInSecondes) : floor( (time() - $post->date_modified ) / $dayInSecondes) ;
 
         $recForum   = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         //if forum has expired ...

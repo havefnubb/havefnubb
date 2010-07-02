@@ -16,7 +16,7 @@ $locales = array(
     'error.password.confirm'=>'Veuillez confirmer votre mot de passe en répétant le mot de passe précédement entré',
     'error.missing.login'=>'Le login est manquant',
     'error.missing.password'=>'Le mot de passe est manquant',
+    'error.confirm.password'=>'Les mots de passe ne correspondent pas',
     'error.missing.email'=>'l\'email est manquant',
-    
-);
 
+);

@@ -165,7 +165,9 @@ class postsCtrl extends jController {
                 $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
                 $nbRec = $rec->rowCount();
                 for ($nbReplies = 0; $nbReplies < $nbRec; ++$nbReplies) {
-                    if ($gotoPostId = $rec->id_post) break;
+
+                    foreach ($rec as $child)
+                        if ($gotoPostId == $child->id_post) break;
                 }
                 $page = (ceil ($nbReplies/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
 
@@ -289,6 +291,9 @@ class postsCtrl extends jController {
             $page = 0;
         }
 
+        $srvTags = jClasses::getService("jtags~tags");
+        $tags = implode(',',$srvTags->getTagsBySubject('forumscope',$id_post));
+
         $tpl = new jTpl();
 
         if(jAuth::isConnected())
@@ -307,7 +312,7 @@ class postsCtrl extends jController {
 
         $tpl->assign('id_post'  ,$id_post);
         $tpl->assign('forum'    ,$forum);
-        $tpl->assign('category'	,$category);
+        $tpl->assign('category',$category);
 
         $tpl->assign('posts',$posts);
         $tpl->assign('tags',$tags);
@@ -319,7 +324,12 @@ class postsCtrl extends jController {
         $tpl->assign('ptitle',$post->subject);
         $tpl->assign('parent_id',$post->parent_id);
         $tpl->assign('forum_name',$post->forum_name);
-        $tpl->assign('subscribed',jClasses::getService('havefnubb~hfnusub')->getSubscribed($parentPost->parent_id));
+        $tpl->assign('subscribed',
+                     jClasses::getService('havefnubb~hfnusub')->getSubscribed(
+                                            //$parentPost->parent_id
+                                            $post->parent_id
+                                            )
+                    );
 
         $tpl->assign('subject'  ,$post->subject);
         $tpl->assign('status'   ,self::$statusAvailable[$status -1]);

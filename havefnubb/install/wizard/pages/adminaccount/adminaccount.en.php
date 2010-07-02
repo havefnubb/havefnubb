@@ -16,6 +16,7 @@ $locales = array(
     'error.password.confirm'=>'Please confirm your password by repeating the previous entered password',
     'error.missing.login'=>'Login is missing',
     'error.missing.password'=>'The password is missing',
+    'error.confirm.password'=>'The passwords are not the same',
     'error.missing.email'=>'The email is missing',
 
 
