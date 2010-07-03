@@ -1152,6 +1152,7 @@ class postsCtrl extends jController {
      */
     public function moveToForum() {
         $id_forum = (int) $this->param('id_forum');
+        $parent_id = (int) $this->param('parent_id');
         $id_post = (int) $this->param('id_post');
 
         if ( $id_forum == 0) {
@@ -1161,7 +1162,7 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        if ($id_post == 0) {
+        if ($parent_id == 0 or $id_post == 0) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~posts:lists';
@@ -1178,7 +1179,7 @@ class postsCtrl extends jController {
 
         //let's move the thread
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-        $result = $hfnuposts->moveToForum($id_post,$id_forum);
+        $result = $hfnuposts->moveToForum($parent_id,$id_forum);
 
         if ($result === false ) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -1188,15 +1189,14 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        $daoForum = jDao::get('havefnubb~posts');
-        $forum = $daoForum->get($id_post);
+        $post = $hfnuposts->getPost($id_post);
         jMessage::add(jLocale::get('havefnubb~main.common.thread.moved'),'ok');
         $rep = $this->getResponse('redirect');
-        $rep->params = array('ftitle'=>$forum->forum_name,
-                            'ptitle'=>$forum->subject,
+        $rep->params = array('ftitle'=>$post->forum_name,
+                            'ptitle'=>$post->subject,
                             'id_forum'=>$id_forum,
-                            'id_post'=>$forum->id_post,
-                            'parent_id'=>$forum->parent_id);
+                            'id_post'=>$post->id_post,
+                            'parent_id'=>$post->parent_id);
         $rep->action ='havefnubb~posts:view';
         return $rep;
     }

@@ -6,3 +6,4 @@ timeout_visit=300
 
 dao_connected="havefnubb~timeout"
 dao_member="havefnubb~member"
+

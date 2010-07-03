@@ -45,12 +45,11 @@ hfnucontact.access=2
 hfnuhardware.access=2
 hfnuim.access=2
 hfnurates.access=2
-hfnusearch.access=1
-hfnuthemes.access=1
+hfnusearch.access=2
+hfnuthemes.access=2
 jcommunity.access=1
 jmessenger.access=1
 jtags.access=1
 servinfo.access=2
 
 hook.access=1
-

@@ -18,7 +18,8 @@
             <param name="status" type="string"/>
         </url>
 
-        <url pathinfo="/:id_post/moveto" action="posts:moveToForum">
+        <url pathinfo="/:parent_id-:id_post/moveto" action="posts:moveToForum">
+            <param name="parent_id" type="number"/>
             <param name="id_post" type="number"/>
         </url>
 

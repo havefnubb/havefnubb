@@ -632,10 +632,16 @@ class hfnuposts {
      * @param integer $id_forum id forum to move to
      * @return boolean
      */
-    public static function moveToForum($id_post,$id_forum) {
-        if ($id_post == 0 or $id_forum == 0) return false;
-        $dao = jDao::get('havefnubb~posts');
-        $dao->moveToForum($id_post,$id_forum);
+    public static function moveToForum($parent_id,$id_forum) {
+        if ($parent_id == 0 or $id_forum == 0) return false;
+
+        jDao::get('havefnubb~posts')->moveToForum($parent_id,$id_forum);
+
+        $daoThreads = jDao::get('havefnubb~threads_alone');
+        $threadRec = $daoThreads->get($parent_id);
+        $threadRec->id_forum_thread=$id_forum;
+        $daoThreads->update($threadRec);
+
         return true;
     }
 
@@ -663,12 +669,12 @@ class hfnuposts {
             $record->id_forum = $id_forum; // the id forum where we want to move this post
             // we only set parent_id to id_post for the first post which becomes the parent !
             if ($i > 0 ) {
-                    $record->parent_id = $id_post_new;
+                $record->parent_id = $id_post_new;
             }
             $dao->insert($record); // create the new record
             if ($i == 0 ) {
-                    $record->parent_id 	= $record->id_post;
-                    $id_post_new 		= $record->id_post;
+                    $record->parent_id  = $record->id_post;
+                    $id_post_new        = $record->id_post;
                     $dao->update($record);
             }
             $i++;

@@ -256,10 +256,10 @@
             </values>
         </method>
         <method name="moveToForum" type="update">
-            <parameter name="id_post"/>
+            <parameter name="parent_id"/>
             <parameter name="id_forum"/>
            <conditions>
-                <eq property="parent_id" expr="$id_post" />
+                <eq property="parent_id" expr="$parent_id" />
             </conditions>
             <values>
                 <value property="id_forum" expr="$id_forum" />

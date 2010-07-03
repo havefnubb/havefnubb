@@ -30,10 +30,10 @@ perform_search_in = words,authors,forums
 ; this busines class is the only one you will have to write yourself
 ; to get the datas - see the class hfnusearch~search_index and function searchEngineRun for or
 ; simple way to use it or in class hfnusearch~search_index_havefnubb and function searchEngineRun for a more complex query
-classToPerformSearchEngine = search_index
+classToPerformSearchEngine = "hfnusearch~search_index"
 
 ; this section tell to HfnuSearch, which column of my DAO are the one i want to use to populate the Search Engine
-; the section name is the DAO name WITHOUT the ~ !!!
-[havefnubbposts]
+; the section name is the DAO name 
+[havefnubb~posts]
 index_subject=subject
 index_message=message

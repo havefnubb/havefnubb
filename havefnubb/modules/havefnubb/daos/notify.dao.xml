@@ -18,7 +18,7 @@
         <property name="date_created" fieldname="date_created" datatype="int" required="true"/>
         <property name="date_modified" fieldname="date_modified" datatype="int" required="true"/>
 
-        <property name="member_login" fiedname="login" datatype="string" table="member"/>
+        <property name="login" fiedname="login" datatype="string" table="member"/>
         <property name="forum_name" fieldname="forum_name" datatype="string" table="forum"/>
 
         <property name="id_first_msg"  fieldname="id_first_msg"  datatype="int" table="threads"/>

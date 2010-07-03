@@ -204,7 +204,7 @@
 </div>
 <div class="box">
     <h2>{@havefnubb~forum.move.this.thread@}</h2>
-{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post)}
+{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'parent_id'=>$parent_id)}
     <div class="block">
     {ctrl_label 'id_forum'} {ctrl_control 'id_forum'} {formsubmit 'validate'}
     </div>
