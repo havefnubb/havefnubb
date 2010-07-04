@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <suburls xmlns="http://jelix.org/ns/suburls/1.0">
     <url pathinfo="/"  action="default:index"/>
-    <url pathinfo="/results" action="default:query"/>
-    <url pathinfo="/resultsajax" action="default:queryajax"/>
+    <url pathinfo="/query" action="default:query"/>
+    <url pathinfo="/queryajax" action="default:queryajax"/>
 </suburls>

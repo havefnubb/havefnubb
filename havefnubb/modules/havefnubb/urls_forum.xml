@@ -23,10 +23,6 @@
            <param name="ftitle"  type="string" escape="true" />
         </url>
 
-        <url pathinfo="/:id_forum/mark_as_read" action="forum:mark_forum_as_read">
-            <param name="id_forum" type="number"/>
-        </url>
-
         <url pathinfo="/:id_forum-:ftitle/rss" action="posts:rss">
            <param name="id_forum" type="number"/>
            <param name="ftitle"  type="string" escape="true" />

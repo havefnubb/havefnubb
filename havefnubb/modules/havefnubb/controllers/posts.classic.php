@@ -1486,15 +1486,13 @@ class postsCtrl extends jController {
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
         $nbPosts = 0;
         $posts = array();
-        $unread= jClasses::getService('havefnubb~hfnuread');
-        $datas = $unread->findUnreadThread($page,$nbPostPerPage);
+        $posts = jClasses::getService('havefnubb~hfnuread')->findUnreadThread($page,$nbPostPerPage);
 
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('posts', $datas['posts']);
+        $tpl->assign('posts', $posts);
         $tpl->assign('page',$page);
         $tpl->assign('nbPostPerPage',$nbPostPerPage);
-        $tpl->assign('nbPosts',$datas['nbPosts']);
         $tpl->assign('properties',$properties);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.shownew'));
         return $rep;

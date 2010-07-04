@@ -30,31 +30,28 @@ class search_index_havefnubb extends search_index {
         //1) open the config file
         $HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
         //2) get the dao we want to read
-        $dataSource = $HfnuSearchConfig->getValue('dao');
+        $dataSource = $HfnuSearchConfig['dao'];
         //3) build an array with each one
         $dataSources = preg_split('/,/',$dataSource);
         foreach ($dataSources as $ds) {
             //4) get a factory of the current DAO
             $dao = jDao::get($ds);
-
+jLog::dump($ds,'datasource: ');
             //getting the column name on which we need to make the query
             $indexSubject = $HfnuSearchConfig[$ds]['index_subject'];
             $indexMessage = $HfnuSearchConfig[$ds]['index_message'];
 
             //5) get all the record
             $conditions = jDao::createConditions();
-
-            if ($id_forum > 0) {
+            $conditions->startGroup('OR');
+            if ($id_forum > 0)
                 $conditions->addCondition('id_forum','=',$id_forum);
-                $conditions->startGroup('OR');
-            }
-            else
-                $conditions->startGroup('AND');
 
             foreach ($words as $word) {
                 $conditions->addCondition($indexSubject,'LIKE','%'.$word.'%');
                 $conditions->addCondition($indexMessage,'LIKE','%'.$word.'%');
             }
+
             $conditions->endGroup();
 
             $allRecord = $dao->findBy($conditions);
@@ -62,18 +59,21 @@ class search_index_havefnubb extends search_index {
                 $record = $dao->findBy($conditions, $page, $limit);
             else
                 $record = $allRecord;
-
+                
             foreach ($record as $rec) {
-                if ($rec->status == 'hidden' and jAcl2::check('hfnu.admin.post') )
-                    $event->Add(array('SearchEngineResult'=>$rec,
-                                  'SearchEngineResultTotal'=>$allRecord->rowCount()
-                                  )
-                        );
-                elseif ($rec->status != 'hidden' and jAcl2::check('hfnu.forum.view','forum'.$rec->id_forum))
-                    $event->Add(array('SearchEngineResult'=>$rec,
-                                  'SearchEngineResultTotal'=>$allRecord->rowCount()
-                                  )
-                        );
+                if ( jAcl2::check('hfnu.admin.post') )
+                    $event->Add(array(
+                        'SearchEngineResult'=>$rec,
+                        'SearchEngineResultTotal'=>$allRecord->rowCount()
+                        )
+                    );
+                //member access + post not hidden ? (status=7 => hidden post)
+                elseif ( jAcl2::check('hfnu.forum.view','forum'.$rec->id_forum) and $rec->status < 7 )
+                    $event->Add(array(
+                        'SearchEngineResult'=>$rec,
+                        'SearchEngineResultTotal'=>$allRecord->rowCount()
+                        )
+                    );
             }
         }
     }

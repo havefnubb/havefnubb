@@ -23,10 +23,10 @@ class hfnuread {
         //@FIXME : update not done ?!
         if (jAuth::isConnected()) {
             $user = jAuth::getUserSession();
-            $connected =jDao::get('havefnubb~connected')->get($user->id)->connected;
+            $connected =
             $dao = jDao::get('havefnubb~member');
             $rec = $dao->get($user->login);
-            $rec->member_last_connect = $connected;
+            $rec->member_last_connect = jDao::get('havefnubb~connected')->get($user->id)->connected;
             $dao->update($rec);
         }
     }
@@ -80,9 +80,11 @@ class hfnuread {
      * @return array : the limited records + total of records
      */
     public static function findUnreadThread($page=0,$nbPostPerPage=25) {
+        $posts = array();
         if ( !jAuth::isConnected() )
-            return array('posts'=>0,'nbPosts'=>0);
+            return $posts;
         $memberLastConnect = jAuth::getUserSession()->member_last_connect;
+
         if (  jAcl2::check('hfnu.admin.post') ) {
                 $posts = jDao::get('havefnubb~threads')
                         ->findUnreadThread(
@@ -97,6 +99,6 @@ class hfnuread {
                             $page,
                             $nbPostPerPage);
         }
-        return array('posts'=>$posts,'nbPosts'=>$nbPosts);
+        return $posts;
     }
 }

@@ -64,7 +64,7 @@ class defaultCtrl extends jController {
             return $rep;
         }
         // let's build the appropriate service to call
-        $function = 'searchIn'.ucfirst($this->param('perform_search_in'));
+        $searchIn = 'searchIn'.ucfirst($this->param('perform_search_in'));
 
         $page = 0;
         if ( $this->param('page') > 0 )
@@ -74,9 +74,7 @@ class defaultCtrl extends jController {
 
         $resultsPerPage = (int) $HfnuSearchConfig['results_per_page'];
 
-        $perform = jClasses::getService('hfnusearch~search_in');
-
-        $result = $perform->$function($string,$additionnalParam,$page,$resultsPerPage);
+        $result = jClasses::getService('hfnusearch~search_in')->$searchIn($string,$additionnalParam,$page,$resultsPerPage);
 
         $count = $result['total'];
 
@@ -108,7 +106,7 @@ class defaultCtrl extends jController {
      * Autocomplete Query
      */
     public function queryajax () {
-        $string = (string) $this->param('hfnu_q');
+        $string = (string) $this->param('q');
         if ($string == '') return;
 
         $additionnalParam = '';

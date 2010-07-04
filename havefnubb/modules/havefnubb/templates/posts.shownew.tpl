@@ -1,11 +1,14 @@
+<div class="clear"></div>
 <div class="box">
     <h2>{@havefnubb~post.list.of.new.posts@}</h2>
+
     <div class="block">
+        <a href="{jurl 'havefnubb~forum:mark_all_as_read'}">{@havefnubb~forum.mark.all.forum.as.read@}</a>
         <div class="pager-posts">
-        {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}
+        {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $posts->rowCount(), $page, $nbPostPerPage, "page", $properties}
         </div>
     <table>
-        <caption>{@havefnubb~post.list.of.new.posts@} : {$nbPosts}</caption>
+        <caption>{@havefnubb~post.list.of.new.posts@} : {$posts->rowCount()}</caption>
         <thead>
             <tr><th></th>
                 <th>{@havefnubb~forum.forumlist.title@}</th>
@@ -40,7 +43,7 @@
         </tbody>
     </table>
         <div class="pager-posts">
-        {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}
+        {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $posts->rowCount(), $page, $nbPostPerPage, "page", $properties}
         </div>
     </div>
 </div>

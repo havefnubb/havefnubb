@@ -28,13 +28,13 @@ class search_index {
      */
     public $dataSource  = '';
 
-    /*
+
     public function __construct($id='',$dataSource='',$subject='',$message='') {
-    $this->id 	= $id;
-    $this->dataSource= $dataSource;
-    $this->message 	= $message;
-    $this->subject 	= $subject;
-    }*/
+        $this->id           = $id;
+        $this->dataSource   = $dataSource;
+        $this->message      = $message;
+        $this->subject      = $subject;
+    }
     /**
     * split the search request sentence in several words
     * and add the weight for each case
@@ -107,16 +107,16 @@ class search_index {
             //5) get all the record
             $records = $dao->findAll();
             foreach ($records as $rec ) {
-            //6) get the columns we want to read and inject their data in the engine
-            $indexSubject = $HfnuSearchConfig[$ds]['index_subject'];
-            $indexMessage = $HfnuSearchConfig[$ds]['index_message'];
-            $subject = $indexSubject != '' ? $rec->$indexSubject : '';
-            $message = $indexMessage != '' ? $rec->$indexMessage : '';
-            $this->message 	= $subject;
-            $this->subject 	= $message;
-            $this->id 	= $rec->id;
-            //7) lets update the engine !
-            $this->searchEngineUpdate();
+                //6) get the columns we want to read and inject their data in the engine
+                $indexSubject = $HfnuSearchConfig[$ds]['index_subject'];
+                $indexMessage = $HfnuSearchConfig[$ds]['index_message'];
+                $subject = $indexSubject != '' ? $rec->$indexSubject : '';
+                $message = $indexMessage != '' ? $rec->$indexMessage : '';
+                $this->message 	= $subject;
+                $this->subject 	= $message;
+                $this->id   = $rec->id;
+                //7) lets update the engine !
+                $this->searchEngineUpdate();
             }
         }
         return $records->rowCount();

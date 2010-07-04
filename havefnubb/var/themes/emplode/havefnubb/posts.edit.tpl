@@ -55,7 +55,7 @@
         <div class="form_value">{@havefnubb~post.subscribe.to.this.post.help@} {ctrl_control 'subscribe'} </div>
         <div class="clearer">&nbsp;</div>
     </div>
-    
+
     <div class="form_row form_row_submit">
         <div class="form_value">
         {formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}
@@ -66,4 +66,4 @@
     {/form}
 </div>
 {hook 'hfbAfterPostsEdit',array('id_post'=>$id_post)}
-{zone 'havefnubb~syntax_wiki'}
+{include 'havefnubb~syntax_wiki'}

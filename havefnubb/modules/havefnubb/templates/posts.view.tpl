@@ -3,7 +3,7 @@
 </div>
 {zone 'hfnusearch~hfnuquicksearch'}
 {ifuserconnected}
-{zone 'havefnubb~mark_forum',array('currentIdForum'=>$currentIdForum)}
+{include 'havefnubb~zone.mark_forum'}
 {/ifuserconnected}
 <div class="clear"></div>
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}

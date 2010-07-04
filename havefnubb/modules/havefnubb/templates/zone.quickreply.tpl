@@ -26,4 +26,5 @@
     {/form}
     </div>
 </div>
-{zone 'havefnubb~syntax_wiki'}
+{include 'havefnubb~zone.syntax_wiki'}
+

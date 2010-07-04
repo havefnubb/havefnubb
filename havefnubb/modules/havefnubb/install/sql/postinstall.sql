@@ -188,8 +188,8 @@ INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hf
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.posts.view', 3, 'forum4');
 
 
-INSERT INTO %%PREFIX%%sc_tags (tag_id, tag_name, nbuse) VALUES (1, 'install', 1);
-INSERT INTO %%PREFIX%%sc_tags_tagged (tt_id, tag_id, tt_scope_id, tt_subject_id) VALUES (1, 1, 'forumscope', 1);
+INSERT INTO %%PREFIX%%sc_tags (tag_name, nbuse) VALUES ('install', 1);
+INSERT INTO %%PREFIX%%sc_tags_tagged (tag_id, tt_scope_id, tt_subject_id) VALUES ( 1, 'forumscope', 1);
 
 
 INSERT INTO %%PREFIX%%search_words (id, datasource, words, weight) VALUES ('1', '', 'first', 1);

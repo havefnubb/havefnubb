@@ -3,7 +3,7 @@
 </div>
 {zone 'hfnusearch~hfnuquicksearch'}
 {ifuserconnected}
-{zone 'havefnubb~mark_forum',array('currentIdForum'=>$currentIdForum)}
+{include 'havefnubb~zone.mark_forum'}
 {/ifuserconnected}
 <div class="clear"></div>
 <div id="post-message">{jmessage}</div>

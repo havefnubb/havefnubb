@@ -30,12 +30,12 @@
     <property name="member_town" fieldname="town" datatype="string" required="true" maxlength="100"/>
     <property name="member_comment" fieldname="comment" datatype="string" required="true" maxlength="255"/>
     <property name="member_avatar" fieldname="avatar" datatype="string" maxlength="255"/>
-    <property name="member_gravatar" fieldname="gravatar" datatype="integer" default="0" />
+    <property name="member_gravatar" fieldname="gravatar" datatype="integer" default="0"/>
 
-    <property name="member_last_connect" fieldname="last_connect" datatype="integer" />
+    <property name="member_last_connect" fieldname="last_connect" datatype="integer" default="0" />
 
     <property name="member_show_email" fieldname="show_email" datatype="string" maxlength="1"/>
-        <property name="member_language" fieldname="language" datatype="string"/>
+    <property name="member_language" fieldname="language" datatype="string"/>
 
     <property name="nb_msg" fieldname="nb_msg" datatype="integer" />
     <property name="member_last_post" fieldname="last_post" datatype="integer" default="0"/>

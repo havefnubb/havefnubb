@@ -19,7 +19,7 @@ class search_in {
      */
     function searchInWords($string,$param='',$page=0,$limit=0) {
         $eventresp = jEvent::notify('HfnuSearchEngineRun',
-                                    array(	'string'=>$string,
+                                    array(  'string'=>$string,
                                             'page'=>$page,
                                             'limit'=>$limit
                                           )
