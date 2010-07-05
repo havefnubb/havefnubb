@@ -23,11 +23,13 @@ class hfnuread {
         //@FIXME : update not done ?!
         if (jAuth::isConnected()) {
             $user = jAuth::getUserSession();
-            $connected =
             $dao = jDao::get('havefnubb~member');
             $rec = $dao->get($user->login);
+            //update the user data ...
             $rec->member_last_connect = jDao::get('havefnubb~connected')->get($user->id)->connected;
             $dao->update($rec);
+            // ... and update the current user session
+            jAuth::updateUser($rec);
         }
     }
     /**
