@@ -1268,24 +1268,21 @@ class postsCtrl extends jController {
             $post = $dao->get($form->getData('id_post'));
             switch ($choice) {
                 case 'same_forum' :
-                    $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
                     $id_forum = (int) $this->param('id_forum');
-                    $id_post = $hfnuposts->splitToForum($form->getData('parent_id'),$form->getData('id_post'),$form->getData('id_forum'));
+                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('parent_id'),$form->getData('id_post'),$id_forum);
                     if ($id_post > 0 ) $result = true; else $result = false;
                     break;
                 case 'others' :
                     // the id_forum change to the new selected one
                     $id_forum = (int) $this->param('other_forum');
-                    $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-                    $id_post = $hfnuposts->splitToForum($form->getData('parent_id'),$form->getData('id_post'),$id_forum);
+                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('parent_id'),$form->getData('id_post'),$id_forum);
                     if ($id_post > 0 ) $result = true; else $result = false;
                     break;
                 case 'existings' :
                     // the parent_id change to the new selected one
                     $new_parent_id = (int) $this->param('existing_thread');
                     $id_forum = $new_parent_id;
-                    $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-                    $result = $hfnuposts->splitToThread($form->getData('id_post'),$form->getData('parent_id'),$new_parent_id);
+                    $result = jClasses::getService('havefnubb~hfnuposts')->splitToThread($form->getData('id_post'),$form->getData('parent_id'),$new_parent_id);
                     $id_post = (int) $this->param('existing_thread');
                     break;
             }
