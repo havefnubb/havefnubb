@@ -673,15 +673,45 @@ class hfnuposts {
             }
             $dao->insert($record); // create the new record
             if ($i == 0 ) {
-                    $record->parent_id  = $record->id_post;
-                    $id_post_new        = $record->id_post;
-                    $dao->update($record);
+                $record->parent_id  = $record->id_post;
+                $id_post_new        = $record->id_post;
+                $dao->update($record);
             }
             $i++;
         }
 
         $dao->deleteAllFromCurrentIdPostWithParentId($parent_id,$id_post); // delete the old records
 
+        $record = $dao->get($id_post_new);
+        $threadDao = jDao::get('havefnubb~threads');
+        $threadRec = jDao::createRecord('havefnubb~threads');
+        $threadRec->id_user_thread  = $record->id_user;
+        $threadRec->status_thread   = $record->status;
+        $threadRec->id_forum_thread = $id_forum;
+        $threadRec->nb_replies      = 0;
+        $threadRec->nb_viewed       = 0;
+        $threadRec->id_first_msg    = $record->id_post;
+        $threadRec->id_last_msg     = $record->id_post;
+        $threadRec->date_created    = $record->date_created;
+        $threadRec->date_last_post  = $record->date_last_post;
+        $threadRec->ispined_thread  = $record->ispined;
+        $threadRec->iscensored_thread= $record->iscensored;
+        $threadDao->insert($threadRec);
+
+        // now let's get the inserted id to put this one in parent_id column !
+        $record->parent_id = $threadRec->id_thread;
+
+        $id_post = $record->id_post;
+        $parent_id = $record->parent_id;
+
+        //update Forum record
+        $forum = jDao::get('havefnubb~forum');
+        $forumRec = $forum->get($id_forum);
+        $forumRec->id_last_msg = $id_post;
+        $forumRec->date_last_msg = $datePost;
+        $forum->update($forumRec);
+        // get the id_post of the previous post
+        // then update the thread table with its info (last_msg id + date)
         return $id_post_new;
     }
 
@@ -697,9 +727,9 @@ class hfnuposts {
 
         $dao = jDao::get('havefnubb~posts');
         $datas = $dao->findAllFromCurrentIdPostWithParentId($parent_id,$id_post);
-
+        $i = 0;
         foreach($datas as $data) {
-
+            $i++;
             $record = jDao::createRecord('havefnubb~posts');
             $record = $data;
             $record->id_post = null;//to create a new record !
@@ -710,6 +740,17 @@ class hfnuposts {
         }
 
         $dao->deleteAllFromCurrentIdPostWithParentId($parent_id,$id_post); // delete the old records
+        //Thread Update process :
+        // 1) add to the "target" Thread all the infos
+        $threadRec = jDao::get('havefnubb~threads_alone')->get($new_parent_id);
+        $threadRec->nb_replies=$threadRec->nb_replies + $i;
+        $threadRec->id_last_msg = $dao->getLastCreatedPostByThreadId($new_parent_id)->id_post;
+        $daoThreads->update($threadRec);
+        // 2) remove from the "source" Thread all the infos
+        $threadRec = jDao::get('havefnubb~threads_alone')->get($parent_id);
+        $threadRec->nb_replies=$threadRec->nb_replies - $i;
+        $threadRec->id_last_msg = $dao->getLastCreatedPostByThreadId($parent_id)->id_post;
+        $daoThreads->update($threadRec);
 
         return true;
     }
@@ -717,19 +758,6 @@ class hfnuposts {
     /******************************************************************
      * This part handles others behaviors of post/information of post *
      ******************************************************************/
-
-    /**
-     * get specific info to be display in the breadcrumb and title of each page
-     * @param integer $id_forum the current forum
-     * @return array $info array composed by the forum datas of the current forum and the category datas of the current forum
-     */
-    public static function getCrumbs($id_forum) {
-        if ($id_forum == 0) return array();
-        $forum 		= jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
-        $category 	= jClasses::getService('havefnubb~hfnucat')->getCat($forum->id_cat);
-        $info = array($forum,$category);
-        return $info;
-    }
 
     /**
      * check the permissions/rights to the resources

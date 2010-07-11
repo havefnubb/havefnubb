@@ -71,6 +71,7 @@ class categoryCtrl extends jController {
         $tpl = new jTpl();
 
         $tpl->assign('action','view');
+        $tpl->assign('cat_name',$category->cat_name);
         $tpl->assign('categories',$categories);
         $tpl->assign('currentIdForum',0);
         $rep->body->assign('MAIN', $tpl->fetch('index'));

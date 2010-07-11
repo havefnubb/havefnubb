@@ -76,10 +76,8 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
         }
 
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-
         // crumbs infos
-        list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
+        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
         if (jUrl::escape($forum->forum_name,true) != $ftitle )
         {
@@ -108,7 +106,7 @@ class postsCtrl extends jController {
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
 
         // get all the posts of the current Forum by its Id
-        list($page,$nbPosts,$posts) = $hfnuposts->getPostsByIdForum($id_forum,$page,$nbPostPerPage);
+        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getPostsByIdForum($id_forum,$page,$nbPostPerPage);
 
         // change the label of the breadcrumb
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
@@ -129,12 +127,11 @@ class postsCtrl extends jController {
         $tpl = new jTpl();
         // B- Using the collected datas
         // 1- the posts
+
         $tpl->assign('posts',$posts);
         // 2- the forum
         $tpl->assign('forum',$forum);
-        // 3 - the category
-        $tpl->assign('category',$category);
-        // 4- vars for pagelinks
+        // 3- vars for pagelinks
         // see A-1 / A-2 / A-3
         $tpl->assign('page',$page);
         $tpl->assign('nbPostPerPage',$nbPostPerPage);
@@ -227,7 +224,7 @@ class postsCtrl extends jController {
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($post->subject,ENT_COMPAT,'UTF-8'));
 
         // crumbs infos
-        list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
+        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
 
         if (! $forum) {
             $rep  = $this->getResponse('redirect');
@@ -312,7 +309,6 @@ class postsCtrl extends jController {
 
         $tpl->assign('id_post'  ,$id_post);
         $tpl->assign('forum'    ,$forum);
-        $tpl->assign('category',$category);
 
         $tpl->assign('posts',$posts);
         $tpl->assign('tags',$tags);
@@ -361,9 +357,8 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
         // crumbs infos
-        list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
+        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
         if (! $forum) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
@@ -386,7 +381,6 @@ class postsCtrl extends jController {
         $tpl->assign('previewsubject',null);
         $tpl->assign('form', $form);
         $tpl->assign('forum', $forum);
-        $tpl->assign('category', $category);
         $tpl->assign('heading',jLocale::get('havefnubb~post.form.new.message'));
         $tpl->assign('submitAction','havefnubb~posts:save');
         $tpl->assign('reply',0);
@@ -425,9 +419,8 @@ class postsCtrl extends jController {
         $srvTags = jClasses::getService("jtags~tags");
         $tags = implode(',',$srvTags->getTagsBySubject('forumscope',$id_post));
 
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
         // crumbs infos
-        list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
+        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         if (! $forum) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
@@ -451,7 +444,6 @@ class postsCtrl extends jController {
         $tpl->assign('previewsubject', null);
         $tpl->assign('form', $form);
         $tpl->assign('forum', $forum);
-        $tpl->assign('category', $category);
         $tpl->assign('heading',jLocale::get('havefnubb~post.form.edit.message'));
         $tpl->assign('submitAction','havefnubb~posts:save');
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
@@ -503,8 +495,8 @@ class postsCtrl extends jController {
         if ($submit == jLocale::get('havefnubb~post.form.previewBt') ) {
             $daoUser = jDao::get('havefnubb~member');
 
-            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-            list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
+            //crumbs info
+            $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
 
             $form = jForms::fill('havefnubb~posts',$id_post);
 
@@ -533,7 +525,6 @@ class postsCtrl extends jController {
             $tpl->assign('previewtext', $form->getData('message'));
             $tpl->assign('form', $form);
             $tpl->assign('forum', $forum);
-            $tpl->assign('category', $category);
 
             $rep = $this->getResponse('html');
             $rep->title = jLocale::get('havefnubb~post.form.new.message');
@@ -621,8 +612,15 @@ class postsCtrl extends jController {
         $day_in_secondes = 24 * 60 * 60;
         $dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
 
-        if ( jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum)->post_expire > 0 and
-                $dateDiff >= jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum)->post_expire ) {
+        // crumbs infos
+        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
+        if (! $forum) {
+            $rep  = $this->getResponse('redirect');
+            $rep->action = 'havefnubb~default:index';
+            return $rep;
+        }
+
+        if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
             return $rep;
@@ -635,18 +633,7 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-        // crumbs infos
-        list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
-
-        if (! $forum) {
-            $rep  = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
-            return $rep;
-        }
-
         $form = jForms::create('havefnubb~posts',$parent_id);
-
         $form->setData('id_user',jAuth::getUserSession ()->id);
         $form->setData('id_post',0);
         $form->setData('id_forum',$post->id_forum);
@@ -659,13 +646,11 @@ class postsCtrl extends jController {
         $tpl->assign('forum',$forum);
         $tpl->assign('id_post',0);
         $tpl->assign('parent_id',$post->parent_id);
-        $tpl->assign('category',$category);
         $tpl->assign('id_forum', $forum->id_forum);
         $tpl->assign('previewtext', null);
         $tpl->assign('previewsubject',null);
         $tpl->assign('form', $form);
         $tpl->assign('forum', $forum);
-        $tpl->assign('category', $category);
         $tpl->assign('heading',jLocale::get("havefnubb~post.form.reply.message") . ' ' . $post->subject);
         $tpl->assign('submitAction','havefnubb~posts:savereply');
 
@@ -704,9 +689,8 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
         // crumbs infos
-        list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
+        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         if (! $forum) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
@@ -743,13 +727,11 @@ class postsCtrl extends jController {
         $tpl->assign('forum',       $forum);
         $tpl->assign('id_post',     0);
         $tpl->assign('parent_id',   $parent_id);
-        $tpl->assign('category',    $category);
         $tpl->assign('id_forum',    $forum->id_forum);
         $tpl->assign('previewtext', null);
         $tpl->assign('previewsubject',null);
         $tpl->assign('form',        $form);
         $tpl->assign('forum',       $forum);
-        $tpl->assign('category',    $category);
         $tpl->assign('heading',     jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject);
         $tpl->assign('submitAction','havefnubb~posts:savereply');
 
@@ -781,9 +763,8 @@ class postsCtrl extends jController {
 
             $daoUser = jDao::get('havefnubb~member');
             $user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
-
-            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-            list($forum,$category) = $hfnuposts->getCrumbs($id_forum);
+            //crumbs infos
+            $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
             $form = jForms::fill('havefnubb~posts',$parent_id);
 
@@ -816,7 +797,6 @@ class postsCtrl extends jController {
             $tpl->assign('previewtext', $form->getData('message'));
             $tpl->assign('form',        $form);
             $tpl->assign('forum',       $forum);
-            $tpl->assign('category',    $category);
             $tpl->assign('signature',   $user->member_comment);
 
             $rep = $this->getResponse('html');
@@ -887,7 +867,7 @@ class postsCtrl extends jController {
             $rep->action = 'default:index';
             return $rep;
         }
-
+        //crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
         jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));
@@ -944,9 +924,9 @@ class postsCtrl extends jController {
         }
 
         // crumbs infos
-        list($forum,$category) = $hfnuposts->getCrumbs($post->id_forum);
+        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         if (! $forum) {
-            $rep 		 = $this->getResponse('redirect');
+            $rep         = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
             return $rep;
         }
@@ -961,10 +941,8 @@ class postsCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('forum',$forum);
         $tpl->assign('id_post',$id_post);
-        $tpl->assign('category',$category);
         $tpl->assign('form', $form);
         $tpl->assign('forum', $forum);
-        $tpl->assign('category', $category);
         $tpl->assign('subject', $post->subject);
         $tpl->assign('heading',jLocale::get("havefnubb~post.form.notify.message") . ' - ' . $post->subject);
         $tpl->assign('submitAction','havefnubb~posts:savenotify');
