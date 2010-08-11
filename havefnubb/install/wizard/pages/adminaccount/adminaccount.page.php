@@ -1,18 +1,17 @@
 <?php
-
 /**
-* page for Installation wizard
-*
-* @package     InstallWizard
-* @subpackage  pages
-* @author      Laurent Jouanneau
-* @copyright   2010 Laurent Jouanneau
-* @link      http://havefnubb.org
-* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ * @package     InstallWizard
+ * @subpackage  pages
+ * @author      Laurent Jouanneau
+ * @copyright   2010 Laurent Jouanneau
+ * @link      http://havefnubb.org
+ * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
+/**
+ * Class that handles the pages for Installation wizard
+ */
 class adminaccountWizPage extends installWizardPage {
-    
+
     /**
      * action to display the page
      * @param jTpl $tpl the template container

@@ -59,7 +59,11 @@ class hfnuposts {
         if (!isset(self::$posts[$id]) and $id > 0)
             self::$posts[$id] = jDao::get('havefnubb~posts')->get($id);
 
-        return self::$posts[$id];
+        if ($id > 0)
+            return self::$posts[$id];
+        else {
+            self::$posts[0] = array('id'=>0,'subject'=>'n/a');
+        }
     }
     /**
      * get info of the current post that is not "hidden"

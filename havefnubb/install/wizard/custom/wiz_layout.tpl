@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<div class="container_16">
+<div class="container_16 installwizard">
 
     <div class="grid_16">
         <h1 id="branding">HaveFnuBB!</h1>
@@ -46,27 +46,26 @@
             </ol>
         </div>
         <div class="grid_12 omega">
-            <!--<h2>{$title|eschtml}</h2>-->
             <form action="install.php" {if $enctype}enctype="{$enctype}"{/if} method="post">
-              <div>
-                <input type="hidden" name="step" value="{$stepname}" />
-                <input type="hidden" name="doprocess" value="1" />
-              </div>
+                <div>
+                  <input type="hidden" name="step" value="{$stepname}" />
+                  <input type="hidden" name="doprocess" value="1" />
+                </div>
 
-            <div class="box">
-            {if $messageHeader}<div id="contentheader">{@$messageHeader@}</div>{/if}
-            {$MAIN}
-            {if $messageFooter}<div id="contentFooter">{@$messageFooter@}</div>{/if}
-            </div>
+                <div class="box">
+                {if $messageHeader}<div id="contentheader">{@$messageHeader@}</div>{/if}
+                {$MAIN}
+                {if $messageFooter}<div id="contentFooter">{@$messageFooter@}</div>{/if}
 
-              <div id="buttons" class="box">
-                {if $previous}
-                  <button name="previous"  class="jforms-submit" onclick="location.href='install.php?step={$previous}';return false;">{@previousLabel@|eschtml}</button>
-                {/if}
-                {if $next}
-                  <button type="submit" class="jforms-submit">{@nextLabel@|eschtml}</button>
-                {/if}
-              </div>
+                    <div id="buttons">
+                        {if $previous}
+                          <button name="previous"  class="jforms-submit" onclick="location.href='install.php?step={$previous}';return false;">{@previousLabel@|eschtml}</button>
+                        {/if}
+                        {if $next}
+                          <button type="submit" class="jforms-submit">{@nextLabel@|eschtml}</button>
+                        {/if}
+                    </div>
+                </div>
             </form>
         </div>
     </div>

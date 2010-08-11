@@ -19,5 +19,4 @@ $locales = array(
     'error.confirm.password'=>'The passwords are not the same',
     'error.missing.email'=>'The email is missing',
 
-
 );

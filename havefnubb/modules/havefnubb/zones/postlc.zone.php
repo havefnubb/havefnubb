@@ -57,7 +57,7 @@ class postlcZone extends jZone {
 
                 if ($userPost !== false) {
                     $title = jClasses::getService('havefnubb~hfnuposts')->getPost(
-                            jDao::get('havefnubb~threads_alone')->get($userPost->parent_id)->id_first_msg
+                            jDao::get('havefnubb~threads_alone')->get($userPost->id_thread)->id_first_msg
                             )->subject;
                     $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
                 }

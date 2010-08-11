@@ -18,7 +18,7 @@
 	font-size:11px;
 	text-decoration:none;
 	font-weight: bold;
-	background-color:#e1e1cd;	
+	background-color:#e1e1cd;
 }
 
 
@@ -36,7 +36,7 @@
     padding-right:0px;
     -moz-border-radius:10px 10px 0px  0px ;
     -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px; 
+    -webkit-border-top-left-radius: 10px;
     border-radius:10px 10px 0px  0px ;
     -moz-box-shadow: gray 3px 5px 5px 0px;
     -webkit-box-shadow: gray 3px 5px 5px 0px;
@@ -78,16 +78,20 @@
 }
 
 .submit-next, .jforms-submit, .jforms-reset {
-	border: 1px solid;
-	cursor: pointer;
-	text-align: left;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius:3px;
-	padding : 2px 2px;
-	color:#4D5431;
-	font-size:11px;
-	text-decoration:none;
-	font-weight: bold;
-	background-color:#e1e1cd;	
+    border: 1px solid;
+    cursor: pointer;
+    text-align: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius:3px;
+    padding : 2px 2px;
+    color:#4D5431;
+    font-size:11px;
+    text-decoration:none;
+    font-weight: bold;
+    background-color:#e1e1cd;
+}
+
+.installwizard table, .installwizard table th,.installwizard table td {
+    border: none;
 }

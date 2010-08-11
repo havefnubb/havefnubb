@@ -1,14 +1,15 @@
 <?php
 /**
-* @package     havefnubb
-* @author      Laurent Jouanneau
-* @contributor
-* @copyright   2010 Laurent Jouanneau
- * @link      http://havefnubb.org
- * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+* @package   havefnubb
+* @subpackage havefnubb
+* @author    Laurent Jouanneau
+* @copyright 2010 Laurent Jouanneau
+* @link      http://havefnubb.org
+* @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
-
+/**
+ * Class that handles the installation of the database
+ */
 class havefnubbModuleInstaller extends jInstallerModule {
 
     function install() {

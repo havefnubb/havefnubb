@@ -10,7 +10,7 @@
     <table>
         <tr>
             <th><label for="login">{@label.login@}</label><span class="required">*</span></th>
-            <td><input id="login" name="login" value="{$login|eschtml}"/></td>
+            <td><input id="login" name="login" size="40" value="{$login|eschtml}"/></td>
         </tr>
         <tr>
             <th><label for="password">{@label.password@}</label></th>

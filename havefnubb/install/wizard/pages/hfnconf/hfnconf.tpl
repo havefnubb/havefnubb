@@ -10,11 +10,11 @@
     <table>
         <tr>
             <th><label for="title">{@label.title@}</label><span class="required">*</span></th>
-            <td><input id="title" name="title" value="{$title|eschtml}"/></td>
+            <td><input id="title" name="title" size="40" value="{$title|eschtml}"/></td>
         </tr>
         <tr>
             <th><label for="description">{@label.description@}</label></th>
-            <td><input id="description" name="description" value="{$description|eschtml}"/></td>
+            <td><input id="description" name="description" size="40" value="{$description|eschtml}"/></td>
         </tr>
         <tr>
             <th><label for="theme">{@label.theme@}</label><span class="required">*</span></th>
