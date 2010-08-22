@@ -13,7 +13,7 @@
         {assign $line = true}
         {foreach $notify as $notif}
         <tr class="{cycle array('odd','even')}">
-            <td>{$notif->member_login|eschtml}</td>
+            <td>{$notif->login|eschtml}</td>
             <td>{$notif->date_created|jdatetime:'timestamp':'lang_datetime'}</td>
             <td><a href="{jurl 'havefnubb~posts:lists',
             array(  'ftitle'=>$notif->forum_name,

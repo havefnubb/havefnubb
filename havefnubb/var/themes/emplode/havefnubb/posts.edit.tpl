@@ -66,4 +66,4 @@
     {/form}
 </div>
 {hook 'hfbAfterPostsEdit',array('id_post'=>$id_post)}
-{include 'havefnubb~syntax_wiki'}
+{include 'havefnubb~zone.syntax_wiki'}

@@ -116,6 +116,7 @@ class banCtrl extends jController {
                 jMessage::add(jLocale::get('hfnuadmin~ban.invalid.datas'),'error');
                 return $rep;
             }
+            $form->setData('ban_expire',$expiry);
             $form->saveToDao('havefnubb~bans');
 
             jMessage::add(jLocale::get('hfnuadmin~ban.added'),'ok');

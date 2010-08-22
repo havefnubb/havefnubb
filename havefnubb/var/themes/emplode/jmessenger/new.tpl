@@ -40,4 +40,4 @@
 	<p>&nbsp;<a href="{jurl $listAction}" class="crud-link">{@jelix~crud.link.return.to.list@}</a>.</p>
 </div>
 <hr/>
-{include 'havefnubb~syntax_wiki'}
+{include 'havefnubb~zone.syntax_wiki'}

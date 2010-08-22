@@ -41,7 +41,7 @@ $(document).ready(function(){
 {ifacl2 'hfnu.posts.view','forum'.$forum->id_forum}
 {hook 'hfbBeforePostReplies',array('id_post'=>$id_post)}
 <div class="pager-posts">
-{@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
+{@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'parent_id'=>$parent_id,'id_forum'=>$forum->id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
 {/ifacl2}
@@ -63,7 +63,7 @@ $(document).ready(function(){
                 'title'=>$post->subject)}
 <div class="post">
     <div class="posthead legend">
-        <h4 class="posthead-title"><span class="post-status-icon-{$statusAvailable[$status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
+        <h4 class="posthead-title"><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a></h4>
         {* rate ON the FIRST post of the thread *}
         {if $i==0}
         {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
@@ -76,8 +76,14 @@ $(document).ready(function(){
             <a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
             {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->login|eschtml}</a>
         </div>
-        {if count($tags) > 0}
-        <div class="posthead-tags"><ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul></div>
+        {if count($tags) > 1}
+        <div class="posthead-tags">
+        <ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul>
+        </div>
+        {elseif count($tags) ==1}
+        <div class="posthead-tags">
+        <ul><li>{$tags}</li></ul>
+        </div>
         {/if}
     </div>
     <div class="postbody">

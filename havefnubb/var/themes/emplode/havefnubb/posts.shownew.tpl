@@ -1,8 +1,8 @@
     <div class="pager-posts">
-    {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}
+    {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $posts->rowCount(), $page, $nbPostPerPage, "page", $properties}
     </div>
     <table class="data_table">
-        <caption>{@havefnubb~post.list.of.new.posts@} : {$nbPosts}</caption>
+        <caption>{@havefnubb~post.list.of.new.posts@} : {$posts->rowCount()}</caption>
         <thead>
             <tr><th></th>
                 <th>{@havefnubb~forum.forumlist.title@}</th>
@@ -37,5 +37,5 @@
         </tbody>
     </table>
     <div class="pager-posts">
-    {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}
+    {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $posts->rowCount(), $page, $nbPostPerPage, "page", $properties}
     </div>

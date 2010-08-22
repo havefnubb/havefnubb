@@ -1,5 +1,5 @@
 <div id="breadcrumbtop" class="headbox">
-    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>{if $action == 'view'} > {$category->cat_name|eschtml}{/if}</h3>
+    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>{if $action == 'view'} > {$cat_name|eschtml}{/if}</h3>
 </div>
 <div id="post-message">{jmessage}</div>
 {hook 'hfbBeforeCategoryList'}
@@ -30,7 +30,7 @@
                     <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
                     <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
                 </h4>
-                {$category->forum_desc|eschtml}
+                {$category->forum_name|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}
             </td>
             <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>
@@ -73,7 +73,7 @@
                 <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
                 <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
                 </h4>
-                {$forum->forum_desc|eschtml}
+                {$category->forum_desc|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}
             </td>
             <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>

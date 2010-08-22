@@ -15,7 +15,7 @@
 {foreach $bans as $ban}
 	<tr>
 		<td>{$ban->ban_username}</td>
-		<td>{if $ban->ban_expire == ''}{@hfnuadmin~ban.never.expire@}{else}{$ban->ban_expire}{/if}</td>
+		<td>{if $ban->ban_expire == ''}{@hfnuadmin~ban.never.expire@}{else}{$ban->ban_expire|jdatetime:'timestamp':'lang_datetime'} {/if}</td>
 		<td>{$ban->ban_ip}</td>
 		<td>{$ban->ban_email}</td>
 		<td><a href="{jurl 'hfnuadmin~ban:delete',array('ban_id'=>$ban->ban_id)}" title="{@hfnuadmin~ban.delete.this.ban@}" onclick="return confirm('{jlocale 'hfnuadmin~ban.confirm.deletion',array('')}')">{@hfnuadmin~common.delete@}</a></td>
