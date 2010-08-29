@@ -1285,9 +1285,8 @@ class postsCtrl extends jController {
                 case 'existings' :
                     // the parent_id change to the new selected one
                     $new_parent_id = (int) $this->param('existing_thread');
-                    $id_forum = $new_parent_id;
-                    $result = jClasses::getService('havefnubb~hfnuposts')->splitToThread($form->getData('id_post'),$form->getData('parent_id'),$new_parent_id);
-                    $id_post = $new_parent_id;
+                    $id_forum = $form->getData('id_forum');
+                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToThread($form->getData('id_post'),$form->getData('parent_id'),$new_parent_id);
                     break;
             }
             $dao = jDao::get('havefnubb~posts');

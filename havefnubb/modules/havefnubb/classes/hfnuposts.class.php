@@ -713,6 +713,12 @@ class hfnuposts {
             $i++;
         }
 
+        // remove the number of replies from the original thread
+        $threadDao = jDao::get('havefnubb~threads');
+        $threadRec = $threadDao->get($parent_id);
+        $threadRec->nb_replies -= $i;
+        $threadDao->update($threadRec);
+
         //update id_first_msg & id_last_msg of the Thread
         $threadDao = jDao::get('havefnubb~threads');
         $threadRec = $threadDao->get($id_thread);
@@ -768,6 +774,7 @@ class hfnuposts {
         $threadRec = $daoThreads->get($new_parent_id);
         $threadRec->nb_replies += $i;
         $threadRec->id_last_msg = $dao->getLastCreatedPostByThreadId($new_parent_id)->id_post;
+        $id_first_msg = $threadRec->id_first_msg;
         $daoThreads->update($threadRec);
 
         // 2) remove from the "source" Thread all the infos
@@ -780,8 +787,10 @@ class hfnuposts {
             $threadRec->id_last_msg = $dao->getLastCreatedPostByThreadId($parent_id)->id_post;
             $daoThreads->update($threadRec);
         }
-
-        return true;
+        //return the id of the first msg of the thread
+        // where we have to go to after we moved all the data
+        // of the old post
+        return $id_first_msg;
     }
 
     /******************************************************************
