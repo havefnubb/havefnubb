@@ -1199,7 +1199,7 @@ class postsCtrl extends jController {
             {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
-            $rep->action 	= 'havefnubb~default:index';
+            $rep->action = 'havefnubb~default:index';
             return $rep;
         }
 
@@ -1216,6 +1216,9 @@ class postsCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('title',$post->subject);
         $tpl->assign('form',$form);
+        $tpl->assign('id_post',$id_post);
+        $tpl->assign('parent_id',$parent_id);
+        $tpl->assign('id_forum',$id_forum);
         $tpl->assign('step',1);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~split.to'));
         $rep->title = jLocale::get("havefnubb~main.split.this.thread.from.this.message") . ' : ' . $post->subject;
@@ -1259,12 +1262,13 @@ class postsCtrl extends jController {
             $choice = (string) $this->param('choice');
 
             if (! in_array($choice,$possibleActions) ) {
-                    $rep = $this->getResponse('redirect');
-                    $rep->action = 'havefnubb~default:index';
-                    return $rep;
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~default:index';
+                return $rep;
             }
 
             $dao = jDao::get('havefnubb~posts');
+            //post record of the current post to move/spluit
             $post = $dao->get($form->getData('id_post'));
             switch ($choice) {
                 case 'same_forum' :
@@ -1283,24 +1287,31 @@ class postsCtrl extends jController {
                     $new_parent_id = (int) $this->param('existing_thread');
                     $id_forum = $new_parent_id;
                     $result = jClasses::getService('havefnubb~hfnuposts')->splitToThread($form->getData('id_post'),$form->getData('parent_id'),$new_parent_id);
-                    $id_post = (int) $this->param('existing_thread');
+                    $id_post = $new_parent_id;
                     break;
             }
             $dao = jDao::get('havefnubb~posts');
+            //post record of the moved/splited post
             $post = $dao->get($id_post);
-            if ($result === false) {
+
+            $rep = $this->getResponse('redirect');
+
+            if ($post === false) {
                 jMessage::add(jLocale::get('havefnubb~main.common.thread.cant.be.moved'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~default:index';
+                return $rep;
             }
             else {
                 jMessage::add(jLocale::get('havefnubb~main.common.thread.moved'),'ok');
+                $rep->params = array('ftitle'=>$post->forum_name,
+                                    'ptitle'=>$post->subject,
+                                    'id_forum'=>$id_forum,
+                                    'id_post'=>$post->id_post,
+                                    'parent_id'=>$post->parent_id);
+                $rep->action ='havefnubb~posts:view';
             }
-            $rep = $this->getResponse('redirect');
-            $rep->params = array('ftitle'=>$post->forum_name,
-                                'ptitle'=>$post->subject,
-                                'id_forum'=>$id_forum,
-                                'id_post'=>$post->id_post,
-                                'parent_id'=>$post->parent_id);
-            $rep->action ='havefnubb~posts:view';
+
             return $rep;
         }
         else {

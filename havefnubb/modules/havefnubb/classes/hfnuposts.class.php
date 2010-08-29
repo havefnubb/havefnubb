@@ -675,7 +675,7 @@ class hfnuposts {
             // we only set parent_id to id_post for the first post which becomes the parent !
 
             if ($i == 0 ) {
-
+                // create a new thread
                 $threadDao = jDao::get('havefnubb~threads');
                 $threadRec = jDao::createRecord('havefnubb~threads');
                 $threadRec->id_user_thread  = $record->id_user;
@@ -692,40 +692,47 @@ class hfnuposts {
                 $threadDao->insert($threadRec);
 
                 // now let's get the inserted id to put this one in parent_id column !
-                $record->parent_id  = $threadRec->id_thread;
-                $id_post_new        = $record->id_post;
 
-                $id_thread = $threadRec->id_thread;
+                $id_thread          = $threadRec->id_thread;
+                $record->parent_id  = $id_thread;
+
+                $dao->insert($record); // create the new record
+
+                $id_post_new        = $record->id_post;
+                $id_last_msg        = $record->id_post;
+                $date_created       = $record->date_created;
 
             }
             elseif ($i > 0 ) {
                 $record->parent_id = $id_post_new;
+                $dao->insert($record); // create the new record
+                $id_last_msg  = $record->id_post;
+                $date_created = $record->date_created;
             }
-
-            $dao->insert($record); // create the new record
 
             $i++;
         }
 
+        //update id_first_msg & id_last_msg of the Thread
         $threadDao = jDao::get('havefnubb~threads');
         $threadRec = $threadDao->get($id_thread);
-        $threadRec->id_first_msg = $record->id_post;
-        $threadRec->id_last_msg  = $record->id_post;
+        $threadRec->id_first_msg = $id_post_new;
+        $threadRec->id_last_msg  = $id_last_msg;
         $threadDao->update($threadRec);
 
         $dao->deleteAllFromCurrentIdPostWithParentId($parent_id,$id_post); // delete the old records
 
-        $record = $dao->get($id_post_new);
+        //$record = $dao->get($id_post_new);
 
         //update Forum record
-        $forum = jDao::get('havefnubb~forum');
-        $forumRec = $forum->get($id_forum);
-        $forumRec->id_last_msg = $record->id_post;
-        $forumRec->date_last_msg = $record->date_created;
+        $forum                      = jDao::get('havefnubb~forum');
+        $forumRec                   = $forum->get($id_forum);
+        $forumRec->id_last_msg      = $id_last_msg;
+        $forumRec->date_last_msg    = $date_created;
         $forum->update($forumRec);
         // get the id_post of the previous post
         // then update the thread table with its info (last_msg id + date)
-        return $id_thread;
+        return $id_post_new;
     }
 
     /**

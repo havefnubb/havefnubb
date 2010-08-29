@@ -48,6 +48,7 @@
         <!-- properties from forum table -->
         <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
         <property name="forum_name"      fieldname="forum_name" table="forum" datatype="int" required="true"/>
+        <property name="id_last_msg"     fieldname="id_last_msg" table="forum" datatype="int"/>
     </record>
 
     <!-- naming convention :
