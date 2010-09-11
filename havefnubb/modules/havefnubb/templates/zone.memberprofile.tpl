@@ -14,18 +14,18 @@
 <div class="post-author">
     <ul class="member-ident">
         {hook 'hfbMemberProfile',array('user'=>$user->id)}
-        <li class="user-name user-image">{zone 'online_offline',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->login)}">{$user->login|eschtml}</a></li>
+        <li class="user-name user-image">{zone 'online_offline',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->nickname)}">{$user->nickname|eschtml}</a></li>
         {if $user->member_gravatar == 1}
             <li>{gravatar $user->email,array('username'=>$user->login)}</li>
         {else}
             {if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
-            <li>{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}</li>
+            <li>{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->nickname)}</li>
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
-            <li>{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}</li>
+            <li>{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->nickname)}</li>
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
-            <li>{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}</li>
+            <li>{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->nickname)}</li>
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
-            <li>{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}</li>
+            <li>{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->nickname)}</li>
             {/if}
         {/if}
         {if $user->member_town != ''}
@@ -42,7 +42,7 @@
             <span>
             {if $user->member_show_email == 'Y'}{mailto array('address'=>$user->email,'encode'=>'hex','text'=>@havefnubb~member.common.email@)}
             {else}
-            <a href="{jurl 'jmessenger~jmessenger:create'}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>
+            <a href="{jurl 'jmessenger~jmessenger:create'}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->nickname)}">{@havefnubb~member.common.contact.the.member.by.email@}</a>
             {/if}</span>
         </li>
         {ifacl2 'hfnu.admin.member'}
@@ -53,7 +53,7 @@
             {@havefnubb~member.common.ip@}:{$user->member_ip}<br/>
         </li>
         {/ifacl2}
-        {if $user->member_website != ''}<li class="user-website user-image"><span><a href="{$user->member_website}" title="{jlocale 'havefnubb~member.common.website.of',array($user->login)}">{@havefnubb~member.common.website@}</a></span></li>{/if}
+        {if $user->member_website != ''}<li class="user-website user-image"><span><a href="{$user->member_website}" title="{jlocale 'havefnubb~member.common.website.of',array($user->nickname)}">{@havefnubb~member.common.website@}</a></span></li>{/if}
     </ul>
 </div>
 {hook 'hfbAfterMemberProfile',array('user'=>$user->id)}

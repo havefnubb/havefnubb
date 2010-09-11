@@ -1,13 +1,13 @@
 <div id="breadcrumbtop" class="headbox">
-	<h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {jlocale 'havefnubb~main.cloud.posts.by.tag',array($tag)}</h3>
+    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {jlocale 'havefnubb~main.cloud.posts.by.tag',array($tag)}</h3>
 </div>
 <div class="cloud-list">
-	<table class="cloudList data_table" width="100%">
-		<tr>
-			<th class="listcol">{@havefnubb~forum.forumlist.title@}</th>
-			<th class="listcol">{@havefnubb~forum.postlistbytag.forum.name@}</th>
-			<th class="listcol">{@havefnubb~member.common.author@}</th>
-		</tr>
+    <table class="cloudList data_table" width="100%">
+        <tr>
+            <th class="listcol">{@havefnubb~forum.forumlist.title@}</th>
+            <th class="listcol">{@havefnubb~forum.postlistbytag.forum.name@}</th>
+            <th class="listcol">{@havefnubb~member.common.author@}</th>
+        </tr>
     {if count($posts) > 0}
         <tbody>
     {foreach $posts as $post}
@@ -21,5 +21,5 @@
     {/foreach}
         </tbody>
     {/if}
-	</table>
+    </table>
 </div>

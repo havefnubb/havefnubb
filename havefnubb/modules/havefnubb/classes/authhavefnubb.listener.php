@@ -25,7 +25,7 @@ class authhavefnubbListener extends jEventListener{
 
         $user = $dao->getByLogin($login);
         if (!$user) {
-          throw new jException('havefnubb~mail.email.config.not.done.properly');
+            throw new jException('havefnubb~mail.email.config.not.done.properly');
         }
         // put the current date
         $user->member_last_connect = $user->connected;

@@ -33,10 +33,11 @@
         <property name="censored_msg"   fieldname="censored_msg"  datatype="string" required="false" maxlength="50"/>
         <property name="read_by_mod"    fieldname="read_by_mod"   datatype="int" required="false" maxlength="1"/>
 
-        <!-- properties from member table -->
+        <!-- properties from community_users table -->
         <property name="id"             fieldname="id" table="usr" datatype="int"/>
         <property name="email"          fieldname="email"   table="usr" datatype="string" maxlength="255" />
         <property name="login"          fieldname="login"   table="usr" required="yes" datatype="string"  maxlength="50" />
+        <property name="nickname"       fieldname="nickname" table="usr" datatype="string" required="yes" maxlength="50" />
         <property name="member_comment" fieldname="comment" table="usr" datatype="string" maxlength="255"/>
         <property name="member_town"    fieldname="town"    table="usr" datatype="string" maxlength="100"/>
         <property name="member_avatar"  fieldname="avatar"  table="usr" datatype="string" maxlength="255"/>

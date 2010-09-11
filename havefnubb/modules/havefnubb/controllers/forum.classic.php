@@ -15,7 +15,7 @@ class forumCtrl extends jController {
      * @var $pluginParams plugins to manage the behavior of the controller
      */
     public $pluginParams = array(
-        '*'		=> array('auth.required'=>false,
+        '*'     => array('auth.required'=>false,
                 'banuser.check'=>true
                 ),
         'mark_all_as_read' => array('auth.required'=>true,
@@ -73,6 +73,7 @@ class forumCtrl extends jController {
     public function mark_all_as_read() {
         $rep = $this->getResponse('redirect');
         jClasses::getService('havefnubb~hfnuread')->markAllAsRead();
+        jMessage::add(jLocale::get('havefnubb~forum.all.forum.marked.as.read'));
         $rep->action = 'default:index';
         return $rep;
     }

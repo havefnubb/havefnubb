@@ -165,7 +165,8 @@
             <parameter name="offset"/>
             <parameter name="count"/>
             <conditions>
-                <gt property="date_last_post" expr="$date_last_post"/>
+                <!--gt property="date_last_post" expr="$date_last_post"/-->
+                <gt property="date_last_post" expr="usr.last_connect"/>
             </conditions>
             <limit offset="$offset" count="$count"/>
             <order>

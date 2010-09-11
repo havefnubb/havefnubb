@@ -26,8 +26,6 @@
 
     <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
         <url pathinfo="/" module="master_admin" action="default:index"  optionalTrailingSlash="true"/>
-        <!--<url pathinfo="/admin/board"  module="master_admin" action="default:index" />-->
-
         <url pathinfo="/admin/themes"  module="hfnuthemes" include="urls_admin.xml" />
         <url pathinfo="/admin/search"  module="hfnusearch" include="urls_admin.xml" />
         <url pathinfo="/admin/server"  module="servinfo" include="urls.xml" />
@@ -35,34 +33,6 @@
         <url pathinfo="/admin/acl"     module="jacl2db_admin" include="urls.xml"/>
         <url pathinfo="/admin/contact" module="hfnucontact" include="urls_admin.xml"/>
         <url pathinfo="/admin/hfn"     module="hfnuadmin" include="urls_admin.xml" />
-
-
-        <!-- downloads module -->
-        <!--
-		<url pathinfo="/downloads/manage" module="downloads" action="mgr:manage"/>
-		<url pathinfo="/downloads/manage/:id" module="downloads" action="mgr:manage">
-			<param name="id" type="integer" />
-		</url>
-		<url pathinfo="/downloads" module="downloads" action="mgr:index"/>
-		<url pathinfo="/downloads/dls" module="downloads" action="mgr:dls"/>
-		<url pathinfo="/downloads/config" module="downloads" action="mgr:config"/>
-
-		<url pathinfo="/downloads/delete/:id" module="downloads" action="mgr:delete">
-			<param name="id" type="integer" />
-		</url>
-		<url pathinfo="/downloads/onblock/:id" module="downloads" action="mgr:dl_on_block">
-			<param name="id" type="integer" />
-		</url>
-		<url pathinfo="/downloads/notonblock/:id" module="downloads" action="mgr:dl_not_on_block">
-			<param name="id" type="integer" />
-		</url>
-		<url pathinfo="/downloads/enable/:id" module="downloads" action="mgr:dl_enable">
-			<param name="id" type="integer" />
-		</url>
-		<url pathinfo="/downloads/disable/:id" module="downloads" action="mgr:dl_disable">
-			<param name="id" type="integer" />
-		</url>-->
-
     </classicentrypoint>
 
 </urls>
