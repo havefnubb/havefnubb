@@ -69,8 +69,8 @@
     <tr>
         <td class="listline linkincell">
             <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
-               title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->login)}">
-            {$member->login|eschtml}
+               title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->nickname)}">
+            {$member->nickname|eschtml}
             </a>
         </td>
         <td class="listline colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>

@@ -154,6 +154,17 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
+        <method name="findAllUnreadThread" type="count" groupby="parent_id">
+            <parameter name="start"/>
+            <parameter name="end"/>
+            <conditions logic="AND">
+                <gteq property="date_created" expr="$start" />
+                <lteq property="date_created" expr="$end" />
+            </conditions>
+            <order>
+                <orderitem property="date_created" way="desc" />
+            </order>
+        </method>
 
 
         <!-- countXXX -->
@@ -246,6 +257,7 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
+
         <!-- all update statement -->
         <method name="updateStatusByIdParent" type="update">
             <parameter name="parent_id"/>

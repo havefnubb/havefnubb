@@ -7,6 +7,7 @@
         <property name="id_user" fieldname="id_user" datatype="int" required="true"/>
         <property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
         <property name="id_post" fieldname="id_post" datatype="int" required="true"/>
+        <property name="date_post_read" fieldname="date_read" datatype="int" required="true" />
     </record>
     <factory>
         <method name="countReadPosts" type="count">

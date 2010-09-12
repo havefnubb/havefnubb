@@ -156,6 +156,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%read_posts (
   id_user int(12) NOT NULL,
   id_forum int(12) NOT NULL,
   id_post int(12) NOT NULL,
+  date_read int(12) NOT NULL,
   PRIMARY KEY  (id_user,id_forum,id_post),
   KEY id_user (id_user),
   KEY id_forum (id_forum),
@@ -194,4 +195,3 @@ INSERT INTO %%PREFIX%%rank (id_rank, rank_name, rank_limit) VALUES
 (1, 'new member', 0),
 (2, 'member', 40),
 (3, 'active member', 100);
-

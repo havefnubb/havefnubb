@@ -122,6 +122,7 @@ class authhavefnubbListener extends jEventListener{
         }
         // put the current date
         $user->member_created = date('Y-m-d H:i:s');
+        $user->nickname = $user->login;
         $dao->update($user);
 
         $mail = new jMailer();

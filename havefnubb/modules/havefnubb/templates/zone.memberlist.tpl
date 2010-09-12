@@ -5,14 +5,14 @@
 </div>
 
 <div class="box">
-    <div class="block">  
+    <div class="block">
     <form action="{formurl 'havefnubb~members:index'}" method="post">
     <div class="hidden">{formurlparam 'havefnubb~members:index'}</div>
     <fieldset>
         <legend>{@havefnubb~member.memberlist.filter@}</legend>
         <div class="member-filter-description">
             <p>{@havefnubb~member.memberlist.filter.description@}</p>
-        </div>            
+        </div>
         <p>
             <label>{@havefnubb~member.memberlist.thegroups@} : </label>
             <select name="grpid">
@@ -24,7 +24,7 @@
         <p>
             <label>{@havefnubb~member.memberlist.initial.nickname@} :</label>
             <select name="letter">
-            {foreach $letters as $letter}                
+            {foreach $letters as $letter}
                 <option value="{$letter}">{$letter}</option>
             {/foreach}
              </select>
@@ -34,7 +34,7 @@
             <input type="text"  name="member_search" value="" size="40"/>
         </p>
         <input class="jforms-submit" type="submit" value="{@havefnubb~member.memberlist.filter@}" />
-    </fieldset>    
+    </fieldset>
     </form>
     </div>
 </div>
@@ -51,7 +51,7 @@
                 <th class="themember">{@havefnubb~member.memberlist.username@} </th>
                 <th class="user-rank">{@havefnubb~member.common.rank@}</th>
                 <th class="user-since">{@havefnubb~member.memberlist.member.since@}</th>
-                <th class="user-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>         
+                <th class="user-posts">{@havefnubb~member.memberlist.nb.posted.msg@}</th>
             </tr>
         </thead>
         <tbody>
@@ -60,8 +60,8 @@
         <tr>
             <td class="listline linkincell">
                 <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
-                   title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->login)}">
-                {$member->login|eschtml}
+                   title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->nickname)}">
+                {$member->nickname|eschtml}
                 </a>
             </td>
             <td class="listline colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>

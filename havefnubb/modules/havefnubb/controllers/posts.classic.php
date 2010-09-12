@@ -145,6 +145,16 @@ class postsCtrl extends jController {
         $tpl->assign('properties',$properties);
         $tpl->assign('currentIdForum',$forum->id_forum);
         $tpl->assign('statusAvailable',self::$statusAvailable);
+        if (jAuth::isConnected()) {
+            $rf = jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum);
+            if ($rf !== false )
+                $tpl->assign('lastMarkForumAsRead',$rf->date_read );
+            else
+                $tpl->assign('lastMarkForumAsRead',0 );
+        }
+        else {
+            $tpl->assign('lastMarkForumAsRead',0 );
+        }
         $rep->body->assign('currentIdForum',$forum->id_forum);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));
         return $rep;
@@ -1470,13 +1480,12 @@ class postsCtrl extends jController {
         // 2- limit per page
         $nbPostPerPage = 0;
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
-        $nbPosts = 0;
-        $posts = array();
-        $posts = jClasses::getService('havefnubb~hfnuread')->findUnreadThread($page,$nbPostPerPage);
+        $unread = jClasses::getService('havefnubb~hfnuread')->findUnreadThread($page,$nbPostPerPage);
 
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('posts', $posts);
+        $tpl->assign('posts', $unread['posts']);
+        $tpl->assign('nbPosts', $unread['nbPosts']);
         $tpl->assign('page',$page);
         $tpl->assign('nbPostPerPage',$nbPostPerPage);
         $tpl->assign('properties',$properties);

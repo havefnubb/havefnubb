@@ -10,7 +10,7 @@
 /**
  * function that display the status of one post or post in a given forum
  */
-function jtpl_function_html_post_status($tpl, $source, $data) {
+function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkForumAsRead=0) {
     global $gJConfig;
     $statusAvailable = array('pined',
                             'pinedclosed',
@@ -38,12 +38,13 @@ function jtpl_function_html_post_status($tpl, $source, $data) {
         //opened thread ?
         if ($post->status_thread == 3) {
             //do the member already read that post ?
-            if ( jClasses::getService('havefnubb~hfnuread')->getReadPost($post->id_post,$post->parent_id,$post->id_forum) === false )
+            // yes so status is opened
+            if ($post->date_last_post < $lastMarkForumAsRead ||
+                    $post->date_read_post >= $post->date_last_post)
+                $status = 'opened';
+            else
                 // no so post is new
                 $status = 'post-new';
-            else
-                // yes so status is opened
-                $status = 'opened';
         }
 
         // does this forum manage auto-expiration ?

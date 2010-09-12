@@ -12,7 +12,7 @@
         <method name="deleteAll" type="delete">
 
         </method>
-        <method name="deleteByUser" type="delete">
+        <method name="deleteByUserId" type="delete">
           <parameter name="id_user" />
           <conditions>
             <eq property="id_user" expr="$id_user" />

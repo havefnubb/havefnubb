@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
-	<datasources>
-		<primarytable name="sbj" realname="jacl2_subject" primarykey="id_aclsbj" />
-	</datasources>
-	<record>
-	  <property name="id_aclsbj" fieldname="id_aclsbj" datatype="string" required="yes"/>
-	  <property name="label_key" fieldname="label_key" datatype="string"/>
-	</record>
-	<factory>
-		<method name="findAllSubject" type="select">
-		   <order>
-			  <orderitem property="id_aclsbj" way="asc" />
-		   </order>
-		</method>
-		<method name="findHfnuSubject" type="select">
-			<conditions logic="OR">
-				<eq property="id_aclsbj" value="hfnu.forum.view" />
-				<eq property="id_aclsbj" value="hfnu.forum.list" />
-				<eq property="id_aclsbj" value="hfnu.posts.create" />
-				<eq property="id_aclsbj" value="hfnu.posts.edit" />
-				<eq property="id_aclsbj" value="hfnu.posts.delete" />
-				<eq property="id_aclsbj" value="hfnu.posts.list" />
-				<eq property="id_aclsbj" value="hfnu.posts.reply" />
-				<eq property="id_aclsbj" value="hfnu.posts.quote" />
-				<eq property="id_aclsbj" value="hfnu.posts.notify" />
-				<eq property="id_aclsbj" value="hfnu.posts.view" />
-				<eq property="id_aclsbj" value="hfnu.posts.edit.own" />
-			</conditions>
-		   <order>
-			  <orderitem property="id_aclsbj" way="asc" />
-		   </order>
-		</method>
+    <datasources>
+        <primarytable name="sbj" realname="jacl2_subject" primarykey="id_aclsbj" />
+    </datasources>
+    <record>
+      <property name="id_aclsbj" fieldname="id_aclsbj" datatype="string" required="yes"/>
+      <property name="label_key" fieldname="label_key" datatype="string"/>
+    </record>
+    <factory>
+        <method name="findAllSubject" type="select">
+           <order>
+              <orderitem property="id_aclsbj" way="asc" />
+           </order>
+        </method>
+        <method name="findHfnuSubject" type="select">
+            <conditions logic="OR">
+                <eq property="id_aclsbj" value="hfnu.forum.view" />
+                <eq property="id_aclsbj" value="hfnu.forum.list" />
+                <eq property="id_aclsbj" value="hfnu.posts.create" />
+                <eq property="id_aclsbj" value="hfnu.posts.edit" />
+                <eq property="id_aclsbj" value="hfnu.posts.delete" />
+                <eq property="id_aclsbj" value="hfnu.posts.list" />
+                <eq property="id_aclsbj" value="hfnu.posts.reply" />
+                <eq property="id_aclsbj" value="hfnu.posts.quote" />
+                <eq property="id_aclsbj" value="hfnu.posts.notify" />
+                <eq property="id_aclsbj" value="hfnu.posts.view" />
+                <eq property="id_aclsbj" value="hfnu.posts.edit.own" />
+            </conditions>
+           <order>
+              <orderitem property="id_aclsbj" way="asc" />
+           </order>
+        </method>
 
-	</factory>
+    </factory>
 </dao>

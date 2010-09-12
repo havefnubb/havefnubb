@@ -50,6 +50,7 @@
         <property name="id"         fieldname="id" datatype="int" table="usr"/>
         <property name="email"      fieldname="email" datatype="string" table="usr" maxlength="255" />
         <property name="login"      fieldname="login" table="usr" required="yes" datatype="string"  maxlength="50" />
+        <property name="nickname"      fieldname="nickname" table="usr" required="yes" datatype="string"  maxlength="50" />
         <property name="member_comment" fieldname="comment" datatype="string" table="usr" maxlength="255"/>
         <property name="member_town"    fieldname="town" datatype="string" table="usr" maxlength="100"/>
         <property name="member_avatar"  fieldname="avatar" datatype="string" table="usr" maxlength="255"/>
@@ -161,7 +162,6 @@
         </method>
 
         <method name="findUnreadThread" type="select" distinct="true" groupby="id_thread">
-            <parameter name="date_last_post"/>
             <parameter name="offset"/>
             <parameter name="count"/>
             <conditions>
@@ -173,6 +173,7 @@
                 <orderitem property="date_created" way="desc" />
             </order>
         </method>
+
         <method name="findUnreadThreadVisible" type="select" distinct="true" groupby="id_thread">
             <parameter name="date_last_post"/>
             <parameter name="offset"/>

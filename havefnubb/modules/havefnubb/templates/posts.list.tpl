@@ -43,7 +43,7 @@
         {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
         {assign $status = $statusAvailable[ $post->status_thread - 1]}
         <tr>
-            <td class="colicone-{post_status 'post',$post}">&nbsp;</td>
+            <td class="colicone-{post_status 'post',$post,$lastMarkForumAsRead}">&nbsp;</td>
             <td><span class="newestposts">{@havefnubb~post.status.$status@}</span>
                 <a class="status-{$status}" href="{jurl 'havefnubb~posts:view',
                                                 array(  'id_post'=>$post->id_post,
@@ -52,10 +52,16 @@
                                                         'ftitle'=>$post->forum_name,
                                                         'ptitle'=>$post->subject)}"
                     title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
-                {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum)}
+                {ifuserconnected}
+                {if $post->date_last_post < $lastMarkForumAsRead ||
+                    $post->date_read_post >= $post->date_last_post}
+                {else}
+                    <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
+                {/if}
+                {/ifuserconnected}
             </td>
             <td>
-                <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>
+                <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->nickname|eschtml}">{$post->nickname|eschtml}</a>
             </td>
             <td>
                 {$post->nb_replies}

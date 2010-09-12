@@ -21,6 +21,9 @@ class forumCtrl extends jController {
         'mark_all_as_read' => array('auth.required'=>true,
                 'banuser.check'=>true
                 ),
+        'mark_forum_as_read' => array('auth.required'=>true,
+                'banuser.check'=>true
+                ),
     );
     /**
     * display the RSS of the forum
@@ -68,12 +71,27 @@ class forumCtrl extends jController {
         return $rep;
     }
     /**
+     * Mark one given forum as read
+     */
+    public function mark_forum_as_read() {
+        $id_forum = (int) $this->param('id_forum');
+        jClasses::getService('havefnubb~hfnuread')->markForumAsRead($id_forum);
+
+        jMessage::add(jLocale::get('havefnubb~forum.forum.marked.as.read'));
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'havefnubb~posts:lists';
+        $rep->params = array('id_forum'=>$id_forum,
+                             'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
+        return $rep;
+    }
+    /**
      * Mark all forum as read
      */
     public function mark_all_as_read() {
-        $rep = $this->getResponse('redirect');
         jClasses::getService('havefnubb~hfnuread')->markAllAsRead();
+        
         jMessage::add(jLocale::get('havefnubb~forum.all.forum.marked.as.read'));
+        $rep = $this->getResponse('redirect');
         $rep->action = 'default:index';
         return $rep;
     }

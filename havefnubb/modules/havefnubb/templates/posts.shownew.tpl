@@ -5,10 +5,10 @@
     <div class="block">
         <a href="{jurl 'havefnubb~forum:mark_all_as_read'}">{@havefnubb~forum.mark.all.forum.as.read@}</a>
         <div class="pager-posts">
-        {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $posts->rowCount(), $page, $nbPostPerPage, "page", $properties}
+        {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}
         </div>
     <table>
-        <caption>{@havefnubb~post.list.of.new.posts@} : {$posts->rowCount()}</caption>
+        <caption>{@havefnubb~post.list.of.new.posts@} : {$nbPosts}</caption>
         <thead>
             <tr><th></th>
                 <th>{@havefnubb~forum.forumlist.title@}</th>
@@ -19,13 +19,13 @@
             </tr>
         </thead>
         <tbody>
-{if $posts->rowCount() > 0}
+{if $nbPosts > 0}
         {foreach $posts as $post}
         <tr>
-            <td class="colicone-{post_status 'post',$post}" > </td>
+            <td class="colicone-{post_status 'post',$post,0}" > </td>
             <td> <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}#p{$post->id_last_msg}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
             <td>
-                <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->login|eschtml}">{$post->login|eschtml}</a>
+                <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->nickname|eschtml}">{$post->nickname|eschtml}</a>
             </td>
             <td>
                 {$post->nb_replies}
@@ -43,7 +43,7 @@
         </tbody>
     </table>
         <div class="pager-posts">
-        {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $posts->rowCount(), $page, $nbPostPerPage, "page", $properties}
+        {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(),$nbPosts , $page, $nbPostPerPage, "page", $properties}
         </div>
     </div>
 </div>
