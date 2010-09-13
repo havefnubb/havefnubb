@@ -282,33 +282,44 @@ class postsCtrl extends jController {
         $nbRepliesPerPage = 0;
         $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
         // 2- get the post
-        $daoPost = jDao::get('havefnubb~posts');
+        //$daoPost = jDao::get('havefnubb~posts');
+        list($page,$posts) = jClasses::getService("havefnubb~hfnuposts")->findByIdParent($parent_id,$page,$nbRepliesPerPage);
         // 3- total number of posts
         //$nbReplies = $daoPost->countResponse($id_post);
         $nbReplies = jDao::get('havefnubb~threads_alone')->get($parent_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
         // 4- get the posts of the current forum, limited by point 1 and 2
 
-        $posts = $daoPost->findByIdParent($parent_id,$page,$nbRepliesPerPage);
+        //$posts = $daoPost->findByIdParent($parent_id,$page,$nbRepliesPerPage);
 
         // id_post is the parent_id ; we need to know
         // the status of it to determine if the member can
         // reply to the current thread
 
         // check if we have found record ;
-        if ($posts->rowCount() == 0) {
+        /*if ($posts->rowCount() == 0) {
             $posts = $daoPost->findByIdParent($parent_id,0,$nbRepliesPerPage);
             $page = 0;
-        }
+        }*/
 
         $srvTags = jClasses::getService("jtags~tags");
         $tags = implode(',',$srvTags->getTagsBySubject('forumscope',$id_post));
 
         $tpl = new jTpl();
 
-        if(jAuth::isConnected())
+        if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->login);
-        else
+
+            $rf = jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$forum->id_forum);
+            if ($rf !== false )
+                $tpl->assign('lastMarkForumAsRead',$rf->date_read );
+            else
+                $tpl->assign('lastMarkForumAsRead',0 );
+        }
+        else {
             $tpl->assign('current_user','');
+
+            $tpl->assign('lastMarkForumAsRead',0 );
+        }
 
         if ( jAcl2::check('hfnu.admin.post') ) {
             $formStatus = jForms::create('havefnubb~posts_status');

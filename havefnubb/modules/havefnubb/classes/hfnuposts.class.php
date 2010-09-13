@@ -136,117 +136,7 @@ class hfnuposts {
 
         $nbPosts = $daoThreads->countPostsByForumId($id_forum);
         // get the posts of the current forum
-        $c = jDb::getConnection();
-        if ( ! jAuth::isConnected())
-            $sql = "SELECT threads.id_thread,
-                    threads.id_user as id_user_thread,
-                    threads.id_forum as id_forum_thread,
-                    threads.status as status_thread,
-                    threads.nb_viewed,
-                    threads.nb_replies,
-                    threads.id_first_msg,
-                    threads.id_last_msg,
-                    threads.date_created,
-                    threads.date_last_post,
-                    threads.ispined as ispined_thread,
-                    threads.iscensored as iscensored_thread,
-                    posts.id_post,
-                    posts.id_user,
-                    posts.id_forum,
-                    posts.parent_id,
-                    posts.status,
-                    posts.ispined,
-                    posts.iscensored,
-                    posts.subject,
-                    posts.message,
-                    posts.date_created as p_date_created,
-                    posts.date_modified, posts.viewed,
-                    posts.poster_ip,
-                    posts.censored_msg,
-                    posts.read_by_mod,
-                    usr.id,
-                    usr.email,
-                    usr.login,
-                    usr.nickname,
-                    usr.comment as member_comment,
-                    usr.town as member_town,
-                    usr.avatar as member_avatar,
-                    usr.website as member_website,
-                    usr.nb_msg,
-                    usr.last_post as member_last_post,
-                    usr.last_connect as member_last_connect,
-                    forum.parent_id as forum_parent_id,
-                    forum.forum_name
-                FROM ".$c->prefixTable('threads')." AS threads
-                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                , ".$c->prefixTable('posts')." AS posts
-                WHERE
-                    threads.id_thread=posts.parent_id AND
-                    posts.id_forum = '".$id_forum."'";
-        else
-            $sql = "SELECT threads.id_thread,
-                        threads.id_user as id_user_thread,
-                        threads.id_forum as id_forum_thread,
-                        threads.status as status_thread,
-                        threads.nb_viewed,
-                        threads.nb_replies,
-                        threads.id_first_msg,
-                        threads.id_last_msg,
-                        threads.date_created,
-                        threads.date_last_post,
-                        threads.ispined as ispined_thread,
-                        threads.iscensored as iscensored_thread,
-                        posts.id_post,
-                        posts.id_user,
-                        posts.id_forum,
-                        posts.parent_id,
-                        posts.status,
-                        posts.ispined,
-                        posts.iscensored,
-                        posts.subject,
-                        posts.message,
-                        posts.date_created as p_date_created,
-                        posts.date_modified, posts.viewed,
-                        posts.poster_ip,
-                        posts.censored_msg,
-                        posts.read_by_mod,
-                        usr.id,
-                        usr.email,
-                        usr.login,
-                        usr.nickname,
-                        usr.comment as member_comment,
-                        usr.town as member_town,
-                        usr.avatar as member_avatar,
-                        usr.website as member_website,
-                        usr.nb_msg,
-                        usr.last_post as member_last_post,
-                        usr.last_connect as member_last_connect,
-                        forum.parent_id as forum_parent_id,
-                        forum.forum_name,
-                        rp.date_read as date_read_post
-                FROM ".$c->prefixTable('threads')." AS threads
-                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                    LEFT JOIN ".$c->prefixTable('read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
-                                                                    threads.id_last_msg=rp.id_post AND
-                                                                    rp.id_user = '".jAuth::getUserSession ()->id."')
-                ,".$c->prefixTable('posts')." AS posts
-                WHERE
-                    threads.id_thread=posts.parent_id AND
-                    posts.id_forum = '".$id_forum."'";
-
-        // if the user is not an admin then we hide the "hidden" posts
-        if ( ! jAcl2::check('hfnu.admin.post') )
-            $sql .= "AND posts.status <> 7 ";
-
-        $sql .= "GROUP BY posts.parent_id ORDER BY threads.ispined desc, threads.date_last_post desc ";
-
-        $posts = $c->limitQuery($sql, $page,$nbPostPerPage);
-        if ($posts->rowCount() == 0) {
-            $posts = $c->limitQuery($sql, 0,$nbPostPerPage);
-            $page = 0;
-        }
+        list($page,$posts) = self::findByIdForum($id_forum,$page,$nbPostPerPage);
 
         return array($page,$nbPosts,$posts);
     }
@@ -911,5 +801,239 @@ class hfnuposts {
      */
     public static function findUnreadThreadByMod() {
         return jDao::get('havefnubb~threads')->findUnreadThreadByMod();
+    }
+
+
+
+    public static function findByIdForum($id_forum,$page,$nbPostPerPage) {
+        $c = jDb::getConnection();
+        if ( ! jAuth::isConnected())
+            $sql = "SELECT threads.id_thread,
+                    threads.id_user as id_user_thread,
+                    threads.id_forum as id_forum_thread,
+                    threads.status as status_thread,
+                    threads.nb_viewed,
+                    threads.nb_replies,
+                    threads.id_first_msg,
+                    threads.id_last_msg,
+                    threads.date_created,
+                    threads.date_last_post,
+                    threads.ispined as ispined_thread,
+                    threads.iscensored as iscensored_thread,
+                    posts.id_post,
+                    posts.id_user,
+                    posts.id_forum,
+                    posts.parent_id,
+                    posts.status,
+                    posts.ispined,
+                    posts.iscensored,
+                    posts.subject,
+                    posts.message,
+                    posts.date_created as p_date_created,
+                    posts.date_modified, posts.viewed,
+                    posts.poster_ip,
+                    posts.censored_msg,
+                    posts.read_by_mod,
+                    usr.id,
+                    usr.email,
+                    usr.login,
+                    usr.nickname,
+                    usr.comment as member_comment,
+                    usr.town as member_town,
+                    usr.avatar as member_avatar,
+                    usr.website as member_website,
+                    usr.nb_msg,
+                    usr.last_post as member_last_post,
+                    usr.last_connect as member_last_connect,
+                    forum.parent_id as forum_parent_id,
+                    forum.forum_name
+                FROM ".$c->prefixTable('threads')." AS threads
+                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
+                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                , ".$c->prefixTable('posts')." AS posts
+                WHERE
+                    threads.id_thread=posts.parent_id AND
+                    posts.id_forum = '".$id_forum."'";
+        else
+            $sql = "SELECT threads.id_thread,
+                        threads.id_user as id_user_thread,
+                        threads.id_forum as id_forum_thread,
+                        threads.status as status_thread,
+                        threads.nb_viewed,
+                        threads.nb_replies,
+                        threads.id_first_msg,
+                        threads.id_last_msg,
+                        threads.date_created,
+                        threads.date_last_post,
+                        threads.ispined as ispined_thread,
+                        threads.iscensored as iscensored_thread,
+                        posts.id_post,
+                        posts.id_user,
+                        posts.id_forum,
+                        posts.parent_id,
+                        posts.status,
+                        posts.ispined,
+                        posts.iscensored,
+                        posts.subject,
+                        posts.message,
+                        posts.date_created as p_date_created,
+                        posts.date_modified, posts.viewed,
+                        posts.poster_ip,
+                        posts.censored_msg,
+                        posts.read_by_mod,
+                        usr.id,
+                        usr.email,
+                        usr.login,
+                        usr.nickname,
+                        usr.comment as member_comment,
+                        usr.town as member_town,
+                        usr.avatar as member_avatar,
+                        usr.website as member_website,
+                        usr.nb_msg,
+                        usr.last_post as member_last_post,
+                        usr.last_connect as member_last_connect,
+                        forum.parent_id as forum_parent_id,
+                        forum.forum_name,
+                        rp.date_read as date_read_post
+                FROM ".$c->prefixTable('threads')." AS threads
+                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
+                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                    LEFT JOIN ".$c->prefixTable('read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
+                                                                    threads.id_last_msg=rp.id_post AND
+                                                                    rp.id_user = '".jAuth::getUserSession ()->id."')
+                ,".$c->prefixTable('posts')." AS posts
+                WHERE
+                    threads.id_thread=posts.parent_id AND
+                    posts.id_forum = '".$id_forum."'";
+
+        // if the user is not an admin then we hide the "hidden" posts
+        if ( ! jAcl2::check('hfnu.admin.post') )
+            $sql .= "AND posts.status <> 7 ";
+
+        $sql .= "GROUP BY posts.parent_id ORDER BY threads.ispined desc, threads.date_last_post desc ";
+
+        $posts = $c->limitQuery($sql, $page,$nbPostPerPage);
+        if ($posts->rowCount() == 0) {
+            $posts = $c->limitQuery($sql, 0,$nbPostPerPage);
+            $page = 0;
+        }
+
+        return array($page,$posts);
+    }
+
+    public static function findByIdParent($parent_id,$page,$nbRepliesPerPage) {
+        $c = jDb::getConnection();
+        if ( ! jAuth::isConnected())
+            $sql = "SELECT threads.id_thread,
+                    threads.id_user as id_user_thread,
+                    threads.id_forum as id_forum_thread,
+                    threads.status as status_thread,
+                    threads.nb_viewed,
+                    threads.nb_replies,
+                    threads.id_first_msg,
+                    threads.id_last_msg,
+                    threads.date_created,
+                    threads.date_last_post,
+                    threads.ispined as ispined_thread,
+                    threads.iscensored as iscensored_thread,
+                    posts.id_post,
+                    posts.id_user,
+                    posts.id_forum,
+                    posts.parent_id,
+                    posts.status,
+                    posts.ispined,
+                    posts.iscensored,
+                    posts.subject,
+                    posts.message,
+                    posts.date_created as p_date_created,
+                    posts.date_modified, posts.viewed,
+                    posts.poster_ip,
+                    posts.censored_msg,
+                    posts.read_by_mod,
+                    usr.id,
+                    usr.email,
+                    usr.login,
+                    usr.nickname,
+                    usr.comment as member_comment,
+                    usr.town as member_town,
+                    usr.avatar as member_avatar,
+                    usr.website as member_website,
+                    usr.nb_msg,
+                    usr.last_post as member_last_post,
+                    usr.last_connect as member_last_connect,
+                    forum.parent_id as forum_parent_id,
+                    forum.forum_name
+                FROM ".$c->prefixTable('threads')." AS threads
+                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
+                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                , ".$c->prefixTable('posts')." AS posts
+                WHERE
+                    threads.id_thread=posts.parent_id AND
+                    posts.parent_id = '".$parent_id."'";
+        else
+            $sql = "SELECT threads.id_thread,
+                        threads.id_user as id_user_thread,
+                        threads.id_forum as id_forum_thread,
+                        threads.status as status_thread,
+                        threads.nb_viewed,
+                        threads.nb_replies,
+                        threads.id_first_msg,
+                        threads.id_last_msg,
+                        threads.date_created,
+                        threads.date_last_post,
+                        threads.ispined as ispined_thread,
+                        threads.iscensored as iscensored_thread,
+                        posts.id_post,
+                        posts.id_user,
+                        posts.id_forum,
+                        posts.parent_id,
+                        posts.status,
+                        posts.ispined,
+                        posts.iscensored,
+                        posts.subject,
+                        posts.message,
+                        posts.date_created as p_date_created,
+                        posts.date_modified, posts.viewed,
+                        posts.poster_ip,
+                        posts.censored_msg,
+                        posts.read_by_mod,
+                        usr.id,
+                        usr.email,
+                        usr.login,
+                        usr.nickname,
+                        usr.comment as member_comment,
+                        usr.town as member_town,
+                        usr.avatar as member_avatar,
+                        usr.website as member_website,
+                        usr.nb_msg,
+                        usr.last_post as member_last_post,
+                        usr.last_connect as member_last_connect,
+                        forum.parent_id as forum_parent_id,
+                        forum.forum_name,
+                        rp.date_read as date_read_post
+                FROM ".$c->prefixTable('threads')." AS threads
+                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
+                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                    LEFT JOIN ".$c->prefixTable('read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
+                                                                    threads.id_last_msg=rp.id_post AND
+                                                                    rp.id_user = '".jAuth::getUserSession ()->id."')
+                ,".$c->prefixTable('posts')." AS posts
+                WHERE
+                    threads.id_thread=posts.parent_id AND
+                    posts.parent_id = '".$parent_id."'";
+
+        // if the user is not an admin then we hide the "hidden" posts
+        if ( ! jAcl2::check('hfnu.admin.post') )
+            $sql .= "AND posts.status <> 7 ";
+
+        //$sql .= "GROUP BY posts.parent_id ORDER BY threads.ispined desc, threads.date_last_post desc ";
+
+        $posts = $c->limitQuery($sql, $page,$nbRepliesPerPage);
+        if ($posts->rowCount() == 0) {
+            $posts = $c->limitQuery($sql, 0,$nbRepliesPerPage);
+            $page = 0;
+        }
+
+        return array($page,$posts);
     }
 }

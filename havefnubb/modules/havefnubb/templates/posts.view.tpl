@@ -55,7 +55,14 @@
                 'title'=>$post->subject)}
 
 <div class="box">
-    <h2><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> {$post->subject|eschtml} {zone 'havefnubb~i_read_this_post',array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}</h2>
+    <h2><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> {$post->subject|eschtml}
+                {ifuserconnected}
+                {if $post->date_created  < $lastMarkForumAsRead or
+                    $post->date_read_post >= $post->date_created }
+                {else}
+                    <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
+                {/if}
+                {/ifuserconnected}</h2>
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
