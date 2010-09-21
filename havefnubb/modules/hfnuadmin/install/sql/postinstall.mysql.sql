@@ -1,7 +1,7 @@
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES
 ('hfnu.admin.ban', 'havefnubb~acl2.admin.ban'),
 ('hfnu.admin.cache', 'havefnubb~acl2.admin.cache'),
-('hfnu.admin.cache.clear', 'havefnu~acl2.admin.cache.clear'),
+('hfnu.admin.cache.clear', 'havefnubb~acl2.admin.cache.clear'),
 ('hfnu.admin.category', 'havefnubb~acl2.admin.category'),
 ('hfnu.admin.category.create', 'havefnubb~acl2.admin.category.create'),
 ('hfnu.admin.category.delete', 'havefnubb~acl2.admin.category.delete'),
