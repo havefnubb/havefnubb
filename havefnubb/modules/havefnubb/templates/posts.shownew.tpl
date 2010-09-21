@@ -10,7 +10,7 @@
     <table>
         <caption>{@havefnubb~post.list.of.new.posts@} : {$nbPosts}</caption>
         <thead>
-            <tr><th></th>
+            <tr>
                 <th>{@havefnubb~forum.forumlist.title@}</th>
                 <th>{@havefnubb~member.common.author@}</th>
                 <th>{@havefnubb~forum.forumlist.responses@}</th>
@@ -21,21 +21,24 @@
         <tbody>
 {if $nbPosts > 0}
         {foreach $posts as $post}
-        <tr>
-            <td class="colicone-{post_status 'post',$post,0}" > </td>
-            <td> <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}#p{$post->id_last_msg}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
-            <td>
-                <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->nickname|eschtml}">{$post->nickname|eschtml}</a>
-            </td>
-            <td>
-                {$post->nb_replies}
-            </td>
-            <td>
-                {$post->nb_viewed}
-            </td>
-            <td>{zone 'havefnubb~postlc',array('parent_id'=>$post->parent_id)}
-            </td>
-        </tr>
+            {if  $post->p_date_created < $post->date_read_forum
+            ||   $post->p_date_created <= $post->date_read_post}
+            {else}
+            <tr>
+                <td> <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->id_last_msg,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}#p{$post->id_last_msg}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
+                <td>
+                    <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->nickname|eschtml}">{$post->nickname|eschtml}</a>
+                </td>
+                <td>
+                    {$post->nb_replies}
+                </td>
+                <td>
+                    {$post->nb_viewed}
+                </td>
+                <td>{zone 'havefnubb~postlc',array('parent_id'=>$post->parent_id)}
+                </td>
+            </tr>
+            {/if}
         {/foreach}
 {else}
         <tr><td colspan="6">{@havefnubb~post.no.new.post@}</td></tr>

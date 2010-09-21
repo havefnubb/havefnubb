@@ -1,6 +1,6 @@
 {if $msg == ''}
 <a href="{jurl 'havefnubb~posts:viewtogo',
-    array('id_post'=>$post->id_first_msg,
+    array('id_post'=>$post->id_last_msg,
         'parent_id'=>$post->parent_id,
         'id_forum'=>$post->id_forum,
         'ftitle'=>$post->forum_name,

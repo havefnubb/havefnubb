@@ -76,4 +76,5 @@ ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_created` `create_date` 
 ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_gravatar` `gravatar` int(1) NOT NULL DEFAULT '0';
 
 ALTER TABLE %%PREFIX%%read_posts ADD date_read int(12) NOT NULL DEFAULT '0';
+ALTER TABLE %%PREFIX%%read_posts ADD parent_id int(12) NOT NULL DEFAULT '0';
 --- TODO  supprimer les droits obsolètes

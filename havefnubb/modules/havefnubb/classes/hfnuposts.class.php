@@ -192,7 +192,7 @@ class hfnuposts {
         // let's update the 'read by mod'
         self::readByMod($parent_id);
         // let's add the user to the post_read table
-        jClasses::getService('havefnubb~hfnuread')->insertReadPost($post);
+        jClasses::getService('havefnubb~hfnuread')->insertReadPost($post,time());
 
         return array($id_post,$post,$goto,$nbReplies);
     }
@@ -267,12 +267,11 @@ class hfnuposts {
 
         //CreateRecord object
         $dao = jDao::get('havefnubb~posts');
-
+        $datePost = time();
         // create a post
         if ($id_post == 0) {
             jEvent::notify('HfnuPostBeforeSave',array('id'=>$id_post));
             $record = jDao::createRecord('havefnubb~posts');
-            $datePost = time();
             $record->subject        = $subject;
             $record->message        = $message;
             $record->id_post        = $id_post;
@@ -362,7 +361,7 @@ class hfnuposts {
         $tags = explode(",", $form->getData("tags"));
 
         //add this post as already been read
-        jClasses::getService('havefnubb~hfnuread')->insertReadPost($record);
+        jClasses::getService('havefnubb~hfnuread')->insertReadPost($record,$datePost);
 
         jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
 
@@ -455,6 +454,9 @@ class hfnuposts {
         $result['daorec']->id_first_msg = $threadRec->id_first_msg;
 
         jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
+
+        //add this post as already been read
+        jClasses::getService('havefnubb~hfnuread')->insertReadPost($result['daorec'],$dateReply);
 
         if ( $form->getData('subscribe') == 1 ) {
             //subscribe to a post

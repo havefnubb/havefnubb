@@ -7,3 +7,5 @@
 ^havefnubb/var/log
 ^temp/havefnubb
 ^cache/images/
+glob:HaveFnuBB.kpf
+glob:havefnubb.komodoproject

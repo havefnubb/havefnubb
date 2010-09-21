@@ -157,10 +157,12 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%read_posts (
   id_forum int(12) NOT NULL,
   id_post int(12) NOT NULL,
   date_read int(12) NOT NULL,
+  parent_id int(12) NOT NULL,
   PRIMARY KEY  (id_user,id_forum,id_post),
   KEY id_user (id_user),
   KEY id_forum (id_forum),
   KEY id_post (id_post)
+  KEY parent_id (parent_id)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%subscriptions (
