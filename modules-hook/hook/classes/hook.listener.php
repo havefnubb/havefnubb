@@ -163,5 +163,13 @@ class hookListener extends jEventListener{
     function onhfbAccountEditAfter($event) {
 
     }
+    function onhfbMenuBar($event) {
+        $link = '<li><a href="'.
+                jUrl::get('hfnucal~default:index',array('year'=>date('Y'),'month'=>date('m'))).
+                '" title="'.jLocale::get('hfnucal~main.Calendar').'">'.
+                jLocale::get('hfnucal~main.Calendar').
+                '</a></li>';
+        $event->add($link);
+    }
 
 }

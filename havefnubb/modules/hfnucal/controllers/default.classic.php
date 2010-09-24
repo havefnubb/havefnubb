@@ -15,39 +15,39 @@ class defaultCtrl extends jController {
      * @var plugins to manage the behavior of the controller
      */
     public $pluginParams = array(
-        '*'		=> array('auth.required'=>false),
+        '*'	    => array('auth.required'=>false),
     );
 
     public function index() {
-        $year 	= (int) $this->param('year');
-        $month 	= (int) $this->param('month');
-        $day 	= (int) $this->param('day');
+        $year   = (int) $this->param('year');
+        $month  = (int) $this->param('month');
+        $day    = (int) $this->param('day');
 
         if (! checkdate($month,date('d'),$year)) {
-            $year 	= date('Y');
-            $month 	= date('n');
-            $day 	= date('d');
+            $year   = date('Y');
+            $month  = date('n');
+            $day    = date('d');
         }
 
 
         if ($month == 1)
         {
-            $monthBe 	= 12;
-            $yearBe 	= $year-1;
+            $monthBe    = 12;
+            $yearBe     = $year-1;
         }
         else {
-            $monthBe 	= $month-1;
-            $yearBe 	= $year;
+            $monthBe    = $month-1;
+            $yearBe     = $year;
         }
 
         if ($month == 12)
         {
-            $monthAf 	= 1;
+            $monthAf    = 1;
             $yearAf	= $year+1;
         }
         else {
-            $monthAf 	= $month+1;
-            $yearAf 	= $year;
+            $monthAf    = $month+1;
+            $yearAf     = $year;
         }
 
         $rep = $this->getResponse('html');
@@ -68,14 +68,14 @@ class defaultCtrl extends jController {
     }
 
     public function view() {
-        $year 	= (int) $this->param('year');
-        $month 	= (int) $this->param('month');
-        $day 	= (int) $this->param('day');
+        $year   = (int) $this->param('year');
+        $month  = (int) $this->param('month');
+        $day    = (int) $this->param('day');
 
         if (! checkdate($month,date('d'),$year)) {
-            $year 	= date('Y');
-            $month 	= date('n');
-            $day 	= date('d');
+            $year   = date('Y');
+            $month  = date('n');
+            $day    = date('d');
         }
 
         $dateB = mktime(0,0,0,$month,$day,$year);

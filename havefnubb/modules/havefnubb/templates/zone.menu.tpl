@@ -7,6 +7,7 @@
 {else}{$item->content}{/if}
         </li>
 {/foreach}
+    {hook 'hfbMenuBar'}
     </ul>
     {/if}
 {/foreach}
