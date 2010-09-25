@@ -79,11 +79,11 @@
         </div>
         {if count($tags) > 1}
         <div class="grid_2 postheading-tags">
-        <ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul>
+        <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
         </div>
-        {elseif count($tags) ==1}
+        {elseif count($tags) == 1 and !empty($tags)}
         <div class="grid_2 postheading-tags">
-        <ul><li>{$tags}</li></ul>
+        <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
         </div>
         {/if}
         <div class="clear"></div>

@@ -786,3 +786,14 @@ div.comment_list {
 span.newestposts{
     display: none;
 }
+
+#tagscloud a.tag1 { font-size: 0.9em; font-weight: 100; }
+#tagscloud a.tag2 { font-size: 1.05em; font-weight: 200; }
+#tagscloud a.tag3 { font-size: 1.2em; font-weight: 300; }
+#tagscloud a.tag4 { font-size: 1.35em; font-weight: 400; }
+#tagscloud a.tag5 { font-size: 1.5em; font-weight: 500; }
+#tagscloud a.tag6 { font-size: 1.65em; font-weight: 600; }
+#tagscloud a.tag7 { font-size: 1.8em; font-weight: 700; }
+#tagscloud a.tag8 { font-size: 1.95em; font-weight: 800; }
+#tagscloud a.tag9 { font-size: 2.1em; font-weight: 900; }
+#tagscloud a.tag10 { font-size: 2.25em; font-weight: 1000; }
