@@ -2,14 +2,14 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <menulist ref="id_forum">
-	<datasource class="havefnubb~hfnuforumaccess"/>
-	<label locale="havefnubb~forum.jumpto.go.to.this.forum">jumpto forum :</label>
-	<emptyitem locale="havefnubb~forum.select.a.forum"/>
+    <datasource class="havefnubb~hfnuforumaccess"/>
+    <label locale="havefnubb~forum.jumpto.go.to.this.forum">jumpto forum :</label>
+    <emptyitem locale="havefnubb~forum.select.a.forum"/>
 </menulist>
 
 <submit ref="validate">
-	<label>Veuillez valider</label>
-	<item value="ok" locale="havefnubb~forum.jumpto.ok"/>  
+    <label>Veuillez valider</label>
+    <item value="ok" locale="havefnubb~forum.jumpto.ok"/>
 </submit>
 
 </form>

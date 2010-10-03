@@ -12,18 +12,15 @@
         <div class="form_row">
             <div class="form_property">{ctrl_label 'message'} </div>
             <div class="form_value">{ctrl_control 'message'}</div>
-            {literal}
-            <script type="text/javascript">
-            //<![CDATA[
-            $(document).ready(function() {
-                $('#jforms_havefnubb_posts_message').markItUp(mySettings);
-            });
-            //]]>
-            </script>
-            {/literal}
             <div class="clearer">&nbsp;</div>
         </div>
-
+        {ifusernotconnected}
+        <div class="form_row">
+            <div class="form_property">{ctrl_label 'nospam'}</div>
+            <div class="form_value">{ctrl_control 'nospam'}</div>
+            <div class="clearer">&nbsp;</div>
+        </div>
+        {/ifusernotconnected}
         <div class="form_row form_row_submit">
             <div class="form_value">
                 {formsubmit 'validate'} {formreset 'reset'}

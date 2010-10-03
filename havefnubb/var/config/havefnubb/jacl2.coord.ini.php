@@ -10,4 +10,5 @@ on_error = 2
 error_message = "jelix~errors.acl.action.right.needed"
 
 ; action to execute on a missing authentification when on_error=2
-on_error_action = "jelix~error:badright"
+; on_error_action = "jelix~error:badright"
+on_error_action = "havefnubb~hfnuerror:badright"

@@ -244,13 +244,15 @@ class hfnuposts {
      */
     public static function save($id_forum,$id_post=0) {
         global $gJConfig;
-        $form = jForms::fill('havefnubb~posts',$id_post);
-
-        if (!$form) {
-            return false;
+        if (jAuth::isConnected()) {
+            $form = jForms::fill('havefnubb~posts',$id_post);
+            $id_user= jAuth::getUserSession ()->id;
         }
-        //.. if the data are not ok, return to the form and display errors messages form
-        if (!$form->check()) {
+        elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
+            $form = jForms::fill('havefnubb~posts_anonym',$id_post);
+            $id_user = 0;
+        }
+        if (!$form or !$form->check()) {
             return false;
         }
 
@@ -275,7 +277,7 @@ class hfnuposts {
             $record->subject        = $subject;
             $record->message        = $message;
             $record->id_post        = $id_post;
-            $record->id_user        = jAuth::getUserSession ()->id;
+            $record->id_user        = $id_user;
             $record->id_forum       = $id_forum;
             $record->parent_id      = 0;
             $record->status         = 3; //'opened'
@@ -299,7 +301,7 @@ class hfnuposts {
 
             $threadDao = jDao::get('havefnubb~threads');
             $threadRec = jDao::createRecord('havefnubb~threads');
-            $threadRec->id_user_thread  = jAuth::getUserSession ()->id;
+            $threadRec->id_user_thread  = $id_user;
             $threadRec->status_thread   = 3; //'opened'
             $threadRec->id_forum_thread = $id_forum;
             $threadRec->nb_replies      = 0;
@@ -386,13 +388,17 @@ class hfnuposts {
      */
     public static function savereply($parent_id,$id_post) {
         global $gJConfig;
-        $form = jForms::fill('havefnubb~posts',$parent_id);
-        if (!$form) {
-            return false;
+        $form = false;
+        if (jAuth::isConnected()) {
+            $form = jForms::fill('havefnubb~posts',$parent_id);
+            $id_user = jAuth::getUserSession ()->id;
+        }
+        elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
+            $form = jForms::fill('havefnubb~posts_anonym',$parent_id);
+            $id_user = 0;
         }
 
-        //.. if the data are not ok, return to the form and display errors messages form
-        if (!$form->check()) {
+        if (!$form or !$form->check()) {
             return false;
         }
 
@@ -424,7 +430,7 @@ class hfnuposts {
         $result['daorec']->poster_ip    = $_SERVER['REMOTE_ADDR'];
         $result['daorec']->viewed       = 0;
         $result['daorec']->id_post      = 0;
-        $result['daorec']->id_user      = jAuth::getUserSession ()->id;
+        $result['daorec']->id_user      = $id_user;
         $result['daorec']->iscensored   = $threadRec->iscensored;
         $result['daorec']->ispined      = $threadRec->ispined;
         $result['dao']->insert($result['daorec']);

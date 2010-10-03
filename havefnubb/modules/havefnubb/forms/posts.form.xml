@@ -7,30 +7,30 @@
 <hidden ref="id_forum"/>
 
 <input ref="subject" type="string" required="true" size="80">
-	<label locale="havefnubb~post.form.subject"/>
+    <label locale="havefnubb~post.form.subject"/>
 </input>
 
-<textarea ref="message" required="true"  rows="10" cols="80" >
-	<label locale="havefnubb~post.form.message"/>
-</textarea>
+<wikieditor ref="message" required="true"  rows="10" cols="80" >
+    <label locale="havefnubb~post.form.message"/>
+</wikieditor>
 
 <input ref="tags" size="80">
-	<label locale="havefnubb~post.form.choose.your.tags"/>
-	<help  locale="havefnubb~post.form.tags.description"/>
+    <label locale="havefnubb~post.form.choose.your.tags"/>
+    <help  locale="havefnubb~post.form.tags.description"/>
 </input>
 
 <checkbox ref="subscribe" >
-	<label locale="havefnubb~post.subscribe.to.this.post"/>
-	<help  locale="havefnubb~post.subscribe.to.this.post.help"/>
+    <label locale="havefnubb~post.subscribe.to.this.post"/>
+    <help  locale="havefnubb~post.subscribe.to.this.post.help"/>
 </checkbox>
 
 
 <submit ref="validate">
-	<label>Veuillez valider</label>
-	<item value="preview" locale="havefnubb~post.form.previewBt"/>
-	<item value="save" locale="havefnubb~post.form.saveBt"/>
+    <label>Veuillez valider</label>
+    <item value="preview" locale="havefnubb~post.form.previewBt"/>
+    <item value="save" locale="havefnubb~post.form.saveBt"/>
 </submit>
 <reset ref="reset">
-	<label locale="havefnubb~post.form.resetBt"/>
+    <label locale="havefnubb~post.form.resetBt"/>
 </reset>
 </form>

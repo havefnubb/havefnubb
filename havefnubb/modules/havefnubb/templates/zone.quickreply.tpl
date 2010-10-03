@@ -11,20 +11,16 @@
         <p>
             {ctrl_label 'message'}
             {ctrl_control 'message'}
-        {literal}
-        <script type="text/javascript">
-        //<![CDATA[
-        $(document).ready(function()    {
-            $('#jforms_havefnubb_posts_message').markItUp(mySettings);
-        });
-        //]]>
-        </script>
-        {/literal}
         </p>
+        {ifusernotconnected}
+        <fieldset>
+            <legend>{ctrl_label 'nospam'}</legend>
+            {ctrl_control 'nospam'}
+        </fieldset>
+        {/ifusernotconnected}
         {formsubmit 'validate'} {formreset 'reset'}
     </fieldset>
     {/form}
     </div>
 </div>
 {include 'havefnubb~zone.syntax_wiki'}
-

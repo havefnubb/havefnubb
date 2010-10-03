@@ -26,13 +26,21 @@ class quickreplyZone extends jZone {
         if ($id_forum < 1) return;
 
         $daoUser = jDao::get('havefnubb~member');
-        $user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+        if (jAuth::isConnected())
+            $user = $daoUser->getByLogin( jAuth::getUserSession ()->login);
+        else {
+            $user = new StdClass;
+            $user->id=0;
+        }
         $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
         $subject = '';
         if ($post->subject != '') {
             $subject = $post->subject;
         }
-        $form = jForms::create('havefnubb~posts',$parent_id);
+        if (jAuth::isConnected())
+            $form = jForms::create('havefnubb~posts',$parent_id);
+        else
+            $form = jForms::create('havefnubb~posts_anonym',$parent_id);
         $form->setData('id_forum',$id_forum);
         $form->setData('id_user',$user->id);
         $form->setData('id_post',0);

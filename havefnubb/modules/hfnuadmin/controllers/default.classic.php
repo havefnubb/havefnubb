@@ -54,6 +54,7 @@ class defaultCtrl extends jController {
         $form->setData('avatar_max_width',      (int) $gJConfig->havefnubb['avatar_max_width']);
         $form->setData('avatar_max_height',     (int) $gJConfig->havefnubb['avatar_max_height']);
         $form->setData('stats_nb_of_lastpost',  (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
+        $form->setData('anonymous_post_authorized',(int)$gJConfig->havefnubb['anonymous_post_authorized']);
         $form->setData('only_same_ip',          (int) (isset($floodConfig['only_same_ip'])?$floodConfig['only_same_ip']:'on'));
         $form->setData('elapsed_time_between_two_post',(int) (isset($floodConfig['elapsed_time_between_two_post'])?$floodConfig['elapsed_time_between_two_post']:'0'));
 
@@ -130,6 +131,7 @@ class defaultCtrl extends jController {
         $defaultConfig->setValue('avatar_max_height',   $form->getData('avatar_max_height'),'havefnubb');
         $defaultConfig->setValue('important_nb_replies',$form->getData('important_nb_replies'),'havefnubb');
         $defaultConfig->setValue('important_nb_views',  $form->getData('important_nb_views'),'havefnubb');
+        $defaultConfig->setValue('anonymous_post_authorized',  $form->getData('anonymous_post_authorized'),'havefnubb');        
 
         $defaultConfig->setValue('twitter',     $form->getData('social_network_twitter'),'social_networks');
         $defaultConfig->setValue('digg',        $form->getData('social_network_digg'),'social_networks');

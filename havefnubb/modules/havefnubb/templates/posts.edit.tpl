@@ -18,7 +18,7 @@
     </fieldset>
     {/if}
     {hook 'hfbPostsEdit',array('id_post'=>$id_post)}
-    {form $form, $submitAction, array('id_post'=>$id_post)}
+    {form $form, $submitAction, array('id_forum'=>$id_forum)}
     <fieldset>
     <legend>{$heading}</legend>
     {ctrl_label 'subject'}<br/>
@@ -26,29 +26,28 @@
 
     {ctrl_label 'message'}<br/>
     {ctrl_control 'message'}<br/>
-
-    {literal}
-    <script type="text/javascript">
-    //<![CDATA[
-    $(document).ready(function() {
-        $('#jforms_havefnubb_posts_message').markItUp(mySettings);
-    });
-    //]]>
-    </script>
-    {/literal}
     <fieldset>
         <legend>{ctrl_label 'tags'}</legend>
         {@havefnubb~post.form.tags.description@}<br/>
         {ctrl_control 'tags'}
     </fieldset>
+    {ifuserconnected}
     <fieldset>
         <legend>{ctrl_label 'subscribe'}</legend>
         {@havefnubb~post.subscribe.to.this.post.help@} {ctrl_control 'subscribe'}
     </fieldset>
+    {/ifuserconnected}
+    {if $anonymous_post_authorized == 1}
+    {ifusernotconnected}
+    <fieldset>
+        <legend>{ctrl_label 'nospam'}</legend>
+        {ctrl_control 'nospam'}
+    </fieldset>
+    {/ifusernotconnected}
+    {/if}
     {formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}
     </fieldset>
     {/form}
-
     </div>
 </div>
 {hook 'hfbAfterPostsEdit',array('id_post'=>$id_post)}

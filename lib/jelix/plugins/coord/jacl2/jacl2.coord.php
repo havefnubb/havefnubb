@@ -3,7 +3,7 @@
 * @package    jelix
 * @subpackage coord_plugin
 * @author     Laurent Jouanneau
-* @contributor  
+* @contributor
 * @copyright  2008 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 * @since 1.1
@@ -56,7 +56,7 @@ class jAcl2CoordPlugin implements jICoordPlugin {
         }
 
         if(!$aclok){
-            if($this->config['on_error'] == 1 
+            if($this->config['on_error'] == 1
                 || !$GLOBALS['gJCoord']->request->isAllowedResponse('jResponseRedirect')){
                 throw new jException($this->config['error_message']);
             }else{

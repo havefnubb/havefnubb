@@ -15,28 +15,36 @@ class postStuffListener extends jEventListener{
      * Event to handle statistics data of the current member after inserting data
      * @pararm event $event Object of a listener
      */
-     function onHfnuPostAfterInsert ($event) {
-         $daoUser = jDao::get('havefnubb~member');
-         $id_user = jAuth::getUserSession ()->id;
-         $daoUser->updateNbMsg($id_user);
-         $daoUser->updateLastPostedMsg($id_user,time());
-     }
+    function onHfnuPostAfterInsert ($event) {
+        $this->updateMember();
+    }
     /**
      * Event to handle statistics data of the current member after updating data
      * @pararm event $event Object of a listener
      */
-     function onHfnuPostAfterUpdate ($event) {
-         $daoUser = jDao::get('havefnubb~member');
-         $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
-     }
+    function onHfnuPostAfterUpdate ($event) {
+        $daoUser = jDao::get('havefnubb~member');
+        $daoUser->updateLastPostedMsg(jAuth::getUserSession ()->id,time());
+    }
     /**
      * Event to handle statistics data of the current member after replying
      * @pararm event $event Object of a listener
      */
     function onHfnuPostAfterSaveReply ($event) {
-         $daoUser = jDao::get('havefnubb~member');
-         $id_user = jAuth::getUserSession ()->id;
-         $daoUser->updateNbMsg($id_user);
-         $daoUser->updateLastPostedMsg($id_user,time());
-     }
+        $this->updateMember();
+    }
+
+    /**
+     * Function that updates member's datas
+     */
+    private function updateMember() {
+        $daoUser = jDao::get('havefnubb~member');
+        if (jAuth::isConnected()) {
+            $id_user = jAuth::getUserSession ()->id;
+            $daoUser->updateNbMsg($id_user);
+        } else {
+            $id_user = 0;
+        }
+        $daoUser->updateLastPostedMsg($id_user,time());
+    }
 }

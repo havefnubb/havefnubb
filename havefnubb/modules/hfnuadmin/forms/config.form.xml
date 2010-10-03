@@ -101,6 +101,12 @@
     <label locale="hfnuadmin~config.flood.only_same_ip"/>
 </checkbox>
 
+<radiobuttons ref="anonymous_post_authorized" required="true">
+    <label locale="hfnuadmin~config.anonymous_post_authorized"/>
+    <item value="1" locale="hfnuadmin~common.yes"/>
+    <item value="0" locale="hfnuadmin~common.no" selected="true"/>
+</radiobuttons>
+
 <input ref="post_max_size" type="integer" required="true" size="4">
     <label locale="hfnuadmin~config.post_max_size"/>
 </input>

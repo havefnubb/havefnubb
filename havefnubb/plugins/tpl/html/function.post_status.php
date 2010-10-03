@@ -34,19 +34,19 @@ function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkForumAsRea
         $post = $data;
 
         $status = $statusAvailable[ $post->status_thread - 1];
-
-        //opened thread ?
-        if ($post->status_thread == 3) {
-            //do the member already read that post ?
-            // yes so status is opened
-            if ($post->date_last_post < $lastMarkForumAsRead ||
-                    $post->date_read_post >= $post->date_last_post)
-                $status = 'opened';
-            else
-                // no so post is new
-                $status = 'post-new';
+        if (jAuth::isConnected()) {
+            //opened thread ?
+            if ($post->status_thread == 3) {
+                //do the member already read that post ?
+                // yes so status is opened
+                if ($post->date_last_post < $lastMarkForumAsRead ||
+                        $post->date_read_post >= $post->date_last_post)
+                    $status = 'opened';
+                else
+                    // no so post is new
+                    $status = 'post-new';
+            }
         }
-
         // does this forum manage auto-expiration ?
         $dayInSecondes = 24 * 60 * 60;
         $dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $dayInSecondes) : floor( (time() - $post->date_modified ) / $dayInSecondes) ;
@@ -65,6 +65,7 @@ function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkForumAsRea
                 $important = true;
         }
         $status = ($important === true) ? $status . '_important' : $status;
+
     }
     echo $status;
 }
