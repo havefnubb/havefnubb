@@ -75,7 +75,7 @@
         {/if}&nbsp;
         </div>
         <div class="grid_8 postheading">
-        <h5><a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if} {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {$post->nickname|eschtml}</a></h5>
+        <h5><a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'parent_id'=>$parent_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if} {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
         </div>
         {if count($tags) > 1}
         <div class="grid_2 postheading-tags">
@@ -92,7 +92,7 @@
         </div>
         <div class="grid_12 postbody">
         {if $statusAvailable[$post->status -1] == 'censored'}
-            {$post->censored_msg|wiki:'hfb_rule'}
+            {@havefnubb~main.censored.reason@} {$post->censored_msg|wiki:'hfb_rule'} {censored_by $post->censored_by}
             {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
             <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
             {$post->message|wiki:'hfb_rule'}

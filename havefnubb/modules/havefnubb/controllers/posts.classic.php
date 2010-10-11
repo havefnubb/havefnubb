@@ -59,7 +59,7 @@ class postsCtrl extends jController {
     /**
      * main list of all posts of a given forum ($id_forum)
      */
-    function lists() {
+    public function lists() {
         global $gJConfig;
         $ftitle = jUrl::escape($this->param('ftitle'),true);
 
@@ -80,8 +80,7 @@ class postsCtrl extends jController {
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
-        if (jUrl::escape($forum->forum_name,true) != $ftitle )
-        {
+        if (jUrl::escape($forum->forum_name,true) != $ftitle ) {
             $rep = $this->getResponse('redirect');
             $rep->action = $gJConfig->urlengine['notfoundAct'];
             return $rep;
@@ -333,7 +332,6 @@ class postsCtrl extends jController {
 
         $tpl->assign('id_post'  ,$id_post);
         $tpl->assign('forum'    ,$forum);
-
         $tpl->assign('posts',$posts);
         $tpl->assign('tags',$tags);
         $tpl->assign('page',$page);
@@ -365,6 +363,7 @@ class postsCtrl extends jController {
     function add () {
         global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
+        $id_post = 0;
 
         // invalid forum id
         if ($id_forum == 0) {
@@ -372,15 +371,27 @@ class postsCtrl extends jController {
             $rep->action = 'havefnubb~default:index';
             return $rep;
         }
-
-        if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
-            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
-            return $rep;
+        if (jAuth::isConnected()) {
+            if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
+            $form = jForms::create('havefnubb~posts',$id_post);
+            $form->setData('id_user',jAuth::getUserSession ()->id);
+        } else {
+            if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) and
+                 ! jAcl2::check('hfnu.posts.create') ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
+            $form = jForms::create('havefnubb~posts_anonym',$id_post);
+            $form->setData('id_user',0);
         }
 
-        $id_post = 0;
 
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
@@ -390,14 +401,6 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        if (jAuth::isConnected()) {
-            $form = jForms::create('havefnubb~posts',$id_post);
-            $form->setData('id_user',jAuth::getUserSession ()->id);
-        }
-        elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
-            $form = jForms::create('havefnubb~posts_anonym',$id_post);
-            $form->setData('id_user',0);
-        }
         $form->setData('id_forum',  $id_forum);
         $form->setData('id_post',   $id_post);
 
@@ -406,7 +409,6 @@ class postsCtrl extends jController {
 
         //set the needed parameters to the template
         $tpl = new jTpl();
-        $tpl->assign('anonymous_post_authorized',$gJConfig->havefnubb['anonymous_post_authorized']);
         $tpl->assign('id_post',     $id_post);
         $tpl->assign('id_forum',    $id_forum);
         $tpl->assign('previewtext', null);
@@ -489,6 +491,26 @@ class postsCtrl extends jController {
         $id_forum = (int) $this->param('id_forum');
         $id_post  = (int) $this->param('id_post');
 
+        if (jAuth::isConnected()) {
+            if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
+        } else {
+            if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum)
+                and
+                 ! jAcl2::check('hfnu.posts.create')
+                ) {
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
+        }
+
+
+
         //edit a post
         if ($id_post > 0) {
             $daoPost = jDao::get('havefnubb~posts');
@@ -513,14 +535,6 @@ class postsCtrl extends jController {
             }
         }
         //add a post
-        else {
-            if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
-                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
-                return $rep;
-            }
-        }
 
         $parent_id = (int) $this->param('parent_id');
 
@@ -535,7 +549,7 @@ class postsCtrl extends jController {
             if (jAuth::isConnected()) {
                 $form = jForms::create('havefnubb~posts',$id_post);
             }
-            elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
+            else {
                 $form = jForms::create('havefnubb~posts_anonym',$id_post);
             }
 
@@ -558,7 +572,6 @@ class postsCtrl extends jController {
 
             //set the needed parameters to the template
             $tpl = new jTpl();
-            $tpl->assign('anonymous_post_authorized',$gJConfig->havefnubb['anonymous_post_authorized']);
             $tpl->assign('id_post',     $id_post);
             $tpl->assign('id_forum',    $id_forum);
             $tpl->assign('signature',   $user->member_comment);
@@ -665,18 +678,27 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        if ( ! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum) ) {
-            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
-            return $rep;
-        }
-
         if (jAuth::isConnected()) {
+            if ( ! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum) ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
+
             $form = jForms::create('havefnubb~posts',$parent_id);
             $id_user = jAuth::getUserSession ()->id;
         }
-        elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
+        else {
+            if ( ! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum)
+                and
+                 ! jAcl2::check('hfnu.posts.reply')
+                ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
             $form = jForms::create('havefnubb~posts_anonym',$parent_id);
             $id_user = 0;
         }
@@ -690,7 +712,6 @@ class postsCtrl extends jController {
 
         //set the needed parameters to the template
         $tpl = new jTpl();
-        $tpl->assign('anonymous_post_authorized',$gJConfig->havefnubb['anonymous_post_authorized']);
         $tpl->assign('forum',$forum);
         $tpl->assign('id_post',0);
         $tpl->assign('parent_id',$post->parent_id);
@@ -730,11 +751,28 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        if ( ! jAcl2::check('hfnu.posts.quote','forum'.$post->id_forum) ) {
-            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
-            return $rep;
+        if (jAuth::isConnected()) {
+            if ( ! jAcl2::check('hfnu.posts.quote','forum'.$post->id_forum) ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
+            $form = jForms::create('havefnubb~posts',$parent_id);
+            $id_user = jAuth::getUserSession ()->id;
+        }
+        else {
+            if ( ! jAcl2::check('hfnu.posts.quote','forum'.$post->id_forum)
+                and
+                 ! jAcl2::check('hfnu.posts.quote')
+                ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
+            $form = jForms::create('havefnubb~posts_anonym',$parent_id);
+            $id_user = 0;
         }
 
         // crumbs infos
@@ -752,15 +790,6 @@ class postsCtrl extends jController {
             $rep = $this->getResponse('redirect');
             $rep->action = 'default:index';
             return $rep;
-        }
-
-        if (jAuth::isConnected()) {
-            $form = jForms::create('havefnubb~posts',$parent_id);
-            $id_user = jAuth::getUserSession ()->id;
-        }
-        elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
-            $form = jForms::create('havefnubb~posts_anonym',$parent_id);
-            $id_user = 0;
         }
 
         $form->setData('subject',$post->subject);
@@ -784,7 +813,6 @@ class postsCtrl extends jController {
 
         //set the needed parameters to the template
         $tpl = new jTpl();
-        $tpl->assign('anonymous_post_authorized',$gJConfig->havefnubb['anonymous_post_authorized']);
         $tpl->assign('forum',       $forum);
         $tpl->assign('id_post',     0);
         $tpl->assign('parent_id',   $parent_id);
@@ -808,12 +836,26 @@ class postsCtrl extends jController {
         global $gJConfig;
         $id_forum   = (int) $this->param('id_forum');
 
-        if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) and
-            ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
-            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
-            return $rep;
+        if (jAuth::isConnected()) {
+            if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) and
+                ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+            }
+        } else {
+            if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) and
+                ! jAcl2::check('hfnu.posts.quote') and
+                ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) and
+                ! jAcl2::check('hfnu.posts.reply')
+                ) {
+                jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+                $rep = $this->getResponse('redirect');
+                $rep->action = 'havefnubb~hfnuerror:badright';
+                return $rep;
+
+            }
         }
 
         $id_user = jAuth::isConnected() ? jAuth::getUserSession ()->id : 0;
@@ -838,7 +880,7 @@ class postsCtrl extends jController {
                 $form = jForms::create('havefnubb~posts',$parent_id);
                 $id_user = jAuth::getUserSession ()->id;
             }
-            elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
+            else {
                 $form = jForms::create('havefnubb~posts_anonym',$parent_id);
                 $id_user = 0;
             }
@@ -1112,7 +1154,7 @@ class postsCtrl extends jController {
     /**
      * provide a rss feeds for each forum
      */
-    public function rss() {
+    function rss() {
         global $gJConfig;
         $ftitle = jUrl::escape($this->param('ftitle'),true);
         $id_forum = (int) $this->param('id_forum');
@@ -1435,8 +1477,8 @@ class postsCtrl extends jController {
             $rep->action = 'havefnubb~hfnuerror:badright';
             return $rep;
         }
-        $id_post 	= (int) $this->param('id_post');
-        $parent_id 	= (int) $this->param('parent_id');
+        $id_post    = (int) $this->param('id_post');
+        $parent_id  = (int) $this->param('parent_id');
 
         if ($id_post < 1 or $parent_id < 0) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');

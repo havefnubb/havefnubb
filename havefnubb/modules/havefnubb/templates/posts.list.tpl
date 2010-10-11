@@ -13,9 +13,18 @@
 <div id="post-message">{jmessage}</div>
 {/ifacl2}
 <div class="fake-button-left grid_8 alpha">&nbsp;
+{* for guest *}
+{ifusernotconnected}
+{* guest can not post if one the this 2 rights are not ok *}
+{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum and 'hfnu.posts.create'}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{/ifacl2}
+{else}
+{* for connected member *}
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
+{/ifusernotconnected}
 </div>
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
 <div class="pager-posts grid_8 omega">
@@ -61,7 +70,7 @@
                 {/ifuserconnected}
             </td>
             <td>
-                <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->nickname|eschtml}">{$post->nickname|eschtml}</a>
+                {if $post->login == null} {@havefnubb~member.guest@}{else} <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->nickname|eschtml}">{$post->nickname|eschtml}</a>{/if}
             </td>
             <td>
                 {$post->nb_replies}
@@ -82,9 +91,18 @@
     </div>
 </div>
 <div class="fake-button-left grid_8 alpha">&nbsp;
+{* for guest *}
+{ifusernotconnected}
+{* guest can not post if one the this 2 rights are not ok *}
+{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum and 'hfnu.posts.create'}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{/ifacl2}
+{else}
+{* for connected member *}
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
+{/ifusernotconnected}
 </div>
 
 <div class="pager-posts  grid_8 omega">

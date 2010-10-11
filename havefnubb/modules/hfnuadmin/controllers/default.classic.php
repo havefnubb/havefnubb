@@ -96,6 +96,14 @@ class defaultCtrl extends jController {
 
         $tpl = new jTpl();
         $tpl->assign('form', $form);
+        $forumUrl =
+                    '<a href="'
+                    .jUrl::get('hfnuadmin~forum:index')
+                    .'" >'
+                    .jLocale::get('config.anonymous_post_authorized.rights.management.by.forum')
+                    .'</a>';
+
+        $tpl->assign('forumUrl',$forumUrl);
         $resp->body->assign('MAIN',$tpl->fetch('config'));
         $resp->body->assign('selectedMenuItem','config');
         return $resp;
@@ -114,6 +122,23 @@ class defaultCtrl extends jController {
         }
 
         $defaultConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $p = jAcl2Db::getProfile();
+        //if we want to allow the anonymous users on the forum :
+        if ($form->getData('anonymous_post_authorized')) {
+            $rights =array( 'hfnu.forum.list'=>'on',
+                            'hfnu.forum.view'=>'on',
+                            'hfnu.posts.list'=>'on',
+                            'hfnu.posts.view'=>'on',
+                            'hfnu.posts.rss'=>'on',
+                            'hfnu.posts.reply'=>'on',
+                            'hfnu.posts.create'=>'on',
+                            'hfnu.search'=>'on');
+
+            jAcl2DbManager::setRightsOnGroup(0, $rights);
+        }
+        // we disable the anonymous access on the forum
+        else
+            jAcl2DbManager::setRightsOnGroup(0, array());
 
         $defaultConfig->setValue('title',          htmlentities($this->param('title')),'havefnubb');
         $defaultConfig->setValue('description',    htmlentities($form->getData('description')),'havefnubb');
@@ -131,7 +156,7 @@ class defaultCtrl extends jController {
         $defaultConfig->setValue('avatar_max_height',   $form->getData('avatar_max_height'),'havefnubb');
         $defaultConfig->setValue('important_nb_replies',$form->getData('important_nb_replies'),'havefnubb');
         $defaultConfig->setValue('important_nb_views',  $form->getData('important_nb_views'),'havefnubb');
-        $defaultConfig->setValue('anonymous_post_authorized',  $form->getData('anonymous_post_authorized'),'havefnubb');        
+        $defaultConfig->setValue('anonymous_post_authorized',  $form->getData('anonymous_post_authorized'),'havefnubb');
 
         $defaultConfig->setValue('twitter',     $form->getData('social_network_twitter'),'social_networks');
         $defaultConfig->setValue('digg',        $form->getData('social_network_digg'),'social_networks');
@@ -145,7 +170,7 @@ class defaultCtrl extends jController {
         $defaultConfig->setValue('timeZone',    $tz[$form->getData('timezone')]);
         $defaultConfig->save();
 
-        $floodConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
+        $floodConfig    =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
 
         $floodConfig->setValue('only_same_ip',                  $form->getData('only_same_ip'));
         $floodConfig->setValue('elapsed_time_between_two_post', $form->getData('elapsed_time_between_two_post'));

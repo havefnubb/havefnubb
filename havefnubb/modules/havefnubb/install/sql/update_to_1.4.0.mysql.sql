@@ -4,6 +4,8 @@ ALTER TABLE %%PREFIX%%posts ADD INDEX ( ispined ) ;
 ALTER TABLE %%PREFIX%%posts ADD iscensored INT( 1 ) NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%posts ADD INDEX ( iscensored ) ;
 
+ALTER TABLE %%PREFIX%%posts ADD censored_by int(12);
+
 update %%PREFIX%%posts set status = 3,ispined=1,iscensored=0 where status = "pined";
 update %%PREFIX%%posts set status = 4,ispined=1,iscensored=0 where status = "pinedclosed";
 update %%PREFIX%%posts set status = 3,ispined=0,iscensored=0 where status = "opened";

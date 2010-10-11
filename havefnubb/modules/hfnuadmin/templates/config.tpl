@@ -47,12 +47,6 @@
 
 <div id="hfnuadmin-messages">
 <fieldset>
-    <legend>{@hfnuadmin~config.anonymous_post_authorized.desc@}</legend>
-    <p>{ctrl_label 'anonymous_post_authorized'} </p>
-    <p>{ctrl_control 'anonymous_post_authorized'} </p>
-    <p>{@hfnuadmin~config.anonymous_post_authorized.description@}</p>
-</fieldset>
-<fieldset>
     <legend>{@hfnuadmin~config.messages.desc@}</legend>
     <p>{ctrl_label 'posts_per_page'} </p>
     <p>{ctrl_control 'posts_per_page'} </p>
@@ -110,6 +104,12 @@
 </div>
 
 <div id="hfnuadmin-members">
+<fieldset>
+    <legend>{@hfnuadmin~config.anonymous_post_authorized.desc@}</legend>
+    <p>{ctrl_label 'anonymous_post_authorized'} </p>
+    <p>{ctrl_control 'anonymous_post_authorized'} </p>
+    <p>{jlocale 'hfnuadmin~config.anonymous_post_authorized.description.html',$forumUrl}</p>
+</fieldset>
 <fieldset>
     <legend>{@hfnuadmin~config.members@}</legend>
     <p>{ctrl_label 'members_per_page'} </p>

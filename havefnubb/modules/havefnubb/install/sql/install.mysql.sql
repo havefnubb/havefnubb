@@ -103,10 +103,12 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%posts (
   read_by_mod int(1) DEFAULT '0',
   ispined INT( 1 ) NOT NULL DEFAULT '0',
   iscensored INT( 1 ) NOT NULL DEFAULT '0',
+  censored_by int(12),
   PRIMARY KEY (id_post),
   KEY id_user (id_user,id_forum,parent_id,status)
 ) DEFAULT CHARSET=utf8;
 ALTER TABLE %%PREFIX%%posts ADD INDEX ( ispined ) ;
+ALTER TABLE %%PREFIX%%posts ADD INDEX ( iscensored ) ;
 
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%threads (

@@ -393,7 +393,7 @@ class hfnuposts {
             $form = jForms::fill('havefnubb~posts',$parent_id);
             $id_user = jAuth::getUserSession ()->id;
         }
-        elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
+        else {
             $form = jForms::fill('havefnubb~posts_anonym',$parent_id);
             $id_user = 0;
         }
@@ -574,7 +574,7 @@ class hfnuposts {
         if ( $parent_id < 0 or $id_post < 1) return false;
         $return = false;
         $dao = jDao::get('havefnubb~posts');
-        if ( $dao->censorIt($id_post,$censor_msg) ) {
+        if ( $dao->censorIt($id_post,$censor_msg,jAuth::getUserSession ()->id) ) {
             jEvent::notify('HfnuPostAfterStatusChanged',
                            array('id'=>$id_post,
                                  'status'=>5)
@@ -957,6 +957,7 @@ class hfnuposts {
                     posts.date_modified, posts.viewed,
                     posts.poster_ip,
                     posts.censored_msg,
+                    posts.censored_by,
                     posts.read_by_mod,
                     usr.id,
                     usr.email,
@@ -1004,6 +1005,7 @@ class hfnuposts {
                         posts.date_modified, posts.viewed,
                         posts.poster_ip,
                         posts.censored_msg,
+                        posts.censored_by,
                         posts.read_by_mod,
                         usr.id,
                         usr.email,

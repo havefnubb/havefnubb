@@ -32,7 +32,8 @@
         <property name="poster_ip"      fieldname="poster_ip"     datatype="string" required="true"/>
         <property name="censored_msg"   fieldname="censored_msg"  datatype="string" required="false" maxlength="50"/>
         <property name="read_by_mod"    fieldname="read_by_mod"   datatype="int" required="false" maxlength="1"/>
-
+        <property name="censored_by"    fieldname="censored_by"   datatype="int"/>
+        
         <!-- properties from community_users table -->
         <property name="id"             fieldname="id" table="usr" datatype="int"/>
         <property name="email"          fieldname="email"   table="usr" datatype="string" maxlength="255" />
@@ -303,12 +304,14 @@
         <method name="censorIt" type="update">
         <parameter name="id_post"/>
             <parameter name="censored_msg"/>
+            <parameter name="censored_by"/>
            <conditions>
                 <eq property="id_post" expr="$id_post" />
             </conditions>
             <values>
                 <value property="censored_msg" expr="$censored_msg" />
                 <value property="status"       expr="5" />
+                <value property="censored_by"  expr="$censored_by"/>
             </values>
         </method>
         <method name="unCensorIt" type="update">
@@ -318,7 +321,8 @@
             </conditions>
             <values>
                 <value property="censored_msg" expr="" />
-                <value property="status"  	   expr="3" />
+                <value property="censored_by"  expr="NULL" />
+                <value property="status"       expr="3" />
             </values>
         </method>
         <method name="updateReadByMod" type="update">

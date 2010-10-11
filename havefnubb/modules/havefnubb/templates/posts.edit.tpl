@@ -4,10 +4,9 @@
 </div>
 <div class="box">
     <div class="block">
-
     {if $previewsubject !== null}
     <fieldset>
-    <legend>{@havefnubb~post.form.title.preview.page@}</legend>
+        <legend>{@havefnubb~post.form.title.preview.page@}</legend>
         <div class="signature-content form_value">
         {$previewsubject|eschtml}
         {$previewtext|wiki:'hfb_rule'}
@@ -20,12 +19,12 @@
     {hook 'hfbPostsEdit',array('id_post'=>$id_post)}
     {form $form, $submitAction, array('id_forum'=>$id_forum)}
     <fieldset>
-    <legend>{$heading}</legend>
-    {ctrl_label 'subject'}<br/>
-    {ctrl_control 'subject'}<br/>
-
-    {ctrl_label 'message'}<br/>
-    {ctrl_control 'message'}<br/>
+        <legend>{$heading}</legend>
+        {ctrl_label 'subject'}<br/>
+        {ctrl_control 'subject'}<br/>
+        {ctrl_label 'message'}<br/>
+        {ctrl_control 'message'}<br/>
+    </fieldset>
     <fieldset>
         <legend>{ctrl_label 'tags'}</legend>
         {@havefnubb~post.form.tags.description@}<br/>
@@ -36,15 +35,12 @@
         <legend>{ctrl_label 'subscribe'}</legend>
         {@havefnubb~post.subscribe.to.this.post.help@} {ctrl_control 'subscribe'}
     </fieldset>
-    {/ifuserconnected}
-    {if $anonymous_post_authorized == 1}
-    {ifusernotconnected}
+    {else}
     <fieldset>
         <legend>{ctrl_label 'nospam'}</legend>
         {ctrl_control 'nospam'}
     </fieldset>
-    {/ifusernotconnected}
-    {/if}
+    {/ifuserconnected}
     {formsubmit 'validate'} {formreset 'reset'} {gobackto 'havefnubb~main.go.back.to'}
     </fieldset>
     {/form}
