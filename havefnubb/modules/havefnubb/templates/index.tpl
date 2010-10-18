@@ -1,6 +1,6 @@
-<div class="box">
-    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>{if $action == 'view'} > {$cat_name|eschtml}{/if}</h3>
-</div>
+
+    <h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>{if $action == 'view'} > {$cat_name|eschtml}{/if}</h2>
+
 {zone 'hfnusearch~hfnuquicksearch'}
 {ifuserconnected}
 {include 'havefnubb~zone.mark_forum'}
@@ -34,9 +34,9 @@
             <tr>
                 <td class="{post_status 'forum',$category->id_forum}"></td>
                 <td>
-                    <h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
-                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
-                    </h4>{$category->forum_name|eschtml}
+                    <h3><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
+                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
+                    </h3>{$category->forum_name|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
                 <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>
                 <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
@@ -45,13 +45,13 @@
     {elseif $category->forum_type == 1}
             <tr>
                 <td class="colredirect"> </td>
-                <td><h4 class="forumtitle"><a href="{$category->forum_url}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a></h4><span class="forumdesc">{$category->forum_desc|eschtml}</span></td>
+                <td><h3 class="forumtitle"><a href="{$category->forum_url}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a></h3><span class="forumdesc">{$category->forum_desc|eschtml}</span></td>
                 <td colspan="2">&nbsp;</td>
             </tr>
     {elseif $category->forum_type == 2}
             <tr>
                 <td class="colrss"> &nbsp;</td>
-                <td><h4><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a></h4><span class="forumdesc">{$category->forum_desc|eschtml}</span></td>
+                <td><h3><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a></h3><span class="forumdesc">{$category->forum_desc|eschtml}</span></td>
                 <td colspan="2">&nbsp;</td>
             </tr>
     {/if}
@@ -77,9 +77,9 @@
             <tr>
                 <td class="{post_status 'forum',$category->id_forum}"></td>
                 <td>
-                    <h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
+                    <h3><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
                         <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
-                    </h4>{$category->forum_desc|eschtml}
+                    </h3>{$category->forum_desc|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
                 <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>
                 <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
@@ -88,13 +88,13 @@
         {elseif $category->forum_type == 1}
             <tr>
                 <td class="colredirect"> </td>
-                <td><h4 class="forumtitle"><a href="{$category->forum_url}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a></h4><span class="forumdesc">{$category->forum_desc|eschtml}</span></td>
+                <td><h3 class="forumtitle"><a href="{$category->forum_url}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a></h3><span class="forumdesc">{$category->forum_desc|eschtml}</span></td>
                 <td colspan="2">&nbsp;</td>
             </tr>
         {elseif $category->forum_type == 2}
             <tr>
                 <td class="colrss"> &nbsp;</td>
-                <td><h4><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a></h4><span class="forumdesc">{$category->forum_desc|eschtml}</span></td>
+                <td><h3><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a></h3><span class="forumdesc">{$category->forum_desc|eschtml}</span></td>
                 <td colspan="2">&nbsp;</td>
             </tr>
         {/if}

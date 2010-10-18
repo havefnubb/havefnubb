@@ -11,10 +11,10 @@
     <div class="form_row">
         {formurlparam 'hfnusearch~default:query'}
         <input type="hidden" name="perform_search_in" value="words"/>
-        <div class="form_property">{@hfnusearch~search.hfnu_q.search@}</div>
+        <div class="form_property"><label class="jforms-label" for="hfnu_q">{@hfnusearch~search.hfnu_q.search@}</label></div>
 
         <div class="form_value">
-            <input type="text" name="hfnu_q" size="31" />
+            <input type="text" name="hfnu_q" id="hfnu_q" size="31" />
         </div>
         <div class="clearer">&nbsp;</div>
 

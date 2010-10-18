@@ -47,7 +47,7 @@ function hfnucal ($year,$month,$day,$big) {
             jLocale::get('hfnucal~main.Sunday')
         )
     );
-
+    $output = '';
     if ($big) {
         // if month is january
         if ($month == 1) {
@@ -69,9 +69,6 @@ function hfnucal ($year,$month,$day,$big) {
             $yearAf = $year;
         }
 
-        // beginning of the output
-        $output = '';
-
         $output .= '<table class="hfnucal" summary="'.$cat_text['name'].'">'."\n";
 
         // "navigation"
@@ -84,8 +81,6 @@ function hfnucal ($year,$month,$day,$big) {
     }
     else {
         // beginning of the output
-        $output = '';
-
         $output .= '<table class="minihfnucal" summary="'.$cat_text['name'].'">'."\n";
 
         // "navigation"
@@ -170,13 +165,12 @@ function hfnucal ($year,$month,$day,$big) {
                     "<a href=".jUrl::get('hfnucal~default:view',array('year'=>$year,'month'=>$month,'day'=>$d)).">" .$d . "</a>".
                     '</p>';
             if ($big) {
-                $output .= '<ul class="eventlist">';
+                $output .= "\n"."\t\t\t".'<ul class="eventlist">';
 
                 $day_events = jDao::get('hfnucal~cal')->findByDay($dateB,$dateE);
-
+                $link = '';
                 foreach($day_events as $day_event) {
-                    $output .= '<li>'.
-                    "<a href=".jUrl::get('havefnubb~posts:view',
+                    $link = jUrl::get('havefnubb~posts:view',
                              array(
                                 'id_forum'=>$day_event->id_forum,
                                 'ftitle'=>$day_event->forum_name,
@@ -184,19 +178,20 @@ function hfnucal ($year,$month,$day,$big) {
                                 'id_post'=>$day_event->id_post,
                                 'parent_id'=>$day_event->parent_id
                                 )
-                            )."#p{$day_event->id_post}>".
-                    stripslashes($day_event->subject)."</a>".
-                    '</li>';
+                            );
+                    $output .= "\n"."\t\t\t\t".'<li>';
+                    $output .= '<a title="'.jLocale::get('hfnucal~main.view.this.post').'" href="'.$link.'#p'.$day_event->id_post.'" >'.stripslashes($day_event->subject)."</a>";
+                    $output .= '</li>';
                 }
 
-                $output .= '</ul>';
+                $output .= "\n"."\t\t\t".'</ul>';
             }
 
         }
         else
             $output .= ($dstart) ? '<p class="daynumber">'.$d.'</p>' : ' ';
 
-        $output .= '</td>'."\n";
+        $output .= "\n"."\t\t".'</td>'."\n";
 
         if (($i+1)%7 == 0) {
             $output .= "\t".'</tr>'."\n";

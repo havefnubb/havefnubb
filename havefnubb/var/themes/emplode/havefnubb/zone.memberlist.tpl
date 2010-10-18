@@ -1,7 +1,7 @@
 {hook 'hfbBeforeMembersList'}
 <div id="breadcrumbtop" class="headbox">
-    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >
-        <span class="user-image" id="user-group">{@havefnubb~member.memberlist.members.list@}</span></h3>
+    <h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >
+        <span class="user-image" id="user-group">{@havefnubb~member.memberlist.members.list@}</span></h2>
 </div>
 
 <div id="group">
@@ -13,9 +13,9 @@
         </div>
         <div class="legend"><h3>{@havefnubb~member.memberlist.filter@}</h3></div>
         <div class="form_row">
-            <div class="form_property">{@havefnubb~member.memberlist.thegroups@} : </div>
+            <div class="form_property"><label class="jforms-label" for="grpid">{@havefnubb~member.memberlist.thegroups@}</label> : </div>
             <div class="form_value">
-                <select name="grpid">
+                <select name="grpid" id="grpid">
                 {foreach $groups as $group}
                     {if  $group->id_aclgrp != 0}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
                 {/foreach}
@@ -24,9 +24,9 @@
             <div class="clearer">&nbsp;</div>
         </div>
         <div class="form_row">
-            <div class="form_property">{@havefnubb~member.memberlist.initial.nickname@} : </div>
+            <div class="form_property"><label class="jforms-label" for="letter">{@havefnubb~member.memberlist.initial.nickname@}</label> : </div>
             <div class="form_value">
-                <select name="letter">
+                <select name="letter" id="letter">
                 {foreach $letters as $letter}
                     <option value="{$letter}">{$letter}</option>
                 {/foreach}
@@ -35,9 +35,9 @@
             <div class="clearer">&nbsp;</div>
         </div>
         <div class="form_row">
-            <div class="form_property">{@havefnubb~member.memberlist.search.nickname@} : </div>
+            <div class="form_property"><label class="jforms-label" for="member_search" id="member_search">{@havefnubb~member.memberlist.search.nickname@}</label> : </div>
             <div class="form_value">
-                <input type="text"  name="member_search" value="" size="40"/>
+                <input type="text"  name="member_search" id="member_search" value="" size="40"/>
             </div>
             <div class="clearer">&nbsp;</div>
         </div>

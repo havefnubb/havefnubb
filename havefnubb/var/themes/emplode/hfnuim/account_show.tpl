@@ -3,13 +3,13 @@
                 <div class="legend"><span class="user-messenger user-image">{@hfnuim~im.instant.messenger@}</span></div>
                 <div class="form_row">
                     <div class="form_property">
-                        <label class="user-xfire user-image"><strong>{@hfnuim~im.xfire@}</strong></label>
+                        <span class="user-xfire user-image"><strong>{@hfnuim~im.xfire@}</strong></span>
                     </div>
                     <div class="fom_value">
                         {$xfire|eschtml}
                     </div>
                     <div class="form_property">
-                        <label class="user-icq user-image"><strong>{@hfnuim~im.icq@}</strong></label>
+                        <span class="user-icq user-image"><strong>{@hfnuim~im.icq@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$icq|eschtml}
@@ -18,13 +18,13 @@
                 </div>
                  <div class="form_row">
                     <div class="form_property">
-                        <label class="user-yim user-image"><strong>{@hfnuim~im.yim@}</strong></label>
+                        <span class="user-yim user-image"><strong>{@hfnuim~im.yim@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$yim|eschtml}
                     </div>
                     <div class="form_property">
-                        <label class="user-msn user-image"><strong>{@hfnuim~im.hotmail@}</strong></label>
+                        <span class="user-msn user-image"><strong>{@hfnuim~im.hotmail@}</strong></span>
                     </div>
                     <div class="form_value">
                         {if $hotmail != ''}
@@ -35,13 +35,13 @@
                 </div>
                  <div class="form_row">
                     <div class="form_property">
-                        <label class="user-aim user-image"><strong>{@hfnuim~im.aol@}</strong></label>
+                        <span class="user-aim user-image"><strong>{@hfnuim~im.aol@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$aol|eschtml}
                     </div>
                     <div class="form_property">
-                        <label class="user-gtalk user-image"><strong>{@hfnuim~im.gtalk@}</strong></label>
+                        <span class="user-gtalk user-image"><strong>{@hfnuim~im.gtalk@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$gtalk|eschtml}
@@ -50,7 +50,7 @@
                 </div>
                  <div class="form_row">
                     <div class="form_property">
-                        <label class="user-jabber user-image"><strong>{@hfnuim~im.jabber@}</strong></label>
+                        <span class="user-jabber user-image"><strong>{@hfnuim~im.jabber@}</strong></span>
                     </div>
                     <div class="forum_value">
                         {$jabber|eschtml}

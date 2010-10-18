@@ -1,5 +1,5 @@
 <div id="breadcrumbtop" class="headbox">
-    <h3>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{$feed->link}"> {$forum->forum_name|eschtml}</a></h3>
+    <h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{$feed->link}"> {$forum->forum_name|eschtml}</a></h2>
 </div>
 {if ($feed)}
 <div id="hfnu-feeds">

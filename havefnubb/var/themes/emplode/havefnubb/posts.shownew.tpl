@@ -1,3 +1,4 @@
+<h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@havefnubb~post.list.of.new.posts@}</h2>
     <div class="pager-posts">
     {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $posts->rowCount(), $page, $nbPostPerPage, "page", $properties}
     </div>
@@ -14,7 +15,6 @@
         </thead>
         <tbody>
     {if $nbPosts > 0}
-        {foreach $posts as $post}
         {foreach $posts as $post}
             {if  $post->p_date_created < $post->date_read_forum
             ||   $post->p_date_created <= $post->date_read_post}
