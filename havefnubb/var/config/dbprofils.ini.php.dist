@@ -11,6 +11,7 @@ default=havefnubb
 ; Parameters in each sections depends of the driver type
 
 
+jacl2_profile=havefnubb
 [havefnubb]
 
 ; For the most of drivers:
@@ -33,26 +34,3 @@ table_prefix=hf_
 ;dsn=mysql:host=localhost;dbname=test
 ;user=
 ;password=
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

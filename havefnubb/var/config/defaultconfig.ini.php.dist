@@ -218,7 +218,7 @@ default.skin = jelix/markitup/skins/simple/style.css
 [havefnubb]
 title="HaveFnuBB!"
 description="Where Everything is Fnu"
-version=1.3.6
+version=1.4.0
 rules=
 admin_email="admin@localhost.net"
 url_check_version="http://www.havefnubb.org/last_version"

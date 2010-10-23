@@ -36,7 +36,7 @@
         {else}
             <li {if $stepname == 'welcome'} class="actif"{/if}>{@install.home@}</li>
             <li {if $stepname == 'checkjelix'} class="actif"{/if}>{@install.checking@}</li>
-            <li {if $stepname == 'hnfconf'} class="actif"{/if}>{@install.hnfconf@}</li>
+            <li {if $stepname == 'hfnconf'} class="actif"{/if}>{@install.hnfconf@}</li>
             <li {if $stepname == 'confmail'} class="actif"{/if}>{@install.confmail@}</li>
             <li {if $stepname == 'dbprofile'} class="actif"{/if}>{@install.db@}</li>
             <li {if $stepname == 'installapp'} class="actif"{/if}>{@install.app@}</li>

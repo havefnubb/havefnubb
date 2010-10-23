@@ -79,7 +79,7 @@ class dbprofileWizPage extends installWizardPage{
 			}
 			else
 				$ini->removeValue('force_encoding',$profile);
-			$ini->setValue('prefix',$_POST['prefix'][$profile],$profile);
+			$ini->setValue('table_prefix',$_POST['prefix'][$profile],$profile);
 			$database=trim($_POST['database'][$profile]);
 			if($database==''){
 				$errors[]=$this->locales['error.missing.database'];

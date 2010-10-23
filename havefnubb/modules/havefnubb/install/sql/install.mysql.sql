@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%read_posts (
   PRIMARY KEY  (id_user,id_forum,id_post),
   KEY id_user (id_user),
   KEY id_forum (id_forum),
-  KEY id_post (id_post)
+  KEY id_post (id_post),
   KEY parent_id (parent_id)
 ) DEFAULT CHARSET=utf8;
 
