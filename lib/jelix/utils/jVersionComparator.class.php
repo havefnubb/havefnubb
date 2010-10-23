@@ -90,4 +90,37 @@ class jVersionComparator{
 	}
 	return $version.'.'.$m[1];
 	}
+	static public function serializeVersion($version,$starReplacement=0,$pad=4){
+		$vers=explode('.',$version);
+		$r='/^([0-9]+)([a-zA-Z]*|pre|-?dev)([0-9]*)(pre|-?dev)?$/';
+		$sver='';
+		foreach($vers as $k=>$v){
+			if($v=='*'){
+				$k--;
+				break;
+			}
+			$pm=preg_match($r,$v,$m);
+			if($pm){
+				self::normalizeVersionNumber($m);
+				$m[1]=str_pad($m[1],($k > 1 ? 10:3),'0',STR_PAD_LEFT);
+				$m[2]=substr($m[2],0,1);
+				$m[3]=($m[3]=='' ? '99': str_pad($m[3],2,'0',STR_PAD_LEFT));
+				$m[4]=($m[4]=='dev'? 'd':'z');
+				if($k)
+					$sver.='.';
+				$sver.=$m[1].$m[2].$m[3].$m[4];
+			}
+			else
+				throw new Exception("bad version number");
+		}
+		for($i=$k+1;$i<$pad;$i++){
+			if($i >0)
+				$sver.='.';
+			if($starReplacement > 0)
+				$sver.=($i > 1 ? '9999999999':'999').'z99z';
+			else
+				$sver.=($i > 1 ? '0000000000':'000').'a00a';
+		}
+		return $sver;
+	}
 }

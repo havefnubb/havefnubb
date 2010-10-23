@@ -15,10 +15,10 @@ class jConfigCompiler{
 	private function __construct(){}
 	static public function read($configFile,$allModuleInfo=false,$isCli=false,$pseudoScriptName=''){
 		if(JELIX_APP_TEMP_PATH=='/'){
-			die('Jelix Error: Application temp directory doesn\'t exist !');
+			throw new Exception('Application temp directory doesn\'t exist !',3);
 		}
 		if(!is_writable(JELIX_APP_TEMP_PATH)){
-			die('Jelix Error: Application temp directory is not writable');
+			throw new Exception('Application temp directory is not writable',4);
 		}
 		self::$commonConfig=jIniFile::read(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php',true);
 		$config=jIniFile::read(JELIX_LIB_CORE_PATH.'defaultconfig.ini.php');
@@ -27,9 +27,9 @@ class jConfigCompiler{
 		}
 		if($configFile!='defaultconfig.ini.php'){
 			if(!file_exists(JELIX_APP_CONFIG_PATH.$configFile))
-				die("Jelix config file $configFile is missing !");
+				throw new Exception("Config file $configFile is missing !",5);
 			if(false===($userConfig=parse_ini_file(JELIX_APP_CONFIG_PATH.$configFile,true)))
-				die("Syntax error in the Jelix config file $configFile !");
+				throw new Exception("Syntax error in the config file $configFile !",6);
 			self::_mergeConfig($config,$userConfig);
 		}
 		$config=(object) $config;
@@ -102,6 +102,8 @@ class jConfigCompiler{
 			$config->urlengine['basePath']=$basepath;
 			if($config->urlengine['jelixWWWPath'][0]!='/')
 				$config->urlengine['jelixWWWPath']=$basepath.$config->urlengine['jelixWWWPath'];
+			if($config->urlengine['jqueryPath'][0]!='/')
+				$config->urlengine['jqueryPath']=$basepath.$config->urlengine['jqueryPath'];
 			$snp=substr($config->urlengine['urlScript'],strlen($basepath));
 		}
 		$pos=strrpos($snp,$config->urlengine['entrypointExtension']);
@@ -115,11 +117,11 @@ class jConfigCompiler{
 		$coordplugins=array();
 		foreach($config->coordplugins as $name=>$conf){
 			if(!isset($config->_pluginsPathList_coord[$name])){
-				die("Jelix Error: Error in the main configuration. The coord plugin $name doesn't exist!");
+				throw new Exception("Error in the main configuration. The coord plugin $name doesn't exist!",7);
 			}
 			if($conf){
 				if($conf!='1'&&!file_exists(JELIX_APP_CONFIG_PATH.$conf)){
-					die("Jelix Error: Error in the main configuration. Configuration file '$conf' for coord plugin $name doesn't exist!");
+					throw new Exception("Error in the main configuration. Configuration file '$conf' for coord plugin $name doesn't exist!",8);
 				}
 				$coordplugins[$name]=$conf;
 			}
@@ -168,7 +170,7 @@ class jConfigCompiler{
 			if($allModuleInfo)
 				$installation=array();
 			else
-				die("installer.ini.php doesn't exist! You must install your application.\n");
+				throw new Exception("installer.ini.php doesn't exist! You must install your application.\n",9);
 		}
 		else
 			$installation=parse_ini_file(JELIX_APP_CONFIG_PATH.'installer.ini.php',true);
@@ -183,7 +185,7 @@ class jConfigCompiler{
 			if(trim($path)=='')continue;
 			$p=str_replace(array('lib:','app:'),array(LIB_PATH,JELIX_APP_PATH),$path);
 			if(!file_exists($p)){
-				throw new Exception('The path, '.$path.' given in the jelix config, doesn\'t exist !',E_USER_ERROR);
+				throw new Exception('The path, '.$path.' given in the jelix config, doesn\'t exist !',10);
 			}
 			if(substr($p,-1)!='/')
 				$p.='/';
@@ -291,8 +293,8 @@ class jConfigCompiler{
 				&&strrpos($_SERVER['ORIG_SCRIPT_NAME'],$ext)===(strlen($_SERVER['ORIG_SCRIPT_NAME'])- $extlen)){
 			return 'ORIG_SCRIPT_NAME';
 		}
-		throw new Exception('Jelix Error: in config file the parameter urlengine:scriptNameServerVariable is empty and Jelix doesn\'t find
-            the variable in $_SERVER which contains the script name. You must see phpinfo and setup this parameter in your config file.');
+		throw new Exception('In config file the parameter urlengine:scriptNameServerVariable is empty and Jelix doesn\'t find
+            the variable in $_SERVER which contains the script name. You must see phpinfo and setup this parameter in your config file.',11);
 	}
 	static private function _initResponsesPath(&$list){
 		$copylist=$list;
@@ -302,7 +304,7 @@ class jConfigCompiler{
 			}elseif(file_exists($path=JELIX_APP_PATH.'responses/'.$class.'.class.php')){
 				$list[$type.'.path']=$path;
 			}else{
-				throw new Exception('Jelix Config Error: the class file of the response type "'.$type.'" is not found ('.$path.')');
+				throw new Exception('Configuration Error: the class file of the response type "'.$type.'" is not found ('.$path.')',12);
 			}
 		}
 	}

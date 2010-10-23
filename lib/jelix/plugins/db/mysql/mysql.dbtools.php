@@ -170,7 +170,7 @@ class mysqlDbTools extends jDbTools{
 		foreach($distinctDelimiters as $dd){
 			$preg.='|'.preg_quote($dd);
 		}
-		$tokens=preg_split('!(\'|"|\\\\|`|DELIMITER |#|/\\*|\\*/|\\-\\- |'."\n".$preg.')!i',$script,-1,PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+		$tokens=preg_split('!(\'|"|\\\\|`|DELIMITER |#|/\\*|\\*/|\\-\\-(?=\s)|'."\n".$preg.')!i',$script,-1,PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 		$currentDelimiter=';';
 		$context=0;
 		$queries=array();
@@ -182,7 +182,9 @@ class mysqlDbTools extends jDbTools{
 				$previousToken=$token;
 				switch($token){
 				case $currentDelimiter:
-					$queries[]=trim($query);
+					if(preg_replace("/\s/","",$query)!=''){
+						$queries[]=trim($query);
+					}
 					$query='';
 					break;
 				case '\'':
@@ -204,7 +206,7 @@ class mysqlDbTools extends jDbTools{
 					$context=6;
 					break;
 				case '#':
-				case '-- ':
+				case '--':
 					$context=4;
 					break;
 				case '/*':
@@ -262,7 +264,6 @@ class mysqlDbTools extends jDbTools{
 				break;
 			case 4:
 				if($token=="\n"){
-					$query.=$token;
 					$context=0;
 				}
 				break;
@@ -277,8 +278,9 @@ class mysqlDbTools extends jDbTools{
 				break;
 			}
 		}
-		if(trim($query)!='')
+		if(preg_replace("/\s/","",$query)!=''){
 			$queries[]=trim($query);
+		}
 		return $queries;
 	}
 }

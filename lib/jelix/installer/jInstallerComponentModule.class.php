@@ -43,8 +43,9 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 		if($this->moduleInstaller===false){
 			return null;
 		}
+		$epId=$ep->getEpId();
 		if($this->moduleInstaller===null){
-			if(!file_exists($this->path.'install/install.php')){
+			if(!file_exists($this->path.'install/install.php')||$this->moduleInfos[$epId]->skipInstaller){
 				$this->moduleInstaller=false;
 				return null;
 			}
@@ -59,7 +60,6 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 												$installWholeApp
 												);
 		}
-		$epId=$ep->getEpId();
 		$this->moduleInstaller->setParameters($this->moduleInfos[$epId]->parameters);
 		$sparam=$ep->configIni->getValue($this->name.'.installparam','modules');
 		if($sparam===null)
@@ -79,7 +79,7 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 		if($this->moduleUpgraders===null){
 			$this->moduleUpgraders=array();
 			$p=$this->path.'install/';
-			if(!file_exists($p))
+			if(!file_exists($p)||$this->moduleInfos[$epId]->skipInstaller)
 				return array();
 			$fileList=array();
 			if($handle=opendir($p)){

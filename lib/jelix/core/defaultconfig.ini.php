@@ -18,10 +18,6 @@ dbProfils = dbprofils.ini.php
 
 cacheProfiles = cache.ini.php
 
-use_error_handler = on
-
-enableOldActionSelector =
-
 ; default domain name to use with jfullurl for example.
 ; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
 domainName =
@@ -177,6 +173,7 @@ basePath = ""
 ; if you change it, change also all pathes in [htmleditors]
 ; at runtime, it contains the absolute path (basePath+the value) if you give a relative path
 jelixWWWPath = "jelix/"
+jqueryPath="jelix/jquery/"
 
 defaultEntrypoint= index
 
@@ -313,15 +310,21 @@ default = jelix/js/jforms/datepickers/default/init.js
 default.engine.name = wymeditor
 default.engine.file[] = jelix/jquery/jquery.js
 default.engine.file[] = jelix/wymeditor/jquery.wymeditor.js
-default.config = jelix/wymeditor/config/default.js
+default.config = jelix/js/jforms/htmleditors/wymeditor_default.js
 default.skin.default  = jelix/wymeditor/skins/default/screen.css
 
-[zones]
-; disable zone caching
-disableCache = off
+ckdefault.engine.name = ckeditor
+ckdefault.engine.file[] = jelix/ckeditor/ckeditor.js
+ckdefault.config = jelix/js/jforms/htmleditors/ckeditor_default.js
 
-[classbindings]
-; bindings for class and interfaces : selector_of_class/iface = selector_of_implementation
+ckfull.engine.name = ckeditor
+ckfull.engine.file[] = jelix/ckeditor/ckeditor.js
+ckfull.config = jelix/js/jforms/htmleditors/ckeditor_full.js
+
+ckbasic.engine.name = ckeditor
+ckbasic.engine.file[] = jelix/ckeditor/ckeditor.js
+ckbasic.config = jelix/js/jforms/htmleditors/ckeditor_basic.js
+
 
 [wikieditors]
 default.engine.name = wr3
@@ -333,3 +336,12 @@ default.config.path = jelix/markitup/sets/wr3/
 ; define the path to the image of buttons of the toolbar
 default.image.path = jelix/markitup/sets/wr3/images/
 default.skin = jelix/markitup/skins/simple/style.css
+
+
+
+[zones]
+; disable zone caching
+disableCache = off
+
+[classbindings]
+; bindings for class and interfaces : selector_of_class/iface = selector_of_implementation

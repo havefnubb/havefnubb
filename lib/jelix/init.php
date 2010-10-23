@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.2pre.1550');
+define('JELIX_VERSION','1.2pre.1619');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -70,13 +70,15 @@ function jErrorHandler($errno,$errmsg,$filename,$linenum,$errcontext){
 	}else{
 		$code=1;
 	}
-	$conf=$gJConfig->error_handling;
-	if(isset($codeString[$errno])){
-		$codestr=$codeString[$errno];
-		$toDo=$conf[$codestr];
-	}else{
-		$codestr='error';
-		$toDo=$conf['default'];
+	if(!isset($codeString[$errno])){
+		$errno=E_ERROR;
+	}
+	$codestr=$codeString[$errno];
+	if($gJConfig){
+		$toDo=$gJConfig->error_handling[$codestr];
+	}
+	else{
+		$toDo='ECHO EXIT';
 	}
 	$trace=debug_backtrace();
 	array_shift($trace);
@@ -84,7 +86,7 @@ function jErrorHandler($errno,$errmsg,$filename,$linenum,$errcontext){
 }
 function jExceptionHandler($e){
 	global $gJConfig,$gJCoord;
-	$gJCoord->handleError($gJConfig->error_handling['exception'].' EXIT','exception',
+	$gJCoord->handleError(($gJConfig?$gJConfig->error_handling['exception']:'ECHO').' EXIT','exception',
 						$e->getCode(),$e->getMessage(),$e->getFile(),$e->getLine(),$e->getTrace());
 }
 class jException extends Exception{
@@ -269,6 +271,8 @@ class jSelectorActFast extends jSelectorModule{
 			$this->controller=$r[0]=='' ? 'default':$r[0];
 			$this->method=$r[1]==''?'index':$r[1];
 		}
+		if(substr($this->method,0,2)=='__')
+			throw new jExceptionSelector('jelix~errors.selector.method.invalid',$this->toString());
 		$this->resource=$this->controller.':'.$this->method;
 		$this->request=$request;
 		$this->_createPath();
@@ -765,14 +769,15 @@ class jUrl extends jUrlBase{
 		return $url;
 	}
 	public function getQuery($forxml=false){
-		$url='';
 		if(count($this->params)>0){
 			$q=http_build_query($this->params,'',($forxml?'&amp;':'&'));
+			if(!$q)
+				return '';
 			if(strpos($q,'%3A')!==false)
 				$q=str_replace('%3A',':',$q);
-			$url.='?'.$q;
+			return '?'.$q;
 		}
-		return $url;
+		return '';
 	}
 	static function getCurrentUrl($forxml=false){
 		if(isset($_SERVER["REQUEST_URI"])){
@@ -855,12 +860,14 @@ class jCoordinator{
 	public $actionName;
 	public $errorMessages=array();
 	public $logMessages=array();
-	function __construct($configFile){
+	function __construct($configFile,$enableErrorHandler=true){
 		global $gJCoord,$gJConfig;
 		$gJCoord=$this;
+		if($enableErrorHandler){
+			set_error_handler('jErrorHandler');
+			set_exception_handler('JExceptionHandler');
+		}
 		$gJConfig=jConfig::load($configFile);
-		set_error_handler('jErrorHandler');
-		set_exception_handler('jExceptionHandler');
 		date_default_timezone_set($gJConfig->timeZone);
 		$this->_loadPlugins();
 	}
@@ -873,7 +880,7 @@ class jCoordinator{
 			else{
 				$conff=JELIX_APP_CONFIG_PATH.$conf;
 				if(false===($conf=parse_ini_file($conff,true)))
-					die("Jelix Error: Error in the configuration file of plugin $name ($conff)!");
+					throw new Exception("Error in the configuration file of plugin $name ($conff)!",13);
 			}
 			include($gJConfig->_pluginsPathList_coord[$name].$name.'.coord.php');
 			$class=$name.'CoordPlugin';
@@ -954,8 +961,14 @@ class jCoordinator{
 	}
 	private function getController($selector){
 		$ctrlpath=$selector->getPath();
+		if(!file_exists($ctrlpath)){
+			throw new jException('jelix~errors.ad.controller.file.unknown',array($this->actionName,$ctrlpath));
+		}
 		require_once($ctrlpath);
 		$class=$selector->getClass();
+		if(!class_exists($class,false)){
+			throw new jException('jelix~errors.ad.controller.class.unknown',array($this->actionName,$class,$ctrlpath));
+		}
 		$ctrl=new $class($this->request);
 		if($ctrl instanceof jIRestController){
 			$method=$selector->method=strtolower($_SERVER['REQUEST_METHOD']);
@@ -971,7 +984,7 @@ class jCoordinator{
 			$responses=&$GLOBALS['gJConfig']->responses;
 		$type=$this->request->defaultResponseType;
 		if(!isset($responses[$type]))
-			return jLocale::get('jelix~errors.default.response.type.unknown',array($this->moduleName.'~'.$this->actionName,$type));
+			throw new jException('jelix~errors.default.response.type.unknown',array($this->moduleName.'~'.$this->actionName,$type));
 		try{
 			$respclass=$responses[$type];
 			require_once($responses[$type.'.path']);
@@ -984,23 +997,23 @@ class jCoordinator{
 	}
 	public function handleError($toDo,$type,$code,$message,$file,$line,$trace){
 		global $gJConfig;
-		$conf=$gJConfig->error_handling;
-		$doEchoByResponse=true;
-		if($this->request==null){
-			$message='JELIX PANIC ! Error during initialization !! '.$message;
-			$doEchoByResponse=false;
-			$toDo.=' EXIT';
-		}elseif($this->response==null){
-			$ret=$this->initDefaultResponseOfRequest();
-			if(is_string($ret)){
-				$message='Double error ! 1)'. $ret.'; 2)'.$message;
-				$doEchoByResponse=false;
-			}
+		if($gJConfig)
+			$conf=$gJConfig->error_handling;
+		else{
+			$conf=array(
+				'messageLogFormat'=>'%date%\t[%code%]\t%msg%\t%file%\t%line%\n\t%url%\n',
+				'quietMessage'=>'A technical error has occured. Sorry for this trouble.',
+				'logFile'=>'error.log',
+			);
 		}
-		$remoteAddr=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
-		if($this->request)
+		if($this->request){
 			$url=str_replace('array','url',var_export($this->request->params,true));
-		else $url='Unknown url';
+			$remoteAddr=$this->request->getIP();
+		}
+		else{
+			$url=isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'Unknow URI';
+			$remoteAddr=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+		}
 		$messageLog=strtr($conf['messageLogFormat'],array(
 			'%date%'=>date("Y-m-d H:i:s"),
 			'%ip%'=>$remoteAddr,
@@ -1022,10 +1035,28 @@ class jCoordinator{
 			}
 			$messageLog.=$traceLog."\n";
 		}
+		$doEchoByResponse=true;
+		if($this->request==null){
+			$message='JELIX PANIC ! Error during initialization !! '.$message;
+			$doEchoByResponse=false;
+			$toDo.=' EXIT';
+		}
+		elseif($this->response==null){
+			try{
+				$this->initDefaultResponseOfRequest();
+			}
+			catch(Exception $e){
+				$message='Double error ! 1)'. $e->getMessage().'; 2)'.$message;
+				$doEchoByResponse=false;
+			}
+		}
 		$echoAsked=false;
 		if(strpos($toDo,'ECHOQUIET')!==false){
 			$echoAsked=true;
 			if(!$doEchoByResponse){
+				while(ob_get_level()){
+						ob_end_clean();
+				}
 				header("HTTP/1.1 500 Internal jelix error");
 				header('Content-type: text/plain');
 				echo 'JELIX PANIC ! Error during initialization !! ';
@@ -1035,6 +1066,9 @@ class jCoordinator{
 		}elseif(strpos($toDo,'ECHO')!==false){
 			$echoAsked=true;
 			if(!$doEchoByResponse){
+				while(ob_get_level()){
+						ob_end_clean();
+				}
 				header("HTTP/1.1 500 Internal jelix error");
 				header('Content-type: text/plain');
 				echo $messageLog;
@@ -1045,14 +1079,17 @@ class jCoordinator{
 		if(strpos($toDo,'LOGFILE')!==false){
 			@error_log($messageLog,3,JELIX_APP_LOG_PATH.$conf['logFile']);
 		}
-		if(strpos($toDo,'MAIL')!==false){
-			error_log(wordwrap($messageLog,70),1,$conf['email'],$conf['emailHeaders']);
+		if(strpos($toDo,'MAIL')!==false&&$gJConfig){
+			error_log(wordwrap($messageLog,70),1,$conf['email'],str_replace(array('\\r','\\n'),array("\r","\n"),$conf['emailHeaders']));
 		}
 		if(strpos($toDo,'SYSLOG')!==false){
 			error_log($messageLog,0);
 		}
 		if(strpos($toDo,'EXIT')!==false){
 			if($doEchoByResponse){
+				while(ob_get_level()){
+						ob_end_clean();
+				}
 				if($this->response)
 					$this->response->outputErrors();
 				else if($echoAsked){
@@ -1063,7 +1100,7 @@ class jCoordinator{
 				}
 			}
 			jSession::end();
-			exit;
+			exit(1);
 		}
 	}
 	protected function addErrorMsg($type,$code,$message,$file,$line,$trace){
@@ -1363,6 +1400,9 @@ class jBundle{
 	protected function _loadResources($fichier,$charset){
 		if(($f=@fopen($fichier,'r'))!==false){
 			$utf8Mod=($charset=='UTF-8')?'u':'';
+			$unbreakablespace=($charset=='UTF-8')?utf8_encode(chr(160)):chr(160);
+			$escapedChars=array('\#','\n','\w','\S','\s');
+			$unescape=array('#',"\n",' ',$unbreakablespace,' ');
 			$multiline=false;
 			$linenumber=0;
 			$key='';
@@ -1375,7 +1415,7 @@ class jBundle{
 							$multiline=($match[2]=="\\");
 							if(strlen($match[1])){
 								$sp=preg_split('/(?<!\\\\)\#/',$match[1],-1,PREG_SPLIT_NO_EMPTY);
-								$this->_strings[$charset][$key].=' '.trim(str_replace(array('\#','\n'),array('#',"\n"),$sp[0]));
+								$this->_strings[$charset][$key].=' '.str_replace($escapedChars,$unescape,trim($sp[0]));
 							}else{
 								$this->_strings[$charset][$key].=' ';
 							}
@@ -1387,14 +1427,11 @@ class jBundle{
 						$multiline=($match[3]=="\\");
 						$sp=preg_split('/(?<!\\\\)\#/',$match[2],-1,PREG_SPLIT_NO_EMPTY);
 						if(count($sp)){
-							$value=trim(str_replace('\#','#',$sp[0]));
-							if($value=='\w'){
-								$value=' ';
-							}
+							$value=trim($sp[0]);
 						}else{
 							$value='';
 						}
-						$this->_strings[$charset][$key]=str_replace(array('\#','\n'),array('#',"\n"),$value);
+						$this->_strings[$charset][$key]=str_replace($escapedChars,$unescape,$value);
 					}elseif(preg_match("/^\s*(\#.*)?$/",$line,$match)){
 					}else{
 						throw new Exception('Syntaxe error in file properties '.$fichier.' line '.$linenumber,211);

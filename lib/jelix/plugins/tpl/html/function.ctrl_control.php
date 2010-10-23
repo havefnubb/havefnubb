@@ -9,7 +9,7 @@
 * @link         http://www.jelix.org
 * @licence      GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_function_html_ctrl_control($tpl,$ctrlname='')
+function jtpl_function_html_ctrl_control($tpl,$ctrlname='',$attributes=array())
 {
 	if((!isset($tpl->_privateVars['__ctrlref'])||$tpl->_privateVars['__ctrlref']=='')&&$ctrlname==''){
 		return;
@@ -30,6 +30,6 @@ function jtpl_function_html_ctrl_control($tpl,$ctrlname='')
 		return;
 	$tpl->_privateVars['__displayed_ctrl'][$ctrlname]=true;
 	if($tpl->_privateVars['__form']->isActivated($ctrlname)){
-		$tpl->_privateVars['__formbuilder']->outputControl($ctrl);
+		$tpl->_privateVars['__formbuilder']->outputControl($ctrl,$attributes);
 	}
 }

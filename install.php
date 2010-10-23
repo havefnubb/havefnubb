@@ -15,8 +15,3 @@ $config = 'havefnubb/install/wizard.ini.php';
 
 $install = new installWizard($config);
 $install->run(isAppInstalled());
-
-
-
-
-

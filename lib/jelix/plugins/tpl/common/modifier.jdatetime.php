@@ -4,14 +4,17 @@
 * @package    jelix
 * @subpackage jtpl_plugin
 * @author     Jouanneau Laurent
-* @contributor Emmanuel Hesry
+* @contributor Emmanuel Hesry, Julien Issler
 * @copyright   2006 Jouanneau laurent
 * @copyright   2009 Emmanuel Hesry
+* @copyright   2010 Julien Issler
 * @link        http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 function jtpl_modifier_common_jdatetime($date,$format_in='db_datetime',
 								$format_out='lang_date'){
+	if(is_null($date))
+		return '';
 	$formats=array(
 		'lang_date'=>jDateTime::LANG_DFORMAT,
 		'lang_datetime'=>jDateTime::LANG_DTFORMAT,

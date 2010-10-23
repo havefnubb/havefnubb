@@ -184,6 +184,7 @@ class jFormsControlCheckbox extends jFormsControl{
 		}
 	}
 	function setData($value){
+		$value=(string) $value;
 		if($value!=$this->valueOnCheck){
 			if($value=='on')
 				$value=$this->valueOnCheck;
@@ -252,15 +253,6 @@ class jFormsControlChoice extends jFormsControlGroups{
 		$this->childControls[$control->ref]=$control;
 		$this->items[$itemValue][$control->ref]=$control;
 	}
-	function setData($value){
-		parent::setData($value);
-		foreach($this->items as $item=>$list){
-			$ro=($item!=$value);
-			foreach($list as $ref=>$ctrl){
-				$this->form->setReadOnly($ref,$ro);
-			}
-		}
-	}
 	function setValueFromRequest($request){
 		$this->setData($request->getParam($this->ref,''));
 		if(isset($this->items[$this->container->data[$this->ref]])){
@@ -290,7 +282,7 @@ class jFormsControlHtmlEditor extends jFormsControl{
 	public $skin='default';
 	function __construct($ref){
 		$this->ref=$ref;
-		$this->datatype=new jDatatypeHtml();
+		$this->datatype=new jDatatypeHtml(true,true);
 	}
 	public function isHtmlContent(){
 		return true;
@@ -486,7 +478,8 @@ class jFormsControlDate extends jFormsControl{
 	}
 	function setValueFromRequest($request){
 		$value=$request->getParam($this->ref,'');
-		$value=$value['year'].'-'.$value['month'].'-'.$value['day'];
+		if(is_array($value))
+			$value=$value['year'].'-'.$value['month'].'-'.$value['day'];
 		if($value=='--')
 			$value='';
 		$this->setData($value);
@@ -509,7 +502,9 @@ class jFormsControlDatetime extends jFormsControlDate{
 	}
 	function setValueFromRequest($request){
 		$value=$request->getParam($this->ref,'');
-		if($value['year']===''&&$value['month']===''&&$value['day']===''&&$value['hour']===''&&$value['minutes']===''&&(!$this->enableSeconds||$value['seconds']===''))
+		if(!is_array($value))
+			$this->setData('');
+		elseif($value['year']===''&&$value['month']===''&&$value['day']===''&&$value['hour']===''&&$value['minutes']===''&&(!$this->enableSeconds||$value['seconds']===''))
 			$this->setData('');
 		else{
 			if($value['seconds']==='')

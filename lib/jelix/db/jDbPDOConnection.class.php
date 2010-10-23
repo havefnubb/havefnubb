@@ -113,9 +113,9 @@ class jDbPDOConnection extends PDO{
 	}
 	public function quote2($text,$checknull=true,$binary=false){
 		if($checknull)
-			return(is_null($text)? 'NULL' : "'".$this->quote($text)."'");
+			return(is_null($text)? 'NULL' : $this->quote($text));
 		else
-			return "'".$this->quote($text)."'";
+			return $this->quote($text);
 	}
 	protected $_tools=null;
 	public function tools(){

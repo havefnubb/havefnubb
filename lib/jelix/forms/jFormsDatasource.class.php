@@ -4,9 +4,10 @@
 * @package     jelix
 * @subpackage  forms
 * @author      Laurent Jouanneau
-* @contributor Dominique Papin
+* @contributor Dominique Papin, Julien Issler
 * @copyright   2006-2007 Laurent Jouanneau
 * @copyright   2008 Dominique Papin
+* @copyright   2010 Julien Issler
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -14,19 +15,35 @@ interface jIFormsDatasource{
 	public function getData($form);
 	public function getLabel($key);
 }
-class jFormsStaticDatasource implements jIFormsDatasource{
+interface jIFormsDatasource2 extends jIFormsDatasource{
+	public function hasGroupedData();
+	public function setGroupBy($group);
+}
+class jFormsStaticDatasource implements jIFormsDatasource2{
 	public $data=array();
+	protected $grouped=false;
 	public function getData($form){
 		return $this->data;
 	}
 	public function getLabel($key){
-		if(isset($this->data[$key]))
+		if($this->grouped){
+			foreach($this->data as $group=>$data){
+				if(isset($data[$key]))
+					return $data[$key];
+			}
+		}
+		elseif(isset($this->data[$key]))
 			return $this->data[$key];
-		else
-			return null;
+		return null;
+	}
+	public function hasGroupedData(){
+		return $this->grouped;
+	}
+	public function setGroupBy($group){
+		$this->grouped=$group;
 	}
 }
-class jFormsDaoDatasource implements jIFormsDatasource{
+class jFormsDaoDatasource implements jIFormsDatasource2{
 	protected $selector;
 	protected $method;
 	protected $labelProperty=array();
@@ -36,6 +53,7 @@ class jFormsDaoDatasource implements jIFormsDatasource{
 	protected $criteria=null;
 	protected $criteriaFrom=null;
 	protected $dao=null;
+	protected $groupeBy='';
 	function __construct($selector,$method,$label,$key,$profile='',$criteria=null,$criteriaFrom=null,$labelSeparator=''){
 		$this->selector=$selector;
 		$this->profile=$profile;
@@ -69,31 +87,47 @@ class jFormsDaoDatasource implements jIFormsDatasource{
 		}
 		$result=array();
 		foreach($found as $obj){
-			$label='';
-			foreach((array)$this->labelProperty as $property){
-				if(!empty($obj->{$property}))
-					$label.=$obj->{$property}.$this->labelSeparator;
+			$label=$this->buildLabel($obj);
+			$value=$obj->{$this->keyProperty};
+			if($this->groupeBy){
+				$group=(string)$obj->{$this->groupeBy};
+				if(!isset($result[$group]))
+					$result[$group]=array();
+				$result[$group][$value]=$label;
 			}
-			if($this->labelSeparator!='')
-				$label=substr($label,0,-strlen($this->labelSeparator));
-			$result[$obj->{$this->keyProperty}]=$label;
+			else{
+				$result[$value]=$label;
+			}
 		}
 		return $result;
 	}
 	public function getLabel($key){
-		if($this->dao===null)$this->dao=jDao::get($this->selector,$this->profile);
+		if($this->dao===null)
+			$this->dao=jDao::get($this->selector,$this->profile);
 		$rec=$this->dao->get($key);
 		if($rec){
-			$label='';
-			foreach((array)$this->labelProperty as $property){
-				if(!empty($rec->{$property}))
-					$label.=$rec->{$property}.$this->labelSeparator;
-			}
-			if($this->labelSeparator!='')
-				$label=substr($label,0,-strlen($this->labelSeparator));
-			return $label;
+			return $this->buildLabel($rec);
 		}
 		else
 			return null;
+	}
+	protected function buildLabel($rec){
+		$label='';
+		foreach((array)$this->labelProperty as $property){
+			if((string)$rec->{$property}!=='')
+				$label.=$rec->{$property}.$this->labelSeparator;
+		}
+		if($this->labelSeparator!='')
+			$label=substr($label,0,-strlen($this->labelSeparator));
+		return $label;
+	}
+	public function getDependentControls(){
+		return $this->criteriaFrom;
+	}
+	public function hasGroupedData(){
+		return $this->groupeBy;
+	}
+	public function setGroupBy($group){
+		$this->groupeBy=$group;
 	}
 }

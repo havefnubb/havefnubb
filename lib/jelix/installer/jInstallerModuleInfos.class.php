@@ -16,6 +16,7 @@ class jInstallerModuleInfos{
 	public $isInstalled;
 	public $version;
 	public $parameters=array();
+	public $skipInstaller=false;
 	function __construct($name,$config){
 		$this->name=$name;
 		$this->access=$config[$name.'.access'];
@@ -31,6 +32,9 @@ class jInstallerModuleInfos{
 				else
 					$this->parameters[$kp[0]]=true;
 			}
+		}
+		if(isset($config[$name.'.skipinstaller'])&&$config[$name.'.skipinstaller']=='skip'){
+			$this->skipInstaller=true;
 		}
 	}
 	function serializeParameters(){

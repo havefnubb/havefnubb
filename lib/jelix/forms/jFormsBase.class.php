@@ -275,7 +275,7 @@ abstract class jFormsBase{
 			$result=array();
 			$orig=& $this->container->originalData;
 			foreach($this->container->data as $k=>$v1){
-				if(!isset($orig[$k])){
+				if(!array_key_exists($k,$orig)){
 					continue;
 				}
 				if($this->_diffValues($orig[$k],$v1)){

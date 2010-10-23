@@ -298,4 +298,123 @@ class jIniFileModifier{
 		}
 		return $value;
 	}
+	public function import(jIniFileModifier $ini,$sectionPrefix='',$separator='_'){
+		foreach($ini->content as $section=>$values){
+			if($sectionPrefix){
+				if($section=="0"){
+					$realSection=$sectionPrefix;
+				}
+				else{
+					$realSection=$sectionPrefix.$separator.$section;
+				}
+			}
+			else $realSection=$section;
+			if(isset($this->content[$realSection])){
+				$this->mergeValues($values,$realSection);
+			}
+			else{
+				if($values[0][0]==self::TK_SECTION)
+					$values[0][1]='['.$realSection.']';
+				else{
+					array_unshift($values,array(self::TK_SECTION,'['.$realSection.']'));
+				}
+				$this->content[$realSection]=$values;
+			}
+		}
+	}
+	public function mergeSection($sectionSource,$sectionTarget){
+		if(!isset($this->content[$sectionTarget]))
+			return $this->renameSection($sectionSource,$sectionTarget);
+		if(!isset($this->content[$sectionSource]))
+			return false;
+		$this->mergeValues($this->content[$sectionSource],$sectionTarget);
+		if($sectionSource=="0")
+			$this->content[$sectionSource]=array();
+		else
+			unset($this->content[$sectionSource]);
+		return true;
+	}
+	protected function mergeValues($values,$sectionTarget){
+		$previousItems=array();
+		foreach($values as $k=>$item){
+			switch($item[0]){
+				case self::TK_SECTION:
+				break;
+				case self::TK_WS:
+				if($item[1]=='--')
+					break;
+				case self::TK_COMMENT:
+				$previousItems []=$item;
+				break;
+				case self::TK_VALUE:
+				case self::TK_ARR_VALUE:
+					$found=false;
+					$lastNonValues=-1;
+					foreach($this->content[$sectionTarget] as $j=>$item2){
+						if($item2[0]!=self::TK_VALUE&&$item2[0]!=self::TK_ARR_VALUE){
+							if($lastNonValues==-1&&$item2[0]!=self::TK_SECTION)
+								$lastNonValues=$j;
+							continue;
+						}
+						if($item2[1]!=$item[1]){
+							$lastNonValues=-1;
+							continue;
+						}
+						$found=true;
+						$this->content[$sectionTarget][$j][2]=$item[2];
+						break;
+					}
+					if(!$found){
+						$atTheEnd=false;
+						$previousItems[]=$item;
+						if($lastNonValues > 0){
+							$previousItems=array_splice($this->content[$sectionTarget],$lastNonValues,$j,$previousItems);
+						}
+						$this->content[$sectionTarget]=array_merge($this->content[$sectionTarget],$previousItems);
+					}
+					$previousItems=array();
+					break;
+			}
+		}
+	}
+	public function renameValue($name,$newName,$section=0){
+		if(!isset($this->content[$section]))
+			return false;
+		foreach($this->content[$section] as $k=>$item){
+			if($item[0]!=self::TK_VALUE&&$item[0]!=self::TK_ARR_VALUE){
+				continue;
+			}
+			if($item[1]!=$name){
+				continue;
+			}
+			$this->content[$section][$k][1]=$newName;
+			break;
+		}
+		return true;
+	}
+	public function renameSection($oldName,$newName){
+		if(!isset($this->content[$oldName]))
+			return false;
+		if(isset($this->content[$newName])){
+			return $this->mergeSection($oldName,$newName);
+		}
+		$newcontent=array();
+		foreach($this->content as $section=>$values){
+			if((string)$oldName==(string)$section){
+				if($section=="0"){
+					$newcontent[0]=array();
+				}
+				if($values[0][0]==self::TK_SECTION)
+					$values[0][1]='['.$newName.']';
+				else{
+					array_unshift($values,array(self::TK_SECTION,'['.$newName.']'));
+				}
+				$newcontent[$newName]=$values;
+			}
+			else
+				$newcontent [$section]=$values;
+		}
+		$this->content=$newcontent;
+		return true;
+	}
 }

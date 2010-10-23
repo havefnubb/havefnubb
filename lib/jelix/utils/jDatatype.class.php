@@ -62,13 +62,18 @@ class jDatatypeHtml extends jDatatype implements jIFilteredDatatype{
 	protected $maxLength=null;
 	protected $facets=array('length','minLength','maxLength');
 	public $outputXhtml=false;
+	public $fromWysiwyg=false;
 	protected $newValue;
-	public function __construct($aOutputXhtml=false){
+	public function __construct($aOutputXhtml=false,$fromWysiwyg=false){
 		$this->outputXhtml=$aOutputXhtml;
+		$this->fromWysiwyg=$fromWysiwyg;
 	}
 	public function check($value){
 		if($this->hasFacets){
-			$len=iconv_strlen($value,$GLOBALS['gJConfig']->charset);
+			if($this->fromWysiwyg)
+				$len=iconv_strlen(strip_tags($value,'<img><img/><object><embed><video><video/><svg>'),$GLOBALS['gJConfig']->charset);
+			else
+				$len=iconv_strlen($value,$GLOBALS['gJConfig']->charset);
 			if($this->length!==null&&$len!=$this->length)
 				return false;
 			if($this->minLength!==null&&$len < $this->minLength)

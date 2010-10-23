@@ -17,8 +17,8 @@ class jTpl{
 		global $gJConfig;
 		$this->_vars['j_basepath']=$gJConfig->urlengine['basePath'];
 		$this->_vars['j_jelixwww']=$gJConfig->urlengine['jelixWWWPath'];
+		$this->_vars['j_jquerypath']=$gJConfig->urlengine['jqueryPath'];
 		$this->_vars['j_themepath']=$gJConfig->urlengine['basePath'].'themes/'.$gJConfig->theme.'/';
-		$this->_vars['j_enableOldActionSelector']=$gJConfig->enableOldActionSelector;
 		$this->_vars['j_locale']=$gJConfig->locale;
 		$this->_vars['j_datenow']=date('Y-m-d');
 		$this->_vars['j_timenow']=date('H:i:s');

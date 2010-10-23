@@ -181,7 +181,7 @@ abstract class jDaoFactoryBase{
 				$notfirst=true;
 			$prop=$fields[$cond['field_id']];
 			if($forSelect)
-				$prefixNoCondition=$this->_tables[$prop['table']]['name'].'.'.$prop['fieldName'];
+				$prefixNoCondition=$this->_conn->encloseName($this->_tables[$prop['table']]['name']).'.'.$this->_conn->encloseName($prop['fieldName']);
 			else
 				$prefixNoCondition=$this->_conn->encloseName($prop['fieldName']);
 			$op=strtoupper($cond['operator']);

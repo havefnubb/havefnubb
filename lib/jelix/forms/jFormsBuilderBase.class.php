@@ -32,7 +32,7 @@ abstract class jFormsBuilderBase{
 	abstract public function outputHeader($params);
 	abstract public function outputFooter();
 	abstract public function outputAllControls();
-	abstract public function outputControl($ctrl);
+	abstract public function outputControl($ctrl,$attributes=array());
 	abstract public function outputControlLabel($ctrl);
 	protected static function generateFormName($sel){
 		static $forms=array();
