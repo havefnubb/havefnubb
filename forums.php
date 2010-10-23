@@ -8,14 +8,14 @@
 * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 require ('havefnubb/application.init.php');
-/*if(!file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php')){
+if(!file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php')){
     header("location: install.php");
 }
-else {*/
+else {
     require (JELIX_LIB_CORE_PATH.'request/jClassicRequest.class.php');
 
     $config_file = 'havefnubb/config.ini.php';
 
     $jelix = new jCoordinator($config_file);
     $jelix->process(new jClassicRequest());
-//}
+}
