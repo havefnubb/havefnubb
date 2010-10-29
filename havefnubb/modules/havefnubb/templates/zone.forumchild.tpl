@@ -22,7 +22,7 @@
         <td>
             <h4 class="forumtitle">
                 <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
-                <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$forum->forum_name)}</a>
+                <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$forum->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$forum->forum_name)}</a>
             </h4>
             <span class="forumdesc">{$forum->forum_desc|eschtml}</span>
         </td>
@@ -39,7 +39,7 @@
 {elseif $forum->forum_type == 2}
     <tr>
         <td class="colrss"> &nbsp;</td>
-        <td><h4><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
+        <td><h4><a href="{jurl 'havefnubb~forum:read_rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a></h4><span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
         <td colspan="2">&nbsp;</td>
     </tr>
 {/if}

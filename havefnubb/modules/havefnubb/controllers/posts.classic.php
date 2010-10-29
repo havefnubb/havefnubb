@@ -1199,9 +1199,9 @@ class postsCtrl extends jController {
         $nbPostPerPage = 0;
         $nbPostPerPage = (int)  $gJConfig->havefnubb['posts_per_page'];
 
-        $daoPost = jDao::get('havefnubb~posts');
         // 2- get the posts of the current forum, limited by point 1
-        $posts = $daoPost->findByIdForum($id_forum,0,$nbPostPerPage);
+        // get all the posts of the current Forum by its Id
+        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getPostsByIdForum($id_forum,0,$nbPostPerPage);
         $first = true;
         foreach($posts as $post){
 
