@@ -360,7 +360,9 @@ class hfnuposts {
 
         jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
 
-        $tags = explode(",", $form->getData("tags"));
+        $tagStr ='';
+        $tagStr = str_replace('.',' ',$form->getData("tags"));
+        $tags = explode(",", $tagStr);
 
         //add this post as already been read
         jClasses::getService('havefnubb~hfnuread')->insertReadPost($record,$datePost);
