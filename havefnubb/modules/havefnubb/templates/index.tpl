@@ -35,7 +35,7 @@
                 <td class="{post_status 'forum',$category->id_forum}"></td>
                 <td>
                     <h3><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
-                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
+                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}">{image 'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
                     </h3>{$category->forum_name|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
                 <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>
@@ -78,7 +78,7 @@
                 <td class="{post_status 'forum',$category->id_forum}"></td>
                 <td>
                     <h3><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
-                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
+                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}">{image 'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
                     </h3>{$category->forum_desc|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
                 <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>
