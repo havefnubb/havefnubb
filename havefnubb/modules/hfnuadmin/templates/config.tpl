@@ -1,16 +1,22 @@
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/ui/ui.core.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/ui.tabs.min.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.widget.min.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.tabs.min.js'}
 {literal}
 <script type="text/javascript">
 //<![CDATA[
-  $(document).ready(function(){
-    $("#hfnuadmin-config > ul").tabs();
+$(document).ready(function(){
+  $("#hfnuadmin-config").tabs();
+  $(".hfnuadmin-help").hide();
+  $("h2.help").click(function () {
+     $(this).toggleClass("active").next().slideToggle("slow");
   });
+});
 //]]>
 </script>
 {/literal}
 <h1>{@hfnuadmin~admin.config@}</h1>
+{include hlp_configuration}
 {form $form, 'hfnuadmin~default:saveconfig'}
 <div id="hfnuadmin-config">
 <ul>
