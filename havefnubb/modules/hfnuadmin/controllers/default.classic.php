@@ -102,7 +102,11 @@ class defaultCtrl extends jController {
                     .'" >'
                     .jLocale::get('config.anonymous_post_authorized.rights.management.by.forum')
                     .'</a>';
+        $imagePath = '';
+        $imagePath=$GLOBALS['gJCoord']->request->getProtocol().$_SERVER['HTTP_HOST'];
+        $imagePath.=$gJConfig->urlengine['basePath'].'hfnu/images/';
         $tpl->assign('forumUrl',$forumUrl);
+        $tpl->assign('imagePath',$imagePath);
         $resp->body->assign('MAIN',$tpl->fetch('config'));
         $resp->body->assign('selectedMenuItem','config');
         return $resp;

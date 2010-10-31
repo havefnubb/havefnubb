@@ -1,7 +1,7 @@
-<h2 class="help">Aide (cliquer pour la consulter)</h2>
+<h2 class="help">{image 'hfnu/images/add.png'} Aide (cliquer pour la consulter)</h2>
 <div class="hfnuadmin-help">
     Cette page vous permet de configurer tous les comportements de votre forum.<br/>
-    Voici en détail, onglet par onglet, ce qui vous est permit de faire :<br/>
+    Voici en détails, onglet par onglet, ce qui vous est permis de faire :<br/>
     <ul>
         <li><h3>Général</h3>
             Cet onglet permet de configurer la partie globale de votre forum.
@@ -24,8 +24,10 @@
             Cet onglet permet de définir à partir de quelle quantité de message, une discussion est considérée comme importante.
         </li>
         <li><h3>Protection contre le flood</h3>
+
         </li>
         <li><h3>Membres</h3>
+
         </li>
         <li><h3>Réseaux sociaux</h3>
 

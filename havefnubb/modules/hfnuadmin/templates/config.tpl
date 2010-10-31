@@ -5,12 +5,25 @@
 {literal}
 <script type="text/javascript">
 //<![CDATA[
+var imagePath = '{/literal}{$imagePath}{literal}';
 $(document).ready(function(){
+  //manage tabs
   $("#hfnuadmin-config").tabs();
+  // hide help
   $(".hfnuadmin-help").hide();
+  // show help
   $("h2.help").click(function () {
      $(this).toggleClass("active").next().slideToggle("slow");
   });
+  //toggle Image
+  $("h2.help").toggle(
+    function () {
+      $(this).find("img").attr({src:imagePath+"delete.png"});
+    },
+    function () {
+      $(this).find("img").attr({src:imagePath+"add.png"});
+    }
+  );
 });
 //]]>
 </script>
