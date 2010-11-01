@@ -4,11 +4,11 @@
 <hidden ref="id_cat"/>
 
 <input ref="cat_name" type="string" required="true" size="40">
-	<label locale="hfnuadmin~category.category_name"/>
+    <label locale="hfnuadmin~category.category_name"/>
 </input>
 
 <input ref="cat_order" type="integer" required="true" size="4">
-	<label locale="hfnuadmin~category.cat_order"/>
+    <label locale="hfnuadmin~category.cat_order"/>
 </input>
 
 <submit ref="validate">

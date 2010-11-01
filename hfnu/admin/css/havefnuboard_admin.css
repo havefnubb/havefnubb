@@ -14,19 +14,19 @@
 
 #admin-message .jelix-msg li.jelix-msg-item-warning {
     background-color: #F6B1B1;
-    background-image: url(../images/exclamation.png);
+    background-image: url('../images/exclamation.png');
     background-repeat: no-repeat;
 }
 #admin-message .jelix-msg li.jelix-msg-item-error {
     background-color: #F6CAB1;
-    background-image: url(../images/error.png);
+    background-image: url('../images/error.png');
     background-repeat: no-repeat;
 }
 
 #admin-message .jelix-msg li.jelix-msg-item-ok,
 #admin-message .jelix-msg li.jelix-msg-item-notice {
     background-color: #E5F6D4;
-    background-image: url(../images/information.png);
+    background-image: url('../images/information.png');
     background-repeat: no-repeat;
 }
 
@@ -44,7 +44,7 @@
 
 
 #hfnuadmin-tasktodo {
-    background-image: url(../images/admin/todos.png);
+    background-image: url('../images/todos.png');
     background-repeat: no-repeat;
 }
 
@@ -191,27 +191,27 @@ td.td-notify-message {
 
 #database {
     background-repeat: no-repeat;
-    background-image: url(../images/admin/database.png);
+    background-image: url('../images/database.png');
     padding-left : 20px;
 }
 #environment {
     background-repeat: no-repeat;
-    background-image: url(../images/admin/information.png);
+    background-image: url('../images/information.png');
     padding-left : 20px;
 }
 #php {
     background-repeat: no-repeat;
-    background-image: url(../images/admin/php.png);
+    background-image: url('../images/php.png');
     padding-left : 20px;
 }
 #accelerator {
     background-repeat: no-repeat;
-    background-image: url(../images/admin/accelerator.png);
+    background-image: url('../images/accelerator.png');
     padding-left : 20px;
 }
 #user-online {
     background-repeat: no-repeat;
-    background-image: url(../images/admin/user.png);
+    background-image: url('../images/user.png');
     padding-left : 20px;
 }
 

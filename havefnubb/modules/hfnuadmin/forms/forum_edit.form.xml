@@ -4,40 +4,40 @@
 <hidden ref="id_forum"/>
 
 <input ref="forum_name" type="string" required="true" maxlength="255" size="40">
-	<label locale="hfnuadmin~forum.forum_name"/>
+    <label locale="hfnuadmin~forum.forum_name"/>
 </input>
 
 <textarea ref="forum_desc" required="true" >
-	<label locale="hfnuadmin~forum.forum_desc"/>
+    <label locale="hfnuadmin~forum.forum_desc"/>
 </textarea>
 
 <input ref="forum_order" required="true" type="integer">
-	<label locale="hfnuadmin~forum.forum_order"/>
+    <label locale="hfnuadmin~forum.forum_order"/>
 </input>
 
 <input ref="forum_url">
-	<label locale="hfnuadmin~forum.forum_url"/>
+    <label locale="hfnuadmin~forum.forum_url"/>
 </input>
 
 <input ref="post_expire" required="true" type="integer">
-	<label locale="hfnuadmin~forum.forum_expire"/>
+    <label locale="hfnuadmin~forum.forum_expire"/>
 </input>
 
 <menulist ref="forum_type" required="true">
-	<label locale="hfnuadmin~forum.forum_type"/>
-	<item value="0" locale="hfnuadmin~forum.forum_type.classic"/>
-	<item value="1" locale="hfnuadmin~forum.forum_type.redirect"/>
-	<item value="2" locale="hfnuadmin~forum.forum_type.rss"/>
+    <label locale="hfnuadmin~forum.forum_type"/>
+    <item value="0" locale="hfnuadmin~forum.forum_type.classic"/>
+    <item value="1" locale="hfnuadmin~forum.forum_type.redirect"/>
+    <item value="2" locale="hfnuadmin~forum.forum_type.rss"/>
 </menulist>
 
 <menulist ref="id_cat" required="true">
-	<datasource dao="havefnubb~category" method="findAll"
-		labelproperty="cat_name" valueproperty="id_cat"/>
-	<label locale="hfnuadmin~forum.category.forum"/>
+    <datasource dao="havefnubb~category" method="findAll"
+        labelproperty="cat_name" valueproperty="id_cat"/>
+    <label locale="hfnuadmin~forum.category.forum"/>
 </menulist>
 
 <submit ref="validate">
-	<label>Veuillez valider</label>
-	<item value="saveBt" locale="hfnuadmin~forum.saveBt"/>
+    <label>Veuillez valider</label>
+    <item value="saveBt" locale="hfnuadmin~forum.saveBt"/>
 </submit>
 </form>

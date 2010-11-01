@@ -1,4 +1,4 @@
-<h3>{@hfnuadmin~forum.forum.list@}</h3>
+<h2>{@hfnuadmin~forum.forum.list@}</h2>
 {assign $action=''}
 {foreach $categories as $category}
 {ifacl2 'hfnu.admin.forum.edit'}

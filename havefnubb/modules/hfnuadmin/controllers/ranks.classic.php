@@ -3,12 +3,13 @@
 * @package   havefnubb
 * @subpackage hfnuadmin
 * @author    FoxMaSk
+* @contributor
 * @copyright 2008 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * this controller manages the ranks of the user
+ * This controller manages the ranks of the user
  */
 class ranksCtrl extends jController {
     /**

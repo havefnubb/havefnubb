@@ -4,15 +4,15 @@
 <hidden ref="id_rank"/>
 
 <input ref="rank_name" type="string" required="true" size="40">
-	<label locale="havefnubb~rank.rank_name"/>
+    <label locale="havefnubb~rank.rank_name"/>
 </input>
 
 <input ref="rank_limit" type="integer" required="true" size="9">
-	<label locale="havefnubb~rank.rank_limit"/>
+    <label locale="havefnubb~rank.rank_limit"/>
 </input>
 
 <submit ref="validate">
-	<label>Veuillez valider</label>
-	<item value="saveBt" locale="hfnuadmin~rank.saveBt"/>
+    <label>Veuillez valider</label>
+    <item value="saveBt" locale="hfnuadmin~rank.saveBt"/>
 </submit>
 </form>

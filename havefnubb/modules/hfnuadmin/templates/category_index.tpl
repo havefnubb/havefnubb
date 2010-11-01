@@ -1,5 +1,33 @@
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.widget.min.js'}
+{literal}
+<script type="text/javascript">
+//<![CDATA[
+var imagePath = '{/literal}{$j_basepath}{literal}hfnu/images/';
+$(document).ready(function(){
+  // hide help
+  $(".hfnuadmin-help").hide();
+  // show help
+  $(".help").click(function () {
+     $(this).toggleClass("active").next().slideToggle("slow");
+  });
+  //toggle Image
+  $(".help").toggle(
+    function () {
+      $(this).find("img").attr({src:imagePath+"delete.png"});
+    },
+    function () {
+      $(this).find("img").attr({src:imagePath+"add.png"});
+    }
+  );
+});
+//]]>
+</script>
+{/literal}
 <h1>{@hfnuadmin~category.the.categories@}</h1>
 {ifacl2 'hfnu.admin.category.create'}
+{include 'hlp_category_index'}
 <h2>{@hfnuadmin~category.create.a.category@}</h2>
 {formfull $form, 'hfnuadmin~category:savecreate'}
 <br/>

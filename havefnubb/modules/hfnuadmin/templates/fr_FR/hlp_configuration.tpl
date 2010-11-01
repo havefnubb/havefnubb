@@ -1,4 +1,4 @@
-<h2 class="help">{image 'hfnu/images/add.png'} Aide (cliquer pour la consulter)</h2>
+<h2 class="help">{image 'hfnu/images/add.png', array('alt'=>'cliquer pour consulter l\'aide')} Aide (cliquer pour la consulter)</h2>
 <div class="hfnuadmin-help">
     Cette page vous permet de configurer tous les comportements de votre forum.<br/>
     Voici en détails, onglet par onglet, ce qui vous est permis de faire :<br/>
@@ -11,7 +11,7 @@
                 <li>Définir des règles d'utilisation, qui si elles sont remplies, feront apparaitre un lien Règles sur la page d'index du forum</li>
                 <li>Indiquer le courriel du webmaster (qui sera utilisé lors d'envoi de messages aux utilisateurs)</li>
                 <li>Indiquer le courriel de l'administrateur</li>
-                <li>Définir le fuseau horaire du forum tout entier. Cette valeur pourra être personnalisé par chacun des membre du forum, via son profil</li>
+                <li>Définir le fuseau horaire du forum tout entier. Cette valeur pourra être personnalisé par chacun des membres du forum, via son profil</li>
             </ul>
         </li>
         <li><h3>Messages</h3>

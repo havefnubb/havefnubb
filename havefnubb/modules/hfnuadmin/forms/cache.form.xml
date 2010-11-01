@@ -2,15 +2,15 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <radiobuttons ref="confirm" required="true">
-	<label>Confirmation:</label>
-	<item value="Y" locale="hfnuadmin~admin.cache.yes"/>
-	<item value="N" locale="hfnuadmin~admin.cache.no" selected="true"/>
-	<help locale="hfnuadmin~admin.cache.clear.description"/>
-	<hint locale="hfnuadmin~admin.cache.clear.description"/>
+    <label>Confirmation:</label>
+    <item value="Y" locale="hfnuadmin~admin.cache.yes"/>
+    <item value="N" locale="hfnuadmin~admin.cache.no" selected="true"/>
+    <help locale="hfnuadmin~admin.cache.clear.description"/>
+    <hint locale="hfnuadmin~admin.cache.clear.description"/>
 </radiobuttons>
 
 <submit ref="validate">
-	<label>Veuillez valider</label>
-	<item value="save" locale="hfnuadmin~admin.cache.ok"/>
+    <label>Veuillez valider</label>
+    <item value="save" locale="hfnuadmin~admin.cache.ok"/>
 </submit>
 </form>

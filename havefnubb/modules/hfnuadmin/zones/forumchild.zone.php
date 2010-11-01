@@ -9,27 +9,27 @@
 */
 
 class forumchildZone extends jZone {
-	protected $_tplname='zone.forumchild';
+    protected $_tplname='zone.forumchild';
 
-	protected function _prepareTpl(){
+    protected function _prepareTpl(){
 
-		$id_forum   = $this->param('id_forum');
-		$lvl        = $this->param('lvl');
+        $id_forum   = $this->param('id_forum');
+        $lvl        = $this->param('lvl');
 
-		if (! $id_forum ) return;
-		if (! $lvl ) return;
+        if (! $id_forum ) return;
+        if (! $lvl ) return;
 
-		$lvl = (int) $lvl;
-		$id_forum = (int) $id_forum;
+        $lvl = (int) $lvl;
+        $id_forum = (int) $id_forum;
 
-		$dao = jDao::get('havefnubb~forum');
+        $dao = jDao::get('havefnubb~forum');
 
-		$forumChildren = $dao->findChild($id_forum,$lvl);
-		$arrow = '';
-		$arrow = str_pad($arrow,$lvl,'-') . '>';
+        $forumChildren = $dao->findChild($id_forum,$lvl);
+        $arrow = '';
+        $arrow = str_pad($arrow,$lvl,'-') . '>';
 
-		$this->_tpl->assign('lvl',$lvl);
-		$this->_tpl->assign('arrow',$arrow);
-		$this->_tpl->assign('forumChildren',$forumChildren);
-	}
+        $this->_tpl->assign('lvl',$lvl);
+        $this->_tpl->assign('arrow',$arrow);
+        $this->_tpl->assign('forumChildren',$forumChildren);
+    }
 }

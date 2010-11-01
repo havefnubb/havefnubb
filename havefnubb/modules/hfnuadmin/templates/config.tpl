@@ -5,18 +5,18 @@
 {literal}
 <script type="text/javascript">
 //<![CDATA[
-var imagePath = '{/literal}{$imagePath}{literal}';
+var imagePath = '{/literal}{$j_basepath}{literal}hfnu/images/';
 $(document).ready(function(){
   //manage tabs
   $("#hfnuadmin-config").tabs();
   // hide help
   $(".hfnuadmin-help").hide();
   // show help
-  $("h2.help").click(function () {
+  $(".help").click(function () {
      $(this).toggleClass("active").next().slideToggle("slow");
   });
   //toggle Image
-  $("h2.help").toggle(
+  $(".help").toggle(
     function () {
       $(this).find("img").attr({src:imagePath+"delete.png"});
     },
@@ -29,7 +29,7 @@ $(document).ready(function(){
 </script>
 {/literal}
 <h1>{@hfnuadmin~admin.config@}</h1>
-{include hlp_configuration}
+{include 'hlp_configuration'}
 {form $form, 'hfnuadmin~default:saveconfig'}
 <div id="hfnuadmin-config">
 <ul>

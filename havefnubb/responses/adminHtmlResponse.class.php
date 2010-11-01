@@ -27,7 +27,6 @@ class adminHtmlResponse extends jResponseHtml {
 
         $this->addCssLink($GLOBALS['gJConfig']->urlengine['basePath'].'hfnu/admin/css/havefnuboard_admin.css');
         $chemin = $GLOBALS['gJConfig']->urlengine['basePath'].'themes/'.$GLOBALS['gJConfig']->theme.'/';
-        $this->addCSSLink($chemin.'css/downloads.css');
     }
     /**
      * method which manages 'globales' behavior/var

@@ -9,11 +9,11 @@
 */
 
 class hfnutasktodoZone extends jZone {
-	protected $_tplname='zone.hfnutasktodo';
+    protected $_tplname='zone.hfnutasktodo';
 
-	protected function _prepareTpl(){
-		$ev = jEvent::notify('HfnuTaskTodo');
-		$tasks = $ev->getResponse();
-		$this->_tpl->assign('tasks',$tasks);
-	}
+    protected function _prepareTpl(){
+        $ev = jEvent::notify('HfnuTaskTodo');
+        $tasks = $ev->getResponse();
+        $this->_tpl->assign('tasks',$tasks);
+    }
 }

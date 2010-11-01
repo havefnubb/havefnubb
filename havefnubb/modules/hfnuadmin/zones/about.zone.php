@@ -9,15 +9,15 @@
 */
 
 class aboutZone extends jZone {
-	protected $_tplname='zone.about';
+    protected $_tplname='zone.about';
 
-	protected function _prepareTpl(){
-		$moduleName = $this->param('modulename');
+    protected function _prepareTpl(){
+        $moduleName = $this->param('modulename');
 
-		if ($moduleName == '') return;
+        if ($moduleName == '') return;
 
-		$this->_tpl->assign('moduleInfo',
-							jClasses::getService('havefnubb~modulexml')->parse($moduleName)
-							);
-	}
+        $this->_tpl->assign('moduleInfo',
+                            jClasses::getService('havefnubb~modulexml')->parse($moduleName)
+                            );
+    }
 }

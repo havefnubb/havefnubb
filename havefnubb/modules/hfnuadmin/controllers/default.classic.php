@@ -9,7 +9,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * this controller manages the configuration of the forum
+ * This controller manages the configuration of the forum
  */
 class defaultCtrl extends jController {
     /**
@@ -102,11 +102,7 @@ class defaultCtrl extends jController {
                     .'" >'
                     .jLocale::get('config.anonymous_post_authorized.rights.management.by.forum')
                     .'</a>';
-        $imagePath = '';
-        $imagePath=$GLOBALS['gJCoord']->request->getProtocol().$_SERVER['HTTP_HOST'];
-        $imagePath.=$gJConfig->urlengine['basePath'].'hfnu/images/';
         $tpl->assign('forumUrl',$forumUrl);
-        $tpl->assign('imagePath',$imagePath);
         $resp->body->assign('MAIN',$tpl->fetch('config'));
         $resp->body->assign('selectedMenuItem','config');
         return $resp;
