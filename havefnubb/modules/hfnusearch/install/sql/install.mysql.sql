@@ -1,5 +1,5 @@
 
-CREATE TABLE IF NOT EXISTS `%%PREFIX%%search_words` (
+CREATE TABLE IF NOT EXISTS `%%PREFIX%%hfnu_search_words` (
   `id` varchar(30) NOT NULL,
   `datasource` varchar(40),
   `words` varchar(255) NOT NULL,

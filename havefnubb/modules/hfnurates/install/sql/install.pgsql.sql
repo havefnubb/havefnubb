@@ -1,7 +1,7 @@
 
 
 
-CREATE TABLE %%PREFIX%%rates (
+CREATE TABLE %%PREFIX%%hfnu_rates (
     id_user integer NOT NULL,
     id_source integer NOT NULL,
     source character varying(40) NOT NULL,
@@ -11,8 +11,8 @@ CREATE TABLE %%PREFIX%%rates (
 );
 
 
-CREATE INDEX id_source_ix ON %%PREFIX%%rates USING btree (id_source);
+CREATE INDEX hfnu_rates_id_source_ix ON %%PREFIX%%hfnu_rates USING btree (id_source);
 
-CREATE INDEX id_user_rates_idx ON %%PREFIX%%rates USING btree (id_user);
+CREATE INDEX hfnu_rates_id_user_rates_idx ON %%PREFIX%%hfnu_rates USING btree (id_user);
 
-CREATE INDEX source ON %%PREFIX%%rates USING btree (source);
+CREATE INDEX hfnu_rates_source ON %%PREFIX%%hfnu_rates USING btree (source);

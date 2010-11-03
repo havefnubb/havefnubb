@@ -1,6 +1,6 @@
 SET client_encoding = 'UTF8';
 
-CREATE TABLE %%PREFIX%%bans (
+CREATE TABLE %%PREFIX%%hfnu_bans (
     ban_id SERIAL NOT NULL,
     ban_username character varying(200),
     ban_ip character varying(255),
@@ -10,14 +10,14 @@ CREATE TABLE %%PREFIX%%bans (
     CONSTRAINT ban_id_pk PRIMARY KEY (ban_id)
 );
 
-CREATE TABLE %%PREFIX%%category (
+CREATE TABLE %%PREFIX%%hfnu_forum_category (
     id_cat SERIAL NOT NULL,
     cat_name character varying(255) NOT NULL,
     cat_order integer NOT NULL,
     CONSTRAINT id_cat PRIMARY KEY (id_cat)
 );
 
-CREATE TABLE %%PREFIX%%connected (
+CREATE TABLE %%PREFIX%%hfnu_connected (
     id_user integer DEFAULT 1 NOT NULL,
     member_ip character varying(200) NOT NULL,
     connected bigint DEFAULT 0::bigint NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE %%PREFIX%%connected (
     CONSTRAINT id_user_connected PRIMARY KEY (id_user)
 );
 
-CREATE TABLE %%PREFIX%%forum (
+CREATE TABLE %%PREFIX%%hfnu_forum (
     id_forum serial NOT NULL,
     forum_name character varying(255) NOT NULL,
     id_cat integer NOT NULL,
@@ -55,14 +55,14 @@ ALTER TABLE %%PREFIX%%community_users ADD  nb_msg integer DEFAULT 0;
 ALTER TABLE %%PREFIX%%community_users ADD  last_post integer DEFAULT 0 NOT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  gravatar integer DEFAULT 0 NOT NULL;
 
-CREATE TABLE %%PREFIX%%member_custom_fields (
+CREATE TABLE %%PREFIX%%hfnu_member_custom_fields (
     id_user integer NOT NULL,
     type character varying(30) NOT NULL,
     data text NOT NULL,
     CONSTRAINT id_user_type PRIMARY KEY (id_user,type)
 );
 
-CREATE TABLE %%PREFIX%%notify (
+CREATE TABLE %%PREFIX%%hfnu_notify (
     id_notify integer NOT NULL,
     id_user integer NOT NULL,
     id_post integer NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE %%PREFIX%%notify (
     CONSTRAINT id_notify PRIMARY KEY (id_notify)
 );
 
-CREATE TABLE %%PREFIX%%posts (
+CREATE TABLE %%PREFIX%%hfnu_posts (
     id_post serial NOT NULL,
     id_user integer NOT NULL,
     id_forum integer NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE %%PREFIX%%posts (
     CONSTRAINT id_post PRIMARY KEY (id_post)
 );
 
-CREATE TABLE %%PREFIX%%threads (
+CREATE TABLE %%PREFIX%%hfnu_threads (
   id_thread serial NOT NULL,
   id_forum int(11) NOT NULL,
   id_user int(11) NOT NULL,
@@ -108,65 +108,65 @@ CREATE TABLE %%PREFIX%%threads (
   CONSTRAINT id_thread PRIMARY KEY (id_thread)
 );
 
-CREATE TABLE %%PREFIX%%rank (
+CREATE TABLE %%PREFIX%%hfnu_rank (
     id_rank serial NOT NULL,
     rank_name character varying(40) NOT NULL,
     rank_limit integer NOT NULL,
     CONSTRAINT id_rank PRIMARY KEY (id_rank)
 );
 
-CREATE TABLE %%PREFIX%%subscriptions (
+CREATE TABLE %%PREFIX%%hfnu_subscriptions (
     id_user integer NOT NULL,
     id_post integer NOT NULL,
     CONSTRAINT user_post PRIMARY KEY (id_user,id_post)
 );
 
 -- forum index
-CREATE INDEX child_level ON %%PREFIX%%forum USING btree (child_level);
-CREATE INDEX parent_id ON %%PREFIX%%forum USING btree (parent_id);
-CREATE INDEX forum_type ON %%PREFIX%%forum USING btree (forum_type);
-CREATE INDEX id_cat_idx ON %%PREFIX%%forum USING btree (id_cat);
+CREATE INDEX child_level ON %%PREFIX%%hfnu_forum USING btree (child_level);
+CREATE INDEX parent_id ON %%PREFIX%%hfnu_forum USING btree (parent_id);
+CREATE INDEX forum_type ON %%PREFIX%%hfnu_forum USING btree (forum_type);
+CREATE INDEX id_cat_idx ON %%PREFIX%%hfnu_forum USING btree (id_cat);
 
 -- notify index
-CREATE INDEX id_post_notify_idx ON %%PREFIX%%notify USING btree (id_post);
-CREATE INDEX id_use_notify_idx ON %%PREFIX%%notify USING btree (id_user);
+CREATE INDEX id_post_notify_idx ON %%PREFIX%%hfnu_notify USING btree (id_post);
+CREATE INDEX id_use_notify_idx ON %%PREFIX%%hfnu_notify USING btree (id_user);
 
 -- posts index
-CREATE INDEX id_user_post_idx ON %%PREFIX%%posts USING btree (id_user, id_forum, parent_id, status);
+CREATE INDEX id_user_post_idx ON %%PREFIX%%hfnu_posts USING btree (id_user, id_forum, parent_id, status);
 
 -- threads index
-CREATE INDEX id_forum ON %%PREFIX%%threads USING btree (id_forum);
-CREATE INDEX id_user ON %%PREFIX%%threads USING btree (id_user);
-CREATE INDEX status ON %%PREFIX%%threads USING btree (status);
-CREATE INDEX id_first_msg ON %%PREFIX%%threads USING btree (id_first_msg);
-CREATE INDEX id_last_msg ON %%PREFIX%%threads USING btree (id_last_msg);
-CREATE INDEX ispined ON %%PREFIX%%threads USING btree (ispined);
-CREATE INDEX iscensored ON %%PREFIX%%threads USING btree (iscensored);
+CREATE INDEX id_forum ON %%PREFIX%%hfnu_threads USING btree (id_forum);
+CREATE INDEX id_user ON %%PREFIX%%hfnu_threads USING btree (id_user);
+CREATE INDEX status ON %%PREFIX%%hfnu_threads USING btree (status);
+CREATE INDEX id_first_msg ON %%PREFIX%%hfnu_threads USING btree (id_first_msg);
+CREATE INDEX id_last_msg ON %%PREFIX%%hfnu_threads USING btree (id_last_msg);
+CREATE INDEX ispined ON %%PREFIX%%hfnu_threads USING btree (ispined);
+CREATE INDEX iscensored ON %%PREFIX%%hfnu_threads USING btree (iscensored);
 
 -- ================================== DATA
 -- category
-INSERT INTO %%PREFIX%%category (id_cat, cat_name, cat_order) VALUES (1, 'My First Forum', 1);
-INSERT INTO %%PREFIX%%category (id_cat, cat_name, cat_order) VALUES (2, 'My Second forum', 2);
+INSERT INTO %%PREFIX%%hfnu_forum_category (id_cat, cat_name, cat_order) VALUES (1, 'My First Forum', 1);
+INSERT INTO %%PREFIX%%hfnu_forum_category (id_cat, cat_name, cat_order) VALUES (2, 'My Second forum', 2);
 
 -- forum
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
+INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
     VALUES (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0, '', 0, 1, 0);
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
+INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
     VALUES (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0, '', 0, 0,0);
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
+INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
     VALUES (3, 'Light', 2, 'Soo light', 1, 0, 0, 0, '', 0, 0,0);
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
+INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
     VALUES (4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0, '', 0, 0,0);
 
 -- threads
-INSERT INTO %%PREFIX%%threads (id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
+INSERT INTO %%PREFIX%%hfnu_threads (id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
 VALUES (1,1,3,1,1,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,0,0,0);
 
 -- posts
-INSERT INTO %%PREFIX%%posts (id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg, read_by_mod) VALUES (1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(),UNIX_TIMESTAMP(), 1, '127.0.0.1', NULL, 1);
+INSERT INTO %%PREFIX%%hfnu_posts (id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg, read_by_mod) VALUES (1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(),UNIX_TIMESTAMP(), 1, '127.0.0.1', NULL, 1);
 
 -- ranks
-INSERT INTO %%PREFIX%%rank ( rank_name, rank_limit) VALUES ('new member', 0);
-INSERT INTO %%PREFIX%%rank ( rank_name, rank_limit) VALUES ('member', 40);
-INSERT INTO %%PREFIX%%rank ( rank_name, rank_limit) VALUES ('active member', 100);
+INSERT INTO %%PREFIX%%hfnu_rank ( rank_name, rank_limit) VALUES ('new member', 0);
+INSERT INTO %%PREFIX%%hfnu_rank ( rank_name, rank_limit) VALUES ('member', 40);
+INSERT INTO %%PREFIX%%hfnu_rank ( rank_name, rank_limit) VALUES ('active member', 100);
 

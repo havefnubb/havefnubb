@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="posts" realname="posts" primarykey="id_post" />
+        <primarytable name="posts" realname="hfnu_posts" primarykey="id_post" />
         <foreigntable name="usr" realname="community_users" primarykey="id" onforeignkey="id_user" />
     </datasources>
     <record>

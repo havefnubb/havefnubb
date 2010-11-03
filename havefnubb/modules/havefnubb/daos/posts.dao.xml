@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="posts" realname="posts"  primarykey="id_post" />
+        <primarytable name="posts" realname="hfnu_posts"  primarykey="id_post" />
         <optionalforeigntable name="usr"   realname="community_users" primarykey="id"  onforeignkey="id_user" />
-        <optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
+        <optionalforeigntable name="forum" realname="hfnu_forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
         <property name="id_post"    fieldname="id_post"     datatype="autoincrement"/>

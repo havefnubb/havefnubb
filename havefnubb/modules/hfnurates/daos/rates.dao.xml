@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="rates" realname="rates" primarykey="id_user,id_source,source" />
+        <primarytable name="rates" realname="hfnu_rates" primarykey="id_user,id_source,source" />
     </datasources>
     <record>
         <property name="id_user"    fieldname="id_user"    datatype="int"/>

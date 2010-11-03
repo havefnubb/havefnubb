@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="threads" realname="threads"  primarykey="id_thread" />
+        <primarytable name="threads" realname="hfnu_threads"  primarykey="id_thread" />
     </datasources>
     <record>
         <property name="id_thread"     fieldname="id_thread" datatype="autoincrement"/>

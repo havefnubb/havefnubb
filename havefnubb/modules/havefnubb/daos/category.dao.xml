@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="category" realname="category" primarykey="id_cat" />
-        <!--optionalforeigntable name="forum" realname="forum" primarykey="id_forum" onforeignkey="id_cat"/-->        
+        <primarytable name="c" realname="hfnu_forum_category" primarykey="id_cat" />
+        <!--optionalforeigntable name="forum" realname="hfnu_forum" primarykey="id_forum" onforeignkey="id_cat"/-->        
     </datasources>
     <record>
         <property name="id_cat" fieldname="id_cat" datatype="autoincrement"/>

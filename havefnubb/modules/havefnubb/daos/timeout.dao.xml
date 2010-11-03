@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="connected" realname="connected" primarykey="id_user"  />
+        <primarytable name="c" realname="hfnu_connected" primarykey="id_user"  />
     </datasources>
     <record>
     <property name="id" fieldname="id_user" datatype="autoincrement"/>

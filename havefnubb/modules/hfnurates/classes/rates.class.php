@@ -21,7 +21,7 @@ class rates {
     function getTotalRatesBySource($id_source, $source) {
         $cnx = jDb::getConnection();
         $strQuery = 'SELECT COUNT(*) as total_rates, SUM(level) as total_level, AVG(level) as avg_level ' .
-                    ' FROM '.$cnx->prefixTable('rates').
+                    ' FROM '.$cnx->prefixTable('hfnu_rates').
                     " WHERE id_source = '".$id_source."' AND source='".addslashes($source). "' GROUP BY id_source";
         $rs = $cnx->query($strQuery);
         $total = $rs->fetch();

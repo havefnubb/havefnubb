@@ -1,6 +1,6 @@
 
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%bans (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_bans (
   ban_id int(10) unsigned NOT NULL AUTO_INCREMENT,
   ban_username varchar(200) DEFAULT NULL,
   ban_ip varchar(255) DEFAULT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%bans (
 ) DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%category (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_forum_category (
   id_cat int(12) NOT NULL AUTO_INCREMENT,
   cat_name varchar(255) NOT NULL,
   cat_order int(4) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%category (
 
 
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%connected (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_connected (
     id_user int(12) NOT NULL DEFAULT '1',
     member_ip VARCHAR(200) NOT NULL DEFAULT '',
     connected INT(10) UNSIGNED NOT NULL DEFAULT 0,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%connected (
 ) DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%forum (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_forum (
   id_forum int(12) NOT NULL AUTO_INCREMENT,
   forum_name varchar(255) NOT NULL,
   id_cat int(12) NOT NULL,
@@ -64,14 +64,14 @@ ALTER TABLE %%PREFIX%%community_users ADD  nb_msg int(12) DEFAULT '0';
 ALTER TABLE %%PREFIX%%community_users ADD  last_post int(12) NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%community_users ADD  gravatar INT( 1 ) NOT NULL DEFAULT '0';
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%member_custom_fields (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_member_custom_fields (
   id_user int(11) NOT NULL,
   type varchar(30) NOT NULL,
   data text NOT NULL,
   PRIMARY KEY  (id_user,type)
 ) DEFAULT  CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%notify (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_notify (
   id_notify int(12) NOT NULL AUTO_INCREMENT,
   id_user int(12) NOT NULL,
   id_post int(12) NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%notify (
 ) DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%posts (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_posts (
   id_post int(12) NOT NULL AUTO_INCREMENT,
   id_user int(12) NOT NULL,
   id_forum int(12) NOT NULL,
@@ -111,7 +111,7 @@ ALTER TABLE %%PREFIX%%posts ADD INDEX ( ispined ) ;
 ALTER TABLE %%PREFIX%%posts ADD INDEX ( iscensored ) ;
 
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%threads (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_threads (
   id_thread int(11) NOT NULL AUTO_INCREMENT,
   id_forum int(11) NOT NULL,
   id_user INT NOT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%threads (
 ) DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%rank (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_rank (
   id_rank int(12) NOT NULL AUTO_INCREMENT,
   rank_name varchar(40) NOT NULL,
   rank_limit int(9) NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%rank (
 
 
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%read_forum (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_read_forum (
   id_user int(12) NOT NULL,
   id_forum int(12) NOT NULL,
   date_read int(12) NOT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%read_forum (
   KEY date_read (date_read)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%read_posts (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_read_posts (
   id_user int(12) NOT NULL,
   id_forum int(12) NOT NULL,
   id_post int(12) NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%read_posts (
   KEY parent_id (parent_id)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%subscriptions (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_subscriptions (
     id_user int(12) NOT NULL,
     id_post int(12) NOT NULL,
     PRIMARY KEY (id_user , id_post)
@@ -177,25 +177,25 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%subscriptions (
 
 -- ============================================ DATA
 
-INSERT INTO %%PREFIX%%category (id_cat, cat_name, cat_order) VALUES
+INSERT INTO %%PREFIX%%hfnu_forum_category (id_cat, cat_name, cat_order) VALUES
 (1, 'My First Forum', 1),
 (2, 'My Second forum', 2);
 
-INSERT INTO %%PREFIX%%forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg) VALUES
+INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg) VALUES
 (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0,'',0,1,0),
 (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0,'',0,0,0),
 (3, 'Light', 2, 'Soo light', 1, 0, 0, 0,'',0,0,0),
 (4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0,'',0,0,0);
 
-INSERT INTO %%PREFIX%%threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
+INSERT INTO %%PREFIX%%hfnu_threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
 VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,0,0,0);
 
 
-INSERT INTO %%PREFIX%%posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod,ispined,iscensored ) VALUES
+INSERT INTO %%PREFIX%%hfnu_posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod,ispined,iscensored ) VALUES
 (1, 1, 1, 1, 3, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL,1,0,0);
 
 
-INSERT INTO %%PREFIX%%rank (id_rank, rank_name, rank_limit) VALUES
+INSERT INTO %%PREFIX%%hfnu_rank (id_rank, rank_name, rank_limit) VALUES
 (1, 'new member', 0),
 (2, 'member', 40),
 (3, 'active member', 100);

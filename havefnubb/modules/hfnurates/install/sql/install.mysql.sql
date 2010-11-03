@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS %%PREFIX%%rates (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_rates (
     id_user   INT NOT NULL ,
     id_source INT NOT NULL ,
     source    VARCHAR(40) NOT NULL,

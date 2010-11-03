@@ -141,15 +141,15 @@ class hfnuread {
                     forum.forum_name,
                     rp.date_read as date_read_post,
                     rf.date_read as date_read_forum
-             FROM ".$c->prefixTable('threads')." AS threads
+             FROM ".$c->prefixTable('hfnu_threads')." AS threads
                 LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user =usr.id)
-                LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                LEFT JOIN ".$c->prefixTable('read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
+                LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
                                                                 threads.id_last_msg=rp.id_post AND
                                                                 rp.id_user = '".jAuth::getUserSession ()->id."')
-                LEFT JOIN ".$c->prefixTable('read_forum')." as rf ON ( threads.id_forum=rf.id_forum AND
+                LEFT JOIN ".$c->prefixTable('hfnu_read_forum')." as rf ON ( threads.id_forum=rf.id_forum AND
                                                                 rf.id_user = '".jAuth::getUserSession ()->id."')
-            , ".$c->prefixTable('posts')." AS posts
+            , ".$c->prefixTable('hfnu_posts')." AS posts
             WHERE
                 threads.id_thread = posts.parent_id ";
 
@@ -221,15 +221,15 @@ class hfnuread {
                         forum.forum_name,
                         rp.date_read as date_read_post,
                         rf.date_read as date_read_forum
-                 FROM ".$c->prefixTable('threads')." AS threads
+                 FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user =usr.id)
-                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                    LEFT JOIN ".$c->prefixTable('read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
+                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                    LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
                                                                     threads.id_last_msg=rp.id_post AND
                                                                     rp.id_user = '".jAuth::getUserSession ()->id."')
-                    LEFT JOIN ".$c->prefixTable('read_forum')." as rf ON ( threads.id_forum=rf.id_forum AND
+                    LEFT JOIN ".$c->prefixTable('hfnu_read_forum')." as rf ON ( threads.id_forum=rf.id_forum AND
                                                                     rf.id_user = '".jAuth::getUserSession ()->id."')
-                , ".$c->prefixTable('posts')." AS posts
+                , ".$c->prefixTable('hfnu_posts')." AS posts
                 WHERE
                     threads.id_thread = posts.parent_id AND forum.id_forum = '".$id_forum."' ";
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="rank" realname="rank" primarykey="id_rank" />
+        <primarytable name="rank" realname="hfnu_rank" primarykey="id_rank" />
     </datasources>
     <record>
         <property name="id_rank" fieldname="id_rank" datatype="autoincrement"/>

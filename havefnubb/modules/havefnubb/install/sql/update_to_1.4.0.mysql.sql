@@ -17,7 +17,7 @@ update %%PREFIX%%posts set status = 7,ispined=0,iscensored=0 where status = "hid
 
 ALTER TABLE %%PREFIX%%posts CHANGE status status INT( 2 ) NOT NULL DEFAULT '3';
 
-CREATE TABLE IF NOT EXISTS %%PREFIX%%threads (
+CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_threads (
   id_thread int(11) NOT NULL AUTO_INCREMENT,
   id_forum int(11) NOT NULL,
   id_user INT NOT NULL,
@@ -40,18 +40,20 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%threads (
   KEY iscensored (iscensored)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO %%PREFIX%%threads (id_thread,id_forum,id_user,status,nb_viewed,date_created,ispined,iscensored) SELECT parent_id,id_forum,id_user,status,viewed,date_created,ispined,iscensored FROM %%PREFIX%%posts WHERE parent_id=id_post;
+INSERT INTO %%PREFIX%%hfnu_threads (id_thread,id_forum,id_user,status,nb_viewed,date_created,ispined,iscensored)
+    SELECT parent_id,id_forum,id_user,status,viewed,date_created,ispined,iscensored FROM %%PREFIX%%posts WHERE parent_id=id_post;
 
-UPDATE %%PREFIX%%threads SET id_first_msg = id_thread ;
-UPDATE %%PREFIX%%threads SET id_last_msg = ( SELECT id_post FROM %%PREFIX%%posts WHERE %%PREFIX%%threads.id_thread = parent_id ORDER BY date_created DESC LIMIT 1), date_last_post =( SELECT date_created FROM %%PREFIX%%posts WHERE %%PREFIX%%threads.id_thread = parent_id ORDER BY date_created DESC LIMIT 1);
-UPDATE %%PREFIX%%threads SET nb_replies = (SELECT count(id_post) -1 FROM %%PREFIX%%posts WHERE %%PREFIX%%threads.id_thread = parent_id);
+UPDATE %%PREFIX%%hfnu_threads SET id_first_msg = id_thread ;
+UPDATE %%PREFIX%%hfnu_threads SET id_last_msg = ( SELECT id_post FROM %%PREFIX%%posts WHERE %%PREFIX%%hfnu_threads.id_thread = parent_id ORDER BY date_created DESC LIMIT 1),
+                                date_last_post =( SELECT date_created FROM %%PREFIX%%posts WHERE %%PREFIX%%hfnu_threads.id_thread = parent_id ORDER BY date_created DESC LIMIT 1);
+UPDATE %%PREFIX%%hfnu_threads SET nb_replies = (SELECT count(id_post) -1 FROM %%PREFIX%%posts WHERE %%PREFIX%%hfnu_threads.id_thread = parent_id);
 
 
 ALTER TABLE %%PREFIX%%forum ADD id_last_msg int(11) NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%forum ADD date_last_msg int(11) NOT NULL DEFAULT '0';
 
-UPDATE %%PREFIX%%forum AS f SET id_last_msg = (SELECT max(id_last_msg) FROM %%PREFIX%%threads AS t WHERE f.id_forum = t.id_forum )
-UPDATE %%PREFIX%%forum AS f SET date_last_msg = (SELECT max(date_last_msg) FROM %%PREFIX%%threads AS t WHERE f.id_forum = t.id_forum )
+UPDATE %%PREFIX%%forum AS f SET id_last_msg = (SELECT max(id_last_msg) FROM %%PREFIX%%hfnu_threads AS t WHERE f.id_forum = t.id_forum )
+UPDATE %%PREFIX%%forum AS f SET date_last_msg = (SELECT max(date_last_msg) FROM %%PREFIX%%hfnu_threads AS t WHERE f.id_forum = t.id_forum )
 
 RENAME TABLE `%%PREFIX%%member`  TO `%%PREFIX%%community_users` ;
 ALTER TABLE `%%PREFIX%%community_users` CHANGE `id_user` `id` INT( 12 ) NOT NULL AUTO_INCREMENT;
@@ -79,4 +81,21 @@ ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_gravatar` `gravatar` in
 
 ALTER TABLE %%PREFIX%%read_posts ADD date_read int(12) NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%read_posts ADD parent_id int(12) NOT NULL DEFAULT '0';
+
+ALTER TABLE jacl2_group ADD COLUMN code varchar(30) default NULL;
+
+RENAME TABLE  %%PREFIX%%member_custom_fields TO %%PREFIX%%hfnu_member_custom_fields;
+RENAME TABLE  %%PREFIX%%bans TO %%PREFIX%%hfnu_bans;
+RENAME TABLE  %%PREFIX%%category TO %%PREFIX%%hfnu_forum_category;
+RENAME TABLE  %%PREFIX%%connected TO %%PREFIX%%hfnu_connected;
+RENAME TABLE  %%PREFIX%%forum TO %%PREFIX%%hfnu_forum;
+RENAME TABLE  %%PREFIX%%notify TO %%PREFIX%%hfnu_notify;
+RENAME TABLE  %%PREFIX%%posts TO %%PREFIX%%hfnu_posts;
+RENAME TABLE  %%PREFIX%%rank TO %%PREFIX%%hfnu_rank;
+RENAME TABLE  %%PREFIX%%rates TO %%PREFIX%%hfnu_rates;
+RENAME TABLE  %%PREFIX%%read_forum TO %%PREFIX%%hfnu_read_forum;
+RENAME TABLE  %%PREFIX%%read_posts TO %%PREFIX%%hfnu_read_posts;
+RENAME TABLE  %%PREFIX%%search_words TO %%PREFIX%%hfnu_search_words;
+RENAME TABLE  %%PREFIX%%subscriptions TO %%PREFIX%%hfnu_subscriptions;
+
 --- TODO  supprimer les droits obsolètes

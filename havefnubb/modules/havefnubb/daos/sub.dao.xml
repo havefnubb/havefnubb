@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="subscriptions" realname="subscriptions" primarykey="id_post,id_user" />
+        <primarytable name="s" realname="hfnu_subscriptions" primarykey="id_post,id_user" />
     </datasources>
     <record>
         <property name="id_post" fieldname="id_post" datatype="int" required="true"/>

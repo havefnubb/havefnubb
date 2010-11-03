@@ -857,10 +857,10 @@ class hfnuposts {
                     usr.last_connect as member_last_connect,
                     forum.parent_id as forum_parent_id,
                     forum.forum_name
-                FROM ".$c->prefixTable('threads')." AS threads
+                FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                , ".$c->prefixTable('posts')." AS posts
+                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                , ".$c->prefixTable('hfnu_posts')." AS posts
                 WHERE
                     threads.id_thread=posts.parent_id AND
                     posts.id_forum = '".$id_forum."'";
@@ -905,13 +905,13 @@ class hfnuposts {
                         forum.parent_id as forum_parent_id,
                         forum.forum_name,
                         rp.date_read as date_read_post
-                FROM ".$c->prefixTable('threads')." AS threads
+                FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                    LEFT JOIN ".$c->prefixTable('read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
+                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                    LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
                                                                     threads.id_last_msg=rp.id_post AND
                                                                     rp.id_user = '".jAuth::getUserSession ()->id."')
-                ,".$c->prefixTable('posts')." AS posts
+                ,".$c->prefixTable('hfnu_posts')." AS posts
                 WHERE
                     threads.id_thread=posts.parent_id AND
                     posts.id_forum = '".$id_forum."'";
@@ -974,10 +974,10 @@ class hfnuposts {
                     usr.last_connect as member_last_connect,
                     forum.parent_id as forum_parent_id,
                     forum.forum_name
-                FROM ".$c->prefixTable('threads')." AS threads
+                FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                , ".$c->prefixTable('posts')." AS posts
+                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                , ".$c->prefixTable('hfnu_posts')." AS posts
                 WHERE
                     threads.id_thread=posts.parent_id AND
                     posts.parent_id = '".$parent_id."'";
@@ -1023,13 +1023,13 @@ class hfnuposts {
                         forum.parent_id as forum_parent_id,
                         forum.forum_name,
                         rp.date_read as date_read_post
-                FROM ".$c->prefixTable('threads')." AS threads
+                FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                    LEFT JOIN ".$c->prefixTable('read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
+                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                    LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
                                                                     threads.id_last_msg=rp.id_post AND
                                                                     rp.id_user = '".jAuth::getUserSession ()->id."')
-                ,".$c->prefixTable('posts')." AS posts
+                ,".$c->prefixTable('hfnu_posts')." AS posts
                 WHERE
                     threads.id_thread=posts.parent_id AND
                     posts.parent_id = '".$parent_id."'";

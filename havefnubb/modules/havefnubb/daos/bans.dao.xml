@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="bans" realname="bans" primarykey="ban_id" />
+        <primarytable name="b" realname="hfnu_bans" primarykey="ban_id" />
     </datasources>
     <record>
         <property name="ban_id"     fieldname="ban_id" datatype="autoincrement"/>

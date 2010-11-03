@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="member_custom_fields" realname="member_custom_fields" primarykey="id_user,type" />
+        <primarytable name="m" realname="hfnu_member_custom_fields" primarykey="id_user,type" />
     </datasources>
     <record>
         <property name="id" fieldname="id_user" required="true" datatype="integer"/>

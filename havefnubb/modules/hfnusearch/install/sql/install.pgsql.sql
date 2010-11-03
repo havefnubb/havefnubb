@@ -1,5 +1,5 @@
 
-CREATE TABLE %%PREFIX%%search_words (
+CREATE TABLE %%PREFIX%%hfnu_search_words (
     id character varying(30) NOT NULL,
     datasource character varying(40) NOT NULL,
     words character varying(255) NOT NULL,
@@ -10,4 +10,4 @@ CREATE TABLE %%PREFIX%%search_words (
 
 
 
-CREATE INDEX words ON %%PREFIX%%search_words USING btree (words);
+CREATE INDEX %%PREFIX%%hfnu_search_words ON %%PREFIX%%hfnu_search_words USING btree (words);

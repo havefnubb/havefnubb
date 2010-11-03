@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="threads" realname="threads"  primarykey="id_thread" />
-        <foreigntable name="posts" realname="posts"  primarykey="parent_id" onforeignkey="id_thread" />
+        <primarytable name="threads" realname="hfnu_threads"  primarykey="id_thread" />
+        <foreigntable name="posts" realname="hfnu_posts"  primarykey="parent_id" onforeignkey="id_thread" />
         <optionalforeigntable name="usr"   realname="community_users" primarykey="id"  onforeignkey="id_user" />
-        <optionalforeigntable name="forum" realname="forum"  primarykey="id_forum" onforeignkey="id_forum" />
+        <optionalforeigntable name="forum" realname="hfnu_forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
         <property name="id_thread"     fieldname="id_thread" datatype="autoincrement"/>
