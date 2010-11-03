@@ -17,7 +17,7 @@ class defaultCtrl extends jController {
     public $pluginParams = array(
         '*'	=>	array('auth.required'=>true,
                     'banuser.check'=>true,
-                    'jacl2.right'=>'hfnu.admin.server.info'
+                    'jacl2.right'=>'servinfo.access'
                     ),
     );
 

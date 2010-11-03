@@ -9,10 +9,11 @@
 */
 
 
-class servinfoModuleInstaller extends jInstallerModule {
+class servinfoModuleUpgrader_rightschange extends jInstallerModule {
 
     function postInstall() {
         if ($this->firstExec('acl2')) {
+            jAcl2DbManager::removeSubject('hfnu.admin.server.info');
             jAcl2DbManager::addSubject('servinfo.access', 'servinfo~servinfo.acl.access');
             jAcl2DbManager::addRight(1, 'servinfo.access'); // for admin group
         }

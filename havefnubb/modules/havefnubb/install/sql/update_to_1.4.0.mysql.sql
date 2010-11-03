@@ -98,4 +98,15 @@ RENAME TABLE  %%PREFIX%%read_posts TO %%PREFIX%%hfnu_read_posts;
 RENAME TABLE  %%PREFIX%%search_words TO %%PREFIX%%hfnu_search_words;
 RENAME TABLE  %%PREFIX%%subscriptions TO %%PREFIX%%hfnu_subscriptions;
 
---- TODO  supprimer les droits obsolètes
+--- Suppression des droits obsolètes
+
+UPDATE %%PREFIX%%jacl2_subject SET `label_key` = 'havefnubb~acl2.admin.cache.clear' WHERE id_aclsbj = 'hfnu.admin.cache.clear';
+
+DELETE FROM %%PREFIX%%jacl2_subject WHERE id_aclsbj = 'hfnu.admin.server.info';
+DELETE FROM %%PREFIX%%jacl2_rights WHERE id_aclsbj = 'hfnu.admin.server.info';
+INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('servinfo.access', 'servinfo~servinfo.acl.access');
+INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('servinfo.access', 1, '');
+
+
+
+
