@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="havefnubb@havefnubb.org" name="havefnubb" createdate="2008-12-16">
-        <version stability="stable" date="2010-05-11">1.4.0</version>
+        <version date="2010-11-03">1.4b1</version>
         <label lang="en_EN">HaveFnuBB! The Official Module of the Bulletin Board</label>
         <description lang="en_EN">This module can manage a complet bulletin board</description>
         <label lang="fr_FR">HaveFnuBB! Le module officiel de forum</label>

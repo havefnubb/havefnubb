@@ -8,7 +8,7 @@ charset=UTF-8
 ; see http://www.php.net/manual/en/timezones.php for supported values
 timeZone="Europe/Paris"
 
-modulesPath = "lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
+modulesPath = "lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-modules/,app:../modules-hook/"
 pluginsPath = "app:plugins/"
 
 theme=default
@@ -27,7 +27,6 @@ jauthdb.access=1
 jWSDL.access=0
 
 havefnubb.access=2
-hfnuadmin.access=2
 hfnucal.access=1
 hfnucal.installparam = nocopyfiles
 hfnucontact.access=2
@@ -41,9 +40,10 @@ hfnuthemes.access=2
 jcommunity.access=2
 jmessenger.access=2
 jtags.access=2
-servinfo.access=1
 
 hook.access=1
+
+hfnuadmin.access=1
 
 [coordplugins]
 auth="havefnubb/auth.coord.ini.php"

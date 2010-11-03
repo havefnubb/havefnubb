@@ -4,7 +4,7 @@
 startModule=havefnubb
 startAction="default:index"
 
-modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
+modulesPath="lib:jelix-modules/,app:admin-modules/,app:modules/,app:../modules-hook/"
 
 [coordplugins]
 autolocale=autolocale.coord.ini.php
@@ -32,10 +32,8 @@ jacl2db_admin.access=0
 jauthdb_admin.access=0
 
 jacl2db.access=2
-jacldb.access=0
 jauth.access=2
 jauthdb.access=1
-jWSDL.access=0
 
 havefnubb.access=2
 hfnuadmin.access=1
@@ -52,4 +50,3 @@ jtags.access=2
 servinfo.access=0
 
 hook.access=1
-

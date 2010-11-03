@@ -4,7 +4,7 @@
 startModule=master_admin
 startAction="default:index"
 
-modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:../modules-hook/"
+modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:admin-modules/,app:modules/,app:../modules-hook/"
 
 [coordplugins]
 autolocale=autolocale.coord.ini.php
@@ -33,13 +33,13 @@ jacl2db_admin.access=2
 jauthdb_admin.access=2
 
 jacl2db.access=2
-jacldb.access=0
 jauth.access=2
 jauthdb.access=2
-jWSDL.access=0
+
+hfnuadmin.access=2
+servinfo.access=2
 
 havefnubb.access=1
-hfnuadmin.access=2
 hfnucal.access=2
 hfnucontact.access=2
 hfnuhardware.access=2
@@ -50,6 +50,5 @@ hfnuthemes.access=2
 jcommunity.access=1
 jmessenger.access=1
 jtags.access=1
-servinfo.access=2
 
 hook.access=1

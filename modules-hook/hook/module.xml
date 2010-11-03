@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hook@havefnubb.org" name="Hook" createdate="2009-11-05">
-        <version stability="stable" date="2010-03-01">1.3.4</version>
+        <version date="2010-11-03">1.4b1</version>
         <label lang="en_EN">Hook</label>
         <description lang="en_EN">Hook System that extends functionalities without any limit.</description>
         <label lang="fr_FR">Hook</label>
