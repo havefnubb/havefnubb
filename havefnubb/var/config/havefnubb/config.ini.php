@@ -50,3 +50,5 @@ jtags.access=2
 servinfo.access=0
 
 hook.access=1
+
+modulesinfo.access=0

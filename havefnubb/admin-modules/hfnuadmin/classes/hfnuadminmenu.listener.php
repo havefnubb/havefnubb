@@ -25,15 +25,6 @@ class hfnuadminmenuListener extends jEventListener{
             $item->icon = $chemin . 'images/config.png';
             $event->add($item);
         }
-        if ( jAcl2::check('hfnu.admin.index')) {
-            $item = new masterAdminMenuItem('modules',
-                                            jLocale::get('hfnuadmin~admin.modules.list'),
-                                            jUrl::get('hfnuadmin~modules:index'),
-                                            202,
-                                            'havefnubb');
-            $item->icon = $chemin . 'images/modules_list.png';
-            $event->add($item);
-        }
         if ( jAcl2::check('hfnu.admin.category')) {
             $item = new masterAdminMenuItem('category',
                                             jLocale::get('hfnuadmin~admin.categories'),

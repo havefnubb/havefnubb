@@ -1,5 +1,5 @@
-<h1>{@hfnuadmin~admin.modules.list@}</h1>
-<p>{@hfnuadmin~admin.modules.list.description@}</p>
+<h1>{@modulesinfo~modulesinfo.modules.list.title@}</h1>
+<p>{@modulesinfo~modulesinfo.modules.list.description@}</p>
 {foreach $modules as $idx=>$key}
 <div class="two-cols">
     <div class="col">

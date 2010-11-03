@@ -8,7 +8,4 @@
     <listener name="hfnusearchadminmenu">
          <event name="masteradminGetMenuContent" />
     </listener>
-    <listener name="hfnusearch">
-          <event name="HfnuAboutModule" />
-    </listener>
 </events>

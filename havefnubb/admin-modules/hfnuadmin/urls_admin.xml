@@ -4,7 +4,6 @@
     <url pathinfo="/checkupgrade"  action="default:check_upgrade" />
     <url pathinfo="/unreadposts"  action="posts:unread" />
     <url pathinfo="/config"    action="default:config" actionoverride="default:saveconfig"/>
-    <url pathinfo="/modules"    action="modules:index" />
     <url pathinfo="/category"  action="category:index" />
     <url pathinfo="/forum"     action="forum:index" />
     <url pathinfo="/forum/create"  action="forum:create" />

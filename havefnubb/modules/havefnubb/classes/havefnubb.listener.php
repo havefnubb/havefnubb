@@ -13,13 +13,6 @@
  */
 class havefnubbListener extends jEventListener{
     /**
-    * function to get the content of the module.xml file
-    * @pararm event $event Object of a listener
-    */
-    function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'havefnubb')));
-    }
-    /**
     * function to get the statistics content + footer content
     * @pararm event $event Object of a listener
     */

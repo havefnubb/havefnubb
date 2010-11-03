@@ -68,7 +68,4 @@
         <event name="hfbMenuBar"/>
     </listener>
 
-    <listener name="hookabout">
-        <event name="HfnuAboutModule" />
-    </listener>
 </events>

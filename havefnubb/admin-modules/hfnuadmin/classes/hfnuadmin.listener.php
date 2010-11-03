@@ -9,9 +9,6 @@
 */
 
 class hfnuadminListener extends jEventListener{
-    function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuadmin')) );
-    }
 
     function onHfnuTaskTodo ($event) {
         $dao = jDao::get('havefnubb~notify');

@@ -9,7 +9,4 @@
         <event name="hfbAccountEditInclude" />
         <event name="jcommunity_save_account" />
     </listener>
-    <listener name="hfnuhardware">
-         <event name="HfnuAboutModule" />
-    </listener>
 </events>

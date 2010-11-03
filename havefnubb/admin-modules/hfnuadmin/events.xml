@@ -13,7 +13,6 @@
          <event name="AuthNewUser" />
     </listener>
     <listener name="hfnuadmin">
-         <event name="HfnuAboutModule" />
          <event name="HfnuTaskTodo" />
     </listener>
 </events>

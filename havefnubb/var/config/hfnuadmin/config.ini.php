@@ -52,3 +52,5 @@ jmessenger.access=1
 jtags.access=1
 
 hook.access=1
+
+modulesinfo.access=2

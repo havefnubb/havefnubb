@@ -33,5 +33,6 @@
         <url pathinfo="/admin/acl"     module="jacl2db_admin" include="urls.xml"/>
         <url pathinfo="/admin/contact" module="hfnucontact" include="urls_admin.xml"/>
         <url pathinfo="/admin/hfn"     module="hfnuadmin" include="urls_admin.xml" />
+        <url pathinfo="/admin/modulesinfo" module="modulesinfo" include="urls.xml" />
     </classicentrypoint>
 </urls>

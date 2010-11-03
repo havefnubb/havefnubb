@@ -14,7 +14,7 @@ class hfnuadmindashboardListener extends jEventListener {
 
         if (jAcl2::check('servinfo.access')) {
             $box = new masterAdminDashboardWidget();
-            $box->title = jLocale::get('hfnuadmin~hfnuabout.infos.title');
+            $box->title = jLocale::get('hfnuadmin~admin.system.infos');
             $box->content = jZone::get('servinfo~server_info');
             $event->add($box);
         }

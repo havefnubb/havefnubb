@@ -11,10 +11,5 @@
  *Class that manages the jEvent reponses
  */
 class hfnuthemesListener extends jEventListener{
-    /**
-     * Method that returns the detail about its module
-     */
-    function onHfnuAboutModule ($event) {
-        $event->add( jZone::get('hfnuadmin~about',array('modulename'=>'hfnuthemes')) );
-    }
+
 }

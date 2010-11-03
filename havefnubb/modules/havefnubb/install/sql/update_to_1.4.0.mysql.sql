@@ -107,6 +107,7 @@ DELETE FROM %%PREFIX%%jacl2_rights WHERE id_aclsbj = 'hfnu.admin.server.info';
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('servinfo.access', 'servinfo~servinfo.acl.access');
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('servinfo.access', 1, '');
 
-
+INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('modulesinfo.access', 'modulesinfo~modulesinfo.acl.access');
+INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('modulesinfo.access', 1, '');
 
 
