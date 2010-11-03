@@ -34,5 +34,6 @@
         <url pathinfo="/admin/contact" module="hfnucontact" include="urls_admin.xml"/>
         <url pathinfo="/admin/hfn"     module="hfnuadmin" include="urls_admin.xml" />
         <url pathinfo="/admin/modulesinfo" module="modulesinfo" include="urls.xml" />
+        <url pathinfo="/admin/cache" module="jelixcache" include="urls.xml" />
     </classicentrypoint>
 </urls>

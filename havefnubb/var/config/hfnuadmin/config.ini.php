@@ -54,3 +54,5 @@ jtags.access=1
 hook.access=1
 
 modulesinfo.access=2
+
+jelixcache.access=2

@@ -1,6 +1,4 @@
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.ban', 'havefnubb~acl2.admin.ban');
-INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.cache', 'havefnubb~acl2.admin.cache');
-INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.cache.clear', 'havefnubb~acl2.admin.cache.clear');
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.category', 'havefnubb~acl2.admin.category');
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.category.create', 'havefnubb~acl2.admin.category.create');
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.category.delete', 'havefnubb~acl2.admin.category.delete');
@@ -22,9 +20,6 @@ INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.admin.t
 
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.ban', 1, '');
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.ban', 3, '');
-INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.cache', 1, '');
-INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.cache', 3, '');
-INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.cache.clear', 1, '');
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.category', 1, '');
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.category', 3, '');
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.admin.category.create', 1, '');

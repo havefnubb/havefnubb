@@ -100,7 +100,11 @@ RENAME TABLE  %%PREFIX%%subscriptions TO %%PREFIX%%hfnu_subscriptions;
 
 --- Suppression des droits obsolètes
 
-UPDATE %%PREFIX%%jacl2_subject SET `label_key` = 'havefnubb~acl2.admin.cache.clear' WHERE id_aclsbj = 'hfnu.admin.cache.clear';
+DELETE FROM %%PREFIX%%jacl2_subject WHERE id_aclsbj = 'hfnu.admin.cache.clear';
+DELETE FROM %%PREFIX%%jacl2_rights WHERE id_aclsbj = 'hfnu.admin.cache.clear';
+DELETE FROM %%PREFIX%%jacl2_subject WHERE id_aclsbj = 'hfnu.admin.cache';
+DELETE FROM %%PREFIX%%jacl2_rights WHERE id_aclsbj = 'hfnu.admin.cache';
+
 
 DELETE FROM %%PREFIX%%jacl2_subject WHERE id_aclsbj = 'hfnu.admin.server.info';
 DELETE FROM %%PREFIX%%jacl2_rights WHERE id_aclsbj = 'hfnu.admin.server.info';
@@ -109,5 +113,8 @@ INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('se
 
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('modulesinfo.access', 'modulesinfo~modulesinfo.acl.access');
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('modulesinfo.access', 1, '');
+
+INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('jelixcache.access', 'jelixcache~jelixcache.acl.access');
+INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('jelixcache.access', 1, '');
 
 

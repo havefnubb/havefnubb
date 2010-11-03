@@ -12,8 +12,6 @@
     <url pathinfo="/notify/delete/:id_notify"    action="notify:delete">
         <param name="id_notify" type="integer"/>
     </url>
-    <url pathinfo="/cache"     action="cache:index" />
-    <url pathinfo="/cache/clear"     action="cache:clear" />
     <url pathinfo="/ban"       action="ban:index" />
     <url pathinfo="/ban/saveban"       action="ban:saveban" />
     <url pathinfo="/ban/delete"       action="ban:delete">

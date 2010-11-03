@@ -68,14 +68,5 @@ class hfnuadminmenuListener extends jEventListener{
             $item->icon = $chemin . 'images/ban.png';
             $event->add($item);
         }
-        if ( jAcl2::check('hfnu.admin.cache')) {
-            $item = new masterAdminMenuItem('cache',
-                                            jLocale::get('hfnuadmin~admin.cache'),
-                                            jUrl::get('hfnuadmin~cache:index'),
-                                            209,
-                                            'havefnubb');
-            $item->icon = $chemin . 'images/clear_cache.png';
-            $event->add($item);
-        }
     }
 }

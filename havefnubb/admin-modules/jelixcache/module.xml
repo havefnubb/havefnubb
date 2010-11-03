@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-    <info id="modulesinfo@havefnubb.org" name="modulesinfo" createdate="2010-11-03">
-        <version>1.0b1</version>
-        <label lang="en_EN">modulesinfo</label>
-        <description lang="en_EN">Show informations about installed modules</description>
+    <info id="jelixcache@havefnubb.org" name="jelixcache" createdate="2010-11-03">
+        <version>0.1</version>
+        <label lang="en_EN">jelixcache</label>
+        <description lang="en_EN" />
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence, see LICENCE file</license>
         <copyright>2010 Laurent Jouanneau</copyright>
         <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>

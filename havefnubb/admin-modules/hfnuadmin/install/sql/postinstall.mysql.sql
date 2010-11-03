@@ -1,7 +1,5 @@
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES
 ('hfnu.admin.ban', 'havefnubb~acl2.admin.ban'),
-('hfnu.admin.cache', 'havefnubb~acl2.admin.cache'),
-('hfnu.admin.cache.clear', 'havefnubb~acl2.admin.cache.clear'),
 ('hfnu.admin.category', 'havefnubb~acl2.admin.category'),
 ('hfnu.admin.category.create', 'havefnubb~acl2.admin.category.create'),
 ('hfnu.admin.category.delete', 'havefnubb~acl2.admin.category.delete'),
@@ -24,9 +22,6 @@ INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES
 ('hfnu.admin.ban', 1, ''),
 ('hfnu.admin.ban', 3, ''),
-('hfnu.admin.cache', 1, ''),
-('hfnu.admin.cache', 3, ''),
-('hfnu.admin.cache.clear', 1, ''),
 ('hfnu.admin.category', 1, ''),
 ('hfnu.admin.category', 3, ''),
 ('hfnu.admin.category.create', 1, ''),
