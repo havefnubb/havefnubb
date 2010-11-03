@@ -1,10 +1,10 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage hfnuadmin
+* @subpackage modulesinfo
 * @author    FoxMaSk
-* @contributor
-* @copyright 2008 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008 FoxMaSk, 2010 Laurent Jouanneau
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */

@@ -1,7 +1,7 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage havefnubb
+* @subpackage modulesinfo
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
 * @copyright 2008 FoxMaSk, 2010 Laurent Jouanneau

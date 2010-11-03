@@ -3,7 +3,7 @@
     <info id="modulesinfo@havefnubb.org" name="modulesinfo" createdate="2010-11-03">
         <version>1.0b1</version>
         <label lang="en_EN">modulesinfo</label>
-        <description lang="en_EN" />
+        <description lang="en_EN">Show informations about installed modules</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2010 Laurent Jouanneau</copyright>
         <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>
