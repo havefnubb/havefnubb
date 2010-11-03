@@ -95,9 +95,11 @@ abstract class JelixScriptCommand {
 
       global $gJConfig;
       if (!isset($gJConfig->_modulesPathList[$module])) {
-         throw new Exception("The module $module doesn't exist");
+        if (isset($gJConfig->_externalModulesPathList[$module]))
+            return $gJConfig->_externalModulesPathList[$module];
+        throw new Exception("The module $module doesn't exist");
       }
-      return $gJConfig->_modulesPathList[$module];   
+      return $gJConfig->_modulesPathList[$module];
    }
 
    /**
@@ -230,7 +232,13 @@ abstract class JelixScriptCommand {
          return false;
       }
    }
-   
+
+    protected function removeOption($name) {
+        if (isset($this->_options[$name])) {
+            unset($this->_options[$name]);
+        }
+    }
+
    /**
     * @var DOMDocument the content of the project.xml file, loaded by loadProjectXml
     */

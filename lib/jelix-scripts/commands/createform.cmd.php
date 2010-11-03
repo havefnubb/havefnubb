@@ -40,6 +40,7 @@ class createformCommand extends JelixScriptCommand {
     public function run(){
 
         jxs_init_jelix_env();
+        require(JELIX_LIB_PATH.'dao/jDaoCompiler.class.php'); // jDaoParser is in jDaoCompiler file
 
         $path = $this->getModulePath($this->_parameters['module']);
 

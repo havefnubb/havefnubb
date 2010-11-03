@@ -13,10 +13,16 @@
 class createmoduleCommand extends JelixScriptCommand {
 
     public  $name = 'createmodule';
-    public  $allowed_options=array('-nosubdir'=>false, '-nocontroller'=>false, '-cmdline'=>false, '-addinstallzone'=>false, '-defaultmodule'=>false);
+    public  $allowed_options=array('-nosubdir'=>false,
+                                   '-nocontroller'=>false,
+                                   '-cmdline'=>false,
+                                   '-addinstallzone'=>false,
+                                   '-defaultmodule'=>false,
+                                   '-admin'=>false,
+                                   '-ver'=>true);
     public  $allowed_parameters=array('module'=>true, 'repository'=>false);
 
-    public  $syntaxhelp = "[-nosubdir] [-nocontroller] [-cmdline] [-addinstallzone] [-defaultmodule] MODULE [REPOSITORY]";
+    public  $syntaxhelp = "[-nosubdir] [-nocontroller] [-cmdline] [-addinstallzone] [-defaultmodule] [-admin] MODULE [REPOSITORY]";
     public  $help=array(
         'fr'=>"
     Crée un nouveau module, avec son fichier module.xml, et un contrôleur
@@ -28,6 +34,9 @@ class createmoduleCommand extends JelixScriptCommand {
     -cmdline (facultatif) : crée le module avec un contrôleur pour la ligne de commande
     -addinstallzone (facultatif) : ajoute la zone check_install pour une nouvelle application
     -defaultmodule (facultatif) : le module devient le module par defaut de l'application
+    -admin (facultatif) : le module doit être utilisé avec master_admin, création de fichiers
+                        supplémentaires et ajout de configuration adéquates (droits..)
+    -ver {version} (facultatif) : indique le numéro de version initial du module
 
     MODULE : le nom du module à créer.
     REPOSITORY: le depot de modules où créer le module. même syntaxe que pour modulesPath
@@ -40,6 +49,9 @@ class createmoduleCommand extends JelixScriptCommand {
     -cmdline (optional): create a controller for command line (jControllerCmdLine)
     -addinstallzone (optional) : add the check_install zone for new application
     -defaultmodule (optional) : the new module become the default module
+    -admin (optional) : the new module should be used with master_admin. install
+                        additionnal file and set additionnal configuration stuff
+    -ver {version} (optional) : indicates the initial version of the module
     MODULE: name of the new module.
     REPOSITORY: the path of the directory where to create the module. same syntax as modulesPath
                 in the configuration. default repository is app:module/"
@@ -51,7 +63,9 @@ class createmoduleCommand extends JelixScriptCommand {
         global $entryPointName, $entryPointId, $allEntryPoint, $gJConfig;
 
         $module = $this->getParam('module');
-        $initialVersion = '0.1pre';
+        $initialVersion = $this->getOption('-ver');
+        if ($initialVersion === false)
+            $initialVersion = '0.1pre';
 
         // note: since module name are used for name of generated name,
         // only this characters are allowed
@@ -76,47 +90,32 @@ class createmoduleCommand extends JelixScriptCommand {
             $repository .= '/';
         $repositoryPath = str_replace(array('lib:','app:'), array(LIB_PATH, JELIX_APP_PATH), $repository);
 
-        $listRepos = preg_split('/ *, */',$gJConfig->modulesPath);
-        $repositoryFound = false;
-        foreach($listRepos as $path){
-            if(trim($path) == '') continue;
-            $p = str_replace(array('lib:','app:'), array(LIB_PATH, JELIX_APP_PATH), $path);
-            if (substr($p,-1) != '/')
-                $p .= '/';
-            if ($p == $repositoryPath) {
-                $repositoryFound = true;
-                break;
-            }
-        }
+        $iniDefault = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $this->updateModulePath($iniDefault, $iniDefault->getValue('modulesPath'), $repository, $repositoryPath);
 
-        // the repository doesn't exist in the configuration
-        // let's add it into the configuration
-        if (!$repositoryFound) {
-            if ($allEntryPoint) {
-                $ini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
-            }
-            else {
-                $list = $this->getEntryPointsList();
-                foreach ($list as $k => $entryPoint) {
-                    if ($entryPoint['file'] == $entryPointName) {
-                        $ini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$entryPoint['config']);
-                        break;
-                    }
+        if (!$allEntryPoint) {
+            $list = $this->getEntryPointsList();
+            foreach ($list as $k => $entryPoint) {
+                if ($entryPoint['file'] == $entryPointName) {
+                    $ini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$entryPoint['config']);
+                    break;
                 }
             }
             if (!$ini) {
                 throw new Exception("entry point is unknown");
             }
-            $ini->setValue('modulesPath', $gJConfig->modulesPath.','.$repository);
-            $ini->save();
-            
-            $this->createDir($repositoryPath);
+            $this->updateModulePath($ini, $gJConfig->modulesPath, $repository, $repositoryPath);
         }
 
         $path = $repositoryPath.$module.'/';
         $this->createDir($path);
-        
+
         $gJConfig = null;
+
+        if ($this->getOption('-admin')) {
+            $this->removeOption('-nosubdir');
+            $this->removeOption('-addinstallzone');
+        }
 
         $param = array();
         $param['module'] = $module;
@@ -144,14 +143,13 @@ class createmoduleCommand extends JelixScriptCommand {
         $isdefault = $this->getOption('-defaultmodule');
 
         // activate the module in the application
-        $ini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
         if ($isdefault) {
-            $ini->setValue('startModule', $module);
-            $ini->setValue('startAction', 'default:index');
+            $iniDefault->setValue('startModule', $module);
+            $iniDefault->setValue('startAction', 'default:index');
         }
-        if ($allEntryPoint)
-            $ini->setValue($module.'.access', 2 , 'modules');
-        $ini->save();
+
+        $iniDefault->setValue($module.'.access', ($allEntryPoint?2:1) , 'modules');
+        $iniDefault->save();
 
         $list = $this->getEntryPointsList();
         $install = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'installer.ini.php');
@@ -159,21 +157,20 @@ class createmoduleCommand extends JelixScriptCommand {
         // install the module for all needed entry points
         foreach ($list as $k => $entryPoint) {
 
-            
-            if (!$allEntryPoint || $isdefault) {
-                $configFile = JELIX_APP_CONFIG_PATH.$entryPoint['config'];
-                $epconfig = new jIniFileModifier($configFile);
-                if (!$allEntryPoint && $entryPoint['file'] == $entryPointName) {
-                    $epconfig->setValue($module.'.access', 2 , 'modules');
-                    $epconfig->save();
-                }
-            }
+            $configFile = JELIX_APP_CONFIG_PATH.$entryPoint['config'];
+            $epconfig = new jIniFileModifier($configFile);
 
+            if ($allEntryPoint)
+                $access = 2;
+            else
+                $access = ($entryPoint['file'] == $entryPointName?2:0);
+
+            $epconfig->setValue($module.'.access', $access, 'modules');
+            $epconfig->save();
 
             if ($allEntryPoint || $entryPoint['file'] == $entryPointName) {
                 $install->setValue($module.'.installed', 1, $entryPoint['id']);
                 $install->setValue($module.'.version', $initialVersion, $entryPoint['id']);
-                $install->setValue($module.'.sessionid', 0, $entryPoint['id']);
             }
 
             if ($isdefault) {
@@ -204,6 +201,39 @@ class createmoduleCommand extends JelixScriptCommand {
             }
             $agcommand->init($options,array('module'=>$module, 'name'=>'default','method'=>'index'));
             $agcommand->run();
+        }
+
+        if ($this->getOption('-admin')) {
+            $this->createFile($path.'classes/admin'.$module.'.listener.php', 'module/admin.listener.php.tpl', $param);
+            $this->createFile($path.'events.xml', 'module/events.xml.tpl', $param);
+            file_put_contents($path.'locales/en_EN/interface.UTF-8.properties', 'menu.item='.$module);
+            file_put_contents($path.'locales/fr_FR/interface.UTF-8.properties', 'menu.item='.$module);
+        }
+
+    }
+
+    protected function updateModulePath($ini, $currentModulesPath, $repository, $repositoryPath) {
+        $listRepos = preg_split('/ *, */',$currentModulesPath);
+        $repositoryFound = false;
+        foreach($listRepos as $path){
+            if(trim($path) == '') continue;
+            $p = str_replace(array('lib:','app:'), array(LIB_PATH, JELIX_APP_PATH), $path);
+            if (substr($p,-1) != '/')
+                $p .= '/';
+            if ($p == $repositoryPath) {
+                $repositoryFound = true;
+                break;
+            }
+        }
+
+        // the repository doesn't exist in the configuration
+        // let's add it into the configuration
+        if (!$repositoryFound) {
+
+            $ini->setValue('modulesPath', $currentModulesPath.','.$repository);
+            $ini->save();
+
+            $this->createDir($repositoryPath);
         }
     }
 }

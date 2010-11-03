@@ -9,3 +9,4 @@
 ^cache/images/
 glob:HaveFnuBB.kpf
 glob:havefnubb.komodoproject
+^lib/jelix-scripts/my\.default\.conf\.php$
