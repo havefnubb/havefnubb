@@ -5,7 +5,7 @@
 * @subpackage  forms
 * @author      Laurent Jouanneau
 * @contributor Dominique Papin, Julien Issler
-* @copyright   2006-2007 Laurent Jouanneau
+* @copyright   2006-2010 Laurent Jouanneau
 * @copyright   2008 Dominique Papin
 * @copyright   2010 Julien Issler
 * @link        http://www.jelix.org
@@ -18,12 +18,16 @@ interface jIFormsDatasource{
 interface jIFormsDatasource2 extends jIFormsDatasource{
 	public function hasGroupedData();
 	public function setGroupBy($group);
+	public function getLabel2($key,$form);
 }
 class jFormsStaticDatasource implements jIFormsDatasource2{
 	public $data=array();
 	protected $grouped=false;
 	public function getData($form){
 		return $this->data;
+	}
+	public function getLabel2($key,$form){
+		return $this->getLabel($key);
 	}
 	public function getLabel($key){
 		if($this->grouped){
@@ -48,6 +52,7 @@ class jFormsDaoDatasource implements jIFormsDatasource2{
 	protected $method;
 	protected $labelProperty=array();
 	protected $labelSeparator;
+	public $labelMethod='get';
 	protected $keyProperty;
 	protected $profile;
 	protected $criteria=null;
@@ -102,14 +107,40 @@ class jFormsDaoDatasource implements jIFormsDatasource2{
 		return $result;
 	}
 	public function getLabel($key){
+		throw new Exception("should not be called");
+	}
+	public function getLabel2($key,$form){
 		if($this->dao===null)
 			$this->dao=jDao::get($this->selector,$this->profile);
-		$rec=$this->dao->get($key);
+		$method=$this->labelMethod;
+		if($this->criteria!==null||$this->criteriaFrom!==null){
+			$countPKeys=count($this->dao->getPrimaryKeyNames());
+			if($this->criteria!==null){
+				$values=$this->criteria;
+				array_unshift($values,$key);
+			}
+			else if($this->criteriaFrom!==null){
+				$values=array($key);
+				foreach((array)$this->criteriaFrom as $criteria){
+					array_push($values,$form->getData($criteria));
+				}
+			}
+			if($method=='get'){
+				while(count($values)!=$countPKeys){
+					array_pop($values);
+				}
+			}
+			$rec=call_user_func_array(array($this->dao,$method),$values);
+		}
+		else{
+			$rec=$this->dao->{$method}($key);
+		}
 		if($rec){
 			return $this->buildLabel($rec);
 		}
-		else
+		else{
 			return null;
+		}
 	}
 	protected function buildLabel($rec){
 		$label='';

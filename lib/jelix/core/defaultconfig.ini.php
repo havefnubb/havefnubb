@@ -105,7 +105,7 @@ cssUniqueUrlId = off
 
 
 [error_handling]
-messageLogFormat = "%date%\t[%code%]\t%msg%\t%file%\t%line%\n"
+messageLogFormat = "%date%\t%url\n\t[%code%]\t%msg%\t%file%\t%line%\n"
 logFile = error.log
 email = root@localhost
 emailHeaders = "Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
@@ -113,15 +113,15 @@ quietMessage="A technical error has occured. Sorry for this trouble."
 
 showInFirebug = off
 
-; mots clés que vous pouvez utiliser : ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
-default      = ECHO EXIT
-error        = ECHO EXIT
-warning      = ECHO
+; keywords you can use: ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
+default      = ECHO TRACE EXIT
+error        = ECHO TRACE EXIT
+warning      = ECHO TRACE
 notice       = ECHO
 strict       = ECHO
-deprecated   =
-; pour les exceptions, il y a implicitement un EXIT
-exception    = ECHO
+; for exceptions, there is always an implicit EXIT by default
+exception    = ECHO TRACE
+
 
 [compilation]
 checkCacheFiletime  = on
@@ -270,10 +270,14 @@ driver =
 [sessions]
 ; to disable sessions, set the following parameter to 0
 start = 1
-shared_session = off
-; You can change the session name by setting the following parameter (only accepts alpha-numeric chars) :
-; name = "mySessionName"
 
+; If several applications are installed in the same documentRoot but with
+; a different basePath, shared_session indicates if these application
+; share the same php session
+shared_session = off
+
+; indicate a session name for each applications installed with the same
+; domain and basePath, if their respective sessions shouldn't be shared
 name=
 
 ;
@@ -311,7 +315,11 @@ default.engine.name = wymeditor
 default.engine.file[] = jelix/jquery/jquery.js
 default.engine.file[] = jelix/wymeditor/jquery.wymeditor.js
 default.config = jelix/js/jforms/htmleditors/wymeditor_default.js
-default.skin.default  = jelix/wymeditor/skins/default/screen.css
+
+wymbasic.engine.name = wymeditor
+wymbasic.engine.file[] = jelix/jquery/jquery.js
+wymbasic.engine.file[] = jelix/wymeditor/jquery.wymeditor.js
+wymbasic.config = jelix/js/jforms/htmleditors/wymeditor_basic.js
 
 ckdefault.engine.name = ckeditor
 ckdefault.engine.file[] = jelix/ckeditor/ckeditor.js

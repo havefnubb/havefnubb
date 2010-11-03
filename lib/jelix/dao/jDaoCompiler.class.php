@@ -267,6 +267,9 @@ class jDaoMethod{
 		if(isset($method->parameter)){
 			foreach($method->parameter as $param){
 				$attr=$param->attributes();
+				if(strpos($attr['name'],'$')!==false){
+					throw new jDaoXmlException($this->_parser->selector,'method.parameter.invalidname',array($method->name,$attr['name']));
+				}
 				if(!isset($attr['name'])){
 					throw new jDaoXmlException($this->_parser->selector,'method.parameter.unknowname',array($this->name));
 				}
@@ -579,7 +582,7 @@ class jDaoGenerator{
 		$this->buildFromWhereClause();
 		$this->sqlSelectClause=$this->buildSelectClause();
 		$tables=$this->_dataParser->getTables();
-		$pkFields=$this->_getPropertiesBy('PkFields');
+		$pkFields=$this->_getPrimaryFieldsList();
 		$this->tableRealName=$tables[$this->_dataParser->getPrimaryTable()]['realname'];
 		$this->tableRealNameEsc=$this->_encloseName('\'.$this->_conn->prefixTable(\''.$this->tableRealName.'\').\'');
 		$sqlPkCondition=$this->buildSimpleConditions($pkFields);
@@ -966,6 +969,21 @@ class jDaoGenerator{
 	protected function _writeFieldNamesWith($start='',$end='',$beetween='',$using=null){
 		return $this->_writeFieldsInfoWith('name',$start,$end,$beetween,$using);
 	}
+	protected function _getPrimaryFieldsList(){
+		$tables=$this->_dataParser->getTables();
+		$pkFields=array();
+		$primTable=$tables[$this->_dataParser->getPrimaryTable()];
+		$props=$this->_dataParser->getProperties();
+		foreach($primTable['pk'] as $pkname){
+			foreach($primTable['fields'] as $f){
+				if($props[$f]->fieldName==$pkname){
+					$pkFields[$props[$f]->name]=$props[$f];
+					break;
+				}
+			}
+		}
+		return $pkFields;
+	}
 	protected function _getPropertiesBy($captureMethod){
 		$captureMethod='_capture'.$captureMethod;
 		$result=array();
@@ -975,9 +993,6 @@ class jDaoGenerator{
 			}
 		}
 		return $result;
-	}
-	protected function _capturePkFields(&$field){
-		return($field->table==$this->_dataParser->getPrimaryTable())&&$field->isPK;
 	}
 	protected function _capturePrimaryFieldsExcludeAutoIncrement(&$field){
 		return($field->table==$this->_dataParser->getPrimaryTable()&&!$field->autoIncrement);

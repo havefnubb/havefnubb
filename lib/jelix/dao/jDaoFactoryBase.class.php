@@ -10,6 +10,7 @@
  * @contributor Yoan Blanc
  * @contributor Michael Fradin
  * @contributor Christophe Thiriot
+ * @contributor Yannick Le GuŽdart
  * @copyright   2005-2010 Laurent Jouanneau
  * @copyright   2007 Loic Mathaud
  * @copyright   2007-2009 Julien Issler
@@ -17,6 +18,7 @@
  * @copyright   2008 Yoan Blanc
  * @copyright   2009 Mickael Fradin
  * @copyright   2009 Christophe Thiriot
+ * @copyright   2010 Yannick Le GuŽdart
  * @link        http://www.jelix.org
  * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -61,7 +63,7 @@ abstract class jDaoFactoryBase{
 		if(count($args)==1&&is_array($args[0])){
 			$args=$args[0];
 		}
-		$keys=array_combine($this->getPrimaryKeyNames(),$args);
+		$keys=@array_combine($this->getPrimaryKeyNames(),$args);
 		if($keys===false){
 			throw new jException('jelix~dao.error.keys.missing');
 		}
@@ -81,7 +83,7 @@ abstract class jDaoFactoryBase{
 		if($keys===false){
 			throw new jException('jelix~dao.error.keys.missing');
 		}
-		$q='DELETE FROM '.$this->_tables[$this->_primaryTable]['realname'].' ';
+		$q='DELETE FROM '.$this->_conn->encloseName($this->_tables[$this->_primaryTable]['realname']).' ';
 		$q.=$this->_getPkWhereClauseForNonSelect($keys);
 		if($this->_deleteBeforeEvent){
 			jEvent::notify("daoDeleteBefore",array('dao'=>$this->_daoSelector,'keys'=>$keys));
@@ -130,7 +132,7 @@ abstract class jDaoFactoryBase{
 		if($searchcond->isEmpty()){
 			return;
 		}
-		$query='DELETE FROM '.$this->_tables[$this->_primaryTable]['realname'].' WHERE ';
+		$query='DELETE FROM '.$this->_conn->encloseName($this->_tables[$this->_primaryTable]['realname']).' WHERE ';
 		$query.=$this->_createConditionsClause($searchcond,false);
 		if($this->_deleteByBeforeEvent){
 			jEvent::notify("daoDeleteByBefore",array('dao'=>$this->_daoSelector,'criterias'=>$searchcond));

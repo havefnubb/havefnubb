@@ -105,7 +105,7 @@ abstract class jInstallerBase{
 		}
 		return $driver;
 	}
-	final protected function execSQLScript($name,$module=null){
+	final protected function execSQLScript($name,$module=null,$inTransaction=true){
 		$tools=$this->dbTool();
 		$driver=$this->getDbType($this->dbProfile);
 		if($module){
@@ -121,7 +121,19 @@ abstract class jInstallerBase{
 		$file=$path.'install/'.$name;
 		if(substr($name,-4)!='.sql')
 			$file.='.'.$driver.'.sql';
-		$tools->execSQLScript($file);
+		if($inTransaction)
+			$this->dbConnection()->beginTransaction();
+		try{
+			$tools->execSQLScript($file);
+			if($inTransaction){
+				$this->dbConnection()->commit();
+			}
+		}
+		catch(Exception $e){
+			if($inTransaction)
+				$this->dbConnection()->rollback();
+			throw $e;
+		}
 	}
 	final protected function copyDirectoryContent($relativeSourcePath,$targetPath,$overwrite=false){
 		$targetPath=$this->expandPath($targetPath);

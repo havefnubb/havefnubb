@@ -5,12 +5,13 @@
 * @subpackage  utils
 * @author      Antoine Detante
 * @contributor Laurent Jouanneau
+* @contributor Hadrien Lanneau <hadrien at over-blog dot com>
 * @copyright   2007 Antoine Detante, 2009 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 **/
 class jCrypt{
-	public static function decrypt($string,$key){
+	public static function decrypt($string,$key=''){
 		$decrypted=null;
 		$decodedString=base64_decode($string);
 		if(function_exists("mcrypt_generic")&&mcrypt_module_self_test(MCRYPT_WAKE))
@@ -19,7 +20,7 @@ class jCrypt{
 			$decrypted=jCrypt::simpleCrypt($decodedString,$key);
 		return $decrypted;
 	}
-	public static function encrypt($string,$key){
+	public static function encrypt($string,$key=''){
 		$encrypted=null;
 		if(function_exists("mcrypt_generic")&&mcrypt_module_self_test(MCRYPT_WAKE))
 			$encrypted=jCrypt::mcryptEncrypt($string,$key);
@@ -27,7 +28,7 @@ class jCrypt{
 			$encrypted=jCrypt::simpleCrypt($string,$key);
 		return base64_encode($encrypted);
 	}
-	public static function mcryptEncrypt($string,$key){
+	public static function mcryptEncrypt($string,$key=''){
 		if($key=='')
 			throw new jException('jelix~auth.error.key.empty');
 		if(strlen($key)<15)
@@ -41,7 +42,7 @@ class jCrypt{
 		mcrypt_module_close($td);
 		return $encrypted;
 	}
-	public static function mcryptDecrypt($string,$key){
+	public static function mcryptDecrypt($string,$key=''){
 		if($key=='')
 			throw new jException('jelix~auth.error.key.empty');
 		$td=mcrypt_module_open(MCRYPT_WAKE,'',MCRYPT_MODE_STREAM,'');
@@ -53,7 +54,7 @@ class jCrypt{
 		mcrypt_module_close($td);
 		return $decrypted;
 	}
-	protected static function simpleCrypt($str,$key){
+	protected static function simpleCrypt($str,$key=''){
 		if($key=='')
 			throw new jException('jelix~auth.error.key.empty');
 		$key=str_replace(chr(32),'',$key);
@@ -71,5 +72,12 @@ class jCrypt{
 			$j++;$j=$j==$kl?0:$j;
 		}
 		return $str;
+	}
+	private static function _getDefaultKey(){
+		global $gJConfig;
+		if(isset($gJConfig->jcrypt['defaultkey'])&&$gJConfig->jcrypt['defaultkey']!=''){
+			return $gJConfig->jcrypt['defaultkey'];
+		}
+		throw new jException('jelix~auth.error.key.empty');
 	}
 }

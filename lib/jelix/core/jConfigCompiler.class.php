@@ -74,16 +74,16 @@ class jConfigCompiler{
 		$lastslash=strrpos($config->urlengine['urlScript'],'/');
 		if($isCli){
 			if($lastslash===false){
-				$config->urlengine['urlScriptPath']=getcwd().'/';
+				$config->urlengine['urlScriptPath']=($pseudoScriptName? JELIX_APP_PATH.'/scripts/': getcwd().'/');
 				$config->urlengine['urlScriptName']=$config->urlengine['urlScript'];
 			}
 			else{
 				$config->urlengine['urlScriptPath']=getcwd().'/'.substr($config->urlengine['urlScript'],0,$lastslash).'/';
 				$config->urlengine['urlScriptName']=substr($config->urlengine['urlScript'],$lastslash+1);
 			}
-			$config->urlengine['urlScript']=getcwd().'/'.$config->urlengine['urlScript'];
-			$basepath=$config->urlengine['basePath']=$config->urlengine['urlScriptPath'];
+			$basepath=$config->urlengine['urlScriptPath'];
 			$snp=$config->urlengine['urlScriptName'];
+			$config->urlengine['urlScript']=$basepath.$snp;
 		}
 		else{
 			$config->urlengine['urlScriptPath']=substr($config->urlengine['urlScript'],0,$lastslash).'/';
@@ -95,7 +95,11 @@ class jConfigCompiler{
 			elseif($basepath!='/'){
 				if($basepath[0]!='/')$basepath='/'.$basepath;
 				if(substr($basepath,-1)!='/')$basepath.='/';
-				if(strpos($config->urlengine['urlScriptPath'],$basepath)!==0){
+				if($pseudoScriptName){
+					$config->urlengine['urlScriptPath']=substr($basepath,0,-1).$config->urlengine['urlScriptPath'];
+					$config->urlengine['urlScript']=$config->urlengine['urlScriptPath'].$config->urlengine['urlScriptName'];
+				}
+				elseif(strpos($config->urlengine['urlScriptPath'],$basepath)!==0){
 					throw new Exception('Jelix Error: basePath ('.$basepath.') in config file doesn\'t correspond to current base path. You should setup it to '.$config->urlengine['urlScriptPath']);
 				}
 			}

@@ -158,7 +158,8 @@ abstract class jFormsBase{
 		return compact("daorec","dao","toInsert");
 	}
 	public function saveToDao($daoSelector,$key=null,$dbProfile=''){
-		extract($this->prepareDaoFromControls($daoSelector,$key,$dbProfile));
+		$results=$this->prepareDaoFromControls($daoSelector,$key,$dbProfile);
+		extract($results);
 		if($toInsert){
 			$dao->insert($daorec);
 		}else{

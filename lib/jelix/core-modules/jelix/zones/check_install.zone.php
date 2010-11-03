@@ -19,7 +19,7 @@ class checkZoneInstallReporter implements jIInstallReporter{
 	}
 	function message($message,$type=''){
 		if($type=='error'||$type=='warning'||$type=='notice')
-			$this->list.='<li class="check'.$type.'">'.htmlspecialchars($message).'</li>';
+			$this->list.='<li class="'.$type.'">'.htmlspecialchars($message).'</li>';
 	}
 	function end($results){
 		if($this->list!='')

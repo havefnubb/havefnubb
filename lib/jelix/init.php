@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.2pre.1619');
+define('JELIX_VERSION','1.2RC2-dev.1706');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -813,6 +813,25 @@ class jUrl extends jUrlBase{
 		if($what==2)return $url;
 		return $url->toString($what!=0);
 	}
+	static function getFull($actSel,$params=array(),$what=0,$domainName=null){
+		global $gJConfig;
+		if($domainName){
+			$domain=$domainName;
+		}
+		elseif($gJConfig->domainName!=''){
+			$domain=$gJConfig->domainName;
+		}
+		elseif(isset($_SERVER['HTTP_HOST'])){
+			$domain=$_SERVER['HTTP_HOST'];
+		}
+		else{
+			throw new jException('jelix~errors.urls.domain.void');
+		}
+		if(!preg_match('/^http/',$domain)){
+			$domain=$GLOBALS['gJCoord']->request->getProtocol().$domain;
+		}
+		return $domain . self::get($actSel,$params,($what!=self::XMLSTRING?self::STRING:$what));
+	}
 	static function parse($scriptNamePath,$pathinfo,$params){
 		return jUrl::getEngine()->parse($scriptNamePath,$pathinfo,$params);
 	}
@@ -1006,12 +1025,13 @@ class jCoordinator{
 				'logFile'=>'error.log',
 			);
 		}
+		$url=isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'Unknow requested URI';
 		if($this->request){
-			$url=str_replace('array','url',var_export($this->request->params,true));
+			$params=str_replace("\n",' ',var_export($this->request->params,true));
 			$remoteAddr=$this->request->getIP();
 		}
 		else{
-			$url=isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'Unknow URI';
+			$params=isset($_SERVER['QUERY_STRING'])?$_SERVER['QUERY_STRING']:'';
 			$remoteAddr=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
 		}
 		$messageLog=strtr($conf['messageLogFormat'],array(
@@ -1021,6 +1041,7 @@ class jCoordinator{
 			'%code%'=>$code,
 			'%msg%'=>$message,
 			'%url%'=>$url,
+			'%params%'=>$params,
 			'%file%'=>$file,
 			'%line%'=>$line,
 			'\t'=>"\t",
@@ -1312,6 +1333,35 @@ abstract class jRequest{
 		return $input;
 	}
 	}
+	private $_headers=null;
+	private function _generateHeaders(){
+	if(is_null($this->_headers)){
+		if(function_exists('apache_response_headers')){
+			$this->_headers=apache_request_headers();
+		}
+		else{
+			$this->_headers=array();
+			foreach($_SERVER as $key=>$value){
+				if(substr($key,0,5)=="HTTP_"){
+				$key=str_replace(" ","-",
+						ucwords(strtolower(str_replace('_',' ',substr($key,5)))));
+				$this->_headers[$key]=$value;
+				}
+			}
+		}
+	}
+	}
+	public function header($name){
+	$this->_generateHeaders();
+	if(isset($this->_headers[$name])){
+		return $this->_headers[$name];
+	}
+	return null;
+	}
+	public function headers(){
+	$this->_generateHeaders();
+	return $this->_headers;
+	}
 }
 abstract class jResponse{
 	protected  $_type=null;
@@ -1340,10 +1390,9 @@ abstract class jResponse{
 	}
 	public function setHttpStatus($code,$msg){$this->_httpStatusCode=$code;$this->_httpStatusMsg=$msg;}
 	protected function sendHttpHeaders(){
-		header("HTTP/1.1 ".$this->_httpStatusCode.' '.$this->_httpStatusMsg);
-		foreach($this->_httpHeaders as $ht=>$hc){
+		header((isset($_SERVER['SERVER_PROTOCOL'])?$_SERVER['SERVER_PROTOCOL']:'HTTP/1.1').' '.$this->_httpStatusCode.' '.$this->_httpStatusMsg);
+		foreach($this->_httpHeaders as $ht=>$hc)
 			header($ht.': '.$hc);
-		}
 		$this->_httpHeadersSent=true;
 	}
 }

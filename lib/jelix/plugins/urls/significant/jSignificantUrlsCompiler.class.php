@@ -29,7 +29,14 @@ class significantUrlInfoParsing{
 		$this->isHttps=$isHttps;
 	}
 	function getFullSel(){
-		return $this->module.'~'.($this->action?$this->action:'*').'@'.$this->requestType;
+		if($this->action){
+			$act=$this->action;
+			if(substr($act,-1)==':')
+				$act.='index';
+		}
+		else
+			$act='*';
+		return $this->module.'~'.$act.'@'.$this->requestType;
 	}
 }
 class jSignificantUrlsCompiler implements jISimpleCompiler{
@@ -72,6 +79,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 			);
 			if(isset($tag['noentrypoint'])&&(string)$tag['noentrypoint']=='true')
 				$this->defaultUrl->entryPointUrl='';
+			$optionalTrailingSlash=(isset($tag['optionalTrailingSlash'])&&$tag['optionalTrailingSlash']=='true');
 			$this->parseInfos=array($this->defaultUrl->isDefault);
 			if($this->defaultUrl->isDefault){
 				$this->createUrlInfos['@'.$this->defaultUrl->requestType]=array(2,$this->defaultUrl->entryPoint,$this->defaultUrl->isHttps);
@@ -120,7 +128,11 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 					$regexppath='.*';
 					$path='';
 				}
-				if(isset($url['optionalTrailingSlash'])&&$url['optionalTrailingSlash']=='true'){
+				$tempOptionalTrailingSlash=$optionalTrailingSlash;
+				if(isset($url['optionalTrailingSlash'])){
+					$tempOptionalTrailingSlash=($url['optionalTrailingSlash']=='true');
+				}
+				if($tempOptionalTrailingSlash){
 					if(substr($regexppath,-1)=='/'){
 						$regexppath.='?';
 					}
@@ -209,7 +221,8 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		}
 	}
 	protected function extractDynamicParams($url,$regexppath,$u){
-		if(preg_match_all("/\:([a-zA-Z_]+)/",$regexppath,$m,PREG_PATTERN_ORDER)){
+		$regexppath=preg_quote($regexppath,'!');
+		if(preg_match_all("/\\\:([a-zA-Z_]+)/",$regexppath,$m,PREG_PATTERN_ORDER)){
 			$u->params=$m[1];
 			foreach($url->param as $var){
 				$name=(string) $var['name'];
@@ -235,14 +248,14 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 				else{
 					$regexp='([^\/]+)';
 				}
-				$regexppath=str_replace(':'.$name,$regexp,$regexppath);
+				$regexppath=str_replace('\:'.$name,$regexp,$regexppath);
 			}
 			foreach($u->params as $k=>$name){
 				if(isset($u->escapes[$k])){
 					continue;
 				}
 				$u->escapes[$k]=false;
-				$regexppath=str_replace(':'.$name,'([^\/]+)',$regexppath);
+				$regexppath=str_replace('\:'.$name,'([^\/]+)',$regexppath);
 			}
 		}
 		return $regexppath;
@@ -274,6 +287,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		if(!$xml){
 			throw new Exception('urls.xml: include file '.$file.' of the module '.$uInfo->module.' is not a valid xml file');
 		}
+		$optionalTrailingSlash=(isset($xml['optionalTrailingSlash'])&&$xml['optionalTrailingSlash']=='true');
 		foreach($xml->url as $url){
 			$u=clone $uInfo;
 			$u->action=(string)$url['action'];
@@ -293,14 +307,18 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 				continue;
 			}
 			if(isset($url['pathinfo'])){
-				$path=$pathinfo.'/'.trim((string)$url['pathinfo'],'/');
+				$path=$pathinfo.($pathinfo!='/'?'/':'').trim((string)$url['pathinfo'],'/');
 				$regexppath=$this->extractDynamicParams($url,$path,$u);
 			}
 			else{
 				$regexppath='.*';
 				$path='';
 			}
-			if(isset($url['optionalTrailingSlash'])&&$url['optionalTrailingSlash']=='true'){
+			$tempOptionalTrailingSlash=$optionalTrailingSlash;
+			if(isset($url['optionalTrailingSlash'])){
+				$tempOptionalTrailingSlash=($url['optionalTrailingSlash']=='true');
+			}
+			if($tempOptionalTrailingSlash){
 				if(substr($regexppath,-1)=='/'){
 					$regexppath.='?';
 				}

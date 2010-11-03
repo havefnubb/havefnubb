@@ -30,10 +30,23 @@ padding:5px;
 .jforms-readonly { color:#aaa; }
 
 span.jforms-required, label.jforms-required { font-weight:bold; }
-span.jforms-required-start { font-weight:bold; color:red; }
+span.jforms-required-star { font-weight:bold; color:red; }
 
 .jforms-error-list { color:red; border:1px solid red;}
 
 input.jforms-error, textarea.jforms-error, select.jforms-error {background-color: #ffd6d7;}
 
 label.jforms-error, span.jforms-error {font-style:italic; color:red;}
+
+.ui-datepicker-trigger { cursor:pointer;}
+.ui-datepicker-reset { vertical-align:text-bottom; cursor:pointer;}
+
+.jforms-choice{
+list-style-type:none;
+margin:0;
+padding:0;
+}
+.jforms-choice .jforms-item-controls{
+display:block;
+margin:0.2em 0 0.2em 1.8em;
+}

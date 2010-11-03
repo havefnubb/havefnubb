@@ -4,9 +4,10 @@
 * @package     jelix
 * @subpackage  jtpl
 * @author      Laurent Jouanneau
-* @contributor Mathaud Loic (standalone version), Dominique Papin, dsdenes, Thiriot Christophe
+* @contributor Mathaud Loic (standalone version), Dominique Papin, dsdenes, Thiriot Christophe, Julien Issler
 * @copyright   2005-2008 Laurent Jouanneau
 * @copyright   2006 Mathaud Loic, 2007 Dominique Papin, 2009 dsdenes, 2010 Thiriot Christophe
+* @copyright   2010 Julien Issler
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -396,8 +397,11 @@ class jTplCompiler
 		}
 	}
 	protected function _parseMeta($args,$fct=''){
-		if(preg_match("/^(\w+)\s+(.*)$/",$args,$m)){
-			$argfct=$this->_parseFinal($m[2],$this->_allowedInExpr);
+		if(preg_match('/^(\w+)(\s+(.*))?$/',$args,$m)){
+			if(isset($m[3]))
+				$argfct=$this->_parseFinal($m[3],$this->_allowedInExpr);
+			else
+				$argfct='null';
 			if($fct!=''){
 				$this->_metaBody.=$fct.'( $t,'."'".$m[1]."',".$argfct.");\n";
 			}else{

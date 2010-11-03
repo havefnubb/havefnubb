@@ -62,7 +62,7 @@ class jVersionComparator{
 	static protected function normalizeVersionNumber(&$n){
 		$n[2]=strtolower($n[2]);
 		if($n[2]=='pre'||$n[2]=='dev'||$n[2]=='-dev'){
-			$n[2]='';
+			$n[2]='_';
 			$n[3]='';
 			$n[4]='dev';
 		}

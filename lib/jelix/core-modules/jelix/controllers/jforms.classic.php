@@ -10,8 +10,13 @@
 class jformsCtrl extends jController{
 	public function getListData(){
 		$rep=$this->getResponse('json',true);
-		$form=jForms::get($this->param('__form'),$this->param('__formid'));
-		if(!$form){
+		try{
+			$form=jForms::get($this->param('__form'),$this->param('__formid'));
+			if(!$form){
+				throw new Exception('dummy');
+			}
+		}
+		catch(Exception $e){
 			throw new Exception('invalid form selector');
 		}
 		if($form->securityLevel==jFormsBase::SECURITY_CSRF){

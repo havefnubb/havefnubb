@@ -90,12 +90,18 @@ abstract class jFormsControlDatasource extends jFormsControl{
 		if(is_array($value)){
 			$labels=array();
 			foreach($value as $val){
-				$labels[$val]=$this->datasource->getLabel($val);
+				$labels[$val]=$this->_getLabel($val);
 			}
 			return $labels;
 		}else{
-			return $this->datasource->getLabel($value);
+			return $this->_getLabel($value);
 		}
+	}
+	protected function _getLabel($value){
+		if($this->datasource instanceof jIFormsDatasource2)
+			return $this->datasource->getLabel2($value,$this->form);
+		else
+			return $this->datasource->getLabel($value);
 	}
 }
 abstract class jFormsControlGroups extends jFormsControl{
@@ -450,14 +456,20 @@ class jFormsControlUpload extends jFormsControl{
 			if($this->required)
 				return $this->container->errors[$this->ref]=jForms::ERRDATA_REQUIRED;
 		}else{
-			if($this->fileInfo['error']!=UPLOAD_ERR_OK||!is_uploaded_file($this->fileInfo['tmp_name']))
-				return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID;
-			if($this->maxsize&&$this->fileInfo['size'] > $this->maxsize)
+			if($this->fileInfo['error']==UPLOAD_ERR_NO_TMP_DIR
+				||$this->fileInfo['error']==UPLOAD_ERR_CANT_WRITE)
+				return $this->container->errors[$this->ref]=jForms::ERRDATA_FILE_UPLOAD_ERROR;
+			if($this->fileInfo['error']==UPLOAD_ERR_INI_SIZE
+				||$this->fileInfo['error']==UPLOAD_ERR_FORM_SIZE
+				||($this->maxsize&&$this->fileInfo['size'] > $this->maxsize))
+				return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID_FILE_SIZE;
+			if($this->fileInfo['error']==UPLOAD_ERR_PARTIAL
+				||!is_uploaded_file($this->fileInfo['tmp_name']))
 				return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID;
 			if(count($this->mimetype)){
 				$this->fileInfo['type']=jFile::getMimeType($this->fileInfo['tmp_name']);
 				if(!in_array($this->fileInfo['type'],$this->mimetype))
-					return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID;
+					return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID_FILE_TYPE;
 			}
 		}
 		return null;

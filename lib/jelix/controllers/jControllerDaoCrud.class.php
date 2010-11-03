@@ -125,8 +125,8 @@ class jControllerDaoCrud extends jController{
 		}
 		$form->initFromRequest();
 		if($form->check()&&$this->_checkData($form,false)){
-			extract($form->prepareDaoFromControls($this->dao,null,$this->dbProfile),
-				EXTR_PREFIX_ALL,"form");
+			$results=$form->prepareDaoFromControls($this->dao,null,$this->dbProfile);
+			extract($results,EXTR_PREFIX_ALL,"form");
 			$this->_beforeSaveCreate($form,$form_daorec);
 			$form_dao->insert($form_daorec);
 			$id=$form_daorec->getPk();
@@ -204,8 +204,8 @@ class jControllerDaoCrud extends jController{
 		}
 		$form->initFromRequest();
 		if($form->check()&&$this->_checkData($form,true)){
-			extract($form->prepareDaoFromControls($this->dao,$id,$this->dbProfile),
-				EXTR_PREFIX_ALL,"form");
+			$results=$form->prepareDaoFromControls($this->dao,$id,$this->dbProfile);
+			extract($results,EXTR_PREFIX_ALL,"form");
 			$this->_beforeSaveUpdate($form,$form_daorec,$id);
 			$form_dao->update($form_daorec);
 			$rep->action=$this->_getAction('view');

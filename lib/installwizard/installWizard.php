@@ -134,7 +134,7 @@ class installWizard{
 		}
 		return $stepname;
 	}
-	protected function getNextStep($page){
+	protected function getNextStep($page,$result=0){
 		if(is_array($page->config['next'])){
 			if(is_numeric($result))
 				$nextStep=$page->config['next'][$result];
@@ -173,7 +173,7 @@ class installWizard{
 			if(isset($_POST['doprocess'])&&$_POST['doprocess']=="1"){
 					$result=$page->process();
 				if($result!==false){
-					header("location: ?step=".$this->getNextStep($page));
+					header("location: ?step=".$this->getNextStep($page,$result));
 					exit(0);
 				}
 			}

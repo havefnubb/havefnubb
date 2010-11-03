@@ -139,8 +139,8 @@ class jControllerDaoCrudDfk extends jController{
 			return $rep;
 		}
 		if($form->check()&&$this->_checkData($spk,$form,false)){
-			extract($form->prepareDaoFromControls($this->dao,null,$this->dbProfile),
-				EXTR_PREFIX_ALL,"form");
+			$results=$form->prepareDaoFromControls($this->dao,null,$this->dbProfile);
+			extract($results,EXTR_PREFIX_ALL,"form");
 			$form_daorec->{$this->spkName}=$spk;
 			if(!$this->_isPkAutoIncrement($form_dao)){
 				$form_daorec->{$this->dpkName}=$this->param($this->dpkName);
@@ -236,8 +236,8 @@ class jControllerDaoCrudDfk extends jController{
 		}
 		$rep->params[$this->dpkName]=$dpk;
 		if($form->check()&&$this->_checkData($spk,$form,true)){
-			extract($form->prepareDaoFromControls($this->dao,$id,$this->dbProfile),
-				EXTR_PREFIX_ALL,"form");
+			$results=$form->prepareDaoFromControls($this->dao,$id,$this->dbProfile);
+			extract($results,EXTR_PREFIX_ALL,"form");
 			$this->_beforeSaveUpdate($form,$form_daorec,$id);
 			$form_dao->update($form_daorec);
 			$rep->action=$this->_getAction('view');

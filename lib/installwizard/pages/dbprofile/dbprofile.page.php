@@ -63,7 +63,7 @@ class dbprofileWizPage extends installWizardPage{
 			if(substr($driver,-4)=='_pdo'){
 				$ini->setValue('usepdo',true,$profile);
 				$usepdo=true;
-				$realdriver=subst($driver,0,-4);
+				$realdriver=substr($driver,0,-4);
 			}
 			else{
 				$ini->removeValue('usepdo',$profile);

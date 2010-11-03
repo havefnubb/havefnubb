@@ -9,13 +9,6 @@
 * @link       http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_function_xul_jfullurl($tpl,$selector,$params=array(),$domain=false,$escape=true){
-	global $gJConfig;
-	if(!$domain){
-		$domain=$gJConfig->domainName;
-	}
-	if(!preg_match('/^http/',$domain)){
-		$domain=$GLOBALS['gJCoord']->request->getProtocol().$domain;
-	}
-	echo $domain.jUrl::get($selector,$params,($escape?1:0));
+function jtpl_function_xul_jfullurl($tpl,$selector,$params=array(),$domain=null,$escape=true){
+	echo jUrl::getFull($selector,$params,($escape?1:0),$domain);
 }

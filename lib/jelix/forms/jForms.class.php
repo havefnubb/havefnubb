@@ -15,6 +15,9 @@ class jForms{
 	const DEFAULT_ID=0;
 	const ERRDATA_INVALID=1;
 	const ERRDATA_REQUIRED=2;
+	const ERRDATA_INVALID_FILE_SIZE=3;
+	const ERRDATA_INVALID_FILE_TYPE=4;
+	const ERRDATA_FILE_UPLOAD_ERROR=5;
 	private function __construct(){}
 	public static function create($formSel,$formId=null){
 		$sel=new jSelectorForm($formSel);
@@ -78,8 +81,12 @@ class jForms{
 	static public function clean($formSel='',$life=86400){
 		if(!isset($_SESSION['JFORMS']))return;
 		if($formSel==''){
+			$t=time();
 			foreach($_SESSION['JFORMS'] as $sel=>$f){
-				self::clean($sel,$life);
+				foreach($_SESSION['JFORMS'][$sel] as $id=>$cont){
+					if($t-$cont->updatetime > $life)
+						unset($_SESSION['JFORMS'][$sel][$id]);
+				}
 			}
 		}else{
 			$sel=new jSelectorForm($formSel);
