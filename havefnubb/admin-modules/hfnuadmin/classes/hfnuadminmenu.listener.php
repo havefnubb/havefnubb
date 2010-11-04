@@ -69,4 +69,30 @@ class hfnuadminmenuListener extends jEventListener{
             $event->add($item);
         }
     }
+
+    function onmasterAdminGetDashboardWidget ($event) {
+
+        if (jAcl2::check('servinfo.access')) {
+            $box = new masterAdminDashboardWidget();
+            $box->title = jLocale::get('hfnuadmin~admin.system.infos');
+            $box->content = jZone::get('servinfo~server_info');
+            $event->add($box);
+        }
+
+        $box = new masterAdminDashboardWidget();
+        $box->title = jLocale::get('hfnuadmin~task.todo');
+        $box->content = jZone::get('hfnuadmin~hfnutasktodo');
+        $event->add($box);
+
+    }
+
+    function onmasteradminGetInfoBoxContent ($event) {
+        if ( jAcl2::check('hfnu.admin.index'))    {
+            $event->add(new masterAdminMenuItem('portal',
+                jLocale::get('hfnuadmin~admin.back.to.havefnubb'),
+                jUrl::get('havefnubb~default:index'),
+                100,
+                'havefnubb'));
+        }
+    }
 }
