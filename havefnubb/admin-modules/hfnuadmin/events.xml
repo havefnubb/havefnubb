@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <events xmlns="http://jelix.org/ns/events/1.0">
-    <listener name="hfnumasteradminmenu">
+    <listener name="hfnuadminmenu">
         <event name="masteradminGetMenuContent" />
         <event name="masterAdminGetDashboardWidget"/>
         <event name="masteradminGetInfoBoxContent"/>
@@ -10,5 +10,6 @@
     </listener>
     <listener name="hfnuadmin">
          <event name="HfnuTaskTodo" />
+         <event name="servinfoGetInfo" />
     </listener>
 </events>

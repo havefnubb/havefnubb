@@ -8,7 +8,10 @@
         <dd>{$DB_VERSION}</dd>
         <dd>{@servinfo~servinfo.server.infos.database.rows@}: {$DB_RECORDS}</dd>
         <dd>{@servinfo~servinfo.server.infos.database.size@}: {$DB_SIZE}</dd>
-        <dt id="user-online">{@servinfo~servinfo.server.infos.online.users@}</dt>
-        <dd>{$ONLINE_USERS}</dd>
+        {foreach $otherInfos as $inf}
+        <dt id="{$inf->id}">{$inf->label|eschtml}</dt>
+        <dd>{$inf->content}</dd>
+        {/foreach}
+        
     </dl>
 </div>

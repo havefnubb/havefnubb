@@ -7,6 +7,19 @@
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+class serverinfoData {
+    public $id = '';
+    public $label = '';
+    public $content = '';
+    function __construct($id, $label, $content) {
+        $this->id = $id;
+        $this->label = $label;
+        $this->content = $content;
+    }
+}
+
+
 /**
  * Class that grabs info on the server where it runs
  */
@@ -19,13 +32,10 @@ class server_infoZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        $dao = jDao::get('havefnubb~member');
-        $members = $dao->findAllConnected(time());
-        $nbMembers = $members->rowCount();
 
         $srvinfos = jClasses::getService("servinfo~serverinfos");
 
-        list($records,$size)=$srvinfos->dbSize();
+        list($records,$size) = $srvinfos->dbSize();
 
         $this->_tpl->assign('LOADS_AVG',$srvinfos->loadsAvg());
         $this->_tpl->assign('CACHE_ENGINE',$srvinfos->cacheEngine());
@@ -34,6 +44,7 @@ class server_infoZone extends jZone {
         $this->_tpl->assign('DB_VERSION',$srvinfos->dbVersion());
         $this->_tpl->assign('DB_SIZE',$size);
         $this->_tpl->assign('DB_RECORDS',$records);
-        $this->_tpl->assign('ONLINE_USERS',$nbMembers);
+
+        $this->_tpl->assign('otherInfos',jEvent::notify('servinfoGetInfo')->getResponse());
     }
 }

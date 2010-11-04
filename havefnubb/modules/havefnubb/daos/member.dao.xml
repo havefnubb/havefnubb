@@ -184,5 +184,12 @@
                     <lt property="connected" expr="$time" />
             </conditions>
         </method>
+        <method name="countAllConnected" type="count">
+            <parameter name="time" />
+            <conditions>
+                    <lt property="connected" expr="$time" />
+            </conditions>
+        </method>
+
    </factory>
 </dao>

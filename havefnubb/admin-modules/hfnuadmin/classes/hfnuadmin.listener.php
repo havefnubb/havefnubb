@@ -30,4 +30,11 @@ class hfnuadminListener extends jEventListener{
             $event->add( $link );
         }
     }
+    
+    function onservinfoGetInfo($event) {
+        $dao = jDao::get('havefnubb~member');
+        $nbMembers = $dao->countAllConnected(time());
+        $label = jLocale::get('hfnuadmin~admin.server.infos.online.users');
+        $event->add(new serverinfoData('user-online', $label, $nbMembers));
+    }
 }
