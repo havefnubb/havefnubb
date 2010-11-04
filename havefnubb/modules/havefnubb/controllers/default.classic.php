@@ -96,8 +96,11 @@ class defaultCtrl extends jController {
             $rep->body->assign('MAIN', $tpl->fetch('havefnubb~rules'));
         }
         else {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this action should not be used] rules are empty','DEBUG');
+            $rep = $this->getResponse('html', true);
+            $rep->bodyTpl = 'havefnubb~404.html';
+            $rep->setHttpStatus('404', 'Not Found');
+            return $rep;
         }
         return $rep;
     }

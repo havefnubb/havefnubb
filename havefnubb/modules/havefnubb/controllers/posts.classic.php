@@ -22,7 +22,7 @@ class postsCtrl extends jController {
         'goesto' => array( 'jacl2.right'=>'hfnu.forum.goto'),
 
         'add'   => array('auth.required'=>false),
-        'edit'  => array('auth.required'=>true ,'jacl2.right'=>'hfnu.posts.edit'),
+        'edit'  => array('auth.required'=>true ),
         'quote' => array('auth.required'=>false),
         'reply' => array('auth.required'=>false),
         'moveToForum' => array('auth.required'=>true),
@@ -67,22 +67,30 @@ class postsCtrl extends jController {
 
         if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html', true);
+            $rep->bodyTpl = 'havefnubb~403.html';
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
         if ($id_forum == 0 ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] id_forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
+            return $rep;
         }
 
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
         if (jUrl::escape($forum->forum_name,true) != $ftitle ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = $gJConfig->urlengine['notfoundAct'];
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be different ] '.$forum->forum_name . ' and ' .$ftitle ,'DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -162,7 +170,7 @@ class postsCtrl extends jController {
      */
     function viewtogo () {
         global $gJConfig;
-        $rep = $this->getResponse('redirect');
+
         if ($this->param('go')) {
             $gotoPostId = (int) $this->param('go');
             $parent_id = (int) $this->param('parent_id');
@@ -178,7 +186,9 @@ class postsCtrl extends jController {
                 }
                 $page = (ceil ($nbReplies/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
 
+                $rep = $this->getResponse('redirect');
                 $rep->action = 'posts:view';
+
                 if ($page == 0 )
                     $rep->params = array(
                                 'id_forum'=>$this->param('id_forum'),
@@ -198,10 +208,18 @@ class postsCtrl extends jController {
                                 );
 
             }else {
-                $rep->action = 'default:index';
+                jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $rec->rowCount()','DEBUG');
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+                $rep->setHttpStatus('404', 'Not found');
             }
         } else {
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should contains "go"] $this->param()','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
         }
         return $rep;
     }
@@ -228,8 +246,11 @@ class postsCtrl extends jController {
         list($id_post,$post,$goto,$nbReplies) = $hfnuposts->view($id_post,$parent_id);
 
         if ($post === null and $goto === null) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be null] $post and $goto','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -239,16 +260,22 @@ class postsCtrl extends jController {
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
 
         if (! $forum) {
-            $rep  = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
         if (jUrl::escape($forum->forum_name,true) != $ftitle or
             jUrl::escape($hfnuposts->getPost($id_post)->subject,true) != $ptitle)
         {
-            $rep = $this->getResponse('redirect');
-            $rep->action = $gJConfig->urlengine['notfoundAct'];
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be different] $forum->forum_name and $ftitle or $hfnuposts->getPost($id_post)->subject and $ptitle','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -330,8 +357,8 @@ class postsCtrl extends jController {
             $tpl->assign('formMove',$formMove);
         }
 
-        $tpl->assign('id_post'  ,$id_post);
-        $tpl->assign('forum'    ,$forum);
+        $tpl->assign('id_post',$post->id_post);
+        $tpl->assign('forum',$forum);
         $tpl->assign('posts',$posts);
         $tpl->assign('tags',$tags);
         $tpl->assign('page',$page);
@@ -367,15 +394,20 @@ class postsCtrl extends jController {
 
         // invalid forum id
         if ($id_forum == 0) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
         if (jAuth::isConnected()) {
             if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts',$id_post);
@@ -384,8 +416,10 @@ class postsCtrl extends jController {
             if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) and
                  ! jAcl2::check('hfnu.posts.create') ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts_anonym',$id_post);
@@ -396,8 +430,11 @@ class postsCtrl extends jController {
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
         if (! $forum) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -428,8 +465,11 @@ class postsCtrl extends jController {
         $id_post = (int) $this->param('id_post');
 
         if ($id_post == 0 ) {
-            $rep  = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_post','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -437,16 +477,20 @@ class postsCtrl extends jController {
         if (jAuth::getUserSession ()->id == $post->id_user) {
             if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$post->id_forum)  ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
         }
         else
         if ( ! jAcl2::check('hfnu.posts.edit','forum'.$post->id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
@@ -456,8 +500,11 @@ class postsCtrl extends jController {
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         if (! $forum) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -494,8 +541,10 @@ class postsCtrl extends jController {
         if (jAuth::isConnected()) {
             if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
         } else {
@@ -503,13 +552,13 @@ class postsCtrl extends jController {
                 and
                  ! jAcl2::check('hfnu.posts.create')
                 ) {
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
         }
-
-
 
         //edit a post
         if ($id_post > 0) {
@@ -519,8 +568,10 @@ class postsCtrl extends jController {
             if (jAuth::getUserSession ()->id == $post->id_user) {
                 if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$id_forum)  ) {
                     jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                    $rep = $this->getResponse('redirect');
-                    $rep->action = 'default:index';
+                    $rep = $this->getResponse('html');
+                    $tpl = new jTpl();
+                    $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                    $rep->setHttpStatus('403', 'Permission denied');
                     return $rep;
                 }
             }
@@ -528,8 +579,10 @@ class postsCtrl extends jController {
             else {
                 if (! jAcl2::check('hfnu.posts.edit','forum'.$id_forum) ) {
                     jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                    $rep = $this->getResponse('redirect');
-                    $rep->action = 'havefnubb~hfnuerror:badright';
+                    $rep = $this->getResponse('html');
+                    $tpl = new jTpl();
+                    $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                    $rep->setHttpStatus('403', 'Permission denied');
                     return $rep;
                 }
             }
@@ -547,10 +600,10 @@ class postsCtrl extends jController {
             $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
             if (jAuth::isConnected()) {
-                $form = jForms::create('havefnubb~posts',$id_post);
+                $form = jForms::fill('havefnubb~posts',$id_post);
             }
             else {
-                $form = jForms::create('havefnubb~posts_anonym',$id_post);
+                $form = jForms::fill('havefnubb~posts_anonym',$id_post);
             }
 
             if (!$form) {
@@ -591,12 +644,18 @@ class postsCtrl extends jController {
         }
         // save ?
         elseif ($submit == jLocale::get('havefnubb~post.form.saveBt') ) {
-            $rep = $this->getResponse('redirect');
+
 
             if ($id_forum == 0  ) {
-                $rep->action = 'havefnubb~default:index';
+                jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_forum','DEBUG');
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+                $rep->setHttpStatus('404', 'Not found');
                 return $rep;
             }
+
+            $rep = $this->getResponse('redirect');
             //let's save the post
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
             $post = $hfnuposts->save($id_forum,$id_post);
@@ -626,8 +685,11 @@ class postsCtrl extends jController {
             return $rep;
         }
         else {
-            $rep = $this->getResponse('redirect');
-            $rep->action ='havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this button that submit the form is not the expected one] the submit button is not save nor preview','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
     }
@@ -640,8 +702,11 @@ class postsCtrl extends jController {
         $id_post = (int) $this->param('id_post');
 
         if ($parent_id == 0 ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $parent_id','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -649,15 +714,20 @@ class postsCtrl extends jController {
 
         //check if this message is close and if i am an admin/mod
         if ( in_array($post->status,self::$statusClosed) ) {
-                jMessage::add(jLocale::get('havefnubb~post.status.you.cant.reply.to.this.message'));
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'default:index';
-                return $rep;
+            jMessage::add(jLocale::get('havefnubb~post.status.you.cant.reply.to.this.message'));
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
+            return $rep;
         }
 
         if (!$post) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $post','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
         // check if the post is expired
@@ -667,22 +737,30 @@ class postsCtrl extends jController {
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         if (! $forum) {
-            $rep  = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
         if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should be] $forum->post_expire > 0 and $dateDiff >= $forum->post_expire','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
         if (jAuth::isConnected()) {
             if ( ! jAcl2::check('hfnu.posts.reply','forum'.$post->id_forum) ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
 
@@ -695,8 +773,10 @@ class postsCtrl extends jController {
                  ! jAcl2::check('hfnu.posts.reply')
                 ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts_anonym',$parent_id);
@@ -738,24 +818,33 @@ class postsCtrl extends jController {
         $id_post    = (int) $this->param('id_post');
 
         if ($parent_id == 0 ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should be not be 0 ] $parent_id','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
+            return $rep;
         }
 
         $daoPost = jDao::get('havefnubb~posts');
         $post = $daoPost->get($id_post);
 
         if (!$post) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $post','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
         if (jAuth::isConnected()) {
             if ( ! jAcl2::check('hfnu.posts.quote','forum'.$post->id_forum) ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts',$parent_id);
@@ -767,8 +856,10 @@ class postsCtrl extends jController {
                  ! jAcl2::check('hfnu.posts.quote')
                 ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts_anonym',$parent_id);
@@ -778,8 +869,11 @@ class postsCtrl extends jController {
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         if (! $forum) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
         // check if the post is expired
@@ -787,8 +881,11 @@ class postsCtrl extends jController {
         $dateDiff =  ($post->date_modified == '') ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
 
         if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should be] $forum->post_expire > 0 and $dateDiff >= $forum->post_expire','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -840,8 +937,10 @@ class postsCtrl extends jController {
             if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) and
                 ! jAcl2::check('hfnu.posts.reply','forum'.$id_forum) ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
         } else {
@@ -851,10 +950,11 @@ class postsCtrl extends jController {
                 ! jAcl2::check('hfnu.posts.reply')
                 ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~hfnuerror:badright';
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+                $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
-
             }
         }
 
@@ -877,19 +977,19 @@ class postsCtrl extends jController {
             $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
             if (jAuth::isConnected()) {
-                $form = jForms::create('havefnubb~posts',$parent_id);
+                $form = jForms::fill('havefnubb~posts',$parent_id);
                 $id_user = jAuth::getUserSession ()->id;
             }
             else {
-                $form = jForms::create('havefnubb~posts_anonym',$parent_id);
+                $form = jForms::fill('havefnubb~posts_anonym',$parent_id);
                 $id_user = 0;
             }
 
             $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
 
             if (!$form or !$form->check()) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
+                $rep->action = 'default:index';
                 return $rep;
             }
 
@@ -960,8 +1060,11 @@ class postsCtrl extends jController {
             return $rep;
         }
         else {
-            $rep = $this->getResponse('redirect');
-            $rep->action ='havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this button that submit the form is not the expected one] the submit button is not save nor preview','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
     }
@@ -975,8 +1078,10 @@ class postsCtrl extends jController {
 
         if ( ! jAcl2::check('hfnu.posts.delete','forum'.$id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
         //crumbs infos
@@ -1003,8 +1108,12 @@ class postsCtrl extends jController {
     function goesto() {
         $id_forum = (int) $this->param('id_forum');
         if ($id_forum == 0 ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
+            return $rep;
         }
         $dao = jDao::get('havefnubb~forum');
         $forum = $dao->get($id_forum);
@@ -1020,8 +1129,11 @@ class postsCtrl extends jController {
 
         $id_post = (int) $this->param('id_post');
         if ($id_post == 0 ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_post','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -1030,16 +1142,21 @@ class postsCtrl extends jController {
 
         if ( ! jAcl2::check('hfnu.posts.notify','forum'.$post->id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         if (! $forum) {
-            $rep         = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -1074,8 +1191,10 @@ class postsCtrl extends jController {
 
         if ( ! jAcl2::check('hfnu.posts.notify','forum'.$id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
@@ -1102,7 +1221,7 @@ class postsCtrl extends jController {
         }
 
         $rep = $this->getResponse('redirect');
-        $rep->action ='havefnubb~default:index';
+        $rep->action = 'havefnubb~default:index';
         return $rep;
 
     }
@@ -1163,14 +1282,19 @@ class postsCtrl extends jController {
         // otherwise NO RSS will be available
         if ( ! jAcl2::check('hfnu.posts.rss','forum'.$id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
         if ($id_forum == 0 ) {
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'default:index';
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -1190,8 +1314,11 @@ class postsCtrl extends jController {
 
         if (jUrl::escape($forum->forum_name,true) != $ftitle )
         {
-            $rep = $this->getResponse('redirect');
-            $rep->action = $gJConfig->urlengine['notfoundAct'];
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be different] $forum->forum_name and $ftitle','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
 
@@ -1262,8 +1389,10 @@ class postsCtrl extends jController {
 
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
@@ -1297,8 +1426,10 @@ class postsCtrl extends jController {
     public function splitTo() {
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
@@ -1344,8 +1475,11 @@ class postsCtrl extends jController {
     public function splitedTo() {
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
@@ -1374,8 +1508,11 @@ class postsCtrl extends jController {
             $choice = (string) $this->param('choice');
 
             if (! in_array($choice,$possibleActions) ) {
-                $rep = $this->getResponse('redirect');
-                $rep->action = 'havefnubb~default:index';
+                jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be a valid choice] in_array($choice,$possibleActions)','DEBUG');
+                $rep = $this->getResponse('html');
+                $tpl = new jTpl();
+                $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+                $rep->setHttpStatus('404', 'Not found');
                 return $rep;
             }
 
@@ -1437,8 +1574,10 @@ class postsCtrl extends jController {
     public function censor () {
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
 
@@ -1470,13 +1609,16 @@ class postsCtrl extends jController {
      * save the censored message
      */
     public function savecensor() {
-        $rep = $this->getResponse('redirect');
-
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
+
+        $rep = $this->getResponse('redirect');
         $id_post    = (int) $this->param('id_post');
         $parent_id  = (int) $this->param('parent_id');
 
@@ -1531,12 +1673,14 @@ class postsCtrl extends jController {
     public function uncensor() {
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
-            $rep = $this->getResponse('redirect');
-            $rep->action = 'havefnubb~hfnuerror:badright';
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
-        $id_post 	= (int) $this->param('id_post');
-        $parent_id 	= (int) $this->param('parent_id');
+        $id_post    = (int) $this->param('id_post');
+        $parent_id  = (int) $this->param('parent_id');
 
         $post = jClasses::getService('havefnubb~hfnuposts')->uncensor($parent_id,$id_post);//'uncensored'
 

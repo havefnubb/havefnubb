@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_posts (
   PRIMARY KEY (id_post),
   KEY id_user (id_user,id_forum,parent_id,status)
 ) DEFAULT CHARSET=utf8;
-ALTER TABLE %%PREFIX%%posts ADD INDEX ( ispined ) ;
-ALTER TABLE %%PREFIX%%posts ADD INDEX ( iscensored ) ;
+ALTER TABLE %%PREFIX%%hfnu_posts ADD INDEX ( ispined ) ;
+ALTER TABLE %%PREFIX%%hfnu_posts ADD INDEX ( iscensored ) ;
 
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_threads (

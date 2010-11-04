@@ -663,8 +663,11 @@ class hfnuposts {
         $i = 0;
         $id_post_new = 0;
         $id_thread = 0;
+        $id_forum_old = 0;
 
         foreach($datas as $data) {
+            //the id forum where the post comes from
+            $id_forum_old = $data->id_forum;
 
             $record = jDao::createRecord('havefnubb~posts');
             $record = $data;
@@ -710,21 +713,23 @@ class hfnuposts {
 
             $i++;
         }
+        // delete the old records
+        $dao->deleteAllFromCurrentIdPostWithParentId($parent_id,$id_post);
 
         // remove the number of replies from the original thread
         $threadDao = jDao::get('havefnubb~threads');
         $threadRec = $threadDao->get($parent_id);
-        $threadRec->nb_replies -= $i;
+        if ($threadRec->nb_replies > 0 ) $threadRec->nb_replies -= $i;
+        //need to get the last comment
+        $threadRec->id_last_msg = $dao->getUserLastCommentOnForums($id_forum_old)->id_post;
         $threadDao->update($threadRec);
 
-        //update id_first_msg & id_last_msg of the Thread
+        //update id_first_msg & id_last_msg of the Thread of the new
         $threadDao = jDao::get('havefnubb~threads');
         $threadRec = $threadDao->get($id_thread);
         $threadRec->id_first_msg = $id_post_new;
         $threadRec->id_last_msg  = $id_last_msg;
         $threadDao->update($threadRec);
-
-        $dao->deleteAllFromCurrentIdPostWithParentId($parent_id,$id_post); // delete the old records
 
         //$record = $dao->get($id_post_new);
 

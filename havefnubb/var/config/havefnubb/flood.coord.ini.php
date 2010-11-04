@@ -13,13 +13,3 @@ on_error=2
 on_error_action="havefnubb~flood:error"
 
 elapsed_time_between_two_post=0
-
-
-
-
-
-
-
-
-
-

@@ -228,7 +228,7 @@ $(document).ready(function(){
     <h3><span>{@havefnubb~forum.move.this.thread@}</span></h3>
 </div>
 <div id="post-move">
-{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post)}
+{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'parent_id'=>$parent_id)}
     <div class="form_row">
         <div class="form_property">{ctrl_label 'id_forum'} </div>
         <div class="form_value">

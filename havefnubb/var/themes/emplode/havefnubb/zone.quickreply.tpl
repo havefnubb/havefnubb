@@ -1,7 +1,6 @@
 <div id="quickreply">
 {form $form, 'havefnubb~posts:savereply', array('id_post'=>$id_post)}
     <fieldset>
-        <legend>
         <div class="legend">
             <h3><span>{@havefnubb~post.quickreply.quickreply@}</span></h3>
         </div>
@@ -28,7 +27,6 @@
             </div>
             <div class="clearer">&nbsp;</div>
         </div>
-        </legend>
     </fieldset>
 {/form}
 </div>
