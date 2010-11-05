@@ -54,5 +54,5 @@ hook.access=1
 modulesinfo.access=0
 
 jelixcache.access=0
-
 activeusers.access=2
+activeusers_admin.access=0
