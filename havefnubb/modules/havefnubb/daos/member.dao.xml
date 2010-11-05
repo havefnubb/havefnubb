@@ -2,7 +2,7 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="usr" realname="community_users" primarykey="login" />
-        <optionalforeigntable name="c" realname="hfnu_connected" primarykey="id_user"  onforeignkey="id" />
+        <optionalforeigntable name="c" realname="connectedusers" primarykey="login"  onforeignkey="login" />
     </datasources>
     <record>
     <property name="id" fieldname="id" datatype="autoincrement"/>
@@ -32,8 +32,6 @@
     <property name="member_avatar" fieldname="avatar" datatype="string" maxlength="255"/>
     <property name="member_gravatar" fieldname="gravatar" datatype="integer" default="0"/>
 
-    <property name="member_last_connect" fieldname="last_connect" datatype="integer" default="0" />
-
     <property name="member_show_email" fieldname="show_email" datatype="string" maxlength="1"/>
     <property name="member_language" fieldname="language" datatype="string"/>
 
@@ -42,9 +40,8 @@
     <property name="member_created" fieldname="create_date" datatype="datetime" insertpattern="NOW()" />
 
     <property name="member_ip"  fieldname="member_ip"   datatype="string"   table="c" />
-    <property name="connected"  fieldname="connected"   datatype="integer"  table="c" />
-    <property name="idle"       fieldname="idle"        datatype="integer"  table="c" />
-
+    <property name="connection_date"  fieldname="connection_date"   datatype="integer"   table="c"/>
+	<property name="last_request_date" fieldname="last_request_date" datatype="integer" table="c"  />
 
    </record>
    <factory>
@@ -175,19 +172,19 @@
         <method name="findOnlineToday" type="select">
             <parameter name="today" />
             <conditions>
-                    <gteq property="member_last_connect" expr="$today" />
+                <gteq property="last_request_date" expr="$today" />
             </conditions>
         </method>
         <method name="findAllConnected" type="select">
             <parameter name="time" />
             <conditions>
-                    <lt property="connected" expr="$time" />
+                    <gt property="connection_date" expr="$time" />
             </conditions>
         </method>
         <method name="countAllConnected" type="count">
             <parameter name="time" />
             <conditions>
-                    <lt property="connected" expr="$time" />
+                    <gt property="connection_date" expr="$time" />
             </conditions>
         </method>
 

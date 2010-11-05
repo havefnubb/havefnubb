@@ -32,8 +32,6 @@
     <property name="member_avatar" fieldname="avatar" datatype="string" maxlength="255"/>
     <property name="member_gravatar" fieldname="gravatar" datatype="integer" default="0"/>
 
-    <property name="member_last_connect" fieldname="last_connect" datatype="integer" default="0" />
-
     <property name="member_show_email" fieldname="show_email" datatype="string" maxlength="1"/>
     <property name="member_language" fieldname="language" datatype="string"/>
 

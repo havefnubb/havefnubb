@@ -57,7 +57,6 @@
         <property name="member_website"	fieldname="website" datatype="string" table="usr" maxlength="255"/>
         <property name="nb_msg"     fieldname="nb_msg" table="usr" datatype="integer" />
         <property name="member_last_post"   fieldname="last_post" table="usr"  datatype="integer" />
-        <property name="member_last_connect"   fieldname="last_connect" table="usr"  datatype="integer" />
         <!-- properties from forum table -->
         <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>
         <property name="forum_name"      fieldname="forum_name" table="forum" datatype="int" required="true"/>
@@ -158,19 +157,6 @@
             </conditions>
             <order>
                 <orderitem property="p_date_created" way="desc" />
-            </order>
-        </method>
-
-        <method name="findUnreadThread" type="select" distinct="true" groupby="id_thread">
-            <parameter name="offset"/>
-            <parameter name="count"/>
-            <conditions>
-                <!--gt property="date_last_post" expr="$date_last_post"/-->
-                <gt property="date_last_post" expr="usr.last_connect"/>
-            </conditions>
-            <limit offset="$offset" count="$count"/>
-            <order>
-                <orderitem property="date_created" way="desc" />
             </order>
         </method>
 

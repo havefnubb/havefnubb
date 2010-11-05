@@ -20,19 +20,6 @@ class authhavefnubbListener extends jEventListener{
         global $gJConfig;
         $login = $event->getParam('login');
 
-        // update the last connection access
-        $dao = jDao::get('havefnubb~member');
-
-        $user = $dao->getByLogin($login);
-        if (!$user) {
-            throw new jException('havefnubb~mail.email.config.not.done.properly');
-        }
-        // put the current date
-        $user->member_last_connect = $user->connected;
-        $user->connected = time();
-
-        $dao->update($user);
-
         $_SESSION['JX_LANG'] = $user->member_language;
         $gJConfig->locale = $user->member_language;
     }

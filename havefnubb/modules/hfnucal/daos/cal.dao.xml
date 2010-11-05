@@ -38,7 +38,6 @@
         <property name="member_town"    fieldname="town" datatype="string" table="usr" maxlength="100"/>
         <property name="member_avatar"  fieldname="avatar" datatype="string" table="usr" maxlength="255"/>
         <property name="nb_msg"     fieldname="nb_msg" table="usr" datatype="integer" />
-        <property name="member_last_connect"   fieldname="last_connect" table="usr"  datatype="integer" />
 
         <!-- properties from forum table -->
         <property name="forum_parent_id" fieldname="parent_id" table="forum" datatype="int" required="true"/>

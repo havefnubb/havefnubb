@@ -17,14 +17,6 @@ CREATE TABLE %%PREFIX%%hfnu_forum_category (
     CONSTRAINT id_cat PRIMARY KEY (id_cat)
 );
 
-CREATE TABLE %%PREFIX%%hfnu_connected (
-    id_user integer DEFAULT 1 NOT NULL,
-    member_ip character varying(200) NOT NULL,
-    connected bigint DEFAULT 0::bigint NOT NULL,
-    idle integer DEFAULT 0,
-    CONSTRAINT id_user_connected PRIMARY KEY (id_user)
-);
-
 CREATE TABLE %%PREFIX%%hfnu_forum (
     id_forum serial NOT NULL,
     forum_name character varying(255) NOT NULL,
@@ -48,7 +40,6 @@ ALTER TABLE %%PREFIX%%community_users ADD  country character varying(100);
 ALTER TABLE %%PREFIX%%community_users ADD  town character varying(100);
 ALTER TABLE %%PREFIX%%community_users ADD  comment character varying(255);
 ALTER TABLE %%PREFIX%%community_users ADD  avatar character varying(255);
-ALTER TABLE %%PREFIX%%community_users ADD  last_connect integer;
 ALTER TABLE %%PREFIX%%community_users ADD  show_email character varying(1) DEFAULT 'N'::character varying;
 ALTER TABLE %%PREFIX%%community_users ADD  language character varying(40) DEFAULT 'fr_FR'::character varying;
 ALTER TABLE %%PREFIX%%community_users ADD  nb_msg integer DEFAULT 0;

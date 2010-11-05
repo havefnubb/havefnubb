@@ -25,19 +25,18 @@ CREATE INDEX %%PREFIX%%hfnu_forum_parent_id  ON %%PREFIX%%hfnu_forum  (  parent_
 CREATE INDEX %%PREFIX%%hfnu_forum_child_level  ON %%PREFIX%%hfnu_forum  (  child_level ) ;
 CREATE INDEX %%PREFIX%%hfnu_forum_forum_type  ON %%PREFIX%%hfnu_forum  (  forum_type ) ;
 
-ALTER TABLE %%PREFIX%%community_users ADD  website varchar(255) DEFAULT NULL,
-ALTER TABLE %%PREFIX%%community_users ADD  firstname varchar(40) DEFAULT NULL,
-ALTER TABLE %%PREFIX%%community_users ADD  birth date NOT NULL DEFAULT '1980-01-01',
-ALTER TABLE %%PREFIX%%community_users ADD  country varchar(100) DEFAULT NULL,
-ALTER TABLE %%PREFIX%%community_users ADD  town varchar(100) DEFAULT NULL,
-ALTER TABLE %%PREFIX%%community_users ADD  comment varchar(255) DEFAULT NULL,
-ALTER TABLE %%PREFIX%%community_users ADD  avatar varchar(255) DEFAULT NULL,
-ALTER TABLE %%PREFIX%%community_users ADD  last_connect INTEGER DEFAULT NULL,
-ALTER TABLE %%PREFIX%%community_users ADD  show_email varchar(1) DEFAULT 'N',
-ALTER TABLE %%PREFIX%%community_users ADD  language varchar(40) DEFAULT 'fr_FR',
-ALTER TABLE %%PREFIX%%community_users ADD  nb_msg INTEGER DEFAULT '0',
-ALTER TABLE %%PREFIX%%community_users ADD  last_post INTEGER NOT NULL DEFAULT '0',
-ALTER TABLE %%PREFIX%%community_users ADD  gravatar INT( 1 ) NOT NULL DEFAULT '0'
+ALTER TABLE %%PREFIX%%community_users ADD  website varchar(255) DEFAULT NULL;
+ALTER TABLE %%PREFIX%%community_users ADD  firstname varchar(40) DEFAULT NULL;
+ALTER TABLE %%PREFIX%%community_users ADD  birth date NOT NULL DEFAULT '1980-01-01';
+ALTER TABLE %%PREFIX%%community_users ADD  country varchar(100) DEFAULT NULL;
+ALTER TABLE %%PREFIX%%community_users ADD  town varchar(100) DEFAULT NULL;
+ALTER TABLE %%PREFIX%%community_users ADD  comment varchar(255) DEFAULT NULL;
+ALTER TABLE %%PREFIX%%community_users ADD  avatar varchar(255) DEFAULT NULL;
+ALTER TABLE %%PREFIX%%community_users ADD  show_email varchar(1) DEFAULT 'N';
+ALTER TABLE %%PREFIX%%community_users ADD  language varchar(40) DEFAULT 'fr_FR';
+ALTER TABLE %%PREFIX%%community_users ADD  nb_msg INTEGER DEFAULT '0';
+ALTER TABLE %%PREFIX%%community_users ADD  last_post INTEGER NOT NULL DEFAULT '0';
+ALTER TABLE %%PREFIX%%community_users ADD  gravatar INT( 1 ) NOT NULL DEFAULT '0';
 
 
 CREATE TABLE %%PREFIX%%hfnu_member_custom_fields (
@@ -101,13 +100,6 @@ CREATE TABLE %%PREFIX%%hfnu_bans (
   ban_email varchar(50) DEFAULT NULL,
   ban_message varchar(255) DEFAULT NULL,
   ban_expire int(10) DEFAULT NULL
-) ;
-
-CREATE TABLE %%PREFIX%%hfnu_connected (
-    id_user INTEGER NOT NULL DEFAULT '1'  PRIMARY KEY,
-    member_ip VARCHAR(200) NOT NULL DEFAULT '',
-    connected INT(10) NOT NULL DEFAULT 0,
-    idle TINYINT(1) NOT NULL DEFAULT 0
 ) ;
 
 

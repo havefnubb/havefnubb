@@ -137,9 +137,6 @@ $(document).ready(function(){
                     <div class="form_property">
                         <label><strong>{@havefnubb~member.common.last.connection@}</strong></label>
                     </div>
-                    <div class="form_value">
-                        {$user->member_last_connect|jdatetime:'timestamp'}
-                    </div>
                     <div class="clearer">
                         &nbsp;
                     </div>

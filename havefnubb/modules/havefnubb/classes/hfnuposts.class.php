@@ -859,7 +859,6 @@ class hfnuposts {
                     usr.website as member_website,
                     usr.nb_msg,
                     usr.last_post as member_last_post,
-                    usr.last_connect as member_last_connect,
                     forum.parent_id as forum_parent_id,
                     forum.forum_name
                 FROM ".$c->prefixTable('hfnu_threads')." AS threads
@@ -906,7 +905,6 @@ class hfnuposts {
                         usr.website as member_website,
                         usr.nb_msg,
                         usr.last_post as member_last_post,
-                        usr.last_connect as member_last_connect,
                         forum.parent_id as forum_parent_id,
                         forum.forum_name,
                         rp.date_read as date_read_post
@@ -976,7 +974,6 @@ class hfnuposts {
                     usr.website as member_website,
                     usr.nb_msg,
                     usr.last_post as member_last_post,
-                    usr.last_connect as member_last_connect,
                     forum.parent_id as forum_parent_id,
                     forum.forum_name
                 FROM ".$c->prefixTable('hfnu_threads')." AS threads
@@ -1024,7 +1021,6 @@ class hfnuposts {
                         usr.website as member_website,
                         usr.nb_msg,
                         usr.last_post as member_last_post,
-                        usr.last_connect as member_last_connect,
                         forum.parent_id as forum_parent_id,
                         forum.forum_name,
                         rp.date_read as date_read_post

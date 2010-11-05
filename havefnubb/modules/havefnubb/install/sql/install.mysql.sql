@@ -18,17 +18,6 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_forum_category (
   PRIMARY KEY (id_cat)
 ) DEFAULT CHARSET=utf8;
 
-
-
-CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_connected (
-    id_user int(12) NOT NULL DEFAULT '1',
-    member_ip VARCHAR(200) NOT NULL DEFAULT '',
-    connected INT(10) UNSIGNED NOT NULL DEFAULT 0,
-    idle TINYINT(1) NOT NULL DEFAULT 0,
-    PRIMARY KEY (id_user)
-) DEFAULT CHARSET=utf8;
-
-
 CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_forum (
   id_forum int(12) NOT NULL AUTO_INCREMENT,
   forum_name varchar(255) NOT NULL,
@@ -57,7 +46,6 @@ ALTER TABLE %%PREFIX%%community_users ADD  country varchar(100) DEFAULT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  town varchar(100) DEFAULT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  comment varchar(255) DEFAULT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  avatar varchar(255) DEFAULT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  last_connect int(12) DEFAULT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  show_email varchar(1) DEFAULT 'N';
 ALTER TABLE %%PREFIX%%community_users ADD  `language` varchar(40) DEFAULT 'fr_FR';
 ALTER TABLE %%PREFIX%%community_users ADD  nb_msg int(12) DEFAULT '0';
