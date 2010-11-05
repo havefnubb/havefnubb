@@ -33,8 +33,8 @@ class defaultCtrl extends jController {
 
     protected function initform($form) {
         global $gJConfig;
-        $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
-        $timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/timeout.coord.ini.php');
+        $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/activeusers.coord.ini.php');
+        $timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/activeusers.coord.ini.php');
 
         $tzId = DateTimeZone::listIdentifiers();
         for ($i = 0 ; $i < count($tzId) ; $i++) {
@@ -175,7 +175,7 @@ class defaultCtrl extends jController {
         $floodConfig->setValue('elapsed_time_between_two_post', $form->getData('elapsed_time_between_two_post'));
         $floodConfig->save();
 
-        $timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/timeout.coord.ini.php');
+        $timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/activeusers.coord.ini.php');
         $timeoutConfig->setValue('timeout_connected',  $form->getData('timeout_connected'));
         $timeoutConfig->setValue('timeout_visit',      $form->getData('timeout_visit'));
         $timeoutConfig->save();

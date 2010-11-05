@@ -11,7 +11,7 @@ autolocale=autolocale.coord.ini.php
 auth="havefnubb/auth.coord.ini.php"
 jacl2="havefnubb/jacl2.coord.ini.php"
 banuser="havefnubb/banuser.coord.ini.php"
-activeusers="havefnubb/timeout.coord.ini.php"
+activeusers="havefnubb/activeusers.coord.ini.php"
 history="havefnubb/history.coord.ini.php"
 flood="havefnubb/flood.coord.ini.php"
 
