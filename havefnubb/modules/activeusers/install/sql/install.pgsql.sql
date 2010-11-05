@@ -1,0 +1,9 @@
+
+CREATE TABLE %%PREFIX%%connectedusers (
+    sessionid  character varying(40) NOT NULL,
+    login character varying(50) NULL,
+    member_ip character varying(25) NOT NULL,
+    connection_date bigint DEFAULT 0::bigint NOT NULL,
+    last_request_date bigint DEFAULT 0::bigint NOT NULL,
+    CONSTRAINT sessionid PRIMARY KEY (sessionid)
+);
