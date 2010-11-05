@@ -56,3 +56,5 @@ hook.access=1
 modulesinfo.access=2
 
 jelixcache.access=2
+
+activeusers.access=0
