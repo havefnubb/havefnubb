@@ -1,11 +1,14 @@
 {ifuserconnected}
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
 <script type="text/javascript">
 {literal}
+var read = {/literal}{urljsstring 'jmessenger~jmessenger:view'}{literal};
+
 $(document).ready(function(){
     $('div.new').click(function(){
         var id = $(this).attr("id");
         $(this).removeClass("new");
-        $.post( "/message/read/"+id );
+        $.post( read +id );
     });
 });
 {/literal}

@@ -1,5 +1,6 @@
 {meta_html jquery}
 {meta_html jquery_ui 'components', array('widget','tabs')}
+{meta_html csstheme 'css/tabnav.css'}
 {literal}
 <script type="text/javascript">
 //<![CDATA[

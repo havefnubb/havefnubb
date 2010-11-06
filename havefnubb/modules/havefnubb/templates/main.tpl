@@ -5,8 +5,7 @@
 {meta_html csstheme 'css/nav.css'}
 {meta_html cssthemeie 'css/ie.css'}
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_themepath.'js/jquery-fluid16.js'}
-{* meta_html js $j_themepath.'js/jquery-ui.js' *}
+{*meta_html js $j_themepath.'js/jquery-fluid16.js'*}
 <div class="container_16">
     <div class="grid_16 branding">
         <div class="grid_11">

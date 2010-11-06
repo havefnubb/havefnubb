@@ -13,9 +13,9 @@
         <label locale="message.form.subject"></label>
     </input>
 
-    <textarea ref="content" required="true">
+    <wikieditor ref="content" required="true">
         <label locale="message.form.content"></label>
-    </textarea>
+    </wikieditor>
 
     <submit ref="_submit">
         <label locale="message.form.ok"></label>

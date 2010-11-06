@@ -1,5 +1,6 @@
 {meta_html jquery}
 {meta_html jquery_ui 'components', array('widget','tabs')}
+{meta_html csstheme 'css/tabnav.css'}
 {literal}
 <script type="text/javascript">
 //<![CDATA[
@@ -15,7 +16,7 @@ $(document).ready(function(){
     <div class="block">
         {form $form, 'jcommunity~account:save', array('user'=>$username)}
         <div id="container">
-            <ul class="nav">
+            <ul class="nav main">
                 <li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
                 <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
                 {hook 'hfbAccountEditTab',array('user'=>$username)}
