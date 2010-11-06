@@ -17,7 +17,7 @@
 <ul>
     <li class="wiki-image full_link"><strong>Lien complet</strong> : [[ nomdulien | lien | langue | description (title)]]</li>
     <li class="wiki-image carriage_return"><strong>Retour à la ligne forcée</strong> : %%%</li>
-    <li class="wiki-image image"><strong>Image</strong> : (( lien vers l'image | textalternatif | position | longue déscription )) . valeurs de position : l/L/g/G => gauche, r/R/d/D =>droite, rien : en ligne.</li>
+    <li class="wiki-image image"><strong>Image</strong> :(( lien vers l'image | textalternatif | position | longue déscription )) valeurs de position L/G => gauche, R/D =>droite, rien : en ligne.</li>
     <li class="wiki-image code"><strong>code</strong> : @@code@@</li>
     <li class="wiki-image quoting"><strong>citation</strong> : ^^phrase|langue|lien source^^</li>
     <li class="wiki-image ref"><strong>reférence (cite)</strong> : {literal}{{reference}}{/literal}</li>

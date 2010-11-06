@@ -81,7 +81,7 @@ h6 {font: bold 1.2em Georgia,sans-serif;}
 h1,h2,h3,h4,h5,h6 {margin-bottom: 0.2em;}
 
 blockquote {
-    background: #F6F6F2 url('../img/backgrounds.gif') no-repeat 0 -414px;
+    background: #F6F6F2 url('../images/backgrounds.gif') no-repeat 0 -414px;
     border-bottom: 1px solid #E0E0D4;
     border-top: 1px solid #E0E0D4;
     color: #332;
@@ -101,7 +101,7 @@ table.data_table {
     width: 100%;
 }
 table.data_table th {
-    background: url('../img/grain_dark.gif');
+    background: url('../images/grain_dark.gif');
     border: 1px solid #CCB;
     color: #555;
     text-align: left;
@@ -109,7 +109,7 @@ table.data_table th {
 table.data_table tr {border-bottom: 1px solid #DDD;}
 table.data_table td, table th {padding: 10px;}
 table.data_table td {
-    background: url('../img/grain_light.gif');
+    background: url('../images/grain_light.gif');
     border: 1px solid #DDC;
 }
 
@@ -121,13 +121,13 @@ table.data_table td {
 dl {margin-bottom: 2em;}
 dt,dd {padding: 8px 10px;}
 dt {
-    background: url('../img/grain_dark.gif');
+    background: url('../images/grain_dark.gif');
     border-bottom: 1px solid #CCB;
     color: #555;
     font-weight: bold;
 }
 dd {
-    background: url('../img/grain_light.gif');
+    background: url('../images/grain_light.gif');
     border-bottom: 1px solid #DDC;
     padding-left: 16px;
 }
@@ -164,7 +164,7 @@ input, textarea, select {
 }
 
 input.button, .jforms-submit, .jforms-reset, .newmessage a, .replymessage a {
-    background: #E9E8E8 url('../img/backgrounds.gif') repeat-x 0 -366px;
+    background: #E9E8E8 url('../images/backgrounds.gif') repeat-x 0 -366px;
     border: 1px solid #888;
     border-color: #BBB #888 #888 #CCC;
     color: #444;
@@ -176,7 +176,7 @@ input.button, .jforms-submit, .jforms-reset, .newmessage a, .replymessage a {
 }
 
 .submit-rates {
-    background: #E9E8E8 url('../img/backgrounds.gif') repeat-x 0 -366px;
+    background: #E9E8E8 url('../images/backgrounds.gif') repeat-x 0 -366px;
     border: 1px solid #888;
     border-color: #BBB #888 #888 #CCC;
     color: #444;
@@ -221,13 +221,13 @@ input.image {
 /* Specific */
 
 .form_row {
-    background: url('../img/grain_light.gif');
+    background: url('../images/grain_light.gif');
     border-bottom: 1px solid #E1E1D5;
     padding: 10px 0;
 }
 .form_required {font-weight: bold;}
 .form_row_submit, .legend {
-    background: url('../img/grain_dark.gif');
+    background: url('../images/grain_dark.gif');
     border-bottom: 1px solid #CCB;
     border-top: 1px solid #CCB;
     padding: 4px 0 8px;
@@ -301,14 +301,14 @@ img.right {margin: 0 0 15px 12px;}
 }
 
 #hfnuhead {
-    background: #35322B url('../img/backgrounds.gif') repeat-x 0 0;
+    background: #35322B url('../images/backgrounds.gif') repeat-x 0 0;
     padding-top: 8px;
 }
 
 
 /* Toplinks */
 #toplinks {
-    background: #353530 url('../img/toplinks.gif') no-repeat left top;
+    background: #353530 url('../images/toplinks.gif') no-repeat left top;
     color: #554;
     float: right;
     font-size: 0.9em;
@@ -348,7 +348,7 @@ img.right {margin: 0 0 15px 12px;}
 /* Navigation */
 #navigation ul, #navigation li {display: inline;}
 #navigation li {display: inline;}
-#navigation, #navigation a {background: #958573 url('../img/backgrounds.gif') repeat-x 0 -222px;}
+#navigation, #navigation a {background: #958573 url('../images/backgrounds.gif') repeat-x 0 -222px;}
 #navigation a {
     border-right: 1px solid #AFA69C;
     color: #654;
@@ -367,9 +367,9 @@ img.right {margin: 0 0 15px 12px;}
 
 
 /* Main */
-#main_wrapper_outer {background: url('../img/grain.gif');}
+#main_wrapper_outer {background: url('../images/grain.gif');}
 #main_wrapper_inner {
-    background: url('../img/main_wrapper_inner.gif') repeat-x left top;
+    background: url('../images/main_wrapper_inner.gif') repeat-x left top;
     line-height: 1.4em;
     padding: 24px 0;
 }
@@ -402,7 +402,7 @@ img.right {margin: 0 0 15px 12px;}
 
 /* Dashboard */
 #dashboard {
-    background: #DDD url('../img/grain_dark.gif');
+    background: #DDD url('../images/grain_dark.gif');
     border-top: 1px dashed #C0C0B0;
 }
 #dashboard_content {padding: 16px 0 22px;}
@@ -461,7 +461,7 @@ img.right {margin: 0 0 15px 12px;}
 .post_date a {color: #444;}
 
 .post_meta, .postfoot  {
-    background: url('../img/grain_light.gif');
+    background: url('../images/grain_light.gif');
     border: 1px solid #E5E5D5;
     color: #776;
     font-size: 0.9em;
@@ -475,7 +475,7 @@ img.right {margin: 0 0 15px 12px;}
 .archive_pagination {margin-bottom: 1.6em;}
 .archive_post {margin-bottom: 1em;}
 .archive_post_date {
-    background: url('../img/grain_light.gif');
+    background: url('../images/grain_light.gif');
     border-bottom: 1px solid #C5C5B5;
     border-right: 1px solid #CFCFBF;
     float: left;
@@ -493,7 +493,7 @@ img.right {margin: 0 0 15px 12px;}
 
 .thumbnails {margin: 0 -0 2em -8px;}
 .thumbnails a.thumb {
-    background: url('../img/grain_dark.gif');
+    background: url('../images/grain_dark.gif');
     display: block;
     float: left;
     margin: 0 0 8px 8px;
@@ -509,7 +509,7 @@ img.right {margin: 0 0 15px 12px;}
 
 .box {margin-bottom: 1.5em;}
 .box_title {
-    background: url('../img/grain_dark.gif');
+    background: url('../images/grain_dark.gif');
     color: #665;
     font-weight: bold;
     padding: 5px 8px;
@@ -569,78 +569,13 @@ div.comment_list {
 }
 
 /* help wiki syntaxe */
-.wiki-image {
-    background-repeat: no-repeat;
-    padding-left: 20px;
-    height: 20px;
-
-}
 .syntax_wiki {
     padding-left: 0px;
     font-size: 11px;
 }
 
-.syntax_wiki li.italic {
-    background-image: url("../images/wiki/text_italic.png");
-}
-
-.syntax_wiki li.bold {
-    background-image: url("../images/wiki/text_bold.png");
-}
-
-.syntax_wiki  li.list{
-    background-image: url("../images/wiki/text_list_numbers.png");
-}
-
-.syntax_wiki  li.source{
-    background-image: url("../images/wiki/text_source.png");
-}
-
-.syntax_wiki  li.link {
-    background-image: url("../images/wiki/text_link.png");
-}
-
-.syntax_wiki  li.quote {
-    background-image: url("../images/wiki/text_quote.png");
-}
-
-.syntax_wiki  li.para {
-    background-image: url("../images/wiki/text_para.png");
-}
-
-
-.syntax_wiki  li.def {
-    background-image: url("../images/wiki/text_def.png");
-}
-
-.syntax_wiki  li.full_link {
-    background-image: url("../images/wiki/text_full_link.png");
-}
-
-.syntax_wiki  li.carriage_return {
-    background-image: url("../images/wiki/text_carriage_return.png");
-}
-
-.syntax_wiki  li.image {
-    background-image: url("../images/wiki/text_image.png");
-}
-
-.syntax_wiki  li.code {
-    background-image: url("../images/wiki/text_code.png");
-}
-
-.syntax_wiki  li.quoting {
-    background-image: url("../images/wiki/text_quoting.png");
-}
-
-.syntax_wiki  li.ref {
-    background-image: url("../images/wiki/text_ref.png");
-    height: 20px;
-}
-
-.syntax_wiki  li.acronym {
-    background-image: url("../images/wiki/text_acronym.png");
-
+.syntax_wiki li {
+    list-style: disc;
 }
 
 .jforms-help {
@@ -655,11 +590,11 @@ div.comment_list {
 }
 
 .breadcrumb {
-    background: url('../img/grain.gif');
+    background: url('../images/grain.gif');
 }
 
 .breadcrumb ol {
-    background: url('../img/grain_light.gif');
+    background: url('../images/grain_light.gif');
     margin: 0 auto;
     padding-left: 8px;
     padding-top: 5px;
