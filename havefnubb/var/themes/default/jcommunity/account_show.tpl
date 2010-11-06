@@ -1,7 +1,5 @@
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.widget.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.tabs.min.js'}
+{meta_html jquery}
+{meta_html jquery_ui 'components', array('widget','tabs')}
 {literal}
 <script type="text/javascript">
 //<![CDATA[

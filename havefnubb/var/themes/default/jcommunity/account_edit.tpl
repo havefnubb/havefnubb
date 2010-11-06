@@ -1,7 +1,5 @@
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.widget.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.tabs.min.js'}
+{meta_html jquery}
+{meta_html jquery_ui 'components', array('widget','tabs')}
 {literal}
 <script type="text/javascript">
 //<![CDATA[
@@ -17,7 +15,7 @@ $(document).ready(function(){
     <div class="block">
         {form $form, 'jcommunity~account:save', array('user'=>$username)}
         <div id="container">
-            <ul class="nav main">
+            <ul class="nav">
                 <li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
                 <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
                 {hook 'hfbAccountEditTab',array('user'=>$username)}
