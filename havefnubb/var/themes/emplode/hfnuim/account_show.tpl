@@ -1,6 +1,6 @@
         <div id="user-profile-messenger">
             <fieldset>
-                <div class="legend"><span class="user-messenger user-image">{@hfnuim~im.instant.messenger@}</span></div>
+                <legend><span class="user-messenger user-image">{@hfnuim~im.instant.messenger@}</span></legend>
                 <div class="form_row">
                     <div class="form_property">
                         <span class="user-xfire user-image"><strong>{@hfnuim~im.xfire@}</strong></span>

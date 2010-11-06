@@ -231,6 +231,7 @@ input.image {
     border-bottom: 1px solid #CCB;
     border-top: 1px solid #CCB;
     padding: 4px 0 8px;
+    display: block;
 }
 .legend {padding: 8px 18px 6px;}
 .form_property, .form_value {float: left;}

@@ -8,7 +8,7 @@
 
     <p>{@havefnubb~member.registration.confirmation.activation.description.line2@}</p>
 
-    <div class="legend">{@havefnubb~member.registration.confirmation.activation@}</div>
+    <legend>{@havefnubb~member.registration.confirmation.activation@}</legend>
     {formcontrols}
     <div class="form_row">
         <div class="form_property">{ctrl_label} :</div><div class="form_value">{ctrl_control}</div>

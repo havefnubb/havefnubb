@@ -4,7 +4,7 @@
 <div id="profile">
 {form $form,'havefnubb~members:savenewpwd', array('user'=>$login)}
 <fieldset>
-    <div class="legend">{@havefnubb~member.pwd.change.your.password@}</div>
+    <legend>{@havefnubb~member.pwd.change.your.password@}</legend>
     {formcontrols}
     <div class="form_row">
         <div class="form_property">{ctrl_label} </div>

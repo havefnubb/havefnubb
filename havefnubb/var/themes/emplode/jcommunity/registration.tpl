@@ -5,8 +5,8 @@
 <div id="loginbox">
 {form $form,'jcommunity~registration:save', array()}
 <fieldset>
+    <legend>{@havefnubb~main.informations@}</legend>
     <p>{@havefnubb~member.registration.account.service.description@}</p>
-    <div class="legend">{@havefnubb~main.informations@}</div>
     <div class="form_row">
         <div class="form_property">{ctrl_label 'reg_login'} :</div><div class="form_value">{ctrl_control 'reg_login'}</div>
         <div class="clearer">&nbsp;</div>

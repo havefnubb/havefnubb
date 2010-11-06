@@ -4,7 +4,7 @@
 <div id="loginbox">
 {form $form,'jcommunity~password:send', array()}
 <fieldset>
-    <div class="legend">{@havefnubb~member.passwordform.description@}</div>
+    <legend>{@havefnubb~member.passwordform.description@}</legend>
     <div class="form_row">
         <div class="form_property">{ctrl_label 'pass_login'} :</div><div class="form_value">{ctrl_control 'pass_login'}</div>
         <div class="form_property">{ctrl_label 'pass_email'} :</div><div class="form_value">{ctrl_control 'pass_email'}</div>
