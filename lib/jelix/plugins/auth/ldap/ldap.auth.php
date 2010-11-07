@@ -26,7 +26,7 @@ class ldapAuthDriver implements jIAuthDriver{
 			'uidProperty'=>'cn'
 		);
 		foreach($_default_params as $name=>$value){
-			if(!isset($this->_params[$name])||$this->_params[$name]=''){
+			if(!isset($this->_params[$name])||$this->_params[$name]==''){
 				$this->_params[$name]=$value;
 			}
 		}

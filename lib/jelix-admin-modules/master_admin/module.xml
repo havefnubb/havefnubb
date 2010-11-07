@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="master_admin@modules.jelix.org" name="master_admin" createdate="">
-       <version stability="stable">1.2RC2-dev.1706</version>
+       <version stability="stable">1.2RC2</version>
         <label lang="en-EN">Main Administration Interface</label>
         <description lang="en-EN">Main Web interface for the administration of an application</description>
         <license URL="http://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GPL 2.0</license>
@@ -11,7 +11,7 @@
         <homepageURL>http://jelix.org</homepageURL>
     </info>
     <dependencies>
-       <jelix minversion="1.2RC2-dev.1706" maxversion="1.2RC2-dev.*"/>
+       <jelix minversion="1.2RC2" maxversion="1.*"/>
       <module name="jauth"/>
     </dependencies>
 </module>
