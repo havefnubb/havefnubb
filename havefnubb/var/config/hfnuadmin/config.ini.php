@@ -19,7 +19,7 @@ htmlauth=adminLoginHtmlResponse
 enableAcl2DbEventListener=on
 
 [simple_urlengine_entrypoints]
-hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~*@classic hfnucontact~*@classic servinfo~*@classic hfnuthemes~*@classic"
+hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~*@classic hfnucontact~*@classic servinfo~*@classic hfnuthemes~*@classic modulesinfo~*@classic jelixcache~*@classic"
 
 
 [logfiles]
@@ -50,9 +50,7 @@ hfnuthemes.access=2
 jcommunity.access=1
 jmessenger.access=1
 jtags.access=1
-
 hook.access=1
 
 modulesinfo.access=2
-
 jelixcache.access=2
