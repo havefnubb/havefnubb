@@ -12,11 +12,11 @@ $(document).ready(function(){
   // hide help
   $(".hfnuadmin-help").hide();
   // show help
-  $(".help").click(function () {
+  $("#hfnuadmin-help").click(function () {
      $(this).toggleClass("active").next().slideToggle("slow");
   });
   //toggle Image
-  $(".help").toggle(
+  $("#hfnuadmin-help").toggle(
     function () {
       $(this).find("img").attr({src:imagePath+"delete.png"});
     },
@@ -28,8 +28,8 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
-<h1>{@hfnuadmin~admin.config@}</h1>
 {include 'hlp_configuration'}
+<h1>{@hfnuadmin~admin.config@}</h1>
 {form $form, 'hfnuadmin~default:saveconfig'}
 <div id="hfnuadmin-config">
 <ul>

@@ -9,11 +9,11 @@ $(document).ready(function(){
   // hide help
   $(".hfnuadmin-help").hide();
   // show help
-  $(".help").click(function () {
+  $("#hfnuadmin-help").click(function () {
      $(this).toggleClass("active").next().slideToggle("slow");
   });
   //toggle Image
-  $(".help").toggle(
+  $("#hfnuadmin-help").toggle(
     function () {
       $(this).find("img").attr({src:imagePath+"delete.png"});
     },
@@ -25,9 +25,9 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
+{include 'hlp_category_index'}
 <h1>{@hfnuadmin~category.the.categories@}</h1>
 {ifacl2 'hfnu.admin.category.create'}
-{include 'hlp_category_index'}
 <h2>{@hfnuadmin~category.create.a.category@}</h2>
 {formfull $form, 'hfnuadmin~category:savecreate'}
 <br/>

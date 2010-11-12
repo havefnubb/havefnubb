@@ -3,18 +3,22 @@
 
 <input ref="title" type="string" required="true" size="80">
     <label locale="hfnuadmin~config.title"/>
+    <help locale="hfnuadmin~config.title.help"/>
 </input>
 
 <input ref="description" type="string" required="true" size="80">
     <label locale="hfnuadmin~config.description"/>
+    <help locale="hfnuadmin~config.description.help"/>
 </input>
 
 <textarea ref="rules" required="false" cols="60">
     <label locale="hfnuadmin~config.rules"/>
+    <help locale="hfnuadmin~config.rules.help"/>
 </textarea>
 
 <input ref="webmaster_email" type="email" required="true" size="80">
     <label locale="hfnuadmin~config.webmaster_email"/>
+    <help locale="hfnuadmin~config.webmaster_email.help"/>
 </input>
 
 <input ref="admin_email" type="email" required="true" size="80">
@@ -23,6 +27,7 @@
 
 <menulist ref="timezone" required="true">
     <label locale="hfnuadmin~config.admin_timezone" />
+    <help locale="hfnuadmin~config.admin_timezone.help" />
     <datasource class="havefnubb~timezone" />
 </menulist>
 
