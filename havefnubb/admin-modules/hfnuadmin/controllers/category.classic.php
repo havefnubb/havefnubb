@@ -102,9 +102,15 @@ class categoryCtrl extends jController {
             $dao = jDao::get('havefnubb~category');
 
             foreach ($id_cat as $thisId) {
-                $record 			= $dao->get( (int) $id_cat[$thisId]);
-                $record->cat_name 	= (string) $cat_name[$id_cat[$thisId]];
-                $record->cat_order 	= (int) $cat_order[$id_cat[$thisId]];
+                $record             = $dao->get( (int) $id_cat[$thisId]);
+                $record->cat_name   = (string) $cat_name[$id_cat[$thisId]];
+                $record->cat_order  = (int) $cat_order[$id_cat[$thisId]];
+                if ($record->cat_name == '' or $record->cat_order == 0) {
+                    jMessage::add(jLocale::get('hfnuadmin~category.category.name.or.order.invalid'),'error');
+                    $rep = $this->getResponse('redirect');
+                    $rep->action='hfnuadmin~category:index';
+                    return $rep;
+                }
                 $dao->update($record);
             }
             jForms::destroy('hfnuadmin~category');

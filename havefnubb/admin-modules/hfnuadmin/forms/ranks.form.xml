@@ -5,10 +5,12 @@
 
 <input ref="rank_name" type="string" required="true" size="40">
     <label locale="havefnubb~rank.rank_name"/>
+    <help  locale="havefnubb~rank.rank_name.help"/>
 </input>
 
 <input ref="rank_limit" type="integer" required="true" size="9">
     <label locale="havefnubb~rank.rank_limit"/>
+    <help  locale="havefnubb~rank.rank_limit.help"/>
 </input>
 
 <submit ref="validate">

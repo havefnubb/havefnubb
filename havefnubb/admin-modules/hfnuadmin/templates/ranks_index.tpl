@@ -1,4 +1,32 @@
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.widget.min.js'}
 {meta_html css  $j_jelixwww.'design/records_list.css'}
+{literal}
+<script type="text/javascript">
+//<![CDATA[
+var imagePath = '{/literal}{$j_basepath}{literal}hfnu/images/';
+$(document).ready(function(){
+  // hide help
+  $(".hfnuadmin-help").hide();
+  // show help
+  $("#hfnuadmin-help").click(function () {
+     $(this).toggleClass("active").next().slideToggle("slow");
+  });
+  //toggle Image
+  $("#hfnuadmin-help").toggle(
+    function () {
+      $(this).find("img").attr({src:imagePath+"delete.png"});
+    },
+    function () {
+      $(this).find("img").attr({src:imagePath+"add.png"});
+    }
+  );
+});
+//]]>
+</script>
+{/literal}
+{include 'hlp_rank'}
 <h1>{@havefnubb~rank.the.ranks@}</h1>
 {ifacl2 'hfnu.admin.rank.create'}
 <h2>{@hfnuadmin~rank.create.a.rank@}</h2>
@@ -23,8 +51,8 @@
         {foreach $ranks as $rank}
         {ifacl2 'hfnu.admin.rank.edit'}
         <tr class="{if $line}odd{else}even{/if}">
-            <td><input type="text" size="40" name="rank_name[{$rank->id_rank}]" value="{$rank->rank_name}" /></td>
-            <td><input type="text" size="9" name="rank_limit[{$rank->id_rank}]" value="{$rank->rank_limit}" /></td>
+            <td><span class="jforms-required-star">*</span> <input type="text" size="40" name="rank_name[{$rank->id_rank}]" value="{$rank->rank_name}" /></td>
+            <td><span class="jforms-required-star">*</span> <input type="text" size="9" name="rank_limit[{$rank->id_rank}]" value="{$rank->rank_limit}" /></td>
             <td><input type="hidden" name="id_rank[{$rank->id_rank}]" value="{$rank->id_rank}" />{ifacl2 'hfnu.admin.rank.delete'}<a href="{jurl 'hfnuadmin~ranks:delete',array('id_rank'=>$rank->id_rank)}" title="{@hfnuadmin~rank.delete.this.rank@}" onclick="return confirm('{jlocale 'hfnuadmin~rank.confirm.deletion',array('')}')">{@hfnuadmin~common.delete@}</a>{/ifacl2}</td>
         </tr>
         {else}
