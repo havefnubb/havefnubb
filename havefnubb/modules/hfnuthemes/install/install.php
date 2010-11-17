@@ -12,6 +12,8 @@
 class hfnuthemesModuleInstaller extends jInstallerModule {
 
     function install() {
-
+        if (!$this->getParameter('nocopyfiles') && $this->firstExec('copyfile')) {
+            $this->copyDirectoryContent('css/hfnuthemes.css', 'www:themes/default/css/hfnuthemes.css');
+        }
     }
 }
