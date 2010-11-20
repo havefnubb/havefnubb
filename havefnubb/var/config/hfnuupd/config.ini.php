@@ -1,28 +1,26 @@
 ;<?php die(''); ?>
 ;for security reasons , don't remove or modify the first line
 
-startModule=havefnubb
+startModule=hfnuupd
 startAction="default:index"
 
 modulesPath="lib:jelix-modules/,app:admin-modules/,app:modules/,app:../modules-hook/"
 
+[sessions]
+; to disable sessions, set the following parameter to 0
+start=0
+
 [coordplugins]
 autolocale=autolocale.coord.ini.php
-auth="havefnubb/auth.coord.ini.php"
-jacl2="havefnubb/jacl2.coord.ini.php"
-banuser="havefnubb/banuser.coord.ini.php"
-timeout="havefnubb/timeout.coord.ini.php"
-history="havefnubb/history.coord.ini.php"
-flood="havefnubb/flood.coord.ini.php"
+auth="hfnuupd/auth.coord.ini.php"
 
 [responses]
-html=fnuHtmlResponse
+html=fnuUpdHtmlResponse
 
 [acl2]
 driver=db
-
 [logfiles]
-DEBUG=havefnubbdebug.log
+DEBUG=hfnuupd.log
 
 [modules]
 jelix.access=2
@@ -55,5 +53,4 @@ modulesinfo.access=0
 
 jelixcache.access=0
 
-hfnuupd.access=0
-
+hfnuupd.access=2

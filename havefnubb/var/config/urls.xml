@@ -35,4 +35,11 @@
         <url pathinfo="/admin/modulesinfo" module="modulesinfo" include="urls.xml" />
         <url pathinfo="/admin/cache" module="jelixcache" include="urls.xml" />
     </classicentrypoint>
+
+    <classicentrypoint name="hfnuupd" default="false" noentrypoint="false">
+        <url pathinfo="/" module="hfnuupd" action="default:index"  optionalTrailingSlash="true"/>
+        <url pathinfo="/update_1_4_0" module="hfnuupd" action="default:run_1_4_0"  optionalTrailingSlash="true"/>
+    </classicentrypoint>
+
+
 </urls>
