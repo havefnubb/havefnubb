@@ -12,10 +12,9 @@
 */
 class connectedusers {
     
-    public function connectUser($login, $name='') {
+    public function connectUser($login) {
         $dao = jDao::get('activeusers~connectedusers');
-		if ($name =='')
-			$name = $login;
+        $name = $this->getName();
 
         $record = $dao->getByLoginSession($login, session_id());
         if ($record) {
@@ -61,23 +60,43 @@ class connectedusers {
 		}
 		else return 0;
 	}
-    
+
+	public function isConnected ($login) {
+		$dao = jDao::get('activeusers~connectedusers');
+		$timeoutVisit = $this->getVisitTimeout();
+
+        $record = $dao->getIfConnected($login, $timeoutVisit);
+        if ($record) {
+			return true;
+		}
+		else return false;
+	}
+
     /**
      * save the date of the visit for the current user
      */
     public function check() {
         $dao = jDao::get('activeusers~connectedusers');
         if (jAuth::isConnected()) {
-            $login = jAuth::getUserSession()->login;
-            if ($login == '')
+            $user = jAuth::getUserSession();
+            $login = $user->login;
+            if ($login == '') {
                 $login = null;
+                $name = null;
+            }
+            else {
+                $name = $this->getName();
+            }
         }
-        else
+        else {
             $login = null;
+            $name = null;
+        }
 
         $record = $dao->get(session_id());
         if ($record) {
             $record->login = $login;
+            $record->name = $name;
             $record->last_request_date = time();
             $dao->update($record);
         }
@@ -85,9 +104,42 @@ class connectedusers {
             $record = jDao::createRecord('activeusers~connectedusers');
             $record->sessionid = session_id();
             $record->login = $login;
+            $record->name = $name;
             $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $dao->insert($record);
         }
     }
+
+	function getList() {
+		$timeout = $this->getVisitTimeout();
+        if ($timeout == 0)
+            $timeout = time();
+        $dao = jDao::get('activeusers~connectedusers');
+        $members = $dao->findConnected($timeout);
+		return $members;
+	}
+
+	function getCount() {
+		$timeout = $this->getVisitTimeout();
+        if ($timeout == 0)
+            $timeout = time();
+        $dao = jDao::get('activeusers~connectedusers');
+        $members = $dao->countConnected($timeout);
+		return $members;
+	}
+
+
+
+	protected function getName() {
+		$user = jAuth::getUserSession();
+        $name = '';
+        if (isset($user->nickname))
+            $name = $user->nickname;
+        elseif (isset($user->name))
+            $name = $user->name;
+		if ($name == '')
+			$name = $user->login;
+		return $name;
+	}
 }

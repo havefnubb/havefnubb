@@ -21,11 +21,7 @@ class onlineusersZone extends jZone {
      */
     protected function _prepareTpl(){
 
-        $timeout = jClasses::create('activeusers~connectedusers')->getVisitTimeout();
-        if ($timeout == 0)
-            $timeout = time();
-        $dao = jDao::get('activeusers~connectedusers');
-        $members = $dao->findConnected($timeout);
+        $members = jClasses::create('activeusers~connectedusers')->getList();
         $nbMembers = $members->rowCount();
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('nbMembers',$nbMembers);

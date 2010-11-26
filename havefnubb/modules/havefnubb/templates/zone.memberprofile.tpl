@@ -14,7 +14,7 @@
 <div class="post-author">
     <ul class="member-ident">
         {hook 'hfbMemberProfile',array('user'=>$user->id)}
-        <li class="user-name user-image">{zone 'activeusers~onlinestatus',array('userId'=>$user->id)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->nickname)}">{$user->nickname|eschtml}</a></li>
+        <li class="user-name user-image">{zone 'activeusers~onlinestatus',array('login'=>$user->login)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->nickname)}">{$user->nickname|eschtml}</a></li>
         {if $user->member_gravatar == 1}
             <li>{gravatar $user->email,array('username'=>$user->login)}</li>
         {else}

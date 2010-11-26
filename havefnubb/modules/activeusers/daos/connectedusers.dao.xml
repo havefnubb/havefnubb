@@ -37,6 +37,15 @@
 			</order>
 	    </method>
 
+		<method name="getIfConnected" type="selectfirst">
+			<parameter name="login" />
+			<parameter name="mintime" />
+			<conditions>
+				<gt property="last_request_date" expr="$mintime" />
+ 				<eq property="login" expr="$login" />
+			</conditions>
+	    </method>
+
 		<method name="disconnectUser" type="delete">
 			<parameter name="login" />
 			<conditions>

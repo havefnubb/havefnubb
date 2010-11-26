@@ -5,9 +5,15 @@
 <div id="currently-online">
 {hook 'ActiveUsersOnlineUsers'}
 <ul class="user-currently-online">
+{assign $nbanonymous = 0}
 {foreach $members as $member}
-    <li><a href="{jurl 'jcommunity~account:show',array('user'=>$member->login)}" title="{$member->name|eschtml}">{$member->name|eschtml}</a>,</li>
+    {if $member->login}
+        <li><a href="{jurl 'jcommunity~account:show',array('user'=>$member->login)}"
+        title="{$member->name|eschtml}">{$member->name|eschtml}</a>,</li>
+    {else}{assign $nbanonymous = $nbanonymous + 1}{/if}
 {/foreach}
+{if $nbanonymous}<li>{jlocale 'activeusers~activeusers.anonymous.number', $nbanonymous}</li>{/if}
+
 </ul>
 </div>
 {/if}

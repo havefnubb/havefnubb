@@ -18,7 +18,7 @@ class authhavefnubbListener extends jEventListener{
     */
     function onAuthLogin ($event) {
         global $gJConfig;
-        $login = $event->getParam('login');
+        $user = jAuth::getUserSession();
 
         $_SESSION['JX_LANG'] = $user->member_language;
         $gJConfig->locale = $user->member_language;
@@ -81,7 +81,6 @@ class authhavefnubbListener extends jEventListener{
                      ,'error');
                 return;
             }
-
         }
         jMessage::add(jLocale::get('havefnubb~member.profile.updated'),'ok');
     }

@@ -20,16 +20,13 @@ class onlinestatusZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        $userId = (int) $this->param('userId');
+        $login = $this->param('login');
         $status = 'offline';
-        if ($userId > 0) {
-            $dao = jDao::get('havefnubb~timeout');
-            $user = $dao->getConnectedByIdUser(time(),$userId);
-
-            if ( $user === false )
-                $status = 'offline';
-            else
+        if ($login) {
+            if ( jClasses::create('connectedusers')->isConnected($login))
                 $status = 'online';
+            else
+                $status = 'offline';
         }
         $this->_tpl->assign('status',$status);
     }

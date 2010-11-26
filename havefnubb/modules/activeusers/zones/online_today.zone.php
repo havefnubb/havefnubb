@@ -20,7 +20,7 @@ class online_todayZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        $dao = jDao::get('activeusers~activeusers');
+        $dao = jDao::get('activeusers~connectedusers');
         $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
         $members = $dao->findConnected($today);
         $nbMembers = $members->rowCount();
