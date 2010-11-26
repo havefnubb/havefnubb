@@ -13,7 +13,7 @@ class activeusersadminListener extends jEventListener{
     function onservinfoGetInfo($event) {
         $dao = jDao::get('activeusers~connectedusers');
         $nbMembers = $dao->countConnected(time());
-        $label = jLocale::get('activeusers~main.server.infos.online.users');
+        $label = jLocale::get('activeusers_admin~main.server.infos.online.users');
         $event->add(new serverinfoData('user-online', $label, $nbMembers));
     }
 }

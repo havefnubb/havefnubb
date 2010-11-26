@@ -169,24 +169,5 @@
                     <value property="request_date" expr="$request_date"/>
             </values>
         </method>
-        <method name="findOnlineToday" type="select">
-            <parameter name="today" />
-            <conditions>
-                <gteq property="last_request_date" expr="$today" />
-            </conditions>
-        </method>
-        <method name="findAllConnected" type="select">
-            <parameter name="time" />
-            <conditions>
-                    <gt property="connection_date" expr="$time" />
-            </conditions>
-        </method>
-        <method name="countAllConnected" type="count">
-            <parameter name="time" />
-            <conditions>
-                    <gt property="connection_date" expr="$time" />
-            </conditions>
-        </method>
-
    </factory>
 </dao>

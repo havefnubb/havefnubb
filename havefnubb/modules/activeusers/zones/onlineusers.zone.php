@@ -25,7 +25,7 @@ class onlineusersZone extends jZone {
         if ($timeout == 0)
             $timeout = time();
         $dao = jDao::get('activeusers~connectedusers');
-        $members = $dao->findAllConnected($timeout);
+        $members = $dao->findConnected($timeout);
         $nbMembers = $members->rowCount();
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('nbMembers',$nbMembers);

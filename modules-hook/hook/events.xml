@@ -29,10 +29,7 @@
         <event name="hfbAfterStats"/>
 
         <event name="ActiveUsersOnlineUsers"/>
-
-        <event name="hfbBeforeOnlineToday"/>
-        <event name="hfbOnlineToday"/>
-        <event name="hfbAfterOnlineToday"/>
+        <event name="ActiveUsersOnlineToday"/>
 
         <event name="hfbBeforeFlood"/>
         <event name="hfbFlood"/>

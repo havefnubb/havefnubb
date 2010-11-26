@@ -113,7 +113,7 @@
 
 <div class="grid_5">
     {zone 'activeusers~onlineusers'}
-    {zone 'havefnubb~online_today'}
+    {zone 'activeusers~online_today'}
 </div>
 
 <div class="grid_6 omega">
