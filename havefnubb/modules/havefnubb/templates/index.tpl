@@ -112,7 +112,7 @@
 </div>
 
 <div class="grid_5">
-    {zone 'havefnubb~online'}
+    {zone 'activeusers~onlineusers'}
     {zone 'havefnubb~online_today'}
 </div>
 

@@ -28,9 +28,7 @@
         <event name="hfbStats"/>
         <event name="hfbAfterStats"/>
 
-        <event name="hfbBeforeOnline"/>
-        <event name="hfbOnline"/>
-        <event name="hfbAfterOnline"/>
+        <event name="ActiveUsersOnlineUsers"/>
 
         <event name="hfbBeforeOnlineToday"/>
         <event name="hfbOnlineToday"/>

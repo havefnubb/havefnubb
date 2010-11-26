@@ -19,7 +19,14 @@ class activeusersauthListener extends jEventListener{
     */
     function onAuthLogin ($event) {
         $login = $event->getParam('login');
-        jClasses::getService('activeusers~connectedusers')->connectUser($login);
+        $user = jAuth::getUserSession();
+        $name = '';
+        if (isset($user->nickname))
+            $name = $user->nickname;
+        elseif (isset($user->name))
+            $name = $user->name;
+        
+        jClasses::getService('activeusers~connectedusers')->connectUser($login, $name);
     }
 
     /**

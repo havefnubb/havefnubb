@@ -4,6 +4,6 @@
 <div id="statsinfos">
     {zone 'havefnubb~lastposts'}
     {zone 'havefnubb~stats'}
-    {zone 'havefnubb~online'}
+    {zone 'activeusers~onlineusers'}
     {zone 'havefnubb~online_today'}
 </div>

@@ -12,12 +12,15 @@
 */
 class connectedusers {
     
-    public function connectUser($login) {
+    public function connectUser($login, $name='') {
         $dao = jDao::get('activeusers~connectedusers');
+		if ($name =='')
+			$name = $login;
 
         $record = $dao->getByLoginSession($login, session_id());
         if ($record) {
             $record->login = $login; // perhaps the record exist, but with an anonymous user
+			$record->name = $name;
             $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $dao->update($record);
@@ -26,6 +29,7 @@ class connectedusers {
             $record = jDao::createRecord('activeusers~connectedusers');
             $record->sessionid = session_id();
             $record->login = $login;
+			$record->name = $name;
             $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $dao->insert($record);
@@ -41,16 +45,22 @@ class connectedusers {
     }
     
     protected function deleteDisconnectedUsers() {
-        global $gJCoord;
-
-        $plugin = $gJCoord->getPlugin('activeusers');
-        if ($plugin) {
-    		$timeoutVisit       = ($plugin->config['timeout_visit'] > 0 ) ? $plugin->config['timeout_visit'] : 1200;
-            $timeoutVisit = time() - $timeoutVisit;
+		$timeoutVisit = $this->getVisitTimeout();
+		if ($timeoutVisit) {
             jDao::get('activeusers~connectedusers')->clear($timeoutVisit);
         }
     }
     
+	public function getVisitTimeout() {
+        global $gJCoord;
+		$plugin = $gJCoord->getPlugin('activeusers');
+        if ($plugin) {
+    		$timeoutVisit       = ($plugin->config['timeout_visit'] > 0 ) ? $plugin->config['timeout_visit'] : 1200;
+            $timeoutVisit = time() - $timeoutVisit;
+			return $timeoutVisit;
+		}
+		else return 0;
+	}
     
     /**
      * save the date of the visit for the current user

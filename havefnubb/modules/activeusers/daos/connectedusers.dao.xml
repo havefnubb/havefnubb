@@ -6,6 +6,7 @@
     <record>
 		<property name="sessionid" fieldname="sessionid" datatype="varchar"/>
 		<property name="login" fieldname="login" datatype="varchar"/>
+		<property name="name" fieldname="name" datatype="varchar"/>
 		<property name="member_ip"  fieldname="member_ip"   datatype="string"   />
 		<property name="connection_date"  fieldname="connection_date"   datatype="integer"  />
 		<property name="last_request_date" fieldname="last_request_date" datatype="integer"  />

@@ -41,13 +41,7 @@ class hookListener extends jEventListener{
     function onhfbAfterStats ($event) {
 
     }
-    function onhfbBeforeOnline ($event) {
-
-    }
-    function onhfbOnline ($event) {
-
-    }
-    function onhfbAfterOnline ($event) {
+    function onActiveUsersOnlineUsers ($event) {
 
     }
     function onhfbBeforeOnlineToday ($event) {

@@ -57,7 +57,7 @@
 
             <div class="col3mid left">
                 <div class="col3_content">
-                    {zone 'havefnubb~online'}
+                    {zone 'activeusers~onlineusers'}
                     {zone 'havefnubb~online_today'}
                 </div>
             </div>

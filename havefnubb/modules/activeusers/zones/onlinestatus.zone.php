@@ -9,7 +9,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * Class the displays the members the status of the members
+ * the status of the members
  */
 class onlinestatusZone extends jZone {
     /**

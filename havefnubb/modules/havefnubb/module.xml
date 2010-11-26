@@ -19,5 +19,6 @@
         <module name="jmessenger" minversion="0.1" maxversion="0.1.*"/>
         <module name="hfnusearch" minversion="1.3.5" maxversion="1.4.*"/>
         <module name="hfnurates" minversion="1.3.5" maxversion="1.4.*"/>
+        <module name="activeusers" />
     </dependencies>
 </module>
