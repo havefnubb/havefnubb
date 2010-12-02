@@ -14,9 +14,9 @@
             {if $module->versionDate}
                 {@modulesinfo~modules.about.date.version@}
                 {$module->versionDate|jdatetime:'db_date':'lang_date'} {/if}</strong>
-            {if $module->creationDate}
+            {if $module->createDate}
             (<em>{@modulesinfo~modules.about.date.create@}
-                    {$module->creationDate|jdatetime:'db_date':'lang_date'}</em>){/if}</td>
+                    {$module->createDate|jdatetime:'db_date':'lang_date'}</em>){/if}</td>
         </tr>
         <tr  class="odd">
             <th>{@modulesinfo~modules.about.desc@} :</th>
