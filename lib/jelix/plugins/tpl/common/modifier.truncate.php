@@ -4,7 +4,6 @@
  * Plugin from smarty project and adapted for jtpl
  * @package    jelix
  * @subpackage jtpl_plugin
- * @author
  * @contributor Laurent Jouanneau (utf8 compliance)
  * @contributor Yannick Le Guédart
  * @copyright  2001-2003 ispi of Lincoln, Inc., 2007 Laurent Jouanneau

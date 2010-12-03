@@ -5,7 +5,7 @@
 * @subpackage db_driver
 * @author     Gwendal Jouannic
 * @contributor Laurent Jouanneau
-* @copyright  2008 Gwendal Jouannic, 2009 Laurent Jouanneau
+* @copyright  2008 Gwendal Jouannic, 2009-2010 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -94,7 +94,7 @@ class ociDbTools extends jDbTools{
 		}
 		return $results;
 	}
-	public function getFieldList($tableName){
+	public function getFieldList($tableName,$sequence=''){
 		$tableName=$this->_conn->prefixTable($tableName);
 		$results=array();
 		$query='SELECT COLUMN_NAME, DATA_TYPE, DATA_LENGTH, NULLABLE, DATA_DEFAULT,  
@@ -104,9 +104,7 @@ class ociDbTools extends jDbTools{
                             AND UC.TABLE_NAME = UTC.TABLE_NAME
                             AND UCC.COLUMN_NAME = UTC.COLUMN_NAME
                             AND UC.CONSTRAINT_NAME = UCC.CONSTRAINT_NAME
-                            AND UC.CONSTRAINT_TYPE = \'P\') AS CONSTRAINT_TYPE,
-                         (SELECT \'Y\' FROM USER_SEQUENCES US
-                         WHERE US.SEQUENCE_NAME = concat(\''.$this->_getAISequenceName($tableName,'\', UTC.COLUMN_NAME').')) AS IS_AUTOINCREMENT   
+                            AND UC.CONSTRAINT_TYPE = \'P\') AS CONSTRAINT_TYPE
                     FROM USER_TAB_COLUMNS UTC 
                     WHERE UTC.TABLE_NAME = \''.strtoupper($tableName).'\'';
 		$rs=$this->_conn->query($query);
@@ -126,9 +124,18 @@ class ociDbTools extends jDbTools{
 			}
 			$field->notNull=($line->nullable=='N');
 			$field->primary=($line->constraint_type=='P');
-			if($line->is_autoincrement=='Y'){
-				$field->autoIncrement=true;
-				$field->sequence=$this->_getAISequenceName($tableName,$field->name);
+			if($field->primary){
+				if($sequence=='')
+					$sequence=$this->_getAISequenceName($tableName,$field->name);
+				if($sequence!=''){
+					$sqlai="SELECT 'Y' FROM USER_SEQUENCES US
+                                WHERE US.SEQUENCE_NAME = '".$sequence."'";
+					$rsai=$this->_conn->query($sqlai);
+					if($this->_conn->query($sqlai)->fetch()){
+						$field->autoIncrement=true;
+						$field->sequence=$sequence;
+					}
+				}
 			}
 			if($line->data_default!==null||!($line->data_default===null&&$field->notNull)){
 				$field->hasDefault=true;
@@ -139,6 +146,10 @@ class ociDbTools extends jDbTools{
 		return $results;
 	}
 	function _getAISequenceName($tbName,$clName){
-		return preg_replace(array('/\*tbName\*/','/\*clName\*/'),array(strtoupper($tbName),strtoupper($clName)),$this->_conn->profile['sequence_AI_pattern']);
+		if(isset($this->_conn->profile['sequence_AI_pattern']))
+			return preg_replace(array('/\*tbName\*/','/\*clName\*/'),
+							array(strtoupper($tbName),strtoupper($clName)),
+							$this->_conn->profile['sequence_AI_pattern']);
+		return '';
 	}
 }

@@ -2,9 +2,9 @@
 /**
 * @package     jelix-modules
 * @subpackage  jacl2db
-* @author      Jouanneau Laurent
-* @contributor Bastien Jaillot
-* @copyright   2008 Jouanneau laurent, 2008 Bastien Jaillot
+* @author      Laurent Jouanneau
+* @contributor Bastien Jaillot, Vincent Viaud
+* @copyright   2008 Laurent Jouanneau, 2008 Bastien Jaillot, 2010 BP2I
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 * @since 1.1
 */
@@ -39,4 +39,8 @@ class jacl2dbListener extends jEventListener{
             jAcl2DbUserGroup::removeUser($login);
         }
    }
+
+   function onAuthLogout($event){
+        try { jAcl2::clearCache(); } catch(Exception $e) {}
+    }
 }

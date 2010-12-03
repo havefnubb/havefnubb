@@ -4,7 +4,6 @@
 * @package     jelix
 * @subpackage  installer
 * @author      Laurent Jouanneau
-* @contributor 
 * @copyright   2008-2010 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
@@ -233,6 +232,8 @@ class jInstaller{
 		$this->notice('install.entrypoint.start',$epId);
 		$ep=$this->entryPoints[$epId];
 		$GLOBALS['gJConfig']=$ep->config;
+		if($ep->config->disableInstallers)
+			$this->notice('install.entrypoint.installers.disabled');
 		$result=$this->checkDependencies($modules,$epId);
 		if(!$result){
 			$this->error('install.bad.dependencies');
@@ -249,20 +250,33 @@ class jInstaller{
 													1,$epId);
 					$this->installerIni->setValue($component->getName().'.version',
 													$component->getSourceVersion(),$epId);
-					$upgraders=$component->getUpgraders($ep);
-					foreach($upgraders as $upgrader){
-						$upgrader->preInstall();
+					if($ep->config->disableInstallers){
+						$upgraders=array();
+					}
+					else{
+						$upgraders=$component->getUpgraders($ep);
+						foreach($upgraders as $upgrader){
+							$upgrader->preInstall();
+						}
 					}
 					$componentsToInstall[]=array($upgraders,$component,false);
 				}
 				else if($toInstall){
-					$installer=$component->getInstaller($ep,$installWholeApp);
+					if($ep->config->disableInstallers)
+						$installer=null;
+					else
+						$installer=$component->getInstaller($ep,$installWholeApp);
 					$componentsToInstall[]=array($installer,$component,$toInstall);
 					if($flags & self::FLAG_INSTALL_MODULE&&$installer)
 						$installer->preInstall();
 				}
 				else{
-					$upgraders=$component->getUpgraders($ep);
+					if($ep->config->disableInstallers){
+						$upgraders=array();
+					}
+					else{
+						$upgraders=$component->getUpgraders($ep);
+					}
 					if($flags & self::FLAG_UPGRADE_MODULE&&count($upgraders)){
 						foreach($upgraders as $upgrader){
 							$upgrader->preInstall();
@@ -376,7 +390,8 @@ class jInstaller{
 				try{
 					$component->init();
 					$this->_checkDependencies($component,$epId);
-					if(!$component->isInstalled($epId)){
+					if($this->entryPoints[$epId]->config->disableInstallers
+						||!$component->isInstalled($epId)){
 						$this->_componentsToInstall[]=array($component,true);
 					}
 					else if(!$component->isUpgraded($epId)){
@@ -424,7 +439,8 @@ class jInstaller{
 				}
 				if(!isset($this->_checkedComponents[$comp->getName()])){
 					$this->_checkDependencies($comp,$epId);
-					if(!$comp->isInstalled($epId)){
+					if($this->entryPoints[$epId]->config->disableInstallers
+						||!$comp->isInstalled($epId)){
 						$this->_componentsToInstall[]=array($comp,true);
 					}
 					else if(!$comp->isUpgraded($epId)){

@@ -5,7 +5,7 @@
 * @subpackage db_driver
 * @author     Loic Mathaud
 * @contributor Laurent Jouanneau
-* @copyright  2006 Loic Mathaud, 2007-2009 Laurent Jouanneau
+* @copyright  2006 Loic Mathaud, 2007-2010 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -94,7 +94,7 @@ class sqliteDbTools extends jDbTools{
 		}
 		return $results;
 	}
-	public function getFieldList($tableName){
+	public function getFieldList($tableName,$sequence=''){
 		$tableName=$this->_conn->prefixTable($tableName);
 		$results=array();
 		$query="PRAGMA table_info(". sqlite_escape_string($tableName).")";

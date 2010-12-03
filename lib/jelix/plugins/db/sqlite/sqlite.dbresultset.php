@@ -18,7 +18,7 @@ class sqliteDbResultSet extends jDbResultSet{
 		return;
 	}
 	protected function _rewind(){
-		return sqlite_rewind($this->_idResult);
+		return @sqlite_rewind($this->_idResult);
 	}
 	public function rowCount(){
 		return sqlite_num_rows($this->_idResult);

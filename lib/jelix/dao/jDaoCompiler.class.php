@@ -3,7 +3,7 @@
 /**
 * @package    jelix
 * @subpackage dao
-* @author     Croes Gérald, Laurent Jouanneau
+* @author     Gérald Croes, Laurent Jouanneau
 * @contributor Laurent Jouanneau
 * @copyright  2001-2005 CopixTeam, 2005-2009 Laurent Jouanneau
 * Ideas and some parts of this file were get originally from the Copix project
@@ -258,7 +258,8 @@ class jDaoMethod{
 	private $_groupBy=null;
 	function __construct($method,$parser){
 		$this->_parser=$parser;
-		$params=$parser->getAttr($method,array('name','type','call','distinct','eventbefore','eventafter','groupby'));
+		$params=$parser->getAttr($method,array('name','type','call','distinct',
+												'eventbefore','eventafter','groupby'));
 		if($params['name']===null){
 			throw new jDaoXmlException($this->_parser->selector,'missing.attr',array('name','method'));
 		}
@@ -749,10 +750,7 @@ class jDaoGenerator{
 	protected function buildUserMethods(){
 		$allField=$this->_getPropertiesBy('All');
 		$primaryFields=$this->_getPropertiesBy('PrimaryTable');
-		$ct=null;
 		$src=array();
-		$tables=$this->_dataParser->getTables();
-		$properties=$this->_dataParser->getProperties();
 		foreach($this->_dataParser->getMethods()as $name=>$method){
 			$defval=$method->getParametersDefaultValues();
 			if(count($defval)){
@@ -769,74 +767,28 @@ class jDaoGenerator{
 			}
 			$src[]=' function '.$method->name.' ('. $mparam.'){';
 			$limit='';
+			$glueCondition=' WHERE ';
 			switch($method->type){
 				case 'delete':
-					$src[]='    $__query = \'DELETE FROM '.$this->tableRealNameEsc.' \';';
-					$glueCondition=' WHERE ';
+					$this->buildDeleteUserQuery($method,$src,$primaryFields);
 					break;
 				case 'update':
-					$src[]='    $__query = \'UPDATE '.$this->tableRealNameEsc.' SET ';
-					$updatefields=$this->_getPropertiesBy('PrimaryFieldsExcludePk');
-					$sqlSet='';
-					foreach($method->getValues()as $propname=>$value){
-						if($value[1]){
-							foreach($method->getParameters()as $param){
-								$value[0]=str_replace('$'.$param,'\'.'.$this->_preparePHPExpr('$'.$param,$updatefields[$propname],true).'.\'',$value[0]);
-							}
-							$sqlSet.=', '.$this->_encloseName($updatefields[$propname]->fieldName). '= '. $value[0];
-						}else{
-							$sqlSet.=', '.$this->_encloseName($updatefields[$propname]->fieldName). '= '.
-								$this->tools->escapeValue($updatefields[$propname]->unifiedType,$value[0],false,true);
-						}
-					}
-					$src[]=substr($sqlSet,1).'\';';
-					$glueCondition=' WHERE ';
+					$this->buildUpdateUserQuery($method,$src,$primaryFields);
 					break;
 				case 'php':
 					$src[]=$method->getBody();
 					$src[]='}';
 					break;
 				case 'count':
-					if($method->distinct!=''){
-						$prop=$properties[$method->distinct];
-						$count=' DISTINCT '.$this->_encloseName($tables[$prop->table]['name']).'.'.$this->_encloseName($prop->fieldName);
-					}
-					else{
-						$count='*';
-					}
-					$src[]='    $__query = \'SELECT COUNT('.$count.') as c \'.$this->_fromClause.$this->_whereClause;';
-					$glueCondition=($this->sqlWhereClause!='' ? ' AND ':' WHERE ');
+					$this->buildCountUserQuery($method,$src,$allField);
 					break;
 				case 'selectfirst':
 				case 'select':
 				default:
-					if($method->distinct!=''){
-						$select='\''.$this->buildSelectClause($method->distinct).'\'';
-					}else{
-						$select=' $this->_selectClause';
-					}
-					$src[]='    $__query = '.$select.'.$this->_fromClause.$this->_whereClause;';
-					$glueCondition=($this->sqlWhereClause!='' ? ' AND ':' WHERE ');
-					if($method->type=='select'&&($lim=$method->getLimit())!==null){
-						$limit=', '.$lim['offset'].', '.$lim['count'];
-					}
+					$limit=$this->buildSelectUserQuery($method,$src,$allField);
 			}
 			if($method->type=='php')
 				continue;
-			$cond=$method->getConditions();
-			$sqlCond='';
-			if($cond!==null){
-				if($method->type=='delete'||$method->type=='update')
-					$sqlCond=$this->buildConditions($cond,$primaryFields,$method->getParameters(),false);
-				else if($method->type=='count')
-					$sqlCond=$this->buildConditions($cond,$allField,$method->getParameters(),true);
-				else
-					$sqlCond=$this->buildConditions($cond,$allField,$method->getParameters(),true,$method->getGroupBy());
-			}else if(($method->type=='select'||$method->type=='selectfirst')){
-				$sqlCond=$this->buildConditions(null,$allField,$method->getParameters(),true,$method->getGroupBy());
-			}
-			if(trim($sqlCond)!='')
-				$src[]='$__query .=\''.$glueCondition.$sqlCond."';";
 			switch($method->type){
 				case 'delete':
 				case 'update' :
@@ -881,6 +833,75 @@ class jDaoGenerator{
 			$src[]='}';
 		}
 		return implode("\n",$src);
+	}
+	protected function buildDeleteUserQuery($method,&$src,&$primaryFields){
+		$src[]='    $__query = \'DELETE FROM '.$this->tableRealNameEsc.' \';';
+		$cond=$method->getConditions();
+		if($cond!==null){
+			$sqlCond=$this->buildConditions($cond,$primaryFields,$method->getParameters(),false);
+			if(trim($sqlCond)!='')
+				$src[]='$__query .=\' WHERE '.$sqlCond."';";
+		}
+	}
+	protected function buildUpdateUserQuery($method,&$src,&$primaryFields){
+		$src[]='    $__query = \'UPDATE '.$this->tableRealNameEsc.' SET ';
+		$updatefields=$this->_getPropertiesBy('PrimaryFieldsExcludePk');
+		$sqlSet='';
+		foreach($method->getValues()as $propname=>$value){
+			if($value[1]){
+				foreach($method->getParameters()as $param){
+					$value[0]=str_replace('$'.$param,'\'.'.$this->_preparePHPExpr('$'.$param,$updatefields[$propname],true).'.\'',$value[0]);
+				}
+				$sqlSet.=', '.$this->_encloseName($updatefields[$propname]->fieldName). '= '. $value[0];
+			}else{
+				$sqlSet.=', '.$this->_encloseName($updatefields[$propname]->fieldName). '= '.
+					$this->tools->escapeValue($updatefields[$propname]->unifiedType,$value[0],false,true);
+			}
+		}
+		$src[]=substr($sqlSet,1).'\';';
+		$cond=$method->getConditions();
+		if($cond!==null){
+			$sqlCond=$this->buildConditions($cond,$primaryFields,$method->getParameters(),false);
+			if(trim($sqlCond)!='')
+				$src[]='$__query .=\' WHERE '.$sqlCond."';";
+		}
+	}
+	protected function buildCountUserQuery($method,&$src,&$allField){
+		if($method->distinct!=''){
+			$properties=$this->_dataParser->getProperties();
+			$tables=$this->_dataParser->getTables();
+			$prop=$properties[$method->distinct];
+			$count=' DISTINCT '.$this->_encloseName($tables[$prop->table]['name']).'.'.$this->_encloseName($prop->fieldName);
+		}
+		else{
+			$count='*';
+		}
+		$src[]='    $__query = \'SELECT COUNT('.$count.') as c \'.$this->_fromClause.$this->_whereClause;';
+		$glueCondition=($this->sqlWhereClause!='' ? ' AND ':' WHERE ');
+		$cond=$method->getConditions();
+		if($cond!==null){
+			$sqlCond=$this->buildConditions($cond,$allField,$method->getParameters(),true);
+			if(trim($sqlCond)!='')
+				$src[]='$__query .=\''.$glueCondition.$sqlCond."';";
+		}
+	}
+	protected function buildSelectUserQuery($method,&$src,&$allField){
+		$limit='';
+		if($method->distinct!=''){
+			$select='\''.$this->buildSelectClause($method->distinct).'\'';
+		}
+		else{
+			$select=' $this->_selectClause';
+		}
+		$src[]='    $__query = '.$select.'.$this->_fromClause.$this->_whereClause;';
+		$glueCondition=($this->sqlWhereClause!='' ? ' AND ':' WHERE ');
+		if($method->type=='select'&&($lim=$method->getLimit())!==null){
+			$limit=', '.$lim['offset'].', '.$lim['count'];
+		}
+		$sqlCond=$this->buildConditions($method->getConditions(),$allField,$method->getParameters(),true,$method->getGroupBy());
+		if(trim($sqlCond)!='')
+			$src[]='$__query .=\''.$glueCondition.$sqlCond."';";
+		return $limit;
 	}
 	protected function buildFromWhereClause(){
 		$tables=$this->_dataParser->getTables();

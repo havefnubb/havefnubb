@@ -27,7 +27,7 @@ class memcacheKVDriver extends jKVDriver implements jIKVttl{
 			{
 				$server=new stdClass();
 				$server->host=$this->_profile['host'];
-				$server->port=$this->_profile['port'];
+				$server->port=(int)$this->_profile['port'];
 				$this->_servers[]=$server;
 			}
 			else{
@@ -35,7 +35,7 @@ class memcacheKVDriver extends jKVDriver implements jIKVttl{
 					$hp=explode(':',$host_port);
 					$server=new stdClass();
 					$server->host=$hp[0];
-					$server->port=$hp[1];
+					$server->port=(int)$hp[1];
 					$this->_servers[]=$server;
 				}
 			}
@@ -45,7 +45,7 @@ class memcacheKVDriver extends jKVDriver implements jIKVttl{
 				$hp=split(':',$host_port);
 				$server=new stdClass();
 				$server->host=$hp[0];
-				$server->port=$hp[1];
+				$server->port=(int)$hp[1];
 				$this->_servers[]=$server;
 			}
 		}
@@ -128,13 +128,31 @@ class memcacheKVDriver extends jKVDriver implements jIKVttl{
 			return false;
 	}
 	public function increment($key,$incvalue=1){
-		if(!is_numeric($incvalue)||!is_numeric($this->get($key))){
+		if(!is_numeric($incvalue)){
+			return false;
+		}
+		$val=$this->get($key);
+		if(!is_numeric($val)){
+			return false;
+		}else if(is_float($val)){
+			$val=((int)$val)+ $incvalue;
+			if($this->_connection->set($key,$val))
+				return $val;
 			return false;
 		}
 		return $this->_connection->increment($key,$incvalue);
 	}
 	public function decrement($key,$decvalue=1){
-		if(!is_numeric($decvalue)||!is_numeric($this->get($key))){
+		if(!is_numeric($decvalue)){
+			return false;
+		}
+		$val=$this->get($key);
+		if(!is_numeric($val)){
+			return false;
+		}else if(is_float($val)){
+			$val=((int)$val)- $decvalue;
+			if($this->_connection->set($key,$val))
+				return $val;
 			return false;
 		}
 		return $this->_connection->decrement($key,$decvalue);

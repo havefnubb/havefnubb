@@ -9,7 +9,7 @@
 * @link     http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-class memcacheCacheDriver implements jICacheDriver{
+class memcache22CacheDriver implements jICacheDriver{
 	protected $_servers='127.0.0.1:11211';
 	protected $_memcache;
 	public $profil_name;
@@ -20,8 +20,8 @@ class memcacheCacheDriver implements jICacheDriver{
 		if(!extension_loaded('memcache')){
 			throw new jException('jelix~cache.error.memcache.extension.missing',array($this->profil_name,''));
 		}
-		if(version_compare(phpversion('memcache'),'3.0.1')==-1){
-			throw new jException('jelix~cache.error.memcache.extension.badversion.3',array($this->profil_name));
+		if(version_compare(phpversion('memcache'),'3.0.1')> 0){
+			throw new jException('jelix~cache.error.memcache.extension.badversion.2',array($this->profil_name));
 		}
 		$this->profil_name=$params['profile'];
 		if(isset($params['enabled'])){
@@ -56,32 +56,14 @@ class memcacheCacheDriver implements jICacheDriver{
 		return $this->_memcache->delete($key);
 	}
 	public function increment($key,$var=1){
-		if(!is_numeric($var)){
+		if(!is_numeric($var)||!is_numeric($this->get($key))){
 			return false;
-		}
-		$val=$this->get($key);
-		if(!is_numeric($val)){
-			return false;
-		}else if(is_float($val)){
-			$val=((int)$val)+ $var;
-			if($this->_memcache->set($key,$val))
-				return $val;
-			else return false;
 		}
 		return $this->_memcache->increment($key,$var);
 	}
 	public function decrement($key,$var=1){
-		if(!is_numeric($var)){
+		if(!is_numeric($var)||!is_numeric($this->get($key))){
 			return false;
-		}
-		$val=$this->get($key);
-		if(!is_numeric($val)){
-			return false;
-		}else if(is_float($val)){
-			$val=((int)$val)- $var;
-			if($this->_memcache->set($key,$val))
-				return $val;
-			else return false;
 		}
 		return $this->_memcache->decrement($key,$var);
 	}
