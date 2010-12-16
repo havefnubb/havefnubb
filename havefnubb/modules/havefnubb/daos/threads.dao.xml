@@ -7,7 +7,7 @@
         <optionalforeigntable name="forum" realname="hfnu_forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
-        <property name="id_thread"     fieldname="id_thread" datatype="autoincrement"/>
+        <property name="id_thread"     fieldname="id_thread" datatype="autoincrement" sequence="hfnu_threads_id_thread_seq" />
         <property name="id_user_thread" fieldname="id_user" datatype="int" required="true"/>
         <property name="id_forum_thread" fieldname="id_forum" datatype="int" required="true"/>
         <property name="status_thread" fieldname="status"  datatype="int" required="true"/>
@@ -21,7 +21,7 @@
         <property name="iscensored_thread"    fieldname="iscensored"  datatype="int"/>
 
         <!-- properties from posts table -->
-        <property name="id_post"    table="posts"    fieldname="id_post" datatype="autoincrement"/>
+        <property name="id_post"    table="posts"    fieldname="id_post" datatype="int"/>
         <property name="id_user"    table="posts"    fieldname="id_user" datatype="int" required="true"/>
         <property name="id_forum"   table="posts"    fieldname="id_forum" datatype="int" required="true"/>
         <property name="parent_id"  table="posts"    fieldname="parent_id" datatype="int" required="true"/>

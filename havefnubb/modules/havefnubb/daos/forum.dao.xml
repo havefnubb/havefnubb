@@ -5,7 +5,7 @@
         <foreigntable name="category" realname="hfnu_forum_category" primarykey="id_cat" onforeignkey="id_cat"/>
     </datasources>
     <record>
-        <property name="id_forum" fieldname="id_forum" datatype="autoincrement"/>
+        <property name="id_forum" fieldname="id_forum" datatype="autoincrement" sequence="hfnu_forum_id_forum_seq" />
         <property name="forum_name" fieldname="forum_name" datatype="string" required="true" maxlength="255"/>
         <property name="id_cat" fieldname="id_cat" datatype="int" required="true"/>
         <property name="forum_desc" fieldname="forum_desc" datatype="string" required="true" maxlength="255"/>

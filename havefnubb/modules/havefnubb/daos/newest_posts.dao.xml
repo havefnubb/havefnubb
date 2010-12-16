@@ -5,7 +5,7 @@
         <foreigntable name="usr" realname="community_users" primarykey="id" onforeignkey="id_user" />
     </datasources>
     <record>
-    <property name="id_post" fieldname="id_post" datatype="autoincrement"/>
+    <property name="id_post" fieldname="id_post" datatype="autoincrement" sequence="hfnu_posts_id_post_seq" />
     <property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
 
     <property name="viewed" fieldname="viewed" datatype="int"/>

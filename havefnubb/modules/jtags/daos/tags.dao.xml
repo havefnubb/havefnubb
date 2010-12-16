@@ -4,7 +4,7 @@
         <primarytable name="sc_tags" realname="sc_tags" primarykey="tag_id" />
     </datasources>
     <record>
-        <property name="tag_id" fieldname="tag_id" datatype="autoincrement"/>
+        <property name="tag_id" fieldname="tag_id" datatype="autoincrement" sequence="sc_tags_tag_id_seq" />
         <property name="tag_name" fieldname="tag_name" datatype="string" required="true" maxlength="50"/>
         <property name="nbuse" fieldname="nbuse" datatype="int" default="0"/>
     </record>

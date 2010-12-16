@@ -4,7 +4,7 @@
         <primarytable name="usr" realname="community_users" primarykey="login" />
     </datasources>
     <record>
-    <property name="id" fieldname="id" datatype="autoincrement"/>
+    <property name="id" fieldname="id" datatype="autoincrement" sequence="community_users_id_seq" />
     <property name="login" fieldname="login"
         required="yes" datatype="string"  maxlength="50" />
 

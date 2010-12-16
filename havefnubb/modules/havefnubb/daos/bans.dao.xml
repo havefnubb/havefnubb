@@ -4,7 +4,7 @@
         <primarytable name="b" realname="hfnu_bans" primarykey="ban_id" />
     </datasources>
     <record>
-        <property name="ban_id"     fieldname="ban_id" datatype="autoincrement"/>
+        <property name="ban_id"     fieldname="ban_id" datatype="autoincrement" sequence="hfnu_bans_ban_id_seq"/>
         <property name="ban_username" fieldname="ban_username" datatype="string" default="" maxlength="200"/>
         <property name="ban_ip"     fieldname="ban_ip" datatype="string" default="" maxlength="255"/>
         <property name="ban_email"  fieldname="ban_email" datatype="string" default="" maxlength="50"/>
@@ -20,10 +20,10 @@
          </conditions>
      </method>
      <method name="findAllDomains" type="select">
-         <conditions>        
+         <conditions>
              <neq property="ban_email" value="" />
          </conditions>
      </method>
-     
+
     </factory>
 </dao>

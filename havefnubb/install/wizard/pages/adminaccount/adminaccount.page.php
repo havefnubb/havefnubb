@@ -73,12 +73,18 @@ class adminaccountWizPage extends installWizardPage {
                   $db->quote($login).','.$db->quote(md5($password)).','.
                   $db->quote($email).','.$db->quote($login).',1,'.
                   "'".date('Y-m-d H:i:s')."')");
-        $idu = $db->lastInsertId();
-
+        if ($db->profile["driver"] != 'pgsql' and $db->profile["driver"] != 'oci')
+            $idu = $db->lastInsertId();
+        else
+            //give the sequence name for Postgresql and Oracle
+            $idu = $db->lastInsertId('community_users_id_seq');
         $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_group')).' (name, code, grouptype, ownerlogin) '.
                   'VALUES ('.$db->quote($login).','.$db->quote($login).',2,'.$db->quote($login).')');
-
-        $idg = $db->lastInsertId();
+        if ($db->profile["driver"] != 'pgsql' and $db->profile["driver"] != 'oci')
+            $idg = $db->lastInsertId();
+        else
+            //give the sequence name for Postgresql and Oracle
+            $idg = $db->lastInsertId('jacl2_group_id_aclgrp_seq');
 
         $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_user_group')).' (login, id_aclgrp) VALUES ('.$db->quote($login).',1)');
         $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_user_group')).' (login, id_aclgrp) VALUES ('.$db->quote($login).','.$idg.')');

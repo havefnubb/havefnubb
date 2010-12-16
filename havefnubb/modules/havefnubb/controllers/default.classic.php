@@ -52,6 +52,10 @@ class defaultCtrl extends jController {
                     $url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$cat->forum_name,
                                                             'id_forum'=>$cat->id_forum));
                     $rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$cat->forum_name.'" href="'.htmlentities($url).'" />');
+                    $url = jUrl::get('havefnubb~posts:atom', array('ftitle'=>$cat->forum_name,
+                                                            'id_forum'=>$cat->id_forum));
+                    $rep->addHeadContent('<link rel="alternate" type="application/atom+xml" title="'.$cat->forum_name.'" href="'.htmlentities($url).'" />');
+
                 }
             }
         }

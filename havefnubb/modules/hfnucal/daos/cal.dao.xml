@@ -6,7 +6,7 @@
         <optionalforeigntable name="forum" realname="hfnu_forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
     <record>
-        <property name="id_post"        fieldname="id_post" datatype="autoincrement"/>
+        <property name="id_post"        fieldname="id_post" datatype="autoincrement"  sequence="hfnu_posts_id_post_seq" />
         <property name="id_user"        fieldname="id_user" datatype="int" required="true"/>
         <property name="id_forum"       fieldname="id_forum" datatype="int" required="true"/>
         <property name="parent_id"      fieldname="parent_id" datatype="int" required="true"/>

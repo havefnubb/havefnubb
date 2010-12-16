@@ -2,10 +2,10 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="c" realname="hfnu_forum_category" primarykey="id_cat" />
-        <!--optionalforeigntable name="forum" realname="hfnu_forum" primarykey="id_forum" onforeignkey="id_cat"/-->        
+        <!--optionalforeigntable name="forum" realname="hfnu_forum" primarykey="id_forum" onforeignkey="id_cat"/-->
     </datasources>
     <record>
-        <property name="id_cat" fieldname="id_cat" datatype="autoincrement"/>
+        <property name="id_cat" fieldname="id_cat" datatype="autoincrement" sequence="hfnu_forum_category_id_cat_seq" />
         <property name="cat_name" fieldname="cat_name" datatype="string" required="true" maxlength="255"/>
         <property name="cat_order" fieldname="cat_order" datatype="int" required="true"/>
         <!--property name="id_forum" fieldname="id_forum" datatype="int" table="forum"/>
@@ -15,7 +15,7 @@
         <method name="findAll">
             <order>
                 <orderitem property="cat_order" way="asc" />
-            </order>            
+            </order>
         </method>
     </factory>
 </dao>
