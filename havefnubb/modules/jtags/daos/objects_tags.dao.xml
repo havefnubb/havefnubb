@@ -3,10 +3,10 @@
     <datasources>
         <primarytable name="sc_tags_tagged" realname="sc_tags_tagged" primarykey="tt_id" />
         <foreigntable name="sc_tags" realname="sc_tags" primarykey="tag_id" onforeignkey="tag_id" />
-
+        
     </datasources>
     <record>
-        <property name="tt_id" fieldname="tt_id" datatype="autoincrement" sequence="sc_tags_tagged_tt_id_seq" />
+        <property name="tt_id" fieldname="tt_id" datatype="autoincrement"/>
         <property name="tag_id" fieldname="tag_id" datatype="int" required="true"/>
         <property name="tt_scope_id" fieldname="tt_scope_id" datatype="string" required="true" maxlength="50"/>
         <property name="tt_subject_id" fieldname="tt_subject_id" datatype="int" required="true"/>
@@ -39,7 +39,7 @@
                  <eq property="tag_name" expr="$tag" />
              </conditions>
              <!-- <limit offset="0" count="10" /> -->
-         </method>
+         </method> 
 
         <method name="tagAndsubjectExists" type="selectfirst">
              <parameter name="tag_id" />

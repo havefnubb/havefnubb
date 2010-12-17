@@ -4,7 +4,7 @@
         <primarytable name="c" realname="hfnu_connected" primarykey="id_user"  />
     </datasources>
     <record>
-    <property name="id" fieldname="id_user" datatype="autoincrement" sequence="community_users_id_seq" />
+    <property name="id" fieldname="id_user" datatype="autoincrement"/>
     <property name="member_ip"  fieldname="member_ip"   datatype="string"   />
     <property name="connected"  fieldname="connected"   datatype="integer"  />
     <property name="idle"       fieldname="idle"        datatype="integer"  />
@@ -17,11 +17,11 @@
          </conditions>
      </method>
      <method name="getConnectedByIdUser" type="selectfirst">
-        <parameter name="time" />
-        <parameter name="id_user" />
+         <parameter name="time" />
+		 <parameter name="id_user" />
          <conditions>
-            <lt property="connected" expr="$time" />
-            <eq property="id" expr="$id_user" />
+             <lt property="connected" expr="$time" />
+			 <eq property="id" expr="$id_user" />
          </conditions>
      </method>
    </factory>
