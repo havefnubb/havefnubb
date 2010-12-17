@@ -4,18 +4,6 @@
     <classicentrypoint name="forums" default="true" noentrypoint="false">
 
         <url pathinfo="/" module="havefnubb" action="default:index"  optionalTrailingSlash="true"/>
-
-        <!-- rss posts management -->
-        <url pathinfo="/rss/:id_forum-:ftitle" module="havefnubb" action="posts:rss">
-           <param name="id_forum" type="number"/>
-           <param name="ftitle"  type="string" escape="true" />
-        </url>
-        <!-- atom posts management -->
-        <url pathinfo="/atom/:id_forum-:ftitle" module="havefnubb" action="posts:atom">
-           <param name="id_forum" type="number"/>
-           <param name="ftitle"  type="string" escape="true" />
-        </url>
-
         <url pathinfo="/forum"        module="havefnubb" include="urls_forum.xml"/>
         <url pathinfo="/post"         module="havefnubb" include="urls_post.xml"/>
 

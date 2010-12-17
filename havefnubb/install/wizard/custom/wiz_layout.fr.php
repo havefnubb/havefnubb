@@ -2,7 +2,7 @@
 
 $locales = array(
     'maintitle'=>'Installation wizard',
-    'previousLabel' => 'précédent',
+    'previousLabel' => 'précédant',
     'nextLabel'=> 'suivant',
 
     'home.welcome'=>'Bienvenue sur la page d\'installation du forum HaveFnu BB',

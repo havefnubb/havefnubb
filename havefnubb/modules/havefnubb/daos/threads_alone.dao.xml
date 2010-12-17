@@ -4,7 +4,7 @@
         <primarytable name="threads" realname="hfnu_threads"  primarykey="id_thread" />
     </datasources>
     <record>
-        <property name="id_thread"     fieldname="id_thread" datatype="autoincrement" sequence="hfnu_threads_id_thread_seq" />
+        <property name="id_thread"     fieldname="id_thread" datatype="autoincrement"/>
         <property name="id_user_thread" fieldname="id_user" datatype="int" required="true"/>
         <property name="id_forum_thread" fieldname="id_forum" datatype="int" required="true"/>
         <property name="status_thread" fieldname="status"  datatype="int" required="true"/>

@@ -7,7 +7,7 @@
     </datasources>
     <record>
 
-    <property name="id" fieldname="id" datatype="autoincrement"  sequence="jmessenger_id_seq" />
+    <property name="id" fieldname="id" datatype="autoincrement"/>
     <property name="id_from" fieldname="id_from" datatype="int" required="true" default="0"/>
     <property name="id_for" fieldname="id_for" datatype="int" required="true" default="0"/>
     <property name="date" fieldname="date" datatype="date" required="true" insertpattern="NOW()"/>
@@ -32,7 +32,7 @@
                 <eq property="id_for" expr="$id" />
                 <eq property="isArchived" expr="0" />
                 <eq property="isReceived" expr="1" />
-
+                
             </conditions>
             <order>
                 <orderitem property="date" way="desc" />
@@ -44,7 +44,7 @@
             <conditions>
                 <eq property="id_from" expr="$id" />
                 <eq property="isArchived" expr="0" />
-                <eq property="isSend" expr="1" />
+                <eq property="isSend" expr="1" />	             
             </conditions>
             <order>
                 <orderitem property="date" way="desc" />
@@ -55,7 +55,7 @@
             <parameter name="id" />
             <conditions>
                 <eq property="id_for" expr="$id" />
-                <eq property="isArchived" expr="1" />
+                <eq property="isArchived" expr="1" />    
                 <!-- <eq property="recu" expr="1" />     -->
             </conditions>
             <order>

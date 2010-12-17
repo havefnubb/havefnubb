@@ -1,24 +1,26 @@
-DROP TABLE IF EXISTS %%PREFIX%%hfcalendar;
 CREATE TABLE %%PREFIX%%hfcalendar (
-    id SERIAL,
-    date INTEGER NOT NULL,
-    title TEXT NOT NULL,
-    content TEXT NOT NULL,
-    user_id INTEGER NOT NULL,
-    user_name TEXT NOT NULL,
-    id_post INTEGER,
-    parent_id INTEGER,
-    cat_id INTEGER,
-    CONSTRAINT %%PREFIX%%hfcalendar_id_pk PRIMARY KEY (id)
+    id SERIAL NOT NULL ,
+    date INT(10) NOT NULL ,
+    title VARCHAR(255) NOT NULL ,
+    content TEXT NOT NULL ,
+    user_id INT(10) NOT NULL ,
+    user_name VARCHAR(200) NOT NULL ,
+    id_post INT(10) ,
+    parent_id INT(10) ,
+    cat_id INT(10),
+    INDEX (cat_id),
+    PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS %%PREFIX%%hfcalendar_cat;
+
 CREATE TABLE  %%PREFIX%%hfcalendar_cat (
-    cat_id SERIAL,
-    cat_name TEXT  NOT NULL default '',
-    cat_url TEXT NOT NULL default '',
-    cat_desc TEXT,
-    cat_ord INTEGER NOT NULL default '0',
-    forum_id INTEGER NOT NULL default '0',
-    CONSTRAINT %%PREFIX%%hfcalendar_cat_cat_id_pk PRIMARY KEY (cat_id)
+    `cat_id` int( 10 ) NOT NULL AUTO_INCREMENT ,
+    `cat_name` varchar( 255 )  NOT NULL default '',
+    `cat_url` varchar( 255 ) NOT NULL default '',
+    `cat_desc` text ,
+    `cat_ord` int( 10 ) NOT NULL default '0',
+    forum_id int(12) NOT NULL default '0',
+    PRIMARY KEY ( `cat_id` ) ,
+    UNIQUE KEY `cat_name` ( `cat_name` ) ,
+    UNIQUE KEY `cat_url` ( `cat_url` )
 );
