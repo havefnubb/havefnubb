@@ -112,9 +112,15 @@ class ranksCtrl extends jController {
 
             foreach ($id_rank as $thisId) {
                 $record = $dao->get( (int) $id_rank[$thisId]);
-                $record->rank_name 	= (string) $rank_name[$id_rank[$thisId]];
+                $record->rank_name = (string) $rank_name[$id_rank[$thisId]];
                 $record->rank_limit = (int) $rank_limit[$id_rank[$thisId]];
 
+                if ($record->rank_name == '') {
+                    jMessage::add(jLocale::get('hfnuadmin~rank.rank.name.invalid'),'error');
+                    $rep = $this->getResponse('redirect');
+                    $rep->action='hfnuadmin~ranks:index';
+                    return $rep;
+                }
                 $dao->update($record);
             }
             jForms::destroy('hfnuadmin~ranks');

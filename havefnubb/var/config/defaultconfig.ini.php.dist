@@ -202,7 +202,10 @@ controls.datetime.months.labels=names
 datepicker=default
 
 [datepickers]
+chocolatebrown="jelix/js/jforms/datepickers/chocolatebrown/init.js"
 default="jelix/js/jforms/datepickers/default/init.js"
+dust="jelix/js/jforms/datepickers/dust/init.js"
+emplode="jelix/js/jforms/datepickers/emplode/init.js"
 
 [wikieditors]
 default.engine.name = wr3
@@ -262,3 +265,15 @@ name=famfamfam
 ; emoticon_waii.png
 ; emoticon_wink.png
 ; so your own smileys would have to be named like them
+
+[jResponseHtml]
+
+;concatene et compress les fichier CSS
+minifyCSS = on
+
+;concatene et compress les fichier JS
+minifyJS = off
+
+; check all filemtime() of original js files to check if minify's cache should be generated again.
+; Should be set to "off" on production servers (i.e. manual empty cache needed when a file is changed) :
+minifyCheckCacheFiletime = off

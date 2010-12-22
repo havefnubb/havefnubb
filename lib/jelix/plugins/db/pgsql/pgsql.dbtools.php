@@ -101,7 +101,7 @@ class pgsqlDbTools extends jDbTools{
 	}
 	return $results;
 	}
-	public function getFieldList($tableName){
+	public function getFieldList($tableName,$sequence=''){
 		$tableName=$this->_conn->prefixTable($tableName);
 		$results=array();
 		$sql='SELECT oid, relhaspkey, relhasindex FROM pg_class WHERE relname = \''.$tableName.'\'';
@@ -142,6 +142,8 @@ class pgsqlDbTools extends jDbTools{
 			}
 			if(in_array($line->attnum,$pkeys))
 				$field->primary=true;
+			if($field->autoIncrement&&$sequence&&$field->primary)
+				$field->sequence=$sequence;
 			if($line->attlen==-1&&$line->atttypmod!=-1){
 				$field->length=$line->atttypmod - 4;
 				$field->maxLength=$field->length;

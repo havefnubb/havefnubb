@@ -4,7 +4,6 @@
 * @package    jelix
 * @subpackage db
 * @author     Laurent Jouanneau
-* @contributor 
 * @copyright  2010 Laurent Jouanneau
 *
 * @link        http://www.jelix.org

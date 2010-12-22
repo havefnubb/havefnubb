@@ -3,10 +3,10 @@
 /**
 * @package      jelix
 * @subpackage   core
-* @author       Jouanneau Laurent
-* @contributor  Thibault PIRONT < nuKs >, Christophe Thiriot, Philippe Schelté
-* @copyright    2006-2009 Jouanneau laurent
-* @copyright    2007 Thibault PIRONT, 2008 Christophe Thiriot, 2008 Philippe Schelté
+* @author       Laurent Jouanneau
+* @contributor  Thibault Piront (nuKs), Christophe Thiriot, Philippe Schelté
+* @copyright    2006-2009 Laurent Jouanneau
+* @copyright    2007 Thibault Piront, 2008 Christophe Thiriot, 2008 Philippe Schelté
 * @link         http://www.jelix.org
 * @licence      GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -170,7 +170,10 @@ class jConfigCompiler{
 		}
 	}
 	static protected function _loadModuleInfo($config,$allModuleInfo){
-		if(!file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php')){
+		if($config->disableInstallers){
+			$installation=array();
+		}
+		else if(!file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php')){
 			if($allModuleInfo)
 				$installation=array();
 			else
@@ -201,13 +204,23 @@ class jConfigCompiler{
 			if($handle=opendir($p)){
 				while(false!==($f=readdir($handle))){
 					if($f[0]!='.'&&is_dir($p.$f)){
-						if(!isset($installation[$section][$f.'.installed']))
+						if($config->disableInstallers)
+							$installation[$section][$f.'.installed']=1;
+						else if(!isset($installation[$section][$f.'.installed']))
 							$installation[$section][$f.'.installed']=0;
 						if($f=='jelix'){
 							$config->modules['jelix.access']=2;
 						}
 						else{
-							if(!isset($config->modules[$f.'.access'])){
+							if($config->enableAllModules){
+								if($config->disableInstallers
+									||$installation[$section][$f.'.installed']
+									||$allModuleInfo)
+									$config->modules[$f.'.access']=2;
+								else
+									$config->modules[$f.'.access']=0;
+							}
+							else if(!isset($config->modules[$f.'.access'])){
 								$config->modules[$f.'.access']=0;
 							}
 							else if($config->modules[$f.'.access']==0){
@@ -247,7 +260,7 @@ class jConfigCompiler{
 			}
 		}
 	}
-	static protected function _loadPluginsPathList(&$config){
+	static protected function _loadPluginsPathList($config){
 		$list=preg_split('/ *, */',$config->pluginsPath);
 		array_unshift($list,JELIX_LIB_PATH.'plugins/');
 		foreach($list as $k=>$path){

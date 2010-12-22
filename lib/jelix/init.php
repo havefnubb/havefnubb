@@ -12,13 +12,13 @@
 * @contributor Loic Mathaud, Julien Issler
 * @copyright 2005-2010 Laurent Jouanneau
 * @copyright 2001-2005 CopixTeam
-* @copyright 2006 Mathaud Loic
+* @copyright 2006 Loic Mathaud
 * @copyright 2007-2009 Julien Issler
 * @link http://www.copix.org
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.2RC2-dev.1706');
+define('JELIX_VERSION','1.2RC3.1743');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');

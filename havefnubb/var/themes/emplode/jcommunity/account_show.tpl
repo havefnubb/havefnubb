@@ -1,7 +1,6 @@
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.widget.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.tabs.min.js'}
+{meta_html jquery}
+{meta_html jquery_ui 'components', array('widget','tabs')}
+{meta_html csstheme 'css/tabnav.css'}
 {literal}
 <script type="text/javascript">
 //<![CDATA[
@@ -49,7 +48,7 @@ $(document).ready(function(){
         </ul>
         <div id="user-profile-general">
             <fieldset>
-                <div class="legend"><span class="user-general user-image">{@havefnubb~member.general@}</span></div>
+                <legend><span class="user-general user-image">{@havefnubb~member.general@}</span></legend>
     {if $user->member_show_email == 'Y'}
     {assign $class="three-cols"}
     {else}
@@ -57,7 +56,7 @@ $(document).ready(function(){
     {/if}
                 <div class="{$class} form_row">
                     <div class="form_property">
-                        <label class="user-name user-image"><strong>{@havefnubb~member.nickname@}</strong></label>
+                        <span class="user-name user-image"><strong>{@havefnubb~member.nickname@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$user->nickname|eschtml}
@@ -65,14 +64,14 @@ $(document).ready(function(){
 
     {if $user->member_show_email == 'Y'}
                     <div class="form_property">
-                        <label class="user-email user-image"><strong>{@havefnubb~member.email@}</strong></label>
+                        <span class="user-email user-image"><strong>{@havefnubb~member.email@}</strong></span>
                     </div>
                     <div class="form_value">
                         {mailto array('address'=>$user->email,'encode'=>'hex','text'=>@havefnubb~member.common.email@)}
                     </div>
     {/if}
                     <div class="form_property">
-                        <label class="user-birthday user-image"><strong>{@havefnubb~member.common.age@}</strong></label>
+                        <span class="user-birthday user-image"><strong>{@havefnubb~member.common.age@}</strong></span>
                     </div>
                     <div class="form_value">
                         {age $user->member_birth}
@@ -81,16 +80,16 @@ $(document).ready(function(){
                 </div>
             </fieldset>
             <fieldset>
-                <div class="legend"><span class="user-location user-image">{@havefnubb~member.common.location@}</span></div>
+                <legend><span class="user-location user-image">{@havefnubb~member.common.location@}</span></legend>
                 <div class="form_row">
                     <div class="form_property">
-                        <label class="user-town user-image"><strong>{@havefnubb~member.common.town@}</strong></label>
+                        <span class="user-town user-image"><strong>{@havefnubb~member.common.town@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$user->member_town|eschtml}
                     </div>
                     <div class="form_property">
-                        <label><strong>{@havefnubb~member.common.country@}</strong></label>
+                        <span><strong>{@havefnubb~member.common.country@}</strong></span>
                     </div>
                     <div class="form_value">
                         {if $user->member_country != ''}
@@ -98,7 +97,7 @@ $(document).ready(function(){
                         {/if}
                     </div>
                     <div class="form_property">
-                        <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong></label>
+                        <span class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong></span>
                     </div>
                     <div class="fom_value">
                         {if $user->member_website != ''}
@@ -110,16 +109,16 @@ $(document).ready(function(){
 
             </fieldset>
             <fieldset>
-                <div class="legend"><span class="user-stats user-image">{@havefnubb~member.common.stats@}</span></div>
+                <legend><span class="user-stats user-image">{@havefnubb~member.common.stats@}</span></legend>
                 <div class="form_row">
                     <div class="form_property">
-                        <label><strong>{@havefnubb~member.common.rank@}</strong></label>
+                        <span><strong>{@havefnubb~member.common.rank@}</strong></span>
                     </div>
                     <div class="form_value">
                         {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}
                     </div>
                     <div class="form_property">
-                        <label><strong>{@havefnubb~member.memberlist.nb.posted.msg@}</strong></label>
+                        <span><strong>{@havefnubb~member.memberlist.nb.posted.msg@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$user->nb_msg}
@@ -129,13 +128,13 @@ $(document).ready(function(){
                     </div>
 
                     <div class="form_property">
-                        <label><strong>{@havefnubb~member.common.registered.since@}</strong></label>
+                        <span><strong>{@havefnubb~member.common.registered.since@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$user->member_created|jdatetime}
                     </div>
                     <div class="form_property">
-                        <label><strong>{@havefnubb~member.common.last.connection@}</strong></label>
+                        <span><strong>{@havefnubb~member.common.last.connection@}</strong></span>
                     </div>
                     <div class="clearer">
                         &nbsp;
@@ -146,10 +145,10 @@ $(document).ready(function(){
 
         <div id="user-profile-pref">
             <fieldset>
-                <div class="legend"><span class="user-pref user-image">{@havefnubb~member.pref@}</span></div>
+                <legend><span class="user-pref user-image">{@havefnubb~member.pref@}</span></legend>
                 <div class="form_row">
                     <div class="form_property">
-                        <label><strong>{@havefnubb~member.common.language@}</strong></label>
+                        <strong>{@havefnubb~member.common.language@}</strong>
                     </div>
                     <div class="form_value">
                         {$user->member_language}
@@ -158,7 +157,7 @@ $(document).ready(function(){
                 </div>
                 <div class="form_row">
                     <div class="form_property">
-                        <label><strong>{@havefnubb~member.common.account.signature@}</strong></label>
+                        <span><strong>{@havefnubb~member.common.account.signature@}</strong></span>
                     </div>
                     <div class="form_value">
                         {$user->member_comment|wiki:'hfb_rule'|stripslashes}

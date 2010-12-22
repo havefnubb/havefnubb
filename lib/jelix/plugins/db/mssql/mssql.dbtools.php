@@ -21,7 +21,7 @@ class mssqlDbTools extends jDbTools{
 		}
 		return $results;
 	}
-	function getFieldList($tableName){
+	public function getFieldList($tableName,$sequence=''){
 		$results=array();
 		$pkeys=array();
 		$rs=$this->_conn->query('EXEC sp_pkeys ' . $tableName);

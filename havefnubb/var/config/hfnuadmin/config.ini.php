@@ -19,7 +19,8 @@ htmlauth=adminLoginHtmlResponse
 enableAcl2DbEventListener=on
 
 [simple_urlengine_entrypoints]
-hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~*@classic hfnucontact~*@classic servinfo~*@classic hfnuthemes~*@classic activeusers_admin~*@classic"
+hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~*@classic hfnucontact~*@classic servinfo~*@classic hfnuthemes~*@classic modulesinfo~*@classic jelixcache~*@classic  activeusers_admin~*@classic"
+
 
 
 [logfiles]
@@ -50,14 +51,14 @@ hfnuthemes.access=2
 jcommunity.access=1
 jmessenger.access=1
 jtags.access=1
-
 hook.access=1
 
 modulesinfo.access=2
-
 jelixcache.access=2
 activeusers.access=1
 activeusers_admin.access=2
+
+hfnuupd.access=0
 
 [activeusers_admin]
 pluginconf="havefnubb/activeusers.coord.ini.php"

@@ -3,7 +3,7 @@
 /**
 * @package    jelix
 * @subpackage db
-* @author     Croes Gérald, Laurent Jouanneau
+* @author     Gérald Croes, Laurent Jouanneau
 * @contributor Laurent Jouanneau, Gwendal Jouannic, Julien Issler
 * @copyright  2001-2005 CopixTeam, 2005-2010 Laurent Jouanneau
 * @copyright  2008 Gwendal Jouannic
@@ -141,7 +141,7 @@ abstract class jDbTools{
 		return $fieldName;
 	}
 	abstract public function getTableList();
-	abstract public function getFieldList($tableName);
+	abstract public function getFieldList($tableName,$sequence='');
 	protected $dbmsStyle=array('/^\s*#/','/;\s*$/');
 	public function execSQLScript($file){
 		if(!isset($this->_conn->profile['table_prefix']))

@@ -5,10 +5,12 @@
 
 <input ref="cat_name" type="string" required="true" size="40">
     <label locale="hfnuadmin~category.category_name"/>
+    <help locale="hfnuadmin~category.category_name.help"/>
 </input>
 
 <input ref="cat_order" type="integer" required="true" size="4">
     <label locale="hfnuadmin~category.cat_order"/>
+    <help locale="hfnuadmin~category.cat_order.help"/>
 </input>
 
 <submit ref="validate">

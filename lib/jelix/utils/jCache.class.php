@@ -4,8 +4,8 @@
 * @package     jelix
 * @subpackage  cache
 * @author      Tahina Ramaroson
-* @contributor Sylvain de Vathaire
-* @copyright   2009 Neov
+* @contributor Sylvain de Vathaire, Brice Tence
+* @copyright   2009 Neov, 2010 Brice Tence
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -62,7 +62,28 @@ class jCache{
 		$drv=self::_getDriver($profile);
 		if($drv->enabled){
 			$key=md5(serialize($fn).serialize($fnargs));
+			$lockKey=$key.'___jcacheLock';
 			if(!($data=$drv->get($key))){
+				$lockTests=0;
+				while($drv->get($lockKey)){
+					usleep(100000);
+					if(($lockTests++)%10==0){
+						if($drv->automatic_cleaning_factor > 0&&rand(1,$drv->automatic_cleaning_factor)==1){
+							$drv->garbage();
+						}
+					}
+				}
+				if($lockTests > 0){
+					$data=$drv->get($key);
+				}
+			}
+			if(!$data){
+				$lockTtl=get_cfg_var('max_execution_time');
+				if(!$lockTtl){
+					$lockTtl=$drv->ttl;
+				}
+				$lockTtl=max(30,min($lockTtl,$drv->ttl));
+				$drv->set($lockKey,true,$lockTtl);
 				$data=self::_doFunctionCall($fn,$fnargs);
 				if(!is_resource($data)){
 					if(is_null($ttl)){
@@ -79,6 +100,7 @@ class jCache{
 						$drv->set($key,$data,$ttl);
 					}
 				}
+				$drv->delete($lockKey);
 			}
 			return $data;
 		}else{

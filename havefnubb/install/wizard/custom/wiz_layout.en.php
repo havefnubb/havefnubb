@@ -6,7 +6,7 @@ $locales = array(
     'nextLabel'=> 'next',
 
     'home.welcome'=>'Welcome to the HaveFnu BB installation forum',
-    'powered by'=>'Powered by',
+    'powered.by'=>'Powered by',
 
     'install.home'=>'Home',
     'install.checking'=>'Checking',

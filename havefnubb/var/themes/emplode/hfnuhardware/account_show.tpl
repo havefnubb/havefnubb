@@ -1,6 +1,6 @@
         <div id="user-profile-hardware">
             <fieldset>
-                <div class="legend"><span class="user-hw user-image">{@hfnuhardware~hw.hardware@}</span></div>
+                <legend><span class="user-hw user-image">{@hfnuhardware~hw.hardware@}</span></legend>
                 <div class="form_row">
                     <div class="form_property">
                         <span class="user-connect user-image"><strong>{@hfnuhardware~hw.connection@}</strong></span>

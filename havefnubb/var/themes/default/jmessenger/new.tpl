@@ -12,16 +12,7 @@
     {ctrl_control 'title'}<br/>
 
     {ctrl_label 'content'}<br/>
-    {ctrl_control 'content'}
-    {literal}
-    <script type="text/javascript">
-    //<![CDATA[
-    $(document).ready(function() {
-        $('#jforms_jmessenger_jmessenger_content').markItUp(mySettings);
-    });
-    //]]>
-    </script>
-    {/literal}<br/>
+    {ctrl_control 'content'}<br/>
     {formsubmit '_submit'}
     </fieldset>
     {/form}

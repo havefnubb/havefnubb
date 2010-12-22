@@ -8,7 +8,7 @@
  *          (Smarty online manual)
  * @link http://jelix.org/
  * @author   Monte Ohrt <monte at ohrt dot com>
- * @author   credits to Jason Sweat (added cc, bcc and subject functionality)
+ * @contributor Jason Sweat (added cc, bcc and subject functionality)
  */
 function jtpl_function_html_mailto($tpl,$params)
 {

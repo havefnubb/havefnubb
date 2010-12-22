@@ -46,7 +46,7 @@ Olivier Demah (aka FoxMaSk)
 Antoine Detante (aka antoinefr)
  - support of persistant authentification in jAuth and auth plugin (#229)
 
-dsdenes
+DSDenes
  - fix little thing in crud template (#844)
  - added a native modifier in jtpl (#845)
  - little improvement in formdatafull (#847)
@@ -154,12 +154,14 @@ Steven Jehannet (aka Catsoup)
  - meta_html plugin should allow additionnal parameters (#996)
  - fixed issue with history plugin and session (#1068)
  - fixed issue in the gravatar plugin (#1172)
+ - fixed bug in jdao for sqlite + count+ distinct (#1225)
+ - jforms, fixed bad detection in modified controls (#1234)
 
 Nicolas Jeudy (aka njeudy)
  - auth driver: jAuthDriverLDS (pour les annuaires ldap LDS)
  - jResponseCss
 
-johannb
+Johannb
  - fixed issue in jResponseLatexToPdf (#1070)
 
 Laurent Jouanneau (laurentj):
@@ -207,8 +209,10 @@ Kévin Lepeltier (aka Lipki)
  - plugin coord history (#507)
  - improvement in jMailer (#530)
 
-Litchi
+Vincent Viaud (aka Litchi)
  - bug fix in jforms_jquery.js (#1132)
+ - fixed misprint in ldap plugin (#1219)
+ - acl listener for jauth::logout (#1236)
 
 Hugues Magnier (aka BaGroN)
  - tpl plugin stripws (#140)
@@ -266,7 +270,10 @@ Laurent Raufaste (aka analogue)
  - patches on postgresql driver (#123, #671, #672, #674)
  - replaced getParam (deprecated) with param in jZone (#680)
 
-Philippe Schelte (aka dubphil)
+Rob2
+  - image plugin: alt attribute is not generated when it is empty (#1240)
+
+Philippe Schelté (aka dubphil)
  - plugin tpl cycle (#149)
  - error in checkTrustedModules function (#715)
 
@@ -278,6 +285,7 @@ Brice Tence (aka brayce/bricet)
  - fixed bug in jInstallChecker (#1087)
  - introduced optional jMinifier for jResponseHtml for JS/CSS concatenation and minification (#860)
  - type attribut on link tag should be optional (#1188)
+ - added lock on jCache::call to prevent multiple calls on CPU high-consuming functions (ticket #1237)
 
 Christophe Thiriot (aka Doubleface)
  - testor
@@ -337,4 +345,5 @@ Copix Team
     in particulary Gerald Croes, co-author of source parts from Copix project
     (version 2.3dev20050901), under copyright 2001-2005 Copix Team
     (http://www.copix.org)
-
+halojoy
+    for a method into jCrypt

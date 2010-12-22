@@ -69,6 +69,7 @@ $locales=array(
 		'install.entrypoint.start'=>'Installation pour le point d\'entrée %s',
 		'install.entrypoint.end'=>'Tout les modules sont installés ou mise à jour pour le point d\'entrée %s',
 		'install.entrypoint.bad.end'=>'Installation interrompue pour cause d\'erreurs pour le point d\'entrée %s',
+		'install.entrypoint.installers.disabled'=>'Les scripts d\'installation et de mise à jour ne seront pas executés, ils sont désactivés dans la configuration.',
 		'install.dependencies.ok'=>'Toutes les dépendances des modules sont valides',
 		'install.bad.dependencies'=>'Il y a des erreurs dans les dépendances. Installation annulée.',
 		'install.invalid.xml.file'=>'Le fichier identité %s est invalide ou inexistant',

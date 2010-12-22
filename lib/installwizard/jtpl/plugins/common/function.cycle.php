@@ -2,8 +2,8 @@
 /**
  * @package     jelix
  * @subpackage  jtpl_plugin
- * @author      Philippe SCHELTE < dubphil >
- * @copyright   2008 Philippe SCHELTE
+ * @author      Philippe Schelté (dubphil)
+ * @copyright   2008 Philippe Schelté
  * @link        http://jelix.org/
  * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
@@ -22,8 +22,8 @@
  * {cycle 'name'}
  * {cycle}
  * </pre>
- * @paramm $tpl
- * @param string or array 
+ * @paramm jTpl $tpl
+ * @param string,array $param the name of the cycle, or the list of values
  * @return string
  */
 function jtpl_function_common_cycle($tpl, $param=''){

@@ -88,6 +88,7 @@ class dbprofileWizPage extends installWizardPage{
 			$params['database']=$database;
 			$ini->setValue('database',$database,$profile);
 			$params['driver']=$realdriver;
+			$ini->setValue('driver',$realdriver,$profile);
 			if($realdriver!='sqlite'){
 				$host=trim($_POST['host'][$profile]);
 				if($host==''&&$realdriver!='pgsql'){
@@ -96,6 +97,11 @@ class dbprofileWizPage extends installWizardPage{
 				else{
 					$ini->setValue('host',$host,$profile);
 					$params['host']=$host;
+				}
+				$port=trim($_POST['port'][$profile]);
+				if($port!=''){
+					$ini->setValue('port',$port,$profile);
+					$params['port']=$port;
 				}
 				$user=trim($_POST['user'][$profile]);
 				if($user==''){
@@ -115,6 +121,13 @@ class dbprofileWizPage extends installWizardPage{
 				}
 				if($_POST['passwordconfirm'][$profile]!=$password){
 					$errors[]=$this->locales['error.invalid.confirm.password'];
+				}
+				if($realdriver=='pgsql'){
+					$search_path=trim($_POST['search_path'][$profile]);
+					$params['search_path']=$search_path;
+					if($search_path!=''){
+						$ini->setValue('search_path',$search_path,$profile);
+					}
 				}
 			}
 			if(!count($errors)){
@@ -168,12 +181,14 @@ table_prefix=
 			'driver'=>array(),
 			'database'=>array(),
 			'host'=>array(),
+			'port'=>array(),
 			'user'=>array(),
 			'password'=>array(),
 			'passwordconfirm'=>array(),
 			'persistent'=>array(),
 			'table_prefix'=>array(),
 			'force_encoding'=>array(),
+			'search_path'=>array()
 		);
 		$profiles=$ini->getSectionList();
 		foreach($profiles as $profile){
@@ -195,12 +210,20 @@ table_prefix=
 					$host=$ini->getValue('database',$profile);
 					$data['database'][$profile]=($host===null?'':$host);
 				}
+				if(preg_match("/port=([^;]*)(;|$)/",$dsn,$m)){
+					$data['port'][$profile]=$m[1];
+				}
+				else{
+					$port=$ini->getValue('port',$profile);
+					$data['port'][$profile]=($port===null?'':$port);
+				}
 			}
 			else{
 				$usepdo=(bool)$ini->getValue('usepdo',$profile);
 				$data['driver'][$profile]=$ini->getValue('driver',$profile).($usepdo?'_pdo':'');
 				$data['database'][$profile]=$ini->getValue('database',$profile);
 				$data['host'][$profile]=$ini->getValue('host',$profile);
+				$data['port'][$profile]=$ini->getValue('port',$profile);
 			}
 			$data['user'][$profile]=$ini->getValue('user',$profile);
 			$data['password'][$profile]=$ini->getValue('password',$profile);
@@ -208,6 +231,7 @@ table_prefix=
 			$data['persistent'][$profile]=$ini->getValue('persistent',$profile);
 			$data['force_encoding'][$profile]=$ini->getValue('force_encoding',$profile);
 			$data['table_prefix'][$profile]=$ini->getValue('table_prefix',$profile);
+			$data['search_path'][$profile]=$ini->getValue('search_path',$profile);
 			$data['errors'][$profile]=array();
 		}
 		$_SESSION['dbprofiles']['profiles']=$profiles;
@@ -217,7 +241,14 @@ table_prefix=
 		if(!function_exists('mssql_connect')){
 			throw new Exception($this->locales['error.extension.mssql.not.installed']);
 		}
-		if($cnx=@mssql_connect($params['host'],$params['user'],$params['password'])){
+		$host=$params['host'];
+		if(isset($params['port'])&&$params['port']){
+			if(DIRECTORY_SEPARATOR==='\\')
+				$host.=','.$params['port'];
+			else
+				$host.=':'.$params['port'];
+		}
+		if($cnx=@mssql_connect($host,$params['user'],$params['password'])){
 			if(!mssql_select_db($params['database'],$cnx))
 				throw new Exception($this->locales['error.no.database']);
 			mssql_close($cnx);
@@ -231,7 +262,11 @@ table_prefix=
 		if(!function_exists('mysql_connect')){
 			throw new Exception($this->locales['error.extension.mysql.not.installed']);
 		}
-		if($cnx=@mysql_connect($params['host'],$params['user'],$params['password'])){
+		$host=$params['host'];
+		if(isset($params['port'])&&$params['port']){
+			$host.=':'.$params['port'];
+		}
+		if($cnx=@mysql_connect($host,$params['user'],$params['password'])){
 			if(!mysql_select_db($params['database'],$cnx))
 				throw new Exception($this->locales['error.no.database']);
 			mysql_close($cnx);
@@ -242,16 +277,19 @@ table_prefix=
 		return true;
 	}
 	protected function check_oci($params){
+		throw new Exception('oci not supported');
+		return false;
 	}
 	protected function check_pgsql($params){
 		if(!function_exists('pg_connect')){
 			throw new Exception($this->locales['error.extension.pgsql.not.installed']);
 		}
 		$str='';
-		if($params['host']!='')
+		if($params['host']!=''){
 			$str='host=\''.$params['host'].'\''.$str;
-		if(isset($params['port'])){
-			$str.=' port=\''.$params['port'].'\'';
+			if(isset($params['port'])&&$params['port']){
+				$str.=' port=\''.$params['port'].'\'';
+			}
 		}
 		if($params['database']!=''){
 			$str.=' dbname=\''.$params['database'].'\'';
@@ -292,11 +330,14 @@ table_prefix=
 			$password='';
 		}
 		else{
+			if(isset($params['port'])&&$params['port'])
+				$dsn.=';port='.$params['port'];
 			$user=$params['user'];
 			$password=$params['password'];
 		}
 		unset($params['driver']);
 		unset($params['host']);
+		unset($params['port']);
 		unset($params['database']);
 		unset($params['user']);
 		unset($params['password']);

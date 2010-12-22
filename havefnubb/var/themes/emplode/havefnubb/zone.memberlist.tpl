@@ -8,6 +8,7 @@
     <form action="{formurl 'havefnubb~members:index'}" method="post">
     {formurlparam 'havefnubb~members:index'}
     <fieldset>
+        <legend>{@havefnubb~member.memberlist.members.list@}</legend>
         <div class="member-filter-description form_row">
             <p>{@havefnubb~member.memberlist.filter.description@}</p>
         </div>

@@ -73,7 +73,7 @@
 
     <div class="grid_16" id="site_info">
         <div class="box">
-            <p>{@poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008-2010 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a> .</p>
+            <p>{@powered.by@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008-2010 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a> .</p>
         </div>
     </div>
     <div class="clear"></div>

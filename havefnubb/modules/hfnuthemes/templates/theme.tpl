@@ -1,3 +1,30 @@
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
+{literal}
+<script type="text/javascript">
+//<![CDATA[
+var imagePath = '{/literal}{$j_basepath}{literal}hfnu/images/';
+$(document).ready(function(){
+  // hide help
+  $(".hfnutheme-help").hide();
+  // show help
+  $("#hfnutheme-help").click(function () {
+     $(this).toggleClass("active").next().slideToggle("slow");
+  });
+  //toggle Image
+  $("#hfnutheme-help").toggle(
+    function () {
+      $(this).find("img").attr({src:imagePath+"delete.png"});
+    },
+    function () {
+      $(this).find("img").attr({src:imagePath+"add.png"});
+    }
+  );
+});
+//]]>
+</script>
+{/literal}
+{include 'hlp_themes'}
 <h1>{@hfnuthemes~theme.themes@}</h1>
 <h2>{@hfnuthemes~theme.list@}</h2>
 {foreach $themes as $ind=>$theme}

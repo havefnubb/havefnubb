@@ -85,7 +85,7 @@ ALTER TABLE `%%PREFIX%%community_users` DROP   `member_connection`;
 ALTER TABLE %%PREFIX%%read_posts ADD date_read int(12) NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%read_posts ADD parent_id int(12) NOT NULL DEFAULT '0';
 
-ALTER TABLE jacl2_group ADD COLUMN code varchar(30) default NULL;
+ALTER TABLE %%PREFIX%%jacl2_group ADD COLUMN code varchar(30) default NULL;
 
 RENAME TABLE  %%PREFIX%%member_custom_fields TO %%PREFIX%%hfnu_member_custom_fields;
 RENAME TABLE  %%PREFIX%%bans TO %%PREFIX%%hfnu_bans;
@@ -134,3 +134,4 @@ INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('jelixcache.a
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('jelixcache.access', 1, '');
 
 --- TODO suppression des champs member* relatif à hardware and im
+

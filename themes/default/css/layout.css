@@ -92,7 +92,7 @@ h2#page-heading {
 .box h2 a,
 .box h2 a.visible {
     color:#fff;
-    background:#333 url("../img/switch_minus.gif") 97% 50% no-repeat;
+    background:#333;
     display:block;
     padding:6px 12px;
     margin:-6px -12px;
@@ -108,11 +108,6 @@ h2#page-heading {
     background-position: 99% 50%;
 }
 
-
-.box h2 a.hidden,
-.box h2 a.hidden:hover {
-    background-image: url("../img/switch_plus.gif");
-}
 .box h2 a:hover {
     background-color:#111;
 }
@@ -807,34 +802,6 @@ h2#login-status {
 .form_value {padding-left: 24px;}
 .form_row_submit .form_value {padding-left: 132px;}
 
-
-
-/* Tab */
-
-/* Caution! Ensure accessibility in print and other media types... */
-@media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
-    .ui-tabs-hide {
-        display: none;
-    }
-}
-
-/* Skin */
-
-.ui-tabs-nav {
-    height:28px;
-    display:block;
-    font-weight: bold;
-}
-.ui-tabs-nav li {
-    padding-left: 20px;
-}
-* html .ui-tabs-nav { /* auto clear @ IE 6 & IE 7 Quirks Mode */
-    display: inline-block;
-}
-
-*:first-child+html .ui-tabs-nav  { /* auto clear @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
-    display: inline-block;
-}
 
 .branding {
     background:#aaa;

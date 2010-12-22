@@ -9,11 +9,11 @@ $(document).ready(function(){
   // hide help
   $(".hfnuadmin-help").hide();
   // show help
-  $(".help").click(function () {
+  $("#hfnuadmin-help").click(function () {
      $(this).toggleClass("active").next().slideToggle("slow");
   });
   //toggle Image
-  $(".help").toggle(
+  $("#hfnuadmin-help").toggle(
     function () {
       $(this).find("img").attr({src:imagePath+"delete.png"});
     },
@@ -25,9 +25,9 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
+{include 'hlp_category_index'}
 <h1>{@hfnuadmin~category.the.categories@}</h1>
 {ifacl2 'hfnu.admin.category.create'}
-{include 'hlp_category_index'}
 <h2>{@hfnuadmin~category.create.a.category@}</h2>
 {formfull $form, 'hfnuadmin~category:savecreate'}
 <br/>
@@ -52,8 +52,8 @@ $(document).ready(function(){
         {foreach $categories as $category}
         {ifacl2 'hfnu.admin.category.edit'}
         <tr class="{if $line}odd{else}even{/if}">
-            <td><input type="text" size="4" name="cat_order[{$category->id_cat}]" value="{$category->cat_order}" /></td>
-            <td><input type="text" size="40" name="cat_name[{$category->id_cat}]" value="{$category->cat_name}" /></td>
+            <td><span class="jforms-required-star">*</span> <input type="text" size="4" name="cat_order[{$category->id_cat}]" value="{$category->cat_order}" /></td>
+            <td><span class="jforms-required-star">*</span> <input type="text" size="40" name="cat_name[{$category->id_cat}]" value="{$category->cat_name}" /></td>
             <td><input type="hidden" name="id_cat[{$category->id_cat}]" value="{$category->id_cat}" />{ifacl2 'hfnu.admin.category.delete'}<a href="{jurl 'hfnuadmin~category:delete',array('id_cat'=>$category->id_cat)}" title="{@hfnuadmin~category.delete.this.category@}" onclick="return confirm('{jlocale 'hfnuadmin~rank.confirm.deletion',array('')}')">{@hfnuadmin~common.delete@}</a>{/ifacl2}</td>
         </tr>
         {else}

@@ -20,7 +20,6 @@
 * @package     jelix
 * @subpackage  installer
 * @author      Laurent Jouanneau
-* @contributor 
 * @copyright   2008-2009 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
@@ -81,20 +80,20 @@ class jInstallerMessageProvider {
 
     protected $messages = array(
         'fr'=>array(
-     'checker.title'=>'Vérification de votre serveur pour Jelix 1.2RC2-dev.1706',
+     'checker.title'=>'Vérification de votre serveur pour Jelix 1.2RC3.1743',
         'number.errors'         =>' erreurs.',
         'number.error'          =>' erreur.',
         'number.warnings'       =>' avertissements.',
         'number.warning'        =>' avertissement.',
         'number.notices'        =>' remarques.',
         'number.notice'         =>' remarque.',
-    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.2RC2-dev.1706.',
-    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.2RC2-dev.1706.',
-    'conclusion.warning'    =>'Une application Jelix 1.2RC2-dev.1706 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
-    'conclusion.warnings'   =>'Une application Jelix 1.2RC2-dev.1706 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
-    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.2RC2-dev.1706 malgré la remarque.',
-    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.2RC2-dev.1706 malgré les remarques.',
-    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.2RC2-dev.1706',
+    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.2RC3.1743.',
+    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.2RC3.1743.',
+    'conclusion.warning'    =>'Une application Jelix 1.2RC3.1743 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
+    'conclusion.warnings'   =>'Une application Jelix 1.2RC3.1743 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
+    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.2RC3.1743 malgré la remarque.',
+    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.2RC3.1743 malgré les remarques.',
+    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.2RC3.1743',
         'cannot.continue'       =>'Les vérifications ne peuvent continuer : %s',
         'extension.not.installed'=>'L\'extension %s n\'est pas disponible',
         'extension.optional.not.installed'=>'L\'extension %s optionnelle n\'est pas disponible',
@@ -147,6 +146,7 @@ class jInstallerMessageProvider {
         'install.entrypoint.start'  =>'Installation pour le point d\'entrée %s',
         'install.entrypoint.end'    =>'Tout les modules sont installés ou mise à jour pour le point d\'entrée %s',
         'install.entrypoint.bad.end'=>'Installation interrompue pour cause d\'erreurs pour le point d\'entrée %s',
+        'install.entrypoint.installers.disabled'=>'Les scripts d\'installation et de mise à jour ne seront pas executés, ils sont désactivés dans la configuration.', 
         
         'install.dependencies.ok'   =>'Toutes les dépendances des modules sont valides',
         'install.bad.dependencies'  =>'Il y a des erreurs dans les dépendances. Installation annulée.',
@@ -162,20 +162,20 @@ class jInstallerMessageProvider {
         ),
 
         'en'=>array(
-  'checker.title'   =>'Check your configuration server for Jelix 1.2RC2-dev.1706',
+  'checker.title'   =>'Check your configuration server for Jelix 1.2RC3.1743',
         'number.errors'     =>' errors.',
         'number.error'      =>' error.',
         'number.warnings'   =>' warnings.',
         'number.warning'    =>' warning.',
         'number.notices'    =>' notices.',
         'number.notice'     =>' notice.',
-      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.2RC2-dev.1706.',
-      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.2RC2-dev.1706.',
-      'conclusion.warning'  =>'Your application for Jelix 1.2RC2-dev.1706 may run without problems, but it is recommanded to fix the warning.',
-      'conclusion.warnings' =>'Your application for Jelix 1.2RC2-dev.1706 may run without problems, but it is recommanded to fix warnings.',
-      'conclusion.notice'   =>'You can install an application for Jelix 1.2RC2-dev.1706, although there is a notice.',
-      'conclusion.notices'  =>'You can install an application for Jelix 1.2RC2-dev.1706, although there are notices.',
-      'conclusion.ok'       =>'You can install an application for Jelix 1.2RC2-dev.1706.',
+      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.2RC3.1743.',
+      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.2RC3.1743.',
+      'conclusion.warning'  =>'Your application for Jelix 1.2RC3.1743 may run without problems, but it is recommanded to fix the warning.',
+      'conclusion.warnings' =>'Your application for Jelix 1.2RC3.1743 may run without problems, but it is recommanded to fix warnings.',
+      'conclusion.notice'   =>'You can install an application for Jelix 1.2RC3.1743, although there is a notice.',
+      'conclusion.notices'  =>'You can install an application for Jelix 1.2RC3.1743, although there are notices.',
+      'conclusion.ok'       =>'You can install an application for Jelix 1.2RC3.1743.',
         'cannot.continue'       =>'Cannot continue the checking: %s',
         'extension.not.installed'=>'The extension %s is not available',
         'extension.optional.not.installed'=>'the optional extension %s is not available',
@@ -228,6 +228,7 @@ class jInstallerMessageProvider {
         'install.entrypoint.start'  =>'Installation starts for the entry point %s',
         'install.entrypoint.end'    =>'All modules are installed or upgraded for the entry point %s',
         'install.entrypoint.bad.end'=>'Installation/upgrade is aborted for the entry point %s',
+        'install.entrypoint.installers.disabled'=>'Installation scripts and update scripts will not be executed: it is disabled in the configuration.',
 
         'install.dependencies.ok'   =>'All modules dependencies are ok',
         'install.bad.dependencies'  =>'Error in dependencies. Installation cancelled.',

@@ -233,9 +233,7 @@ class jDb{
 	static private $_cnxPool=array();
 	public static function getConnection($name=null){
 		$profile=self::getProfile($name);
-		if(!$name){
-			$name=$profile['name'];
-		}
+		$name=$profile['name'];
 		if(!isset(self::$_cnxPool[$name])){
 			self::$_cnxPool[$name]=self::_createConnector($profile);
 		}
@@ -282,9 +280,8 @@ class jDb{
 				throw new jException('jelix~db.error.profile.type.unknown',$name);
 		}
 		if(isset(self::$_profiles[$targetName])&&is_array(self::$_profiles[$targetName])){
-			self::$_profiles[$name]=self::$_profiles[$targetName];
-			self::$_profiles[$name]['name']=$name;
-			return self::$_profiles[$name];
+			self::$_profiles[$targetName]['name']=$targetName;
+			return self::$_profiles[$targetName];
 		}
 		else{
 			throw new jException('jelix~db.error.profile.unknown',$targetName);
@@ -324,6 +321,7 @@ class jDb{
 			self::$_profiles=parse_ini_file(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils,true);
 		}
 		self::$_profiles[$name]=$params;
+		self::$_profiles[$name]['name']=$name;
 		unset(self::$_cnxPool[$name]);
 	}
 	public static function clearProfiles(){

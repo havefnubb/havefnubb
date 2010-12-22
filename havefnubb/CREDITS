@@ -1,11 +1,20 @@
 Credits
 =======
 
+Havefnubb is developped by FoxMask.
+
+Contributions:
+
+
 Modules :
 by Laurent Jouanneau
 * jCommunity
 * hfnuim
 * hfnuhardware
+* jelixcache
+* modulesinfo
+* activeusers
+* activeusers_admin
 
 by Bastien Jaillot
 * jTags
