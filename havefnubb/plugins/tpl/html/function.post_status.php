@@ -23,7 +23,7 @@ function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkForumAsRea
         $id_forum = $data;
 
         // does the user still read everything in the forum ?
-        if ( jClasses::getService('havefnubb~hfnuread')->findUnreadThreadbyForumId($id_forum) )
+        if ( jClasses::getService('havefnubb~hfnuposts')->findUnreadThreadbyForumId($id_forum) )
         //yes
             $status = 'forumicone';
         //no

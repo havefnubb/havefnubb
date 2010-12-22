@@ -816,9 +816,8 @@ class hfnuposts {
         return jDao::get('havefnubb~threads')->findUnreadThreadByMod();
     }
 
-    public function findByIdForum($id_forum,$page,$nbPostPerPage) {
-        $c = jDb::getConnection();
-        $select = "SELECT threads.id_thread,
+
+    const selectPosts = "SELECT threads.id_thread,
                     threads.id_user as id_user_thread,
                     threads.id_forum as id_forum_thread,
                     threads.status as status_thread,
@@ -856,6 +855,9 @@ class hfnuposts {
                     usr.last_post as member_last_post,
                     forum.parent_id as forum_parent_id,
                     forum.forum_name";
+
+    public function findByIdForum($id_forum,$page,$nbPostPerPage) {
+        $c = jDb::getConnection();
         $from = " FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
                     LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
@@ -863,9 +865,9 @@ class hfnuposts {
                     posts.id_forum = '".$id_forum."'";
 
         if ( ! jAuth::isConnected())
-            $sql = $select.$from.", ".$c->prefixTable('hfnu_posts')." AS posts ". $where;
+            $sql = self::selectPosts.$from.", ".$c->prefixTable('hfnu_posts')." AS posts ". $where;
         else
-            $sql = $select.", rp.date_read as date_read_post ".$from."
+            $sql = self::selectPosts.", rp.date_read as date_read_post ".$from."
                     LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
                                                                     threads.id_last_msg=rp.id_post AND
                                                                     rp.id_user = '".jAuth::getUserSession ()->id."')
@@ -889,45 +891,7 @@ class hfnuposts {
 
     public function findByIdParent($parent_id,$page,$nbRepliesPerPage) {
         $c = jDb::getConnection();
-        $select = "SELECT threads.id_thread,
-                    threads.id_user as id_user_thread,
-                    threads.id_forum as id_forum_thread,
-                    threads.status as status_thread,
-                    threads.nb_viewed,
-                    threads.nb_replies,
-                    threads.id_first_msg,
-                    threads.id_last_msg,
-                    threads.date_created,
-                    threads.date_last_post,
-                    threads.ispined as ispined_thread,
-                    threads.iscensored as iscensored_thread,
-                    posts.id_post,
-                    posts.id_user,
-                    posts.id_forum,
-                    posts.parent_id,
-                    posts.status,
-                    posts.ispined,
-                    posts.iscensored,
-                    posts.subject,
-                    posts.message,
-                    posts.date_created as p_date_created,
-                    posts.date_modified, posts.viewed,
-                    posts.poster_ip,
-                    posts.censored_msg,
-                    posts.censored_by,
-                    posts.read_by_mod,
-                    usr.id,
-                    usr.email,
-                    usr.login,
-                    usr.nickname,
-                    usr.comment as member_comment,
-                    usr.town as member_town,
-                    usr.avatar as member_avatar,
-                    usr.website as member_website,
-                    usr.nb_msg,
-                    usr.last_post as member_last_post,
-                    forum.parent_id as forum_parent_id,
-                    forum.forum_name";
+
         $from = " FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
                     LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
@@ -935,9 +899,9 @@ class hfnuposts {
                     threads.id_thread=posts.parent_id AND
                     posts.parent_id = '".$parent_id."'";
         if ( ! jAuth::isConnected())
-            $sql = $select.$from.", ".$c->prefixTable('hfnu_posts')." AS posts ".$where;
+            $sql = self::selectPosts.$from.", ".$c->prefixTable('hfnu_posts')." AS posts ".$where;
         else
-            $sql = $select.", rp.date_read as date_read_post ". $from ."
+            $sql = self::selectPosts.", rp.date_read as date_read_post ". $from ."
                     LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
                                                                     threads.id_last_msg=rp.id_post AND
                                                                     rp.id_user = '".jAuth::getUserSession ()->id."')
@@ -956,5 +920,92 @@ class hfnuposts {
         }
 
         return array($page,$posts);
+    }
+
+    /**
+     * this function get the messages that the current user does not read yet between his last connection and last 15min
+     * then return the given record
+     * @return array : the limited records + total of records
+     */
+    public function findUnreadThread($page=0,$nbPostPerPage=25) {
+        if ( !jAuth::isConnected() )
+            return array('posts'=>0,'nbPosts'=>0);
+        // let's find the threads we have not read yet
+        $c = jDb::getConnection();
+        $sql = self::selectPosts.",
+                    rp.date_read as date_read_post,
+                    rf.date_read as date_read_forum
+             FROM ".$c->prefixTable('hfnu_threads')." AS threads
+                LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user =usr.id)
+                LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
+                                                                threads.id_last_msg=rp.id_post AND
+                                                                rp.id_user = '".jAuth::getUserSession ()->id."')
+                LEFT JOIN ".$c->prefixTable('hfnu_read_forum')." as rf ON ( threads.id_forum=rf.id_forum AND
+                                                                rf.id_user = '".jAuth::getUserSession ()->id."')
+            , ".$c->prefixTable('hfnu_posts')." AS posts
+            WHERE
+                threads.id_thread = posts.parent_id ";
+
+        if ( ! jAcl2::check('hfnu.admin.post') )
+            $sql .= " AND posts.status <> 7 ";
+
+        $sql .= " GROUP BY posts.parent_id ORDER BY threads.date_last_post desc ";
+
+        $posts = $c->limitQuery($sql, $page,$nbPostPerPage);
+        if ($posts->rowCount() == 0) {
+            $posts = $c->limitQuery($sql, 0,$nbPostPerPage);
+            $page = 0;
+        }
+        $nbPosts = 0;
+        foreach ($posts as $post) {
+            if  (! ($post->p_date_created < $post->date_read_forum ||
+                    $post->p_date_created <= $post->date_read_post) )
+            $nbPosts++;
+        }
+        return array('posts'=>$posts,'nbPosts'=>$nbPosts);
+    }
+    /**
+     * this function says which message from which forum has been read by which user
+     * @param integer $id_forum the current id forum
+     * @return boolean
+     */
+    public function findUnreadThreadbyForumId($id_forum) {
+        if ( jAuth::isConnected() and $id_forum > 0) {
+            // let's find the threads we have not read yet
+            $c = jDb::getConnection();
+            $sql = self::selectPosts.",
+                        rp.date_read as date_read_post,
+                        rf.date_read as date_read_forum
+                 FROM ".$c->prefixTable('hfnu_threads')." AS threads
+                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user =usr.id)
+                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+                    LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
+                                                                    threads.id_last_msg=rp.id_post AND
+                                                                    rp.id_user = '".jAuth::getUserSession ()->id."')
+                    LEFT JOIN ".$c->prefixTable('hfnu_read_forum')." as rf ON ( threads.id_forum=rf.id_forum AND
+                                                                    rf.id_user = '".jAuth::getUserSession ()->id."')
+                , ".$c->prefixTable('hfnu_posts')." AS posts
+                WHERE
+                    threads.id_thread = posts.parent_id AND forum.id_forum = '".$id_forum."' ";
+
+            if ( ! jAcl2::check('hfnu.admin.post') )
+                $sql .= " AND posts.status <> 7 ";
+
+            $sql .= " GROUP BY posts.parent_id ORDER BY threads.date_last_post desc ";
+
+            $posts = $c->Query($sql);
+
+            $nbPosts = 0;
+            foreach ($posts as $post) {
+                if  (! ($post->p_date_created < $post->date_read_forum ||
+                        $post->p_date_created <= $post->date_read_post) )
+                $nbPosts++;
+            }
+            return ($nbPosts > 0) ? false : true;
+        }
+        else {
+            return true;
+        }
     }
 }

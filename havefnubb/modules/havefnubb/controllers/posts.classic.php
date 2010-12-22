@@ -1724,7 +1724,7 @@ class postsCtrl extends jController {
         // 2- limit per page
         $nbPostPerPage = 0;
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
-        $unread = jClasses::getService('havefnubb~hfnuread')->findUnreadThread($page,$nbPostPerPage);
+        $unread = jClasses::getService('havefnubb~hfnuposts')->findUnreadThread($page,$nbPostPerPage);
 
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
