@@ -1,0 +1,76 @@
+# HG changeset patch
+# User Vincentv
+# Parent aaab4c62ed9016e942ec454145c29d3a5543ac3a
+Revision de filexml::parseInfo()
+
+diff -r aaab4c62ed90 havefnubb/admin-modules/modulesinfo/classes/filexml.class.php
+--- a/havefnubb/admin-modules/modulesinfo/classes/filexml.class.php	Thu Dec 02 23:16:43 2010 +0100
++++ b/havefnubb/admin-modules/modulesinfo/classes/filexml.class.php	Fri Dec 03 14:23:35 2010 +0100
+@@ -16,14 +16,9 @@
+ 
+         while ($xml->read()) {
+             if($xml->nodeType == XMLReader::ELEMENT) {
+-
+-                $property = $xml->name;
+-                $method = 'parse' . ucfirst($property);
+-
++                $method = 'parse' . ucfirst($xml->name);
+                 if (method_exists ($this, $method)) {
+-
+                     $this->$method($xml, $object);
+-
+                 }
+             }
+         }
+@@ -34,6 +29,8 @@
+ 
+ 
+     protected function parseInfo (XMLReader $xml, $object) {
++        global $gJConfig;
++
+         if (XMLReader::ELEMENT == $xml->nodeType && 'info' == $xml->name) {
+ 
+             $object->id = $xml->getAttribute('id');
+@@ -50,16 +47,12 @@
+ 
+                     $property = $xml->name;
+ 
+-                    if ('version' == $property) {
+-                        $object->versionDate = $xml->getAttribute('date');
+-                        $object->versionStability = $xml->getAttribute('stability');
+-                    }
+-
+-                    if ('label' == $property || 'description' == $property){
+-                        $lang = $xml->getAttribute('lang');
+-                    }
+-
+-                    if ('creator' == $property || 'contributor' == $property) {
++                    if ('label' == $property || 'description' == $property) {
++                        if ($xml->getAttribute('lang') == $gJConfig->locale) {
++                            $xml->read();
++                            $object->property = $xml->value;
++                        }
++                    } elseif ('creator' == $property || 'contributor' == $property) {
+                         $person = array();
+                         while ($xml->moveToNextAttribute()) {
+                             $attrName = $xml->name;
+@@ -67,11 +60,15 @@
+                         }
+                         $property .= 's';
+                         array_push($object->$property, $person);
+-                        continue;
++
++                    } else {
++                        while ($xml->moveToNextAttribute()) {
++                            $attrProperty = $property . ucfirst($xml->name);
++                            $object->$attrProperty = $xml->value;
++                        }
++                        $xml->read();
++                        $object->$property = $xml->value;
+                     }
+-
+-                    $xml->read();
+-                    $object->$property = $xml->value;
+                 }
+             }
+         }
