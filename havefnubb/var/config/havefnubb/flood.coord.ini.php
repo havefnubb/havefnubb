@@ -1,7 +1,7 @@
 ;<?php die(''); ?>
 ;for security reasons , don't remove or modify the first line
 
-only_same_ip=1
+only_same_ip=0
 time_interval=30
 
 ; What to do if a right is required but the user has not this right
@@ -13,3 +13,4 @@ on_error=2
 on_error_action="havefnubb~flood:error"
 
 elapsed_time_between_two_post=0
+

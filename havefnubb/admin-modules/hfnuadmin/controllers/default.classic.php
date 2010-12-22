@@ -34,7 +34,6 @@ class defaultCtrl extends jController {
     protected function initform($form) {
         global $gJConfig;
         $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/activeusers.coord.ini.php');
-        $timeoutConfig 	=  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/activeusers.coord.ini.php');
 
         $tzId = DateTimeZone::listIdentifiers();
         for ($i = 0 ; $i < count($tzId) ; $i++) {
@@ -60,10 +59,6 @@ class defaultCtrl extends jController {
 
         $form->setData('important_nb_replies',  (int) $gJConfig->havefnubb['important_nb_replies']);
         $form->setData('important_nb_views',    (int) $gJConfig->havefnubb['important_nb_views']);
-
-
-        $form->setData('timeout_connected', (int) $timeoutConfig['timeout_connected']);
-        $form->setData('timeout_visit',     (int) $timeoutConfig['timeout_visit']);
 
         $form->setData('post_max_size',     (int) $gJConfig->havefnubb['post_max_size']);
 
@@ -174,11 +169,6 @@ class defaultCtrl extends jController {
         $floodConfig->setValue('only_same_ip',                  $form->getData('only_same_ip'));
         $floodConfig->setValue('elapsed_time_between_two_post', $form->getData('elapsed_time_between_two_post'));
         $floodConfig->save();
-
-        $timeoutConfig 	=  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/activeusers.coord.ini.php');
-        $timeoutConfig->setValue('timeout_connected',  $form->getData('timeout_connected'));
-        $timeoutConfig->setValue('timeout_visit',      $form->getData('timeout_visit'));
-        $timeoutConfig->save();
 
         jForms::destroy('hfnuadmin~config');
         jMessage::add(jLocale::get('hfnuadmin~config.config.modified'),'ok');

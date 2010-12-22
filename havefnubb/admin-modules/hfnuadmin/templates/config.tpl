@@ -35,7 +35,6 @@ $(document).ready(function(){
 <ul>
     <li><a href="#hfnuadmin-general"><span>{@hfnuadmin~config.general@}</span></a></li>
     <li><a href="#hfnuadmin-messages"><span>{@hfnuadmin~config.messages@}</span></a></li>
-    <li><a href="#hfnuadmin-timeout"><span>{@hfnuadmin~config.timeout@}</span></a></li>
     <li><a href="#hfnuadmin-important"><span>{@hfnuadmin~config.important_posts@}</span></a></li>
     <li><a href="#hfnuadmin-flood"><span>{@hfnuadmin~config.flood_protection@}</span></a></li>
     <li><a href="#hfnuadmin-members"><span>{@hfnuadmin~config.members@}</span></a></li>
@@ -107,18 +106,6 @@ $(document).ready(function(){
 
     <p>{ctrl_control 'only_same_ip'} {ctrl_label 'only_same_ip'} </p>
     <p>{@hfnuadmin~config.flood.only_same_ip.description@}</p>
-</fieldset>
-</div>
-
-<div id="hfnuadmin-timeout">
-<fieldset>
-    <legend>{@hfnuadmin~config.timeout@}</legend>
-    <p>{ctrl_label 'timeout_visit'} </p>
-    <p>{ctrl_control 'timeout_visit'} </p>
-    <p>{@hfnuadmin~config.timeout_visit.desc@}</p>
-    <p>{ctrl_label 'timeout_connected'} </p>
-    <p>{ctrl_control 'timeout_connected'} </p>
-    <p>{@hfnuadmin~config.timeout_connected.desc@}</p>
 </fieldset>
 </div>
 

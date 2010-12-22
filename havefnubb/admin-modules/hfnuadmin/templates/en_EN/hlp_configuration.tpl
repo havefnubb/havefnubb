@@ -18,9 +18,6 @@
         <li><h3>Messages</h3>
             This tab permits to configure the size and number of messages,thread,replies by page.
         </li>
-        <li><h3>Timeout</h3>
-            This tab permits to configure the timeout of one user when he is online.
-        </li>
         <li><h3>Importants threads</h3>
             This tab permits to define from the quantity of messages, if the thread is considering as important.
         </li>

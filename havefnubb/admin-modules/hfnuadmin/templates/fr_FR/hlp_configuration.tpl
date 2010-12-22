@@ -17,9 +17,6 @@
         <li><h3>Messages</h3>
             Cet onglet permet de configurer la taille et le nombre de discussions,messages,réponses par page.
         </li>
-        <li><h3>Temps mort</h3>
-            Cet onglet permet de configurer la durée d'inactivité d'un utilisateur quand il est connecté.
-        </li>
         <li><h3>Sujets importants</h3>
             Cet onglet permet de définir à partir de quelle quantité de message, une discussion est considérée comme importante.
         </li>
