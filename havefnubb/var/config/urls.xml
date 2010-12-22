@@ -4,6 +4,7 @@
     <classicentrypoint name="forums" default="true" noentrypoint="false">
 
         <url pathinfo="/" module="havefnubb" action="default:index"  optionalTrailingSlash="true"/>
+        <url pathinfo="/sitemap.xml" module="havefnubb" action="sitemap:index"/>
         <url pathinfo="/forum"        module="havefnubb" include="urls_forum.xml"/>
         <url pathinfo="/post"         module="havefnubb" include="urls_post.xml"/>
 
@@ -35,11 +36,5 @@
         <url pathinfo="/admin/modulesinfo" module="modulesinfo" include="urls.xml" />
         <url pathinfo="/admin/cache" module="jelixcache" include="urls.xml" />
     </classicentrypoint>
-
-    <classicentrypoint name="hfnuupd" default="false" noentrypoint="false">
-        <url pathinfo="/" module="hfnuupd" action="default:index"  optionalTrailingSlash="true"/>
-        <url pathinfo="/update_1_4_0" module="hfnuupd" action="default:run_1_4_0"  optionalTrailingSlash="true"/>
-    </classicentrypoint>
-
 
 </urls>
