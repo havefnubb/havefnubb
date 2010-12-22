@@ -32,12 +32,14 @@ class defaultCtrl extends jController {
      * Main page
      */
     function index() {
-        global $gJConfig;
+        global $gJConfig, $gJCoord;
         $title = stripslashes($gJConfig->havefnubb['title']);
         $rep = $this->getResponse('html');
 
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
-        $GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
+        $historyPlugin = $gJCoord->getPlugin('history');
+
+        $historyPlugin->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
+        $historyPlugin->change('title', jLocale::get('havefnubb~main.goto_homepage'));
 
         $dao = jDao::get('havefnubb~forum_cat');
         $categories = $dao->findAllCatWithFathers();

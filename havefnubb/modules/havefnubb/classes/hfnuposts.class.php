@@ -15,18 +15,18 @@ class hfnuposts {
      * the posts
      * @var array $posts
      */
-    public static $posts = array();
+    public $posts = array();
     /**
      * status of the newest post
      * @var array $postStatus
      */
-    public static $postStatus = array();
+    public $postStatus = array();
     /**
      * the authorized status of the post
      * @var array $statusAvailable
      */
-    //private static $statusAvailable = array('pined','pinedclosed','opened','closed','censored','uncensored','hidden');
-    private static $statusAvailable = array(1,2,3,4,5,6,7);
+    //private $statusAvailable = array('pined','pinedclosed','opened','closed','censored','uncensored','hidden');
+    private $statusAvailable = array(1,2,3,4,5,6,7);
     /**
      * @var integer $hfAdmin the ID that defines the Admin
      */
@@ -34,7 +34,7 @@ class hfnuposts {
     /**
      * @var integer $hfAdmin the ID that defines the Moderator
      */
-    private static $hfModerator = 3;
+    private $hfModerator = 3;
 
     /*********************************************************
      * This part handles the "add/delete/get" data of  posts *
@@ -46,23 +46,23 @@ class hfnuposts {
      * @param  integer $id of the current post
      * @param  recordset $record of the current post to add
      */
-    public static function addPost($id,$record) {
-        if (!isset(self::$posts[$id]) and $id > 0)
-            self::$posts[$id] = $record;
+    public function addPost($id,$record) {
+        if (!isset($this->posts[$id]) and $id > 0)
+            $this->posts[$id] = $record;
     }
     /**
      * get info of the current post
      * @param  integer $id of the current post
      * @return array composed by the post datas of the current post
      */
-    public static function getPost($id) {
-        if (!isset(self::$posts[$id]) and $id > 0)
-            self::$posts[$id] = jDao::get('havefnubb~posts')->get($id);
+    public function getPost($id) {
+        if (!isset($this->posts[$id]) and $id > 0)
+            $this->posts[$id] = jDao::get('havefnubb~posts')->get($id);
 
         if ($id > 0)
-            return self::$posts[$id];
+            return $this->posts[$id];
         else {
-            self::$posts[0] = array('id'=>0,'subject'=>'n/a');
+            $this->posts[0] = array('id'=>0,'subject'=>'n/a');
         }
     }
     /**
@@ -70,11 +70,11 @@ class hfnuposts {
      * @param  integer $id of the current post
      * @return array composed by the post datas of the current post
      */
-    public static function getPostVisible($id) {
-        if (!isset(self::$posts[$id]) and $id > 0)
-            self::$posts[$id] = jDao::get('havefnubb~posts')->getPostVisible($id);
+    public function getPostVisible($id) {
+        if (!isset($this->posts[$id]) and $id > 0)
+            $this->posts[$id] = jDao::get('havefnubb~posts')->getPostVisible($id);
 
-        return self::$posts[$id];
+        return $this->posts[$id];
     }
 
     /**
@@ -83,10 +83,10 @@ class hfnuposts {
      * @param integer $parent_id parent id to remove
      * @return boolean of the success or not
      */
-    public static function delete($id_post) {
+    public function delete($id_post) {
         if ($id_post == 0 ) return false;
 
-        self::deletePost($id_post);
+        $this->deletePost($id_post);
 
         $dao = jDao::get('havefnubb~posts');
         $post = $dao->get($id_post);
@@ -119,9 +119,9 @@ class hfnuposts {
      * @param  integer $id of the current post
      * @return boolean
      */
-    public static function deletePost($id) {
-        if (isset(self::$posts[$id]) and $id > 0) {
-            self::$posts = array_pop(self::$posts);
+    public function deletePost($id) {
+        if (isset($this->posts[$id]) and $id > 0) {
+            $this->posts = array_pop($this->posts);
         }
     }
     /**
@@ -131,12 +131,12 @@ class hfnuposts {
      * @param integer $nbPostPerPage the number of posts per page
      * @return array $page,$nbPosts,$posts if no record have been found, return page = 0 otherwise return the posts
      */
-    public static function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {
+    public function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {
         $daoThreads = jDao::get('havefnubb~threads_alone');
 
         $nbPosts = $daoThreads->countPostsByForumId($id_forum);
         // get the posts of the current forum
-        list($page,$posts) = self::findByIdForum($id_forum,$page,$nbPostPerPage);
+        list($page,$posts) = $this->findByIdForum($id_forum,$page,$nbPostPerPage);
 
         return array($page,$nbPosts,$posts);
     }
@@ -159,19 +159,19 @@ class hfnuposts {
      * @param integer $parent_id parent if of the current post
      * @return array of id_post, DaoRecord of Post, Paginator
      */
-    public static function view($id_post,$parent_id) {
+    public function view($id_post,$parent_id) {
         global $gJConfig;
         if ( ! jAcl2::check('hfnu.admin.post') ) {
-            $post = self::getPostVisible($id_post);
+            $post = $this->getPostVisible($id_post);
         }
         else
-            $post = self::getPost($id_post);
+            $post = $this->getPost($id_post);
 
         if ($id_post == 0 or $post === false) {
             return array(null,null,null);
         }
 
-        if ( ! self::checkPerm('hfnu.posts.view','forum'.$post->id_forum) ) {
+        if ( ! $this->checkPerm('hfnu.posts.view','forum'.$post->id_forum) ) {
             return array(null,null,null);
         }
 
@@ -188,9 +188,9 @@ class hfnuposts {
         }
 
         // let's update the viewed counter
-        self::updateViewing($id_post,$parent_id);
+        $this->updateViewing($id_post,$parent_id);
         // let's update the 'read by mod'
-        self::readByMod($parent_id);
+        $this->readByMod($parent_id);
         // let's add the user to the post_read table
         jClasses::getService('havefnubb~hfnuread')->insertReadPost($post,time());
 
@@ -200,7 +200,7 @@ class hfnuposts {
      * updateViewing : update the counter of the views of a given post
      * @param integer $id_post post id of the current post
      */
-    public static function updateViewing($id_post,$parent_id) {
+    public function updateViewing($id_post,$parent_id) {
         if ($id_post == 0 ) return;
         $dao = jDao::get('havefnubb~posts');
         $post = $dao->get($id_post);
@@ -214,7 +214,6 @@ class hfnuposts {
             $thread->nb_viewed = $thread->nb_viewed +1;
             $dao->update($thread);
         }
-
     }
 
 
@@ -222,10 +221,10 @@ class hfnuposts {
      * readByMod : update the 'read by mod' flag
      * @param integer $parent_id parent id of the thread that will by marked as read by a moderator
      */
-    public static function readByMod($parent_id) {
+    public function readByMod($parent_id) {
         if ($parent_id == 0 ) return;
-        if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfModerator) or
-            jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) ) {
+        if (jAcl2DbUserGroup::isMemberOfGroup($this->hfModerator) or
+            jAcl2DbUserGroup::isMemberOfGroup($this->hfAdmin) ) {
             jDao::get('havefnubb~posts')->updateReadByMod($parent_id);
         }
     }
@@ -242,7 +241,7 @@ class hfnuposts {
      * @param integer $id_post  id post of the current post if editing of 0 if adding
      * @return mixed boolean or $id_post id post of the editing post or the id of the post created
      */
-    public static function save($id_forum,$id_post=0) {
+    public function save($id_forum,$id_post=0) {
         global $gJConfig;
         if (jAuth::isConnected()) {
             $form = jForms::fill('havefnubb~posts',$id_post);
@@ -289,8 +288,8 @@ class hfnuposts {
             $record->poster_ip      = $_SERVER['REMOTE_ADDR'];
             //if the current user is a member of a moderator group
             // we set this post as 'read by moderator'
-            if (jAcl2DbUserGroup::isMemberOfGroup(self::$hfAdmin) or
-                jAcl2DbUserGroup::isMemberOfGroup(self::$hfModerator) ) {
+            if (jAcl2DbUserGroup::isMemberOfGroup($this->hfAdmin) or
+                jAcl2DbUserGroup::isMemberOfGroup($this->hfModerator) ) {
                 $record->read_by_mod = 1;
             }
             else {
@@ -328,7 +327,7 @@ class hfnuposts {
             $forumRec->date_last_msg = $datePost;
             $forum->update($forumRec);
 
-            self::addPost($id_post,$record);
+            $this->addPost($id_post,$record);
 
             jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));
 
@@ -338,7 +337,7 @@ class hfnuposts {
             jEvent::notify('HfnuPostBeforeUpdate',array('id'=>$id_post));
 
             //remove the id_post of the array
-            self::deletePost($id_post);
+            $this->deletePost($id_post);
 
             $record = $dao->get($id_post);
             $record->subject        = $subject;
@@ -348,7 +347,7 @@ class hfnuposts {
             jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
 
             // add the new record to the array
-             self::addPost($id_post,$record);
+            $this->addPost($id_post,$record);
         }
 
         // in all cases (id_post = 0 or not )
@@ -380,7 +379,6 @@ class hfnuposts {
         jForms::destroy('havefnubb~posts', $id_post);
 
         return $record;
-
     }
 
     /**
@@ -388,7 +386,7 @@ class hfnuposts {
      * @param integer $parent_id parent id of the current post if editing of 0 if adding
      * @return mixed boolean / DaoRecord $record of the reply
      */
-    public static function savereply($parent_id,$id_post) {
+    public function savereply($parent_id,$id_post) {
         global $gJConfig;
         $form = false;
         if (jAuth::isConnected()) {
@@ -438,7 +436,7 @@ class hfnuposts {
         $result['dao']->insert($result['daorec']);
         $id_post = $result['daorec']->getPk();
 
-        self::addPost($id_post,$result['daorec']);
+        $this->addPost($id_post,$result['daorec']);
 
         //update Threads record
         $threads = jDao::get('havefnubb~threads');
@@ -485,7 +483,7 @@ class hfnuposts {
      * @param integer $id_post id post of the current post if editing of 0 if adding
      * @return boolean status of success of this submit
      */
-    public static function savenotify($id_post,$parent_id) {
+    public function savenotify($id_post,$parent_id) {
 
         $form = jForms::fill('havefnubb~notify',$id_post);
         if (!$form) {
@@ -506,7 +504,7 @@ class hfnuposts {
 
         $result = $form->prepareDaoFromControls('havefnubb~notify');
         $result['daorec']->parent_id    = $parent_id;
-        $result['daorec']->subject      = self::getPost(jDao::get('havefnubb~threads_alone')->get($parent_id)->id_last_msg)->subject;
+        $result['daorec']->subject      = $this->getPost(jDao::get('havefnubb~threads_alone')->get($parent_id)->id_last_msg)->subject;
         $result['daorec']->message      = '['.$form->getData('reason').'] ' .$form->getData('message');
         $result['daorec']->date_created	= time();
         $result['daorec']->date_modified= time();
@@ -532,9 +530,9 @@ class hfnuposts {
      * @param string $status the status to switch to
      * @return DaoRecord $record
      */
-    public static function switchStatus($parent_id,$id_post,$status) {
+    public function switchStatus($parent_id,$id_post,$status) {
 
-        if (! in_array($status,self::$statusAvailable)) {
+        if (! in_array($status,$this->statusAvailable)) {
             jMessage::add(jLocale::get('havefnubb~post.invalid.status'),'error');
             return false;
         }
@@ -553,17 +551,17 @@ class hfnuposts {
             $rec->ispined_thread = 0;
         $daoThread->update($rec);
 
-        return self::getPost($id_post);
+        return $this->getPost($id_post);
     }
     /**
      * this function permits to get the status of the posts
      * @param integer $id_post id post
      * @return array $postStatus return the status of the given post
      */
-    public static function getPostStatus($id_post) {
-        if (!isset(self::$postStatus[$id_post]))
-            self::$postStatus[$id_post] = jDao::get('havefnubb~newest_posts')->getPostStatus($id_post);
-        return self::$postStatus[$id_post];
+    public function getPostStatus($id_post) {
+        if (!isset($this->poststatus[$id_post]))
+            $this->poststatus[$id_post] = jDao::get('havefnubb~newest_posts')->getPostStatus($id_post);
+        return $this->poststatus[$id_post];
     }
     /**
      * censor the current POST
@@ -572,7 +570,7 @@ class hfnuposts {
      * @param string $status the status to switch to
      * @param string $censor_msg the censored message
      */
-    public static function censor($parent_id,$id_post,$censor_msg) {
+    public function censor($parent_id,$id_post,$censor_msg) {
         if ( $parent_id < 0 or $id_post < 1) return false;
         $return = false;
         $dao = jDao::get('havefnubb~posts');
@@ -586,7 +584,7 @@ class hfnuposts {
             $rec->iscensored = 1;
             $daoThread->update($rec);
 
-            $return = self::getPost($id_post);
+            $return = $this->getPost($id_post);
         }
         return $return;
     }
@@ -600,7 +598,7 @@ class hfnuposts {
      * @param string $status string the status to switch to
      * @param string $censor_msg string of the censored message
      */
-    public static function uncensor($parent_id,$id_post) {
+    public function uncensor($parent_id,$id_post) {
         if ( $parent_id < 0 or $id_post < 1) return false;
         $return = false;
         $dao = jDao::get('havefnubb~posts');
@@ -616,7 +614,7 @@ class hfnuposts {
             $rec->iscensored = 0;
             $daoThread->update($rec);
 
-            $return = self::getPost($id_post);
+            $return = $this->getPost($id_post);
         }
         return $return;
     }
@@ -634,7 +632,7 @@ class hfnuposts {
      * @param integer $id_forum id forum to move to
      * @return boolean
      */
-    public static function moveToForum($parent_id,$id_forum) {
+    public function moveToForum($parent_id,$id_forum) {
         if ($parent_id == 0 or $id_forum == 0) return false;
 
         jDao::get('havefnubb~posts')->moveToForum($parent_id,$id_forum);
@@ -654,7 +652,7 @@ class hfnuposts {
      * @param integer $id_forum id forum
      * @return integer $id_post_new the new Id
      */
-    public static function splitToForum($parent_id,$id_post,$id_forum) {
+    public function splitToForum($parent_id,$id_post,$id_forum) {
         if ($id_post == 0 or $id_forum == 0 or $parent_id == 0) return false;
         $dao = jDao::get('havefnubb~posts');
 
@@ -751,7 +749,7 @@ class hfnuposts {
      * @param integer  $new_parent_id parent id to attach to
      * @return boolean
      */
-    public static function splitToThread($id_post,$parent_id,$new_parent_id) {
+    public function splitToThread($id_post,$parent_id,$new_parent_id) {
         if ($id_post == 0 or $parent_id == 0 or $new_parent_id == 0) return false;
 
         $dao = jDao::get('havefnubb~posts');
@@ -806,7 +804,7 @@ class hfnuposts {
      * @param string $resources the resource to check
      * @return boolean
      */
-    public static function checkPerm($rights,$ressources) {
+    public function checkPerm($rights,$ressources) {
         return jAcl2::check($rights,$ressources) ? true : false;
     }
 
@@ -814,16 +812,13 @@ class hfnuposts {
      * get the list of the unread post by any moderator
      * @return data DaoData
      */
-    public static function findUnreadThreadByMod() {
+    public function findUnreadThreadByMod() {
         return jDao::get('havefnubb~threads')->findUnreadThreadByMod();
     }
 
-
-
-    public static function findByIdForum($id_forum,$page,$nbPostPerPage) {
+    public function findByIdForum($id_forum,$page,$nbPostPerPage) {
         $c = jDb::getConnection();
-        if ( ! jAuth::isConnected())
-            $sql = "SELECT threads.id_thread,
+        $select = "SELECT threads.id_thread,
                     threads.id_user as id_user_thread,
                     threads.id_forum as id_forum_thread,
                     threads.status as status_thread,
@@ -860,70 +855,28 @@ class hfnuposts {
                     usr.nb_msg,
                     usr.last_post as member_last_post,
                     forum.parent_id as forum_parent_id,
-                    forum.forum_name
-                FROM ".$c->prefixTable('hfnu_threads')." AS threads
+                    forum.forum_name";
+        $from = " FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                , ".$c->prefixTable('hfnu_posts')." AS posts
-                WHERE
-                    threads.id_thread=posts.parent_id AND
+                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
+        $where = "WHERE threads.id_thread=posts.parent_id AND
                     posts.id_forum = '".$id_forum."'";
+
+        if ( ! jAuth::isConnected())
+            $sql = $select.$from.", ".$c->prefixTable('hfnu_posts')." AS posts ". $where;
         else
-            $sql = "SELECT threads.id_thread,
-                        threads.id_user as id_user_thread,
-                        threads.id_forum as id_forum_thread,
-                        threads.status as status_thread,
-                        threads.nb_viewed,
-                        threads.nb_replies,
-                        threads.id_first_msg,
-                        threads.id_last_msg,
-                        threads.date_created,
-                        threads.date_last_post,
-                        threads.ispined as ispined_thread,
-                        threads.iscensored as iscensored_thread,
-                        posts.id_post,
-                        posts.id_user,
-                        posts.id_forum,
-                        posts.parent_id,
-                        posts.status,
-                        posts.ispined,
-                        posts.iscensored,
-                        posts.subject,
-                        posts.message,
-                        posts.date_created as p_date_created,
-                        posts.date_modified, posts.viewed,
-                        posts.poster_ip,
-                        posts.censored_msg,
-                        posts.read_by_mod,
-                        usr.id,
-                        usr.email,
-                        usr.login,
-                        usr.nickname,
-                        usr.comment as member_comment,
-                        usr.town as member_town,
-                        usr.avatar as member_avatar,
-                        usr.website as member_website,
-                        usr.nb_msg,
-                        usr.last_post as member_last_post,
-                        forum.parent_id as forum_parent_id,
-                        forum.forum_name,
-                        rp.date_read as date_read_post
-                FROM ".$c->prefixTable('hfnu_threads')." AS threads
-                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+            $sql = $select.", rp.date_read as date_read_post ".$from."
                     LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
                                                                     threads.id_last_msg=rp.id_post AND
                                                                     rp.id_user = '".jAuth::getUserSession ()->id."')
-                ,".$c->prefixTable('hfnu_posts')." AS posts
-                WHERE
-                    threads.id_thread=posts.parent_id AND
-                    posts.id_forum = '".$id_forum."'";
+                ,".$c->prefixTable('hfnu_posts')." AS posts ".$where;
 
         // if the user is not an admin then we hide the "hidden" posts
         if ( ! jAcl2::check('hfnu.admin.post') )
             $sql .= "AND posts.status <> 7 ";
 
-        $sql .= "GROUP BY posts.parent_id ORDER BY threads.ispined desc, threads.date_last_post desc ";
+        $sql .= "GROUP BY posts.parent_id
+                ORDER BY threads.ispined desc, threads.date_last_post desc ";
 
         $posts = $c->limitQuery($sql, $page,$nbPostPerPage);
         if ($posts->rowCount() == 0) {
@@ -934,10 +887,9 @@ class hfnuposts {
         return array($page,$posts);
     }
 
-    public static function findByIdParent($parent_id,$page,$nbRepliesPerPage) {
+    public function findByIdParent($parent_id,$page,$nbRepliesPerPage) {
         $c = jDb::getConnection();
-        if ( ! jAuth::isConnected())
-            $sql = "SELECT threads.id_thread,
+        $select = "SELECT threads.id_thread,
                     threads.id_user as id_user_thread,
                     threads.id_forum as id_forum_thread,
                     threads.status as status_thread,
@@ -975,65 +927,21 @@ class hfnuposts {
                     usr.nb_msg,
                     usr.last_post as member_last_post,
                     forum.parent_id as forum_parent_id,
-                    forum.forum_name
-                FROM ".$c->prefixTable('hfnu_threads')." AS threads
+                    forum.forum_name";
+        $from = " FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
-                , ".$c->prefixTable('hfnu_posts')." AS posts
-                WHERE
+                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
+        $where = " WHERE
                     threads.id_thread=posts.parent_id AND
                     posts.parent_id = '".$parent_id."'";
+        if ( ! jAuth::isConnected())
+            $sql = $select.$from.", ".$c->prefixTable('hfnu_posts')." AS posts ".$where;
         else
-            $sql = "SELECT threads.id_thread,
-                        threads.id_user as id_user_thread,
-                        threads.id_forum as id_forum_thread,
-                        threads.status as status_thread,
-                        threads.nb_viewed,
-                        threads.nb_replies,
-                        threads.id_first_msg,
-                        threads.id_last_msg,
-                        threads.date_created,
-                        threads.date_last_post,
-                        threads.ispined as ispined_thread,
-                        threads.iscensored as iscensored_thread,
-                        posts.id_post,
-                        posts.id_user,
-                        posts.id_forum,
-                        posts.parent_id,
-                        posts.status,
-                        posts.ispined,
-                        posts.iscensored,
-                        posts.subject,
-                        posts.message,
-                        posts.date_created as p_date_created,
-                        posts.date_modified, posts.viewed,
-                        posts.poster_ip,
-                        posts.censored_msg,
-                        posts.censored_by,
-                        posts.read_by_mod,
-                        usr.id,
-                        usr.email,
-                        usr.login,
-                        usr.nickname,
-                        usr.comment as member_comment,
-                        usr.town as member_town,
-                        usr.avatar as member_avatar,
-                        usr.website as member_website,
-                        usr.nb_msg,
-                        usr.last_post as member_last_post,
-                        forum.parent_id as forum_parent_id,
-                        forum.forum_name,
-                        rp.date_read as date_read_post
-                FROM ".$c->prefixTable('hfnu_threads')." AS threads
-                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
-                    LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)
+            $sql = $select.", rp.date_read as date_read_post ". $from ."
                     LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
                                                                     threads.id_last_msg=rp.id_post AND
                                                                     rp.id_user = '".jAuth::getUserSession ()->id."')
-                ,".$c->prefixTable('hfnu_posts')." AS posts
-                WHERE
-                    threads.id_thread=posts.parent_id AND
-                    posts.parent_id = '".$parent_id."'";
+                ,".$c->prefixTable('hfnu_posts')." AS posts ".$where;
 
         // if the user is not an admin then we hide the "hidden" posts
         if ( ! jAcl2::check('hfnu.admin.post') )

@@ -11,15 +11,11 @@
 * main UI to manage the statement of the forums of HaveFnuBB!
 */
 class hfnuread {
-    /**
-     * the read posts
-     * @var $postsRead array
-     */
-    public static $postsRead = array();
+
     /**
      * this function mark all forum as read
      */
-    public static function markAllAsRead() {
+    public function markAllAsRead() {
         if (jAuth::isConnected()) {
             $id_user = jAuth::getUserSession ()->id;
 
@@ -44,11 +40,11 @@ class hfnuread {
      * this function says which forum has been marked as read by which user
      * @param integer $id the forum id
      */
-    public static function markForumAsRead($id) {
+    public function markForumAsRead($id) {
         if ( jAuth::isConnected() ) {
-            $dao = jDao::get('havefnubb~read_forum');
             $id_user = jAuth::getUserSession ()->id;
 
+            $dao = jDao::get('havefnubb~read_forum');
             $exist = $dao->get($id_user,$id);
             if ($exist === false) {
                 $rec = jDao::createRecord('havefnubb~read_forum');
@@ -67,10 +63,10 @@ class hfnuread {
         }
     }
     /**
-     * this function says which message from which forum has been read by which user
+     * this function save which message from which forum has been read by which user
      * @param record $post record of the current read post
      */
-    public static function insertReadPost($post,$datePost) {
+    public function insertReadPost($post,$datePost) {
         if ($post->id_post > 0 and $post->id_forum > 0 and jAuth::isConnected()) {
             $dao = jDao::get('havefnubb~read_posts');
             $id_user = jAuth::getUserSession ()->id;
@@ -95,7 +91,7 @@ class hfnuread {
      * then return the given record
      * @return array : the limited records + total of records
      */
-    public static function findUnreadThread($page=0,$nbPostPerPage=25) {
+    public function findUnreadThread($page=0,$nbPostPerPage=25) {
         if ( !jAuth::isConnected() )
             return array('posts'=>0,'nbPosts'=>0);
         // let's find the threads we have not read yet
@@ -175,7 +171,7 @@ class hfnuread {
      * @param integer $id_forum the current id forum
      * @return boolean
      */
-    public static function findUnreadThreadbyForumId($id_forum) {
+    public function findUnreadThreadbyForumId($id_forum) {
         if ( jAuth::isConnected() and $id_forum > 0) {
             // let's find the threads we have not read yet
             $c = jDb::getConnection();

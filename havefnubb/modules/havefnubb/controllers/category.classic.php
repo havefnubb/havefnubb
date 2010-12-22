@@ -55,8 +55,10 @@ class categoryCtrl extends jController {
         // 2) assign the title page
         $rep->title = $category->cat_name;
 
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
-        $GLOBALS['gJCoord']->getPlugin('history')->change('title', ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') ) );
+        $historyPlugin = $GLOBALS['gJCoord']->getPlugin('history');
+        $histname = ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') );
+        $historyPlugin->change('label',  $histname);
+        $historyPlugin->change('title', $histname );
 
         $categories = jDao::get('havefnubb~forum')->findParentByCatId($id_cat);
         foreach ($categories as $cat) {
