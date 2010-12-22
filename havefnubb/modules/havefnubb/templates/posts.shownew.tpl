@@ -10,6 +10,7 @@
         <caption>{@havefnubb~post.list.of.new.posts@} : {$nbPosts}</caption>
         <thead>
             <tr>
+                <th>{@havefnubb~forum.forumlist.forumname@}</th>
                 <th>{@havefnubb~forum.forumlist.title@}</th>
                 <th>{@havefnubb~member.common.author@}</th>
                 <th>{@havefnubb~forum.forumlist.responses@}</th>
@@ -24,6 +25,7 @@
             ||   $post->p_date_created <= $post->date_read_post}
             {else}
             <tr>
+                <td> <a href="{jurl 'havefnubb~posts:lists', array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name)}" title="{@havefnubb~forum.forumlist.forumname@}">{$post->forum_name|eschtml}</a></td>
                 <td> <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->id_last_msg,'parent_id'=>$post->parent_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}#p{$post->id_last_msg}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
                 <td>
                     {if $post->login == null} {@havefnubb~member.guest@}{else} <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" title="{$post->nickname|eschtml}">{$post->nickname|eschtml}</a>{/if}
