@@ -12,7 +12,7 @@
 */
 class sitemapCtrl extends jController {
     /**
-    * Page info display to banned users
+    * Page info display to sitemap
     */
     function index() {
         $rep = $this->getResponse('sitemap');
