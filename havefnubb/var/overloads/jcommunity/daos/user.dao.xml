@@ -5,7 +5,7 @@
 
     </datasources>
     <record>
-    <property name="id" fieldname="id" datatype="autoincrement" sequence="community_users_id_seq"/>
+    <property name="id" fieldname="id" datatype="autoincrement"/>
     <property name="login" fieldname="login"
         required="yes" datatype="string"  maxlength="50" />
     <property name="password" fieldname="password" datatype="string"

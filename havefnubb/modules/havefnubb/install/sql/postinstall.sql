@@ -1,11 +1,3 @@
--- groups
-INSERT INTO %%PREFIX%%jacl2_group (id_aclgrp, name, code, grouptype, ownerlogin) VALUES (3, 'moderators', 'moderators', 0, NULL);
--- rights
-
-INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.user.change.password', 2, '');
-INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.user.modify', 2, '');
-INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.user.view', 2, '');
-
 
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.category.list', 'havefnubb~acl2.category.list');
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('hfnu.category.view', 'havefnubb~acl2.category.view');
@@ -195,7 +187,11 @@ INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hf
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.posts.view', 3, 'forum3');
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('hfnu.posts.view', 3, 'forum4');
 
--- hfnusearch
+
+INSERT INTO %%PREFIX%%sc_tags (tag_name, nbuse) VALUES ('install', 1);
+INSERT INTO %%PREFIX%%sc_tags_tagged (tag_id, tt_scope_id, tt_subject_id) VALUES ( 1, 'forumscope', 1);
+
+
 INSERT INTO %%PREFIX%%hfnu_search_words (id, datasource, words, weight) VALUES ('1', '', 'first', 1);
 INSERT INTO %%PREFIX%%hfnu_search_words (id, datasource, words, weight) VALUES ('1', '', 'life', 2);
 INSERT INTO %%PREFIX%%hfnu_search_words (id, datasource, words, weight) VALUES ('1', '', 'new', 2);
@@ -214,6 +210,3 @@ INSERT INTO %%PREFIX%%hfnu_search_words (id, datasource, words, weight) VALUES (
 INSERT INTO %%PREFIX%%hfnu_search_words (id, datasource, words, weight) VALUES ('1', '', 'read', 2);
 INSERT INTO %%PREFIX%%hfnu_search_words (id, datasource, words, weight) VALUES ('1', '', 'you', 6);
 
--- jTags
-INSERT INTO %%PREFIX%%sc_tags (tag_name, nbuse) VALUES ('install', 1);
-INSERT INTO %%PREFIX%%sc_tags_tagged (tag_id, tt_scope_id, tt_subject_id) VALUES ( 1, 'forumscope', 1);
