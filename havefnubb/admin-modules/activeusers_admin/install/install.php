@@ -15,10 +15,9 @@ class activeusers_adminModuleInstaller extends jInstallerModule {
         //if ($this->firstDbExec())
         //    $this->execSQLScript('sql/install');
 
-        /*if ($this->firstExec('acl2')) {
-            jAcl2DbManager::addSubject('my.subject', 'activeusers_admin~acl.my.subject');
-            jAcl2DbManager::addRight(1, 'my.subject'); // for admin group
+        if ($this->firstExec('acl2')) {
+            jAcl2DbManager::addSubject('activeusers.configuration', 'activeusers_admin~main.acl.subject');
+            jAcl2DbManager::addRight(1, 'activeusers.configuration'); // for admin group
         }
-        */
     }
 }

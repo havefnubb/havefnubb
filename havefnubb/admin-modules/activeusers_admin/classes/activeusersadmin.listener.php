@@ -15,4 +15,17 @@ class activeusersadminListener extends jEventListener{
         $label = jLocale::get('activeusers_admin~main.server.infos.online.users');
         $event->add(new serverinfoData('user-online', $label, $nbMembers));
     }
+
+    function onmasteradminGetMenuContent ($event) {
+        global $gJConfig;
+
+        if (jAcl2::check('activeusers.configuration')) {
+            $item = new masterAdminMenuItem('activeusers',
+                                            jLocale::get('activeusers_admin~main.masteradmin.menu.item'),
+                                            jUrl::get('activeusers_admin~default:index'),
+                                            120,
+                                            'system');
+            $event->add($item);
+        }
+    }
 }

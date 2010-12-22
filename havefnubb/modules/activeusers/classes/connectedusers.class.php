@@ -81,6 +81,26 @@ class connectedusers {
         return $timeoutVisit;
 	}
 
+	public function saveVisitTimeout($timeout) {
+		global $gJConfig;
+		if (isset($gJConfig->activeusers_admin['pluginconf'])
+			&& $gJConfig->activeusers_admin['pluginconf']) {
+			$conffile = $gJConfig->activeusers_admin['pluginconf'];
+			if (in_array(substr($conffile, 0,4), array('app:','lib:','var:'))) {
+				$conffile = str_replace(array('app:','lib:','var:'), array(JELIX_APP_PATH, LIB_PATH, JELIX_APP_VAR_PATH), $conffile);
+			}
+			else
+				$conffile = JELIX_APP_CONFIG_PATH.$conffile;
+			$ini = new jIniFileModifier($conffile);
+			$ini->setValue('timeout_visit', $timeout);
+			$ini->save();
+			return true;
+		}
+		return false;
+
+	}
+
+
 	public function isConnected ($login) {
 		$dao = jDao::get('activeusers~connectedusers');
 		$timeoutVisit = $this->getVisitTimeout();

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+<menulist ref="timeout_visit"  required="true">
+    <label locale="activeusers_admin~main.config.timeout_visit"/>
+    <item value="300">5 min</item>
+    <item value="600">10 min</item>
+    <item value="1200">20 min</item>
+    <item value="1800">30 min</item>
+    <item value="2400">40 min</item>
+    <item value="3600">1h</item>
+    <help locale="activeusers_admin~main.config.timeout_visit.desc" />
+</menulist>
+
+<submit ref="validate">
+    <label locale="activeusers_admin~main.config.save.btn" />
+</submit>
+
+</form>
