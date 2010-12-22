@@ -51,14 +51,34 @@ class connectedusers {
     }
     
 	public function getVisitTimeout() {
+        static $timeoutVisit = null;
+        
+        if ($timeoutVisit !== null)
+            return $timeoutVisit;
+
         global $gJCoord;
-		$plugin = $gJCoord->getPlugin('activeusers');
+		$plugin = $gJCoord->getPlugin('activeusers', false);
+        $timeoutVisit = 1200;
         if ($plugin) {
-    		$timeoutVisit       = ($plugin->config['timeout_visit'] > 0 ) ? $plugin->config['timeout_visit'] : 1200;
-            $timeoutVisit = time() - $timeoutVisit;
-			return $timeoutVisit;
+    		$timeoutVisit = ($plugin->config['timeout_visit'] > 0 ) ? $plugin->config['timeout_visit'] : 1200;
 		}
-		else return 0;
+        else {
+            // for activeusers_admin
+            global $gJConfig;
+            if (isset($gJConfig->activeusers_admin['pluginconf'])
+                && $gJConfig->activeusers_admin['pluginconf']) {
+                $conffile = $gJConfig->activeusers_admin['pluginconf'];
+                if (in_array(substr($conffile, 0,4), array('app:','lib:','var:'))) {
+                    $conffile = str_replace(array('app:','lib:','var:'), array(JELIX_APP_PATH, LIB_PATH, JELIX_APP_VAR_PATH), $conffile);
+                }
+                else
+                    $conffile = JELIX_APP_CONFIG_PATH.$conffile;
+                $config = @parse_ini_file($conffile);
+            }
+        }
+        if ($timeoutVisit)
+            $timeoutVisit = time() - $timeoutVisit;
+        return $timeoutVisit;
 	}
 
 	public function isConnected ($login) {
@@ -113,8 +133,6 @@ class connectedusers {
 
 	function getList() {
 		$timeout = $this->getVisitTimeout();
-        if ($timeout == 0)
-            $timeout = time();
         $dao = jDao::get('activeusers~connectedusers');
         $members = $dao->findConnected($timeout);
 		return $members;
@@ -122,8 +140,6 @@ class connectedusers {
 
 	function getCount() {
 		$timeout = $this->getVisitTimeout();
-        if ($timeout == 0)
-            $timeout = time();
         $dao = jDao::get('activeusers~connectedusers');
         $members = $dao->countConnected($timeout);
 		return $members;
