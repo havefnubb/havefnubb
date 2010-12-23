@@ -41,30 +41,23 @@ class defaultCtrl extends jController {
         $historyPlugin->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
         $historyPlugin->change('title', jLocale::get('havefnubb~main.goto_homepage'));
 
-        $dao = jDao::get('havefnubb~forum_cat');
-        $categories = $dao->findAllCatWithFathers();
-        $nbCat = $categories->rowCount();
-        $data = array();
-        $id_cat = '';
-        foreach ($categories as $cat) {
-            if ($id_cat == 0 or $id_cat != $cat->cat_id) {
-                if ( jAcl2::check('hfnu.forum.list','forum'.$cat->id_forum) ) {
-                    $data[] = $cat;
-                    // get the list of forum to build the RSS link
-                    $url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$cat->forum_name,
-                                                            'id_forum'=>$cat->id_forum));
-                    $rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$cat->forum_name.'" href="'.htmlentities($url).'" />');
-                }
-            }
+        $forums = jClasses::getService('hfnuforum');
+
+        $forumsList = $forums->getFullList();
+
+        // generate rss links list
+        foreach($forumsList->getLinearIterator() as $f) {
+            // get the list of forum to build the RSS link
+            $url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$f->record->forum_name,
+                                                    'id_forum'=>$f->record->id_forum));
+            $rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$f->record->forum_name.'" href="'.htmlentities($url).'" />');
         }
 
         $tpl = new jTpl();
-        //$rep->body->assignZone('MAIN', 'havefnubb~category',array('data'=>$data,'nbCat'=>$nbCat));
         $tpl->assign('selectedMenuItem','community');
         $tpl->assign('currentIdForum',0);
         $tpl->assign('action','index');
-        $tpl->assign('categories',$data);
-        $tpl->assign('nbCat',$nbCat);
+        $tpl->assign('forumsList',$forumsList);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~index'));
         return $rep;
     }

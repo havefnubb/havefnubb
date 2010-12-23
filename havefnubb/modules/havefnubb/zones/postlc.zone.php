@@ -32,39 +32,28 @@ class postlcZone extends jZone {
         if ($thread_id) {
             if (  jAcl2::check('hfnu.admin.post') ) {
                 $userPost = $dao->getUserLastCommentOnPosts($thread_id);
-                $title = $userPost->subject;
             }
             else {
                 $userPost = $dao->getUserLastVisibleCommentOnPosts($thread_id);
-                $title = $userPost->subject;
             }
             $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
             $title  = $userPost->subject;
         }
-
-        if ($id_forum) {
+        else if ($id_forum) {
             if (  jAcl2::check('hfnu.admin.post') ) {
                 $userPost = $dao->getUserLastCommentOnForums($id_forum);
-                if ($userPost !== false) {
-                    $title = jClasses::getService('havefnubb~hfnuposts')->getPost(
-                                jDao::get('havefnubb~threads_alone')->get($userPost->thread_id)->id_first_msg
-                                )->subject;
-                    $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
-                }
             }
             else {
                 $userPost = $dao->getUserLastVisibleCommentOnForums($id_forum);
-
-                if ($userPost !== false) {
-                    $title = jClasses::getService('havefnubb~hfnuposts')->getPost(
-                            jDao::get('havefnubb~threads_alone')->get($userPost->id_thread)->id_first_msg
-                            )->subject;
-                    $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
-                }
-
             }
-
-            if ($userPost === false) $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
+            if ($userPost !== false) {
+                $title = jClasses::getService('havefnubb~hfnuposts')->getPost(
+                            jDao::get('havefnubb~threads_alone')->get($userPost->thread_id)->id_first_msg
+                            )->subject;
+                $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
+            }
+            else
+                $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
         }
 
         $this->_tpl->assign('user',$user);
