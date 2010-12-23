@@ -70,7 +70,7 @@
             </order>
         </method>
         <!-- get the posts to be displayed on the index of the forum page -->
-        <method name="findByIdParent" type="select">
+        <method name="findByThreadId" type="select">
             <parameter name="thread_id" />
             <parameter name="offset" default="0" />
             <parameter name="count" default="200" />
@@ -83,7 +83,7 @@
             </order>
             <limit offset="$offset" count="$count"/>
         </method>
-        <method name="findAllPostByIdParent" type="select">
+        <method name="findAllPostByThreadId" type="select">
             <parameter name="thread_id" />
             <conditions>
                 <eq property="thread_id" expr="$thread_id" />
@@ -108,7 +108,7 @@
                 this method permits to find all the post id to move
              from the current post with the same thread_id
         -->
-        <method name="findAllFromCurrentIdPostWithParentId" type="select">
+        <method name="findAllFromCurrentIdPostWithThreadId" type="select">
             <parameter name="thread_id"/>
             <parameter name="id_post"/>
            <conditions>
@@ -243,7 +243,7 @@
         </method>
 
         <!-- all update statement -->
-        <method name="updateStatusByIdParent" type="update">
+        <method name="updateStatusByThreadId" type="update">
             <parameter name="thread_id"/>
             <parameter name="status"/>
            <conditions>
@@ -263,7 +263,7 @@
                 <value property="id_forum" expr="$id_forum" />
             </values>
         </method>
-        <method name="deleteAllFromCurrentIdPostWithParentId" type="delete">
+        <method name="deleteAllFromCurrentIdPostWithThreadId" type="delete">
             <parameter name="thread_id"/>
             <parameter name="id_post"/>
            <conditions>

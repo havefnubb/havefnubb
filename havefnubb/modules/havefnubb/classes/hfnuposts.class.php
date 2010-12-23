@@ -537,7 +537,7 @@ class hfnuposts {
 
         if ( $thread_id < 0 ) return false;
 
-        if ( jDao::get('havefnubb~posts')->updateStatusByIdParent($thread_id,$status) )
+        if ( jDao::get('havefnubb~posts')->updateStatusByThreadId($thread_id,$status) )
             jEvent::notify('HfnuPostAfterStatusChanged',array('id'=>$thread_id,'status'=>$status));
 
         $daoThread = jDao::get('havefnubb~threads');
@@ -654,7 +654,7 @@ class hfnuposts {
         if ($id_post == 0 or $id_forum == 0 or $thread_id == 0) return false;
         $dao = jDao::get('havefnubb~posts');
 
-        $datas = $dao->findAllFromCurrentIdPostWithParentId($thread_id,$id_post);
+        $datas = $dao->findAllFromCurrentIdPostWithThreadId($thread_id,$id_post);
 
         $i = 0;
         $id_post_new = 0;
@@ -710,7 +710,7 @@ class hfnuposts {
             $i++;
         }
         // delete the old records
-        $dao->deleteAllFromCurrentIdPostWithParentId($thread_id,$id_post);
+        $dao->deleteAllFromCurrentIdPostWithThreadId($thread_id,$id_post);
 
         // remove the number of replies from the original thread
         $threadDao = jDao::get('havefnubb~threads');
@@ -751,7 +751,7 @@ class hfnuposts {
         if ($id_post == 0 or $thread_id == 0 or $new_thread_id == 0) return false;
 
         $dao = jDao::get('havefnubb~posts');
-        $datas = $dao->findAllFromCurrentIdPostWithParentId($thread_id,$id_post);
+        $datas = $dao->findAllFromCurrentIdPostWithThreadId($thread_id,$id_post);
         $i = 0;
         foreach($datas as $data) {
             $i++;
@@ -764,7 +764,7 @@ class hfnuposts {
             $result = $dao->insert($record);
         }
 
-        $dao->deleteAllFromCurrentIdPostWithParentId($thread_id,$id_post); // delete the old records
+        $dao->deleteAllFromCurrentIdPostWithThreadId($thread_id,$id_post); // delete the old records
 
         //Thread Update process :
         $daoThreads = jDao::get('havefnubb~threads_alone');
@@ -888,7 +888,7 @@ class hfnuposts {
         return array($page,$posts);
     }
 
-    public function findByIdParent($thread_id,$page,$nbRepliesPerPage) {
+    public function findByThreadId($thread_id,$page,$nbRepliesPerPage) {
         $c = jDb::getConnection();
 
         $from = " FROM ".$c->prefixTable('hfnu_threads')." AS threads

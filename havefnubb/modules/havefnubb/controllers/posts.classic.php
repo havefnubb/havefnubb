@@ -174,7 +174,7 @@ class postsCtrl extends jController {
         if ($this->param('go')) {
             $gotoPostId = (int) $this->param('go');
             $thread_id = (int) $this->param('thread_id');
-            $rec = jDao::get('havefnubb~posts')->findAllPostByIdParent($thread_id);
+            $rec = jDao::get('havefnubb~posts')->findAllPostByThreadId($thread_id);
             $nbRec = 0;
             if ($rec->rowCount() > 0 ) {
                 $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
@@ -310,13 +310,13 @@ class postsCtrl extends jController {
         $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
         // 2- get the post
         //$daoPost = jDao::get('havefnubb~posts');
-        list($page,$posts) = jClasses::getService("havefnubb~hfnuposts")->findByIdParent($thread_id,$page,$nbRepliesPerPage);
+        list($page,$posts) = jClasses::getService("havefnubb~hfnuposts")->findByThreadId($thread_id,$page,$nbRepliesPerPage);
         // 3- total number of posts
         //$nbReplies = $daoPost->countResponse($id_post);
         $nbReplies = jDao::get('havefnubb~threads_alone')->get($thread_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
         // 4- get the posts of the current forum, limited by point 1 and 2
 
-        //$posts = $daoPost->findByIdParent($thread_id,$page,$nbRepliesPerPage);
+        //$posts = $daoPost->findByThreadId($thread_id,$page,$nbRepliesPerPage);
 
         // id_post is the thread_id ; we need to know
         // the status of it to determine if the member can
@@ -324,7 +324,7 @@ class postsCtrl extends jController {
 
         // check if we have found record ;
         /*if ($posts->rowCount() == 0) {
-            $posts = $daoPost->findByIdParent($thread_id,0,$nbRepliesPerPage);
+            $posts = $daoPost->findByThreadId($thread_id,0,$nbRepliesPerPage);
             $page = 0;
         }*/
 
