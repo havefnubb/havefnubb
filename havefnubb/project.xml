@@ -25,6 +25,5 @@
     <entrypoints>
         <entry file="forums.php" config="havefnubb/config.ini.php"/>
         <entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/>
-        <entry file="hfnuupd.php" config="hfnuupd/config.ini.php"/>
     </entrypoints>
 </project>
