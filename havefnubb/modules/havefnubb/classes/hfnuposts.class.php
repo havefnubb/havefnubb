@@ -106,7 +106,6 @@ class hfnuposts {
                 $threadRec->nb_replies=$threadRec->nb_replies - 1;
                 $threadRec->id_last_msg = $dao->getLastCreatedPostByThreadId($post->parent_id)->id_post;
                 $daoThreads->update($threadRec);
-
             }
 
         } else {
@@ -125,18 +124,18 @@ class hfnuposts {
         }
     }
     /**
-     * get the posts of the given forum
+     * get the threads list of the given forum
      * @param integer $id_forum the current forum
      * @param integer $page the current page
      * @param integer $nbPostPerPage the number of posts per page
      * @return array $page,$nbPosts,$posts if no record have been found, return page = 0 otherwise return the posts
      */
-    public function getPostsByIdForum($id_forum,$page,$nbPostPerPage) {
+    public function getThreads($id_forum,$page,$nbPostPerPage) {
         $daoThreads = jDao::get('havefnubb~threads_alone');
 
-        $nbPosts = $daoThreads->countPostsByForumId($id_forum);
+        $nbPosts = $daoThreads->countThreadsByIdForum($id_forum);
         // get the posts of the current forum
-        list($page,$posts) = $this->findByIdForum($id_forum,$page,$nbPostPerPage);
+        list($page,$posts) = $this->getThreadsList($id_forum,$page,$nbPostPerPage);
 
         return array($page,$nbPosts,$posts);
     }
@@ -259,7 +258,7 @@ class hfnuposts {
         $subject = $form->getData('subject');
         $message = $form->getData('message');
 
-        if ( count($message) > $gJConfig->havefnubb['post_max_size'] and
+        if (count($message) > $gJConfig->havefnubb['post_max_size'] and
                 $gJConfig->havefnubb['post_max_size'] > 0) {
             jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
                         array($gJConfig->havefnubb['post_max_size'])),'error');
@@ -318,7 +317,6 @@ class hfnuposts {
 
             $id_post = $record->id_post;
             $parent_id = $record->parent_id;
-
 
             //update Forum record
             $forum = jDao::get('havefnubb~forum');
@@ -856,22 +854,23 @@ class hfnuposts {
                     forum.parent_id as forum_parent_id,
                     forum.forum_name";
 
-    public function findByIdForum($id_forum,$page,$nbPostPerPage) {
+    public function getThreadsList($id_forum,$page,$nbPostPerPage) {
         $c = jDb::getConnection();
         $from = " FROM ".$c->prefixTable('hfnu_threads')." AS threads
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
                     LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
-        $where = "WHERE threads.id_thread=posts.parent_id AND
+        $where = ", ".$c->prefixTable('hfnu_posts')." AS posts
+                WHERE threads.id_thread = posts.parent_id AND
                     posts.id_forum = '".$id_forum."'";
 
         if ( ! jAuth::isConnected())
-            $sql = self::selectPosts.$from.", ".$c->prefixTable('hfnu_posts')." AS posts ". $where;
+            $sql = self::selectPosts.$from.$where;
         else
             $sql = self::selectPosts.", rp.date_read as date_read_post ".$from."
-                    LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp ON ( threads.id_forum=rp.id_forum AND
-                                                                    threads.id_last_msg=rp.id_post AND
-                                                                    rp.id_user = '".jAuth::getUserSession ()->id."')
-                ,".$c->prefixTable('hfnu_posts')." AS posts ".$where;
+                    LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp
+                        ON ( threads.id_forum=rp.id_forum AND
+                            threads.id_last_msg=rp.id_post AND
+                            rp.id_user = '".jAuth::getUserSession ()->id."')".$where;
 
         // if the user is not an admin then we hide the "hidden" posts
         if ( ! jAcl2::check('hfnu.admin.post') )
@@ -896,7 +895,7 @@ class hfnuposts {
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
                     LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
         $where = " WHERE
-                    threads.id_thread=posts.parent_id AND
+                    threads.id_thread = posts.parent_id AND
                     posts.parent_id = '".$parent_id."'";
         if ( ! jAuth::isConnected())
             $sql = self::selectPosts.$from.", ".$c->prefixTable('hfnu_posts')." AS posts ".$where;

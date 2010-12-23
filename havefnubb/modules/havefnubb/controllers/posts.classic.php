@@ -114,7 +114,7 @@ class postsCtrl extends jController {
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
 
         // get all the posts of the current Forum by its Id
-        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getPostsByIdForum($id_forum,$page,$nbPostPerPage);
+        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreads($id_forum,$page,$nbPostPerPage);
 
         // change the label of the breadcrumb
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
@@ -1328,7 +1328,7 @@ class postsCtrl extends jController {
 
         // 2- get the posts of the current forum, limited by point 1
         // get all the posts of the current Forum by its Id
-        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getPostsByIdForum($id_forum,0,$nbPostPerPage);
+        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreads($id_forum,0,$nbPostPerPage);
         $first = true;
         foreach($posts as $post){
 

@@ -67,34 +67,7 @@
         countXXX uses type="count"
     -->
     <factory>
-        <!-- get the posts to be displayed on the index of the forum page -->
-        <method name="findByIdForum" type="select" distinct="true" groupby="parent_id">
-            <parameter name="id_forum" />
-            <parameter name="offset" default="0" />
-            <parameter name="count" default="200" />
-            <conditions>
-                <eq property="id_forum" expr="$id_forum" />
-            </conditions>
-            <order>
-                <orderitem property="ispined_thread" way="desc" />
-                <orderitem property="date_last_post" way="desc" />
-            </order>
-            <limit offset="$offset" count="$count"/>
-        </method>
-        <method name="findByIdForumVisible" type="select" distinct="true" groupby="parent_id">
-            <parameter name="id_forum" />
-            <parameter name="offset" default="0" />
-            <parameter name="count" default="200" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <neq property="status" value="7" />
-            </conditions>
-            <order>
-                <orderitem property="ispined_thread" way="desc" />
-                <orderitem property="date_last_post" way="desc" />
-            </order>
-            <limit offset="$offset" count="$count"/>
-        </method>
+
        <!-- for stats purpose -->
         <method name="findUnreadThreadByMod" type="select">
             <conditions>

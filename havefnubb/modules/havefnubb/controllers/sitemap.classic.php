@@ -35,7 +35,7 @@ class sitemapCtrl extends jController {
         $forums = jDao::get('havefnubb~forum')->findAll();
         foreach ($forums as $forum) {
             // 2=) for each forum, get the list of posts
-            list($page,$posts) = jClasses::getService('havefnubb~hfnuposts')->findByIdForum($forum->id_forum,0,25);
+            list($page,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreadsList($forum->id_forum,0,25);
             foreach ($posts as $post) {
                 $rep->addUrl(
                         jUrl::get('havefnubb~posts:view',

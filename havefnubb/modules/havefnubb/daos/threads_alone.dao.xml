@@ -28,15 +28,10 @@
                 7 - hidden
         -->
     <factory>
-        <method name="countPostsByForumId" type="count">
-            <parameter name="id_forum" />
-            <conditions>
-                <eq property="id_forum_thread" expr="$id_forum" />
-            </conditions>
-        </method>
        <!-- for stats purpose -->
         <method name="countAllThreads" type="count">
         </method>
+
         <method name="countThreadsByIdForum" type="count">
             <parameter name="id_forum" />
             <conditions>
