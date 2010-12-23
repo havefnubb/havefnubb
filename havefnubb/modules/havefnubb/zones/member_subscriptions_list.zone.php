@@ -29,7 +29,7 @@ class member_subscriptions_listZone extends jZone {
             $subs[] = array(
                 'id_post'   => $post->id_post,
                 'ptitle'    => jClasses::getService('havefnubb~hfnuposts')->getPost($post->id_post)->subject,
-                'parent_id' => jClasses::getService('havefnubb~hfnuposts')->getPost($post->id_post)->parent_id,
+                'thread_id' => jClasses::getService('havefnubb~hfnuposts')->getPost($post->id_post)->thread_id,
                 'id_forum'  => $forum->id_forum,
                 'ftitle'    => $forum->forum_name
                     );

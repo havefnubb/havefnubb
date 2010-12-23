@@ -38,38 +38,38 @@
     </url>
 
     <!-- posts management -->
-    <url pathinfo="/:id_forum-:ftitle/posts/:id_post-:parent_id-:ptitle" action="posts:view">
+    <url pathinfo="/:id_forum-:ftitle/posts/:id_post-:thread_id-:ptitle" action="posts:view">
        <param name="id_forum" type="number"/>
        <param name="ftitle"  type="string" escape="true" />
        <param name="id_post" type="number"/>
        <param name="ptitle"  type="string" escape="true" />
-       <param name="parent_id" type="number"/>
+       <param name="thread_id" type="number"/>
     </url>
 
-    <url pathinfo="/:id_forum-:ftitle/posts/:id_post-:parent_id-:ptitle/go/:go" action="posts:viewtogo">
+    <url pathinfo="/:id_forum-:ftitle/posts/:id_post-:thread_id-:ptitle/go/:go" action="posts:viewtogo">
        <param name="id_forum" type="number"/>
        <param name="ftitle"  type="string" escape="true" />
        <param name="id_post" type="number"/>
        <param name="ptitle"  type="string" escape="true" />
-       <param name="parent_id" type="number"/>
+       <param name="thread_id" type="number"/>
        <param name="go" type="number"/>
     </url>
 
-    <url pathinfo="/:id_forum/post/:parent_id-:id_post/split" action="posts:splitTo">
+    <url pathinfo="/:id_forum/post/:thread_id-:id_post/split" action="posts:splitTo">
         <param name="id_forum" type="number"/>
-        <param name="parent_id" type="number"/>
+        <param name="thread_id" type="number"/>
         <param name="id_forum" type="number"/>
     </url>
 
-    <url pathinfo="/:id_forum/post/:parent_id-:id_post/censor" action="posts:censor" actionoverride="posts:savecensor">
+    <url pathinfo="/:id_forum/post/:thread_id-:id_post/censor" action="posts:censor" actionoverride="posts:savecensor">
         <param name="id_forum" type="number"/>
-        <param name="parent_id" type="number"/>
+        <param name="thread_id" type="number"/>
         <param name="id_post" type="number"/>
     </url>
 
-    <url pathinfo="/:id_forum/post/:parent_id-:id_post/uncensor" action="posts:uncensor">
+    <url pathinfo="/:id_forum/post/:thread_id-:id_post/uncensor" action="posts:uncensor">
         <param name="id_forum" type="number"/>
-        <param name="parent_id" type="number"/>
+        <param name="thread_id" type="number"/>
         <param name="id_post" type="number"/>
     </url>
 

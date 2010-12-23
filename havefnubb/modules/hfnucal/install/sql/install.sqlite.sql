@@ -6,7 +6,7 @@ CREATE TABLE  %%PREFIX%%hfcalendar (
     user_id INT(10) NOT NULL ,
     user_name VARCHAR(200) NOT NULL ,
     id_post INT(10) ,
-    parent_id INT(10) ,
+    thread_id INT(10) ,
     cat_id INT(10),
     INDEX (cat_id),
     PRIMARY KEY (id)

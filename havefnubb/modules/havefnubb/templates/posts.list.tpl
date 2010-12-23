@@ -54,7 +54,7 @@
             <td><span class="newestposts">{@havefnubb~post.status.$status@}</span>
                 <a class="status-{$status}" href="{jurl 'havefnubb~posts:view',
                                                 array(  'id_post'=>$post->id_post,
-                                                        'parent_id'=>$post->parent_id,
+                                                        'thread_id'=>$post->thread_id,
                                                         'id_forum'=>$post->id_forum,
                                                         'ftitle'=>$post->forum_name,
                                                         'ptitle'=>$post->subject)}"
@@ -77,7 +77,7 @@
                 {$post->nb_viewed}
             </td>
             <td>
-                {zone 'havefnubb~postlc',array('parent_id'=>$post->parent_id)}
+                {zone 'havefnubb~postlc',array('thread_id'=>$post->thread_id)}
             </td>
         </tr>
         {/foreach}

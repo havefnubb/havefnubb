@@ -1,7 +1,7 @@
 <div class="censor">
-    {form $form, 'havefnubb~posts:savecencor',array('id_post'=>$id_post,'parent_id'=>$parent_id)}
+    {form $form, 'havefnubb~posts:savecencor',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <fieldset>
-        {if $parent_id == $id_post}
+        {if $thread_id == $id_post}
         <div class="legend"><h3>{@havefnubb~main.censor.this.thread.from.this.message@} : "{$title|eschtml}"</h3></div>
         {else}
         <div class="legend"><h3>{@havefnubb~main.censor.this.message@} : "{$title|eschtml}"</h3></div>

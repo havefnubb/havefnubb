@@ -52,7 +52,7 @@ CREATE TABLE %%PREFIX%%hfnu_posts (
   id_post INTEGER NOT NULL PRIMARY KEY ,
   id_user INTEGER NOT NULL,
   id_forum INTEGER NOT NULL,
-  parent_id INTEGER NOT NULL,
+  thread_id INTEGER NOT NULL,
   status int(2) NOT NULL DEFAULT 3,
   subject varchar(255) NOT NULL,
   message text NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE %%PREFIX%%hfnu_posts (
 ) ;
 CREATE INDEX %%PREFIX%%hfnu_posts_id_user ON %%PREFIX%%hfnu_posts  (  id_user );
 CREATE INDEX %%PREFIX%%hfnu_posts_id_forum ON %%PREFIX%%hfnu_posts  (  id_forum );
-CREATE INDEX %%PREFIX%%hfnu_posts_parent_id ON %%PREFIX%%hfnu_posts  (  parent_id );
+CREATE INDEX %%PREFIX%%hfnu_posts_thread_id ON %%PREFIX%%hfnu_posts  (  thread_id );
 CREATE INDEX %%PREFIX%%hfnu_posts_status ON %%PREFIX%%hfnu_posts  (  status );
 
 
@@ -81,7 +81,7 @@ CREATE TABLE %%PREFIX%%hfnu_notify (
   id_notify INTEGER NOT NULL PRIMARY KEY ,
   id_user INTEGER NOT NULL,
   id_post INTEGER NOT NULL,
-  parent_id INTEGER NOT NULL,
+  thread_id INTEGER NOT NULL,
   id_forum INTEGER NOT NULL,
   subject varchar(255) NOT NULL,
   message text NOT NULL,
@@ -150,7 +150,7 @@ VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,0,0,0);
 
 
 
-INSERT INTO %%PREFIX%%hfnu_posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod ) VALUES
+INSERT INTO %%PREFIX%%hfnu_posts (id_post, id_user, id_forum, thread_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod ) VALUES
 (1, 1, 1, 1, 3, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)',
 strftime('%s','now') ,strftime('%s','now') , 1, '127.0.0.1',NULL,1);
 

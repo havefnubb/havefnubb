@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <suburls xmlns="http://jelix.org/ns/suburls/1.0">
-    <url pathinfo="/:parent_id/reply/:id_post" action="posts:reply"  actionoverride="posts:savereply">
-        <param name="parent_id" type="number"/>
+    <url pathinfo="/:thread_id/reply/:id_post" action="posts:reply"  actionoverride="posts:savereply">
+        <param name="thread_id" type="number"/>
         <param name="id_post" type="number"/>
     </url>
 
@@ -13,19 +13,19 @@
         <param name="id_post" type="number"/>
     </url>
 
-    <url pathinfo="/:parent_id/status" action="posts:status">
-        <param name="parent_id" type="number"/>
+    <url pathinfo="/:thread_id/status" action="posts:status">
+        <param name="thread_id" type="number"/>
         <param name="status" type="string"/>
     </url>
 
-    <url pathinfo="/:parent_id-:id_post/moveto" action="posts:moveToForum">
-        <param name="parent_id" type="number"/>
+    <url pathinfo="/:thread_id-:id_post/moveto" action="posts:moveToForum">
+        <param name="thread_id" type="number"/>
         <param name="id_post" type="number"/>
     </url>
 
-    <url pathinfo="/:parent_id/quote/:id_post" action="posts:quote">
+    <url pathinfo="/:thread_id/quote/:id_post" action="posts:quote">
         <param name="id_post" type="number"/>
-        <param name="parent_id" type="number"/>
+        <param name="thread_id" type="number"/>
     </url>
 
     <url pathinfo="/jump" action="posts:goesto">

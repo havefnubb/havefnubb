@@ -51,7 +51,7 @@ $(document).ready(function(){
             array(  'id_post'=>$notif->id_first_msg,
                     'ftitle'=>$notif->forum_name,
                     'id_forum'=>$notif->id_forum,
-                    'parent_id'=>$notif->parent_id,
+                    'thread_id'=>$notif->thread_id,
                     'ptitle'=>$notif->subject,
                     )}#p{$notif->id_post}" >{$notif->subject|eschtml}</a></td>
         </tr>

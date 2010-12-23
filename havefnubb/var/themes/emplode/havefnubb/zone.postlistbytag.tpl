@@ -13,7 +13,7 @@
     {foreach $posts as $post}
         {ifacl2 'hfnu.posts.view','forum'.$post->id_forum}
         <tr>
-            <td class="coltitle linkincell"><a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'id_post'=>$post->id_post,'parent_id'=>$post->parent_id,'ptitle'=>$post->subject,'ftitle'=>$post->forum_name)}">{$post->subject|eschtml}</a></td>
+            <td class="coltitle linkincell"><a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'id_post'=>$post->id_post,'thread_id'=>$post->thread_id,'ptitle'=>$post->subject,'ftitle'=>$post->forum_name)}">{$post->subject|eschtml}</a></td>
             <td class="coltitle linkincell"><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name)}">{$post->forum_name|eschtml}</a></td>
             <td class="coltitle linkincell"><a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}">{$post->login|eschtml}</a> {$post->date_created|jdatetime:'timestamp':'lang_datetime'}</td>
         </tr>

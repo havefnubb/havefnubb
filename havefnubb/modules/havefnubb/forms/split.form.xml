@@ -2,7 +2,7 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <hidden ref="id_post"/>
-<hidden ref="parent_id"/>
+<hidden ref="thread_id"/>
 <hidden ref="id_forum"/>
 <hidden ref="step"/>
 
@@ -25,8 +25,8 @@
         <menulist ref="existing_thread">
             <label>...</label>
             <emptyitem locale="havefnubb~main.split.select.a.thread"/>
-            <datasource dao="havefnubb~posts" method="findAllExceptOneToSplitAndLink"  criteriafrom="parent_id,id_forum"
-                  labelproperty="subject" labelseparator=" = " valueproperty="parent_id"/>
+            <datasource dao="havefnubb~posts" method="findAllExceptOneToSplitAndLink"  criteriafrom="thread_id,id_forum"
+                  labelproperty="subject" labelseparator=" = " valueproperty="thread_id"/>
         </menulist>
     </item>
 </choice>

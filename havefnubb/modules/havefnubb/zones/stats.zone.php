@@ -31,7 +31,7 @@ class statsZone extends jZone {
             $forum = new StdClass;
             $forum->forum_name = '';
             $lastPost = new StdClass;
-            $lastPost->parent_id = 0;
+            $lastPost->thread_id = 0;
             $lastPost->id_post = 0;
             $lastPost->subject = '';
             $lastPost->id_forum = 0;
@@ -41,7 +41,7 @@ class statsZone extends jZone {
             $lastPost->id_last_msg = 0;
         }
         else {
-            $thread = $daoThreads->get($lastPost->parent_id);
+            $thread = $daoThreads->get($lastPost->thread_id);
             $dao = jDao::get('havefnubb~forum');
             $forum = $dao->get($lastPost->id_forum);
             if ($thread !== false ) {

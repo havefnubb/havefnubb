@@ -12,7 +12,7 @@
             <tbody>
             {foreach $subs as $idx => $sub}
             <tr>
-                <td><a href="{jurl 'havefnubb~posts:view', array('id_post'=>$sub['id_post'],'id_forum'=>$sub['id_forum'],'ftitle'=>$sub['ftitle'],'ptitle'=>$sub['ptitle'],'parent_id'=>$sub['parent_id']) }">{$sub['ptitle']|eschtml}</a></td>
+                <td><a href="{jurl 'havefnubb~posts:view', array('id_post'=>$sub['id_post'],'id_forum'=>$sub['id_forum'],'ftitle'=>$sub['ftitle'],'ptitle'=>$sub['ptitle'],'thread_id'=>$sub['parent_id']) }">{$sub['ptitle']|eschtml}</a></td>
                 <td><a href="{jurl 'havefnubb~posts:lists', array('id_forum'=>$sub['id_forum'],'ftitle'=>$sub['ftitle'])}">{$sub['ftitle']|eschtml}</a></td>
                 <td><a href="{jurl 'havefnubb~posts:unsub', array('id_post'=>$sub['id_post'])}">{@havefnubb~post.unsubscribe@}</a></td></tr>
             {/foreach}

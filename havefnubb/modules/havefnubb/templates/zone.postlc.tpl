@@ -2,7 +2,7 @@
 {if $user === false}
 <a href="{jurl 'havefnubb~posts:viewtogo',
     array('id_post'=>$post->id_last_msg,
-        'parent_id'=>$post->parent_id,
+        'thread_id'=>$post->thread_id,
         'id_forum'=>$post->id_forum,
         'ftitle'=>$post->forum_name,
         'ptitle'=>$title,
@@ -11,7 +11,7 @@
 {else}
 <a href="{jurl 'havefnubb~posts:viewtogo',
     array('id_post'=>$post->id_last_msg,
-        'parent_id'=>$post->parent_id,
+        'thread_id'=>$post->thread_id,
         'id_forum'=>$post->id_forum,
         'ftitle'=>$post->forum_name,
         'ptitle'=>$title,

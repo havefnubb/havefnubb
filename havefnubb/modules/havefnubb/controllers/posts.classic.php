@@ -173,8 +173,8 @@ class postsCtrl extends jController {
 
         if ($this->param('go')) {
             $gotoPostId = (int) $this->param('go');
-            $parent_id = (int) $this->param('parent_id');
-            $rec = jDao::get('havefnubb~posts')->findAllPostByIdParent($parent_id);
+            $thread_id = (int) $this->param('thread_id');
+            $rec = jDao::get('havefnubb~posts')->findAllPostByIdParent($thread_id);
             $nbRec = 0;
             if ($rec->rowCount() > 0 ) {
                 $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
@@ -195,7 +195,7 @@ class postsCtrl extends jController {
                                 'ftitle'=>jUrl::escape($this->param('ftitle'),true),
                                 'id_post'=>$this->param('id_post'),
                                 'ptitle'=>jUrl::escape($this->param('ptitle'),true),
-                                'parent_id'=>$parent_id
+                                'thread_id'=>$thread_id
                                 );
                 else
                     $rep->params = array(
@@ -203,7 +203,7 @@ class postsCtrl extends jController {
                                 'ftitle'=>jUrl::escape($this->param('ftitle'),true),
                                 'id_post'=>$this->param('id_post'),
                                 'ptitle'=>jUrl::escape($this->param('ptitle'),true),
-                                'parent_id'=>$parent_id,
+                                'thread_id'=>$thread_id,
                                 'page'=>$page
                                 );
 
@@ -226,24 +226,24 @@ class postsCtrl extends jController {
     /**
      * display the first post + call zone posts_replies in template to display all the thread
      * 	Method 1 : default usage : list all messages of a thread (id_post known)
-     * 	Method 2 : display a message from anywhere in the thread (id_post + parent_id known)
+     * 	Method 2 : display a message from anywhere in the thread (id_post + thread_id known)
      */
     function view() {
         global $gJConfig;
         $ftitle = jUrl::escape($this->param('ftitle'),true);
         $ptitle = jUrl::escape($this->param('ptitle'),true);
         $id_post    = (int) $this->param('id_post');
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
 
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 
         // business check :
         // 1) do those id exist ?
         // 2) permission ok ?
-        // 3) if parent_id > 0 then calculate the page + assign id_post with parent_id
+        // 3) if thread_id > 0 then calculate the page + assign id_post with thread_id
         // business update :
         // 1) update the count of view of this thread
-        list($id_post,$post,$goto,$nbReplies) = $hfnuposts->view($id_post,$parent_id);
+        list($id_post,$post,$goto,$nbReplies) = $hfnuposts->view($id_post,$thread_id);
 
         if ($post === null and $goto === null) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be null] $post and $goto','DEBUG');
@@ -310,21 +310,21 @@ class postsCtrl extends jController {
         $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
         // 2- get the post
         //$daoPost = jDao::get('havefnubb~posts');
-        list($page,$posts) = jClasses::getService("havefnubb~hfnuposts")->findByIdParent($parent_id,$page,$nbRepliesPerPage);
+        list($page,$posts) = jClasses::getService("havefnubb~hfnuposts")->findByIdParent($thread_id,$page,$nbRepliesPerPage);
         // 3- total number of posts
         //$nbReplies = $daoPost->countResponse($id_post);
-        $nbReplies = jDao::get('havefnubb~threads_alone')->get($parent_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
+        $nbReplies = jDao::get('havefnubb~threads_alone')->get($thread_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
         // 4- get the posts of the current forum, limited by point 1 and 2
 
-        //$posts = $daoPost->findByIdParent($parent_id,$page,$nbRepliesPerPage);
+        //$posts = $daoPost->findByIdParent($thread_id,$page,$nbRepliesPerPage);
 
-        // id_post is the parent_id ; we need to know
+        // id_post is the thread_id ; we need to know
         // the status of it to determine if the member can
         // reply to the current thread
 
         // check if we have found record ;
         /*if ($posts->rowCount() == 0) {
-            $posts = $daoPost->findByIdParent($parent_id,0,$nbRepliesPerPage);
+            $posts = $daoPost->findByIdParent($thread_id,0,$nbRepliesPerPage);
             $page = 0;
         }*/
 
@@ -351,7 +351,7 @@ class postsCtrl extends jController {
         if ( jAcl2::check('hfnu.admin.post') ) {
             $formStatus = jForms::create('havefnubb~posts_status');
             $formStatus->setData('id_post',$post->id_post);
-            $formStatus->setData('parent_id',$post->parent_id);
+            $formStatus->setData('thread_id',$post->thread_id);
             $formMove = jForms::create('havefnubb~posts_move');
             $tpl->assign('formStatus',$formStatus);
             $tpl->assign('formMove',$formMove);
@@ -367,12 +367,12 @@ class postsCtrl extends jController {
         $tpl->assign('nbReplies',$nbReplies);
         $tpl->assign('properties',$properties);
         $tpl->assign('ptitle',$post->subject);
-        $tpl->assign('parent_id',$post->parent_id);
+        $tpl->assign('thread_id',$post->thread_id);
         $tpl->assign('forum_name',$post->forum_name);
         $tpl->assign('subscribed',
                      jClasses::getService('havefnubb~hfnusub')->getSubscribed(
-                                            //$parentPost->parent_id
-                                            $post->parent_id
+                                            //$parentPost->thread_id
+                                            $post->thread_id
                                             )
                     );
 
@@ -589,7 +589,7 @@ class postsCtrl extends jController {
         }
         //add a post
 
-        $parent_id = (int) $this->param('parent_id');
+        $thread_id = (int) $this->param('thread_id');
 
         $submit = $this->param('validate');
         // preview ?
@@ -619,7 +619,7 @@ class postsCtrl extends jController {
             $form->setData('id_forum',  $id_forum);
             $form->setData('id_user',   $form->getData('id_user'));
             $form->setData('id_post',   $id_post);
-            $form->setData('parent_id', $parent_id);
+            $form->setData('thread_id', $thread_id);
             $form->setData('subject',   $form->getData('subject'));
             $form->setData('message',   $form->getData('message'));
 
@@ -668,16 +668,16 @@ class postsCtrl extends jController {
             }
             else {
                 $id_post = $post->id_post;
-                $parent_id = $post->parent_id;
+                $thread_id = $post->thread_id;
             }
 
             jMessage::add(jLocale::get('havefnubb~main.common.posts.saved'),'ok');
-            //after editing, returning to the parent_id post !
+            //after editing, returning to the thread_id post !
             $daoPost = jDao::get('havefnubb~posts');
             $post = $daoPost->get($id_post);
 
             $rep->params = array('id_post'=>$id_post,
-                                'parent_id'=>$parent_id,
+                                'thread_id'=>$thread_id,
                                 'id_forum'=>$post->id_forum,
                                 'ftitle'=>$post->forum_name,
                                 'ptitle'=>$post->subject);
@@ -694,15 +694,15 @@ class postsCtrl extends jController {
         }
     }
     /**
-     * reply to a given post (from the parent_id)
+     * reply to a given post (from the thread_id)
      */
     function reply() {
         global $gJConfig;
-        $parent_id = (int) $this->param('parent_id');
+        $thread_id = (int) $this->param('thread_id');
         $id_post = (int) $this->param('id_post');
 
-        if ($parent_id == 0 ) {
-            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $parent_id','DEBUG');
+        if ($thread_id == 0 ) {
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $thread_id','DEBUG');
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
             $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
@@ -764,7 +764,7 @@ class postsCtrl extends jController {
                 return $rep;
             }
 
-            $form = jForms::create('havefnubb~posts',$parent_id);
+            $form = jForms::create('havefnubb~posts',$thread_id);
             $id_user = jAuth::getUserSession ()->id;
         }
         else {
@@ -779,14 +779,14 @@ class postsCtrl extends jController {
                 $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
-            $form = jForms::create('havefnubb~posts_anonym',$parent_id);
+            $form = jForms::create('havefnubb~posts_anonym',$thread_id);
             $id_user = 0;
         }
 
         $form->setData('id_user',$id_user);
         $form->setData('id_post',0);
         $form->setData('id_forum',$post->id_forum);
-        $form->setData('parent_id',$post->parent_id);
+        $form->setData('thread_id',$post->thread_id);
         $form->setData('subject',jLocale::get('havefnubb~post.subject.reply').' ' .jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
         $form->setData('message','');
 
@@ -794,7 +794,7 @@ class postsCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('forum',$forum);
         $tpl->assign('id_post',0);
-        $tpl->assign('parent_id',$post->parent_id);
+        $tpl->assign('thread_id',$post->thread_id);
         $tpl->assign('id_forum', $forum->id_forum);
         $tpl->assign('previewtext', null);
         $tpl->assign('previewsubject',null);
@@ -814,11 +814,11 @@ class postsCtrl extends jController {
      */
     function quote() {
         global $gJConfig;
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
         $id_post    = (int) $this->param('id_post');
 
-        if ($parent_id == 0 ) {
-            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should be not be 0 ] $parent_id','DEBUG');
+        if ($thread_id == 0 ) {
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should be not be 0 ] $thread_id','DEBUG');
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
             $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
@@ -847,7 +847,7 @@ class postsCtrl extends jController {
                 $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
-            $form = jForms::create('havefnubb~posts',$parent_id);
+            $form = jForms::create('havefnubb~posts',$thread_id);
             $id_user = jAuth::getUserSession ()->id;
         }
         else {
@@ -862,7 +862,7 @@ class postsCtrl extends jController {
                 $rep->setHttpStatus('403', 'Permission denied');
                 return $rep;
             }
-            $form = jForms::create('havefnubb~posts_anonym',$parent_id);
+            $form = jForms::create('havefnubb~posts_anonym',$thread_id);
             $id_user = 0;
         }
 
@@ -893,7 +893,7 @@ class postsCtrl extends jController {
         $form->setData('id_forum',$post->id_forum);
         $form->setData('id_user',$id_user);
         $form->setData('id_post',0);
-        $form->setData('parent_id',$parent_id);
+        $form->setData('thread_id',$thread_id);
 
         $newMessage = ">".preg_replace("/\\n/","\n>",$post->message);
 
@@ -912,7 +912,7 @@ class postsCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('forum',       $forum);
         $tpl->assign('id_post',     0);
-        $tpl->assign('parent_id',   $parent_id);
+        $tpl->assign('thread_id',   $thread_id);
         $tpl->assign('id_forum',    $forum->id_forum);
         $tpl->assign('previewtext', null);
         $tpl->assign('previewsubject',null);
@@ -961,7 +961,7 @@ class postsCtrl extends jController {
         $id_user = jAuth::isConnected() ? jAuth::getUserSession ()->id : 0;
 
         $id_post    = (int) $this->param('id_post');
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
 
         $submit = $this->param('validate');
         // preview ?
@@ -977,11 +977,11 @@ class postsCtrl extends jController {
             $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
 
             if (jAuth::isConnected()) {
-                $form = jForms::fill('havefnubb~posts',$parent_id);
+                $form = jForms::fill('havefnubb~posts',$thread_id);
                 $id_user = jAuth::getUserSession ()->id;
             }
             else {
-                $form = jForms::fill('havefnubb~posts_anonym',$parent_id);
+                $form = jForms::fill('havefnubb~posts_anonym',$thread_id);
                 $id_user = 0;
             }
 
@@ -996,14 +996,14 @@ class postsCtrl extends jController {
             $form->setData('id_forum',  $id_forum);
             $form->setData('id_user',   $id_user);
             $form->setData('id_post',   $id_post);
-            $form->setData('parent_id', $parent_id);
+            $form->setData('thread_id', $thread_id);
             $form->setData('subject',   $form->getData('subject'));
             $form->setData('message',   $form->getData('message'));
 
             //set the needed parameters to the template
             $tpl = new jTpl();
             $tpl->assign('id_post',     0);
-            $tpl->assign('parent_id',   $parent_id);
+            $tpl->assign('thread_id',   $thread_id);
             $tpl->assign('id_forum',    $id_forum);
             $tpl->assign('previewsubject', $form->getData('subject'));
             $tpl->assign('previewtext', $form->getData('message'));
@@ -1032,18 +1032,18 @@ class postsCtrl extends jController {
 
             //let's save the reply
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-            $record = $hfnuposts->savereply($parent_id,$id_post);
+            $record = $hfnuposts->savereply($thread_id,$id_post);
 
             if ($record === false ) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
-                $record = $hfnuposts->getPost($parent_id);
+                $record = $hfnuposts->getPost($thread_id);
                 $forum = jDao::get('havefnubb~forum')->get($id_forum);
                 $rep->action = 'havefnubb~posts:view';
                 $rep->params = array('id_forum'  =>$id_forum,
                                      'ftitle'    =>$forum->forum_name,
                                      'id_post'   =>$record->id_post,
                                      'ptitle'    =>$record->subject,
-                                     'parent_id' =>$record->parent_id);
+                                     'thread_id' =>$record->thread_id);
 
             } else {
                 jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
@@ -1052,8 +1052,8 @@ class postsCtrl extends jController {
                 $rep->params = array('id_forum' =>$id_forum,
                                     'ftitle'    =>$forum->forum_name,
                                     'id_post'   =>$record->id_first_msg,
-                                    'ptitle'    =>$hfnuposts->getPost(jDao::get('havefnubb~threads_alone')->get($record->parent_id)->id_first_msg)->subject,
-                                    'parent_id' =>$record->parent_id,
+                                    'ptitle'    =>$hfnuposts->getPost(jDao::get('havefnubb~threads_alone')->get($record->thread_id)->id_first_msg)->subject,
+                                    'thread_id' =>$record->thread_id,
                                     'go'        =>$record->id_post
                                     );
             }
@@ -1123,7 +1123,7 @@ class postsCtrl extends jController {
         return $rep;
     }
     /**
-     * notify something from a given post (from the parent_id) to the admin
+     * notify something from a given post (from the thread_id) to the admin
      */
     function notify() {
 
@@ -1164,7 +1164,7 @@ class postsCtrl extends jController {
         $form->setData('id_user',jAuth::getUserSession ()->id);
         $form->setData('id_post',$id_post);
         $form->setData('id_forum',$post->id_forum);
-        $form->setData('parent_id',$post->parent_id);
+        $form->setData('thread_id',$post->thread_id);
 
         //set the needed parameters to the template
         $tpl = new jTpl();
@@ -1186,7 +1186,7 @@ class postsCtrl extends jController {
     */
     function savenotify() {
         $id_post    = (int) $this->param('id_post');
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
         $id_forum   = (int) $this->param('id_forum');
 
         if ( ! jAcl2::check('hfnu.posts.notify','forum'.$id_forum) ) {
@@ -1210,7 +1210,7 @@ class postsCtrl extends jController {
 
             //let's save the post
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-            $result = $hfnuposts->savenotify($id_post,$parent_id);
+            $result = $hfnuposts->savenotify($id_post,$thread_id);
             if ($result === false) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
                 $rep->action = 'havefnubb~default:index';
@@ -1231,7 +1231,7 @@ class postsCtrl extends jController {
      */
     function status () {
 
-        $parent_id = (int) $this->param('parent_id');
+        $thread_id = (int) $this->param('thread_id');
         $id_post = (int) $this->param('id_post');
         $status  = (int) $this->param('status');
 
@@ -1250,7 +1250,7 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        $post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($parent_id,$id_post,$status);
+        $post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($thread_id,$id_post,$status);
 
         if ($post === false ) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -1260,7 +1260,7 @@ class postsCtrl extends jController {
             jMessage::add(jLocale::get('havefnubb~post.status.'.self::$statusAvailable[$status -1]),'ok');
             $rep->action = 'havefnubb~posts:viewtogo';
             $rep->params = array('id_post'=>$post->id_post,
-                    'parent_id'=>$parent_id,
+                    'thread_id'=>$thread_id,
                     'id_forum'=>$post->id_forum,
                     'ftitle'=>$post->forum_name,
                     'ptitle'=>$post->subject,
@@ -1342,7 +1342,7 @@ class postsCtrl extends jController {
 
           $url = jUrl::get('havefnubb~posts:view',
                         array('id_post'=>$post->id_post,
-                            'parent_id'=>$post->parent_id,
+                            'thread_id'=>$post->thread_id,
                             'ftitle'=>$post->forum_name,
                             'id_forum'=>$post->id_forum,
                             'ptitle'=>$post->subject,
@@ -1369,7 +1369,7 @@ class postsCtrl extends jController {
      */
     public function moveToForum() {
         $id_forum = (int) $this->param('id_forum');
-        $parent_id = (int) $this->param('parent_id');
+        $thread_id = (int) $this->param('thread_id');
         $id_post = (int) $this->param('id_post');
 
         if ( $id_forum == 0) {
@@ -1379,7 +1379,7 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        if ($parent_id == 0 or $id_post == 0) {
+        if ($thread_id == 0 or $id_post == 0) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~posts:lists';
@@ -1398,7 +1398,7 @@ class postsCtrl extends jController {
 
         //let's move the thread
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-        $result = $hfnuposts->moveToForum($parent_id,$id_forum);
+        $result = $hfnuposts->moveToForum($thread_id,$id_forum);
 
         if ($result === false ) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -1415,7 +1415,7 @@ class postsCtrl extends jController {
                             'ptitle'=>$post->subject,
                             'id_forum'=>$id_forum,
                             'id_post'=>$post->id_post,
-                            'parent_id'=>$post->parent_id);
+                            'thread_id'=>$post->thread_id);
         $rep->action ='havefnubb~posts:view';
         return $rep;
     }
@@ -1434,11 +1434,11 @@ class postsCtrl extends jController {
         }
 
         $id_post    = (int) $this->param('id_post');
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
         $id_forum   = (int) $this->param('id_forum');
 
-        if (($id_post == 0 or $id_forum == 0 or $parent_id == 0) or
-            ($id_post == 0 and $id_forum == 0 and $parent_id == 0))
+        if (($id_post == 0 or $id_forum == 0 or $thread_id == 0) or
+            ($id_post == 0 and $id_forum == 0 and $thread_id == 0))
             {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
@@ -1448,7 +1448,7 @@ class postsCtrl extends jController {
 
         $form = jForms::create('havefnubb~split');
         $form->setData('id_post',$id_post);
-        $form->setData('parent_id',$parent_id);
+        $form->setData('thread_id',$thread_id);
         $form->setData('id_forum',$id_forum);
         $form->setData('step',1);
 
@@ -1460,7 +1460,7 @@ class postsCtrl extends jController {
         $tpl->assign('title',$post->subject);
         $tpl->assign('form',$form);
         $tpl->assign('id_post',$id_post);
-        $tpl->assign('parent_id',$parent_id);
+        $tpl->assign('thread_id',$thread_id);
         $tpl->assign('id_forum',$id_forum);
         $tpl->assign('step',1);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~split.to'));
@@ -1522,20 +1522,20 @@ class postsCtrl extends jController {
             switch ($choice) {
                 case 'same_forum' :
                     $id_forum = (int) $this->param('id_forum');
-                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('parent_id'),$form->getData('id_post'),$id_forum);
+                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('thread_id'),$form->getData('id_post'),$id_forum);
                     if ($id_post > 0 ) $result = true; else $result = false;
                     break;
                 case 'others' :
                     // the id_forum change to the new selected one
                     $id_forum = (int) $this->param('other_forum');
-                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('parent_id'),$form->getData('id_post'),$id_forum);
+                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('thread_id'),$form->getData('id_post'),$id_forum);
                     if ($id_post > 0 ) $result = true; else $result = false;
                     break;
                 case 'existings' :
-                    // the parent_id change to the new selected one
-                    $new_parent_id = (int) $this->param('existing_thread');
+                    // the thread_id change to the new selected one
+                    $new_thread_id = (int) $this->param('existing_thread');
                     $id_forum = $form->getData('id_forum');
-                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToThread($form->getData('id_post'),$form->getData('parent_id'),$new_parent_id);
+                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToThread($form->getData('id_post'),$form->getData('thread_id'),$new_thread_id);
                     break;
             }
             $dao = jDao::get('havefnubb~posts');
@@ -1556,7 +1556,7 @@ class postsCtrl extends jController {
                                     'ptitle'=>$post->subject,
                                     'id_forum'=>$id_forum,
                                     'id_post'=>$post->id_post,
-                                    'parent_id'=>$post->parent_id);
+                                    'thread_id'=>$post->thread_id);
                 $rep->action ='havefnubb~posts:view';
             }
 
@@ -1569,7 +1569,7 @@ class postsCtrl extends jController {
         }
     }
     /**
-     * censored this post (or thread if parent_id = id_post )
+     * censored this post (or thread if thread_id = id_post )
      */
     public function censor () {
         if ( ! jAcl2::check('hfnu.admin.post') ) {
@@ -1584,9 +1584,9 @@ class postsCtrl extends jController {
         $rep = $this->getResponse('html');
 
         $id_post    = (int) $this->param('id_post');
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
 
-        if ($id_post < 1 or $parent_id < 0) {
+        if ($id_post < 1 or $thread_id < 0) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
@@ -1595,12 +1595,12 @@ class postsCtrl extends jController {
 
         $form = jForms::create('havefnubb~censor',$id_post);
         $form->setData('id_post',$id_post);
-        $form->setData('parent_id',$parent_id);
+        $form->setData('thread_id',$thread_id);
 
         $tpl = new jTpl();
         $tpl->assign('form',$form);
         $tpl->assign('id_post',$id_post);
-        $tpl->assign('parent_id',$parent_id);
+        $tpl->assign('thread_id',$thread_id);
         $tpl->assign('title',jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
         $rep->body->assign('MAIN',$tpl->fetch('havefnubb~censor'));
         return $rep;
@@ -1620,9 +1620,9 @@ class postsCtrl extends jController {
 
         $rep = $this->getResponse('redirect');
         $id_post    = (int) $this->param('id_post');
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
 
-        if ($id_post < 1 or $parent_id < 0) {
+        if ($id_post < 1 or $thread_id < 0) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep->action = 'havefnubb~default:index';
             return $rep;
@@ -1632,20 +1632,20 @@ class postsCtrl extends jController {
         if (!$form) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep->action = 'havefnubb~posts:censor';
-            $rep->params = array('id_post'=>$id_post,'parent_id'=>$parent_id);
+            $rep->params = array('id_post'=>$id_post,'thread_id'=>$thread_id);
             return $rep;
         }
 
         if (!$form->check()) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep->action = 'havefnubb~posts:censor';
-            $rep->params = array('id_post'=>$id_post,'parent_id'=>$parent_id);
+            $rep->params = array('id_post'=>$id_post,'thread_id'=>$thread_id);
             return $rep;
         }
 
         //censoring an entire thread
         $result = jClasses::getService('havefnubb~hfnuposts')
-                    ->censor($parent_id,$id_post,$form->getData('censored_msg')
+                    ->censor($thread_id,$id_post,$form->getData('censored_msg')
                         );
 
         if ($result === false ) {
@@ -1658,7 +1658,7 @@ class postsCtrl extends jController {
             jMessage::add(jLocale::get('havefnubb~post.status.censored'),'ok');
             $rep->action = 'havefnubb~posts:viewtogo';
             $rep->params = array('id_post'=>$post->id_post,
-                                'parent_id'=>$parent_id,
+                                'thread_id'=>$thread_id,
                                 'id_forum'=>$post->id_forum,
                                 'ftitle'=>$post->forum_name,
                                 'ptitle'=>$post->subject,
@@ -1668,7 +1668,7 @@ class postsCtrl extends jController {
 
     }
     /**
-     * uncensored this id post (or thread if parent_id = id_post)
+     * uncensored this id post (or thread if thread_id = id_post)
      */
     public function uncensor() {
         if ( ! jAcl2::check('hfnu.admin.post') ) {
@@ -1680,9 +1680,9 @@ class postsCtrl extends jController {
             return $rep;
         }
         $id_post    = (int) $this->param('id_post');
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
 
-        $post = jClasses::getService('havefnubb~hfnuposts')->uncensor($parent_id,$id_post);//'uncensored'
+        $post = jClasses::getService('havefnubb~hfnuposts')->uncensor($thread_id,$id_post);//'uncensored'
 
         if ($post === false) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -1695,7 +1695,7 @@ class postsCtrl extends jController {
         jMessage::add(jLocale::get('havefnubb~post.status.uncensored'),'ok');
         $rep->action = 'havefnubb~posts:view';
         $rep->params = array('id_post'=>$post->id_post,
-                            'parent_id'=>$parent_id,
+                            'thread_id'=>$thread_id,
                             'id_forum'=>$post->id_forum,
                             'ftitle'=>$post->forum_name,
                             'ptitle'=>$post->subject);
@@ -1750,7 +1750,7 @@ class postsCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:view';
         $rep->params = array('id_post'=>$id_post,
-                            'parent_id'=>$post->parent_id,
+                            'thread_id'=>$post->thread_id,
                             'id_forum'=>$post->id_forum,
                             'ftitle'=>$post->forum_name,
                             'ptitle'=>$post->subject);
@@ -1787,7 +1787,7 @@ class postsCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:view';
         $rep->params = array('id_post'=>$id_post,
-                            'parent_id'=>$post->parent_id,
+                            'thread_id'=>$post->thread_id,
                             'id_forum'=>$post->id_forum,
                             'ftitle'=>$post->forum_name,
                             'ptitle'=>$post->subject);

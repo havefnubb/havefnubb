@@ -75,7 +75,7 @@ class hfnuread {
                 $rec = jDao::createRecord('havefnubb~read_posts');
                 $rec->id_forum = $post->id_forum;
                 $rec->id_post = $post->id_post;
-                $rec->parent_id = $post->parent_id;
+                $rec->thread_id = $post->thread_id;
                 $rec->id_user = $id_user;
                 $rec->date_post_read = $datePost;
                 $dao->insert($rec);

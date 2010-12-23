@@ -83,7 +83,7 @@ ALTER TABLE `%%PREFIX%%community_users` DROP   `member_connection`;
 
 
 ALTER TABLE %%PREFIX%%read_posts ADD date_read int(12) NOT NULL DEFAULT '0';
-ALTER TABLE %%PREFIX%%read_posts ADD parent_id int(12) NOT NULL DEFAULT '0';
+ALTER TABLE %%PREFIX%%read_posts ADD thread_id int(12) NOT NULL DEFAULT '0';
 
 ALTER TABLE %%PREFIX%%jacl2_group ADD COLUMN code varchar(30) default NULL;
 
@@ -103,6 +103,9 @@ RENAME TABLE  %%PREFIX%%subscriptions TO %%PREFIX%%hfnu_subscriptions;
 DROP TABLE IF EXISTS %%PREFIX%%connected;
 DROP TABLE IF EXISTS %%PREFIX%%hfnu_connected;
 
+ALTER TABLE %%PREFIX%%hfnu_notify CHANGE `parent_id` `thread_id` INT( 12 ) NOT NULL 
+
+ALTER TABLE %%PREFIX%%hfnu_posts CHANGE `parent_id` `thread_id` INT( 12 ) NOT NULL
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%connectedusers (
     sessionid  varchar(40) NOT NULL,
@@ -133,5 +136,8 @@ INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('mo
 INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES ('jelixcache.access', 'jelixcache~jelixcache.acl.access');
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('jelixcache.access', 1, '');
 
+
 --- TODO suppression des champs member* relatif à hardware and im
+
+
 

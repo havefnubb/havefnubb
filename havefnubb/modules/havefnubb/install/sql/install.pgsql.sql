@@ -57,7 +57,7 @@ CREATE TABLE %%PREFIX%%hfnu_notify (
     id_notify integer NOT NULL,
     id_user integer NOT NULL,
     id_post integer NOT NULL,
-    parent_id integer NOT NULL,
+    thread_id integer NOT NULL,
     id_forum integer NOT NULL,
     subject character varying(255) NOT NULL,
     message text NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE %%PREFIX%%hfnu_posts (
     id_post serial NOT NULL,
     id_user integer NOT NULL,
     id_forum integer NOT NULL,
-    parent_id integer NOT NULL,
+    thread_id integer NOT NULL,
     status character varying(12) DEFAULT 'opened'::character varying NOT NULL,
     subject character varying(255) NOT NULL,
     message text NOT NULL,
@@ -123,7 +123,7 @@ CREATE INDEX id_post_notify_idx ON %%PREFIX%%hfnu_notify USING btree (id_post);
 CREATE INDEX id_use_notify_idx ON %%PREFIX%%hfnu_notify USING btree (id_user);
 
 -- posts index
-CREATE INDEX id_user_post_idx ON %%PREFIX%%hfnu_posts USING btree (id_user, id_forum, parent_id, status);
+CREATE INDEX id_user_post_idx ON %%PREFIX%%hfnu_posts USING btree (id_user, id_forum, thread_id, status);
 
 -- threads index
 CREATE INDEX id_forum ON %%PREFIX%%hfnu_threads USING btree (id_forum);
@@ -154,7 +154,7 @@ INSERT INTO %%PREFIX%%hfnu_threads (id_forum,id_user,status,id_first_msg,id_last
 VALUES (1,1,3,1,1,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,0,0,0);
 
 -- posts
-INSERT INTO %%PREFIX%%hfnu_posts (id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg, read_by_mod) VALUES (1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(),UNIX_TIMESTAMP(), 1, '127.0.0.1', NULL, 1);
+INSERT INTO %%PREFIX%%hfnu_posts (id_user, id_forum, thread_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg, read_by_mod) VALUES (1, 1, 1, 'opened', 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(),UNIX_TIMESTAMP(), 1, '127.0.0.1', NULL, 1);
 
 -- ranks
 INSERT INTO %%PREFIX%%hfnu_rank ( rank_name, rank_limit) VALUES ('new member', 0);

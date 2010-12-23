@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_notify (
   id_notify int(12) NOT NULL AUTO_INCREMENT,
   id_user int(12) NOT NULL,
   id_post int(12) NOT NULL,
-  parent_id int(12) NOT NULL,
+  thread_id int(12) NOT NULL,
   id_forum int(12) NOT NULL,
   subject varchar(255) NOT NULL,
   message text NOT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_posts (
   id_post int(12) NOT NULL AUTO_INCREMENT,
   id_user int(12) NOT NULL,
   id_forum int(12) NOT NULL,
-  parent_id int(12) NOT NULL,
+  thread_id int(12) NOT NULL,
   status int(2) NOT NULL DEFAULT 3,
   subject varchar(255) NOT NULL,
   message text NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_posts (
   iscensored INT( 1 ) NOT NULL DEFAULT '0',
   censored_by int(12),
   PRIMARY KEY (id_post),
-  KEY id_user (id_user,id_forum,parent_id,status)
+  KEY id_user (id_user,id_forum,thread_id,status)
 ) DEFAULT CHARSET=utf8;
 ALTER TABLE %%PREFIX%%hfnu_posts ADD INDEX ( ispined ) ;
 ALTER TABLE %%PREFIX%%hfnu_posts ADD INDEX ( iscensored ) ;
@@ -147,12 +147,12 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_read_posts (
   id_forum int(12) NOT NULL,
   id_post int(12) NOT NULL,
   date_read int(12) NOT NULL,
-  parent_id int(12) NOT NULL,
+  thread_id int(12) NOT NULL,
   PRIMARY KEY  (id_user,id_forum,id_post),
   KEY id_user (id_user),
   KEY id_forum (id_forum),
   KEY id_post (id_post),
-  KEY parent_id (parent_id)
+  KEY thread_id (thread_id)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_subscriptions (
@@ -179,7 +179,7 @@ INSERT INTO %%PREFIX%%hfnu_threads (id_thread, id_forum,id_user,status,id_first_
 VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,0,0,0);
 
 
-INSERT INTO %%PREFIX%%hfnu_posts (id_post, id_user, id_forum, parent_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod,ispined,iscensored ) VALUES
+INSERT INTO %%PREFIX%%hfnu_posts (id_post, id_user, id_forum, thread_id, status, subject, message, date_created, date_modified, viewed, poster_ip, censored_msg,read_by_mod,ispined,iscensored ) VALUES
 (1, 1, 1, 1, 3, 'My First post', 'If you read this post you can conclude that your installation is complet. You can now remove this post and start a new life ;)', UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), 1, '127.0.0.1',NULL,1,0,0);
 
 

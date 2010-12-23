@@ -3,7 +3,7 @@
 
 <hidden ref="id_post"/>
 <hidden ref="id_user"/>
-<hidden ref="parent_id"/>
+<hidden ref="thread_id"/>
 <hidden ref="id_forum"/>
 
 <input ref="subject" type="string" required="true" size="80">

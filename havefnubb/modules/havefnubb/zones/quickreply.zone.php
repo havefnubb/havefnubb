@@ -19,7 +19,7 @@ class quickreplyZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        $parent_id  = (int) $this->param('parent_id');
+        $thread_id  = (int) $this->param('thread_id');
         $id_post    = (int) $this->param('id_post');
         $id_forum   = (int) $this->param('id_forum');
         if ($id_post < 1) return;
@@ -38,17 +38,17 @@ class quickreplyZone extends jZone {
             $subject = $post->subject;
         }
         if (jAuth::isConnected())
-            $form = jForms::create('havefnubb~posts',$parent_id);
+            $form = jForms::create('havefnubb~posts',$thread_id);
         else
-            $form = jForms::create('havefnubb~posts_anonym',$parent_id);
+            $form = jForms::create('havefnubb~posts_anonym',$thread_id);
         $form->setData('id_forum',$id_forum);
         $form->setData('id_user',$user->id);
         $form->setData('id_post',0);
-        $form->setData('parent_id',$parent_id);
+        $form->setData('thread_id',$thread_id);
         $form->setData('subject',$subject);
 
         $this->_tpl->assign('form',$form);
         $this->_tpl->assign('id_post',$id_post);
-        $this->_tpl->assign('parent_id',$parent_id);
+        $this->_tpl->assign('thread_id',$thread_id);
     }
 }

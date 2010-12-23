@@ -2,7 +2,7 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="threads" realname="hfnu_threads"  primarykey="id_thread" />
-        <foreigntable name="posts" realname="hfnu_posts"  primarykey="parent_id" onforeignkey="id_thread" />
+        <foreigntable name="posts" realname="hfnu_posts"  primarykey="thread_id" onforeignkey="id_thread" />
         <optionalforeigntable name="usr"   realname="community_users" primarykey="id"  onforeignkey="id_user" />
         <optionalforeigntable name="forum" realname="hfnu_forum"  primarykey="id_forum" onforeignkey="id_forum" />
     </datasources>
@@ -24,7 +24,7 @@
         <property name="id_post"    table="posts"    fieldname="id_post" datatype="autoincrement"/>
         <property name="id_user"    table="posts"    fieldname="id_user" datatype="int" required="true"/>
         <property name="id_forum"   table="posts"    fieldname="id_forum" datatype="int" required="true"/>
-        <property name="parent_id"  table="posts"    fieldname="parent_id" datatype="int" required="true"/>
+        <property name="thread_id"  table="posts"    fieldname="thread_id" datatype="int" required="true"/>
         <property name="status"     table="posts"    fieldname="status"  datatype="int" required="true"/>
         <property name="ispined"    table="posts"    fieldname="ispined"  datatype="int"/>
         <property name="iscensored" table="posts"    fieldname="iscensored"  datatype="int"/>
@@ -116,7 +116,7 @@
         <method name="getUserLastCommentOnPosts" type="selectfirst">
             <parameter name="id_post" />
             <conditions>
-                <eq property="parent_id" expr="$id_post" />
+                <eq property="thread_id" expr="$id_post" />
             </conditions>
             <order>
                 <orderitem property="p_date_created" way="desc" />
@@ -125,7 +125,7 @@
         <method name="getUserLastVisibleCommentOnPosts" type="selectfirst">
             <parameter name="id_post" />
             <conditions>
-                <eq property="parent_id" expr="$id_post" />
+                <eq property="thread_id" expr="$id_post" />
                 <neq property="status" value="7" />
             </conditions>
             <order>

@@ -3,7 +3,7 @@
 </div>
 <div id="post-split-to">
 {if $step == 1}
-    {form $form, 'havefnubb~posts:splitedTo',array('id_forum'=>$id_forum,'id_post'=>$id_post,'parent_id'=>$parent_id)}
+    {form $form, 'havefnubb~posts:splitedTo',array('id_forum'=>$id_forum,'id_post'=>$id_post,'thread_id'=>$thread_id)}
         <fieldset>
             <div class="legend">{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</div>
             <div class="form_row">

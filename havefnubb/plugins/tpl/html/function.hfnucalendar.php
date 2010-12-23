@@ -176,7 +176,7 @@ function hfnucal ($year,$month,$day,$big) {
                                 'ftitle'=>$day_event->forum_name,
                                 'ptitle'=>$day_event->subject,
                                 'id_post'=>$day_event->id_post,
-                                'parent_id'=>$day_event->parent_id
+                                'thread_id'=>$day_event->thread_id
                                 )
                             );
                     $output .= "\n"."\t\t\t\t".'<li>';

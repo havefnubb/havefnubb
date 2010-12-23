@@ -40,7 +40,7 @@ class sitemapCtrl extends jController {
                 $rep->addUrl(
                         jUrl::get('havefnubb~posts:view',
                                     array(  'id_post'=>$post->id_post,
-                                            'parent_id'=>$post->parent_id,
+                                            'thread_id'=>$post->thread_id,
                                             'id_forum'=>$post->id_forum,
                                             'ftitle'=>$post->forum_name,
                                             'ptitle'=>$post->subject)

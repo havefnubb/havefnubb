@@ -20,22 +20,22 @@ class postlcZone extends jZone {
      */
     protected function _prepareTpl(){
 
-        $parent_id = (int) $this->param('parent_id');
+        $thread_id = (int) $this->param('thread_id');
         $id_forum = (int) $this->param('id_forum');
-        if (!$parent_id and !$id_forum) return;
+        if (!$thread_id and !$id_forum) return;
 
         $user = '';
         $noMsg = '';
         $title='';
 
         $dao = jDao::get('havefnubb~threads');
-        if ($parent_id) {
+        if ($thread_id) {
             if (  jAcl2::check('hfnu.admin.post') ) {
-                $userPost = $dao->getUserLastCommentOnPosts($parent_id);
+                $userPost = $dao->getUserLastCommentOnPosts($thread_id);
                 $title = $userPost->subject;
             }
             else {
-                $userPost = $dao->getUserLastVisibleCommentOnPosts($parent_id);
+                $userPost = $dao->getUserLastVisibleCommentOnPosts($thread_id);
                 $title = $userPost->subject;
             }
             $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
@@ -47,7 +47,7 @@ class postlcZone extends jZone {
                 $userPost = $dao->getUserLastCommentOnForums($id_forum);
                 if ($userPost !== false) {
                     $title = jClasses::getService('havefnubb~hfnuposts')->getPost(
-                                jDao::get('havefnubb~threads_alone')->get($userPost->parent_id)->id_first_msg
+                                jDao::get('havefnubb~threads_alone')->get($userPost->thread_id)->id_first_msg
                                 )->subject;
                     $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
                 }

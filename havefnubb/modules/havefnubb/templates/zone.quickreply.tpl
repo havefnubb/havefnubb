@@ -1,7 +1,7 @@
 <div class="box">
     <h2>{@havefnubb~post.quickreply.quickreply@}</h2>
     <div class="block">
-    {form $form, 'havefnubb~posts:savereply', array('id_post'=>$id_post,'parent_id'=>$parent_id)}
+    {form $form, 'havefnubb~posts:savereply', array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <fieldset>
         <legend>{@havefnubb~post.quickreply.quickreply@}</legend>
         <p>

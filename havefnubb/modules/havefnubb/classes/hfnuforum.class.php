@@ -23,9 +23,9 @@ class hfnuforum {
      * @return array composed by the forum datas of the current forum
      */
     public function getForum($id) {
-        if (!isset(self::$forums[$id]))
-            self::$forums[$id] = jDao::get('havefnubb~forum')->get($id);
-        return self::$forums[$id];
+        if (!isset($this->forums[$id]))
+            $this->forums[$id] = jDao::get('havefnubb~forum')->get($id);
+        return $this->forums[$id];
     }
 
 }

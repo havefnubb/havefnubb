@@ -2,7 +2,7 @@
 <form xmlns="http://jelix.org/ns/forms/1.1">
 
 <hidden ref="id_post"/>
-<hidden ref="parent_id"/>
+<hidden ref="thread_id"/>
 
 <input ref="censored_msg" required="true">
     <label locale="havefnubb~main.reason.censor.this.message" default="havefnubb~main.censor.default.reason" />
