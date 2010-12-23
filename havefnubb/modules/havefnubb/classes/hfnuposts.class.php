@@ -30,7 +30,7 @@ class hfnuposts {
     /**
      * @var integer $hfAdmin the ID that defines the Admin
      */
-    private static $hfAdmin = 1;
+    private $hfAdmin = 1;
     /**
      * @var integer $hfAdmin the ID that defines the Moderator
      */
@@ -860,7 +860,7 @@ class hfnuposts {
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
                     LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
         $where = ", ".$c->prefixTable('hfnu_posts')." AS posts
-                WHERE threads.id_thread = posts.thread_id AND
+                WHERE threads.id_last_msg = posts.id_post AND
                     posts.id_forum = '".$id_forum."'";
 
         if ( ! jAuth::isConnected())
@@ -869,15 +869,14 @@ class hfnuposts {
             $sql = self::selectPosts.", rp.date_read as date_read_post ".$from."
                     LEFT JOIN ".$c->prefixTable('hfnu_read_posts')." as rp
                         ON ( threads.id_forum=rp.id_forum AND
-                            threads.id_last_msg=rp.id_post AND
+                            threads.id_thread=rp.thread_id AND
                             rp.id_user = '".jAuth::getUserSession ()->id."')".$where;
 
         // if the user is not an admin then we hide the "hidden" posts
         if ( ! jAcl2::check('hfnu.admin.post') )
             $sql .= "AND posts.status <> 7 ";
 
-        $sql .= "GROUP BY posts.thread_id
-                ORDER BY threads.ispined desc, threads.date_last_post desc ";
+        $sql .= " ORDER BY threads.ispined desc, threads.date_last_post desc ";
 
         $posts = $c->limitQuery($sql, $page,$nbPostPerPage);
         if ($posts->rowCount() == 0) {
@@ -909,8 +908,6 @@ class hfnuposts {
         // if the user is not an admin then we hide the "hidden" posts
         if ( ! jAcl2::check('hfnu.admin.post') )
             $sql .= "AND posts.status <> 7 ";
-
-        //$sql .= "GROUP BY posts.thread_id ORDER BY threads.ispined desc, threads.date_last_post desc ";
 
         $posts = $c->limitQuery($sql, $page,$nbRepliesPerPage);
         if ($posts->rowCount() == 0) {
@@ -944,12 +941,12 @@ class hfnuposts {
                                                                 rf.id_user = '".jAuth::getUserSession ()->id."')
             , ".$c->prefixTable('hfnu_posts')." AS posts
             WHERE
-                threads.id_thread = posts.thread_id ";
+                threads.id_last_msg = posts.id_post ";
 
         if ( ! jAcl2::check('hfnu.admin.post') )
             $sql .= " AND posts.status <> 7 ";
 
-        $sql .= " GROUP BY posts.thread_id ORDER BY threads.date_last_post desc ";
+        $sql .= " ORDER BY threads.date_last_post desc";
 
         $posts = $c->limitQuery($sql, $page,$nbPostPerPage);
         if ($posts->rowCount() == 0) {
@@ -986,12 +983,12 @@ class hfnuposts {
                                                                     rf.id_user = '".jAuth::getUserSession ()->id."')
                 , ".$c->prefixTable('hfnu_posts')." AS posts
                 WHERE
-                    threads.id_thread = posts.thread_id AND forum.id_forum = '".$id_forum."' ";
+                    threads.id_last_msg = posts.id_post AND forum.id_forum = '".$id_forum."' ";
 
             if ( ! jAcl2::check('hfnu.admin.post') )
                 $sql .= " AND posts.status <> 7 ";
 
-            $sql .= " GROUP BY posts.thread_id ORDER BY threads.date_last_post desc ";
+            $sql .= " ORDER BY threads.date_last_post desc";
 
             $posts = $c->Query($sql);
 
