@@ -14,7 +14,6 @@ banuser="havefnubb/banuser.coord.ini.php"
 activeusers="havefnubb/activeusers.coord.ini.php"
 history="havefnubb/history.coord.ini.php"
 flood="havefnubb/flood.coord.ini.php"
-exectime=1
 
 [responses]
 html=fnuHtmlResponse
