@@ -9,8 +9,10 @@
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
         <copyright>2008 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
+        <contributor name="Laurent Jouanneau" email="laurent@jelix.org" active="true" since="2010-09-01" role="developer"/>
+        <contributor name="Vincent Viaud" email="" active="true" since="2010-11-01" role="developer"/>
         <homepageURL>http://www.havefnubb.org/</homepageURL>
-        <updateURL>http://community.havefnubb.org/last_update</updateURL>
+        <updateURL>http://www.havefnubb.org/last_update</updateURL>
     </info>
     <dependencies>
       <jelix minversion="1.1.5" maxversion="1.2.*"/>

@@ -4,70 +4,70 @@
         <primarytable name="c" realname="connectedusers" primarykey="sessionid"  />
     </datasources>
     <record>
-		<property name="sessionid" fieldname="sessionid" datatype="varchar"/>
-		<property name="login" fieldname="login" datatype="varchar"/>
-		<property name="name" fieldname="name" datatype="varchar"/>
-		<property name="member_ip"  fieldname="member_ip"   datatype="string"   />
-		<property name="connection_date"  fieldname="connection_date"   datatype="integer"  />
-		<property name="last_request_date" fieldname="last_request_date" datatype="integer"  />
+        <property name="sessionid" fieldname="sessionid" datatype="varchar"/>
+        <property name="login" fieldname="login" datatype="varchar"/>
+        <property name="name" fieldname="name" datatype="varchar"/>
+        <property name="member_ip"  fieldname="member_ip"   datatype="string"   />
+        <property name="connection_date"  fieldname="connection_date"   datatype="integer"  />
+        <property name="last_request_date" fieldname="last_request_date" datatype="integer"  />
     </record>
     <factory>
-		<method name="findConnected" type="select">
-			<parameter name="mintime" />
-			<conditions>
-				 <gt property="last_request_date" expr="$mintime" />
-			</conditions>
-	    </method>
-		<method name="countConnected" type="count">
-			<parameter name="mintime" />
-			<conditions>
-				 <gt property="last_request_date" expr="$mintime" />
-			</conditions>
-	    </method>
+        <method name="findConnected" type="select">
+            <parameter name="mintime" />
+            <conditions>
+                 <gt property="last_request_date" expr="$mintime" />
+            </conditions>
+        </method>
+        <method name="countConnected" type="count">
+            <parameter name="mintime" />
+            <conditions>
+                 <gt property="last_request_date" expr="$mintime" />
+            </conditions>
+        </method>
 
-		<method name="getByLoginSession" type="selectfirst">
-			<parameter name="login" />
-			<parameter name="session" />
-			<conditions logic="or">
-				 <eq property="login" expr="$login" />
-				 <eq property="sessionid" expr="$session" />
-			</conditions>
-			<order>
-				<orderitem property="login" way="desc" />
-			</order>
-	    </method>
+        <method name="getByLoginSession" type="selectfirst">
+            <parameter name="login" />
+            <parameter name="session" />
+            <conditions logic="or">
+                 <eq property="login" expr="$login" />
+                 <eq property="sessionid" expr="$session" />
+            </conditions>
+            <order>
+                <orderitem property="login" way="desc" />
+            </order>
+        </method>
 
-		<method name="getIfConnected" type="selectfirst">
-			<parameter name="login" />
-			<parameter name="mintime" />
-			<conditions>
-				<gt property="last_request_date" expr="$mintime" />
- 				<eq property="login" expr="$login" />
-			</conditions>
-	    </method>
+        <method name="getIfConnected" type="selectfirst">
+            <parameter name="login" />
+            <parameter name="mintime" />
+            <conditions>
+                <gt property="last_request_date" expr="$mintime" />
+                <eq property="login" expr="$login" />
+            </conditions>
+        </method>
 
-		<method name="disconnectUser" type="delete">
-			<parameter name="login" />
-			<conditions>
-				<eq property="login" expr="$login" />
-			</conditions>
-		</method>
+        <method name="disconnectUser" type="delete">
+            <parameter name="login" />
+            <conditions>
+                <eq property="login" expr="$login" />
+            </conditions>
+        </method>
 
-		<method name="clear" type="delete">
-			<parameter name="mintime" />
-			<conditions>
-				 <lt property="last_request_date" expr="$mintime" />
-			</conditions>
-	    </method>
+        <method name="clear" type="delete">
+            <parameter name="mintime" />
+            <conditions>
+                 <lt property="last_request_date" expr="$mintime" />
+            </conditions>
+        </method>
 
 
-		<!--<method name="getConnectedByIdUser" type="selectfirst">
-			<parameter name="time" />
-			<parameter name="id_user" />
-			<conditions>
-				<lt property="connected" expr="$time" />
-				<eq property="user_id" expr="$id_user" />
-			</conditions>
-		</method>-->
+        <!--<method name="getConnectedByIdUser" type="selectfirst">
+            <parameter name="time" />
+            <parameter name="id_user" />
+            <conditions>
+                <lt property="connected" expr="$time" />
+                <eq property="user_id" expr="$id_user" />
+            </conditions>
+        </method>-->
    </factory>
 </dao>

@@ -24,6 +24,12 @@ Classes :
 by Bastien Jaillot
 * hfnuStemmer
 
+by Vincent Viaud
+* modulesinfo/filexml
+* modulesinfo/modulexml
+* modulesinfo/projectxml
+
+
 Plugins :
 * jGoogleAnalytics - Loic Mathaud <loic@mathaud.net>
 

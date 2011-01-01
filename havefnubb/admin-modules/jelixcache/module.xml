@@ -8,8 +8,8 @@
         <copyright>2010 Laurent Jouanneau</copyright>
         <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>
         <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
-        <homepageURL>http://havefnubb.org</homepageURL>
-        <!--<updateURL>http://havefnubb.org/update.xml</updateURL>-->
+        <homepageURL>http://www.havefnubb.org/</homepageURL>
+        <updateURL>http://www.havefnubb.org/update.php?module=jelixcache</updateURL>
     </info>
     <dependencies>
         <jelix minversion="1.2RC1" maxversion="1.2.*"/>
