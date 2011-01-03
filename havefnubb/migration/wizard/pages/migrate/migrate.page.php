@@ -19,7 +19,6 @@ class migrateWizPage extends installWizardPage {
     function show ($tpl) {
         return true;
     }
-
     /**
      * action to process the page after the submit
      */
@@ -35,8 +34,6 @@ class migrateWizPage extends installWizardPage {
 
         return 0;
     }
-
-
     protected function loadconf() {
         $ini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
         $config = array(
@@ -47,7 +44,9 @@ class migrateWizPage extends installWizardPage {
         );
         return $config;
     }
-
+    /**
+     * private function to handle the configuration migration
+     */
     private function _updateConfig() {
         /**
          *
@@ -124,7 +123,7 @@ class migrateWizPage extends installWizardPage {
         $iniConfig->save();
         /**
          *
-         * CONFIG FILE : havefnubb/jack2.coord.ini.php
+         * CONFIG FILE : havefnubb/jacl2.coord.ini.php
          *
          */
         $jacl2Config = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/jacl2.coord.ini.php');
@@ -136,11 +135,13 @@ class migrateWizPage extends installWizardPage {
          *
          */
         $adminConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'hfnuadmin/config.ini.php');
+        //remove unuseful params
         $adminConfig->removeValue('checkTrustedModules');
         $adminConfig->removeValue('trustedModules');
         //[urlengine]
         //remove this unuseful section
         $adminConfig->removeValue('engine','urlengine');
+        //add a new section [activeusers_admin]
         $adminConfig->setValue('pluginconf','havefnubb/activeusers.coord.ini.php','activeusers_admin');
         $adminConfig->save();
         /**
@@ -160,8 +161,16 @@ class migrateWizPage extends installWizardPage {
         @unlink(JELIX_APP_CONFIG_PATH.'wikitoolbar.ini.php');
 
     }
+    /**
+     * private function to handle the database migration
+     */
     private function _updateDatabase() {
-        $db = jDb::getConnection();
-        $db->execSQLScript('sql/update_to_1.4.0');
+        global $gJConfig;
+        //get the dbprofils file
+        $dbProfile = jIniFile::read(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils);
+        //get the default profile
+        $tools = jDb::getTools($dbProfile['default']);
+        // migrate from 1.3.6 to 1.4.0
+        $tools->execSQLScript('sql/update_to_1.4.0');
     }
 }
