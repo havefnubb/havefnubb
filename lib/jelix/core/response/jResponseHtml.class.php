@@ -32,6 +32,7 @@ class jResponseHtml extends jResponse{
 	protected $_Styles=array();
 	protected $_JSLink=array();
 	protected $_JSIELink=array();
+	protected $_JSCodeBefore=array();
 	protected $_JSCode=array();
 	protected $_Others=array();
 	protected $_MetaKeywords=array();
@@ -195,8 +196,11 @@ class jResponseHtml extends jResponse{
 	final public function addHeadContent($content){
 		$this->_Others[]=$content;
 	}
-	final public function addJSCode($code){
-		$this->_JSCode[]=$code;
+	final public function addJSCode($code,$before=false){
+		if($before)
+			$this->_JSCodeBefore[]=$code;
+		else
+			$this->_JSCode[]=$code;
 	}
 	final public function addMetaKeywords($content){
 		$this->_MetaKeywords[]=$content;
@@ -402,6 +406,13 @@ class jResponseHtml extends jResponse{
 			if(!empty($params[2]))
 				$more[]='title = "'.htmlspecialchars($params[2]).'"';
 			echo '<link rel="',$params[0],'" href="',htmlspecialchars($href),'" ',implode($more,' '),$this->_endTag;
+		}
+		if(count($this->_JSCodeBefore)){
+			echo '<script type="text/javascript">
+// <![CDATA[
+ '.implode("\n",$this->_JSCodeBefore).'
+// ]]>
+</script>';
 		}
 		$this->outputJsScripts($this->_JSLink);
 		if(count($this->_JSIELink)){

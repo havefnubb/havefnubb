@@ -91,7 +91,7 @@ class mysqlDbConnection extends jDbConnection{
 		return $result;
 	}
 	public function lastInsertId($fromSequence=''){
-		return mysql_insert_id();
+		return mysql_insert_id($this->_connection);
 	}
 	protected function _autoCommitNotify($state){
 		$this->query('SET AUTOCOMMIT='.$state ? '1' : '0');

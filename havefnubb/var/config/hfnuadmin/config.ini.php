@@ -58,7 +58,5 @@ jelixcache.access=2
 activeusers.access=1
 activeusers_admin.access=2
 
-hfnuupd.access=0
-
 [activeusers_admin]
 pluginconf="havefnubb/activeusers.coord.ini.php"
