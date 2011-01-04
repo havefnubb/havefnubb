@@ -33,7 +33,7 @@ class migrateWizPage extends installWizardPage {
          * this part handle all the config files
          */
         // upgrade all config files
-        //$this->_updateConfig();
+        $this->_updateConfig();
         // migate existing app to jelix 1.2
         $this->_migrateApp();
         // upgade the database
@@ -352,9 +352,6 @@ class migrateWizPage extends installWizardPage {
         //get the default profile
         $tools = jDb::getTools($dbProfile['default']);
         // migrate from 1.3.6 to 1.4.0
-        if (!file_exists(dirname(__FILE__).'/../../../sql/update_to_1.4.0.mysql.sql')) {
-            die( "MERDE JAI PAS TROUVE " .dirname(__FILE__).'/../../../sql/update_to_1.4.0.mysql.sql');
-        }
         $tools->execSQLScript(dirname(__FILE__).'/../../../sql/update_to_1.4.0.mysql.sql');
     }
 
