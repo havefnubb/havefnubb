@@ -10,4 +10,5 @@
 $locales=array(
     'title'=>'Welcome',
     'migration.description'=>'the migration process is now finished',
+    'error.migration.modules.failed'=>'Installation of modules failed. Fix and retry.',
 );

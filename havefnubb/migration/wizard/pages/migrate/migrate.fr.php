@@ -10,5 +10,5 @@
 $locales=array(
     'title'=>'Migration',
     'migration.description'=>'La procédure de migration est à présent terminée',
+    'error.migration.modules.failed'=>'Installation des modules a échoué. Corrigé et réessayé.',
 );
-

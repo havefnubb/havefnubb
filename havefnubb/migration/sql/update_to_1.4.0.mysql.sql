@@ -52,8 +52,8 @@ UPDATE %%PREFIX%%hfnu_threads SET nb_replies = (SELECT count(id_post) -1 FROM %%
 ALTER TABLE %%PREFIX%%forum ADD id_last_msg int(11) NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%forum ADD date_last_msg int(11) NOT NULL DEFAULT '0';
 
-UPDATE %%PREFIX%%forum AS f SET id_last_msg = (SELECT max(id_last_msg) FROM %%PREFIX%%hfnu_threads AS t WHERE f.id_forum = t.id_forum )
-UPDATE %%PREFIX%%forum AS f SET date_last_msg = (SELECT max(date_last_msg) FROM %%PREFIX%%hfnu_threads AS t WHERE f.id_forum = t.id_forum )
+UPDATE %%PREFIX%%forum AS f SET id_last_msg = (SELECT max(id_last_msg) FROM %%PREFIX%%hfnu_threads AS t WHERE f.id_forum = t.id_forum );
+UPDATE %%PREFIX%%forum AS f SET date_last_msg = (SELECT max(date_last_msg) FROM %%PREFIX%%hfnu_threads AS t WHERE f.id_forum = t.id_forum );
 
 RENAME TABLE `%%PREFIX%%member`  TO `%%PREFIX%%community_users` ;
 ALTER TABLE `%%PREFIX%%community_users` CHANGE `id_user` `id` INT( 12 ) NOT NULL AUTO_INCREMENT;
@@ -103,9 +103,9 @@ RENAME TABLE  %%PREFIX%%subscriptions TO %%PREFIX%%hfnu_subscriptions;
 DROP TABLE IF EXISTS %%PREFIX%%connected;
 DROP TABLE IF EXISTS %%PREFIX%%hfnu_connected;
 
-ALTER TABLE %%PREFIX%%hfnu_notify CHANGE `parent_id` `thread_id` INT( 12 ) NOT NULL 
+ALTER TABLE %%PREFIX%%hfnu_notify CHANGE `parent_id` `thread_id` INT( 12 ) NOT NULL;
 
-ALTER TABLE %%PREFIX%%hfnu_posts CHANGE `parent_id` `thread_id` INT( 12 ) NOT NULL
+ALTER TABLE %%PREFIX%%hfnu_posts CHANGE `parent_id` `thread_id` INT( 12 ) NOT NULL;
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%connectedusers (
     sessionid  varchar(40) NOT NULL,
@@ -116,8 +116,6 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%connectedusers (
     last_request_date INT(10) UNSIGNED NOT NULL DEFAULT 0,
     PRIMARY KEY (sessionid)
 ) DEFAULT CHARSET=utf8;
-
---- Suppression des droits obsolètes
 
 DELETE FROM %%PREFIX%%jacl2_subject WHERE id_aclsbj = 'hfnu.admin.cache.clear';
 DELETE FROM %%PREFIX%%jacl2_rights WHERE id_aclsbj = 'hfnu.admin.cache.clear';
@@ -138,6 +136,3 @@ INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES ('je
 
 
 --- TODO suppression des champs member* relatif à hardware and im
-
-
-
