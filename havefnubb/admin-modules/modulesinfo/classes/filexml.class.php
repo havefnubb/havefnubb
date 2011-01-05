@@ -12,18 +12,14 @@
 abstract class filexml {
 
     public function parse($path, $object){
-        $xml = XMLReader::open($path, '', LIBXML_COMPACT );
+        $xml = new XMLreader();
+        $xml->open($path, '', LIBXML_COMPACT );
 
         while ($xml->read()) {
             if($xml->nodeType == XMLReader::ELEMENT) {
-
-                $property = $xml->name;
-                $method = 'parse' . ucfirst($property);
-
+                $method = 'parse' . ucfirst($xml->name);
                 if (method_exists ($this, $method)) {
-
                     $this->$method($xml, $object);
-
                 }
             }
         }
@@ -34,6 +30,8 @@ abstract class filexml {
 
 
     protected function parseInfo (XMLReader $xml, $object) {
+        global $gJConfig;
+
         if (XMLReader::ELEMENT == $xml->nodeType && 'info' == $xml->name) {
 
             $object->id = $xml->getAttribute('id');
@@ -50,16 +48,12 @@ abstract class filexml {
 
                     $property = $xml->name;
 
-                    if ('version' == $property) {
-                        $object->versionDate = $xml->getAttribute('date');
-                        $object->versionStability = $xml->getAttribute('stability');
-                    }
-
-                    if ('label' == $property || 'description' == $property){
-                        $lang = $xml->getAttribute('lang');
-                    }
-
-                    if ('creator' == $property || 'contributor' == $property) {
+                    if ('label' == $property || 'description' == $property) {
+                        if ($xml->getAttribute('lang') == $gJConfig->locale) {
+                            $xml->read();
+                            $object->$property = $xml->value;
+                        }
+                    } elseif ('creator' == $property || 'contributor' == $property) {
                         $person = array();
                         while ($xml->moveToNextAttribute()) {
                             $attrName = $xml->name;
@@ -67,11 +61,15 @@ abstract class filexml {
                         }
                         $property .= 's';
                         array_push($object->$property, $person);
-                        continue;
-                    }
 
-                    $xml->read();
-                    $object->$property = $xml->value;
+                    } else {
+                        while ($xml->moveToNextAttribute()) {
+                            $attrProperty = $property . ucfirst($xml->name);
+                            $object->$attrProperty = $xml->value;
+                        }
+                        $xml->read();
+                        $object->$property = $xml->value;
+                    }
                 }
             }
         }
