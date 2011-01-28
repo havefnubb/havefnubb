@@ -159,7 +159,7 @@ class hfnuforum {
         $order = " ORDER BY c.cat_order asc, c.id_cat asc, f.child_level asc, f.forum_order asc";
 
         $result = new hfnuForumList();
-        echo $select.$from.$where.$order;
+        
         $rs = $c->query($select.$from.$where.$order);
 
         foreach($rs as $f) {
