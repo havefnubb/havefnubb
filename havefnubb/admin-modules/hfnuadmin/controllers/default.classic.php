@@ -33,7 +33,7 @@ class defaultCtrl extends jController {
 
     protected function initform($form) {
         global $gJConfig;
-        $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/activeusers.coord.ini.php');
+        $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
 
         $tzId = DateTimeZone::listIdentifiers();
         for ($i = 0 ; $i < count($tzId) ; $i++) {

@@ -14,6 +14,10 @@ class activeusersModuleInstaller extends jInstallerModule {
     function install() {
         if ($this->firstDbExec())
             $this->execSQLScript('sql/install');
+        if (!$this->getParameter('nocopyfiles') && $this->firstExec('copyfile')) {
+            $this->copyFile('../plugins/coord/activeusers/activeusers.coord.ini.php.dist',
+                            'config:activeusers.coord.ini.php');
+        }
 
         /*if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('my.subject', 'activeusers~acl.my.subject');

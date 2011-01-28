@@ -10,7 +10,7 @@
 $locales=array(
     'title'=>'Bienvenue',
     'introduction'=>'Introduction',
-    'process.description'=>'cette procédure de migration est automatique et s\'occupera de configurer votre forum puis de le mettre à jour. 
-<br/> En cliquant sur le <strong>bouton "suivant"</strong> vous démarrerez <strong>immédiatement</strong> la migration. 
-<br/> <strong>Mais</strong> avant de commencer, nous vous recommandons <strong>fortement</strong> de faire une sauvegarde de votre site/forum et de votre base de données',
+    'process.description'=>'Cette procédure de migration est automatique et s\'occupera de configurer votre forum puis de le mettre à jour.<br/>
+<br/> En cliquant sur le <strong>bouton "suivant"</strong> vous démarrerez <strong>immédiatement</strong> la migration.<br/>
+<br/> <strong>Mais</strong> avant de commencer, nous vous recommandons <strong>fortement</strong> de faire une <strong>sauvegarde</strong> de votre site/forum et de votre base de données',
 );

@@ -15,9 +15,7 @@ class migrateModuleInfo {
     public $name;
     public $access;
 }
-
 class migrateWizPage extends installWizardPage {
-
     /**
      * action to display the page
      * @param jTpl $tpl the template container
@@ -33,12 +31,13 @@ class migrateWizPage extends installWizardPage {
          * this part handle all the config files
          */
         // upgrade all config files
+        copy(dirname(__FILE__).'/../../../plugins/coord/activeusers/activeusers.coord.ini.php.dist',
+                        JELIX_APP_CONFIG_PATH.'activeusers.coord.ini.php');
         $this->_updateConfig();
         // migate existing app to jelix 1.2
         $this->_migrateApp();
         // upgade the database
         $this->_updateDatabase();
-
         return 0;
     }
     protected function loadconf() {
@@ -57,7 +56,7 @@ class migrateWizPage extends installWizardPage {
     private function _updateConfig() {
         /**
          *
-         * CONFIG FILE : dbprofils.ini.php
+         * DataBase CONFIG FILE : dbprofils.ini.php
          *
          */
         $dBini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'dbprofils.ini.php');
@@ -65,13 +64,20 @@ class migrateWizPage extends installWizardPage {
         $dBini->save();
         /**
          *
-         * CONFIG FILE : defaultconfig.ini.php
+         * Main CONFIG FILE : defaultconfig.ini.php
          *
          */
         $iniDef = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
 
         $this->defaultModulesPath = $iniDef->getValue('modulesPath');
-
+        //need to add app:admin-modules to the modulesPath
+        if (strpos($this->defaultModulesPath,'app:admin-modules/') === false) {
+            $this->defaultModulesPath .= ',app:admin-modules/';
+        }
+        // need to add jelix-admin-modules to user jauthdb_admin
+        if (strpos($this->defaultModulesPath,'lib:jelix-admin-modules/') === false) {
+            $this->defaultModulesPath = 'lib:jelix-admin-modules/,'. $this->defaultModulesPath;
+        }
         // let's migrate config, section by section
         $this->defaultCheckTrustedModules = $iniDef->getValue('checkTrustedModules');
         if ($this->defaultCheckTrustedModules === null)
@@ -110,31 +116,31 @@ class migrateWizPage extends installWizardPage {
         $iniDef->removeValue('hiddenModules');
 
         //modulesPath
-        //$iniDef->setValue('modulesPath',$modulesPath);
-        //[coordplugins]
+        $iniDef->setValue('modulesPath',$this->defaultModulesPath);
+        //section [coordplugins]
         $iniDef->removeValue('hfnuinstalled','coordplugins');
         //[basic_significant_urlengine_entrypoints]
         $iniDef->setValue('forums','on','basic_significant_urlengine_entrypoints');
         $iniDef->setValue('install','on','basic_significant_urlengine_entrypoints');
-        //[simple_urlengine_entrypoints]
+        //section [simple_urlengine_entrypoints]
         $iniDef->setValue('forums','@classic','simple_urlengine_entrypoints');
-        //[datepickers]
+        //section [datepickers]
         $iniDef->setValue('chocolatebrown','jelix/js/jforms/datepickers/chocolatebrown/init.js','datepickers');
         $iniDef->setValue('dust','jelix/js/jforms/datepickers/dust/init.js','datepickers');
         $iniDef->setValue('emplode','jelix/js/jforms/datepickers/emplode/init.js','datepickers');
         $iniDef->setValue('emplode','jelix/js/jforms/datepickers/default/init.js','datepickers');
-        //[wikieditors]
+        //section [wikieditors]
         $iniDef->setValue('default.engine.name','wr3','wikieditors');
         $iniDef->setValue('default.wiki.rules','wr3_to_xhtml','wikieditors');
         $iniDef->setValue('default.engine.file','jelix/markitup/jquery.markitup.js','wikieditors');
         $iniDef->setValue('default.image.path','jelix/markitup/sets/wr3/images/','wikieditors');
         $iniDef->setValue('default.skin','jelix/markitup/skins/simple/style.css','wikieditors');
-        //[havefnubb]
+        //section [havefnubb]
         $iniDef->setValue('version','1.4.0','havefnubb');
         $iniDef->save();
         /**
          *
-         * CONFIG FILE : havefnubb/flood.coord.ini.php
+         * Flood CONFIG FILE : havefnubb/flood.coord.ini.php
          *
          */
         //floodcoord.ini.php of the forums entrypoint
@@ -149,7 +155,7 @@ class migrateWizPage extends installWizardPage {
         $floodCoordIni->save();
         /**
          *
-         * CONFIG FILE : havefnubb/jacl2.coord.ini.php
+         * ACL CONFIG FILE : havefnubb/jacl2.coord.ini.php
          *
          */
         $jacl2Config = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/jacl2.coord.ini.php');
@@ -157,7 +163,7 @@ class migrateWizPage extends installWizardPage {
         $jacl2Config->save();
         /**
          *
-         * CONFIG FILE : hfnuadmin/auth.coord.ini.php
+         * AUTH CONFIG FILE : hfnuadmin/auth.coord.ini.php
          *
          */
         $adminAuthConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'hfnuadmin/auth.coord.ini.php');
@@ -170,7 +176,7 @@ class migrateWizPage extends installWizardPage {
          *                                   hfnuadmin/config.ini.php
          *
          */
-        $entryPointConfigFile = array(JELIX_APP_CONFIG_PATH.'havefnubb/config.ini.php',
+        $entryPointConfigFiles = array(JELIX_APP_CONFIG_PATH.'havefnubb/config.ini.php',
                                       JELIX_APP_CONFIG_PATH.'hfnuadmin/config.ini.php');
         $help = "<p>In each config files of your entry points, fill this parameters:<br/>".
                "<ul><li> checkTrustedModules=on</li>".
@@ -180,14 +186,19 @@ class migrateWizPage extends installWizardPage {
 
         $otherModulePath=array();
 
-        foreach ($entryPointConfigFile as $ini) {
-            $iniConfig = new jIniFileModifier($ini);
+        foreach ($entryPointConfigFiles as $currentIni) {
+            $iniConfig = new jIniFileModifier($currentIni);
             //common tasks
 
             $modulesPath = $iniConfig->getValue('modulesPath');
             if (!$modulesPath) {
                 $modulesPath = $this->defaultModulesPath;
             }
+            //need to add app:admin-modules to the modulesPath of the admin entrypoint
+            if (strpos($modulesPath,'app:admin-modules/') === false)
+                $modulesPath .= ',app:admin-modules/';
+            if (strpos($modulesPath,'lib:jelix-admin-modules/') === false)
+                $modulesPath = 'lib:jelix-admin-modules/,'. $modulesPath;
 
             $checkTrustedModules = $iniConfig->getValue('checkTrustedModules');
             if ($checkTrustedModules === null)
@@ -205,6 +216,10 @@ class migrateWizPage extends installWizardPage {
             if ($trustedModules == '') {
                 throw new Exception("trustedModules should be filled in config files.\n$help");
                 return "trustedModules should be filled in config files.\n$help";
+            }
+            // add the new admin module to the $trustedModules
+            if ($currentIni == JELIX_APP_CONFIG_PATH.'hfnuadmin/config.ini.php')  {
+                $trustedModules .= 'activeusers_admin, hfnuadmin, jelixcache, modulesinfo, servinfo';
             }
 
             $unusedModules = $iniConfig->getValue('unusedModules');
@@ -239,17 +254,15 @@ class migrateWizPage extends installWizardPage {
             $iniConfig->removeValue('trustedModules');
             $iniConfig->removeValue('unusedModules');
             $iniConfig->removeValue('hiddenModules');
-
             // end common tasks
-
             //specific tasks
-            if ($ini == JELIX_APP_CONFIG_PATH.'havefnubb/config.ini.php') {
+            if ($currentIni == JELIX_APP_CONFIG_PATH.'havefnubb/config.ini.php') {
                 //[coordplugins]
                 //drop deprecated parms
                 $iniConfig->removeValue('hfnuinstalled','coordplugins');
                 $iniConfig->removeValue('timeout','coordplugins');
                 //add new parms
-                $iniConfig->setValue('activeusers','havefnubb/activeusers.coord.ini.php','coordplugins');
+                $iniConfig->setValue('activeusers','activeusers.coord.ini.php','coordplugins');
                 //[urlengine]
                 //remove this unuseful section
                 $iniConfig->removeValue('engine','urlengine');
@@ -258,10 +271,10 @@ class migrateWizPage extends installWizardPage {
                 $iniConfig->removeValue('defaultEntrypoint','urlengine');
                 $iniConfig->removeValue('entrypointExtension','urlengine');
                 $iniConfig->removeValue('notfoundAct','urlengine');
-            } elseif ($ini == JELIX_APP_CONFIG_PATH.'hfnuadmin/config.ini.php') {
+            } elseif ($currentIni == JELIX_APP_CONFIG_PATH.'hfnuadmin/config.ini.php') {
                 $iniConfig->removeValue('engine','urlengine');
                 //add a new section [activeusers_admin]
-                $iniConfig->setValue('pluginconf','havefnubb/activeusers.coord.ini.php','activeusers_admin');
+                $iniConfig->setValue('pluginconf','activeusers.coord.ini.php','activeusers_admin');
             }
             $iniConfig->save();
         }
@@ -280,14 +293,6 @@ class migrateWizPage extends installWizardPage {
     }
     private function _migrateApp(){
         $errors = array();
-        /*require_once (JELIX_LIB_PATH.'installer/jInstaller.class.php');
-        $reporter=new wizInstallReporter('notice','migrate');
-        $install = new jInstaller($reporter);
-        $result = $install->installApplication(jInstaller::FLAG_MIGRATION_11X);
-        if (!$result) {
-            $errors[] = $this->locales['error.migration.modules.failed'];
-        }*/
-
         if (!file_exists(JELIX_APP_PATH.'install/installer.php')) {
             $this->createDir(JELIX_APP_PATH.'install/');
             $this->createFile(JELIX_APP_PATH.'install/installer.php','installer/installer.php.tpl',array());
@@ -354,5 +359,4 @@ class migrateWizPage extends installWizardPage {
         // migrate from 1.3.6 to 1.4.0
         $tools->execSQLScript(dirname(__FILE__).'/../../../sql/update_to_1.4.0.mysql.sql');
     }
-
 }

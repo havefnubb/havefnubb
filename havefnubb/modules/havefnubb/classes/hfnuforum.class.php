@@ -13,12 +13,12 @@
  * iterator to iterate on the forum list, and returns only allowed forums
  */
 class hfnuForumRecordIterator extends FilterIterator
-{  
+{
     public function accept() {
         $forum = $this->getInnerIterator()->current();
         if( $forum->allowed()) {
             return true;
-        }       
+        }
         return false;
     }
 }
@@ -56,7 +56,7 @@ class hfnuForumRecord {
         }
         return !$this->forbidden;
     }
-    
+
     function disallow() {
         $this->forbidden = true;
         foreach($this->children as $f) $f->disallow();
@@ -81,11 +81,11 @@ class hfnuForumRecord {
  * contains and manage the list of forums
  */
 class hfnuForumList {
-    
+
     protected $forumList = array();
 
     public $forumTree = array();
-    
+
     function addForum($f) {
 
         // put the forum into the linear list
@@ -105,7 +105,7 @@ class hfnuForumList {
             $this->forumTree[$f->id_cat][1][] = $forum;
         }
     }
-    
+
     function getLinearIterator() {
         $list = new ArrayObject($this->forumList);
         $iterator = new hfnuForumRecordIterator($list->getIterator());
@@ -154,12 +154,12 @@ class hfnuforum {
                       ";
         $where = " WHERE c.id_cat = f.id_cat";
         if (!jAcl2::check('hfnu.admin.post') ) {
-            $where.=" AND t.status = 7";    
+            $where.=" AND t.status = 7";
         }
         $order = " ORDER BY c.cat_order asc, c.id_cat asc, f.child_level asc, f.forum_order asc";
-        
+
         $result = new hfnuForumList();
-        
+        echo $select.$from.$where.$order;
         $rs = $c->query($select.$from.$where.$order);
 
         foreach($rs as $f) {

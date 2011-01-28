@@ -9,6 +9,6 @@
 */
 $locales=array(
     'title'=>'Migration',
-    'migration.description'=>'La procédure de migration est à présent terminée',
+    'migration.description'=>'La procédure de migration va à présent démarrer',
     'error.migration.modules.failed'=>'Installation des modules a échoué. Corrigé et réessayé.',
 );

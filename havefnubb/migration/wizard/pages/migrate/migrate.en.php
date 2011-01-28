@@ -8,7 +8,7 @@
 * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 $locales=array(
-    'title'=>'Welcome',
-    'migration.description'=>'the migration process is now finished',
+    'title'=>'Migration',
+    'migration.description'=>'the migration process will now start',
     'error.migration.modules.failed'=>'Installation of modules failed. Fix and retry.',
 );

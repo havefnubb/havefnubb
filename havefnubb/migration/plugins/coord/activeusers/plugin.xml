@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://jelix.org/ns/plugin/1.0">
+    <info id="activeusers@jelix.org" name="activeusers" createdate="2010-11-04">
+        <version>1.0</version>
+        <label lang="en_EN">Active users</label>
+        <description lang="en_EN">Coord plugin to record activity of a user</description>
+        <label lang="fr_FR">Active users</label>
+        <description lang="fr_FR">Plugin Coord pour enregistrer l'activité d'un utilisateur</description>
+        <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
+        <copyright>2010 Laurent Jouanneau</copyright>
+        <creator name="Laurent Jouanneau" active="true" />
+        <homepageURL>http://www.havefnubb.org/</homepageURL>
+    </info>
+    <dependencies>
+        <jelix minversion="1.2" maxversion="1.2.*" />
+    </dependencies>
+</plugin>

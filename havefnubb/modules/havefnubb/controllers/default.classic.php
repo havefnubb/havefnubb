@@ -15,10 +15,10 @@ class defaultCtrl extends jController {
      * @var plugins to manage the behavior of the controller
      */
     public $pluginParams = array(
-        '*'	=> array('auth.required'=>false,
+        '*'     => array('auth.required'=>false,
                         'banuser.check'=>true
                         ),
-        'cloud'	=> array(
+        'cloud' => array(
                         'history.add'=>true,
                         'history.label'=>'Accueil',
                         'history.title'=>'Aller vers la page d\'accueil'
