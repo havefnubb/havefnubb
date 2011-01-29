@@ -15,9 +15,9 @@
         <event name="HfnuPostAfterInsert"/>
         <event name="HfnuPostAfterUpdate"/>
         <event name="HfnuPostAfterSaveReply"/>
+        <event name="HfnuPostBeforeDelete"/>
     </listener>
     <listener name="havefnubb">
         <event name="HfnuBoxWidget" />
     </listener>
 </events>
-

@@ -94,9 +94,22 @@ class hfnuposts {
             //search if it's first post of the thread
             $daoThreads = jDao::get('havefnubb~threads_alone');
             $daoThreadsRec = $daoThreads->getFirstIdPost($post->id_post);
-
+            //let's remove the data
             if ($daoThreadsRec !== false) {
+                //need to remove the count of posts for each user
+                // so get the first and last id post
+                // then get the user id of each post between the first and last
+                // then send an Event HfnuPostBeforeDelete
+                $start = $daoThreadsRec->id_first_msg;
+                $end = $daoThreadsRec->id_last_msg;
+                for ($i=$start ; $i < $end ; $i++ ) {
+                    $id_user = jDao::get('havefnubb~posts')->get($i);
+                    if ($id_user !== false)
+                        jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_user));
+                }
+                //delete all the posts of the thread
                 $dao->deleteSonsPost($post->thread_id);
+                //delete the thread
                 $daoThreads->delete($post->thread_id);
             } else {
                 jDao::get('havefnubb~posts')->delete($id_post);

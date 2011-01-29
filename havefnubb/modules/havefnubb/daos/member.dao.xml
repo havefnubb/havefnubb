@@ -168,5 +168,14 @@
                     <value property="request_date" expr="$request_date"/>
             </values>
         </method>
+        <method name="removeOneMsg" type="update">
+        <parameter name="id"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+            <values>
+                <value property="nb_msg" expr="nb_msg -1"/>
+            </values>
+        </method>
    </factory>
 </dao>
