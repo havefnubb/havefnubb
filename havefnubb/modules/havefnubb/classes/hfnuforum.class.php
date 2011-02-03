@@ -153,13 +153,24 @@ class hfnuforum {
                       LEFT JOIN ".$c->prefixTable('hfnu_posts')." as p2 ON (t.id_last_msg = p2.id_post)
                       ";
         $where = " WHERE c.id_cat = f.id_cat";
+        //get the posts that are not HIDDEN,  reminder
+        /*
+        status :
+                1 - pined
+                2 - pinedclosed
+                3 - opened
+                4 - closed
+                5 - censored
+                6 - uncensored
+                7 - hidden
+        */
         if (!jAcl2::check('hfnu.admin.post') ) {
-            $where.=" AND t.status = 7";
+            $where.=" AND t.status <> 7";
         }
         $order = " ORDER BY c.cat_order asc, c.id_cat asc, f.child_level asc, f.forum_order asc";
 
         $result = new hfnuForumList();
-        
+
         $rs = $c->query($select.$from.$where.$order);
 
         foreach($rs as $f) {

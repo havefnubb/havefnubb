@@ -56,7 +56,7 @@
                                     'ftitle'=>$child->record->forum_name,
                                     'ptitle'=>$child->record->thread_subject,
                                     'go'=>$child->record->id_post)}#p{$child->record->id_post}"
-                               title="{@havefnubb~main.goto_this_message@}">{$child->record->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}   
+                               title="{@havefnubb~main.goto_this_message@}">{$child->record->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
                              {if $child->record->nickname == ''}
                                 {@havefnubb~member.guest@}
                              {else}
