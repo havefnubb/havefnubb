@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.2.1pre.1749');
+define('JELIX_VERSION','1.2.2pre.1774');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -1035,7 +1035,7 @@ class jCoordinator{
 			$remoteAddr=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
 		}
 		$messageLog=strtr($conf['messageLogFormat'],array(
-			'%date%'=>date("Y-m-d H:i:s"),
+			'%date%'=>@date("Y-m-d H:i:s"),
 			'%ip%'=>$remoteAddr,
 			'%typeerror%'=>$type,
 			'%code%'=>$code,

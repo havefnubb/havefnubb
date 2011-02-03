@@ -4,8 +4,8 @@
 * @package     jelix
 * @subpackage  cache
 * @author      Tahina Ramaroson
-* @contributor Sylvain de Vathaire, Brice Tence
-* @copyright   2009 Neov, 2010 Brice Tence
+* @contributor Sylvain de Vathaire, Brice Tence, Laurent Jouanneau
+* @copyright   2009 Neov, 2010 Brice Tence, 2011 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -63,7 +63,8 @@ class jCache{
 		if($drv->enabled){
 			$key=md5(serialize($fn).serialize($fnargs));
 			$lockKey=$key.'___jcacheLock';
-			if(!($data=$drv->get($key))){
+			$data=$drv->get($key);
+			if($data===false){
 				$lockTests=0;
 				while($drv->get($lockKey)){
 					usleep(100000);
@@ -77,7 +78,7 @@ class jCache{
 					$data=$drv->get($key);
 				}
 			}
-			if(!$data){
+			if($data===false){
 				$lockTtl=get_cfg_var('max_execution_time');
 				if(!$lockTtl){
 					$lockTtl=$drv->ttl;

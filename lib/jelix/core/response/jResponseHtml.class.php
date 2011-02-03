@@ -269,12 +269,12 @@ class jResponseHtml extends jResponse{
 		if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['minifyExcludeJS']){
 			$minifyExcludeJS=explode(',',$gJConfig->jResponseHtml['minifyExcludeJS']);
 		}
+		$basePath=$gJConfig->urlengine['basePath'];
 		foreach($scriptList as $src=>$params){
 			$scriptParams='';
 			$pathSrc=$src;
-			if($gJConfig->urlengine['basePath']!='/'&&
-				$gJConfig->urlengine['basePath']!=''){
-					$res=explode($gJConfig->urlengine['basePath'],$src);
+			if($basePath!='/'&&$basePath!=''){
+					$res=explode($basePath,$src);
 					if(count($res)> 1)
 						list(,$pathSrc)=$res;
 				}
@@ -290,7 +290,7 @@ class jResponseHtml extends jResponse{
 			}else{
 				foreach($minifyJsByParams as $param_value=>$js_files){
 					foreach(jMinifier::minify($js_files,'js')as $minifiedJs){
-						$this->outputJsScriptTag($gJConfig->urlengine['basePath'].$minifiedJs,$param_value,JELIX_APP_WWW_PATH.$minifiedJs);
+						$this->outputJsScriptTag($basePath.$minifiedJs,$param_value,JELIX_APP_WWW_PATH.$minifiedJs);
 					}
 				}
 				$minifyJsByParams=array();
@@ -299,7 +299,7 @@ class jResponseHtml extends jResponse{
 		}
 		foreach($minifyJsByParams as $param_value=>$js_files){
 			foreach(jMinifier::minify($js_files,'js')as $minifiedJs){
-				$this->outputJsScriptTag($gJConfig->urlengine['basePath'].$minifiedJs,$param_value,JELIX_APP_WWW_PATH.$minifiedJs);
+				$this->outputJsScriptTag($basePath.$minifiedJs,$param_value,JELIX_APP_WWW_PATH.$minifiedJs);
 			}
 		}
 	}
@@ -310,15 +310,15 @@ class jResponseHtml extends jResponse{
 		if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['minifyExcludeCSS']){
 			$minifyExcludeCSS=explode(',',$gJConfig->jResponseHtml['minifyExcludeCSS']);
 		}
+		$basePath=$gJConfig->urlengine['basePath'];
 		foreach($linkList as $src=>$params){
 			$cssParams='';
 			$pathSrc=$src;
-			if($gJConfig->urlengine['basePath']!='/'&&
-				$gJConfig->urlengine['basePath']!=''){
-					$res=explode($gJConfig->urlengine['basePath'],$src);
-					if(count($res)> 1)
-						list(,$pathSrc)=$res;
-				}
+			if($basePath!='/'&&$basePath!=''){
+				$res=explode($basePath,$src);
+				if(count($res)> 1)
+					list(,$pathSrc)=$res;
+			}
 			$pathIsAbsolute=(strpos($pathSrc,'http://')!==FALSE);
 			if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['minifyCSS']&&
 				! $pathIsAbsolute&&! in_array(basename($pathSrc),$minifyExcludeCSS)){
@@ -342,7 +342,7 @@ class jResponseHtml extends jResponse{
 			}else{
 				foreach($minifyCssByParams as $param_value=>$css_files){
 					foreach(jMinifier::minify($css_files,'css')as $minifiedCss){
-						$this->outputCssLinkTag($gJConfig->urlengine['basePath'].$minifiedCss,$param_value,JELIX_APP_WWW_PATH.$minifiedCss);
+						$this->outputCssLinkTag($basePath.$minifiedCss,$param_value,JELIX_APP_WWW_PATH.$minifiedCss);
 					}
 				}
 				$minifyCssByParams=array();
@@ -353,16 +353,12 @@ class jResponseHtml extends jResponse{
 		}
 		foreach($minifyCssByParams as $param_value=>$css_files){
 			foreach(jMinifier::minify($css_files,'css')as $minifiedCss){
-				$this->outputCssLinkTag($gJConfig->urlengine['basePath'].$minifiedCss,$param_value,JELIX_APP_WWW_PATH.$minifiedCss);
+				$this->outputCssLinkTag($basePath.$minifiedCss,$param_value,JELIX_APP_WWW_PATH.$minifiedCss);
 			}
 		}
 	}
 	final protected function outputHtmlHeader(){
 		global $gJConfig;
-		$minifyExcludeCSS=array();
-		if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['minifyExcludeCSS']){
-			$minifyExcludeCSS=explode(',',$gJConfig->jResponseHtml['minifyExcludeCSS']);
-		}
 		echo '<head>'."\n";
 		if($this->_isXhtml&&$this->xhtmlContentType&&strstr($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml')){
 			echo '<meta content="application/xhtml+xml; charset='.$this->_charset.'" http-equiv="content-type"'.$this->_endTag;

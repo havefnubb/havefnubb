@@ -4,9 +4,10 @@
 * @package     jelix
 * @subpackage  acl
 * @author      Laurent Jouanneau
-* @contributor Julien Issler
+* @contributor Julien Issler, Vincent Viaud
 * @copyright   2006-2010 Laurent Jouanneau
 * @copyright   2009 Julien Issler
+* @copyright   2011 Vincent Viaud
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 * @since 1.1
@@ -39,7 +40,11 @@ class jAcl2DbUserGroup{
 		return jDao::get('jacl2db~jacl2group','jacl2_profile')->getPrivateGroup($login)->id_aclgrp;
 	}
 	public static function getGroupByCode($code){
-		return jDao::get('jacl2db~jacl2group','jacl2_profile')->getGroupByCode($code)->id_aclgrp;
+		$g=jDao::get('jacl2db~jacl2group','jacl2_profile')->getGroupByCode($code);
+		if($g){
+			return $g->id_aclgrp;
+		}
+		return false;
 	}
 	public static function getUsersList($groupid){
 		return jDao::get('jacl2db~jacl2usergroup','jacl2_profile')->getUsersGroup($groupid);

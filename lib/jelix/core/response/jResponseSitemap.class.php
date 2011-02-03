@@ -137,7 +137,7 @@ class jResponseSitemap extends jResponse{
 				if($k==0){
 					continue;
 				}
-				if(preg_match('/^\!\^(.*)\$\!$/',$infoparsing[2],$matches)){
+				if(preg_match('/^([^\(]*)/',substr($infoparsing[2],2,-2),$matches)){
 					$urls[]=$matches[1];
 				}
 			}

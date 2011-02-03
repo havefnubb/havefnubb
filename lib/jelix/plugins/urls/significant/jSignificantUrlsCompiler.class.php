@@ -59,7 +59,8 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		}
 		$this->createUrlInfos=array();
 		$this->createUrlContent="<?php \n";
-		$this->retrieveModulePaths();
+		$this->readProjectXml();
+		$this->retrieveModulePaths(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
 		foreach($xml->children()as $tagname=>$tag){
 			if(!preg_match("/^(.*)entrypoint$/",$tagname,$m)){
 				continue;
@@ -81,6 +82,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 				$this->defaultUrl->entryPointUrl='';
 			$optionalTrailingSlash=(isset($tag['optionalTrailingSlash'])&&$tag['optionalTrailingSlash']=='true');
 			$this->parseInfos=array($this->defaultUrl->isDefault);
+			$this->retrieveModulePaths($this->getEntryPointConfig($this->defaultUrl->entryPoint));
 			if($this->defaultUrl->isDefault){
 				$this->createUrlInfos['@'.$this->defaultUrl->requestType]=array(2,$this->defaultUrl->entryPoint,$this->defaultUrl->isHttps);
 			}
@@ -166,12 +168,32 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		jFile::write(JELIX_APP_TEMP_PATH.'compiled/urlsig/'.$aSelector->file.'.creationinfos.php',$this->createUrlContent);
 		return true;
 	}
+	protected function readProjectXml(){
+		$xml=simplexml_load_file(JELIX_APP_PATH.'project.xml');
+		foreach($xml->entrypoints->entry as $entrypoint){
+			$file=(string)$entrypoint['file'];
+			if(substr($file,-4)!='.php')
+				$file.='.php';
+			$configFile=(string)$entrypoint['config'];
+			$this->entryPoints[$file]=$configFile;
+		}
+	}
+	protected function getEntryPointConfig($entrypoint){
+		if(substr($entrypoint,-4)!='.php')
+			$entrypoint.='.php';
+		if(!isset($this->entryPoints[$entrypoint]))
+			throw new Exception('The entry point "'.$entrypoint.'" is not declared into project.xml');
+		return JELIX_APP_CONFIG_PATH.$this->entryPoints[$entrypoint];
+	}
+	protected $entryPoints=array();
+	protected $modulesRepositories=array();
 	protected $modulesPath=array();
-	protected function retrieveModulePaths(){
-		$conf=parse_ini_file(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+	protected function retrieveModulePaths($configFile){
+		$conf=parse_ini_file($configFile);
+		if(!array_key_exists('modulesPath',$conf))
+			return;
 		$list=preg_split('/ *, */',$conf['modulesPath']);
 		array_unshift($list,JELIX_LIB_PATH.'core-modules/');
-		$this->modulesPath=array();
 		foreach($list as $k=>$path){
 			if(trim($path)=='')continue;
 			$p=str_replace(array('lib:','app:'),array(LIB_PATH,JELIX_APP_PATH),$path);
@@ -180,6 +202,9 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 			}
 			if(substr($p,-1)!='/')
 				$p.='/';
+			if(isset($this->modulesRepositories[$p]))
+				continue;
+			$this->modulesRepositories[$p]=true;
 			if($handle=opendir($p)){
 				while(false!==($f=readdir($handle))){
 					if($f[0]!='.'&&is_dir($p.$f)){

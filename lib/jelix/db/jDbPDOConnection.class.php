@@ -92,6 +92,11 @@ class jDbPDOConnection extends PDO{
 			elseif($this->dbms=='pgsql'){
 				$queryString.=' LIMIT '.intval($limitCount).' OFFSET '.intval($limitOffset);
 			}
+			elseif($this->dbms=='oci'){
+				$limitOffset=$limitOffset + 1;
+				$queryString='SELECT * FROM ( SELECT ocilimit.*, rownum rnum FROM ('.$queryString.') ocilimit WHERE
+                    rownum<'.(intval($limitOffset)+intval($limitCount)).'  ) WHERE rnum >='.intval($limitOffset);
+			}
 		}
 		return $this->query($queryString);
 	}

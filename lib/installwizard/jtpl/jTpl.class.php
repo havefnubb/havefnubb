@@ -16,10 +16,10 @@
  */
 class jTpl {
 
-    const VERSION = '1.0pre.1749';
+    const VERSION = '1.0pre.1774';
 
     /**
-     * all assigned template variables.
+     * all assigned template variables. 
      * It have a public access only for plugins. So you musn't use directly this property
      * except from tpl plugins.
      * See methods of jTpl to manage template variables

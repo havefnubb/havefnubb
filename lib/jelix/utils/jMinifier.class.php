@@ -15,13 +15,9 @@ require_once "Minify/Controller/MinApp.php";
 require_once 'Minify/Source.php';
 require_once 'Minify.php';
 class jMinifier{
-	const TYPE_CSS='text/css';
-	const TYPE_HTML='text/html';
-	const TYPE_JS='application/x-javascript';
 	protected static $_controller=null;
 	protected static $_options=null;
 	protected static $min_cacheFileLocking=true;
-	public static $importWarning="/* See http://code.google.com/p/minify/wiki/CommonProblems#@imports_can_appear_in_invalid_locations_in_combined_CSS_files */\n";
 	private function __construct(){
 	}
 	public static function minify($fileList,$fileType){
@@ -39,12 +35,12 @@ class jMinifier{
 		$cacheExt='';
 		switch($fileType){
 		case 'js':
-			$options['contentType']=self::TYPE_JS;
+			$options['contentType']=Minify::TYPE_JS;
 			$cachePath=$cachePathJS;
 			$cacheExt='js';
 			break;
 		case 'css':
-			$options['contentType']=self::TYPE_CSS;
+			$options['contentType']=Minify::TYPE_CSS;
 			$cachePath=$cachePathCSS;
 			$cacheExt='css';
 			break;
@@ -77,7 +73,7 @@ class jMinifier{
 		self::$_controller=$controller;
 		if($cacheFilepathFilemtime===null||
 			$cacheFilepathFilemtime < self::$_options['lastModifiedTime']){
-				if(self::$_options['contentType']===self::TYPE_CSS&&self::$_options['rewriteCssUris']){
+				if(self::$_options['contentType']===Minify::TYPE_CSS&&self::$_options['rewriteCssUris']){
 					reset($controller->sources);
 					while(list($key,$source)=each(self::$_controller->sources)){
 						if($source->filepath
@@ -105,7 +101,7 @@ class jMinifier{
 	protected static function combineAndMinify()
 	{
 		$type=self::$_options['contentType'];
-		$implodeSeparator=($type===self::TYPE_JS)
+		$implodeSeparator=($type===Minify::TYPE_JS)
 			? "\n;"
 			: '';
 		$defaultOptions=isset(self::$_options['minifierOptions'][$type])
@@ -140,7 +136,7 @@ class jMinifier{
 			}
 			$content=implode($implodeSeparator,$pieces);
 		}
-		if($type===self::TYPE_CSS&&false!==strpos($content,'@import')){
+		if($type===Minify::TYPE_CSS&&false!==strpos($content,'@import')){
 			$content=self::_handleCssImports($content);
 		}
 		if(self::$_options['postprocessorRequire']){
@@ -156,7 +152,7 @@ class jMinifier{
 		if(self::$_options['bubbleCssImports']){
 			preg_match_all('/@import.*?;/',$css,$imports);
 			$css=implode('',$imports[0]). preg_replace('/@import.*?;/','',$css);
-		}else if(''!==self::$importWarning){
+		}else if(''!==Minify::$importWarning){
 			$noCommentCss=preg_replace('@/\\*[\\s\\S]*?\\*/@','',$css);
 			$lastImportPos=strrpos($noCommentCss,'@import');
 			$firstBlockPos=strpos($noCommentCss,'{');
@@ -164,7 +160,7 @@ class jMinifier{
 				&&false!==$firstBlockPos
 				&&$firstBlockPos < $lastImportPos
 			){
-				$css=self::$importWarning . $css;
+				$css=Minify::$importWarning . $css;
 			}
 		}
 		return $css;
