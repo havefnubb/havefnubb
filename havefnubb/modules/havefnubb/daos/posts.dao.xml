@@ -241,6 +241,14 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
+        <method name="getByIdAndIdTread" type="selectfirst">
+           <parameter name="id_post" />
+           <parameter name="thread_id" />
+           <conditions>
+                <eq property="id_post" expr="$id_post" />
+                <eq property="thread_id" expr="$thread_id" />
+            </conditions>
+        </method>
 
         <!-- all update statement -->
         <method name="updateStatusByThreadId" type="update">

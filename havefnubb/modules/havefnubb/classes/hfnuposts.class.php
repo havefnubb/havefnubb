@@ -102,16 +102,25 @@ class hfnuposts {
                 // then send an Event HfnuPostBeforeDelete
                 $start = $daoThreadsRec->id_first_msg;
                 $end = $daoThreadsRec->id_last_msg;
-                for ($i=$start ; $i < $end ; $i++ ) {
-                    $id_user = jDao::get('havefnubb~posts')->get($i);
-                    if ($id_user !== false)
-                        jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_user));
+                for ($i=$start ; $i <= $end ; $i++ ) {
+                    //get the user of this post
+                    //the current cursor may not exist so we have to test
+                    $user = jDao::get('havefnubb~posts')->getByIdAndIdTread($i,$post->thread_id);
+                    //if the id_user is not false
+                    //then "notify" to remove one post of his total
+                    if ($user !== false)
+                        jEvent::notify('HfnuPostBeforeDelete',array('id_post'=>$i,'id_user'=>$user->id_user));
                 }
-                //delete all the posts of the thread
+                //finally delete all the posts of the thread ...
                 $dao->deleteSonsPost($post->thread_id);
-                //delete the thread
+                //...and delete the thread
                 $daoThreads->delete($post->thread_id);
             } else {
+                //get the user of this post
+                $user = jDao::get('havefnubb~posts')->get($id_post);
+                //then "notify" to remove one post of his total
+                if ($user !== false)
+                    jEvent::notify('HfnuPostBeforeDelete',array('id_post'=>$id_post,'id_user'=>$user->id_user));
                 jDao::get('havefnubb~posts')->delete($id_post);
                 //remove one post + get the last post id
                 $threadRec = jDao::get('havefnubb~threads_alone')->get($post->thread_id);
