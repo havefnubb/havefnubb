@@ -229,7 +229,7 @@ table_prefix=
 			$data['password'][$profile]=$ini->getValue('password',$profile);
 			$data['passwordconfirm'][$profile]=$data['password'][$profile];
 			$data['persistent'][$profile]=$ini->getValue('persistent',$profile);
-			$data['force_encoding'][$profile]=$ini->getValue('force_encoding',$profile);
+			$ini->getValue('force_encoding',$profile) !== null ? $data['force_encoding'][$profile]=$ini->getValue('force_encoding',$profile) : $data['force_encoding'][$profile]=true;
 			$data['table_prefix'][$profile]=$ini->getValue('table_prefix',$profile);
 			$data['search_path'][$profile]=$ini->getValue('search_path',$profile);
 			$data['errors'][$profile]=array();

@@ -11,7 +11,8 @@
         title="{$member->name|eschtml}">{$member->name|eschtml}</a>,</li>
     {else}{assign $nbanonymous = $nbanonymous + 1}{/if}
 {/foreach}
-{if $nbanonymous}<li>{jlocale 'activeusers~activeusers.anonymous.number', $nbanonymous}</li>{/if}
+{if $nbanonymous == 1}<li>{jlocale 'activeusers~activeusers.one.anonymous'}</li>
+{elseif $nbanonymous > 1}<li>{jlocale 'activeusers~activeusers.anonymous.number', $nbanonymous}</li>{/if}
     </ul>
     </div>
 </div>

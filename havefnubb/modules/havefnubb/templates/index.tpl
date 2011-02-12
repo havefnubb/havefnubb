@@ -83,7 +83,7 @@
                         'ftitle'=>$f->forum_name,
                         'ptitle'=>$f->thread_subject,
                         'go'=>$f->id_post)}#p{$f->id_post}"
-                   title="{@havefnubb~main.goto_this_message@}">{$f->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}   
+                   title="{@havefnubb~main.goto_this_message@}">{$f->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
                  {if $f->nickname == ''}
                     {@havefnubb~member.guest@}
                  {else}
