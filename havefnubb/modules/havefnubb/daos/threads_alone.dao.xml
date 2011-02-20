@@ -16,6 +16,7 @@
         <property name="date_last_post" fieldname="date_last_post" datatype="int" />
         <property name="ispined_thread"       fieldname="ispined"  datatype="int" required="true"/>
         <property name="iscensored_thread"    fieldname="iscensored"  datatype="int" required="true"/>
+        <property name="status"    fieldname="status"  datatype="int" required="true"/>
     </record>
         <!--
         status :
@@ -38,6 +39,13 @@
                 <eq property="id_forum_thread" expr="$id_forum" />
             </conditions>
         </method>
+        <method name="countVisibleThreadsByIdForum" type="count">
+            <parameter name="id_forum" />
+            <conditions>
+                <eq property="id_forum_thread" expr="$id_forum" />
+                <neq property="status" value="7"/>
+            </conditions>
+        </method>
         <method name="countUnreadThread" type="count">
             <parameter name="date" />
             <conditions>
@@ -51,6 +59,23 @@
     $query = 'SELECT SUM(nb_replies) AS nb_replies, COUNT(nb_replies) AS total_replies '.$this->_fromClause.$this->_whereClause;
     $query .= ($this->_whereClause == ''?' WHERE ':' AND ');
     $query .= ' id_forum = '. $this->_prepareValue($id_forum,'integer');
+
+    $rs = $this->_conn->query($query);
+    $rs->setFetchMode(8,$this->_DaoRecordClassName);
+    $record = $rs->fetch();
+
+    return $record;
+]]>
+            </body>
+        </method>
+        <method name="countVisibleMessagesByIdForum" type="php">
+            <parameter name="id_forum" />
+            <body>
+<![CDATA[
+    $query = 'SELECT SUM(nb_replies) AS nb_replies, COUNT(nb_replies) AS total_replies '.$this->_fromClause.$this->_whereClause;
+    $query .= ($this->_whereClause == ''?' WHERE ':' AND ');
+    $query .= ' id_forum = '. $this->_prepareValue($id_forum,'integer');
+    $query .= ' AND status <> \'7\'';
 
     $rs = $this->_conn->query($query);
     $rs->setFetchMode(8,$this->_DaoRecordClassName);

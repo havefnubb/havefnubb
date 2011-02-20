@@ -23,11 +23,19 @@ class postandmsgZone extends jZone {
         $id_forum = $this->param('id_forum');
         if (!$id_forum) return;
 
-        //$nbMsg = jDao::get('havefnubb~posts')->countMessages($id_forum);
-        $daoThreads = jDao::get('havefnubb~threads_alone');
-        $msgs = $daoThreads->countMessagesByIdForum($id_forum);
-        $nbThread = $daoThreads->countThreadsByIdForum($id_forum);
-        $nbMsg = $msgs->nb_replies + $msgs->total_replies;
+        //user has the admin.post right : get all the posts
+        if (jAcl2::check('hfnu.admin.post')) {
+            $daoThreads = jDao::get('havefnubb~threads_alone');
+            $msgs = $daoThreads->countMessagesByIdForum($id_forum);
+            $nbThread = $daoThreads->countThreadsByIdForum($id_forum);
+            $nbMsg = $msgs->nb_replies + $msgs->total_replies;
+        //user has not the admin.post right : get only the non hidden posts
+        } else {
+            $daoThreads = jDao::get('havefnubb~threads_alone');
+            $msgs = $daoThreads->countVisibleMessagesByIdForum($id_forum);
+            $nbThread = $daoThreads->countVisibleThreadsByIdForum($id_forum);
+            $nbMsg = $msgs->nb_replies + $msgs->total_replies;
+        }
 
         $this->_tpl->assign('nbMsg',$nbMsg);
         $this->_tpl->assign('nbThread',$nbThread);

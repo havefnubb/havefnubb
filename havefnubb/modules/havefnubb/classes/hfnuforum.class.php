@@ -92,7 +92,7 @@ class hfnuForumList {
         $forum = new hfnuForumRecord($f);
         $this->forumList[$f->id_forum] = $forum;
 
-        if ($f->parent_id) {
+        if ($f->child_level > 0) {
             // add the forum in its parent
             $this->forumList[$f->parent_id]->addChild($forum);
         }
@@ -144,7 +144,7 @@ class hfnuforum {
 
         $select="SELECT c.id_cat, cat_name, f.id_forum, forum_name, forum_desc, f.parent_id,
                 child_level, forum_type, forum_url, post_expire, p.date_created, p.date_modified, p.thread_id,
-                p.id_post, p2.subject as thread_subject, u.nickname, u.login, u.id as user_id ";
+                p.id_post, p2.subject as thread_subject, u.nickname, u.login, u.id as user_id, t.status";
         $from= " FROM ".$c->prefixTable('hfnu_forum_category')." as c,
                       ".$c->prefixTable('hfnu_forum')." as f
                       LEFT JOIN ".$c->prefixTable('hfnu_posts')." as p ON (f.id_last_msg = p.id_post)
@@ -153,21 +153,8 @@ class hfnuforum {
                       LEFT JOIN ".$c->prefixTable('hfnu_posts')." as p2 ON (t.id_last_msg = p2.id_post)
                       ";
         $where = " WHERE c.id_cat = f.id_cat";
-        //get the posts that are not HIDDEN,  reminder
-        /*
-        status :
-                1 - pined
-                2 - pinedclosed
-                3 - opened
-                4 - closed
-                5 - censored
-                6 - uncensored
-                7 - hidden
-        */
-        if (!jAcl2::check('hfnu.admin.post') ) {
-            $where.=" AND t.status <> 7";
-        }
-        $order = " ORDER BY c.cat_order asc, c.id_cat asc, f.child_level asc, f.forum_order asc";
+
+        $order = " ORDER BY c.cat_order asc, c.id_cat asc, f.parent_id, f.child_level asc, f.forum_order asc";
 
         $result = new hfnuForumList();
 

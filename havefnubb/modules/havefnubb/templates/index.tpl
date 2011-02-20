@@ -13,7 +13,10 @@
 
 
 {if $action == 'index'}
-
+{assign $adminRights = 0}
+{ifacl2 "hfnu.admin.post"}
+    {assign $adminRights = 1}
+{/ifacl2}
 {assign $current_id_cat = 0}
 
 {foreach $forumsList->forumTree as $id_cat=>$category}
@@ -74,23 +77,51 @@
 
                 <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum)}</td>
                 <td><span class="smalltext">
-
-                {if $f->id_post}<strong>{@havefnubb~main.last.message@}</strong>
-                <a href="{jurl 'havefnubb~posts:viewtogo',
-                    array('id_post'=>$f->id_post,
-                        'thread_id'=>$f->thread_id,
-                        'id_forum'=>$f->id_forum,
-                        'ftitle'=>$f->forum_name,
-                        'ptitle'=>$f->thread_subject,
-                        'go'=>$f->id_post)}#p{$f->id_post}"
-                   title="{@havefnubb~main.goto_this_message@}">{$f->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
-                 {if $f->nickname == ''}
-                    {@havefnubb~member.guest@}
-                 {else}
-                    <a href="{jurl 'jcommunity~account:show',array('user'=>$f->login)}" title="{$f->nickname|eschtml}">{$f->nickname|eschtml}</a>
-                  {/if}
+                {* hidden post ? *}
+                {if $f->status == 7}
+                    {*  member has the hnfu.admin.post right *}
+                    {if  $adminRights == 1}
+                        {if $f->id_post}<strong>{@havefnubb~main.last.message@}</strong>
+                        <a href="{jurl 'havefnubb~posts:viewtogo',
+                            array('id_post'=>$f->id_post,
+                                'thread_id'=>$f->thread_id,
+                                'id_forum'=>$f->id_forum,
+                                'ftitle'=>$f->forum_name,
+                                'ptitle'=>$f->thread_subject,
+                                'go'=>$f->id_post)}#p{$f->id_post}"
+                           title="{@havefnubb~main.goto_this_message@}">{$f->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
+                         {if $f->nickname == ''}
+                            {@havefnubb~member.guest@}
+                         {else}
+                            <a href="{jurl 'jcommunity~account:show',array('user'=>$f->login)}" title="{$f->nickname|eschtml}">{$f->nickname|eschtml}</a>
+                          {/if}
+                        {else}
+                            {@havefnubb~forum.postlc.no.msg@}
+                        {/if}
+                    {*  member has not the hnfu.admin.post right *}
+                    {else}
+                        {@havefnubb~forum.postlc.no.msg@}
+                    {/if}
+                {* not an hidden post *}
                 {else}
-                {@havefnubb~forum.postlc.no.msg@}
+                    {if $f->id_post}<strong>{@havefnubb~main.last.message@}</strong>
+                    <a href="{jurl 'havefnubb~posts:viewtogo',
+                        array('id_post'=>$f->id_post,
+                            'thread_id'=>$f->thread_id,
+                            'id_forum'=>$f->id_forum,
+                            'ftitle'=>$f->forum_name,
+                            'ptitle'=>$f->thread_subject,
+                            'go'=>$f->id_post)}#p{$f->id_post}"
+                       title="{@havefnubb~main.goto_this_message@}">{$f->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
+                     {if $f->nickname == ''}
+                        {@havefnubb~member.guest@}
+                     {else}
+                        <a href="{jurl 'jcommunity~account:show',array('user'=>$f->login)}" title="{$f->nickname|eschtml}">{$f->nickname|eschtml}</a>
+                      {/if}
+                    {else}
+                    {@havefnubb~forum.postlc.no.msg@}
+                    {/if}
+
                 {/if}
                 </span></td>
             </tr>

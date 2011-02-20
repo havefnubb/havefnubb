@@ -21,6 +21,11 @@ class statsZone extends jZone {
     protected function _prepareTpl(){
         global $gJCoord;
         $daoThreads = jDao::get('havefnubb~threads_alone');
+        /**
+         * @TODO
+         *  when the user are not an admin, get only the total of visibles messages (does not count the hidden ones)
+         *  when the user are an admin, get  the total of all visibles messages
+         */
         //posts and thread
         $msgs = $daoThreads->countAllPosts();
         $threads = $daoThreads->countAllThreads();
@@ -53,6 +58,9 @@ class statsZone extends jZone {
                 $lastPost->id_last_msg = 0;
             }
         }
+
+
+
         $dao = jDao::get('havefnubb~member');
         //members
         $members    = $dao->countAllActivatedMember();
