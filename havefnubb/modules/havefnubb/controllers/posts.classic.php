@@ -1302,7 +1302,7 @@ class postsCtrl extends jController {
 
         // entete du flux rss
         $rep->infos->title = $gJConfig->havefnubb['title'];
-        $rep->infos->webSiteUrl= $_SERVER['HTTP_HOST'];
+        $rep->infos->webSiteUrl= (empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER['HTTP_HOST'];
         $rep->infos->copyright = $gJConfig->havefnubb['title'];
         $rep->infos->description = $gJConfig->havefnubb['description'];
         $rep->infos->updated = date('Y-m-d H:i:s');
@@ -1340,7 +1340,7 @@ class postsCtrl extends jController {
             $first=false;
           }
 
-          $url = jUrl::get('havefnubb~posts:view',
+          $url =(empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER['HTTP_HOST']. '/'. jUrl::get('havefnubb~posts:view',
                         array('id_post'=>$post->id_post,
                             'thread_id'=>$post->thread_id,
                             'ftitle'=>$post->forum_name,
