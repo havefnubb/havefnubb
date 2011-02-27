@@ -1340,7 +1340,7 @@ class postsCtrl extends jController {
             $first=false;
           }
 
-          $url =(empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER['HTTP_HOST']. '/'. jUrl::get('havefnubb~posts:view',
+          $url =jUrl::getFull('havefnubb~posts:view',
                         array('id_post'=>$post->id_post,
                             'thread_id'=>$post->thread_id,
                             'ftitle'=>$post->forum_name,
