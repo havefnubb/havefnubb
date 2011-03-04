@@ -88,7 +88,7 @@ class hfnuadminrights {
      * @param string $resource the resource corresponding to the "forum" string + id_forum
      */
     public static function setRightsOnForum($group, $rights, $resource){
-        $dao = jDao::get('jelix~jacl2rights', jAcl2Db::getProfile());
+        $dao = jDao::get('jacl2db~jacl2rights', jAcl2Db::getProfile());
         $dao->deleteHfnuByGroup($group,$resource);
         foreach($rights as $sbj=>$val){
             if($val != '') {

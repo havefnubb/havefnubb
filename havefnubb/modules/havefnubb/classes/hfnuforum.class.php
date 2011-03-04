@@ -92,7 +92,7 @@ class hfnuForumList {
         $forum = new hfnuForumRecord($f);
         $this->forumList[$f->id_forum] = $forum;
 
-        if ($f->child_level > 0) {
+        if ($f->child_level > 0 && $f->parent_id) {
             // add the forum in its parent
             $this->forumList[$f->parent_id]->addChild($forum);
         }

@@ -30,7 +30,7 @@ auth_required = on
 on_error = 2
 
 ; locale key for the error message when on_error=1
-error_message = "jauth~autherror.notlogged"
+error_message = "jcommunity~login.error.notlogged"
 
 ; action to execute on a missing authentification when on_error=2
 on_error_action = "havefnubb~hfnuerror:badright"
@@ -46,7 +46,6 @@ on_error_sleep = 3
 
 ; action to redirect after the login
 after_login = "havefnubb~default:index"
-; after_login = "jauth~login:form"
 
 ; action to redirect after a logout
 after_logout = "jcommunity~login:index"
