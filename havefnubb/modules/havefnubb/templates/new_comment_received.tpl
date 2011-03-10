@@ -7,7 +7,7 @@ array('id_post'=>$post->thread_id,
         'thread_id'=>$post->thread_id,
         'id_forum'=>$post->id_forum,
         'ftitle'=>$post->forum_name,
-        'ptitle'=>$post->subject)}#p{$id_post}
+        'ptitle'=>$post->subject)}#p{$post->id_post}
 
 {@havefnubb~member.your.subscriptions@} :
 http://{$server}{jurl 'jcommunity~account:prepareedit', array('user'=>$login)}

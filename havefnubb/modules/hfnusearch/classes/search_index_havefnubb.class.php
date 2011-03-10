@@ -36,7 +36,7 @@ class search_index_havefnubb extends search_index {
         foreach ($dataSources as $ds) {
             //4) get a factory of the current DAO
             $dao = jDao::get($ds);
-jLog::dump($ds,'datasource: ');
+
             //getting the column name on which we need to make the query
             $indexSubject = $HfnuSearchConfig[$ds]['index_subject'];
             $indexMessage = $HfnuSearchConfig[$ds]['index_message'];
