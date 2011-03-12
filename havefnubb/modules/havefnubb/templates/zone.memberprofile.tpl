@@ -50,7 +50,6 @@
             {ifacl2 'hfnu.admin.member'}
             {mailto array('address'=>$user->email,'encode'=>'hex','text'=>$user->email)}<br/>
             {/ifacl2}
-            {@havefnubb~member.common.ip@}:{$user->member_ip}<br/>
         </li>
         {/ifacl2}
         {if $user->member_website != ''}<li class="user-website user-image"><span><a href="{$user->member_website}" title="{jlocale 'havefnubb~member.common.website.of',array($user->nickname)}">{@havefnubb~member.common.website@}</a></span></li>{/if}

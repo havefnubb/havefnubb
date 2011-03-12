@@ -871,8 +871,11 @@ class hfnuposts {
                     usr.nickname,
                     usr.comment as member_comment,
                     usr.town as member_town,
+                    usr.country as member_country,
                     usr.avatar as member_avatar,
+                    usr.gravatar as member_gravatar,
                     usr.website as member_website,
+                    usr.show_email as member_show_email,
                     usr.nb_msg,
                     usr.last_post as member_last_post,
                     forum.parent_id as forum_parent_id,
@@ -884,7 +887,7 @@ class hfnuposts {
                     LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
                     LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
         $where = ", ".$c->prefixTable('hfnu_posts')." AS posts
-                WHERE threads.id_last_msg = posts.id_post AND
+                WHERE threads.id_first_msg = posts.id_post AND
                     posts.id_forum = '".$id_forum."'";
 
         if ( ! jAuth::isConnected())
@@ -915,9 +918,9 @@ class hfnuposts {
         $c = jDb::getConnection();
 
         $from = " FROM ".$c->prefixTable('hfnu_threads')." AS threads
-                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( threads.id_user=usr.id)
                     LEFT JOIN ".$c->prefixTable('hfnu_forum')." AS forum ON ( threads.id_forum=forum.id_forum)";
         $where = ", ".$c->prefixTable('hfnu_posts')." AS posts
+                    LEFT JOIN ".$c->prefixTable('community_users')." AS usr ON ( posts.id_user=usr.id)
                 WHERE threads.id_thread = posts.thread_id AND
                       posts.thread_id = '".$thread_id."'";
 
@@ -926,6 +929,9 @@ class hfnuposts {
         // if the user is not an admin then we hide the "hidden" posts
         if ( ! jAcl2::check('hfnu.admin.post') )
             $sql .= "AND posts.status <> 7 ";
+
+        $sql .= " ORDER BY p_date_created asc";
+
 
         $posts = $c->limitQuery($sql, $page,$nbRepliesPerPage);
         if ($posts->rowCount() == 0) {

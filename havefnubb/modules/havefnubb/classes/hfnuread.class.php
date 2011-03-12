@@ -89,7 +89,7 @@ class hfnuread {
 
     public function getLastDateRead ($forum_id, $thread_id = 0) {
         if (!jAuth::isConnected())
-            return '0000-00-00 00:00:00';
+            return 0;
 
         $user_id = jAuth::getUserSession()->id;
 
@@ -104,6 +104,6 @@ class hfnuread {
         if ($rf) {
             return $rf->date_read;
         }
-        return '0000-00-00 00:00:00';
+        return 0;
     }
 }

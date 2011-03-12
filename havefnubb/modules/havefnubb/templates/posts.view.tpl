@@ -77,7 +77,9 @@
         {/if}&nbsp;
         </div>
         <div class="grid_8 postheading">
-        <h5><a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if} {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
+        <h5><a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
+           {$post->date_created|jdatetime:'timestamp':'lang_datetime'}
+           {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
         </div>
         {if count($tags) > 1}
         <div class="grid_2 postheading-tags">
@@ -90,7 +92,7 @@
         {/if}
         <div class="clear"></div>
         <div class="grid_4">
-        {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}
+        {zone 'havefnubb~memberprofile',array('user'=>$post)}
         </div>
         <div class="grid_12 postbody">
         {if $statusAvailable[$post->status -1] == 'censored'}

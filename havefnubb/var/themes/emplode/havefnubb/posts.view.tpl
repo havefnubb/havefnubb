@@ -93,7 +93,7 @@ $(document).ready(function(){
         {/if}
     </div>
     <div class="postbody">
-        {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}
+        {zone 'havefnubb~memberprofile',array('user'=>$post)}
         <div class="post-entry">
             <div class="message-content">
                 {if $statusAvailable[$post->status -1] == 'censored'}
