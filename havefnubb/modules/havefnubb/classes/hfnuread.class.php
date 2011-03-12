@@ -3,7 +3,8 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008 FoxMaSk, 2011 Laurent Jouanneau
  * @link      http://havefnubb.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -66,24 +67,43 @@ class hfnuread {
      * this function save which message from which forum has been read by which user
      * @param record $post record of the current read post
      */
-    public function insertReadPost($post,$datePost) {
-        if ($post->id_post > 0 and $post->id_forum > 0 and jAuth::isConnected()) {
+    public function insertReadPost($post, $datePost) {
+        if ($post->thread_id > 0 and $post->id_forum > 0 and jAuth::isConnected()) {
             $dao = jDao::get('havefnubb~read_posts');
             $id_user = jAuth::getUserSession ()->id;
-            $exist = $dao->get($id_user ,$post->id_forum,$post->id_post);
+            $exist = $dao->get($id_user ,$post->id_forum, $post->thread_id);
             if ($exist === false) {
                 $rec = jDao::createRecord('havefnubb~read_posts');
                 $rec->id_forum = $post->id_forum;
-                $rec->id_post = $post->id_post;
                 $rec->thread_id = $post->thread_id;
                 $rec->id_user = $id_user;
-                $rec->date_post_read = $datePost;
+                $rec->date_read = $datePost;
                 $dao->insert($rec);
             }
             else {
-                $exist->date_post_read = $datePost;
+                $exist->date_read = $datePost;
                 $dao->update($exist);
             }
         }
+    }
+
+    public function getLastDateRead ($forum_id, $thread_id = 0) {
+        if (!jAuth::isConnected())
+            return '0000-00-00 00:00:00';
+
+        $user_id = jAuth::getUserSession()->id;
+
+        if ($thread_id) {
+            $rf = jDao::get('havefnubb~read_posts')->get($user_id, $forum_id, $thread_id);
+            if ($rf) {
+                return $rf->date_read;
+            }
+        }
+
+        $rf = jDao::get('havefnubb~read_forum')->get($user_id, $forum_id);
+        if ($rf) {
+            return $rf->date_read;
+        }
+        return '0000-00-00 00:00:00';
     }
 }

@@ -1,6 +1,7 @@
-<h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@havefnubb~post.list.of.new.posts@}</h2>
+<h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>
+    &gt; {@havefnubb~post.list.of.new.posts@}</h2>
     <div class="pager-posts">
-    {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $posts->rowCount(), $page, $nbPostPerPage, "page", $properties}
+    {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}
     </div>
     <table class="data_table">
         <caption>{@havefnubb~post.list.of.new.posts@} : {$nbPosts}</caption>
@@ -16,9 +17,6 @@
         <tbody>
     {if $nbPosts > 0}
         {foreach $posts as $post}
-            {if  $post->p_date_created < $post->date_read_forum
-            ||   $post->p_date_created <= $post->date_read_post}
-            {else}
             <tr>
                 <td> <a href="{jurl 'havefnubb~posts:view', array('id_post'=>$post->id_last_msg,'thread_id'=>$post->thread_id,'id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'ptitle'=>$post->subject)}#p{$post->id_last_msg}" title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a></td>
                 <td>
@@ -33,7 +31,6 @@
                 <td>{zone 'havefnubb~postlc',array('thread_id'=>$post->thread_id)}
                 </td>
             </tr>
-            {/if}
         {/foreach}
     {else}
         <tr><td colspan="6">{@havefnubb~post.no.new.post@}</td></tr>

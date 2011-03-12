@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
-        <primarytable name="read_posts" realname="hfnu_read_posts" primarykey="id_user,id_forum,id_post" />
+        <primarytable name="read_posts" realname="hfnu_read_posts" primarykey="id_user,id_forum,thread_id" />
     </datasources>
     <record>
         <property name="id_user" fieldname="id_user" datatype="int" required="true"/>
         <property name="id_forum" fieldname="id_forum" datatype="int" required="true"/>
-        <property name="id_post" fieldname="id_post" datatype="int" required="true"/>
-        <property name="date_post_read" fieldname="date_read" datatype="int" required="true" />
         <property name="thread_id" fieldname="thread_id" datatype="int" required="true" />
+        <property name="date_read" fieldname="date_read" datatype="int" required="true" />
     </record>
     <factory>
-        <method name="countReadPosts" type="count">
-            <parameter name="id_user" />
-            <parameter name="id_forum" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_user" expr="$id_user" />
-            </conditions>
-        </method>
         <method name="deleteByUserId" type="delete">
             <parameter name="id_user" />
             <conditions>
@@ -31,16 +22,6 @@
             <conditions logic="AND">
                 <eq property="id_user" expr="$id_user" />
                 <eq property="id_forum" expr="$id_forum" />
-            </conditions>
-        </method>
-        <method name="getUnReadPosts" type="selectfirst">
-            <parameter name="id_user" />
-            <parameter name="id_forum" />
-            <parameter name="id_post" />
-            <conditions logic="AND">
-                <eq property="id_forum" expr="$id_forum" />
-                <eq property="id_user" expr="$id_user" />
-                <gt property="id_post" expr="$id_post" />
             </conditions>
         </method>
    </factory>

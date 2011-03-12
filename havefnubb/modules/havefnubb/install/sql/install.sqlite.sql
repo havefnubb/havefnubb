@@ -108,21 +108,17 @@ CREATE TABLE %%PREFIX%%hfnu_read_forum (
   id_forum INTEGER NOT NULL,
   date_read INTEGER NOT NULL
 ) ;
-CREATE UNIQUE INDEX hfnu_read_forum_id ON %%PREFIX%%hfnu_read_forum (id_user,id_forum,date_read);
-CREATE INDEX %%PREFIX%%hfnu_read_forum_id_user ON %%PREFIX%%hfnu_read_forum ( id_user );
-CREATE INDEX %%PREFIX%%hfnu_read_forum_id_forum ON %%PREFIX%%hfnu_read_forum( id_forum );
-CREATE INDEX %%PREFIX%%hfnu_read_forum_date_read ON %%PREFIX%%hfnu_read_forum( date_read );
+CREATE UNIQUE INDEX hfnu_read_forum_id ON %%PREFIX%%hfnu_read_forum (id_user,id_forum);
 
 
 CREATE TABLE %%PREFIX%%hfnu_read_posts (
   id_user INTEGER NOT NULL,
   id_forum INTEGER NOT NULL,
-  id_post INTEGER NOT NULL
+  date_read INTEGER NOT NULL,
+  thread_id INTEGER NOT NULL
 ) ;
-CREATE UNIQUE INDEX %%PREFIX%%hfnu_read_posts_id ON %%PREFIX%%hfnu_read_posts (id_user,id_forum,id_post);
-CREATE INDEX %%PREFIX%%hfnu_read_posts_id_user ON %%PREFIX%%hfnu_read_posts ( id_user );
-CREATE INDEX %%PREFIX%%hfnu_read_posts_id_forum ON %%PREFIX%%hfnu_read_posts( id_forum );
-CREATE INDEX %%PREFIX%%hfnu_read_posts_id_post ON %%PREFIX%%hfnu_read_posts( id_post );
+CREATE UNIQUE INDEX %%PREFIX%%hfnu_read_posts_id ON %%PREFIX%%hfnu_read_posts (id_user,id_forum,thread_id);
+
 
 CREATE TABLE %%PREFIX%%hfnu_subscriptions (
 	id_user INTEGER NOT NULL,

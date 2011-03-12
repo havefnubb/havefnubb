@@ -128,28 +128,6 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
-        <method name="findUnreadThread" type="select" distinct="true" groupby="thread_id">
-            <parameter name="limit"/>
-            <conditions logic="OR">
-                <gt property="date_created" expr="$limit" />
-                <gt property="date_modified" expr="$limit" />
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-        </method>
-        <method name="findAllUnreadThread" type="count" groupby="thread_id">
-            <parameter name="start"/>
-            <parameter name="end"/>
-            <conditions logic="AND">
-                <gteq property="date_created" expr="$start" />
-                <lteq property="date_created" expr="$end" />
-            </conditions>
-            <order>
-                <orderitem property="date_created" way="desc" />
-            </order>
-        </method>
-
 
         <!-- countXXX -->
         <method name="countAllByIdForum" type="count">

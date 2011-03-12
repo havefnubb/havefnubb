@@ -132,20 +132,5 @@
                 <orderitem property="p_date_created" way="desc" />
             </order>
         </method>
-
-        <method name="findUnreadThreadVisible" type="select" distinct="true" groupby="id_thread">
-            <parameter name="date_last_post"/>
-            <parameter name="offset"/>
-            <parameter name="count"/>
-            <conditions logic="AND">
-                <neq property="status" expr="7"/>
-                <gt property="date_last_post" expr="$date_last_post"/>
-            </conditions>
-            <limit offset="$offset" count="$count"/>
-            <order>
-                <orderitem property="date_last_post" way="desc" />
-            </order>
-        </method>
-
     </factory>
 </dao>

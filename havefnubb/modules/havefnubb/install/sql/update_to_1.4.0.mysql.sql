@@ -81,9 +81,21 @@ ALTER TABLE `%%PREFIX%%community_users` CHANGE   `member_gravatar` `gravatar` in
 ALTER TABLE `%%PREFIX%%community_users` DROP   `member_last_connect`;
 ALTER TABLE `%%PREFIX%%community_users` DROP   `member_connection`;
 
+DELETE FROM %%PREFIX%%read_forum;
+ALTER TABLE %%PREFIX%%read_forum DROP PRIMARY KEY;
+ALTER TABLE %%PREFIX%%read_forum DROP INDEX id_user;
+ALTER TABLE %%PREFIX%%read_forum DROP INDEX id_forum;
+ALTER TABLE %%PREFIX%%read_forum DROP INDEX date_read;
+ALTER TABLE %%PREFIX%%read_forum ADD PRIMARY KEY (id_user, id_forum);
 
+DELETE FROM %%PREFIX%%read_posts;
 ALTER TABLE %%PREFIX%%read_posts ADD date_read int(12) NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%read_posts ADD thread_id int(12) NOT NULL DEFAULT '0';
+ALTER TABLE %%PREFIX%%read_posts DROP PRIMARY KEY;
+ALTER TABLE %%PREFIX%%read_posts DROP id_post;
+ALTER TABLE %%PREFIX%%read_posts DROP INDEX id_user;
+ALTER TABLE %%PREFIX%%read_posts DROP INDEX id_forum;
+ALTER TABLE %%PREFIX%%read_posts ADD PRIMARY KEY (id_user, id_forum, thread_id);
 
 ALTER TABLE %%PREFIX%%jacl2_group ADD COLUMN code varchar(30) default NULL;
 

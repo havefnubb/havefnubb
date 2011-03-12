@@ -10,7 +10,7 @@
 /**
  * function that display the status of one post or post in a given forum
  */
-function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkForumAsRead=0) {
+function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkThreadAsRead=0, $forum = null) {
     global $gJConfig;
     $statusAvailable = array('pined',
                             'pinedclosed',
@@ -23,7 +23,7 @@ function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkForumAsRea
         $id_forum = $data;
 
         // does the user still read everything in the forum ?
-        if ( jClasses::getService('havefnubb~hfnuposts')->findUnreadThreadbyForumId($id_forum) )
+        if ( !jClasses::getService('havefnubb~hfnuposts')->getCountUnreadThreadbyForumId($id_forum) )
         //yes
             $status = 'forumicone';
         //no
@@ -39,7 +39,7 @@ function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkForumAsRea
             if ($post->status_thread == 3) {
                 //do the member already read that post ?
                 // yes so status is opened
-                if ($post->date_last_post < $lastMarkForumAsRead ||
+                if ($post->date_last_post < $lastMarkThreadAsRead ||
                         $post->date_read_post >= $post->date_last_post)
                     $status = 'opened';
                 else
@@ -51,9 +51,8 @@ function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkForumAsRea
         $dayInSecondes = 24 * 60 * 60;
         $dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $dayInSecondes) : floor( (time() - $post->date_modified ) / $dayInSecondes) ;
 
-        $recForum   = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
         //if forum has expired ...
-        if ( $recForum->post_expire > 0 and $dateDiff >= $recForum->post_expire )
+        if ( $forum->post_expire > 0 and $dateDiff >= $forum->post_expire )
             //close the thread
             $status = 'closed';
 

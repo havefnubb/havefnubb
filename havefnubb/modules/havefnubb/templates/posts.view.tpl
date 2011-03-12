@@ -1,4 +1,8 @@
-<h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$forum->id_cat,'ctitle'=>$forum->cat_name)}" title="{$forum->cat_name}">{$forum->cat_name|eschtml}</a> > <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a> > {$subject|eschtml}</h2>
+<h2>{@havefnubb~main.common.you.are.here@}
+    <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>
+    &gt; <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$forum->id_cat,'ctitle'=>$forum->cat_name)}" title="{$forum->cat_name}">{$forum->cat_name|eschtml}</a>
+    &gt; <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
+    &gt; {$subject|eschtml}</h2>
 {zone 'hfnusearch~hfnuquicksearch'}
 {ifuserconnected}
 {include 'havefnubb~zone.mark_forum'}
@@ -53,11 +57,11 @@
                 'title'=>$post->subject)}
 
 <div class="box">
-    <h2><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> {$post->subject|eschtml}
+    <h2><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span>
+    <span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span>
+    {$post->subject|eschtml}
                 {ifuserconnected}
-                {if $post->date_created  < $lastMarkForumAsRead or
-                    $post->date_read_post >= $post->date_created }
-                {else}
+                {if $post->date_created > $lastMarkThreadAsRead}
                     <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
                 {/if}
                 {/ifuserconnected}</h2>

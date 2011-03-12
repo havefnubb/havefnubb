@@ -106,6 +106,22 @@ CREATE TABLE %%PREFIX%%hfnu_rank (
     CONSTRAINT id_rank PRIMARY KEY (id_rank)
 );
 
+CREATE TABLE %%PREFIX%%hfnu_read_forum (
+  id_user int(12) NOT NULL,
+  id_forum int(12) NOT NULL,
+  date_read int(12) NOT NULL,
+  CONSTRAINT hfnurfpk PRIMARY KEY  (id_user,id_forum),
+);
+
+CREATE TABLE %%PREFIX%%hfnu_read_posts (
+  id_user int(12) NOT NULL,
+  id_forum int(12) NOT NULL,
+  date_read int(12) NOT NULL,
+  thread_id int(12) NOT NULL,
+  CONSTRAINT hfnurppk PRIMARY KEY  (id_user,id_forum,thread_id)
+);
+
+
 CREATE TABLE %%PREFIX%%hfnu_subscriptions (
     id_user integer NOT NULL,
     id_post integer NOT NULL,

@@ -50,7 +50,7 @@
         {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
         {assign $status = $statusAvailable[ $post->status_thread - 1]}
         <tr>
-            <td class="colicone-{post_status 'post',$post,$lastMarkForumAsRead}">&nbsp;</td>
+            <td class="colicone-{post_status 'post',$post,$lastMarkThreadAsRead, $forum}">&nbsp;</td>
             <td><span class="newestposts">{@havefnubb~post.status.$status@}</span>
                 <a class="status-{$status}" href="{jurl 'havefnubb~posts:view',
                                                 array(  'id_post'=>$post->id_post,
@@ -60,7 +60,7 @@
                                                         'ptitle'=>$post->subject)}"
                     title="{@havefnubb~forum.forumlist.view.this.subject@}">{$post->subject|eschtml}</a>
                 {ifuserconnected}
-                {if $post->date_last_post < $lastMarkForumAsRead ||
+                {if $post->date_last_post < $lastMarkThreadAsRead ||
                     $post->date_read_post >= $post->date_last_post}
                 {else}
                     <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>

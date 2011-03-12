@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008 FoxMaSk, 2011 Laurent Jouanneau
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -151,16 +152,8 @@ class postsCtrl extends jController {
         $tpl->assign('properties',$properties);
         $tpl->assign('currentIdForum',$forum->id_forum);
         $tpl->assign('statusAvailable',self::$statusAvailable);
-        if (jAuth::isConnected()) {
-            $rf = jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$id_forum);
-            if ($rf !== false )
-                $tpl->assign('lastMarkForumAsRead',$rf->date_read );
-            else
-                $tpl->assign('lastMarkForumAsRead',0 );
-        }
-        else {
-            $tpl->assign('lastMarkForumAsRead',0 );
-        }
+        $tpl->assign('lastMarkThreadAsRead',
+                     jClasses::getService('havefnubb~hfnuread')->getLastDateRead($forum->id_forum));
         $rep->body->assign('currentIdForum',$forum->id_forum);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));
         return $rep;
@@ -335,18 +328,13 @@ class postsCtrl extends jController {
 
         if(jAuth::isConnected()) {
             $tpl->assign('current_user',jAuth::getUserSession ()->login);
-
-            $rf = jDao::get('havefnubb~read_forum')->get(jAuth::getUserSession()->id,$forum->id_forum);
-            if ($rf !== false )
-                $tpl->assign('lastMarkForumAsRead',$rf->date_read );
-            else
-                $tpl->assign('lastMarkForumAsRead',0 );
         }
         else {
             $tpl->assign('current_user','');
-
-            $tpl->assign('lastMarkForumAsRead',0 );
         }
+        $tpl->assign('lastMarkThreadAsRead',
+                     jClasses::getService('havefnubb~hfnuread')->getLastDateRead($forum->id_forum,$thread_id));
+
 
         if ( jAcl2::check('hfnu.admin.post') ) {
             $formStatus = jForms::create('havefnubb~posts_status');
@@ -1724,12 +1712,12 @@ class postsCtrl extends jController {
         // 2- limit per page
         $nbPostPerPage = 0;
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
-        $unread = jClasses::getService('havefnubb~hfnuposts')->findUnreadThread($page,$nbPostPerPage);
+        list($posts, $nbPosts) = jClasses::getService('havefnubb~hfnuposts')->findUnreadThread($page,$nbPostPerPage);
 
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('posts', $unread['posts']);
-        $tpl->assign('nbPosts', $unread['nbPosts']);
+        $tpl->assign('posts', $posts);
+        $tpl->assign('nbPosts', $nbPosts);
         $tpl->assign('page',$page);
         $tpl->assign('nbPostPerPage',$nbPostPerPage);
         $tpl->assign('properties',$properties);

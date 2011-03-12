@@ -65,9 +65,7 @@ $(document).ready(function(){
     <div class="posthead legend">
         <h4 class="posthead-title"><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'thread_id'=>$post->thread_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a>
                 {ifuserconnected}
-                {if $post->date_created  < $lastMarkForumAsRead or
-                    $post->date_read_post >= $post->date_created }
-                {else}
+                {if $post->date_created > $lastMarkThreadAsRead}
                     <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
                 {/if}
                 {/ifuserconnected}
