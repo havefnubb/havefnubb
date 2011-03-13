@@ -16,14 +16,11 @@ class tagsbyobjectZone extends jZone {
     protected function _prepareTpl(){
         $id = $this->getParam('id', false);
         $scope = $this->getParam('scope', false);
-        
+ 
         if (!$id || !$scope) {
             throw new Exception(jLocale::get("jtags~tags.error.parametermissing"));
         }
         $tags = jClasses::getService("jtags~tags")->getTagsBySubject($scope, $id);
-        
-        
         $this->_tpl->assign(compact('tags'));
     }
 }
-?>

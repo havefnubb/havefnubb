@@ -65,7 +65,7 @@
             <div class="col3 right">
                 <div class="col3_content">
                     {zone 'havefnubb~stats'}
-                    {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}
+                    {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud', 'maxcount'=>30)}
                 </div>
             </div>
 

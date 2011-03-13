@@ -1,29 +1,25 @@
 jTags...
 
-svn co http://forge.jelix.org/svn/sharecode/trunk/sharecode/modules/jtags
-
-
 HOW TO USE : 
-
-
 
 1/ add tags to an object
 
-// add in your formulaire : 
+// add in your jforms : 
 <textarea ref="tags" rows="2" cols="60">
-	<label>Choisis tes tags</label>
+	<label>Type your tags</label>
 </textarea>
 
+// add in your controller if you want autocompletion :
+jClasses::getService("jtags~tags")->setResponsesHeaders();
 
-// add in your controller :
-protected function _create($form, $resp, $tpl) {
-    jClasses::getService("jtags~tags")->setResponsesHeaders();;
-}
 
 2/ display tags cloud 
-$this->_tpl->assignZone("tagscloud", "jtags~tagscloud");
-// or
-{zone "jtags~tagscloud"}
+$tpl->assignZone("tagscloud", "jtags~tagscloud", array('destination'=>'module~ctrl:method', 'maxcount'=>30));
+// or in a template
+{zone "jtags~tagscloud", array('destination'=>'module~ctrl:method', 'maxcount'=>20)}
+
+destination : the action which will display objects corresponding to a tag. it receive a "tag" parameter.
+maxcount : displays only the given number of tags. set it to 0 or don't set this parameter to displays all tags.
 
 3/ get tags of an object
 $tags = $srv_tags->getTagsByObject($scope, $id);

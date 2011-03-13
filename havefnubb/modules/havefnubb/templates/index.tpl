@@ -200,6 +200,6 @@
 </div>
 
 <div class="grid_6 omega">
-    {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud')}
+    {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud', 'maxcount'=>30)}
 </div>
 <div class="clear"></div>

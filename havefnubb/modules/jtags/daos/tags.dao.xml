@@ -16,6 +16,15 @@
             </order>
         </method>
 
+        <method name="findLimit" type="select">
+            <parameter name="maxcount" />
+            <order>
+                <orderitem property="nbuse" way="desc" />
+                <orderitem property="tag_name" way="asc" />
+            </order>
+            <limit count="$maxcount" offset="0" />
+        </method>
+
         <method name="tagExiste" type="selectfirst">
             <parameter name="tag" />
             <conditions>

@@ -9,42 +9,64 @@
 * @licence      http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 *
 */
+function cmpTagsCloud ($a, $b) {
+    $n = strtolower($a->tag_name);
+    $m = strtolower($b->tag_name);
+    if ($n == $m)
+        return 0;
+    if ($n > $m)
+        return 1;
+    return -1;
+    
+}
+
+
 
 class tagscloudZone extends jZone {
+    const MIN_SIZE = 1;
+    const MAX_SIZE = 10;
 
     protected $_tplname='tagscloud';
     protected $_useCache = false;
 
 
     protected function _prepareTpl(){
-        $matfactory = jDao::get("jtags~tags");
-
-        $destination = $this->getParam("destination", null);
-
-        $tags = $matfactory->findAll();
-
-        define("MIN_SIZE", 1);
-        define("MAX_SIZE", 10);
+        $tagsfactory = jDao::get("jtags~tags");
+        $destination = $this->param("destination", null);
+        $maxcount = $this->param('maxcount',0);
 
         $min = $max = 0;
-
-        foreach ($tags as $t) {
-            if ($t->nbuse < $min) $min = $t->nbuse;
-            if ($t->nbuse > $max) $max = $t->nbuse;
+        if ($maxcount > 0) {
+            $tagsList = $tagsfactory->findLimit($maxcount);
+            $tags = array();
+            foreach ($tagsList as $t) {
+                if ($t->nbuse < $min) $min = $t->nbuse;
+                if ($t->nbuse > $max) $max = $t->nbuse;
+                $tags[] = $t;
+            }
+            usort($tags, 'cmpTagsCloud');
+            $nbObjects = count($tags);
+        }
+        else {
+            $tags = $tagsfactory->findAll();
+            $nbObjects = $tags->rowCount();
+            foreach ($tags as $t) {
+                if ($t->nbuse < $min) $min = $t->nbuse;
+                if ($t->nbuse > $max) $max = $t->nbuse;
+            }
         }
 
-        $min_size = MIN_SIZE;
-        $max_size = MAX_SIZE;
-
+        if ($max == $min || ($max == 0 && $min == 0)) {
+            $coeff = 1;
+        }
+        else {
+            $coeff = ((self::MAX_SIZE - self::MIN_SIZE) / ($max - $min));
+        }
         $size = array();
         foreach ($tags as $t) {
-            $size[$t->tag_id] = intval($min_size + (($t->nbuse - $min) * (($max_size - $min_size) / ($max - $min))));
+            $size[$t->tag_id] = intval(self::MIN_SIZE + (($t->nbuse - $min) * $coeff));
         }
-
-
-        $nbObjects = $matfactory->countAll();
 
         $this->_tpl->assign(compact('tags', 'size', 'nbObjects', 'destination'));
     }
 }
-?>
