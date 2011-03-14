@@ -1005,8 +1005,10 @@ class hfnuposts {
                     OR (rf.date_read IS NOT NULL AND date_last_post > rf.date_read)
                     OR (rp.date_read IS NULL AND rf.date_read IS NULL))";
 
+            //if the user does not have the admin right
             if ( ! jAcl2::check('hfnu.admin.post') )
-                $sql .= " AND posts.status <> 7 ";
+                // we do not display the "hidden" thread
+                $sql .= " AND status <> 7 ";
 
             $count = $c->query($sql);
             $nbPosts = $count->fetch()->c;
