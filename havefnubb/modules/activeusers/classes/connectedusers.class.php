@@ -3,20 +3,25 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008 FoxMaSk, 2011 Laurent Jouanneau
  * @link      http://havefnubb.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
 /**
-* Class that handles the timeout of a connection of a visit
+* Class that follows connections of a user
 */
 class connectedusers {
 
+    /**
+     * to call when a user log in
+     * @param string $login
+     */
     public function connectUser($login) {
         $dao = jDao::get('activeusers~connectedusers');
         $name = $this->getName();
 
-        $record = $dao->getByLoginSession($login, session_id());
+        $record = $dao->get(session_id());
         if ($record) {
             $record->login = $login; // perhaps the record exist, but with an anonymous user
             $record->name = $name;
@@ -33,14 +38,22 @@ class connectedusers {
             $record->connection_date = $record->last_request_date = time();
             $dao->insert($record);
         }
-        // this is an opportunity to delete disconnected users
-        $this->deleteDisconnectedUsers();
+        // this is an opportunity to delete old sessions
+        $this->deleteOldSessions();
     }
 
+    /**
+     * to call when a user logout
+     */
     public function disconnectUser($login) {
         jDao::get('activeusers~connectedusers')->disconnectUser($login);
-        // this is an opportunity to delete disconnected users
-        $this->deleteDisconnectedUsers();
+        // this is an opportunity to delete ld sessions
+        $this->deleteOldSessions();
+    }
+
+
+    protected function deleteOldSessions() {
+        jDao::get('activeusers~connectedusers')->clear(time()- (5*24*60*60)); // 5 days
     }
 
     protected function deleteDisconnectedUsers() {
@@ -97,9 +110,7 @@ class connectedusers {
             return true;
         }
         return false;
-
     }
-
 
     public function isConnected ($login) {
         $dao = jDao::get('activeusers~connectedusers');
@@ -113,7 +124,8 @@ class connectedusers {
     }
 
     /**
-     * save the date of the visit for the current user
+     * save the date of the visit for the current user.
+     * Call it each time the user visit a page (connected or not)
      */
     public function check() {
         $dao = jDao::get('activeusers~connectedusers');
@@ -151,21 +163,41 @@ class connectedusers {
         }
     }
 
-    function getList() {
-        $timeout = $this->getVisitTimeout();
+    /**
+     * returns the list of connected users, regarding the given timeout.
+     * @return array the list of connected users. the first element is the number of anonymous users
+     */
+    function getConnectedList($timeout = 0) {
+        if ($timeout == 0)
+            $timeout = $this->getVisitTimeout();
         $dao = jDao::get('activeusers~connectedusers');
         $members = $dao->findConnected($timeout);
-        return $members;
+        $list = array();
+        $currentlogin = '';
+        $anonymous = 0;
+        foreach($members as $m) {
+            if ($m->login != $currentlogin) { // we don't want duplicated login in the list
+                $list[] = $m;
+                $currentlogin = $m->login;
+            }
+            if ($m->login == '') // for anonymous users, we just count them
+                $anonymous ++;
+        }
+        array_unshift($list,$anonymous);
+        return $list;
     }
 
     function getCount() {
         $timeout = $this->getVisitTimeout();
-        $dao = jDao::get('activeusers~connectedusers');
-        $members = $dao->countConnected($timeout);
-        return $members;
+        if ($timeout) {
+            $cn = jDb::getConnection();
+            $sql =" SELECT COUNT(DISTINCT(login)) as cnt FROM ".$cn->prefixTable('connectedusers').'
+                WHERE last_request_date > '. $timeout;
+            $rs = $cn->query($sql);
+            return $rs->fetch()->cnt;
+        }
+        return 0;
     }
-
-
 
     protected function getName() {
         $user = jAuth::getUserSession();

@@ -20,11 +20,10 @@ class online_todayZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        $dao = jDao::get('activeusers~connectedusers');
         $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
-        $members = $dao->findConnected($today);
-        $nbMembers = $members->rowCount();
+        $members = jClasses::create('activeusers~connectedusers')->getConnectedList($today);
+        $this->_tpl->assign('nbAnonymous',array_shift($members));
         $this->_tpl->assign('members',$members);
-        $this->_tpl->assign('nbMembers',$nbMembers);
+        $this->_tpl->assign('nbMembers',count($members));
     }
 }

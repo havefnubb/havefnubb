@@ -20,10 +20,9 @@ class onlineusersZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-
-        $members = jClasses::create('activeusers~connectedusers')->getList();
-        $nbMembers = $members->rowCount();
+        $members = jClasses::create('activeusers~connectedusers')->getConnectedList();
+        $this->_tpl->assign('nbAnonymous',array_shift($members));
         $this->_tpl->assign('members',$members);
-        $this->_tpl->assign('nbMembers',$nbMembers);
+        $this->_tpl->assign('nbMembers',count($members));
     }
 }
