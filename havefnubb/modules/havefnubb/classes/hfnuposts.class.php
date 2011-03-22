@@ -964,9 +964,26 @@ class hfnuposts {
             , ".$c->prefixTable('hfnu_posts')." AS posts
             WHERE threads.id_last_msg = posts.id_post
                 AND (
-                    (rp.date_read IS NOT NULL AND date_last_post > rp.date_read)
-                    OR (rf.date_read IS NOT NULL AND date_last_post > rf.date_read)
-                    OR (rp.date_read IS NULL AND rf.date_read IS NULL))";
+                    (
+                            rp.date_read IS NOT NULL
+                        AND rf.date_read IS NOT NULL
+                        AND (
+                                (date_last_post > rp.date_read AND  rp.date_read > rf.date_read)
+                            OR  (date_last_post > rf.date_read AND  rf.date_read >= rp.date_read)
+                        )
+                    )
+                    OR (
+                            rp.date_read IS NULL
+                        AND rf.date_read IS NOT NULL
+                        AND date_last_post > rf.date_read
+                    )
+                    OR (
+                            rp.date_read IS NOT NULL
+                        AND rf.date_read IS NULL
+                        AND date_last_post > rp.date_read
+                    )
+                    OR (rp.date_read IS NULL AND rf.date_read IS NULL)
+                    )";
 
         if ( ! jAcl2::check('hfnu.admin.post') )
             $sql .= " AND posts.status <> 7 ";
@@ -1000,10 +1017,27 @@ class hfnuposts {
                     LEFT JOIN ".$c->prefixTable('hfnu_read_forum')." as rf ON ( threads.id_forum=rf.id_forum AND
                                                                     rf.id_user = '".jAuth::getUserSession ()->id."')
                 WHERE threads.id_forum = '".$id_forum."'
-                  AND (
-                    (rp.date_read IS NOT NULL AND date_last_post > rp.date_read)
-                    OR (rf.date_read IS NOT NULL AND date_last_post > rf.date_read)
-                    OR (rp.date_read IS NULL AND rf.date_read IS NULL))";
+                    AND (
+                    (
+                            rp.date_read IS NOT NULL
+                        AND rf.date_read IS NOT NULL
+                        AND (
+                                (date_last_post > rp.date_read AND  rp.date_read > rf.date_read)
+                            OR  (date_last_post > rf.date_read AND  rf.date_read >= rp.date_read)
+                        )
+                    )
+                    OR (
+                            rp.date_read IS NULL
+                        AND rf.date_read IS NOT NULL
+                        AND date_last_post > rf.date_read
+                    )
+                    OR (
+                            rp.date_read IS NOT NULL
+                        AND rf.date_read IS NULL
+                        AND date_last_post > rp.date_read
+                    )
+                    OR (rp.date_read IS NULL AND rf.date_read IS NULL)
+                    )";
 
             //if the user does not have the admin right
             if ( ! jAcl2::check('hfnu.admin.post') )
