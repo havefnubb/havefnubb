@@ -13,7 +13,7 @@ class havefnubbModuleUpgrader_readdate extends jInstallerModule {
     function install() {
         if ($this->firstDbExec()) {
             $cn = $this->dbConnection();
-            $cn->exec("DELETE FROM TABLE ".$cn->prefixTable('hfnu_read_posts')." ");
+            $cn->exec("DELETE FROM ".$cn->prefixTable('hfnu_read_posts')." ");
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_read_posts')." DROP PRIMARY KEY");
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_read_posts')." DROP id_post");
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_read_posts')." DROP INDEX id_user");
@@ -21,7 +21,7 @@ class havefnubbModuleUpgrader_readdate extends jInstallerModule {
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_read_posts')." DROP INDEX date_read");
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_read_posts')." ADD PRIMARY KEY (id_user, id_forum, thread_id)");
 
-            $cn->exec("DELETE FROM TABLE ".$cn->prefixTable('hfnu_read_forum')." ");
+            $cn->exec("DELETE FROM ".$cn->prefixTable('hfnu_read_forum')." ");
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_read_forum')." DROP PRIMARY KEY");
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_read_forum')." DROP INDEX id_user");
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_read_forum')." DROP INDEX id_forum");
