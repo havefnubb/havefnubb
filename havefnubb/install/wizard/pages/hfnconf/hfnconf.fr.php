@@ -3,10 +3,10 @@
 $locales = array(
 
     'title'=>'Configuration générale du forum',
+    'configuration'=>'Configuration',
+    'description.webmaster'=>'Courriel et nom de l\'expéditeur sous lequel l\'application enverra des emails',
 
-    'description.webmaster'=>'Courriel et nom de l\'expediteur sous lequel l\'application enverra des emails',
-
-    'label.theme'=>'Theme pour le design',
+    'label.theme'=>'Thème pour le design',
     'label.title'=>'Nom de votre forum',
     'label.description'=>'Slogan',
 

@@ -57,14 +57,14 @@
                 {$MAIN}
                 {if $messageFooter}<div id="contentFooter">{@$messageFooter@}</div>{/if}
 
-                    <div id="buttons">
-                        {if $previous}
-                          <button name="previous"  class="jforms-submit" onclick="location.href='install.php?step={$previous}';return false;">{@previousLabel@|eschtml}</button>
-                        {/if}
-                        {if $next}
-                          <button type="submit" class="jforms-submit">{@nextLabel@|eschtml}</button>
-                        {/if}
-                    </div>
+                        <div id="buttons">
+                            {if $previous}
+                              <button name="previous"  class="jforms-submit" onclick="location.href='install.php?step={$previous}';return false;">{@previousLabel@|eschtml}</button>
+                            {/if}
+                            {if $next}
+                              <button type="submit" class="jforms-submit">{@nextLabel@|eschtml}</button>
+                            {/if}
+                        </div>
                 </div>
             </form>
         </div>

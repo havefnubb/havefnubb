@@ -1,4 +1,5 @@
-
+<h2>{@configuration@}</h2>
+<div class="block">
 {if count($errors)}
 <ul class="jelix-msg">
   {foreach $errors as $err}<li class="jelix-msg-item-error">{$err|eschtml}</li>{/foreach}
@@ -25,6 +26,5 @@
           </select></td>
         </tr>
     </table>
-
-
 </fieldset>
+</div>

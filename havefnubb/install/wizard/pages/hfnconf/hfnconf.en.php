@@ -3,7 +3,7 @@
 $locales = array(
 
     'title'=>'Main configuration of the forum',
-
+    'configuration'=>'Configuration',
     'description.webmaster'=>'Email and name which will be used to send mails',
 
     'label.theme'=>'Design Theme',

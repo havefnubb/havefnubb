@@ -1,4 +1,5 @@
-
+<h2>{@title@}</h2>
+<div class="block">
 {if count($errors)}
 <ul class="jelix-msg">
   {foreach $errors as $err}<li class="jelix-msg-item-error">{$err|eschtml}</li>{/foreach}
@@ -25,6 +26,5 @@
             <td><input id="email" name="email" value="{$email|eschtml}"/></td>
         </tr>
     </table>
-
-
 </fieldset>
+</div>
