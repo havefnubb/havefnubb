@@ -913,3 +913,7 @@ ol.history li {
 span.newestposts{
     display: none;
 }
+.status-post-new {
+    color: #E01D3A;
+    font-weight: bold;
+}
