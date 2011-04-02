@@ -9,7 +9,7 @@
 */
 
 $themeInfos = array (
-	'name'=>'Default',
+	'name'=>'Green',
 	'createddate'=>'2011-04-02',
 	'label'=>array('en_EN'=>'Green Theme',
 				   'fr_FR'=>'Thème Vert'
@@ -24,5 +24,5 @@ $themeInfos = array (
 	'creator'=>array('name'=>'FoxMaSk','email'=>'foxmask@havefnubb.org','active'=>true),
 	'homepageURL'=>'http://www.havefnubb.org/',
 	'updateURL'=>'http://www.havefnubb.org/update.php?theme=Default',
-	'version'=>'1.0.1'
+	'version'=>'1.0.0'
 );
