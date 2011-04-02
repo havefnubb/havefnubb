@@ -5,6 +5,13 @@ Navigation
 
 /* navigation (horizontal subnavigation)
 ----------------------------------------------- */
+.nav, .main {
+  -webkit-border-radius:4px 4px 0px 0px;
+  -o-border-radius:4px 4px 0px 0px;
+  border-radius:0px 0px 4px 4px;
+}
+
+
 ul.nav,
 ul.nav * { margin:0;padding:0;}
 ul.nav {
@@ -36,7 +43,21 @@ ul.nav li ul li {
     width:auto;
     max-width:none;
 }
-ul.nav li a {
+ul.nav > li:first-child > a {
+    color:#fff;
+    background:#70C933;
+    font-weight:bold;
+    text-decoration:none;
+    display:block;
+    float:left;
+    padding:0 1em;
+    height:2.4em;
+    line-height:2.5em;
+    -webkit-border-radius:0px 0px 0px 4px;
+    -o-border-radius:0px 0px 0px 4px;
+    border-radius:0px 0px 0px 4px;    
+}
+ul.nav li  a {
     color:#fff;
     background:#70C933;
     font-weight:bold;
@@ -47,6 +68,7 @@ ul.nav li a {
     height:2.4em;
     line-height:2.5em;
 }
+
 ul.nav li ul li a {
     position:relative !important; /* ie Mac */
     cursor:pointer !important;

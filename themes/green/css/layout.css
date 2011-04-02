@@ -5,7 +5,6 @@ Grey Box Method - Layout CSS
 
 body {
     background: #E8B661;
-    border-top: 5px solid #A3690D;
     color: #000;
     font-size: 11px;
     padding: 0 0 40px;
@@ -15,12 +14,18 @@ body {
 /* anchors
 ----------------------------------------------- */
 a {
-    color: #E8B661;
+    color: #A3690D;
     font-weight:bold;
     text-decoration: none;
 }
 a:hover {
-    color:#000;
+    color:#E8B661;
+}
+td a {
+    color:#fff;
+}
+td a:hover {
+    color:#657D4C;
 }
 a:active:hover {
     color:#000;
@@ -30,7 +35,11 @@ a:active:hover {
 ----------------------------------------------- */
 .container_12,
 .container_16 {
+    margin-top: 10px;
     background:#fff;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;        
 }
 
 
@@ -43,6 +52,7 @@ h6 {font-size:1em; text-transform:uppercase;}
 
 
 h1 a {
+    color: #fff;
     font-weight:normal;
 }
 
@@ -59,7 +69,7 @@ h1#branding {
 }
 
 h1 a:hover {
-    color:#fff;
+    color:#E8B661;
 }
 
 /* page heading
@@ -75,7 +85,7 @@ h2#page-heading {
 /* boxes
 ----------------------------------------------- */
 .box {
-    background:#f5f5f5;  
+    background:#fff;  
     margin-bottom:20px;
     padding:10px 10px 1px 10px;
 }
@@ -87,6 +97,9 @@ h2#page-heading {
     background:#70C933;
     margin:-10px -10px 0 -10px;
     padding:6px 12px;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;    
 }
 .box h2 a,
 .box h2 a.visible {
@@ -96,6 +109,9 @@ h2#page-heading {
     padding:6px 12px;
     margin:-6px -12px;
     border:none;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
 }
 .grid_4 .box h2 a {
     background-position: 97% 50%;
@@ -117,6 +133,8 @@ h2#page-heading {
 
 .block {
     padding-top:10px;
+    border: 1px solid #EDF28C;
+    background-color: #EDF28C;
 }
 div.menu {
     padding:0;
@@ -250,14 +268,14 @@ ul.section li.current > a.active:hover {
 ----------------------------------------------- */
 table {
     width:100%;
-    margin-bottom:10px;
+    margin-bottom:10px;    
 }
 col.colC {
     width:8em;
 }
 th, td {
     padding:.2em 1em;
-    text-align:left;
+    text-align:left;    
 }
 thead th {
     background:#657D4C;
@@ -269,20 +287,21 @@ thead th.table-head {
     font-weight:normal;
     text-transform:uppercase;
     color:#fff;
-    background:#657D4C;
+    background:#657D4C;    
 }
 tbody th,
 tbody td {
-    background: #f5f5f5;
+    background: #EDF28C;
 }
 tbody tr.odd th,
 tbody tr.odd td {
-    background:#E5E0E0;
+    background:#C1C62B;
 }
-tbody tr {
-    border-color: #fff;
-    border-style: solid;
-    border-width: 1px;
+
+tr {
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;    
 }
 tfoot th,
 tfoot td {
@@ -309,9 +328,12 @@ form {
 }
 fieldset {
     border:1px solid #DA8F36;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;    
     padding:10px;
     position:relative;
-    background:#DA8F36;
+    background:#EDF28C;
     margin-bottom:10px;
 }
 legend {
@@ -364,6 +386,9 @@ input.search.button {
     color:#fff;
     background:#657D4C;
     margin-bottom:10px;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;        
 }
 #site_info a {
     color:#fff;
@@ -379,7 +404,6 @@ input.search.button {
 #post-message .jelix-msg {
     background-color:#eff4f6;
     border: 1px solid #B0C4CB;
-    -moz-border-radius:4px;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
     border-radius:4px;
@@ -431,6 +455,13 @@ input.search.button {
     margin: 0;
     padding: 0 0 0.5em 0;
     list-style: none;
+}
+
+.postbody {
+    background-color: #fff;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
 }
 
 .postbody ul li {
@@ -488,22 +519,48 @@ input.search.button {
     text-align: right;
 }
 .fake-button a, .fake-button-left a , .jforms-submit, .submit, .jforms-reset {
+    background: -moz-linear-gradient(center top , #70C933, #70C933 40%, #70C933 60%, #70C933) repeat scroll 0 0 #70C933;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;    
     border:1px solid #70C933;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
     text-decoration: none;
-    background-color:#70C933;
     color:#fff;
     padding: 2px;
     cursor: pointer;
 }
 
 .fake-button a:hover, .fake-button-left a:hover, .jforms-submit:hover, .submit:hover, .jforms-reset:hover {
-    background-color:#657D4C;
     border:1px solid #657D4C;
+    background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;    
+    border:1px solid #657D4C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+    text-decoration: none;
+    color:#fff;
+    padding: 2px;
+    cursor: pointer;
+    
 }
 
 .fake-button a:active:hover, .fake-button-left a:active:hover, .jforms-submit:active:hover, .submit:active:hover, .jforms-reset:active:hover {
-    background-color:#70C933;
-    border:1px solid #70C933;
+    border:1px solid #657D4C;
+    background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;    
+    border:1px solid #657D4C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+    text-decoration: none;
+    color:#fff;
+    padding: 2px;
+    cursor: pointer;
 }
 
 .fake-button a:active, .fake-button-left a:active, .jforms-submit:active, .submit:active, .jforms-reset:active {
@@ -782,14 +839,18 @@ h2#login-status {
 .loginbox-connected {
     text-align: center;
     background-color: #657D4C;
+    margin-top: 10px;
 }
+.loginbox-connected a {
+    color: #fff;
+}
+
 .loginbox-connected a:hover {
-    color: #000;
-    background-color: #657D4C;
+    color: #E8B661;
 }
 .loginbox-connected a:focus{
-    color: #fff;
-    background-color: #657D4C;
+    color: #657D4C;
+    background-color: #fff;
 }
 
 .form_row {
@@ -808,23 +869,75 @@ h2#login-status {
 
 .branding {
     background:#657D4C;
+    margin-top: 10px;
+    -webkit-border-radius:4px 4px 0px 0px;
+    -o-border-radius:4px 4px 0px 0px;
+    border-radius:4px 4px 0px 0px;
 }
 
 .pager-posts {
     text-align: right;
+    padding-bottom: 10px;
 }
 .pager-posts ul {
     list-style: none;
     display:inline;
 }
 
-.pagelinks li {
-    list-style: none;
-    display:inline;
+.pagelinks li a {
+    color: white;
 }
+
+.pagelinks li.pagelinks-current {
+    background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;
+    color: white;
+    display: inline-block;
+    font-size: 0.8em;
+    list-style: none outside none;
+    margin-right: 4px;
+    padding: 4px 10px;
+    z-index: 100;
+}
+
+.pagelinks li {
+    background: -moz-linear-gradient(center top , #70C933, #70C933 40%, #70C933 60%, #70C933) repeat scroll 0 0 #70C933;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 0.8em;
+    list-style: none outside none;
+    margin-right: 4px;
+    padding: 4px 10px;
+    z-index: 100;
+}
+.pagelinks li:hover {
+    background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 0.8em;
+    list-style: none outside none;
+    margin-right: 4px;
+    padding: 4px 10px;
+    z-index: 100;
+    
+}
+
 
 ol.history {
     list-style: none;
+    background-color: #EDF28C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+    padding: 1px;
+    
 }
 
 ol.history li {
@@ -848,79 +961,115 @@ ol.history li {
 }
 
 /* posts status */
-.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-censored
-.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important,
-.colicone-hidden{
+tr.odd > .colicone-closed,
+tr.odd > .colicone-opened,
+tr.odd > .colicone-pined,
+tr.odd > .colicone-pinedclosed,
+tr.odd > .colicone-post-new,
+tr.odd > .colicone-censored
+tr.odd > .colicone-opened_important,
+tr.odd > .colicone-closed_important,
+tr.odd > .colicone-pined_important,
+tr.odd > .colicone-pinedclosed_important,
+tr.odd > .colicone-hidden,
+tr.even > td.colicone-closed,
+tr.even > .colicone-opened,
+tr.even > .colicone-pined,
+tr.even > .colicone-pinedclosed,
+tr.even > .colicone-post-new,
+tr.even > .colicone-censored
+tr.even > .colicone-opened_important,
+tr.even > .colicone-closed_important,
+tr.even > .colicone-pined_important,
+tr.even > .colicone-pinedclosed_important,
+tr.even > .colicone-hidden{
     text-align: center;
     padding: 5px;
     width: 4%;
     background-position: center;
 }
 
-
-.post-status-opened, .post-status-closed,
-.post-status-pined, .post-status-pinedclosed,
-.post-status-censored {
-    display:none;
-}
-
-
-.post-status-icon-opened, .post-status-icon-closed, .post-status-icon-pined, .post-status-icon-pinedclosed, .post-status-icon-censored {
+.post-status-icon-opened,
+.post-status-icon-closed,
+.post-status-icon-pined,
+.post-status-icon-pinedclosed,
+.post-status-icon-censored,
+.post-status-icon-hidden {
     background-position: left;
     padding-top: 0px;
     padding-bottom: 4px;
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 10px;  
 }
 
-.colicone-opened, .post-status-icon-opened {
+tr.even > .colicone-opened,
+tr.odd > .colicone-opened, .post-status-icon-opened {
     background-image: url("../images/posts/opened.png");
     background-repeat: no-repeat;
 }
 
-.colicone-post-new {
+tr.odd > .colicone-post-new,
+tr.even > .colicone-post-new {
     background-image: url("../images/posts/post_new.png");
     background-repeat: no-repeat;
 }
 
-.colicone-closed, .post-status-icon-closed {
+tr.odd > .colicone-closed, 
+tr.even > .colicone-closed, .post-status-icon-closed {
     background-image: url("../images/posts/closed.png");
     background-repeat: no-repeat;
 }
 
-.colicone-pined, .post-status-icon-pined {
+tr.odd > .colicone-pined,
+tr.even > .colicone-pined, .post-status-icon-pined {
     background-image: url("../images/posts/pined.png");
     background-repeat: no-repeat;
 }
 
-.colicone-pinedclosed, .post-status-icon-pinedclosed {
+tr.odd > .colicone-pinedclosed, 
+tr.even > .colicone-pinedclosed, .post-status-icon-pinedclosed {
     background-image: url("../images/posts/pined-closed.png");
     background-repeat: no-repeat;
 }
 
-.colicone-censored, .post-status-icon-censored {
+tr.odd > .colicone-censored, 
+tr.even > .colicone-censored, .post-status-icon-censored {
     background-image: url("../images/posts/censored.png");
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important {
+tr.odd > .colicone-opened_important,
+tr.odd > .colicone-closed_important,
+tr.odd > .colicone-pined_important,
+tr.odd > .colicone-pinedclosed_important,
+tr.even > .colicone-opened_important,
+tr.even > .colicone-closed_important,
+tr.even > .colicone-pined_important,
+tr.even > .colicone-pinedclosed_important {
     background-image: url("../images/posts/important.png");
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.colicone-hidden {
+tr.odd > .colicone-hidden, .post-status-icon-hidden,
+tr.even > .colicone-hidden {
     background-image: url("../images/posts/hidden.png");
     background-repeat: no-repeat;
 }
 
-.closed a:link, .closed a:visited, .closed a:active {
+tr.odd > .closed a:link,
+tr.odd > .closed a:visited,
+tr.odd > .closed a:active,
+tr.even > .closed a:link,
+tr.even > .closed a:visited,
+tr.even > .closed a:active {
     text-decoration: underline;
     color: #a09898;
 }
 
-.closed a:hover {
+tr.odd > .closed a:hover,
+tr.even > .closed a:hover {
     color: #f90;
     text-decoration: none;
 }
@@ -940,7 +1089,7 @@ span.newestposts{
 }
 
 .status-opened {
-    color: #747070;
+    color: #fff;
 }
 
 .status-closed {

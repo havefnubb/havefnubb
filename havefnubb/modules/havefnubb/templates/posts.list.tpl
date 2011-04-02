@@ -49,7 +49,7 @@
         {foreach $posts as $post}
         {hook 'hfbPostsLists',array('id_post'=>$post->id_post)}
         {assign $status = $statusAvailable[ $post->status_thread - 1]}
-        <tr>
+        <tr class="{cycle array('odd','even')}">
             <td class="colicone-{post_status 'post',$post,$lastMarkThreadAsRead, $forum}">&nbsp;</td>
             <td><span class="newestposts">{@havefnubb~post.status.$status@}</span>
                 <a class="status-{$status}" href="{jurl 'havefnubb~posts:view',

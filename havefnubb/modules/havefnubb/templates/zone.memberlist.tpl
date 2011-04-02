@@ -54,7 +54,7 @@
         <tbody>
         {foreach $members as $member}
         {hook 'hfbMembersList',array('user'=>$member->login)}
-        <tr>
+        <tr class="{cycle array('odd','even')}">
             <td class="listline linkincell">
                 <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
                    title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->nickname)}">
