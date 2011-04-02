@@ -159,5 +159,4 @@ class hookListener extends jEventListener{
                 '</a></li>';
         $event->add($link);
     }
-
 }

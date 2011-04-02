@@ -47,13 +47,6 @@ $(document).ready(function(){
                     {/ifacl2}
                     <div class="clearer">&nbsp;</div>
                 </div>
-                <div class="form_row">
-                    <div class="form_property">
-                        <span class="user-email user-image">&nbsp;</span>
-                    </div>
-                    <div class="form_value"><a href="{jurl 'jmessenger~jmessenger:inbox'}">{@havefnubb~member.internal.messenger@}</a></div>
-                    <div class="clearer">&nbsp;</div>
-                </div>
             </fieldset>
             <fieldset>
                 <legend><span class="user-location user-image">{@havefnubb~member.common.location@}</span></legend>
@@ -123,9 +116,7 @@ $(document).ready(function(){
             </fieldset>
             </div>            
             <div id="user-profile-jmessenger">
-                <fieldset>
-                    {zone 'jmessenger~inbox'}
-                </fieldset>
+                {zone 'jmessenger~inbox'}
             </div>
       {hookinclude 'hfbAccountEditInclude',array('user'=>$username)}
             {hook 'hfbAccountEditDiv',array('user'=>$username)}

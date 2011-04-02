@@ -22,13 +22,10 @@ a:hover {
     color:#E8B661;
 }
 td a {
-    color:#fff;
-}
-td a:hover {
     color:#657D4C;
 }
-a:active:hover {
-    color:#000;
+td a:hover {
+    color:#fff;
 }
 
 /* 960 grid system container background
@@ -854,7 +851,6 @@ h2#login-status {
 }
 
 .form_row {
-    border-bottom: 1px solid #E1E1D5;
     padding: 10px 0;
 }
 .form_property, .form_value {float: left;}
@@ -937,7 +933,6 @@ ol.history {
     -o-border-radius:4px;
     border-radius:4px;
     padding: 1px;
-    
 }
 
 ol.history li {
@@ -1089,7 +1084,7 @@ span.newestposts{
 }
 
 .status-opened {
-    color: #fff;
+    color: #657D4C;
 }
 
 .status-closed {
@@ -1102,4 +1097,15 @@ span.newestposts{
 
 .syntax_wiki {
     color: #657D4C;
+}
+
+#container, .ui-tabs-panel,
+#user-profile-general,
+#user-profile-pref,
+#user-profile-messenger,
+#user-profile-hardware,
+#user-profile-subscription,
+#user-profile-jmessenger {
+    background-color: #EDF28C;
+    border: 1px solid #EDF28C;
 }
