@@ -23,6 +23,6 @@ $themeInfos = array (
 	'copyright'=>'2011 FoxMaSk',
 	'creator'=>array('name'=>'FoxMaSk','email'=>'foxmask@havefnubb.org','active'=>true),
 	'homepageURL'=>'http://www.havefnubb.org/',
-	'updateURL'=>'http://www.havefnubb.org/update.php?theme=Default',
+	'updateURL'=>'http://www.havefnubb.org/update.php?theme=Green',
 	'version'=>'1.0.0'
 );
