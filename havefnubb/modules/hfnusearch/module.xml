@@ -7,7 +7,7 @@
         <label lang="fr_FR">HfnuSearch</label>
         <description lang="fr_FR">Module de recherche</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
-        <copyright>2008 FoxMaSk</copyright>
+        <copyright>2008-2011 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
         <homepageURL>http://www.havefnubb.org</homepageURL>
         <updateURL>http://www.havefnubb.org/update.php?module=hfnusearch</updateURL>

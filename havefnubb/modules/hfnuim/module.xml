@@ -5,7 +5,7 @@
         <label lang="en_EN">Member IM properties</label>
         <description lang="en_EN">Add instant messaging properties into the member account</description>
         <label lang="fr_FR">Propriétés IM d'un membre</label>
-        <description lang="fr_FR">Ajoute des propriétés de compte de messagerie instantannée dans les comptes utilisateurs</description>
+        <description lang="fr_FR">Ajoute des propriétés de compte de messagerie instantanée dans les comptes utilisateurs</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2010 Laurentj</copyright>
         <creator name="Laurentj" email="laurent@jelix.org" active="true"/>

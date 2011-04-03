@@ -27,7 +27,30 @@ td a {
 td a:hover {
     color:#fff;
 }
-
+/* input
+----------------------------------------------- */
+input.jforms-required,textarea.jforms-required {
+    border-color:#657D4C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+}
+select.jforms-ctrl-menulist:focus,input.jforms-required:focus,textarea.jforms-required:focus {
+    border-color:#657D4C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+}
+select.jforms-ctrl-menulist:hover,input.jforms-required:hover,textarea.jforms-required:hover {
+    border-color:#E8B661;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+}
+select {
+    background-color: #657D4C;
+    color: #fff;
+}
 /* 960 grid system container background
 ----------------------------------------------- */
 .container_12,
@@ -36,7 +59,7 @@ td a:hover {
     background:#fff;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
-    border-radius:4px;        
+    border-radius:4px;
 }
 
 
@@ -82,9 +105,12 @@ h2#page-heading {
 /* boxes
 ----------------------------------------------- */
 .box {
-    background:#fff;  
+    background:#EDF28C;
     margin-bottom:20px;
     padding:10px 10px 1px 10px;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
 }
 .box h2 {
     font-size:1em;
@@ -96,7 +122,7 @@ h2#page-heading {
     padding:6px 12px;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
-    border-radius:4px;    
+    border-radius:4px;
 }
 .box h2 a,
 .box h2 a.visible {
@@ -265,14 +291,14 @@ ul.section li.current > a.active:hover {
 ----------------------------------------------- */
 table {
     width:100%;
-    margin-bottom:10px;    
+    margin-bottom:10px;
 }
 col.colC {
     width:8em;
 }
 th, td {
     padding:.2em 1em;
-    text-align:left;    
+    text-align:left;
 }
 thead th {
     background:#657D4C;
@@ -284,7 +310,7 @@ thead th.table-head {
     font-weight:normal;
     text-transform:uppercase;
     color:#fff;
-    background:#657D4C;    
+    background:#657D4C;
 }
 tbody th,
 tbody td {
@@ -298,7 +324,7 @@ tbody tr.odd td {
 tr {
     -webkit-border-radius:4px;
     -o-border-radius:4px;
-    border-radius:4px;    
+    border-radius:4px;
 }
 tfoot th,
 tfoot td {
@@ -324,10 +350,10 @@ form {
     overflow:hidden;
 }
 fieldset {
-    border:1px solid #DA8F36;
+    border:1px solid #657D4C;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
-    border-radius:4px;    
+    border-radius:4px;
     padding:10px;
     position:relative;
     background:#EDF28C;
@@ -385,7 +411,7 @@ input.search.button {
     margin-bottom:10px;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
-    border-radius:4px;        
+    border-radius:4px;
 }
 #site_info a {
     color:#fff;
@@ -502,9 +528,13 @@ input.search.button {
 /* posts footer */
 .postfoot {
     padding: 0.5em;
+    margin: auto;
     background-color: #70C933;
-    margin-top:1em;
+    margin-top:-20px;
     line-height:1.2em; margin-bottom:.3em;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
 }
 
 /* anchor that emulates button */
@@ -518,7 +548,7 @@ input.search.button {
 .fake-button a, .fake-button-left a , .jforms-submit, .submit, .jforms-reset {
     background: -moz-linear-gradient(center top , #70C933, #70C933 40%, #70C933 60%, #70C933) repeat scroll 0 0 #70C933;
     border-radius: 15px 15px 15px 15px;
-    box-shadow: 3px 3px 8px 0 #999999;    
+    box-shadow: 3px 3px 8px 0 #999999;
     border:1px solid #70C933;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
@@ -533,7 +563,7 @@ input.search.button {
     border:1px solid #657D4C;
     background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
     border-radius: 15px 15px 15px 15px;
-    box-shadow: 3px 3px 8px 0 #999999;    
+    box-shadow: 3px 3px 8px 0 #999999;
     border:1px solid #657D4C;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
@@ -542,14 +572,14 @@ input.search.button {
     color:#fff;
     padding: 2px;
     cursor: pointer;
-    
+
 }
 
 .fake-button a:active:hover, .fake-button-left a:active:hover, .jforms-submit:active:hover, .submit:active:hover, .jforms-reset:active:hover {
     border:1px solid #657D4C;
     background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
     border-radius: 15px 15px 15px 15px;
-    box-shadow: 3px 3px 8px 0 #999999;    
+    box-shadow: 3px 3px 8px 0 #999999;
     border:1px solid #657D4C;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
@@ -922,7 +952,7 @@ h2#login-status {
     margin-right: 4px;
     padding: 4px 10px;
     z-index: 100;
-    
+
 }
 
 
@@ -994,7 +1024,7 @@ tr.even > .colicone-hidden{
     padding-top: 0px;
     padding-bottom: 4px;
     padding-left: 10px;
-    padding-right: 10px;  
+    padding-right: 10px;
 }
 
 tr.even > .colicone-opened,
@@ -1009,7 +1039,7 @@ tr.even > .colicone-post-new {
     background-repeat: no-repeat;
 }
 
-tr.odd > .colicone-closed, 
+tr.odd > .colicone-closed,
 tr.even > .colicone-closed, .post-status-icon-closed {
     background-image: url("../images/posts/closed.png");
     background-repeat: no-repeat;
@@ -1021,13 +1051,13 @@ tr.even > .colicone-pined, .post-status-icon-pined {
     background-repeat: no-repeat;
 }
 
-tr.odd > .colicone-pinedclosed, 
+tr.odd > .colicone-pinedclosed,
 tr.even > .colicone-pinedclosed, .post-status-icon-pinedclosed {
     background-image: url("../images/posts/pined-closed.png");
     background-repeat: no-repeat;
 }
 
-tr.odd > .colicone-censored, 
+tr.odd > .colicone-censored,
 tr.even > .colicone-censored, .post-status-icon-censored {
     background-image: url("../images/posts/censored.png");
     background-position: center;

@@ -4,7 +4,7 @@
 * @subpackage coord_plugin
 * @author     foxmask
 * @contributor Laurent Jouanneau
-* @copyright  2008 foxmask, 2010 Laurent Jouanneau
+* @copyright  2008-2011 FoxMaSk, 2010 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**

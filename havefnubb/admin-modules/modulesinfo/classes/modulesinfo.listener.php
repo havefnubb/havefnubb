@@ -4,7 +4,7 @@
 * @subpackage modulesinfo
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008 FoxMaSk, 2010 laurent jouanneau
+* @copyright 2008-2011 FoxMaSk, 2010 laurent jouanneau
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */

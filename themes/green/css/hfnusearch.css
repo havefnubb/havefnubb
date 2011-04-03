@@ -2,17 +2,35 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008 FoxMaSk
+* @copyright 2008-2011 FoxMaSk
 * @link      http://havefnubb.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-
+input#hfnu_q,input#jforms_hfnusearch_author_hfnu_q,input#jforms_hfnusearch_forum_hfnu_q {
+    border-color:#657D4C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+}
+input#hfnu_q:focus,input#jforms_hfnusearch_author_hfnu_q:focus,input#jforms_hfnusearch_forum_hfnu_q:focus {
+    border-color:#657D4C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+}
+input#hfnu_q:hover,input#jforms_hfnusearch_author_hfnu_q:hover,input#jforms_hfnusearch_forum_hfnu_q:hover {
+    border-color:#E8B661;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+}
 /* search page */
 #result {
     padding-top:1px;
     padding-bottom:1px;
-    padding-left: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #result .result-author {
@@ -28,5 +46,8 @@
 }
 
 .result-line {
-    background-color: #eee;
+    background-color: #fff;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
 }

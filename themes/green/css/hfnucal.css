@@ -5,6 +5,8 @@ table.hfnucal {
 table.minihfnucal {
     float: left;
     width: 49%;
+    margin-top: 10px;
+    margin-right: 1%;
     color: #657D4C;
 }
 table.minihfnucal caption {
@@ -27,10 +29,10 @@ table.hfnucal td {
     vertical-align: top;
 }
 table.hfnucal td.inactive {
-    background: #750101;
+    background: #E8B661;
 }
 table.hfnucal td.past {
-    color: #750101;
+    color: #E8B661;
 }
 table.hfnucal td.today {
     background: #fff;
