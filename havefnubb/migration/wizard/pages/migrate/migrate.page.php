@@ -125,10 +125,10 @@ class migrateWizPage extends installWizardPage {
         //section [simple_urlengine_entrypoints]
         $iniDef->setValue('forums','@classic','simple_urlengine_entrypoints');
         //section [datepickers]
-        $iniDef->setValue('chocolatebrown','jelix/js/jforms/datepickers/chocolatebrown/init.js','datepickers');
+        $iniDef->setValue('green','jelix/js/jforms/datepickers/green/init.js','datepickers');
         $iniDef->setValue('dust','jelix/js/jforms/datepickers/dust/init.js','datepickers');
         $iniDef->setValue('emplode','jelix/js/jforms/datepickers/emplode/init.js','datepickers');
-        $iniDef->setValue('emplode','jelix/js/jforms/datepickers/default/init.js','datepickers');
+        $iniDef->setValue('default','jelix/js/jforms/datepickers/default/init.js','datepickers');
         //section [wikieditors]
         $iniDef->setValue('default.engine.name','wr3','wikieditors');
         $iniDef->setValue('default.wiki.rules','wr3_to_xhtml','wikieditors');

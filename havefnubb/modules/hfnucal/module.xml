@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnucal@havefnubb.org" name="hfnucal" createdate="2010-05-24">
-        <version date="2011-04-03">1.0</version>
+        <version date="2011-04-03">1.4</version>
         <label lang="en_EN">HfnuCal</label>
         <description lang="en_EN">Module Calendar that displays the to post by date</description>
         <label lang="fr_FR">HfnuCal</label>
