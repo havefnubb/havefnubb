@@ -6,11 +6,10 @@ Navigation
 /* navigation (horizontal subnavigation)
 ----------------------------------------------- */
 .nav, .main {
-  -webkit-border-radius:4px 4px 0px 0px;
-  -o-border-radius:4px 4px 0px 0px;
-  border-radius:0px 0px 4px 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
 }
-
 
 ul.nav,
 ul.nav * { margin:0;padding:0;}
@@ -53,9 +52,9 @@ ul.nav > li:first-child > a {
     padding:0 1em;
     height:2.4em;
     line-height:2.5em;
-    -webkit-border-radius:0px 0px 0px 4px;
-    -o-border-radius:0px 0px 0px 4px;
-    border-radius:0px 0px 0px 4px;    
+    -webkit-border-radius:4px 0px 0px 4px;
+    -o-border-radius:4px 0px 0px 4px;
+    border-radius:4px 0px 0px 4px;
 }
 ul.nav li  a {
     color:#fff;
@@ -184,3 +183,21 @@ ul.nav li.secondary:hover a:hover {
     background:#70C933;
 }
 ul.nav li.secondary:hover a:active {background:#444;}
+
+#container, .ui-tabs-panel,
+#user-profile-general,
+#user-profile-pref,
+#user-profile-messenger,
+#user-profile-hardware,
+#user-profile-subscription,
+#user-profile-jmessenger {
+    background-color: #EDF28C;
+    border: 1px solid  #EDF28C;
+}
+/*
+.ui-tabs-nav {
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+}
+*/

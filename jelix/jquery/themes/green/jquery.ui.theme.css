@@ -11,10 +11,8 @@
 .ui-widget { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1.1em/*{fsDefault}*/; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Verdana,Arial,sans-serif/*{ffDefault}*/; font-size: 1em; }
-.ui-widget-content { background: #ffffff/*{bgColorContent}*/ url(images/ui-bg_flat_75_ffffff_40x100.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/; color: #222222/*{fcContent}*/; }
+.ui-widget-content {  background-color: #EDF28C; color: #ff;
 .ui-widget-content a { color: #222222/*{fcContent}*/; }
-.ui-widget-header { background: #cccccc/*{bgColorHeader}*/ url(images/ui-bg_highlight-soft_75_cccccc_1x100.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/; color: #222222/*{fcHeader}*/; font-weight: bold; }
-.ui-widget-header a { color: #222222/*{fcHeader}*/; }
 
 /* Interaction states
 ----------------------------------*/
@@ -232,14 +230,14 @@
 ----------------------------------*/
 
 /* Corner radius */
-.ui-corner-tl { }
-.ui-corner-tr { }
-.ui-corner-bl { }
+.ui-corner-tl {  }
+.ui-corner-tr {  }
+.ui-corner-bl {  }
 .ui-corner-br { }
-.ui-corner-top { }
+.ui-corner-top {  }
 .ui-corner-bottom { }
 .ui-corner-right { }
-.ui-corner-left { }
+.ui-corner-left {}
 .ui-corner-all { }
 
 /* Overlays */

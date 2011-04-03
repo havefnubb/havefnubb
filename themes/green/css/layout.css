@@ -1128,14 +1128,3 @@ span.newestposts{
 .syntax_wiki {
     color: #657D4C;
 }
-
-#container, .ui-tabs-panel,
-#user-profile-general,
-#user-profile-pref,
-#user-profile-messenger,
-#user-profile-hardware,
-#user-profile-subscription,
-#user-profile-jmessenger {
-    background-color: #EDF28C;
-    border: 1px solid #EDF28C;
-}
