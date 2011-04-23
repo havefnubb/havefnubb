@@ -65,7 +65,7 @@ $(document).ready(function(){
     <div class="posthead legend">
         <h4 class="posthead-title"><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span><span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span> <a href="{jurl 'havefnubb~posts:view',array('id_forum'=>$post->id_forum,'ftitle'=>$post->forum_name,'id_post'=>$post->id_post,'thread_id'=>$post->thread_id,'ptitle'=>$post->subject)}" >{$post->subject|eschtml}</a>
                 {ifuserconnected}
-                {if $post->date_created > $lastMarkThreadAsRead}
+                {if $post->p_date_created > $lastMarkThreadAsRead}
                     <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
                 {/if}
                 {/ifuserconnected}
@@ -80,7 +80,7 @@ $(document).ready(function(){
         {/if}
         <div class="posthead-date">
             <a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
-            {$post->date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a>
+            {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a>
         </div>
         {if count($tags) > 1}
         <div class="posthead-tags">

@@ -485,6 +485,7 @@ input.search.button {
     -webkit-border-radius:4px;
     -o-border-radius:4px;
     border-radius:4px;
+    word-wrap: break-word;
 }
 
 .postbody ul li {
@@ -506,6 +507,7 @@ input.search.button {
     border-right-color: #eee;
     margin-right: 10px;
     background-color: #bbb;
+    word-wrap: break-word;
 }
 
 .postbody dl dt {

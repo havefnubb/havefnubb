@@ -180,6 +180,7 @@ li.pagelinks-current  {
 .postbody .message-content {
     margin-left: 18em;
     padding-left : 12px;
+    word-wrap: break-word;
 }
 
 .postbody .message-content blockquote {
@@ -209,6 +210,7 @@ li.pagelinks-current  {
     border-right-color: #acac9c;
     margin-right: 10px;
     background-color: #dedec1;
+    word-wrap: break-word;
 }
 
 .postbody .message-content dl dt {
