@@ -133,16 +133,16 @@ class connectedusers {
             $user = jAuth::getUserSession();
             $login = $user->login;
             if ($login == '') {
-                $login = null;
+                $login = $this->getBots();
                 $name = null;
             }
             else {
-                $name = $this->getName();
+                $login = $this->getName();
             }
         }
         else {
-            $login = null;
             $name = null;
+            $login = $this->getBots();
         }
 
         $record = $dao->get(session_id());
@@ -208,6 +208,34 @@ class connectedusers {
             $name = $user->name;
         if ($name == '')
             $name = $user->login;
+
         return $name;
+    }
+
+    /**
+     * Let's see if the current user uses a Browser or is a Bot/Spider/Crawler
+     * then return the name of this one or null
+     */
+    protected function getBots() {
+        $browser = (!empty($_SERVER['HTTP_USER_AGENT'])) ? htmlspecialchars((string) $_SERVER['HTTP_USER_AGENT']) : '';
+        // read the list of bots
+        $botsList = jIniFile::read(JELIX_APP_CONFIG_PATH."botsagent.ini.php");
+
+        if (count($botsList) > 0) {
+
+            $q_s=array("#\.#","#\*#","#\?#");
+            $q_r=array("\.",".*",".?");
+
+            foreach ($botsList as $name=>$bot ) {
+                if ($bot['active']) {
+                    $pattern=preg_replace($q_s,$q_r,$bot['agent']);
+                    if (preg_match('#' . $pattern . '#i', $browser)) {
+                    echo $name . " " . $bot['agent'] . "<br/>";
+                        return $name;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
