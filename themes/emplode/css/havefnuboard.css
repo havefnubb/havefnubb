@@ -422,14 +422,13 @@ img.right {margin: 0 0 15px 12px;}
 }
 #dashboard li, #dashboard td {border-top: 1px dashed #C6C6B6;}
 #dashboard li a, #dashboard td a{
-    color: #606050;
+    color: #543;
     text-decoration: none;
 }
-#dashboard li a:hover , #dashboard td a:hover{
-    color: #332;
+#dashboard li a:hover {
+    color: #C40;
     text-decoration: underline;
 }
-
 
 
 /* Footer links */

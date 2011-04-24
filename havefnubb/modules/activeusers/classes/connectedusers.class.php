@@ -138,6 +138,7 @@ class connectedusers {
             }
             else {
                 $login = $this->getName();
+                $name = $user->nickname;
             }
         }
         else {
