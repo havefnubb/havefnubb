@@ -4,10 +4,10 @@
         'thread_id'=>$post->thread_id,
         'id_forum'=>$post->id_forum,
         'ftitle'=>$post->forum_name,
-        'ptitle'=>$title,
+        'ptitle'=>$post->subject,
         'go'=>$post->id_last_msg)}#p{$post->id_last_msg}"
    title="{@havefnubb~main.goto_this_message@}">{$post->date_last_post|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
-   
+
 {if $user === false}
    {@havefnubb~member.guest@}
 {else}

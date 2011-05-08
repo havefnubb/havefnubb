@@ -26,7 +26,6 @@ class postlcZone extends jZone {
 
         $user = '';
         $noMsg = '';
-        $title='';
 
         $dao = jDao::get('havefnubb~threads');
         if ($thread_id) {
@@ -37,7 +36,6 @@ class postlcZone extends jZone {
                 $userPost = $dao->getUserLastVisibleCommentOnPosts($thread_id);
             }
             $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
-            $title  = $userPost->subject;
         }
         else if ($id_forum) {
             if (  jAcl2::check('hfnu.admin.post') ) {
@@ -47,18 +45,15 @@ class postlcZone extends jZone {
                 $userPost = $dao->getUserLastVisibleCommentOnForums($id_forum);
             }
             if ($userPost !== false) {
-                $title = jClasses::getService('havefnubb~hfnuposts')->getPost(
-                            jDao::get('havefnubb~threads_alone')->get($userPost->thread_id)->id_first_msg
-                            )->subject;
                 $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
             }
-            else
+            else {
                 $noMsg = jLocale::get('havefnubb~forum.postlc.no.msg');
+            }
         }
 
         $this->_tpl->assign('user',$user);
         $this->_tpl->assign('post',$userPost);
-        $this->_tpl->assign('title',$title);
         $this->_tpl->assign('msg',$noMsg);
     }
 }
