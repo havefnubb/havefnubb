@@ -655,8 +655,10 @@ class postsCtrl extends jController {
                                 'thread_id'=>$thread_id,
                                 'id_forum'=>$post->id_forum,
                                 'ftitle'=>$post->forum_name,
-                                'ptitle'=>$post->subject);
-            $rep->action ='havefnubb~posts:view';
+                                'ptitle'=>$post->subject,
+                                'go'=>$id_post);
+            $rep->anchor = 'p'.$id_post;
+            $rep->action ='havefnubb~posts:viewtogo';
             return $rep;
         }
         else {
@@ -1014,6 +1016,7 @@ class postsCtrl extends jController {
                 $record = $hfnuposts->getPost($thread_id);
                 $forum = jDao::get('havefnubb~forum')->get($id_forum);
                 $rep->action = 'havefnubb~posts:view';
+                $rep->anchor = 'p'.$record->id_post;
                 $rep->params = array('id_forum'  =>$id_forum,
                                      'ftitle'    =>$forum->forum_name,
                                      'id_post'   =>$record->id_post,
@@ -1024,6 +1027,7 @@ class postsCtrl extends jController {
                 jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
                 $forum = jDao::get('havefnubb~forum')->get($id_forum);
                 $rep->action ='havefnubb~posts:viewtogo';
+                $rep->anchor = 'p'.$record->id_post;
                 $rep->params = array('id_forum' =>$id_forum,
                                     'ftitle'    =>$forum->forum_name,
                                     'id_post'   =>$record->id_first_msg,
