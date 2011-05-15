@@ -1,6 +1,6 @@
 {ifuserconnected}
 <div class="box loginbox-connected">
-    <h2>{@havefnubb~member.identity@}</h2>
+    <h3>{@havefnubb~member.identity@}</h3>
     <div id="block">
         <p>{jlocale 'havefnubb~member.login.welcome', array($login)}
         (<a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">{@havefnubb~member.login.your.account@}</a>,
@@ -10,7 +10,7 @@
 </div>
 {else}
 <div class="box loginbox">
-    <h2>{@havefnubb~main.login.connection@}</h2>
+    <h3>{@havefnubb~main.login.connection@}</h3>
     <div class="block">
     {form $form, 'jcommunity~login:in'}
        <p>

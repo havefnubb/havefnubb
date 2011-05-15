@@ -61,14 +61,14 @@
                 'title'=>$post->subject)}
 
 <div class="box">
-    <h2><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span>
+    <h3><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span>
     <span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span>
     {$post->subject|eschtml}
                 {ifuserconnected}
                 {if $post->p_date_created > $lastMarkThreadAsRead}
                     <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
                 {/if}
-                {/ifuserconnected}</h2>
+                {/ifuserconnected}</h4>
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
@@ -209,16 +209,16 @@
     {zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
 {/ifacl2}
 {ifacl2 'hfnu.admin.post'}
-<div class="box">
-    <h2>{@havefnubb~post.status.change.the.status.of.the.post@}</h2>
+<div class="box" id="act_change_status">
+    <h3>{@havefnubb~post.status.change.the.status.of.the.post@}</h3>
 {form $formStatus, 'havefnubb~posts:status',array('thread_id'=>$thread_id)}
     <div class="block">
     {ctrl_label 'status'} {ctrl_control 'status'} {formsubmit 'validate'}
     </div>
 {/form}
 </div>
-<div class="box">
-    <h2>{@havefnubb~forum.move.this.thread@}</h2>
+<div class="box" id="act_move_forum">
+    <h3>{@havefnubb~forum.move.this.thread@}</h3>
 {form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <div class="block">
     {ctrl_label 'id_forum'} {ctrl_control 'id_forum'} {formsubmit 'validate'}

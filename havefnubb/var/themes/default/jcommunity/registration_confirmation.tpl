@@ -1,5 +1,5 @@
 <div class="box">
-    <h2>{@havefnubb~member.registration.confirmation.activation.of.your.account@}</h2>
+    <h3>{@havefnubb~member.registration.confirmation.activation.of.your.account@}</h3>
     <div class="block">
     {form $form,'jcommunity~registration:confirm', array()}
     <fieldset>
