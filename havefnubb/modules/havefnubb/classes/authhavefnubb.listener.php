@@ -115,7 +115,7 @@ class authhavefnubbListener extends jEventListener{
         $mail->From       = $gJConfig->mailer['webmasterEmail'];
         $mail->FromName   = $gJConfig->mailer['webmasterName'];
         $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
-        $mail->Subject    = jLocale::get('havefnubb~member.registration.new.member.registered');
+        $mail->Subject    = jLocale::get('havefnubb~member.registration.new.member.registered',array($user->login));
 
         $tpl = new jTpl();
         $tpl->assign('login',$user->login);

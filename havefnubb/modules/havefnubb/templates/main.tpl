@@ -32,9 +32,7 @@
     <div class="clear"></div>
 
     <div class="grid_16">
-    <div class="box">
         {breadcrumb 8, ' > '}
-    </div>
     </div>
     <div class="clear"></div>
 

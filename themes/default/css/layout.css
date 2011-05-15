@@ -515,13 +515,20 @@ input.search.button {
 }
 
 /* breadcrumb */
-.breadcrumb ol {
-    background-color:#eee;
+.breadcrumb {
+    background:#aaa;
 }
-.breadcrumb li {
-    display:inline;
-    list-style-type:none;
+.breadcrumb ol {
+    list-style: none;
+}
 
+.breadcrumb ol li {
+    display:inline;
+    color: #fff;
+}
+.breadcrumb ol li a:hover{
+    display:inline;
+    color: #fff;
 }
 
 
@@ -824,13 +831,23 @@ h2#login-status {
     display:inline;
 }
 
+.history {
+    background:#aaa;
+}
 ol.history {
     list-style: none;
 }
 
 ol.history li {
     display:inline;
+    color: #fff;
 }
+
+ol.history li a:hover{
+    display:inline;
+    color: #fff;
+}
+
 /* forum status */
 
 .forumicone, .forumiconenew {
