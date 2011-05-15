@@ -146,7 +146,7 @@ $(document).ready(function(){
           <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
               {/ifacl2}
           {/if}
-        {ifacl2 'hfnu.posts.edit','forum'.$id_forum}
+        {ifacl2 'hfnu.posts.create','forum'.$id_forum}
             {if $subscribed}
             <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('id_post'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
             {else}
