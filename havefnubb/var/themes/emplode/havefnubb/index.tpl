@@ -1,6 +1,11 @@
-<div id="breadcrumbtop" class="headbox">
-    <h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>{if $action == 'view'} > {$cat_name|eschtml}{/if}</h2>
+<div class="breadcrumb">
+<ol>
+    <li>{@havefnubb~main.common.you.are.here@}</li>
+    <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>    {if $action == 'view'} &gt; {$cat_name|eschtml}{/if}</li>
+</ol>
 </div>
+
+
 <div id="post-message">{jmessage}</div>
 {hook 'hfbBeforeCategoryList'}
 {if $action == 'index'}
@@ -8,7 +13,7 @@
 {assign $current_id_cat = 0}
 
 {foreach $forumsList->forumTree as $id_cat=>$category}
-    
+
     {if $current_id_cat != $id_cat}
         {if $current_id_cat != 0 }
         </table>
@@ -19,7 +24,7 @@
     </div>
         <table class="data_table">
     {/if}
-    
+
     {foreach $category[1] as $forum} {assign $f = $forum->record}
 
     {hook 'hfbCategoryList',array('id_cat'=>$id_cat)}
@@ -46,7 +51,7 @@
                                 'ftitle'=>$child->record->forum_name,
                                 'ptitle'=>$child->record->thread_subject,
                                 'go'=>$child->record->id_post)}#p{$child->record->id_post}"
-                           title="{@havefnubb~main.goto_this_message@}">{$child->record->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}   
+                           title="{@havefnubb~main.goto_this_message@}">{$child->record->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
                          {if $child->record->nickname == ''}
                             {@havefnubb~member.guest@}
                          {else}
@@ -72,7 +77,7 @@
                         'ftitle'=>$f->forum_name,
                         'ptitle'=>$f->thread_subject,
                         'go'=>$f->id_post)}#p{$f->id_post}"
-                   title="{@havefnubb~main.goto_this_message@}">{$f->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}   
+                   title="{@havefnubb~main.goto_this_message@}">{$f->date_created|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
                  {if $f->nickname == ''}
                     {@havefnubb~member.guest@}
                  {else}
