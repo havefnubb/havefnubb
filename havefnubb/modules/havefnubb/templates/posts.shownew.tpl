@@ -1,4 +1,9 @@
-<div class="clear"></div>
+<div class="breadcrumb">
+<ol>
+    <li>{@havefnubb~main.common.you.are.here@}</li>
+    <li> <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >> {@havefnubb~post.list.of.new.posts@}</li>
+</ol>
+</div>
 <div class="box">
     <h2>{@havefnubb~post.list.of.new.posts@}</h2>
     <div class="block">
