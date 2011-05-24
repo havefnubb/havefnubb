@@ -16,7 +16,7 @@ $(document).ready(function(){
     <div class="block">
         {form $form, 'jcommunity~account:save', array('user'=>$username)}
         <div id="container">
-            <ul class="nav main">
+            <ul class="nav">
                 <li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
                 <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
                 {hook 'hfbAccountEditTab',array('user'=>$username)}

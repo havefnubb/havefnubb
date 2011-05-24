@@ -16,7 +16,7 @@ $(document).ready(function(){
 <div class="box">
     <h5><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a></h5>
     <div class="block">
-        <ul class="nav main">
+        <ul class="nav">
             <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-general">{@havefnubb~member.general@}</a></li>
             <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-pref">{@havefnubb~member.pref@}</a></li>
             <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-messenger">{@hfnuim~im.instant.messenger@}</a></li>

@@ -1,0 +1,40 @@
+ul.nav {
+  background:#a4885b;
+}
+ul.nav li a {
+	color:#fff;
+	background:#a4885b;
+	font-weight:bold;
+	text-decoration:none;
+    border:0;
+}
+ul.nav li ul li a {
+  font-weight:normal;
+  color:#fff;
+  border-top:1px solid #ccae7a;
+  background:#ccae7a;
+}
+
+ul.nav li:hover a,
+ul.nav li a:hover,
+ul.nav li a:focus {color:#fff; background:#a4885b;}
+ul.nav li a:active {color:#a4885b; background:#fff;}
+ul.nav li ul,
+ul.nav li {background:#ccc !important}
+ul.nav li ul li a:hover { color:#fff;   background:#ccae7a; }
+ul.nav li:hover a { color:#fff; background:#ccae7a; }
+ul.nav li:hover ul li a {color:#fff;}
+ul.nav li:hover ul li a:hover {color:#fff; background:#ccae7a;}
+ul.nav li:hover a:active {background:#ccae7a;}
+ul.nav li:hover ul li a:active {color:#fff; background:#222;}
+
+
+ul.nav li.current a {color:#a4885b; background:#fff; cursor:default; font-weight:bold;}
+ul.nav li.current ul,
+ul.nav li.current {background:#ccc !important}
+ul.nav li.current ul li a {color:#ccae7a; background:#ccc; font-weight:normal;}
+ul.nav li.current ul li a:hover {color:#000; background:#fff;}
+ul.nav li ul li.current a,
+ul.nav li ul li.current a:hover,
+ul.nav li.current:hover ul li a:active {color:#a4885b; background:#fff;}
+

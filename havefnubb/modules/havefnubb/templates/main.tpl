@@ -2,8 +2,9 @@
 {meta_html csstheme 'css/text.css'}
 {meta_html csstheme 'css/grid.css'}
 {meta_html csstheme 'css/layout.css'}
-{meta_html csstheme 'css/nav.css'}
+{meta_html css $j_basepath.'themes/nav.css'}
 {meta_html cssthemeie 'css/ie.css'}
+{meta_html csstheme 'css/theme.css'}
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 <div class="container_16">
     <div class="grid_16 branding">

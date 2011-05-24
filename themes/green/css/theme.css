@@ -1,0 +1,70 @@
+.nav, .main {
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+
+ul.nav {
+  background:#70C933;
+}
+ul.nav > li:first-child > a {
+    color:#fff;
+    background:#70C933;
+    font-weight:bold;
+    text-decoration:none;
+    display:block;
+    float:left;
+    padding:0 1em;
+    height:2.4em;
+    line-height:2.5em;
+    -webkit-border-radius:4px 0px 0px 4px;
+    -o-border-radius:4px 0px 0px 4px;
+    border-radius:4px 0px 0px 4px;
+}
+ul.nav li a {
+    color:#fff;
+    background:#70C933;
+    font-weight:bold;
+    text-decoration:none;
+    border:0;
+}
+ul.nav li ul li a {
+    font-weight:normal;
+    color:#fff;
+    border-top:1px solid #444;
+    background:#70C933;
+}
+
+
+ul.nav li:hover a,
+ul.nav li a:hover,
+ul.nav li a:focus {color:#fff; background:#70C933;}
+ul.nav li a:active {color:#70C933; background:#fff;}
+ul.nav li ul,
+ul.nav li {background:#ccc !important; border-top:0;}
+ul.nav li ul li a:hover { color:#fff; background:#657D4C; }
+ul.nav li:hover a { color:#fff; background:#657D4C; }
+ul.nav li:hover ul li a {color:#fff;}
+ul.nav li:hover ul li a:hover {color:#fff; background:#657D4C;}
+ul.nav li:hover a:active {background:#70C933;}
+ul.nav li:hover ul li a:active {color:#fff; background:#657D4C;}
+
+ul.nav li.current a {color:#70C933; background:#fff; cursor:default; font-weight:bold;}
+ul.nav li.current ul,
+ul.nav li.current {background:#ccc !important}
+ul.nav li.current ul li a {color:#444; background:#ccc; font-weight:normal;}
+ul.nav li.current ul li a:hover {color:#000; background:#fff;}
+ul.nav li ul li.current a,
+ul.nav li ul li.current a:hover,
+ul.nav li.current:hover ul li a:active {color:#70C933; background:#fff;}
+
+#container, .ui-tabs-panel,
+#user-profile-general,
+#user-profile-pref,
+#user-profile-messenger,
+#user-profile-hardware,
+#user-profile-subscription,
+#user-profile-jmessenger {
+    background-color: #EDF28C;
+    border: 1px solid  #EDF28C;
+}
