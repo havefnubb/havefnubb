@@ -4,11 +4,11 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <title>HaveFnuBB!</title>
     <link type="text/css" href="themes/install/css/install.css" rel="stylesheet" />
-    <link type="text/css" href="themes/install/css/text.css" rel="stylesheet" />
-    <link type="text/css" href="themes/install/css/grid.css" rel="stylesheet" />
+    <link type="text/css" href="themes/text.css" rel="stylesheet" />
+    <link type="text/css" href="themes/grid.css" rel="stylesheet" />
     <link type="text/css" href="themes/install/css/layout.css" rel="stylesheet" />
     <link type="text/css" href="themes/install/css/nav.css" rel="stylesheet" />
-    <link type="text/css" href="themes/install/css/ie.css" rel="stylesheet" />
+    <link type="text/css" href="themes/ie.css" rel="stylesheet" />
 </head>
 <body>
 
