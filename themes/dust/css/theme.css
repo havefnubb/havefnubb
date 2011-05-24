@@ -3,6 +3,7 @@ body {
     border-top: 5px solid #ccae7a;
     color: #333;
     font-size: 11px;
+	font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
 }
 
 
@@ -24,6 +25,10 @@ a:active:hover {
     background-color:#cd9c18;
 }
 
+h1 a {
+    font-weight:normal;
+    color: #6b5f49;
+}
 
 
 
@@ -69,3 +74,30 @@ ul.nav li ul li.current a,
 ul.nav li ul li.current a:hover,
 ul.nav li.current:hover ul li a:active {color:#a4885b; background:#fff;}
 
+
+#header {
+  background: #9A7C4C;
+}
+#branding h1 a {
+  color: white;
+}
+#branding h1 a:hover {
+  color:white;
+}
+#branding p {
+  color: #EEEAC9;
+}
+
+
+/* site information
+----------------------------------------------- */
+#footer  {
+    color:#fff;
+    background:#a4885b;
+}
+#footer a {
+    color:#fff;
+}
+#footer a:hover {
+    color:#6b5f49;
+}

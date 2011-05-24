@@ -25,6 +25,13 @@ a:active {
     background-color:#fff;
 }
 
+h1 a {
+    font-weight:normal;
+}
+
+h1 a:hover {
+    color:#fff;
+}
 
 
 
@@ -68,3 +75,19 @@ ul.nav li.current ul li a:hover {color:#000; background:#fff;}
 ul.nav li ul li.current a,
 ul.nav li ul li.current a:hover,
 ul.nav li.current:hover ul li a:active {color:#666; background:#fff;}
+
+
+#login-status h2 {
+    text-transform: uppercase;
+}
+
+#footer {
+    color:#ccc;
+    background:#666;
+}
+#footer a {
+    color:#fff;
+}
+#footer a:hover {
+    color:#000;
+}

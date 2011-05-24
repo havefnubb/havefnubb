@@ -6,45 +6,6 @@
     background:#fff;
 }
 
-
-/* headings
------------------------------------------------ */
-h1, h2, h3, h4, h5, h6 {line-height:1.2em; margin-bottom:.3em;}
-h2 {margin-top:1em;}
-h5 {font-size:1.2em;}
-h6 {font-size:1em; text-transform:uppercase;}
-
-
-h1 a {
-    font-weight:normal;
-}
-
-
-/* branding
------------------------------------------------ */
-h1#branding {
-    font-weight:normal;
-    font-size:3em;
-    text-align:left;
-    background:#aaa;
-    padding:.7em 1em;
-    margin-bottom:0;
-}
-
-h1 a:hover {
-    color:#fff;
-}
-
-/* page heading
------------------------------------------------ */
-h2#page-heading {
-    font-weight:normal;
-    padding:.5em;
-    margin:0 0 10px 0;
-    border-bottom:1px solid #ccc;
-}
-
-
 /* boxes
 ----------------------------------------------- */
 .box {
@@ -209,19 +170,7 @@ input.search.button {
     margin-left:2%;
 }
 
-/* site information
------------------------------------------------ */
-#site_info .box {
-    color:#ccc;
-    background:#666;
-    margin-bottom:10px;
-}
-#site_info a {
-    color:#fff;
-}
-#site_info a:hover {
-    color:#000;
-}
+
 
 /* posts management */
 
@@ -624,40 +573,6 @@ input.search.button {
     margin-left: 4px;
 }
 
-
-#login-status {
-    background: #aaa;
-    text-align: center;
-    color: #fff;
-}
-
-h2#login-status {
-    font-weight: bold;
-}
-
-#login-status li {
-    display:inline;
-    padding:1px;
-    list-style-type:none;
-    list-style-position:outside;
-}
-.loginbox {
-    text-align: center;
-}
-
-.loginbox-connected {
-    text-align: center;
-    background-color: #aaa;
-}
-.loginbox-connected a:hover {
-    color: #aaa;
-    background-color: #fff;
-}
-.loginbox-connected a:focus{
-    color: #000;
-    background-color: #fff;
-}
-
 .form_row {
     border-bottom: 1px solid #E1E1D5;
     padding: 10px 0;
@@ -670,11 +585,6 @@ h2#login-status {
 }
 .form_value {padding-left: 24px;}
 .form_row_submit .form_value {padding-left: 132px;}
-
-
-.branding {
-    background:#aaa;
-}
 
 .pager-posts {
     text-align: right;

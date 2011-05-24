@@ -2,6 +2,7 @@ body {
     background: #E8B661;
     color: #000;
     font-size: 11px;
+    font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
 }
 
 a {
@@ -13,6 +14,14 @@ a:hover {
     color:#E8B661;
 }
 
+h1 a {
+    color: #fff;
+    font-weight:normal;
+}
+
+h1 a:hover {
+    color:#E8B661;
+}
 
 
 /* navigation */
@@ -86,4 +95,56 @@ ul.nav li.current:hover ul li a:active {color:#70C933; background:#fff;}
 #user-profile-jmessenger {
     background-color: #EDF28C;
     border: 1px solid  #EDF28C;
+}
+
+#page {
+    margin-top:10px;
+    padding:10px;
+    background:#fff;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+    -moz-border-radius:4px;
+}
+
+#header {
+  border-radius: 4px 4px 0 0;
+  -moz-border-radius: 4px 4px 0 0;
+  -webkit-border-radius:4px 4px 0px 0px;
+  -o-border-radius:4px 4px 0px 0px;
+  background:#657D4C;
+}
+#branding p {
+  color:#E4ED91;
+}
+#login-status h2 {
+    font-size: 1.4em;
+}
+
+#login-status a {
+   color: #fff;
+}
+#login-status a:hover {
+    color: #E8B661;
+    background-color: transparent;
+}
+#login-status a:focus {
+    color: #657D4C;
+    background-color: transparent;
+}
+
+#footer {
+  color:#fff;
+  padding:8px;
+  background:#657D4C;
+  -webkit-border-radius:4px;
+  -o-border-radius:4px;
+  -moz-border-radius:4px;
+  border-radius:4px;
+}
+#footer a {
+    color:#fff;
+}
+#footer a:hover {
+    color:#000;
 }

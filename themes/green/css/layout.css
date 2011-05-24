@@ -43,46 +43,6 @@ select {
     border-radius:4px;
 }
 
-
-/* headings
------------------------------------------------ */
-h1, h2, h3, h4, h5, h6 {line-height:1.2em; margin-bottom:.3em;}
-h2 {margin-top:1em;}
-h5 {font-size:1.2em;}
-h6 {font-size:1em; text-transform:uppercase;}
-
-
-h1 a {
-    color: #fff;
-    font-weight:normal;
-}
-
-
-/* branding
------------------------------------------------ */
-h1#branding {
-    font-weight:normal;
-    font-size:3em;
-    text-align:left;
-    background:transparent;
-    padding:.7em 1em;
-    margin-bottom:0;
-}
-
-h1 a:hover {
-    color:#E8B661;
-}
-
-/* page heading
------------------------------------------------ */
-h2#page-heading {
-    font-weight:normal;
-    padding:.5em;
-    margin:0 0 10px 0;
-    border-bottom:1px solid #000;
-}
-
-
 /* boxes
 ----------------------------------------------- */
 .box {
@@ -296,22 +256,6 @@ input.search.button {
     margin-left:2%;
 }
 
-/* site information
------------------------------------------------ */
-#site_info .box {
-    color:#fff;
-    background:#657D4C;
-    margin-bottom:10px;
-    -webkit-border-radius:4px;
-    -o-border-radius:4px;
-    border-radius:4px;
-}
-#site_info a {
-    color:#fff;
-}
-#site_info a:hover {
-    color:#000;
-}
 
 /* posts management */
 
@@ -737,44 +681,6 @@ input.search.button {
 }
 
 
-#login-status {
-    background: #657D4C;
-    text-align: center;
-    color: #fff;
-}
-
-h2#login-status {
-    font-weight: bold;
-    background: transparent;
-}
-
-#login-status li {
-    display:inline;
-    padding:1px;
-    list-style-type:none;
-    list-style-position:outside;
-}
-.loginbox {
-    text-align: center;
-}
-
-.loginbox-connected {
-    text-align: center;
-    background-color: #657D4C;
-    margin-top: 10px;
-}
-.loginbox-connected a {
-    color: #fff;
-}
-
-.loginbox-connected a:hover {
-    color: #E8B661;
-}
-.loginbox-connected a:focus{
-    color: #657D4C;
-    background-color: #fff;
-}
-
 .form_row {
     padding: 10px 0;
 }
@@ -786,15 +692,6 @@ h2#login-status {
 }
 .form_value {padding-left: 24px;}
 .form_row_submit .form_value {padding-left: 132px;}
-
-
-.branding {
-    background:#657D4C;
-    margin-top: 10px;
-    -webkit-border-radius:4px 4px 0px 0px;
-    -o-border-radius:4px 4px 0px 0px;
-    border-radius:4px 4px 0px 0px;
-}
 
 .pager-posts {
     text-align: right;
