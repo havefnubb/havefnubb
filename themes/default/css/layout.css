@@ -1,31 +1,3 @@
-/*
------------------------------------------------
-Grey Box Method - Layout CSS
------------------------------------------------ */
-
-body {
-    background: #eee;
-    border-top: 5px solid #000;
-    color: #333;
-    font-size: 11px;
-    padding: 0 0 40px;
-}
-
-
-/* anchors
------------------------------------------------ */
-a {
-    color: #000;
-    font-weight:bold;
-    text-decoration: none;
-}
-a:hover {
-    color:#a3a6ab;
-}
-a:active {
-    color:#000;
-    background-color:#fff;
-}
 
 /* 960 grid system container background
 ----------------------------------------------- */
@@ -157,9 +129,6 @@ table {
     border:1px solid #bbb;
     margin-bottom:10px;
 }
-col.colC {
-    width:8em;
-}
 th, td {
     padding:.2em 1em;
     text-align:left;
@@ -168,14 +137,6 @@ thead th {
     border-bottom:2px solid #888;
     background:#bbb;
     padding:.4em 1em .2em;
-}
-thead th.table-head {
-    font-size:1em;
-    font-weight:normal;
-    text-transform:uppercase;
-    color:#fff;
-    background:#555;
-    border:1px solid #555;
 }
 tbody th,
 tbody td {
@@ -192,18 +153,6 @@ tfoot td {
     border-top:2px solid #666;
     background:#eee;
 }
-tfoot tr.total th,
-tfoot tr.total td {
-    border-top:6px double #666;
-}
-tfoot tr.total th {
-    text-transform:uppercase;
-}
-th.currency,
-td.currency {
-    text-align:right;
-}
-
 
 /* forms
 ----------------------------------------------- */

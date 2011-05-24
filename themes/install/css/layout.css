@@ -175,81 +175,12 @@ ul.menu ul li a {
     padding-left:30px;
 }
 
-
-/* section menus
------------------------------------------------ */
-ul.section {
-    border-top:0;
-    margin-bottom:0;
-}
-ul.section li {
-    text-transform:uppercase;
-}
-ul.section li a {
-    background:#bbb;
-}
-ul.section li a:hover {
-    background:#aaa;
-}
-ul.section li a:active {
-    color:#fff;
-    background:#666;
-}
-ul.section li li a {
-    background:#ddd;
-    border-bottom:1px solid #eee;
-}
-ul.section li li a:hover {
-    background:#ccc;
-}
-ul.section li li a:active {
-    color:#000;
-    background:#fff;
-}
-ul.section ul li {
-    text-transform:none;
-}
-ul.section ul.current li a {
-    background:#eee;
-    border-bottom:1px solid #fff;
-}
-ul.section ul.current li a:hover {
-    background:#ddd;
-}
-ul.section ul.current li a:active {
-    background:#fff;
-}
-ul.section li a.current {
-    color:#fff;
-    background:#666;
-}
-ul.section li a.current:hover {
-    background:#555;
-}
-ul.section li a.current:active {
-    background:#444;
-}
-ul.section li a.active {
-    background:#fff;
-    cursor:default;
-}
-ul.section li.current > a.active,
-ul.section li.current > a.active:hover {
-    color:#fff;
-    background:#666;
-    cursor:default;
-}
-
-
 /* table
 ----------------------------------------------- */
 table {
     width:100%;
     border:1px solid #bbb;
     margin-bottom:10px;
-}
-col.colC {
-    width:8em;
 }
 th, td {
     padding:.2em 1em;
@@ -259,14 +190,6 @@ thead th {
     border-bottom:2px solid #888;
     background:#bbb;
     padding:.4em 1em .2em;
-}
-thead th.table-head {
-    font-size:1em;
-    font-weight:normal;
-    text-transform:uppercase;
-    color:#fff;
-    background:#555;
-    border:1px solid #555;
 }
 tbody th,
 tbody td {
@@ -283,18 +206,6 @@ tfoot td {
     border-top:2px solid #666;
     background:#eee;
 }
-tfoot tr.total th,
-tfoot tr.total td {
-    border-top:6px double #666;
-}
-tfoot tr.total th {
-    text-transform:uppercase;
-}
-th.currency,
-td.currency {
-    text-align:right;
-}
-
 
 /* forms
 ----------------------------------------------- */

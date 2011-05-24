@@ -1,26 +1,7 @@
-/*
------------------------------------------------
-Grey Box Method - Layout CSS
------------------------------------------------ */
-
-body {
-    background: #E8B661;
-    color: #000;
-    font-size: 11px;
-    padding: 0 0 40px;
-}
-
 
 /* anchors
 ----------------------------------------------- */
-a {
-    color: #A3690D;
-    font-weight:bold;
-    text-decoration: none;
-}
-a:hover {
-    color:#E8B661;
-}
+
 td a {
     color:#657D4C;
 }
@@ -29,7 +10,7 @@ td a:hover {
 }
 /* input
 ----------------------------------------------- */
-input.jforms-required,textarea.jforms-required {
+input.jforms-required, textarea.jforms-required {
     border-color:#657D4C;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
@@ -221,80 +202,11 @@ ul.menu ul li a {
     padding-left:30px;
 }
 
-
-/* section menus
------------------------------------------------ */
-ul.section {
-    border-top:0;
-    margin-bottom:0;
-}
-ul.section li {
-    text-transform:uppercase;
-}
-ul.section li a {
-    background:#70C933;
-}
-ul.section li a:hover {
-    background:#70C933;
-}
-ul.section li a:active {
-    color:#fff;
-    background:#70C933;
-}
-ul.section li li a {
-    background:#70C933;
-    border-bottom:1px solid #eee;
-}
-ul.section li li a:hover {
-    background:#70C933;
-}
-ul.section li li a:active {
-    color:#000;
-    background:#70C933;
-}
-ul.section ul li {
-    text-transform:none;
-}
-ul.section ul.current li a {
-    background:#eee;
-    border-bottom:1px solid #fff;
-}
-ul.section ul.current li a:hover {
-    background:#ddd;
-}
-ul.section ul.current li a:active {
-    background:#fff;
-}
-ul.section li a.current {
-    color:#fff;
-    background:#70C933;
-}
-ul.section li a.current:hover {
-    background:#70C933;
-}
-ul.section li a.current:active {
-    background:#70C933;
-}
-ul.section li a.active {
-    background:#70C933;
-    cursor:default;
-}
-ul.section li.current > a.active,
-ul.section li.current > a.active:hover {
-    color:#fff;
-    background:#70C933;
-    cursor:default;
-}
-
-
 /* table
 ----------------------------------------------- */
 table {
     width:100%;
     margin-bottom:10px;
-}
-col.colC {
-    width:8em;
 }
 th, td {
     padding:.2em 1em;
@@ -304,13 +216,6 @@ thead th {
     background:#657D4C;
     color: #fff;
     padding:.4em 1em .2em;
-}
-thead th.table-head {
-    font-size:1em;
-    font-weight:normal;
-    text-transform:uppercase;
-    color:#fff;
-    background:#657D4C;
 }
 tbody th,
 tbody td {
@@ -331,18 +236,6 @@ tfoot td {
     border-top:2px solid #E0513A;
     background:#da8f36;
 }
-tfoot tr.total th,
-tfoot tr.total td {
-    border-top:6px double #E0513A;
-}
-tfoot tr.total th {
-    text-transform:uppercase;
-}
-th.currency,
-td.currency {
-    text-align:right;
-}
-
 
 /* forms
 ----------------------------------------------- */

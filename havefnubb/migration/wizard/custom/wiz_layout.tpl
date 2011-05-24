@@ -6,8 +6,12 @@
     <link type="text/css" href="themes/install/css/install.css" rel="stylesheet" />
     <link type="text/css" href="themes/text.css" rel="stylesheet" />
     <link type="text/css" href="themes/grid.css" rel="stylesheet" />
-    <link type="text/css" href="themes/install/css/layout.css" rel="stylesheet" />
+    <link type="text/css" href="themes/default/css/main_layout.css" rel="stylesheet" />
+    <link type="text/css" href="themes/default/css/pages_layout.css" rel="stylesheet" />
     <link type="text/css" href="themes/install/css/nav.css" rel="stylesheet" />
+    <link type="text/css" href="themes/install/css/layout.css" rel="stylesheet" />
+    <link type="text/css" href="themes/install/css/theme.css" rel="stylesheet" />
+    <link type="text/css" href="themes/install/css/pages_theme.css" rel="stylesheet" />
     <link type="text/css" href="themes/ie.css" rel="stylesheet" />
 </head>
 <body>

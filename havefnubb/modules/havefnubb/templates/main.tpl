@@ -1,10 +1,12 @@
-{meta_html css $j_basepath.'themes/reset.css'}
 {meta_html css $j_basepath.'themes/text.css'}
 {meta_html css $j_basepath.'themes/grid.css'}
+{meta_html css $j_basepath.'themes/default/css/main_layout.css'}
+{meta_html css $j_basepath.'themes/default/css/pages_layout.css'}
 {meta_html csstheme 'css/layout.css'}
 {meta_html css $j_basepath.'themes/nav.css'}
 {meta_html cssie $j_basepath.'themes/ie.css'}
 {meta_html csstheme 'css/theme.css'}
+{meta_html csstheme 'css/pages_theme.css'}
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 <div class="container_16">
     <div class="grid_16 branding">

@@ -1,4 +1,23 @@
-.nav, .main {
+body {
+    background: #E8B661;
+    color: #000;
+    font-size: 11px;
+}
+
+a {
+    color: #A3690D;
+    font-weight:bold;
+    text-decoration: none;
+}
+a:hover {
+    color:#E8B661;
+}
+
+
+
+/* navigation */
+
+.nav {
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;
   border-radius: 4px;
