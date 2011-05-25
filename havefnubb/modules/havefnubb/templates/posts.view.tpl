@@ -7,6 +7,7 @@
 </ol>
 </div>
 
+
 {zone 'hfnusearch~hfnuquicksearch'}
 {ifuserconnected}
 {include 'havefnubb~zone.mark_forum'}
