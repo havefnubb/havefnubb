@@ -68,7 +68,7 @@
                 {if $post->p_date_created > $lastMarkThreadAsRead}
                     <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
                 {/if}
-                {/ifuserconnected}</h4>
+                {/ifuserconnected}</h3>
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">

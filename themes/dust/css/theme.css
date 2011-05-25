@@ -31,6 +31,17 @@ h1 a {
 }
 
 
+fieldset {
+    border:1px solid #c3b297;
+    background:#edead7;
+}
+legend {
+    background:#fff;
+    border:1px solid #c3b297;
+}
+
+
+
 
 /* navigation */
 

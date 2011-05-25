@@ -3,7 +3,15 @@
 {meta_html js  $j_basepath . 'hfnu/js/jquery.autocomplete.pack.js'}
 {meta_html css $j_basepath . 'hfnu/js/jquery.autocomplete.css'}
 {$javascript}
-<h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@hfnusearch~search.search.perform@}</h2>
+
+<div class="breadcrumb">
+<ol>
+    <li>{@havefnubb~main.common.you.are.here@}</li>
+    <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >></li>
+    <li>{@hfnusearch~search.search.perform@}</li>
+</ol>
+</div>
+
 {hook 'hfbBeforeSearch'}
 <div class="box">
     <h3>{@hfnusearch~search.search.perform@}</h3>

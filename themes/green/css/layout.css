@@ -199,30 +199,6 @@ tfoot td {
 
 /* forms
 ----------------------------------------------- */
-form {
-    overflow:hidden;
-}
-fieldset {
-    border:1px solid #657D4C;
-    -webkit-border-radius:4px;
-    -o-border-radius:4px;
-    border-radius:4px;
-    padding:10px;
-    position:relative;
-    background:#EDF28C;
-    margin-bottom:10px;
-}
-legend {
-    font-size:1.1em;
-    padding:.4em .8em;
-    background:#fff;
-    color: #657D4C;
-    border:1px solid #bbb;
-}
-fieldset.login p {
-    margin-bottom:1em;
-    margin-top:0pt;
-}
 fieldset p label {
     width:98%;
 }
@@ -231,19 +207,6 @@ fieldset p input {
 }
 fieldset p select {
     width:99%;
-}
-fieldset.login p label {
-    float:left;
-    line-height:2em;
-    margin-right:3%;
-    text-align:right;
-    width:32%;
-}
-fieldset.login p input {
-    width:60%;
-}
-fieldset.login input.button {
-    margin-left:35%;
 }
 form p.notice {
     font-weight:bold;

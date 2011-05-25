@@ -1,6 +1,23 @@
 /* defines layout specific to each page */
 
 
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+fieldset {
+    padding:10px;
+    position:relative;
+    border:1px solid #bbb;
+    margin-bottom:10px;
+}
+legend {
+    font-size:1.1em;
+    padding:.4em .8em;
+    border:1px solid #bbb;
+}
 
 
 
