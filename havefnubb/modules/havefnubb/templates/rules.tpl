@@ -1,5 +1,5 @@
 <div class="box">
-    <h2>{@havefnubb~main.rules.description@}</h2>    
+    <h3>{@havefnubb~main.rules.description@}</h3>
     <div class="block">
         {$rules|wiki:'hfb_rule'}
     </div>

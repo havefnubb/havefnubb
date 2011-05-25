@@ -1,6 +1,5 @@
-
 <div class="box">
-    <h2>{@activeusers~activeusers.member.currently.online@}</h2>
+    <h3>{@activeusers~activeusers.member.currently.online@}</h3>
     <div class="block">
     {hook 'ActiveUsersOnlineUsers'}
     <ul class="user-currently-online">
