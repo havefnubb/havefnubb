@@ -36,7 +36,6 @@ legend {
     border:1px solid #bbb;
 }
 
-
 /* navigation */
 
 .nav {
@@ -98,6 +97,56 @@ ul.nav li.current ul li a:hover {color:#000; background:#fff;}
 ul.nav li ul li.current a,
 ul.nav li ul li.current a:hover,
 ul.nav li.current:hover ul li a:active {color:#70C933; background:#fff;}
+
+
+
+/* buttons */
+.buttons-bar a,
+.jforms-submit,
+.submit,
+.jforms-reset {
+    background: -moz-linear-gradient(center top , #70C933, #70C933 40%, #70C933 60%, #70C933) repeat scroll 0 0 #70C933;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;
+    border:1px solid #70C933;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+}
+
+.buttons-bar a:hover,
+.jforms-submit:hover,
+.submit:hover,
+.jforms-reset:hover {
+    border:1px solid #657D4C;
+    background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;
+    border:1px solid #657D4C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+    text-decoration: none;
+    color:#fff;
+}
+
+.buttons-bar a:active:hover,
+.jforms-submit:active:hover,
+.submit:active:hover,
+.jforms-reset:active:hover {
+    border:1px solid #657D4C;
+    background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 3px 3px 8px 0 #999999;
+    border:1px solid #657D4C;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+    text-decoration: none;
+    color:#fff;
+}
+
+
 
 #container, .ui-tabs-panel,
 #user-profile-general,

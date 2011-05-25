@@ -86,6 +86,36 @@ ul.nav li ul li.current a:hover,
 ul.nav li.current:hover ul li a:active {color:#a4885b; background:#fff;}
 
 
+
+/* buttons */
+.buttons-bar a,
+.jforms-submit,
+.submit,
+.jforms-reset {
+    border:1px solid #a4885b;
+    text-decoration: none;
+    background-color:#a4885b;
+    color:#fff;
+}
+
+.buttons-bar a:hover,
+.jforms-submit:hover,
+.submit:hover,
+.jforms-reset:hover {
+    background-color:#ccae7a;
+    border:1px solid #a4885b;
+}
+
+.buttons-bar a:active:hover,
+.jforms-submit:active:hover,
+.submit:active:hover,
+.jforms-reset:active:hover {
+    background-color:#ccae7a;
+    border:1px solid #a4885b;
+}
+
+
+
 #header {
   background: #9A7C4C;
 }
@@ -99,9 +129,6 @@ ul.nav li.current:hover ul li a:active {color:#a4885b; background:#fff;}
   color: #EEEAC9;
 }
 
-
-/* site information
------------------------------------------------ */
 #footer  {
     color:#fff;
     background:#a4885b;

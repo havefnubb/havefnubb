@@ -339,65 +339,6 @@ input.search.button {
     border-radius:4px;
 }
 
-/* anchor that emulates button */
-.fake-button-left{
-    text-align: left;
-}
-
-.fake-button{
-    text-align: right;
-}
-.fake-button a, .fake-button-left a , .jforms-submit, .submit, .jforms-reset {
-    background: -moz-linear-gradient(center top , #70C933, #70C933 40%, #70C933 60%, #70C933) repeat scroll 0 0 #70C933;
-    border-radius: 15px 15px 15px 15px;
-    box-shadow: 3px 3px 8px 0 #999999;
-    border:1px solid #70C933;
-    -webkit-border-radius:4px;
-    -o-border-radius:4px;
-    border-radius:4px;
-    text-decoration: none;
-    color:#fff;
-    padding: 2px;
-    cursor: pointer;
-}
-
-.fake-button a:hover, .fake-button-left a:hover, .jforms-submit:hover, .submit:hover, .jforms-reset:hover {
-    border:1px solid #657D4C;
-    background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
-    border-radius: 15px 15px 15px 15px;
-    box-shadow: 3px 3px 8px 0 #999999;
-    border:1px solid #657D4C;
-    -webkit-border-radius:4px;
-    -o-border-radius:4px;
-    border-radius:4px;
-    text-decoration: none;
-    color:#fff;
-    padding: 2px;
-    cursor: pointer;
-
-}
-
-.fake-button a:active:hover, .fake-button-left a:active:hover, .jforms-submit:active:hover, .submit:active:hover, .jforms-reset:active:hover {
-    border:1px solid #657D4C;
-    background: -moz-linear-gradient(center top , #657D4C, #657D4C 40%, #657D4C 60%, #657D4C) repeat scroll 0 0 #657D4C;
-    border-radius: 15px 15px 15px 15px;
-    box-shadow: 3px 3px 8px 0 #999999;
-    border:1px solid #657D4C;
-    -webkit-border-radius:4px;
-    -o-border-radius:4px;
-    border-radius:4px;
-    text-decoration: none;
-    color:#fff;
-    padding: 2px;
-    cursor: pointer;
-}
-
-.fake-button a:active, .fake-button-left a:active, .jforms-submit:active, .submit:active, .jforms-reset:active {
-    position:relative;
-    top: 1px;
-    left: 1px;
-}
-
 /* breadcrumb */
 .breadcrumb ol {
     background-color:#1F271B;

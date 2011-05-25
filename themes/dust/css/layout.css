@@ -282,37 +282,6 @@ input.search.button {
     line-height:1.2em; margin-bottom:.3em;
 }
 
-/* anchor that emulates button */
-.fake-button-left{
-    text-align: left;
-}
-
-.fake-button{
-    text-align: right;
-}
-.fake-button a, .fake-button-left a , .jforms-submit, .submit, .jforms-reset {
-    border:1px solid #a4885b;
-    text-decoration: none;
-    background-color:#a4885b;
-    color:#fff;
-    padding: 2px;
-    cursor: pointer;
-}
-.fake-button a:hover, .fake-button-left a:hover, .jforms-submit:hover, .submit:hover, .jforms-reset:hover {
-    background-color:#ccae7a;
-    border:1px solid #a4885b;
-}
-.fake-button a:active:hover, .fake-button-left a:active:hover, .jforms-submit:active:hover, .submit:active:hover, .jforms-reset:active:hover {
-    background-color:#ccae7a;
-    border:1px solid #a4885b;
-}
-
-.fake-button a:active, .fake-button-left a:active, .jforms-submit:active, .submit:active, .jforms-reset:active {
-    position:relative;
-    top: 1px;
-    left: 1px;
-}
-
 /* breadcrumb */
 .breadcrumb ol {
     background-color:#d9c9a3;

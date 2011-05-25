@@ -17,21 +17,20 @@
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <div id="post-message">{jmessage}</div>
 {/ifacl2}
-<div class="fake-button-left grid_8 alpha">&nbsp;
-{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-{else}
-{ifacl2 'hfnu.posts.create'}
-<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-{/ifacl2}
-{/ifacl2}
+<div class="buttons-bar">&nbsp;
+    {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+    <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+    {else}
+    {ifacl2 'hfnu.posts.create'}
+    <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+    {/ifacl2}
+    {/ifacl2}
 </div>
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
-<div class="pager-posts grid_8 omega">
+<div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
-<div class="clear"></div>
-<br/>
+
 <div class="box">
     <div class="block">
     <table class="forum_posts_list">
@@ -90,21 +89,19 @@
     </table>
     </div>
 </div>
-<div class="fake-button-left grid_8 alpha">&nbsp;
-{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-{else}
-{ifacl2 'hfnu.posts.create'}
-<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-{/ifacl2}
-{/ifacl2}
+<div class="buttons-bar">&nbsp;
+    {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+    <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+    {else}
+    {ifacl2 'hfnu.posts.create'}
+    <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+    {/ifacl2}
+    {/ifacl2}
 </div>
 
-<div class="pager-posts  grid_8 omega">
+<div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
-<div class="clear"></div>
-<br/>
 {/ifacl2}
 {ifacl2 'hfnu.forum.goto'}
 {zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}

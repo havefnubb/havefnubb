@@ -18,25 +18,24 @@
 
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
 
-
-<div class="fake-button-left grid_8 alpha">&nbsp;
-{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-{/ifacl2}
-{ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
-    {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
-    {else}
-        {ifacl2 'hfnu.admin.post'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
-        {/ifacl2}
-    {/if}
-{/ifacl2}
+<div class="buttons-bar">&nbsp;
+    {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+    <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+    {/ifacl2}
+    {ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
+        {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
+    <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+        {else}
+            {ifacl2 'hfnu.admin.post'}
+    <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+            {/ifacl2}
+        {/if}
+    {/ifacl2}
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$forum->id_forum}
 {hook 'hfbBeforePostReplies',array('id_post'=>$id_post)}
-<div class="pager-posts grid_8 omega">
+<div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
@@ -117,7 +116,7 @@
         </div>
         <div class="clear"></div>
     </div>
-    <div class="postfoot fake-button">
+    <div class="postfoot buttons-bar">
         &nbsp;
         {hook 'hfbPostRepliesFooter',
                     array('action'=>'havefnubb~posts:view',
@@ -171,24 +170,24 @@
     {assign $i++}
 {/foreach}
 
-<div class="fake-button-left grid_8 alpha">&nbsp;
-{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-{/ifacl2}
-{ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
-    {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
-    {else}
-        {ifacl2 'hfnu.admin.post'}
-<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
-        {/ifacl2}
-    {/if}
-{/ifacl2}
+<div class="buttons-bar">&nbsp;
+    {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+    <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+    {/ifacl2}
+    {ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
+        {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
+    <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+        {else}
+            {ifacl2 'hfnu.admin.post'}
+    <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+            {/ifacl2}
+        {/if}
+    {/ifacl2}
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$forum->id_forum}
 {hook 'hfbAfterPostsReplies',array('id_post'=>$id_post)}
-<div class="pager-posts grid_8 omega">
+<div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>

@@ -160,10 +160,10 @@ $(document).ready(function(){
             {hook 'hfbAccountShowDiv',array('user'=>$user->login)}
         </div> <!-- #container -->
     </div>
-    <div class="fake-button-left">
-    {if $himself}
-    <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
-    {/if}
+    <div class="buttons-bar">
+        {if $himself}
+        <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
+        {/if}
     </div>
     </div>
     {hook 'hfbAccountShowBefore',array($user->login)}
