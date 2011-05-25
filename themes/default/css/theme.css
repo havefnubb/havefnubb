@@ -128,6 +128,47 @@ ol.history li a:hover{ color: #fff; }
 }
 
 
+.post-status-opened,
+.post-status-closed,
+.post-status-pined,
+.post-status-pinedclosed,
+.post-status-censored {
+    display:none;
+}
+
+.closed a:link,
+.closed a:visited,
+.closed a:active {
+    text-decoration: underline;
+    color: #a09898;
+}
+
+.closed a:hover {
+    color: #f90;
+    text-decoration: none;
+}
+
+span.newestposts{
+    display: none;
+}
+
+.status-post-new {
+    color: #E01D3A;
+    font-weight: bold;
+}
+
+.status-opened {
+    color: #747070;
+}
+
+.status-closed {
+    color: #a09898;
+}
+
+.status-hidden {
+    color: #a7a7a7;
+}
+
 #login-status h2 {
     text-transform: uppercase;
 }

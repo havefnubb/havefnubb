@@ -247,6 +247,52 @@ ol.history {
 }
 
 
+.closed a:link,
+.closed a:visited,
+.closed a:active {
+    text-decoration: underline;
+    color: #a09898;
+}
+
+
+.closed a:hover {
+    color: #f90;
+    text-decoration: none;
+}
+
+span.newestposts{
+    display: none;
+}
+
+.status-post-new {
+    color: #E01D3A;
+    font-weight: bold;
+}
+
+.status-opened {
+    color: #657D4C;
+}
+
+.status-closed {
+    color: #a09898;
+}
+
+.status-hidden {
+    color: #a7a7a7;
+}
+
+.syntax_wiki {
+    color: #657D4C;
+}
+
+
+
+/* posts management */
+
+#post-message .jelix-msg {
+    color: #657D4C;
+}
+
 #container, .ui-tabs-panel,
 #user-profile-general,
 #user-profile-pref,

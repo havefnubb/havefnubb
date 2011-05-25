@@ -10,19 +10,24 @@ td a:hover {
 }
 /* input
 ----------------------------------------------- */
-input.jforms-required, textarea.jforms-required {
+input.jforms-required,
+textarea.jforms-required {
     border-color:#657D4C;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
     border-radius:4px;
 }
-select.jforms-ctrl-menulist:focus,input.jforms-required:focus,textarea.jforms-required:focus {
+select.jforms-ctrl-menulist:focus,
+input.jforms-required:focus,
+textarea.jforms-required:focus {
     border-color:#657D4C;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
     border-radius:4px;
 }
-select.jforms-ctrl-menulist:hover,input.jforms-required:hover,textarea.jforms-required:hover {
+select.jforms-ctrl-menulist:hover,
+input.jforms-required:hover,
+textarea.jforms-required:hover {
     border-color:#E8B661;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
@@ -31,16 +36,6 @@ select.jforms-ctrl-menulist:hover,input.jforms-required:hover,textarea.jforms-re
 select {
     background-color: #657D4C;
     color: #fff;
-}
-/* 960 grid system container background
------------------------------------------------ */
-.container_12,
-.container_16 {
-    margin-top: 10px;
-    background:#fff;
-    -webkit-border-radius:4px;
-    -o-border-radius:4px;
-    border-radius:4px;
 }
 
 /* boxes
@@ -166,45 +161,6 @@ input.search.button {
 }
 
 
-/* posts management */
-
-#post-message {}
-
-#post-message .jelix-msg {
-    background-color:#eff4f6;
-    border: 1px solid #B0C4CB;
-    -webkit-border-radius:4px;
-    -o-border-radius:4px;
-    border-radius:4px;
-    list-style-type:none;
-    margin:0;
-    padding:0;
-    color: #657D4C;
-}
-
-#post-message .jelix-msg li {
-    padding:3px 19px;
-    margin:0;
-}
-
-#post-message .jelix-msg li.jelix-msg-item-warning {
-    background-color: #f8e794;
-    background-image: url("../images/exclamation.png");
-    background-repeat: no-repeat;
-}
-#post-message .jelix-msg li.jelix-msg-item-error {
-    background-color: #F6CAB1;
-    background-image: url("../images/error.png");
-    background-repeat: no-repeat;
-}
-
-#post-message .jelix-msg li.jelix-msg-item-ok,
-#post-message .jelix-msg li.jelix-msg-item-notice {
-    background-color: #E5F6D4;
-    background-image: url("../images/information.png");
-    background-repeat: no-repeat;
-}
-
 /* posts head */
 .postheading {
     border-bottom: 1px solid #fff;
@@ -285,241 +241,6 @@ input.search.button {
     border-radius:4px;
 }
 
-/* user profile */
-.user-name {
-    background-image: url("../images/users/user.png");
-    height: 16px;
-}
-
-.user-status-online {
-    background-image: url("../images/users/online.png");
-    height: 16px;
-}
-
-.user-status-offline {
-    background-image: url("../images/users/offline.png");
-    height: 16px;
-}
-
-.user-status {
-    display:none;
-}
-
-.user-town {
-    background-image: url("../images/users/house.png");
-    height: 16px;
-}
-
-.user-country {
-    height: 16px;
-    padding-left: 0px;
-}
-
-.user-birthday {
-    background-image: url("../images/users/cake.png");
-    height: 16px;
-}
-
-.user-location {
-    background-image: url("../images/users/world.png");
-    height: 16px;
-}
-
-.user-website {
-    background-image: url("../images/users/world_link.png");
-    height: 16px;
-}
-
-.user-email {
-    background-image: url("../images/users/email.png");
-    height: 16px;
-}
-
-.user-email-add {
-    background-image: url("../images/users/email_add.png");
-    height: 16px;
-}
-
-.user-email-inbox {
-    background-image: url("../images/users/email_inbox.png");
-    height: 16px;
-}
-
-.user-email-outbox {
-    background-image: url("../images/users/email_outbox.png");
-    height: 16px;
-}
-
-.user-stats {
-    background-image: url("../images/users/chart_bar.png");
-    height: 16px;
-}
-.user-mouse {
-    background-image: url("../images/users/mouse.png");
-}
-
-.user-keyboard {
-    background-image: url("../images/users/keyboard.png");
-}
-
-.user-connect {
-    background-image: url("../images/users/connect.png");
-}
-
-.user-display {
-    background-image: url("../images/users/display.png");
-}
-
-.user-processor {
-    background-image: url("../images/users/computer.png");
-}
-
-
-.user-screen {
-    background-image: url("../images/users/screen.png");
-}
-
-.user-motherboard {
-    background-image: url("../images/users/motherboard.png");
-}
-
-.user-card {
-    background-image: url("../images/users/computer.png");
-}
-
-.user-ram {
-    background-image: url("../images/users/computer.png");
-}
-
-.user-os {
-    background-image: url("../images/users/computer.png");
-}
-
-.user-xfire {
-    background-image: url("../images/users/xfire.png");
-}
-
-.user-icq {
-    background-image: url("../images/users/icq.gif");
-}
-
-.user-yim {
-    background-image: url("../images/users/yim.gif");
-}
-
-.user-aim {
-    background-image: url("../images/users/aim.gif");
-}
-
-.user-msn {
-    background-image: url("../images/users/msn.gif");
-}
-
-.user-gtalk {
-    background-image: url("../images/users/email_go.png");
-}
-
-.user-jabber {
-    background-image: url("../images/users/email_go.png");
-}
-
-.user-since, th.user-since {
-    background-image: url("../images/users/member_since.png");
-    background-repeat: no-repeat;
-    background-position: left;
-}
-
-.user-rank, th.user-rank {
-    background-image: url("../images/users/member_rank.png");
-    background-repeat: no-repeat;
-    background-position: left;
-    height: 18px;
-    padding-top: 4px;
-    padding-left: 20px;
-}
-
-.user-posts, th.user-posts {
-    background-image: url("../images/users/member_posts.png");
-    background-repeat: no-repeat;
-    background-position: left;
-    padding-left: 18px;
-    height: 20px;
-}
-.user-private-message {
-    background-image: url("../images/users/email.png");
-    height: 16px;
-}
-
-.user-edit-password {
-    background-image: url("../images/users/user_key.png");
-    height: 16px;
-}
-
-.user-general {
-    background-image: url("../images/users/user_suit.png");
-    height: 16px;
-}
-
-.user-pref {
-    background-image: url("../images/users/user_pref.png");
-    height: 16px;
-}
-
-.user-messenger {
-    background-image: url("../images/users/email_go.png");
-    height: 16px;
-}
-
-.user-hw {
-    background-image: url("../images/users/computer.png");
-    height: 16px;
-}
-
-.user-language {
-    background-image: url("../images/users/emoticon_tongue.png");
-    height: 16px;
-}
-
-.user-signature {
-    background-image: url("../images/users/vcard.png");
-    background-repeat: no-repeat;
-    padding-left: 20px;
-    height: 16px;
-    padding-top: 5px;
-}
-
-.user-show-email {
-    background-image: url("../images/users/eye.png");
-    height: 16px;
-}
-
-.user-currently-online li , .user-online-today li  {
-    display:inline;
-    padding:1px;
-    list-style-type:none;
-    list-style-position:outside;
-}
-
-.user-image {
-    background-repeat: no-repeat;
-    padding-left: 20px;
-    padding-top: 4px;
-}
-
-.messenger-email-delete {
-    background-image: url("../images/mail/email_delete.png");
-    height: 16px;
-    margin-left: 4px;
-
-}
-
-.messenger-email-answer {
-    background-image: url("../images/mail/email_answer.png");
-    height: 16px;
-    margin-left: 4px;
-}
-
-
 .form_row {
     padding: 10px 0;
 }
@@ -551,146 +272,8 @@ input.search.button {
     background-repeat: no-repeat;
 }
 
-/* posts status */
-tr.odd > .colicone-closed,
-tr.odd > .colicone-opened,
-tr.odd > .colicone-pined,
-tr.odd > .colicone-pinedclosed,
-tr.odd > .colicone-post-new,
-tr.odd > .colicone-censored
-tr.odd > .colicone-opened_important,
-tr.odd > .colicone-closed_important,
-tr.odd > .colicone-pined_important,
-tr.odd > .colicone-pinedclosed_important,
-tr.odd > .colicone-hidden,
-tr.even > td.colicone-closed,
-tr.even > .colicone-opened,
-tr.even > .colicone-pined,
-tr.even > .colicone-pinedclosed,
-tr.even > .colicone-post-new,
-tr.even > .colicone-censored
-tr.even > .colicone-opened_important,
-tr.even > .colicone-closed_important,
-tr.even > .colicone-pined_important,
-tr.even > .colicone-pinedclosed_important,
-tr.even > .colicone-hidden{
-    text-align: center;
-    padding: 5px;
-    width: 4%;
-    background-position: center;
-}
-
-.post-status-icon-opened,
-.post-status-icon-closed,
-.post-status-icon-pined,
-.post-status-icon-pinedclosed,
-.post-status-icon-censored,
-.post-status-icon-hidden {
-    background-position: left;
-    padding-top: 0px;
-    padding-bottom: 4px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-tr.even > .colicone-opened,
-tr.odd > .colicone-opened, .post-status-icon-opened {
-    background-image: url("../images/posts/opened.png");
-    background-repeat: no-repeat;
-}
-
-tr.odd > .colicone-post-new,
-tr.even > .colicone-post-new {
-    background-image: url("../images/posts/post_new.png");
-    background-repeat: no-repeat;
-}
-
-tr.odd > .colicone-closed,
-tr.even > .colicone-closed, .post-status-icon-closed {
-    background-image: url("../images/posts/closed.png");
-    background-repeat: no-repeat;
-}
-
-tr.odd > .colicone-pined,
-tr.even > .colicone-pined, .post-status-icon-pined {
-    background-image: url("../images/posts/pined.png");
-    background-repeat: no-repeat;
-}
-
-tr.odd > .colicone-pinedclosed,
-tr.even > .colicone-pinedclosed, .post-status-icon-pinedclosed {
-    background-image: url("../images/posts/pined-closed.png");
-    background-repeat: no-repeat;
-}
-
-tr.odd > .colicone-censored,
-tr.even > .colicone-censored, .post-status-icon-censored {
-    background-image: url("../images/posts/censored.png");
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-tr.odd > .colicone-opened_important,
-tr.odd > .colicone-closed_important,
-tr.odd > .colicone-pined_important,
-tr.odd > .colicone-pinedclosed_important,
-tr.even > .colicone-opened_important,
-tr.even > .colicone-closed_important,
-tr.even > .colicone-pined_important,
-tr.even > .colicone-pinedclosed_important {
-    background-image: url("../images/posts/important.png");
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-tr.odd > .colicone-hidden, .post-status-icon-hidden,
-tr.even > .colicone-hidden {
-    background-image: url("../images/posts/hidden.png");
-    background-repeat: no-repeat;
-}
-
-tr.odd > .closed a:link,
-tr.odd > .closed a:visited,
-tr.odd > .closed a:active,
-tr.even > .closed a:link,
-tr.even > .closed a:visited,
-tr.even > .closed a:active {
-    text-decoration: underline;
-    color: #a09898;
-}
-
-tr.odd > .closed a:hover,
-tr.even > .closed a:hover {
-    color: #f90;
-    text-decoration: none;
-}
 
 #markasread {
     text-align: right;
     list-style-type: none;
-}
-
-span.newestposts{
-    display: none;
-}
-
-.status-post-new {
-    color: #E01D3A;
-    font-weight: bold;
-}
-
-.status-opened {
-    color: #657D4C;
-}
-
-.status-closed {
-    color: #a09898;
-}
-
-.status-hidden {
-    color: #a7a7a7;
-}
-
-.syntax_wiki {
-    color: #657D4C;
 }
