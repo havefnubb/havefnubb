@@ -18,18 +18,13 @@
 <div id="post-message">{jmessage}</div>
 {/ifacl2}
 <div class="fake-button-left grid_8 alpha">&nbsp;
-{* for guest *}
-{ifusernotconnected}
-{* guest can not post if one the this 2 rights are not ok *}
-{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum and 'hfnu.posts.create'}
-<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-{/ifacl2}
-{else}
-{* for connected member *}
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{else}
+{ifacl2 'hfnu.posts.create'}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
-{/ifusernotconnected}
+{/ifacl2}
 </div>
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
 <div class="pager-posts grid_8 omega">
@@ -96,18 +91,13 @@
     </div>
 </div>
 <div class="fake-button-left grid_8 alpha">&nbsp;
-{* for guest *}
-{ifusernotconnected}
-{* guest can not post if one the this 2 rights are not ok *}
-{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum and 'hfnu.posts.create'}
-<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-{/ifacl2}
-{else}
-{* for connected member *}
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{else}
+{ifacl2 'hfnu.posts.create'}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
 {/ifacl2}
-{/ifusernotconnected}
+{/ifacl2}
 </div>
 
 <div class="pager-posts  grid_8 omega">
