@@ -62,26 +62,6 @@ div.menu .block {
     padding-top:0;
 }
 
-
-/* paragraphs, quotes and lists
------------------------------------------------ */
-p {
-    margin-bottom:1em;
-}
-blockquote {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size:1.2em;
-    padding-left:1em;
-    border-left:4px solid #edead7;
-}
-blockquote cite {
-    font-size:.9em;
-}
-ul, ol {
-    padding-top:0;
-}
-
-
 /* menus
 ----------------------------------------------- */
 ul.menu {
@@ -113,40 +93,6 @@ ul.menu ul {
 ul.menu ul li a {
     padding-left:30px;
 }
-
-/* table
------------------------------------------------ */
-table {
-    width:100%;
-    border:1px solid #edead7;
-    margin-bottom:10px;
-}
-th, td {
-    padding:.2em 1em;
-    text-align:left;
-}
-thead th {
-    border-bottom:2px solid #ebedd1;
-    background:#c3b297;
-    padding:.4em 1em .2em;
-}
-tbody th,
-tbody td {
-    border-top:1px solid #c3b297;
-    border-bottom:1px solid #c3b297;
-    background:#edead7;
-}
-tbody tr.odd th,
-tbody tr.odd td {
-    background:#fff;
-}
-tfoot th,
-tfoot td {
-    border-top:2px solid #a4885b;
-    background:#ebedd1;
-}
-
-
 
 /* forms
 ----------------------------------------------- */
@@ -281,17 +227,6 @@ input.search.button {
     margin-top:1em;
     line-height:1.2em; margin-bottom:.3em;
 }
-
-/* breadcrumb */
-.breadcrumb ol {
-    background-color:#d9c9a3;
-}
-.breadcrumb li {
-    display:inline;
-    list-style-type:none;
-
-}
-
 
 /* user profile */
 .user-name {
@@ -596,31 +531,8 @@ h2#login-status {
     display: inline-block;
 }
 
-
-.pager-posts {
-    text-align: right;
-}
-.pager-posts ul {
-    list-style: none;
-    display:inline;
-}
-
-.pagelinks li {
-    list-style: none;
-    display:inline;
-}
-
 .post-rates {
     text-align: center;
-}
-
-
-ol.history {
-    list-style: none;
-}
-
-ol.history li {
-    display:inline;
 }
 
 /* posts status */

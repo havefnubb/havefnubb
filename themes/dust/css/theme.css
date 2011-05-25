@@ -40,7 +40,41 @@ legend {
     border:1px solid #c3b297;
 }
 
+blockquote {
+    border-left:4px solid #edead7;
+}
 
+/* table
+----------------------------------------------- */
+table {
+    width:100%;
+    border:1px solid #edead7;
+    margin-bottom:10px;
+}
+th, td {
+    padding:.2em 1em;
+    text-align:left;
+}
+thead th {
+    border-bottom:2px solid #ebedd1;
+    background:#c3b297;
+    padding:.4em 1em .2em;
+}
+tbody th,
+tbody td {
+    border-top:1px solid #c3b297;
+    border-bottom:1px solid #c3b297;
+    background:#edead7;
+}
+tbody tr.odd th,
+tbody tr.odd td {
+    background:#fff;
+}
+tfoot th,
+tfoot td {
+    border-top:2px solid #a4885b;
+    background:#ebedd1;
+}
 
 
 /* navigation */
@@ -112,6 +146,11 @@ ul.nav li.current:hover ul li a:active {color:#a4885b; background:#fff;}
 .jforms-reset:active:hover {
     background-color:#ccae7a;
     border:1px solid #a4885b;
+}
+
+/* breacrumb */
+.breadcrumb ol {
+    background-color:#d9c9a3;
 }
 
 

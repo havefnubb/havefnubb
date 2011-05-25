@@ -36,7 +36,7 @@
 
 {ifacl2 'hfnu.posts.view','forum'.$forum->id_forum}
 {hook 'hfbBeforePostReplies',array('id_post'=>$id_post)}
-<div class="pager-posts grid_8 omega">
+<div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
@@ -187,7 +187,7 @@
 
 {ifacl2 'hfnu.posts.view','forum'.$forum->id_forum}
 {hook 'hfbAfterPostsReplies',array('id_post'=>$id_post)}
-<div class="pager-posts grid_8 omega">
+<div class="pager-posts">
 {@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
