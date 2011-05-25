@@ -1,6 +1,6 @@
 {hook 'hfbBeforeStats'}
 <div class="box">
-    <h3>{@havefnubb~main.stats@}</h3>
+    <h2>{@havefnubb~main.stats@}</h2>
     <div class="block">
     {hook 'hfbStats'}
     <ul>

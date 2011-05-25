@@ -1,4 +1,4 @@
-<h3>{@havefnubb~member.destroy.account.header@}</h3>
+<h1>{@havefnubb~member.destroy.account.header@}</h1>
 
 <form action="{formurl 'jcommunity~account:dodestroy', array('user'=>$username)}" method="get">
 <fieldset><legend>Confirmation</legend>

@@ -22,7 +22,7 @@ a {
 a:hover {
     color:#a3a6ab;
 }
-a:active {
+a:active:hover {
     color:#000;
     background-color:#fff;
 }
@@ -80,7 +80,7 @@ h2#page-heading {
     margin-bottom:20px;
     padding:10px 10px 1px 10px;
 }
-.box h3 {
+.box h2 {
     font-size:1em;
     font-weight:normal;
     text-transform:uppercase;
@@ -89,8 +89,8 @@ h2#page-heading {
     margin:-10px -10px 0 -10px;
     padding:6px 12px;
 }
-.box h3 a,
-.box h3 a.visible {
+.box h2 a,
+.box h2 a.visible {
     color:#fff;
     background:#333;
     display:block;
@@ -98,22 +98,21 @@ h2#page-heading {
     margin:-6px -12px;
     border:none;
 }
-.grid_4 .box h3 a {
+.grid_4 .box h2 a {
     background-position: 97% 50%;
 }
-.grid_5 .box h3 a {
+.grid_5 .box h2 a {
     background-position: 98% 50%;
 }
-.grid_12 .box h3 a {
+.grid_12 .box h2 a {
     background-position: 99% 50%;
 }
 
-.box h3 a:hover {
-    background-color:#fff;
-    color:#111;
+.box h2 a:hover {
+    background-color:#111;
 }
 
-.box h4 {
+.box h3 {
     background-color:#eee;
 }
 
@@ -147,6 +146,104 @@ blockquote cite {
 }
 ul, ol {
     padding-top:0;
+}
+
+
+/* menus
+----------------------------------------------- */
+ul.menu {
+    list-style:none;
+    border-top:1px solid #bbb;
+}
+ul.menu li {
+    margin:0;
+}
+ul.menu li a {
+    display:block;
+    padding:4px 10px;
+    border-bottom:1px solid #ccc;
+}
+ul.menu li a:hover {
+    background:#eee;
+}
+ul.menu li a:active {
+    background:#ccc;
+}
+
+
+/* submenus
+----------------------------------------------- */
+ul.menu ul {
+    list-style:none;
+    margin:0;
+}
+ul.menu ul li a {
+    padding-left:30px;
+}
+
+
+/* section menus
+----------------------------------------------- */
+ul.section {
+    border-top:0;
+    margin-bottom:0;
+}
+ul.section li {
+    text-transform:uppercase;
+}
+ul.section li a {
+    background:#bbb;
+}
+ul.section li a:hover {
+    background:#aaa;
+}
+ul.section li a:active {
+    color:#fff;
+    background:#666;
+}
+ul.section li li a {
+    background:#ddd;
+    border-bottom:1px solid #eee;
+}
+ul.section li li a:hover {
+    background:#ccc;
+}
+ul.section li li a:active {
+    color:#000;
+    background:#fff;
+}
+ul.section ul li {
+    text-transform:none;
+}
+ul.section ul.current li a {
+    background:#eee;
+    border-bottom:1px solid #fff;
+}
+ul.section ul.current li a:hover {
+    background:#ddd;
+}
+ul.section ul.current li a:active {
+    background:#fff;
+}
+ul.section li a.current {
+    color:#fff;
+    background:#666;
+}
+ul.section li a.current:hover {
+    background:#555;
+}
+ul.section li a.current:active {
+    background:#444;
+}
+ul.section li a.active {
+    background:#fff;
+    cursor:default;
+}
+ul.section li.current > a.active,
+ul.section li.current > a.active:hover {
+    color:#fff;
+    background:#666;
+    cursor:default;
 }
 
 
@@ -429,15 +526,9 @@ input.search.button {
     display:inline;
     color: #fff;
 }
-.breadcrumb ol li a:hover {
+.breadcrumb ol li a:hover{
     display:inline;
     color: #fff;
-    background:#aaa;
-}
-.breadcrumb ol li a:active {
-    display:inline;
-    color: #fff;
-    background:#666;
 }
 
 

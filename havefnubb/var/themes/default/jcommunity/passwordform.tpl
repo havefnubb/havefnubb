@@ -1,5 +1,5 @@
 <div class="box">
-    <h3>{@havefnubb~member.passwordform.header@}</h3>
+    <h2>{@havefnubb~member.passwordform.header@}</h2>
     <div class="block loginbox">
     {form $form,'jcommunity~password:send', array()}
     <fieldset>

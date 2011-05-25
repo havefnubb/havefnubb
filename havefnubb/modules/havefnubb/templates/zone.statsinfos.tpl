@@ -1,5 +1,5 @@
 <div id="statsinfos-headings">
-    <h3>{@havefnubb~main.statsinfos@}</h3>
+    <h2>{@havefnubb~main.statsinfos@}</h2>
 </div>
 <div id="statsinfos">
     {zone 'havefnubb~lastposts'}

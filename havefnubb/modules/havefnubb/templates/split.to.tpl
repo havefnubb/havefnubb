@@ -1,5 +1,5 @@
 <div class="box">
-    <h3>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</h3>
+    <h2>{@havefnubb~main.split.this.thread.from.this.message@} : "{$title|eschtml}"</h2>
     <div class="block">
 {if $step == 1}
     {form $form, 'havefnubb~posts:splitedTo',array('id_forum'=>$id_forum,'id_post'=>$id_post,'thread_id'=>$thread_id)}
