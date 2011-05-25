@@ -1,13 +1,7 @@
-<div class="breadcrumb">
-<ol>
-    <li>{@havefnubb~main.common.you.are.here@}</li>
-    <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >> {@havefnubb~main.cloud@}</li>
-</ol>
-</div>
-
+<h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > {@havefnubb~main.cloud@}</h2>
 <div class="box">
     <div class="block">
-    <table class="forum_postsbytag">
+    <table>
         <caption>{jlocale 'havefnubb~main.cloud.posts.by.tag',array($tag)}</caption>
         <thead>
         <tr>

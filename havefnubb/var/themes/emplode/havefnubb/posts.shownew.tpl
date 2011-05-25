@@ -1,11 +1,5 @@
-<div class="breadcrumb">
-<ol>
-    <li>{@havefnubb~main.common.you.are.here@}</li>
-    <li> <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >> {@havefnubb~post.list.of.new.posts@}</li>
-</ol>
-</div>
-
-
+<h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>
+    &gt; {@havefnubb~post.list.of.new.posts@}</h2>
     <div class="pager-posts">
     {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}
     </div>

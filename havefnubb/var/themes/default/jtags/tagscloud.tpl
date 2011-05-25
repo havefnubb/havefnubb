@@ -1,5 +1,5 @@
 <div class="box">
-    <h3>{@havefnubb~main.cloud@}</h3>
+    <h2>{@havefnubb~main.cloud@}</h2>
     <div class="block">
     <p id="tagscloud">
     {foreach $tags as $t}

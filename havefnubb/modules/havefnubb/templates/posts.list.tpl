@@ -39,7 +39,7 @@
 <br/>
 <div class="box">
     <div class="block">
-    <table class="forum_posts_list">
+    <table>
     <caption>{$forum->forum_name|eschtml}</caption>
         <thead>
             <tr>

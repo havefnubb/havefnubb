@@ -384,7 +384,7 @@ img.right {margin: 0 0 15px 12px;}
 #main li {padding: 2px 0;}
 
 
-#main_content ol, #main_content ul {margin: 0 0 1.2em 0;}
+#main_content ol, #main_content ul {margin: 0 0 1.2em 1.6em;}
 /* #main_content ul li {list-style: disc;}
 #main_content ol li {list-style: decimal;}
 #main_content li {padding: 2px 0;}*/
@@ -595,6 +595,7 @@ div.comment_list {
 .breadcrumb ol {
     background: url('../images/grain_light.gif');
     margin: 0 auto;
+    padding-left: 8px;
     padding-top: 5px;
     padding-bottom: 5px;
     width: 855px;

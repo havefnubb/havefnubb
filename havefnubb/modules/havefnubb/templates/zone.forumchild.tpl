@@ -12,9 +12,9 @@
 </ul>
 {else}
 <div class="box">
-    <h3><strong>{@havefnubb~forum.forumchild.subforum@}</strong></h3>
+    <h2><strong>{@havefnubb~forum.forumchild.subforum@}</strong></h2>
     <div class="block">
-    <table class="forum_subforum">
+    <table>
 {foreach $forumChilds as $forum}
 {if $forum->forum_type == 0}
     <tr>
