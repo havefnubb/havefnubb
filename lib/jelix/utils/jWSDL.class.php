@@ -5,7 +5,7 @@
 * @subpackage  utils
 * @author      Sylvain de Vathaire
 * @contributor Laurent Jouanneau
-* @copyright   2008 Sylvain de Vathaire, 2009 Laurent Jouanneau
+* @copyright   2008 Sylvain de Vathaire, 2009-2011 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -87,12 +87,13 @@ class jWSDL{
 		$updated=TRUE;
 	}
 	private function _compile(){
-		global $gJConfig;
+		global $gJConfig,$gJCoord;
 		$url=jUrl::get($this->module.'~'.$this->controller.':index@soap',array(),jUrl::JURL);
 		$url->clearParam();
 		$url->setParam('service',$this->module.'~'.$this->controller);
-		$serviceURL="http://".$_SERVER['HTTP_HOST'].$url->toString();
-		$serviceNameSpace="http://".$_SERVER['HTTP_HOST'].$gJConfig->urlengine['basePath'];
+		$serviceURL=$serviceNameSpace=$gJCoord->request->getServerURI();
+		$serviceURL.=$url->toString();
+		$serviceNameSpace.=$gJConfig->urlengine['basePath'];
 		$wsdl=new WSDLStruct($serviceNameSpace,$serviceURL,SOAP_RPC,SOAP_ENCODED);
 		$wsdl->setService(new IPReflectionClass($this->controllerClassName));
 		try{

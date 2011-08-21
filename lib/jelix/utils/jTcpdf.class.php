@@ -5,14 +5,16 @@
 * @subpackage  utils
 * @author      Julien Issler
 * @contributor Laurent Jouanneau
-* @copyright   2007-2009 Julien Issler, 2007 Laurent Jouanneau
+* @copyright   2007-2009 Julien Issler, 2007-2011 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 * @since 1.0
 */
 define('K_TCPDF_EXTERNAL_CONFIG',true);
 define('K_PATH_MAIN',LIB_PATH.'tcpdf/');
-define('K_PATH_URL',$GLOBALS['gJConfig']->urlengine['basePath']);
+define('K_PATH_URL',
+		$GLOBALS['gJCoord']->request->getServerURI().
+		$GLOBALS['gJConfig']->urlengine['basePath']);
 define('K_PATH_FONTS',LIB_PATH.'pdf-fonts/');
 define('K_PATH_CACHE',JELIX_APP_TEMP_PATH);
 define('K_PATH_IMAGES',JELIX_APP_PATH);

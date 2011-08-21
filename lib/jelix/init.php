@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.2.2pre.1774');
+define('JELIX_VERSION','1.2.5pre.1845');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -785,7 +785,8 @@ class jUrl extends jUrlBase{
 		}
 		static $url=false;
 		if($url===false){
-			$url='http://'.$_SERVER['HTTP_HOST'].$GLOBALS['gJCoord']->request->urlScript.$GLOBALS['gJCoord']->request->urlPathInfo.'?';
+			$req=$GLOBALS['gJCoord']->request;
+			$url=$req->getServerURI().$req->urlScript.$req->urlPathInfo.'?';
 			$q=http_build_query($_GET,'',($forxml?'&amp;':'&'));
 			if(strpos($q,'%3A')!==false)
 				$q=str_replace('%3A',':',$q);
@@ -814,23 +815,26 @@ class jUrl extends jUrlBase{
 		return $url->toString($what!=0);
 	}
 	static function getFull($actSel,$params=array(),$what=0,$domainName=null){
-		global $gJConfig;
-		if($domainName){
-			$domain=$domainName;
+		global $gJCoord;
+		$domain='';
+		$url=self::get($actSel,$params,($what!=self::XMLSTRING?self::STRING:$what));
+		if(!preg_match('/^http/',$url)){
+			if($domainName){
+				$domain=$domainName;
+				if(!preg_match('/^http/',$domainName))
+					$domain=$gJCoord->request->getProtocol(). $domain;
+			}
+			else{
+				$domain=$gJCoord->request->getServerURI();
+			}
+			if($domain==''){
+				throw new jException('jelix~errors.urls.domain.void');
+			}
 		}
-		elseif($gJConfig->domainName!=''){
-			$domain=$gJConfig->domainName;
+		else if($domainName!=''){
+			$url=str_replace($gJCoord->request->getDomainName(),$domainName,$url);
 		}
-		elseif(isset($_SERVER['HTTP_HOST'])){
-			$domain=$_SERVER['HTTP_HOST'];
-		}
-		else{
-			throw new jException('jelix~errors.urls.domain.void');
-		}
-		if(!preg_match('/^http/',$domain)){
-			$domain=$GLOBALS['gJCoord']->request->getProtocol().$domain;
-		}
-		return $domain . self::get($actSel,$params,($what!=self::XMLSTRING?self::STRING:$what));
+		return $domain.$url;
 	}
 	static function parse($scriptNamePath,$pathinfo,$params){
 		return jUrl::getEngine()->parse($scriptNamePath,$pathinfo,$params);
@@ -1297,10 +1301,57 @@ abstract class jRequest{
 		}
 	}
 	function getProtocol(){
-	static $proto=null;
-	if($proto===null)
-		$proto=(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']&&$_SERVER['HTTPS']!='off' ? 'https://':'http://');
-	return $proto;
+	return(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']&&$_SERVER['HTTPS']!='off' ? 'https://':'http://');
+	}
+	function getDomainName(){
+	global $gJConfig;
+	if($gJConfig->domainName!=''){
+		return $gJConfig->domainName;
+	}
+	elseif(isset($_SERVER['SERVER_NAME'])){
+		return $_SERVER['SERVER_NAME'];
+	}
+	elseif(isset($_SERVER['HTTP_HOST'])){
+		if(($pos=strpos($_SERVER['HTTP_HOST'],':'))!==false)
+			return substr($_SERVER['HTTP_HOST'],0,$pos);
+		return $_SERVER['HTTP_HOST'];
+	}
+	return '';
+	}
+	function getServerURI($forceHttps=null){
+	$isHttps=(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']&&$_SERVER['HTTPS']!='off');
+	if(($forceHttps===null&&$isHttps)||$forceHttps){
+		$uri='https://';
+	}
+	else{
+		$uri='http://';
+	}
+	$uri.=$this->getDomainName();
+	$uri.=$this->getPort($forceHttps);
+	return $uri;
+	}
+	function getPort($forceHttps=null){
+	$isHttps=(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']&&$_SERVER['HTTPS']!='off');
+	if($forceHttps===null)
+		$https=$isHttps;
+	else
+		$https=$forceHttps;
+	global $gJConfig;
+	$forcePort=($https ? $gJConfig->forceHTTPSPort : $gJConfig->forceHTTPPort);
+	if($forcePort===true){
+		return '';
+	}
+	else if($forcePort){
+		$port=$forcePort;
+	}
+	else if($isHttps!=$https){
+		return '';
+	}else{
+		$port=$_SERVER['SERVER_PORT'];
+	}
+	if(($https&&$port=='443')||(!$https&&$port=='80'))
+		return '';
+	return ':'.$port;
 	}
 	public function readHttpBody(){
 	$input=file_get_contents("php://input");

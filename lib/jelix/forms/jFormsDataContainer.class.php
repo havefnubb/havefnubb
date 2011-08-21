@@ -17,6 +17,7 @@ class jFormsDataContainer{
 	public $errors=array();
 	public $updatetime=0;
 	public $token='';
+	public $refcount=0;
 	protected $readOnly=array();
 	protected $deactivated=array();
 	function __construct($formSelector,$formId){

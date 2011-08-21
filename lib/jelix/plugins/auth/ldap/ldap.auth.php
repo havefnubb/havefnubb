@@ -5,18 +5,17 @@
 * @subpackage ldap_driver
 * @author     Tahina Ramaroson
 * @contributor Sylvain de Vathaire
-* @contributor Thibaud Fabre
-* @copyright  2009 Neov, 2010 Thibaud Fabre
+* @contributor Thibaud Fabre, Laurent Jouanneau
+* @copyright  2009 Neov, 2010 Thibaud Fabre, 2011 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-class ldapAuthDriver implements jIAuthDriver{
+class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 	protected $_default_attributes=array("cn","distinguishedName","name");
-	protected $_params;
 	function __construct($params){
 		if(!extension_loaded('ldap')){
 			throw new jException('jelix~auth.ldap.extension.unloaded');
 		}
-		$this->_params=$params;
+		parent::__construct($params);
 		$_default_params=array(
 			'hostname'=>'localhost',
 			'port'=>389,
@@ -230,25 +229,6 @@ class ldapAuthDriver implements jIAuthDriver{
 				}
 			}
 		}
-	}
-	protected function cryptPassword($password){
-		if(isset($this->_params['password_crypt_function'])){
-			$f=$this->_params['password_crypt_function'];
-			if($f!=''){
-				if($f[1]==':'){
-					$t=$f[0];
-					$f=substr($f,2);
-					if($t=='1'){
-						return $f((isset($this->_params['password_salt'])?$this->_params['password_salt']:''),$password);
-					}
-					else if($t=='2'){
-						return $f($this->_params,$password);
-					}
-				}
-				return $f($password);
-			}
-		}
-		return $password;
 	}
 	protected function _buildUserDn($login){
 		if($login){

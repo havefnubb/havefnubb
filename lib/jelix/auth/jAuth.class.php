@@ -24,6 +24,34 @@ interface jIAuthDriver{
 	public function changePassword($login,$newpassword);
 	public function verifyPassword($login,$password);
 }
+class jAuthDriverBase{
+	protected $_params;
+	function __construct($params){
+		$this->_params=$params;
+	}
+	public function cryptPassword($password){
+		if(isset($this->_params['password_crypt_function'])){
+			$f=$this->_params['password_crypt_function'];
+			if($f!=''){
+				if($f[1]==':'){
+					$t=$f[0];
+					$f=substr($f,2);
+					if($t=='1'){
+						return $f((isset($this->_params['password_salt'])?$this->_params['password_salt']:''),$password);
+					}
+					else if($t=='2'){
+						return $f($this->_params,$password);
+					}
+				}
+				return $f($password);
+			}
+		}
+		return $password;
+	}
+}
+function sha1WithSalt($salt,$password){
+	return sha1($salt.':'.$password);
+}
 class jAuth{
 	protected static function  _getConfig(){
 		static $config=null;
