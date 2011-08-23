@@ -222,7 +222,7 @@ class connectedusers {
         // read the list of bots
         $botsList = jIniFile::read(JELIX_APP_CONFIG_PATH."botsagent.ini.php");
 
-        if (count($botsList) > 0) {
+        if ($botsList) {
 
             $q_s=array("#\.#","#\*#","#\?#");
             $q_r=array("\.",".*",".?");
