@@ -13,7 +13,7 @@
 * @copyright   2007 Loic Mathaud
 * @copyright   2007-2008 Florian Hatat
 * @copyright   2001-2005 CopixTeam, GeraldCroes, Laurent Jouanneau
-* @copyright   2008 Julien Issler
+* @copyright   2008-2011 Julien Issler
 * @copyright   2009 Emmanuel Hesry
 * @copyright   2010 Hadrien Lanneau
 *
@@ -229,7 +229,7 @@ class jDateTime{
 				}
 				break;
 			case self::ISO8601_FORMAT:
-				if($ok=preg_match('/^(\d{4})(?:\-(\d{2})(?:\-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{2}))?)?(Z|([+\-])(\d{2}):(\d{2})))?)?)?$/',$str,$match)){
+				if($ok=preg_match('/^(\d{4})(?:\-(\d{2})(?:\-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{2,3}))?)?(Z|([+\-])(\d{2}):(\d{2})))?)?)?$/',$str,$match)){
 					$c=count($match)-1;
 					$this->year=intval($match[1]);
 					if($c<2)break;
@@ -325,9 +325,9 @@ class jDateTime{
 	}
 	public function durationTo($dt,$absolute=true){
 		if($absolute){
-			$t=mktime($dt->hour,$dt->minute,$dt->second,
+			$t=gmmktime($dt->hour,$dt->minute,$dt->second,
 				$dt->month,$dt->day,$dt->year)
-				- mktime($this->hour,$this->minute,$this->second,
+				- gmmktime($this->hour,$this->minute,$this->second,
 					$this->month,$this->day,$this->year);
 			return new jDuration($t);
 		}

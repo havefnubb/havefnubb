@@ -94,7 +94,7 @@ class mysqlDbConnection extends jDbConnection{
 		return mysql_insert_id($this->_connection);
 	}
 	protected function _autoCommitNotify($state){
-		$this->query('SET AUTOCOMMIT='.$state ? '1' : '0');
+		$this->query('SET AUTOCOMMIT='.($state ? '1' : '0'));
 	}
 	protected function _quote($text,$binary){
 		return mysql_real_escape_string($text,$this->_connection);

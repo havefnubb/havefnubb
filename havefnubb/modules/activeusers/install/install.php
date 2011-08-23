@@ -17,6 +17,8 @@ class activeusersModuleInstaller extends jInstallerModule {
         if (!$this->getParameter('nocopyfiles') && $this->firstExec('copyfile')) {
             $this->copyFile('../plugins/coord/activeusers/activeusers.coord.ini.php.dist',
                             'config:activeusers.coord.ini.php');
+            $this->copyFile('botsagent.ini.php',
+                            'config:botsagent.ini.php');
         }
 
         /*if ($this->firstExec('acl2')) {

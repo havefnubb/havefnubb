@@ -198,8 +198,15 @@ class jDaoProperty{
 			}
 		}
 		$this->isPK=in_array($this->fieldName,$tables[$this->table]['pk']);
-		if(!$this->isPK){
-			$this->isFK=isset($tables[$this->table]['fk'][$this->fieldName]);
+		if(!$this->isPK&&$this->table==$parser->getPrimaryTable()){
+			foreach($tables as $table=>$info){
+				if($table==$this->table)
+					continue;
+				if(isset($info['fk'])&&in_array($this->fieldName,$info['fk'])){
+					$this->isFK=true;
+					break;
+				}
+			}
 		}
 		else{
 			$this->required=true;

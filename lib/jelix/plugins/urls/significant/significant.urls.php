@@ -4,7 +4,7 @@
  * @package     jelix
  * @subpackage  urls_engine
  * @author      Laurent Jouanneau
- * @copyright   2005-2009 Laurent Jouanneau
+ * @copyright   2005-2011 Laurent Jouanneau
  * @link        http://www.jelix.org
  * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
@@ -238,7 +238,7 @@ class significantUrlEngine implements jIUrlEngine{
 		}
 		$url->scriptName=$GLOBALS['gJConfig']->urlengine['basePath'].$urlinfo[1];
 		if($urlinfo[2])
-			$url->scriptName='https://'.$_SERVER['HTTP_HOST'].$url->scriptName;
+			$url->scriptName=$GLOBALS['gJCoord']->request->getServerURI(true).$url->scriptName;
 		if($urlinfo[1]&&!$GLOBALS['gJConfig']->urlengine['multiview']){
 			$url->scriptName.=$GLOBALS['gJConfig']->urlengine['entrypointExtension'];
 		}

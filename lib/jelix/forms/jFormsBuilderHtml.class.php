@@ -5,8 +5,8 @@
 * @subpackage  forms
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Dominique Papin
-* @copyright   2006-2010 Laurent Jouanneau
-* @copyright   2008-2010 Julien Issler, 2008 Dominique Papin
+* @copyright   2006-2011 Laurent Jouanneau
+* @copyright   2008-2011 Julien Issler, 2008 Dominique Papin
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -171,7 +171,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		$hint=($ctrl->hint==''?'':' title="'.htmlspecialchars($ctrl->hint).'"');
 		$id=$this->_name.'_'.$ctrl->ref;
 		$idLabel=' id="'.$id.'_label"';
-		if($ctrl->type=='output'||$ctrl->type=='checkboxes'||$ctrl->type=='radiobuttons'||$ctrl->type=='date'||$ctrl->type=='datetime'){
+		if($ctrl->type=='output'||$ctrl->type=='checkboxes'||$ctrl->type=='radiobuttons'||$ctrl->type=='date'||$ctrl->type=='datetime'||$ctrl->type=='choice'){
 			echo '<span class="jforms-label',$required,$inError,'"',$idLabel,$hint,'>',htmlspecialchars($ctrl->label),$reqhtml,"</span>\n";
 		}else if($ctrl->type!='submit'&&$ctrl->type!='reset'){
 			echo '<label class="jforms-label',$required,$inError,'" for="',$id,'"',$idLabel,$hint,'>',htmlspecialchars($ctrl->label),$reqhtml,"</label>\n";
@@ -909,7 +909,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 			}else{
 				$name=$ctrl->ref;
 			}
-			echo '<span class="jforms-help" id="'. $this->_name.'-help"><span>'.htmlspecialchars($ctrl->help).'</span></span>';
+			echo '<span class="jforms-help" id="'. $this->_name.'_'.$ctrl->ref.'-help">&nbsp;<span>'.htmlspecialchars($ctrl->help).'</span></span>';
 		}
 	}
 }

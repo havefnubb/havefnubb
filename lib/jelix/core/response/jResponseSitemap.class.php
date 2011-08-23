@@ -4,7 +4,8 @@
 * @package     jelix
 * @subpackage  core_response
 * @author      Baptiste Toinot
-* @copyright   2008 Baptiste Toinot
+* @contributor Laurent Jouanneau
+* @copyright   2008 Baptiste Toinot, 2011 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -77,8 +78,9 @@ class jResponseSitemap extends jResponse{
 		if(isset($loc[2048])||count($this->urlList)>=$this->maxUrl){
 			return false;
 		}
+		global $gJCoord;
 		$url=new jSitemapUrl();
-		$url->loc='http'.(empty($_SERVER['HTTPS'])? '' : 's').'://'. $_SERVER['HTTP_HOST'] . $loc;
+		$url->loc=$gJCoord->request->getServerURI(). $loc;
 		if(($timestamp=strtotime($lastmod))){
 			$url->lastmod=date('c',$timestamp);
 		}
@@ -94,8 +96,9 @@ class jResponseSitemap extends jResponse{
 		if(isset($loc[2048])||count($this->urlSitemap)>=$this->maxSitemap){
 			return false;
 		}
+		global $gJCoord;
 		$sitemap=new jSitemapIndex();
-		$sitemap->loc='http'.(empty($_SERVER['HTTPS'])? '' : 's').'://'. $_SERVER['HTTP_HOST'] . $loc;
+		$sitemap->loc=$gJCoord->request->getServerURI(). $loc;
 		if(($timestamp=strtotime($lastmod))){
 			$sitemap->lastmod=date('c',$timestamp);
 		}

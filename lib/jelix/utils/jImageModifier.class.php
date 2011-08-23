@@ -6,7 +6,7 @@
 * @author      Bastien Jaillot
 * @contributor Dominique Papin, Lepeltier kévin (the author of the original plugin)
 * @contributor geekbay, Brunto, Laurent Jouanneau
-* @copyright   2007-2008 Lepeltier kévin, 2008 Dominique Papin, 2008 Bastien Jaillot, 2009 geekbay, 2010 Brunto, 2010 Laurent Jouanneau
+* @copyright   2007-2008 Lepeltier kévin, 2008 Dominique Papin, 2008 Bastien Jaillot, 2009 geekbay, 2010 Brunto, 2011 Laurent Jouanneau
 * @link       http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -18,11 +18,16 @@ class jImageModifier{
 											'title','dir','lang','onclick','ondblclick','onmousedown',
 											'onmouseup','onmouseover','onmousemove','onmouseout','onkeypress',
 											'onkeydown','onkeyup','width','height');
-	static function get($src,$params=array(),$sendCachePath=true){
+	static function get($src,$params=array(),$sendCachePath=true,$config=null){
+		global $gJConfig;
+		$basePath=$gJConfig->urlengine['basePath'];
+		if(strpos($src,$basePath)===0){
+			$src=substr($src,strlen($basePath));
+		}
 		if(empty($params['ext'])){
 			$path_parts=pathinfo($src);
 			if(isset($path_parts['extension']))
-			$ext=strtolower($path_parts['extension']);
+				$ext=strtolower($path_parts['extension']);
 		}else{
 			$ext=strtolower($params['ext']);
 		}
@@ -37,54 +42,62 @@ class jImageModifier{
 		}
 		$cacheName=md5($chaine).'.'.$ext;
 		global $gJConfig;
-		$www=$GLOBALS['gJCoord']->request->getProtocol().$_SERVER['HTTP_HOST'];
-		$basePath=$gJConfig->urlengine['basePath'];
-		$cachePath=JELIX_APP_WWW_PATH.'cache/images/'.$cacheName;
-		if(strpos($src,$basePath)===0){
-			$srcPath=JELIX_APP_WWW_PATH.substr($src,strlen($basePath));
-			$srcUri=$www.$src;
-		}
-		else{
-			$srcPath=JELIX_APP_WWW_PATH.$src;
-			$srcUri=$www.$basePath.$src;
-		}
-		$cacheUri=$www.$basePath.'cache/images/'.$cacheName;
+		list($srcPath,$srcUri,$cachePath,$cacheUri)=self::computeUrlFilePath($config);
 		$pendingTransforms=($chaine!==$src);
-		if($pendingTransforms&&is_file($srcPath)&&!is_file($cachePath)){
-			self::transformAndCache($src,$cacheName,$params);
+		if($pendingTransforms&&is_file($srcPath.$src)&&!is_file($cachePath.$cacheName)){
+			self::transformAndCache($srcPath.$src,$cachePath,$cacheName,$params);
 		}
-		if(!is_file($cachePath)){
-			$att['src']=$srcUri;
+		if(!is_file($cachePath.$cacheName)){
+			$att['src']=$srcUri.$src;
 			$att['style']=empty($att['style'])?'':$att['style'];
 			if(!empty($params['width']))$att['style'].='width:'.$params['width'].'px;';
 			else if(!empty($params['maxwidth']))$att['style'].='width:'.$params['maxwidth'].'px;';
 			if(!empty($params['height']))$att['style'].='height:'.$params['height'].'px;';
 			else if(!empty($params['maxheight']))$att['style'].='height:'.$params['maxheight'].'px;';
 		}else{
-			$att['src']=$cacheUri;
+			$att['src']=$cacheUri.$cacheName;
 		}
 		if($sendCachePath)
-			$att['cache_path']=$cachePath;
+			$att['cache_path']=$cachePath.$cacheName;
 		return $att;
 	}
-	static protected function transformAndCache($src,$cacheName,$params){
-		$mimes=array('gif'=>'image/gif','png'=>'image/png',
-						'jpeg'=>'image/jpeg','jpg'=>'image/jpeg','jpe'=>'image/jpeg',
-						'xpm'=>'image/x-xpixmap','xbm'=>'image/x-xbitmap','wbmp'=>'image/vnd.wap.wbmp');
+	static public function computeUrlFilePath($config=null){
 		global $gJConfig;
-		$srcUri=$GLOBALS['gJCoord']->request->getProtocol().$_SERVER['HTTP_HOST'];
 		$basePath=$gJConfig->urlengine['basePath'];
-		$cachePath=JELIX_APP_WWW_PATH.'cache/images/'.$cacheName;
-		if(strpos($src,$basePath)===0){
-			$srcFs=JELIX_APP_WWW_PATH. substr($src,strlen($basePath));
-			$srcUri.=$src;
+		if(!$config)
+			$config=& $gJConfig->imagemodifier;
+		if($config['src_url']&&$config['src_path']){
+			$srcUri=$config['src_url'];
+			if($srcUri[0]!='/'&&strpos($srcUri,'http:')!==0)
+				$srcUri=$basePath.$srcUri;
+			$srcPath=str_replace(array('www:','app:'),
+									array(JELIX_APP_WWW_PATH,JELIX_APP_PATH),
+									$config['src_path']);
 		}
 		else{
-			$srcFs=JELIX_APP_WWW_PATH.$src;
-			$srcUri.=$basePath.$src;
+			$srcUri=$GLOBALS['gJCoord']->request->getServerURI().$basePath;
+			$srcPath=JELIX_APP_WWW_PATH;
 		}
-		$path_parts=pathinfo($srcUri);
-		$mimeType=$mimes[strtolower($path_parts['extension'])];
+		if($config['cache_path']&&$config['cache_url']){
+			$cacheUri=$config['cache_url'];
+			if($cacheUri[0]!='/'&&strpos($cacheUri,'http:')!==0)
+				$cacheUri=$basePath.$cacheUri;
+			$cachePath=str_replace(array('www:','app:'),
+									array(JELIX_APP_WWW_PATH,JELIX_APP_PATH),
+									$config['cache_path']);
+		}
+		else{
+			$cachePath=JELIX_APP_WWW_PATH.'cache/images/';
+			$cacheUri=$GLOBALS['gJCoord']->request->getServerURI().$basePath.'cache/images/';
+		}
+		return array($srcPath,$srcUri,$cachePath,$cacheUri);
+	}
+	static protected $mimes=array('gif'=>'image/gif','png'=>'image/png',
+						'jpeg'=>'image/jpeg','jpg'=>'image/jpeg','jpe'=>'image/jpeg',
+						'xpm'=>'image/x-xpixmap','xbm'=>'image/x-xbitmap','wbmp'=>'image/vnd.wap.wbmp');
+	static protected function transformAndCache($srcFs,$cachePath,$cacheName,$params){
+		$path_parts=pathinfo($srcFs);
+		$mimeType=self::$mimes[strtolower($path_parts['extension'])];
 		$quality=(!empty($params['quality']))?  $params['quality'] : 100;
 		switch($mimeType){
 			case 'image/gif'			: $image=imagecreatefromgif($srcFs);break;
@@ -173,7 +186,6 @@ class jImageModifier{
 			imagecopy($fond,$image,0,0,0,0,imagesx($image),imagesy($image));
 			$image=$fond;
 		}
-		$cachePath=JELIX_APP_WWW_PATH.'cache/images/';
 		jFile::createDir($cachePath);
 		switch($mimeType){
 			case 'image/gif'  : imagegif($image,$cachePath.$cacheName);break;
