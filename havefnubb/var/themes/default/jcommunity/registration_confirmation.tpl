@@ -1,6 +1,6 @@
 <div class="box">
     <h3>{@havefnubb~member.registration.confirmation.activation.of.your.account@}</h3>
-    <div class="block">
+    <div class="box-content">
     {form $form,'jcommunity~registration:confirm', array()}
     <fieldset>
         <legend>{@havefnubb~member.registration.confirmation.activation@}</legend>

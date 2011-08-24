@@ -1,9 +1,9 @@
 <div class="box">
     <h2>{@havefnubb~member.edit.account.header@}</h2>
-    <div class="block">
+    <div class="box-content">
         <fieldset>
         <legend>{@havefnubb~member.private.messaging@}</legend>
-            <div class="block grid_16">    
+            <div class="grid_16">    
                 <div class="grid_5">    
                 {zone 'jmessenger~links'}
                 </div>

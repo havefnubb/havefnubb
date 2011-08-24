@@ -13,7 +13,7 @@
 {else}
 <div class="box">
     <h3><strong>{@havefnubb~forum.forumchild.subforum@}</strong></h3>
-    <div class="block">
+    <div class="box-content">
     <table class="forum_subforum">
 {foreach $forumChilds as $forum}
 {if $forum->forum_type == 0}

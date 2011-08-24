@@ -4,7 +4,7 @@
     {else}
     <h3>{@havefnubb~main.censor.this.message@} : "{$title|eschtml}"</h3>
     {/if}
-    <div class="block">
+    <div class="box-content">
     {form $form, 'havefnubb~posts:savecensor',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
         {@havefnubb~main.censor.description@}
         <fieldset>

@@ -1,5 +1,5 @@
 <h2>{@title@}</h2>
-<div class="block">
+<div class="box-content">
 {foreach $profiles as $profile}
 <h3>{@title.profile@}: {$profile}</h3>
 {if count($errors[$profile])}

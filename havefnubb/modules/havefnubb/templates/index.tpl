@@ -31,7 +31,7 @@
         {assign $current_id_cat = $id_cat}
 <div class="box">
     <h3><a href="{jurl 'havefnubb~category:view',array('id_cat'=>$id_cat,'ctitle'=>$category[0])}" title="{$category[0]|eschtml}">{$category[0]|eschtml}</a></h3>
-    <div class="block">
+    <div class="box-content">
         <table class="forum_home">
     {/if}
 
@@ -152,7 +152,7 @@
 
 {elseif $action == 'view'}
 <div class="box">
-    <div class="block">
+    <div class="box-content">
         <table class="forum_category">
 {hook 'hfbBeforeForumIndex'}
 {foreach $categories as $category}

@@ -1,6 +1,6 @@
 {zone 'jmessenger~links'}
 <div class="box">
-    <div class="block">
+    <div class="box-content">
     <fieldset>
         <legend><span class="{if isset($send)}user-email-outbox{else}user-email-inbox{/if} user-image">{$title}</span></legend>
         <table>

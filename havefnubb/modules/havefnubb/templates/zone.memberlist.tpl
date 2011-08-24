@@ -9,7 +9,7 @@
 
 <div class="box">
     <h3>{@havefnubb~member.memberlist.members.list@}</h3>
-    <div class="block">
+    <div class="box-content">
         <form action="{formurl 'havefnubb~members:index'}" method="post">
             <div class="hidden">{formurlparam 'havefnubb~members:index'}</div>
             <fieldset>
@@ -47,7 +47,7 @@
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
 <div class="box">
-    <div class="block">
+    <div class="box-content">
     <table class="forum_member_list">
         <caption>{@havefnubb~member.memberlist.members.list@}</caption>
         <thead>

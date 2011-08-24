@@ -6,7 +6,7 @@
 </div>
 
 <div class="box">
-    <div class="block">
+    <div class="box-content">
     <table class="forum_postsbytag">
         <caption>{jlocale 'havefnubb~main.cloud.posts.by.tag',array($tag)}</caption>
         <thead>

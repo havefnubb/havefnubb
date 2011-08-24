@@ -7,7 +7,7 @@
 </ol>
 </div>
 <div class="box">
-    <div class="block">
+    <div class="box-content">
     {form $form, $submitAction, array('id_post'=>$id_post)}
     <fieldset>
         {jlocale 'havefnubb~post.form.notify.description',$subject}

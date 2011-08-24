@@ -32,7 +32,7 @@
 </div>
 
 <div class="box">
-    <div class="block">
+    <div class="box-content">
     <table class="forum_posts_list">
     <caption>{$forum->forum_name|eschtml}</caption>
         <thead>

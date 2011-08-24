@@ -8,7 +8,7 @@
 </ol>
 </div>
 <div class="box">
-    <div class="block">
+    <div class="box-content">
     {if $previewsubject !== null}
     <fieldset>
         <legend>{@havefnubb~post.form.title.preview.page@}</legend>

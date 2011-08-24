@@ -69,7 +69,7 @@
                     <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
                 {/if}
                 {/ifuserconnected}</h2>
-    <div class="block">
+    <div class="box-content">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
         {if $post->thread_id == $post->id_post}
@@ -211,7 +211,7 @@
 <div class="box">
     <h2>{@havefnubb~post.status.change.the.status.of.the.post@}</h2>
 {form $formStatus, 'havefnubb~posts:status',array('thread_id'=>$thread_id)}
-    <div class="block">
+    <div class="box-content">
     {ctrl_label 'status'} {ctrl_control 'status'} {formsubmit 'validate'}
     </div>
 {/form}
@@ -219,7 +219,7 @@
 <div class="box">
     <h2>{@havefnubb~forum.move.this.thread@}</h2>
 {form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
-    <div class="block">
+    <div class="box-content">
     {ctrl_label 'id_forum'} {ctrl_control 'id_forum'} {formsubmit 'validate'}
     </div>
 {/form}

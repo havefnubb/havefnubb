@@ -1,7 +1,7 @@
 <div class="box">
     <h3>{@havefnubb~member.password.confirmation.activation.of.your.password@}</h3>
 
-    <div class="block loginbox">
+    <div class="box-content loginbox">
     <p>{@havefnubb~member.password.confirmation.activation.description@}</p>
 
     {form $form,'jcommunity~password:confirm', array()}

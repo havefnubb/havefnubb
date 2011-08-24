@@ -1,6 +1,6 @@
 <div class="box">
     <h3>{@havefnubb~member.registration.account.creation@}</h3>
-    <div class="block">
+    <div class="box-content">
         <div id="post-message">{jmessage}</div>
         {form $form,'jcommunity~registration:save', array()}
         <fieldset>

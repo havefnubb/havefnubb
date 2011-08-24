@@ -14,7 +14,7 @@ $(document).ready(function(){
 {hook 'hfbAccountEditBefore',array('user'=>$username)}
 <div class="box">
     <h2>{@havefnubb~member.edit.account.header@}</h2>
-    <div class="block">
+    <div class="box-content">
         {form $form, 'jcommunity~account:save', array('user'=>$username)}
         <div id="container">
             <ul class="nav main">
@@ -132,6 +132,6 @@ $(document).ready(function(){
             <div class="clearer">&nbsp;</div>
         </div>
     {/form}
-    </div> <!-- #block -->
+    </div> <!-- #box-content -->
 </div> <!-- #box -->
 {hook 'hfbAccountEditAfter',array('user'=>$username)}

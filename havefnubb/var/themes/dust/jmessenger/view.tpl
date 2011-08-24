@@ -1,6 +1,6 @@
 {zone 'jmessenger~links'}
 <div class="box">
-    <div class="block">
+    <div class="box-content">
     {formdatafull $form}
     <ul class="crud-links-list">
         <li><a href="{jurl $editAction, array('id'=>$id)}" class="crud-link">{@jelix~crud.link.edit.record@}</a></li>

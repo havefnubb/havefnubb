@@ -14,7 +14,7 @@ $(document).ready(function(){
 </script>
 <div class="box">
     <h5><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a></h5>
-    <div class="block">
+    <div class="box-content">
         <ul class="nav">
             <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-general">{@havefnubb~member.general@}</a></li>
             <li><a href="{jurl 'jcommunity~account:edit',array('user'=>$login)}#user-profile-pref">{@havefnubb~member.pref@}</a></li>
@@ -26,7 +26,7 @@ $(document).ready(function(){
 
 <div class="box menu" id="jmessenger-menu">
     <h2>{@havefnubb~member.private.messaging@}</h2>
-    <div class="block">
+    <div class="box-content">
         <ul>
             <li>{zone 'jmessenger~nbNewMessage'}</li>
             <li><a href="{jurl 'jmessenger~jmessenger:inbox'}"><span class="user-email-inbox user-image">{@jmessenger~message.msg.inbox@}</span></a></li>

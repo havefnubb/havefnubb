@@ -6,7 +6,7 @@
 </div>
 <div class="box">
     <h3>{@havefnubb~post.list.of.new.posts@}</h3>
-    <div class="block">
+    <div class="box-content">
         <a href="{jurl 'havefnubb~forum:mark_all_as_read'}">{@havefnubb~forum.mark.all.forum.as.read@}</a>
         <div class="pager-posts">
         {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:shownew', array(), $nbPosts, $page, $nbPostPerPage, "page", $properties}

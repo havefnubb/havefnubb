@@ -1,5 +1,5 @@
 <h2>{@title@}</h2>
-<div class="block">
+<div class="box-content">
 <ul class="checkresults">
   {foreach $messages as $msg}
   <li class="{$msg[0]}">{$msg[1]}</li>

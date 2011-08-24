@@ -11,7 +11,7 @@
     text-transform:uppercase;
     color:#fff;
     background:#333;
-    margin:-10px -10px 0 -10px;
+    margin:0;
     padding:6px 12px;
 }
 .box h3 a,
@@ -42,8 +42,8 @@
     background-color:#eee;
 }
 
-.block {
-    padding-top:10px;
+.box-content {
+    margin-top:10px;
 }
 div.menu {
     padding:0;
@@ -51,7 +51,7 @@ div.menu {
 div.menu h2 {
     margin:0;
 }
-div.menu .block {
+div.menu .box-content {
     padding-top:0;
 }
 

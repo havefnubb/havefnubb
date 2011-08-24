@@ -1,6 +1,6 @@
 <div class="box">
     <h3>{@havefnubb~main.last.messages@}</h3>
-    <div class="block">
+    <div class="box-content">
     <table class="forum_lastpost">
 {foreach $lastPost as $post}
         <tr>

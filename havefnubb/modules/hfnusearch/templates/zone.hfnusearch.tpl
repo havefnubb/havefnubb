@@ -15,7 +15,7 @@
 {hook 'hfbBeforeSearch'}
 <div class="box">
     <h3>{@hfnusearch~search.search.perform@}</h3>
-    <div class="block">
+    <div class="box-content">
         <div id="post-message">{jmessage}</div>
         <form action="{formurl 'hfnusearch~default:query'}" method="post">
         <fieldset>
