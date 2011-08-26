@@ -33,4 +33,15 @@ class havefnubbListener extends jEventListener{
         $box->content = jZone::get('havefnubb~stats');
         $event->add($box);
     }
+    /**
+     * get the user connected today
+     */
+    function onfindLastVisitToday($event) {
+        $m = array();
+        $timeout = $event->getParam('today');
+        $datas = jDao::get('jcommunity~user')->findLastVisit($timeout);
+        foreach ($datas as $data)
+            $event->Add($data);
+
+    }
 }

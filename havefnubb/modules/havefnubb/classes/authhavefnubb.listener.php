@@ -29,8 +29,16 @@ class authhavefnubbListener extends jEventListener{
     * @param object $event the given event to answer to
     */
     function onAuthLogout($event) {
+        //drop the session
         $_SESSION['JX_LANG'] = '';
         unset($_SESSION['JX_LANG']);
+
+        // update last_visit to be able to display
+        // the user online today
+        $dao = jDao::get('jcommunity~user');
+        $rec = $dao->get(jAuth::getUserSession()->login);
+        $rec->last_visit = time();
+        $dao->update($rec);
     }
 
     function onAuthRemoveUser($event) {

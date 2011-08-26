@@ -22,6 +22,13 @@ class online_todayZone extends jZone {
     protected function _prepareTpl(){
         $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
         $members = jClasses::create('activeusers~connectedusers')->getConnectedList($today);
+
+        //get the list of members that were connected today
+        $ev = jEvent::notify('findLastVisitToday',array('today'=>$today));
+        foreach ($ev->getResponse() as $membersCameToday) {
+            $membersToday = $membersCameToday;
+        }
+        array_push($members,$membersToday);
         $this->_tpl->assign('nbAnonymous',array_shift($members));
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('nbMembers',count($members));
