@@ -37,7 +37,6 @@ class havefnubbListener extends jEventListener{
      * get the user connected today
      */
     function onfindLastVisitToday($event) {
-        $m = array();
         $timeout = $event->getParam('today');
         $datas = jDao::get('jcommunity~user')->findLastVisit($timeout);
         foreach ($datas as $data)

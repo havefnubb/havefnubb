@@ -6,8 +6,6 @@
     <ul class="user-online-today">
 {foreach $members as $member}
     {* display link for members *}
-login{$member->login}
-name{$member->name}
     {if $member->login == $member->name }
     <li><a href="{jurl 'jcommunity~account:show',array('user'=>$member->login)}"
         title="{$member->name|eschtml}">{$member->name|eschtml}</a>,</li>
