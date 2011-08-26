@@ -19,5 +19,6 @@
     </listener>
     <listener name="havefnubb">
         <event name="HfnuBoxWidget" />
+        <event name="findLastVisitToday" />
     </listener>
 </events>

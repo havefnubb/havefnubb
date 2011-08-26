@@ -1,6 +1,7 @@
+
 <div class="box">
-    <h3>{@activeusers~activeusers.member.online.today@}</h3>
-    <div class="box-content">
+    <h2>{@activeusers~activeusers.member.online.today@}</h2>
+    <div class="block">
     {hook 'ActiveUsersOnlineToday'}
     <ul class="user-online-today">
 {foreach $members as $member}
