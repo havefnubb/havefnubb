@@ -125,7 +125,11 @@ class postsCtrl extends jController {
         //build the rss link in the header of the html page
         $url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$forum->forum_name,
                                                     'id_forum'=>$forum->id_forum));
-        $rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.'" href="'.htmlentities($url).'" />');
+        $rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$forum->forum_name.' - RSS" href="'.htmlentities($url).'" />');
+        $url = jUrl::get('havefnubb~posts:atom', array('ftitle'=>$forum->forum_name,
+                                                    'id_forum'=>$forum->id_forum));
+        $rep->addHeadContent('<link rel="alternate" type="application/atom+xml" title="'.$forum->forum_name.' - ATOM" href="'.htmlentities($url).'" />');
+
         // end rss link
 
         if ($page == 0)
@@ -1348,6 +1352,100 @@ class postsCtrl extends jController {
           $item->idIsPermalink = true;
 
           // on ajoute l'item dans le fil RSS
+          $rep->addItem($item);
+
+        }
+        return $rep;
+    }
+    /**
+     * provide a rss feeds for each forum
+     */
+    function atom() {
+        global $gJConfig;
+        $ftitle = jUrl::escape($this->param('ftitle'),true);
+        $id_forum = (int) $this->param('id_forum');
+
+        // if the forum is accessible by anonymous then the Atom will be available
+        // otherwise NO Atom will be available
+        if ( ! jAcl2::check('hfnu.posts.rss','forum'.$id_forum) ) {
+            jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~403.html'));
+            $rep->setHttpStatus('403', 'Permission denied');
+            return $rep;
+        }
+
+        if ($id_forum == 0 ) {
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_forum','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
+            return $rep;
+        }
+
+        $rep = $this->getResponse('atom1.0');
+
+        // entete du flux atom
+        $rep->infos->title = $gJConfig->havefnubb['title'];
+        $rep->infos->webSiteUrl= (empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER['HTTP_HOST'];
+        $rep->infos->copyright = $gJConfig->havefnubb['title'];
+        $rep->infos->description = $gJConfig->havefnubb['description'];
+        $rep->infos->updated = date('Y-m-d H:i:s');
+        $rep->infos->published = date('Y-m-d H:i:s');
+        $rep->infos->ttl=60;
+
+        $dao = jDao::get('havefnubb~forum');
+        $forum = $dao->get($id_forum);
+
+        if (jUrl::escape($forum->forum_name,true) != $ftitle )
+        {
+            jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be different] $forum->forum_name and $ftitle','DEBUG');
+            $rep = $this->getResponse('html');
+            $tpl = new jTpl();
+            $rep->body->assign('MAIN', $tpl->fetch('havefnubb~404.html'));
+            $rep->setHttpStatus('404', 'Not found');
+            return $rep;
+        }
+
+        // 1- limit of posts
+        $nbPostPerPage = 0;
+        $nbPostPerPage = (int)  $gJConfig->havefnubb['posts_per_page'];
+
+        // 2- get the posts of the current forum, limited by point 1
+        // get all the posts of the current Forum by its Id
+        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreads($id_forum,0,$nbPostPerPage);
+        $first = true;
+        foreach($posts as $post){
+
+          if($first){
+            // le premier enregistrement permet de connaitre
+            // la date du channel
+            $rep->infos->updated = date('Y-m-d H:i:s',$post->date_created);
+            $rep->infos->published = date('Y-m-d H:i:s',$post->date_created);
+            $first=false;
+          }
+
+          $url =jUrl::getFull('havefnubb~posts:view',
+                        array('id_post'=>$post->id_post,
+                            'thread_id'=>$post->thread_id,
+                            'ftitle'=>$post->forum_name,
+                            'id_forum'=>$post->id_forum,
+                            'ptitle'=>$post->subject,
+                            ));
+
+          $item = $rep->createItem($post->subject, $url, date('Y-m-d H:i:s',$post->date_created));
+
+          $item->authorName = $post->login;
+
+          $render = new jWiki();
+          $item->content = $render->render($post->message);
+          $item->contentType='html';
+
+          $item->idIsPermalink = true;
+
+          // on ajoute l'item dans le fil atom
           $rep->addItem($item);
 
         }
