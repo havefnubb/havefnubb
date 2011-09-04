@@ -16,6 +16,14 @@ class lastpostsZone extends jZone {
      */
     protected $_tplname='zone.lastposts';
     /**
+     *@var boolean $_useCache set the zone in a cache
+     */
+    protected $_useCache = true;
+    /**
+     *@var integrer $_cacheTimeout set timeout to each hour
+     */
+    protected $_cacheTimeout = 3600;
+    /**
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
@@ -26,7 +34,7 @@ class lastpostsZone extends jZone {
             $lastPost  = $dao->findLastPosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
         else
             $lastPost  = $dao->findLastVisiblePosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
-        
+
         $this->_tpl->assign('lastPost',$lastPost);
     }
 }
