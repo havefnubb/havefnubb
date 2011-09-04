@@ -1384,6 +1384,7 @@ class postsCtrl extends jController {
         $rep->infos->description = $gJConfig->havefnubb['description'];
         $rep->infos->updated = date('Y-m-d H:i:s');
         $rep->infos->published = date('Y-m-d H:i:s');
+        $rep->infos->selfLink=jUrl::get();
         $rep->infos->ttl=60;
 
         $dao = jDao::get('havefnubb~forum');
