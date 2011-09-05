@@ -350,12 +350,12 @@ class hfnuposts {
 
             $this->addPost($id_post,$record);
 
-            jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post));
+            jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post,'id_forum'=>$id_forum));
 
         }
         // edit a post
         else {
-            jEvent::notify('HfnuPostBeforeUpdate',array('id'=>$id_post));
+            jEvent::notify('HfnuPostBeforeUpdate',array('id'=>$id_post,'id_forum'=>$id_forum));
 
             //remove the id_post of the array
             $this->deletePost($id_post);
@@ -365,7 +365,7 @@ class hfnuposts {
             $record->message        = $message;
             $record->date_modified  = time();
             $thread_id = $record->thread_id;
-            jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post));
+            jEvent::notify('HfnuPostAfterUpdate',array('id'=>$id_post,'id_forum'=>$id_forum));
 
             // add the new record to the array
             $this->addPost($id_post,$record);
@@ -376,7 +376,7 @@ class hfnuposts {
 
         $dao->update($record);
 
-        jEvent::notify('HfnuPostAfterSave',array('id'=>$id_post));
+        jEvent::notify('HfnuPostAfterSave',array('id'=>$id_post,'id_forum'=>$id_forum));
 
         jEvent::notify('HfnuSearchEngineAddContent',array('id'=>$id_post,'datasource'=>'havefnubb~posts'));
 

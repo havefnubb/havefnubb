@@ -155,6 +155,8 @@ class postsCtrl extends jController {
         $tpl->assign('lvl',$forum->child_level);
         $tpl->assign('properties',$properties);
         $tpl->assign('currentIdForum',$forum->id_forum);
+        $tpl->assign('subcribedToThisForum',jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum));
+        $tpl->assign('ftitle',$ftitle);
         $tpl->assign('statusAvailable',self::$statusAvailable);
         $tpl->assign('lastMarkThreadAsRead',
                      jClasses::getService('havefnubb~hfnuread')->getLastDateRead($forum->id_forum));
