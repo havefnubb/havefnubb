@@ -9,7 +9,6 @@
 {ifuserconnected}
 {include 'havefnubb~zone.mark_forum'}
 {/ifuserconnected}
-<div class="clear"></div>
 <div id="post-message">{jmessage}</div>
 {hook 'hfbBeforeCategoryList'}
 
@@ -25,13 +24,9 @@
     {if $current_id_cat != $id_cat}
         {if $current_id_cat != 0 }
         </table>
-    </div>
-</div>
         {/if}
         {assign $current_id_cat = $id_cat}
-<div class="box">
     <h3><a href="{jurl 'havefnubb~category:view',array('id_cat'=>$id_cat,'ctitle'=>$category[0])}" title="{$category[0]|eschtml}">{$category[0]|eschtml}</a></h3>
-    <div class="box-content">
         <table class="zebra-striped">
     {/if}
 
@@ -146,14 +141,10 @@
 {/foreach}
         {if $current_id_cat != 0 }
         </table>
-    </div>
-</div>
         {/if}
 
 {elseif $action == 'view'}
-<div class="box">
-    <div class="box-content">
-        <table class="forum_category">
+        <table class="zebra-striped">
 {hook 'hfbBeforeForumIndex'}
 {foreach $categories as $category}
 {ifacl2 'hfnu.forum.view','forum'.$category->id_forum}
@@ -186,22 +177,17 @@
 {/ifacl2}
 {/foreach}
         </table>
-    </div>
-</div>
 {hook 'hfbAfterForumIndex'}
 {/if}
 {hook 'hfbAfterCategoryList'}
-<div class="grid_5 alpha">
-    {zone 'havefnubb~lastposts'}
-    {zone 'havefnubb~stats'}
+
+<div class="row show-grid">
+    <div class="span16">
+        {zone 'havefnubb~lastposts'}
+        {zone 'activeusers~onlineusers'}
+        {zone 'havefnubb~stats'}
+        {zone 'activeusers~online_today'}
+        {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud', 'maxcount'=>30)}
+    </div>
 </div>
 
-<div class="grid_5">
-    {zone 'activeusers~onlineusers'}
-    {zone 'activeusers~online_today'}
-</div>
-
-<div class="grid_6 omega">
-    {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud', 'maxcount'=>30)}
-</div>
-<div class="clear"></div>

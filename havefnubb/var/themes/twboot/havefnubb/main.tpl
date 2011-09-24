@@ -4,6 +4,7 @@
 {*meta_html css $j_basepath.'themes/nav.css'*}
 {*meta_html csstheme 'css/theme.css'*}
 {*meta_html csstheme 'css/pages_theme.css'*}
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
 {meta_html js $j_basepath.'hfnu/js/bootstrap-tabs.js'}
 {meta_html js $j_basepath.'hfnu/js/bootstrap-dropdown.js'}
 {meta_html csstheme 'css/bootstrap.css'}
