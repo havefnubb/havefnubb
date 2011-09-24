@@ -1,0 +1,313 @@
+/* defines layout specific to each page */
+
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+th, td {
+    padding:.2em 1em;
+    text-align:left;
+}
+
+fieldset {
+    padding:10px;
+    position:relative;
+    border:1px solid #bbb;
+    margin-bottom:10px;
+}
+legend {
+    font-size:1.1em;
+    padding:.4em .8em;
+    border:1px solid #bbb;
+}
+
+p {
+    margin:1em 0;
+}
+blockquote {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size:1.2em;
+    padding-left:1em;
+    border-left:4px solid #ccc;
+}
+blockquote cite {
+    font-size:.9em;
+}
+ul, ol {
+    padding-top:0;
+}
+
+
+
+/* buttons */
+
+.buttons-bar{
+    text-align: left;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.postfoot.buttons-bar{
+    text-align: right;
+}
+
+.buttons-bar a,
+.jforms-submit,
+.submit,
+.jforms-reset {
+    border:1px solid #666;
+    text-decoration: none;
+    background-color:#666;
+    color:#fff;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.buttons-bar a:hover,
+.jforms-submit:hover,
+.submit:hover,
+.jforms-reset:hover {
+    background-color:#000;
+    border:1px solid #000;
+}
+
+.buttons-bar a:active:hover,
+.jforms-submit:active:hover,
+.submit:active:hover,
+.jforms-reset:active:hover {
+    background-color:#000;
+    border:1px solid #000;
+}
+
+.buttons-bar a:active,
+.jforms-submit:active,
+.submit:active,
+.jforms-reset:active {
+    position:relative;
+    top: 1px;
+    left: 1px;
+}
+
+/* page links list */
+.pager-posts { text-align: right; }
+.pager-posts ul,
+.pagelinks li { list-style: none; display:inline; }
+
+/* breadcrumb */
+
+.breadcrumb ol,
+ol.history { list-style: none; }
+.breadcrumb ol li,
+ol.history li {display:inline;}
+ol.history li a:hover{ }
+
+/* user profile */
+
+.user-image {
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 20px;
+    padding-top: 4px;
+    min-height: 16px;
+}
+.user-name           { background-image: url("../images/users/user.png"); }
+.user-status-online  { background-image: url("../images/users/online.png"); }
+.user-status-offline { background-image: url("../images/users/offline.png"); }
+.user-status         { display:none; }
+.user-town      { background-image: url("../images/users/house.png"); }
+.user-birthday  { background-image: url("../images/users/cake.png"); }
+.user-location  { background-image: url("../images/users/world.png"); }
+.user-website   { background-image: url("../images/users/world_link.png"); }
+.user-email     { background-image: url("../images/users/email.png"); }
+.user-email-add { background-image: url("../images/users/email_add.png"); }
+.user-email-inbox { background-image: url("../images/users/email_inbox.png"); }
+.user-email-outbox { background-image: url("../images/users/email_outbox.png"); }
+.user-stats     { background-image: url("../images/users/chart_bar.png"); }
+.user-mouse     { background-image: url("../images/users/mouse.png"); }
+.user-keyboard  { background-image: url("../images/users/keyboard.png"); }
+.user-connect   { background-image: url("../images/users/connect.png"); }
+.user-display   { background-image: url("../images/users/display.png"); }
+.user-processor { background-image: url("../images/users/computer.png"); }
+.user-screen    { background-image: url("../images/users/screen.png"); }
+.user-motherboard { background-image: url("../images/users/motherboard.png"); }
+.user-card      { background-image: url("../images/users/computer.png"); }
+.user-ram       { background-image: url("../images/users/computer.png"); }
+.user-os        { background-image: url("../images/users/computer.png"); }
+.user-xfire     { background-image: url("../images/users/xfire.png"); }
+.user-icq       { background-image: url("../images/users/icq.gif"); }
+.user-yim       { background-image: url("../images/users/yim.gif"); }
+.user-aim       { background-image: url("../images/users/aim.gif"); }
+.user-msn       { background-image: url("../images/users/msn.gif"); }
+.user-gtalk     { background-image: url("../images/users/email_go.png"); }
+.user-jabber    { background-image: url("../images/users/email_go.png"); }
+.user-private-message { background-image: url("../images/users/email.png"); }
+.user-general   { background-image: url("../images/users/user_suit.png"); }
+.user-pref      { background-image: url("../images/users/user_pref.png"); }
+.user-messenger { background-image: url("../images/users/email_go.png"); }
+.user-hw        { background-image: url("../images/users/computer.png"); }
+.user-language  { background-image: url("../images/users/emoticon_tongue.png"); }
+.user-signature { background-image: url("../images/users/vcard.png"); }
+.user-show-email { background-image: url("../images/users/eye.png"); }
+.messenger-email-delete { background-image: url("../images/mail/email_delete.png");}
+.messenger-email-answer { background-image: url("../images/mail/email_answer.png");}
+
+.user-since, th.user-since {
+    background-image: url("../images/users/member_since.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.user-rank, th.user-rank {
+    background-image: url("../images/users/member_rank.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    height: 18px;
+    padding-top: 4px;
+    padding-left: 20px;
+}
+
+.user-posts, th.user-posts {
+    background-image: url("../images/users/member_posts.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 18px;
+    height: 20px;
+}
+
+.user-currently-online li , .user-online-today li  {
+    display:inline;
+    padding:1px;
+    list-style-type:none;
+    list-style-position:outside;
+}
+
+
+/* post message */
+#post-message {}
+
+#post-message .jelix-msg {
+    background-color:#eff4f6;
+    border: 1px solid #B0C4CB;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    -o-border-radius:4px;
+    border-radius:4px;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+#post-message .jelix-msg li {
+    padding:3px 19px;
+    margin:0;
+}
+
+#post-message .jelix-msg li.jelix-msg-item-warning {
+    background-color: #f8e794;
+    background-image: url("../images/exclamation.png");
+    background-repeat: no-repeat;
+}
+#post-message .jelix-msg li.jelix-msg-item-error {
+    background-color: #F6CAB1;
+    background-image: url("../images/error.png");
+    background-repeat: no-repeat;
+}
+
+#post-message .jelix-msg li.jelix-msg-item-ok,
+#post-message .jelix-msg li.jelix-msg-item-notice {
+    background-color: #E5F6D4;
+    background-image: url("../images/information.png");
+    background-repeat: no-repeat;
+}
+
+/* posts status */
+.colicone-closed,
+.colicone-opened,
+.colicone-pined,
+.colicone-pinedclosed,
+.colicone-post-new,
+.colicone-censored
+.colicone-opened_important,
+.colicone-closed_important,
+.colicone-pined_important,
+.colicone-pinedclosed_important,
+.colicone-hidden{
+    text-align: center;
+    padding: 5px;
+    width: 4%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.post-status-icon-opened,
+.post-status-icon-closed,
+.post-status-icon-pined,
+.post-status-icon-pinedclosed,
+.post-status-icon-censored,
+.post-status-icon-hidden {
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-top: 0px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.colicone-opened,
+.post-status-icon-opened {
+    background-image: url("../images/posts/opened.png");
+}
+
+.colicone-post-new {
+    background-image: url("../images/posts/post_new.png");
+}
+
+.colicone-closed,
+.post-status-icon-closed {
+    background-image: url("../images/posts/closed.png");
+}
+
+.colicone-pined,
+.post-status-icon-pined {
+    background-image: url("../images/posts/pined.png");
+}
+
+.colicone-pinedclosed,
+.post-status-icon-pinedclosed {
+    background-image: url("../images/posts/pined-closed.png");
+}
+
+.colicone-censored,
+.post-status-icon-censored {
+    background-image: url("../images/posts/censored.png");
+    background-position: center;
+}
+
+.colicone-opened_important,
+.colicone-closed_important,
+.colicone-pined_important,
+.colicone-pinedclosed_important {
+    background-image: url("../images/posts/important.png");
+    background-position: center;
+}
+
+.colicone-hidden,
+.post-status-icon-hidden {
+    background-image: url("../images/posts/hidden.png");
+}
+
+
+
+
+/* tags cloud */
+
+#tagscloud a.tag1 { font-size: 0.9em; font-weight: 100; }
+#tagscloud a.tag2 { font-size: 1.05em; font-weight: 200; }
+#tagscloud a.tag3 { font-size: 1.2em; font-weight: 300; }
+#tagscloud a.tag4 { font-size: 1.35em; font-weight: 400; }
+#tagscloud a.tag5 { font-size: 1.5em; font-weight: 500; }
+#tagscloud a.tag6 { font-size: 1.65em; font-weight: 600; }
+#tagscloud a.tag7 { font-size: 1.8em; font-weight: 700; }
+#tagscloud a.tag8 { font-size: 1.95em; font-weight: 800; }
+#tagscloud a.tag9 { font-size: 2.1em; font-weight: 900; }
+#tagscloud a.tag10 { font-size: 2.25em; font-weight: 900; }
