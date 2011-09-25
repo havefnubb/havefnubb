@@ -7,12 +7,21 @@
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 {meta_html js $j_basepath.'hfnu/js/bootstrap-tabs.js'}
 {meta_html js $j_basepath.'hfnu/js/bootstrap-dropdown.js'}
+{meta_html js $j_basepath.'hfnu/js/bootstrap-alerts.js'}
 {meta_html csstheme 'css/bootstrap.css'}
+{literal}
+<script type="text/javascript">
+//<[!CDATA 
+    $(".alert-message").alert('close');
+//]>    
+</script>
+{/literal}
 <div class="topbar">
     <div class="topbar-inner">
         <div class="container">
-            <a class="brand" href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.homepage@}">{$TITLE}</a></a>
+            <a class="brand" href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.homepage@}">{$TITLE}</a>
             {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
+            {zone 'hfnusearch~hfnuquicksearch'}
             {zone 'jcommunity~status'}                    
             </ul>
         </div>

@@ -1,4 +1,4 @@
-<div class="span5 offset5">
+<div class="span5">
     <h3>{@activeusers~activeusers.member.online.today@}</h3>        
     {hook 'ActiveUsersOnlineToday'}
     <ul class="user-online-today">

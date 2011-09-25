@@ -1,11 +1,8 @@
-<div class="breadcrumb">
-<ol>
+<ul class="breadcrumb">
     <li>{@havefnubb~main.common.you.are.here@}</li>
     <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>    {if $action == 'view'} &gt; {$cat_name|eschtml}{/if}</li>
-</ol>
-</div>
+</ul>
 
-{zone 'hfnusearch~hfnuquicksearch'}
 {ifuserconnected}
 {include 'havefnubb~zone.mark_forum'}
 {/ifuserconnected}
