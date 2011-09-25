@@ -1,4 +1,4 @@
-﻿<div class="well">
+﻿<div class="alert-message block-message warning" data-alert="alert">
 <p>Vous pouvez utilisez la syntaxe wiki pour mettre en forme vos messages :</p>
 <ul>
     <li class="wiki-image source"><strong>bloc code source</strong> : le bloc de code source doit être entouré de &lt;code&gt; et &lt;/code&gt; (les balises wiki ne sont pas interprétées)</li>

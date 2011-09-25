@@ -29,8 +29,10 @@
     {hook 'hfbMainInHeader'}
 </div>
 <div style="padding-top: 40px;" class="container">
-    <p>{$DESC}</p>    
+    <p>{$DESC}</p>
+    <section id="grid-system">
     {$MAIN}
+    </section>
     <div class="breadcrumb">
         {breadcrumb 8, ' > '}
     </div>

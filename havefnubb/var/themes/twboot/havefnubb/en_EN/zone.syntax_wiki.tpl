@@ -1,4 +1,4 @@
-<div class="well">
+<div class="row well">
 <p>You can use wiki syntax in your message:</p>
 <ul>
     <li class="wiki-image source"><strong>source code bloc</strong>: the bloc should be surrounded by &lt;code&gt; and &lt;/code&gt;</li>

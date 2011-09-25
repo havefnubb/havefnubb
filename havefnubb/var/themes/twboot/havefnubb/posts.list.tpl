@@ -11,23 +11,22 @@
 {zone 'havefnubb~forumchild', array('id_forum'=>$id_forum,'lvl'=>$lvl+1,'calledFrom'=>'posts.list')}
 {/ifacl2}
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-<div id="post-message">{jmessage}</div>
+<div class="alter-message"><p>{jmessage}</p></div>
 {/ifacl2}
-<div class="row">&nbsp;
-    {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+
+{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
     <a class="btn success" href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
     {else}
-    {ifacl2 'hfnu.posts.create'}
+        {ifacl2 'hfnu.posts.create'}
     <a class="btn success" href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-    {/ifacl2}
-    {/ifacl2}
-</div>
+        {/ifacl2}
+{/ifacl2}
+
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
 <div class="pagination">
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
-<div class="row">
-    <table class="zebra-striped">
+<table class="zebra-striped">
     <caption>{$forum->forum_name|eschtml}</caption>
         <thead>
             <tr>
@@ -80,17 +79,16 @@
             <tr><td colspan="6"></td></tr>
         {/if}
         </tbody>
-    </table>
-</div>
-<div class="row">&nbsp;
-    {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-    <a class="btn success" href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+</table>
+
+{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+<a class="btn success" href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
     {else}
-    {ifacl2 'hfnu.posts.create'}
-    <a class="btn success" href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-    {/ifacl2}
-    {/ifacl2}
-</div>
+        {ifacl2 'hfnu.posts.create'}
+<a class="btn success" href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+        {/ifacl2}
+{/ifacl2}
+
 
 <div class="pagination">
 {@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}

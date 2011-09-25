@@ -1085,6 +1085,7 @@ textarea[readonly] {
 table {
   width: 100%;
   margin-bottom: 18px;
+  margin-right: 18px;
   padding: 0;
   border-collapse: separate;
   *border-collapse: collapse;
@@ -1656,7 +1657,7 @@ a.menu:after, .dropdown-toggle:after {
   display: block;
 }
 .breadcrumb {
-  margin: 0 0 18px;
+  margin: 0 0 18px; 
   padding: 7px 14px;
   background-color: #f5f5f5;
   background-repeat: repeat-x;
@@ -1706,7 +1707,7 @@ a.menu:after, .dropdown-toggle:after {
   font-weight: 200;
   line-height: 27px;
 }
-footer {
+footer, #footer{
   margin-top: 17px;
   padding-top: 17px;
   border-top: 1px solid #eee;
@@ -1801,7 +1802,7 @@ footer {
   background-image: -o-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
   background-image: linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
-  padding: 5px 14px 6px;
+  padding: 5px 12px 6px;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
   color: #333;
   font-size: 13px;
@@ -2043,6 +2044,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .well {
   background-color: #f5f5f5;
   margin-bottom: 20px;
+  margin-right: 18px;
   padding: 19px;
   min-height: 20px;
   border: 1px solid #eee;
@@ -2363,4 +2365,15 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
+
+.post-author ul {
+    margin: 0;
+    padding: 0 0 0.5em 0;
+    list-style: none;
+}
+.post-author {
+    border-color: #0069d6;
+    border-right: thin dotted #0069d6;
 }

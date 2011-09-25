@@ -6,7 +6,7 @@
 {ifuserconnected}
 {include 'havefnubb~zone.mark_forum'}
 {/ifuserconnected}
-<div id="post-message">{jmessage}</div>
+<div class="alter-message"><p>{jmessage}</p></div>
 {hook 'hfbBeforeCategoryList'}
 
 
