@@ -43,7 +43,7 @@ class quickreplyZone extends jZone {
             $form = jForms::create('havefnubb~posts_anonym',$thread_id);
         $form->setData('id_forum',$id_forum);
         $form->setData('id_user',$user->id);
-        $form->setData('id_post',0);
+        $form->setData('id_post',$id_post);
         $form->setData('thread_id',$thread_id);
         $form->setData('subject',$subject);
 

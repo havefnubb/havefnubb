@@ -761,7 +761,7 @@ class postsCtrl extends jController {
         }
 
         $form->setData('id_user',$id_user);
-        $form->setData('id_post',0);
+        $form->setData('id_post',$id_post);
         $form->setData('id_forum',$post->id_forum);
         $form->setData('thread_id',$post->thread_id);
         $form->setData('subject',jLocale::get('havefnubb~post.subject.reply').' ' .jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
@@ -770,7 +770,7 @@ class postsCtrl extends jController {
         //set the needed parameters to the template
         $tpl = new jTpl();
         $tpl->assign('forum',$forum);
-        $tpl->assign('id_post',0);
+        $tpl->assign('id_post',$id_post);
         $tpl->assign('thread_id',$post->thread_id);
         $tpl->assign('id_forum', $forum->id_forum);
         $tpl->assign('previewtext', null);
