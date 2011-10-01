@@ -107,6 +107,12 @@ input.search.button {
     background-repeat: no-repeat;
 }
 /* posts  body */
+.post-author {
+   background: none repeat scroll 0 0 #FEFBF3;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 9px;
+}
 .post-author ul {
     margin: 0;
     padding: 0 0 0.5em 0;
@@ -187,5 +193,3 @@ input.search.button {
     text-align: right;
     list-style-type: none;
 }
-
-

@@ -11,9 +11,9 @@
 {meta_html csstheme 'css/bootstrap.css'}
 {literal}
 <script type="text/javascript">
-//<[!CDATA 
+//<[!CDATA
     $(".alert-message").alert('close');
-//]>    
+//]>
 </script>
 {/literal}
 <div class="topbar">
@@ -22,17 +22,17 @@
             <a class="brand" href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.homepage@}">{$TITLE}</a>
             {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
             {zone 'hfnusearch~hfnuquicksearch'}
-            {zone 'jcommunity~status'}                    
+            {zone 'jcommunity~status'}
             </ul>
         </div>
     </div>
     {hook 'hfbMainInHeader'}
 </div>
 <div style="padding-top: 40px;" class="container">
-    <p>{$DESC}</p>
-    <section id="grid-system">
+    <h2>{$DESC}</h2>
+    <!--div id="grid-system"-->
     {$MAIN}
-    </section>
+    <!--/div-->
     <div class="breadcrumb">
         {breadcrumb 8, ' > '}
     </div>

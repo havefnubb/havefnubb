@@ -1,12 +1,12 @@
 /*!
- * Bootstrap v1.2.0
+ * Bootstrap v1.3.0
  *
  * Copyright 2011 Twitter, Inc
  * Licensed under the Apache License v2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
- * Date: Fri Sep 16 11:24:41 PDT 2011
+ * Date: Thu Sep 22 12:52:42 PDT 2011
  */
 /* Reset.less
  * Props to Eric Meyer (meyerweb.com) for his CSS reset file. We're using an adapted version here	that cuts out some of the reset HTML elements we will never need here (i.e., dfn, samp, etc).
@@ -208,6 +208,7 @@ body {
 }
 .container-fluid {
   position: relative;
+  min-width: 940px;
   padding-left: 20px;
   padding-right: 20px;
   zoom: 1;
@@ -226,16 +227,7 @@ body {
   width: 220px;
 }
 .container-fluid > .content {
-  float: left;
-  min-width: 700px;
-  max-width: 1180px;
-  margin-left: 20px;
-}
-.hide {
-  display: none;
-}
-.show {
-  display: block;
+  margin-left: 240px;
 }
 a {
   color: #0069d6;
@@ -252,6 +244,12 @@ a:hover {
 }
 .pull-left {
   float: left;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
 }
 .row {
   zoom: 1;
@@ -896,7 +894,8 @@ textarea[readonly] {
 }
 .actions {
   background: #f5f5f5;
-  margin-top: 18px;
+  /*margin-top: 18px;*/
+  margin-top: 0;
   margin-bottom: 18px;
   padding: 17px 20px 18px 150px;
   border-top: 1px solid #ddd;
@@ -1143,10 +1142,10 @@ table tbody tr:last-child td:last-child {
 .zebra-striped tbody tr:hover td {
   background-color: #f5f5f5;
 }
-.zebra-striped .header {
+table .header {
   cursor: pointer;
 }
-.zebra-striped .header:after {
+table .header:after {
   content: "";
   float: right;
   margin-top: 7px;
@@ -1155,21 +1154,21 @@ table tbody tr:last-child td:last-child {
   border-color: #000 transparent;
   visibility: hidden;
 }
-.zebra-striped .headerSortUp, .zebra-striped .headerSortDown {
+table .headerSortUp, table .headerSortDown {
   background-color: rgba(141, 192, 219, 0.25);
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
-.zebra-striped .header:hover:after {
+table .header:hover:after {
   visibility: visible;
 }
-.zebra-striped .headerSortDown:after, .zebra-striped .headerSortDown:hover:after {
+table .headerSortDown:after, table .headerSortDown:hover:after {
   visibility: visible;
   filter: alpha(opacity=60);
   -khtml-opacity: 0.6;
   -moz-opacity: 0.6;
   opacity: 0.6;
 }
-.zebra-striped .headerSortUp:after {
+table .headerSortUp:after {
   border-bottom: none;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -1657,7 +1656,7 @@ a.menu:after, .dropdown-toggle:after {
   display: block;
 }
 .breadcrumb {
-  margin: 0 0 18px; 
+  margin: 0 0 18px;
   padding: 7px 14px;
   background-color: #f5f5f5;
   background-repeat: repeat-x;
@@ -1723,7 +1722,7 @@ footer, #footer{
   margin-bottom: 8px;
 }
 .jelix-msg-item-error ,
-.jelix-msg-item-ok, 
+.jelix-msg-item-ok,
 .btn.danger,
 .alert-message.danger,
 .btn.danger:hover,
@@ -2367,13 +2366,121 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
 }
 
+/* HaveFnubb specifics */
+/* posts head */
+.postheading {
 
+    background: none repeat scroll 0 0 #FEFBF3;
+    border-top: 1px solid #eee;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    -webkit-border-top-left-radius: 4px;
+    -moz-border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    -moz-border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+}
+.postheading-tags li {
+    list-style: none;
+    display:inline;
+    padding-left:15px;
+    list-style-type:none;
+    list-style-position:outside;
+    background-image: url("../images/posts/tag_green.png");
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+.post-author {
+    background: none repeat scroll 0 0 #FEFBF3;
+    border-left: 1px solid #eee;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 9px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
 .post-author ul {
     margin: 0;
     padding: 0 0 0.5em 0;
     list-style: none;
 }
-.post-author {
-    border-color: #0069d6;
-    border-right: thin dotted #0069d6;
+
+.postbody {
+    padding: 9px;
+    word-wrap: break-word;
+
+}
+.postbody ul li {
+    list-style-type: circle;
+}
+
+.postbody ol li {
+    list-style-type:  decimal;
+}
+
+.postbody  pre {
+    border-left: 3px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-top: 1px solid;
+    border-left-color: #f5f5f5;
+    border-top-color: #f5f5f5;
+    border-bottom-color: #eee;
+    border-right-color: #eee;
+    margin-right: 10px;
+    background-color: #bbb;
+    word-wrap: break-word;
+}
+
+.postbody dl dt {
+    font-weight: bold;
+}
+
+.postbody dl dd {
+    font-family: cursive;
+    font-style: italic;
+}
+
+.postbody  acronym {
+    border-bottom-style: groove;
+}
+
+.pager-posts {
+    height: 36px;
+    margin: 18px 0;
+}
+.pager-posts  ul {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    float: left;
+    margin: 0;
+}
+.pager-posts li.pagelinks-current a,.pager-posts a:hover {
+    background-color: #C7EEFE;
+}
+.pager-posts li {
+    display: inline;
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    float: left;
+    line-height: 34px;
+    padding: 0 14px;
+    text-decoration: none;
+}
+
+.social-network {
+    padding: 9px;
+}
+
+#jforms_havefnubb_posts{
+    background: none repeat scroll 0 0 #FEFBF3;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }

@@ -15,9 +15,9 @@
     {else}
         <a href="#" class="dropdown-toggle">{@havefnubb~member.status.welcome@}</a>
         <ul class="dropdown-menu">
-            <li><a href="{jurl 'jcommunity~login:index'}">{@havefnubb~member.status.welcome.and.thanks.to@}  {@havefnubb~member.status.connect@}</a></li>
-            <li><a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.status.or.to@} {@havefnubb~member.status.register@}</a></li>
-            <li><a href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.status.or.maybe@} {@havefnubb~member.status.forgotten.password@} ?</a></li>
+            <li><a href="{jurl 'jcommunity~login:index'}">Connexion</a></li>
+            <li><a href="{jurl 'jcommunity~registration:index'}">Inscription</a></li>
+            <li><a href="{jurl 'jcommunity~password:index'}">Mot de pass oublié</a></li>
         </ul>
     {/ifuserconnected}
     </li>

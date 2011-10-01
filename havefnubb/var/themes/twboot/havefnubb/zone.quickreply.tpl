@@ -28,10 +28,10 @@
             </div>
         </fieldset>
         {/ifusernotconnected}
-        <div class="actions">
-        {formsubmit 'validate'} {formreset 'reset'}
-        </div>
     </fieldset>
+    <div class="actions">
+    {formsubmit 'validate'} {formreset 'reset'}
+    </div>
     {/form}
 </div>
 {include 'havefnubb~zone.syntax_wiki'}

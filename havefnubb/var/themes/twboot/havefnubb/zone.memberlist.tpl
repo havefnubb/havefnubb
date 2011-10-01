@@ -4,57 +4,46 @@
     <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >></li>
     <li><span class="user-image" id="user-group">{@havefnubb~member.memberlist.members.list@}</span></li>
 </ul>
-<div class="span16">
-    <div class="row well">
-        <h3>{@havefnubb~member.memberlist.members.list@}</h3>    
-        <form class="form-stacked" action="{formurl 'havefnubb~members:index'}" method="post">
-            <div class="span16">
-            <div class="hidden">{formurlparam 'havefnubb~members:index'}</div>
-            <fieldset>
-                <div class="row">
-                <legend>{@havefnubb~member.memberlist.filter@}</legend>
-                <div class="member-filter-description">
-                    <p>{@havefnubb~member.memberlist.filter.description@}</p>
-                </div>
-                </div>
-                <div class="row">
-                <div class="span5">
-                    <label>{@havefnubb~member.memberlist.thegroups@} : </label>
-                    <select name="grpid">
-                        {foreach $groups as $group}
-                            {if  $group->id_aclgrp != 0}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
-                        {/foreach}
-                    </select>
-                </div>
-                <div class="span5">
-                    <label>{@havefnubb~member.memberlist.initial.nickname@} :</label>
-                    <select name="letter">
-                    {foreach $letters as $letter}
-                        <option value="{$letter}">{$letter}</option>
+
+<div class="alert-message block-message info" data-alert="alert">
+<a class="close" href="#">×</a>
+<h3>{@havefnubb~member.memberlist.members.list@}</h3>
+    <form class="form-stacked" action="{formurl 'havefnubb~members:index'}" method="post">
+        <div class="hidden">{formurlparam 'havefnubb~members:index'}</div>
+        <fieldset>
+            <legend>{@havefnubb~member.memberlist.filter@}</legend>
+            <div class="member-filter-description">
+                <p>{@havefnubb~member.memberlist.filter.description@}</p>
+            </div>
+            <div class="span4">
+                <label>{@havefnubb~member.memberlist.thegroups@} : </label>
+                <select name="grpid">
+                    {foreach $groups as $group}
+                        {if  $group->id_aclgrp != 0}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
                     {/foreach}
-                     </select>
-                </div>
-                <div class="span5">
-                    <label>{@havefnubb~member.memberlist.search.nickname@} : </label>
-                    <input type="text"  name="member_search" value="" size="40"/>
-                </div>
-                </div>
-            </fieldset>
-            <div class="span16">
-                <div class="offset6">
-                    <input class="jforms-submit" type="submit" value="{@havefnubb~member.memberlist.filter@}" />
-                </div>
+                </select>
             </div>
+            <div class="span4">
+                <label>{@havefnubb~member.memberlist.initial.nickname@} :</label>
+                <select name="letter">
+                {foreach $letters as $letter}
+                    <option value="{$letter}">{$letter}</option>
+                {/foreach}
+                 </select>
             </div>
-        </form>
-    </div>
+            <div class="span4">
+                <label>{@havefnubb~member.memberlist.search.nickname@} : </label>
+                <input type="text"  name="member_search" value="" size="40"/>
+            </div>
+        </fieldset>
+        <div class="alert-actions">
+            <input class="offset6 btn" type="submit" value="{@havefnubb~member.memberlist.filter@}" />
+        </div>
+    </form>
 </div>
 
-
-
-
-<div class="pagination">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+<div class="pager-posts">
+{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>
 <table class="zebra-striped">
     <caption>{@havefnubb~member.memberlist.members.list@}</caption>
@@ -84,6 +73,6 @@
     </tbody>
 </table>
 {hook 'hfbAfterMembersList'}
-<div class="pagination">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
+<div class="pager-posts">
+{pagelinks 'havefnubb~members:index', '',  $nbMembers, $page, $nbMembersPerPage, "page", $properties}
 </div>

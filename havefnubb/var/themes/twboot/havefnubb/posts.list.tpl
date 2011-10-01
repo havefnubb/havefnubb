@@ -23,8 +23,8 @@
 {/ifacl2}
 
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
-<div class="pagination">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+<div class="pager-posts">
+{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
 <table class="zebra-striped">
     <caption>{$forum->forum_name|eschtml}</caption>
@@ -90,8 +90,8 @@
 {/ifacl2}
 
 
-<div class="pagination">
-{@havefnubb~main.common.page@}{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
+<div class="pager-posts">
+{pagelinks 'havefnubb~posts:lists', array('id_forum'=>$id_forum,'ftitle'=>$forum->forum_name),  $nbPosts, $page, $nbPostPerPage, "page", $properties}
 </div>
 {/ifacl2}
 {ifacl2 'hfnu.forum.goto'}
