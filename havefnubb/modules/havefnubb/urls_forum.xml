@@ -22,6 +22,15 @@
         <param name="tag" type="string" escape="true" />
     </url>
 
+    <url pathinfo="/:id_forum-:ftitle/subscribe" action="forum:subscribe">
+       <param name="id_forum" type="number"/>
+       <param name="ftitle"  type="string" escape="true" />
+    </url>
+    <url pathinfo="/:id_forum-:ftitle/unsubscribe" action="forum:unsubscribe">
+       <param name="id_forum" type="number"/>
+       <param name="ftitle"  type="string" escape="true" />
+    </url>
+
     <url pathinfo="/:id_forum-:ftitle" action="posts:lists">
        <param name="id_forum" type="number"/>
        <param name="ftitle"  type="string" escape="true" />
