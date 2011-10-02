@@ -7,7 +7,7 @@
 </ul>
 
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-<div class="alter-message"><p>{jmessage}</p></div>
+{jmessage}
 {/ifacl2}
 
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}

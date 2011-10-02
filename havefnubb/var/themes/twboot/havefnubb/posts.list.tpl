@@ -7,7 +7,7 @@
 {zone 'havefnubb~forumchild', array('id_forum'=>$id_forum,'lvl'=>$lvl+1,'calledFrom'=>'posts.list')}
 {/ifacl2}
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-<div class="alter-message"><p>{jmessage}</p></div>
+{jmessage}
 {/ifacl2}
 
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}

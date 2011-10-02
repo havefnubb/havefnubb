@@ -3,7 +3,7 @@ table.hfnucal {
 }
 table.minihfnucal {
     float: left;
-    width: 49%;
+    width: 48%;
 }
 table.minihfnucal caption {
 }
@@ -53,4 +53,14 @@ table.hfnucal td ul.eventlist {
 }
 table.hfnucal td ul.eventlist li {
     list-style: square inside
+}
+.hfnucal tbody tr:hover td, .minihfnucal tbody tr:hover td {
+    background-color: #f5f5f5;
+}
+
+.hfnucal-list{
+    padding-top:1px;
+    padding-bottom:1px;
+    padding-left: 20px;
+
 }

@@ -3,7 +3,7 @@
     <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>    {if $action == 'view'} &gt; {$cat_name|eschtml}{/if}</li>
 </ul>
 
-<div class="alter-message"><p>{jmessage}</p></div>
+{jmessage}
 {hook 'hfbBeforeCategoryList'}
 
 {if $action == 'index'}
