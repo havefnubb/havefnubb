@@ -1,4 +1,4 @@
-<div class="span5">
+<div class="span5 box-stats">
     <h3>{@havefnubb~main.cloud@}</h3>
     <p id="tagscloud">
         {foreach $tags as $t}

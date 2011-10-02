@@ -1,5 +1,5 @@
-<div class="span5">
-    <h3>{@activeusers~activeusers.member.online.today@}</h3>        
+<div class="span5 box-stats">
+    <h3>{@activeusers~activeusers.member.online.today@}</h3>
     {hook 'ActiveUsersOnlineToday'}
     <ul class="user-online-today">
 {foreach $members as $member}

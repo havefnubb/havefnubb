@@ -1,5 +1,5 @@
 {hook 'hfbBeforeStats'}
-<div class="span5">
+<div class="span5  box-stats">
     <h3>{@havefnubb~main.stats@}</h3>
     {hook 'hfbStats'}
     <ul>

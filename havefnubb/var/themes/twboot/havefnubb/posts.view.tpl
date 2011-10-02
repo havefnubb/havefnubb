@@ -5,9 +5,6 @@
     <li><a href="{jurl 'havefnubb~category:view',array('id_cat'=>$forum->id_cat,'ctitle'=>$forum->cat_name)}" title="{$forum->cat_name}">{$forum->cat_name|eschtml}</a> >> </li>
     <li><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a> >> {$subject|eschtml}</li>
 </ul>
-{ifuserconnected}
-{include 'havefnubb~zone.mark_forum'}
-{/ifuserconnected}
 
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <div class="alter-message"><p>{jmessage}</p></div>
@@ -59,7 +56,6 @@
                     'ptitle'=>$post->subject),
                 'title'=>$post->subject)}
     </div>
-    <!--div class="row well"-->
     <div class="span16 postheading">
             <h3><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span>
             <span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span>

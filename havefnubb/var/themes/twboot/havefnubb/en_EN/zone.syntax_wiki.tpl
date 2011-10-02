@@ -1,5 +1,6 @@
-<div class="row well">
+<div class="alert-message block-message warning" data-alert="alert">
 <p>You can use wiki syntax in your message:</p>
+<a class="close" href="#">x</a>
 <ul>
     <li class="wiki-image source"><strong>source code bloc</strong>: the bloc should be surrounded by &lt;code&gt; and &lt;/code&gt;</li>
     <li class="wiki-image list"><strong>List</strong>: each line should begin by one or several *, - or #</li>

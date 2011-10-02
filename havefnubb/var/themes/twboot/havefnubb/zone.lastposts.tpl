@@ -1,4 +1,4 @@
-<div class="span5">
+<div class="span5 box-stats">
     <h3>{@havefnubb~main.last.messages@}</h3>
     <table class="zebra-striped">
 {foreach $lastPost as $post}

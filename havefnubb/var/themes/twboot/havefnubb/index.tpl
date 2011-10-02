@@ -3,12 +3,8 @@
     <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a>    {if $action == 'view'} &gt; {$cat_name|eschtml}{/if}</li>
 </ul>
 
-{ifuserconnected}
-{include 'havefnubb~zone.mark_forum'}
-{/ifuserconnected}
 <div class="alter-message"><p>{jmessage}</p></div>
 {hook 'hfbBeforeCategoryList'}
-
 
 {if $action == 'index'}
 {assign $adminRights = 0}
@@ -178,13 +174,12 @@
 {/if}
 {hook 'hfbAfterCategoryList'}
 
-<div class="row show-grid">
+<div class="row">
     <div class="span16">
         {zone 'havefnubb~lastposts'}
         {zone 'activeusers~onlineusers'}
         {zone 'havefnubb~stats'}
-        {zone 'activeusers~online_today'}
         {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud', 'maxcount'=>30)}
+        {zone 'activeusers~online_today'}
     </div>
 </div>
-

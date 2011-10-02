@@ -1,5 +1,6 @@
 ﻿<div class="alert-message block-message warning" data-alert="alert">
 <p>Vous pouvez utilisez la syntaxe wiki pour mettre en forme vos messages :</p>
+<a class="close" href="#">x</a>
 <ul>
     <li class="wiki-image source"><strong>bloc code source</strong> : le bloc de code source doit être entouré de &lt;code&gt; et &lt;/code&gt; (les balises wiki ne sont pas interprétées)</li>
     <li class="wiki-image list"><strong>Liste</strong> : chaque ligne doit débuter par une ou plusieurs * ou - (liste simple) ou # (liste numérotée)</li>

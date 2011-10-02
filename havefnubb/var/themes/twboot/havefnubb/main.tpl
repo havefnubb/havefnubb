@@ -21,6 +21,7 @@
         <div class="container">
             <a class="brand" href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.homepage@}">{$TITLE}</a>
             {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
+            {include 'havefnubb~zone.mark_forum'}
             {zone 'hfnusearch~hfnuquicksearch'}
             {zone 'jcommunity~status'}
             </ul>
@@ -30,12 +31,8 @@
 </div>
 <div style="padding-top: 40px;" class="container">
     <h2>{$DESC}</h2>
-    <!--div id="grid-system"-->
     {$MAIN}
-    <!--/div-->
-    <div class="breadcrumb">
-        {breadcrumb 8, ' > '}
-    </div>
+    {breadcrumb 8, ' > '}
     <div id="footer">
         <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> -
             &copy; Copyright 2008 - 2011 <a href="http://www.foxmask.info" title="FoxMaSk'z h0m3">FoxMaSk</a></p>
