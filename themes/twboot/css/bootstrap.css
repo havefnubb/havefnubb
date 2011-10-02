@@ -2476,7 +2476,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     padding: 9px;
 }
 
-#jforms_havefnubb_posts{
+#jforms_havefnubb_posts, #jforms_jcommunity_login,
+#jforms_jcommunity_registration,#jforms_jcommunity_password
+{
     background: none repeat scroll 0 0 #FEFBF3;
     border-left: 1px solid rgba(0, 0, 0, 0.05);
     border-right: 1px solid rgba(0, 0, 0, 0.05);
