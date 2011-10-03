@@ -1,4 +1,4 @@
-<div class="span5 box-stats">
+<div class="block-col">
     <h3>{@activeusers~activeusers.member.currently.online@}</h3>
     {hook 'ActiveUsersOnlineUsers'}
     <ul class="user-currently-online">

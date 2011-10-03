@@ -174,12 +174,16 @@
 {/if}
 {hook 'hfbAfterCategoryList'}
 
-<div class="row">
-    <div class="span16">
+
+<div class="box">
+    <div class="block-row">
         {zone 'havefnubb~lastposts'}
         {zone 'activeusers~onlineusers'}
         {zone 'havefnubb~stats'}
-        {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud', 'maxcount'=>30)}
+    </div>
+    <div class="block-row">
+        <div class="block-col-emtpy"></div>
         {zone 'activeusers~online_today'}
+        {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud', 'maxcount'=>30)}
     </div>
 </div>

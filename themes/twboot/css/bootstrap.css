@@ -2370,7 +2370,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 /* HaveFnubb specifics */
 /* posts head */
 .postheading {
-
     background: none repeat scroll 0 0 #FEFBF3;
     border-top: 1px solid #eee;
     border-left: 1px solid #eee;
@@ -2385,8 +2384,8 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-
 }
+
 .postheading-tags li {
     list-style: none;
     display:inline;
@@ -2397,12 +2396,14 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     background-color: transparent;
     background-repeat: no-repeat;
 }
+
 .post-author {
     background: none repeat scroll 0 0 #FEFBF3;
     border-left: 1px solid #eee;
     border-left: 1px solid rgba(0, 0, 0, 0.05);
     padding: 9px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    width: 220px;
 }
 .post-author ul {
     margin: 0;
@@ -2413,16 +2414,13 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 .postbody {
     padding: 9px;
     word-wrap: break-word;
-
 }
 .postbody ul li {
     list-style-type: circle;
 }
-
 .postbody ol li {
     list-style-type:  decimal;
 }
-
 .postbody  pre {
     border-left: 3px solid;
     border-right: 1px solid;
@@ -2436,20 +2434,20 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     background-color: #bbb;
     word-wrap: break-word;
 }
-
 .postbody dl dt {
     font-weight: bold;
 }
-
 .postbody dl dd {
     font-family: cursive;
     font-style: italic;
 }
-
 .postbody  acronym {
     border-bottom-style: groove;
 }
 
+.postfooter {
+    text-align: right;
+}
 .pager-posts {
     height: 36px;
     margin: 18px 0;
@@ -2471,10 +2469,6 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     line-height: 34px;
     padding: 0 14px;
     text-decoration: none;
-}
-
-.social-network {
-    padding: 9px;
 }
 
 #jforms_havefnubb_posts, #jforms_jcommunity_login,
@@ -2510,10 +2504,47 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
     list-style-position:outside;
 }
 
- .box-stats {
+.box {
+    display: table;
+    border-spacing: 3px;
+    width: 100%;
+    table-layout: auto;
+}
+
+.box-stats:before, .box-stats:after {
+    display: table;
+    content: "";
+    zoom: 1;
+    *display: inline;
+}
+
+.box-stats:after {
+  clear: both;
+}
+
+.block-row {
+    display: table-row;
+}
+
+.block-col {
+    background: none repeat scroll 0 0 #FEFBF3;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 4px;
+    display: table-cell;
+}
+
+.block-col-empty {
+    background: #fff;
+    display: table-cell;
+}
+
+.social-network {
+    display: table-cell;
+}
+.block-col-group {
     background: none repeat scroll 0 0 #FEFBF3;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     padding: 4px;
 }
-

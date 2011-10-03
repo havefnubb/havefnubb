@@ -33,6 +33,7 @@
     <h2>{$DESC}</h2>
     {$MAIN}
     {breadcrumb 8, ' > '}
+
     <div id="footer">
         <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> -
             &copy; Copyright 2008 - 2011 <a href="http://www.foxmask.info" title="FoxMaSk'z h0m3">FoxMaSk</a></p>
