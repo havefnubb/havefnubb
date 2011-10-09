@@ -749,7 +749,7 @@ class postsCtrl extends jController {
             }
 
             $form = jForms::create('havefnubb~posts',$thread_id);
-            $form->setReadOnly('tags');
+            $form->removeControl('tags');
             $id_user = jAuth::getUserSession ()->id;
         }
         else {
@@ -765,6 +765,7 @@ class postsCtrl extends jController {
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts_anonym',$thread_id);
+            $form->removeControl('tags');
             $id_user = 0;
         }
 
@@ -833,6 +834,7 @@ class postsCtrl extends jController {
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts',$thread_id);
+            $form->removeControl('tags');
             $id_user = jAuth::getUserSession ()->id;
         }
         else {
@@ -848,6 +850,7 @@ class postsCtrl extends jController {
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts_anonym',$thread_id);
+            $form->removeControl('tags');
             $id_user = 0;
         }
 
@@ -908,6 +911,7 @@ class postsCtrl extends jController {
 
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject;
+        $tpl->assign('reply',1);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
         return $rep;
     }
