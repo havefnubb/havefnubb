@@ -24,8 +24,13 @@
                 <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
 <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{image $j_basepath.'hfnu/images/rss.png',array('alt'=>$forum->forum_name)}</a>
             </h4>
-            <span class="forumdesc">{$forum->forum_desc|eschtml}</span></td>
-        <td class="line colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum)}</td>
+            <span class="forumdesc">{$forum->forum_desc|eschtml}</span>
+        </td>
+        {ifacl2 'hfnu.admin.post'}
+        <td class="line colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum,'admin'=>true)}</td>
+        {else}
+        <td class="line colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum,'admin'=>false)}</td>
+        {/ifacl2}
         <td class="line colright linkincell"><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
         {zone 'havefnubb~postlc',array('id_forum'=>$forum->id_forum)}</span></td>
     </tr>

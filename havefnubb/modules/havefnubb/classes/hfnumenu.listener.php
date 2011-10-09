@@ -51,7 +51,7 @@ class hfnumenuListener extends jEventListener{
                  'main'));
            }
         }
-       if ( jAcl2::check('hfnu.admin.index')) {
+       if ( $event->getParam('admin') === true) {
            $url = '';
            try {
                // let's try to retrieve the url of the admin, if the admin is in
@@ -72,4 +72,3 @@ class hfnumenuListener extends jEventListener{
        }
    }
 }
-

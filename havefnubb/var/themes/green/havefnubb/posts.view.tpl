@@ -197,10 +197,18 @@
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 {* 'closed' *}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {ifuserconnected}
+        {zone 'havefnubb~quickreply',array('connected'=>true,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {else}
+        {zone 'havefnubb~quickreply',array('connected'=>false,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {/ifuserconnected}
     {else}
         {ifacl2 'hfnu.admin.post'}
-        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {ifuserconnected}
+            {zone 'havefnubb~quickreply',array('connected'=>true,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {else}
+            {zone 'havefnubb~quickreply',array('connected'=>false,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {/ifuserconnected}
         {/ifacl2}
     {/if}
 {/ifacl2}
