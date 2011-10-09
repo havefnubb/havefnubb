@@ -30,11 +30,17 @@
             <div class="form_value">{ctrl_control 'message'}</div>
             <div class="clearer">&nbsp;</div>
         </div>
+    {formcontrols}
+        {ifctrl 'tags'}
+            {if $reply == 0}{*no display of the tags field for reply *}
         <div class="form_row">
-            <div class="form_property">{ctrl_label 'tags'} </div>
-            <div class="form_value">{ctrl_control 'tags'} </div>
+            <div class="form_property">{ctrl_label} </div>
+            <div class="form_value">{ctrl_control} </div>
             <div class="clearer">&nbsp;</div>
         </div>
+            {/if}
+        {/ifctrl}   
+    {/formcontrols}
         {ifuserconnected}
         <div class="form_row">
             <div class="form_property">{ctrl_label 'subscribe'}</div>
