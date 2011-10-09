@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="forum_sub" realname="hfnu_subscript_forum" primarykey="id_user,id_forum" />
+    </datasources>
+    <record>
+        <property name="id_user" fieldname="id_user" datatype="integer"/>
+        <property name="id_forum" fieldname="id_forum" datatype="integer"/>
+    </record>
+    <factory>
+        <method name="getByIdForum" type="select">
+         <parameter name="id_forum" />
+         <conditions>
+             <eq property="id_forum" expr="$id_forum" />
+         </conditions>
+        </method>
+    </factory>
+</dao>

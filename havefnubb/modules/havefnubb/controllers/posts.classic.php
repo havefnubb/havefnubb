@@ -1,3 +1,4 @@
+
 <?php
 /**
 * @package   havefnubb
@@ -155,6 +156,8 @@ class postsCtrl extends jController {
         $tpl->assign('lvl',$forum->child_level);
         $tpl->assign('properties',$properties);
         $tpl->assign('currentIdForum',$forum->id_forum);
+        $tpl->assign('subcribedToThisForum',jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum));
+        $tpl->assign('ftitle',$ftitle);
         $tpl->assign('statusAvailable',self::$statusAvailable);
         $tpl->assign('lastMarkThreadAsRead',
                      jClasses::getService('havefnubb~hfnuread')->getLastDateRead($forum->id_forum));
@@ -746,6 +749,7 @@ class postsCtrl extends jController {
             }
 
             $form = jForms::create('havefnubb~posts',$thread_id);
+            $form->setReadOnly('tags');
             $id_user = jAuth::getUserSession ()->id;
         }
         else {
@@ -765,7 +769,7 @@ class postsCtrl extends jController {
         }
 
         $form->setData('id_user',$id_user);
-        $form->setData('id_post',0);
+        $form->setData('id_post',$id_post);
         $form->setData('id_forum',$post->id_forum);
         $form->setData('thread_id',$post->thread_id);
         $form->setData('subject',jLocale::get('havefnubb~post.subject.reply').' ' .jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
@@ -774,7 +778,7 @@ class postsCtrl extends jController {
         //set the needed parameters to the template
         $tpl = new jTpl();
         $tpl->assign('forum',$forum);
-        $tpl->assign('id_post',0);
+        $tpl->assign('id_post',$id_post);
         $tpl->assign('thread_id',$post->thread_id);
         $tpl->assign('id_forum', $forum->id_forum);
         $tpl->assign('previewtext', null);
@@ -996,6 +1000,7 @@ class postsCtrl extends jController {
             $rep->title = jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject');
 
             $tpl->assign('heading',jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject'));
+            $tpl->assign('reply', 1);
             $tpl->assign('submitAction','havefnubb~posts:savereply');
 
             $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
@@ -1818,18 +1823,20 @@ class postsCtrl extends jController {
      * Unsubscribe to a given posts from the list of posts
      */
     public function unsubscribe() {
-        $id_post = (int) $this->param('id_post');
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
-        if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post)) {
+        $thread_id = (int) $this->param('thread_id');
+        $thread = jClasses::getService('havefnubb~hfnuposts')->getThread($thread_id);
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg);
+
+        if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($thread_id)) {
             jMessage::add(jLocale::get('havefnubb~post.unsubscribed'),'ok');
         } else {
             jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
         }
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:view';
-        $rep->params = array('id_post'=>$id_post,
-                            'thread_id'=>$post->thread_id,
-                            'id_forum'=>$post->id_forum,
+        $rep->params = array('id_post'=>$thread->id_last_msg,
+                            'thread_id'=>$thread_id,
+                            'id_forum'=>$thread->id_forum_thread,
                             'ftitle'=>$post->forum_name,
                             'ptitle'=>$post->subject);
         return $rep;
@@ -1838,9 +1845,8 @@ class postsCtrl extends jController {
      * Unsubscribe to a given posts from the profile page
      */
     public function unsub() {
-        $id_post = (int) $this->param('id_post');
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
-        if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post)) {
+        $thread_id = (int) $this->param('thread_id');
+        if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($thread_id)) {
             jMessage::add(jLocale::get('havefnubb~post.unsubscribed'),'ok');
         } else {
             jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
@@ -1854,19 +1860,20 @@ class postsCtrl extends jController {
      * Subscribe to a given posts
      */
     public function subscribe() {
-        $id_post = (int) $this->param('id_post');
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
+        $thread_id = (int) $this->param('thread_id');
+        $thread = jClasses::getService('havefnubb~hfnuposts')->getThread($thread_id);
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg);
 
-        if (jClasses::getService('havefnubb~hfnusub')->subscribe($id_post)) {
+        if (jClasses::getService('havefnubb~hfnusub')->subscribe($thread_id)) {
             jMessage::add(jLocale::get('havefnubb~post.subscribed'),'ok');
         } else {
             jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
         }
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:view';
-        $rep->params = array('id_post'=>$id_post,
-                            'thread_id'=>$post->thread_id,
-                            'id_forum'=>$post->id_forum,
+        $rep->params = array('id_post'=>$thread->id_last_msg,
+                            'thread_id'=>$thread_id,
+                            'id_forum'=>$thread->id_forum_thread,
                             'ftitle'=>$post->forum_name,
                             'ptitle'=>$post->subject);
         return $rep;

@@ -155,9 +155,9 @@ $(document).ready(function(){
           {/if}
         {ifacl2 'hfnu.posts.create','forum'.$id_forum}
             {if $subscribed}
-            <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('id_post'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
+            <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
             {else}
-            <span class="postsub"><a href="{jurl 'posts:subscribe' ,array('id_post'=>$thread_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </span>
+            <span class="postsub"><a href="{jurl 'posts:subscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </span>
             {/if}
         {/ifacl2}
         {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
@@ -201,13 +201,22 @@ $(document).ready(function(){
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 {* 'closed' *}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {ifuserconnected}
+        {zone 'havefnubb~quickreply',array('connected'=>true,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {else}
+        {zone 'havefnubb~quickreply',array('connected'=>false,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {/ifuserconnected}
     {else}
         {ifacl2 'hfnu.admin.post'}
-        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {ifuserconnected}
+            {zone 'havefnubb~quickreply',array('connected'=>true,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {else}
+            {zone 'havefnubb~quickreply',array('connected'=>false,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {/ifuserconnected}
         {/ifacl2}
     {/if}
 {/ifacl2}
+
 {ifacl2 'hfnu.forum.goto'}
     {zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
 {/ifacl2}

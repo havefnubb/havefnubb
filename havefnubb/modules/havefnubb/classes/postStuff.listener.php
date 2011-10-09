@@ -17,6 +17,11 @@ class postStuffListener extends jEventListener{
      */
     function onHfnuPostAfterInsert ($event) {
         $this->updateMember();
+        //let's check if a member has subcribed to this forum, then mail him the new thread
+        jClasses::getService('havefnubb~hfnuforum')
+                ->checkSubscribedForumAndSendMail(  $event->getParam('id_forum'),
+                                                    $event->getParam('id_post')
+                                            );
     }
     /**
      * Event to handle statistics data of the current member after updating data

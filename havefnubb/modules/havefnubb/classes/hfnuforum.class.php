@@ -47,7 +47,9 @@ class hfnuForumRecord {
     function __construct($r) {
         $this->record = $r;
     }
-
+    /**
+     * is this record allowed to be see ?
+     */
     function allowed() {
         if ($this->forbidden === null) {
             $this->forbidden = !jAcl2::check('hfnu.forum.list','forum'.$this->record->id_forum);
@@ -56,7 +58,9 @@ class hfnuForumRecord {
         }
         return !$this->forbidden;
     }
-
+    /**
+     * is this record disallowed to be see ?
+     */
     function disallow() {
         $this->forbidden = true;
         foreach($this->children as $f) $f->disallow();
@@ -87,7 +91,6 @@ class hfnuForumList {
     public $forumTree = array();
 
     function addForum($f) {
-
         // put the forum into the linear list
         $forum = new hfnuForumRecord($f);
         $this->forumList[$f->id_forum] = $forum;
@@ -105,7 +108,6 @@ class hfnuForumList {
             $this->forumTree[$f->id_cat][1][] = $forum;
         }
     }
-
     function getLinearIterator() {
         $list = new ArrayObject($this->forumList);
         $iterator = new hfnuForumRecordIterator($list->getIterator());
@@ -123,7 +125,6 @@ class hfnuforum {
      * @var $forums array
      */
     public $forums = array() ;
-
     /**
      * get info of the current forum
      * @param  integer $id of the current forum
@@ -134,7 +135,6 @@ class hfnuforum {
             $this->forums[$id] = jDao::get('havefnubb~forum')->get($id);
         return $this->forums[$id];
     }
-
     /**
      *  retrieve the list of forums
      *  @return hfnuForumList
@@ -165,4 +165,61 @@ class hfnuforum {
         }
         return $result;
     }
+    /**
+     * subscribe to one forum
+     * @param int $id_forum id of the forum to subscribe
+     */
+    public function subscribe($id_forum) {
+        if (jAuth::isConnected()) {
+            //check if this forum is already subscribed
+            if (! jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$id_forum)) {
+                $dao = jDao::get('havefnubb~forum_sub');
+                $rec = jDao::createRecord('havefnubb~forum_sub');
+                $rec->id_forum = $id_forum;
+                $rec->id_user = jAuth::getUserSession()->id;
+                $dao->insert($rec);
+            }
+        }
+    }
+    /**
+     * unsubscribe to one forum
+     * @param int $id_forum id of the forum to unsubscribe
+     */
+    public function unsubscribe($id_forum) {
+        if (jAuth::isConnected())
+            //check if this forum is already subscribe
+            if (jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$id_forum))
+                jDao::get('havefnubb~forum_sub')->delete(jAuth::getUserSession()->id,$id_forum);
+    }
+    /**
+     * let's check if a member has subcribed to this forum, then mail him the new thread
+     * @param int $id_forum id of the forum to unsubscribe
+     * @param int $id_post id of the new post
+     */
+    public function checkSubscribedForumAndSendMail($id_forum,$id_post) {
+        //check if this forum is already subscribe
+        $recs = jDao::get('havefnubb~forum_sub')->getByIdForum($id_forum);
+        foreach ($recs as $rec) {
+            if (jAuth::getUserSession()->id != $rec->id_user) {
+
+                $post = jDao::get('havefnubb~posts')->get($id_post);
+
+                // let's mail the new post to the user
+                $mail = new jMailer();
+                $mail->From       = $gJConfig->mailer['webmasterEmail'];
+                $mail->FromName   = $gJConfig->mailer['webmasterName'];
+                $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+                $mail->Subject    = jLocale::get('havefnubb~forum.new.post.in.forum',array($user->login));
+
+                $tpl = new jTpl();
+                $tpl->assign('post',$post);
+                $tpl->assign('server',$_SERVER['SERVER_NAME']);
+                $mail->Body = $tpl->fetch('havefnubb~forum_new_message', 'text');
+
+                $mail->AddAddress($toEmail);
+                $mail->Send();
+            }
+        }
+    }
+
 }
