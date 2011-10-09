@@ -123,7 +123,13 @@ class hookListener extends jEventListener{
 
     }
     function onhfbJcommunityStatusConnected($event) {
-
+        $nb = jClasses::getService('jmessenger~jmessenger')->getNewMessage();
+        if ($nb > 0) {
+            echo " - <a href=".
+                jUrl::get('jmessenger~jmessenger:inbox')
+                ." >(".$nb.")</a>";
+            jMessage::add(jClasses::getService('jmessenger~jmessenger')->getLibelleNewMessage(),'info');                
+        }
     }
     function onhfbMainInHeader($event) {
 
