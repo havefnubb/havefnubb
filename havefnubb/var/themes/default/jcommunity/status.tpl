@@ -1,9 +1,9 @@
 <div class="box loginbox-connected">
 {ifuserconnected}
-    <h2 id="login-status">{@havefnubb~member.status.welcome@} {$login}</h2>
-    {hook 'hfbJcommunityStatusConnected',array('login'=>$login)}
+    <h2 id="login-status">{@havefnubb~member.status.welcome@} {$login}</h2>>>>>>>> 961d808... fix Private Messaging issue #6
     <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$login)}">{@havefnubb~member.status.your.account@}</a> -
     <a href="{jurl 'jcommunity~login:out'}">{@havefnubb~main.logout@}</a>
+    {hook 'hfbJcommunityStatusConnected',array('login'=>$login)}
 {else}
     <h2 id="login-status">{@havefnubb~member.status.welcome@}</h2>
     {@havefnubb~member.status.welcome.and.thanks.to@} <a href="{jurl 'jcommunity~login:index'}">{@havefnubb~member.status.connect@}</a>
