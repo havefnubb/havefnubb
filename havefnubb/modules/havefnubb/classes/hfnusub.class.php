@@ -79,7 +79,6 @@ class hfnusub {
             $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id);
             //get the email of the member that subscribes this thread
             $member = $memberDao->getById($record->id_user);
-
             $subject = jLocale::get('havefnubb~post.new.comment.received') . " : " .$post->subject ;
 
             $mail = new jMailer();
@@ -93,8 +92,7 @@ class hfnusub {
             $tpl->assign('post',$post);
             $tpl->assign('login',$member->login);
             $mail->Body = $tpl->fetch('havefnubb~new_comment_received', 'text');
-
-            $mail->AddAddress($member->email);
+            $mail->AddAddress($member->email);            
             $mail->Send();
         }
     }

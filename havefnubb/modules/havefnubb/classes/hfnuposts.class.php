@@ -347,7 +347,7 @@ class hfnuposts {
 
             // now let's get the inserted id to put this one in thread_id column !
             $record->thread_id = $threadRec->id_thread;
-
+            $dao->update($record);
             $id_post = $record->id_post;
             $thread_id = $record->thread_id;
 
@@ -360,7 +360,7 @@ class hfnuposts {
 
             $this->addPost($id_post,$record);
 
-            jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post,'id_forum'=>$id_forum));
+            jEvent::notify('HfnuPostAfterInsert',array('id'=>$threadRec->id_thread,'id_forum'=>$id_forum));
 
         }
         // edit a post

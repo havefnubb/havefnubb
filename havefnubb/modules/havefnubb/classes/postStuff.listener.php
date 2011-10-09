@@ -20,7 +20,7 @@ class postStuffListener extends jEventListener{
         //let's check if a member has subcribed to this forum, then mail him the new thread
         jClasses::getService('havefnubb~hfnuforum')
                 ->checkSubscribedForumAndSendMail(  $event->getParam('id_forum'),
-                                                    $event->getParam('id_post')
+                                                    $event->getParam('id')
                                             );
     }
     /**
