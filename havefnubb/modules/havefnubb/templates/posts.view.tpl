@@ -84,6 +84,7 @@
            {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}
            {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
         </div>
+        {if $post->thread_id == $post->id_post}
         {if count($tags) > 1}
         <div class="grid_2 postheading-tags">
         <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
@@ -92,6 +93,7 @@
         <div class="grid_2 postheading-tags">
         <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
         </div>
+        {/if}
         {/if}
         <div class="clear"></div>
         <div class="grid_4">
@@ -150,9 +152,9 @@
         {/if}
         {ifacl2 'hfnu.posts.create','forum'.$id_forum}
             {if $subscribed}
-            <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('id_post'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
+            <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
             {else}
-            <span class="postsub"><a href="{jurl 'posts:subscribe' ,array('id_post'=>$thread_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </span>
+            <span class="postsub"><a href="{jurl 'posts:subscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </span>
             {/if}
         {/ifacl2}
         {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
