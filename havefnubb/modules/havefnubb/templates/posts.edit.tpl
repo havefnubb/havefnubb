@@ -30,13 +30,17 @@
         {ctrl_label 'message'}<br/>
         {ctrl_control 'message'}<br/>
     </fieldset>
-    {if $reply == 0}{*no display of the tags field for reply *}
+    {formcontrols}
+        {ifctrl 'tags'}
+            {if $reply == 0}{*no display of the tags field for reply *}
     <fieldset>
         <legend>{ctrl_label 'tags'}</legend>
         {@havefnubb~post.form.tags.description@}<br/>
         {ctrl_control 'tags'}
     </fieldset>
-    {/if}
+            {/if}
+        {/ifctrl}
+    {/formcontrols}
     {ifuserconnected}
     <fieldset>
         <legend>{ctrl_label 'subscribe'}</legend>
