@@ -17,7 +17,11 @@
 </div>
 <div id="navigation">
     <div class="center_wrapper">
-        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
+        {ifacl2 'hfnu.admin.index'}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>true)}
+        {else}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>false)}
+        {/ifacl2}
         <div class="clearer">&nbsp;</div>
     </div>
 </div>
@@ -51,7 +55,11 @@
 
             <div class="col3 left">
                 <div class="col3_content">
-                    {zone 'havefnubb~lastposts'}
+                {ifacl2 'hfnu.admin.post'}
+                {zone 'havefnubb~lastposts',array('admin'=>true)}
+                {else}
+                {zone 'havefnubb~lastposts',array('admin'=>false)}
+                {/ifacl2}
                 </div>
             </div>
 

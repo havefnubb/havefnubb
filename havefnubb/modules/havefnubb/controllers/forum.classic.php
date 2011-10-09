@@ -24,6 +24,12 @@ class forumCtrl extends jController {
         'mark_forum_as_read' => array('auth.required'=>true,
                 'banuser.check'=>true
                 ),
+        'subscribe' => array('auth.required'=>true,
+                'banuser.check'=>true
+                ),        
+        'unsubscribe' => array('auth.required'=>true,
+                'banuser.check'=>true
+                ),
     );
     /**
     * display the RSS of the forum
@@ -89,10 +95,38 @@ class forumCtrl extends jController {
      */
     public function mark_all_as_read() {
         jClasses::getService('havefnubb~hfnuread')->markAllAsRead();
-        
+
         jMessage::add(jLocale::get('havefnubb~forum.all.forum.marked.as.read'));
         $rep = $this->getResponse('redirect');
         $rep->action = 'default:index';
+        return $rep;
+    }
+    /**
+     * Subscribe to this forum
+     */
+    public function subscribe() {
+        $id_forum = (int) $this->param('id_forum');
+        jClasses::getService('havefnubb~hfnuforum')->subscribe($id_forum);
+
+        jMessage::add(jLocale::get('havefnubb~forum.subscribe.to.this.forum.done'));
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'havefnubb~posts:lists';
+        $rep->params = array('id_forum'=>$id_forum,
+                             'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
+        return $rep;
+    }
+    /**
+     * Unsubscribe to this forum
+     */
+    public function unsubscribe() {
+        $id_forum = (int) $this->param('id_forum');
+        jClasses::getService('havefnubb~hfnuforum')->unsubscribe($id_forum);
+
+        jMessage::add(jLocale::get('havefnubb~forum.unsubscribe.to.this.forum.done'));
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'havefnubb~posts:lists';
+        $rep->params = array('id_forum'=>$id_forum,
+                             'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
         return $rep;
     }
 }

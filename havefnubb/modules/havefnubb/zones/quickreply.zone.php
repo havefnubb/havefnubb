@@ -30,6 +30,7 @@ class quickreplyZone extends jZone {
         $thread_id  = (int) $this->param('thread_id');
         $id_post    = (int) $this->param('id_post');
         $id_forum   = (int) $this->param('id_forum');
+        $isConnected = (boolean) $this->param('connected');
         if ($id_post < 1) return;
         if ($id_forum < 1) return;
 
@@ -51,7 +52,7 @@ class quickreplyZone extends jZone {
             $form = jForms::create('havefnubb~posts_anonym',$thread_id);
         $form->setData('id_forum',$id_forum);
         $form->setData('id_user',$user->id);
-        $form->setData('id_post',0);
+        $form->setData('id_post',$id_post);
         $form->setData('thread_id',$thread_id);
         $form->setData('subject',$subject);
 
