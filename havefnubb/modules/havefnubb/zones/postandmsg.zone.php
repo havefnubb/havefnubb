@@ -29,10 +29,11 @@ class postandmsgZone extends jZone {
     protected function _prepareTpl(){
 
         $id_forum = $this->param('id_forum');
+        $admin = (boolean) $this->param('admin');
         if (!$id_forum) return;
 
         //user has the admin.post right : get all the posts
-        if (jAcl2::check('hfnu.admin.post')) {
+        if ($admin) {
             $daoThreads = jDao::get('havefnubb~threads_alone');
             $msgs = $daoThreads->countMessagesByIdForum($id_forum);
             $nbThread = $daoThreads->countThreadsByIdForum($id_forum);

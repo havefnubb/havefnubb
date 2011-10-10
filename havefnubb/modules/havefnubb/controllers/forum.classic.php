@@ -26,6 +26,9 @@ class forumCtrl extends jController {
                 ),
         'subscribe' => array('auth.required'=>true,
                 'banuser.check'=>true
+                ),        
+        'unsubscribe' => array('auth.required'=>true,
+                'banuser.check'=>true
                 ),
     );
     /**

@@ -684,8 +684,8 @@ class postsCtrl extends jController {
         global $gJConfig;
         $thread_id = (int) $this->param('thread_id');
         $id_post = (int) $this->param('id_post');
-jLog::dump($id_post);
-    if ($thread_id == 0 ) {
+
+        if ($thread_id == 0 ) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $thread_id','DEBUG');
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
@@ -749,6 +749,7 @@ jLog::dump($id_post);
             }
 
             $form = jForms::create('havefnubb~posts',$thread_id);
+            $form->removeControl('tags');
             $id_user = jAuth::getUserSession ()->id;
         }
         else {
@@ -764,6 +765,7 @@ jLog::dump($id_post);
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts_anonym',$thread_id);
+            $form->removeControl('tags');
             $id_user = 0;
         }
 
@@ -832,6 +834,7 @@ jLog::dump($id_post);
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts',$thread_id);
+            $form->removeControl('tags');
             $id_user = jAuth::getUserSession ()->id;
         }
         else {
@@ -847,6 +850,7 @@ jLog::dump($id_post);
                 return $rep;
             }
             $form = jForms::create('havefnubb~posts_anonym',$thread_id);
+            $form->removeControl('tags');
             $id_user = 0;
         }
 
@@ -907,6 +911,7 @@ jLog::dump($id_post);
 
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get("havefnubb~post.form.quote.message") . ' ' . $post->subject;
+        $tpl->assign('reply',1);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
         return $rep;
     }
@@ -999,6 +1004,7 @@ jLog::dump($id_post);
             $rep->title = jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject');
 
             $tpl->assign('heading',jLocale::get('havefnubb~post.form.reply.message') . ' ' . $form->getData('subject'));
+            $tpl->assign('reply', 1);
             $tpl->assign('submitAction','havefnubb~posts:savereply');
 
             $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.edit'));
@@ -1821,18 +1827,20 @@ jLog::dump($id_post);
      * Unsubscribe to a given posts from the list of posts
      */
     public function unsubscribe() {
-        $id_post = (int) $this->param('id_post');
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
-        if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post)) {
+        $thread_id = (int) $this->param('thread_id');
+        $thread = jClasses::getService('havefnubb~hfnuposts')->getThread($thread_id);
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg);
+
+        if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($thread_id)) {
             jMessage::add(jLocale::get('havefnubb~post.unsubscribed'),'ok');
         } else {
             jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
         }
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:view';
-        $rep->params = array('id_post'=>$id_post,
-                            'thread_id'=>$post->thread_id,
-                            'id_forum'=>$post->id_forum,
+        $rep->params = array('id_post'=>$thread->id_last_msg,
+                            'thread_id'=>$thread_id,
+                            'id_forum'=>$thread->id_forum_thread,
                             'ftitle'=>$post->forum_name,
                             'ptitle'=>$post->subject);
         return $rep;
@@ -1841,9 +1849,8 @@ jLog::dump($id_post);
      * Unsubscribe to a given posts from the profile page
      */
     public function unsub() {
-        $id_post = (int) $this->param('id_post');
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
-        if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($id_post)) {
+        $thread_id = (int) $this->param('thread_id');
+        if (jClasses::getService('havefnubb~hfnusub')->unsubscribe($thread_id)) {
             jMessage::add(jLocale::get('havefnubb~post.unsubscribed'),'ok');
         } else {
             jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
@@ -1857,19 +1864,20 @@ jLog::dump($id_post);
      * Subscribe to a given posts
      */
     public function subscribe() {
-        $id_post = (int) $this->param('id_post');
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
+        $thread_id = (int) $this->param('thread_id');
+        $thread = jClasses::getService('havefnubb~hfnuposts')->getThread($thread_id);
+        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg);
 
-        if (jClasses::getService('havefnubb~hfnusub')->subscribe($id_post)) {
+        if (jClasses::getService('havefnubb~hfnusub')->subscribe($thread_id)) {
             jMessage::add(jLocale::get('havefnubb~post.subscribed'),'ok');
         } else {
             jMessage::add(jLocale::get('havefnubb~post.your.are.not.subscribed'),'error');
         }
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:view';
-        $rep->params = array('id_post'=>$id_post,
-                            'thread_id'=>$post->thread_id,
-                            'id_forum'=>$post->id_forum,
+        $rep->params = array('id_post'=>$thread->id_last_msg,
+                            'thread_id'=>$thread_id,
+                            'id_forum'=>$thread->id_forum_thread,
                             'ftitle'=>$post->forum_name,
                             'ptitle'=>$post->subject);
         return $rep;

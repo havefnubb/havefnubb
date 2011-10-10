@@ -8,5 +8,11 @@
         <property name="id_forum" fieldname="id_forum" datatype="integer"/>
     </record>
     <factory>
+        <method name="getByIdForum" type="select">
+         <parameter name="id_forum" />
+         <conditions>
+             <eq property="id_forum" expr="$id_forum" />
+         </conditions>
+        </method>
     </factory>
 </dao>

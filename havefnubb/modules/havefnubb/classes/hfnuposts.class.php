@@ -161,7 +161,17 @@ class hfnuposts {
 
         return array($page,$nbPosts,$posts);
     }
+    /**
+     * get the thread
+     * @param integer $thread_id current thread
+     * @return integer $thread_id return the current thread
+     */
+    public function getThread($thread_id) {
+        if (!isset($this->threads[$thread_id]) and $thread_id > 0)
+            $this->threads[$thread_id] = jDao::get('havefnubb~threads_alone')->get($thread_id);
 
+        return $this->threads[$thread_id];
+    }
 
     /****************************************************
      * This part handles the "view" statement of a post *
@@ -337,7 +347,7 @@ class hfnuposts {
 
             // now let's get the inserted id to put this one in thread_id column !
             $record->thread_id = $threadRec->id_thread;
-
+            $dao->update($record);
             $id_post = $record->id_post;
             $thread_id = $record->thread_id;
 
@@ -350,7 +360,7 @@ class hfnuposts {
 
             $this->addPost($id_post,$record);
 
-            jEvent::notify('HfnuPostAfterInsert',array('id'=>$id_post,'id_forum'=>$id_forum));
+            jEvent::notify('HfnuPostAfterInsert',array('id'=>$threadRec->id_thread,'id_forum'=>$id_forum));
 
         }
         // edit a post

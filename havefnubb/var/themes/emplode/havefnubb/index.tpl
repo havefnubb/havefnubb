@@ -67,7 +67,11 @@
                 {if !$firstchild}</ul>{/if}
 
             </td>
-            <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum)}</td>
+            {ifacl2 'hfnu.admin.post'}
+            <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>true)}</td>
+            {else}
+            <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>false)}</td>
+            {/ifacl2}
             <td class="colright linkincell"><span class="smalltext">
                 {if $f->id_post}<strong>{@havefnubb~main.last.message@}</strong>
                 <a href="{jurl 'havefnubb~posts:viewtogo',
@@ -125,7 +129,11 @@
                 {$category->forum_desc|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}
             </td>
-            <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>
+            {ifacl2 'hfnu.admin.post'}
+            <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum,'admin'=>true)}</td>
+            {else}
+            <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum,'admin'=>false)}</td>
+            {/ifacl2}
             <td class="colright linkincell"><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
             {zone 'havefnubb~postlc',array('id_forum'=>$category->id_forum)}</span></td>
         </tr>
