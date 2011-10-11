@@ -44,6 +44,16 @@
             </div>
         </div>
     </fieldset>
+    {formcontrols}
+        {ifctrl 'tags'}
+            {if $reply == 0}{*no display of the tags field for reply *}
+        <div class="clearfix">
+            {ctrl_label}
+            <div class="input">{ctrl_control} </div>
+        </div>
+            {/if}
+        {/ifctrl}
+    {/formcontrols}
     {ifuserconnected}
     <fieldset>
         <div class="clearfix">

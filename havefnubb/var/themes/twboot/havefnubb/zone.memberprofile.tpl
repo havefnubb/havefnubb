@@ -1,5 +1,5 @@
 {if $user === false}
-<div class="block-colpost-author">
+<div class="span4 post-author">
     <ul class="member-ident">
     {hook 'hfbMemberProfile',array('user'=>0)}
         <li class="user-name user-image">{@havefnubb~member.guest@}</li>
@@ -11,7 +11,7 @@
 </div>
 {else}
 {hook 'hfbBeforeMemberProfile',array('user'=>$user->id)}
-<div class="block-col post-author">
+<div class="span4 post-author">
     <ul class="member-ident">
         {hook 'hfbMemberProfile',array('user'=>$user->id)}
         <li class="user-name user-image">{zone 'activeusers~onlinestatus',array('login'=>$user->login)}<a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($user->nickname)}">{$user->nickname|eschtml}</a></li>
