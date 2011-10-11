@@ -196,14 +196,15 @@ class hfnuforum {
      * @param int $id_forum id of the forum to unsubscribe
      * @param int $id_post id of the new post
      */
-    public function checkSubscribedForumAndSendMail($id_forum,$id_post) {
+    public function checkSubscribedForumAndSendMail($id_forum,$thread_id) {
+        global $gJConfig;
+        
         //check if this forum is already subscribe
         $recs = jDao::get('havefnubb~forum_sub')->getByIdForum($id_forum);
         foreach ($recs as $rec) {
             if (jAuth::getUserSession()->id != $rec->id_user) {
-
-                $post = jDao::get('havefnubb~posts')->get($id_post);
-
+                $thread = jDao::get('havefnubb~threads_alone')->get($thread_id);
+                $post = jDao::get('havefnubb~posts')->get($thread->id_last_msg);
                 // let's mail the new post to the user
                 $mail = new jMailer();
                 $mail->From       = $gJConfig->mailer['webmasterEmail'];
@@ -215,8 +216,7 @@ class hfnuforum {
                 $tpl->assign('post',$post);
                 $tpl->assign('server',$_SERVER['SERVER_NAME']);
                 $mail->Body = $tpl->fetch('havefnubb~forum_new_message', 'text');
-
-                $mail->AddAddress($toEmail);
+                $mail->AddAddress(jDao::get('havefnubb~member')->getById($rec->id_user)->email);                
                 $mail->Send();
             }
         }
