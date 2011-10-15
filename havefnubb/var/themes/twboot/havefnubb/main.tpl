@@ -8,11 +8,18 @@
 {meta_html js $j_basepath.'hfnu/js/bootstrap-tabs.js'}
 {meta_html js $j_basepath.'hfnu/js/bootstrap-dropdown.js'}
 {meta_html js $j_basepath.'hfnu/js/bootstrap-alerts.js'}
+{meta_html js $j_basepath.'hfnu/js/bootstrap-twipsy.js'}
+{meta_html js $j_basepath.'hfnu/js/bootstrap-modal.js'}
 {meta_html csstheme 'css/bootstrap.css'}
 {literal}
 <script type="text/javascript">
 //<[!CDATA
     $(".alert-message").alert('close');
+    $(function () {
+      $("a[rel=twipsy]").twipsy({
+        live: true
+      })
+    });
 //]>
 </script>
 {/literal}
