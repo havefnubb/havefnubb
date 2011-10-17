@@ -53,7 +53,7 @@ class jResponseHtml extends jResponse{
 		$this->body=new jTpl();
 		parent::__construct();
 	}
-	final public function output(){
+	public function output(){
 		$this->doAfterActions();
 		$this->_headSent=0;
 		if($this->_isXhtml&&$this->xhtmlContentType&&strstr($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml')){
@@ -105,6 +105,7 @@ class jResponseHtml extends jResponse{
 			}
 		}
 		echo implode("\n",$this->_bodyBottom);
+		$msgs=& $GLOBALS['gJCoord']->logMessages;
 		if(count($msgs)){
 			if(isset($msgs['response'])&&count($msgs['response'])){
 				echo '<ul id="jelixlog">';
@@ -126,7 +127,7 @@ class jResponseHtml extends jResponse{
 	}
 	protected function doAfterActions(){
 	}
-	final public function outputErrors(){
+	public function outputErrors(){
 		if($this->_headSent < 1){
 			if(!$this->_httpHeadersSent){
 				header("HTTP/1.0 500 Internal Server Error");
@@ -224,7 +225,7 @@ class jResponseHtml extends jResponse{
 			echo '<html lang="',$this->_lang,'">';
 		}
 	}
-	final protected function outputJsScriptTag($fileUrl,$scriptParams,$filePath=null){
+	protected function outputJsScriptTag($fileUrl,$scriptParams,$filePath=null){
 		global $gJConfig;
 		$params='';
 		if(is_array($scriptParams)){
@@ -243,7 +244,7 @@ class jResponseHtml extends jResponse{
 		}
 		echo '<script type="text/javascript" src="',htmlspecialchars($fileUrl),$jsFilemtime,'" ',$params,'></script>',"\n";
 	}
-	final protected function outputCssLinkTag($fileUrl,$cssParams,$filePath=null){
+	protected function outputCssLinkTag($fileUrl,$cssParams,$filePath=null){
 		global $gJConfig;
 		$params='';
 		if(is_array($cssParams)){
@@ -262,7 +263,7 @@ class jResponseHtml extends jResponse{
 		}
 		echo '<link type="text/css" href="',htmlspecialchars($fileUrl),$cssFilemtime,'" ',$params,$this->_endTag,"\n";
 	}
-	final protected function outputJsScripts(&$scriptList){
+	protected function outputJsScripts(&$scriptList){
 		global $gJConfig;
 		$minifyJsByParams=array();
 		$minifyExcludeJS=array();
@@ -303,7 +304,7 @@ class jResponseHtml extends jResponse{
 			}
 		}
 	}
-	final protected function outputCssLinks(&$linkList){
+	protected function outputCssLinks(&$linkList){
 		global $gJConfig;
 		$minifyCssByParams=array();
 		$minifyExcludeCSS=array();
@@ -357,7 +358,7 @@ class jResponseHtml extends jResponse{
 			}
 		}
 	}
-	final protected function outputHtmlHeader(){
+	protected function outputHtmlHeader(){
 		global $gJConfig;
 		echo '<head>'."\n";
 		if($this->_isXhtml&&$this->xhtmlContentType&&strstr($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml')){
@@ -437,7 +438,7 @@ class jResponseHtml extends jResponse{
 		}
 		echo implode("\n",$this->_Others),'</head>';
 	}
-	final public function clearHtmlHeader($what=null){
+	public function clearHtmlHeader($what=null){
 		$cleanable=array('CSSLink','CSSIELink','Styles','JSLink','JSIELink','JSCode','Others','MetaKeywords','MetaDescription');
 		if($what==null)
 			$what=$cleanable;
@@ -448,7 +449,7 @@ class jResponseHtml extends jResponse{
 			}
 		}
 	}
-	final public function setXhtmlOutput($xhtml=true){
+	public function setXhtmlOutput($xhtml=true){
 		$this->_isXhtml=$xhtml;
 		if($xhtml)
 			$this->_endTag="/>\n";

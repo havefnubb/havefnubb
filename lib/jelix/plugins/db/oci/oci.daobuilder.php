@@ -18,10 +18,7 @@ class ociDaoBuilder extends jDaoGenerator{
 		foreach($this->_dataParser->getOuterJoins()as $tablejoin){
 			$table=$tables[$tablejoin[0]];
 			$tablename=$this->_encloseName($table['name']);
-			if($table['name']!=$table['realname'])
-				$r=$this->_encloseName($table['realname']).' '.$tablename;
-			else
-				$r=$this->_encloseName($table['realname']);
+			$r=$this->_encloseName($table['realname']).' '.$tablename;
 			$fieldjoin='';
 			if($tablejoin[1]==0){
 				$operand='=';$opafter='(+)';
