@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.2.5pre.1845');
+define('JELIX_VERSION','1.2.7pre.1871');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -1079,9 +1079,7 @@ class jCoordinator{
 		if(strpos($toDo,'ECHOQUIET')!==false){
 			$echoAsked=true;
 			if(!$doEchoByResponse){
-				while(ob_get_level()){
-						ob_end_clean();
-				}
+				while(ob_get_level()&&@ob_end_clean());
 				header("HTTP/1.1 500 Internal jelix error");
 				header('Content-type: text/plain');
 				echo 'JELIX PANIC ! Error during initialization !! ';
@@ -1091,9 +1089,7 @@ class jCoordinator{
 		}elseif(strpos($toDo,'ECHO')!==false){
 			$echoAsked=true;
 			if(!$doEchoByResponse){
-				while(ob_get_level()){
-						ob_end_clean();
-				}
+				while(ob_get_level()&&@ob_end_clean());
 				header("HTTP/1.1 500 Internal jelix error");
 				header('Content-type: text/plain');
 				echo $messageLog;
@@ -1112,9 +1108,7 @@ class jCoordinator{
 		}
 		if(strpos($toDo,'EXIT')!==false){
 			if($doEchoByResponse){
-				while(ob_get_level()){
-						ob_end_clean();
-				}
+				while(ob_get_level()&&@ob_end_clean());
 				if($this->response)
 					$this->response->outputErrors();
 				else if($echoAsked){
