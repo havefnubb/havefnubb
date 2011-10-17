@@ -12,7 +12,7 @@
  * @contributor Christophe Thiriot
  * @contributor Yannick Le Guédart
  * @contributor Steven Jehannet
- * @copyright   2005-2010 Laurent Jouanneau
+ * @copyright   2005-2011 Laurent Jouanneau
  * @copyright   2007 Loic Mathaud
  * @copyright   2007-2009 Julien Issler
  * @copyright   2008 Thomas
@@ -161,9 +161,9 @@ abstract class jDaoFactoryBase{
 		$order=array();
 		$props=$this->getProperties();
 		foreach($daocond->order as $name=>$way){
-			if(isset($props[$name]))
-				$order[]=$this->_conn->prefixTable($props[$name]['table']). '.'
-					. $this->_conn->encloseName($props[$name]['fieldName']).' '.$way;
+			if(isset($props[$name])){
+				$order[]=$this->_conn->encloseName($props[$name]['table']).'.'.$this->_conn->encloseName($props[$name]['fieldName']).' '.$way;
+			}
 		}
 		if(count($order)){
 			return ' ORDER BY '.implode(', ',$order);
@@ -270,13 +270,9 @@ abstract class jDaoFactoryBase{
 				return intval($value);
 			case 'double':
 			case 'float':
-				return doubleval($value);
 			case 'numeric':
 			case 'decimal':
-				if(is_numeric($value))
-					return $value;
-				else
-					return doubleval($value);
+				return jDb::floatToStr($value);
 			case 'boolean':
 				if($value===true||strtolower($value)=='true'||intval($value)===1||$value==='t'||$value==='on')
 					return $this->trueValue;
