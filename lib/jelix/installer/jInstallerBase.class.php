@@ -11,6 +11,8 @@
 abstract class jInstallerBase{
 	public $componentName;
 	public $name;
+	public $targetVersions=array();
+	public $date='';
 	public $version='0';
 	public $config;
 	public $entryPoint;
