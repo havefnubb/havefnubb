@@ -5,7 +5,7 @@
 * @subpackage  db
 * @author      Laurent Jouanneau
 * @contributor Yannick Le Guédart, Laurent Raufaste, Christophe Thiriot
-* @copyright   2005-2010 Laurent Jouanneau, 2008 Laurent Raufaste
+* @copyright   2005-2011 Laurent Jouanneau, 2008 Laurent Raufaste
 *
 * Some of this classes were get originally from the Copix project
 * (CopixDbConnection, Copix 2.3dev20050901, http://www.copix.org)
@@ -327,5 +327,14 @@ class jDb{
 	public static function clearProfiles(){
 		self::$_profiles=null;
 		self::$_cnxPool=array();
+	}
+	public static function floatToStr($value){
+		if(is_float($value))
+			return rtrim(sprintf('%.20F',$value),'0');
+		else if(is_integer($value))
+			return sprintf('%d',$value);
+		else if(is_numeric($value))
+			return $value;
+		return (string)(floatval($value));
 	}
 }
