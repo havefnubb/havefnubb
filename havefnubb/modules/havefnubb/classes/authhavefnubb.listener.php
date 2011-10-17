@@ -95,16 +95,16 @@ class authhavefnubbListener extends jEventListener{
         $toEmail = ($gJConfig->havefnubb['admin_email'] != '') ? $gJConfig->havefnubb['admin_email'] : $gJConfig->mailer['webmasterEmail'];
 
         if ($toEmail == '') {
-            throw new jException('havefnubb~mail.email.config.not.done.properly');
+            throw new jException('havefnubb~main.email.config.not.done.properly');
         }
 
         $user = $event->getParam('user');
         // update the creation date
         $dao = jDao::get('havefnubb~member');
 
-        $user = $dao->getByLogin($user->login);
+        $user = $dao->getByLogin($login = $user->login);
         if (!$user) {
-            throw new jException('havefnubb~member.member.does.not.exist');
+            throw new jException('havefnubb~member.member.does.not.exist', array($login));
         }
         // put the current date
         $user->member_created = date('Y-m-d H:i:s');
