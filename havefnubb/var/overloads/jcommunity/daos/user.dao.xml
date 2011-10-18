@@ -38,7 +38,6 @@
     <property name="nb_msg" fieldname="nb_msg" datatype="integer" />
     <property name="member_last_post" fieldname="last_post" datatype="integer" default="0"/>
     <property name="member_created" fieldname="create_date" datatype="datetime" insertpattern="NOW()" />
-    <property name="last_visit" fieldname="last_visit" datatype="integer" />
 
    </record>
     <factory>
@@ -101,16 +100,6 @@
           <order>
               <orderitem property="login" way="asc" />
           </order>
-      </method>
-      <method name="findLastVisit" type="select">
-            <parameter name="mintime" />
-            <conditions>
-                 <gt property="last_visit" expr="$mintime" />
-            </conditions>
-            <order>
-                <orderitem property="login" way="asc" />
-                <orderitem property="last_visit" way="desc" />
-            </order>
       </method>
     </factory>
 </dao>

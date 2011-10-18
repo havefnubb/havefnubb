@@ -10,6 +10,7 @@
         <property name="member_ip"  fieldname="member_ip"   datatype="string"   />
         <property name="connection_date"  fieldname="connection_date"   datatype="integer"  />
         <property name="last_request_date" fieldname="last_request_date" datatype="integer"  />
+        <property name="disconnection_date" datatype="integer" />
     </record>
     <factory>
         <method name="findConnected" type="select">
@@ -19,9 +20,11 @@
             </conditions>
             <order>
                 <orderitem property="login" way="asc" />
+                <orderitem property="name" way="asc" />
                 <orderitem property="last_request_date" way="desc" />
             </order>
         </method>
+
         <method name="countConnected" type="count">
             <parameter name="mintime" />
             <conditions>
@@ -35,16 +38,7 @@
             <conditions>
                 <gt property="last_request_date" expr="$mintime" />
                 <eq property="login" expr="$login" />
-            </conditions>
-        </method>
-
-        <method name="disconnectUser" type="update">
-            <parameter name="sessid" />
-            <values>
-                <value property="login" expr="NULL" />
-            </values>
-            <conditions>
-                <eq property="sessionid" expr="$sessid" />
+                <isnull property="disconnection_date" />
             </conditions>
         </method>
 
@@ -52,6 +46,10 @@
             <parameter name="mintime" />
             <conditions>
                  <lt property="last_request_date" expr="$mintime" />
+                 <conditions logic="or">
+                    <isnull property="login" />
+                    <eq property="login" value="" />
+                 </conditions>
             </conditions>
         </method>
 

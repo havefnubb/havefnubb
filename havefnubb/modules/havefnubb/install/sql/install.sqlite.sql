@@ -37,7 +37,6 @@ ALTER TABLE %%PREFIX%%community_users ADD  language varchar(40) DEFAULT 'fr_FR';
 ALTER TABLE %%PREFIX%%community_users ADD  nb_msg INTEGER DEFAULT '0';
 ALTER TABLE %%PREFIX%%community_users ADD  last_post INTEGER NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%community_users ADD  gravatar INT( 1 ) NOT NULL DEFAULT '0';
-ALTER TABLE %%PREFIX%%community_users ADD  last_visit INTEGER DEFAULT '0';
 
 
 CREATE TABLE %%PREFIX%%hfnu_member_custom_fields (
