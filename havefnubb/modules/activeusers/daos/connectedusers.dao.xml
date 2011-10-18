@@ -19,9 +19,11 @@
             </conditions>
             <order>
                 <orderitem property="login" way="asc" />
+                <orderitem property="name" way="asc" />
                 <orderitem property="last_request_date" way="desc" />
             </order>
         </method>
+
         <method name="countConnected" type="count">
             <parameter name="mintime" />
             <conditions>
