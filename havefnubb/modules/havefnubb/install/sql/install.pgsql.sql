@@ -45,7 +45,6 @@ ALTER TABLE %%PREFIX%%community_users ADD  language character varying(40) DEFAUL
 ALTER TABLE %%PREFIX%%community_users ADD  nb_msg integer DEFAULT 0;
 ALTER TABLE %%PREFIX%%community_users ADD  last_post integer DEFAULT 0 NOT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  gravatar integer DEFAULT 0 NOT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  last_visit integer DEFAULT 0;
 
 CREATE TABLE %%PREFIX%%hfnu_member_custom_fields (
     id_user integer NOT NULL,
