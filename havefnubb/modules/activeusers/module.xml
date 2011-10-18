@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="activeusers@havefnubb.org" name="activeusers" createdate="2010-11-04">
-        <version>1.0</version>
+        <version date="2011-10-18">1.0.1</version>
         <label lang="en_EN">activeusers</label>
         <description lang="en_EN" />
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
-        <copyright>2010 Laurent Jouanneau</copyright>
+        <copyright>2010-2011 Laurent Jouanneau</copyright>
         <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>
         <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
         <homepageURL>http://www.havefnubb.org/</homepageURL>
         <updateURL>http://www.havefnubb.org/update.php?module=activeusers</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.2RC1" maxversion="1.2.*"/>
+        <jelix minversion="1.2RC1" maxversion="1.3.*"/>
     </dependencies>
 </module>

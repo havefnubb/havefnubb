@@ -9,7 +9,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * Class the displays the online members
+ * displays members currently connected
  */
 class onlineusersZone extends jZone {
     /**
@@ -20,9 +20,11 @@ class onlineusersZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        $members = jClasses::create('activeusers~connectedusers')->getConnectedList();
-        $this->_tpl->assign('nbAnonymous',array_shift($members));
+        list($nbAnonymous, $members, $bots)  = jClasses::create('activeusers~connectedusers')->getConnectedList();
+
+        $this->_tpl->assign('nbAnonymous',$nbAnonymous);
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('nbMembers',count($members));
+        $this->_tpl->assign('bots',$bots);
     }
 }
