@@ -27,6 +27,7 @@ class connectedusers {
             $record->name = $name;
             $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
             $record->connection_date = $record->last_request_date = time();
+            $record->disconnection_date = null;
             $dao->update($record);
         }
         else {
@@ -36,6 +37,7 @@ class connectedusers {
             $record->name = $name;
             $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
             $record->connection_date = $record->last_request_date = time();
+            $record->disconnection_date = null;
             $dao->insert($record);
         }
         // this is an opportunity to delete old sessions
@@ -46,7 +48,13 @@ class connectedusers {
      * to call when a user logout
      */
     public function disconnectUser($login) {
-        jDao::get('activeusers~connectedusers')->disconnectUser($login);
+        $dao = jDao::get('activeusers~connectedusers');
+        $record = $dao->get(session_id());
+        if ($record) {
+            $record->disconnection_date = $record->last_request_date = time();
+            $dao->update($record);
+        }
+
         // this is an opportunity to delete old sessions
         $this->deleteOldSessions();
     }
@@ -56,13 +64,6 @@ class connectedusers {
      */
     protected function deleteOldSessions() {
         jDao::get('activeusers~connectedusers')->clear(time()- (5*24*60*60)); // 5 days
-    }
-
-    protected function deleteDisconnectedUsers() {
-        $timeoutVisit = $this->getVisitTimeout();
-        if ($timeoutVisit) {
-            jDao::get('activeusers~connectedusers')->clear($timeoutVisit);
-        }
     }
 
     /**
@@ -174,9 +175,9 @@ class connectedusers {
 
     /**
      * returns the list of connected users, regarding the given timeout.
-     * @return array the list of connected users. the first element is the number of anonymous users
+     * @return array results: 0=>the anonymous users number, 1=>list of connected users, 2=>list of bots
      */
-    function getConnectedList($timeout = 0) {
+    function getConnectedList($timeout = 0, $alsoDisconnectedUsers = false) {
         if ($timeout == 0)
             $timeout = $this->getVisitTimeout();
         $dao = jDao::get('activeusers~connectedusers');
@@ -190,7 +191,11 @@ class connectedusers {
         foreach($members as $m) {
             if ($m->login != '') {
                 if ($m->login != $currentlogin) { // we don't want duplicated login in the list
-                    $list[] = $m;
+                    if($m->disconnection_date == '' // those who are connected
+                       || ($alsoDisconnectedUsers && $m->disconnection_date > $timeout)) // and those who have been connected during the time interval, if we want them too
+                        $list[] = $m;
+                    else
+                        $anonymous ++; //disconnected users are considered as anonymous
                     $currentlogin = $m->login;
                 }
             } else {
@@ -210,7 +215,7 @@ class connectedusers {
     }
 
 
-    /**
+     /**
      * return the number of connected users
      * @return int
      */
@@ -219,7 +224,7 @@ class connectedusers {
         if ($timeout) {
             $cn = jDb::getConnection();
             $sql =" SELECT COUNT(DISTINCT(login)) as cnt FROM ".$cn->prefixTable('connectedusers').'
-                WHERE last_request_date > '. $timeout;
+                WHERE last_request_date > '. $timeout. ' AND disconnection_date IS null';
             $rs = $cn->query($sql);
             return $rs->fetch()->cnt;
         }

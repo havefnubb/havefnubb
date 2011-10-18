@@ -6,4 +6,5 @@ CREATE TABLE %%PREFIX%%connectedusers (
     member_ip VARCHAR(25) NOT NULL DEFAULT '',
     connection_date INT(10) NOT NULL DEFAULT 0,
     last_request_date INT(10) NOT NULL DEFAULT 0,
+    disconnection_date INT(10) NULL,
 );
