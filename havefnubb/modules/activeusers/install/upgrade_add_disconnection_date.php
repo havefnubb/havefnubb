@@ -19,4 +19,4 @@ class activeusersModuleUpgrader_add_disconnection_date extends jInstallerModule 
         }
     }
 }
-q
+
