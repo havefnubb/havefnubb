@@ -51,7 +51,6 @@ ALTER TABLE %%PREFIX%%community_users ADD  `language` varchar(40) DEFAULT 'fr_FR
 ALTER TABLE %%PREFIX%%community_users ADD  nb_msg int(12) DEFAULT '0';
 ALTER TABLE %%PREFIX%%community_users ADD  last_post int(12) NOT NULL DEFAULT '0';
 ALTER TABLE %%PREFIX%%community_users ADD  gravatar INT( 1 ) NOT NULL DEFAULT '0';
-ALTER TABLE %%PREFIX%%community_users ADD  last_visit INT(12) DEFAULT '0';
 
 CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_member_custom_fields (
   id_user int(11) NOT NULL,
@@ -186,4 +185,3 @@ INSERT INTO %%PREFIX%%hfnu_rank (id_rank, rank_name, rank_limit) VALUES
 (2, 'member', 40),
 (3, 'active member', 100);
 
-UPDATE %%PREFIX%%community_users SET last_visit = last_post;

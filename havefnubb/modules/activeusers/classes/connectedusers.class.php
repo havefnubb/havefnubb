@@ -27,6 +27,7 @@ class connectedusers {
             $record->name = $name;
             $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
             $record->connection_date = $record->last_request_date = time();
+            $record->disconnection_date = null;
             $dao->update($record);
         }
         else {
@@ -36,6 +37,7 @@ class connectedusers {
             $record->name = $name;
             $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
             $record->connection_date = $record->last_request_date = time();
+            $record->disconnection_date = null;
             $dao->insert($record);
         }
         // this is an opportunity to delete old sessions
@@ -46,23 +48,29 @@ class connectedusers {
      * to call when a user logout
      */
     public function disconnectUser($login) {
-        jDao::get('activeusers~connectedusers')->disconnectUser($login);
-        // this is an opportunity to delete ld sessions
+        $dao = jDao::get('activeusers~connectedusers');
+        $record = $dao->get(session_id());
+        if ($record) {
+            $record->disconnection_date = $record->last_request_date = time();
+            $dao->update($record);
+        }
+
+        // this is an opportunity to delete old sessions
         $this->deleteOldSessions();
     }
 
-
+    /**
+     * delete sessions that are too old
+     */
     protected function deleteOldSessions() {
         jDao::get('activeusers~connectedusers')->clear(time()- (5*24*60*60)); // 5 days
     }
 
-    protected function deleteDisconnectedUsers() {
-        $timeoutVisit = $this->getVisitTimeout();
-        if ($timeoutVisit) {
-            jDao::get('activeusers~connectedusers')->clear($timeoutVisit);
-        }
-    }
-
+    /**
+     * return the date that is the limit of the timeout: if a date is lower than
+     * this date, then it is a deprecated date.
+     * @return int  the unix timestamp of the timeout date.
+     */
     public function getVisitTimeout() {
         static $timeoutVisit = null;
 
@@ -94,6 +102,11 @@ class connectedusers {
         return $timeoutVisit;
     }
 
+    /**
+     * save the given timeout in the config file
+     * @param integer $timeout  the number of second
+     * @return boolean true if it has been saved correctly
+     */
     public function saveVisitTimeout($timeout) {
         global $gJConfig;
         if (isset($gJConfig->activeusers_admin['pluginconf'])
@@ -112,6 +125,12 @@ class connectedusers {
         return false;
     }
 
+    /**
+     * says if the given user is connected, ie, he has viewed a page
+     * in the last 'timeout' seconds
+     * @param string $login
+     * @param boolean true if he is connected
+     */
     public function isConnected ($login) {
         $dao = jDao::get('activeusers~connectedusers');
         $timeoutVisit = $this->getVisitTimeout();
@@ -129,35 +148,25 @@ class connectedusers {
      */
     public function check() {
         $dao = jDao::get('activeusers~connectedusers');
-        if (jAuth::isConnected()) {
-            $user = jAuth::getUserSession();
-            $login = $user->login;
-            if ($login == '') {
-                $login = $this->getBots();
-                $name = null;
-            }
-            else {
-                $login = $this->getName();
-                $name = $user->nickname;
-            }
-        }
-        else {
-            $name = null;
-            $login = $this->getBots();
-        }
 
         $record = $dao->get(session_id());
         if ($record) {
-            $record->login = $login;
-            $record->name = $name;
             $record->last_request_date = time();
             $dao->update($record);
         }
         else {
             $record = jDao::createRecord('activeusers~connectedusers');
             $record->sessionid = session_id();
-            $record->login = $login;
-            $record->name = $name;
+
+            if (jAuth::isConnected()) {
+                $user = jAuth::getUserSession();
+                $record->login = $user->login;
+                $record->name = $this->getName();
+            }
+            else {
+                $record->login = '';
+                $record->name = $this->getBots();
+            }
             $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $dao->insert($record);
@@ -166,34 +175,56 @@ class connectedusers {
 
     /**
      * returns the list of connected users, regarding the given timeout.
-     * @return array the list of connected users. the first element is the number of anonymous users
+     * @return array results: 0=>the anonymous users number, 1=>list of connected users, 2=>list of bots
      */
-    function getConnectedList($timeout = 0) {
+    function getConnectedList($timeout = 0, $alsoDisconnectedUsers = false) {
         if ($timeout == 0)
             $timeout = $this->getVisitTimeout();
         $dao = jDao::get('activeusers~connectedusers');
         $members = $dao->findConnected($timeout);
         $list = array();
+        $botlist = array();
         $currentlogin = '';
+        $currentbot = '';
         $anonymous = 0;
+        // members are ordered by login asc, so anonymous and bots are first
         foreach($members as $m) {
-            if ($m->login != $currentlogin) { // we don't want duplicated login in the list
-                $list[] = $m;
-                $currentlogin = $m->login;
+            if ($m->login != '') {
+                if ($m->login != $currentlogin) { // we don't want duplicated login in the list
+                    if($m->disconnection_date == '' // those who are connected
+                       || ($alsoDisconnectedUsers && $m->disconnection_date > $timeout)) // and those who have been connected during the time interval, if we want them too
+                        $list[] = $m;
+                    else
+                        $anonymous ++; //disconnected users are considered as anonymous
+                    $currentlogin = $m->login;
+                }
+            } else {
+                if ($m->name) {
+                    // this is a bot
+                    if ($m->name != $currentbot) {
+                        $botlist[] = $m;
+                        $currentbot = $m->name;
+                    }
+                }
+                else { // for anonymous users, we just count them
+                    $anonymous ++;
+                }
             }
-            if ($m->login == '') // for anonymous users, we just count them
-                $anonymous ++;
         }
-        array_unshift($list,$anonymous);
-        return $list;
+        return array($anonymous, $list, $botlist);
     }
 
+
+     /**
+     * return the number of connected users
+     * @return int
+     */
     function getCount() {
         $timeout = $this->getVisitTimeout();
         if ($timeout) {
             $cn = jDb::getConnection();
             $sql =" SELECT COUNT(DISTINCT(login)) as cnt FROM ".$cn->prefixTable('connectedusers').'
-                WHERE last_request_date > '. $timeout;
+                WHERE last_request_date > '. $timeout. ' AND disconnection_date IS null';
             $rs = $cn->query($sql);
             return $rs->fetch()->cnt;
         }
@@ -218,7 +249,9 @@ class connectedusers {
      * then return the name of this one or null
      */
     protected function getBots() {
-        $browser = (!empty($_SERVER['HTTP_USER_AGENT'])) ? htmlspecialchars((string) $_SERVER['HTTP_USER_AGENT']) : '';
+        if (!isset($_SERVER['HTTP_USER_AGENT']) || $_SERVER['HTTP_USER_AGENT'] == '')
+            return null;
+        $browser = $_SERVER['HTTP_USER_AGENT'];
         // read the list of bots
         $botsList = jIniFile::read(JELIX_APP_CONFIG_PATH."botsagent.ini.php");
 
@@ -231,7 +264,6 @@ class connectedusers {
                 if ($bot['active']) {
                     $pattern=preg_replace($q_s,$q_r,$bot['agent']);
                     if (preg_match('#' . $pattern . '#i', $browser)) {
-                    echo $name . " " . $bot['agent'] . "<br/>";
                         return $name;
                     }
                 }
