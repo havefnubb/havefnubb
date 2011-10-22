@@ -27,10 +27,11 @@ a:active {
 
 h1 a {
     font-weight:normal;
+    color: #fff;
 }
 
 h1 a:hover {
-    color:#fff;
+    color:#333;
 }
 
 
@@ -66,7 +67,7 @@ tbody tr.odd td {
 }
 tfoot th,
 tfoot td {
-    border-top:2px solid #666;
+    border-top:2px solid #777;
     background:#eee;
 }
 
@@ -74,11 +75,11 @@ tfoot td {
 /* navigation */
 
 ul.nav {
-  background:#666;
+  background:#888;
 }
 ul.nav li a {
     color:#fff;
-    background:#666;
+    background:#888;
     font-weight:bold;
     text-decoration:none;
     border:0;
@@ -87,7 +88,7 @@ ul.nav li ul li a {
     font-weight:normal;
     color:#fff;
     border-top:1px solid #444;
-    background:#444;
+    background:#888;
 }
 
 ul.nav li:hover a,
@@ -114,9 +115,9 @@ ul.nav li.current:hover ul li a:active {color:#666; background:#fff;}
 
 
 .breadcrumb,
-ol.history {  background:#aaa; }
+ol.history {  background:#fff; }
 .breadcrumb ol li,
-ol.history li { color: #fff; }
+ol.history li { color: #000; }
 ol.history li a:hover{ color: #fff; }
 .breadcrumb ol li a:hover {
     color: #fff;

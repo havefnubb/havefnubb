@@ -30,13 +30,14 @@ class fnuHtmlResponse extends jResponseHtml {
 
         $title = $gJConfig->havefnubb['title'];
         $description = $gJConfig->havefnubb['description'];
-
+        $keywords = $gJConfig->havefnubb['keywords'];
 
         $language = preg_split('/_/',$gJConfig->locale);
 
         /* Dublin Core Meta and Content */
         $this->addHeadContent('<meta name="description" lang="'.$language[0].'" content="'.$description.'" />');
-
+        $this->addHeadContent('<meta name="keywords" content="'.$keywords.'"/>');
+        $this->addHeadContent('<meta name="language" content="'.$language[0].'"/>');
         $this->addHeadContent('<link rel="schema.dc" href="http://purl.org/dc/elements/1.1/"/>');
         $this->addHeadContent('<meta name="dc.title" lang="'.$language[0].'" content="'.$title.'" />');
         $this->addHeadContent('<meta name="dc.description" lang="'.$language[0].'" content="'.$description.'" />');
@@ -81,12 +82,6 @@ class fnuHtmlResponse extends jResponseHtml {
 
                             $this->body->assign('home',0);
                             $this->body->assign('selectedMenuItem','community');
-                            //FIXME delete this when jforms will use the new element wiki editor
-                            $toolbarConfig  = $gJConfig->wikieditors;
-                            $this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.engine.file']);
-                            $this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.config.path'] .$gJConfig->locale . '.js');
-                            $this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.skin']);
-                            $this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.config.path'] .'style.css');
                             if ($method == 'view' or $method == 'lists')
                                 $this->body->assign('currentIdForum',$GLOBALS['gJCoord']->request->params['id_forum']);
                             else
@@ -115,13 +110,6 @@ class fnuHtmlResponse extends jResponseHtml {
                         $this->body->assign('home',0);
                         $this->body->assign('selectedMenuItem','users');
                         $this->body->assign('currentIdForum',0);
-                        //FIXME delete this when jforms will use the new element wiki editor
-                        $toolbarConfig  = $gJConfig->wikieditors;
-                        $this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.engine.file']);
-                        $this->addJSLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.config.path'] .$gJConfig->locale . '.js');
-                        $this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.skin']);
-                        $this->addCssLink($gJConfig->urlengine['basePath'].$toolbarConfig['default.config.path'] .'style.css');
-
                         break;
                 case 'downloads':
                         $this->body->assign('home',0);

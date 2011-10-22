@@ -21,7 +21,7 @@ hr {
 }
 
 #header {
-  background:#aaa;
+  background:#444;
   height:8em;
 }
 
@@ -35,6 +35,7 @@ hr {
     }
     #branding p {
         margin: 0 0 0 5em;
+        color: #fff;
     }
 
 
@@ -44,13 +45,16 @@ hr {
     float:right;
     margin: 1em 2em 0 0;
 }
+    #login-status a {
+        color: #fff;
+    }
     #login-status a:hover {
-        color: #aaa;
-        background-color: #fff;
+        color: #fff;
+        background-color: #000;
     }
     #login-status a:focus {
-        color: #000;
-        background-color: #fff;
+        color: #fff;
+        background-color: #000;
     }
 
     #login-status h2 {

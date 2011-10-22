@@ -55,9 +55,9 @@ ul, ol {
 .jforms-submit,
 .submit,
 .jforms-reset {
-    border:1px solid #666;
+    border:1px solid #333;
     text-decoration: none;
-    background-color:#666;
+    background-color:#333;
     color:#fff;
     padding: 2px;
     cursor: pointer;
