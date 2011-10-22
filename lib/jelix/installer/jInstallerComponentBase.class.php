@@ -13,6 +13,7 @@ abstract class jInstallerComponentBase{
 	protected $name='';
 	protected $path='';
 	protected $sourceVersion='';
+	protected $sourceDate='';
 	protected $identityNamespace='';
 	protected $rootName='';
 	protected $identityFile='';
@@ -30,6 +31,7 @@ abstract class jInstallerComponentBase{
 	public function getName(){return $this->name;}
 	public function getPath(){return $this->path;}
 	public function getSourceVersion(){return $this->sourceVersion;}
+	public function getSourceDate(){return $this->sourceDate;}
 	public function getJelixVersion(){return array($this->jelixMinVersion,$this->jelixMaxVersion);}
 	public function addModuleInfos($epId,$module){
 		$this->moduleInfos[$epId]=$module;
@@ -76,6 +78,10 @@ abstract class jInstallerComponentBase{
 		if($root->namespaceURI==$this->identityNamespace){
 			$xml=simplexml_import_dom($xmlDescriptor);
 			$this->sourceVersion=(string) $xml->info[0]->version[0];
+			if(isset($xml->info[0]->version['date']))
+				$this->sourceDate=(string) $xml->info[0]->version['date'];
+			else
+				$this->sourceDate='';
 			$this->readDependencies($xml);
 		}
 	}

@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+havefnubb/var/config/installer.ini.php
+havefnubb/var/config/dbprofils.ini.php
+havefnubb/var/config/defaultconfig.ini.php
+havefnubb/var/log
+temp/havefnubb/*
+cache/images/*
+*.komodoproject

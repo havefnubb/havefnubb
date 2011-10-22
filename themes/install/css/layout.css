@@ -625,12 +625,14 @@ input.search.button {
     height: 16px;
 }
 
-.user-currently-online li , .user-online-today li  {
+.user-currently-online li , .user-online-today li,
+.bots-currently-online li , .bots-online-today li {
     display:inline;
     padding:1px;
     list-style-type:none;
     list-style-position:outside;
 }
+.bots-currently-online ul , .bots-online-today ul {  list-style-type:none; display:inline; margin:0; padding:0;}
 
 .user-image {
     background-repeat: no-repeat;

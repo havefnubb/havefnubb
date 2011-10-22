@@ -1,0 +1,229 @@
+/* boxes
+----------------------------------------------- */
+.box {
+    background:#ffce73;
+    margin-bottom:20px;
+    padding:10px 10px 1px 10px;
+}
+.box h2 {
+    font-size:1em;
+    font-weight:normal;
+    text-transform:uppercase;
+    color:#000;
+    background:#ffce73;
+    margin:-10px -10px 0 -10px;
+    padding:6px 12px;
+}
+.box h2 a,
+.box h2 a.visible {
+    color:#000;
+    background:#ffce73;
+    display:block;
+    padding:6px 12px;
+    margin:-6px -12px;
+    border:none;
+}
+.grid_4 .box h2 a {
+    background-position: 97% 50%;
+}
+.grid_5 .box h2 a {
+    background-position: 98% 50%;
+}
+.grid_12 .box h2 a {
+    background-position: 99% 50%;
+}
+
+.box h2 a:hover {
+    background-color:#a4885b;
+}
+
+.box h3 {
+    background-color:#ffce73;
+}
+
+.block {
+    padding-top:10px;
+}
+div.menu {
+    padding:0;
+}
+div.menu h2 {
+    margin:0;
+}
+div.menu .block {
+    padding-top:0;
+}
+
+/* menus
+----------------------------------------------- */
+ul.menu {
+    list-style:none;
+    border-top:1px solid #bbb;
+}
+ul.menu li {
+    margin:0;
+}
+ul.menu li a {
+    display:block;
+    padding:4px 10px;
+    border-bottom:1px solid #ccc;
+}
+ul.menu li a:hover {
+    background:#eee;
+}
+ul.menu li a:active {
+    background:#ccc;
+}
+
+
+/* submenus
+----------------------------------------------- */
+ul.menu ul {
+    list-style:none;
+    margin:0;
+}
+ul.menu ul li a {
+    padding-left:30px;
+}
+
+/* forms
+----------------------------------------------- */
+fieldset p label {
+    width:98%;
+}
+fieldset p input {
+    width:98%;
+}
+fieldset p select {
+    width:99%;
+}
+form p.notice {
+    font-weight:bold;
+}
+input.search.text {
+    width:66%;
+}
+input.search.button {
+    width:28%;
+    margin-left:2%;
+}
+
+/* posts head */
+.postheading {
+    border-bottom: 1px solid #fff;
+}
+.postheading-tags li {
+    list-style: none;
+    display:inline;
+    padding-left:15px;
+    list-style-type:none;
+    list-style-position:outside;
+    background-image: url("../../../themes/default/images/posts/tag_green.png");
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+
+/* posts  body */
+.post-author ul {
+    margin: 0;
+    padding: 0 0 0.5em 0;
+    list-style: none;
+}
+
+.post-author, #post-rates-msg, .post-rates, .rates-result {
+    background-color: #ffbc40;
+}
+
+.postbody ul li {
+    list-style-type: circle;
+}
+
+.postbody ol li {
+    list-style-type:  decimal;
+}
+
+.postbody  pre {
+    border-left: 3px solid;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-top: 1px solid;
+    border-left-color: #f5f5f5;
+    border-top-color: #f5f5f5;
+    border-bottom-color: #eee;
+    border-right-color: #eee;
+    margin-right: 10px;
+    background-color: #bbb;
+}
+
+.postbody dl dt {
+    font-weight: bold;
+}
+
+.postbody dl dd {
+    font-family: cursive;
+    font-style: italic;
+}
+
+.postbody  acronym {
+    border-bottom-style: groove;
+}
+
+.postbody code {
+    font-family: monospace;
+    background-color: #f5f5f5;
+}
+/* posts footer */
+.postfoot {
+    padding: 0.5em;
+    background-color: #ffbc40;
+    margin-top:1em;
+    line-height:1.2em; margin-bottom:.3em;
+}
+
+
+
+.form_row {
+    border-bottom: 1px solid #9a7c4c;
+    padding: 10px 0;
+}
+.form_property, .form_value {float: left;}
+.form_property {
+    font-size: 1.1em;
+    text-align: right;
+    width: 180px;
+}
+.form_value {padding-left: 24px;}
+.form_row_submit .form_value {padding-left: 132px;}
+
+
+
+/* Tab */
+
+/* Caution! Ensure accessibility in print and other media types... */
+@media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
+    .ui-tabs-hide {
+        display: none;
+    }
+}
+
+/* Skin */
+
+.ui-tabs-nav {
+    height:28px;
+    display:block;
+    font-weight: bold;
+}
+.ui-tabs-nav li {
+    padding-left: 20px;
+}
+* html .ui-tabs-nav { /* auto clear @ IE 6 & IE 7 Quirks Mode */
+    display: inline-block;
+}
+
+*:first-child+html .ui-tabs-nav  { /* auto clear @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
+    display: inline-block;
+}
+
+.post-rates {
+    text-align: center;
+}
