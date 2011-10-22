@@ -1,0 +1,53 @@
+/* Navigation */
+ul.nav, ol.history,.breadcrumb ol,
+ul.nav * { margin:0;padding:0;}
+ul.nav,ol.history, .postfoot ul  {
+    position:relative;
+    max-width:100%;
+    height:2.5em;
+  }
+ul.nav li, .postfoot li   {
+    cursor:pointer;
+    float:left;
+    text-align:center;
+    list-style-type:none;
+    font-weight:normal;
+    position:relative;
+    top:0;
+    left:0;
+}
+ul.nav li ul {
+    cursor:default;
+    width:100%;
+    max-width:100%;
+    position:absolute;
+    height:auto;
+    top:2.5em;
+    left:-9000px;
+}
+ul.nav li ul li {
+    padding:0;
+    border:none;
+    width:auto;
+    max-width:none;
+	float:left;
+}
+ul.nav li a, .postfoot li a {
+    display:block;
+    float:left;
+    padding:0 1em;
+    height:2.5em;
+    line-height:2.5em;
+}
+ul.nav li ul li a {
+    position:relative !important; /* ie Mac */
+    cursor:pointer !important;
+    white-space:nowrap;
+    line-height:2em;
+    height:2em;
+    width:12em;
+    text-align:left;
+}
+
+ul.nav li:hover ul {left:0;z-index:10}
+ul.nav li.current ul {left:0;z-index:5}

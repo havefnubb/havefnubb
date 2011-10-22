@@ -10,6 +10,8 @@
         </p>
         <p>
             {ctrl_label 'message'}
+        </p>
+        <p>
             {ctrl_control 'message'}
         </p>
         {ifusernotconnected}

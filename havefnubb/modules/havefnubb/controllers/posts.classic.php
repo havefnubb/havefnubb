@@ -359,7 +359,11 @@ class postsCtrl extends jController {
                                             $post->thread_id
                                             )
                     );
-
+        if (jAuth::isConnected())
+            $tpl->assign('subcribedToThisForum',jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum));
+        else
+            $tpl->assign('subcribedToThisForum',false);
+            
         $tpl->assign('subject'  ,$post->subject);
         $tpl->assign('status'   ,self::$statusAvailable[$status -1]);
         $tpl->assign('statusAvailable',self::$statusAvailable);
@@ -1396,7 +1400,7 @@ class postsCtrl extends jController {
         $rep->infos->updated = date('Y-m-d H:i:s');
         $rep->infos->published = date('Y-m-d H:i:s');
         $rep->infos->selfLink= jUrl::get('havefnubb~posts:atom', array('ftitle'=>$ftitle,
-                                                    'id_forum'=>$fid_forum));        
+                                                    'id_forum'=>$fid_forum));
         $rep->infos->ttl=60;
 
         $dao = jDao::get('havefnubb~forum');

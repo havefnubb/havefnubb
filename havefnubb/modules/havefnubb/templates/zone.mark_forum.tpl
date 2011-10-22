@@ -1,4 +1,4 @@
-<div class="grid_8">
+<div class="grid_8 prefix_8">
     <ul id="markasread">
         <li><a href="{jurl 'havefnubb~forum:mark_all_as_read'}">{@havefnubb~forum.mark.all.forum.as.read@}</a></li>
         {if $currentIdForum > 0}
