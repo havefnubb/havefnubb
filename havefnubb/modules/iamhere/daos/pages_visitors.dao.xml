@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="pages_visitors" realname="iah_pages_visitors"  primarykey="id_pages,login" />
+    </datasources>
+    <record>
+        <property name="id_pages" fieldname="iah_id_pages"  datatype="integer"/>
+        <property name="login"    fieldname="iah_login"     datatype="string"/>
+    </record>
+
+    <!-- naming convention :
+        findXXX uses type="select"
+        getXXX uses type="selectfirst"
+        countXXX uses type="count"
+    -->
+    <factory>
+        <method name="getByLogin" type="selectfirst">
+            <parameter name="login" />
+            <conditions>
+                <eq property="login" expr="$login" />
+            </conditions>
+        </method>
+        <method name="updateMyPage" type="update">
+            <parameter name="login" />
+            <parameter name="id_pages" />
+            <conditions>
+                <eq property="login" expr="$login" />
+            </conditions>
+            <values>
+                <value property="id_pages" expr="$id_pages"/>
+            </values>
+        </method>
+    </factory>
+</dao>
