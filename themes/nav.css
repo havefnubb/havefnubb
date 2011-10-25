@@ -1,5 +1,5 @@
 /* Navigation */
-ul.nav,
+ul.nav, ol.history,.breadcrumb ol,
 ul.nav * { margin:0;padding:0;}
 ul.nav {
   position:relative;
@@ -30,7 +30,7 @@ ul.nav li ul li {
     border:none;
     width:auto;
     max-width:none;
-	float:left;
+    float:left;
 }
 ul.nav li a {
     display:block;

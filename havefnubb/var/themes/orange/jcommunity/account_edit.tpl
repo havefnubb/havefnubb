@@ -13,7 +13,7 @@ $(document).ready(function(){
 {/literal}
 {hook 'hfbAccountEditBefore',array('user'=>$username)}
 <div class="box">
-    <h2>{@havefnubb~member.edit.account.header@}</h2>
+    <h3>{@havefnubb~member.edit.account.header@}</h3>
     <div class="box-content">
         {form $form, 'jcommunity~account:save', array('user'=>$username)}
         <div id="container">

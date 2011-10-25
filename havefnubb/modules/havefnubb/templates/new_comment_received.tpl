@@ -2,7 +2,7 @@
 
 {@havefnubb~post.new.comment.received.on.the.post@}
 
-http://{$server}{jurl 'havefnubb~posts:view',
+{jfullurl 'havefnubb~posts:view',
 array('id_post'=>$post->thread_id,
         'thread_id'=>$post->thread_id,
         'id_forum'=>$post->id_forum,
@@ -10,7 +10,7 @@ array('id_post'=>$post->thread_id,
         'ptitle'=>$post->subject)}#p{$post->id_post}
 
 {@havefnubb~member.your.subscriptions@} :
-http://{$server}{jurl 'jcommunity~account:prepareedit', array('user'=>$login)}
+{jfullurl 'jcommunity~account:prepareedit', array('user'=>$login)}
 
 {@havefnubb~post.new.comment.received.unsubscribe@} :
-http://{$server}{jurl 'havefnubb~posts:unsubscribe',array('id_post'=>$post->thread_id)}
+{jfullurl 'havefnubb~posts:unsubscribe',array('id_post'=>$post->thread_id)}

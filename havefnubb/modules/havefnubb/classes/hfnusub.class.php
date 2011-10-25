@@ -75,8 +75,9 @@ class hfnusub {
 
         // then send them a mail
         foreach ($records as $record) {
-            //get all the member that subscript to the thread id $id (called be hfnupost -> savereply )
-            $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id);
+            //get all the member that subscribe to the thread id $id (called by hfnupost -> savereply )
+            $thread = jClasses::getService('havefnubb~hfnuposts')->getThread($id);
+            $post = jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg);
             //get the email of the member that subscribes this thread
             $member = $memberDao->getById($record->id_user);
             $subject = jLocale::get('havefnubb~post.new.comment.received') . " : " .$post->subject ;
@@ -92,7 +93,7 @@ class hfnusub {
             $tpl->assign('post',$post);
             $tpl->assign('login',$member->login);
             $mail->Body = $tpl->fetch('havefnubb~new_comment_received', 'text');
-            $mail->AddAddress($member->email);            
+            $mail->AddAddress($member->email);
             $mail->Send();
         }
     }
