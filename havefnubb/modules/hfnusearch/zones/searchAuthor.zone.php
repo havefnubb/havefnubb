@@ -11,16 +11,16 @@
  * Zone to Handle form of SearchEngine Author
  */
 class searchAuthorZone extends jZone {
-	/**
-	 *@var string $_tplname the template name used by the zone
-	 */
-	protected $_tplname='zone.searchAuthor';
-	/**
-	 * function to manage data before assigning to the template of its zone
-	 */
-	protected function _prepareTpl(){
-		$form = jForms::create('hfnusearch~author');
-		$form->setDAta('perform_search_in','authors');
-		$this->_tpl->assign('form',$form);
-	}
+    /**
+     *@var string $_tplname the template name used by the zone
+     */
+    protected $_tplname='zone.searchAuthor';
+    /**
+     * function to manage data before assigning to the template of its zone
+     */
+    protected function _prepareTpl(){
+        $form = jForms::create('hfnusearch~author');
+        $form->setDAta('perform_search_in','authors');
+        $this->_tpl->assign('form',$form);
+    }
 }
