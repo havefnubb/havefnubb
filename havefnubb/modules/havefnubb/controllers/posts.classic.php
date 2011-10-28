@@ -1358,12 +1358,12 @@ class postsCtrl extends jController {
         return $rep;
     }
     /**
-     * provide a rss feeds for each forum
+     * provide a atom feeds for each forum
      */
     function atom() {
         global $gJConfig;
-        $ftitle = jUrl::escape($this->param('ftitle'),true);
-        $id_forum = (int) $this->param('id_forum');
+        $ftitle = jUrl::unescape($this->param('ftitle'),true);
+        $id_forum = $this->intParam('id_forum');
 
         // if the forum is accessible by anonymous then the Atom will be available
         // otherwise NO Atom will be available
