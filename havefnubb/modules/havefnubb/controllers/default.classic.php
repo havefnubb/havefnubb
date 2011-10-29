@@ -50,7 +50,10 @@ class defaultCtrl extends jController {
             // get the list of forum to build the RSS link
             $url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$f->record->forum_name,
                                                     'id_forum'=>$f->record->id_forum));
-            $rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$f->record->forum_name.'" href="'.htmlentities($url).'" />');
+            $rep->addHeadContent('<link rel="alternate" type="application/rss+xml" title="'.$f->record->forum_name.' - RSS" href="'.htmlentities($url).'" />');
+            $url = jUrl::get('havefnubb~posts:atom', array('ftitle'=>$f->record->forum_name,
+                                                    'id_forum'=>$f->record->id_forum));
+            $rep->addHeadContent('<link rel="alternate" type="application/atom+xml" title="'.$f->record->forum_name.' - ATOM " href="'.htmlentities($url).'" />');
         }
 
         $tpl = new jTpl();
