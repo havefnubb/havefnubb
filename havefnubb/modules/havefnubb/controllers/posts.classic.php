@@ -111,7 +111,6 @@ class postsCtrl extends jController {
         if ($page < 0) $page = 0;
 
         // 2- limit per page
-        $nbPostPerPage = 0;
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
 
         // get all the posts of the current Forum by its Id
