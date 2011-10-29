@@ -148,9 +148,9 @@
         {/if}
         {ifacl2 'hfnu.posts.create','forum'.$id_forum}
             {if $subscribed}
-            <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('id_post'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
+            <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
             {else}
-            <span class="postsub"><a href="{jurl 'posts:subscribe' ,array('id_post'=>$thread_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </span>
+            <span class="postsub"><a href="{jurl 'posts:subscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </span>
             {/if}
         {/ifacl2}
         {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
