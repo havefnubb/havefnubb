@@ -85,6 +85,9 @@ $(document).ready(function(){
                     <div class="form_value">
                         {$user->member_town|eschtml}
                     </div>
+                    <div class="clearer">&nbsp;</div>
+                </div>
+                <div class="form_row">                    
                     <div class="form_property">
                         <label><strong>{@havefnubb~member.common.country@}</strong></label>
                     </div>
@@ -93,9 +96,12 @@ $(document).ready(function(){
                         {image 'hfnu/images/flags/'.strtolower($user->member_country).'.gif', array('alt'=>$user->member_country)} {country $user->member_country}
                         {/if}
                     </div>
+                    <div class="clearer">&nbsp;</div>
+                </div>
+                <div class="form_row">
                     <div class="form_property">
                         <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong>&nbsp;</label>
-                    </div>
+                    </div>                    
                     <div class="fom_value">
                         {if $user->member_website != ''}
                         <a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>
@@ -119,6 +125,11 @@ $(document).ready(function(){
                     <div class="form_value">
                         {$user->nb_msg}
                     </div>
+                    <div class="clearer">
+                        &nbsp;
+                    </div>                                        
+                </div>
+                <div class="form_row">
                     <div class="form_property">
                         <label><strong>{@havefnubb~member.common.registered.since@}</strong></label>
                     </div>

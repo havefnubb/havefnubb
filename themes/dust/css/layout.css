@@ -27,7 +27,6 @@ a:active:hover {
     background-color:#cd9c18;
 }
 
-
 /* 960 grid system container background
 ----------------------------------------------- */
 .container_12,
@@ -422,11 +421,10 @@ input.search.button {
     padding-left:15px;
     list-style-type:none;
     list-style-position:outside;
-    background-image: url("../../../themes/default/images/posts/tag_green.png");
+    background-image: url("../images/posts/tag_green.png");
     background-color: transparent;
     background-repeat: no-repeat;
 }
-
 /* posts  body */
 .post-author ul {
     margin: 0;
@@ -437,7 +435,6 @@ input.search.button {
 .post-author, #post-rates-msg, .post-rates, .rates-result {
     background-color: #edead7;
 }
-
 .postbody ul li {
     list-style-type: circle;
 }
@@ -457,6 +454,7 @@ input.search.button {
     border-right-color: #eee;
     margin-right: 10px;
     background-color: #bbb;
+    word-wrap: break-word;
 }
 
 .postbody dl dt {
@@ -500,10 +498,12 @@ input.search.button {
     padding: 2px;
     cursor: pointer;
 }
+
 .fake-button a:hover, .fake-button-left a:hover, .jforms-submit:hover, .submit:hover, .jforms-reset:hover {
     background-color:#ccae7a;
     border:1px solid #a4885b;
 }
+
 .fake-button a:active:hover, .fake-button-left a:active:hover, .jforms-submit:active:hover, .submit:active:hover, .jforms-reset:active:hover {
     background-color:#ccae7a;
     border:1px solid #a4885b;
@@ -786,7 +786,6 @@ h2#login-status {
     background-color: #9a7c4c;
 }
 
-
 .form_row {
     border-bottom: 1px solid #9a7c4c;
     padding: 10px 0;
@@ -795,39 +794,11 @@ h2#login-status {
 .form_property {
     font-size: 1.1em;
     text-align: right;
-    width: 180px;
+    width: 240px;
 }
 .form_value {padding-left: 24px;}
 .form_row_submit .form_value {padding-left: 132px;}
 
-
-
-/* Tab */
-
-/* Caution! Ensure accessibility in print and other media types... */
-@media projection, screen { /* Use class for showing/hiding tab content, so that visibility can be better controlled in different media types... */
-    .ui-tabs-hide {
-        display: none;
-    }
-}
-
-/* Skin */
-
-.ui-tabs-nav {
-    height:28px;
-    display:block;
-    font-weight: bold;
-}
-.ui-tabs-nav li {
-    padding-left: 20px;
-}
-* html .ui-tabs-nav { /* auto clear @ IE 6 & IE 7 Quirks Mode */
-    display: inline-block;
-}
-
-*:first-child+html .ui-tabs-nav  { /* auto clear @ IE 7 Standards Mode - do not group selectors, otherwise IE 6 will ignore complete rule (because of the unknown + combinator)... */
-    display: inline-block;
-}
 
 .branding {
     background:#9a7c4c;
@@ -849,8 +820,6 @@ h2#login-status {
 .post-rates {
     text-align: center;
 }
-
-
 ol.history {
     list-style: none;
 }
@@ -866,6 +835,32 @@ ol.history li {
     width: 3%;
     background-position: center;
 }
+.forumicone {
+    background-image: url("../images/posts/folder.png");
+    background-repeat: no-repeat;
+}
+.forumiconenew {
+    background-image: url("../images/posts/folder_new.png");
+    background-repeat: no-repeat;
+}
+
+/* posts status */
+.colicone-closed, .colicone-opened, .colicone-pined, .colicone-pinedclosed, .colicone-post-new, .colicone-censored
+.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important,
+.colicone-hidden{
+    text-align: center;
+    padding: 5px;
+    width: 4%;
+    background-position: center;
+}
+
+
+.post-status-opened, .post-status-closed,
+.post-status-pined, .post-status-pinedclosed,
+.post-status-censored {
+    display:none;
+}
+
 
 .post-status-icon-opened, .post-status-icon-closed, .post-status-icon-pined, .post-status-icon-pinedclosed {
     background-position: left;
@@ -891,12 +886,29 @@ ol.history li {
 }
 
 .colicone-pined, .post-status-icon-pined {
-    background-image: url('../images/posts/pined.png');
+    background-image: url("../images/posts/pined.png");
     background-repeat: no-repeat;
 }
 
 .colicone-pinedclosed, .post-status-icon-pinedclosed {
     background-image: url("../images/posts/pined-closed.png");
+    background-repeat: no-repeat;
+}
+
+.colicone-censored, .post-status-icon-censored {
+    background-image: url("../images/posts/censored.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.colicone-opened_important,.colicone-closed_important,.colicone-pined_important,.colicone-pinedclosed_important {
+    background-image: url("../images/posts/important.png");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.colicone-hidden {
+    background-image: url("../images/posts/hidden.png");
     background-repeat: no-repeat;
 }
 
@@ -910,10 +922,28 @@ ol.history li {
     text-decoration: none;
 }
 
+#markasread {
+    text-align: right;
+    list-style-type: none;
+}
+
 span.newestposts{
     display: none;
 }
+
 .status-post-new {
     color: #E01D3A;
     font-weight: bold;
+}
+
+.status-opened {
+    color: #747070;
+}
+
+.status-closed {
+    color: #a09898;
+}
+
+.status-hidden {
+    color: #a7a7a7;
 }
