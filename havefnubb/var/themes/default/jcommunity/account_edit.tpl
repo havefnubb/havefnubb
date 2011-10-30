@@ -27,7 +27,7 @@ $(document).ready(function(){
                 <legend><span class="user-general user-image">{@havefnubb~member.general@}</span></legend>
                 <div class="form_row">
                     <div class="form_property">
-                        <label class="user-name user-image"><strong>{ctrl_label 'nickname'}</strong></span>
+                        <span class="user-name user-image"><strong>{ctrl_label 'nickname'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'nickname'}</div>
                     <div class="form_property">
