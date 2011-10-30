@@ -34,15 +34,15 @@
     <url pathinfo="/shownew" action="posts:shownew"/>
 
 
-    <url pathinfo="/:id_post/unsubscribe" action="posts:unsubscribe">
-        <param name="id_post" type="number"/>
+    <url pathinfo="/:thread_id/unsubscribe" action="posts:unsubscribe">
+        <param name="thread_id" type="number"/>
     </url>
-    <url pathinfo="/:id_post/unsub" action="posts:unsub">
-        <param name="id_post" type="number"/>
+    <url pathinfo="/:thread_id/unsub" action="posts:unsub">
+        <param name="thread_id" type="number"/>
     </url>
 
-    <url pathinfo="/:id_post/subscribe" action="posts:subscribe">
-        <param name="id_post" type="number"/>
+    <url pathinfo="/:thread_id/subscribe" action="posts:subscribe">
+        <param name="thread_id" type="number"/>
     </url>
 
 </suburls>
