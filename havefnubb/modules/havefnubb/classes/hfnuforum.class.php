@@ -47,7 +47,9 @@ class hfnuForumRecord {
     function __construct($r) {
         $this->record = $r;
     }
-
+    /**
+     * is this record allowed to be see ?
+     */
     function allowed() {
         if ($this->forbidden === null) {
             $this->forbidden = !jAcl2::check('hfnu.forum.list','forum'.$this->record->id_forum);
@@ -56,7 +58,9 @@ class hfnuForumRecord {
         }
         return !$this->forbidden;
     }
-
+    /**
+     * is this record disallowed to be see ?
+     */
     function disallow() {
         $this->forbidden = true;
         foreach($this->children as $f) $f->disallow();
@@ -87,7 +91,6 @@ class hfnuForumList {
     public $forumTree = array();
 
     function addForum($f) {
-
         // put the forum into the linear list
         $forum = new hfnuForumRecord($f);
         $this->forumList[$f->id_forum] = $forum;
@@ -105,7 +108,6 @@ class hfnuForumList {
             $this->forumTree[$f->id_cat][1][] = $forum;
         }
     }
-
     function getLinearIterator() {
         $list = new ArrayObject($this->forumList);
         $iterator = new hfnuForumRecordIterator($list->getIterator());
@@ -123,7 +125,6 @@ class hfnuforum {
      * @var $forums array
      */
     public $forums = array() ;
-
     /**
      * get info of the current forum
      * @param  integer $id of the current forum
@@ -134,7 +135,6 @@ class hfnuforum {
             $this->forums[$id] = jDao::get('havefnubb~forum')->get($id);
         return $this->forums[$id];
     }
-
     /**
      *  retrieve the list of forums
      *  @return hfnuForumList

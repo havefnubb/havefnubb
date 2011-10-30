@@ -31,7 +31,7 @@
         {@havefnubb~post.form.tags.description@}<br/>
         {ctrl_control 'tags'}
     </fieldset>
-            {/if}
+		{/if}
         {/ifctrl}
     {/formcontrols}
     {ifuserconnected}
