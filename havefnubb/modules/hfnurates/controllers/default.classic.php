@@ -39,10 +39,11 @@ class defaultCtrl extends jController {
     function rate_ajax_it() {
         //info about the "source" from where the datas come from
         $id_source = $this->intParam('id_source');
-        $source= $this->param('source');
+        $source = $this->param('source');
 
         //check if the cancel button was selected
-        if ($id_source == 0 or $source == '') return;
+        if ($id_source == 0 or $source == '')
+            return $this->getResponse('htmlfragment');
 
         $rate = $this->floatParam('star1');
         jClasses::getService('hfnurates~rates')->saveRatesBySource($id_source,$source,$rate);
