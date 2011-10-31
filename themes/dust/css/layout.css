@@ -118,11 +118,10 @@ input.search.button {
     padding-left:15px;
     list-style-type:none;
     list-style-position:outside;
-    background-image: url("../../../themes/default/images/posts/tag_green.png");
+    background-image: url("../images/posts/tag_green.png");
     background-color: transparent;
     background-repeat: no-repeat;
 }
-
 /* posts  body */
 .post-author ul {
     margin: 0;
@@ -133,7 +132,6 @@ input.search.button {
 .post-author, #post-rates-msg, .post-rates, .rates-result {
     background-color: #edead7;
 }
-
 .postbody ul li {
     list-style-type: circle;
 }
@@ -153,6 +151,7 @@ input.search.button {
     border-right-color: #eee;
     margin-right: 10px;
     background-color: #bbb;
+    word-wrap: break-word;
 }
 
 .postbody dl dt {
@@ -180,8 +179,6 @@ input.search.button {
     line-height:1.2em; margin-bottom:.3em;
 }
 
-
-
 .form_row {
     border-bottom: 1px solid #9a7c4c;
     padding: 10px 0;
@@ -190,7 +187,7 @@ input.search.button {
 .form_property {
     font-size: 1.1em;
     text-align: right;
-    width: 180px;
+    width: 240px;
 }
 .form_value {padding-left: 24px;}
 .form_row_submit .form_value {padding-left: 132px;}
@@ -227,5 +224,3 @@ input.search.button {
 .post-rates {
     text-align: center;
 }
-
-

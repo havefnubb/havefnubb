@@ -13,8 +13,8 @@ $(document).ready(function(){
 {hook 'hfbAccountShowBefore',array($user->login)}
 <div id="post-message">{jmessage}</div>
 <div class="box">
-    <h3>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h3>
-    <div class="box-content">
+    <h2>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h2>
+    <div class="block">
         <div id="user-profile-avatar">
         {if $user->member_gravatar == 1}
             {gravatar $user->email,array('username'=>$user->login)}
@@ -31,7 +31,7 @@ $(document).ready(function(){
         {/if}
         </div>
         <div id="container">
-        <ul class="nav">
+        <ul class="nav main">
             <li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
             <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
             {hook 'hfbAccountShowTab',array($user->login)}
@@ -171,10 +171,10 @@ $(document).ready(function(){
             {hook 'hfbAccountShowDiv',array('user'=>$user->login)}
         </div> <!-- #container -->
     </div>
-    <div class="buttons-bar">
-        {if $himself}
-        <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
-        {/if}
+    <div class="fake-button-left">
+    {if $himself}
+    <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
+    {/if}
     </div>
     </div>
     {hook 'hfbAccountShowBefore',array($user->login)}

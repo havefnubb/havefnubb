@@ -80,6 +80,7 @@ class hfnusub {
             $post = jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg);
             //get the email of the member that subscribes this thread
             $member = $memberDao->getById($record->id_user);
+
             $subject = jLocale::get('havefnubb~post.new.comment.received') . " : " .$post->subject ;
 
             $mail = new jMailer();
