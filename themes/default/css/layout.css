@@ -808,7 +808,7 @@ h2#login-status {
 .form_property {
     font-size: 1.1em;
     text-align: right;
-    width: 180px;
+    width: 240px;
 }
 .form_value {padding-left: 24px;}
 .form_row_submit .form_value {padding-left: 132px;}
