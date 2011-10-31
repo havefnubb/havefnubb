@@ -107,7 +107,8 @@ class defaultCtrl extends jController {
      */
     public function queryajax () {
         $string = (string) $this->param('q');
-        if ($string == '') return;
+        if ($string == '')
+            return $this->getResponse('htmlfragment');
 
         $additionnalParam = '';
 

@@ -32,7 +32,7 @@
     </fieldset>
     {formcontrols}
         {ifctrl 'tags'}
-            {if $reply == 0}{*no display of the tags field for reply *}
+            {if !isset($reply) || $reply == 0}{*no display of the tags field for reply *}
     <fieldset>
         <legend>{ctrl_label 'tags'}</legend>
         {@havefnubb~post.form.tags.description@}<br/>
