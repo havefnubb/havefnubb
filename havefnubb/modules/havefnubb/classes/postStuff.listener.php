@@ -34,16 +34,6 @@ class postStuffListener extends jEventListener{
         $this->updateMember();
     }
     /**
-     * Event to handle statistics data of the current member before removing data
-     * @pararm event $event Object of a listener
-     */
-    function onHfnuPostBeforeDelete ($event) {
-        //does this id user exists ?
-        if (jDao::get('havefnubb~member')->getById($event->getParam('id_user')))
-            //remove one post
-            jDao::get('havefnubb~member')->removeOneMsg($event->getParam('id_user'));
-    }
-    /**
      * Function that updates member's datas
      */
     private function updateMember() {
