@@ -7,6 +7,7 @@
 </ol>
 </div>
 
+
 {zone 'hfnusearch~hfnuquicksearch'}
 {ifuserconnected}
 {include 'havefnubb~zone.mark_forum'}
@@ -19,24 +20,24 @@
 {ifacl2 'hfnu.posts.list','forum'.$forum->id_forum}
 
 
-<div class="buttons-bar">&nbsp;
-    {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-    <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-    {/ifacl2}
-    {ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
-        {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-    <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
-        {else}
-            {ifacl2 'hfnu.admin.post'}
-    <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
-            {/ifacl2}
-        {/if}
-    {/ifacl2}
+<div class="fake-button-left grid_8 alpha">&nbsp;
+{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{/ifacl2}
+{ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
+    {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+    {else}
+        {ifacl2 'hfnu.admin.post'}
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+        {/ifacl2}
+    {/if}
+{/ifacl2}
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$forum->id_forum}
 {hook 'hfbBeforePostReplies',array('id_post'=>$id_post)}
-<div class="pager-posts">
+<div class="pager-posts grid_8 omega">
 {@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
@@ -69,7 +70,7 @@
                     <span class="status-post-new">**{@havefnubb~main.common.new@}**</span>
                 {/if}
                 {/ifuserconnected}</h2>
-    <div class="box-content">
+    <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
         {if $post->thread_id == $post->id_post}
@@ -85,6 +86,7 @@
            {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}
            {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
         </div>
+        {if $post->thread_id == $post->id_post}
         {if count($tags) > 1}
         <div class="grid_2 postheading-tags">
         <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
@@ -93,6 +95,7 @@
         <div class="grid_2 postheading-tags">
         <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
         </div>
+        {/if}
         {/if}
         <div class="clear"></div>
         <div class="grid_4">
@@ -117,9 +120,8 @@
         </div>
         <div class="clear"></div>
     </div>
-</div>
-    {/ifacl2}
-    <div class="postfoot buttons-bar">
+    <div class="postfoot fake-button">
+        &nbsp;
         {hook 'hfbPostRepliesFooter',
                     array('action'=>'havefnubb~posts:view',
                           'parms'=>array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
@@ -167,27 +169,29 @@
             {/if}
         {/ifacl2}
     </div>
+</div>
+    {/ifacl2}
     {assign $i++}
 {/foreach}
 
-<div class="buttons-bar">&nbsp;
-    {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
-    <a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
-    {/ifacl2}
-    {ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
-        {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-    <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
-        {else}
-            {ifacl2 'hfnu.admin.post'}
-    <a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
-            {/ifacl2}
-        {/if}
-    {/ifacl2}
+<div class="fake-button-left grid_8 alpha">&nbsp;
+{ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
+<a href="{jurl 'havefnubb~posts:add',array('id_forum'=>$forum->id_forum)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.new.message@}</a>
+{/ifacl2}
+{ifacl2 'hfnu.posts.reply','forum'.$forum->id_forum}
+    {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+    {else}
+        {ifacl2 'hfnu.admin.post'}
+<a href="{jurl 'havefnubb~posts:reply',array('id_post'=>$id_post,'thread_id'=>$thread_id)}" title="{@havefnubb~forum.forumlist.new.message@}">{@havefnubb~forum.forumlist.reply.message@}</a>
+        {/ifacl2}
+    {/if}
+{/ifacl2}
 </div>
 
 {ifacl2 'hfnu.posts.view','forum'.$forum->id_forum}
 {hook 'hfbAfterPostsReplies',array('id_post'=>$id_post)}
-<div class="pager-posts">
+<div class="pager-posts grid_8 omega">
 {@havefnubb~main.common.page@}{pagelinks 'posts:view', array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle),
  $nbReplies, $page, $nbRepliesPerPage, "page", $properties}
 </div>
@@ -212,6 +216,7 @@
         {/ifacl2}
     {/if}
 {/ifacl2}
+
 {ifacl2 'hfnu.forum.goto'}
     {zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
 {/ifacl2}
@@ -219,7 +224,7 @@
 <div class="box">
     <h2>{@havefnubb~post.status.change.the.status.of.the.post@}</h2>
 {form $formStatus, 'havefnubb~posts:status',array('thread_id'=>$thread_id)}
-    <div class="box-content">
+    <div class="block">
     {ctrl_label 'status'} {ctrl_control 'status'} {formsubmit 'validate'}
     </div>
 {/form}
@@ -227,7 +232,7 @@
 <div class="box">
     <h2>{@havefnubb~forum.move.this.thread@}</h2>
 {form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
-    <div class="box-content">
+    <div class="block">
     {ctrl_label 'id_forum'} {ctrl_control 'id_forum'} {formsubmit 'validate'}
     </div>
 {/form}
