@@ -76,8 +76,11 @@
                     {/foreach}
                     {if !$firstchild}</ul>{/if}</td>
 
-
-                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum)}</td>
+                {ifacl2 'hfnu.admin.post'}
+                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>true)}</td>
+                {else}
+                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>false)}</td>
+                {/ifacl2}
                 <td><span class="smalltext">
                 {* hidden post ? *}
                 {if $f->status == 7}
@@ -166,7 +169,11 @@
                         <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}">{image 'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
                     </h3>{$category->forum_desc|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
-                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum)}</td>
+                {ifacl2 'hfnu.admin.post'}
+                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum,'admin'=>true)}</td>
+                {else}
+                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum,'admin'=>false)}</td>
+                {/ifacl2}
                 <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
                 {zone 'havefnubb~postlc',array('id_forum'=>$category->id_forum)}</span></td>
             </tr>
@@ -192,7 +199,11 @@
 {/if}
 {hook 'hfbAfterCategoryList'}
 <div class="grid_5 alpha">
-    {zone 'havefnubb~lastposts'}
+    {ifacl2 'hfnu.admin.post'}
+    {zone 'havefnubb~lastposts',array('admin'=>true)}
+    {else}
+    {zone 'havefnubb~lastposts',array('admin'=>false)}
+    {/ifacl2}
     {zone 'havefnubb~stats'}
 </div>
 

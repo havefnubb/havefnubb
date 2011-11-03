@@ -1,10 +1,17 @@
-{meta_html csstheme 'css/reset.css'}
-{meta_html csstheme 'css/text.css'}
-{meta_html csstheme 'css/grid.css'}
+{iamhere}
+
+{meta_html css $j_basepath.'themes/reset.css'}
+{meta_html css $j_basepath.'themes/text.css'}
+{meta_html css $j_basepath.'themes/grid.css'}
+{meta_html css $j_basepath.'themes/nav.css'}
+{meta_html css $j_basepath.'themes/ie.css'}
+{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html js $j_themepath.'js/jquery-fluid16.js'}
+
 {meta_html csstheme 'css/layout.css'}
 {meta_html csstheme 'css/nav.css'}
-{meta_html cssthemeie 'css/ie.css'}
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html csstheme 'css/theme.css'}
+
 <div class="container_16">
     <div class="grid_16 branding">
         <div class="grid_11">
