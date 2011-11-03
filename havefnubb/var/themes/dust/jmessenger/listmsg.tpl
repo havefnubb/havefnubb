@@ -1,6 +1,6 @@
 {zone 'jmessenger~links'}
 <div class="box">
-    <div class="box-content">
+    <div class="block">
     <fieldset>
         <legend><span class="{if isset($send)}user-email-outbox{else}user-email-inbox{/if} user-image">{$title}</span></legend>
         <table>
@@ -13,16 +13,16 @@
                 <th>{@jmessenger~message.list.actions@}</th>
             </tr>
         </thead>
+        {if $msg->rowCount() > 0}
         <tbody>
     {foreach $msg as $m}
         <tr id="mail{$m->id}" {if $m->isSeen == 0 && !isset($send)}class="new"{/if}>
             <td><input class='msg_select' type='checkbox' value="{$m->id}" name='msg_select[]'/></td>
             <td><a href="{jurl 'jmessenger~jmessenger:view', array('id'=>$m->id)}">{$m->title}</a> {if $m->isSeen == 0 && !isset($send)}({@jmessenger~message.new@} !){/if}</td>
-            <td>
-            {if isset($send)}
+            <td>{if isset($send)}
                 <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFor}</a>
             {else}
-                <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFrom}</a>
+                <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFor}</a>
             {/if}
             </td>
             <td>
@@ -37,6 +37,7 @@
         </tr>
     {/foreach}
         </tbody>
+        {/if}
         </table>
     </fieldset>
     </div>

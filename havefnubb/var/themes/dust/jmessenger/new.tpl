@@ -1,7 +1,7 @@
 {zone 'jmessenger~links'}
 <div class="box">
     <h2 class="user-email-add user-image">{@jmessenger~message.action.new@}</h2>
-    <div class="box-content">
+    <div class="block">
     {form $form, $submitAction}
     <fieldset>
     <legend>{@jmessenger~message.action.new@}</legend>
