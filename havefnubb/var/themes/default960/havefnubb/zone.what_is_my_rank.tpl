@@ -1,0 +1,1 @@
+{$myRank->rank_name|eschtml}
