@@ -1,0 +1,1 @@
+<p>{@havefnubb~member.destroy.account.deletion.done@}</p>
