@@ -26,7 +26,7 @@ class hfnusub {
     }
     /**
      * Subscribe to a thread
-     * @param integer $id of the post to subscribe
+     * @param integer $id of the THREAD! to subscribe
      * @return boolean
      */
     public static function subscribe($id) {
@@ -35,7 +35,7 @@ class hfnusub {
             $id_user = jAuth::getUserSession ()->id;
             if (! $dao->get($id, $id_user)) {
                 $record = jDao::createRecord(self::$daoSub);
-                $record->id_post = $id;
+                $record->id_post = $id;// thread ID
                 $record->id_user = $id_user;
                 $dao->insert($record);
                 return true;
@@ -45,7 +45,7 @@ class hfnusub {
     }
     /**
      * Unsubscribe to a thread
-     * @param integer $id of the post to unsubscribe
+     * @param integer $id of the THREAD! to unsubscribe
      * @return boolean
      */
     public static function unsubscribe($id) {

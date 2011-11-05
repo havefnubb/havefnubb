@@ -20,18 +20,18 @@ class member_subscriptions_listZone extends jZone {
      */
     protected function _prepareTpl(){
         $subs = array();
-        $posts = jDao::get('havefnubb~sub')->findSubscribedPostByUser(jAuth::getUserSession()->id);
-        foreach ($posts as $post) {
+        // get the threads the user subscribed
+        $threads = jDao::get('havefnubb~sub')->findSubscribedPostByUser(jAuth::getUserSession()->id);
+        foreach ($threads as $t) {
+            // get the thread details
+            $thread = jClasses::getService('havefnubb~hfnuposts')->getThread($t->id_post);
 
-            $forum = jClasses::getService('havefnubb~hfnuforum')->getForum(
-                        jClasses::getService('havefnubb~hfnuposts')->getPost($post->id_post)->id_forum
-                    );
             $subs[] = array(
-                'id_post'   => $post->id_post,
-                'ptitle'    => jClasses::getService('havefnubb~hfnuposts')->getPost($post->id_post)->subject,
-                'thread_id' => jClasses::getService('havefnubb~hfnuposts')->getPost($post->id_post)->thread_id,
-                'id_forum'  => $forum->id_forum,
-                'ftitle'    => $forum->forum_name
+                'id_post'   => $thread->id_last_msg,
+                'ptitle'    => jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg)->subject,
+                'thread_id' => $thread->id_thread,
+                'id_forum'  => $thread->id_forum_thread,
+                'ftitle'    => jClasses::getService('havefnubb~hfnuforum')->getForum($thread->id_forum_thread)->forum_name
                     );
         }
         $this->_tpl->assign('subs',$subs);
