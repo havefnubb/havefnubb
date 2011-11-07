@@ -1,4 +1,7 @@
-/* defines the common layout for all pages */
+/* defines the common layout for all pages. These rules target elements of the main template of the application.
+
+This file is supposed to be common to all theme
+*/
 
 body {
     margin:0;

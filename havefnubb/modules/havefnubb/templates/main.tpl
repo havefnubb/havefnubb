@@ -15,7 +15,11 @@
         {hook 'hfbMainInHeader'}
     </div>
     <div id="menubar">
-        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
+        {ifacl2 'hfnu.admin.index'}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>true)}
+        {else}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>false)}
+        {/ifacl2}
     </div>
     <div id="content">
     {$MAIN}

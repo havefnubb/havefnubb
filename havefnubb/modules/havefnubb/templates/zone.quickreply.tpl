@@ -9,9 +9,7 @@
             {ctrl_control 'subject'}
         </p>
         <p>
-            {ctrl_label 'message'}
-        </p>
-        <p>
+            {ctrl_label 'message'}<br/>
             {ctrl_control 'message'}
         </p>
         {ifusernotconnected}

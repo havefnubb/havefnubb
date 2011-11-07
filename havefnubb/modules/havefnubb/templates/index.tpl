@@ -199,7 +199,6 @@
 {hook 'hfbAfterForumIndex'}
 {/if}
 {hook 'hfbAfterCategoryList'}
-<div class="container_16 grid_16">
 <div class="grid_5 alpha">
     {ifacl2 'hfnu.admin.post'}
     {zone 'havefnubb~lastposts',array('admin'=>true)}
@@ -216,6 +215,5 @@
 
 <div class="grid_6 omega">
     {zone "jtags~tagscloud",array('destination'=>'havefnubb~default:cloud', 'maxcount'=>30)}
-</div>
 </div>
 <div class="clear"></div>

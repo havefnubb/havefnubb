@@ -30,18 +30,18 @@ $(document).ready(function(){
                         <span class="user-name user-image"><strong>{ctrl_label 'nickname'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'nickname'}</div>
+                </div>
+                <div class="form_row">
                     <div class="form_property">
                         <span class="user-email user-image"><strong>{ctrl_label 'email'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'email'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                    <div class="form_property">
                         <span class="user-birthday user-image"><strong>{ctrl_label 'member_birth'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_birth'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 {ifacl2 'auth.users.change.password'}
                 <div class="form_row">
@@ -49,7 +49,6 @@ $(document).ready(function(){
                         <span class="user-edit-password user-image">&nbsp;</span>
                     </div>                    
                     <div class="form_value"><a class="user-image"  href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a></div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 {/ifacl2}                
                 <div class="form_row">
@@ -57,7 +56,6 @@ $(document).ready(function(){
                         <span class="user-email user-image">&nbsp;</span>
                     </div>
                     <div class="form_value"><a href="{jurl 'havefnubb~members:mail'}">{@havefnubb~member.internal.messenger@}</a></div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
             <fieldset>
@@ -67,21 +65,18 @@ $(document).ready(function(){
                         <span class="user-town user-image"><strong>{ctrl_label 'member_town'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_town'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                     <div class="form_property">
                         <span class="user-country user-image"><strong>{ctrl_label 'member_country'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_country'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                     <div class="form_property">
                         <span class="user-website user-image"><strong>{ctrl_label 'member_website'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_website'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
             </div>
@@ -93,14 +88,12 @@ $(document).ready(function(){
                         <span class="user-language user-image"><strong>{ctrl_label 'member_language'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_language'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                     <div class="form_property">
                         <span class="user-show-email user-image"><strong>{ctrl_label 'member_show_email'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_show_email'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                     <div class="form_value">{@havefnubb~member.account.edit.show.your.email.description@}</div>
@@ -111,7 +104,6 @@ $(document).ready(function(){
                         <span class="user-avatar user-image"><strong>{ctrl_label 'member_avatar'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_avatar'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                     <div class="form_property">
@@ -119,14 +111,12 @@ $(document).ready(function(){
                         <br/>
                     </div>
                     <div class="form_value">{ctrl_control 'member_gravatar'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                     <div class="form_property">
                         <span class="user-signature user-image"><strong>{ctrl_label 'member_comment'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_comment'}</div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
             </div>
