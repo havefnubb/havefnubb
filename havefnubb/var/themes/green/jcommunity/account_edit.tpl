@@ -13,13 +13,12 @@ $(document).ready(function(){
 {hook 'hfbAccountEditBefore',array('user'=>$username)}
 <div class="box">
     <h2>{@havefnubb~member.edit.account.header@}</h2>
-    <div class="box-content">
+    <div class="block">
         {form $form, 'jcommunity~account:save', array('user'=>$username)}
         <div id="container">
             <ul class="nav main">
                 <li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
                 <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
-                <li><a href="#user-profile-jmessenger">{@havefnubb~member.private.messaging@}</a></li>
                 {hook 'hfbAccountEditTab',array('user'=>$username)}
             </ul>
             {jmessage}
@@ -42,9 +41,22 @@ $(document).ready(function(){
                         <span class="user-birthday user-image"><strong>{ctrl_label 'member_birth'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_birth'}</div>
-                    {ifacl2 'auth.users.change.password'}
-                    <div class="form_value"><a class="user-edit-password user-image"  href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a></div>
-                    {/ifacl2}
+                    <div class="clearer">&nbsp;</div>
+                </div>
+                {ifacl2 'auth.users.change.password'}
+                <div class="form_row">
+                    <div class="form_property">
+                        <span class="user-edit-password user-image">&nbsp;</span>
+                    </div>                    
+                    <div class="form_value"><a class="user-image"  href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a></div>
+                    <div class="clearer">&nbsp;</div>
+                </div>
+                {/ifacl2}                
+                <div class="form_row">
+                    <div class="form_property">
+                        <span class="user-email user-image">&nbsp;</span>
+                    </div>
+                    <div class="form_value"><a href="{jurl 'havefnubb~members:mail'}">{@havefnubb~member.internal.messenger@}</a></div>
                     <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
@@ -55,6 +67,9 @@ $(document).ready(function(){
                         <span class="user-town user-image"><strong>{ctrl_label 'member_town'}</strong></span>
                     </div>
                     <div class="form_value">{ctrl_control 'member_town'}</div>
+                    <div class="clearer">&nbsp;</div>
+                </div>
+                <div class="form_row">
                     <div class="form_property">
                         <span class="user-country user-image"><strong>{ctrl_label 'member_country'}</strong></span>
                     </div>
@@ -114,9 +129,6 @@ $(document).ready(function(){
                     <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
-            </div>            
-            <div id="user-profile-jmessenger">
-                {zone 'jmessenger~inbox'}
             </div>
       {hookinclude 'hfbAccountEditInclude',array('user'=>$username)}
             {hook 'hfbAccountEditDiv',array('user'=>$username)}
@@ -126,6 +138,6 @@ $(document).ready(function(){
             <div class="clearer">&nbsp;</div>
         </div>
     {/form}
-    </div> <!-- #box-content -->
+    </div> <!-- #block -->
 </div> <!-- #box -->
 {hook 'hfbAccountEditAfter',array('user'=>$username)}

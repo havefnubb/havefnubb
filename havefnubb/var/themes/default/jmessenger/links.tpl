@@ -1,5 +1,5 @@
 {ifuserconnected}
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html jquery}
 <script type="text/javascript">
 var read = {urljsstring 'jmessenger~jmessenger:view'};
 {literal}
