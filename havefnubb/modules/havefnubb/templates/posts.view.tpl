@@ -42,7 +42,7 @@
 </div>
 {/ifacl2}
 <div class="clear"></div>
-<br/>
+
 {assign $i=0}
 {foreach $posts as $post}
 
@@ -51,14 +51,7 @@
     {assign $id_forum = $post->id_forum}
 
     {ifacl2 'hfnu.posts.view','forum'.$id_forum}
-    {social_networks
-        array(  'jurl'=>'havefnubb~posts:view',
-                'jurlparams'=>array('id_post'=>$post->thread_id,
-                    'thread_id'=>$post->thread_id,
-                    'id_forum'=>$post->id_forum,
-                    'ftitle'=>$post->forum_name,
-                    'ptitle'=>$post->subject),
-                'title'=>$post->subject)}
+
 
 <div class="box">
     <h3><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span>
@@ -70,37 +63,46 @@
                 {/if}
                 {/ifuserconnected}</h3>
     <div class="box-content">
-        {* rate ON the FIRST post of the thread *}
-        <div class="grid_4">
-        {if $post->thread_id == $post->id_post}
-        {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
-                'source'=>'post',
-                'return_url'=>'havefnubb~posts:view',
-                'return_url_params'=>array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
-                )}
-        {/if}&nbsp;
+        <div class="postheading">
+            {social_networks
+                array(  'jurl'=>'havefnubb~posts:view',
+                        'jurlparams'=>array('id_post'=>$post->thread_id,
+                            'thread_id'=>$post->thread_id,
+                            'id_forum'=>$post->id_forum,
+                            'ftitle'=>$post->forum_name,
+                            'ptitle'=>$post->subject),
+                        'title'=>$post->subject)}
+            <p><a id="p{$post->id_post}"
+                href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">
+                {if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
+               {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}</a></p>
+    
+            <div class="postheading-tags">
+                {if $post->thread_id == $post->id_post}
+                {if count($tags) > 1}
+                
+                <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
+    
+                {elseif count($tags) == 1 and !empty($tags)}
+                <div class="postheading-tags">
+                <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
+                </div>
+                {/if}
+                {/if}
+            </div>
         </div>
-        <div class="grid_8 postheading">
-        <h5><a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
-           {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}
-           {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
-        </div>
-        {if $post->thread_id == $post->id_post}
-        {if count($tags) > 1}
-        <div class="grid_2 postheading-tags">
-        <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
-        </div>
-        {elseif count($tags) == 1 and !empty($tags)}
-        <div class="grid_2 postheading-tags">
-        <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
-        </div>
-        {/if}
-        {/if}
         <div class="clear"></div>
-        <div class="grid_4">
-        {zone 'havefnubb~memberprofile',array('user'=>$post)}
+        <div class="post-sidebar">
+            {zone 'havefnubb~memberprofile',array('user'=>$post)}
+            {if $post->thread_id == $post->id_post}
+                {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
+                        'source'=>'post',
+                        'return_url'=>'havefnubb~posts:view',
+                        'return_url_params'=>array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$ptitle)
+                        )}
+            {/if}
         </div>
-        <div class="grid_12 postbody">
+        <div class="postbody">
         {if $statusAvailable[$post->status -1] == 'censored'}
             {@havefnubb~main.censored.reason@} {$post->censored_msg|wiki:'hfb_rule'} {censored_by $post->censored_by}
             {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
@@ -111,16 +113,12 @@
             {$post->message|wiki:'hfb_rule'}
         {/if}
         </div>
-        <div class="clear"></div>
-        <div class="prefix_4 grid_12">
-        {if $post->member_comment != ''}<hr/>
+        
+        {if $post->member_comment != ''}<hr class="postmembersig"/>
         {$post->member_comment|wiki:'hfb_rule'}
         {/if}
-        </div>
-        <div class="clear"></div>
     </div>
-    <div class="postfoot buttons-bar">
-        <ul>
+    <div class="postfoot">
         &nbsp;
         {hook 'hfbPostRepliesFooter',
                     array('action'=>'havefnubb~posts:view',
@@ -128,47 +126,46 @@
                           )
         }
         {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
-        <li class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </li>
+        <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}
         {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
         {if $statusAvailable[$post->status -1] == 'censored'}
-        <li class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </li>
+        <span class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
         {else}
-        <li class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </li>
+        <span class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
         {/if}
         {/ifacl2}
         {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
-        <li class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </li>
+        <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
          {/ifacl2}
         {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
-        <li class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </li>
+        <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
         {/ifacl2}
         {if $post->login == $current_user}
             {ifacl2 'hfnu.posts.edit.own','forum'.$id_forum}
-        <li class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </li>
+        <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
             {/ifacl2}
         {else}
             {ifacl2 'hfnu.posts.edit','forum'.$id_forum}
-        <li class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </li>
+        <span class="postedit"><a href="{jurl 'posts:edit' ,array('id_post'=>$post->id_post)}" title="{@havefnubb~main.edit@}">{@havefnubb~main.edit@}</a> </span>
             {/ifacl2}
         {/if}
         {ifacl2 'hfnu.posts.create','forum'.$id_forum}
             {if $subscribed}
-            <li class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </li>
+            <span class="postsub"><a href="{jurl 'posts:unsubscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.unsubscribe.to.this.post@}">{@havefnubb~post.unsubscribe.to.this.post@}</a> </span>
             {else}
-            <li class="postsub"><a href="{jurl 'posts:subscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </li>
+            <span class="postsub"><a href="{jurl 'posts:subscribe' ,array('thread_id'=>$thread_id)}" title="{@havefnubb~post.subscribe.to.this.post@}">{@havefnubb~post.subscribe.to.this.post@}</a> </span>
             {/if}
         {/ifacl2}
         {ifacl2 'hfnu.posts.quote','forum'.$id_forum}
             {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-        <li class="postquote"><a href="{jurl 'posts:quote' ,array('thread_id'=>$post->thread_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></li>
+        <span class="postquote"><a href="{jurl 'posts:quote' ,array('thread_id'=>$post->thread_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
             {else}
                 {ifacl2 'hfnu.admin.post'}
-        <li class="postquote"><a href="{jurl 'posts:quote' ,array('thread_id'=>$post->thread_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></li>
+        <span class="postquote"><a href="{jurl 'posts:quote' ,array('thread_id'=>$post->thread_id,'id_post'=>$post->id_post)}" title="{@havefnubb~main.quote@}">{@havefnubb~main.quote@}</a></span>
                 {/ifacl2}
             {/if}
         {/ifacl2}
-        </ul>
     </div>
 </div>
     {/ifacl2}
@@ -198,7 +195,6 @@
 </div>
 {/ifacl2}
 <div class="clear"></div>
-<br/>
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 {* 'closed' *}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}

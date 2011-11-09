@@ -1,16 +1,9 @@
-/* defines the common layout for all pages */
+/* defines main design of the application. These rules target only elements of the main template of the application. */
 
 body {
-    margin:0;
+    margin:0;    
 }
 
-hr {
-    border-color: black;
-    border-style: solid;
-    border-width: 1px 0 0;
-    clear: both;
-    height: 0;
-}
 
 #page {
     background:#fff;
@@ -43,6 +36,7 @@ hr {
     color: #fff;
     float:right;
     margin: 1em 2em 0 0;
+    width:30em;
 }
     #login-status a:hover {
         color: #aaa;

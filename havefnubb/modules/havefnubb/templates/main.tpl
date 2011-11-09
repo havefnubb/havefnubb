@@ -1,9 +1,8 @@
-{meta_html css $j_basepath.'themes/default/css/main_layout.css'}
-{meta_html css $j_basepath.'themes/default/css/pages_layout.css'}
+{meta_html csstheme 'css/app.css'}
+{meta_html csstheme 'css/hfnu.css'}
 {meta_html csstheme 'css/layout.css'}
-{meta_html css $j_basepath.'themes/default/css/nav.css'}
+{meta_html csstheme 'css/nav.css'}
 {meta_html csstheme 'css/theme.css'}
-{meta_html csstheme 'css/pages_theme.css'}
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 <div id="page">
     <div id="header">
@@ -15,7 +14,11 @@
         {hook 'hfbMainInHeader'}
     </div>
     <div id="menubar">
-        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
+        {ifacl2 'hfnu.admin.index'}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>true)}
+        {else}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>false)}
+        {/ifacl2}
     </div>
     <div id="content">
     {$MAIN}
