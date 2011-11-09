@@ -33,10 +33,11 @@
     </url>
     <url pathinfo="/shownew" action="posts:shownew"/>
 
-
+    <!-- unsubscribe from the thread page -->
     <url pathinfo="/:thread_id/unsubscribe" action="posts:unsubscribe">
         <param name="thread_id" type="number"/>
     </url>
+    <!-- unsubscribe from the profile page -->
     <url pathinfo="/:thread_id/unsub" action="posts:unsub">
         <param name="thread_id" type="number"/>
     </url>
