@@ -219,7 +219,7 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
-        <method name="getByIdAndIdTread" type="selectfirst">
+        <method name="getByIdAndIdThread" type="selectfirst">
            <parameter name="id_post" />
            <parameter name="thread_id" />
            <conditions>

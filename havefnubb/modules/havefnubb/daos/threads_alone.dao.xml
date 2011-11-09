@@ -106,7 +106,7 @@
         <method name="getLastThreadByIdForum" type="selectfirst">
             <parameter name="id_forum" />
             <conditions>
-                <eq property="id_forum_thread" expr="$id_first_msg" />
+                <eq property="id_forum_thread" expr="$id_forum" />
             </conditions>
             <order>
                 <orderitem property="date_last_post" way="desc" />
