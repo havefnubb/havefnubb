@@ -1,7 +1,11 @@
 {hook 'hfbBeforeMembersList'}
-<h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >
-        <span class="user-image" id="user-group">{@havefnubb~member.memberlist.members.list@}</span></h2>
-<div class="box">
+<div class="breadcrumb">
+<ol>
+    <li>{@havefnubb~main.common.you.are.here@}</li>
+    <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >></li>
+    <li><span class="user-image" id="user-group">{@havefnubb~member.memberlist.members.list@}</span></li>
+</ol>
+</div><div class="box">
     <div class="block">
     <form action="{formurl 'havefnubb~members:index'}" method="post">
     <div class="hidden">{formurlparam 'havefnubb~members:index'}</div>
