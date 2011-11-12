@@ -7,6 +7,7 @@
         <url pathinfo="/sitemap.xml" module="havefnubb" action="sitemap:index"/>
         <url pathinfo="/forum"        module="havefnubb" include="urls_forum.xml"/>
         <url pathinfo="/post"         module="havefnubb" include="urls_post.xml"/>
+        <url pathinfo="/postmgr"      module="havefnubb" include="urls_posts_manage.xml"/>
 
         <url pathinfo="/messages"     module="jmessenger"  include="urls.xml"/>
         <url pathinfo="/auth"         module="jcommunity"  include="urls_auth.xml"/>
