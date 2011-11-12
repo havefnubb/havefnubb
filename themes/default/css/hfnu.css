@@ -42,7 +42,7 @@ ul, ol {
 
 
 hr, div.clear {
-	clear:both;
+    clear:both;
 }
 
 hr {
@@ -228,7 +228,7 @@ div.menu .box-content {
 
 
 .social-network {
-	float:right;
+    float:right;
 }
 
 
@@ -427,13 +427,13 @@ div.menu .box-content {
 /* ==================================  medium boxes */
 
 .medium-boxes {
-	margin: 0.5em 0;
-	clear:both;
+    margin: 0.5em 0;
+    clear:both;
 }
 
 .medium-boxes > div  {
-	float:left;
-	width: 33.3%;
+    float:left;
+    width: 33.3%;
 }
 
 .medium-boxes > div > div {

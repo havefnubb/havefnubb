@@ -118,7 +118,7 @@
         {$post->member_comment|wiki:'hfb_rule'}
         {/if}
     </div>
-    <div class="postfoot">
+    <div class="postfoot buttons-bar">
         &nbsp;
         {hook 'hfbPostRepliesFooter',
                     array('action'=>'havefnubb~posts:view',
