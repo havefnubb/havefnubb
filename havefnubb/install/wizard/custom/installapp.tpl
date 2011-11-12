@@ -1,4 +1,4 @@
-<h2>{@title@}</h2>
+<h3>{@title@}</h3>
 <div class="box-content">
 <ul class="checkresults">
   {foreach $messages as $msg}

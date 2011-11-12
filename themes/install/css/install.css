@@ -1,56 +1,55 @@
+#sidebar {
+    width: 15%;
+    float: left;
+}
+
+#main-install {
+    padding-left: 17%;
+    width: 83%;
+}
 
 .actif {
-	color: #f90;
+    color: #f90;
 }
 
 .jforms-submit, .jforms-reset {
-	padding-left: 20px;
-	margin-top: 5px;
-	margin-bottom: 5px;
-	border: 1px solid;
-	cursor: pointer;
-	text-align: left;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius:3px;
-	padding : 2px 2px;
-	color:#4D5431;
-	font-size:11px;
-	text-decoration:none;
-	font-weight: bold;
-	background-color:#e1e1cd;
+    padding-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid;
+    cursor: pointer;
+    text-align: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius:3px;
+    padding : 2px 2px;
+    color:#4D5431;
+    font-size:11px;
+    text-decoration:none;
+    font-weight: bold;
+    background-color:#e1e1cd;
 }
 
 
 /* Pied de page
 ----------------------------------------------------------*/
 #footer {
-	width: 100%;
-	position: relative;
-	margin-top: 20px;
+    width: 99%;
+    position: relative;
+    margin-top: 20px;
     background-color:#f1f1e5;
     background-position:center;
     height: 34px;
-    padding-top: 1px;
-    padding-left:0px;
-    padding-right:0px;
-    -moz-border-radius:10px 10px 0px  0px ;
-    -webkit-border-top-right-radius: 10px;
-    -webkit-border-top-left-radius: 10px;
-    border-radius:10px 10px 0px  0px ;
-    -moz-box-shadow: gray 3px 5px 5px 0px;
-    -webkit-box-shadow: gray 3px 5px 5px 0px;
-    box-shadow: gray 0px 3px 5px 0px;
     z-index:50;
 
 }
 #footer p {
-	text-align: center;
+    text-align: center;
 }
 #footer span  { font-weight: bold; }
 #footer a:link, #footer a:visited, #footer a:active{
-	color: #f90;
-	text-decoration: none;
+    color: #f90;
+    text-decoration: none;
 }
 #footer a:hover { color: #232320; }
 
@@ -92,15 +91,11 @@
     background-color:#e1e1cd;
 }
 
-.installwizard table, .installwizard table th,.installwizard table td {
-    border: none;
-}
-
 ul.checkresults {
-	border:3px solid black;
-	margin: 2em;
-	padding:1em;
-	list-style-type:none;
+    border:3px solid black;
+    margin: 2em;
+    padding:1em;
+    list-style-type:none;
 }
 ul.checkresults li { margin:0; padding:5px; border-top:1px solid black; }
 li.checkerror   { background-color:#ff6666;}

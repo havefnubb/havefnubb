@@ -1,4 +1,4 @@
-<h2>{@configuration@}</h2>
+<h3>{@configuration@}</h3>
 <div class="box-content">
 {if count($errors)}
 <ul class="jelix-msg">
