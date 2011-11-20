@@ -1,5 +1,5 @@
 <div class="censor">
-    {form $form, 'havefnubb~posts:savecencor',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
+    {form $form, 'havefnubb~postsmgr:savecencor',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <fieldset>
         {if $thread_id == $id_post}
         <div class="legend"><h3>{@havefnubb~main.censor.this.thread.from.this.message@} : "{$title|eschtml}"</h3></div>

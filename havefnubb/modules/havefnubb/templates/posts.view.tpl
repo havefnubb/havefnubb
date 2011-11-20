@@ -1,4 +1,3 @@
-{iamhere}
 <div class="breadcrumb">
 <ol>
     <li>{@havefnubb~main.common.you.are.here@}</li>
@@ -76,13 +75,13 @@
                 href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">
                 {if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
                {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}</a></p>
-    
+
             <div class="postheading-tags">
                 {if $post->thread_id == $post->id_post}
                 {if count($tags) > 1}
-                
+
                 <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
-    
+
                 {elseif count($tags) == 1 and !empty($tags)}
                 <div class="postheading-tags">
                 <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
@@ -113,12 +112,12 @@
             {$post->message|wiki:'hfb_rule'}
         {/if}
         </div>
-        
+
         {if $post->member_comment != ''}<hr class="postmembersig"/>
         {$post->member_comment|wiki:'hfb_rule'}
         {/if}
     </div>
-    <div class="postfoot">
+    <div class="postfoot buttons-bar">
         &nbsp;
         {hook 'hfbPostRepliesFooter',
                     array('action'=>'havefnubb~posts:view',
@@ -126,17 +125,17 @@
                           )
         }
         {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
-        <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
+        <span class="postsplit"><a href="{jurl 'postsmgr:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}
         {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
         {if $statusAvailable[$post->status -1] == 'censored'}
-        <span class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
+        <span class="postcensor"><a href="{jurl 'postsmgr:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
         {else}
-        <span class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
+        <span class="postcensor"><a href="{jurl 'postsmgr:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
         {/if}
         {/ifacl2}
         {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
-        <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
+        <span class="postnotify"><a href="{jurl 'postsmgr:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
          {/ifacl2}
         {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
         <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
@@ -219,7 +218,7 @@
 {ifacl2 'hfnu.admin.post'}
 <div class="box" id="act_change_status">
     <h3>{@havefnubb~post.status.change.the.status.of.the.post@}</h3>
-{form $formStatus, 'havefnubb~posts:status',array('thread_id'=>$thread_id)}
+{form $formStatus, 'havefnubb~postsmgr:status',array('thread_id'=>$thread_id)}
     <div class="box-content">
     {ctrl_label 'status'} {ctrl_control 'status'} {formsubmit 'validate'}
     </div>
@@ -227,7 +226,7 @@
 </div>
 <div class="box" id="act_move_forum">
     <h3>{@havefnubb~forum.move.this.thread@}</h3>
-{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
+{form $formMove, 'havefnubb~postsmgr:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <div class="box-content">
     {ctrl_label 'id_forum'} {ctrl_control 'id_forum'} {formsubmit 'validate'}
     </div>
