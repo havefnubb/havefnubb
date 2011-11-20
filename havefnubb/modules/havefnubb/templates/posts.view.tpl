@@ -1,4 +1,3 @@
-{iamhere}
 <div class="breadcrumb">
 <ol>
     <li>{@havefnubb~main.common.you.are.here@}</li>
