@@ -5,21 +5,7 @@
         <param name="id_post" type="number"/>
     </url>
 
-    <url pathinfo="/:id_post/notify" action="posts:notify" actionoverride="posts:savenotify">
-        <param name="id_post" type="number"/>
-    </url>
-
     <url pathinfo="/:id_post/edit" action="posts:edit">
-        <param name="id_post" type="number"/>
-    </url>
-
-    <url pathinfo="/:thread_id/status" action="posts:status">
-        <param name="thread_id" type="number"/>
-        <param name="status" type="string"/>
-    </url>
-
-    <url pathinfo="/:thread_id-:id_post/moveto" action="posts:moveToForum">
-        <param name="thread_id" type="number"/>
         <param name="id_post" type="number"/>
     </url>
 

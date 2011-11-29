@@ -29,6 +29,24 @@
        <param name="id_forum" type="number"/>
     </url>
 
+    <url pathinfo="/:id_forum-:ftitle/posts/:id_post-:thread_id-:ptitle" action="posts:view">
+       <param name="id_forum" type="number"/>
+       <param name="ftitle"  type="string" escape="true" />
+       <param name="id_post" type="number"/>
+       <param name="ptitle"  type="string" escape="true" />
+       <param name="thread_id" type="number"/>
+    </url>
+
+    <url pathinfo="/:id_forum-:ftitle/posts/:id_post-:thread_id-:ptitle/go/:go" action="posts:viewtogo">
+       <param name="id_forum" type="number"/>
+       <param name="ftitle"  type="string" escape="true" />
+       <param name="id_post" type="number"/>
+       <param name="ptitle"  type="string" escape="true" />
+       <param name="thread_id" type="number"/>
+       <param name="go" type="number"/>
+    </url>
+
+
     <url pathinfo="/:id_forum-:ftitle" action="posts:lists">
        <param name="id_forum" type="number"/>
        <param name="ftitle"  type="string" escape="true" />
@@ -47,43 +65,6 @@
     <url pathinfo="/:id_forum-:ftitle/atom" action="posts:atom">
        <param name="id_forum" type="number"/>
        <param name="ftitle"  type="string" escape="true" />
-    </url>
-
-
-    <!-- posts management -->
-    <url pathinfo="/:id_forum-:ftitle/posts/:id_post-:thread_id-:ptitle" action="posts:view">
-       <param name="id_forum" type="number"/>
-       <param name="ftitle"  type="string" escape="true" />
-       <param name="id_post" type="number"/>
-       <param name="ptitle"  type="string" escape="true" />
-       <param name="thread_id" type="number"/>
-    </url>
-
-    <url pathinfo="/:id_forum-:ftitle/posts/:id_post-:thread_id-:ptitle/go/:go" action="posts:viewtogo">
-       <param name="id_forum" type="number"/>
-       <param name="ftitle"  type="string" escape="true" />
-       <param name="id_post" type="number"/>
-       <param name="ptitle"  type="string" escape="true" />
-       <param name="thread_id" type="number"/>
-       <param name="go" type="number"/>
-    </url>
-
-    <url pathinfo="/:id_forum/post/:thread_id-:id_post/split" action="posts:splitTo">
-        <param name="id_forum" type="number"/>
-        <param name="thread_id" type="number"/>
-        <param name="id_forum" type="number"/>
-    </url>
-
-    <url pathinfo="/:id_forum/post/:thread_id-:id_post/censor" action="posts:censor" actionoverride="posts:savecensor">
-        <param name="id_forum" type="number"/>
-        <param name="thread_id" type="number"/>
-        <param name="id_post" type="number"/>
-    </url>
-
-    <url pathinfo="/:id_forum/post/:thread_id-:id_post/uncensor" action="posts:uncensor">
-        <param name="id_forum" type="number"/>
-        <param name="thread_id" type="number"/>
-        <param name="id_post" type="number"/>
     </url>
 
     <url pathinfo="/:id_forum/post/:id_post/delete" action="posts:delete">

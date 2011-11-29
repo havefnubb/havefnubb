@@ -1,6 +1,5 @@
 {meta_html csstheme 'css/app.css'}
 {meta_html csstheme 'css/hfnu.css'}
-{meta_html csstheme 'css/layout.css'}
 {meta_html csstheme 'css/nav.css'}
 {meta_html csstheme 'css/theme.css'}
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
