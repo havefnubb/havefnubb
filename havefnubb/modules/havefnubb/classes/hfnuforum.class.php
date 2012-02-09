@@ -210,7 +210,7 @@ class hfnuforum {
                 $mail->From       = $gJConfig->mailer['webmasterEmail'];
                 $mail->FromName   = $gJConfig->mailer['webmasterName'];
                 $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
-                $mail->Subject    = jLocale::get('havefnubb~forum.new.post.in.forum',array($user->login));
+                $mail->Subject    = jLocale::get('havefnubb~forum.new.post.in.forum');
 
                 $tpl = new jTpl();
                 $tpl->assign('post',$post);
