@@ -16,14 +16,6 @@ class postandmsgZone extends jZone {
      */
     protected $_tplname='zone.postandmsg';
     /**
-     *@var boolean $_useCache set the zone in a cache
-     */
-    protected $_useCache = true;
-    /**
-     *@var integrer $_cacheTimeout set timeout to each hour
-     */
-    protected $_cacheTimeout = 3600;
-    /**
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
