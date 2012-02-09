@@ -27,7 +27,7 @@
     </div>
     <div id="footer">
         <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> -
-            &copy; Copyright 2008 - 2011 <a href="http://www.foxmask.info" title="FoxMaSk'z h0m3">FoxMaSk</a></p>
+            &copy; Copyright 2008-2012 <a href="http://www.foxmask.info" title="FoxMaSk - Le Grin de Sable">FoxMaSk</a></p>
         {hook 'hfbMainInFooter'}
     </div>
 </div>
