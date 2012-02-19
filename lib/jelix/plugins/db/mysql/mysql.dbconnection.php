@@ -64,14 +64,20 @@ class mysqlDbConnection extends jDbConnection{
 		return mysql_close($this->_connection);
 	}
 	protected function _doQuery($query){
+$t1 = microtime(true);
+
 		if(!mysql_select_db($this->profile['database'],$this->_connection)){
 			if(mysql_errno($this->_connection))
 				throw new jException('jelix~db.error.database.unknown',$this->profile['database']);
 			else
 				throw new jException('jelix~db.error.connection.closed',$this->profile['name']);
 		}
+$t2 = microtime(true);
 		if($qI=mysql_query($query,$this->_connection)){
-			return new mysqlDbResultSet($qI);
+			$rs= new mysqlDbResultSet($qI);
+			$t3= microtime(true);
+			jLog::log(''.($t3-$t1).' '.$query, 'sql');
+			return $rs;
 		}else{
 			throw new jException('jelix~db.error.query.bad',mysql_error($this->_connection).'('.$query.')');
 		}
