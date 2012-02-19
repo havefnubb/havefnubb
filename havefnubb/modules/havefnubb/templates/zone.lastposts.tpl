@@ -5,7 +5,7 @@
 {foreach $lastPost as $post}
         <tr>
             <td><a href="{jurl 'havefnubb~posts:viewtogo',array('id_post'=>$post->id_post,
-                                                                'thread_id'=>$post->thread_id,
+                                                                'thread_id'=>$post->id_thread,
                                                                 'id_forum'=>$post->id_forum,
                                                                 'ptitle'=>$post->subject,
                                                                 'ftitle'=>$post->forum_name,
