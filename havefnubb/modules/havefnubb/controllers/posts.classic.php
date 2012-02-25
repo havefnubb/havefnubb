@@ -106,6 +106,7 @@ class postsCtrl extends jController {
         if ($page < 0) $page = 0;
 
         // 2- limit per page
+        $nbPostPerPage = 0;
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
 
         // get all the posts of the current Forum by its Id
@@ -134,6 +135,12 @@ class postsCtrl extends jController {
         $tpl = new jTpl();
         // B- Using the collected datas
         // 1- the posts
+        if (jAuth::isConnected() and 
+            jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum) !== false
+            )
+            $tpl->assign('subcribedToThisForum',true);
+        else
+            $tpl->assign('subcribedToThisForum',false);
 
         $tpl->assign('posts',$posts);
         // 2- the forum
@@ -312,12 +319,18 @@ class postsCtrl extends jController {
 
         $tpl = new jTpl();
 
-        if(jAuth::isConnected()) {
+        if (jAuth::isConnected() and            
+            jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum) !== false
+            ) {
             $tpl->assign('current_user',jAuth::getUserSession ()->login);
+            $tpl->assign('subcribedToThisForum',true);
         }
         else {
             $tpl->assign('current_user','');
+            $tpl->assign('subcribedToThisForum',false);
         }
+        
+        
         $tpl->assign('lastMarkThreadAsRead',
                      jClasses::getService('havefnubb~hfnuread')->getLastDateRead($forum->id_forum,$thread_id));
 
@@ -349,10 +362,6 @@ class postsCtrl extends jController {
                                             $post->thread_id
                                             )
                     );
-        if (jAuth::isConnected())
-            $tpl->assign('subcribedToThisForum',jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum));
-        else
-            $tpl->assign('subcribedToThisForum',false);
 
         $tpl->assign('subject'  ,$post->subject);
         $tpl->assign('status'   ,self::$statusAvailable[$status -1]);
