@@ -19,10 +19,7 @@ class havefnubbModuleUpgrader_subscript_forum extends jInstallerModule {
             $cn->exec("ALTER TABLE ".$cn->prefixTable('hfnu_forum').
                       " ADD nb_msg INT( 12 ) NOT NULL , " .
                       " ADD nb_thread INT( 12 ) NOT NULL ");
-            // @TODO
-            // count the posts and thread by forum and put them in nb_msg / nb_thread
-            // at the end
-            
+            // update the count of replies/thread/posts
             $cn->exec('UPDATE ' . $cn->prefixTable('hfnu_forum').
                         ' SET nb_msg = (SELECT sum(nb_replies) +1 ' .
                         ' FROM ' . $cn->prefixTable('hfnu_threads') . 

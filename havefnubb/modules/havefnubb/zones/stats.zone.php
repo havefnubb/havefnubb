@@ -32,11 +32,6 @@ class statsZone extends jZone {
         $recForum = jDao::get('havefnubb~forum')->statsForum();
         $msgs = $recForum->nb_msg;
         $threads = $recForum->nb_thread;        
-        /**
-         * @TODO
-         *  when the user are not an admin, get only the total of visibles messages (does not count the hidden ones)
-         *  when the user are an admin, get  the total of all visibles messages
-         */
         //posts and thread
         //last posts
         $lastPost   = jDao::get('havefnubb~posts')->getLastPost();
