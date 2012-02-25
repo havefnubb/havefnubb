@@ -16,14 +16,6 @@ class memberprofileZone extends jZone {
      */
     protected $_tplname='zone.memberprofile';
     /**
-     *@var boolean $_useCache set the zone in a cache
-     */
-    protected $_useCache = true;
-    /**
-     *@var integrer $_cacheTimeout set timeout to one day
-     */
-    protected $_cacheTimeout = 86400;
-    /**
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){

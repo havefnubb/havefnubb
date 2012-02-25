@@ -31,6 +31,8 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_forum (
   post_expire INT ( 5 ) DEFAULT '0',
   id_last_msg int(11) NOT NULL DEFAULT '0',
   date_last_msg int(11) NOT NULL DEFAULT '0',
+  nb_msg int(11) NOT NULL,
+  nb_thread int(11) NOT NULL,
   PRIMARY KEY (id_forum),
   KEY id_cat (id_cat),
   KEY parent_id (parent_id),
@@ -167,10 +169,10 @@ INSERT INTO %%PREFIX%%hfnu_forum_category (id_cat, cat_name, cat_order) VALUES
 (2, 'My Second forum', 2);
 
 INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg) VALUES
-(1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0,'',0,1,0),
-(2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0,'',0,0,0),
-(3, 'Light', 2, 'Soo light', 1, 0, 0, 0,'',0,0,0),
-(4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0,'',0,0,0);
+(1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0,'',0,1,0,1,1),
+(2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0,'',0,0,0,0,0),
+(3, 'Light', 2, 'Soo light', 1, 0, 0, 0,'',0,0,0,0,0),
+(4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0,'',0,0,0,0,0);
 
 INSERT INTO %%PREFIX%%hfnu_threads (id_thread, id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)
 VALUES (1,1,1,3,1,1,UNIX_TIMESTAMP(),UNIX_TIMESTAMP(),0,0,0,0);

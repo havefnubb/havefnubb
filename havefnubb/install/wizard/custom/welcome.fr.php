@@ -11,7 +11,7 @@ $locales=array(
                                     <strong>defaultconfig.ini.php</strong> et <strong>dbprofils.ini.php.dist</strong> en
                                     <strong>dbprofils.ini.php</strong> se trouvant dans le dossier <strong>var/config</strong>',
     'rights'=>'Droits d\'accès',
-    'rights.description'=>'N\'oubliez pas de mettre les bons droits d\'accés sur vos fichiers et répertoire. Ils doivent tous être en
+    'rights.description'=>'N\'oubliez pas de mettre les bons droits d\'accés sur vos fichiers et répertoires. Ils doivent tous être en
                             lecture seule pour le serveur web, <strong>excepté ces fichiers qui doivent pouvoir être modifiés par le serveur web :</strong>
                             <ol>
                             <li>cache/ et files/</li>

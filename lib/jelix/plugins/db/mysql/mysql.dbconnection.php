@@ -64,6 +64,7 @@ class mysqlDbConnection extends jDbConnection{
 		return mysql_close($this->_connection);
 	}
 	protected function _doQuery($query){
+
 		if(!mysql_select_db($this->profile['database'],$this->_connection)){
 			if(mysql_errno($this->_connection))
 				throw new jException('jelix~db.error.database.unknown',$this->profile['database']);
