@@ -63,7 +63,6 @@ class categoryCtrl extends jController {
         $categories = jDao::get('havefnubb~forum')->findParentByCatId($id_cat);
         foreach ($categories as $cat) {
             if ( jAcl2::check('hfnu.forum.list','forum'.$cat->id_forum) ) {
-                $data[] = $cat;
                 // get the list of forum to build the RSS link
                 $url = jUrl::get('havefnubb~posts:rss', array('ftitle'=>$cat->forum_name,
                                                         'id_forum'=>$cat->id_forum));
