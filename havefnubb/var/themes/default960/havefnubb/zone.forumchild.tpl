@@ -26,7 +26,11 @@
             </h4>
             <span class="forumdesc">{$forum->forum_desc|eschtml}</span>
         </td>
-        <td>{$forum->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$forum->nb_thread} {@havefnubb~forum.postandmsg.threads@}</td>
+        {ifacl2 'hfnu.admin.post'}
+        <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum,'admin'=>true)}</td>
+        {else}
+        <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum,'admin'=>false)}</td>
+        {/ifacl2}
         <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
         {zone 'havefnubb~postlc',array('id_forum'=>$forum->id_forum)}</span></td>
     </tr>

@@ -30,8 +30,6 @@ CREATE TABLE %%PREFIX%%hfnu_forum (
     post_expire integer DEFAULT 0,
     id_last_msg integer NOT NULL,
     date_last_msg integer NOT NULL,
-    nb_msg integer NOT NULL,
-    nb_thread integer NOT NULL,
     CONSTRAINT id_forum PRIMARY KEY (id_forum)
 );
 
@@ -95,7 +93,7 @@ CREATE TABLE %%PREFIX%%hfnu_threads (
   date_created int(11) NOT NULL,
   date_last_post int(11) DEFAULT NULL,
   nb_viewed int(11) DEFAULT '0',
-  nb_replies int(11) DEFAULT '0',
+  b_replies int(11) DEFAULT '0',
   ispined int(1) NOT NULL DEFAULT '0',
   iscensored int(1) NOT NULL DEFAULT '0',
   CONSTRAINT id_thread PRIMARY KEY (id_thread)
@@ -159,13 +157,13 @@ INSERT INTO %%PREFIX%%hfnu_forum_category (id_cat, cat_name, cat_order) VALUES (
 
 -- forum
 INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
-    VALUES (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0, '', 0, 1, 0,1,1);
+    VALUES (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0, '', 0, 1, 0);
 INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
-    VALUES (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0, '', 0, 0,0,0,0);
+    VALUES (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0, '', 0, 0,0);
 INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
-    VALUES (3, 'Light', 2, 'Soo light', 1, 0, 0, 0, '', 0, 0,0),0,0;
+    VALUES (3, 'Light', 2, 'Soo light', 1, 0, 0, 0, '', 0, 0,0);
 INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level, forum_type, forum_url, post_expire, id_last_msg, date_last_msg)
-    VALUES (4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0, '', 0, 0,0,0,0);
+    VALUES (4, 'My SubForum is Smooth', 1, 'Smoothy', 1, 1, 1, 0, '', 0, 0,0);
 
 -- threads
 INSERT INTO %%PREFIX%%hfnu_threads (id_forum,id_user,status,id_first_msg,id_last_msg,date_created,date_last_post,nb_viewed,nb_replies,ispined,iscensored)

@@ -76,7 +76,11 @@
                     {/foreach}
                     {if !$firstchild}</ul>{/if}</td>
 
-                <td><span class="smalltext">{$f->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$f->nb_thread} {@havefnubb~forum.postandmsg.threads@}</span></td>
+                {ifacl2 'hfnu.admin.post'}
+                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>true)}</td>
+                {else}
+                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>false)}</td>
+                {/ifacl2}
                 <td><span class="smalltext">
                 {* hidden post ? *}
                 {if $f->status == 7}
@@ -166,7 +170,11 @@
                     </h4>{$category->forum_desc|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
 
-                <td><span class="smalltext">{$f->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$f->nb_thread} {@havefnubb~forum.postandmsg.threads@}</span></td>
+                {ifacl2 'hfnu.admin.post'}
+                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum,'admin'=>true)}</td>
+                {else}
+                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$category->id_forum,'admin'=>false)}</td>
+                {/ifacl2}
                 <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
                 {zone 'havefnubb~postlc',array('id_forum'=>$category->id_forum)}</span></td>
             </tr>
