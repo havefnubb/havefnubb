@@ -39,40 +39,6 @@ class ratesZone extends jZone {
 
 		$url = jUrl::get('hfnurates~default:rate_ajax_it');
 
-		$js = '
-	<script type="text/javascript">
-	//<![CDATA[
-	$(document).ready(function() {
-	var options = {
-		success:   showResponse,
-		url:       "'.$url.'",
-		type:      "post",
-		dataType:  "text",
-	};
-
-	$(\'.starsrating\').rating({
-		focus: function(value, link){
-		  var tip = $(\'#rating-hover\');
-		  tip[0].data = tip[0].data || tip.html();
-		  tip.html(link.title || \'value: \'+value);
-		},
-		blur: function(value, link){
-		  var tip = $(\'#rating-hover\');
-		  $(\'#rating-hover\').html(tip[0].data || \'\');
-		},
-		callback: function(value, link){
-			$(this.form).ajaxSubmit(options);
-		},
-	});
-
-	});
-	function showResponse(response) {
-	$(\'.rates-result\').html(response);
-	$(\'#post-rates-msg\').html(\''.jLocale::get('hfnurates~main.thanks.you.for.rating').'\');
-	}
-	//]]>
-	</script>';
-
 		$rates 	= jClasses::getService('hfnurates~rates');
 		$result =  $rates->getTotalRatesBySource($id_source,$source);
 		$resultText = '';
@@ -86,7 +52,6 @@ class ratesZone extends jZone {
 			$checked = 0;
 
 		$this->_tpl->assign('checked',$checked);
-		$this->_tpl->assign('js',$js);
 		$this->_tpl->assign('id_source',$id_source);
 		$this->_tpl->assign('source',$source);
 		$this->_tpl->assign('result',$resultText);

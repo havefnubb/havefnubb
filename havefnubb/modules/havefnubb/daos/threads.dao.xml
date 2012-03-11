@@ -77,23 +77,6 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
-        <method name="findLastPosts" type="select" groupby="id_thread">
-            <parameter name="count" default="5" />
-            <order>
-                <orderitem property="date_last_post" way="desc" />
-            </order>
-            <limit offset="0" count="$count"/>
-        </method>
-        <method name="findLastVisiblePosts" type="select" groupby="id_thread">
-            <parameter name="count" default="5" />
-           <conditions>
-                <neq property="status" value="7" />
-            </conditions>
-            <order>
-                <orderitem property="date_last_post" way="desc" />
-            </order>
-            <limit offset="0" count="$count"/>
-        </method>
         <method name="getUserLastCommentOnForums" type="selectfirst">
             <parameter name="id_forum" />
             <conditions>
