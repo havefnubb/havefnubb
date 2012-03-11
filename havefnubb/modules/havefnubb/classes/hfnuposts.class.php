@@ -111,7 +111,9 @@ class hfnuposts {
             //search if it's first post of the thread
             $daoThreads = jDao::get('havefnubb~threads_alone');
             $daoThreadsRec = $daoThreads->getFirstIdPost($post->id_post);
-
+            
+            $nb_msg_to_remove_from_forum = 0;
+            
             //if so we remove the entire thread
             if ($daoThreadsRec !== false) {
                 // B1)  need to remove the count of posts for each user
@@ -119,7 +121,7 @@ class hfnuposts {
                 // then get the user id of each post between the first and last
                 // then send an Event HfnuPostBeforeDelete
                 $start = $daoThreadsRec->id_first_msg;
-                $end = $daoThreadsRec->id_last_msg;
+                $end = $daoThreadsRec->id_last_msg;                
                 for ($i=$start ; $i <= $end ; $i++ ) {
                     //get the user of this post
                     //the current cursor may not exist so we have to test
@@ -127,6 +129,7 @@ class hfnuposts {
                     //if the id_user is not false
                     //then "notify" to remove one post of his total
                     if ($user !== false) {
+                        $nb_msg_to_remove_from_forum++;
                         // get the user record
                         $userRec = jDao::get('havefnubb~member')->getById($user->id_user);
                         // found one
@@ -153,13 +156,16 @@ class hfnuposts {
                 } else {
                 // B4.b) we found one let's get those values
                     $id_last_msg = $newThreadRec->id_last_msg;
-                    $date_last_msg = $newThreadRec->date_last_msg;
+                    $date_last_msg = $newThreadRec->date_last_post;
                 }
                 // B5) update the the forum table
                 $daoForum = jDao::get('havefnubb~forum');
                 $forumRec = $daoForum->get($id_forum);
                 $forumRec->id_last_msg = $id_last_msg;
                 $forumRec->date_last_msg = $date_last_msg;
+                $forumRec->nb_msg       = $forumRec->nb_msg - $nb_msg_to_remove_from_forum;
+                $forumRec->nb_thread    = $forumRec->nb_thread -1;
+                
                 $daoForum->update($forumRec);
 
             // C) otherwise drop the one inside the thread
@@ -393,9 +399,11 @@ class hfnuposts {
 
             //update Forum record
             $forum = jDao::get('havefnubb~forum');
-            $forumRec = $forum->get($id_forum);
-            $forumRec->id_last_msg = $id_post;
+            $forumRec               = $forum->get($id_forum);
+            $forumRec->id_last_msg  = $id_post;
             $forumRec->date_last_msg = $datePost;
+            $forumRec->nb_msg       = $forumRec->nb_msg+1;
+            $forumRec->nb_thread    = $forumRec->nb_thread+1;
             $forum->update($forumRec);
 
             $this->addPost($id_post,$record);
@@ -521,8 +529,10 @@ class hfnuposts {
         //update Forum record
         $forum = jDao::get('havefnubb~forum');
         $forumRec = $forum->get($threadRec->id_forum);
-        $forumRec->id_last_msg = $id_post;
+        $forumRec->id_last_msg  = $id_post;
         $forumRec->date_last_msg = $dateReply;
+        $forumRec->nb_msg       = $forumRec->nb_msg+1;
+        $forumRec->nb_thread    = $forumRec->nb_thread+1;        
         $forum->update($forumRec);
 
         //add a "fake" column just to return it to the posts controller

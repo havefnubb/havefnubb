@@ -29,26 +29,22 @@ class statsZone extends jZone {
     protected function _prepareTpl(){
         global $gJCoord;
         $daoThreads = jDao::get('havefnubb~threads_alone');
-     
-
         //posts and thread
-        $msgs = $daoThreads->countAllPosts();
-        $threads = $daoThreads->countAllThreads();
         //last posts
         $lastPost   = jDao::get('havefnubb~posts')->getLastPost();
         // if lastPost is "false" the forum is empty !
         if ( $lastPost === false ) {
             $forum = new StdClass;
             $forum->forum_name = '';
-            $lastPost = new StdClass;
-            $lastPost->thread_id = 0;
-            $lastPost->id_post = 0;
-            $lastPost->subject = '';
-            $lastPost->id_forum = 0;
+            $lastPost               = new StdClass;
+            $lastPost->thread_id    = 0;
+            $lastPost->id_post      = 0;
+            $lastPost->subject      = '';
+            $lastPost->id_forum     = 0;
             $lastPost->date_created = 0;
             $lastPost->date_last_post = 0;
             $lastPost->id_first_msg = 0;
-            $lastPost->id_last_msg = 0;
+            $lastPost->id_last_msg  = 0;
         }
         else {
             $thread = $daoThreads->get($lastPost->thread_id);
@@ -64,14 +60,11 @@ class statsZone extends jZone {
             }
         }
 
-
-
         $dao = jDao::get('havefnubb~member');
         //members
         $members    = $dao->countAllActivatedMember();
         // last registered user that is validate
         $lastMember = $dao->findLastActiveMember();
-
 
         // display in the header ; the date of the last known posts
         $dt = new jDateTime();
@@ -79,7 +72,7 @@ class statsZone extends jZone {
         $meta = '<meta name="dc.date" content="'.$dt->toString(jDateTime::ISO8601_FORMAT).'" />';
         $gJCoord->response->addHeadContent($meta);
 
-        $this->_tpl->assign('posts',$msgs->nb_replies + $msgs->total_replies);
+        $this->_tpl->assign('posts',$msgs);
         $this->_tpl->assign('threads',$threads);
         $this->_tpl->assign('lastPost',$lastPost);
         $this->_tpl->assign('forum',$forum);

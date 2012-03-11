@@ -16,19 +16,11 @@ class menuZone extends jZone {
      */
     protected $_tplname='zone.menu';
     /**
-     *@var boolean $_useCache set the menu in a cache
-     */
-    protected $_useCache = true;
-    /**
-     *@var integrer $_cacheTimeout set timeout to 0 to never remove the cache except by the admin or by hand
-     */
-    protected $_cacheTimeout = 0;
-    /**
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
         jClasses::inc('havefnubb~hfnuMenuItem');
-        $admin = (boolean) $this->param('admin');
+        $admin = jAcl2::check('hfnu.admin.index');
         $menu = array();
         $items = jEvent::notify('hfnuGetMenuContent',array('admin'=>$admin))->getResponse();
 

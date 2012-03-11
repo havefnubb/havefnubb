@@ -76,11 +76,7 @@
                     {/foreach}
                     {if !$firstchild}</ul>{/if}</td>
 
-                {ifacl2 'hfnu.admin.post'}
-                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>true)}</td>
-                {else}
-                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>false)}</td>
-                {/ifacl2}
+                <td><span class="smalltext">{$f->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$f->nb_thread} {@havefnubb~forum.postandmsg.threads@}</span></td>
                 <td><span class="smalltext">
                 {* hidden post ? *}
                 {if $f->status == 7}

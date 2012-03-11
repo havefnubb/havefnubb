@@ -65,7 +65,7 @@
                     {if !$firstchild}</ul>{/if}</td>
 
 
-                <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum)}</td>
+                <td><span class="smalltext">{$f->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$f->nb_thread} {@havefnubb~forum.postandmsg.threads@}</span></td>
                 <td><span class="smalltext">
                 {* hidden post ? *}
                 {if $f->status == 7}
@@ -150,7 +150,7 @@
                         <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}">{image 'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
                     </h4>{$category->forum_desc|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
-                <td><span class="smalltext">{$category->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$category->nb_thread} {@havefnubb~forum.postandmsg.threads@}</span></td>
+                <td><span class="smalltext">{$f->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$f->nb_thread} {@havefnubb~forum.postandmsg.threads@}</span></td>
                 <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
                 {zone 'havefnubb~postlc',array('id_forum'=>$category->id_forum)}</span></td>
             </tr>
