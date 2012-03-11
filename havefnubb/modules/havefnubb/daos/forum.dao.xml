@@ -22,10 +22,6 @@
                   table="category" />
         <property name="cat_order" fieldname="cat_order" datatype="int" required="true"
                   table="category" />
-                  
-         <property name="nb_msg"        fieldname="nb_msg"          datatype="int" />
-         <property name="nb_thread"     fieldname="nb_thread"       datatype="int" />
-         
     </record>
     <factory>
         <method name="findAll" type="select">
@@ -88,17 +84,8 @@
                <orderitem property="parent_id" way="asc" />
             </order>
         </method>
-        <method name="statsForum" type="php">
-            <body>
-<![CDATA[
-    $query = 'SELECT SUM(nb_msg) AS nb_msg, SUM(nb_thread) AS nb_thread '.$this->_fromClause.$this->_whereClause;
-    $rs = $this->_conn->query($query);
-    $rs->setFetchMode(8,$this->_DaoRecordClassName);
-    $record = $rs->fetch();
-
-    return $record;
-]]>
-            </body>            
-        </method>        
+        <method name="findAllCatWithFathers" type="select" groupby="id_cat">
+            <eq property="parent_id" expr="0" />
+        </method>
     </factory>
 </dao>

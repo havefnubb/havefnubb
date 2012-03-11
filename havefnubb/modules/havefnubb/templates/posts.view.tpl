@@ -77,19 +77,23 @@
                {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}</a></p>
 
             <div class="postheading-tags">
+                {if $post->thread_id == $post->id_post}
                 {if count($tags) > 1}
+
                 <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
+
                 {elseif count($tags) == 1 and !empty($tags)}
                 <div class="postheading-tags">
-                    <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
+                <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
                 </div>
+                {/if}
                 {/if}
             </div>
         </div>
         <div class="clear"></div>
         <div class="post-sidebar">
             {zone 'havefnubb~memberprofile',array('user'=>$post)}
-            {if $i == 0}
+            {if $post->thread_id == $post->id_post}
                 {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
                         'source'=>'post',
                         'return_url'=>'havefnubb~posts:view',

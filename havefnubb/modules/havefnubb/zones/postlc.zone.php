@@ -28,11 +28,8 @@ class postlcZone extends jZone {
         $noMsg = '';
 
         $dao = jDao::get('havefnubb~threads');
-        
-        $admin = jAcl2::check('hfnu.admin.post');
-        
         if ($thread_id) {
-            if (  $admin ) {
+            if (  jAcl2::check('hfnu.admin.post') ) {
                 $userPost = $dao->getUserLastCommentOnPosts($thread_id);
             }
             else {
@@ -41,7 +38,7 @@ class postlcZone extends jZone {
             $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
         }
         else if ($id_forum) {
-            if (  $admin ) {
+            if (  jAcl2::check('hfnu.admin.post') ) {
                 $userPost = $dao->getUserLastCommentOnForums($id_forum);
             }
             else {
