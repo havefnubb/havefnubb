@@ -73,7 +73,7 @@
     <div class="block">
         {* rate ON the FIRST post of the thread *}
         <div class="grid_4">
-        {if $i == 0}
+        {if $post->thread_id == $post->id_post}
         {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
                 'source'=>'post',
                 'return_url'=>'havefnubb~posts:view',

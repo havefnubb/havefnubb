@@ -4,39 +4,8 @@
 {meta_html js $j_basepath.'hfnu/js/jquery.MetaData.js'}
 {meta_html js $j_basepath.'hfnu/js/jquery.form.js'}
 {meta_html js $j_basepath.'hfnu/js/jquery.rating.pack.js'}
-{literal}
-<script type="text/javascript">
-//<![CDATA[
-$(document).ready(function() {
-	var options = {
-		success:   showResponse,
-		url:       "{/literal}{jurl 'hfnurates~default:rate_ajax_it'}{literal}",
-		type:      "post",
-		dataType:  "text",
-	};
-	
-	$('.starsrating').rating({
-		focus: function(value, link){
-		  var tip = $('#rating-hover');
-		  tip[0].data = tip[0].data || tip.html();
-		  tip.html(link.title || 'value: '+value);
-		},
-		blur: function(value, link){
-		  var tip = $('#rating-hover');
-		  $('#rating-hover').html(tip[0].data || '');
-		},
-		callback: function(value, link){
-			$(this.form).ajaxSubmit(options);
-		},
-	});
-});
-function showResponse(response) {
-	$('.rates-result').html(response);
-	$('#post-rates-msg').html('{/literal}{jlocale('hfnurates~main.thanks.you.for.rating')}{literal}');
-}
-//]]>
-</script>
-{/literal}
+{* javascript and ajax code *}
+{$js}
 <div class="rates-result">{$result}</div>
 <form id="form{$id_source}" action="{formurl 'hfnurates~default:rate_it'}" method="post">
     <div class="post-rates">
