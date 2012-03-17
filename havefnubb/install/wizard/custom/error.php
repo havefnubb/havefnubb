@@ -34,7 +34,7 @@
     <div class="grid_16" id="site_info">
         <div class="box">
             <p>Powered by <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> -
-            &copy; Copyright 2008-2010 <a href="http://www.foxmask.info" title="FoxMaSk'Z H0m3">FoxMaSk</a> .</p>
+            &copy; Copyright 2008-2012 <a href="http://www.foxmask.info" title="Le Grin de Sable">FoxMaSk</a> .</p>
         </div>
     </div>
     <div class="clear"></div>
