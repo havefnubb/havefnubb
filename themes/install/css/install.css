@@ -102,9 +102,13 @@ ul.checkresults {
 	padding:1em;
 	list-style-type:none;
 }
-ul.checkresults li { margin:0; padding:5px; border-top:1px solid black; }
+ul.checkresults li { margin:0; padding:5px; border-top:1px solid black; background-color: #fff; }
 li.checkerror   { background-color:#ff6666;}
 li.checkok      { background-color:#a4ffa9;}
 li.checkwarning { background-color:#ffbc8f;}
 
 .error  { font-size:1.2em; color:#FF2323;}
+
+ul.checkresults li.odd {
+	background-color: #eee;	
+}
