@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="threads" realname="hfnu_threads"  primarykey="id_thread" />
+        <foreigntable name="posts" realname="hfnu_posts"  primarykey="id_post" onforeignkey="id_last_msg" />
+        <foreigntable name="forum" realname="hfnu_forum"  primarykey="id_forum" onforeignkey="id_forum" />        
+    </datasources>
+    <record>
+        <property name="id_thread"     fieldname="id_thread" datatype="autoincrement"/>
+        <property name="id_forum"     fieldname="id_forum"  datatype="int"/>                
+        <property name="id_last_msg"   fieldname="id_last_msg"  datatype="int" required="true"/>
+        <property name="date_last_post" fieldname="date_last_post" datatype="int" />
+        <property name="status"    fieldname="status"  datatype="int" required="true"/>        
+        <!-- properties from posts table -->
+        <property name="id_post"    table="posts"    fieldname="id_post" datatype="autoincrement"/>
+        <property name="subject"       table="posts"  fieldname="subject"     datatype="string" required="true" maxlength="255"/>
+        <!-- properties from forum table -->        
+        <property name="forum_name"      fieldname="forum_name" table="forum" datatype="int" required="true"/>         
+    </record>
+    <!-- naming convention :
+        findXXX uses type="select"
+        getXXX uses type="selectfirst"
+        countXXX uses type="count"
+    -->
+    <factory>
+        <method name="findLastPosts" type="select">
+            <parameter name="count" default="5" />
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+            <limit offset="0" count="$count"/>
+        </method>
+        <method name="findLastVisiblePosts" type="select">
+            <parameter name="count" default="5" />
+           <conditions>
+                <neq property="status" value="7" />
+            </conditions>
+            <order>
+                <orderitem property="date_last_post" way="desc" />
+            </order>
+            <limit offset="0" count="$count"/>
+        </method>        
+    </factory>
+</dao>

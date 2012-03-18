@@ -28,7 +28,7 @@ class lastpostsZone extends jZone {
      */
     protected function _prepareTpl(){
         global $gJConfig;
-        $dao = jDao::get('havefnubb~threads');
+        $dao = jDao::get('havefnubb~threads_stats');
         $admin = (boolean) $this->param('admin');
         //last 'x' posts
         if ( $admin )

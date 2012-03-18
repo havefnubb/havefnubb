@@ -16,14 +16,6 @@ class memberlistZone extends jZone {
      */
     protected $_tplname='zone.memberlist';
     /**
-     *@var boolean $_useCache set the zone in a cache
-     */
-    protected $_useCache = true;
-    /**
-     *@var integrer $_cacheTimeout set timeout to each 6hours
-     */
-    protected $_cacheTimeout = 21600;
-    /**
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
