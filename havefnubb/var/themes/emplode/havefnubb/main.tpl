@@ -85,7 +85,11 @@
 <div id="footer">
     <div class="center_wrapper">
         <div class="left">
+<<<<<<< HEAD
             <p><span>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 - 2012 <a href="http://www.foxmask.info" title="FoxMaSk - Le Grin de Sable">FoxMaSk</a></span></p>
+=======
+            <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 - 2012 <a href="http://www.foxmask.info" title="Le Grin de Sable">FoxMaSk</a></p>
+>>>>>>> 4f1c78d53ad0822beb593f5fba71687a1019ee76
         </div>
         <div class="right">
             <a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a>

@@ -4,12 +4,12 @@
  * @subpackage modulesinfo
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau, Vincent Viaud
- * @copyright 2008-2011 FoxMaSk, 2010 Laurent Jouanneau, 2010 Vincent Viaud
+ * @copyright 2008-2012 FoxMaSk, 2010 Laurent Jouanneau, 2010 Vincent Viaud
  * @link      http://havefnubb.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
 
-require_once (__DIR__ . DIRECTORY_SEPARATOR. 'filexml.class.php');
+require_once (dirname(__FILE__). '/filexml.class.php');
 
 class moduleInfo {
     public $id='';
