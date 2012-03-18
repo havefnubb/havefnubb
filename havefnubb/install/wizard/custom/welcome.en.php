@@ -2,20 +2,25 @@
 include (dirname(__FILE__).'/../../version.php');
 
 $versionMsg =   '<ul class="jelix-msg">'.
-                '<li class="jelix-msg-item-ok">'.
-                'Installed Version : '.
-                $currentVersion['havefnubb']['version'].
+                '<li class="jelix-msg-item-ok">';
+
+if ($appInstalled) {
+	$versionMsg .= 'Installed version : '.$currentVersion['havefnubb']['version'] .
                 '</li>'.
                 '</ul>';
 
-if ($alreadyInstalled === false) {
-    $versionMsg .=   '<ul class="jelix-msg">'.
-                    '<li class="jelix-msg-item-warning">'.
+	if ($alreadyInstalled === false) 
+	    $versionMsg .=   '<ul class="jelix-msg">'.
+                    '<li class="jelix-msg-item-notice">'.
                     'New Version : '.
                     $newVersion.
                     '</li>'.
                     '</ul>';
 }
+else 
+	$versionMsg .= 'Installation of the version ' . $newVersion . 
+                '</li>'.
+                '</ul>';
 
 $locales=array(
     'title'=>'Welcome',
