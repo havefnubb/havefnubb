@@ -2,7 +2,7 @@
 <div class="block">
 <ul class="checkresults">
   {foreach $messages as $msg}
-  <li class="{$msg[0]}">{$msg[1]}</li>
+  <li class="{$msg[0]} {cycle array('odd','even')}">{$msg[1]}</li>
   {/foreach}
 </ul>
 
