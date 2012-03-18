@@ -24,9 +24,15 @@ class hfnuposts {
     public $postStatus = array();
     /**
      * the authorized status of the post
+     * 1 = 'pined'
+     * 2 = 'pinedclosed'
+     * 3 = 'opened' 
+     * 4 = 'closed'
+     * 5 = 'censored'
+     * 6 = 'uncensored'
+     * 7 = 'hidden');
      * @var array $statusAvailable
      */
-    //private $statusAvailable = array('pined','pinedclosed','opened','closed','censored','uncensored','hidden');
     private $statusAvailable = array(1,2,3,4,5,6,7);
     /**
      * @var integer $hfAdmin the ID that defines the Admin
@@ -105,7 +111,9 @@ class hfnuposts {
             //search if it's first post of the thread
             $daoThreads = jDao::get('havefnubb~threads_alone');
             $daoThreadsRec = $daoThreads->getFirstIdPost($post->id_post);
-
+            
+            $nb_msg_to_remove_from_forum = 0;
+            
             //if so we remove the entire thread
             if ($daoThreadsRec !== false) {
                 // B1)  need to remove the count of posts for each user
@@ -113,7 +121,7 @@ class hfnuposts {
                 // then get the user id of each post between the first and last
                 // then send an Event HfnuPostBeforeDelete
                 $start = $daoThreadsRec->id_first_msg;
-                $end = $daoThreadsRec->id_last_msg;
+                $end = $daoThreadsRec->id_last_msg;                
                 for ($i=$start ; $i <= $end ; $i++ ) {
                     //get the user of this post
                     //the current cursor may not exist so we have to test
@@ -121,6 +129,7 @@ class hfnuposts {
                     //if the id_user is not false
                     //then "notify" to remove one post of his total
                     if ($user !== false) {
+                        $nb_msg_to_remove_from_forum++;
                         // get the user record
                         $userRec = jDao::get('havefnubb~member')->getById($user->id_user);
                         // found one
@@ -147,13 +156,16 @@ class hfnuposts {
                 } else {
                 // B4.b) we found one let's get those values
                     $id_last_msg = $newThreadRec->id_last_msg;
-                    $date_last_msg = $newThreadRec->date_last_msg;
+                    $date_last_msg = $newThreadRec->date_last_post;
                 }
                 // B5) update the the forum table
                 $daoForum = jDao::get('havefnubb~forum');
                 $forumRec = $daoForum->get($id_forum);
                 $forumRec->id_last_msg = $id_last_msg;
                 $forumRec->date_last_msg = $date_last_msg;
+                $forumRec->nb_msg       = $forumRec->nb_msg - $nb_msg_to_remove_from_forum;
+                $forumRec->nb_thread    = $forumRec->nb_thread -1;
+                
                 $daoForum->update($forumRec);
 
             // C) otherwise drop the one inside the thread
@@ -387,9 +399,11 @@ class hfnuposts {
 
             //update Forum record
             $forum = jDao::get('havefnubb~forum');
-            $forumRec = $forum->get($id_forum);
-            $forumRec->id_last_msg = $id_post;
+            $forumRec               = $forum->get($id_forum);
+            $forumRec->id_last_msg  = $id_post;
             $forumRec->date_last_msg = $datePost;
+            $forumRec->nb_msg       = $forumRec->nb_msg+1;
+            $forumRec->nb_thread    = $forumRec->nb_thread+1;
             $forum->update($forumRec);
 
             $this->addPost($id_post,$record);
@@ -515,8 +529,10 @@ class hfnuposts {
         //update Forum record
         $forum = jDao::get('havefnubb~forum');
         $forumRec = $forum->get($threadRec->id_forum);
-        $forumRec->id_last_msg = $id_post;
+        $forumRec->id_last_msg  = $id_post;
         $forumRec->date_last_msg = $dateReply;
+        $forumRec->nb_msg       = $forumRec->nb_msg+1;
+        $forumRec->nb_thread    = $forumRec->nb_thread+1;        
         $forum->update($forumRec);
 
         //add a "fake" column just to return it to the posts controller
@@ -671,7 +687,7 @@ class hfnuposts {
         if ( $dao->unCensorIt($id_post) ) {
             jEvent::notify('HfnuPostAfterStatusChanged',
                            array('id'       =>$id_post,
-                                 'status'   =>3)
+                                 'status'   =>$status)
                            );
 
             $daoThread = jDao::get('havefnubb~threads');
@@ -712,22 +728,33 @@ class hfnuposts {
 
     /**
      * this function permits to split the thread to a forum
+     * 1) we create the first post and then the thread
+     * 2) we remove all the posts of the thread from the choosen id
+     * 3) we delete the number of posts + thread from the thread table
+     * 4) we delete the number of posts + thread from the forum table
+     * 5) we add the number of posts + thread to the thread table in the new forum
+     * 6) we add the number of posts + thread to the forum table in the new forum
      * @param integer $thread_id thread
      * @param integer $id_post id post
      * @param integer $id_forum id forum
      * @return integer $id_post_new the new Id
      */
+    
+    //@TODO : update the id_last_msg in the forum table to avoid "no msg" sentance
+    
     public function splitToForum($thread_id,$id_post,$id_forum) {
         if ($id_post == 0 or $id_forum == 0 or $thread_id == 0) return false;
         $dao = jDao::get('havefnubb~posts');
 
         $datas = $dao->findAllFromCurrentIdPostWithThreadId($thread_id,$id_post);
 
-        $i = 0;
-        $id_post_new = 0;
-        $id_thread = 0;
-        $id_forum_old = 0;
-
+        $recCount = $datas->rowCount();
+        
+        $i                  = 0;
+        $id_post_new        = 0;
+        $id_thread_inserted = 0;
+        $id_forum_old       = 0;
+        //1) we create the first post and then the thread
         foreach($datas as $data) {
             //the id forum where the post comes from
             $id_forum_old = $data->id_forum;
@@ -757,8 +784,8 @@ class hfnuposts {
 
                 // now let's get the inserted id to put this one in thread_id column !
 
-                $id_thread          = $threadRec->id_thread;
-                $record->thread_id  = $id_thread;
+                $id_thread_inserted = $threadRec->id_thread;
+                $record->thread_id  = $id_thread_inserted;
 
                 $dao->insert($record); // create the new record
 
@@ -776,32 +803,60 @@ class hfnuposts {
 
             $i++;
         }
+        // 2) we remove all the posts of the thread from the choosen id
         // delete the old records
         $dao->deleteAllFromCurrentIdPostWithThreadId($thread_id,$id_post);
 
-        // remove the number of replies from the original thread
-        $threadDao = jDao::get('havefnubb~threads');
+        // 3) we delete the number of posts + thread from the thread table
+        $threadDao = jDao::get('havefnubb~threads_alone');
         $threadRec = $threadDao->get($thread_id);
-        if ($threadRec->nb_replies > 0 ) $threadRec->nb_replies -= $i;
+        
+        // info needed for forum table
+        $nb_posts = 0;
+        $date_last_msg = $threadRec->date_last_post;
+        // info needed for forum table
+        
+        if ($threadRec->nb_replies > 0 ) { 
+            $nb_posts = $threadRec->nb_replies - $i;
+            $threadRec->nb_replies -= $i;            
+        }
+        else $nb_posts = 1;
         //need to get the last comment
-        $threadRec->id_last_msg = $dao->getUserLastCommentOnForums($id_forum_old)->id_post;
+        if ($dao->getUserLastCommentOnForums($id_forum_old) !== false)
+            $threadRec->id_last_msg = $dao->getUserLastCommentOnForums($id_forum_old)->id_post;
+        else 
+            $threadRec->id_last_msg = 0;
+        
         $threadDao->update($threadRec);
+        // 4) we delete the number of posts + thread from the forum table
+        $forumDao = jDao::get('havefnubb~forum');
+        $forumRec = $forumDao->get($id_forum_old);
+        $forumRec->nb_msg       -= $nb_posts;
+        $forumRec->nb_thread    -= 1;
+        $forumRec->date_last_msg = $date_last_msg;
+        $forumDao->update($forumRec);
 
-        //update id_first_msg & id_last_msg of the Thread of the new
+        // 5) we add the number of posts + thread to the thread table in the new forum
         $threadDao = jDao::get('havefnubb~threads');
-        $threadRec = $threadDao->get($id_thread);
+        $threadRec = $threadDao->get($id_thread_inserted);
         $threadRec->id_first_msg = $id_post_new;
         $threadRec->id_last_msg  = $id_last_msg;
         $threadDao->update($threadRec);
 
-        //$record = $dao->get($id_post_new);
-
-        //update Forum record
-        $forum                      = jDao::get('havefnubb~forum');
-        $forumRec                   = $forum->get($id_forum);
-        $forumRec->id_last_msg      = $id_last_msg;
-        $forumRec->date_last_msg    = $date_created;
-        $forum->update($forumRec);
+        
+        // 6) we add the number of posts + thread to the forum table in the new forum
+        $forumDao                   = jDao::get('havefnubb~forum');
+        $forumRec                   = $forumDao->get($id_forum);
+        // we only update the date if the new thread we move is newer 
+        // than the last date of the existing msg we already have in 
+        // the forum table
+        if ($forumRec->date_last_msg    < $date_created) {
+            $forumRec->id_last_msg      = $id_last_msg;        
+            $forumRec->date_last_msg    = $date_created;
+        }
+        $forumRec->nb_msg           += $nb_posts;
+        $forumRec->nb_thread        += 1;
+        $forumDao->update($forumRec);
         // get the id_post of the previous post
         // then update the thread table with its info (last_msg id + date)
         return $id_post_new;
@@ -828,7 +883,7 @@ class hfnuposts {
             $record->id_forum = $data->id_forum; // the id forum of the same forum
             $record->thread_id = $new_thread_id; // the id of the parent id on which we link the thread
 
-            $result = $dao->insert($record);
+            $dao->insert($record);
         }
 
         $dao->deleteAllFromCurrentIdPostWithThreadId($thread_id,$id_post); // delete the old records
