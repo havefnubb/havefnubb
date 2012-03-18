@@ -38,7 +38,9 @@
         {foreach $module->creators as $author}
         <tr class="{cycle array('odd','even')}">
             <th>{@modulesinfo~modules.about.authors@} :</th>
-            <td> {if $author['email'] != ''}<a href="mailto:{$author['email']}">{$author['name']|escxml}{else}{$author['name']|escxml}{/if}</a></td>
+            <td> {if array_key_exists('email',$author)}
+                  {if $author['email'] != ''}<a href="mailto:{$author['email']}">{$author['name']|escxml}{/if}
+                  {else}{$author['name']|escxml}{/if}</a></td>
         </tr>
         {/foreach}
         <tr>

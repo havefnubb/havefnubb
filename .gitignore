@@ -8,3 +8,4 @@ havefnubb/var/log
 temp/havefnubb/*
 cache/*
 *.komodoproject
+nbproject
