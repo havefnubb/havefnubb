@@ -1,5 +1,5 @@
-<h2>{@checker.title@}</h2>
-<div class="block">
+<h3>{@checker.title@}</h3>
+<div class="box-content">
     <ul class="jelix-msg">
         {foreach $messages as $msg} <li class="jelix-msg-item-{$msg[0]}">{$msg[1]|eschtml}</li>
         {/foreach}

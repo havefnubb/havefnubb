@@ -1,4 +1,4 @@
-<h2>{@title@}</h2>
-<div class="block">
+<h3>{@title@}</h3>
+<div class="box-content">
 <p>{@finish@}</p>
 </div>

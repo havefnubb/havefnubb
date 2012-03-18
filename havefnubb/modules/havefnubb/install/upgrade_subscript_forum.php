@@ -15,7 +15,7 @@ class havefnubbModuleUpgrader_subscript_forum extends jInstallerModule {
 
     function install() {
         if ($this->firstDbExec()) {
-            $this->execSQLScript('sql/upgrade_to_1.4.1_subscript_forum.sql');
+            $this->execSQLScript('sql/upgrade_to_1.4.1_subscript_forum');
         }
     }
 }
