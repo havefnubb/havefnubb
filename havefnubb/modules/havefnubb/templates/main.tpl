@@ -38,7 +38,7 @@
 
     <div class="grid_16" id="site_info">
         <div class="box">
-            <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 - 2010 <a href="http://www.foxmask.info" title="FoxMaSk'z h0m3">FoxMaSk</a></p>
+            <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 - 2012 <a href="http://www.foxmask.info" title="Le Grin de Sable">FoxMaSk</a></p>
         </div>
         {hook 'hfbMainInFooter'}
     </div>

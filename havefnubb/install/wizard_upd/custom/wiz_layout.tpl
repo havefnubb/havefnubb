@@ -36,17 +36,13 @@
         {else}
             <li {if $stepname == 'welcome'} class="actif"{/if}>{@install.home@}</li>
             <li {if $stepname == 'checkjelix'} class="actif"{/if}>{@install.checking@}</li>
-            <li {if $stepname == 'hfnconf'} class="actif"{/if}>{@install.hnfconf@}</li>
-            <li {if $stepname == 'confmail'} class="actif"{/if}>{@install.confmail@}</li>
-            <li {if $stepname == 'dbprofile'} class="actif"{/if}>{@install.db@}</li>
             <li {if $stepname == 'installapp'} class="actif"{/if}>{@install.app@}</li>
-            <li {if $stepname == 'adminaccount'} class="actif"{/if}>{@install.create.account.admin@}</li>
             <li {if $stepname == 'end'} class="actif"{/if}>{@install.end@}</li>
         {/if}
             </ol>
         </div>
         <div class="grid_12 omega">
-            <form action="install.php" {if $enctype}enctype="{$enctype}"{/if} method="post">
+            <form action="update.php" {if $enctype}enctype="{$enctype}"{/if} method="post">
                 <div>
                   <input type="hidden" name="step" value="{$stepname}" />
                   <input type="hidden" name="doprocess" value="1" />
@@ -59,7 +55,7 @@
 
                         <div id="buttons">
                             {if $previous}
-                              <button name="previous"  class="jforms-submit" onclick="location.href='install.php?step={$previous}';return false;">{@previousLabel@|eschtml}</button>
+                              <button name="previous"  class="jforms-submit" onclick="location.href='update.php?step={$previous}';return false;">{@previousLabel@|eschtml}</button>
                             {/if}
                             {if $next}
                               <button type="submit" class="jforms-submit">{@nextLabel@|eschtml}</button>

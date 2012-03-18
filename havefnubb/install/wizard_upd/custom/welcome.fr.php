@@ -10,7 +10,7 @@ $versionMsg =   '<ul class="jelix-msg">'.
 
 if ($alreadyInstalled === false) {
     $versionMsg .=   '<ul class="jelix-msg">'.
-                    '<li class="jelix-msg-item-warning">'.
+                    '<li class="jelix-msg-item-notice">'.
                     'Nouvelle Version : '.
                     $newVersion.
                     '</li>'.

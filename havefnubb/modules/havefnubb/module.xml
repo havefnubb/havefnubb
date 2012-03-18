@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="havefnubb@havefnubb.org" name="havefnubb" createdate="2008-12-16">
-        <version date="2011-04-03">1.4</version>
+        <version date="2012-03-16">1.4.1</version>
         <label lang="en_EN">HaveFnuBB! The Official Module of the Bulletin Board</label>
         <description lang="en_EN">This module can manage a complet bulletin board</description>
         <label lang="fr_FR">HaveFnuBB! Le module officiel de forum</label>
         <description lang="fr_FR">Ce module permet de gérer un forum entier</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
-        <copyright>2008-2011 FoxMaSk</copyright>
+        <copyright>2008-2012 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
         <contributor name="Laurent Jouanneau" email="laurent@jelix.org" active="true" since="2010-09-01" role="developer"/>
         <homepageURL>http://www.havefnubb.org/</homepageURL>
