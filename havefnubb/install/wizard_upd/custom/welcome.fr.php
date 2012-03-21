@@ -22,12 +22,7 @@ $locales=array(
     'introduction'=>'Introduction',
     'version'=>$versionMsg,
     'process.description'=>'cette procédure d\'installation se décompose en plusieurs parties,
-                            allant de la vérification de la compatibilité de votre système jusqu\'à l\'accès
-                            à votre base de données en passant par les paramètres du forum.',
-    'process.rename.dist.file'=>'Renommer les fichiers de configuration',
-    'process.rename.dist.file.desc'=>'Avant de commencer, renommer les fichiers <strong>defaultconfig.ini.php.dist</strong> en
-                                    <strong>defaultconfig.ini.php</strong> et <strong>dbprofils.ini.php.dist</strong> en
-                                    <strong>dbprofils.ini.php</strong> se trouvant dans le dossier <strong>var/config</strong>',
+                            allant de la vérification des versions existantes à la mise à jour de votre base de données.',
     'rights'=>'Droits d\'accès',
     'rights.description'=>'N\'oubliez pas de mettre les bons droits d\'accés sur vos fichiers et répertoire. Ils doivent tous être en
                             lecture seule pour le serveur web, <strong>excepté ces fichiers qui doivent pouvoir être modifiés par le serveur web :</strong>

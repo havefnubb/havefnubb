@@ -4,7 +4,7 @@
     <p>{@process.description@}</p>
     <h4>{@process.rename.dist.file@}</h4>
     <p>{@process.rename.dist.file.desc@}</p>
-{if strpos(PHP_OS,'WIN') == 0}    
+{if strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN'}
 <h3>{@rights@}</h3>
     <p>{@rights.description@}</p>
     <h4>{@rights.debian.title@}</h4>
