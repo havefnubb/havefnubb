@@ -10,7 +10,7 @@
 
 class havefnubbModuleUpgrader_thread_posts extends jInstallerModule {
 
-    public $targetVersions = array('1.4.1', '1.5a2');
+    public $targetVersions = array('1.4.1');
     //public $date = '2012-03-16';
 
     function install() {

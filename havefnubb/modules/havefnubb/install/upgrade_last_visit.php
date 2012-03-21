@@ -10,7 +10,7 @@
 
 class havefnubbModuleUpgrader_last_visit extends jInstallerModule {
 
-    public $targetVersions = array('1.4.1a1', '1.5a1');
+    public $targetVersions = array('1.4.1a1');
     //public $date = '2011-09-29';
 
     function install() {
