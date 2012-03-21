@@ -5,7 +5,6 @@
   {foreach $errors as $err}<li class="jelix-msg-item-error">{$err|eschtml}</li>{/foreach}
 </ul>
 {/if}
-
 <fieldset>
     <legend>{@title@}</legend>
     <table>

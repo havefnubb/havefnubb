@@ -168,7 +168,7 @@ INSERT INTO %%PREFIX%%hfnu_forum_category (id_cat, cat_name, cat_order) VALUES
 (1, 'My First Forum', 1),
 (2, 'My Second forum', 2);
 
-INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg) VALUES
+INSERT INTO %%PREFIX%%hfnu_forum (id_forum, forum_name, id_cat, forum_desc, forum_order, parent_id, child_level,forum_type,forum_url,post_expire, id_last_msg, date_last_msg, nb_msg, nb_thread ) VALUES
 (1, 'My Forum is Fun', 1, 'Everything is Fnu', 1, 0, 0, 0,'',0,1,0,1,1),
 (2, 'My Forum is Fast', 1, 'Goooooooooooooooood', 1, 0, 0, 0,'',0,0,0,0,0),
 (3, 'Light', 2, 'Soo light', 1, 0, 0, 0,'',0,0,0,0,0),

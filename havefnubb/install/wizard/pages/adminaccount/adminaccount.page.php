@@ -18,9 +18,7 @@ class adminaccountWizPage extends installWizardPage {
      * @return true
      */
     function show ($tpl) {
-        include (dirname(__FILE__).'/../../../version.php');
-var_dump($alreadyInstalled);            
-        
+        include (dirname(__FILE__).'/../../../version.php');        
         if (!isset($_SESSION['adminaccount'])) {
             $_SESSION['adminaccount'] = array(
                 'login'=>'',

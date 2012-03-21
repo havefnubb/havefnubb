@@ -9,3 +9,5 @@ if (trim($currentVersion['havefnubb']['version']) == trim($newVersion))
     $alreadyInstalled = true;    
 else
     $alreadyInstalled = false;
+// check if the application is already installed
+$appInstalled = file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php');
