@@ -1,6 +1,6 @@
-<div class="box">
-    <h2>{@havefnubb~post.quickreply.quickreply@}</h2>
-    <div class="block">
+<div class="box" id="act_quickreply">
+    <h3>{@havefnubb~post.quickreply.quickreply@}</h3>
+    <div class="box-content">
     {form $form, 'havefnubb~posts:savereply', array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <fieldset>
         <legend>{@havefnubb~post.quickreply.quickreply@}</legend>
@@ -9,7 +9,7 @@
             {ctrl_control 'subject'}
         </p>
         <p>
-            {ctrl_label 'message'}
+            {ctrl_label 'message'}<br/>
             {ctrl_control 'message'}
         </p>
         {ifusernotconnected}

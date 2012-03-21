@@ -3,7 +3,7 @@
 {@havefnubb~post.new.comment.received.on.the.post@}
 
 {jfullurl 'havefnubb~posts:view',
-array('id_post'=>$post->thread_id,
+array('id_post'=>$post->id_post,
         'thread_id'=>$post->thread_id,
         'id_forum'=>$post->id_forum,
         'ftitle'=>$post->forum_name,

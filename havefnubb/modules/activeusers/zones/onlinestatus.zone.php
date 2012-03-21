@@ -9,7 +9,8 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- * the status of the members
+ * the status of a member
+ * @zoneparameter login the login of the user
  */
 class onlinestatusZone extends jZone {
     /**

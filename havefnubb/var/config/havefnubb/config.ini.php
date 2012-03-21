@@ -51,10 +51,13 @@ servinfo.access=0
 
 hook.access=1
 
-modulesinfo.access=0
+modulesinfo.access=2
 
 jelixcache.access=0
 
 activeusers.access=2
 activeusers_admin.access=0
+
+
+iamhere.access=2
 

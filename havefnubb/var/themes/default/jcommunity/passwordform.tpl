@@ -1,6 +1,6 @@
 <div class="box">
-    <h2>{@havefnubb~member.passwordform.header@}</h2>
-    <div class="block loginbox">
+    <h3>{@havefnubb~member.passwordform.header@}</h3>
+    <div class="box-content loginbox">
     {form $form,'jcommunity~password:send', array()}
     <fieldset>
         <legend>{@havefnubb~member.passwordform.header@}</legend>

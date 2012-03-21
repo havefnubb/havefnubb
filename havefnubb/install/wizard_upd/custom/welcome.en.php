@@ -22,11 +22,7 @@ $locales=array(
     'introduction'=>'Introduction',
     'version'=>$versionMsg,
     'process.description'=>'this installation process is composed of several parts, starting from checking
-                            the compatibility of your system to the database access and setting up the forum',
-    'process.rename.dist.file'=>'Rename the config files',
-    'process.rename.dist.file.desc'=>'Before you begin, rename the config file <strong>defaultconfig.ini.php.dist</strong>
-                in <strong>defaultconfig.ini.php</strong> and <strong>dbprofils.ini.php.dist</strong> in
-                <strong>dbprofils.ini.php</strong> located in the folder var/config',
+                            the compatibility of your system to the update of your database and modules',
     'rights'=>'Rights Access',
     'rights.description'=>'Don\'t forget to change your rights access on all your folders and files to read-only for the web server,
                             <br/><strong>except for these files which have to be writable:</strong><ol>

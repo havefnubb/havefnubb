@@ -13,8 +13,8 @@ $(document).ready(function(){
 {hook 'hfbAccountShowBefore',array($user->login)}
 <div id="post-message">{jmessage}</div>
 <div class="box">
-    <h2>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h2>
-    <div class="block">
+    <h3>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h3>
+    <div class="box-content">
         <div id="user-profile-avatar">
         {if $user->member_gravatar == 1}
             {gravatar $user->email,array('username'=>$user->login)}
@@ -31,7 +31,7 @@ $(document).ready(function(){
         {/if}
         </div>
         <div id="container">
-        <ul class="nav main">
+        <ul class="nav">
             <li><a href="#user-profile-general">{@havefnubb~member.general@}</a></li>
             <li><a href="#user-profile-pref">{@havefnubb~member.pref@}</a></li>
             {hook 'hfbAccountShowTab',array($user->login)}
@@ -39,41 +39,39 @@ $(document).ready(function(){
             <div id="user-profile-general">
             <fieldset>
                 <legend><span class="user-general user-image">{@havefnubb~member.general@}</span></legend>
-    {if $user->member_show_email == 'Y'}
-    {assign $class="three-cols"}
-    {else}
-    {assign $class="two-cols"}
-    {/if}
-                <div class="{$class} form_row">
+                <div class="form_row">
                     <div class="form_property">
                         <label class="user-name user-image"><strong>{@havefnubb~member.nickname@}</strong></label>
                     </div>
                     <div class="form_value">
                         {$user->nickname|eschtml}
                     </div>
-
+                </div>
     {if $user->member_show_email == 'Y'}
+                <div class="form_row">
                     <div class="form_property">
                         <label class="user-email user-image"><strong>{@havefnubb~member.email@}</strong></label>
                     </div>
                     <div class="form_value">
                         {mailto array('address'=>$user->email,'encode'=>'hex','text'=>@havefnubb~member.common.email@)}
                     </div>
+                </div>
     {/if}
     {if !$himself}
+                <div class="form_row">
                     <div class="form_property">
                         <label class="user-messenger user-image"> &nbsp;</label>
                     </div>
                     <div class="form_value"><a href="{jurl 'jmessenger~jmessenger:create'}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a></div>
+                </div>
     {/if}
-
+                <div class="form_row">
                     <div class="form_property">
                         <label class="user-birthday user-image"><strong>{@havefnubb~member.common.age@}</strong></label>
                     </div>
                     <div class="form_value">
                         {age $user->member_birth}
                     </div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
             <fieldset>
@@ -85,9 +83,8 @@ $(document).ready(function(){
                     <div class="form_value">
                         {$user->member_town|eschtml}
                     </div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
-                <div class="form_row">                    
+                <div class="form_row">
                     <div class="form_property">
                         <label><strong>{@havefnubb~member.common.country@}</strong></label>
                     </div>
@@ -96,7 +93,6 @@ $(document).ready(function(){
                         {image 'hfnu/images/flags/'.strtolower($user->member_country).'.gif', array('alt'=>$user->member_country)} {country $user->member_country}
                         {/if}
                     </div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                     <div class="form_property">
@@ -107,7 +103,6 @@ $(document).ready(function(){
                         <a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>
                         {/if}
                     </div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
             <fieldset>
@@ -119,15 +114,14 @@ $(document).ready(function(){
                     <div class="form_value">
                         {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}
                     </div>
+                </div>
+                <div class="form_row">
                     <div class="form_property">
                         <label><strong>{@havefnubb~member.memberlist.nb.posted.msg@}</strong></label>
                     </div>
                     <div class="form_value">
                         {$user->nb_msg}
                     </div>
-                    <div class="clearer">
-                        &nbsp;
-                    </div>                                        
                 </div>
                 <div class="form_row">
                     <div class="form_property">
@@ -136,11 +130,10 @@ $(document).ready(function(){
                     <div class="form_value">
                         {$user->member_created|jdatetime}
                     </div>
+                </div>
+                <div class="form_row">
                     <div class="form_property">
                         <label><strong>{@havefnubb~member.common.last.connection@}</strong></label>
-                    </div>
-                    <div class="clearer">
-                        &nbsp;
                     </div>
                 </div>
             </fieldset>
@@ -155,7 +148,6 @@ $(document).ready(function(){
                     <div class="form_value">
                         {$user->member_language}
                     </div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
                 <div class="form_row">
                     <div class="form_property">
@@ -164,17 +156,16 @@ $(document).ready(function(){
                     <div class="form_value">
                         {$user->member_comment|wiki:'hfb_rule'|stripslashes}
                     </div>
-                    <div class="clearer">&nbsp;</div>
                 </div>
             </fieldset>
             </div>
             {hook 'hfbAccountShowDiv',array('user'=>$user->login)}
         </div> <!-- #container -->
     </div>
-    <div class="fake-button-left">
-    {if $himself}
-    <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
-    {/if}
+    <div class="buttons-bar">
+        {if $himself}
+        <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
+        {/if}
     </div>
     </div>
     {hook 'hfbAccountShowBefore',array($user->login)}

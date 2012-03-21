@@ -1,6 +1,6 @@
 <div class="box">
-    <h2>{@havefnubb~main.rules.description@}</h2>    
-    <div class="block">
+    <h3>{@havefnubb~main.rules.description@}</h3>
+    <div class="box-content">
         {$rules|wiki:'hfb_rule'}
     </div>
 </div>

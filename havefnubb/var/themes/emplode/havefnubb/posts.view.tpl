@@ -13,9 +13,16 @@ $(document).ready(function(){
 //]]>
 </script>
 {/literal}
-<div class="box">
-    <h2>{@havefnubb~main.common.you.are.here@} <a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> > <a href="{jurl 'havefnubb~category:view',array('id_cat'=>$forum->id_cat,'ctitle'=>$forum->cat_name)}" title="{$forum->cat_name}">{$forum->cat_name|eschtml}</a> > <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a> > {$subject|eschtml}</h2>
+
+<div class="breadcrumb">
+<ol>
+    <li>{@havefnubb~main.common.you.are.here@}</li>
+    <li><a href="{jurl 'havefnubb~default:index'}" title="{@havefnubb~main.home@}">{@havefnubb~main.home@}</a> >></li>
+    <li><a href="{jurl 'havefnubb~category:view',array('id_cat'=>$forum->id_cat,'ctitle'=>$forum->cat_name)}" title="{$forum->cat_name}">{$forum->cat_name|eschtml}</a> >> </li>
+    <li><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a> >> {$subject|eschtml}</li>
+</ol>
 </div>
+
 <div class="clear"></div>
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 <div id="post-message">{jmessage}</div>
@@ -122,17 +129,17 @@ $(document).ready(function(){
                           )
         }
           {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
-          <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
+          <span class="postsplit"><a href="{jurl 'postsmgr:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
           {/ifacl2}
             {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
             {if $statusAvailable[$post->status -1] == 'censored'}
-            <span class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
+            <span class="postcensor"><a href="{jurl 'postsmgr:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
             {else}
-            <span class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
+            <span class="postcensor"><a href="{jurl 'postsmgr:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
             {/if}
             {/ifacl2}
           {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
-          <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
+          <span class="postnotify"><a href="{jurl 'postsmgr:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
            {/ifacl2}
           {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
           <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
@@ -194,13 +201,22 @@ $(document).ready(function(){
 {ifacl2 'hfnu.posts.create','forum'.$forum->id_forum}
 {* 'closed' *}
     {if $status != 'closed' and $status != 'pinedclosed' and $status != 'censored'}
-        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {ifuserconnected}
+        {zone 'havefnubb~quickreply',array('connected'=>true,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {else}
+        {zone 'havefnubb~quickreply',array('connected'=>false,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+        {/ifuserconnected}
     {else}
         {ifacl2 'hfnu.admin.post'}
-        {zone 'havefnubb~quickreply',array('id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {ifuserconnected}
+            {zone 'havefnubb~quickreply',array('connected'=>true,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {else}
+            {zone 'havefnubb~quickreply',array('connected'=>false,'id_post'=>$id_post,'thread_id'=>$thread_id,'id_forum'=>$forum->id_forum)}
+            {/ifuserconnected}
         {/ifacl2}
     {/if}
 {/ifacl2}
+
 {ifacl2 'hfnu.forum.goto'}
     {zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
 {/ifacl2}
@@ -209,7 +225,7 @@ $(document).ready(function(){
     <h3><span>{@havefnubb~post.status.change.the.status.of.the.post@}</span></h3>
 </div>
 <div id="post-status">
-{form $formStatus, 'havefnubb~posts:status',array('thread_id'=>$thread_id)}
+{form $formStatus, 'havefnubb~postsmgr:status',array('thread_id'=>$thread_id)}
     <div class="form_row">
         <div class="form_property">{ctrl_label 'status'} </div>
         <div class="form_value">
@@ -226,7 +242,7 @@ $(document).ready(function(){
     <h3><span>{@havefnubb~forum.move.this.thread@}</span></h3>
 </div>
 <div id="post-move">
-{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
+{form $formMove, 'havefnubb~postsmgr:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <div class="form_row">
         <div class="form_property">{ctrl_label 'id_forum'} </div>
         <div class="form_value">

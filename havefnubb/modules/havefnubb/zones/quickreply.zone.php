@@ -22,6 +22,7 @@ class quickreplyZone extends jZone {
         $thread_id  = (int) $this->param('thread_id');
         $id_post    = (int) $this->param('id_post');
         $id_forum   = (int) $this->param('id_forum');
+        $isConnected = (boolean) $this->param('connected');
         if ($id_post < 1) return;
         if ($id_forum < 1) return;
 

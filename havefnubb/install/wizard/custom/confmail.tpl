@@ -1,5 +1,5 @@
-<h2>{@title@}</h2>
-<div class="block">
+<h3>{@title@}</h3>
+<div class="box-content">
 {if count($errors)}
 <ul class="jelix-msg">
   {foreach $errors as $err}<li class="jelix-msg-item-error">{$err|eschtml}</li>{/foreach}

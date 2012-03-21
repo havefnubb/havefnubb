@@ -4,11 +4,15 @@
     <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
     <title>HaveFnuBB!</title>
     <link type="text/css" href="themes/install/css/install.css" rel="stylesheet" />
-    <link type="text/css" href="themes/install/css/text.css" rel="stylesheet" />
-    <link type="text/css" href="themes/install/css/grid.css" rel="stylesheet" />
-    <link type="text/css" href="themes/install/css/layout.css" rel="stylesheet" />
+    <link type="text/css" href="themes/text.css" rel="stylesheet" />
+    <link type="text/css" href="themes/grid.css" rel="stylesheet" />
+    <link type="text/css" href="themes/default/css/main_layout.css" rel="stylesheet" />
+    <link type="text/css" href="themes/default/css/pages_layout.css" rel="stylesheet" />
     <link type="text/css" href="themes/install/css/nav.css" rel="stylesheet" />
-    <link type="text/css" href="themes/install/css/ie.css" rel="stylesheet" />
+    <link type="text/css" href="themes/install/css/layout.css" rel="stylesheet" />
+    <link type="text/css" href="themes/install/css/theme.css" rel="stylesheet" />
+    <link type="text/css" href="themes/install/css/pages_theme.css" rel="stylesheet" />
+    <link type="text/css" href="themes/ie.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -59,7 +63,7 @@
 
     <div class="grid_16" id="site_info">
         <div class="box">
-            <p>{@powered.by@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008-2012 <a href="http://www.foxmask.info" title="Le Grin de Sable">FoxMaSk</a> .</p>
+            <p>{@powered.by@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 - 2012 <a href="http://www.foxmask.info" title="FoxMaSk - Le Grin de Sable">FoxMaSk</a> .</p>
         </div>
     </div>
     <div class="clear"></div>

@@ -1,6 +1,6 @@
 <fieldset>
 <legend>{@havefnubb~member.private.messaging@}</legend>
-    <div class="block grid_16">    
+    <div class="grid_16">    
         <div class="grid_5">    
          {zone 'jmessenger~links'}
         </div>

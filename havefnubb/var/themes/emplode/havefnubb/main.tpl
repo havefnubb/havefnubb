@@ -17,7 +17,11 @@
 </div>
 <div id="navigation">
     <div class="center_wrapper">
-        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
+        {ifacl2 'hfnu.admin.index'}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>true)}
+        {else}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>false)}
+        {/ifacl2}
         <div class="clearer">&nbsp;</div>
     </div>
 </div>
@@ -51,7 +55,11 @@
 
             <div class="col3 left">
                 <div class="col3_content">
-                    {zone 'havefnubb~lastposts'}
+                {ifacl2 'hfnu.admin.post'}
+                {zone 'havefnubb~lastposts',array('admin'=>true)}
+                {else}
+                {zone 'havefnubb~lastposts',array('admin'=>false)}
+                {/ifacl2}
                 </div>
             </div>
 
@@ -77,7 +85,7 @@
 <div id="footer">
     <div class="center_wrapper">
         <div class="left">
-            <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 - 2012 <a href="http://www.foxmask.info" title="Le Grin de Sable">FoxMaSk</a></p>
+            <p><span>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 - 2012 <a href="http://www.foxmask.info" title="FoxMaSk - Le Grin de Sable">FoxMaSk</a></span></p>
         </div>
         <div class="right">
             <a href="http://templates.arcsin.se/">Website template</a> by <a href="http://arcsin.se/">Arcsin</a>

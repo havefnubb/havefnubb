@@ -20,9 +20,9 @@ class menuZone extends jZone {
      */
     protected function _prepareTpl(){
         jClasses::inc('havefnubb~hfnuMenuItem');
-
+        $admin = jAcl2::check('hfnu.admin.index');
         $menu = array();
-        $items = jEvent::notify('hfnuGetMenuContent')->getResponse();
+        $items = jEvent::notify('hfnuGetMenuContent',array('admin'=>$admin))->getResponse();
 
         foreach ($items as $item) {
             if($item->parentId) {

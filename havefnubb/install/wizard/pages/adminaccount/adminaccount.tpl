@@ -1,15 +1,10 @@
-<h2>{@title@}</h2>
-<div class="block">
-{if $alreadyInstalled}
-votre installation beneficie déjà d'un compte administrateur
-vous pouvez poursuivre votre installation.
-{else}
+<h3>{@title@}</h3>
+<div class="box-content">
 {if count($errors)}
 <ul class="jelix-msg">
   {foreach $errors as $err}<li class="jelix-msg-item-error">{$err|eschtml}</li>{/foreach}
 </ul>
 {/if}
-
 <fieldset>
     <legend>{@title@}</legend>
     <table>
@@ -32,4 +27,3 @@ vous pouvez poursuivre votre installation.
     </table>
 </fieldset>
 </div>
-{/if}

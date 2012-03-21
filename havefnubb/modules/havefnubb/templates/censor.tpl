@@ -1,11 +1,11 @@
 <div class="box">
     {if $thread_id == $id_post}
-    <h2>{@havefnubb~main.censor.this.thread.from.this.message@} : "{$title|eschtml}"</h2>
+    <h3>{@havefnubb~main.censor.this.thread.from.this.message@} : "{$title|eschtml}"</h3>
     {else}
-    <h2>{@havefnubb~main.censor.this.message@} : "{$title|eschtml}"</h2>
+    <h3>{@havefnubb~main.censor.this.message@} : "{$title|eschtml}"</h3>
     {/if}
-    <div class="block">
-    {form $form, 'havefnubb~posts:savecensor',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
+    <div class="box-content">
+    {form $form, 'havefnubb~postsmgr:savecensor',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
         {@havefnubb~main.censor.description@}
         <fieldset>
             {if $thread_id == $id_post}

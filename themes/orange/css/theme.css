@@ -1,0 +1,131 @@
+body {
+    background: #ffce73;
+    border-top: 5px solid #ffce73;
+    color: #000;
+    font-size: 11px;
+    font-family: Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+}
+
+hr {
+    border-color: #a4885b;
+}
+
+a {
+    color: #052a6e;
+    font-weight:bold;
+    text-decoration: none;
+}
+a:hover {
+    color:#ffbc40;
+    color:#fff; background:#ffb300;
+}
+
+a:active:hover {
+    color:#6b5f49;
+    background-color:#cd9c18;
+}
+
+h1 a {
+    font-weight:normal;
+    color: #6b5f49;
+}
+
+
+fieldset {
+    border:1px solid #ffa500;
+    background:#fff;
+}
+legend {
+    background:#fff;
+    border:1px solid #ffa500;
+}
+
+blockquote {
+    border-left:4px solid #ffce73;
+}
+
+/* table
+----------------------------------------------- */
+table {
+    width:100%;
+    border:1px solid #ffce73;
+    margin-bottom:10px;
+}
+th, td {
+    padding:.2em 1em;
+    text-align:left;
+}
+thead th {
+    border-bottom:2px solid #ffce73;
+    background:#c3b297;
+    padding:.4em 1em .2em;
+}
+tbody th,
+tbody td {
+    border-top:1px solid #ffce73;
+    border-bottom:1px solid #ffce73;
+    background:#fff;
+}
+tbody tr.odd th,
+tbody tr.odd td {
+    background:#fff;
+}
+tfoot th,
+tfoot td {
+    border-top:2px solid #ffce73;
+    background:#ebedd1;
+}
+
+
+
+/* buttons */
+.buttons-bar a,
+.jforms-submit,
+.submit,
+.jforms-reset {
+    text-decoration: none;
+    background-color:#052a6e;
+    color:#fff;
+    padding: 5px;
+}
+
+.buttons-bar a:hover,
+.jforms-submit:hover,
+.submit:hover,
+.jforms-reset:hover {
+    background-color:#ffbc40;
+    border:1px solid #ffbc40;
+    padding: 5px;
+}
+
+.buttons-bar a:active:hover,
+.jforms-submit:active:hover,
+.submit:active:hover,
+.jforms-reset:active:hover {
+    background-color:#ccae7a;
+    border:1px solid #a4885b;
+    padding: 5px;
+}
+
+
+.closed a:link,
+.closed a:visited,
+.closed a:active {
+    text-decoration: underline;
+    color: #a09898;
+}
+
+.closed a:hover {
+    color: #de5f21;
+    text-decoration: none;
+}
+
+
+span.newestposts{
+    display: none;
+}
+.status-post-new {
+    color: #330bf2;
+    font-weight: bold;
+}
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://jelix.org/ns/project/1.0">
     <info id="havefnubb@havefnubb.org" name="HaveFnuBB" createdate="2008-12-16">
-        <version stability="stable" date="2010-03-16">1.4.1</version>
+        <version stability="stable" date="2010-10-17">1.5a1</version>
         <label lang="en_EN">HaveFnuBB!</label>
         <description lang="en_EN">HaveFnuBB! Where everything is Fnu !</description>
         <label lang="fr_FR">HaveFnuBB!</label>

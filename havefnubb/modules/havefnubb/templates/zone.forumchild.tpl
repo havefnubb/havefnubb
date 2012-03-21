@@ -12,9 +12,9 @@
 </ul>
 {else}
 <div class="box">
-    <h2><strong>{@havefnubb~forum.forumchild.subforum@}</strong></h2>
-    <div class="block">
-    <table>
+    <h3><strong>{@havefnubb~forum.forumchild.subforum@}</strong></h3>
+    <div class="box-content">
+    <table class="forum_subforum">
 {foreach $forumChilds as $forum}
 {if $forum->forum_type == 0}
     <tr>
@@ -26,7 +26,7 @@
             </h4>
             <span class="forumdesc">{$forum->forum_desc|eschtml}</span>
         </td>
-        <td>{zone 'havefnubb~postandmsg',array('id_forum'=>$forum->id_forum)}</td>
+        <td><span class="smalltext">{$forum->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$forum->nb_thread} {@havefnubb~forum.postandmsg.threads@}</span></td>
         <td><span class="smalltext"><strong>{@havefnubb~main.last.message@}</strong>
         {zone 'havefnubb~postlc',array('id_forum'=>$forum->id_forum)}</span></td>
     </tr>

@@ -1,7 +1,7 @@
 {meta_html css $j_themepath .'css/hfnusearch.css'}
 <div class="box">
     <h2>{@hfnusearch~search.results@}</h2>
-    <div class="block">
+    <div class="box-content">
         <div id="result">
     {if $count == 0}
         {@hfnusearch~search.no.result@}

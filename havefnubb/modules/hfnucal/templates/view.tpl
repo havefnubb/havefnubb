@@ -3,7 +3,7 @@
 {foreach ($datas as $cal)}
     <div class="box">
         <h2><span>{$cal->subject} {$cal->date_created|jdatetime:'timestamp':'lang_datetime'}</span></h2>
-        <div class="block">
+        <div class="box-content">
             {$cal->message|wiki:'hfb_rule'}
         </div>
     </div>

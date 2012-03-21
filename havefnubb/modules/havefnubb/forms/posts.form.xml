@@ -10,7 +10,7 @@
     <label locale="havefnubb~post.form.subject"/>
 </input>
 
-<wikieditor ref="message" required="true"  rows="10" cols="80" >
+<wikieditor ref="message" required="true"  rows="5" cols="80" >
     <label locale="havefnubb~post.form.message"/>
 </wikieditor>
 

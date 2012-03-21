@@ -29,6 +29,7 @@ class authhavefnubbListener extends jEventListener{
     * @param object $event the given event to answer to
     */
     function onAuthLogout($event) {
+        //drop the session
         $_SESSION['JX_LANG'] = '';
         unset($_SESSION['JX_LANG']);
     }

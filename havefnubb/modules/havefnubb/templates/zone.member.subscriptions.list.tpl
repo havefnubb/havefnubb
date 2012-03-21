@@ -1,7 +1,7 @@
     <div id="user-profile-subscription">
     <fieldset>
         <legend><span class="user-subscription user-image">{@havefnubb~member.your.subscriptions@}</span></legend>
-        <table>
+        <table class="member_subscription">
             <thead>
             <tr>
                 <th>{@havefnubb~member.post.title@}</th>

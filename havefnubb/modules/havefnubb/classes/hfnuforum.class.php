@@ -142,7 +142,7 @@ class hfnuforum {
     public function getFullList() {
         $c = jDb::getConnection();
 
-        $select="SELECT c.id_cat, cat_name, f.id_forum, forum_name, forum_desc, f.parent_id,
+        $select="SELECT c.id_cat, cat_name, f.id_forum, forum_name, forum_desc, f.parent_id, f.nb_msg,f.nb_thread,
                 child_level, forum_type, forum_url, post_expire, p.date_created, p.date_modified, p.thread_id,
                 p.id_post, p2.subject as thread_subject, u.nickname, u.login, u.id as user_id, t.status";
         $from= " FROM ".$c->prefixTable('hfnu_forum_category')." as c,
@@ -165,4 +165,61 @@ class hfnuforum {
         }
         return $result;
     }
+    /**
+     * subscribe to one forum
+     * @param int $id_forum id of the forum to subscribe
+     */
+    public function subscribe($id_forum) {
+        if (jAuth::isConnected()) {
+            //check if this forum is already subscribed
+            if (! jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$id_forum)) {
+                $dao = jDao::get('havefnubb~forum_sub');
+                $rec = jDao::createRecord('havefnubb~forum_sub');
+                $rec->id_forum = $id_forum;
+                $rec->id_user = jAuth::getUserSession()->id;
+                $dao->insert($rec);
+            }
+        }
+    }
+    /**
+     * unsubscribe to one forum
+     * @param int $id_forum id of the forum to unsubscribe
+     */
+    public function unsubscribe($id_forum) {
+        if (jAuth::isConnected())
+            //check if this forum is already subscribe
+            if (jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$id_forum))
+                jDao::get('havefnubb~forum_sub')->delete(jAuth::getUserSession()->id,$id_forum);
+    }
+    /**
+     * let's check if a member has subcribed to this forum, then mail him the new thread
+     * @param int $id_forum id of the forum to unsubscribe
+     * @param int $id_post id of the new post
+     */
+    public function checkSubscribedForumAndSendMail($id_forum,$thread_id) {
+        global $gJConfig;
+        
+        //check if this forum is already subscribe
+        $recs = jDao::get('havefnubb~forum_sub')->getByIdForum($id_forum);
+        foreach ($recs as $rec) {
+            if (jAuth::getUserSession()->id != $rec->id_user) {
+                $thread = jDao::get('havefnubb~threads_alone')->get($thread_id);
+                $post = jDao::get('havefnubb~posts')->get($thread->id_last_msg);
+                // let's mail the new post to the user
+                $mail = new jMailer();
+                $mail->From       = $gJConfig->mailer['webmasterEmail'];
+                $mail->FromName   = $gJConfig->mailer['webmasterName'];
+                $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+                $mail->Subject    = jLocale::get('havefnubb~forum.new.post.in.forum');
+
+                $tpl = new jTpl();
+                $tpl->assign('post',$post);
+                $tpl->assign('server',$_SERVER['SERVER_NAME']);
+                $mail->Body = $tpl->fetch('havefnubb~forum_new_message', 'text');
+                $mail->AddAddress(jDao::get('havefnubb~member')->getById($rec->id_user)->email);                
+                $mail->Send();
+            }
+        }
+    }
+
 }
