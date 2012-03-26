@@ -89,6 +89,7 @@ $(document).ready(function(){
             <a id="p{$post->id_post}" href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">{if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
             {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'} {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a>
         </div>
+	{if $i == 1 }
         {if count($tags) > 1}
         <div class="posthead-tags">
         <ul>{foreach $tags as $t}<li>{$t}</li>{/foreach}</ul>
@@ -97,6 +98,7 @@ $(document).ready(function(){
         <div class="posthead-tags">
         <ul><li>{$tags}</li></ul>
         </div>
+        {/if}
         {/if}
     </div>
     <div class="postbody">
