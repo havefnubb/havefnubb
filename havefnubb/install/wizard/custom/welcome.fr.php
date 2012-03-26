@@ -2,20 +2,25 @@
 include (dirname(__FILE__).'/../../version.php');
 
 $versionMsg =   '<ul class="jelix-msg">'.
-                '<li class="jelix-msg-item-ok">'.
-                'Version installée : '.
-                $currentVersion['havefnubb']['version'].
+                '<li class="jelix-msg-item-ok">';
+
+if ($appInstalled) {
+	$versionMsg .= 'Version installée : '.$currentVersion['havefnubb']['version'] .
                 '</li>'.
                 '</ul>';
 
-if ($alreadyInstalled === false) {
-    $versionMsg .=   '<ul class="jelix-msg">'.
-                    '<li class="jelix-msg-item-warning">'.
+	if ($alreadyInstalled === false) 
+	    $versionMsg .=   '<ul class="jelix-msg">'.
+                    '<li class="jelix-msg-item-notice">'.
                     'Nouvelle Version : '.
                     $newVersion.
                     '</li>'.
                     '</ul>';
 }
+else 
+	$versionMsg .= 'Installation de la Version ' . $newVersion . 
+                '</li>'.
+                '</ul>';
 
 $locales=array(
     'title'=>'Bienvenue',
@@ -29,7 +34,7 @@ $locales=array(
                                     <strong>defaultconfig.ini.php</strong> et <strong>dbprofils.ini.php.dist</strong> en
                                     <strong>dbprofils.ini.php</strong> se trouvant dans le dossier <strong>var/config</strong>',
     'rights'=>'Droits d\'accès',
-    'rights.description'=>'N\'oubliez pas de mettre les bons droits d\'accés sur vos fichiers et répertoires. Ils doivent tous être en
+    'rights.description'=>'N\'oubliez pas de mettre les bons droits d\'accés sur vos fichiers et répertoire. Ils doivent tous être en
                             lecture seule pour le serveur web, <strong>excepté ces fichiers qui doivent pouvoir être modifiés par le serveur web :</strong>
                             <ol>
                             <li>cache/ et files/</li>

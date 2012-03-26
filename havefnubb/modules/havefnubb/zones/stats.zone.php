@@ -31,6 +31,10 @@ class statsZone extends jZone {
         $daoThreads = jDao::get('havefnubb~threads_alone');
         //posts and thread
         //last posts
+        $recForum = jDao::get('havefnubb~forum')->statsForum();
+        $msgs = $recForum->nb_msg;
+        $threads = $recForum->nb_thread;
+        
         $lastPost   = jDao::get('havefnubb~posts')->getLastPost();
         // if lastPost is "false" the forum is empty !
         if ( $lastPost === false ) {
@@ -71,7 +75,7 @@ class statsZone extends jZone {
         $dt->setFromString($lastPost->date_created, jDateTime::TIMESTAMP_FORMAT);
         $meta = '<meta name="dc.date" content="'.$dt->toString(jDateTime::ISO8601_FORMAT).'" />';
         $gJCoord->response->addHeadContent($meta);
-
+        
         $this->_tpl->assign('posts',$msgs);
         $this->_tpl->assign('threads',$threads);
         $this->_tpl->assign('lastPost',$lastPost);
