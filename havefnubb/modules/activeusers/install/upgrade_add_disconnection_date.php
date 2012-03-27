@@ -11,7 +11,7 @@
 
 class activeusersModuleUpgrader_add_disconnection_date extends jInstallerModule {
 
-    public $targetVersions = array('1.1','1.1.1');
+    public $targetVersions = array('1.1');
     //public $date = '2012-03-16';
 
     function install() {

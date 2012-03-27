@@ -13,10 +13,17 @@ class havefnubbModuleUpgrader_finale extends jInstallerModule {
     public $targetVersions = array('1.5.0');
     //public $date = '2012-03-16';
 
-    function install() {
-        $module = jClasses::getService('modulesinfo~modulexml')->getModule('havefnubb');
+    function install() {      
+        $doc = new DOMDocument;
+        $doc->Load (dirname(__FILE__).'/../module.xml');
+        $xpath = new DOMXPath($doc);
+        $xpath->registerNamespace('jelix',"http://jelix.org/ns/module/1.0");
+        $query = "//jelix:module/jelix:info/jelix:version/text()";
+        $entries = $xpath->evaluate($query);
+        $version = $entries->item(0)->nodeValue;
+
         $ini=new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
-        $ini->setValue('version',$module->version,'havefnubb');
+        $ini->setValue('version',$version,'havefnubb');
         $ini->save();
     }
 }
