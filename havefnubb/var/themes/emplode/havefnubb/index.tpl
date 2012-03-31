@@ -67,11 +67,7 @@
                 {if !$firstchild}</ul>{/if}
 
             </td>
-            {ifacl2 'hfnu.admin.post'}
-            <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>true)}</td>
-            {else}
-            <td class="colstats">{zone 'havefnubb~postandmsg',array('id_forum'=>$f->id_forum,'admin'=>false)}</td>
-            {/ifacl2}
+            <td class="colstats">{$f->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$f->nb_thread} {@havefnubb~forum.postandmsg.threads@}</td>
             <td class="colright linkincell"><span class="smalltext">
                 {if $f->id_post}<strong>{@havefnubb~main.last.message@}</strong>
                 <a href="{jurl 'havefnubb~posts:viewtogo',

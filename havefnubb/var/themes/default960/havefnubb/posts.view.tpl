@@ -86,7 +86,7 @@
            {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}
            {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
         </div>
-        {if $post->thread_id == $post->id_post}
+        {if $i == 1}
         {if count($tags) > 1}
         <div class="grid_2 postheading-tags">
         <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>

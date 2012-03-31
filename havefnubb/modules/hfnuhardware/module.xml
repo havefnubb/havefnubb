@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnuhardware@havefnubb.org" name="hfnuhardware" createdate="2010-04-19">
-        <version date="2012-03-16">1.4.1</version>
+        <version date="2012-03-16">1.5.0</version>
         <label lang="en_EN">Member Hardware properties</label>
         <description lang="en_EN">Add hardware properties into the member account</description>
         <label lang="fr_FR">Propriétés Hardware d'un membre</label>

@@ -57,6 +57,7 @@
                {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}
                {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
             </div>
+	{if $i == 1}
     {if count($tags) > 1}
             <div class="span2 postheading-tags">
                 <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
@@ -65,6 +66,7 @@
             <div class="span2 postheading-tags">
                 <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
             </div>
+    	{/if}
     {/if}
     </div>
 </div>
