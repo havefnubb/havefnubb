@@ -16,9 +16,10 @@ class havefnubbModuleUpgrader_thread_posts extends jInstallerModule {
     function install() {
         if ($this->firstDbExec()) {
             $this->execSQLScript('sql/upgrade_to_1.4.1_thread_posts');
-            // @TODO
-            // count the posts and thread by forum and put them in nb_msg / nb_thread
-            // at the end
+            // new calcul :
+            // we will only count the replies on one side
+            // and the thread on another side
+            // previously both were added 
             $cn = $this->dbConnection();
             $cn->exec('UPDATE ' . $cn->prefixTable('hfnu_forum').
                         ' SET nb_msg = (SELECT sum(nb_replies) +1 ' .
