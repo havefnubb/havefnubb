@@ -1,0 +1,108 @@
+/*
+    960 Grid System ~ Text CSS.
+    Learn more ~ http://960.gs/
+
+    Licensed under GPL and MIT.
+*/
+
+/* =Basic HTML
+--------------------------------------------------------------------------------*/
+
+body
+{
+    font: 13px/1.5 Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+}
+
+a:focus
+{
+    outline: 1px dotted invert;
+}
+
+hr
+{
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px 0 0;
+    clear: both;
+    height: 0;
+}
+
+/* =Headings
+--------------------------------------------------------------------------------*/
+
+h1
+{
+    font-size: 25px;
+}
+
+h2
+{
+    font-size: 23px;
+}
+
+h3
+{
+    font-size: 21px;
+}
+
+h4
+{
+    font-size: 19px;
+}
+
+h5
+{
+    font-size: 17px;
+}
+
+h6
+{
+    font-size: 15px;
+}
+
+/* =Spacing
+--------------------------------------------------------------------------------*/
+
+ol
+{
+    list-style: decimal;
+}
+
+ul
+{
+    list-style: square;
+}
+
+li
+{
+    margin-left: 30px;
+}
+
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset
+{
+    margin-bottom: 20px;
+}
+#tagscloud a.tag1 { font-size: 0.9em; font-weight: 100; }
+#tagscloud a.tag2 { font-size: 1.05em; font-weight: 200; }
+#tagscloud a.tag3 { font-size: 1.2em; font-weight: 300; }
+#tagscloud a.tag4 { font-size: 1.35em; font-weight: 400; }
+#tagscloud a.tag5 { font-size: 1.5em; font-weight: 500; }
+#tagscloud a.tag6 { font-size: 1.65em; font-weight: 600; }
+#tagscloud a.tag7 { font-size: 1.8em; font-weight: 700; }
+#tagscloud a.tag8 { font-size: 1.95em; font-weight: 800; }
+#tagscloud a.tag9 { font-size: 2.1em; font-weight: 900; }
+#tagscloud a.tag10 { font-size: 2.25em; font-weight: 900; }

@@ -15,14 +15,17 @@ class adminaccountWizPage extends installWizardPage {
     /**
      * action to display the page
      * @param jTpl $tpl the template container
+     * @return true
      */
     function show ($tpl) {
+        include (dirname(__FILE__).'/../../../version.php');        
         if (!isset($_SESSION['adminaccount'])) {
             $_SESSION['adminaccount'] = array(
                 'login'=>'',
                 'password'=>'',
                 'password_confirm'=>'',
                 'email'=>'',
+                'alreadyInstalled'=>$alreadyInstalled,
                 'errors'=>array()
             );
         }
@@ -34,6 +37,7 @@ class adminaccountWizPage extends installWizardPage {
 
     /**
      * action to process the page after the submit
+     * @return 0
      */
     function process() {
 

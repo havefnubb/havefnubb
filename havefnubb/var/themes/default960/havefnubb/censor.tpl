@@ -5,7 +5,7 @@
     <h2>{@havefnubb~main.censor.this.message@} : "{$title|eschtml}"</h2>
     {/if}
     <div class="block">
-    {form $form, 'havefnubb~posts:savecensor',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
+    {form $form, 'havefnubb~postsmgr:savecensor',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
         {@havefnubb~main.censor.description@}
         <fieldset>
             {if $thread_id == $id_post}

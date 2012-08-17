@@ -86,7 +86,7 @@
            {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}
            {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
         </div>
-        {if $post->thread_id == $post->id_post}
+	{if $i == 1 }
         {if count($tags) > 1}
         <div class="grid_2 postheading-tags">
         <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
@@ -128,17 +128,17 @@
                           )
         }
         {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
-        <span class="postsplit"><a href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
+        <span class="postsplit"><a href="{jurl 'postsmgr:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a> </span>
         {/ifacl2}
         {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
         {if $statusAvailable[$post->status -1] == 'censored'}
-        <span class="postcensor"><a href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
+        <span class="postcensor"><a href="{jurl 'postsmgr:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a> </span>
         {else}
-        <span class="postcensor"><a href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
+        <span class="postcensor"><a href="{jurl 'postsmgr:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a> </span>
         {/if}
         {/ifacl2}
         {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
-        <span class="postnotify"><a href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
+        <span class="postnotify"><a href="{jurl 'postsmgr:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a> </span>
          {/ifacl2}
         {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
         <span class="postdelete"><a href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a> </span>
@@ -223,7 +223,7 @@
 {ifacl2 'hfnu.admin.post'}
 <div class="box">
     <h2>{@havefnubb~post.status.change.the.status.of.the.post@}</h2>
-{form $formStatus, 'havefnubb~posts:status',array('thread_id'=>$thread_id)}
+{form $formStatus, 'havefnubb~postsmgr:status',array('thread_id'=>$thread_id)}
     <div class="block">
     {ctrl_label 'status'} {ctrl_control 'status'} {formsubmit 'validate'}
     </div>
@@ -231,7 +231,7 @@
 </div>
 <div class="box">
     <h2>{@havefnubb~forum.move.this.thread@}</h2>
-{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
+{form $formMove, 'havefnubb~postsmgr:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <div class="block">
     {ctrl_label 'id_forum'} {ctrl_control 'id_forum'} {formsubmit 'validate'}
     </div>

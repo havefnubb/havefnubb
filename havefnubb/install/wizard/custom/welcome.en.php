@@ -1,8 +1,31 @@
 <?php
+include (dirname(__FILE__).'/../../version.php');
+
+$versionMsg =   '<ul class="jelix-msg">'.
+                '<li class="jelix-msg-item-ok">';
+
+if ($appInstalled) {
+	$versionMsg .= 'Installed version : '.$currentVersion['havefnubb']['version'] .
+                '</li>'.
+                '</ul>';
+
+	if ($alreadyInstalled === false) 
+	    $versionMsg .=   '<ul class="jelix-msg">'.
+                    '<li class="jelix-msg-item-notice">'.
+                    'New Version : '.
+                    $newVersion.
+                    '</li>'.
+                    '</ul>';
+}
+else 
+	$versionMsg .= 'Installation of the version ' . $newVersion . 
+                '</li>'.
+                '</ul>';
 
 $locales=array(
     'title'=>'Welcome',
     'introduction'=>'Introduction',
+    'version'=>$versionMsg,
     'process.description'=>'this installation process is composed of several parts, starting from checking
                             the compatibility of your system to the database access and setting up the forum',
     'process.rename.dist.file'=>'Rename the config files',

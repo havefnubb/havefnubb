@@ -10,6 +10,9 @@
 
 class havefnubbModuleUpgrader_removeconnected extends jInstallerModule {
 
+    public $targetVersions = array('1.4b1.1');
+
+
     function install() {
         if ($this->firstDbExec()) {
             $cn = $this->dbConnection();

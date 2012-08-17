@@ -57,6 +57,3 @@ jelixcache.access=0
 
 activeusers.access=2
 activeusers_admin.access=0
-
-
-iamhere.access=2

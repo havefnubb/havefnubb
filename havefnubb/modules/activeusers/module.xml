@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="activeusers@havefnubb.org" name="activeusers" createdate="2010-11-04">
-        <version date="2011-10-18">1.1</version>
+        <version date="2012-01-16">1.1.1</version>
         <label lang="en_EN">activeusers</label>
-        <description lang="en_EN" />
+        <description lang="en_EN">Module that manage the Activity of the members of a website</description>
+        <label lang="en_EN">activeusers</label>
+        <description lang="en_EN">Module qui gère l'activité des membres du sites</description>        
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2010-2011 Laurent Jouanneau</copyright>
         <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>
-        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
+        <contributor name="Olivier Demah" email="foxmask@foxmask.info" active="true" since="2011-01-01" role="developer"/>
         <homepageURL>http://www.havefnubb.org/</homepageURL>
         <updateURL>http://www.havefnubb.org/update.php?module=activeusers</updateURL>
     </info>

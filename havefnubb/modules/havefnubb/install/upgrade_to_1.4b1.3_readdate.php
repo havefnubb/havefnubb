@@ -9,7 +9,10 @@
 */
 
 class havefnubbModuleUpgrader_readdate extends jInstallerModule {
-
+    
+    public $targetVersions = array('1.4b1.3');
+    
+    
     function install() {
         if ($this->firstDbExec()) {
             $cn = $this->dbConnection();

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suburls xmlns="http://jelix.org/ns/suburls/1.0">
+    <!-- posts management -->
+    <url pathinfo="/:id_forum/post/:thread_id-:id_post/split" action="postsmgr:splitTo">
+        <param name="id_forum" type="number"/>
+        <param name="thread_id" type="number"/>
+        <param name="id_forum" type="number"/>
+    </url>
+
+    <url pathinfo="/:id_forum/post/:thread_id-:id_post/censor" action="postsmgr:censor" actionoverride="postsmgr:savecensor">
+        <param name="id_forum" type="number"/>
+        <param name="thread_id" type="number"/>
+        <param name="id_post" type="number"/>
+    </url>
+
+    <url pathinfo="/:id_forum/post/:thread_id-:id_post/uncensor" action="postsmgr:uncensor">
+        <param name="id_forum" type="number"/>
+        <param name="thread_id" type="number"/>
+        <param name="id_post" type="number"/>
+    </url>
+
+    <url pathinfo="/:id_post/notify" action="postsmgr:notify" actionoverride="postsmgr:savenotify">
+        <param name="id_post" type="number"/>
+    </url>
+
+    <url pathinfo="/:thread_id/status" action="postsmgr:status">
+        <param name="thread_id" type="number"/>
+        <param name="status" type="string"/>
+    </url>
+
+    <url pathinfo="/:thread_id-:id_post/moveto" action="postsmgr:moveToForum">
+        <param name="thread_id" type="number"/>
+        <param name="id_post" type="number"/>
+    </url>
+
+</suburls>

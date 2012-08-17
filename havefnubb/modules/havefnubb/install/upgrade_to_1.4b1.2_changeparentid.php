@@ -10,6 +10,9 @@
 
 class havefnubbModuleUpgrader_changeparentid extends jInstallerModule {
 
+    public $targetVersions = array('1.4b1.2');
+
+    
     function install() {
         if ($this->firstDbExec()) {
             $cn = $this->dbConnection();

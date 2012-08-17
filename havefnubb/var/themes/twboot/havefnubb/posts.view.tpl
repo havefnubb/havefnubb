@@ -57,6 +57,7 @@
                {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}
                {@havefnubb~main.by@} {if $post->login == null} {@havefnubb~member.guest@}{else} {$post->nickname|eschtml}{/if}</a></h5>
             </div>
+	{if $i == 1}
     {if count($tags) > 1}
             <div class="span2 postheading-tags">
                 <ul>{foreach $tags as $t}<li><a href="{jurl 'jtags~default:cloud',array('tag'=>$t)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$t}</a></li>{/foreach}</ul>
@@ -65,6 +66,7 @@
             <div class="span2 postheading-tags">
                 <ul><li><a href="{jurl 'havefnubb~default:cloud',array('tag'=>$tags)}" title="{@havefnubb~post.show.all.posts.with.this.tag@}">{$tags}</a></li></ul>
             </div>
+    	{/if}
     {/if}
     </div>
 </div>
@@ -103,20 +105,20 @@
         {/if}
     {/ifacl2}
     {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
-    <a class="btn info" href="{jurl 'posts:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a>
+    <a class="btn info" href="{jurl 'postsmgr:splitTo', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.split.this.message@}">{@havefnubb~main.split.this.message@}</a>
     {/ifacl2}
     {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
     {if $statusAvailable[$post->status -1] == 'censored'}
-    <a class="btn info" href="{jurl 'posts:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a>
+    <a class="btn info" href="{jurl 'postsmgr:uncensor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.uncensor.this.message@}">{@havefnubb~main.uncensor.this.message@}</a>
     {else}
-    <a class="btn danger" href="{jurl 'posts:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a>
+    <a class="btn danger" href="{jurl 'postsmgr:censor', array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum)}" title="{@havefnubb~main.censor.this.message@}">{@havefnubb~main.censor.this.message@}</a>
     {/if}
     {/ifacl2}
     {ifacl2 'hfnu.posts.delete','forum'.$id_forum}
     <a class="btn danger" href="{jurl 'posts:delete', array('id_post'=>$post->id_post,'id_forum'=>$post->id_forum)}" title="{@havefnubb~main.delete@}" onclick="return confirm({@havefnubb~post.listinpost.confirm.deletion@})">{@havefnubb~main.delete@}</a>
     {/ifacl2}
     {ifacl2 'hfnu.posts.notify','forum'.$id_forum}
-    <a class="btn danger" href="{jurl 'posts:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a>
+    <a class="btn danger" href="{jurl 'postsmgr:notify', array('id_post'=>$post->id_post)}" title="{@havefnubb~main.notify@}">{@havefnubb~main.notify@}</a>
      {/ifacl2}
     {if $post->login == $current_user}
         {ifacl2 'hfnu.posts.edit.own','forum'.$id_forum}
@@ -186,7 +188,7 @@
 <div class="alert-message block-message info" data-alert="alert">
     <a class="close" href="#">×</a>
     <strong>{@havefnubb~post.status.change.the.status.of.the.post@}</strong>
-{form $formStatus, 'havefnubb~posts:status',array('thread_id'=>$thread_id)}
+{form $formStatus, 'havefnubb~postsmgr:status',array('thread_id'=>$thread_id)}
     <div class="clearfix">
         {ctrl_label 'status'}
         <div class="input">{ctrl_control 'status'} {formsubmit 'validate'}</div>
@@ -197,7 +199,7 @@
 <div class="alert-message block-message info" data-alert="alert">
     <a class="close" href="#">×</a>
     <strong>{@havefnubb~forum.move.this.thread@}</strong>
-{form $formMove, 'havefnubb~posts:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
+{form $formMove, 'havefnubb~postsmgr:moveToForum',array('id_post'=>$id_post,'thread_id'=>$thread_id)}
     <div class="clearfix">
         {ctrl_label 'id_forum'}
         <div class="input">{ctrl_control 'id_forum'} {formsubmit 'validate'}</div>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://jelix.org/ns/project/1.0">
     <info id="havefnubb@havefnubb.org" name="HaveFnuBB" createdate="2008-12-16">
-        <version stability="stable" date="2010-10-17">1.5a1</version>
+        <version stability="stable" date="2012-03-16">1.5.0</version>
         <label lang="en_EN">HaveFnuBB!</label>
         <description lang="en_EN">HaveFnuBB! Where everything is Fnu !</description>
         <label lang="fr_FR">HaveFnuBB!</label>
         <description lang="fr_FR">HaveFnuBB! Where everything is Fnu !</description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
-        <copyright>2008-2011 FoxMaSk</copyright>
+        <copyright>2008-2012 FoxMaSk</copyright>
         <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
         <contributor name="Laurent Jouanneau" email="laurent@jelix.org" active="true" since="2010-09-01" role="developer"/>
         <contributor name="Vincent Viaud" email="" active="true" since="2010-11-01" role="developer"/>

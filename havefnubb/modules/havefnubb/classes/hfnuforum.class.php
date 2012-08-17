@@ -142,7 +142,7 @@ class hfnuforum {
     public function getFullList() {
         $c = jDb::getConnection();
 
-        $select="SELECT c.id_cat, cat_name, f.id_forum, forum_name, forum_desc, f.parent_id,
+        $select="SELECT c.id_cat, cat_name, f.id_forum, forum_name, forum_desc, f.parent_id, f.nb_msg,f.nb_thread,
                 child_level, forum_type, forum_url, post_expire, p.date_created, p.date_modified, p.thread_id,
                 p.id_post, p2.subject as thread_subject, u.nickname, u.login, u.id as user_id, t.status";
         $from= " FROM ".$c->prefixTable('hfnu_forum_category')." as c,
@@ -210,7 +210,7 @@ class hfnuforum {
                 $mail->From       = $gJConfig->mailer['webmasterEmail'];
                 $mail->FromName   = $gJConfig->mailer['webmasterName'];
                 $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
-                $mail->Subject    = jLocale::get('havefnubb~forum.new.post.in.forum',array($user->login));
+                $mail->Subject    = jLocale::get('havefnubb~forum.new.post.in.forum');
 
                 $tpl = new jTpl();
                 $tpl->assign('post',$post);

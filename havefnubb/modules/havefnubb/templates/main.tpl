@@ -1,6 +1,5 @@
 {meta_html csstheme 'css/app.css'}
 {meta_html csstheme 'css/hfnu.css'}
-{meta_html csstheme 'css/layout.css'}
 {meta_html csstheme 'css/nav.css'}
 {meta_html csstheme 'css/theme.css'}
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
@@ -14,11 +13,7 @@
         {hook 'hfbMainInHeader'}
     </div>
     <div id="menubar">
-        {ifacl2 'hfnu.admin.index'}
-        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>true)}
-        {else}
-        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem,'admin'=>false)}
-        {/ifacl2}
+        {zone 'havefnubb~menu',array('selectedMenuItem'=>$selectedMenuItem)}
     </div>
     <div id="content">
     {$MAIN}
@@ -28,7 +23,7 @@
     </div>
     <div id="footer">
         <p>{@havefnubb~main.poweredby@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> -
-            &copy; Copyright 2008 - 2011 <a href="http://www.foxmask.info" title="FoxMaSk'z h0m3">FoxMaSk</a></p>
+            &copy; Copyright 2008-2012 <a href="http://www.foxmask.info" title="FoxMaSk - Le Grin de Sable">FoxMaSk</a></p>
         {hook 'hfbMainInFooter'}
     </div>
 </div>
