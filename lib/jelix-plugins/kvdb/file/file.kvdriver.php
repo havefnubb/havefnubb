@@ -5,7 +5,7 @@
 * @subpackage  kvdb
 * @author      Zend Technologies
 * @contributor Tahina Ramaroson, Sylvain de Vathaire, Laurent Jouanneau
-* @copyright  2005-2008 Zend Technologies USA Inc (http://www.zend.com), 2008 Neov, 2010 Laurent Jouanneau
+* @copyright  2005-2008 Zend Technologies USA Inc (http://www.zend.com), 2008 Neov, 2010-2011 Laurent Jouanneau
 * The implementation of this class is based on Zend Cache Backend File class
 * Few lines of code was adapted for Jelix
 * @licence  see LICENCE file
@@ -20,11 +20,11 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 	public $automatic_cleaning_factor=0;
 	public function _connect(){
 		if(isset($this->_profile['storage_dir'])&&$this->_profile['storage_dir']!=''){
-			$this->_storage_dir=str_replace(array('var:','temp:'),array(JELIX_APP_VAR_PATH,JELIX_APP_TEMP_PATH),$this->_profile['storage_dir']);
+			$this->_storage_dir=str_replace(array('var:','temp:'),array(jApp::varPath(),jApp::tempPath()),$this->_profile['storage_dir']);
 			$this->_storage_dir=rtrim($this->_storage_dir,'\\/'). DIRECTORY_SEPARATOR;
 		}
 		else
-			$this->_storage_dir=JELIX_APP_VAR_PATH.'kvfiles/';
+			$this->_storage_dir=jApp::varPath('kvfiles/');
 		jFile::createDir($this->_storage_dir);
 		if(isset($this->_profile['file_locking'])){
 			$this->_file_locking=($this->_profile['file_locking']?true:false);
@@ -160,7 +160,10 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 		$filePath=$this->_getFilePath($key);
 		if(!file_exists($filePath))
 			return false;
-		clearstatcache();
+		if(version_compare(PHP_VERSION,'5.3.0')>=0)
+			clearstatcache(false,$filePath);
+		else
+			clearstatcache();
 		$mt=filemtime($filePath);
 		return($mt>=time()||$mt==0)&&is_readable($filePath);
 	}
@@ -242,18 +245,22 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 		if(file_exists($dir)&&$handle=opendir($dir)){
 			while(false!==($file=readdir($handle))){
 				if($file!='.'&&$file!='..'){
-					if(is_file($dir.'/'.$file)){
+					$f=$dir.'/'.$file;
+					if(is_file($f)){
 						if($all){
-							@unlink($dir.'/'.$file);
+							@unlink($f);
 						}else{
-							clearstatcache();
-							if(time()> filemtime($dir.'/'.$file)&&filemtime($dir.'/'.$file)!=0){
-								@unlink($dir.'/'.$file);
+							if(version_compare(PHP_VERSION,'5.3.0')>=0)
+								clearstatcache(false,$f);
+							else
+								clearstatcache();
+							if(time()> filemtime($f)&&filemtime($f)!=0){
+								@unlink($f);
 							}
 						}
 					}
-					if(is_dir($dir.'/'.$file)){
-						self::_removeDir($dir.'/'.$file,$all);
+					if(is_dir($f)){
+						self::_removeDir($f,$all);
 					}
 				}
 			}

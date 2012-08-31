@@ -10,38 +10,37 @@
 class installmoduleCommand extends JelixScriptCommand {
 
     public  $name = 'installmodule';
-    public  $allowed_options=array('-v'=>false, '-p'=>true);
+    public  $allowed_options=array('-p'=>true);
     public  $allowed_parameters=array('module'=>true,'...'=>false);
 
-    public  $applicationMustExist = false;
-
-    public  $syntaxhelp = '[-v] [-p "param1;param2=value;..."] MODULE [MODULE [....]]';
+    public  $syntaxhelp = '[-p "param1;param2=value;..."] MODULE [MODULE [....]]';
     public  $help = '';
 
-    function __construct(){
+    function __construct($config){
         $this->help= array(
             'fr'=>"
     Installe ou met à jour les modules indiqués, même si ils ne sont pas activés.
     Si un point d'entrée est indiqué, le module ne sera installé que pour
     ce point d'entrée.
 
-    Option -v : mode verbeux.
-           -p : indique des paramètres d'installation, valable que si un seul
-                module est indiqué
+    Option:
+        -p : indique des paramètres d'installation, valable que si un seul
+             module est indiqué
     ",
             'en'=>"
     Install or upgrade given modules even if there are not activated.
     if an entry point is indicated, the module is installed only for this
     entry point.
 
-    Option -v: verbose mode.
-           -p: parameters for the installation, valid if only one module is indicated
+    Option:
+        -p: parameters for the installation, valid if only one module is indicated
     ",
     );
+        parent::__construct($config);
     }
 
     public function run(){
-        require_once (JELIXS_LIB_PATH.'jelix/installer/jInstaller.class.php');
+        require_once (JELIX_LIB_PATH.'installer/jInstaller.class.php');
 
         jAppManager::close();
 
@@ -66,36 +65,33 @@ class installmoduleCommand extends JelixScriptCommand {
             }
         }
 
-        global $entryPointName, $entryPointId, $allEntryPoint;
-
-        if ($this->getOption("-v"))
+        if ($this->verbose())
             $reporter = new textInstallReporter();
         else
             $reporter = new textInstallReporter('error');
 
         $installer = new jInstaller($reporter);
 
-        if ($allEntryPoint) {
+        if ($this->allEntryPoint) {
             if ($parameters)
                 $installer->setModuleParameters($modulesList[0], $parameters);
             $installer->installModules($modulesList);
         }
         else {
             if ($parameters)
-                $installer->setModuleParameters($modulesList[0], $parameters, $entryPointName);
-            $installer->installModules($modulesList, $entryPointName);
+                $installer->setModuleParameters($modulesList[0], $parameters, $this->entryPointName);
+            $installer->installModules($modulesList, $this->entryPointName);
         }
 
         try {
-            jAppManager::clearTemp(JELIX_APP_REAL_TEMP_PATH);
+            jAppManager::clearTemp(jApp::tempBasePath());
         }
         catch(Exception $e) {
             if ($e->getCode() == 2) {
-                echo "Error: bad path in JELIX_APP_REAL_TEMP_PATH, it is equals to '".$path."' !!\n";
+                echo "Error: bad path in jApp::tempBasePath(), it is equals to '".jApp::tempBasePath()."' !!\n";
                 echo "       Jelix cannot clear the content of the temp directory.\n";
                 echo "       you must clear it your self.\n";
-                echo "       Correct the path in JELIX_APP_REAL_TEMP_PATH or create the directory you\n";
-                echo "       indicated into JELIX_APP_REAL_TEMP_PATH.\n";
+                echo "       Correct the path in application.init.php or create the directory\n";
             }
             else echo "Error: ".$e->getMessage();
         }
