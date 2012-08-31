@@ -23,7 +23,7 @@ class activeusersModuleInstaller extends jInstallerModule {
 
         /*if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('my.subject', 'activeusers~acl.my.subject');
-            jAcl2DbManager::addRight(1, 'my.subject'); // for admin group
+            jAcl2DbManager::addRight('admins', 'my.subject'); // for admin group
         }
         */
     }

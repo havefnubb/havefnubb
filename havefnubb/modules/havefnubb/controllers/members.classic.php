@@ -39,15 +39,12 @@ class membersCtrl extends jController {
         $page = (int) $this->param('page');
 
     // get the group name of the group id we request
-        $grpid = (int) $this->param('grpid');
+        $grpid = $this->param('grpid');
         $groupname = jLocale::get('havefnubb~member.memberlist.allgroups');
-        if ($grpid > 0 ) {
+        if ($grpid != '__anonymous' ) {
             $dao = jDao::get('jacl2db~jacl2group');
-            $conditions = jDao::createConditions();
-            $conditions->addCondition('id_aclgrp','=',$grpid);
-            $grpnames = $dao->findBy($conditions);
-            foreach ($grpnames as $grpname)
-                    $groupname = $grpname->name;
+            $grpname = $dao->get($grpid);
+            $groupname = $grpname->name;
         }
         $beginningBy = '';
 

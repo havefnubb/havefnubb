@@ -152,11 +152,11 @@ class forumCtrl extends jController {
 
         $gid=array(0);
         $o = new StdClass;
-        $o->id_aclgrp ='0';
+        $o->id_aclgrp = '__anonymous';
         $o->name = jLocale::get('jacl2db_admin~acl2.anonymous.group.name');
         $o->grouptype=0;
         $groups=array($o);
-        $grouprights=array(0=>false);
+        $grouprights=array('__anonymous'=>false);
 
         $dao = jDao::get('jacl2db~jacl2group',jAcl2Db::getProfile())->findAllPublicGroup();
 
@@ -204,13 +204,14 @@ class forumCtrl extends jController {
 
         $submitRight = $this->param('validateright');
         if ($submitRight == jLocale::get('hfnuadmin~forum.saveBt') ) {
+            $hfnuadminrights = jClasses::getService("hfnuadmin~hfnuadminrights");
             $rights = $this->param('rights',array());
             foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
-                $id = intval($grp->id_aclgrp);
-                jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
+                $id = $grp->id_aclgrp;
+                $hfnuadminrights->setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
             }
 
-            jClasses::getService("hfnuadmin~hfnuadminrights")->setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
+            $hfnuadminrights->setRightsOnForum('__anonymous', (isset($rights['__anonymous'])?$rights['__anonymous']:array()),'forum'.$id_forum);
         }
 
         $rep = $this->getResponse('redirect');

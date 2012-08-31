@@ -128,11 +128,11 @@ class defaultCtrl extends jController {
                             'hfnu.posts.create'=>'on',
                             'hfnu.search'=>'on');
 
-            jAcl2DbManager::setRightsOnGroup(0, $rights);
+            jAcl2DbManager::setRightsOnGroup('__anonymous', $rights);
         }
         // we disable the anonymous access on the forum
         else
-            jAcl2DbManager::setRightsOnGroup(0, array());
+            jAcl2DbManager::setRightsOnGroup('__anonymous', array());
 
         $defaultConfig->setValue('title',          htmlentities($this->param('title')),'havefnubb');
         $defaultConfig->setValue('description',    htmlentities($form->getData('description')),'havefnubb');

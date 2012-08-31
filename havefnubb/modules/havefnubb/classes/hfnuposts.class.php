@@ -37,11 +37,11 @@ class hfnuposts {
     /**
      * @var integer $hfAdmin the ID that defines the Admin
      */
-    private $hfAdmin = 1;
+    private $hfAdmin = 'admins';
     /**
      * @var integer $hfAdmin the ID that defines the Moderator
      */
-    private $hfModerator = 3;
+    private $hfModerator = 'moderators';
 
     /*********************************************************
      * This part handles the "add/delete/get" data of  posts *

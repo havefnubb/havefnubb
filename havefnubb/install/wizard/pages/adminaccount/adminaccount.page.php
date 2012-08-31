@@ -79,13 +79,11 @@ class adminaccountWizPage extends installWizardPage {
                   "'".date('Y-m-d H:i:s')."')");
         $idu = $db->lastInsertId();
 
-        $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_group')).' (name, code, grouptype, ownerlogin) '.
-                  'VALUES ('.$db->quote($login).','.$db->quote($login).',2,'.$db->quote($login).')');
+        $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_group')).' (id_aclgrp, name, grouptype, ownerlogin) '.
+                  'VALUES ('.$db->quote('__priv_'.$login).','.$db->quote($login).',2,'.$db->quote($login).')');
 
-        $idg = $db->lastInsertId();
-
-        $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_user_group')).' (login, id_aclgrp) VALUES ('.$db->quote($login).',1)');
-        $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_user_group')).' (login, id_aclgrp) VALUES ('.$db->quote($login).','.$idg.')');
+        $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_user_group')).' (login, id_aclgrp) VALUES ('.$db->quote($login).',\'admins\')');
+        $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_user_group')).' (login, id_aclgrp) VALUES ('.$db->quote($login).','.$db->quote('__priv_'.$login).')');
 
         unset($_SESSION['adminaccount']);
         return 0;
