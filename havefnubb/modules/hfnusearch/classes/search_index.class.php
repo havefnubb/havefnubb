@@ -42,7 +42,7 @@ class search_index {
     * @return array $words list of the words
     */
     function getWords() {
-        $HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
         // body
         $longText =  str_repeat(' '.$this->message, $HfnuSearchConfig['search_content_weight']);
         // title
@@ -95,7 +95,7 @@ class search_index {
     function searchEngineReindexing() {
         set_time_limit(0);
         //1) open the config file
-        $HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
         //2) get the dao we want to read
         $dataSource = $HfnuSearchConfig['dao'];
         //3) build an array with each one
@@ -137,7 +137,7 @@ class search_index {
             return array('count'=>0,'result'=>array());
         }
         //1) open the config file
-        $HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
         //2) get the dao we want to read
         $dataSource = $HfnuSearchConfig['dao'];
         //3) build an array with each one

@@ -34,7 +34,7 @@ class defaultCtrl extends jController {
         $confirm = $this->param('confirm');
 
         if ($confirm == 'Y'){
-            jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+            jFile::removeDir(jApp::tempPath(), false);
             jMessage::add(jLocale::get('jelixcache~jelixcache.cache.clear.done'));
         }
         else {

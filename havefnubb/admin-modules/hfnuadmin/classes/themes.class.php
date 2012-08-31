@@ -16,7 +16,7 @@ class themes {
     static function lists() {
         global $gJConfig;
         $themes = array();
-        $dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
+        $dir = new DirectoryIterator(jApp::varPath('themes/'));
         foreach ($dir as $dirContent) {
             if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..' and $dirContent != '.svn')
                 $themes[] = self::readManifest($dirContent->getFilename());
@@ -30,7 +30,7 @@ class themes {
         $themesInfo = array();
 
         $doc = new DOMDocument;
-        $doc->Load(JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.xml');
+        $doc->Load(jApp::varPath('/themes/'.$theme .'/theme.xml'));
 
         $xpath  = new DOMXPath($doc);
         $xpath->registerNamespace(self::$ns,self::$nsURL);

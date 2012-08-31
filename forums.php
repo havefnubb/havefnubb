@@ -8,7 +8,7 @@
 * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 require ('havefnubb/application.init.php');
-if(!file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php')){
+if(!file_exists(jApp::configPath('installer.ini.php'))){
     header("location: install.php");
 }
 else {

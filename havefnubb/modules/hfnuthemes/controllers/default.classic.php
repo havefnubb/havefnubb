@@ -41,11 +41,11 @@ class defaultCtrl extends jController {
      */
     function useit() {
         $theme = (string) $this->param('theme');
-        $mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+        $mainConfig = new jIniFileModifier(jApp::configPath() . 'defaultconfig.ini.php');
         $mainConfig->setValue('theme',strtolower($theme));
         $mainConfig->setValue('datepicker',strtolower($theme),'forms');
         $mainConfig->save();
-        jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+        jFile::removeDir(jApp::tempPath(), false);
         jMessage::add(jLocale::get('theme.selected'),'information');
         $rep = $this->getResponse('redirect');
         $rep->action = 'default:index';

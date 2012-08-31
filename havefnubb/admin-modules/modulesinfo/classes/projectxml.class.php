@@ -44,7 +44,7 @@ class projectInfo {
 class projectxml extends filexml {
 
     public function getInfo() {
-        $file = JELIX_APP_PATH . 'project.xml';
+        $file = jApp::appPath('project.xml');
         if (!file_exists($file))
             return null;
 

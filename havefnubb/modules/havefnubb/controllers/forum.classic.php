@@ -63,7 +63,7 @@ class forumCtrl extends jController {
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8'));
 
         $feed_reader = new jFeedReader;
-        $feed_reader->setCacheDir(JELIX_APP_VAR_PATH.'feeds');
+        $feed_reader->setCacheDir(jApp::varPath('feeds'));
         $feed_reader->setTimeout(2);
         $feed_reader->setUserAgent('HaveFnuBB - http://www.havefnubb.org/');
         $feed = $feed_reader->parse($forum->forum_url);

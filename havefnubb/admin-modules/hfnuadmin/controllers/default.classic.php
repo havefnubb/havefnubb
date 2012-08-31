@@ -33,7 +33,7 @@ class defaultCtrl extends jController {
 
     protected function initform($form) {
         global $gJConfig;
-        $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
+        $floodConfig = parse_ini_file(jApp::configPath('havefnubb/flood.coord.ini.php'));
 
         $tzId = DateTimeZone::listIdentifiers();
         for ($i = 0 ; $i < count($tzId) ; $i++) {
@@ -115,7 +115,7 @@ class defaultCtrl extends jController {
             return $resp;
         }
 
-        $defaultConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $defaultConfig =  new jIniFileModifier(jApp::configPath('defaultconfig.ini.php'));
         $p = jAcl2Db::getProfile();
         //if we want to allow the anonymous users on the forum :
         if ($form->getData('anonymous_post_authorized')) {
@@ -164,7 +164,7 @@ class defaultCtrl extends jController {
         $defaultConfig->setValue('timeZone',    $tz[$form->getData('timezone')]);
         $defaultConfig->save();
 
-        $floodConfig    =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
+        $floodConfig    =  new jIniFileModifier(jApp::configPath('havefnubb/flood.coord.ini.php'));
 
         $floodConfig->setValue('only_same_ip',                  $form->getData('only_same_ip'));
         $floodConfig->setValue('elapsed_time_between_two_post', $form->getData('elapsed_time_between_two_post'));

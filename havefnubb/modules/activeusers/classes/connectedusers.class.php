@@ -90,10 +90,10 @@ class connectedusers {
                 && $gJConfig->activeusers_admin['pluginconf']) {
                 $conffile = $gJConfig->activeusers_admin['pluginconf'];
                 if (in_array(substr($conffile, 0,4), array('app:','lib:','var:'))) {
-                    $conffile = str_replace(array('app:','lib:','var:'), array(JELIX_APP_PATH, LIB_PATH, JELIX_APP_VAR_PATH), $conffile);
+                    $conffile = str_replace(array('app:','lib:','var:'), array(jApp::appPath(), LIB_PATH, jApp::varPath()), $conffile);
                 }
                 else
-                    $conffile = JELIX_APP_CONFIG_PATH.$conffile;
+                    $conffile = jApp::configPath().$conffile;
                 $config = @parse_ini_file($conffile);
             }
         }
@@ -113,10 +113,10 @@ class connectedusers {
             && $gJConfig->activeusers_admin['pluginconf']) {
             $conffile = $gJConfig->activeusers_admin['pluginconf'];
             if (in_array(substr($conffile, 0,4), array('app:','lib:','var:'))) {
-                $conffile = str_replace(array('app:','lib:','var:'), array(JELIX_APP_PATH, LIB_PATH, JELIX_APP_VAR_PATH), $conffile);
+                $conffile = str_replace(array('app:','lib:','var:'), array(jApp::appPath(), LIB_PATH, jApp::varPath()), $conffile);
             }
             else
-                $conffile = JELIX_APP_CONFIG_PATH.$conffile;
+                $conffile = jApp::configPath().$conffile;
             $ini = new jIniFileModifier($conffile);
             $ini->setValue('timeout_visit', $timeout);
             $ini->save();
@@ -253,7 +253,7 @@ class connectedusers {
             return null;
         $browser = $_SERVER['HTTP_USER_AGENT'];
         // read the list of bots
-        $botsList = jIniFile::read(JELIX_APP_CONFIG_PATH."botsagent.ini.php");
+        $botsList = jIniFile::read(jApp::configPath()."botsagent.ini.php");
 
         if ($botsList) {
 

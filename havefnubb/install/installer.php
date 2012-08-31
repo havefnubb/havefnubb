@@ -6,10 +6,14 @@
 * @link      http://havefnubb.org
 * @license   GPL licence
 */
+require_once (dirname(__FILE__).'/../application.init.php');
+jApp::setEnv('install');
 
-require_once (dirname(__FILE__).'./../application-cli.init.php');
+jAppManager::close();
 
 $installer = new jInstaller(new textInstallReporter());
 
 $installer->installApplication();
 
+jAppManager::clearTemp();
+jAppManager::open();
