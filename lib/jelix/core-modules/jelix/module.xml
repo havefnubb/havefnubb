@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="jelix@modules.jelix.org" name="jelix" createdate="2006-01-01">
-       <version stability="stable" date="2012-08-17 15:29">1.3.3pre</version>
+       <version stability="stable" date="2012-08-31 22:13">1.3.4pre.2246</version>
         <label lang="en-EN">Jelix Main Module</label>
         <description lang="en-EN">Main module of jelix which contains some ressources needed by jelix classes</description>
         <license URL="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html">LGPL 2.1</license>
@@ -10,6 +10,6 @@
         <homepageURL>http://jelix.org</homepageURL>
     </info>
     <dependencies>
-       <jelix minversion="1.3.3pre" maxversion="1.3.*"/>
+       <jelix minversion="1.3.4pre.2246" maxversion="1.3.4pre.*"/>
     </dependencies>
 </module>
