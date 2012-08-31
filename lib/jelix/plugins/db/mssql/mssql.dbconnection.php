@@ -4,10 +4,12 @@
  * @package    jelix
  * @subpackage db_driver
  * @author     Yann Lecommandoux
- * @copyright  2008 Yann Lecommandoux
+ * @contributor Laurent Jouanneau, Louis S.
+ * @copyright  2008 Yann Lecommandoux, 2011 Laurent Jouanneau, Louis S.
  * @link     http://www.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+require_once(dirname(__FILE__).'/mssql.dbresultset.php');
 class mssqlDbConnection extends jDbConnection{
 	function __construct($profile){
 		if(!function_exists('mssql_connect')){
@@ -71,6 +73,37 @@ class mssqlDbConnection extends jDbConnection{
 		}
 	}
 	protected function _doLimitQuery($queryString,$offset,$number){
+		$queryString=preg_replace('/^SELECT TOP[ ]\d*\s*/i','SELECT ',trim($queryString));
+		$distinct=false;
+		list($select,$from)=preg_split('/\sFROM\s/mi',$queryString,2);
+		$fields=preg_split('/\s*,\s*/',$select);
+		$firstField=preg_replace('/^\s*SELECT\s+/','',array_shift($fields));
+		if(stripos($firstField,'DISTINCT')!==false){
+			$firstField=preg_replace('/DISTINCT/i','',$firstField);
+			$distinct=true;
+		}
+		$orderby=stristr($from,'ORDER BY');
+		if($orderby===false){
+			if(stripos($firstField,' as ')!==false){
+				list($field,$key)=preg_split('/ as /',$firstField);
+			}
+			else{
+				$key=$firstField;
+			}
+			$orderby=' ORDER BY '.$key.' ASC';
+			$from.=$orderby;
+		}
+		if(!$distinct)
+			$queryString='SELECT TOP ';
+		else
+			$queryString='SELECT DISTINCT TOP ';
+		$queryString.=($number+$offset). ' '.$firstField.','.implode(',',$fields).' FROM '.$from;
+		$queryString='SELECT TOP ' . $number . ' * FROM (' . $queryString . ') AS inner_tbl ';
+		$order_inner=preg_replace(array('/\bASC\b/i','/\bDESC\b/i'),array('_DESC','_ASC'),$orderby);
+		$order_inner=str_replace(array('_DESC','_ASC'),array('DESC','ASC'),$order_inner);
+		$queryString.=$order_inner;
+		$queryString='SELECT TOP ' . $number . ' * FROM (' . $queryString . ') AS outer_tbl '.$orderby;
+		$this->lastQuery=$queryString;
 		$result=$this->_doQuery($queryString);
 		return $result;
 	}
@@ -88,5 +121,10 @@ class mssqlDbConnection extends jDbConnection{
 	}
 	protected function _quote($text,$binary){
 		return str_replace("'","''",$text);
+	}
+	public function getAttribute($id){
+		return "";
+	}
+	public function setAttribute($id,$value){
 	}
 }

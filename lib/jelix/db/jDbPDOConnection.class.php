@@ -4,10 +4,11 @@
 * @package    jelix
 * @subpackage db
 * @author     Laurent Jouanneau
-* @contributor Gwendal Jouannic, Thomas, Julien Issler
+* @contributor Gwendal Jouannic, Thomas, Julien Issler, Vincent Herr
 * @copyright  2005-2010 Laurent Jouanneau
 * @copyright  2008 Gwendal Jouannic, 2009 Thomas
 * @copyright  2009 Julien Issler
+* @copyright  2011 Vincent Herr
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -27,7 +28,7 @@ class jDbPDOConnection extends PDO{
 			$dsn=$profile['dsn'];
 			unset($prof['dsn']);
 			if($this->dbms=='sqlite')
-				$dsn=str_replace(array('app:','lib:','var:'),array(JELIX_APP_PATH,LIB_PATH,JELIX_APP_VAR_PATH),$dsn);
+				$dsn=str_replace(array('app:','lib:','var:'),array(jApp::appPath(),LIB_PATH,jApp::varPath()),$dsn);
 		}
 		else{
 			$this->dbms=$profile['driver'];
@@ -37,9 +38,9 @@ class jDbPDOConnection extends PDO{
 				$dsn=$this->dbms.':host='.$profile['host'].';dbname='.$db;
 			else{
 				if(preg_match('/^(app|lib|var)\:/',$db,$m))
-					$dsn='sqlite:'.str_replace(array('app:','lib:','var:'),array(JELIX_APP_PATH,LIB_PATH,JELIX_APP_VAR_PATH),$db);
+					$dsn='sqlite:'.str_replace(array('app:','lib:','var:'),array(jApp::appPath(),LIB_PATH,jApp::varPath()),$db);
 				else
-					$dsn='sqlite:'.JELIX_APP_VAR_PATH.'db/sqlite/'.$db;
+					$dsn='sqlite:'.jApp::varPath('db/sqlite/'.$db);
 			}
 		}
 		if(isset($prof['usepdo']))
@@ -134,15 +135,17 @@ class jDbPDOConnection extends PDO{
 	protected $_tools=null;
 	public function tools(){
 		if(!$this->_tools){
-			global $gJConfig;
-			if(!isset($gJConfig->_pluginsPathList_db[$this->dbms])
-				||!file_exists($gJConfig->_pluginsPathList_db[$this->dbms])){
+			$this->_tools=jApp::loadPlugin($this->dbms,'db','.dbtools.php',$this->dbms.'DbTools',$this);
+			if(is_null($this->_tools))
 				throw new jException('jelix~db.error.driver.notfound',$this->dbms);
-			}
-			require_once($gJConfig->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbtools.php');
-			$class=$this->dbms.'DbTools';
-			$this->_tools=new $class($this);
 		}
 		return $this->_tools;
+	}
+	public function lastInsertId($fromSequence=null){
+		if($this->dbms=='mssql'){
+			$res=$this->query('SELECT SCOPE_IDENTITY()');
+			return (int) $res->fetchColumn();
+		}
+		return parent::lastInsertId($fromSequence);
 	}
 }

@@ -7,7 +7,7 @@
 * @contributor Loic Mathaud
 * @contributor Thibault Piront (nuKs)
 * @contributor Christophe Thiriot
-* @copyright   2005-2010 Laurent Jouanneau, 2006-2007 Loic Mathaud
+* @copyright   2005-2011 Laurent Jouanneau, 2006-2007 Loic Mathaud
 * @copyright   2007 Thibault Piront
 * @copyright   2008 Christophe Thiriot
 * @link        http://www.jelix.org
@@ -16,12 +16,10 @@
 class jCmdLineRequest extends jRequest{
 	public $type='cmdline';
 	public $defaultResponseType='cmdline';
+	public $authorizedResponseClass='jResponseCmdline';
 	protected $onlyDefaultAction=false;
 	function __construct($onlyDefaultAction=false){
 		$this->onlyDefaultAction=$onlyDefaultAction;
-	}
-	public function isAllowedResponse($respclass){
-		return('jResponseCmdline'==$respclass);
 	}
 	protected function _initUrlData(){
 		$this->urlScriptPath='/';
@@ -65,5 +63,8 @@ class jCmdLineRequest extends jRequest{
 	}
 	function getIP(){
 		return '127.0.0.1';
+	}
+	public function isAllowedResponse($response){
+		return($response instanceof $this->authorizedResponseClass);
 	}
 }

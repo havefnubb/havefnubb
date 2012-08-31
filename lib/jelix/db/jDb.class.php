@@ -4,8 +4,9 @@
 * @package     jelix
 * @subpackage  db
 * @author      Laurent Jouanneau
-* @contributor Yannick Le Guédart, Laurent Raufaste, Christophe Thiriot
+* @contributor Yannick Le Guédart, Laurent Raufaste, Christophe Thiriot, Julien Issler
 * @copyright   2005-2011 Laurent Jouanneau, 2008 Laurent Raufaste
+* @copyright   2011 Julien Issler
 *
 * Some of this classes were get originally from the Copix project
 * (CopixDbConnection, Copix 2.3dev20050901, http://www.copix.org)
@@ -21,8 +22,18 @@ abstract class jDbConnection{
 	const FETCH_CLASS=8;
 	const FETCH_INTO=9;
 	const ATTR_AUTOCOMMIT=0;
+	const ATTR_PREFETCH=1;
+	const ATTR_TIMEOUT=2;
 	const ATTR_ERRMODE=3;
+	const ATTR_SERVER_VERSION=4;
+	const ATTR_SERVER_INFO=6;
+	const ATTR_CLIENT_VERSION=5;
+	const ATTR_CONNECTION_STATUS=7;
+	const ATTR_CASE=8;
 	const ATTR_CURSOR=10;
+	const ATTR_ORACLE_NULLS=11;
+	const ATTR_PERSISTENT=12;
+	const ATTR_DRIVER_NAME=16;
 	const CURSOR_FWDONLY=0;
 	const CURSOR_SCROLL=1;
 	public $profile;
@@ -93,8 +104,8 @@ abstract class jDbConnection{
 	abstract public function errorInfo();
 	abstract public function errorCode();
 	abstract public function lastInsertId($fromSequence='');
-	public function getAttribute($id){return '';}
-	public function setAttribute($id,$value){}
+	abstract public function getAttribute($id);
+	abstract public function setAttribute($id,$value);
 	public function lastIdInTable($fieldName,$tableName){
 		$rs=$this->query('SELECT MAX('.$fieldName.') as ID FROM '.$tableName);
 		if(($rs!==null)&&$r=$rs->fetch()){
@@ -229,15 +240,8 @@ abstract class jDbResultSet implements Iterator{
 	}
 }
 class jDb{
-	static private $_profiles=null;
-	static private $_cnxPool=array();
-	public static function getConnection($name=null){
-		$profile=self::getProfile($name);
-		$name=$profile['name'];
-		if(!isset(self::$_cnxPool[$name])){
-			self::$_cnxPool[$name]=self::_createConnector($profile);
-		}
-		return self::$_cnxPool[$name];
+	public static function getConnection($name=''){
+		return jProfiles::getOrStoreInPool('jdb',$name,array('jDb','_createConnector'));
 	}
 	public static function getDbWidget($name=null){
 		$dbw=new jDbWidget(self::getConnection($name));
@@ -248,44 +252,7 @@ class jDb{
 		return $cnx->tools();
 	}
 	public static function getProfile($name='',$noDefault=false){
-		global $gJConfig;
-		if(self::$_profiles===null){
-			self::$_profiles=parse_ini_file(JELIX_APP_CONFIG_PATH.$gJConfig->dbProfils,true);
-		}
-		if($name=='')
-			$name='default';
-		$targetName=$name;
-		if(isset(self::$_profiles[$name])){
-			if(is_string(self::$_profiles[$name])){
-				$targetName=self::$_profiles[$name];
-			}
-			else{
-				self::$_profiles[$name]['name']=$name;
-				return self::$_profiles[$name];
-			}
-		}
-		elseif(!$noDefault&&isset(self::$_profiles['default'])){
-			if(is_string(self::$_profiles['default'])){
-				$targetName=self::$_profiles['default'];
-			}
-			else{
-				self::$_profiles['default']['name']='default';
-				return self::$_profiles['default'];
-			}
-		}
-		else{
-			if($name=='default')
-				throw new jException('jelix~db.error.default.profile.unknown');
-			else
-				throw new jException('jelix~db.error.profile.type.unknown',$name);
-		}
-		if(isset(self::$_profiles[$targetName])&&is_array(self::$_profiles[$targetName])){
-			self::$_profiles[$targetName]['name']=$targetName;
-			return self::$_profiles[$targetName];
-		}
-		else{
-			throw new jException('jelix~db.error.profile.unknown',$targetName);
-		}
+		return jProfiles::get('jdb',$name,$noDefault);
 	}
 	public function testProfile($profile){
 		try{
@@ -297,36 +264,23 @@ class jDb{
 		}
 		return $ok;
 	}
-	private static function _createConnector($profile){
+	public static function _createConnector($profile){
 		if($profile['driver']=='pdo'||(isset($profile['usepdo'])&&$profile['usepdo'])){
 			$dbh=new jDbPDOConnection($profile);
 			return $dbh;
 		}
 		else{
-			global $gJConfig;
-			$p=$gJConfig->_pluginsPathList_db[$profile['driver']].$profile['driver'];
-			require_once($p.'.dbconnection.php');
-			require_once($p.'.dbresultset.php');
-			$class=$profile['driver'].'DbConnection';
-			$dbh=new $class($profile);
+			$dbh=jApp::loadPlugin($profile['driver'],'db','.dbconnection.php',$profile['driver'].'DbConnection',$profile);
+			if(is_null($dbh))
+				throw new jException('jelix~db.error.driver.notfound',$profile['driver']);
 			return $dbh;
 		}
 	}
 	public static function createVirtualProfile($name,$params){
-		global $gJConfig;
-		if($name==''){
-			throw new jException('jelix~db.error.virtual.profile.no.name');
-		}
-		if(self::$_profiles===null){
-			self::$_profiles=parse_ini_file(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils,true);
-		}
-		self::$_profiles[$name]=$params;
-		self::$_profiles[$name]['name']=$name;
-		unset(self::$_cnxPool[$name]);
+		jProfiles::createVirtualProfile('jdb',$name,$params);
 	}
 	public static function clearProfiles(){
-		self::$_profiles=null;
-		self::$_cnxPool=array();
+		jProfiles::clear();
 	}
 	public static function floatToStr($value){
 		if(is_float($value))

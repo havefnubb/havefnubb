@@ -7,7 +7,7 @@
 * @contributor Laurent Jouanneau
 * @contributor Sylvain de Vathaire
 * @copyright   2005-2006 loic Mathaud
-* @copyright   2007-2009 Laurent Jouanneau
+* @copyright   2007-2010 Laurent Jouanneau
 * @copyright   2008 Sylvain de Vathaire
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
@@ -17,10 +17,10 @@ class jResponseXml extends jResponse{
 	protected $_type='xml';
 	public $content=null;
 	public $contentTpl='';
+	public $checkValidity=false;
 	protected $_charset;
 	private $_css=array();
 	private $_xsl=array();
-	protected $_headSent=0;
 	public $sendXMLHeader=TRUE;
 	function __construct(){
 		global $gJConfig;
@@ -30,12 +30,6 @@ class jResponseXml extends jResponse{
 	}
 	final public function output(){
 		$this->_httpHeaders['Content-Type']='text/xml;charset='.$this->_charset;
-		$this->sendHttpHeaders();
-		if($this->sendXMLHeader){
-			echo '<?xml version="1.0" encoding="'. $this->_charset .'"?>',"\n";
-			$this->outputXmlHeader();
-		}
-		$this->_headSent=true;
 		if(is_string($this->content)){
 			$xml_string=$this->content;
 		}else if(!empty($this->contentTpl)){
@@ -43,34 +37,24 @@ class jResponseXml extends jResponse{
 		}else{
 			throw new jException('jelix~errors.repxml.no.content');
 		}
-		if(simplexml_load_string($xml_string)){
-			echo $xml_string;
-		}else{
-			throw new jException('jelix~errors.repxml.invalid.content');
+		if($this->checkValidity){
+			if(!simplexml_load_string($xml_string)){
+				throw new jException('jelix~errors.repxml.invalid.content');
+			}
 		}
+		$this->sendHttpHeaders();
+		if($this->sendXMLHeader){
+			echo '<?xml version="1.0" encoding="'. $this->_charset .'"?>',"\n";
+			$this->outputXmlHeader();
+		}
+		echo $xml_string;
 		return true;
 	}
 	final public function outputErrors(){
-		if(!$this->_headSent){
-			if(!$this->_httpHeadersSent){
-				header("HTTP/1.0 500 Internal Server Error");
-				header('Content-Type: text/xml;charset='.$this->_charset);
-			}
-			echo '<?xml version="1.0" encoding="'. $this->_charset .'"?>';
-		}
-		echo '<errors xmlns="http://jelix.org/ns/xmlerror/1.0">';
-		if($this->hasErrors()){
-			foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-				echo '<error xmlns="http://jelix.org/ns/xmlerror/1.0" type="'. $e[0] .'" code="'. $e[1] .'" file="'. $e[3] .'" line="'. $e[4] .'">';
-				echo htmlspecialchars($e[2],ENT_NOQUOTES,$this->_charset);
-				if($e[5])
-					echo "\n".htmlspecialchars($e[5],ENT_NOQUOTES,$this->_charset);
-				echo '</error>'. "\n";
-			}
-		}else{
-			echo '<error>Unknown Error</error>';
-		}
-		echo '</errors>';
+		global $gJConfig;
+		header("HTTP/1.0 500 Internal Jelix Error");
+		header('Content-Type: text/plain;charset='.$gJConfig->charset);
+		echo $GLOBALS['gJCoord']->getGenericErrorMessage();
 	}
 	public function addCSSStyleSheet($src,$params=array()){
 		if(!isset($this->_css[$src])){

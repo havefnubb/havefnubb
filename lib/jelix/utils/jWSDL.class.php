@@ -55,7 +55,7 @@ class jWSDL{
 		}
 	}
 	private function _createCachePath(){
-		$this->_cachePath=JELIX_APP_TEMP_PATH.'compiled/'.$this->_dirname.'/'.$this->module.'~'.$this->controller.$this->_cacheSuffix;
+		$this->_cachePath=jApp::tempPath('compiled/'.$this->_dirname.'/'.$this->module.'~'.$this->controller.$this->_cacheSuffix);
 	}
 	public function getWSDLFilePath(){
 		$this->_updateWSDL();

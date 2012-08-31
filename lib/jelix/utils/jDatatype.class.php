@@ -5,7 +5,7 @@
 * @subpackage  utils
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Hadrien Lanneau
-* @copyright   2006-2009 Laurent Jouanneau
+* @copyright   2006-2012 Laurent Jouanneau
 * @copyright   2008 Julien Issler, 2011 Hadrien Lanneau
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -34,6 +34,9 @@ abstract class jDatatype{
 	public function check($value){
 		return true;
 	}
+	public function allowWhitespace(){
+		return false;
+	}
 }
 class jDatatypeString extends jDatatype{
 	protected $length=null;
@@ -56,6 +59,9 @@ class jDatatypeString extends jDatatype{
 			if($this->pattern!==null&&!preg_match($this->pattern,$value))
 				return false;
 		}
+		return true;
+	}
+	public function allowWhitespace(){
 		return true;
 	}
 }
@@ -89,6 +95,9 @@ class jDatatypeHtml extends jDatatype implements jIFilteredDatatype{
 	}
 	public function getFilteredValue(){
 		return $this->newValue;
+	}
+	public function allowWhitespace(){
+		return true;
 	}
 }
 class jDatatypeBoolean extends jDatatype{

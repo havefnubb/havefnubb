@@ -16,6 +16,7 @@
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+require_once(dirname(__FILE__).'/mysql.dbresultset.php');
 class mysqlDbConnection extends jDbConnection{
 	protected $_charsets=array('UTF-8'=>'utf8','ISO-8859-1'=>'latin1');
 	function __construct($profile){
@@ -87,6 +88,7 @@ class mysqlDbConnection extends jDbConnection{
 	}
 	protected function _doLimitQuery($queryString,$offset,$number){
 		$queryString.=' LIMIT '.$offset.','.$number;
+		$this->lastQuery=$queryString;
 		$result=$this->_doQuery($queryString);
 		return $result;
 	}
@@ -98,5 +100,19 @@ class mysqlDbConnection extends jDbConnection{
 	}
 	protected function _quote($text,$binary){
 		return mysql_real_escape_string($text,$this->_connection);
+	}
+	public function getAttribute($id){
+		switch($id){
+			case self::ATTR_CLIENT_VERSION:
+				return mysql_get_client_info();
+			case self::ATTR_SERVER_VERSION:
+				return mysql_get_server_info($this->_connection);
+				break;
+			case self::ATTR_SERVER_INFO:
+				return mysql_get_host_info($this->_connection);
+		}
+		return "";
+	}
+	public function setAttribute($id,$value){
 	}
 }

@@ -10,7 +10,7 @@
 * @subpackage  utils
 * @author      Laurent Jouanneau
 * @contributor Kévin Lepeltier, GeekBay, Julien Issler
-* @copyright   2006-2010 Laurent Jouanneau
+* @copyright   2006-2011 Laurent Jouanneau
 * @copyright   2008 Kévin Lepeltier, 2009 Geekbay
 * @copyright   2010 Julien Issler
 * @link        http://jelix.org
@@ -21,6 +21,7 @@ class jMailer extends PHPMailer{
 	protected $bodyTpl='';
 	protected $defaultLang;
 	public $filePath='';
+	protected $copyTofile=false;
 	function __construct(){
 		global $gJConfig;
 		$this->defaultLang=$gJConfig->locale;
@@ -40,7 +41,8 @@ class jMailer extends PHPMailer{
 			$this->From=$gJConfig->mailer['webmasterEmail'];
 		}
 		$this->FromName=$gJConfig->mailer['webmasterName'];
-		$this->filePath=JELIX_APP_VAR_PATH.$gJConfig->mailer['filesDir'];
+		$this->filePath=jApp::varPath($gJConfig->mailer['filesDir']);
+		$this->copyToFiles=$gJConfig->mailer['copyToFiles'];
 		parent::__construct(true);
 	}
 	public function IsFile(){
@@ -140,5 +142,28 @@ class jMailer extends PHPMailer{
 	}else{
 		return 'Language string failed to load: ' . $key;
 	}
+	}
+	protected function SendmailSend($header,$body){
+		if($this->copyToFiles)
+			$this->copyMail($header,$body);
+		return parent::SendmailSend($header,$body);
+	}
+	protected function MailSend($header,$body){
+		if($this->copyToFiles)
+			$this->copyMail($header,$body);
+		return parent::MailSend($header,$body);
+	}
+	protected function SmtpSend($header,$body){
+		if($this->copyToFiles)
+			$this->copyMail($header,$body);
+		return parent::SmtpSend($header,$body);
+	}
+	protected function copyMail($header,$body){
+		$dir=rtrim($this->filePath,'/').'/copy-'.date('Ymd').'/';
+		if(isset($GLOBALS['gJCoord']->request))
+			$ip=$GLOBALS['gJCoord']->request->getIP();
+		else $ip="no-ip";
+		$filename=$dir.'mail-'.$ip.'-'.date('Ymd-His').'-'.uniqid(mt_rand(),true);
+		jFile::write($filename,$header.$body);
 	}
 }

@@ -49,24 +49,49 @@ class jFile{
 			mkdir($dir,0775);
 		}
 	}
-	public static function removeDir($path,$deleteParent=true){
+	public static function removeDir($path,$deleteParent=true,$except=array()){
 		if($path==''||$path=='/'||$path==DIRECTORY_SEPARATOR)
 			throw new jException('jelix~errors.file.directory.cannot.remove.fs.root');
+		if(!file_exists($path))
+			return true;
+		$allIsDeleted=true;
 		$dir=new DirectoryIterator($path);
 		foreach($dir as $dirContent){
+			if(count($except)){
+				$exception=false;
+				foreach($except as $pattern){
+					if($pattern[0]=='*'){
+						if($dirContent->getBasename()!=$dirContent->getBasename(substr($pattern,1))){
+							$allIsDeleted=false;
+							$exception=true;
+							break;
+						}
+					}
+					else if($pattern==$dirContent->getBasename()){
+						$allIsDeleted=false;
+						$exception=true;
+						break;
+					}
+				}
+				if($exception)
+					continue;
+			}
 			if($dirContent->isFile()||$dirContent->isLink()){
-				unlink($dirContent->getPathName());
+					unlink($dirContent->getPathName());
 			}else{
 				if(!$dirContent->isDot()&&$dirContent->isDir()){
-					self::removeDir($dirContent->getPathName());
+					$removed=self::removeDir($dirContent->getPathName(),true,$except);
+					if(!$removed)
+						$allIsDeleted=false;
 				}
 			}
 		}
 		unset($dir);
 		unset($dirContent);
-		if($deleteParent){
+		if($deleteParent&&$allIsDeleted){
 			rmdir($path);
 		}
+		return $allIsDeleted;
 	}
 	public static function getMimeType($file){
 		if(function_exists('finfo_open')){
@@ -83,8 +108,7 @@ class jFile{
 		}
 	}
 	public static function getMimeTypeFromFilename($fileName){
-		$f=explode('.',$fileName);
-		$ext=strtolower(array_pop($f));
+		$ext=strtolower(pathinfo($fileName,PATHINFO_EXTENSION));
 		if(array_key_exists($ext,self::$mimeTypes)){
 			return self::$mimeTypes[$ext];
 		}

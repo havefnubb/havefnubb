@@ -18,6 +18,7 @@
 * @link        http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+require_once(dirname(__FILE__).'/pgsql.dbresultset.php');
 class pgsqlDbConnection extends jDbConnection{
 	protected $_charsets=array('UTF-8'=>'UNICODE','ISO-8859-1'=>'LATIN1');
 	function __construct($profile){
@@ -128,6 +129,7 @@ class pgsqlDbConnection extends jDbConnection{
 		if($number < 0)
 			$number='ALL';
 		$queryString.=' LIMIT '.$number.' OFFSET '.$offset;
+		$this->lastQuery=$queryString;
 		$result=$this->_doQuery($queryString);
 		return $result;
 	}
@@ -156,5 +158,18 @@ class pgsqlDbConnection extends jDbConnection{
 			return pg_escape_bytea($this->_connection,$text);
 		else
 			return pg_escape_string($this->_connection,$text);
+	}
+	public function getAttribute($id){
+		switch($id){
+			case self::ATTR_CLIENT_VERSION:
+				$v=pg_version($this->_connection);
+				return(array_key_exists($v['client'])? $v['client'] : '');
+			case self::ATTR_SERVER_VERSION:
+				return pg_parameter_status($this->_connection,"server_version");
+				break;
+		}
+		return "";
+	}
+	public function setAttribute($id,$value){
 	}
 }

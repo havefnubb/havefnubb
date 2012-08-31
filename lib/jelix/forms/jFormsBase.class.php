@@ -168,6 +168,8 @@ abstract class jFormsBase{
 		return $daorec->getPk();
 	}
 	public function initControlFromDao($name,$daoSelector,$primaryKey=null,$primaryKeyNames=null,$dbProfile=''){
+		if(!isset($this->controls[$name]))
+			throw new jExceptionForms('jelix~formserr.unknown.control2',array($name,$this->sel));
 		if(!$this->controls[$name]->isContainer()){
 			throw new jExceptionForms('jelix~formserr.control.not.container',array($name,$this->sel));
 		}
@@ -195,6 +197,8 @@ abstract class jFormsBase{
 		$this->controls[$name]->setData($val);
 	}
 	public function saveControlToDao($controlName,$daoSelector,$primaryKey=null,$primaryKeyNames=null,$dbProfile=''){
+		if(!isset($this->controls[$controlName]))
+			throw new jExceptionForms('jelix~formserr.unknown.control2',array($controlName,$this->sel));
 		if(!$this->controls[$controlName]->isContainer()){
 			throw new jExceptionForms('jelix~formserr.control.not.container',array($controlName,$this->sel));
 		}
@@ -232,6 +236,8 @@ abstract class jFormsBase{
 		$this->container->errors[$field]=$mesg;
 	}
 	public function setData($name,$value){
+		if(!isset($this->controls[$name]))
+			throw new jExceptionForms('jelix~formserr.unknown.control2',array($name,$this->sel));
 		$this->controls[$name]->setData($value);
 	}
 	public function getData($name){
@@ -241,12 +247,16 @@ abstract class jFormsBase{
 	}
 	public function getAllData(){return $this->container->data;}
 	public function deactivate($name,$deactivation=true){
+		if(!isset($this->controls[$name]))
+			throw new jExceptionForms('jelix~formserr.unknown.control2',array($name,$this->sel));
 		$this->controls[$name]->deactivate($deactivation);
 	}
 	public function isActivated($name){
 		return $this->container->isActivated($name);
 	}
 	public function setReadOnly($name,$r=true){
+		if(!isset($this->controls[$name]))
+			throw new jExceptionForms('jelix~formserr.unknown.control2',array($name,$this->sel));
 		$this->controls[$name]->setReadOnly($r);
 	}
 	public function isReadOnly($name){
@@ -308,15 +318,14 @@ abstract class jFormsBase{
 	public function id(){return $this->container->formId;}
 	public function hasUpload(){return count($this->uploads)>0;}
 	public function getBuilder($buildertype){
-		global $gJConfig;
-		if($buildertype=='')$buildertype='html';
-		if(isset($gJConfig->_pluginsPathList_jforms[$buildertype])){
-			if(isset($this->builders[$buildertype]))
-				return $this->builders[$buildertype];
-			include_once(JELIX_LIB_PATH.'forms/jFormsBuilderBase.class.php');
-			include_once($gJConfig->_pluginsPathList_jforms[$buildertype].$buildertype.'.jformsbuilder.php');
-			$c=$buildertype.'JformsBuilder';
-			$o=$this->builders[$buildertype]=new $c($this);
+		if($buildertype=='')
+			$buildertype='html';
+		if(isset($this->builders[$buildertype]))
+			return $this->builders[$buildertype];
+		include_once(JELIX_LIB_PATH.'forms/jFormsBuilderBase.class.php');
+		$o=jApp::loadPlugin($buildertype,'jforms','.jformsbuilder.php',$buildertype.'JformsBuilder',$this);
+		if($o){
+			$this->builders[$buildertype]=$o;
 			return $o;
 		}else{
 			throw new jExceptionForms('jelix~formserr.invalid.form.builder',array($buildertype,$this->sel));
@@ -324,7 +333,7 @@ abstract class jFormsBase{
 	}
 	public function saveFile($controlName,$path='',$alternateName=''){
 		if($path==''){
-			$path=JELIX_APP_VAR_PATH.'uploads/'.$this->sel.'/';
+			$path=jApp::varPath('uploads/'.$this->sel.'/');
 		}else if(substr($path,-1,1)!='/'){
 			$path.='/';
 		}
@@ -345,7 +354,7 @@ abstract class jFormsBase{
 	}
 	public function saveAllFiles($path=''){
 		if($path==''){
-			$path=JELIX_APP_VAR_PATH.'uploads/'.$this->sel.'/';
+			$path=jApp::varPath('uploads/'.$this->sel.'/');
 		}else if(substr($path,-1,1)!='/'){
 			$path.='/';
 		}
@@ -428,7 +437,7 @@ abstract class jFormsBase{
 		}
 	}
 	public function createNewToken(){
-	if($this->container->formId!=jForms::DEFAULT_ID||$this->container->token==''){
+	if($this->container->token==''){
 		$tok=md5($this->container->formId.time().session_id());
 		return($this->container->token=$tok);
 	}

@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  core_request
 * @author      Laurent Jouanneau
-* @copyright   2005-2007 Laurent Jouanneau
+* @copyright   2005-2011 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -12,6 +12,7 @@ require(JELIX_LIB_UTILS_PATH.'jJsonRpc.class.php');
 class jJsonRpcRequest extends jRequest{
 	public $type='jsonrpc';
 	public $defaultResponseType='jsonrpc';
+	public $authorizedResponseClass='jResponseJsonrpc';
 	public $jsonRequestId=null;
 	protected function _initParams(){
 		global $HTTP_RAW_POST_DATA;
@@ -35,8 +36,5 @@ class jJsonRpcRequest extends jRequest{
 		$this->params['params']=$requestobj['params'];
 		$this->params['module']=$module;
 		$this->params['action']=$action;
-	}
-	public function isAllowedResponse($respclass){
-		return('jResponseJsonrpc'==$respclass);
 	}
 }

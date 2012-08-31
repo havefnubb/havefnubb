@@ -15,7 +15,7 @@ class jSelectorUrlCfgSig extends jSelectorCfg{
 		$o=new jSignificantUrlsCompiler();
 		return $o;
 	}
-	public function getCompiledFilePath(){return JELIX_APP_TEMP_PATH.'compiled/urlsig/'.$this->file.'.creationinfos.php';}
+	public function getCompiledFilePath(){return jApp::tempPath('compiled/urlsig/'.$this->file.'.creationinfos.php');}
 }
 class jSelectorUrlHandler extends jSelectorClass{
 	public $type='urlhandler';
@@ -48,12 +48,13 @@ class significantUrlEngine implements jIUrlEngine{
 			$sel=new jSelectorUrlCfgSig($gJConfig->urlengine['significantFile']);
 			jIncluder::inc($sel);
 			$snp=$gJConfig->urlengine['urlScriptIdenc'];
-			$file=JELIX_APP_TEMP_PATH.'compiled/urlsig/'.$sel->file.'.'.$snp.'.entrypoint.php';
+			$file=jApp::tempPath('compiled/urlsig/'.$sel->file.'.'.$snp.'.entrypoint.php');
 			if(file_exists($file)){
 				require($file);
 				$this->dataCreateUrl=& $GLOBALS['SIGNIFICANT_CREATEURL'];
 				$this->dataParseUrl=& $GLOBALS['SIGNIFICANT_PARSEURL'][$snp];
-				return $this->_parse($request->urlScript,$request->urlPathInfo,$params);
+				$isHttps=($request->getProtocol()=='https://');
+				return $this->_parse($request->urlScript,$request->urlPathInfo,$params,$isHttps);
 			}
 		}
 		$urlact=new jUrlAction($params);
@@ -76,18 +77,18 @@ class significantUrlEngine implements jIUrlEngine{
 				$snp=substr($snp,0,$pos);
 			}
 			$snp=rawurlencode($snp);
-			$file=JELIX_APP_TEMP_PATH.'compiled/urlsig/'.$sel->file.'.'.$snp.'.entrypoint.php';
+			$file=jApp::tempPath('compiled/urlsig/'.$sel->file.'.'.$snp.'.entrypoint.php');
 			if(file_exists($file)){
 				require($file);
 				$this->dataCreateUrl=& $GLOBALS['SIGNIFICANT_CREATEURL'];
 				$this->dataParseUrl=& $GLOBALS['SIGNIFICANT_PARSEURL'][$snp];
-				return $this->_parse($scriptNamePath,$pathinfo,$params);
+				return $this->_parse($scriptNamePath,$pathinfo,$params,false);
 			}
 		}
 		$urlact=new jUrlAction($params);
 		return $urlact;
 	}
-	protected function _parse($scriptNamePath,$pathinfo,$params){
+	protected function _parse($scriptNamePath,$pathinfo,$params,$isHttps){
 		global $gJConfig;
 		$urlact=null;
 		$isDefault=false;
@@ -97,8 +98,8 @@ class significantUrlEngine implements jIUrlEngine{
 				$isDefault=$infoparsing;
 				continue;
 			}
-			if(count($infoparsing)< 6){
-				list($module,$action,$reg,$selectorHandler,$secondariesActions)=$infoparsing;
+			if(count($infoparsing)< 7){
+				list($module,$action,$reg,$selectorHandler,$secondariesActions,$needHttps)=$infoparsing;
 				$url2=clone $url;
 				if($reg!=''){
 					if(preg_match($reg,$pathinfo,$m))
@@ -128,7 +129,8 @@ class significantUrlEngine implements jIUrlEngine{
 				}
 			}
 			elseif(preg_match($infoparsing[2],$pathinfo,$matches)){
-				list($module,$action,$reg,$dynamicValues,$escapes,$staticValues,$secondariesActions)=$infoparsing;
+				list($module,$action,$reg,$dynamicValues,$escapes,
+					$staticValues,$secondariesActions,$needHttps)=$infoparsing;
 				if(isset($params['module'])&&$params['module']!==$module)
 					continue;
 				if($module!='')
@@ -152,7 +154,7 @@ class significantUrlEngine implements jIUrlEngine{
 					array_shift($matches);
 					foreach($dynamicValues as $k=>$name){
 						if(isset($matches[$k])){
-							if($escapes[$k]){
+							if($escapes[$k]==2){
 								$params[$name]=jUrl::unescape($matches[$k]);
 							}
 							else{
@@ -177,6 +179,9 @@ class significantUrlEngine implements jIUrlEngine{
 					$urlact=new jUrlAction(array('module'=>'jelix','action'=>'error:notfound'));
 				}
 			}
+		}
+		else if($needHttps&&! $isHttps){
+			$urlact=new jUrlAction(array('module'=>'jelix','action'=>'error:notfound'));
 		}
 		return $urlact;
 	}
@@ -258,12 +263,18 @@ class significantUrlEngine implements jIUrlEngine{
 		elseif($urlinfo[0]==1){
 			$pi=$urlinfo[5];
 			foreach($urlinfo[3] as $k=>$param){
-				if($urlinfo[4][$k]){
-					$pi=str_replace(':'.$param,jUrl::escape($url->getParam($param,''),true),$pi);
+				switch($urlinfo[4][$k]){
+					case 2:
+						$value=jUrl::escape($url->getParam($param,''),true);
+						break;
+					case 1:
+						$value=str_replace('%2F','/',urlencode($url->getParam($param,'')));
+						break;
+					default:
+						$value=urlencode($url->getParam($param,''));
+						break;
 				}
-				else{
-					$pi=str_replace(':'.$param,urlencode($url->getParam($param,'')),$pi);
-				}
+				$pi=str_replace(':'.$param,$value,$pi);
 				$url->delParam($param);
 			}
 			$url->pathInfo=$pi;

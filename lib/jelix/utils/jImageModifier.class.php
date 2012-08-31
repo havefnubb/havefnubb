@@ -45,7 +45,7 @@ class jImageModifier{
 		list($srcPath,$srcUri,$cachePath,$cacheUri)=self::computeUrlFilePath($config);
 		$pendingTransforms=($chaine!==$src);
 		if($pendingTransforms&&is_file($srcPath.$src)&&!is_file($cachePath.$cacheName)){
-			self::transformAndCache($srcPath.$src,$cachePath,$cacheName,$params);
+			self::transformImage($srcPath.$src,$cachePath,$cacheName,$params);
 		}
 		if(!is_file($cachePath.$cacheName)){
 			$att['src']=$srcUri.$src;
@@ -71,23 +71,23 @@ class jImageModifier{
 			if($srcUri[0]!='/'&&strpos($srcUri,'http:')!==0)
 				$srcUri=$basePath.$srcUri;
 			$srcPath=str_replace(array('www:','app:'),
-									array(JELIX_APP_WWW_PATH,JELIX_APP_PATH),
+									array(jApp::wwwPath(),jApp::appPath()),
 									$config['src_path']);
 		}
 		else{
 			$srcUri=$GLOBALS['gJCoord']->request->getServerURI().$basePath;
-			$srcPath=JELIX_APP_WWW_PATH;
+			$srcPath=jApp::wwwPath();
 		}
 		if($config['cache_path']&&$config['cache_url']){
 			$cacheUri=$config['cache_url'];
 			if($cacheUri[0]!='/'&&strpos($cacheUri,'http:')!==0)
 				$cacheUri=$basePath.$cacheUri;
 			$cachePath=str_replace(array('www:','app:'),
-									array(JELIX_APP_WWW_PATH,JELIX_APP_PATH),
+									array(jApp::wwwPath(),jApp::appPath()),
 									$config['cache_path']);
 		}
 		else{
-			$cachePath=JELIX_APP_WWW_PATH.'cache/images/';
+			$cachePath=jApp::wwwPath('cache/images/');
 			$cacheUri=$GLOBALS['gJCoord']->request->getServerURI().$basePath.'cache/images/';
 		}
 		return array($srcPath,$srcUri,$cachePath,$cacheUri);
@@ -95,7 +95,7 @@ class jImageModifier{
 	static protected $mimes=array('gif'=>'image/gif','png'=>'image/png',
 						'jpeg'=>'image/jpeg','jpg'=>'image/jpeg','jpe'=>'image/jpeg',
 						'xpm'=>'image/x-xpixmap','xbm'=>'image/x-xbitmap','wbmp'=>'image/vnd.wap.wbmp');
-	static protected function transformAndCache($srcFs,$cachePath,$cacheName,$params){
+	static public function transformImage($srcFs,$targetPath,$targetName,$params){
 		$path_parts=pathinfo($srcFs);
 		$mimeType=self::$mimes[strtolower($path_parts['extension'])];
 		$quality=(!empty($params['quality']))?  $params['quality'] : 100;
@@ -186,11 +186,11 @@ class jImageModifier{
 			imagecopy($fond,$image,0,0,0,0,imagesx($image),imagesy($image));
 			$image=$fond;
 		}
-		jFile::createDir($cachePath);
+		jFile::createDir($targetPath);
 		switch($mimeType){
-			case 'image/gif'  : imagegif($image,$cachePath.$cacheName);break;
-			case 'image/jpeg' : imagejpeg($image,$cachePath.$cacheName,$quality);break;
-			default			: imagepng($image,$cachePath.$cacheName);
+			case 'image/gif'  : imagegif($image,$targetPath.$targetName);break;
+			case 'image/jpeg' : imagejpeg($image,$targetPath.$targetName,$quality);break;
+			default			: imagepng($image,$targetPath.$targetName);
 		}
 		@imagedestroy($image);
 	}

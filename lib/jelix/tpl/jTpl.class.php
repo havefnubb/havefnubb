@@ -90,7 +90,7 @@ class jTpl{
 		$sel=new jSelectorTpl($tpl,$outputtype,$trusted);
 		$tpl=$sel->toString();
 		if(in_array($tpl,$this->processedMeta)){
-			return;
+			return $this->_meta;
 		}
 		$this->processedMeta[]=$tpl;
 		$md=$this->getTemplate($sel,$outputtype,$trusted);
@@ -127,7 +127,13 @@ class jTpl{
 			$tpl=$sel->toString();
 			$previousTpl=$this->_templateName;
 			$this->_templateName=$tpl;
-			$this->processedMeta[]=$tpl;
+			if($callMeta){
+				if(in_array($tpl,$this->processedMeta)){
+					$callMeta=false;
+				}
+				else
+					$this->processedMeta[]=$tpl;
+			}
 			$this->recursiveTpl[]=$tpl;
 			$md=$this->getTemplate($sel,$outputtype,$trusted);
 			if($callMeta){

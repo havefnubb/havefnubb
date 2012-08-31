@@ -8,7 +8,7 @@
 * @contributor Laurent Jouanneau
 * @copyright   2005-2006 Loic Mathaud
 * @copyright   2006 Yannick Le Guédart
-* @copyright   2006-2007 Laurent Jouanneau
+* @copyright   2006-2010 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -24,48 +24,16 @@ class jResponseRss20 extends jResponseXMLFeed{
 		$this->infos->language=$this->lang;
 	}
 	final public function output(){
-		$this->_headSent=false;
 		$this->_httpHeaders['Content-Type']=
 				'application/xml;charset=' . $this->charset;
+		$this->_template->assign('rss',$this->infos);
+		$this->_template->assign('items',$this->itemList);
+		$content=$this->_template->fetch($this->_mainTpl);
 		$this->sendHttpHeaders();
 		echo '<?xml version="1.0" encoding="'. $this->charset .'"?>',"\n";
 		$this->_outputXmlHeader();
-		$this->_headSent=true;
-		$this->_template->assign('rss',$this->infos);
-		$this->_template->assign('items',$this->itemList);
-		$this->_template->display($this->_mainTpl);
-		if($this->hasErrors()){
-			echo $this->getFormatedErrorMsg();
-		}
-		echo '</rss>';
+		echo $content;
 		return true;
-	}
-	final public function outputErrors(){
-		if(!$this->_headSent){
-			if(!$this->_httpHeadersSent){
-				header("HTTP/1.0 500 Internal Server Error");
-				header('Content-Type: text/xml;charset='.$this->charset);
-			}
-			echo '<?xml version="1.0" encoding="'. $this->charset .'"?>';
-		}
-		echo '<errors xmlns="http://jelix.org/ns/xmlerror/1.0">';
-		if($this->hasErrors()){
-			echo $this->getFormatedErrorMsg();
-		}else{
-			echo '<error>Unknown Error</error>';
-		}
-		echo '</errors>';
-	}
-	protected function getFormatedErrorMsg(){
-		$errors='';
-		foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-			$errors.='<error xmlns="http://jelix.org/ns/xmlerror/1.0" type="'. $e[0] .'" code="'. $e[1] .'" file="'. $e[3] .'" line="'. $e[4] .'">';
-			$errors.=htmlspecialchars($e[2],ENT_NOQUOTES,$this->charset);
-			if($e[5])
-			$errors.="\n".htmlspecialchars($e[5],ENT_NOQUOTES,$this->charset);
-			$errors.='</error>'. "\n";
-		}
-		return $errors;
 	}
 	public function createItem($title,$link,$date){
 		$item=new jRSSItem();

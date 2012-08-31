@@ -16,8 +16,8 @@ define('K_PATH_URL',
 		$GLOBALS['gJCoord']->request->getServerURI().
 		$GLOBALS['gJConfig']->urlengine['basePath']);
 define('K_PATH_FONTS',LIB_PATH.'pdf-fonts/');
-define('K_PATH_CACHE',JELIX_APP_TEMP_PATH);
-define('K_PATH_IMAGES',JELIX_APP_PATH);
+define('K_PATH_CACHE',jApp::tempPath());
+define('K_PATH_IMAGES',jApp::appPath());
 define('K_BLANK_IMAGE',K_PATH_MAIN.'images/_blank.png');
 define('K_CELL_HEIGHT_RATIO',1.25);
 define('K_SMALL_RATIO',2/3);
@@ -26,6 +26,9 @@ class jTcpdf extends TCPDF{
 	public function __construct($orientation='P',$unit='mm',$format='A4',$encoding=null){
 		if($encoding===null)
 			$encoding=$GLOBALS['gJConfig']->charset;
+		if(!is_dir(K_PATH_FONTS)){
+			throw new jException('jelix~errors.tcpdf.fonts_missing',array(K_PATH_FONTS));
+		}
 		parent::__construct($orientation,$unit,$format,($encoding=='UTF-8'||$encoding=='UTF-16'),$encoding);
 		$this->setHeaderFont(array('helvetica','',10));
 		$this->setFooterFont(array('helvetica','',10));

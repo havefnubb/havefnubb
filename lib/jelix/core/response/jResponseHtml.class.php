@@ -6,7 +6,7 @@
 * @author      Laurent Jouanneau
 * @contributor Yann, Dominique Papin
 * @contributor Warren Seine, Alexis Métaireau, Julien Issler, Olivier Demah, Brice Tence
-* @copyright   2005-2009 Laurent Jouanneau, 2006 Yann, 2007 Dominique Papin
+* @copyright   2005-2010 Laurent Jouanneau, 2006 Yann, 2007 Dominique Papin
 * @copyright   2008 Warren Seine, Alexis Métaireau
 * @copyright   2009 Julien Issler, Olivier Demah
 * @copyright   2010 Brice Tence
@@ -14,9 +14,9 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
+require_once(JELIX_LIB_CORE_PATH.'response/jResponseBasicHtml.class.php');
 require_once(JELIX_LIB_PATH.'tpl/jTpl.class.php');
-require_once(JELIX_LIB_PATH.'utils/jMinifier.class.php');
-class jResponseHtml extends jResponse{
+class jResponseHtml extends jResponseBasicHtml{
 	protected $_type='html';
 	public $title='';
 	public $favicon='';
@@ -24,9 +24,6 @@ class jResponseHtml extends jResponse{
 	public $bodyTpl='';
 	public $bodyErrorTpl='';
 	public $bodyTagAttributes=array();
-	protected $_headSent=0;
-	protected $_charset;
-	protected $_lang;
 	protected $_CSSLink=array();
 	protected $_CSSIELink=array();
 	protected $_Styles=array();
@@ -34,140 +31,54 @@ class jResponseHtml extends jResponse{
 	protected $_JSIELink=array();
 	protected $_JSCodeBefore=array();
 	protected $_JSCode=array();
-	protected $_Others=array();
 	protected $_MetaKeywords=array();
 	protected $_MetaDescription=array();
 	protected $_MetaAuthor='';
 	protected $_MetaGenerator='';
 	protected $_Link=array();
-	protected $_bodyTop=array();
-	protected $_bodyBottom=array();
-	protected $_isXhtml=true;
 	protected $_endTag="/>\n";
 	protected $_strictDoctype=true;
-	public $xhtmlContentType=false;
 	function __construct(){
-		global $gJConfig;
-		$this->_charset=$gJConfig->charset;
-		$this->_lang=$gJConfig->locale;
 		$this->body=new jTpl();
 		parent::__construct();
 	}
 	public function output(){
+		foreach($this->plugins as $name=>$plugin)
+			$plugin->afterAction();
 		$this->doAfterActions();
-		$this->_headSent=0;
-		if($this->_isXhtml&&$this->xhtmlContentType&&strstr($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml')){
-			$this->_httpHeaders['Content-Type']='application/xhtml+xml;charset='.$this->_charset;
-		}else{
-			$this->_httpHeaders['Content-Type']='text/html;charset='.$this->_charset;
+		$this->setContentType();
+		if($this->bodyTpl!=''){
+			$this->body->meta($this->bodyTpl);
+			$content=$this->body->fetch($this->bodyTpl,'html',true,false);
 		}
+		else $content='';
+		jLog::outputLog($this);
+		foreach($this->plugins as $name=>$plugin)
+			$plugin->beforeOutput();
 		$this->sendHttpHeaders();
 		$this->outputDoctype();
-		$this->_headSent=1;
-		if($this->bodyTpl!='')
-			$this->body->meta($this->bodyTpl);
 		$this->outputHtmlHeader();
 		echo '<body ';
 		foreach($this->bodyTagAttributes as $attr=>$value){
 			echo $attr,'="',htmlspecialchars($value),'" ';
 		}
 		echo ">\n";
-		$this->_headSent=2;
 		echo implode("\n",$this->_bodyTop);
-		if($this->bodyTpl!='')
-			$this->body->display($this->bodyTpl);
-		if($this->hasErrors()){
-			if($GLOBALS['gJConfig']->error_handling['showInFirebug']){
-				echo '<script type="text/javascript">if(console){';
-				foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-					switch($e[0]){
-					case 'warning':
-						echo 'console.warn("[warning ';
-						break;
-					case 'notice':
-						echo 'console.info("[notice ';
-						break;
-					case 'strict':
-						echo 'console.info("[strict ';
-						break;
-					case 'error':
-						echo 'console.error("[error ';
-						break;
-					}
-					$m=$e[2].($e[5]?"\n".$e[5]:"");
-					echo $e[1],'] ',str_replace(array('"',"\n","\r","\t"),array('\"','\\n','\\r','\\t'),$m),' (',str_replace('\\','\\\\',$e[3]),' ',$e[4],')");';
-				}
-				echo '}else{alert("there are some errors, you should activate Firebug to see them");}</script>';
-			}else{
-				echo '<div id="jelixerror" style="position:absolute;left:0px;top:0px;border:3px solid red; background-color:#f39999;color:black;z-index:100;">';
-				echo $this->getFormatedErrorMsg();
-				echo '<p><a href="#" onclick="document.getElementById(\'jelixerror\').style.display=\'none\';return false;">close</a></p></div>';
-			}
-		}
+		echo $content;
 		echo implode("\n",$this->_bodyBottom);
-		$msgs=& $GLOBALS['gJCoord']->logMessages;
-		if(count($msgs)){
-			if(isset($msgs['response'])&&count($msgs['response'])){
-				echo '<ul id="jelixlog">';
-				foreach($msgs['response'] as $m){
-					echo '<li>',htmlspecialchars($m),'</li>';
-				}
-				echo '</ul>';
-			}
-			if(isset($msgs['firebug'])&&count($msgs['firebug'])){
-				echo '<script type="text/javascript">if(console){';
-				foreach($msgs['firebug'] as $m){
-					echo 'console.debug("',str_replace(array('"',"\n","\r","\t"),array('\"','\\n','\\r','\\t'),$m),'");';
-				}
-				echo '}else{alert("there are log messages, you should activate Firebug to see them");}</script>';
-			}
-		}
+		foreach($this->plugins as $name=>$plugin)
+			$plugin->atBottom();
 		echo '</body></html>';
 		return true;
 	}
-	protected function doAfterActions(){
-	}
-	public function outputErrors(){
-		if($this->_headSent < 1){
-			if(!$this->_httpHeadersSent){
-				header("HTTP/1.0 500 Internal Server Error");
-				header('Content-Type: text/html;charset='.$this->_charset);
-			}
-			echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">',"\n<html>";
-		}
-		if($this->_headSent < 2){
-			echo '<head><title>Errors</title></head><body>';
-		}
-		if($this->hasErrors()){
-			echo $this->getFormatedErrorMsg();
-		}else{
-			echo '<p style="color:#FF0000">Unknown Error</p>';
-		}
-		echo '</body></html>';
-	}
-	protected function getFormatedErrorMsg(){
-		$errors='';
-		foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-			$errors.='<p style="margin:0;"><b>['.$e[0].' '.$e[1].']</b> <span style="color:#FF0000">';
-			$errors.=htmlspecialchars($e[2],ENT_NOQUOTES,$this->_charset)."</span> \t".$e[3]." \t".$e[4]."</p>\n";
-			if($e[5])
-			$errors.='<pre>'.htmlspecialchars($e[5],ENT_NOQUOTES,$this->_charset).'</pre>';
-		}
-		return $errors;
-	}
-	function addContent($content,$beforeTpl=false){
-	if($beforeTpl){
-		$this->_bodyTop[]=$content;
-	}else{
-		$this->_bodyBottom[]=$content;
-	}
-	}
-	final public function addLink($href,$rel,$type='',$title=''){
+	public function addLink($href,$rel,$type='',$title=''){
 		$this->_Link[$href]=array($rel,$type,$title);
 	}
-	final public function addJSLink($src,$params=array(),$forIE=false){
+	public function addJSLink($src,$params=array(),$forIE=false){
 		if($forIE){
 			if(!isset($this->_JSIELink[$src])){
+				if(!is_bool($forIE)&&!empty($forIE))
+					$params['_ieCondition']=$forIE;
 				$this->_JSIELink[$src]=$params;
 			}
 		}else{
@@ -176,7 +87,15 @@ class jResponseHtml extends jResponse{
 			}
 		}
 	}
-	final public function addCSSLink($src,$params=array(),$forIE=false){
+	public function getJSLinks(){return $this->_JSLink;}
+	public function setJSLinks($list){$this->_JSLink=$list;}
+	public function getJSIELinks(){return $this->_JSIELink;}
+	public function setJSIELinks($list){$this->_JSIELink=$list;}
+	public function getCSSLinks(){return $this->_CSSLink;}
+	public function setCSSLinks($list){$this->_CSSLink=$list;}
+	public function getCSSIELinks(){return $this->_CSSIELink;}
+	public function setCSSIELinks($list){$this->_CSSIELink=$list;}
+	public function addCSSLink($src,$params=array(),$forIE=false){
 		if($forIE){
 			if(!isset($this->_CSSIELink[$src])){
 				if(!is_bool($forIE)&&!empty($forIE))
@@ -189,30 +108,27 @@ class jResponseHtml extends jResponse{
 			}
 		}
 	}
-	final public function addStyle($selector,$def=null){
+	public function addStyle($selector,$def=null){
 		if(!isset($this->_Styles[$selector])){
 			$this->_Styles[$selector]=$def;
 		}
 	}
-	final public function addHeadContent($content){
-		$this->_Others[]=$content;
-	}
-	final public function addJSCode($code,$before=false){
+	public function addJSCode($code,$before=false){
 		if($before)
 			$this->_JSCodeBefore[]=$code;
 		else
 			$this->_JSCode[]=$code;
 	}
-	final public function addMetaKeywords($content){
+	public function addMetaKeywords($content){
 		$this->_MetaKeywords[]=$content;
 	}
-	final public function addMetaDescription($content){
+	public function addMetaDescription($content){
 		$this->_MetaDescription[]=$content;
 	}
-	final public function addMetaAuthor($content){
+	public function addMetaAuthor($content){
 		$this->_MetaAuthor=$content;
 	}
-	final public function addMetaGenerator($content){
+	public function addMetaGenerator($content){
 		$this->_MetaGenerator=$content;
 	}
 	protected function outputDoctype(){
@@ -225,138 +141,25 @@ class jResponseHtml extends jResponse{
 			echo '<html lang="',$this->_lang,'">';
 		}
 	}
-	protected function outputJsScriptTag($fileUrl,$scriptParams,$filePath=null){
-		global $gJConfig;
+	protected function outputJsScriptTag($fileUrl,$scriptParams){
 		$params='';
-		if(is_array($scriptParams)){
-			foreach($scriptParams as $param_name=>$param_value){
-				$params.=$param_name.'="'. htmlspecialchars($param_value).'" ';
-			}
-		}else{
-			$params=$scriptParams;
+		foreach($scriptParams as $param_name=>$param_value){
+			if($param_name=='_ieCondition')
+				continue;
+			$params.=$param_name.'="'. htmlspecialchars($param_value).'" ';
 		}
-		$jsFilemtime='';
-		if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['jsUniqueUrlId']
-			&&$filePath!==null
-			&&(strpos($fileUrl,'http://')===FALSE)
-		){
-			$jsFilemtime="?".filemtime($filePath);
-		}
-		echo '<script type="text/javascript" src="',htmlspecialchars($fileUrl),$jsFilemtime,'" ',$params,'></script>',"\n";
+		echo '<script type="text/javascript" src="',htmlspecialchars($fileUrl),'" ',$params,'></script>',"\n";
 	}
-	protected function outputCssLinkTag($fileUrl,$cssParams,$filePath=null){
-		global $gJConfig;
+	protected function outputCssLinkTag($fileUrl,$cssParams){
 		$params='';
-		if(is_array($cssParams)){
-			foreach($cssParams as $param_name=>$param_value){
-				$params.=$param_name.'="'. htmlspecialchars($param_value).'" ';
-			}
-		}else{
-			$params=$cssParams;
+		foreach($cssParams as $param_name=>$param_value){
+			if($param_name=='_ieCondition')
+				continue;
+			$params.=$param_name.'="'. htmlspecialchars($param_value).'" ';
 		}
-		$cssFilemtime='';
-		if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['cssUniqueUrlId']
-			&&$filePath!==null
-			&&(strpos($fileUrl,'http://')===FALSE)
-		){
-			$cssFilemtime="?".filemtime($filePath);
-		}
-		echo '<link type="text/css" href="',htmlspecialchars($fileUrl),$cssFilemtime,'" ',$params,$this->_endTag,"\n";
-	}
-	protected function outputJsScripts(&$scriptList){
-		global $gJConfig;
-		$minifyJsByParams=array();
-		$minifyExcludeJS=array();
-		if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['minifyExcludeJS']){
-			$minifyExcludeJS=explode(',',$gJConfig->jResponseHtml['minifyExcludeJS']);
-		}
-		$basePath=$gJConfig->urlengine['basePath'];
-		foreach($scriptList as $src=>$params){
-			$scriptParams='';
-			$pathSrc=$src;
-			if($basePath!='/'&&$basePath!=''){
-					$res=explode($basePath,$src);
-					if(count($res)> 1)
-						list(,$pathSrc)=$res;
-				}
-			$pathIsAbsolute=(strpos($pathSrc,'http://')!==FALSE);
-			if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['minifyJS']&&
-				! $pathIsAbsolute&&! in_array(basename($pathSrc),$minifyExcludeJS)){
-				$sparams=$params;
-				ksort($sparams);
-				foreach($sparams as $param_name=>$param_value){
-					$scriptParams.=$param_name.'="'. htmlspecialchars($param_value).'" ';
-				}
-				$minifyJsByParams[$scriptParams][]="$src";
-			}else{
-				foreach($minifyJsByParams as $param_value=>$js_files){
-					foreach(jMinifier::minify($js_files,'js')as $minifiedJs){
-						$this->outputJsScriptTag($basePath.$minifiedJs,$param_value,JELIX_APP_WWW_PATH.$minifiedJs);
-					}
-				}
-				$minifyJsByParams=array();
-				$this->outputJsScriptTag($src,$params,JELIX_APP_WWW_PATH.$pathSrc);
-			}
-		}
-		foreach($minifyJsByParams as $param_value=>$js_files){
-			foreach(jMinifier::minify($js_files,'js')as $minifiedJs){
-				$this->outputJsScriptTag($basePath.$minifiedJs,$param_value,JELIX_APP_WWW_PATH.$minifiedJs);
-			}
-		}
-	}
-	protected function outputCssLinks(&$linkList){
-		global $gJConfig;
-		$minifyCssByParams=array();
-		$minifyExcludeCSS=array();
-		if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['minifyExcludeCSS']){
-			$minifyExcludeCSS=explode(',',$gJConfig->jResponseHtml['minifyExcludeCSS']);
-		}
-		$basePath=$gJConfig->urlengine['basePath'];
-		foreach($linkList as $src=>$params){
-			$cssParams='';
-			$pathSrc=$src;
-			if($basePath!='/'&&$basePath!=''){
-				$res=explode($basePath,$src);
-				if(count($res)> 1)
-					list(,$pathSrc)=$res;
-			}
-			$pathIsAbsolute=(strpos($pathSrc,'http://')!==FALSE);
-			if(isset($gJConfig->jResponseHtml)&&$gJConfig->jResponseHtml['minifyCSS']&&
-				! $pathIsAbsolute&&! in_array(basename($pathSrc),$minifyExcludeCSS)){
-				$sparams=$params;
-				ksort($sparams);
-				foreach($sparams as $param_name=>$param_value){
-					if($param_name!="media"){
-						$cssParams.=$param_name.'="'. htmlspecialchars($param_value).'" ';
-					}
-				}
-				if(!isset($params['rel']))
-					$cssParams.='rel="stylesheet" ';
-				if(isset($params['media'])){
-					foreach(explode(',',$params['media'])as $medium){
-						$myCssParams=$cssParams . 'media="' . $medium . '" ';
-						$minifyCssByParams[$myCssParams][]="$src";
-					}
-				}else{
-					$minifyCssByParams[$cssParams][]="$src";
-				}
-			}else{
-				foreach($minifyCssByParams as $param_value=>$css_files){
-					foreach(jMinifier::minify($css_files,'css')as $minifiedCss){
-						$this->outputCssLinkTag($basePath.$minifiedCss,$param_value,JELIX_APP_WWW_PATH.$minifiedCss);
-					}
-				}
-				$minifyCssByParams=array();
-				if(!isset($params['rel']))
-					$params['rel']='stylesheet';
-				$this->outputCssLinkTag($src,$params,JELIX_APP_WWW_PATH.$pathSrc);
-			}
-		}
-		foreach($minifyCssByParams as $param_value=>$css_files){
-			foreach(jMinifier::minify($css_files,'css')as $minifiedCss){
-				$this->outputCssLinkTag($basePath.$minifiedCss,$param_value,JELIX_APP_WWW_PATH.$minifiedCss);
-			}
-		}
+		if(!isset($cssParams['rel']))
+			$params.='rel="stylesheet" ';
+		echo '<link type="text/css" href="',htmlspecialchars($fileUrl),'" ',$params,$this->_endTag,"\n";
 	}
 	protected function outputHtmlHeader(){
 		global $gJConfig;
@@ -381,14 +184,14 @@ class jResponseHtml extends jResponse{
 		if(!empty($this->_MetaAuthor)){
 			echo '<meta name="author" content="'.htmlspecialchars($this->_MetaAuthor).'" '.$this->_endTag;
 		}
-		$this->outputCssLinks($this->_CSSLink);
+		foreach($this->_CSSLink as $src=>$params){
+			$this->outputCssLinkTag($src,$params);
+		}
 		foreach($this->_CSSIELink as $src=>$params){
 			if(!isset($params['_ieCondition']))
-				$params['_ieCondition']='IE';
+			$params['_ieCondition']='IE';
 			echo '<!--[if '.$params['_ieCondition'].' ]>';
-			unset($params['_ieCondition']);
-			$cssIeLink=array($src=>$params);
-			$this->outputCssLinks($cssIeLink);
+			$this->outputCssLinkTag($src,$params);
 			echo '<![endif]-->';
 		}
 		if($this->favicon!=''){
@@ -411,15 +214,18 @@ class jResponseHtml extends jResponse{
 // ]]>
 </script>';
 		}
-		$this->outputJsScripts($this->_JSLink);
-		if(count($this->_JSIELink)){
-			echo '<!--[if IE]>';
-			$this->outputJsScripts($this->_JSIELink);
+		foreach($this->_JSLink as $src=>$params){
+			$this->outputJsScriptTag($src,$params);
+		}
+		foreach($this->_JSIELink as $src=>$params){
+			if(!isset($params['_ieCondition']))
+				$params['_ieCondition']='IE';
+			echo '<!--[if '.$params['_ieCondition'].' ]>';
+			$this->outputJsScriptTag($src,$params);
 			echo '<![endif]-->';
 		}
 		if(count($this->_Styles)){
-			echo '<style type="text/css">
-            ';
+			echo "<style type=\"text/css\">\n";
 			foreach($this->_Styles as $selector=>$value){
 				if(strlen($value)){
 					echo $selector.' {'.$value."}\n";
@@ -436,7 +242,7 @@ class jResponseHtml extends jResponse{
 // ]]>
 </script>';
 		}
-		echo implode("\n",$this->_Others),'</head>';
+		echo implode("\n",$this->_headBottom),'</head>';
 	}
 	public function clearHtmlHeader($what=null){
 		$cleanable=array('CSSLink','CSSIELink','Styles','JSLink','JSIELink','JSCode','Others','MetaKeywords','MetaDescription');
@@ -456,9 +262,8 @@ class jResponseHtml extends jResponse{
 		else
 			$this->_endTag=">\n";
 	}
-	final public function strictDoctype($val=true){
+	public function strictDoctype($val=true){
 		$this->_strictDoctype=$val;
 	}
-	final public function isXhtml(){return $this->_isXhtml;}
-	final public function endTag(){return $this->_endTag;}
+	public function endTag(){return $this->_endTag;}
 }

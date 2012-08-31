@@ -10,7 +10,7 @@
 * @author   Laurent Jouanneau
 * @author Croes Gerald
 * @contributor Loic Mathaud, Julien Issler
-* @copyright 2005-2010 Laurent Jouanneau
+* @copyright 2005-2011 Laurent Jouanneau
 * @copyright 2001-2005 CopixTeam
 * @copyright 2006 Loic Mathaud
 * @copyright 2007-2009 Julien Issler
@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.2.7pre.1871');
+define('JELIX_VERSION','1.3.3pre');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -30,6 +30,97 @@ if(!defined('E_DEPRECATED'))
 if(!defined('E_USER_DEPRECATED'))
 	define('E_USER_DEPRECATED',16384);
 error_reporting(E_ALL | E_STRICT);
+class jApp{
+	protected static $tempBasePath='';
+	protected static $tempPath='';
+	protected static $appPath='';
+	protected static $varPath='';
+	protected static $logPath='';
+	protected static $configPath='';
+	protected static $wwwPath='';
+	protected static $scriptPath='';
+	protected static $_isInit=false;
+	protected static $env='www/';
+	public static function initPaths($appPath,
+								$wwwPath=null,
+								$varPath=null,
+								$logPath=null,
+								$configPath=null,
+								$scriptPath=null
+								){
+		self::$appPath=$appPath;
+		self::$wwwPath=(is_null($wwwPath)?$appPath.'www/':$wwwPath);
+		self::$varPath=(is_null($varPath)?$appPath.'var/':$varPath);
+		self::$logPath=(is_null($logPath)?self::$varPath.'log/':$logPath);
+		self::$configPath=(is_null($configPath)?self::$varPath.'config/':$configPath);
+		self::$scriptPath=(is_null($scriptPath)?$appPath.'scripts/':$scriptPath);
+		self::$_isInit=true;
+	}
+	public static function isInit(){return self::$_isInit;}
+	public static function initLegacy(){
+		if(self::$_isInit){
+			if(!defined('JELIX_APP_PATH')){
+				define('JELIX_APP_PATH',self::$appPath);
+				define('JELIX_APP_TEMP_PATH',self::tempPath());
+				define('JELIX_APP_VAR_PATH',self::$varPath);
+				define('JELIX_APP_LOG_PATH',self::$logPath);
+				define('JELIX_APP_CONFIG_PATH',self::$configPath);
+				define('JELIX_APP_WWW_PATH',self::$wwwPath);
+				define('JELIX_APP_CMD_PATH',self::$scriptPath);
+			}
+		}
+		else if(defined('JELIX_APP_PATH')){
+			self::initPaths(JELIX_APP_PATH,
+							JELIX_APP_WWW_PATH,
+							JELIX_APP_VAR_PATH,
+							JELIX_APP_LOG_PATH,
+							JELIX_APP_CONFIG_PATH,
+							JELIX_APP_CMD_PATH);
+			self::setTempBasePath(JELIX_APP_TEMP_PATH);
+		}
+	}
+	public static function appPath($file=''){return self::$appPath.$file;}
+	public static function varPath($file=''){return self::$varPath.$file;}
+	public static function logPath($file=''){return self::$logPath.$file;}
+	public static function configPath($file=''){return self::$configPath.$file;}
+	public static function wwwPath($file=''){return self::$wwwPath.$file;}
+	public static function scriptsPath($file=''){return self::$scriptPath.$file;}
+	public static function tempPath($file=''){return self::$tempBasePath.self::$env.$file;}
+	public static function tempBasePath(){return self::$tempBasePath;}
+	public static function setTempBasePath($path){
+		self::$tempBasePath=$path;
+	}
+	public static function setEnv($env){
+		if(substr($env,-1)!='/')
+			$env.='/';
+		self::$env=$env;
+	}
+	protected static $contextBackup=array();
+	public static function saveContext(){
+		self::$contextBackup[]=array(self::$appPath,self::$varPath,self::$logPath,self::$configPath,
+										self::$wwwPath,self::$scriptPath,self::$tempBasePath);
+	}
+	public static function restoreContext(){
+		if(!count(self::$contextBackup))
+			return;
+		list(self::$appPath,self::$varPath,self::$logPath,self::$configPath,
+			self::$wwwPath,self::$scriptPath,self::$tempBasePath)=array_pop(self::$contextBackup);
+	}
+	public static function loadPlugin($name,$type,$suffix,$classname,$args=null){
+		if(!class_exists($classname,false)){
+			global $gJConfig;
+			$optname='_pluginsPathList_'.$type;
+			if(!isset($gJConfig->$optname))
+				return null;
+			$opt=& $gJConfig->$optname;
+			require_once($opt[$name].$name.$suffix);
+		}
+		if(!is_null($args))
+			return new $classname($args);
+		else
+			return new $classname();
+	}
+}
 interface jICoordPlugin{
 	public function __construct($config);
 	public function beforeAction($params);
@@ -74,20 +165,14 @@ function jErrorHandler($errno,$errmsg,$filename,$linenum,$errcontext){
 		$errno=E_ERROR;
 	}
 	$codestr=$codeString[$errno];
-	if($gJConfig){
-		$toDo=$gJConfig->error_handling[$codestr];
-	}
-	else{
-		$toDo='ECHO EXIT';
-	}
 	$trace=debug_backtrace();
 	array_shift($trace);
-	$gJCoord->handleError($toDo,$codestr,$errno,$errmsg,$filename,$linenum,$trace);
+	$gJCoord->handleError($codestr,$errno,$errmsg,$filename,$linenum,$trace);
 }
 function jExceptionHandler($e){
-	global $gJConfig,$gJCoord;
-	$gJCoord->handleError(($gJConfig?$gJConfig->error_handling['exception']:'ECHO').' EXIT','exception',
-						$e->getCode(),$e->getMessage(),$e->getFile(),$e->getLine(),$e->getTrace());
+	global $gJCoord;
+	$gJCoord->handleError('error',$e->getCode(),$e->getMessage(),$e->getFile(),
+						$e->getLine(),$e->getTrace());
 }
 class jException extends Exception{
 	protected $localeKey='';
@@ -132,18 +217,19 @@ class jConfig{
 	private function __construct(){}
 	static public function load($configFile){
 		$config=array();
+		$file=jApp::tempPath();
 		if(BYTECODE_CACHE_EXISTS)
-			$file=JELIX_APP_TEMP_PATH.str_replace('/','~',$configFile).'.conf.php';
+			$file.=str_replace('/','~',$configFile).'.conf.php';
 		else
-			$file=JELIX_APP_TEMP_PATH.str_replace('/','~',$configFile).'.resultini.php';
+			$file.=str_replace('/','~',$configFile).'.resultini.php';
 		$compil=false;
 		if(!file_exists($file)){
 			$compil=true;
 		}else{
 			$t=filemtime($file);
-			$dc=JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php';
+			$dc=jApp::configPath('defaultconfig.ini.php');
 			if((file_exists($dc)&&filemtime($dc)>$t)
-				||filemtime(JELIX_APP_CONFIG_PATH.$configFile)>$t){
+				||filemtime(jApp::configPath($configFile))>$t){
 				$compil=true;
 			}else{
 				if(BYTECODE_CACHE_EXISTS){
@@ -185,6 +271,30 @@ class jSelectorFactory{
 			}
 		}
 		throw new jExceptionSelector('jelix~errors.selector.invalid.syntax',array($selstr,''));
+	}
+}
+class jServer{
+	static function isCLI(){
+		if(PHP_SAPI!='cli'&&strpos(PHP_SAPI,'cgi')===false){
+			return false;
+		}
+		if(PHP_SAPI!='cli'){
+			if(isset($_SERVER['HTTP_HOST'])||isset($_SERVER['REDIRECT_URL'])||isset($_SERVER['SERVER_PORT'])){
+				return false;
+			}
+			header('Content-type: text/plain');
+			if(!isset($_SERVER['argv'])){
+				$_SERVER['argv']=array_keys($_GET);
+				$_SERVER['argc']=count($_GET);
+			}
+			if(!isset($_SERVER['SCRIPT_NAME'])){
+				$_SERVER['SCRIPT_NAME']=$_SERVER['argv'][0];
+			}
+			if(!isset($_SERVER['DOCUMENT_ROOT'])){
+				$_SERVER['DOCUMENT_ROOT']='';
+			}
+		}
+		return true;
 	}
 }
 abstract class jSelectorModule implements jISelector{
@@ -252,7 +362,7 @@ abstract class jSelectorModule implements jISelector{
 		}
 	}
 	protected function _createCachePath(){
-		$this->_cachePath=JELIX_APP_TEMP_PATH.'compiled/'.$this->_dirname.$this->module.'~'.$this->resource.$this->_cacheSuffix;
+		$this->_cachePath=jApp::tempPath('compiled/'.$this->_dirname.$this->module.'~'.$this->resource.$this->_cacheSuffix);
 	}
 }
 class jSelectorActFast extends jSelectorModule{
@@ -402,7 +512,7 @@ class jSelectorDao extends jSelectorModule{
 	protected $_where;
 	function __construct($sel,$driver,$isprofile=true){
 		if($isprofile){
-			$p=jDb::getProfile($driver);
+			$p=jProfiles::get('jdb',$driver);
 			if($p['driver']=='pdo'){
 				$this->driver=substr($p['dsn'],0,strpos($p['dsn'],':'));
 			}
@@ -422,7 +532,7 @@ class jSelectorDao extends jSelectorModule{
 		if(!isset($gJConfig->_modulesPathList[$this->module])){
 			throw new jExceptionSelector('jelix~errors.selector.module.unknown',$this->toString());
 		}
-		$overloadedPath=JELIX_APP_VAR_PATH.'overloads/'.$this->module.'/'.$this->_dirname.$this->resource.$this->_suffix;
+		$overloadedPath=jApp::varPath('overloads/'.$this->module.'/'.$this->_dirname.$this->resource.$this->_suffix);
 		if(is_readable($overloadedPath)){
 			$this->_path=$overloadedPath;
 			$this->_where='overloaded/';
@@ -435,7 +545,7 @@ class jSelectorDao extends jSelectorModule{
 		$this->_where='modules/';
 	}
 	protected function _createCachePath(){
-		$this->_cachePath=JELIX_APP_TEMP_PATH.'compiled/daos/'.$this->_where.$this->module.'~'.$this->resource.'~'.$this->driver.$this->_cacheSuffix;
+		$this->_cachePath=jApp::tempPath('compiled/daos/'.$this->_where.$this->module.'~'.$this->resource.'~'.$this->driver.$this->_cacheSuffix);
 	}
 	public function getDaoClass(){
 		return 'cDao_'.$this->module.'_Jx_'.$this->resource.'_Jx_'.$this->driver;
@@ -462,7 +572,7 @@ class jSelectorForm extends jSelectorModule{
 		if(!isset($gJConfig->_modulesPathList[$this->module])){
 			throw new jExceptionSelector('jelix~errors.selector.module.unknown',$this->toString(true));
 		}
-		$overloadedPath=JELIX_APP_VAR_PATH.'overloads/'.$this->module.'/'.$this->_dirname.$this->resource.$this->_suffix;
+		$overloadedPath=jApp::varPath('overloads/'.$this->module.'/'.$this->_dirname.$this->resource.$this->_suffix);
 		if(is_readable($overloadedPath)){
 			$this->_path=$overloadedPath;
 			$this->_where='overloaded/';
@@ -475,10 +585,10 @@ class jSelectorForm extends jSelectorModule{
 		$this->_where='modules/';
 	}
 	protected function _createCachePath(){
-		$this->_cachePath=JELIX_APP_TEMP_PATH.'compiled/'.$this->_dirname.$this->_where.$this->module.'~'.$this->resource.$this->_cacheSuffix;
+		$this->_cachePath=jApp::tempPath('compiled/'.$this->_dirname.$this->_where.$this->module.'~'.$this->resource.$this->_cacheSuffix);
 	}
 	public function getCompiledBuilderFilePath($type){
-		return JELIX_APP_TEMP_PATH.'compiled/'.$this->_dirname.$this->_where.$this->module.'~'.$this->resource.'_builder_'.$type.$this->_cacheSuffix;
+		return jApp::tempPath('compiled/'.$this->_dirname.$this->_where.$this->module.'~'.$this->resource.'_builder_'.$type.$this->_cacheSuffix);
 	}
 }
 class jSelectorIface extends jSelectorClass{
@@ -537,7 +647,7 @@ class jSelectorLoc extends jSelectorModule{
 		if($this->locale!==$generic_locale)
 			$locales[]=$generic_locale;
 		foreach($locales as $locale){
-			$overloadedPath=JELIX_APP_VAR_PATH.'overloads/'.$this->module.'/locales/'.$locale.'/'.$this->resource.$this->_suffix;
+			$overloadedPath=jApp::varPath('overloads/'.$this->module.'/locales/'.$locale.'/'.$this->resource.$this->_suffix);
 			if(is_readable($overloadedPath)){
 				$this->_path=$overloadedPath;
 				$this->_where='overloaded/';
@@ -563,7 +673,7 @@ class jSelectorLoc extends jSelectorModule{
 		throw new jExceptionSelector('jelix~errors.selector.invalid.target',array($this->toString(),"locale"),1,$l,$c);
 	}
 	protected function _createCachePath(){
-		$this->_cachePath=JELIX_APP_TEMP_PATH.'compiled/locales/'.$this->_where.$this->module.'~'.$this->resource.$this->_cacheSuffix;
+		$this->_cachePath=jApp::tempPath('compiled/locales/'.$this->_where.$this->module.'~'.$this->resource.$this->_cacheSuffix);
 	}
 	public function toString($full=false){
 		if($full)
@@ -603,23 +713,23 @@ class jSelectorTpl extends jSelectorModule{
 		$lpath=$this->module.'/'.$gJConfig->locale.'/'.$this->resource;
 		if($gJConfig->theme!='default'){
 			$this->_where='themes/'.$gJConfig->theme.'/'.$lpath;
-			$this->_path=JELIX_APP_VAR_PATH.$this->_where.'.tpl';
+			$this->_path=jApp::varPath($this->_where.'.tpl');
 			if(is_readable($this->_path)){
 				return;
 			}
 			$this->_where='themes/'.$gJConfig->theme.'/'.$path;
-			$this->_path=JELIX_APP_VAR_PATH.$this->_where.'.tpl';
+			$this->_path=jApp::varPath($this->_where.'.tpl');
 			if(is_readable($this->_path)){
 				return;
 			}
 		}
 		$this->_where='themes/default/'.$lpath;
-		$this->_path=JELIX_APP_VAR_PATH.$this->_where.'.tpl';
+		$this->_path=jApp::varPath($this->_where.'.tpl');
 		if(is_readable($this->_path)){
 			return;
 		}
 		$this->_where='themes/default/'.$path;
-		$this->_path=JELIX_APP_VAR_PATH.$this->_where.'.tpl';
+		$this->_path=jApp::varPath($this->_where.'.tpl');
 		if(is_readable($this->_path)){
 			return;
 		}
@@ -636,7 +746,7 @@ class jSelectorTpl extends jSelectorModule{
 		throw new jExceptionSelector('jelix~errors.selector.invalid.target',array($this->toString(),"template"));
 	}
 	protected function _createCachePath(){
-		$this->_cachePath=JELIX_APP_TEMP_PATH.'compiled/templates/'.$this->_where.'_'.$this->outputType.($this->trusted?'_t':'').$this->_cacheSuffix;
+		$this->_cachePath=jApp::tempPath('compiled/templates/'.$this->_where.'_'.$this->outputType.($this->trusted?'_t':'').$this->_cacheSuffix);
 	}
 }
 class jSelectorZone extends jSelectorModule{
@@ -676,28 +786,28 @@ class jSelectorSimpleFile implements jISelector{
 class jSelectorVar extends jSelectorSimpleFile{
 	protected $type='var';
 	function __construct($sel){
-		$this->_basePath=JELIX_APP_VAR_PATH;
+		$this->_basePath=jApp::varPath();
 		parent::__construct($sel);
 	}
 }
 class jSelectorCfg extends jSelectorSimpleFile{
 	protected $type='cfg';
 	function __construct($sel){
-		$this->_basePath=JELIX_APP_CONFIG_PATH;
+		$this->_basePath=jApp::configPath();
 		parent::__construct($sel);
 	}
 }
 class jSelectorTmp extends jSelectorSimpleFile{
 	protected $type='tmp';
 	function __construct($sel){
-		$this->_basePath=JELIX_APP_TEMP_PATH;
+		$this->_basePath=jApp::tempPath();
 		parent::__construct($sel);
 	}
 }
 class jSelectorLog extends jSelectorSimpleFile{
 	protected $type='log';
 	function __construct($sel){
-		$this->_basePath=JELIX_APP_LOG_PATH;
+		$this->_basePath=jApp::logPath();
 		parent::__construct($sel);
 	}
 }
@@ -839,9 +949,6 @@ class jUrl extends jUrlBase{
 	static function parse($scriptNamePath,$pathinfo,$params){
 		return jUrl::getEngine()->parse($scriptNamePath,$pathinfo,$params);
 	}
-	static function parseFromRequest($request,$params){
-		return jUrl::getEngine()->parseFromRequest($request,$params);
-	}
 	static function escape($str,$highlevel=false){
 		static $url_escape_from=null;
 		static $url_escape_to=null;
@@ -853,7 +960,7 @@ class jUrl extends jUrlBase{
 			$str=str_replace($url_escape_from,$url_escape_to,$str);
 			$str=preg_replace("/([^\w])/"," ",$str);
 			$str=preg_replace("/( +)/","-",trim($str));
-			$str=strtolower($str);
+			$str=urlencode(strtolower($str));
 			return $str;
 		}else{
 			return urlencode(str_replace(array('-',' '),array('--','-'),$str));
@@ -867,9 +974,9 @@ class jUrl extends jUrlBase{
 		if($engine===null||$reset){
 			global $gJConfig;
 			$name=$gJConfig->urlengine['engine'];
-			require_once($gJConfig->_pluginsPathList_urls[$name].$name.'.urls.php');
-			$cl=$name.'UrlEngine';
-			$engine=new $cl();
+			$engine=jApp::loadPlugin($name,'urls','.urls.php',$name.'UrlEngine');
+			if(is_null($engine))
+				throw new jException('jelix~errors.urls.engine.notfound',$name);
 		}
 		return $engine;
 	}
@@ -881,16 +988,20 @@ class jCoordinator{
 	public $action=null;
 	public $moduleName;
 	public $actionName;
-	public $errorMessages=array();
-	public $logMessages=array();
-	function __construct($configFile,$enableErrorHandler=true){
+	protected $initErrorMessages=array();
+	protected $errorMessage=null;
+	function __construct($config,$enableErrorHandler=true){
 		global $gJCoord,$gJConfig;
+		jApp::initLegacy();
 		$gJCoord=$this;
 		if($enableErrorHandler){
 			set_error_handler('jErrorHandler');
 			set_exception_handler('JExceptionHandler');
 		}
-		$gJConfig=jConfig::load($configFile);
+		if(is_string($config))
+			$gJConfig=jConfig::load($config);
+		else
+			$gJConfig=$config;
 		date_default_timezone_set($gJConfig->timeZone);
 		$this->_loadPlugins();
 	}
@@ -898,10 +1009,14 @@ class jCoordinator{
 		global $gJConfig;
 		foreach($gJConfig->coordplugins as $name=>$conf){
 			if($conf=='1'){
-				$conf=array();
+				$confname='coordplugin_'.$name;
+				if(isset($gJConfig->confname))
+					$conf=$gJConfig->confname;
+				else
+					$conf=array();
 			}
 			else{
-				$conff=JELIX_APP_CONFIG_PATH.$conf;
+				$conff=jApp::configPath($conf);
 				if(false===($conf=parse_ini_file($conff,true)))
 					throw new Exception("Error in the configuration file of plugin $name ($conff)!",13);
 			}
@@ -913,6 +1028,9 @@ class jCoordinator{
 	public function process($request){
 		global $gJConfig;
 		$this->request=$request;
+		foreach($this->initErrorMessages as $msg){
+			jLog::log($msg,$msg->getCategory());
+		}
 		$this->request->init();
 		jSession::start();
 		$this->moduleName=$request->getParam('module');
@@ -973,9 +1091,7 @@ class jCoordinator{
 		foreach($this->plugins as $name=>$obj){
 			$this->plugins[$name]->beforeOutput();
 		}
-		if(!$this->response->output()){
-			$this->response->outputErrors();
-		}
+		$this->response->output();
 		foreach($this->plugins as $name=>$obj){
 			$this->plugins[$name]->afterProcess();
 		}
@@ -1001,133 +1117,67 @@ class jCoordinator{
 		return $ctrl;
 	}
 	public function initDefaultResponseOfRequest($originalResponse=false){
-		if($originalResponse)
-			$responses=&$GLOBALS['gJConfig']->_coreResponses;
-		else
-			$responses=&$GLOBALS['gJConfig']->responses;
-		$type=$this->request->defaultResponseType;
-		if(!isset($responses[$type]))
-			throw new jException('jelix~errors.default.response.type.unknown',array($this->moduleName.'~'.$this->actionName,$type));
 		try{
-			$respclass=$responses[$type];
-			require_once($responses[$type.'.path']);
-			$this->response=new $respclass();
-			return false;
+			$this->request->getResponse('',$originalResponse);
 		}
 		catch(Exception $e){
-			return $this->initDefaultResponseOfRequest(true);
+			if(!$originalResponse)
+				$this->initDefaultResponseOfRequest(true);
+			else
+				throw $e;
 		}
 	}
-	public function handleError($toDo,$type,$code,$message,$file,$line,$trace){
+	public function handleError($type,$code,$message,$file,$line,$trace){
 		global $gJConfig;
-		if($gJConfig)
-			$conf=$gJConfig->error_handling;
-		else{
-			$conf=array(
-				'messageLogFormat'=>'%date%\t[%code%]\t%msg%\t%file%\t%line%\n\t%url%\n',
-				'quietMessage'=>'A technical error has occured. Sorry for this trouble.',
-				'logFile'=>'error.log',
-			);
-		}
-		$url=isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'Unknow requested URI';
+		$errorLog=new jLogErrorMessage($type,$code,$message,$file,$line,$trace);
 		if($this->request){
-			$params=str_replace("\n",' ',var_export($this->request->params,true));
-			$remoteAddr=$this->request->getIP();
+			$errorLog->setFormat($gJConfig->error_handling['messageLogFormat']);
+			jLog::log($errorLog,$type);
+			if($type!='error')
+				return;
+			$this->errorMessage=$errorLog;
+			while(ob_get_level()&&@ob_end_clean());
+			$resp=$this->request->getErrorResponse($this->response);
+			$resp->outputErrors();
+			jSession::end();
+		}
+		elseif($type!='error'){
+			$this->initErrorMessages[]=$errorLog;
+			return;
 		}
 		else{
-			$params=isset($_SERVER['QUERY_STRING'])?$_SERVER['QUERY_STRING']:'';
-			$remoteAddr=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
-		}
-		$messageLog=strtr($conf['messageLogFormat'],array(
-			'%date%'=>@date("Y-m-d H:i:s"),
-			'%ip%'=>$remoteAddr,
-			'%typeerror%'=>$type,
-			'%code%'=>$code,
-			'%msg%'=>$message,
-			'%url%'=>$url,
-			'%params%'=>$params,
-			'%file%'=>$file,
-			'%line%'=>$line,
-			'\t'=>"\t",
-			'\n'=>"\n"
-		));
-		$traceLog='';
-		if(strpos($toDo,'TRACE')!==false){
-			$messageLog.="\ttrace:";
-			foreach($trace as $k=>$t){
-				$traceLog.="\n\t$k\t".(isset($t['class'])?$t['class'].$t['type']:'').$t['function']."()\t";
-				$traceLog.=(isset($t['file'])?$t['file']:'[php]').' : '.(isset($t['line'])?$t['line']:'');
+			while(ob_get_level()&&@ob_end_clean());
+			@error_log($errorLog->getFormatedMessage()."\n",3,jApp::logPath('errors.log'));
+			if(isset($_SERVER['HTTP_ACCEPT'])&&strstr($_SERVER['HTTP_ACCEPT'],'text/html')){
+				if(file_exists(jApp::appPath('responses/error.en_US.php')))
+					$file=jApp::appPath('responses/error.en_US.php');
+				else
+					$file=JELIX_LIB_CORE_PATH.'response/error.en_US.php';
+				$HEADBOTTOM='';
+				$BODYTOP='';
+				$BODYBOTTOM='';
+				$basePath='';
+				header("HTTP/1.1 500 Internal jelix error");
+				header('Content-type: text/html');
+				include($file);
 			}
-			$messageLog.=$traceLog."\n";
-		}
-		$doEchoByResponse=true;
-		if($this->request==null){
-			$message='JELIX PANIC ! Error during initialization !! '.$message;
-			$doEchoByResponse=false;
-			$toDo.=' EXIT';
-		}
-		elseif($this->response==null){
-			try{
-				$this->initDefaultResponseOfRequest();
-			}
-			catch(Exception $e){
-				$message='Double error ! 1)'. $e->getMessage().'; 2)'.$message;
-				$doEchoByResponse=false;
-			}
-		}
-		$echoAsked=false;
-		if(strpos($toDo,'ECHOQUIET')!==false){
-			$echoAsked=true;
-			if(!$doEchoByResponse){
-				while(ob_get_level()&&@ob_end_clean());
+			else{
 				header("HTTP/1.1 500 Internal jelix error");
 				header('Content-type: text/plain');
-				echo 'JELIX PANIC ! Error during initialization !! ';
-			}elseif($this->addErrorMsg($type,$code,$conf['quietMessage'],'','','')){
-				$toDo.=' EXIT';
-			}
-		}elseif(strpos($toDo,'ECHO')!==false){
-			$echoAsked=true;
-			if(!$doEchoByResponse){
-				while(ob_get_level()&&@ob_end_clean());
-				header("HTTP/1.1 500 Internal jelix error");
-				header('Content-type: text/plain');
-				echo $messageLog;
-			}elseif($this->addErrorMsg($type,$code,$message,$file,$line,$traceLog)){
-				$toDo.=' EXIT';
+				echo 'Error during initialization.';
 			}
 		}
-		if(strpos($toDo,'LOGFILE')!==false){
-			@error_log($messageLog,3,JELIX_APP_LOG_PATH.$conf['logFile']);
-		}
-		if(strpos($toDo,'MAIL')!==false&&$gJConfig){
-			error_log(wordwrap($messageLog,70),1,$conf['email'],str_replace(array('\\r','\\n'),array("\r","\n"),$conf['emailHeaders']));
-		}
-		if(strpos($toDo,'SYSLOG')!==false){
-			error_log($messageLog,0);
-		}
-		if(strpos($toDo,'EXIT')!==false){
-			if($doEchoByResponse){
-				while(ob_get_level()&&@ob_end_clean());
-				if($this->response)
-					$this->response->outputErrors();
-				else if($echoAsked){
-					header("HTTP/1.1 500 Internal jelix error");
-					header('Content-type: text/plain');
-					foreach($this->errorMessages as $msg)
-						echo $msg."\n";
-				}
-			}
-			jSession::end();
-			exit(1);
-		}
+		exit(1);
 	}
-	protected function addErrorMsg($type,$code,$message,$file,$line,$trace){
-		$this->errorMessages[]=array($type,$code,$message,$file,$line,$trace);
-		return !$this->response->acceptSeveralErrors();
+	public function getGenericErrorMessage(){
+		$msg=$GLOBALS['gJConfig']->error_handling['errorMessage'];
+		if($this->errorMessage)
+			$code=$this->errorMessage->getCode();
+		else $code='';
+		return str_replace('%code%',$code,$msg);
 	}
-	public function addLogMsg($message,$type='default'){
-		$this->logMessages[$type][]=$message;
+	public function getErrorMessage(){
+		return $this->errorMessage;
 	}
 	public function getPlugin($pluginName,$required=true){
 		$pluginName=strtolower($pluginName);
@@ -1208,6 +1258,7 @@ abstract class jRequest{
 	public $params;
 	public $type;
 	public $defaultResponseType='';
+	public $authorizedResponseClass='';
 	public $urlScriptPath;
 	public $urlScriptName;
 	public $urlScript;
@@ -1255,40 +1306,77 @@ abstract class jRequest{
 			return $defaultValue;
 		}
 	}
-	public function isAllowedResponse($respclass){
-		return true;
+	public function isAllowedResponse($response){
+		return(($response instanceof $this->authorizedResponseClass)
+				||($c=get_class($response))=='jResponseRedirect'
+				||$c=='jResponseRedirectUrl'
+				);
 	}
 	public function getResponse($type='',$useOriginal=false){
 		global $gJCoord,$gJConfig;
 		if($type==''){
 			$type=$this->defaultResponseType;
 		}
-		if($useOriginal){
-			if(!isset($gJConfig->_coreResponses[$type])){
-				throw new jException('jelix~errors.ad.response.type.unknown',array($gJCoord->action->resource,$type,$gJCoord->action->getPath()));
+		if($useOriginal)
+			$responses=&$gJConfig->_coreResponses;
+		else
+			$responses=&$gJConfig->responses;
+		if(!isset($responses[$type])){
+			if($gJCoord->action){
+				$action=$gJCoord->action->resource;
+				$path=$gJCoord->action->getPath();
 			}
-			$respclass=$gJConfig->_coreResponses[$type];
-			$path=$gJConfig->_coreResponses[$type.'.path'];
-		}else{
-			if(!isset($gJConfig->responses[$type])){
-				throw new jException('jelix~errors.ad.response.type.unknown',array($gJCoord->action->resource,$type,$gJCoord->action->getPath()));
+			else{
+				$action=$gJCoord->moduleName.'~'.$gJCoord->actionName;
+				$path='';
 			}
-			$respclass=$gJConfig->responses[$type];
-			$path=$gJConfig->responses[$type.'.path'];
+			if($type==$this->defaultResponseType)
+				throw new jException('jelix~errors.default.response.type.unknown',array($action,$type));
+			else
+				throw new jException('jelix~errors.ad.response.type.unknown',array($action,$type,$path));
 		}
-		if(!$this->isAllowedResponse($respclass)){
-			throw new jException('jelix~errors.ad.response.type.notallowed',array($gJCoord->action->resource,$type,$gJCoord->action->getPath()));
-		}
+		$respclass=$responses[$type];
+		$path=$responses[$type.'.path'];
 		if(!class_exists($respclass,false))
 			require($path);
 		$response=new $respclass();
+		if(!$this->isAllowedResponse($response)){
+			throw new jException('jelix~errors.ad.response.type.notallowed',array($gJCoord->action->resource,$type,$gJCoord->action->getPath()));
+		}
 		$gJCoord->response=$response;
 		return $response;
 	}
+	public function getErrorResponse($currentResponse){
+	try{
+		return $this->getResponse('',true);
+	}
+	catch(Exception $e){
+		require_once(JELIX_LIB_CORE_PATH.'response/jResponseText.class.php');
+		return new jResponseText();
+	}
+	}
 	function getIP(){
 		if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])&&$_SERVER['HTTP_X_FORWARDED_FOR']){
-			return $_SERVER['HTTP_X_FORWARDED_FOR'];
-		}else if(isset($_SERVER['HTTP_CLIENT_IP'])&&$_SERVER['HTTP_CLIENT_IP']){
+			$list=preg_split('/[\s,]+/',$_SERVER['HTTP_X_FORWARDED_FOR']);
+			$list=array_reverse($list);
+			$lastIp='';
+			foreach($list as $ip){
+				$ip=trim($ip);
+				if(preg_match('/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/',$ip,$m)){
+					if($m[1]=='10'||$m[1]=='010'
+						||($m[1]=='172'&&(intval($m[2])& 240==16))
+						||($m[1]=='192'&&$m[2]=='168'))
+						break;
+					$lastIp=$ip;
+				}
+				elseif(preg_match('/^(?:[a-f0-9]{1,4})(?::(?:[a-f0-9]{1,4})){7}$/i',$ip)){
+					$lastIp=$ip;
+				}
+			}
+			if($lastIp)
+				return $lastIp;
+		}
+		if(isset($_SERVER['HTTP_CLIENT_IP'])&&$_SERVER['HTTP_CLIENT_IP']){
 			return  $_SERVER['HTTP_CLIENT_IP'];
 		}else{
 			return $_SERVER['REMOTE_ADDR'];
@@ -1296,6 +1384,12 @@ abstract class jRequest{
 	}
 	function getProtocol(){
 	return(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']&&$_SERVER['HTTPS']!='off' ? 'https://':'http://');
+	}
+	function isAjax(){
+	if(isset($_SERVER['HTTP_X_REQUESTED_WITH']))
+		return($_SERVER['HTTP_X_REQUESTED_WITH']==="XMLHttpRequest");
+	else
+		return false;
 	}
 	function getDomainName(){
 	global $gJConfig;
@@ -1338,12 +1432,12 @@ abstract class jRequest{
 	else if($forcePort){
 		$port=$forcePort;
 	}
-	else if($isHttps!=$https){
+	else if($isHttps!=$https||!isset($_SERVER['SERVER_PORT'])){
 		return '';
 	}else{
 		$port=$_SERVER['SERVER_PORT'];
 	}
-	if(($https&&$port=='443')||(!$https&&$port=='80'))
+	if(($port===NULL)||($port=='')||($https&&$port=='443')||(!$https&&$port=='80'))
 		return '';
 	return ':'.$port;
 	}
@@ -1410,19 +1504,33 @@ abstract class jRequest{
 }
 abstract class jResponse{
 	protected  $_type=null;
-	protected $_acceptSeveralErrors=true;
 	protected $_httpHeaders=array();
 	protected $_httpHeadersSent=false;
 	protected $_httpStatusCode='200';
 	protected $_httpStatusMsg='OK';
+	public $httpVersion='1.1';
+	public $forcedHttpVersion=false;
 	function __construct(){
+		if($GLOBALS['gJConfig']->httpVersion!=""){
+			$this->httpVersion=$GLOBALS['gJConfig']->httpVersion;
+			$this->forcedHttpVersion=true;
+		}
 	}
 	abstract public function output();
-	abstract public function outputErrors();
+	public function outputErrors(){
+		if(isset($_SERVER['HTTP_ACCEPT'])&&strstr($_SERVER['HTTP_ACCEPT'],'text/html')){
+			require_once(JELIX_LIB_CORE_PATH.'responses/jResponseBasicHtml.class.php');
+			$response=new jResponseBasicHtml();
+			$response->outputErrors();
+		}
+		else{
+			header("HTTP/{$this->httpVersion} 500 Internal jelix error");
+			header('Content-type: text/plain');
+			echo $GLOBALS['gJCoord']->getGenericErrorMessage();
+		}
+	}
 	public final function getType(){return $this->_type;}
 	public function getFormatType(){return $this->_type;}
-	public final function acceptSeveralErrors(){return $this->_acceptSeveralErrors;}
-	public final function hasErrors(){return count($GLOBALS['gJCoord']->errorMessages)>0;}
 	public function addHttpHeader($htype,$hcontent,$overwrite=true){
 		if(!$overwrite&&isset($this->_httpHeaders[$htype]))
 			return;
@@ -1435,7 +1543,10 @@ abstract class jResponse{
 	}
 	public function setHttpStatus($code,$msg){$this->_httpStatusCode=$code;$this->_httpStatusMsg=$msg;}
 	protected function sendHttpHeaders(){
-		header((isset($_SERVER['SERVER_PROTOCOL'])?$_SERVER['SERVER_PROTOCOL']:'HTTP/1.1').' '.$this->_httpStatusCode.' '.$this->_httpStatusMsg);
+		header((isset($_SERVER['SERVER_PROTOCOL'])&&!$this->forcedHttpVersion ?
+						$_SERVER['SERVER_PROTOCOL'] :
+						'HTTP/'.$this->httpVersion).
+				' '.$this->_httpStatusCode.' '.$this->_httpStatusMsg);
 		foreach($this->_httpHeaders as $ht=>$hc)
 			header($ht.': '.$hc);
 		$this->_httpHeadersSent=true;
@@ -1558,7 +1669,11 @@ class jLocale{
 			if($e->getCode()==12)throw $e;
 			if($locale===null)$locale=$gJConfig->locale;
 			if($charset===null)$charset=$gJConfig->charset;
-			throw new Exception('(200)The given locale key "'.$key
+			if($locale!=$gJConfig->fallbackLocale&&$gJConfig->fallbackLocale){
+				return jLocale::get($key,$args,$gJConfig->fallbackLocale,$charset);
+			}
+			else
+				throw new Exception('(200)The given locale key "'.$key
 								.'" is invalid (for charset '.$charset
 								.', lang '.$locale.')');
 		}
@@ -1570,7 +1685,12 @@ class jLocale{
 		$bundle=self::$bundles[$keySelector][$locale];
 		$string=$bundle->get($file->messageKey,$file->charset);
 		if($string===null){
-			if($locale==$gJConfig->locale){
+			if($locale==$gJConfig->fallbackLocale){
+				throw new Exception('(210)The given locale key "'.$file->toString().'" does not exists in the default lang and in the fallback lang for the '.$file->charset.' charset');
+			}
+			else if($locale==$gJConfig->locale){
+				if($gJConfig->fallbackLocale)
+					return jLocale::get($key,$args,$gJConfig->fallbackLocale,$charset);
 				throw new Exception('(210)The given locale key "'.$file->toString().'" does not exists in the default lang for the '.$file->charset.' charset');
 			}
 			return jLocale::get($key,$args,$gJConfig->locale);
@@ -1581,6 +1701,273 @@ class jLocale{
 			}
 			return $string;
 		}
+	}
+}
+interface jILogMessage{
+	public function getCategory();
+	public function getMessage();
+	public function getFormatedMessage();
+}
+class jLogMessage implements jILogMessage{
+	protected $category;
+	protected $message;
+	public function __construct($message,$category='default'){
+		$this->category=$category;
+		$this->message=$message;
+	}
+	public function getCategory(){
+		return $this->category;
+	}
+	public function getMessage(){
+		return $this->message;
+	}
+	public function getFormatedMessage(){
+		return $this->message;
+	}
+}
+class jLogDumpMessage  extends jLogMessage{
+	protected $label;
+	public function __construct($obj,$label='',$category='default'){
+		$this->message=var_export($obj,true);
+		$this->category=$category;
+		$this->label=$label;
+	}
+	public function getLabel(){
+		return $this->label;
+	}
+	public function getFormatedMessage(){
+		if($this->label){
+			return $this->label.': '.$this->message;
+		}
+		return $this->message;
+	}
+}
+class jLogErrorMessage implements jILogMessage{
+	protected $category;
+	protected $message;
+	protected $file;
+	protected $line;
+	protected $trace;
+	protected $code;
+	protected $format='%date%\t%ip%\t[%code%]\t%msg%\t%file%\t%line%\n\t%url%\n%params%\n%trace%';
+	public function __construct($category,$code,$message,$file,$line,$trace){
+		$this->category=$category;
+		$this->message=$message;
+		$this->code=$code;
+		$this->file=$file;
+		$this->line=$line;
+		$this->trace=$trace;
+	}
+	public function setFormat($format){
+		$this->format=$format;
+	}
+	public function getCode(){
+		return $this->code;
+	}
+	public function getCategory(){
+		return $this->category;
+	}
+	public function getMessage(){
+		return $this->message;
+	}
+	public function getFile(){
+		return $this->file;
+	}
+	public function getLine(){
+		return $this->line;
+	}
+	public function getTrace(){
+		return $this->trace;
+	}
+	public function getFormatedMessage(){
+		global $gJCoord,$gJConfig;
+		if(isset($_SERVER['REQUEST_URI']))
+			$url=$_SERVER['REQUEST_URI'];
+		elseif(isset($_SERVER['SCRIPT_NAME']))
+			$url=$_SERVER['SCRIPT_NAME'];
+		else
+			$url='Unknow request';
+		if($gJCoord->request){
+			$params=str_replace("\n",' ',var_export($gJCoord->request->params,true));
+			$remoteAddr=$gJCoord->request->getIP();
+		}
+		else{
+			$params=isset($_SERVER['QUERY_STRING'])?$_SERVER['QUERY_STRING']:'';
+			$remoteAddr=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+		}
+		$traceLog="";
+		foreach($this->trace as $k=>$t){
+			$traceLog.="\n\t$k\t".(isset($t['class'])?$t['class'].$t['type']:'').$t['function']."()\t";
+			$traceLog.=(isset($t['file'])?$t['file']:'[php]').' : '.(isset($t['line'])?$t['line']:'');
+		}
+		$httpReferer=isset($_SERVER['HTTP_REFERER'])? $_SERVER['HTTP_REFERER'] : 'Unknown referer';
+		$messageLog=strtr($this->format,array(
+			'%date%'=>@date("Y-m-d H:i:s"),
+			'%typeerror%'=>$this->category,
+			'%code%'=>$this->code,
+			'%msg%'=>$this->message,
+			'%ip%'=>$remoteAddr,
+			'%url%'=>$url,
+			'%referer%'=>$httpReferer,
+			'%params%'=>$params,
+			'%file%'=>$this->file,
+			'%line%'=>$this->line,
+			'%trace%'=>$traceLog,
+			'\t'=>"\t",
+			'\n'=>"\n"
+		));
+		return $messageLog;
+	}
+}
+interface jILogger{
+	function logMessage($message);
+	function output($response);
+}
+class jFileLogger implements jILogger{
+	function logMessage($message){
+		global $gJConfig,$gJCoord;
+		if(!is_writable(jApp::logPath()))
+			return;
+		$type=$message->getCategory();
+		if($gJCoord&&$gJCoord->request){
+			$conf=& $gJConfig->fileLogger;
+			if(!isset($conf[$type]))
+				return;
+			$f=$conf[$type];
+			$ip=$gJCoord->request->getIP();
+			$f=str_replace('%ip%',$ip,$f);
+			$f=str_replace('%m%',date("m"),$f);
+			$f=str_replace('%Y%',date("Y"),$f);
+			$f=str_replace('%d%',date("d"),$f);
+			$f=str_replace('%H%',date("H"),$f);
+		}
+		else{
+			$f='errors.log';
+			$ip=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+		}
+		try{
+			$sel=new jSelectorLog($f);
+			$file=$sel->getPath();
+			@error_log(date("Y-m-d H:i:s")."\t".$ip."\t$type\t".$message->getFormatedMessage()."\n",3,$file);
+		}
+		catch(Exception $e){
+			$file=jApp::logPath('errors.log');
+			@error_log(date("Y-m-d H:i:s")."\t".$ip."\terror\t".$e->getMessage()."\n",3,$file);
+		}
+	}
+	function output($response){}
+}
+class jLog{
+	protected static $loggers=array();
+	protected static $allMessages=array();
+	protected static $messagesCount=array();
+	private function __construct(){}
+	public static function dump($obj,$label='',$category='default'){
+		$message=new jLogDumpMessage($obj,$label,$category);
+		self::_dispatchLog($message);
+	}
+	public static function log($message,$category='default'){
+		if(!is_object($message)||! $message instanceof jILogMessage)
+			$message=new jLogMessage($message,$category);
+		self::_dispatchLog($message);
+	}
+	public static function logEx($exception,$category='default'){
+		$message=new jLogErrorMessage($category,
+										$exception->getCode(),$exception->getMessage(),
+										$exception->getFile(),$exception->getLine(),
+										$exception->getTrace());
+		self::_dispatchLog($message);
+	}
+	protected static function _dispatchLog($message){
+		global $gJConfig;
+		$category=$message->getCategory();
+		if(!isset($gJConfig->logger[$category])
+			||strpos($category,'option_')===0){
+			$category='default';
+		}
+		$all=$gJConfig->logger['_all'];
+		$loggers=preg_split('/[\s,]+/',$gJConfig->logger[$category]);
+		if($all!=''){
+			$allLoggers=preg_split('/[\s,]+/',$all);
+			self::_log($message,$allLoggers);
+			$loggers=array_diff($loggers,$allLoggers);
+		}
+		self::_log($message,$loggers);
+	}
+	protected static function _log($message,$loggers){
+		foreach($loggers as $loggername){
+			if($loggername=='')
+				continue;
+			if($loggername=='memory'){
+				global $gJConfig;
+				$cat=$message->getCategory();
+				if(isset($gJConfig->memorylogger[$cat]))
+					$max=intval($gJConfig->memorylogger[$cat]);
+				else{
+					$max=intval($gJConfig->memorylogger['default']);
+				}
+				if(!isset(self::$messagesCount[$cat])){
+					self::$messagesCount[$cat]=0;
+				}
+				if(++self::$messagesCount[$cat] > $max){
+					continue;
+				}
+				self::$allMessages[]=$message;
+				continue;
+			}
+			if(!isset(self::$loggers[$loggername])){
+				if($loggername=='file')
+					self::$loggers[$loggername]=new jFileLogger();
+				elseif($loggername=='syslog'){
+					require(JELIX_LIB_CORE_PATH.'log/jSyslogLogger.class.php');
+					self::$loggers[$loggername]=new jSyslogLogger();
+				}
+				elseif($loggername=='mail'){
+					require(JELIX_LIB_CORE_PATH.'log/jMailLogger.class.php');
+					self::$loggers[$loggername]=new jMailLogger();
+				}
+				else{
+					$l=jApp::loadPlugin($loggername,'logger','.logger.php',$loggername.'Logger');
+					if(is_null($l))
+						continue;
+					self::$loggers[$loggername]=$l;
+				}
+			}
+			self::$loggers[$loggername]->logMessage($message);
+		}
+	}
+	public static function getMessages($filter=false){
+		if($filter===false||self::$allMessages===null)
+			return self::$allMessages;
+		if(is_string($filter))
+			$filter=array($filter);
+		$list=array();
+		foreach(self::$allMessages as $msg){
+			if(in_array($msg->getCategory(),$filter))
+				$list[]=$msg;
+		}
+		return $list;
+	}
+	static function getMessagesCount($category){
+		if(isset(self::$messagesCount[$category])){
+			return self::$messagesCount[$category];
+		}
+		return 0;
+	}
+	public static function outputLog($response){
+		foreach(self::$loggers as $logger){
+			$logger->output($response);
+		}
+	}
+	public static function isPluginActivated($logger,$category){
+		global $gJConfig;
+		$loggers=preg_split('/[\s,]+/',$gJConfig->logger['_all']);
+		if(in_array($logger,$loggers))
+			return true;
+		if(!isset($gJConfig->logger[$category]))
+			return false;
+		$loggers=preg_split('/[\s,]+/',$gJConfig->logger[$category]);
+		return in_array($logger,$loggers);
 	}
 }
 interface jISimpleCompiler{
@@ -1611,6 +1998,9 @@ class jIncluder{
 				require($cachefile);
 				jIncluder::$_includedFiles[$cachefile]=true;
 			}
+			else{
+				throw new jException('jelix~errors.includer.source.compile',array($aSelector->toString(true)));
+			}
 		}else{
 			require($cachefile);
 			jIncluder::$_includedFiles[$cachefile]=true;
@@ -1618,7 +2008,7 @@ class jIncluder{
 	}
 	public static function incAll($aType){
 		global $gJConfig,$gJCoord;
-		$cachefile=JELIX_APP_TEMP_PATH.'compiled/'.$aType[3];
+		$cachefile=jApp::tempPath('compiled/'.$aType[3]);
 		if(isset(jIncluder::$_includedFiles[$cachefile])){
 			return;
 		}
@@ -1786,14 +2176,20 @@ function jelix_autoload($class){
 }
 spl_autoload_register("jelix_autoload");
 function checkAppOpened(){
-	if(file_exists(JELIX_APP_CONFIG_PATH.'CLOSED')){
-		$message=file_get_contents(JELIX_APP_CONFIG_PATH.'CLOSED');
-		if(php_sapi_name()=='cli'){
+	if(!jApp::isInit()){
+		header("HTTP/1.1 500 Application not available");
+		header('Content-type: text/html');
+		echo "checkAppOpened: jApp is not initialized!";
+		exit(1);
+	}
+	if(file_exists(jApp::configPath('CLOSED'))){
+		$message=file_get_contents(jApp::configPath('CLOSED'));
+		if(jServer::isCLI()){
 			echo "Application closed.".($message?"\n$message\n":"\n");
 			exit(1);
 		}
-		if(file_exists(JELIX_APP_PATH.'install/closed.html')){
-			$file=JELIX_APP_PATH.'install/closed.html';
+		if(file_exists(jApp::appPath('install/closed.html'))){
+			$file=jApp::appPath('install/closed.html');
 		}
 		else
 			$file=JELIX_LIB_PATH.'installer/closed.html';
@@ -1805,7 +2201,7 @@ function checkAppOpened(){
 }
 function checkAppNotInstalled(){
 	if(isAppInstalled()){
-		if(php_sapi_name()=='cli'){
+		if(jServer::isCLI()){
 			echo "Application is installed. The script cannot be runned.\n";
 		}
 		else{
@@ -1817,5 +2213,5 @@ function checkAppNotInstalled(){
 	}
 }
 function isAppInstalled(){
-	return file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php');
+	return file_exists(jApp::configPath('installer.ini.php'));
 }

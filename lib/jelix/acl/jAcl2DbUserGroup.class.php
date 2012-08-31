@@ -17,19 +17,21 @@ class jAcl2DbUserGroup{
 	public static function isMemberOfGroup($groupid){
 		return in_array($groupid,self::getGroups());
 	}
+	protected static $groups=null;
 	public static function getGroups(){
-		static $groups=null;
-		if(!jAuth::isConnected())
+		if(!jAuth::isConnected()){
+			self::$groups=null;
 			return array();
-		if($groups===null){
+		}
+		if(self::$groups===null){
 			$gp=jDao::get('jacl2db~jacl2usergroup','jacl2_profile')
 					->getGroupsUser(jAuth::getUserSession()->login);
-			$groups=array();
+			self::$groups=array();
 			foreach($gp as $g){
-				$groups[]=intval($g->id_aclgrp);
+				self::$groups[]=$g->id_aclgrp;
 			}
 		}
-		return $groups;
+		return self::$groups;
 	}
 	public static function getPrivateGroup($login=null){
 		if(!$login){
@@ -39,12 +41,8 @@ class jAcl2DbUserGroup{
 		}
 		return jDao::get('jacl2db~jacl2group','jacl2_profile')->getPrivateGroup($login)->id_aclgrp;
 	}
-	public static function getGroupByCode($code){
-		$g=jDao::get('jacl2db~jacl2group','jacl2_profile')->getGroupByCode($code);
-		if($g){
-			return $g->id_aclgrp;
-		}
-		return false;
+	public static function getGroup($code){
+		return jDao::get('jacl2db~jacl2group','jacl2_profile')->get($code);
 	}
 	public static function getUsersList($groupid){
 		return jDao::get('jacl2db~jacl2usergroup','jacl2_profile')->getUsersGroup($groupid);
@@ -62,6 +60,7 @@ class jAcl2DbUserGroup{
 			}
 		}
 		$persgrp=jDao::createRecord('jacl2db~jacl2group','jacl2_profile');
+		$persgrp->id_aclgrp='__priv_'.$login;
 		$persgrp->name=$login;
 		$persgrp->grouptype=2;
 		$persgrp->ownerlogin=$login;
@@ -70,7 +69,7 @@ class jAcl2DbUserGroup{
 		$daousergroup->insert($usergrp);
 	}
 	public static function addUserToGroup($login,$groupid){
-		if($groupid==0)
+		if($groupid=='__anonymous')
 			throw new Exception('jAcl2DbUserGroup::addUserToGroup : invalid group id');
 		$usergrp=jDao::createRecord('jacl2db~jacl2usergroup','jacl2_profile');
 		$usergrp->login=$login;
@@ -88,16 +87,18 @@ class jAcl2DbUserGroup{
 		jDao::get('jacl2db~jacl2usergroup','jacl2_profile')->deleteByUser($login);
 		$daogroup->delete($privategrp->id_aclgrp);
 	}
-	public static function createGroup($name,$code=null){
+	public static function createGroup($name,$id_aclgrp=null){
+		if($id_aclgrp===null)
+			$id_aclgrp=strtolower(str_replace(' ','_',$name));
 		$group=jDao::createRecord('jacl2db~jacl2group','jacl2_profile');
+		$group->id_aclgrp=$id_aclgrp;
 		$group->name=$name;
-		$group->code=$code;
 		$group->grouptype=0;
 		jDao::get('jacl2db~jacl2group','jacl2_profile')->insert($group);
 		return $group->id_aclgrp;
 	}
 	public static function setDefaultGroup($groupid,$default=true){
-		if($groupid==0)
+		if($groupid=='__anonymous')
 			throw new Exception('jAcl2DbUserGroup::setDefaultGroup : invalid group id');
 		$daogroup=jDao::get('jacl2db~jacl2group','jacl2_profile');
 		if($default)
@@ -106,12 +107,12 @@ class jAcl2DbUserGroup{
 			$daogroup->setToNormal($groupid);
 	}
 	public static function updateGroup($groupid,$name){
-		if($groupid==0)
+		if($groupid=='__anonymous')
 			throw new Exception('jAcl2DbUserGroup::updateGroup : invalid group id');
 		jDao::get('jacl2db~jacl2group','jacl2_profile')->changeName($groupid,$name);
 	}
 	public static function removeGroup($groupid){
-		if($groupid==0)
+		if($groupid=='__anonymous')
 			throw new Exception('jAcl2DbUserGroup::removeGroup : invalid group id');
 		jDao::get('jacl2db~jacl2rights','jacl2_profile')->deleteByGroup($groupid);
 		jDao::get('jacl2db~jacl2usergroup','jacl2_profile')->deleteByGroup($groupid);
@@ -123,5 +124,8 @@ class jAcl2DbUserGroup{
 		}else{
 			return jDao::get('jacl2db~jacl2groupsofuser','jacl2_profile')->getGroupsUser($login);
 		}
+	}
+	public static function clearCache(){
+		self::$groups=null;
 	}
 }

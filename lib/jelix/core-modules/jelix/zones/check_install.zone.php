@@ -72,8 +72,8 @@ class check_installZone extends jZone{
 		$check=new jInstallCheck($reporter,$lang);
 		$reporter->messageProvider=$check->messages;
 		$check->run();
-		$this->_tpl->assign('wwwpath',JELIX_APP_WWW_PATH);
-		$this->_tpl->assign('configpath',JELIX_APP_CONFIG_PATH);
+		$this->_tpl->assign('wwwpath',jApp::wwwPath());
+		$this->_tpl->assign('configpath',jApp::configPath());
 		$this->_tpl->assign('check',$reporter->trace);
 	}
 }

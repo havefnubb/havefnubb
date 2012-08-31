@@ -23,14 +23,17 @@ class jDao{
 		$obj=new $c($conn);
 		return $obj;
 	}
+	static protected $_daoSingleton=array();
 	public static function get($DaoId,$profile=''){
-		static $_daoSingleton=array();
 		$sel=new jSelectorDao($DaoId,$profile);
 		$DaoId=$sel->toString();
-		if(! isset($_daoSingleton[$DaoId])){
-			$_daoSingleton[$DaoId]=self::create($sel,$profile);
+		if(! isset(self::$_daoSingleton[$DaoId])){
+			self::$_daoSingleton[$DaoId]=self::create($sel,$profile);
 		}
-		return $_daoSingleton[$DaoId];
+		return self::$_daoSingleton[$DaoId];
+	}
+	public static function releaseAll(){
+		self::$_daoSingleton=array();
 	}
 	public static function createRecord($DaoId,$profile=''){
 		$sel=new jSelectorDao($DaoId,$profile);

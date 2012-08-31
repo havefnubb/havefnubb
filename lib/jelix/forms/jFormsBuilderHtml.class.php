@@ -86,18 +86,25 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 	public function outputHeader($params){
 		$this->options=array_merge(array('errorDecorator'=>$this->jFormsJsVarName.'ErrorDecoratorHtml',
 			'method'=>'post'),$params);
+		if(isset($params['attributes']))
+			$attrs=$params['attributes'];
+		else
+			$attrs=array();
+		echo '<form';
 		if(preg_match('#^https?://#',$this->_action)){
 			$urlParams=$this->_actionParams;
-			echo '<form action="',$this->_action,'" method="'.$this->options['method'].'" id="',$this->_name,'"';
+			$attrs['action']=$this->_action;
 		}else{
 			$url=jUrl::get($this->_action,$this->_actionParams,2);
 			$urlParams=$url->params;
-			echo '<form action="',$url->getPath(),'" method="'.$this->options['method'].'" id="',$this->_name,'"';
+			$attrs['action']=$url->getPath();
 		}
+		$attrs['method']=$this->options['method'];
+		$attrs['id']=$this->_name;
 		if($this->_form->hasUpload())
-			echo ' enctype="multipart/form-data">';
-		else
-			echo '>';
+			$attrs['enctype']="multipart/form-data";
+		$this->_outputAttr($attrs);
+		echo '>';
 		$this->outputHeaderScript();
 		$hiddens='';
 		foreach($urlParams as $p_name=>$p_value){
@@ -622,9 +629,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 				$value='';
 		}
 		$value=(string) $value;
-		if(!$ctrl->required){
-			echo '<option value=""',($value===''?' selected="selected"':''),'>',htmlspecialchars($ctrl->emptyItemLabel),"</option>\n";
-		}
+		echo '<option value=""',($value===''?' selected="selected"':''),'>',htmlspecialchars($ctrl->emptyItemLabel),"</option>\n";
 		$this->fillSelect($ctrl,$value);
 		echo '</select>';
 	}
@@ -643,6 +648,8 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 			$this->_outputAttr($attr);
 			echo ">\n";
 			$value=$this->_form->getData($ctrl->ref);
+			if($ctrl->emptyItemLabel!==null)
+				echo '<option value=""',(in_array('',$value,true)?' selected="selected"':''),'>',htmlspecialchars($ctrl->emptyItemLabel),"</option>\n";
 			if(is_array($value)&&count($value)==1)
 				$value=$value[0];
 			if(is_array($value)){
@@ -664,6 +671,8 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 			echo '<select';
 			$this->_outputAttr($attr);
 			echo ">\n";
+			if($ctrl->emptyItemLabel!==null)
+				echo '<option value=""',($value===''?' selected="selected"':''),'>',htmlspecialchars($ctrl->emptyItemLabel),"</option>\n";
 			$this->fillSelect($ctrl,$value);
 			echo '</select>';
 		}
@@ -824,7 +833,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		$this->jsTextarea($ctrl);
 	}
 	protected function outputGroup($ctrl,&$attr){
-		echo '<fieldset><legend>',htmlspecialchars($ctrl->label),"</legend>\n";
+		echo '<fieldset id="',$attr['id'],'"><legend>',htmlspecialchars($ctrl->label),"</legend>\n";
 		echo '<table class="jforms-table-group" border="0">',"\n";
 		foreach($ctrl->getChildControls()as $ctrlref=>$c){
 			if($c->type=='submit'||$c->type=='reset'||$c->type=='hidden')continue;
@@ -858,6 +867,8 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		$this->jsContent.="c2 = c;\n";
 		$this->isRootControl=false;
 		foreach($ctrl->items as $itemName=>$listctrl){
+			if(!$ctrl->isItemActivated($itemName))
+				continue;
 			echo '<li><label><input';
 			$attr['id']=$id.$i;
 			$attr['value']=$itemName;

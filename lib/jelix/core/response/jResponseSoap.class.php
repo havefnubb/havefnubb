@@ -5,29 +5,29 @@
 * @subpackage  core_response
 * @author      Sylvain de Vathaire
 * @contributor Laurent Jouanneau
-* @copyright   2008 Sylvain de Vathaire, 2009 Laurent Jouanneau
+* @copyright   2008 Sylvain de Vathaire, 2009-2010 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 final class jResponseSoap extends jResponse{
 	protected $_type='soap';
-	protected $_acceptSeveralErrors=false;
 	public $data=null;
 	public function output(){
-		if($this->hasErrors())return false;
 		return true;
 	}
 	public function outputErrors(){
 		global $gJCoord,$gJConfig;
-		if(count($gJCoord->errorMessages)){
-			$e=$gJCoord->errorMessages[0];
-			$errorCode=$e[1];
-			$errorMessage='['.$e[0].'] '.$e[2].' (file: '.$e[3].', line: '.$e[4].')';
-			if($e[5])
-				$errorMessage.="\n".$e[5];
-		}else{
-			$errorMessage='Unknown error';
+		$e=$gJCoord->getErrorMessage();
+		if($e){
+			$errorCode=$e->getCode();
+			if($errorCode > 5000)
+				$errorMessage=$e->getMessage();
+			else
+				$errorMessage=$gJCoord->getGenericErrorMessage();
+		}
+		else{
 			$errorCode=-1;
+			$errorMessage=$gJCoord->getGenericErrorMessage();
 		}
 		if($gJConfig->charset!='UTF-8'){
 			$errorCode=utf8_encode($errorCode);

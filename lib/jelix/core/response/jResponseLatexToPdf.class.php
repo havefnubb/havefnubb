@@ -5,7 +5,7 @@
 * @subpackage  core_response
 * @author      Aubanel Monnier
 * @contributor Laurent Jouanneau, Thomas, Johannb
-* @copyright   2007 Aubanel Monnier, 2009 Thomas, 2009 Laurent Jouanneau
+* @copyright   2007 Aubanel Monnier, 2009 Thomas, 2009-2010 Laurent Jouanneau
 * @link        http://aubanel.info
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -21,7 +21,7 @@ class jResponseLatexToPdf extends jResponse{
 	public $cachePath='';
 	public $outputFileName='document.pdf';
 	function __construct(){
-		$this->cachePath=JELIX_APP_TEMP_PATH.'responseLatexToPdf/';
+		$this->cachePath=jApp::tempPath('responseLatexToPdf/');
 		$this->body=new jTpl();
 		parent::__construct();
 	}
@@ -79,19 +79,5 @@ class jResponseLatexToPdf extends jResponse{
 	}
 	public function clearCache(){
 		jFile::removeDir($this->cachePath,false);
-	}
-	public function outputErrors(){
-		global $gJConfig;
-		header("HTTP/1.0 500 Internal Server Error");
-		header('Content-Type: text/plain;charset='.$gJConfig->charset);
-		if($this->hasErrors()){
-			foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-				echo '['.$e[0].' '.$e[1].'] '.$e[2]." \t".$e[3]." \t".$e[4]."\n";
-				if($e[5])
-				echo $e[5]."\n\n";
-			}
-		}else{
-			echo "[unknown error]\n";
-		}
 	}
 }

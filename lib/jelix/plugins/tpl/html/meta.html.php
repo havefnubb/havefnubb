@@ -29,6 +29,12 @@ function jtpl_meta_html_html($tpl,$method,$param=null,$params=array())
 		case 'jsie':
 			$gJCoord->response->addJSLink($param,$params,true);
 			break;
+		case 'jsie7':
+			$gJCoord->response->addJSLink($param,$params,'IE 7');
+			break;
+		case 'jsltie7':
+			$gJCoord->response->addJSLink($param,$params,'lt IE 7');
+			break;
 		case 'cssie':
 			$gJCoord->response->addCSSLink($param,$params,true);
 			break;
@@ -93,6 +99,7 @@ function jtpl_meta_html_html($tpl,$method,$param=null,$params=array())
 				case 'effects':
 					$gJCoord->response->addJSLink($base.'jquery.js');
 					$gJCoord->response->addJSLink($base.'ui/jquery.ui.core.min.js');
+					$gJCoord->response->addJSLink($base.'ui/jquery.effects.core.min.js');
 					foreach($params as $f)
 						$gJCoord->response->addJSLink($base.'ui/jquery.effects.'.$f.'.min.js');
 					break;
