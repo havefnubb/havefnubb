@@ -12,17 +12,19 @@ class jResponseText extends jResponse{
 	protected $_type='text';
 	public $content='';
 	public function output(){
-		global $gJConfig;
-		$this->addHttpHeader('Content-Type','text/plain;charset='.$gJConfig->charset,false);
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
+		}
+		$this->addHttpHeader('Content-Type','text/plain;charset='.jApp::config()->charset,false);
 		$this->_httpHeaders['Content-length']=strlen($this->content);
 		$this->sendHttpHeaders();
 		echo $this->content;
 		return true;
 	}
 	public function outputErrors(){
-		global $gJConfig;
 		header("HTTP/1.0 500 Internal Jelix Error");
-		header('Content-Type: text/plain;charset='.$gJConfig->charset);
-		echo $GLOBALS['gJCoord']->getGenericErrorMessage();
+		header('Content-Type: text/plain;charset='.jApp::config()->charset);
+		echo jApp::coord()->getGenericErrorMessage();
 	}
 }

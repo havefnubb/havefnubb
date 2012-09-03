@@ -6,9 +6,11 @@
 * @author      Loic Mathaud
 * @contributor Laurent Jouanneau
 * @contributor Sylvain de Vathaire
+* @contributor Thomas Pellissier Tanon
 * @copyright   2005-2006 loic Mathaud
 * @copyright   2007-2010 Laurent Jouanneau
 * @copyright   2008 Sylvain de Vathaire
+* @copyright   2011 Thomas Pellissier Tanon
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -23,13 +25,18 @@ class jResponseXml extends jResponse{
 	private $_xsl=array();
 	public $sendXMLHeader=TRUE;
 	function __construct(){
-		global $gJConfig;
-		$this->_charset=$gJConfig->charset;
+		$this->_charset=jApp::config()->charset;
 		$this->content=new jTpl();
 		parent::__construct();
 	}
 	final public function output(){
-		$this->_httpHeaders['Content-Type']='text/xml;charset='.$this->_charset;
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
+		}
+		if(!array_key_exists('Content-Type',$this->_httpHeaders)){
+			$this->_httpHeaders['Content-Type']='text/xml;charset='.$this->_charset;
+		}
 		if(is_string($this->content)){
 			$xml_string=$this->content;
 		}else if(!empty($this->contentTpl)){
@@ -51,10 +58,9 @@ class jResponseXml extends jResponse{
 		return true;
 	}
 	final public function outputErrors(){
-		global $gJConfig;
 		header("HTTP/1.0 500 Internal Jelix Error");
-		header('Content-Type: text/plain;charset='.$gJConfig->charset);
-		echo $GLOBALS['gJCoord']->getGenericErrorMessage();
+		header('Content-Type: text/plain;charset='.jApp::config()->charset);
+		echo jApp::coord()->getGenericErrorMessage();
 	}
 	public function addCSSStyleSheet($src,$params=array()){
 		if(!isset($this->_css[$src])){

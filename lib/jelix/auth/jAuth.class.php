@@ -5,7 +5,7 @@
 * @subpackage auth
 * @author     Laurent Jouanneau
 * @contributor Frédéric Guillot, Antoine Detante, Julien Issler, Dominique Papin, Tahina Ramaroson, Sylvain de Vathaire, Vincent Viaud
-* @copyright  2001-2005 CopixTeam, 2005-2010 Laurent Jouanneau, 2007 Frédéric Guillot, 2007 Antoine Detante
+* @copyright  2001-2005 CopixTeam, 2005-2012 Laurent Jouanneau, 2007 Frédéric Guillot, 2007 Antoine Detante
 * @copyright  2007-2008 Julien Issler, 2008 Dominique Papin, 2010 NEOV, 2010 BP2I
 *
 * This classes were get originally from an experimental branch of the Copix project (Copix 2.3dev, http://www.copix.org)
@@ -52,12 +52,19 @@ class jAuthDriverBase{
 function sha1WithSalt($salt,$password){
 	return sha1($salt.':'.$password);
 }
+function bcrypt($salt,$password,$iteration_count=12){
+	if(CRYPT_BLOWFISH!=1)
+		throw new jException('jelix~auth.error.bcrypt.inexistant');
+	if(empty($salt)||!ctype_alnum($salt)||strlen($salt)!=22)
+		throw new jException('jelix~auth.error.bcrypt.bad.salt');
+	$hash=crypt($password,'$2a$'.$iteration_count.'$'.$salt.'$');
+	return substr($hash,strrpos($hash,'$')+strlen($salt));
+}
 class jAuth{
 	protected static function  _getConfig(){
 		static $config=null;
 		if($config==null){
-			global $gJCoord;
-			$plugin=$gJCoord->getPlugin('auth');
+			$plugin=jApp::coord()->getPlugin('auth');
 			if($plugin===null)
 				throw new jException('jelix~auth.error.plugin.missing');
 			$config=& $plugin->config;
@@ -66,7 +73,7 @@ class jAuth{
 				$config['session_name']='JELIX_USER';
 			if(!isset($config['persistant_cookie_path'])
 				||$config['persistant_cookie_path']=='')
-				$config['persistant_cookie_path']=$GLOBALS['gJConfig']->urlengine['basePath'];
+				$config['persistant_cookie_path']=jApp::config()->urlengine['basePath'];
 		}
 		return $config;
 	}

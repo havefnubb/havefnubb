@@ -4,23 +4,21 @@
 * @package    jelix
 * @subpackage core
 * @author     Laurent Jouanneau
-* @copyright  2006-2010 Laurent Jouanneau
+* @copyright  2006-2012 Laurent Jouanneau
 * @link       http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 class jFileLogger implements jILogger{
 	function logMessage($message){
-		global $gJConfig,$gJCoord;
 		if(!is_writable(jApp::logPath()))
 			return;
 		$type=$message->getCategory();
-		if($gJCoord&&$gJCoord->request){
-			$conf=& $gJConfig->fileLogger;
+		$appConf=jApp::config();
+		if($appConf){
+			$conf=& jApp::config()->fileLogger;
 			if(!isset($conf[$type]))
 				return;
 			$f=$conf[$type];
-			$ip=$gJCoord->request->getIP();
-			$f=str_replace('%ip%',$ip,$f);
 			$f=str_replace('%m%',date("m"),$f);
 			$f=str_replace('%Y%',date("Y"),$f);
 			$f=str_replace('%d%',date("d"),$f);
@@ -28,8 +26,15 @@ class jFileLogger implements jILogger{
 		}
 		else{
 			$f='errors.log';
+		}
+		$coord=jApp::coord();
+		if($coord&&$coord->request){
+			$ip=$coord->request->getIP();
+		}
+		else{
 			$ip=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
 		}
+		$f=str_replace('%ip%',$ip,$f);
 		try{
 			$sel=new jSelectorLog($f);
 			$file=$sel->getPath();

@@ -5,7 +5,7 @@
 * @subpackage db
 * @author     Laurent Jouanneau
 * @contributor Gwendal Jouannic, Thomas, Julien Issler, Vincent Herr
-* @copyright  2005-2010 Laurent Jouanneau
+* @copyright  2005-2012 Laurent Jouanneau
 * @copyright  2008 Gwendal Jouannic, 2009 Thomas
 * @copyright  2009 Julien Issler
 * @copyright  2011 Vincent Herr
@@ -62,11 +62,12 @@ class jDbPDOConnection extends PDO{
 		if($this->dbms=='oci')
 			$this->setAttribute(PDO::ATTR_CASE,PDO::CASE_LOWER);
 		if(isset($prof['force_encoding'])&&$prof['force_encoding']==true){
-			if($this->dbms=='mysql'&&isset($this->_mysqlCharsets[$GLOBALS['gJConfig']->charset])){
-				$this->exec("SET NAMES '".$this->_mysqlCharsets[$GLOBALS['gJConfig']->charset]."'");
+			$charset=jApp::config()->charset;
+			if($this->dbms=='mysql'&&isset($this->_mysqlCharsets[$charset])){
+				$this->exec("SET NAMES '".$this->_mysqlCharsets[$charset]."'");
 			}
-			elseif($this->dbms=='pgsql'&&isset($this->_pgsqlCharsets[$GLOBALS['gJConfig']->charset])){
-				$this->exec("SET client_encoding to '".$this->_pgsqlCharsets[$GLOBALS['gJConfig']->charset]."'");
+			elseif($this->dbms=='pgsql'&&isset($this->_pgsqlCharsets[$charset])){
+				$this->exec("SET client_encoding to '".$this->_pgsqlCharsets[$charset]."'");
 			}
 		}
 	}

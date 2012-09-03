@@ -125,8 +125,7 @@ abstract class jDbConnection{
 	protected $_tools=null;
 	public function tools(){
 		if(!$this->_tools){
-			global $gJConfig;
-			require_once($gJConfig->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbtools.php');
+			require_once(jApp::config()->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbtools.php');
 			$class=$this->dbms.'DbTools';
 			$this->_tools=new $class($this);
 		}
@@ -135,8 +134,7 @@ abstract class jDbConnection{
 	protected $_schema=null;
 	public function schema(){
 		if(!$this->_schema){
-			global $gJConfig;
-			require_once($gJConfig->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbschema.php');
+			require_once(jApp::config()->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbschema.php');
 			$class=$this->dbms.'DbSchema';
 			$this->_schema=new $class($this);
 		}

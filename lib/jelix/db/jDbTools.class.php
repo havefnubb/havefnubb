@@ -154,7 +154,7 @@ abstract class jDbTools{
 				if(preg_match($style[1],$line)){
 					$cmdSQL=preg_replace($style[1],'',$cmdSQL);
 					$cmdSQL=str_replace('%%PREFIX%%',$prefix,$cmdSQL);
-					$this->_conn->query($cmdSQL);
+					$this->_conn->exec($cmdSQL);
 					$nbCmd++;
 					$cmdSQL='';
 				}

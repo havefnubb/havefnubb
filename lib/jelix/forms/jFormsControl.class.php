@@ -577,7 +577,7 @@ class jFormsControlWikiEditor extends jFormsControl{
 		return true;
 	}
 	public function getDisplayValue($value){
-		$engine=$GLOBALS['gJConfig']->wikieditors[$this->config.'.wiki.rules'];
+		$engine=jApp::config()->wikieditors[$this->config.'.wiki.rules'];
 		$wiki=new jWiki($engine);
 		return $wiki->render($value);
 	}

@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  installer
 * @author      Laurent Jouanneau
-* @copyright   2008-2010 Laurent Jouanneau
+* @copyright   2008-2012 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -231,7 +231,7 @@ class jInstaller{
 	protected function _installModules(&$modules,$epId,$installWholeApp,$flags=3){
 		$this->notice('install.entrypoint.start',$epId);
 		$ep=$this->entryPoints[$epId];
-		$GLOBALS['gJConfig']=$ep->config;
+		jApp::setConfig($ep->config);
 		if($ep->config->disableInstallers)
 			$this->notice('install.entrypoint.installers.disabled');
 		$result=$this->checkDependencies($modules,$epId);
@@ -340,10 +340,11 @@ class jInstaller{
 					$installedModules[]=array($installer,$component,false);
 				}
 				$ep->configIni->save();
-				$GLOBALS['gJConfig']=$ep->config=
+				$ep->config=
 					jConfigCompiler::read($ep->configFile,true,
 										$ep->isCliScript,
 										$ep->scriptName);
+				jApp::setConfig($ep->config);
 			}
 		}catch(jInstallerException $e){
 			$result=false;
@@ -372,10 +373,11 @@ class jInstaller{
 					}
 				}
 				$ep->configIni->save();
-				$GLOBALS['gJConfig']=$ep->config=
+				$ep->config=
 					jConfigCompiler::read($ep->configFile,true,
 										$ep->isCliScript,
 										$ep->scriptName);
+				jApp::setConfig($ep->config);
 			}catch(jInstallerException $e){
 				$result=false;
 				$this->error($e->getLocaleKey(),$e->getLocaleParameters());

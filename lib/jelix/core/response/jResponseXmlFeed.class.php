@@ -6,7 +6,7 @@
 * @author     Yannick Le Guédart
 * @contributor Laurent Jouanneau
 * @copyright  2006 Yannick Le Guédart
-* @copyright  2006-2009 Laurent Jouanneau
+* @copyright  2006-2012 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -19,10 +19,8 @@ abstract class jResponseXMLFeed extends jResponse{
 	private $_mainTpl='';
 	private $_xsl=array();
 	function __construct(){
-		global $gJConfig;
-		$this->charset=$gJConfig->charset;
-		list($lang,$country)=explode('_',$gJConfig->locale);
-		$this->lang=$lang;
+		$this->charset=jApp::config()->charset;
+		$this->lang=jLocale::getCurrentLang();
 		parent::__construct();
 	}
 	abstract public function createItem($title,$link,$date);
@@ -55,28 +53,4 @@ abstract class jResponseXMLFeed extends jResponse{
 			}
 		}
 	}
-}
-abstract class jXMLFeedInfo{
-	public $title;
-	public $webSiteUrl;
-	public $copyright;
-	public $categories=array();
-	public $generator='Jelix php framework http://jelix.org';
-	public $image;
-	public $description;
-	public $descriptionType='text';
-	public $updated;
-	protected $_mandatory=array();
-}
-abstract class jXMLFeedItem{
-	public $id;
-	public $title;
-	public $link;
-	public $published;
-	public $authorName;
-	public $authorEmail;
-	public $categories=array();
-	public $content;
-	public $contentType='text';
-	protected $_mandatory=array();
 }

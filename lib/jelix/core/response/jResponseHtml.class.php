@@ -6,7 +6,7 @@
 * @author      Laurent Jouanneau
 * @contributor Yann, Dominique Papin
 * @contributor Warren Seine, Alexis Métaireau, Julien Issler, Olivier Demah, Brice Tence
-* @copyright   2005-2010 Laurent Jouanneau, 2006 Yann, 2007 Dominique Papin
+* @copyright   2005-2012 Laurent Jouanneau, 2006 Yann, 2007 Dominique Papin
 * @copyright   2008 Warren Seine, Alexis Métaireau
 * @copyright   2009 Julien Issler, Olivier Demah
 * @copyright   2010 Brice Tence
@@ -43,6 +43,10 @@ class jResponseHtml extends jResponseBasicHtml{
 		parent::__construct();
 	}
 	public function output(){
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
+		}
 		foreach($this->plugins as $name=>$plugin)
 			$plugin->afterAction();
 		$this->doAfterActions();
@@ -162,7 +166,6 @@ class jResponseHtml extends jResponseBasicHtml{
 		echo '<link type="text/css" href="',htmlspecialchars($fileUrl),'" ',$params,$this->_endTag,"\n";
 	}
 	protected function outputHtmlHeader(){
-		global $gJConfig;
 		echo '<head>'."\n";
 		if($this->_isXhtml&&$this->xhtmlContentType&&strstr($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml')){
 			echo '<meta content="application/xhtml+xml; charset='.$this->_charset.'" http-equiv="content-type"'.$this->_endTag;

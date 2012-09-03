@@ -10,10 +10,10 @@
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 function jtpl_function_html_link_to_remote($tpl,$label,$element_id,$action_selector,$action_parameters,$option){
-	global $gJCoord,$gJConfig;
+	$resp=jApp::coord()->response;
 	static $id_link_to_remote=0;
-	if($gJCoord->response->getFormatType()=='html'){
-		$gJCoord->response->addJSLink($gJConfig->urlengine['jqueryPath'].'jquery.js');
+	if($resp&&$resp->getFormatType()=='html'){
+		$resp->addJSLink(jApp::config()->urlengine['jqueryPath'].'jquery.js');
 	}
 	$id_link_to_remote++;
 	$url=jUrl::get($action_selector,$action_parameters);

@@ -14,6 +14,8 @@
 */
 require_once(JELIX_LIB_PATH.'tpl/jTpl.class.php');
 require_once(JELIX_LIB_CORE_PATH.'response/jResponseXmlFeed.class.php');
+require_once(JELIX_LIB_PATH.'utils/jRSS20Info.class.php');
+require_once(JELIX_LIB_PATH.'utils/jRSS20Item.class.php');
 class jResponseRss20 extends jResponseXMLFeed{
 	protected $_type='rss2.0';
 	function __construct(){
@@ -24,6 +26,10 @@ class jResponseRss20 extends jResponseXMLFeed{
 		$this->infos->language=$this->lang;
 	}
 	final public function output(){
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
+		}
 		$this->_httpHeaders['Content-Type']=
 				'application/xml;charset=' . $this->charset;
 		$this->_template->assign('rss',$this->infos);
@@ -36,38 +42,10 @@ class jResponseRss20 extends jResponseXMLFeed{
 		return true;
 	}
 	public function createItem($title,$link,$date){
-		$item=new jRSSItem();
+		$item=new jRSS20Item();
 		$item->title=$title;
 		$item->id=$item->link=$link;
 		$item->published=$date;
 		return $item;
 	}
-}
-class jRSS20Info extends jXMLFeedInfo{
-	public $language;
-	public $managingEditor;
-	public $webMaster;
-	public $published;
-	public $docs='';
-	public $cloud;
-	public $ttl;
-	public $imageTitle;
-	public $imageLink;
-	public $imageWidth;
-	public $imageHeight;
-	public $imageDescription;
-	public $rating;
-	public $textInput;
-	public $skipHours;
-	public $skipDays;
-	function __construct(){
-			$this->_mandatory=array('title','webSiteUrl','description');
-	}
-}
-class jRSSItem extends jXMLFeedItem{
-	public $comments;
-	public $enclosure;
-	public $idIsPermalink;
-	public $sourceUrl;
-	public $sourceTitle;
 }

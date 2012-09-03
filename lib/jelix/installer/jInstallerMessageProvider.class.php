@@ -39,10 +39,10 @@ class jInstallerMessageProvider{
 		'extension.required.installed'=>'L\'extension %s obligatoire est disponible',
 		'extensions.required.ok'=>'Toutes les extensions PHP obligatoires sont disponibles',
 		'extension.opcode.cache'=>'Cette édition de Jelix a besoin d\'une extension de cache d\'opcode (apc, eaccelerator...)',
-		'extension.database.ok'=>'L\'application utilisera une base de donnée SQL',
-		'extension.database.ok2'=>'L\'application pourra utiliser une base de donnée SQL',
-		'extension.database.missing'=>'L\'application a besoin d\'une base de donnée SQL',
-		'extension.database.missing2'=>'L\'application ne pourra pas utiliser de base de donnée SQL',
+		'extension.database.ok'=>'L\'application utilisera une base de données SQL',
+		'extension.database.ok2'=>'L\'application pourra utiliser une base de données SQL',
+		'extension.database.missing'=>'L\'application a besoin d\'une base de données SQL',
+		'extension.database.missing2'=>'L\'application ne pourra pas utiliser de base de données SQL',
 		'path.core'=>'Le fichier init.php  de jelix ou le fichier application.ini.php de votre application n\'est pas chargé',
 		'path.temp'=>'Le repertoire temporaire n\'est pas accessible en écriture ou alors le chemin du répertoire temp n\'est pas configurée comme il faut',
 		'path.log'=>'Le repertoire var/log dans votre application n\'est pas accessible en écriture ou alors le chemin du répertoire de log n\'est pas configurée comme il faut',
@@ -177,12 +177,12 @@ class jInstallerMessageProvider{
 		if($lang==''&&isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
 			$languages=explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
 			foreach($languages as $bl){
-				if(preg_match("/^([a-zA-Z]{2})(?:[-_]([a-zA-Z]{2}))?(;q=[0-9]\\.[0-9])?$/",$bl,$match)){
+				if(preg_match("/^([a-zA-Z]{2,3})(?:[-_]([a-zA-Z]{2,3}))?(;q=[0-9]\\.[0-9])?$/",$bl,$match)){
 					$lang=strtolower($match[1]);
 					break;
 				}
 			}
-		}elseif(preg_match("/^([a-zA-Z]{2})(?:[-_]([a-zA-Z]{2}))?$/",$lang,$match)){
+		}elseif(preg_match("/^([a-zA-Z]{2,3})(?:[-_]([a-zA-Z]{2,3}))?$/",$lang,$match)){
 			$lang=strtolower($match[1]);
 		}
 		if($lang==''||!isset($this->messages[$lang])){

@@ -44,7 +44,7 @@ abstract class jFormsBase{
 		return $this->sel;
 	}
 	public function initFromRequest(){
-		$req=$GLOBALS['gJCoord']->request;
+		$req=jApp::coord()->request;
 		if($this->securityLevel==jFormsBase::SECURITY_CSRF){
 			if($this->container->token!==$req->getParam('__JFORMS_TOKEN__'))
 				throw new jException("jelix~formserr.invalid.token");

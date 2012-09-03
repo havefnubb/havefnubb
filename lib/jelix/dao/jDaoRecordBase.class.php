@@ -4,9 +4,9 @@
  * @package     jelix
  * @subpackage  dao
  * @author      Laurent Jouanneau
- * @contributor Loic Mathaud, Olivier Demah
- * @copyright   2005-2007 Laurent Jouanneau
- * @copyright   2007 Loic Mathaud
+ * @contributor Loic Mathaud, Olivier Demah, Sid-Ali Djenadi
+ * @copyright   2005-2012 Laurent Jouanneau
+ * @copyright   2007 Loic Mathau, 2012 Sid-Ali Djenadid
  * @copyright   2010 Olivier Demah
  * @link        http://www.jelix.org
  * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -17,6 +17,7 @@ abstract class jDaoRecordBase{
 	const ERROR_BAD_FORMAT=3;
 	const ERROR_MAXLENGTH=4;
 	const ERROR_MINLENGTH=5;
+	abstract public function getSelector();
 	abstract public function getProperties();
 	abstract public function getPrimaryKeyNames();
 	public function check(){
@@ -38,7 +39,7 @@ abstract class jDaoRecordBase{
 					$errors[$prop][]=self::ERROR_BAD_FORMAT;
 					break;
 				}
-				$len=iconv_strlen($value,$GLOBALS['gJConfig']->charset);
+				$len=iconv_strlen($value,jApp::config()->charset);
 				if($infos['maxlength']!==null&&$len > intval($infos['maxlength'])){
 					$errors[$prop][]=self::ERROR_MAXLENGTH;
 				}
@@ -96,5 +97,13 @@ abstract class jDaoRecordBase{
 			}
 			return $list;
 		}
+	}
+	function save(){
+		$dao=jDao::get($this->getSelector());
+		$pkFields=$this->getPrimaryKeyNames();
+		if($this->{$pkFields[0]}==null)
+			return $dao->insert($this);
+		else
+			return $dao->update($this);
 	}
 }

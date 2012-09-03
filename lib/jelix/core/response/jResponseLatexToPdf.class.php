@@ -39,6 +39,10 @@ class jResponseLatexToPdf extends jResponse{
 		$this->addCommand('geometry','hmargin=1cm, vmargin=1cm');
 	}
 	function output(){
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
+		}
 		$this->_commonProcess();
 		if(count($this->_commands)<=0)
 			$this->addDefaultCommands();

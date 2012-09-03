@@ -5,7 +5,7 @@
 * @subpackage dao
 * @author     Gérald Croes, Laurent Jouanneau
 * @contributor Laurent Jouanneau
-* @copyright  2001-2005 CopixTeam, 2005-2010 Laurent Jouanneau
+* @copyright  2001-2005 CopixTeam, 2005-2012 Laurent Jouanneau
 * Ideas and some parts of this file were get originally from the Copix project
 * (CopixDAOGeneratorV1, CopixDAODefinitionV1, Copix 2.3dev20050901, http://www.copix.org)
 * Few lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
@@ -627,6 +627,7 @@ class jDaoGenerator{
 			else
 				$src[]=' public $'.$id.';';
 		}
+		$src[]='   public function getSelector() { return "'.$this->_daoId.'"; }';
 		$src[]='   public function getProperties() { return '.$this->_DaoClassName.'::$_properties; }';
 		$src[]='   public function getPrimaryKeyNames() { return '.$this->_DaoClassName.'::$_pkFields; }';
 		$src[]='}';
@@ -1320,13 +1321,12 @@ class jDaoCompiler  implements jISimpleCompiler{
 		if($doc->documentElement->namespaceURI!=JELIX_NAMESPACE_BASE.'dao/1.0'){
 			throw new jException('jelix~daoxml.namespace.wrong',array($daoPath,$doc->namespaceURI));
 		}
-		global $gJConfig;
 		$tools=jApp::loadPlugin($selector->driver,'db','.dbtools.php',$selector->driver.'DbTools');
 		if(is_null($tools))
 			throw new jException('jelix~db.error.driver.notfound',$selector->driver);
 		$parser=new jDaoParser($selector);
 		$parser->parse(simplexml_import_dom($doc),$tools);
-		require_once($gJConfig->_pluginsPathList_db[$selector->driver].$selector->driver.'.daobuilder.php');
+		require_once(jApp::config()->_pluginsPathList_db[$selector->driver].$selector->driver.'.daobuilder.php');
 		$class=$selector->driver.'DaoBuilder';
 		$generator=new $class($selector,$tools,$parser);
 		$compiled='<?php '.$generator->buildClasses()."\n?>";

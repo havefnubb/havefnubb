@@ -12,6 +12,8 @@
 */
 require_once(JELIX_LIB_PATH.'tpl/jTpl.class.php');
 require_once(JELIX_LIB_CORE_PATH.'response/jResponseXmlFeed.class.php');
+require_once(JELIX_LIB_PATH.'utils/jAtom10Info.class.php');
+require_once(JELIX_LIB_PATH.'utils/jAtom10Item.class.php');
 class jResponseAtom10 extends jResponseXMLFeed{
 	protected $_type='atom1.0';
 	function __construct(){
@@ -21,6 +23,10 @@ class jResponseAtom10 extends jResponseXMLFeed{
 		parent::__construct();
 	}
 	final public function output(){
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
+		}
 		$this->_httpHeaders['Content-Type']=
 				'application/atom+xml;charset=' . $this->charset;
 		if(!$this->infos->updated){
@@ -43,29 +49,4 @@ class jResponseAtom10 extends jResponseXMLFeed{
 		$item->published=$date;
 		return $item;
 	}
-}
-class jAtom10Info extends jXMLFeedInfo{
-	public $id;
-	public $selfLink;
-	public $authors=array();
-	public $otherLinks=array();
-	public $contributors=array();
-	public $icon;
-	public $generatorVersion;
-	public $generatorUrl;
-	function __construct()
-	{
-		$this->_mandatory=array('title','id','updated');
-	}
-}
-class jAtom10Item extends jXMLFeedItem{
-	public $authorUri;
-	public $otherAuthors=array();
-	public $contributors=array();
-	public $otherLinks=array();
-	public $summary;
-	public $summaryType;
-	public $source;
-	public $copyright;
-	public $updated;
 }

@@ -6,7 +6,7 @@
 * @author      Bastien Jaillot
 * @contributor Dominique Papin, Lepeltier kévin (the author of the original plugin)
 * @contributor geekbay, Brunto, Laurent Jouanneau
-* @copyright   2007-2008 Lepeltier kévin, 2008 Dominique Papin, 2008 Bastien Jaillot, 2009 geekbay, 2010 Brunto, 2011 Laurent Jouanneau
+* @copyright   2007-2008 Lepeltier kévin, 2008 Dominique Papin, 2008 Bastien Jaillot, 2009 geekbay, 2010 Brunto, 2011-2012 Laurent Jouanneau
 * @link       http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -19,8 +19,7 @@ class jImageModifier{
 											'onmouseup','onmouseover','onmousemove','onmouseout','onkeypress',
 											'onkeydown','onkeyup','width','height');
 	static function get($src,$params=array(),$sendCachePath=true,$config=null){
-		global $gJConfig;
-		$basePath=$gJConfig->urlengine['basePath'];
+		$basePath=jApp::config()->urlengine['basePath'];
 		if(strpos($src,$basePath)===0){
 			$src=substr($src,strlen($basePath));
 		}
@@ -41,7 +40,6 @@ class jImageModifier{
 			}
 		}
 		$cacheName=md5($chaine).'.'.$ext;
-		global $gJConfig;
 		list($srcPath,$srcUri,$cachePath,$cacheUri)=self::computeUrlFilePath($config);
 		$pendingTransforms=($chaine!==$src);
 		if($pendingTransforms&&is_file($srcPath.$src)&&!is_file($cachePath.$cacheName)){
@@ -62,10 +60,9 @@ class jImageModifier{
 		return $att;
 	}
 	static public function computeUrlFilePath($config=null){
-		global $gJConfig;
-		$basePath=$gJConfig->urlengine['basePath'];
+		$basePath=jApp::config()->urlengine['basePath'];
 		if(!$config)
-			$config=& $gJConfig->imagemodifier;
+			$config=& jApp::config()->imagemodifier;
 		if($config['src_url']&&$config['src_path']){
 			$srcUri=$config['src_url'];
 			if($srcUri[0]!='/'&&strpos($srcUri,'http:')!==0)
@@ -75,7 +72,7 @@ class jImageModifier{
 									$config['src_path']);
 		}
 		else{
-			$srcUri=$GLOBALS['gJCoord']->request->getServerURI().$basePath;
+			$srcUri=jApp::coord()->request->getServerURI().$basePath;
 			$srcPath=jApp::wwwPath();
 		}
 		if($config['cache_path']&&$config['cache_url']){
@@ -88,7 +85,7 @@ class jImageModifier{
 		}
 		else{
 			$cachePath=jApp::wwwPath('cache/images/');
-			$cacheUri=$GLOBALS['gJCoord']->request->getServerURI().$basePath.'cache/images/';
+			$cacheUri=jApp::coord()->request->getServerURI().$basePath.'cache/images/';
 		}
 		return array($srcPath,$srcUri,$cachePath,$cacheUri);
 	}

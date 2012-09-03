@@ -5,7 +5,7 @@
 * @subpackage   core
 * @author       Sylvain de Vathaire
 * @contributor  Laurent Jouanneau
-* @copyright    2008 Sylvain DE VATHAIRE, 2008 Laurent Jouanneau
+* @copyright    2008 Sylvain DE VATHAIRE, 2008-2012 Laurent Jouanneau
 * @link         http://www.jelix.org
 * @licence      GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -14,19 +14,17 @@ class jSoapCoordinator extends jCoordinator{
 	public $wsdl;
 	protected $soapServer;
 	public function processSoap(){
-		global $gJConfig;
 		$this->wsdl=new jWSDL($this->request->params['module'],$this->request->params['action']);
 		$this->soapServer=$this->getSoapServer($this->wsdl);
 		$this->soapServer->setclass('jSoapHandler',$this);
 		$this->soapServer->handle($this->request->soapMsg);
 	}
 	public function getSoapServer($wsdl=null){
-		global $gJConfig;
 		if(is_null($this->soapServer)){
 			if(is_null($wsdl)){
-				$this->soapServer=new SoapServer(null,array('soap_version'=>SOAP_1_1,'encoding'=>$gJConfig->charset,'uri'=>$_SERVER['PHP_SELF']));
+				$this->soapServer=new SoapServer(null,array('soap_version'=>SOAP_1_1,'encoding'=>jApp::config()->charset,'uri'=>$_SERVER['PHP_SELF']));
 			}else{
-				$this->soapServer=new SoapServer($wsdl->getWSDLFilePath(),array('soap_version'=>SOAP_1_1,'encoding'=>$gJConfig->charset));
+				$this->soapServer=new SoapServer($wsdl->getWSDLFilePath(),array('soap_version'=>SOAP_1_1,'encoding'=>jApp::config()->charset));
 			}
 		}
 		return $this->soapServer;
