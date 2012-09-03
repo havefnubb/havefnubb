@@ -51,11 +51,11 @@ class membersCtrl extends jController {
             $beginningBy = ' - ' .jLocale::get('havefnubb~member.memberlist.members.beginning.by',array($letter));
         // change the label of the breadcrumb
             if ($page == 0) {
-            $GLOBALS['gJCoord']->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list'));
+            jApp::coord()->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list'));
             $rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname . $beginningBy;
         }
         else {
-            $GLOBALS['gJCoord']->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));
+            jApp::coord()->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));
             $rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname .$beginningBy. ' ' .($page+1) ;
         }
 

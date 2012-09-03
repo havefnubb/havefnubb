@@ -114,7 +114,7 @@ class postsCtrl extends jController {
         list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreads($id_forum,$page,$nbPostPerPage);
 
         // change the label of the breadcrumb
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
+        jApp::coord()->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
 
         $rep = $this->getResponse('html');
 
@@ -253,7 +253,7 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($post->subject,ENT_COMPAT,'UTF-8'));
+        jApp::coord()->getPlugin('history')->change('label', htmlentities($post->subject,ENT_COMPAT,'UTF-8'));
 
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);

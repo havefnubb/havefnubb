@@ -54,7 +54,7 @@ class categoryCtrl extends jController {
         // 2) assign the title page
         $rep->title = $category->cat_name;
 
-        $historyPlugin = $GLOBALS['gJCoord']->getPlugin('history');
+        $historyPlugin = jApp::coord()->getPlugin('history');
         $histname = ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') );
         $historyPlugin->change('label',  $histname);
         $historyPlugin->change('title', $histname );

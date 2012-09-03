@@ -25,7 +25,7 @@ class connectedusers {
         if ($record) {
             $record->login = $login; // perhaps the record exist, but with an anonymous user
             $record->name = $name;
-            $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
+            $record->member_ip = jApp::coord()->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $record->disconnection_date = null;
             $dao->update($record);
@@ -35,7 +35,7 @@ class connectedusers {
             $record->sessionid = session_id();
             $record->login = $login;
             $record->name = $name;
-            $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
+            $record->member_ip = jApp::coord()->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $record->disconnection_date = null;
             $dao->insert($record);
@@ -77,8 +77,7 @@ class connectedusers {
         if ($timeoutVisit !== null)
             return $timeoutVisit;
 
-        global $gJCoord;
-        $plugin = $gJCoord->getPlugin('activeusers', false);
+        $plugin = jApp::coord()->getPlugin('activeusers', false);
         $timeoutVisit = 1200;
         if ($plugin) {
             $timeoutVisit = ($plugin->config['timeout_visit'] > 0 ) ? $plugin->config['timeout_visit'] : 1200;
@@ -167,7 +166,7 @@ class connectedusers {
                 $record->login = '';
                 $record->name = $this->getBots();
             }
-            $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
+            $record->member_ip = jApp::coord()->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $dao->insert($record);
         }
