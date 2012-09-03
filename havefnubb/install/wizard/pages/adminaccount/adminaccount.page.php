@@ -67,10 +67,8 @@ class adminaccountWizPage extends installWizardPage {
             return false;
         }
 
-        global $gJConfig;
-        require_once(JELIX_LIB_PATH."core/jConfigCompiler.class.php");
-        $gJConfig = jConfigCompiler::read('havefnubb/config.ini.php', false, false, 'forums.php');
-
+        jApp::loadConfig('havefnubb/config.ini.php');
+        
         $db = jDb::getConnection();
         $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('community_users')).
                   ' (login, password, email, nickname, status, create_date) VALUES ('.

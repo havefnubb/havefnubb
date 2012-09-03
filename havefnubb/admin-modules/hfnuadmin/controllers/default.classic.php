@@ -79,7 +79,6 @@ class defaultCtrl extends jController {
     }*/
 
     function config() {
-        global $gJConfig;
 
         $resp = $this->getResponse('html');
 
@@ -105,7 +104,6 @@ class defaultCtrl extends jController {
 
 
     function saveconfig() {
-        global $gJConfig;
 
         $resp = $this->getResponse('redirect');
         $resp->action ='hfnuadmin~default:config';

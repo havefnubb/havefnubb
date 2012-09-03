@@ -375,7 +375,6 @@ class postsCtrl extends jController {
     * display the add 'blank' form to add a new post
     */
     function add () {
-        global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
         $id_post = 0;
 
@@ -521,7 +520,6 @@ class postsCtrl extends jController {
     * Save the data submitted from add/edit form
     */
     function save() {
-        global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
         $id_post  = (int) $this->param('id_post');
 
@@ -686,7 +684,6 @@ class postsCtrl extends jController {
      * reply to a given post (from the thread_id)
      */
     function reply() {
-        global $gJConfig;
         $thread_id = (int) $this->param('thread_id');
         $id_post = (int) $this->param('id_post');
 
@@ -804,7 +801,6 @@ class postsCtrl extends jController {
      * quote message
      */
     function quote() {
-        global $gJConfig;
         $thread_id  = (int) $this->param('thread_id');
         $id_post    = (int) $this->param('id_post');
 
@@ -924,7 +920,6 @@ class postsCtrl extends jController {
     * save the datas posted from the reply form
     */
     function savereply() {
-        global $gJConfig;
         $id_forum   = (int) $this->param('id_forum');
 
         if (jAuth::isConnected()) {

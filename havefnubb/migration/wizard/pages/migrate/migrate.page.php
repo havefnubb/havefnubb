@@ -341,7 +341,6 @@ class migrateWizPage extends installWizardPage {
      * private function to handle the database migration
      */
     private function _updateDatabase() {
-        global $gJConfig;
         //1) if the file installer.ini.php does not exist we cant install jelix nor havefnubb;
         // then the application has not been installed with jelix 1.2
         // so we copy the installer.ini.php build for the application havefnubb
@@ -350,10 +349,10 @@ class migrateWizPage extends installWizardPage {
         if (!file_exists(jApp::configPath().'installer.ini.php')) {
             copy(dirname(__FILE__).'/../../../install/installer.ini.php',jApp::configPath().'installer.ini.php');
         }
-        require_once(JELIX_LIB_PATH."core/jConfigCompiler.class.php");
-        $gJConfig = jConfigCompiler::read('dbprofils.ini.php', false, false, 'forums.php');
+        
+        jApp::loadConfig('havefnubb/config.ini.php');
         //get the dbprofils file
-        $dbProfile = jIniFile::read(jApp::configPath() . $gJConfig->dbProfils);
+        $dbProfile = jIniFile::read(jApp::configPath() . jApp::config()->dbProfils);
         //get the default profile
         $tools = jDb::getTools($dbProfile['default']);
         // migrate from 1.3.6 to 1.4.0

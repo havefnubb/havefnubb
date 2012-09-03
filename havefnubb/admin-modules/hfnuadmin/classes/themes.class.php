@@ -14,7 +14,6 @@ class themes {
     public static $nsURL  = 'http://jelix.org/ns/theme/1.0';
 
     static function lists() {
-        global $gJConfig;
         $themes = array();
         $dir = new DirectoryIterator(jApp::varPath('themes/'));
         foreach ($dir as $dirContent) {
