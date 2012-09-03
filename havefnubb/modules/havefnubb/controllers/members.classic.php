@@ -26,8 +26,7 @@ class membersCtrl extends jController {
     * handle the search of specific member
     */
     function index() {
-        global $gJConfig;
-        $title = stripslashes($gJConfig->havefnubb['title']);
+        $title = stripslashes(jApp::config()->havefnubb['title']);
         $rep = $this->getResponse('html');
 
         $letter = $this->param('letter');

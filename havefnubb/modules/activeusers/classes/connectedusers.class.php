@@ -85,7 +85,7 @@ class connectedusers {
         }
         else {
             // for activeusers_admin
-            global $gJConfig;
+            $gJConfig = jApp::config();
             if (isset($gJConfig->activeusers_admin['pluginconf'])
                 && $gJConfig->activeusers_admin['pluginconf']) {
                 $conffile = $gJConfig->activeusers_admin['pluginconf'];
@@ -108,7 +108,7 @@ class connectedusers {
      * @return boolean true if it has been saved correctly
      */
     public function saveVisitTimeout($timeout) {
-        global $gJConfig;
+        $gJConfig = jApp::config();
         if (isset($gJConfig->activeusers_admin['pluginconf'])
             && $gJConfig->activeusers_admin['pluginconf']) {
             $conffile = $gJConfig->activeusers_admin['pluginconf'];

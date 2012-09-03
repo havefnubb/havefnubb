@@ -15,8 +15,7 @@ class banuserCtrl extends jController {
     * Page info display to banned users
     */
     function index() {
-        global $gJConfig;
-        $title = stripslashes($gJConfig->havefnubb['title']);
+        $title = stripslashes(jApp::config()->havefnubb['title']);
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities( $title,ENT_COMPAT,'UTF-8') ) );
         $GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
         $rep = $this->getResponse('html');

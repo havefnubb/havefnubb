@@ -35,7 +35,6 @@ class forumCtrl extends jController {
     * display the RSS of the forum
     */
     public function read_rss() {
-        global $gJConfig;
         $ftitle = jUrl::escape($this->param('ftitle'),true);
 
         $id_forum = (int) $this->param('id_forum');
@@ -56,7 +55,7 @@ class forumCtrl extends jController {
         if (jUrl::escape($forum->forum_name,true) != $ftitle )
         {
             $rep = $this->getResponse('redirect');
-            $rep->action = $gJConfig->urlengine['notfoundAct'];
+            $rep->action = jApp::config()->urlengine['notfoundAct'];
             return $rep;
         }
 

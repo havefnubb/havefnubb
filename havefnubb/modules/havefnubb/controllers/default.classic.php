@@ -32,8 +32,8 @@ class defaultCtrl extends jController {
      * Main page
      */
     function index() {
-        global $gJConfig, $gJCoord;
-        $title = stripslashes($gJConfig->havefnubb['title']);
+        global $gJCoord;
+        $title = stripslashes(jApp::config()->havefnubb['title']);
         $rep = $this->getResponse('html');
 
         $historyPlugin = $gJCoord->getPlugin('history');
@@ -70,8 +70,7 @@ class defaultCtrl extends jController {
     function cloud () {
         $tag = $this->param('tag');
 
-        global $gJConfig;
-        $title = stripslashes($gJConfig->havefnubb['title']);
+        $title = stripslashes(jApp::config()->havefnubb['title']);
         $rep = $this->getResponse('html');
 
         $GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . jLocale::get('havefnubb~main.cloud'));
@@ -86,7 +85,7 @@ class defaultCtrl extends jController {
     * The rules of the forum
     */
     function rules() {
-        global $gJConfig;
+        $gJConfig = jApp::config();
         $tpl = new jTpl();
         if ($gJConfig->havefnubb['rules'] != '') {
             $rep = $this->getResponse('html');

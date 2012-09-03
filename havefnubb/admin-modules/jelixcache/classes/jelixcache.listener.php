@@ -12,8 +12,7 @@
 class jelixcacheListener extends jEventListener{
 
     function onmasteradminGetMenuContent ($event) {
-        global $gJConfig;
-        $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
+        $chemin = jApp::config()->urlengine['basePath'].'hfnu/admin/';
 
         if ( jAcl2::check('jelixcache.access')) {
             $item = new masterAdminMenuItem('jelixcache',

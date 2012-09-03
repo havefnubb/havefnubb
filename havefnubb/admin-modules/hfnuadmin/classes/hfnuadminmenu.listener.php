@@ -11,8 +11,7 @@
 class hfnuadminmenuListener extends jEventListener{
 
     function onmasteradminGetMenuContent ($event) {
-        global $gJConfig;
-        $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
+        $chemin = jApp::config()->urlengine['basePath'].'hfnu/admin/';
         if ( jAcl2::check('hfnu.admin.index')) {
          $event->add(new masterAdminMenuItem('havefnubb','HaveFnu BB!', '', 20));
         }

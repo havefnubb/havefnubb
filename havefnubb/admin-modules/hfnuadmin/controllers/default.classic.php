@@ -32,7 +32,7 @@ class defaultCtrl extends jController {
     }
 
     protected function initform($form) {
-        global $gJConfig;
+        $gJConfig = jApp::config();
         $floodConfig = parse_ini_file(jApp::configPath('havefnubb/flood.coord.ini.php'));
 
         $tzId = DateTimeZone::listIdentifiers();

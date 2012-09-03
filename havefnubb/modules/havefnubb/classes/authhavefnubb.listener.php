@@ -17,11 +17,10 @@ class authhavefnubbListener extends jEventListener{
     * @param object $event the given event to answer to
     */
     function onAuthLogin ($event) {
-        global $gJConfig;
         $user = jAuth::getUserSession();
 
         $_SESSION['JX_LANG'] = $user->member_language;
-        $gJConfig->locale = $user->member_language;
+        jApp::config()->locale = $user->member_language;
     }
 
     /**
@@ -44,7 +43,7 @@ class authhavefnubbListener extends jEventListener{
     * @param object $event the given event to answer to
     */
     function onjcommunity_save_account ($event) {
-        global $gJConfig;
+        $gJConfig = jApp::config();
         $form = $event->getParam('form');
         $form->check();
         if ( $form->getData('member_language') != '') {
@@ -91,7 +90,7 @@ class authhavefnubbListener extends jEventListener{
      * @param object $event the given event to answer to
      */
     function onAuthNewUser ($event) {
-        global $gJConfig;
+        $gJConfig = jApp::config();
 
         $toEmail = ($gJConfig->havefnubb['admin_email'] != '') ? $gJConfig->havefnubb['admin_email'] : $gJConfig->mailer['webmasterEmail'];
 
