@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
 * @subpackage db_driver
@@ -8,5 +7,12 @@
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-class intuitionDaoBuilder extends jDaoGenerator{
+
+/**
+ * driver for jDaoCompiler
+ * @package    jelix
+ * @subpackage db_driver
+ */
+class intuitionDaoBuilder extends jDaoGenerator {
+
 }

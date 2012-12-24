@@ -3,8 +3,8 @@
 /**
 * @package     jelix-scripts
 * @author      Laurent Jouanneau
-* @contributor 
-* @copyright   2008-2010 Laurent Jouanneau
+* @contributor
+* @copyright   2008-2011 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
@@ -18,7 +18,7 @@ class createentrypointCommand extends JelixScriptCommand {
     public  $syntaxhelp = "[-type a_type] [-copy-config configfile] NAME [CONFIG]";
     public  $help = '';
 
-    function __construct(){
+    function __construct($config){
         $this->help= array(
             'fr'=>"
     Crée un nouveau point d'entrée dans le répertoire www de l'application, en
@@ -39,14 +39,15 @@ class createentrypointCommand extends JelixScriptCommand {
     the name NAME given as a parameter. It will use the configuration file
     CONFIG. This file will be created if it doesn't exist, and in this case,
     the file indicated as the optional parameter --copy-config will be used as
-    a model. 
-    
+    a model.
+
     The -type option indicates the type of the entry point: classic, jsonrpc,
     xmlrpc, rdf, soap, cmdline.
-    
+
     The name of the entry point can contain a subdirectory.
     ",
     );
+        parent::__construct($config);
     }
 
     public function run() {
@@ -66,18 +67,18 @@ class createentrypointCommand extends JelixScriptCommand {
 
         // the full path of the entry point
         if ($type == 'cmdline') {
-            $entryPointFullPath = JELIX_APP_CMD_PATH.$name.'.php';
+            $entryPointFullPath = jApp::scriptsPath($name.'.php');
             $entryPointTemplate = 'scripts/cmdline.php.tpl';
         }
         else {
-            $entryPointFullPath = JELIX_APP_WWW_PATH.$name.'.php';
+            $entryPointFullPath = jApp::wwwPath($name.'.php');
             $entryPointTemplate = 'www/'.($type=='classic'?'index':$type).'.php.tpl';
         }
 
         if (file_exists($entryPointFullPath)) {
             throw new Exception("the entry point already exists");
         }
-        
+
         $entryPointDir = dirname($entryPointFullPath).'/';
 
         $this->loadProjectXml();
@@ -87,7 +88,7 @@ class createentrypointCommand extends JelixScriptCommand {
 
         if ($configFile == null) {
             if ($type == 'cmdline') {
-                $configFile = 'cmdline/'.$name.'.ini.php';  
+                $configFile = 'cmdline/'.$name.'.ini.php';
             }
             else {
                 $configFile = $name.'/config.ini.php';
@@ -95,72 +96,51 @@ class createentrypointCommand extends JelixScriptCommand {
         }
 
         // let's create the config file if needed
-        if (!file_exists(JELIX_APP_CONFIG_PATH.$configFile)) {
-            $this->createDir(dirname(JELIX_APP_CONFIG_PATH.$configFile));
+        $configFilePath = jApp::configPath($configFile);
+        if (!file_exists($configFilePath)) {
+            $this->createDir(dirname($configFilePath));
             // the file doesn't exists
             // if there is a -copy-config parameter, we copy this file
             $originalConfig = $this->getOption('-copy-config');
             if ($originalConfig) {
-                if (! file_exists(JELIX_APP_CONFIG_PATH.$originalConfig)) {
+                if (! file_exists(jApp::configPath($originalConfig))) {
                     throw new Exception ("unknown original configuration file");
                 }
-                file_put_contents(JELIX_APP_CONFIG_PATH.$configFile,
-                                  file_get_contents(JELIX_APP_CONFIG_PATH.$originalConfig));
+                file_put_contents($configFilePath,
+                                  file_get_contents(jApp::configPath($originalConfig)));
+                if ($this->verbose())
+                    echo "Configuration file $configFile has been created from the config file $originalConfig.\n";
             }
             else {
                 // else we create a new config file, with the startmodule of the default
                 // config as a module name.
-                $defaultConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php', true);
-                
+                $defaultConfig = parse_ini_file(jApp::configPath('defaultconfig.ini.php'), true);
+
                 $param = array();
                 if (isset($defaultConfig['startModule']))
                     $param['modulename'] = $defaultConfig['startModule'];
                 else
                     $param['modulename'] = 'jelix';
-                
-                $this->createFile(JELIX_APP_CONFIG_PATH.$configFile,
+
+                $this->createFile($configFilePath,
                                   'var/config/index/config.ini.php.tpl',
-                                  $param);
+                                  $param, "Configuration file");
             }
         }
 
-        require_once (JELIXS_LIB_PATH.'jelix/utils/jIniMultiFilesModifier.class.php');
-        $inifile = new jIniMultiFilesModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php',
-                                              JELIX_APP_CONFIG_PATH.$configFile);
+        require_once (JELIX_LIB_PATH.'utils/jIniMultiFilesModifier.class.php');
+        $inifile = new jIniMultiFilesModifier(jApp::configPath('defaultconfig.ini.php'),
+                                              $configFilePath);
         $param = array();
         $param['modulename'] = $inifile->getValue('startModule');
         // creation of the entry point
         $this->createDir($entryPointDir);
-        $param['rp_app']   = jxs_getRelativePath($entryPointDir, JELIX_APP_PATH, true);
+        $param['rp_app']   = $this->getRelativePath($entryPointDir, jApp::appPath());
         $param['config_file'] = $configFile;
 
-        $this->createFile($entryPointFullPath, $entryPointTemplate, $param);
+        $this->createFile($entryPointFullPath, $entryPointTemplate, $param, "Entry point");
 
-        if ($type == 'cmdline') {
-            if (!file_exists(JELIX_APP_PATH.'application-cli.init.php')) {
-                $this->createDir(substr(JELIX_APP_TEMP_PATH,-1).'-cli');
-                $param2['rp_temp']= jxs_getRelativePath(JELIX_APP_PATH, substr(JELIX_APP_TEMP_PATH,0,-1).'-cli', true);
-                $param2['rp_var'] = jxs_getRelativePath(JELIX_APP_PATH, JELIX_APP_VAR_PATH,  true);
-                $param2['rp_log'] = jxs_getRelativePath(JELIX_APP_PATH, JELIX_APP_LOG_PATH,  true);
-                $param2['rp_conf']= jxs_getRelativePath(JELIX_APP_PATH, JELIX_APP_CONFIG_PATH, true);
-                $param2['rp_www'] = jxs_getRelativePath(JELIX_APP_PATH, JELIX_APP_WWW_PATH,  true);
-                $param2['rp_cmd'] = jxs_getRelativePath(JELIX_APP_PATH, JELIX_APP_CMD_PATH,  true);
-                $param2['rp_jelix'] = jxs_getRelativePath(JELIX_APP_PATH, JELIX_LIB_PATH, true);
-                $param2['rp_app']   = jxs_getRelativePath(JELIX_APP_WWW_PATH, JELIX_APP_PATH, true);
-                
-                $param2['php_rp_temp'] = $this->convertRp($param2['rp_temp']);
-                $param2['php_rp_var']  = $this->convertRp($param2['rp_var']);
-                $param2['php_rp_log']  = $this->convertRp($param2['rp_log']);
-                $param2['php_rp_conf'] = $this->convertRp($param2['rp_conf']);
-                $param2['php_rp_www']  = $this->convertRp($param2['rp_www']);
-                $param2['php_rp_cmd']  = $this->convertRp($param2['rp_cmd']);
-                
-                $this->createFile(JELIX_APP_PATH.'application-cli.init.php',
-                                  'application.init.php.tpl',$param2);
-            }
-        }
-        else {
-
+        if ($type != 'cmdline') {
             if (null === $inifile->getValue($name, 'simple_urlengine_entrypoints', null, true)) {
                 $inifile->setValue($name, '', 'simple_urlengine_entrypoints', null, true);
             }
@@ -172,10 +152,14 @@ class createentrypointCommand extends JelixScriptCommand {
         }
 
         $this->updateProjectXml($name.".php", $configFile , $type);
+        if ($this->verbose())
+            echo "Project.xml has been updated.\n";
 
-        require_once (JELIXS_LIB_PATH.'jelix/installer/jInstaller.class.php');
+        require_once (JELIX_LIB_PATH.'installer/jInstaller.class.php');
         $installer = new jInstaller(new textInstallReporter('warning'));
         $installer->installEntryPoint($name.".php");
+        if ($this->verbose())
+            echo "All modules have been initialized for the new entry point.\n";
     }
 
     protected function updateProjectXml ($fileName, $configFileName, $type) {
@@ -195,7 +179,6 @@ class createentrypointCommand extends JelixScriptCommand {
         else
             $ep->item(0)->appendChild($elem);
 
-        $this->projectXml->save(JELIX_APP_PATH.'project.xml');
+        $this->projectXml->save(jApp::appPath('project.xml'));
     }
 }
-

@@ -1,8 +1,9 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 
-$locales=array(
+$locales = array(
 'maintitle'=>'installation wizard',
-'previousLabel'=>'previous',
-'nextLabel'=>'next',
+'previousLabel' => 'previous',
+'nextLabel'=> 'next',
+
+
 );

@@ -4,7 +4,7 @@
 * @author      Laurent Jouanneau
 * @contributor Loic Mathaud
 * @contributor Bastien Jaillot
-* @copyright   2005-2010 Laurent Jouanneau, 2007 Loic Mathaud, 2008 Bastien Jaillot
+* @copyright   2005-2011 Laurent Jouanneau, 2007 Loic Mathaud, 2008 Bastien Jaillot
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
@@ -59,8 +59,8 @@ class createmoduleCommand extends JelixScriptCommand {
 
 
     public function run(){
-        jxs_init_jelix_env();
-        global $entryPointName, $entryPointId, $allEntryPoint, $gJConfig;
+        $this->loadAppConfig();
+        global $gJConfig;
 
         $module = $this->getParam('module');
         $initialVersion = $this->getOption('-ver');
@@ -88,16 +88,18 @@ class createmoduleCommand extends JelixScriptCommand {
         $repository = $this->getParam('repository', 'app:modules/');
         if (substr($repository,-1) != '/')
             $repository .= '/';
-        $repositoryPath = str_replace(array('lib:','app:'), array(LIB_PATH, JELIX_APP_PATH), $repository);
+        $repositoryPath = str_replace(array('lib:','app:'), array(LIB_PATH, jApp::appPath()), $repository);
 
-        $iniDefault = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $iniDefault = new jIniFileModifier(jApp::configPath('defaultconfig.ini.php'));
         $this->updateModulePath($iniDefault, $iniDefault->getValue('modulesPath'), $repository, $repositoryPath);
+        if ($this->verbose())
+            echo "modulePath updated in the main configuration\n";
 
-        if (!$allEntryPoint) {
+        if (!$this->allEntryPoint) {
             $list = $this->getEntryPointsList();
             foreach ($list as $k => $entryPoint) {
-                if ($entryPoint['file'] == $entryPointName) {
-                    $ini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$entryPoint['config']);
+                if ($entryPoint['file'] == $this->entryPointName) {
+                    $ini = new jIniFileModifier(jApp::configPath($entryPoint['config']));
                     break;
                 }
             }
@@ -105,6 +107,8 @@ class createmoduleCommand extends JelixScriptCommand {
                 throw new Exception("entry point is unknown");
             }
             $this->updateModulePath($ini, $gJConfig->modulesPath, $repository, $repositoryPath);
+            if ($this->verbose())
+                echo "modulePath updated in the configuration ".$entryPoint['config']."\n";
         }
 
         $path = $repositoryPath.$module.'/';
@@ -119,7 +123,7 @@ class createmoduleCommand extends JelixScriptCommand {
 
         $param = array();
         $param['module'] = $module;
-        $param['default_id'] = $module.JELIXS_INFO_DEFAULT_IDSUFFIX;
+        $param['default_id'] = $module.$this->config->infoIDSuffix;
         $param['version'] = $initialVersion;
 
         $this->createFile($path.'module.xml', 'module/module.xml.tpl', $param);
@@ -137,7 +141,10 @@ class createmoduleCommand extends JelixScriptCommand {
             $this->createDir($path.'locales/en_EN/');
             $this->createDir($path.'locales/fr_FR/');
             $this->createDir($path.'install/');
+            if ($this->verbose())
+                echo "Sub directories have been created in the new module $module.\n";
             $this->createFile($path.'install/install.php','module/install.tpl',$param);
+            $this->createFile($path.'urls.xml', 'module/urls.xml.tpl', array());
         }
 
         $isdefault = $this->getOption('-defaultmodule');
@@ -146,29 +153,31 @@ class createmoduleCommand extends JelixScriptCommand {
         if ($isdefault) {
             $iniDefault->setValue('startModule', $module);
             $iniDefault->setValue('startAction', 'default:index');
+            if ($this->verbose())
+                echo "The new module $module becomes the default module\n";
         }
 
-        $iniDefault->setValue($module.'.access', ($allEntryPoint?2:1) , 'modules');
+        $iniDefault->setValue($module.'.access', ($this->allEntryPoint?2:1) , 'modules');
         $iniDefault->save();
 
         $list = $this->getEntryPointsList();
-        $install = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'installer.ini.php');
+        $install = new jIniFileModifier(jApp::configPath('installer.ini.php'));
 
         // install the module for all needed entry points
         foreach ($list as $k => $entryPoint) {
 
-            $configFile = JELIX_APP_CONFIG_PATH.$entryPoint['config'];
+            $configFile = jApp::configPath($entryPoint['config']);
             $epconfig = new jIniFileModifier($configFile);
 
-            if ($allEntryPoint)
+            if ($this->allEntryPoint)
                 $access = 2;
             else
-                $access = ($entryPoint['file'] == $entryPointName?2:0);
+                $access = ($entryPoint['file'] == $this->entryPointName?2:0);
 
             $epconfig->setValue($module.'.access', $access, 'modules');
             $epconfig->save();
 
-            if ($allEntryPoint || $entryPoint['file'] == $entryPointName) {
+            if ($this->allEntryPoint || $entryPoint['file'] == $this->entryPointName) {
                 $install->setValue($module.'.installed', 1, $entryPoint['id']);
                 $install->setValue($module.'.version', $initialVersion, $entryPoint['id']);
             }
@@ -177,7 +186,7 @@ class createmoduleCommand extends JelixScriptCommand {
                 // we set the module as default module for one or all entry points.
                 // we set the startModule option for all entry points except
                 // if an entry point is indicated on the command line
-                if ($allEntryPoint || $entryPoint['file'] == $entryPointName) {
+                if ($this->allEntryPoint || $entryPoint['file'] == $this->entryPointName) {
                     if ($epconfig->getValue('startModule') != '') {
                         $epconfig->setValue('startModule', $module);
                         $epconfig->setValue('startAction', 'default:index');
@@ -185,13 +194,15 @@ class createmoduleCommand extends JelixScriptCommand {
                     }
                 }
             }
+            if ($this->verbose())
+                echo "The module is initialized for the entry point ".$entryPoint['file'].".\n";
         }
 
         $install->save();
 
         // create a default controller
         if(!$this->getOption('-nocontroller')){
-            $agcommand = jxs_load_command('createctrl');
+            $agcommand = JelixScript::getCommand('createctrl', $this->config);
             $options = array();
             if ($this->getOption('-cmdline')) {
                $options = array('-cmdline'=>true);
@@ -199,17 +210,17 @@ class createmoduleCommand extends JelixScriptCommand {
             if ($this->getOption('-addinstallzone')) {
                 $options = array('-addinstallzone'=>true);
             }
-            $agcommand->init($options,array('module'=>$module, 'name'=>'default','method'=>'index'));
+            $agcommand->initOptParam($options,array('module'=>$module, 'name'=>'default','method'=>'index'));
             $agcommand->run();
         }
 
         if ($this->getOption('-admin')) {
-            $this->createFile($path.'classes/admin'.$module.'.listener.php', 'module/admin.listener.php.tpl', $param);
+            $this->createFile($path.'classes/admin'.$module.'.listener.php', 'module/admin.listener.php.tpl', $param, "Listener");
             $this->createFile($path.'events.xml', 'module/events.xml.tpl', $param);
+
             file_put_contents($path.'locales/en_EN/interface.UTF-8.properties', 'menu.item='.$module);
             file_put_contents($path.'locales/fr_FR/interface.UTF-8.properties', 'menu.item='.$module);
         }
-
     }
 
     protected function updateModulePath($ini, $currentModulesPath, $repository, $repositoryPath) {
@@ -217,7 +228,7 @@ class createmoduleCommand extends JelixScriptCommand {
         $repositoryFound = false;
         foreach($listRepos as $path){
             if(trim($path) == '') continue;
-            $p = str_replace(array('lib:','app:'), array(LIB_PATH, JELIX_APP_PATH), $path);
+            $p = str_replace(array('lib:','app:'), array(LIB_PATH, jApp::appPath()), $path);
             if (substr($p,-1) != '/')
                 $p .= '/';
             if ($p == $repositoryPath) {
@@ -237,4 +248,3 @@ class createmoduleCommand extends JelixScriptCommand {
         }
     }
 }
-

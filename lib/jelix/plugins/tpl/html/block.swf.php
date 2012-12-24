@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
  * @package     jelix
  * @subpackage  jtpl_plugin
@@ -12,9 +11,44 @@
  *
  * Inspired by the method satay Drew McLellan (http://www.alistapart.com/articles/flashsatay/)
  */
-function jtpl_block_html_swf($compiler,$begin,$params){
-	if($begin){
-		$sortie='
+
+/**
+ * swf plugin :  Adds html code to display a swf
+ *
+ * Example :
+ * {swf 'promobidon.swf',
+ *       array('id'=>'promo', 'width'=>150, 'height'=>90),
+ *       array('quality'=>'hight', 'wmode'=>'transparent'),
+ *       array('longeur'=>150)}
+ *     {image 'toupie.png'}
+ * {/swf}
+ *
+ * Render :
+ *
+ * <object id="promo" width="150" height="90"
+ *         data="/data/fichiers/promobidon.swf?&longeur=150"
+ *         type="application/x-shockwave-flash">
+ *     <param value="hight" name="quality"/>
+ *     <param value="transparent" name="wmode"/>
+ *     <img src="/data/fichiers/toupie.png"/>
+ * </object>
+ *
+ * $params[0] url of the swf
+ * $params[1]['id'] id of <object .../>
+ * $params[1]['class'] class of <object .../>
+ * $params[1]['width'] Width final of SWF
+ * $params[1]['height'] Height final of SWF
+ * $params[2][xx] Parameter of the Flash Player
+ * $params[3][xx] Flashvar for the Flash Player
+ *
+ * @param jTplCompiler $compiler the template compiler
+ * @param boolean $begin true if it is the begin of block, else false
+ * @param array $params parameters for the url
+ */
+function jtpl_block_html_swf($compiler, $begin, $params) {
+
+    if($begin) {
+        $sortie  = '
         $src = '.$params[0].';
         $options = '.$params[1].';
         $params = '.$params[2].';
@@ -36,8 +70,8 @@ function jtpl_block_html_swf($compiler,$begin,$params){
         if( count($params) ) foreach($params as $key => $val)
             echo \'<param name="\'.$key.\'" value="\'.$val.\'" />\'."\n";
         ';
-		return $sortie;
-	}else{
-		return 'echo \'</object>\';';
-	}
+        return $sortie;
+    } else {
+        return 'echo \'</object>\';';
+    }
 }

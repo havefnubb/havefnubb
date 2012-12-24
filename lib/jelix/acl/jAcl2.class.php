@@ -1,42 +1,70 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
 * @subpackage  acl
 * @author      Laurent Jouanneau
-* @copyright   2006-2009 Laurent Jouanneau
+* @copyright   2006-2010 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 * @since 1.1
 */
-interface jIAcl2Driver{
-	public function getRight($subject,$resource=null);
-	public function clearCache();
+
+require(JELIX_LIB_PATH.'acl/jIAcl2Driver.iface.php');
+
+/**
+ * Main class to query the acl system, and to know value of a right
+ *
+ * you should call this class (all method are static) when you want to know if
+ * the current user have a right
+ * @package jelix
+ * @subpackage acl
+ * @static
+ */
+class jAcl2 {
+
+    /**
+     * @internal The constructor is private, because all methods are static
+     */
+    private function __construct (){ }
+
+    /**
+     * load the acl2 driver
+     * @return jIAcl2Driver
+     */
+    protected static function _getDriver(){
+        static $driver = null;
+        if($driver == null){
+            global $gJConfig;
+            $db = strtolower($gJConfig->acl2['driver']);
+            if ($db == '')
+                throw new jException('jelix~errors.acl.driver.notfound',$db);
+
+            $driver = jApp::loadPlugin($db, 'acl2', '.acl2.php', $gJConfig->acl2['driver'].'Acl2Driver', $gJConfig->acl2);
+            if (is_null($driver)) {
+                throw new jException('jelix~errors.acl.driver.notfound',$db);
+            }
+        }
+        return $driver;
+    }
+
+    /**
+     * call this method to know if the current user has the right with the given value
+     * @param string $subject the key of the subject to check
+     * @param string $resource the id of a resource
+     * @return boolean true if yes
+     */
+    public static function check($subject, $resource=null){
+        $dr = self::_getDriver();
+        return $dr->getRight($subject, $resource);
+    }
+
+    /**
+     * clear right cache
+     * @since 1.0b2
+     */
+    public static function clearCache(){
+        $dr = self::_getDriver();
+        $dr->clearCache();
+    }
 }
-class jAcl2{
-	private function __construct(){}
-	protected static function _getDriver(){
-		static $driver=null;
-		if($driver==null){
-			global $gJConfig;
-			$db=strtolower($gJConfig->acl2['driver']);
-			if($db==''||!isset($gJConfig->_pluginsPathList_acl2)
-				||!isset($gJConfig->_pluginsPathList_acl2[$db])
-				||!file_exists($gJConfig->_pluginsPathList_acl2[$db])){
-				throw new jException('jelix~errors.acl.driver.notfound',$db);
-			}
-			require_once($gJConfig->_pluginsPathList_acl2[$db].$db.'.acl2.php');
-			$dname=$gJConfig->acl2['driver'].'Acl2Driver';
-			$driver=new $dname($gJConfig->acl);
-		}
-		return $driver;
-	}
-	public static function check($subject,$resource=null){
-		$dr=self::_getDriver();
-		return $dr->getRight($subject,$resource);
-	}
-	public static function clearCache(){
-		$dr=self::_getDriver();
-		$dr->clearCache();
-	}
-}
+

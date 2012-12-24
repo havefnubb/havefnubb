@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 
 /**
 * page for Installation wizard
@@ -11,11 +10,22 @@
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
-class endWizPage extends installWizardPage{
-	function show($tpl){
-		return false;
-	}
-	function process(){
-		return 0;
-	}
+
+class endWizPage extends installWizardPage {
+    
+    /**
+     * action to display the page
+     * @param jTpl $tpl the template container
+     */
+    function show ($tpl) {
+        return false;
+    }
+    
+    /**
+     * action to process the page after the submit
+     */
+    function process() {
+        return 0;
+    }
+
 }

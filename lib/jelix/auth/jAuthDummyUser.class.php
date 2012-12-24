@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
 * @subpackage auth
@@ -9,6 +8,18 @@
 * @copyright  2007 Julien Issler
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+/**
+ *
+ */
 require_once(JELIX_LIB_PATH.'auth/jAuthUser.class.php');
-class jAuthDummyUser extends  jAuthUser{
+
+/**
+ * internal use
+ * @package    jelix
+ * @subpackage auth
+ */
+class jAuthDummyUser extends  jAuthUser {
 }
+
+

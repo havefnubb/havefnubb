@@ -36,7 +36,10 @@ class jcommunityModuleInstaller extends jInstallerModule {
             }
         }
 
-        $conf = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$authconfig);
+        if (defined('JELIX_APP_CONFIG_PATH')) // for Jelix 1.2 and older
+            $conf = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$authconfig);
+        else
+            $conf = new jIniFileModifier(jApp::configPath($authconfig));
         $this->useDbProfile($conf->getValue('profile', 'Db'));
 
         if ($this->firstExec($authconfig) && $this->getParameter('rewriteconfig')) {

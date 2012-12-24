@@ -24,8 +24,7 @@
 </head><body >
     <h1>Installation Wizard</h1>
 
-    <p>An unexpected error occured: <?php /* comments & extra-whitespaces have been removed by jBuildTools*/
-echo $error;?></p>
+    <p>An unexpected error occured: <?php echo $error; ?></p>
 
 </body>
 </html>

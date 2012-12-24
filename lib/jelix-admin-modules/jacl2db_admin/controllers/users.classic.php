@@ -4,7 +4,7 @@
 * @subpackage  jacl2db_admin
 * @author      Laurent Jouanneau
 * @contributor Julien Issler
-* @copyright   2008 Laurent Jouanneau
+* @copyright   2008-2011 Laurent Jouanneau
 * @copyright   2009 Julien Issler
 * @link        http://jelix.org
 * @licence     http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public Licence, see LICENCE file
@@ -27,23 +27,26 @@ class usersCtrl extends jController {
         $rep = $this->getResponse('html');
 
         $groups=array();
+
         $o = new StdClass;
         $o->id_aclgrp ='-2';
         $o->name=jLocale::get('jacl2db_admin~acl2.all.users.option');
         $o->grouptype=0;
         $groups[]=$o;
+
         $o = new StdClass;
         $o->id_aclgrp ='-1';
         $o->name=jLocale::get('jacl2db_admin~acl2.without.groups.option');
         $o->grouptype=0;
         $groups[]=$o;
+
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
             $groups[]=$grp;
         }
 
         $listPageSize = 15;
-        $offset = $this->intParam('idx',0,true);
-        $grpid = $this->intParam('grpid',-2,true);
+        $offset = $this->param('idx',0,true);
+        $grpid = $this->param('grpid',-2,true);
 
         $p = 'jacl2_profile';
 
@@ -96,6 +99,15 @@ class usersCtrl extends jController {
         return $rep;
     }
 
+    protected function getLabel($id, $labelKey) {
+        if ($labelKey) {
+            try {
+                return jLocale::get($labelKey);
+            }
+            catch(Exception $e) { }
+        }
+        return $id;
+    }
 
     function rights(){
         $rep = $this->getResponse('html');
@@ -106,6 +118,7 @@ class usersCtrl extends jController {
             return $rep;
         }
 
+        // retrieve groups of the user
         $hisgroup = null;
         $groupsuser = array();
         foreach(jAcl2DbUserGroup::getGroupList($user) as $grp) {
@@ -115,21 +128,28 @@ class usersCtrl extends jController {
                 $groupsuser[$grp->id_aclgrp]=$grp;
         }
 
+        // retrieve all groups
         $gid=array($hisgroup->id_aclgrp);
         $groups=array();
         $grouprights=array($hisgroup->id_aclgrp=>false);
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
             $gid[]=$grp->id_aclgrp;
             $groups[]=$grp;
-            $grouprights[$grp->id_aclgrp]=false;
+            $grouprights[$grp->id_aclgrp]='';
         }
 
+        // create the list of subjects and their labels
         $rights=array();
-        $subjects_localized = array();
+        $subjects = array();
+        $sbjgroups_localized = array();
         $rs = jDao::get('jacl2db~jacl2subject','jacl2_profile')->findAllSubject();
         foreach($rs as $rec){
             $rights[$rec->id_aclsbj] = $grouprights;
-            $subjects_localized[$rec->id_aclsbj] = jLocale::get($rec->label_key);
+            $subjects[$rec->id_aclsbj] = array('grp'=>$rec->id_aclsbjgrp,
+                                               'label'=>$this->getLabel($rec->id_aclsbj, $rec->label_key));
+            if ($rec->id_aclsbjgrp && !isset($sbjgroups_localized[$rec->id_aclsbjgrp])) {
+                $sbjgroups_localized[$rec->id_aclsbjgrp] = $this->getLabel($rec->id_aclsbjgrp, $rec->label_group_key);
+            }
         }
 
         $rightsWithResources = array_fill_keys(array_keys($rights),0);
@@ -144,12 +164,13 @@ class usersCtrl extends jController {
 
         $rs = $daorights->getRightsByGroups($gid);
         foreach($rs as $rec){
-            $rights[$rec->id_aclsbj][$rec->id_aclgrp] = true;
+            $rights[$rec->id_aclsbj][$rec->id_aclgrp] = ($rec->canceled?'n':'y');
         }
 
         $tpl = new jTpl();
         $tpl->assign(compact('hisgroup', 'groupsuser', 'groups', 'rights','user',
-                             'subjects_localized', 'rightsWithResources', 'hasRightsOnResources'));
+                             'subjects', 'sbjgroups_localized',
+                             'rightsWithResources', 'hasRightsOnResources'));
         $tpl->assign('nbgrp', count($groups));
 
         if(jAcl2::check('acl.user.modify')) {
@@ -203,7 +224,7 @@ class usersCtrl extends jController {
         foreach($rs as $rec){
             if (!isset($rightsWithResources[$rec->id_aclsbj]))
                 $rightsWithResources[$rec->id_aclsbj] = array();
-            $rightsWithResources[$rec->id_aclsbj][] = $rec->id_aclres;
+            $rightsWithResources[$rec->id_aclsbj][] = $rec;
             $hasRightsOnResources = true;
         }
         $subjects_localized = array();

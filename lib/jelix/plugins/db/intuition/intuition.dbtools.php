@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
 * @subpackage db_driver
@@ -9,8 +8,13 @@
 * @link 	  http://www.sinequa.com
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+/**
+* @package    jelix
+* @subpackage db_driver
+*/
 class intuitionDbTools extends jDbTools{
-	function __construct($connector){
-		parent::__construct($connector);
-	}
+
+   function __construct ($connector) {
+        parent::__construct ($connector);
+   }
 }

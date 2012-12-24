@@ -79,8 +79,8 @@ class adminaccountWizPage extends installWizardPage {
                   "'".date('Y-m-d H:i:s')."')");
         $idu = $db->lastInsertId();
 
-        $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_group')).' (name, code, grouptype, ownerlogin) '.
-                  'VALUES ('.$db->quote($login).','.$db->quote($login).',2,'.$db->quote($login).')');
+        $db->exec('INSERT INTO '.$db->encloseName($db->prefixTable('jacl2_group')).' (name, grouptype, ownerlogin) '.
+                  'VALUES ('.$db->quote($login).',2,'.$db->quote($login).')');
 
         $idg = $db->lastInsertId();
 

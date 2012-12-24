@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * jSmtp, based on SMTP, a  PHP SMTP class by Chris Ryan
 *
@@ -15,5 +14,21 @@
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 require(LIB_PATH.'phpMailer/class.smtp.php');
-class jSmtp extends SMTP{
+
+/**
+ * SMTP is rfc 821 compliant and implements all the rfc 821 SMTP
+ * commands except TURN which will always return a not implemented
+ * error. SMTP also provides some utility methods for sending mail
+ * to an SMTP server.
+ *
+ * This class is just a simple wrapper around SMTP.
+ *
+ * @package jelix
+ * @subpackage  utils
+ * @since 1.0b1
+ * @see SMTP
+ */
+class jSmtp extends SMTP {
+
+
 }

@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
  * Plugin from smarty project and adapted for jtpl
  * @package    jelix
@@ -10,7 +9,19 @@
  * @link http://jelix.org/
  * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
-function jtpl_modifier_common_cat($string,$cat)
+
+/**
+ * Modifier plugin : catenate a value to a variable
+ *
+ * <pre>
+ *  {$var|cat:"foo"}  
+ *  {$var|cat:$othervar}
+ * </pre>
+ * @param string $string the string to be modified
+ * @param string $cat the string to concat to $string
+ * @return string
+ */
+function jtpl_modifier_common_cat($string, $cat)
 {
-	return $string . $cat;
+    return $string . $cat;
 }

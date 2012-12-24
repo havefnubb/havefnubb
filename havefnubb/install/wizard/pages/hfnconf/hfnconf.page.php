@@ -24,7 +24,7 @@ class hfnconfWizPage extends installWizardPage {
 
         $themes = array();
 
-        $dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
+        $dir = new DirectoryIterator(jApp::varPath().'themes/');
         foreach ($dir as $dirContent) {
             if ($dirContent->isDir() && !$dirContent->isDot())
                 $themes[] = $dirContent->getFilename();
@@ -40,7 +40,7 @@ class hfnconfWizPage extends installWizardPage {
      * action to process the page after the submit
      */
     function process() {
-        $ini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $ini = new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
         $errors = array();
         $_SESSION['hfnconf']['theme'] = trim($_POST['theme']);
         if ($_SESSION['hfnconf']['theme'] == '') {
@@ -72,7 +72,7 @@ class hfnconfWizPage extends installWizardPage {
 
 
     protected function loadconf() {
-        $ini = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $ini = new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
         $config = array(
             'theme'=>$ini->getValue('theme'),
             'title'=>$ini->getValue('title','havefnubb'),

@@ -16,7 +16,7 @@ class openappCommand extends JelixScriptCommand {
     public  $syntaxhelp = "";
     public  $help = '';
 
-    function __construct(){
+    function __construct($config){
         $this->help= array(
             'fr'=>"
     Active l'application
@@ -25,9 +25,12 @@ class openappCommand extends JelixScriptCommand {
     Activate the application
     ",
     );
+        parent::__construct($config);
     }
 
     public function run(){
         jAppManager::open();
+        if ($this->verbose())
+            echo "Application is opened.\n";
     }
 }

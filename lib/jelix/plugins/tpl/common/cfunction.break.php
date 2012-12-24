@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
 * @subpackage  jtpl_plugin
@@ -8,6 +7,18 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_cfunction_common_break($compiler){
-	return ' break;';
+
+/**
+* cfunction to allow to had a break instruction in a template
+* 
+* <pre>
+* <ul>
+* {for $i = 1; $i < 10; $i++}
+*     <li>{$i}</li>
+*     {if $i == '4'}{break}{/if}
+* {/for}
+* </ul></pre>
+*/
+function jtpl_cfunction_common_break($compiler) {
+    return ' break;';
 }

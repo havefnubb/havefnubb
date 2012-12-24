@@ -1,340 +1,243 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
 * @subpackage  db
 * @author      Laurent Jouanneau
-* @contributor Yannick Le Guédart, Laurent Raufaste, Christophe Thiriot
-* @copyright   2005-2011 Laurent Jouanneau, 2008 Laurent Raufaste
+* @contributor Yannick Le Guédart, Laurent Raufaste, Julien Issler
+* @copyright   2005-2011 Laurent Jouanneau
+* @copyright   2011 Julien Issler
 *
-* Some of this classes were get originally from the Copix project
-* (CopixDbConnection, Copix 2.3dev20050901, http://www.copix.org)
-* Some lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
-* Initial authors of this Copix classes are Gerald Croes and Laurent Jouanneau,
-* and this classes were adapted for Jelix by Laurent Jouanneau
+* API ideas of this class were get originally from the Copix project (CopixDbFactory, Copix 2.3dev20050901, http://www.copix.org)
+* No lines of code are copyrighted by CopixTeam
 *
-* @link     http://www.jelix.org
+* @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-abstract class jDbConnection{
-	const FETCH_OBJ=5;
-	const FETCH_CLASS=8;
-	const FETCH_INTO=9;
-	const ATTR_AUTOCOMMIT=0;
-	const ATTR_ERRMODE=3;
-	const ATTR_CURSOR=10;
-	const CURSOR_FWDONLY=0;
-	const CURSOR_SCROLL=1;
-	public $profile;
-	public $dbms;
-	public $msgError='';
-	public $lastQuery;
-	private $_autocommit=true;
-	protected $_connection=null;
-	function __construct($profile){
-		$this->profile=& $profile;
-		$this->dbms=$profile['driver'];
-		$this->_connection=$this->_connect();
-	}
-	function __destruct(){
-		if($this->_connection!==null){
-			$this->_disconnect();
-		}
-	}
-	public function query($queryString,$fetchmode=self::FETCH_OBJ,$arg1=null,$ctoargs=null){
-		$this->lastQuery=$queryString;
-		$result=$this->_doQuery($queryString);
-		if($fetchmode!=self::FETCH_OBJ){
-			$result->setFetchMode($fetchmode,$arg1,$ctoargs);
-		}
-		return $result;
-	}
-	public function limitQuery($queryString,$limitOffset,$limitCount){
-		$this->lastQuery=$queryString;
-		return $this->_doLimitQuery($queryString,intval($limitOffset),intval($limitCount));
-	}
-	public function exec($query){
-		$this->lastQuery=$query;
-		return $this->_doExec($query);
-	}
-	public function quote($text,$parameter_type=0){
-		if($parameter_type===false||$parameter_type===true)
-			trigger_error("signature of jDbConnection::quote has changed, you should use quote2()",E_USER_WARNING);
-		return "'".$this->_quote($text,false)."'";
-	}
-	public function quote2($text,$checknull=true,$binary=false){
-		if($checknull)
-			return(is_null($text)? 'NULL' : "'".$this->_quote($text,$binary)."'");
-		else
-			return "'".$this->_quote($text,$binary)."'";
-	}
-	public function encloseName($fieldName){
-		return $fieldName;
-	}
-	public function encloseFieldName($fieldName){
-		return $this->encloseName($fieldName);
-	}
-	public function prefixTable($table_name){
-		if(!isset($this->profile['table_prefix']))
-			return $table_name;
-		return $this->profile['table_prefix'].$table_name;
-	}
-	public function hasTablePrefix(){
-		return(isset($this->profile['table_prefix'])&&$this->profile['table_prefix']!='');
-	}
-	public function setAutoCommit($state=true){
-		$this->_autocommit=$state;
-		$this->_autoCommitNotify($this->_autocommit);
-	}
-	abstract public function beginTransaction();
-	abstract public function commit();
-	abstract public function rollback();
-	abstract public function prepare($query);
-	abstract public function errorInfo();
-	abstract public function errorCode();
-	abstract public function lastInsertId($fromSequence='');
-	public function getAttribute($id){return '';}
-	public function setAttribute($id,$value){}
-	public function lastIdInTable($fieldName,$tableName){
-		$rs=$this->query('SELECT MAX('.$fieldName.') as ID FROM '.$tableName);
-		if(($rs!==null)&&$r=$rs->fetch()){
-			return $r->ID;
-		}
-		return 0;
-	}
-	abstract protected function _autoCommitNotify($state);
-	abstract protected function _connect();
-	abstract protected function _disconnect();
-	abstract protected function _doQuery($queryString);
-	abstract protected function _doExec($queryString);
-	abstract protected function _doLimitQuery($queryString,$offset,$number);
-	protected function _quote($text,$binary){
-		return addslashes($text);
-	}
-	protected $_tools=null;
-	public function tools(){
-		if(!$this->_tools){
-			global $gJConfig;
-			require_once($gJConfig->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbtools.php');
-			$class=$this->dbms.'DbTools';
-			$this->_tools=new $class($this);
-		}
-		return $this->_tools;
-	}
-	protected $_schema=null;
-	public function schema(){
-		if(!$this->_schema){
-			global $gJConfig;
-			require_once($gJConfig->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbschema.php');
-			$class=$this->dbms.'DbSchema';
-			$this->_schema=new $class($this);
-		}
-		return $this->_schema;
-	}
+
+/**
+ *
+ */
+require(JELIX_LIB_PATH.'db/jDbConnection.class.php');
+require(JELIX_LIB_PATH.'db/jDbResultSet.class.php');
+
+/**
+ * class that handles a sql query for a logger
+ */
+class jSQLLogMessage extends jLogMessage {
+
+    protected $startTime = 0;
+    protected $endTime = 0;
+    protected $trace = array();
+    public $originalQuery = '';
+
+    public function __construct($message) {
+        $this->category = 'sql';
+        $this->message = $message;
+        $this->startTime = microtime(true);
+
+        $this->trace = debug_backtrace();
+        array_shift($this->trace); // remove the current __construct call
+    }
+
+    public function setRealQuery($sql) {
+        $this->originalQuery = $this->message;
+        $this->message = $sql;
+    }
+
+    public function endQuery() {
+        $this->endTime = microtime(true);
+    }
+
+    public function getTrace() {
+        return $this->trace;
+    }
+
+    public function getTime() {
+        return $this->endTime - $this->startTime;
+    }
+
+    public function getDao() {
+        foreach ($this->trace as $t) {
+            if (isset($t['class'])) {
+                $dao = '';
+                $class = $t['class'];
+                if ($class == 'jDaoFactoryBase') {
+                    if (isset($t['object'])) {
+                        $class = get_class($t['object']);
+                    }
+                    else {
+                        $class = 'jDaoFactoryBase';
+                        $dao = 'unknow dao, jDaoFactoryBase';
+                    }
+                }
+                if(preg_match('/^cDao_(.+)_Jx_(.+)_Jx_(.+)$/', $class, $m)) {
+                    $dao = $m[1].'~'.$m[2];
+                }
+                if ($dao && isset($t['function'])) {
+                    $dao.= '::'.$t['function'].'()';
+                }
+                if($dao)
+                    return $dao;
+            }
+        }
+        return '';
+    }
+
+    public function getFormatedMessage() {
+        $message = $this->message."\n".$this->getTime().'ms';
+        $dao = $this->getDao();
+        if ($dao)
+            $message.=', from dao:'.$dao."\n";
+        if ($this->message != $this->originalQuery)
+            $message.= 'Original query: '.$this->originalQuery."\n";
+
+        $traceLog="";
+        foreach($this->trace as $k=>$t){
+            $traceLog.="\n\t$k\t".(isset($t['class'])?$t['class'].$t['type']:'').$t['function']."()\t";
+            $traceLog.=(isset($t['file'])?$t['file']:'[php]').' : '.(isset($t['line'])?$t['line']:'');
+        }
+
+        return $message.$traceLog;
+    }
 }
-abstract class jDbResultSet implements Iterator{
-	protected $_idResult=null;
-	protected $_fetchMode=0;
-	protected $_fetchModeParam=null;
-	protected $_fetchModeCtoArgs=null;
-	function __construct($idResult){
-		$this->_idResult=$idResult;
-	}
-	function __destruct(){
-		if($this->_idResult){
-			$this->_free();
-			$this->_idResult=null;
-		}
-	}
-	public function id(){return $this->_idResult;}
-	public function unescapeBin($text){
-		return $text;
-	}
-	protected $modifier=array();
-	public function addModifier($function){
-		$this->modifier[]=$function;
-	}
-	public function setFetchMode($fetchmode,$param=null,$ctoargs=null){
-		$this->_fetchMode=$fetchmode;
-		$this->_fetchModeParam=$param;
-		$this->_fetchModeCtoArgs=$ctoargs;
-	}
-	public function fetch(){
-		$result=$this->_fetch();
-		if(!$result)
-			return $result;
-		if(count($this->modifier)){
-			foreach($this->modifier as $m)
-				call_user_func_array($m,array($result,$this));
-		}
-		if($this->_fetchMode==jDbConnection::FETCH_OBJ)
-			return $result;
-		if($this->_fetchMode==jDbConnection::FETCH_CLASS){
-			if($result instanceof $this->_fetchModeParam)
-				return $result;
-			$values=get_object_vars($result);
-			$o=$this->_fetchModeParam;
-			$result=new $o();
-			foreach($values as $k=>$value){
-				$result->$k=$value;
-			}
-		}
-		else if($this->_fetchMode==jDbConnection::FETCH_INTO){
-			$values=get_object_vars($result);
-			$result=$this->_fetchModeParam;
-			foreach($values as $k=>$value){
-				$result->$k=$value;
-			}
-		}
-		return $result;
-	}
-	public function fetchAll(){
-		$result=array();
-		while($res=$this->fetch()){
-			$result[]=$res;
-		}
-		return $result;
-	}
-	public function getAttribute($attr){return null;}
-	public function setAttribute($attr,$value){}
-	abstract public function bindColumn($column,&$param,$type=null);
-	abstract public function bindParam($parameter,&$variable,$data_type=null,$length=null,$driver_options=null);
-	abstract public function bindValue($parameter,$value,$data_type);
-	abstract public function columnCount();
-	abstract public function execute($parameters=null);
-	abstract public function rowCount();
-	abstract protected function _free();
-	abstract protected function _fetch();
-	abstract protected function _rewind();
-	protected $_currentRecord=false;
-	protected $_recordIndex=0;
-	public function current(){
-		return $this->_currentRecord;
-	}
-	public function key(){
-		return $this->_recordIndex;
-	}
-	public function next(){
-		$this->_currentRecord=$this->fetch();
-		if($this->_currentRecord)
-			$this->_recordIndex++;
-	}
-	public function rewind(){
-		$this->_rewind();
-		$this->_recordIndex=0;
-		$this->_currentRecord=$this->fetch();
-	}
-	public function valid(){
-		return($this->_currentRecord!=false);
-	}
-}
-class jDb{
-	static private $_profiles=null;
-	static private $_cnxPool=array();
-	public static function getConnection($name=null){
-		$profile=self::getProfile($name);
-		$name=$profile['name'];
-		if(!isset(self::$_cnxPool[$name])){
-			self::$_cnxPool[$name]=self::_createConnector($profile);
-		}
-		return self::$_cnxPool[$name];
-	}
-	public static function getDbWidget($name=null){
-		$dbw=new jDbWidget(self::getConnection($name));
-		return $dbw;
-	}
-	public static function getTools($name=null){
-		$cnx=self::getConnection($name);
-		return $cnx->tools();
-	}
-	public static function getProfile($name='',$noDefault=false){
-		global $gJConfig;
-		if(self::$_profiles===null){
-			self::$_profiles=parse_ini_file(JELIX_APP_CONFIG_PATH.$gJConfig->dbProfils,true);
-		}
-		if($name=='')
-			$name='default';
-		$targetName=$name;
-		if(isset(self::$_profiles[$name])){
-			if(is_string(self::$_profiles[$name])){
-				$targetName=self::$_profiles[$name];
-			}
-			else{
-				self::$_profiles[$name]['name']=$name;
-				return self::$_profiles[$name];
-			}
-		}
-		elseif(!$noDefault&&isset(self::$_profiles['default'])){
-			if(is_string(self::$_profiles['default'])){
-				$targetName=self::$_profiles['default'];
-			}
-			else{
-				self::$_profiles['default']['name']='default';
-				return self::$_profiles['default'];
-			}
-		}
-		else{
-			if($name=='default')
-				throw new jException('jelix~db.error.default.profile.unknown');
-			else
-				throw new jException('jelix~db.error.profile.type.unknown',$name);
-		}
-		if(isset(self::$_profiles[$targetName])&&is_array(self::$_profiles[$targetName])){
-			self::$_profiles[$targetName]['name']=$targetName;
-			return self::$_profiles[$targetName];
-		}
-		else{
-			throw new jException('jelix~db.error.profile.unknown',$targetName);
-		}
-	}
-	public function testProfile($profile){
-		try{
-			self::_createConnector($profile);
-			$ok=true;
-		}
-		catch(Exception $e){
-			$ok=false;
-		}
-		return $ok;
-	}
-	private static function _createConnector($profile){
-		if($profile['driver']=='pdo'||(isset($profile['usepdo'])&&$profile['usepdo'])){
-			$dbh=new jDbPDOConnection($profile);
-			return $dbh;
-		}
-		else{
-			global $gJConfig;
-			$p=$gJConfig->_pluginsPathList_db[$profile['driver']].$profile['driver'];
-			require_once($p.'.dbconnection.php');
-			require_once($p.'.dbresultset.php');
-			$class=$profile['driver'].'DbConnection';
-			$dbh=new $class($profile);
-			return $dbh;
-		}
-	}
-	public static function createVirtualProfile($name,$params){
-		global $gJConfig;
-		if($name==''){
-			throw new jException('jelix~db.error.virtual.profile.no.name');
-		}
-		if(self::$_profiles===null){
-			self::$_profiles=parse_ini_file(JELIX_APP_CONFIG_PATH . $gJConfig->dbProfils,true);
-		}
-		self::$_profiles[$name]=$params;
-		self::$_profiles[$name]['name']=$name;
-		unset(self::$_cnxPool[$name]);
-	}
-	public static function clearProfiles(){
-		self::$_profiles=null;
-		self::$_cnxPool=array();
-	}
-	public static function floatToStr($value){
-		if(is_float($value))
-			return rtrim(sprintf('%.20F',$value),'0');
-		else if(is_integer($value))
-			return sprintf('%d',$value);
-		else if(is_numeric($value))
-			return $value;
-		return (string)(floatval($value));
-	}
+
+
+/**
+ * factory for database connector and other db utilities
+ * @package  jelix
+ * @subpackage db
+ */
+class jDb {
+
+    /**
+    * return a database connector. It uses a temporay pool of connection to reuse
+    * currently opened connections.
+    *
+    * @param string  $name  profile name to use. if empty, use the default one
+    * @return jDbConnection  the connector
+    */
+    public static function getConnection ($name = '') {
+        return jProfiles::getOrStoreInPool('jdb', $name, array('jDb', '_createConnector'));
+    }
+
+    /**
+     * create a new jDbWidget
+     * @param string  $name  profile name to use. if empty, use the default one
+     * @return jDbWidget
+     */
+    public static function getDbWidget ($name = null) {
+        $dbw = new jDbWidget(self::getConnection($name));
+        return $dbw;
+    }
+
+    /**
+    * instancy a jDbTools object. Use jDbConnection::tools() instead.
+    * @param string $name profile name to use. if empty, use the default one
+    * @return jDbTools
+    * @deprecated since 1.2
+    */
+    public static function getTools ($name = null) {
+        $cnx = self::getConnection ($name);
+        return $cnx->tools();
+    }
+
+    /**
+    * load properties of a connector profile
+    *
+    * a profile is a section in the profiles.ini.php file
+    *
+    * the given name can be a profile name (it should correspond to a section name
+    * in the ini file), or an alias of a profile. An alias is a parameter name
+    * in the global section of the ini file, and the value of this parameter
+    * should be a profile name.
+    *
+    * @param string   $name  profile name or alias of a profile name. if empty, use the default profile
+    * @param boolean  $noDefault  if true and if the profile doesn't exist, throw an error instead of getting the default profile
+    * @return array  properties
+    * @deprecated use jProfiles::get instead
+    */
+    public static function getProfile ($name='', $noDefault = false) {
+        return jProfiles::get('jdb', $name, $noDefault);
+    }
+
+    /**
+     * call it to test a profile (during an install for example)
+     * @param array  $profile  profile properties
+     * @return boolean  true if properties are ok
+     */
+    public function testProfile ($profile) {
+        try {
+            self::_createConnector ($profile);
+            $ok = true;
+        }
+        catch(Exception $e) {
+            $ok = false;
+        }
+        return $ok;
+    }
+
+    /**
+    * create a connector. internal use (callback method for jProfiles)
+    * @param array  $profile  profile properties
+    * @return jDbConnection|jDbPDOConnection  database connector
+    */
+    public static function _createConnector ($profile) {
+        if ($profile['driver'] == 'pdo' || (isset($profile['usepdo']) && $profile['usepdo'])) {
+            $dbh = new jDbPDOConnection($profile);
+            return $dbh;
+        }
+        else {
+            $dbh = jApp::loadPlugin($profile['driver'], 'db', '.dbconnection.php', $profile['driver'].'DbConnection', $profile);
+            if (is_null($dbh))
+                throw new jException('jelix~db.error.driver.notfound', $profile['driver']);
+            return $dbh;
+        }
+    }
+
+    /**
+     * create a temporary new profile
+     * @param string $name the name of the profile
+     * @param array|string $params parameters of the profile. key=parameter name, value=parameter value.
+     *                      same kind of parameters we found in profiles.ini.php
+     *                      we can also indicate a name of an other profile, to create an alias
+     * @deprecated since 1.3, use jProfiles::createVirtualProfile instead
+     */
+    public static function createVirtualProfile ($name, $params) {
+        jProfiles::createVirtualProfile('jdb',$name, $params);
+    }
+
+    /**
+     * clear the loaded profiles to force to reload the db profiles file.
+     * WARNING: it closes all opened connections !
+     * @since 1.2
+     * @deprecated since 1.3, use jProfiles::clear instead
+     */
+    public static function clearProfiles() {
+        jProfiles::clear();
+    }
+
+    /**
+     * perform a convertion float to str. It takes care about the decimal separator
+     * which should be a '.' for SQL. Because when doing a native convertion float->str,
+     * PHP uses the local decimal separator, and so, we don't want that.
+     * @since 1.1.11
+     */
+    public static function floatToStr($value) {
+        if (is_float($value)) // this is a float
+            return rtrim(sprintf('%.20F', $value), '0'); // %F to not format with the local decimal separator
+        else if (is_integer($value))
+            return sprintf('%d', $value);
+        // this is probably a string, so we expect that it contains a numerical value
+        // is_numeric is true if the separator is ok for SQL
+        // (is_numeric doesn't accept thousand separators nor other character than '.' as decimal separator)
+        else if (is_numeric($value))
+            return $value;
+
+        // we probably have a malformed float number here
+        // if so, floatval will ignore all character after an invalid character (a ',' for example)
+        // no warning, no exception here, to keep the same behavior of previous Jelix version
+        // in order to no break stable applications.
+        // FIXME: do a warning in next versions (> 1.2)
+        return (string)(floatval($value));
+    }
 }

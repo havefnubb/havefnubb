@@ -15,6 +15,7 @@ Vincent Bonnard
 Brunto
  - bug fix in the formdatafull plugin (#1027)
  - bug fix in jImageModifier (#1161)
+ - improvement in crud controllers (#1189)
 
 Cedric
  - bug fix in jFile::read
@@ -42,6 +43,7 @@ Olivier Demah (aka FoxMaSk)
  - $ should not be allowed in parameters of dao methods  (#1129)
  - format of date / hour too permissive (#1046)
  - missing method groups:setdefault in ursl.xml jacl2db_admin (#1187)
+ - jForms type email et chaine vide (#1401)
 
 Antoine Detante (aka antoinefr)
  - support of persistant authentification in jAuth and auth plugin (#229)
@@ -87,11 +89,19 @@ Florian Hatat (aka flh)
  - improvements on jDateTime + RFC2822 support (#379)
  - Fix bugs on duration calculation + new jDuration class (#425, #453)
 
+Vincent Herr
+ - fixed a bug in jDbPDOConnection related to the mssql support (#1389)
+
 Emmanuel Hesry (aka m@noo)
  - improvement on jDateTime plugin for full date format (#796)
 
 Didier Huguet (aka isepman)
  - tpl plugin: modifier truncatehtml (#760)
+ - jDaoFactoryBase: methods getTables, getPrimaryTable (#1263)
+
+
+Charles R. (aka Hugokernel)
+ - fixed a bug in meta_html, about jquery effects
 
 Julien Issler
  - updated JSON class (#231)
@@ -129,11 +139,12 @@ Julien Issler
  - jForms: date and datetime controls + jQuery UI datepicker (#196)
  - jForms: javascript check of secret control's confirmation does not work (#751)
  - jForms: some controls are selected by default if their values are "0" (#757)
+ - jForms: patch for empty items (#977)
  - jCoordinator: exception loop when response's constructor fails (#749)
  - jAuth: update usersession when needed (#461)
  - jSession: cannot use NOW() in dao storage because sqlite doesn't support it (#949)
  - jDbPDOConnection: syntax error when setting utf-8 charset in mysql driver
- - and many other bugs (#1335, #1338)
+ - fixed also #1331, #1334, #1335, #1338
 
 Julien Jacottet
  - tpl plugin link_to_remote (#30)
@@ -158,6 +169,7 @@ Steven Jehannet (aka Catsoup)
  - fixed bug in jdao for sqlite + count+ distinct (#1225)
  - jforms, fixed bad detection in modified controls (#1234)
  - jforms, javascript, fixed bug with grouped data in ajax context (#1325)
+ - fixed build in jFile for jFile::getMimeTypeForFilename
 
 Nicolas Jeudy (aka njeudy)
  - auth driver: jAuthDriverLDS (pour les annuaires ldap LDS)
@@ -290,6 +302,9 @@ Philippe Schelté (aka dubphil)
 Warren Seine (aka SooW)
  - <script /> tags don't end with a newline (#536)
 
+Brice G. (aka briceg)
+ - short format in jDateTime (#1400)
+
 Brice Tence (aka brayce/bricet)
  - small testapp bug solved about missing tables (#1064)
  - fixed bug in jInstallChecker (#1087)
@@ -297,6 +312,8 @@ Brice Tence (aka brayce/bricet)
  - type attribut on link tag should be optional (#1188)
  - added lock on jCache::call to prevent multiple calls on CPU high-consuming functions (ticket #1237)
  - fixed the support of meta in included template (#1196)
+ - http version setting (#1411)
+ - support of referer in error lof messages (#1421)
 
 Christophe Thiriot (aka Doubleface)
  - testor

@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
 * @subpackage  controllers
@@ -10,42 +9,91 @@
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 *
 */
-class jControllerCmdLine extends jController{
-	public $help=array();
-	protected $allowed_options;
-	protected $allowed_parameters;
-	protected $_options;
-	protected $_parameters;
-	function __construct($request){
-		if($request==null)
-			return;
-		$this->request=$request;
-		$params=$this->request->params;
-		unset($params['module']);
-		unset($params['action']);
-		$action=new jSelectorAct($this->request->params['action']);
-		if(!in_array($action->method,get_class_methods(get_class($this)))){
-			throw new jException('jelix~errors.cli.unknown.command',$action->method);
-		}
-		$opt=isset($this->allowed_options[$action->method])? $this->allowed_options[$action->method]: array();
-		$par=isset($this->allowed_parameters[$action->method])? $this->allowed_parameters[$action->method]: array();
-		list($this->_options,$this->_parameters)=jCmdUtils::getOptionsAndParams($params,$opt,$par);
-	}
-	protected function param($parName,$parDefaultValue=null,$useDefaultIfEmpty=false){
-		if(isset($this->_parameters[$parName])){
-			if($this->_parameters[$parName]==''&&$useDefaultIfEmpty)
-				return $parDefaultValue;
-			else
-				return $this->_parameters[$parName];
-		}else{
-			return $parDefaultValue;
-		}
-	}
-	protected function option($name){
-		if(isset($this->_options[$name])){
-			return $this->_options[$name];
-		}else{
-			return false;
-		}
-	}
+
+/**
+ * a base class for controllers used in command line application
+ * @package    jelix
+ * @subpackage controllers
+ * @since 1.0a3
+ */
+class jControllerCmdLine extends jController {
+    /**
+     * help for each action
+     * it should be an array('method'=>'help',...);
+     * @var array
+     */
+    public $help = array();
+
+    /**
+     *   allowed options
+     * @var array
+     * @see jCmdUtils::getOptionsAndParams
+     */
+    protected $allowed_options;
+
+    /**
+     *   allowed parameters
+     * @var array
+     * @see jCmdUtils::getOptionsAndParams
+     */
+    protected $allowed_parameters;
+
+    /**
+     *   founded options
+     * @var array
+     * @see jCmdUtils::getOptionsAndParams
+     */
+    protected $_options;
+
+    /**
+     *   founded parameters
+     * @var array
+     * @see jCmdUtils::getOptionsAndParams
+     */
+    protected $_parameters;
+
+    /**
+    *
+    * @param jRequest $request
+    */
+    function __construct ($request){
+        // we receive null when the controller is created only for help
+        if($request == null)
+            return;
+        $this->request = $request;
+        $params = $this->request->params;
+        unset($params['module']);
+        unset($params['action']);
+
+        $action = new jSelectorAct($this->request->params['action']);
+
+        if( !in_array($action->method, get_class_methods(get_class($this)))) {
+            throw new jException('jelix~errors.cli.unknown.command', $action->method);
+        }
+        $opt = isset($this->allowed_options[$action->method]) ? $this->allowed_options[$action->method]: array();
+        $par = isset($this->allowed_parameters[$action->method]) ? $this->allowed_parameters[$action->method]: array();
+
+        list($this->_options,$this->_parameters) = jCmdUtils::getOptionsAndParams($params, $opt, $par);
+
+    }
+
+    protected function param ($parName, $parDefaultValue=null, $useDefaultIfEmpty=false){
+        if (isset($this->_parameters[$parName])) {
+            if($this->_parameters[$parName] == '' && $useDefaultIfEmpty)
+                return $parDefaultValue;
+            else
+                return $this->_parameters[$parName];
+        } else {
+            return $parDefaultValue;
+        }
+    }
+
+    protected function option($name) {
+        if (isset($this->_options[$name])) {
+            return $this->_options[$name];
+        } else {
+            return false;
+        }
+    }
 }
+

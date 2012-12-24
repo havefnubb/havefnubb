@@ -22,10 +22,10 @@ class havefnubbModuleInstaller extends jInstallerModule {
             return;
         $cn = $this->dbConnection();
         //groups
-        $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, code, grouptype, ownerlogin) VALUES (1, 'admins', 'admins', 0, NULL)");
-        $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, code, grouptype, ownerlogin) VALUES (2, 'users', 'users', 1, NULL)");
-        $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, code, grouptype, ownerlogin) VALUES (3, 'moderators', 'moderators', 0, NULL)");
-        $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, code, grouptype, ownerlogin) VALUES (0, 'anonymous', 'anonymous', 0, NULL)");
+        $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, grouptype, ownerlogin) VALUES (1, 'admins',  0, NULL)");
+        $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, grouptype, ownerlogin) VALUES (2, 'users',  1, NULL)");
+        $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, grouptype, ownerlogin) VALUES (3, 'moderators', 0, NULL)");
+        $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, grouptype, ownerlogin) VALUES (0, 'anonymous', 0, NULL)");
         //rights
         $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_rights')." (id_aclsbj, id_aclgrp, id_aclres) VALUES ('acl.group.create', 1, '')");
         $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_rights')." (id_aclsbj, id_aclgrp, id_aclres) VALUES ('acl.group.delete', 1, '')");
@@ -51,7 +51,7 @@ class havefnubbModuleInstaller extends jInstallerModule {
         // so let's change it to 0
         try {
             $cn->exec("UPDATE ".$cn->prefixTable('jacl2_group')." SET id_aclgrp = 0 WHERE  name = 'anonymous'
-                    AND code = 'anonymous' AND grouptype=0 and ownerlogin is null");
+                    AND grouptype=0 and ownerlogin is null");
         } catch(Exception $e) {}
 
         if ($cn->dbms == 'pgsql') {

@@ -1,5 +1,4 @@
 <?php
-/* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
 * @subpackage  core_response
@@ -9,152 +8,294 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
+
+/**
+*
+*/
 require_once(JELIX_LIB_PATH.'tpl/jTpl.class.php');
-class jResponseSitemap extends jResponse{
-	protected $_type='sitemap';
-	protected $allowedChangefreq=array('always','hourly','daily','weekly',
-										'monthly','yearly','never');
-	protected $maxSitemap=1000;
-	protected $maxUrl=50000;
-	protected $urlSitemap;
-	protected $urlList;
-	public $content;
-	public $contentTpl;
-	public function __construct(){
-		$this->content=new jTpl();
-		$this->contentTpl='jelix~sitemap';
-		parent::__construct();
-	}
-	final public function output(){
-		$this->_headSent=false;
-		$this->_httpHeaders['Content-Type']='application/xml;charset=UTF-8';
-		$this->sendHttpHeaders();
-		echo '<?xml version="1.0" encoding="UTF-8"?>',"\n";
-		if(!is_null($this->urlSitemap)){
-			echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-			$this->_headSent=true;
-			$this->contentTpl='jelix~sitemapindex';
-			$this->content->assign('sitemaps',$this->urlSitemap);
-		}else{
-			echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-			$this->_headSent=true;
-			$this->content->assign('urls',$this->urlList);
-		}
-		$this->content->display($this->contentTpl);
-		if($this->hasErrors()){
-			echo $this->getFormatedErrorMsg();
-		}
-		if(!is_null($this->urlSitemap)){
-			echo '</sitemapindex>';
-		}else{
-			echo '</urlset>';
-		}
-		return true;
-	}
-	final public function outputErrors(){
-		if(!$this->_headSent){
-			if(!$this->_httpHeadersSent){
-				header("HTTP/1.0 500 Internal Server Error");
-				header('Content-Type: text/xml;charset=UTF-8');
-			}
-			echo '<?xml version="1.0" encoding="UTF-8"?>';
-		}
-		echo '<errors xmlns="http://jelix.org/ns/xmlerror/1.0">';
-		if($this->hasErrors()){
-			echo $this->getFormatedErrorMsg();
-		}else{
-			echo '<error>Unknow Error</error>';
-		}
-		echo '</errors>';
-	}
-	protected function getFormatedErrorMsg(){
-		$errors='';
-		foreach($GLOBALS['gJCoord']->errorMessages as $e){
-			$errors.='<error xmlns="http://jelix.org/ns/xmlerror/1.0" type="'. $e[0] .'" code="'. $e[1] .'" file="'. $e[3] .'" line="'. $e[4] .'">'. $e[2] .'</error>'. "\n";
-		}
-		return $errors;
-	}
-	public function addUrl($loc,$lastmod=null,$changefreq=null,$priority=null){
-		if(isset($loc[2048])||count($this->urlList)>=$this->maxUrl){
-			return false;
-		}
-		global $gJCoord;
-		$url=new jSitemapUrl();
-		$url->loc=$gJCoord->request->getServerURI(). $loc;
-		if(($timestamp=strtotime($lastmod))){
-			$url->lastmod=date('c',$timestamp);
-		}
-		if($changefreq&&in_array($changefreq,$this->allowedChangefreq)){
-			$url->changefreq=$changefreq;
-		}
-		if($priority&&is_numeric($priority)&&$priority>=0&&$priority<=1){
-			$url->priority=sprintf('%0.1f',$priority);
-		}
-		$this->urlList[]=$url;
-	}
-	public function addSitemap($loc,$lastmod=null){
-		if(isset($loc[2048])||count($this->urlSitemap)>=$this->maxSitemap){
-			return false;
-		}
-		global $gJCoord;
-		$sitemap=new jSitemapIndex();
-		$sitemap->loc=$gJCoord->request->getServerURI(). $loc;
-		if(($timestamp=strtotime($lastmod))){
-			$sitemap->lastmod=date('c',$timestamp);
-		}
-		$this->urlSitemap[]=$sitemap;
-	}
-	public function importFromUrlsXml(){
-		$urls=$this->_parseUrlsXml();
-		foreach($urls as $url){
-			$this->addUrl($url);
-		}
-	}
-	public function getUrlsFromUrlsXml(){
-		return $this->_parseUrlsXml();
-	}
-	public function ping($uri){
-		$parsed_url=parse_url($uri);
-		if(!$parsed_url||!is_array($parsed_url)){
-			return false;
-		}
-		$http=new jHttp($parsed_url['host']);
-		$http->get($parsed_url['path'] . '?' . $parsed_url['query']);
-		if($http->getStatus()!=200){
-			return false;
-		}
-		return true;
-	}
-	protected function _parseUrlsXml(){
-		global $gJConfig;
-		$urls=array();
-		$significantFile=$gJConfig->urlengine['significantFile'];
-		$entryPoint=$gJConfig->urlengine['defaultEntrypoint'];
-		$snp=$gJConfig->urlengine['urlScriptIdenc'];
-		$file=JELIX_APP_TEMP_PATH.'compiled/urlsig/' . $significantFile .
-				'.' . rawurlencode($entryPoint). '.entrypoint.php';
-		if(file_exists($file)){
-			require $file;
-			$dataParseUrl=$GLOBALS['SIGNIFICANT_PARSEURL'][$snp];
-			foreach($dataParseUrl as $k=>$infoparsing){
-				if($k==0){
-					continue;
-				}
-				if(preg_match('/^([^\(]*)/',substr($infoparsing[2],2,-2),$matches)){
-					$urls[]=$matches[1];
-				}
-			}
-		}
-		return $urls;
-	}
+
+/**
+* Sitemap 0.9 response
+*
+* @package jelix
+* @subpackage core_response
+* @link http://www.sitemaps.org/
+* @since 1.2
+*/
+class jResponseSitemap extends jResponse {
+
+    /**
+    * Ident of the response type
+    * @var string
+    */
+    protected $_type = 'sitemap';
+
+    /**
+    * Frequency change url
+    * @var array
+    */
+    protected $allowedChangefreq = array('always', 'hourly', 'daily', 'weekly',
+                                         'monthly', 'yearly', 'never');
+    /**
+    * Maximum number of URLs for a sitemap index file
+    * @var int
+    */
+    protected $maxSitemap = 1000;
+
+    /**
+    * Maximum number of URLs for a sitemap file
+    * @var int
+    */
+    protected $maxUrl = 50000;
+
+    /**
+    * List of URLs for a sitemap index file
+    * @var array()
+    */
+    protected $urlSitemap = array();
+
+    /**
+    * List of URLs for a sitemap file
+    * @var array()
+    */
+    protected $urlList = array();
+
+    /**
+     * The template container
+     * @var jTpl
+     */
+    public $content;
+
+    /**
+     * Selector of the template file
+     * @var string
+     */
+    public $contentTpl;
+
+    /**
+     * Class constructor
+     *
+     * @return void
+     */
+    public function __construct() {
+        $this->content  = new jTpl();
+        $this->contentTpl = 'jelix~sitemap';
+        parent::__construct();
+    }
+
+    /**
+     * Generate the content and send it
+     * Errors are managed
+     * @return boolean true if generation is ok, else false
+     */
+    final public function output() {
+        $this->_httpHeaders['Content-Type'] = 'application/xml;charset=UTF-8';
+
+        if (count($this->urlSitemap)) {
+            $head = '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+            $foot = '</sitemapindex>';
+            $this->contentTpl = 'jelix~sitemapindex';
+            $this->content->assign('sitemaps', $this->urlSitemap);
+        } else {
+            $head = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+            $foot = '</urlset>';
+            $this->content->assign('urls', $this->urlList);
+        }
+        $content = $this->content->fetch($this->contentTpl);
+
+        // content is generated, no errors, we can send it
+        $this->sendHttpHeaders();
+        echo '<?xml version="1.0" encoding="UTF-8"?>', "\n";
+        echo $head, $content, $foot;
+        return true;
+    }
+
+    /**
+     * add a URL in a sitemap file
+     * @param string $loc URL of the page
+     * @param string $lastmod The date of last modification of the file
+     * @param string $changefreq How frequently the page is likely to change
+     * @param string $priority The priority of this URL relative to other URLs
+     * @return boolean true if addition is ok, else false
+     */
+    public function addUrl($loc, $lastmod = null, $changefreq = null, $priority = null) {
+
+        if (isset($loc[2048]) || count($this->urlList) >= $this->maxUrl) {
+            return false;
+        }
+        global $gJCoord;
+        $url = new jSitemapUrl();
+        $url->loc = $gJCoord->request->getServerURI() . $loc;
+
+        if (($timestamp = strtotime($lastmod))) {
+            $url->lastmod = date('c', $timestamp);
+        }
+
+        if ($changefreq && in_array($changefreq, $this->allowedChangefreq)) {
+            $url->changefreq = $changefreq;
+        }
+
+        if ($priority && is_numeric($priority) && $priority >= 0 && $priority <= 1) {
+            $url->priority = sprintf('%0.1f', $priority);
+        }
+
+        $this->urlList[] = $url;
+        return true;
+    }
+
+    /**
+     * add a URL in a sitemap file
+     * @param string $loc URL of sitemap file
+     * @param string $lastmod The date of last modification of the sitemap file
+     * @return boolean true if addition is ok, else false
+     */
+    public function addSitemap($loc, $lastmod = null) {
+
+        if (isset($loc[2048]) || count($this->urlSitemap) >= $this->maxSitemap) {
+            return false;
+        }
+        global $gJCoord;
+        $sitemap = new jSitemapIndex();
+        $sitemap->loc = $gJCoord->request->getServerURI() . $loc;
+
+        if (($timestamp = strtotime($lastmod))) {
+            $sitemap->lastmod = date('c', $timestamp);
+        }
+
+        $this->urlSitemap[] = $sitemap;
+        return true;
+    }
+
+    /**
+     * Add URLs automatically from urls.xml
+     * @return void
+     */
+    public function importFromUrlsXml() {
+        $urls = $this->_parseUrlsXml();
+        foreach ($urls as $url) {
+            $this->addUrl($url);
+        }
+    }
+
+    /**
+     * Return pathinfo URLs automatically from urls.xml
+     * @return array
+     */
+    public function getUrlsFromUrlsXml() {
+        return $this->_parseUrlsXml();
+    }
+
+    /**
+     * Submitting a sitemap by sending an HTTP request
+     * @return boolean
+     */
+    public function ping($uri) {
+        $parsed_url = parse_url($uri);
+        if (!$parsed_url || !is_array($parsed_url)) {
+            return false;
+        }
+        $http = new jHttp($parsed_url['host']);
+        $http->get($parsed_url['path'] . '?' . $parsed_url['query']);
+        if ($http->getStatus() != 200) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Parse urls.xml and return pathinfo URLs
+     * @return array
+     */
+    protected function _parseUrlsXml() {
+        global $gJConfig;
+
+        $urls = array();
+        $significantFile = $gJConfig->urlengine['significantFile'];
+        $basePath = $gJConfig->urlengine['basePath'];
+        $epExt = ($gJConfig->urlengine['multiview']?$gJConfig->urlengine['entrypointExtension']:'');
+
+        $file = jApp::tempPath('compiled/urlsig/' . $significantFile . '.creationinfos.php');
+
+        if (file_exists($file)) {
+            require $file;
+            foreach ($GLOBALS['SIGNIFICANT_CREATEURL'] as $selector => $createinfo) {
+                if ($createinfo[0] != 1 && $createinfo[0] != 4) {
+                    continue;
+                }
+                if ($createinfo[0] == 4) {
+                    foreach ($createinfo as $k => $createinfo2) {
+                        if ($k == 0) continue;
+
+                        if ($createinfo2[2] == true // https needed -> we don't take this url. FIXME
+                         ||count($createinfo2[3]) ) { // there are some dynamique parameters, we don't take it this we cannot guesse dynamic parameters
+                            continue;
+                        }
+                        $urls[] = $basePath.($createinfo2[1]?$createinfo2[1].$epExt:'').$createinfo2[5];
+                    }
+                }
+                else if ($createinfo[2] == true // https needed -> we don't take this url. FIXME
+                         ||  count($createinfo[3]) ) { // there are some dynamique parameters, we don't take it this we cannot guesse dynamic parameters
+                    continue;
+                }
+                else {
+                    $urls[] = $basePath.($createinfo[1]?$createinfo[1].$epExt:'').$createinfo[5];
+                }
+            }
+        }
+        return $urls;
+    }
 }
-class jSitemapUrl{
-	public $loc;
-	public $lastmod;
-	public $changefreq;
-	public $priority;
+
+/**
+ * Content of a URL
+ * @package jelix
+ * @subpackage core_response
+ * @since 1.2
+ */
+class jSitemapUrl {
+
+    /**
+     * URL of the page
+     * @var string
+     */
+    public $loc;
+
+    /**
+     * The date of last modification of the page
+     * @var string
+     */
+    public $lastmod;
+
+    /**
+     * How frequently the page is likely to change
+     * @var string
+     */
+    public $changefreq;
+
+    /**
+     * The priority of this URL relative to other URLs
+     * @var string
+     */
+    public $priority;
 }
-class jSitemapIndex{
-	public $loc;
-	public $lastmod;
+
+/**
+ * Content of a sitemap file
+ * @package    jelix
+ * @subpackage core_response
+ * @since 1.2
+ */
+class jSitemapIndex {
+
+    /**
+     * URL of the sitemap file
+     * @var string
+     */
+    public $loc;
+
+    /**
+     * The date of last modification of the sitemap file
+     * @var string
+     */
+    public $lastmod;
 }
