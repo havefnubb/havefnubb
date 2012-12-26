@@ -99,7 +99,7 @@
         {/if}
         <div class="clear"></div>
         <div class="grid_4">
-        {zone 'havefnubb~memberprofile',array('user'=>$post)}
+        {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}
         </div>
         <div class="grid_12 postbody">
         {if $statusAvailable[$post->status -1] == 'censored'}

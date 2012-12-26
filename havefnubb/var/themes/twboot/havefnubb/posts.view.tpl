@@ -71,7 +71,7 @@
     </div>
 </div>
 <div class="row">
-    {zone 'havefnubb~memberprofile',array('user'=>$post)}
+    {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}
     <div class="offset4 postbody">
         {if $statusAvailable[$post->status -1] == 'censored'}
             {@havefnubb~main.censored.reason@} {$post->censored_msg|wiki:'hfb_rule'} {censored_by $post->censored_by}
