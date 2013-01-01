@@ -38,7 +38,6 @@ class registrationCtrl extends jController {
         if(jAuth::isConnected())
             return $this->noaccess();
 
-        global $gJConfig;
         $rep= $this->getResponse("redirect");
         $rep->action = "registration:index";
 
@@ -91,6 +90,7 @@ class registrationCtrl extends jController {
 
         jEvent::notify('jcommunity_registration_after_save', array('form'=>$form, 'user'=>$user));
 
+        $gJConfig = jApp::config();
         $mail = new jMailer();
         $mail->From = $gJConfig->mailer['webmasterEmail'];
         $mail->FromName = $gJConfig->mailer['webmasterName'];

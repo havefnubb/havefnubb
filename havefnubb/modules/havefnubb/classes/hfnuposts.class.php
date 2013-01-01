@@ -37,11 +37,11 @@ class hfnuposts {
     /**
      * @var integer $hfAdmin the ID that defines the Admin
      */
-    private $hfAdmin = 1;
+    private $hfAdmin = 'admins';
     /**
      * @var integer $hfAdmin the ID that defines the Moderator
      */
-    private $hfModerator = 3;
+    private $hfModerator = 'moderators';
 
     /*********************************************************
      * This part handles the "add/delete/get" data of  posts *
@@ -237,7 +237,7 @@ class hfnuposts {
      * @return array of id_post, DaoRecord of Post, Paginator
      */
     public function view($id_post,$thread_id) {
-        global $gJConfig;
+
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             $post = $this->getPostVisible($id_post);
         }
@@ -257,7 +257,7 @@ class hfnuposts {
             // the number of post between the current post_id and the thread_id
             $nbReplies = (int) jDao::get('havefnubb~threads_alone')->get($thread_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
 
-            $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
+            $nbRepliesPerPage = (int) jApp::config()->havefnubb['replies_per_page'];
             // calculate the offset of this id_post
             $goto = (ceil ($nbReplies/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
 
@@ -320,7 +320,7 @@ class hfnuposts {
      * @return mixed boolean or $id_post id post of the editing post or the id of the post created
      */
     public function save($id_forum,$id_post=0) {
-        global $gJConfig;
+        $gJConfig = jApp::config();
         if (jAuth::isConnected()) {
             $form = jForms::fill('havefnubb~posts',$id_post);
             $id_user= jAuth::getUserSession ()->id;
@@ -466,7 +466,6 @@ class hfnuposts {
      * @return mixed boolean / DaoRecord $record of the reply
      */
     public function savereply($thread_id,$id_post) {
-        global $gJConfig;
         $form = false;
         if (jAuth::isConnected()) {
             $form = jForms::fill('havefnubb~posts',$thread_id);
@@ -480,7 +479,7 @@ class hfnuposts {
         if (!$form or !$form->check()) {
             return false;
         }
-
+        $gJConfig = jApp::config();
         $message = $form->getData('message');
         //is the size of the message limited ?
         if ( strlen($message) > $gJConfig->havefnubb['post_max_size']

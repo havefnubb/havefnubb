@@ -11,9 +11,6 @@
 require ('havefnubb/application.init.php');
 require (JELIX_LIB_CORE_PATH.'request/jClassicRequest.class.php');
 
-$config_file = 'hfnuadmin/config.ini.php';
-
-$jelix = new jCoordinator($config_file);
-$jelix->process(new jClassicRequest());
-
-
+jApp::loadConfig('hfnuadmin/config.ini.php');    
+jApp::setCoord(new jCoordinator());
+jApp::coord()->process(new jClassicRequest());

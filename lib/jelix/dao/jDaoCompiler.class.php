@@ -5,7 +5,7 @@
 * @subpackage dao
 * @author     Gérald Croes, Laurent Jouanneau
 * @contributor Laurent Jouanneau
-* @copyright  2001-2005 CopixTeam, 2005-2009 Laurent Jouanneau
+* @copyright  2001-2005 CopixTeam, 2005-2012 Laurent Jouanneau
 * Ideas and some parts of this file were get originally from the Copix project
 * (CopixDAOGeneratorV1, CopixDAODefinitionV1, Copix 2.3dev20050901, http://www.copix.org)
 * Few lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
@@ -15,6 +15,18 @@
 * @link        http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+class jDaoXmlException extends jException{
+	public function __construct($selector,$localekey,$localeParams=array()){
+		$localekey='jelix~daoxml.'.$localekey;
+		$arg=array($selector->toString(),$selector->getPath());
+		if(is_array($localeParams)){
+			$arg=array_merge($arg,$localeParams);
+		}else{
+			$arg[]=$localeParams;
+		}
+		parent::__construct($localekey,$arg);
+	}
+}
 class jDaoParser{
 	private $_properties=array();
 	private $_tables=array();
@@ -158,6 +170,14 @@ class jDaoProperty{
 	function __construct($aAttributes,$parser,$tools){
 		$needed=array('name','fieldname','table','datatype','required',
 						'minlength','maxlength','regexp','sequence','default','autoincrement');
+		$allowed=array('name','fieldname','table','datatype','required',
+						'minlength','maxlength','regexp','sequence','default','autoincrement',
+						'updatepattern','insertpattern','selectpattern');
+		foreach($aAttributes as $attributeName=>$attributeValue){
+			if(!in_array($attributeName,$allowed)){
+				throw new jDaoXmlException($parser->selector,'unknown.attr',array($attributeName,'property'));
+			}
+		}
 		$params=$parser->getAttr($aAttributes,$needed);
 		if($params['name']===null){
 			throw new jDaoXmlException($parser->selector,'missing.attr',array('name','property'));
@@ -275,11 +295,11 @@ class jDaoMethod{
 		if(isset($method->parameter)){
 			foreach($method->parameter as $param){
 				$attr=$param->attributes();
-				if(strpos($attr['name'],'$')!==false){
-					throw new jDaoXmlException($this->_parser->selector,'method.parameter.invalidname',array($method->name,$attr['name']));
-				}
 				if(!isset($attr['name'])){
 					throw new jDaoXmlException($this->_parser->selector,'method.parameter.unknowname',array($this->name));
+				}
+				if(!preg_match('/[a-zA-Z_][a-zA-Z0-9_]*/',(string)$attr['name'])){
+					throw new jDaoXmlException($this->_parser->selector,'method.parameter.invalidname',array($method->name,$attr['name']));
 				}
 				$this->_parameters[]=(string)$attr['name'];
 				if(isset($attr['default'])){
@@ -607,6 +627,7 @@ class jDaoGenerator{
 			else
 				$src[]=' public $'.$id.';';
 		}
+		$src[]='   public function getSelector() { return "'.$this->_daoId.'"; }';
 		$src[]='   public function getProperties() { return '.$this->_DaoClassName.'::$_properties; }';
 		$src[]='   public function getPrimaryKeyNames() { return '.$this->_DaoClassName.'::$_pkFields; }';
 		$src[]='}';
@@ -856,8 +877,22 @@ class jDaoGenerator{
 		$sqlSet='';
 		foreach($method->getValues()as $propname=>$value){
 			if($value[1]){
-				foreach($method->getParameters()as $param){
-					$value[0]=str_replace('$'.$param,'\'.'.$this->_preparePHPExpr('$'.$param,$updatefields[$propname],true).'.\'',$value[0]);
+				preg_match_all('/\$([a-zA-Z0-9_]+)/',$value[0],$varMatches,PREG_OFFSET_CAPTURE);
+				$parameters=$method->getParameters();
+				if(count($varMatches[0])){
+					$result='';
+					$len=0;
+					foreach($varMatches[1] as $k=>$var){
+						$result.=substr($value[0],$len,$len+$varMatches[0][$k][1]);
+						$len+=$varMatches[0][$k][1] + strlen($varMatches[0][$k][0]);
+						if(in_array($var[0],$parameters)){
+							$result.='\'.'.$this->_preparePHPExpr($varMatches[0][$k][0],$updatefields[$propname],true).'.\'';
+						}
+						else{
+							$result.=$varMatches[0][$k][0];
+						}
+					}
+					$value[0]=$result;
 				}
 				$sqlSet.=', '.$this->_encloseName($updatefields[$propname]->fieldName). '= '. $value[0];
 			}else{
@@ -1156,7 +1191,7 @@ class jDaoGenerator{
 					$phpvalue='implode(\',\', array_map( '.$phpexpr.', '.$cond['value'].'))';
 					$value='(\'.'.$phpvalue.'.\')';
 				}else{
-					$value='('.$cond['value'].')';
+					$value='('.str_replace("'","\\'",$cond['value']).')';
 				}
 				$r.=$cond['operator'].' '.$value;
 			}elseif($cond['operator']=='IS NULL'||$cond['operator']=='IS NOT NULL'){
@@ -1286,30 +1321,16 @@ class jDaoCompiler  implements jISimpleCompiler{
 		if($doc->documentElement->namespaceURI!=JELIX_NAMESPACE_BASE.'dao/1.0'){
 			throw new jException('jelix~daoxml.namespace.wrong',array($daoPath,$doc->namespaceURI));
 		}
-		global $gJConfig;
-		$path=$gJConfig->_pluginsPathList_db[$selector->driver].$selector->driver;
-		require_once($path.'.dbtools.php');
-		$class=$selector->driver.'DbTools';
-		$tools=new $class(null);
+		$tools=jApp::loadPlugin($selector->driver,'db','.dbtools.php',$selector->driver.'DbTools');
+		if(is_null($tools))
+			throw new jException('jelix~db.error.driver.notfound',$selector->driver);
 		$parser=new jDaoParser($selector);
 		$parser->parse(simplexml_import_dom($doc),$tools);
-		require_once($path.'.daobuilder.php');
+		require_once(jApp::config()->_pluginsPathList_db[$selector->driver].$selector->driver.'.daobuilder.php');
 		$class=$selector->driver.'DaoBuilder';
 		$generator=new $class($selector,$tools,$parser);
 		$compiled='<?php '.$generator->buildClasses()."\n?>";
 		jFile::write($selector->getCompiledFilePath(),$compiled);
 		return true;
-	}
-}
-class jDaoXmlException extends jException{
-	public function __construct($selector,$localekey,$localeParams=array()){
-		$localekey='jelix~daoxml.'.$localekey;
-		$arg=array($selector->toString(),$selector->getPath());
-		if(is_array($localeParams)){
-			$arg=array_merge($arg,$localeParams);
-		}else{
-			$arg[]=$localeParams;
-		}
-		parent::__construct($localekey,$arg);
 	}
 }

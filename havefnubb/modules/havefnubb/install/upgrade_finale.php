@@ -22,7 +22,7 @@ class havefnubbModuleUpgrader_finale extends jInstallerModule {
         $entries = $xpath->evaluate($query);
         $version = $entries->item(0)->nodeValue;
 
-        $ini=new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $ini=new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
         $ini->setValue('version',$version,'havefnubb');
         $ini->save();
     }

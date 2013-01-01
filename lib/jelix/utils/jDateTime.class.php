@@ -7,15 +7,15 @@
 * @contributor Laurent Jouanneau, Julien Issler
 * @contributor Loic Mathaud
 * @contributor Florian Hatat
-* @contributor Emmanuel Hesry
+* @contributor Emmanuel Hesry, Brice G.
 * @contributor Hadrien Lanneau <hadrien@over-blog.com>
-* @copyright   2005-2008 Laurent Jouanneau
+* @copyright   2005-2011 Laurent Jouanneau
 * @copyright   2007 Loic Mathaud
 * @copyright   2007-2008 Florian Hatat
 * @copyright   2001-2005 CopixTeam, GeraldCroes, Laurent Jouanneau
 * @copyright   2008-2011 Julien Issler
 * @copyright   2009 Emmanuel Hesry
-* @copyright   2010 Hadrien Lanneau
+* @copyright   2010 Hadrien Lanneau, 2011 Brice G.
 *
 * This class was get originally from the Copix project (CopixDate.lib.php, Copix 2.3dev20050901, http://www.copix.org)
 * Only few lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
@@ -70,6 +70,7 @@ class jDateTime{
 	const LANG_DFORMAT=10;
 	const LANG_DTFORMAT=11;
 	const LANG_TFORMAT=12;
+	const LANG_SHORT_DTFORMAT=13;
 	const DB_DFORMAT=20;
 	const DB_DTFORMAT=21;
 	const DB_TFORMAT=22;
@@ -127,6 +128,11 @@ class jDateTime{
 			case self::LANG_TFORMAT:
 				$t=mktime($this->hour,$this->minute,$this->second,0,0,0);
 				$lf=jLocale::get('jelix~format.time');
+				$str=date($lf,$t);
+				break;
+			case self::LANG_SHORT_DTFORMAT:
+				$t=mktime($this->hour,$this->minute,$this->second,$this->month,$this->day,$this->year);
+				$lf=jLocale::get('jelix~format.short_datetime');
 				$str=date($lf,$t);
 				break;
 			case self::DB_DFORMAT:
@@ -201,6 +207,17 @@ class jDateTime{
 					$this->second=$res['tm_sec'];
 				}
 				break;
+			case self::LANG_SHORT_DTFORMAT:
+				$lf=jLocale::get('jelix~format.short_datetime_st');
+				if($res=strptime($str,$lf)){
+					$ok=true;
+					$this->year=$res['tm_year'] + 1900;
+					$this->month=$res['tm_mon'] + 1;
+					$this->day=$res['tm_mday'];
+					$this->hour=$res['tm_hour'];
+					$this->minute=$res['tm_min'];
+				}
+				break;
 			case self::DB_DFORMAT:
 				if($res=strptime($str,"%Y-%m-%d")){
 					$ok=true;
@@ -243,9 +260,9 @@ class jDateTime{
 					if($match[8]!='Z'){
 						$d=new jDuration(array('hour'=>$match[10],'minute'=>$match[11]));
 						if($match[9]=='+')
-							$this->add($d);
-						else
 							$this->sub($d);
+						else
+							$this->add($d);
 					}
 				}
 				break;

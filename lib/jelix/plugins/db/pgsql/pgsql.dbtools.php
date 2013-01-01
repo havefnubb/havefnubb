@@ -6,7 +6,7 @@
 * @author     Laurent Jouanneau
 * @contributor Laurent Jouanneau
 * @contributor Nicolas Jeudy (patch ticket #99)
-* @copyright  2005-2010 Laurent Jouanneau
+* @copyright  2005-2011 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */

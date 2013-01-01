@@ -4,7 +4,7 @@
 * @package    jelix
 * @subpackage utils
 * @author     Laurent Jouanneau
-* @copyright  2006-2007 Laurent Jouanneau
+* @copyright  2006-2010 Laurent Jouanneau
 * @link       http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -17,9 +17,9 @@ class jWiki extends  WikiRenderer{
 				require_once($f);
 				$this->config=new $config();
 			}else{
-				global $gJConfig;
-				require_once($gJConfig->_pluginsPathList_wr_rules[$config].$config.'.rule.php');
-				$this->config=new $config();
+				$this->config=jApp::loadPlugin($config,'wr_rules','.rule.php',$config);
+				if(is_null($this->config))
+					throw new Exception('Rules "'.$config.'" not found for jWiki');
 			}
 		}elseif(is_object($config)){
 			$this->config=$config;

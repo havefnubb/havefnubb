@@ -197,7 +197,7 @@ class hfnuforum {
      * @param int $id_post id of the new post
      */
     public function checkSubscribedForumAndSendMail($id_forum,$thread_id) {
-        global $gJConfig;
+        $gJConfig = jApp::config();
         
         //check if this forum is already subscribe
         $recs = jDao::get('havefnubb~forum_sub')->getByIdForum($id_forum);

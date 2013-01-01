@@ -31,7 +31,7 @@ abstract class jKVDriver{
 	public function __construct($profile){
 		$this->_profile=&$profile;
 		$this->_driverName=$profile['driver'];
-		$this->_profileName=$profile['name'];
+		$this->_profileName=$profile['_name'];
 		$this->_connection=$this->_connect();
 	}
 	public function __destruct(){

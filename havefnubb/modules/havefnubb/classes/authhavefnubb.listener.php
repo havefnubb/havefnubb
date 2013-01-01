@@ -17,11 +17,10 @@ class authhavefnubbListener extends jEventListener{
     * @param object $event the given event to answer to
     */
     function onAuthLogin ($event) {
-        global $gJConfig;
         $user = jAuth::getUserSession();
 
         $_SESSION['JX_LANG'] = $user->member_language;
-        $gJConfig->locale = $user->member_language;
+        jApp::config()->locale = $user->member_language;
     }
 
     /**
@@ -44,7 +43,7 @@ class authhavefnubbListener extends jEventListener{
     * @param object $event the given event to answer to
     */
     function onjcommunity_save_account ($event) {
-        global $gJConfig;
+        $gJConfig = jApp::config();
         $form = $event->getParam('form');
         $form->check();
         if ( $form->getData('member_language') != '') {
@@ -56,10 +55,10 @@ class authhavefnubbListener extends jEventListener{
         if ($form->getData('member_avatar') != '' ) {
             $max_width = $gJConfig->havefnubb['avatar_max_width'];
             $max_height = $gJConfig->havefnubb['avatar_max_height'];
-            @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.png');
-            @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpg');
-            @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpeg');
-            @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.gif');
+            @unlink (jApp::wwwPath().'images/avatars/'.$id.'.png');
+            @unlink (jApp::wwwPath().'images/avatars/'.$id.'.jpg');
+            @unlink (jApp::wwwPath().'images/avatars/'.$id.'.jpeg');
+            @unlink (jApp::wwwPath().'images/avatars/'.$id.'.gif');
 
             $avatar = $form->getData('member_avatar');
 
@@ -72,11 +71,11 @@ class authhavefnubbListener extends jEventListener{
             elseif (strpos($avatar,'.gif') > 0 )
                 $ext = '.gif';
 
-            $form->saveFile('member_avatar', JELIX_APP_WWW_PATH.'hfnu/images/avatars/', $id.$ext);
+            $form->saveFile('member_avatar', jApp::wwwPath().'hfnu/images/avatars/', $id.$ext);
 
-            list($width, $height) = getimagesize(JELIX_APP_WWW_PATH.'hfnu/images/avatars/'.$id.$ext);
+            list($width, $height) = getimagesize(jApp::wwwPath().'hfnu/images/avatars/'.$id.$ext);
             if (empty($width) || empty($height) || $width > $max_width || $height > $max_height) {
-                @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.$ext);
+                @unlink (jApp::wwwPath().'images/avatars/'.$id.$ext);
                 jMessage::add(
                      jLocale::get('havefnubb~member.profile.avatar.too.wide',array($max_width.' x '. $max_height))
                      ,'error');
@@ -91,7 +90,7 @@ class authhavefnubbListener extends jEventListener{
      * @param object $event the given event to answer to
      */
     function onAuthNewUser ($event) {
-        global $gJConfig;
+        $gJConfig = jApp::config();
 
         $toEmail = ($gJConfig->havefnubb['admin_email'] != '') ? $gJConfig->havefnubb['admin_email'] : $gJConfig->mailer['webmasterEmail'];
 

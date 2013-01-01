@@ -36,7 +36,7 @@ class defaultCtrl extends jController {
      */
     public function index() {
         $rep = $this->getResponse('html');
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label',jLocale::get('hfnusearch~search.search.perform'));
+        jApp::coord()->getPlugin('history')->change('label',jLocale::get('hfnusearch~search.search.perform'));
         $rep->title = jLocale::get('hfnusearch~search.search.perform');
         $rep->body->assignZone('MAIN', 'hfnusearch~hfnusearch');
         return $rep;
@@ -52,7 +52,7 @@ class defaultCtrl extends jController {
             $additionnalParam = $this->param('param');
         }
 
-        $HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
 
         // get the list of authorized function we will find in the search_in "service" below
         $authorizedSearch = explode(',', $HfnuSearchConfig['perform_search_in']);
@@ -112,7 +112,7 @@ class defaultCtrl extends jController {
 
         $additionnalParam = '';
 
-        $HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
 
         $perform = jClasses::getService('hfnusearch~search_in');
 

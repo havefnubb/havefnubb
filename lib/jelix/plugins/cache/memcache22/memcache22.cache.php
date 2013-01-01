@@ -20,10 +20,10 @@ class memcache22CacheDriver implements jICacheDriver{
 		if(!extension_loaded('memcache')){
 			throw new jException('jelix~cache.error.memcache.extension.missing',array($this->profil_name,''));
 		}
-		if(version_compare(phpversion('memcache'),'3.0.1')> 0){
+		if(version_compare(phpversion('memcache'),'3.0.1')>=0){
 			throw new jException('jelix~cache.error.memcache.extension.badversion.2',array($this->profil_name));
 		}
-		$this->profil_name=$params['profile'];
+		$this->profil_name=$params['_name'];
 		if(isset($params['enabled'])){
 			$this->enabled=($params['enabled'])?true:false;
 		}

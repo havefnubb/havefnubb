@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  core_response
 * @author      Laurent Jouanneau
-* @copyright   2006-2009 Laurent Jouanneau
+* @copyright   2006-2010 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -18,10 +18,11 @@ class jResponseZip extends jResponse{
 		parent::__construct();
 	}
 	public function output(){
-		$zipContent=$this->content->getContent();
-		if($this->hasErrors()){
-			return false;
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
 		}
+		$zipContent=$this->content->getContent();
 		$this->_httpHeaders['Content-Type']='application/zip';
 		$this->_httpHeaders['Content-Disposition']='attachment; filename="'.$this->zipFilename.'"';
 		$this->addHttpHeader('Content-Description','File Transfert',false);
@@ -34,19 +35,5 @@ class jResponseZip extends jResponse{
 		echo $zipContent;
 		flush();
 		return true;
-	}
-	public function outputErrors(){
-		global $gJConfig;
-		header("HTTP/1.0 500 Internal Server Error");
-		header('Content-Type: text/plain;charset='.$gJConfig->charset);
-		if($this->hasErrors()){
-			foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-				echo '['.$e[0].' '.$e[1].'] '.$e[2]." \t".$e[3]." \t".$e[4]."\n";
-				if($e[5])
-				echo $e[5]."\n\n";
-			}
-		}else{
-			echo "[unknown error]\n";
-		}
 	}
 }

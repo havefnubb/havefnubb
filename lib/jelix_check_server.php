@@ -80,20 +80,20 @@ class jInstallerMessageProvider {
 
     protected $messages = array(
         'fr'=>array(
-     'checker.title'=>'Vérification de votre serveur pour Jelix 1.2.7pre.1871',
+     'checker.title'=>'Vérification de votre serveur pour Jelix 1.4.1pre.2422',
         'number.errors'         =>' erreurs.',
         'number.error'          =>' erreur.',
         'number.warnings'       =>' avertissements.',
         'number.warning'        =>' avertissement.',
         'number.notices'        =>' remarques.',
         'number.notice'         =>' remarque.',
-    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.2.7pre.1871.',
-    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.2.7pre.1871.',
-    'conclusion.warning'    =>'Une application Jelix 1.2.7pre.1871 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
-    'conclusion.warnings'   =>'Une application Jelix 1.2.7pre.1871 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
-    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.2.7pre.1871 malgré la remarque.',
-    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.2.7pre.1871 malgré les remarques.',
-    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.2.7pre.1871',
+    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.4.1pre.2422.',
+    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.4.1pre.2422.',
+    'conclusion.warning'    =>'Une application Jelix 1.4.1pre.2422 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
+    'conclusion.warnings'   =>'Une application Jelix 1.4.1pre.2422 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
+    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.4.1pre.2422 malgré la remarque.',
+    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.4.1pre.2422 malgré les remarques.',
+    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.4.1pre.2422',
         'cannot.continue'       =>'Les vérifications ne peuvent continuer : %s',
         'extension.not.installed'=>'L\'extension %s n\'est pas disponible',
         'extension.optional.not.installed'=>'L\'extension %s optionnelle n\'est pas disponible',
@@ -108,13 +108,13 @@ class jInstallerMessageProvider {
         'extension.database.missing'=>'L\'application a besoin d\'une base de données SQL',
         'extension.database.missing2'=>'L\'application ne pourra pas utiliser de base de données SQL',
         'path.core'             =>'Le fichier init.php  de jelix ou le fichier application.ini.php de votre application n\'est pas chargé',
-        'path.temp'             =>'Le repertoire temporaire n\'est pas accessible en écriture ou alors JELIX_APP_TEMP_PATH n\'est pas configurée comme il faut',
-        'path.log'              =>'Le repertoire var/log dans votre application n\'est pas accessible en écriture ou alors JELIX_APP_LOG_PATH n\'est pas configurée comme il faut',
-        'path.var'              =>'JELIX_APP_VAR_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
-        'path.config'           =>'JELIX_APP_CONFIG_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
-        'path.www'              =>'JELIX_APP_WWW_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
+        'path.temp'             =>'Le repertoire temporaire n\'est pas accessible en écriture ou alors le chemin du répertoire temp n\'est pas configurée comme il faut',
+        'path.log'              =>'Le repertoire var/log dans votre application n\'est pas accessible en écriture ou alors le chemin du répertoire de log n\'est pas configurée comme il faut',
+        'path.var'              =>'Le chemin du répertoire var n\'est pas configuré correctement : ce répertoire n\'existe pas',
+        'path.config'           =>'Le chemin du répertoire config n\'est pas configuré correctement : ce répertoire n\'existe pas',
+        'path.www'              =>'Le chemin du répertoire www n\'est pas configuré correctement : ce répertoire n\'existe pas',
         'path.config.writable' =>'Le répertoire var/config n\'a pas les droits en écriture',
-        'path.dbprofile.writable'=>'Le fichier dbprofils.ini.php n\'a pas les droits en écriture',
+        'path.profiles.writable'=>'Le fichier profiles.ini.php n\'a pas les droits en écriture',
         'path.defaultconfig.writable'=>'Le fichier defaultconfig.ini.php n\'a pas les droits en écriture',
         'path.installer.writable'=>'Le fichier installer.ini.php n\'a pas les droits en écriture',
         'path.custom.not.exists'=>'Le fichier %s n\'existe pas, ses droits ne peuvent être vérifiés',
@@ -164,20 +164,20 @@ class jInstallerMessageProvider {
         ),
 
         'en'=>array(
-  'checker.title'   =>'Check your configuration server for Jelix 1.2.7pre.1871',
+  'checker.title'   =>'Check your configuration server for Jelix 1.4.1pre.2422',
         'number.errors'     =>' errors.',
         'number.error'      =>' error.',
         'number.warnings'   =>' warnings.',
         'number.warning'    =>' warning.',
         'number.notices'    =>' notices.',
         'number.notice'     =>' notice.',
-      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.2.7pre.1871.',
-      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.2.7pre.1871.',
-      'conclusion.warning'  =>'Your application for Jelix 1.2.7pre.1871 may run without problems, but it is recommanded to fix the warning.',
-      'conclusion.warnings' =>'Your application for Jelix 1.2.7pre.1871 may run without problems, but it is recommanded to fix warnings.',
-      'conclusion.notice'   =>'You can install an application for Jelix 1.2.7pre.1871, although there is a notice.',
-      'conclusion.notices'  =>'You can install an application for Jelix 1.2.7pre.1871, although there are notices.',
-      'conclusion.ok'       =>'You can install an application for Jelix 1.2.7pre.1871.',
+      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.4.1pre.2422.',
+      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.4.1pre.2422.',
+      'conclusion.warning'  =>'Your application for Jelix 1.4.1pre.2422 may run without problems, but it is recommanded to fix the warning.',
+      'conclusion.warnings' =>'Your application for Jelix 1.4.1pre.2422 may run without problems, but it is recommanded to fix warnings.',
+      'conclusion.notice'   =>'You can install an application for Jelix 1.4.1pre.2422, although there is a notice.',
+      'conclusion.notices'  =>'You can install an application for Jelix 1.4.1pre.2422, although there are notices.',
+      'conclusion.ok'       =>'You can install an application for Jelix 1.4.1pre.2422.',
         'cannot.continue'       =>'Cannot continue the checking: %s',
         'extension.not.installed'=>'The extension %s is not available',
         'extension.optional.not.installed'=>'the optional extension %s is not available',
@@ -192,13 +192,13 @@ class jInstallerMessageProvider {
         'extension.database.missing'=>'The application needs a SQL database',
         'extension.database.missing2'=>'The application couldn\'t use a SQL database',
         'path.core'             =>'jelix init.php file or application.ini.php file is not loaded',
-        'path.temp'             =>'temp/yourApp directory is not writable or JELIX_APP_TEMP_PATH is not correctly set !',
-        'path.log'              =>'var/log directory (in the directory of your application) is not writable or JELIX_APP_LOG_PATH is not correctly set!',
-        'path.var'              =>'JELIX_APP_VAR_PATH is not correctly set: var directory  doesn\'t exist!',
-        'path.config'           =>'JELIX_APP_CONFIG_PATH is not correctly set: config directory  doesn\'t exist!',
-        'path.www'              =>'JELIX_APP_WWW_PATH is not correctly set: www directory  doesn\'t exist!',
+        'path.temp'             =>'temp/yourApp directory is not writable or the application temp path is not correctly set !',
+        'path.log'              =>'var/log directory (in the directory of your application) is not writable or the application log path is not correctly set!',
+        'path.var'              =>'The application var path is not correctly set: var directory  doesn\'t exist!',
+        'path.config'           =>'The application config path is not correctly set: config directory  doesn\'t exist!',
+        'path.www'              =>'The application www path is not correctly set: www directory  doesn\'t exist!',
         'path.config.writable' =>'The directory var/config have not write rights',
-        'path.dbprofile.writable'=>'The file dbprofils.ini.php have not write rights',
+        'path.profiles.writable'=>'The file profiles.ini.php have not write rights',
         'path.defaultconfig.writable'=>'The file defaultconfig.ini.php have not write rights',
         'path.installer.writable'=>'The file installer.ini.php have not write rights',
         'path.custom.not.exists'=>'The file %s is not found, rights cannot be validated',
@@ -254,12 +254,12 @@ class jInstallerMessageProvider {
             $languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
             foreach($languages as $bl){
                 // pour les user-agents qui livrent un code internationnal
-                if(preg_match("/^([a-zA-Z]{2})(?:[-_]([a-zA-Z]{2}))?(;q=[0-9]\\.[0-9])?$/",$bl,$match)){
+                if(preg_match("/^([a-zA-Z]{2,3})(?:[-_]([a-zA-Z]{2,3}))?(;q=[0-9]\\.[0-9])?$/",$bl,$match)){
                     $lang = strtolower($match[1]);
                     break;
                 }
             }
-        }elseif(preg_match("/^([a-zA-Z]{2})(?:[-_]([a-zA-Z]{2}))?$/",$lang,$match)){
+        }elseif(preg_match("/^([a-zA-Z]{2,3})(?:[-_]([a-zA-Z]{2,3}))?$/",$lang,$match)){
             $lang = strtolower($match[1]);
         }
         if($lang == '' || !isset($this->messages[$lang])){
@@ -294,8 +294,8 @@ class jInstallerMessageProvider {
 * @subpackage core
 * @author   Laurent Jouanneau
 * @contributor Bastien Jaillot
-* @contributor Olivier Demah, Brice Tence
-* @copyright 2007-2011 Laurent Jouanneau, 2008 Bastien Jaillot, 2009 Olivier Demah, 2010 Brice Tence
+* @contributor Olivier Demah, Brice Tence, Julien Issler
+* @copyright 2007-2011 Laurent Jouanneau, 2008 Bastien Jaillot, 2009 Olivier Demah, 2010 Brice Tence, 2011 Julien Issler
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 * @since 1.0b2
@@ -335,10 +335,8 @@ class jInstallCheck {
         $this->reporter = $reporter;
         $this->messages = new jInstallerMessageProvider($lang);
         $this->buildProperties = array(
-   'PHP_VERSION_TARGET'=>'5.2', 
-   'ENABLE_PHP_FILTER' =>'1', 
-   'ENABLE_PHP_JSON'   =>'1', 
-   'ENABLE_PHP_JELIX'  =>'', 
+   'PHP_VERSION_TARGET'=>'5.2',
+   'ENABLE_PHP_JELIX'  =>'',
    'WITH_BYTECODE_CACHE'=>'auto',
         );
     }
@@ -430,12 +428,8 @@ class jInstallCheck {
         }
 
         $extensions = array( 'dom', 'SPL', 'SimpleXML', 'pcre', 'session',
-            'tokenizer', 'iconv',);
+            'tokenizer', 'iconv', 'filter', 'json');
 
-        if($this->buildProperties['ENABLE_PHP_FILTER'] == '1')
-            $extensions[] = 'filter';
-        if($this->buildProperties['ENABLE_PHP_JSON'] == '1')
-            $extensions[] = 'json';
         if($this->buildProperties['ENABLE_PHP_JELIX'] == '1')
             $extensions[] = 'jelix';
 
@@ -492,7 +486,7 @@ class jInstallCheck {
                     $this->notice('extension.database.missing2');
                 }
             }
-            
+
         }
 
         foreach($this->otherExtensions as $name=>$required){

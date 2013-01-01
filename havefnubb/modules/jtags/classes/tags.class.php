@@ -137,7 +137,7 @@ class tags {
     }
 
     function setResponsesHeaders() {
-        global $gJCoord;
+        $gJCoord = jApp::coord();
         $gJCoord->response->addCSSLink('/js/jquery-autocomplete/jquery.autocomplete.css');
 
         $gJCoord->response->addJSLink("/js/jquery-autocomplete/jquery.autocomplete.pack.js");

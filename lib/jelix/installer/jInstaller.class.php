@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  installer
 * @author      Laurent Jouanneau
-* @copyright   2008-2010 Laurent Jouanneau
+* @copyright   2008-2012 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -77,20 +77,20 @@ class jInstaller{
 	function __construct($reporter,$lang=''){
 		$this->reporter=$reporter;
 		$this->messages=new jInstallerMessageProvider($lang);
-		$this->defaultConfig=new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+		$this->defaultConfig=new jIniFileModifier(jApp::configPath('defaultconfig.ini.php'));
 		$this->installerIni=$this->getInstallerIni();
-		$this->readEntryPointData(simplexml_load_file(JELIX_APP_PATH.'project.xml'));
+		$this->readEntryPointData(simplexml_load_file(jApp::appPath('project.xml')));
 		$this->installerIni->save();
 	}
 	protected function getInstallerIni(){
-		if(!file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php'))
-			if(false===@file_put_contents(JELIX_APP_CONFIG_PATH.'installer.ini.php',";<?php die(''); ?>
+		if(!file_exists(jApp::configPath('installer.ini.php')))
+			if(false===@file_put_contents(jApp::configPath('installer.ini.php'),";<?php die(''); ?>
 ; for security reasons , don't remove or modify the first line
 ; don't modify this file if you don't know what you do. it is generated automatically by jInstaller
 
 "))
 				throw new Exception('impossible to create var/config/installer.ini.php');
-		return new jIniFileModifier(JELIX_APP_CONFIG_PATH.'installer.ini.php');
+		return new jIniFileModifier(jApp::configPath('installer.ini.php'));
 	}
 	protected function readEntryPointData($xml){
 		$configFileList=array();
@@ -231,7 +231,7 @@ class jInstaller{
 	protected function _installModules(&$modules,$epId,$installWholeApp,$flags=3){
 		$this->notice('install.entrypoint.start',$epId);
 		$ep=$this->entryPoints[$epId];
-		$GLOBALS['gJConfig']=$ep->config;
+		jApp::setConfig($ep->config);
 		if($ep->config->disableInstallers)
 			$this->notice('install.entrypoint.installers.disabled');
 		$result=$this->checkDependencies($modules,$epId);
@@ -340,10 +340,11 @@ class jInstaller{
 					$installedModules[]=array($installer,$component,false);
 				}
 				$ep->configIni->save();
-				$GLOBALS['gJConfig']=$ep->config=
+				$ep->config=
 					jConfigCompiler::read($ep->configFile,true,
 										$ep->isCliScript,
 										$ep->scriptName);
+				jApp::setConfig($ep->config);
 			}
 		}catch(jInstallerException $e){
 			$result=false;
@@ -372,10 +373,11 @@ class jInstaller{
 					}
 				}
 				$ep->configIni->save();
-				$GLOBALS['gJConfig']=$ep->config=
+				$ep->config=
 					jConfigCompiler::read($ep->configFile,true,
 										$ep->isCliScript,
 										$ep->scriptName);
+				jApp::setConfig($ep->config);
 			}catch(jInstallerException $e){
 				$result=false;
 				$this->error($e->getLocaleKey(),$e->getLocaleParameters());

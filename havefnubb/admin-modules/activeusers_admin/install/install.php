@@ -17,7 +17,7 @@ class activeusers_adminModuleInstaller extends jInstallerModule {
 
         if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('activeusers.configuration', 'activeusers_admin~main.acl.subject');
-            jAcl2DbManager::addRight(1, 'activeusers.configuration'); // for admin group
+            jAcl2DbManager::addRight('admins', 'activeusers.configuration'); // for admin group
         }
     }
 }

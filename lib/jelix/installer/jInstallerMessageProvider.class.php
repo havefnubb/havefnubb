@@ -44,13 +44,13 @@ class jInstallerMessageProvider{
 		'extension.database.missing'=>'L\'application a besoin d\'une base de données SQL',
 		'extension.database.missing2'=>'L\'application ne pourra pas utiliser de base de données SQL',
 		'path.core'=>'Le fichier init.php  de jelix ou le fichier application.ini.php de votre application n\'est pas chargé',
-		'path.temp'=>'Le repertoire temporaire n\'est pas accessible en écriture ou alors JELIX_APP_TEMP_PATH n\'est pas configurée comme il faut',
-		'path.log'=>'Le repertoire var/log dans votre application n\'est pas accessible en écriture ou alors JELIX_APP_LOG_PATH n\'est pas configurée comme il faut',
-		'path.var'=>'JELIX_APP_VAR_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
-		'path.config'=>'JELIX_APP_CONFIG_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
-		'path.www'=>'JELIX_APP_WWW_PATH n\'est pas configuré correctement : ce répertoire n\'existe pas',
+		'path.temp'=>'Le repertoire temporaire n\'est pas accessible en écriture ou alors le chemin du répertoire temp n\'est pas configurée comme il faut',
+		'path.log'=>'Le repertoire var/log dans votre application n\'est pas accessible en écriture ou alors le chemin du répertoire de log n\'est pas configurée comme il faut',
+		'path.var'=>'Le chemin du répertoire var n\'est pas configuré correctement : ce répertoire n\'existe pas',
+		'path.config'=>'Le chemin du répertoire config n\'est pas configuré correctement : ce répertoire n\'existe pas',
+		'path.www'=>'Le chemin du répertoire www n\'est pas configuré correctement : ce répertoire n\'existe pas',
 		'path.config.writable'=>'Le répertoire var/config n\'a pas les droits en écriture',
-		'path.dbprofile.writable'=>'Le fichier dbprofils.ini.php n\'a pas les droits en écriture',
+		'path.profiles.writable'=>'Le fichier profiles.ini.php n\'a pas les droits en écriture',
 		'path.defaultconfig.writable'=>'Le fichier defaultconfig.ini.php n\'a pas les droits en écriture',
 		'path.installer.writable'=>'Le fichier installer.ini.php n\'a pas les droits en écriture',
 		'path.custom.not.exists'=>'Le fichier %s n\'existe pas, ses droits ne peuvent être vérifiés',
@@ -123,13 +123,13 @@ class jInstallerMessageProvider{
 		'extension.database.missing'=>'The application needs a SQL database',
 		'extension.database.missing2'=>'The application couldn\'t use a SQL database',
 		'path.core'=>'jelix init.php file or application.ini.php file is not loaded',
-		'path.temp'=>'temp/yourApp directory is not writable or JELIX_APP_TEMP_PATH is not correctly set !',
-		'path.log'=>'var/log directory (in the directory of your application) is not writable or JELIX_APP_LOG_PATH is not correctly set!',
-		'path.var'=>'JELIX_APP_VAR_PATH is not correctly set: var directory  doesn\'t exist!',
-		'path.config'=>'JELIX_APP_CONFIG_PATH is not correctly set: config directory  doesn\'t exist!',
-		'path.www'=>'JELIX_APP_WWW_PATH is not correctly set: www directory  doesn\'t exist!',
+		'path.temp'=>'temp/yourApp directory is not writable or the application temp path is not correctly set !',
+		'path.log'=>'var/log directory (in the directory of your application) is not writable or the application log path is not correctly set!',
+		'path.var'=>'The application var path is not correctly set: var directory  doesn\'t exist!',
+		'path.config'=>'The application config path is not correctly set: config directory  doesn\'t exist!',
+		'path.www'=>'The application www path is not correctly set: www directory  doesn\'t exist!',
 		'path.config.writable'=>'The directory var/config have not write rights',
-		'path.dbprofile.writable'=>'The file dbprofils.ini.php have not write rights',
+		'path.profiles.writable'=>'The file profiles.ini.php have not write rights',
 		'path.defaultconfig.writable'=>'The file defaultconfig.ini.php have not write rights',
 		'path.installer.writable'=>'The file installer.ini.php have not write rights',
 		'path.custom.not.exists'=>'The file %s is not found, rights cannot be validated',
@@ -177,12 +177,12 @@ class jInstallerMessageProvider{
 		if($lang==''&&isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
 			$languages=explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
 			foreach($languages as $bl){
-				if(preg_match("/^([a-zA-Z]{2})(?:[-_]([a-zA-Z]{2}))?(;q=[0-9]\\.[0-9])?$/",$bl,$match)){
+				if(preg_match("/^([a-zA-Z]{2,3})(?:[-_]([a-zA-Z]{2,3}))?(;q=[0-9]\\.[0-9])?$/",$bl,$match)){
 					$lang=strtolower($match[1]);
 					break;
 				}
 			}
-		}elseif(preg_match("/^([a-zA-Z]{2})(?:[-_]([a-zA-Z]{2}))?$/",$lang,$match)){
+		}elseif(preg_match("/^([a-zA-Z]{2,3})(?:[-_]([a-zA-Z]{2,3}))?$/",$lang,$match)){
 			$lang=strtolower($match[1]);
 		}
 		if($lang==''||!isset($this->messages[$lang])){

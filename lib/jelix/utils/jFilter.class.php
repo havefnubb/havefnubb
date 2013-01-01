@@ -5,7 +5,7 @@
 * @subpackage  utils
 * @author      Laurent Jouanneau
 * @contributor Julien Issler
-* @copyright   2006-2009 Laurent Jouanneau
+* @copyright   2006-2012 Laurent Jouanneau
 * @copyright   2008 Julien Issler
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -59,14 +59,14 @@ class jFilter{
 	const INVALID_HTML=1;
 	const BAD_SAVE_HTML=2;
 	static public function cleanHtml($html,$isXhtml=false){
-		global $gJConfig;
-		$doc=new DOMDocument('1.0',$gJConfig->charset);
+		$charset=jApp::config()->charset;
+		$doc=new DOMDocument('1.0',$charset);
 		$foot='</body></html>';
 		if(strpos($html,"\r")!==false){
 			$html=str_replace("\r\n","\n",$html);
 			$html=str_replace("\r","\n",$html);
 		}
-			$head='<html><head><meta http-equiv="Content-Type" content="text/html; charset='.$gJConfig->charset.'"/><title></title></head><body>';
+			$head='<html><head><meta http-equiv="Content-Type" content="text/html; charset='.$charset.'"/><title></title></head><body>';
 			if(!@$doc->loadHTML($head.$html.$foot)){
 				return jFilter::INVALID_HTML;
 			}

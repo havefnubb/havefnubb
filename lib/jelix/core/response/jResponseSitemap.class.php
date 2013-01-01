@@ -5,7 +5,7 @@
 * @subpackage  core_response
 * @author      Baptiste Toinot
 * @contributor Laurent Jouanneau
-* @copyright   2008 Baptiste Toinot, 2011 Laurent Jouanneau
+* @copyright   2008 Baptiste Toinot, 2011-2012 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -16,8 +16,8 @@ class jResponseSitemap extends jResponse{
 										'monthly','yearly','never');
 	protected $maxSitemap=1000;
 	protected $maxUrl=50000;
-	protected $urlSitemap;
-	protected $urlList;
+	protected $urlSitemap=array();
+	protected $urlList=array();
 	public $content;
 	public $contentTpl;
 	public function __construct(){
@@ -26,61 +26,33 @@ class jResponseSitemap extends jResponse{
 		parent::__construct();
 	}
 	final public function output(){
-		$this->_headSent=false;
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
+		}
 		$this->_httpHeaders['Content-Type']='application/xml;charset=UTF-8';
-		$this->sendHttpHeaders();
-		echo '<?xml version="1.0" encoding="UTF-8"?>',"\n";
-		if(!is_null($this->urlSitemap)){
-			echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-			$this->_headSent=true;
+		if(count($this->urlSitemap)){
+			$head='<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+			$foot='</sitemapindex>';
 			$this->contentTpl='jelix~sitemapindex';
 			$this->content->assign('sitemaps',$this->urlSitemap);
 		}else{
-			echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
-			$this->_headSent=true;
+			$head='<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+			$foot='</urlset>';
 			$this->content->assign('urls',$this->urlList);
 		}
-		$this->content->display($this->contentTpl);
-		if($this->hasErrors()){
-			echo $this->getFormatedErrorMsg();
-		}
-		if(!is_null($this->urlSitemap)){
-			echo '</sitemapindex>';
-		}else{
-			echo '</urlset>';
-		}
+		$content=$this->content->fetch($this->contentTpl);
+		$this->sendHttpHeaders();
+		echo '<?xml version="1.0" encoding="UTF-8"?>',"\n";
+		echo $head,$content,$foot;
 		return true;
-	}
-	final public function outputErrors(){
-		if(!$this->_headSent){
-			if(!$this->_httpHeadersSent){
-				header("HTTP/1.0 500 Internal Server Error");
-				header('Content-Type: text/xml;charset=UTF-8');
-			}
-			echo '<?xml version="1.0" encoding="UTF-8"?>';
-		}
-		echo '<errors xmlns="http://jelix.org/ns/xmlerror/1.0">';
-		if($this->hasErrors()){
-			echo $this->getFormatedErrorMsg();
-		}else{
-			echo '<error>Unknow Error</error>';
-		}
-		echo '</errors>';
-	}
-	protected function getFormatedErrorMsg(){
-		$errors='';
-		foreach($GLOBALS['gJCoord']->errorMessages as $e){
-			$errors.='<error xmlns="http://jelix.org/ns/xmlerror/1.0" type="'. $e[0] .'" code="'. $e[1] .'" file="'. $e[3] .'" line="'. $e[4] .'">'. $e[2] .'</error>'. "\n";
-		}
-		return $errors;
 	}
 	public function addUrl($loc,$lastmod=null,$changefreq=null,$priority=null){
 		if(isset($loc[2048])||count($this->urlList)>=$this->maxUrl){
 			return false;
 		}
-		global $gJCoord;
 		$url=new jSitemapUrl();
-		$url->loc=$gJCoord->request->getServerURI(). $loc;
+		$url->loc=jApp::coord()->request->getServerURI(). $loc;
 		if(($timestamp=strtotime($lastmod))){
 			$url->lastmod=date('c',$timestamp);
 		}
@@ -96,9 +68,8 @@ class jResponseSitemap extends jResponse{
 		if(isset($loc[2048])||count($this->urlSitemap)>=$this->maxSitemap){
 			return false;
 		}
-		global $gJCoord;
 		$sitemap=new jSitemapIndex();
-		$sitemap->loc=$gJCoord->request->getServerURI(). $loc;
+		$sitemap->loc=jApp::coord()->request->getServerURI(). $loc;
 		if(($timestamp=strtotime($lastmod))){
 			$sitemap->lastmod=date('c',$timestamp);
 		}
@@ -126,22 +97,34 @@ class jResponseSitemap extends jResponse{
 		return true;
 	}
 	protected function _parseUrlsXml(){
-		global $gJConfig;
 		$urls=array();
-		$significantFile=$gJConfig->urlengine['significantFile'];
-		$entryPoint=$gJConfig->urlengine['defaultEntrypoint'];
-		$snp=$gJConfig->urlengine['urlScriptIdenc'];
-		$file=JELIX_APP_TEMP_PATH.'compiled/urlsig/' . $significantFile .
-				'.' . rawurlencode($entryPoint). '.entrypoint.php';
+		$conf=&jApp::config()->urlengine;
+		$significantFile=$conf['significantFile'];
+		$basePath=$conf['basePath'];
+		$epExt=($conf['multiview'] ? $conf['entrypointExtension']:'');
+		$file=jApp::tempPath('compiled/urlsig/' . $significantFile . '.creationinfos.php');
 		if(file_exists($file)){
 			require $file;
-			$dataParseUrl=$GLOBALS['SIGNIFICANT_PARSEURL'][$snp];
-			foreach($dataParseUrl as $k=>$infoparsing){
-				if($k==0){
+			foreach($GLOBALS['SIGNIFICANT_CREATEURL'] as $selector=>$createinfo){
+				if($createinfo[0]!=1&&$createinfo[0]!=4){
 					continue;
 				}
-				if(preg_match('/^([^\(]*)/',substr($infoparsing[2],2,-2),$matches)){
-					$urls[]=$matches[1];
+				if($createinfo[0]==4){
+					foreach($createinfo as $k=>$createinfo2){
+						if($k==0)continue;
+						if($createinfo2[2]==true
+						||count($createinfo2[3])){
+							continue;
+						}
+						$urls[]=$basePath.($createinfo2[1]?$createinfo2[1].$epExt:'').$createinfo2[5];
+					}
+				}
+				else if($createinfo[2]==true
+						||count($createinfo[3])){
+					continue;
+				}
+				else{
+					$urls[]=$basePath.($createinfo[1]?$createinfo[1].$epExt:'').$createinfo[5];
 				}
 			}
 		}

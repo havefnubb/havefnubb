@@ -7,8 +7,8 @@
 * @subpackage core
 * @author   Laurent Jouanneau
 * @contributor Bastien Jaillot
-* @contributor Olivier Demah, Brice Tence
-* @copyright 2007-2011 Laurent Jouanneau, 2008 Bastien Jaillot, 2009 Olivier Demah, 2010 Brice Tence
+* @contributor Olivier Demah, Brice Tence, Julien Issler
+* @copyright 2007-2011 Laurent Jouanneau, 2008 Bastien Jaillot, 2009 Olivier Demah, 2010 Brice Tence, 2011 Julien Issler
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 * @since 1.0b2
@@ -95,11 +95,7 @@ class jInstallCheck{
 			$this->ok('php.ok.version',phpversion());
 		}
 		$extensions=array('dom','SPL','SimpleXML','pcre','session',
-			'tokenizer','iconv',);
-		if($this->buildProperties['ENABLE_PHP_FILTER']=='1')
-			$extensions[]='filter';
-		if($this->buildProperties['ENABLE_PHP_JSON']=='1')
-			$extensions[]='json';
+			'tokenizer','iconv','filter','json');
 		if($this->buildProperties['ENABLE_PHP_JELIX']=='1')
 			$extensions[]='jelix';
 		foreach($extensions as $name){
@@ -174,52 +170,52 @@ class jInstallCheck{
 	}
 	function checkAppPaths(){
 		$ok=true;
-		if(!defined('JELIX_LIB_PATH')||!defined('JELIX_APP_PATH')){
+		if(!defined('JELIX_LIB_PATH')||!jApp::isInit()){
 			throw new Exception($this->messages->get('path.core'));
 		}
-		if(!file_exists(JELIX_APP_TEMP_PATH)||!is_writable(JELIX_APP_TEMP_PATH)){
+		if(!file_exists(jApp::tempBasePath())||!is_writable(jApp::tempBasePath())){
 			$this->error('path.temp');
 			$ok=false;
 		}
-		if(!file_exists(JELIX_APP_LOG_PATH)||!is_writable(JELIX_APP_LOG_PATH)){
+		if(!file_exists(jApp::logPath())||!is_writable(jApp::logPath())){
 			$this->error('path.log');
 			$ok=false;
 		}
-		if(!file_exists(JELIX_APP_VAR_PATH)){
+		if(!file_exists(jApp::varPath())){
 			$this->error('path.var');
 			$ok=false;
 		}
-		if(!file_exists(JELIX_APP_CONFIG_PATH)){
+		if(!file_exists(jApp::configPath())){
 			$this->error('path.config');
 			$ok=false;
 		}
 		elseif($this->checkForInstallation){
-			if(!is_writable(JELIX_APP_CONFIG_PATH)){
+			if(!is_writable(jApp::configPath())){
 				$this->error('path.config.writable');
 				$ok=false;
 			}
-			if(file_exists(JELIX_APP_CONFIG_PATH.'dbprofils.ini.php')
-				&&!is_writable(JELIX_APP_CONFIG_PATH.'dbprofils.ini.php')){
-				$this->error('path.dbprofile.writable');
+			if(file_exists(jApp::configPath('profiles.ini.php'))
+				&&!is_writable(jApp::configPath('profiles.ini.php'))){
+				$this->error('path.profiles.writable');
 				$ok=false;
 			}
-			if(file_exists(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php')
-				&&!is_writable(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php')){
+			if(file_exists(jApp::configPath('defaultconfig.ini.php'))
+				&&!is_writable(jApp::configPath('defaultconfig.ini.php'))){
 				$this->error('path.defaultconfig.writable');
 				$ok=false;
 			}
-			if(file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php')
-				&&!is_writable(JELIX_APP_CONFIG_PATH.'installer.ini.php')){
+			if(file_exists(jApp::configPath('installer.ini.php'))
+				&&!is_writable(jApp::configPath('installer.ini.php'))){
 				$this->error('path.installer.writable');
 				$ok=false;
 			}
 		}
-		if(!file_exists(JELIX_APP_WWW_PATH)){
+		if(!file_exists(jApp::wwwPath())){
 			$this->error('path.www');
 			$ok=false;
 		}
 		foreach($this->otherPaths as $path){
-			$realPath=str_replace(array('app:','lib:','var:','www:'),array(JELIX_APP_PATH,LIB_PATH,JELIX_APP_VAR_PATH,JELIX_APP_WWW_PATH),$path);
+			$realPath=str_replace(array('app:','lib:','var:','www:'),array(jApp::appPath(),LIB_PATH,jApp::varPath(),jApp::wwwPath()),$path);
 			if(!file_exists($realPath)){
 				$this->error('path.custom.not.exists',array($path));
 				$ok=false;
@@ -246,12 +242,12 @@ class jInstallCheck{
 	}
 	function checkPhpSettings(){
 		$ok=true;
-		if(file_exists(JELIX_APP_CONFIG_PATH."defaultconfig.ini.php"))
-			$defaultconfig=parse_ini_file(JELIX_APP_CONFIG_PATH."defaultconfig.ini.php",true);
+		if(file_exists(jApp::configPath("defaultconfig.ini.php")))
+			$defaultconfig=parse_ini_file(jApp::configPath("defaultconfig.ini.php"),true);
 		else
 			$defaultconfig=array();
-		if(file_exists(JELIX_APP_CONFIG_PATH."index/config.ini.php"))
-			$indexconfig=parse_ini_file(JELIX_APP_CONFIG_PATH."index/config.ini.php",true);
+		if(file_exists(jApp::configPath("index/config.ini.php")))
+			$indexconfig=parse_ini_file(jApp::configPath("index/config.ini.php"),true);
 		else
 			$indexconfig=array();
 		if((isset($defaultconfig['coordplugins']['magicquotes'])&&$defaultconfig['coordplugins']['magicquotes']==1)||

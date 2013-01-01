@@ -71,7 +71,10 @@ class memcacheKVDriver extends jKVDriver implements jIKVttl{
 		$this->_connection->close();
 	}
 	public function get($key){
-		return $this->_connection->get($key);
+		$val=$this->_connection->get($key);
+		if($val===false)
+			return null;
+		return $val;
 	}
 	public function set($key,$value){
 		if(is_resource($value))

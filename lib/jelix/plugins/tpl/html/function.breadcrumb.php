@@ -10,8 +10,7 @@
  * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
 function jtpl_function_html_breadcrumb($tpl,$nb=null,$separator=''){
-	global $gJCoord;
-	$plugin=$gJCoord->getPlugin('history',true);
+	$plugin=jApp::coord()->getPlugin('history',true);
 	if($plugin===null){
 		return;
 	}

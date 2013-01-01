@@ -16,7 +16,7 @@ class hfnumenuListener extends jEventListener{
     * @pararm event $event Object of a listener
     */
     function onhfnuGetMenuContent ($event) {
-         global $gJConfig;
+        $gJConfig = jApp::config();
 
         $event->add(new hfnuMenuItem('home',
            jLocale::get('havefnubb~main.home'),

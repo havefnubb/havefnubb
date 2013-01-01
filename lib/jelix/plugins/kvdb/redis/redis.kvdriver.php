@@ -10,7 +10,7 @@
  * @link     http://www.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
-require_once(LIB_PATH . 'php5redis/Php5Redis.php');
+require_once(LIB_PATH . 'php5redis/Redis.php');
 class redisKVDriver extends jKVDriver implements jIKVSet,jIKVttl{
 		protected function _connect(){
 		if(! isset($this->_profile['host'])){
@@ -21,7 +21,7 @@ class redisKVDriver extends jKVDriver implements jIKVSet,jIKVttl{
 			throw new jException(
 				'jelix~kvstore.error.no.port',$this->_profileName);
 		}
-		$cnx=new Php5Redis($this->_profile['host'],$this->_profile['port']);
+		$cnx=new Redis($this->_profile['host'],$this->_profile['port']);
 		return $cnx;
 	}
 	protected function _disconnect(){
@@ -61,10 +61,10 @@ class redisKVDriver extends jKVDriver implements jIKVSet,jIKVttl{
 		return($res==='OK');
 	}
 	public function delete($key){
-		return $this->_connection->delete($key);
+		return($this->_connection->delete($key)> 0);
 	}
 	public function flush(){
-		return $this->_connection->flushall();
+		return($this->_connection->flushall()=='OK');
 	}
 	public function append($key,$value){
 		if(is_resource($value))
@@ -94,13 +94,27 @@ class redisKVDriver extends jKVDriver implements jIKVSet,jIKVttl{
 		$val=$this->get($key);
 		if($val===null||!is_numeric($val)||!is_numeric($incvalue))
 			return false;
-		return $this->_connection->incr($key,$incvalue);
+		if(intval($val)==$val)
+			return $this->_connection->incr($key,intval($incvalue));
+		else{
+			$result=intval($val)+intval($incvalue);
+			if($this->_connection->set($key,$result))
+				return $result;
+			return false;
+		}
 	}
 	public function decrement($key,$decvalue=1){
 		$val=$this->get($key);
 		if($val===null||!is_numeric($val)||!is_numeric($decvalue))
 			return false;
-		return $this->_connection->decr($key,$decvalue);
+		if(intval($val)==$val)
+			return $this->_connection->decr($key,intval($decvalue));
+		else{
+			$result=intval($val)-intval($decvalue);
+			if($this->_connection->set($key,$result))
+				return $result;
+			return false;
+		}
 	}
 	public function setWithTtl($key,$value,$ttl){
 		if(is_resource($value))
@@ -114,7 +128,7 @@ class redisKVDriver extends jKVDriver implements jIKVSet,jIKVttl{
 		if($res!=='OK'){
 			return false;
 		}
-		return $this->_connection->expire($key,$ttl);
+		return($this->_connection->expire($key,$ttl)==1);
 	}
 	public function garbage(){
 		return true;

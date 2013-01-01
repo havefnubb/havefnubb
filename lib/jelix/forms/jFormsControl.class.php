@@ -47,6 +47,9 @@ abstract class jFormsControl{
 		if(trim($value)==''){
 			if($this->required)
 				return $this->container->errors[$this->ref]=jForms::ERRDATA_REQUIRED;
+			if(!$this->datatype->allowWhitespace()){
+				$this->container->data[$this->ref]=trim($value);
+			}
 		}elseif(!$this->datatype->check($value)){
 			return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID;
 		}elseif($this->datatype instanceof jIFilteredDatatype){
@@ -238,9 +241,14 @@ class jFormsControlChoice extends jFormsControlGroups{
 	public $itemsNames=array();
 	function check(){
 		$val=$this->container->data[$this->ref];
+		if(isset($this->container->privateData[$this->ref][$val])){
+			return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID;
+		}
 		if($val!==""&&$val!==null&&isset($this->items[$val])){
 			$rv=null;
 			foreach($this->items[$val] as $ctrl){
+				if(!$ctrl->isActivated())
+					continue;
 				if(($rv2=$ctrl->check())!==null){
 					$rv=$rv2;
 				}
@@ -255,12 +263,30 @@ class jFormsControlChoice extends jFormsControlGroups{
 		$this->items[$value]=array();
 		$this->itemsNames[$value]=$label;
 	}
+	function deactivateItem($value,$deactivation=true){
+		if(!isset($this->items[$value]))
+			return;
+		if($deactivation){
+			$this->container->privateData[$this->ref][$value]=true;
+		}
+		else if(isset($this->container->privateData[$this->ref][$value])){
+			unset($this->container->privateData[$this->ref][$value]);
+		}
+	}
+	function isItemActivated($value){
+		return !(isset($this->container->privateData[$this->ref][$value]));
+	}
 	function addChildControl($control,$itemValue=''){
 		$this->childControls[$control->ref]=$control;
 		$this->items[$itemValue][$control->ref]=$control;
 	}
 	function setValueFromRequest($request){
-		$this->setData($request->getParam($this->ref,''));
+		$value=$request->getParam($this->ref,'');
+		if(isset($this->container->privateData[$this->ref][$value])){
+			$this->setData('');
+			return;
+		}
+		$this->setData($value);
 		if(isset($this->items[$this->container->data[$this->ref]])){
 			foreach($this->items[$this->container->data[$this->ref]] as $name=>$ctrl){
 				$ctrl->setValueFromRequest($request);
@@ -323,6 +349,7 @@ class jFormsControlListbox extends jFormsControlDatasource{
 	public $type="listbox";
 	public $multiple=false;
 	public $size=4;
+	public $emptyItemLabel;
 	function isContainer(){
 		return $this->multiple;
 	}
@@ -517,14 +544,15 @@ class jFormsControlDatetime extends jFormsControlDate{
 	}
 	function setValueFromRequest($request){
 		$value=$request->getParam($this->ref,'');
-		if(!is_array($value))
-			$this->setData('');
-		elseif($value['year']===''&&$value['month']===''&&$value['day']===''&&$value['hour']===''&&$value['minutes']===''&&(!$this->enableSeconds||$value['seconds']===''))
-			$this->setData('');
-		else{
-			if($value['seconds']==='')
-				$value['seconds']='00';
-			$this->setData($value['year'].'-'.$value['month'].'-'.$value['day'].' '.$value['hour'].':'.$value['minutes'].':'.$value['seconds']);
+		$this->setData($value);
+		if(is_array($value)){
+			if($value['year']===''&&$value['month']===''&&$value['day']===''&&$value['hour']===''&&$value['minutes']===''&&(!$this->enableSeconds||$value['seconds']===''))
+				$this->setData('');
+			else{
+				if($value['seconds']==='')
+					$value['seconds']='00';
+				$this->setData($value['year'].'-'.$value['month'].'-'.$value['day'].' '.$value['hour'].':'.$value['minutes'].':'.$value['seconds']);
+			}
 		}
 	}
 	function getDisplayValue($value){
@@ -549,7 +577,7 @@ class jFormsControlWikiEditor extends jFormsControl{
 		return true;
 	}
 	public function getDisplayValue($value){
-		$engine=$GLOBALS['gJConfig']->wikieditors[$this->config.'.wiki.rules'];
+		$engine=jApp::config()->wikieditors[$this->config.'.wiki.rules'];
 		$wiki=new jWiki($engine);
 		return $wiki->render($value);
 	}

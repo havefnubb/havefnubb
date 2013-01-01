@@ -5,7 +5,7 @@
 * @subpackage  core_response
 * @author      Laurent Jouanneau
 * @contributor Dominique Papin, Julien Issler
-* @copyright   2005-2009 Laurent Jouanneau, 2007 Dominique Papin
+* @copyright   2005-2010 Laurent Jouanneau, 2007 Dominique Papin
 * @copyright   2008 Julien Issler
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
@@ -31,89 +31,36 @@ class jResponseXul extends jResponse{
 		parent::__construct();
 	}
 	public function output(){
-		$this->_headSent=false;
-		$this->_httpHeaders['Content-Type']='application/vnd.mozilla.xul+xml;charset='.$GLOBALS['gJConfig']->charset;
-		$this->sendHttpHeaders();
+		if($this->_outputOnlyHeaders){
+			$this->sendHttpHeaders();
+			return true;
+		}
 		$this->doAfterActions();
-		if($this->bodyTpl!='')
+		if($this->bodyTpl!=''){
 			$this->body->meta($this->bodyTpl);
+			$content=$this->body->fetch($this->bodyTpl,'xul',true,false);
+		}
+		else
+			$content='';
+		jLog::outputLog($this);
+		$this->_httpHeaders['Content-Type']='application/vnd.mozilla.xul+xml;charset='.jApp::config()->charset;
+		$this->sendHttpHeaders();
 		$this->outputHeader();
-		$this->_headSent=true;
 		echo implode('',$this->_bodyTop);
-		if($this->bodyTpl!='')
-			$this->body->display($this->bodyTpl);
-		if($this->hasErrors()){
-			if($GLOBALS['gJConfig']->error_handling['showInFirebug']){
-				echo '<script type="text/javascript">if(console){';
-				foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-					switch($e[0]){
-					case 'warning':
-						echo 'console.warn("[warning ';
-						break;
-					case 'notice':
-						echo 'console.info("[notice ';
-						break;
-					case 'strict':
-						echo 'console.info("[strict ';
-						break;
-					case 'error':
-						echo 'console.error("[error ';
-						break;
-					}
-					$m=$e[2].($e[5]?"\n".$e[5]:"");
-					echo $e[1],'] ',str_replace(array('"',"\n","\r","\t"),array('\"','\\n','\\r','\\t'),$m),' (',str_replace('\\','\\\\',$e[3]),' ',$e[4],')");';
-				}
-				echo '}else{alert("there are some errors, you should activate Firebug to see them");}</script>';
-			}else{
-				echo '<vbox id="jelixerror" style="border:3px solid red; background-color:#f39999;color:black;">';
-				echo $this->getFormatedErrorMsg();
-				echo '</vbox>';
-			}
-		}
+		echo $content;
 		echo implode('',$this->_bodyBottom);
-		if(count($GLOBALS['gJCoord']->logMessages)){
-			if(count($GLOBALS['gJCoord']->logMessages['response'])){
-				echo '<vbox id="jelixlog">';
-				foreach($GLOBALS['gJCoord']->logMessages['response'] as $m){
-					echo '<description>',htmlspecialchars($m),'</description>';
-				}
-				echo '</vbox>';
-			}
-			if(count($GLOBALS['gJCoord']->logMessages['firebug'])){
-				echo '<script type="text/javascript">if(console){';
-				foreach($GLOBALS['gJCoord']->logMessages['firebug'] as $m){
-					echo 'console.debug("',str_replace(array('"',"\n","\r","\t"),array('\"','\\n','\\r','\\t'),$m),'");';
-				}
-				echo '}else{alert("there are log messages, you should activate Firebug to see them");}</script>';
-			}
-		}
 		echo '</',$this->_root,'>';
 		return true;
 	}
 	public function outputErrors(){
-		if(!$this->_headSent){
-			header("HTTP/1.0 500 Internal Server Error");
-			header('Content-Type: application/vnd.mozilla.xul+xml;charset='.$GLOBALS['gJConfig']->charset);
-			echo '<?xml version="1.0" encoding="'.$GLOBALS['gJConfig']->charset.'" ?>'."\n";
-			echo '<',$this->_root,' title="Errors" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">';
-		}
+		header("HTTP/1.0 500 Internal Server Error");
+		header('Content-Type: application/vnd.mozilla.xul+xml;charset='.jApp::config()->charset);
+		echo '<?xml version="1.0" encoding="'.jApp::config()->charset.'" ?>'."\n";
+		echo '<',$this->_root,' title="Errors" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">';
 		echo '<vbox>';
-		if($this->hasErrors()){
-			echo $this->getFormatedErrorMsg();
-		}else{
-			echo "<description style=\"color:#FF0000;\">Unknown error</description>";
-		}
+		$message=jApp::coord()->getGenericErrorMessage();
+		echo "<description style=\"color:#FF0000;\">".htmlspecialchars($message,ENT_NOQUOTES,jApp::config()->charset)."</description>";
 		echo '</vbox></',$this->_root,'>';
-	}
-	protected function getFormatedErrorMsg(){
-		$errors='';
-		foreach($GLOBALS['gJCoord']->errorMessages  as $e){
-			$errors.='<description style="color:#FF0000;">['.$e[0].' '.$e[1].'] ';
-			$errors.=htmlspecialchars($e[2],ENT_NOQUOTES,$GLOBALS['gJConfig']->charset)." \t".$e[3]." \t".$e[4]."</description>\n";
-			if($e[5])
-			$errors.='<div xmlns="http://www.w3.org/1999/xhtml"><pre>'.htmlspecialchars($e[5],ENT_NOQUOTES,$GLOBALS['gJConfig']->charset).'</pre></div>';
-		}
-		return $errors;
 	}
 	function addContent($content,$beforeTpl=false){
 		if($beforeTpl){
@@ -139,7 +86,7 @@ class jResponseXul extends jResponse{
 		$this->_JSCode[]=$code;
 	}
 	protected function outputHeader(){
-		$charset=$GLOBALS['gJConfig']->charset;
+		$charset=jApp::config()->charset;
 		echo '<?xml version="1.0" encoding="'.$charset.'" ?>'."\n";
 		foreach($this->_CSSLink as $src=>$param){
 			if(is_string($param))

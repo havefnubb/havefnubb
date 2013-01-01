@@ -34,20 +34,23 @@ class jacldbModuleInstaller extends jInstallerModule {
             if ($this->firstExec('jacl:'.$aclconfig)) {
                 // no configuration, let's install the plugin for the entry point
                 $this->config->setValue('jacl', $aclconfig,'coordplugins');
-                if (!file_exists(JELIX_APP_CONFIG_PATH.$aclconfig)) {
-                    $this->copyFile('var/config/'.$pluginIni , JELIX_APP_CONFIG_PATH.$aclconfig);
+                if (!file_exists(jApp::configPath($aclconfig))) {
+                    $this->copyFile('var/config/'.$pluginIni , jApp::configPath($aclconfig));
                 }
             }
         }
 
         if ($forWS && $ownConfig  && $this->firstExec('jacl:'.$aclconfig)) {
-            $cf = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$aclconfig);
+            $cf = new jIniFileModifier(jApp::configPath($aclconfig));
             $cf->setValue('on_error', 1);
             $cf->save();
         }
 
+        $this->declarePluginsPath('module:jacldb');
+
         if (!$this->firstDbExec())
             return;
+
 
         $this->declareDbProfile('jacl_profile', null, false);
         $driver = $this->config->getValue('driver','acl');

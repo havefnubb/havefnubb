@@ -14,9 +14,8 @@ class themes {
     public static $nsURL  = 'http://jelix.org/ns/theme/1.0';
 
     static function lists() {
-        global $gJConfig;
         $themes = array();
-        $dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
+        $dir = new DirectoryIterator(jApp::varPath('themes/'));
         foreach ($dir as $dirContent) {
             if ($dirContent->isDir() and $dirContent != '.' and $dirContent != '..' and $dirContent != '.svn')
                 $themes[] = self::readManifest($dirContent->getFilename());
@@ -25,12 +24,11 @@ class themes {
     }
 
     static function readManifest($theme) {
-        global $gJConfig;
 
         $themesInfo = array();
 
         $doc = new DOMDocument;
-        $doc->Load(JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.xml');
+        $doc->Load(jApp::varPath('/themes/'.$theme .'/theme.xml'));
 
         $xpath  = new DOMXPath($doc);
         $xpath->registerNamespace(self::$ns,self::$nsURL);
@@ -56,13 +54,13 @@ class themes {
         $versionNumber = $entries->item(0)->nodeValue;
 
         $label = 'N/A';
-        $query = '//'.self::$ns.":label[@lang='".$gJConfig->locale."']/text()";
+        $query = '//'.self::$ns.":label[@lang='".jApp::config()->locale."']/text()";
         $entries = $xpath->query($query);
         if ( ! is_null($entries->item(0)))
             $label = $entries->item(0)->nodeValue;
 
         $desc = 'N/A';
-        $query = '//'.self::$ns.":description[@lang='".$gJConfig->locale."']/text()";
+        $query = '//'.self::$ns.":description[@lang='".jApp::config()->locale."']/text()";
         $entries = $xpath->query($query);
         if ( ! is_null($entries->item(0)))
             $desc = $entries->item(0)->nodeValue;

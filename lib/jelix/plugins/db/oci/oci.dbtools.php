@@ -5,7 +5,7 @@
 * @subpackage db_driver
 * @author     Gwendal Jouannic
 * @contributor Laurent Jouanneau
-* @copyright  2008 Gwendal Jouannic, 2009-2010 Laurent Jouanneau
+* @copyright  2008 Gwendal Jouannic, 2009-2011 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */

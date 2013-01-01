@@ -26,7 +26,6 @@ class categoryCtrl extends jController {
      * View a given Category of forum then the list of forums
      */
     function view() {
-        global $gJConfig;
         $ctitle = $this->param('ctitle');
         $id_cat = (int) $this->param('id_cat');
         if ($id_cat == 0 ) {
@@ -46,7 +45,7 @@ class categoryCtrl extends jController {
 
         if (jUrl::escape($ctitle,true) != jUrl::escape($category->cat_name,true)) {
             $rep = $this->getResponse('redirect');
-            $rep->action = $gJConfig->urlengine['notfoundAct'];
+            $rep->action = jApp::config()->urlengine['notfoundAct'];
             return $rep;
         }
 
@@ -55,7 +54,7 @@ class categoryCtrl extends jController {
         // 2) assign the title page
         $rep->title = $category->cat_name;
 
-        $historyPlugin = $GLOBALS['gJCoord']->getPlugin('history');
+        $historyPlugin = jApp::coord()->getPlugin('history');
         $histname = ucfirst ( htmlentities($category->cat_name,ENT_COMPAT,'UTF-8') );
         $historyPlugin->change('label',  $histname);
         $historyPlugin->change('title', $histname );

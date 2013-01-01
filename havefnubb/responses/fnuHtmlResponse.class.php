@@ -26,13 +26,13 @@ class fnuHtmlResponse extends jResponseHtml {
      * method which manages 'globales' behavior/var
      */
     protected function doAfterActions() {
-        global $gJConfig;
+        $conf = jApp::config();
 
-        $title = $gJConfig->havefnubb['title'];
-        $description = $gJConfig->havefnubb['description'];
-        $keywords = $gJConfig->havefnubb['keywords'];
+        $title = $conf->havefnubb['title'];
+        $description = $conf->havefnubb['description'];
+        $keywords = $conf->havefnubb['keywords'];
 
-        $language = preg_split('/_/',$gJConfig->locale);
+        $language = preg_split('/_/',$conf->locale);
 
         /* Dublin Core Meta and Content */
         $this->addHeadContent('<meta name="description" lang="'.$language[0].'" content="'.$description.'" />');
@@ -55,15 +55,16 @@ class fnuHtmlResponse extends jResponseHtml {
         else
             $this->title = $title;
 
-        if (empty($GLOBALS['gJCoord']->request->params)) {
+        $coord = jApp::coord();
+        if (empty($coord->request->params)) {
             $this->body->assign('home',0);
             $this->body->assign('selectedMenuItem','members');
             $this->body->assign('currentIdForum',0);
         }
         else {
-            list($ctrl,$method) = preg_split('/:/',$GLOBALS['gJCoord']->request->params['action']);
+            list($ctrl,$method) = preg_split('/:/', $coord->request->params['action']);
 
-            switch ($GLOBALS['gJCoord']->request->params['module']) {
+            switch ($coord->request->params['module']) {
                 case 'havefnubb' :
                     switch ($ctrl) {
                         case 'members':
@@ -83,7 +84,7 @@ class fnuHtmlResponse extends jResponseHtml {
                             $this->body->assign('home',0);
                             $this->body->assign('selectedMenuItem','community');
                             if ($method == 'view' or $method == 'lists')
-                                $this->body->assign('currentIdForum',$GLOBALS['gJCoord']->request->params['id_forum']);
+                                $this->body->assign('currentIdForum', $coord->request->params['id_forum']);
                             else
                                 $this->body->assign('currentIdForum',0);
                             break;

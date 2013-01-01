@@ -38,7 +38,7 @@ abstract class jDbTools{
 	public $trueValue='1';
 	public $falseValue='0';
 	protected $_conn;
-	function __construct($connector){
+	function __construct($connector=null){
 		$this->_conn=$connector;
 	}
 	protected $unifiedToPhp=array(
@@ -73,7 +73,7 @@ abstract class jDbTools{
 		if(isset($this->unifiedToPhp[$unifiedType])){
 			return $this->unifiedToPhp[$unifiedType];
 		}
-		throw new Exception('bad unified type name:'.$unifiedType);
+		throw new Exception('bad unified type name:' . $unifiedType);
 	}
 	public function stringToPhpValue($unifiedType,$value,$checkNull=false){
 		if($checkNull&&($value===null||strtolower($value)=='null'))
@@ -154,7 +154,7 @@ abstract class jDbTools{
 				if(preg_match($style[1],$line)){
 					$cmdSQL=preg_replace($style[1],'',$cmdSQL);
 					$cmdSQL=str_replace('%%PREFIX%%',$prefix,$cmdSQL);
-					$this->_conn->query($cmdSQL);
+					$this->_conn->exec($cmdSQL);
 					$nbCmd++;
 					$cmdSQL='';
 				}

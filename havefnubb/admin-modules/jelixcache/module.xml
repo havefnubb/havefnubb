@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="jelixcache@havefnubb.org" name="jelixcache" createdate="2010-11-03">
-        <version>0.1</version>
+        <version>0.2</version>
         <label lang="en_EN">jelixcache</label>
         <description lang="en_EN" />
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence, see LICENCE file</license>
@@ -12,6 +12,6 @@
         <updateURL>http://www.havefnubb.org/update.php?module=jelixcache</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.2RC1" maxversion="1.2.*"/>
+        <jelix minversion="1.3" maxversion="1.3.*"/>
     </dependencies>
 </module>

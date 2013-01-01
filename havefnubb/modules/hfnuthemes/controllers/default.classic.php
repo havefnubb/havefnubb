@@ -24,13 +24,12 @@ class defaultCtrl extends jController {
      * Index that will display all the available theme to be used
      */
     function index() {
-        global $gJConfig;
         $tpl = new jTpl();
         $themes = jClasses::getService('themes');
         $lists = $themes->lists();
         $tpl->assign('themes',$lists);
-        $tpl->assign('lang',$gJConfig->locale);
-        $tpl->assign('current_theme',strtolower($gJConfig->theme));
+        $tpl->assign('lang',jApp::config()->locale);
+        $tpl->assign('current_theme',strtolower(jApp::config()->theme));
         $rep = $this->getResponse('html');
         $rep->body->assign('MAIN',$tpl->fetch('theme'));
         $rep->body->assign('selectedMenuItem','theme');
@@ -41,11 +40,11 @@ class defaultCtrl extends jController {
      */
     function useit() {
         $theme = (string) $this->param('theme');
-        $mainConfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH . 'defaultconfig.ini.php');
+        $mainConfig = new jIniFileModifier(jApp::configPath() . 'defaultconfig.ini.php');
         $mainConfig->setValue('theme',strtolower($theme));
         $mainConfig->setValue('datepicker',strtolower($theme),'forms');
         $mainConfig->save();
-        jFile::removeDir(JELIX_APP_TEMP_PATH, false);
+        jFile::removeDir(jApp::tempPath(), false);
         jMessage::add(jLocale::get('theme.selected'),'information');
         $rep = $this->getResponse('redirect');
         $rep->action = 'default:index';

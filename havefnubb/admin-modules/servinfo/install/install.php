@@ -14,7 +14,7 @@ class servinfoModuleInstaller extends jInstallerModule {
     function postInstall() {
         if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('servinfo.access', 'servinfo~servinfo.acl.access');
-            jAcl2DbManager::addRight(1, 'servinfo.access'); // for admin group
+            jAcl2DbManager::addRight('admins', 'servinfo.access'); // for admin group
         }
     }
 }

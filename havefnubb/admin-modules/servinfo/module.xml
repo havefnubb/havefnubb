@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="servinfo@havefnubb.org" name="servinfo" createdate="2009-02-06">
-        <version date="2010-11-03">1.4b1.1</version>
+        <version date="2012-08-31">1.4</version>
         <label lang="en_EN">ServInfo</label>
         <description lang="en_EN">Display any data about the current server on which the module runs</description>
         <label lang="fr_FR">ServInfo</label>
@@ -13,7 +13,7 @@
         <updateURL>http://www.havefnubb.org/update.php?module=servinfo</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1.5" maxversion="1.2.*"/>
+        <jelix minversion="1.3" maxversion="1.3.*"/>
         <module name="jacl2db" />
     </dependencies>
 </module>

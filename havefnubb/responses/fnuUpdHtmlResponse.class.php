@@ -26,12 +26,12 @@ class fnuUpdHtmlResponse extends jResponseHtml {
      * method which manages 'globales' behavior/var
      */
     protected function doAfterActions() {
-        global $gJConfig;
+        $conf = jApp::config();
 
-        $title = $gJConfig->havefnubb['title'];
-        $description = $gJConfig->havefnubb['description'];
+        $title = $conf->havefnubb['title'];
+        $description = $conf->havefnubb['description'];
 
-        $language = preg_split('/_/',$gJConfig->locale);
+        $language = preg_split('/_/',$conf->locale);
 
         $this->addHeadContent('<meta name="description" lang="'.$language[0].'" content="'.$description.'" />');
 

@@ -4,7 +4,7 @@
 * @subpackage  jtpl
 * @author      Laurent Jouanneau
 * @contributor Dominique Papin
-* @copyright   2005-2009 Laurent Jouanneau, 2007 Dominique Papin
+* @copyright   2005-2012 Laurent Jouanneau, 2007 Dominique Papin
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -16,7 +16,7 @@
  */
 class jTpl {
 
-    const VERSION = '1.0pre.1871';
+    const VERSION = '1.0pre.2422';
 
     /**
      * all assigned template variables. 
@@ -152,7 +152,7 @@ class jTpl {
             // we want to process meta only one time, when a template is included
             // several time in an other template, or, more important, when a template
             // is included in a recursive manner (in this case, it did cause infinite loop, see #1396). 
-            return;
+            return $this->_meta;
         }
         $this->processedMeta[] = $tpl;
         $md = $this->getTemplate ($tpl, $outputtype, $trusted);
@@ -244,7 +244,13 @@ class jTpl {
         try{
             $previousTpl = $this->_templateName;
             $this->_templateName = $tpl;
-            $this->processedMeta[] = $tpl;
+            if ($callMeta) {
+                if (in_array($tpl, $this->processedMeta)) {
+                    $callMeta = false;
+                }
+                else
+                    $this->processedMeta[] = $tpl;
+            }
             $this->recursiveTpl[] = $tpl;
             $md = $this->getTemplate ($tpl, $outputtype, $trusted);
             if ($callMeta) {
@@ -258,6 +264,53 @@ class jTpl {
             $content = ob_get_clean();
 
         } catch(Exception $e) {
+            ob_end_clean();
+            throw $e;
+        }
+        return $content;
+    }
+
+     /**
+     * Return the generated content from the given string template (virtual)
+     * @param string $tpl template content
+     * @param string $outputtype the type of output (html, text etc..)
+     * @param boolean $trusted  says if the template file is trusted or not
+     * @param boolean $callMeta false if meta should not be called
+     * @return string the generated content
+     */
+    public function fetchFromString ($tpl, $outputtype='', $trusted = true, $callMeta=true){
+        $content = '';
+        ob_start ();
+        try{
+            $cachePath = jTplConfig::$cachePath . '/virtuals/';
+            require_once(JTPL_PATH . 'jTplCompiler.class.php');
+            $previousTpl = $this->_templateName;
+            $md = 'virtual_'.md5($tpl).($trusted?'_t':'');
+            $this->_templateName = $md;
+
+            if ($outputtype == '')
+                $outputtype = 'html';
+
+            $cachePath .= $outputtype.'_'.$this->_templateName.'.php';
+            $mustCompile = jTplConfig::$compilationForce || !file_exists($cachePath);
+
+            if ($mustCompile && !function_exists('template_'.$md)) {
+                $compiler = new jTplCompiler();
+                $compiler->outputType = $outputtype;
+                $compiler->trusted = $trusted;
+                $compiler->compileString($tpl, $cachePath, $this->userModifiers, $this->userFunctions, $md);
+            }
+            require_once($cachePath);
+
+            if ($callMeta) {
+                $fct = 'template_meta_'.$md;
+                $fct($this);
+            }
+            $fct = 'template_'.$md;
+            $fct($this);
+            $content = ob_get_clean();
+            $this->_templateName = $previousTpl;
+        }catch(exception $e){
             ob_end_clean();
             throw $e;
         }

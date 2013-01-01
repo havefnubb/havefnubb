@@ -30,14 +30,13 @@ abstract class filexml {
 
 
     protected function parseInfo (XMLReader $xml, $object) {
-        global $gJConfig;
 
         if (XMLReader::ELEMENT == $xml->nodeType && 'info' == $xml->name) {
 
             $object->id = $xml->getAttribute('id');
             $object->name = $xml->getAttribute('name');
             $object->createDate = $xml->getAttribute('createdate');
-
+            $gJConfig = jApp::config();
             while ($xml->read()) {
 
                 if (XMLReader::END_ELEMENT == $xml->nodeType && 'info' == $xml->name) {

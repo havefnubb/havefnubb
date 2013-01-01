@@ -31,7 +31,7 @@ class flood {
         // if so, no need to stop the action of this group of users
         // FIXME we should check, not the group, but the rights !
         foreach(jAcl2DbUserGroup::getGroupList() as $grp)
-            if ( $grp->id_aclgrp == 1 or $grp->id_aclgrp == 3)
+            if ( $grp->id_aclgrp == 'admins' or $grp->id_aclgrp == 'moderators')
                 return false;
 
         $dao = jDao::get('havefnubb~posts');
