@@ -49,25 +49,21 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 			throw new jException('jelix~auth.ldap.user.login.unset');
 		}
 		$entries=$this->getAttributesLDAP($user);
-		$connect=$this->_getLinkId();
-		$result=false;
-		if($connect){
-			if(ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword'])){
-				$result=ldap_add($connect,$this->_buildUserDn($user->login),$entries);
-			}
-			ldap_close($connect);
+		$connect=$this->_bindLdapUser();
+		if($connect===false){
+			return false;
 		}
+		$result=ldap_add($connect,$this->_buildUserDn($user->login),$entries);
+		ldapd_close($connect);
 		return $result;
 	}
 	public function removeUser($login){
-		$connect=$this->_getLinkId();
-		$result=false;
-		if($connect){
-			if(ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword'])){
-				$result=ldap_delete($connect,$this->_buildUserDn($user->login));
-			}
-			ldap_close($connect);
+		$connect=$this->_bindLdapUser();
+		if($connect===false){
+			return false;
 		}
+		$result=ldap_delete($connect,$this->_buildUserDn($user->login));
+		ldap_close($connect);
 		return $result;
 	}
 	public function updateUser($user){
@@ -78,36 +74,33 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 			throw new jException('jelix~auth.ldap.user.login.unset');
 		}
 		$entries=$this->getAttributesLDAP($user,true);
-		$connect=$this->_getLinkId();
-		$result=false;
-		if($connect){
-			if(ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword'])){
-				$result=ldap_modify($connect,$this->_buildUserDn($user->login),$entries);
-			}
-			ldap_close($connect);
+		$connect=$this->_bindLdapUser();
+		if($connect===false){
+			return false;
 		}
+		$result=ldap_modify($connect,$this->_buildUserDn($user->login),$entries);
+		ldap_close($connect);
 		return $result;
 	}
 	public function getUser($login){
-		$connect=$this->_getLinkId();
-		if($connect){
-			if(ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword'])){
-				if(($search=ldap_search($connect,$this->_params['searchBaseDN'],$this->_params['uidProperty'].'='.$login,$this->_params['searchAttributes']))){
-					if(($entry=ldap_first_entry($connect,$search))){
-						$attributes=ldap_get_attributes($connect,$entry);
-						if($attributes['count']>0){
-							$user=new jAuthUserLDAP();
-							$this->setAttributesLDAP($user,$attributes);
-							$user->login=$login;
-							$user->password='';
-							ldap_close($connect);
-							return $user;
-						}
-					}
+		$connect=$this->_bindLdapUser();
+		if($connect===false){
+			return false;
+		}
+		if(($search=ldap_search($connect,$this->_params['searchBaseDN'],$this->_params['uidProperty'].'='.$login,$this->_params['searchAttributes']))){
+			if(($entry=ldap_first_entry($connect,$search))){
+				$attributes=ldap_get_attributes($connect,$entry);
+				if($attributes['count']>0){
+					$user=new jAuthUserLDAP();
+					$this->setAttributesLDAP($user,$attributes);
+					$user->login=$login;
+					$user->password='';
+					ldap_close($connect);
+					return $user;
 				}
 			}
-			ldap_close($connect);
 		}
+		ldap_close($connect);
 		return false;
 	}
 	public function createUserObject($login,$password){
@@ -121,40 +114,37 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 	}
 	public function getUserList($pattern){
 		$users=array();
-		$connect=$this->_getLinkId();
-		if($connect){
-			if(ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword'])){
-				$filter=($pattern!=''&&$pattern!='%')? "(&".$this->_params['searchFilter'] . "({$this->_params['uidProperty']}={$pattern}))" : $this->_params['searchFilter'];
-				if(($search=ldap_search($connect,$this->_params['searchBaseDN'],$filter,$this->_params['searchAttributes']))){
-					ldap_sort($connect,$search,$this->params['uidProperty']);
-					$entry=ldap_first_entry($connect,$search);
-					while($entry){
-						$attributes=ldap_get_attributes($connect,$entry);
-						if($attributes['count']>0){
-							$user=new jAuthUserLDAP();
-							$this->setAttributesLDAP($user,$attributes);
-							$user->password='';
-							$users[]=$user;
-						}
-						$entry=ldap_next_entry($connect,$entry);
-					}
-				}
-			}
-			ldap_close($connect);
+		$connect=$this->_bindLdapUser();
+		if($connect===false){
+			return $users;
 		}
+		$filter=($pattern!=''&&$pattern!='%')? "(&".$this->_params['searchFilter'] . "({$this->_params['uidProperty']}={$pattern}))" : $this->_params['searchFilter'];
+		if(($search=ldap_search($connect,$this->_params['searchBaseDN'],$filter,$this->_params['searchAttributes']))){
+			ldap_sort($connect,$search,$this->params['uidProperty']);
+			$entry=ldap_first_entry($connect,$search);
+			while($entry){
+				$attributes=ldap_get_attributes($connect,$entry);
+				if($attributes['count']>0){
+					$user=new jAuthUserLDAP();
+					$this->setAttributesLDAP($user,$attributes);
+					$user->password='';
+					$users[]=$user;
+				}
+				$entry=ldap_next_entry($connect,$entry);
+			}
+		}
+		ldap_close($connect);
 		return $users;
 	}
 	public function changePassword($login,$newpassword){
 		$entries=array();
 		$entries["userpassword"][0]=$this->cryptPassword($newpassword);
-		$connect=$connect=$this->_getLinkId();
-		$result=false;
-		if($connect){
-			if(ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword'])){
-				$result=ldap_mod_replace($connect,$this->_buildUserDn($user->login),$entries);
-			}
-			ldap_close($connect);
+		$connect=$this->_bindLdapUser();
+		if($connect===false){
+			return false;
 		}
+		$result=ldap_mod_replace($connect,$this->_buildUserDn($user->login),$entries);
+		ldap_close($connect);
 		return $result;
 	}
 	public function verifyPassword($login,$password){
@@ -162,7 +152,13 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 		if($connect){
 			$bind=@ldap_bind($connect,$this->_buildUserDn($login),$this->cryptPassword($password));
 			if($bind){
-				if(ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword'])){
+				if($this->_params['ldapUser']==''){
+					$bind=ldap_bind($connect);
+				}
+				else{
+					$bind=ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword']);
+				}
+				if($bind){
 					if(($search=ldap_search($connect,$this->_params['searchBaseDN'],$this->_params['uidProperty'].'='.$login,$this->_params['searchAttributes']))){
 						if(($entry=ldap_first_entry($connect,$search))){
 							$attributes=ldap_get_attributes($connect,$entry);
@@ -243,5 +239,21 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 			return $connect;
 		}
 		return false;
+	}
+	protected function _bindLdapUser(){
+		$connect=$this->_getLinkId();
+		if(!$connect)
+			return false;
+		if($this->_params['ldapUser']==''){
+			$bind=ldap_bind($connect);
+		}
+		else{
+			$bind=ldap_bind($connect,$this->_params['ldapUser'],$this->_params['ldapPassword']);
+		}
+		if(!$bind){
+			ldap_close($connect);
+			return false;
+		}
+		return $connect;
 	}
 }

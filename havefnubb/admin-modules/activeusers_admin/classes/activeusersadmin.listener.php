@@ -17,8 +17,6 @@ class activeusersadminListener extends jEventListener{
     }
 
     function onmasteradminGetMenuContent ($event) {
-        global $gJConfig;
-
         if (jAcl2::check('activeusers.configuration')) {
             $item = new masterAdminMenuItem('activeusers',
                                             jLocale::get('activeusers_admin~main.masteradmin.menu.item'),

@@ -11,7 +11,7 @@
  * function that display the status of one post or post in a given forum
  */
 function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkThreadAsRead=0, $forum = null) {
-    global $gJConfig;
+
     $statusAvailable = array('pined',
                             'pinedclosed',
                             'opened',
@@ -56,6 +56,7 @@ function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkThreadAsRe
             //close the thread
             $status = 'closed';
 
+        $gJConfig = jApp::config();
         $important = false;
         if ($post->status_thread <> 5 and $post->status_thread <> 7) {
             if ($post->nb_replies >= $gJConfig->havefnubb['important_nb_replies'])

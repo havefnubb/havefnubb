@@ -15,7 +15,7 @@ class modulesinfoModuleInstaller extends jInstallerModule {
 
         if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('modulesinfo.access', 'modulesinfo~modulesinfo.acl.access');
-            jAcl2DbManager::addRight(1, 'modulesinfo.access'); // for admin group
+            jAcl2DbManager::addRight('admins', 'modulesinfo.access'); // for admin group
         }
         
     }

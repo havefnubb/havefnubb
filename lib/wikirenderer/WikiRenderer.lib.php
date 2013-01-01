@@ -4,7 +4,7 @@
  * @package WikiRenderer
  * @author Laurent Jouanneau
  * @copyright 2003-2010 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -21,7 +21,7 @@
  *
  */
 define('WIKIRENDERER_PATH', dirname(__FILE__).'/');
-define('WIKIRENDERER_VERSION', '3.1.3pre.59');
+define('WIKIRENDERER_VERSION', '3.1.5');
 
 
 /**
@@ -29,7 +29,7 @@ define('WIKIRENDERER_VERSION', '3.1.3pre.59');
  * @package WikiRenderer
  * @author Laurent Jouanneau
  * @copyright 2003-2008 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -54,6 +54,7 @@ define('WIKIRENDERER_VERSION', '3.1.3pre.59');
  * @see WikiInlineParser
  */
 abstract class WikiTag {
+    protected $name ='';
 
     public $beginTag='';
     public $endTag='';
@@ -205,7 +206,7 @@ abstract class WikiTag {
  * @package WikiRenderer
  * @author Laurent Jouanneau
  * @copyright 2003-2008 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -399,7 +400,7 @@ class WikiInlineParser {
  * @package WikiRenderer
  * @author Laurent Jouanneau
  * @copyright 2003-2008 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -518,7 +519,7 @@ abstract class WikiRendererBloc {
  * @package WikiRenderer
  * @author Laurent Jouanneau
  * @copyright 2003-2008 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -571,10 +572,18 @@ abstract class WikiRendererConfig {
     * called after the parsing. You can add additionnal data to
     * the result of the parsing
     */
-    public function onParse($finalTexte){
-        return $finalTexte;
-    }
+   public function onParse($finalTexte){
+       return $finalTexte;
+   }
 
+   /**
+    * in some wiki system, some links are specials. You should override this method
+    * to transform this specific links to real URL
+    * @return array  first item is the url, second item is an alternate label
+    */
+   public function processLink($url, $tagName='') {
+      return array($url, $url);
+   }
 }
 
 
@@ -584,7 +593,7 @@ abstract class WikiRendererConfig {
  * @package WikiRenderer
  * @author Laurent Jouanneau
  * @copyright 2003-2008 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -765,7 +774,6 @@ class WikiTextLine extends WikiTag {
     public $isTextLineTag=true;
 }
 
-
 /**
  *
  */
@@ -777,13 +785,18 @@ class WikiHtmlTextLine extends WikiTag {
     }
 }
 
+class WikiXmlTextLine extends WikiHtmlTextLine {
+    protected function _doEscape($string){
+        return htmlspecialchars($string, ENT_NOQUOTES);
+    }
+}
 
 /**
  * a base class for wiki inline tag, to generate XHTML element.
  * @package WikiRenderer
  */
 abstract class WikiTagXhtml extends WikiTag {
-   protected $name;
+
    protected $additionnalAttributes=array();
 
    /**
@@ -820,4 +833,9 @@ abstract class WikiTagXhtml extends WikiTag {
 }
 
 
-?>
+class WikiTagXml extends WikiTagXhtml {
+   protected function _doEscape($string){
+       return htmlspecialchars($string, ENT_NOQUOTES);
+   }
+}
+

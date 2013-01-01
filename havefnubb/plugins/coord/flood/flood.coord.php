@@ -33,7 +33,7 @@ class floodCoordPlugin implements jICoordPlugin {
             $hasflood = flood::check($this->config['time_interval'], $this->config['only_same_ip']);
             if ($hasflood) {
     			if($this->config['on_error'] == 1
-    				|| !$GLOBALS['gJCoord']->request->isAllowedResponse('jResponseRedirect')){
+    				|| !jApp::coord()->request->isAllowedResponse('jResponseRedirect')){
                     throw new jException("havefnubb~flood.elapsed_time_between_two_post");
                 }
                 else {

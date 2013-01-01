@@ -32,8 +32,8 @@ class defaultCtrl extends jController {
     }
 
     protected function initform($form) {
-        global $gJConfig;
-        $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
+        $gJConfig = jApp::config();
+        $floodConfig = parse_ini_file(jApp::configPath('havefnubb/flood.coord.ini.php'));
 
         $tzId = DateTimeZone::listIdentifiers();
         for ($i = 0 ; $i < count($tzId) ; $i++) {
@@ -79,7 +79,6 @@ class defaultCtrl extends jController {
     }*/
 
     function config() {
-        global $gJConfig;
 
         $resp = $this->getResponse('html');
 
@@ -105,7 +104,6 @@ class defaultCtrl extends jController {
 
 
     function saveconfig() {
-        global $gJConfig;
 
         $resp = $this->getResponse('redirect');
         $resp->action ='hfnuadmin~default:config';
@@ -115,7 +113,7 @@ class defaultCtrl extends jController {
             return $resp;
         }
 
-        $defaultConfig =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $defaultConfig =  new jIniFileModifier(jApp::configPath('defaultconfig.ini.php'));
         $p = jAcl2Db::getProfile();
         //if we want to allow the anonymous users on the forum :
         if ($form->getData('anonymous_post_authorized')) {
@@ -128,11 +126,11 @@ class defaultCtrl extends jController {
                             'hfnu.posts.create'=>'on',
                             'hfnu.search'=>'on');
 
-            jAcl2DbManager::setRightsOnGroup(0, $rights);
+            jAcl2DbManager::setRightsOnGroup('__anonymous', $rights);
         }
         // we disable the anonymous access on the forum
         else
-            jAcl2DbManager::setRightsOnGroup(0, array());
+            jAcl2DbManager::setRightsOnGroup('__anonymous', array());
 
         $defaultConfig->setValue('title',          htmlentities($this->param('title')),'havefnubb');
         $defaultConfig->setValue('description',    htmlentities($form->getData('description')),'havefnubb');
@@ -164,7 +162,7 @@ class defaultCtrl extends jController {
         $defaultConfig->setValue('timeZone',    $tz[$form->getData('timezone')]);
         $defaultConfig->save();
 
-        $floodConfig    =  new jIniFileModifier(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
+        $floodConfig    =  new jIniFileModifier(jApp::configPath('havefnubb/flood.coord.ini.php'));
 
         $floodConfig->setValue('only_same_ip',                  $form->getData('only_same_ip'));
         $floodConfig->setValue('elapsed_time_between_two_post', $form->getData('elapsed_time_between_two_post'));

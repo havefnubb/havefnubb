@@ -27,7 +27,7 @@ class searchwordsListener extends jEventListener{
         else $strId = $id;
 
         // 1) get the column definition we whish to index in the search engine
-        $HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
 
         //getting the column name on which we need to make the query
         $indexSubject = $HfnuSearchConfig[$ds]['index_subject'];
@@ -67,7 +67,7 @@ class searchwordsListener extends jEventListener{
     }
 
     function onHfnuSearchEngineRun ($event) {
-        $HfnuSearchConfig  =  parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
 
         $cleaner = jClasses::getService('hfnusearch~cleaner');
         $words = $cleaner->stemPhrase($event->getParam('string'));

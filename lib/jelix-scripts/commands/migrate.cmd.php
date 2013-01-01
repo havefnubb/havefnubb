@@ -3,8 +3,8 @@
 /**
 * @package     jelix-scripts
 * @author      Laurent Jouanneau
-* @contributor 
-* @copyright   2010 Laurent Jouanneau
+* @contributor
+* @copyright   2010-2011 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
@@ -19,27 +19,22 @@ class migrateModule {
 class migrateCommand extends JelixScriptCommand {
 
     public  $name = 'migrate';
-    public  $allowed_options = array('-v'=>false);
+    public  $allowed_options = array();
     public  $allowed_parameters = array();
 
-    public  $applicationMustExist = true;
-
-    public  $syntaxhelp = "[-v]";
+    public  $syntaxhelp = "";
     public  $help = '';
 
-    function __construct(){
+    function __construct($config){
         $this->help= array(
             'fr'=>"
     migre une application jelix 1.1  vers jelix 1.2
-
-    Option -v : mode verbeux.
     ",
             'en'=>"
     Migrate a jelix 1.1 application to jelix 1.2
-
-    Option -v: verbose mode.
     ",
     );
+        parent::__construct($config);
     }
 
     public function run(){
@@ -58,7 +53,7 @@ class migrateCommand extends JelixScriptCommand {
 
         // launch jInstaller
         if ($this->checkStep("Install virtually all modules")) {
-            require_once (JELIXS_LIB_PATH.'jelix/installer/jInstaller.class.php');
+            require_once (JELIX_LIB_PATH.'installer/jInstaller.class.php');
             $reporter = new textInstallReporter();
             $install = new jInstaller($reporter);
             $install->forceModuleVersion('jacl2db', '1.1');
@@ -70,9 +65,9 @@ class migrateCommand extends JelixScriptCommand {
         }
 
         if ($this->checkStep("Create the install/installer.php script")) {
-            if (!file_exists(JELIX_APP_PATH.'install/installer.php')) {
-                $this->createDir(JELIX_APP_PATH.'install/');
-                $this->createFile(JELIX_APP_PATH.'install/installer.php','installer/installer.php.tpl',array());
+            if (!file_exists(jApp::appPath('install/installer.php'))) {
+                $this->createDir(jApp::appPath('install/'));
+                $this->createFile(jApp::appPath('install/installer.php'),'installer/installer.php.tpl',array());
             }
         }
         $this->finalStep("Migration done");
@@ -92,7 +87,7 @@ class migrateCommand extends JelixScriptCommand {
         if ($this->checkStep("Check application compatibility")) {
             if (jVersionComparator::compareVersion($maxversion, "1.2") > -1)
                 throw new Exception("Because of maxversion in project.xml, it seems that your application is already compatible with jelix 1.2");
-            if (file_exists(JELIX_APP_CONFIG_PATH.'installer.ini.php'))
+            if (file_exists(jApp::configPath('installer.ini.php')))
                 throw new Exception("installer.ini.php already exists !");
         }
     }
@@ -102,7 +97,7 @@ class migrateCommand extends JelixScriptCommand {
      */
     protected function updateConfig() {
         // retrieve the default config
-        $defaultconfig = new jIniFileModifier(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+        $defaultconfig = new jIniFileModifier(jApp::configPath('defaultconfig.ini.php'));
 
         $this->defaultModulesPath = $defaultconfig->getValue('modulesPath');
         if (!$this->defaultModulesPath) {
@@ -167,7 +162,7 @@ class migrateCommand extends JelixScriptCommand {
                 if (isset($configList[$ep['config']]))
                     continue;
 
-                $config = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$ep['config']);
+                $config = new jIniFileModifier(jApp::configPath($ep['config']));
 
                 $modulesPath = $config->getValue('modulesPath');
                 if (!$modulesPath) {
@@ -242,7 +237,7 @@ class migrateCommand extends JelixScriptCommand {
             foreach($eplist as $ep) {
                 if (isset($configList[$ep['config']]))
                     continue;
-                $config = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$ep['config']);
+                $config = new jIniFileModifier(jApp::configPath($ep['config']));
 
                 $modulesPath = $config->getValue('modulesPath');
                 if (!$modulesPath) {
@@ -279,7 +274,7 @@ class migrateCommand extends JelixScriptCommand {
 
         foreach ($list as $k=>$path) {
             if (trim($path) == '') continue;
-            $p = str_replace(array('lib:','app:'), array(LIB_PATH, JELIX_APP_PATH), $path);
+            $p = str_replace(array('lib:','app:'), array(LIB_PATH, jApp::appPath()), $path);
             if (!file_exists($p)) {
                 throw new Exception('The path, '.$path.' given in the jelix config, doesn\'t exists !',E_USER_ERROR);
             }
@@ -314,21 +309,15 @@ class migrateCommand extends JelixScriptCommand {
         if (!$this->checkStep("Update the project.xml file"))
             return;
         $doc = $this->projectXml;
-        
+
         $this->updateInfo($doc, '', '');
 
         $this->updateJelixDependency($doc);
-        
+
         $dep = $this->nextElementSibling($this->firstElementChild($doc->documentElement));
         $dir = $this->nextElementSibling($dep, 'directories');
-        
-        $this->checkPath($dir, 'config', JELIX_APP_CONFIG_PATH);
-        $this->checkPath($dir, 'log', JELIX_APP_LOG_PATH);
-        $this->checkPath($dir, 'var', JELIX_APP_VAR_PATH);
-        $this->checkPath($dir, 'www', JELIX_APP_WWW_PATH);
-        $this->checkPath($dir, 'temp', JELIX_APP_REAL_TEMP_PATH);
 
-        $this->projectXml->save(JELIX_APP_PATH.'project.xml');
+        $this->projectXml->save(jApp::appPath('project.xml'));
     }
 
     /**
@@ -340,7 +329,7 @@ class migrateCommand extends JelixScriptCommand {
         if (!file_exists($modulexml)) {
             $param = array();
             $param['module'] = $module->name;
-            $param['default_id'] = $module->name.JELIXS_INFO_DEFAULT_IDSUFFIX;
+            $param['default_id'] = $module->name.$this->config->infoIDSuffix;
             $param['version'] = '1.0';
             $this->createFile($modulexml, 'module/module.xml.tpl', $param);
             return;
@@ -352,25 +341,11 @@ class migrateCommand extends JelixScriptCommand {
            throw new Exception("cannot load $modulexml");
         }
 
-        $this->updateInfo($doc, $module->name.JELIXS_INFO_DEFAULT_IDSUFFIX, $module->name);
+        $this->updateInfo($doc, $module->name.$this->config->infoIDSuffix, $module->name);
 
         $this->updateJelixDependency($doc);
 
         $doc->save($modulexml);
-    }
-
-    protected function checkPath($dir, $localName, $path) {
-        $config = $dir->getElementsByTagName($localName);
-        if (!$config || $config->length == 0) {
-            $config = $dir->ownerDocument->createElement($localName);
-            $dir->appendChild($config);
-        }
-        else {
-            $config = $config->item(0);
-        }
-        if (trim($config->textContent) == '') {
-            $config->textContent = jxs_getRelativePath(JELIX_APP_PATH, $path, true);
-        }
     }
 
     /**
@@ -399,7 +374,7 @@ class migrateCommand extends JelixScriptCommand {
      * update informations about jelix version in a module.xml or project.xml file
      */
     protected function updateJelixDependency($doc) {
-        
+
         $info = $this->firstElementChild($doc->documentElement);
         $dep = $this->nextElementSibling($info, 'dependencies');
         $jelix = $this->firstElementChild($dep, 'jelix');
@@ -465,8 +440,8 @@ class migrateCommand extends JelixScriptCommand {
     protected $currentStep = 0;
 
     protected function loadStep() {
-        if (!file_exists(JELIX_APP_CONFIG_PATH.'MIGRATION')) {
-            file_put_contents(JELIX_APP_CONFIG_PATH.'MIGRATION', 0);
+        if (!file_exists(jApp::configPath('MIGRATION'))) {
+            file_put_contents(jApp::configPath('MIGRATION'), 0);
         }
     }
 
@@ -475,20 +450,20 @@ class migrateCommand extends JelixScriptCommand {
      */
     protected function checkStep($message) {
         $this->currentStep ++;
-        $step = intval(file_get_contents(JELIX_APP_CONFIG_PATH.'MIGRATION'));
+        $step = intval(file_get_contents(jApp::configPath('MIGRATION')));
         if ($this->currentStep < $step) {
             echo $message." (already done)\n";
             return false;
         }
         else {
-            file_put_contents(JELIX_APP_CONFIG_PATH.'MIGRATION', $this->currentStep);
+            file_put_contents(jApp::configPath('MIGRATION'), $this->currentStep);
             echo $message."\n";
             return true;
         }
     }
 
     protected function finalStep($message) {
-        unlink(JELIX_APP_CONFIG_PATH.'MIGRATION');
+        unlink(jApp::configPath('MIGRATION'));
         echo $message ."\n";
     }
 }

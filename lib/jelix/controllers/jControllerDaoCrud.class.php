@@ -6,11 +6,11 @@
 * @author       Laurent Jouanneau
 * @contributor  Bastien Jaillot
 * @contributor  Thibault Piront (nuKs)
-* @contributor  Mickael Fradin
+* @contributor  Mickael Fradin, Brunto
 * @copyright    2007-2009 Laurent Jouanneau
 * @copyright    2007 Thibault Piront
 * @copyright    2007,2008 Bastien Jaillot
-* @copyright    2009 Mickael Fradin
+* @copyright    2009 Mickael Fradin, 2011 Brunto
 * @link         http://www.jelix.org
 * @licence      http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 *
@@ -39,8 +39,8 @@ class jControllerDaoCrud extends jController{
 		return jForms::get($this->form,$formId);
 	}
 	protected function _getAction($method){
-		global $gJCoord;
-		return $gJCoord->action->module.'~'.$gJCoord->action->controller.':'.$method;
+		$act=jApp::coord()->action;
+		return $act->module.'~'.$act->controller.':'.$method;
 	}
 	protected function _checkData($form,$calltype){
 		return $this->_checkDatas($form,$calltype);
@@ -73,7 +73,7 @@ class jControllerDaoCrud extends jController{
 		$tpl->assign('viewAction',$this->_getAction('view'));
 		$tpl->assign('listAction',$this->_getAction('index'));
 		$tpl->assign('listPageSize',$this->listPageSize);
-		$tpl->assign('page',$offset);
+		$tpl->assign('page',$offset>0?$offset:null);
 		$tpl->assign('recordCount',$dao->countBy($cond));
 		$tpl->assign('offsetParameterName',$this->offsetParameterName);
 		$this->_index($rep,$tpl);
@@ -105,6 +105,8 @@ class jControllerDaoCrud extends jController{
 		$rep=$this->_getResponse();
 		$tpl=new jTpl();
 		$tpl->assign('id',null);
+		$tpl->assign('page',null);
+		$tpl->assign('offsetParameterName',null);
 		$tpl->assign('form',$form);
 		$tpl->assign('submitAction',$this->_getAction('savecreate'));
 		$tpl->assign('listAction',$this->_getAction('index'));
@@ -146,6 +148,7 @@ class jControllerDaoCrud extends jController{
 	}
 	function preupdate(){
 		$id=$this->param('id');
+		$page=$this->param($this->offsetParameterName);
 		$rep=$this->getResponse('redirect');
 		if($id===null){
 			$rep->action=$this->_getAction('index');
@@ -167,12 +170,14 @@ class jControllerDaoCrud extends jController{
 		$this->_preUpdate($form);
 		$rep->action=$this->_getAction('editupdate');
 		$rep->params['id']=$id;
+		$rep->params[$this->offsetParameterName]=$page;
 		return $rep;
 	}
 	protected function _preUpdate($form){
 	}
 	function editupdate(){
 		$id=$this->param('id');
+		$page=$this->param($this->offsetParameterName);
 		$form=$this->_getForm($id);
 		if($form===null||$id===null){
 			$rep=$this->getResponse('redirect');
@@ -183,6 +188,8 @@ class jControllerDaoCrud extends jController{
 		$tpl=new jTpl();
 		$tpl->assign('id',$id);
 		$tpl->assign('form',$form);
+		$tpl->assign('page',$page);
+		$tpl->assign('offsetParameterName',$this->offsetParameterName);
 		$tpl->assign('submitAction',$this->_getAction('saveupdate'));
 		$tpl->assign('listAction',$this->_getAction('index'));
 		$tpl->assign('viewAction',$this->_getAction('view'));
@@ -197,12 +204,14 @@ class jControllerDaoCrud extends jController{
 	function saveupdate(){
 		$rep=$this->getResponse('redirect');
 		$id=$this->param('id');
+		$page=$this->param($this->offsetParameterName);
 		$form=$this->_getForm($id);
 		if($form===null||$id===null){
 			$rep->action=$this->_getAction('index');
 			return $rep;
 		}
 		$form->initFromRequest();
+		$rep->params[$this->offsetParameterName]=$page;
 		if($form->check()&&$this->_checkData($form,true)){
 			$results=$form->prepareDaoFromControls($this->dao,$id,$this->dbProfile);
 			extract($results,EXTR_PREFIX_ALL,"form");
@@ -224,6 +233,7 @@ class jControllerDaoCrud extends jController{
 	}
 	function view(){
 		$id=$this->param('id');
+		$page=$this->param($this->offsetParameterName);
 		if($id===null){
 			$rep=$this->getResponse('redirect');
 			$rep->action=$this->_getAction('index');
@@ -235,6 +245,8 @@ class jControllerDaoCrud extends jController{
 		$tpl=new jTpl();
 		$tpl->assign('id',$id);
 		$tpl->assign('form',$form);
+		$tpl->assign('page',$page);
+		$tpl->assign('offsetParameterName',$this->offsetParameterName);
 		$tpl->assign('editAction',$this->_getAction('preupdate'));
 		$tpl->assign('deleteAction',$this->_getAction('delete'));
 		$tpl->assign('listAction',$this->_getAction('index'));
@@ -246,7 +258,9 @@ class jControllerDaoCrud extends jController{
 	}
 	function delete(){
 		$id=$this->param('id');
+		$page=$this->param($this->offsetParameterName);
 		$rep=$this->getResponse('redirect');
+		$rep->params=array($this->offsetParameterName=>$page);
 		$rep->action=$this->_getAction('index');
 		if($id!==null&&$this->_delete($id,$rep)){
 			$dao=jDao::get($this->dao,$this->dbProfile);

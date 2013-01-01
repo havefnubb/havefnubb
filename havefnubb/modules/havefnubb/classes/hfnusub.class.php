@@ -62,7 +62,6 @@ class hfnusub {
      * @return void
      */
     public static function sendMail($id) {
-        global $gJConfig;
 
         if (!jAuth::isConnected())
             return;
@@ -73,6 +72,7 @@ class hfnusub {
         //get all the members that subscribe to this thread except "ME" !!!
         $records = $dao->findSubscribedPost($id,jAuth::getUserSession ()->id);
 
+        $gJConfig = jApp::config();
         // then send them a mail
         foreach ($records as $record) {
             //get all the member that subscribe to the thread id $id (called by hfnupost -> savereply )

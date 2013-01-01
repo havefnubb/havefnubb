@@ -11,7 +11,7 @@
  * @contributor Mickael Fradin
  * @contributor Christophe Thiriot
  * @contributor Yannick Le Guédart
- * @contributor Steven Jehannet
+ * @contributor Steven Jehannet, Didier Huguet
  * @copyright   2005-2011 Laurent Jouanneau
  * @copyright   2007 Loic Mathaud
  * @copyright   2007-2009 Julien Issler
@@ -20,7 +20,7 @@
  * @copyright   2009 Mickael Fradin
  * @copyright   2009 Christophe Thiriot
  * @copyright   2010 Yannick Le Guédart
- * @copyright   2010 Steven Jehannet
+ * @copyright   2010 Steven Jehannet, 2010 Didier Huguet
  * @link        http://www.jelix.org
  * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -46,6 +46,12 @@ abstract class jDaoFactoryBase{
 				$this->_tables[$table_name]['realname']=$this->_conn->prefixTable($table['realname']);
 			}
 		}
+	}
+	public function getTables(){
+		return $this->_tables;
+	}
+	public function getPrimaryTable(){
+		return $this->_primaryTable;
 	}
 	abstract public function getProperties();
 	abstract public function getPrimaryKeyNames();
@@ -190,6 +196,9 @@ abstract class jDaoFactoryBase{
 				$r.=' '.$condition->glueOp.' ';
 			}else
 				$notfirst=true;
+			if(!isset($fields[$cond['field_id']])){
+				throw new jException('jelix~dao.error.property.unknown',$cond['field_id']);
+			}
 			$prop=$fields[$cond['field_id']];
 			if($forSelect)
 				$prefixNoCondition=$this->_conn->encloseName($this->_tables[$prop['table']]['name']).'.'.$this->_conn->encloseName($prop['fieldName']);

@@ -4,8 +4,8 @@
 * @package    jelix
 * @subpackage plugins_cache_file
 * @author      Zend Technologies
-* @contributor Tahina Ramaroson, Sylvain de Vathaire, Bricet
-* @copyright  2005-2008 Zend Technologies USA Inc (http://www.zend.com), 2008 Neov
+* @contributor Tahina Ramaroson, Sylvain de Vathaire, Bricet, Laurent Jouanneau
+* @copyright  2005-2008 Zend Technologies USA Inc (http://www.zend.com), 2008 Neov, 2011 Laurent Jouanneau
 * The implementation of this class is based on Zend Cache Backend File class
 * Few lines of code was adapted for Jelix
 * @licence  see LICENCE file
@@ -23,14 +23,14 @@ class fileCacheDriver implements jICacheDriver{
 	public $ttl=0;
 	public $automatic_cleaning_factor=0;
 	public function __construct($params){
-		$this->profil_name=$params['profile'];
+		$this->profil_name=$params['_name'];
 		if(isset($params['enabled'])){
 			$this->enabled=($params['enabled'])?true:false;
 		}
 		if(isset($params['ttl'])){
 			$this->ttl=$params['ttl'];
 		}
-		$this->_cache_dir=JELIX_APP_TEMP_PATH.'cache/'.$this->profil_name.'/';
+		$this->_cache_dir=jApp::tempPath('cache/').$this->profil_name.'/';
 		if(isset($params['cache_dir'])&&$params['cache_dir']!=''){
 			if(is_dir($params['cache_dir'])&&is_writable($params['cache_dir'])){
 				$this->_cache_dir=rtrim(realpath($params['cache_dir']),'\\/'). DIRECTORY_SEPARATOR;
@@ -149,7 +149,10 @@ class fileCacheDriver implements jICacheDriver{
 		$filePath=$this->_getCacheFilePath($key);
 		if(!file_exists($filePath))
 			return false;
-		clearstatcache();
+		if(version_compare(PHP_VERSION,'5.3.0')>=0)
+			clearstatcache(false,$filePath);
+		else
+			clearstatcache();
 		return(filemtime($filePath)> time()||filemtime($filePath)==0)&&is_readable($filePath);
 	}
 	protected function _getFileContent($filePath){
@@ -223,18 +226,22 @@ class fileCacheDriver implements jICacheDriver{
 		if(file_exists($dir)&&$handle=opendir($dir)){
 			while(false!==($file=readdir($handle))){
 				if($file!='.'&&$file!='..'){
-					if(is_file($dir.'/'.$file)){
+					$f=$dir.'/'.$file;
+					if(is_file($f)){
 						if($all){
-							@unlink($dir.'/'.$file);
+							@unlink($f);
 						}else{
-							clearstatcache();
-							if(time()> filemtime($dir.'/'.$file)&&filemtime($dir.'/'.$file)!=0){
+							if(version_compare(PHP_VERSION,'5.3.0')>=0)
+								clearstatcache(false,$f);
+							else
+								clearstatcache();
+							if(time()> filemtime($f)&&filemtime($f)!=0){
 								@unlink($dir.'/'.$file);
 							}
 						}
 					}
-					if(is_dir($dir.'/'.$file)){
-						self::_removeDir($dir.'/'.$file,$all);
+					if(is_dir($f)){
+						self::_removeDir($f,$all);
 					}
 				}
 			}

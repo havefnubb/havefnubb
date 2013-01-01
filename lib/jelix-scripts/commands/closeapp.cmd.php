@@ -16,7 +16,7 @@ class closeappCommand extends JelixScriptCommand {
     public  $syntaxhelp = "[MESSAGE]";
     public  $help = '';
 
-    function __construct(){
+    function __construct($config){
         $this->help= array(
             'fr'=>"
     Ferme l'application. Elle ne sera plus accessible depuis le web.
@@ -25,9 +25,12 @@ class closeappCommand extends JelixScriptCommand {
     Close the application. It will not accessible anymore from the web.
     ",
     );
+        parent::__construct($config);
     }
 
     public function run(){
         jAppManager::close($this->getParam('message',''));
+        if ($this->verbose())
+            echo "Application is closed.\n";
     }
 }

@@ -6,7 +6,7 @@
 * @author     Gérald Croes, Laurent Jouanneau
 * @contributor Laurent Jouanneau
 * @contributor Sylvain de Vathaire, Julien Issler
-* @copyright  2001-2005 CopixTeam, 2005-2010 Laurent Jouanneau
+* @copyright  2001-2005 CopixTeam, 2005-2012 Laurent Jouanneau
 * @copyright  2009 Julien Issler
 * This class was get originally from the Copix project (CopixDbConnectionMysql, Copix 2.3dev20050901, http://www.copix.org)
 * Few lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
@@ -16,6 +16,7 @@
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+require_once(dirname(__FILE__).'/mysql.dbresultset.php');
 class mysqlDbConnection extends jDbConnection{
 	protected $_charsets=array('UTF-8'=>'utf8','ISO-8859-1'=>'latin1');
 	function __construct($profile){
@@ -52,8 +53,8 @@ class mysqlDbConnection extends jDbConnection{
 		$funcconnect=($this->profile['persistent']? 'mysql_pconnect':'mysql_connect');
 		if($cnx=@$funcconnect($this->profile['host'],$this->profile['user'],$this->profile['password'])){
 			if(isset($this->profile['force_encoding'])&&$this->profile['force_encoding']==true
-			&&isset($this->_charsets[$GLOBALS['gJConfig']->charset])){
-				mysql_query("SET NAMES '".$this->_charsets[$GLOBALS['gJConfig']->charset]."'",$cnx);
+			&&isset($this->_charsets[jApp::config()->charset])){
+				mysql_query("SET NAMES '".$this->_charsets[jApp::config()->charset]."'",$cnx);
 			}
 			return $cnx;
 		}else{
@@ -87,6 +88,7 @@ class mysqlDbConnection extends jDbConnection{
 	}
 	protected function _doLimitQuery($queryString,$offset,$number){
 		$queryString.=' LIMIT '.$offset.','.$number;
+		$this->lastQuery=$queryString;
 		$result=$this->_doQuery($queryString);
 		return $result;
 	}
@@ -98,5 +100,19 @@ class mysqlDbConnection extends jDbConnection{
 	}
 	protected function _quote($text,$binary){
 		return mysql_real_escape_string($text,$this->_connection);
+	}
+	public function getAttribute($id){
+		switch($id){
+			case self::ATTR_CLIENT_VERSION:
+				return mysql_get_client_info();
+			case self::ATTR_SERVER_VERSION:
+				return mysql_get_server_info($this->_connection);
+				break;
+			case self::ATTR_SERVER_INFO:
+				return mysql_get_host_info($this->_connection);
+		}
+		return "";
+	}
+	public function setAttribute($id,$value){
 	}
 }

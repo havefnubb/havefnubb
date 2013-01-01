@@ -19,14 +19,14 @@ class hfnuadminrights {
      */
     private  static $__defaultRights = array(
         //anonymous
-        '0'=>array( 'hfnu.forum.list'=>'on',
+        '__anonymous'=>array( 'hfnu.forum.list'=>'on',
                     'hfnu.forum.view'=>'on',
                     'hfnu.posts.list'=>'on',
                     'hfnu.posts.view'=>'on',
                     'hfnu.posts.rss'=>'on'
                     ),
         //admins
-        '1'=>array( 'hfnu.forum.list'=>'on',
+        'admins'=>array( 'hfnu.forum.list'=>'on',
                     'hfnu.forum.view'=>'on',
                     'hfnu.posts.create'=>'on',
                     'hfnu.posts.delete'=>'on',
@@ -40,7 +40,7 @@ class hfnuadminrights {
                     'hfnu.posts.rss'=>'on'
                     ),
         //moderators
-        '3'=>array( 'hfnu.forum.list'=>'on',
+        'moderators'=>array( 'hfnu.forum.list'=>'on',
                     'hfnu.forum.view'=>'on',
                     'hfnu.posts.create'=>'on',
                     'hfnu.posts.edit'=>'on',
@@ -53,7 +53,7 @@ class hfnuadminrights {
                     'hfnu.posts.rss'=>'on'
                    ),
         //members
-        '2'=>array( 'hfnu.forum.list'=>'on',
+        'members'=>array( 'hfnu.forum.list'=>'on',
                     'hfnu.forum.view'=>'on',
                     'hfnu.posts.create'=>'on',
                     'hfnu.posts.edit.own'=>'on',
@@ -75,10 +75,10 @@ class hfnuadminrights {
         $rights = self::$__defaultRights;
 
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
-            $id = intval($grp->id_aclgrp);
+            $id = $grp->id_aclgrp;
             self::setRightsOnForum($id, (isset($rights[$id])?$rights[$id]:array()),'forum'.$id_forum);
         }
-        self::setRightsOnForum(0, (isset($rights[0])?$rights[0]:array()),'forum'.$id_forum);
+        self::setRightsOnForum('__anonymous', $rights['__anonymous'],'forum'.$id_forum);
     }
 
     /**

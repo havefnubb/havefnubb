@@ -10,7 +10,7 @@
 * @contributor Olivier Demah (#733)
 * @contributor Cedric (fix bug ticket 56)
 * @contributor Julien Issler
-* @copyright   2005-2011 Laurent Jouanneau, 2006 Christophe Thiriot, 2006 Loic Mathaud, 2008 Bastien Jaillot, 2008 Olivier Demah, 2009-2010 Julien Issler
+* @copyright   2005-2012 Laurent Jouanneau, 2006 Christophe Thiriot, 2006 Loic Mathaud, 2008 Bastien Jaillot, 2008 Olivier Demah, 2009-2010 Julien Issler
 * @link        http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -36,7 +36,7 @@ class jFile{
 		}
 		fwrite($fd,$data);
 		fclose($fd);
-		if($GLOBALS['gJConfig']->isWindows&&file_exists($file)){
+		if(jApp::config()->isWindows&&file_exists($file)){
 			unlink($file);
 		}
 		rename($_tmp_file,$file);
@@ -49,24 +49,49 @@ class jFile{
 			mkdir($dir,0775);
 		}
 	}
-	public static function removeDir($path,$deleteParent=true){
+	public static function removeDir($path,$deleteParent=true,$except=array()){
 		if($path==''||$path=='/'||$path==DIRECTORY_SEPARATOR)
 			throw new jException('jelix~errors.file.directory.cannot.remove.fs.root');
+		if(!file_exists($path))
+			return true;
+		$allIsDeleted=true;
 		$dir=new DirectoryIterator($path);
 		foreach($dir as $dirContent){
+			if(count($except)){
+				$exception=false;
+				foreach($except as $pattern){
+					if($pattern[0]=='*'){
+						if($dirContent->getBasename()!=$dirContent->getBasename(substr($pattern,1))){
+							$allIsDeleted=false;
+							$exception=true;
+							break;
+						}
+					}
+					else if($pattern==$dirContent->getBasename()){
+						$allIsDeleted=false;
+						$exception=true;
+						break;
+					}
+				}
+				if($exception)
+					continue;
+			}
 			if($dirContent->isFile()||$dirContent->isLink()){
-				unlink($dirContent->getPathName());
+					unlink($dirContent->getPathName());
 			}else{
 				if(!$dirContent->isDot()&&$dirContent->isDir()){
-					self::removeDir($dirContent->getPathName());
+					$removed=self::removeDir($dirContent->getPathName(),true,$except);
+					if(!$removed)
+						$allIsDeleted=false;
 				}
 			}
 		}
 		unset($dir);
 		unset($dirContent);
-		if($deleteParent){
+		if($deleteParent&&$allIsDeleted){
 			rmdir($path);
 		}
+		return $allIsDeleted;
 	}
 	public static function getMimeType($file){
 		if(function_exists('finfo_open')){
@@ -83,8 +108,7 @@ class jFile{
 		}
 	}
 	public static function getMimeTypeFromFilename($fileName){
-		$f=explode('.',$fileName);
-		$ext=strtolower(array_pop($f));
+		$ext=strtolower(pathinfo($fileName,PATHINFO_EXTENSION));
 		if(array_key_exists($ext,self::$mimeTypes)){
 			return self::$mimeTypes[$ext];
 		}

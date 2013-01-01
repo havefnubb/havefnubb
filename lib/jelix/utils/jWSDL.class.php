@@ -5,7 +5,7 @@
 * @subpackage  utils
 * @author      Sylvain de Vathaire
 * @contributor Laurent Jouanneau
-* @copyright   2008 Sylvain de Vathaire, 2009-2011 Laurent Jouanneau
+* @copyright   2008 Sylvain de Vathaire, 2009-2012 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -33,11 +33,11 @@ class jWSDL{
 		$this->_createCachePath();
 	}
 	private function _createPath(){
-		global $gJConfig;
-		if(!isset($gJConfig->_modulesPathList[$this->module])){
+		$config=jApp::config();
+		if(!isset($config->_modulesPathList[$this->module])){
 			throw new jExceptionSelector('jelix~errors.module.unknown',$this->module);
 		}
-		$this->_ctrlpath=$gJConfig->_modulesPathList[$this->module].'controllers/'.$this->controller.'.soap.php';
+		$this->_ctrlpath=$config->_modulesPathList[$this->module].'controllers/'.$this->controller.'.soap.php';
 		if(!file_exists($this->_ctrlpath)){
 			throw new jException('jelix~errors.action.unknown',$this->controller);
 		}
@@ -55,7 +55,7 @@ class jWSDL{
 		}
 	}
 	private function _createCachePath(){
-		$this->_cachePath=JELIX_APP_TEMP_PATH.'compiled/'.$this->_dirname.'/'.$this->module.'~'.$this->controller.$this->_cacheSuffix;
+		$this->_cachePath=jApp::tempPath('compiled/'.$this->_dirname.'/'.$this->module.'~'.$this->controller.$this->_cacheSuffix);
 	}
 	public function getWSDLFilePath(){
 		$this->_updateWSDL();
@@ -70,13 +70,12 @@ class jWSDL{
 		return $IPReflectionMethod->parameters;
 	}
 	private function _updateWSDL(){
-		global $gJConfig;
 		static $updated=FALSE;
 		if($updated){
 			return;
 		}
-		$mustCompile=$gJConfig->compilation['force']||!file_exists($this->_cachePath);
-		if($gJConfig->compilation['checkCacheFiletime']&&!$mustCompile){
+		$mustCompile=jApp::config()->compilation['force']||!file_exists($this->_cachePath);
+		if(jApp::config()->compilation['checkCacheFiletime']&&!$mustCompile){
 			if(filemtime($this->_ctrlpath)> filemtime($this->_cachePath)){
 				$mustCompile=true;
 			}
@@ -87,13 +86,12 @@ class jWSDL{
 		$updated=TRUE;
 	}
 	private function _compile(){
-		global $gJConfig,$gJCoord;
 		$url=jUrl::get($this->module.'~'.$this->controller.':index@soap',array(),jUrl::JURL);
 		$url->clearParam();
 		$url->setParam('service',$this->module.'~'.$this->controller);
-		$serviceURL=$serviceNameSpace=$gJCoord->request->getServerURI();
+		$serviceURL=$serviceNameSpace=jApp::coord()->request->getServerURI();
 		$serviceURL.=$url->toString();
-		$serviceNameSpace.=$gJConfig->urlengine['basePath'];
+		$serviceNameSpace.=jApp::config()->urlengine['basePath'];
 		$wsdl=new WSDLStruct($serviceNameSpace,$serviceURL,SOAP_RPC,SOAP_ENCODED);
 		$wsdl->setService(new IPReflectionClass($this->controllerClassName));
 		try{
@@ -126,8 +124,7 @@ class jWSDL{
 		return $documentation;
 	}
 	public static function getSoapControllers(){
-		global $gJConfig;
-		$modules=$gJConfig->_modulesPathList;
+		$modules=jApp::config()->_modulesPathList;
 		$controllers=array();
 		foreach($modules as $module){
 			if(is_dir($module.'controllers')){

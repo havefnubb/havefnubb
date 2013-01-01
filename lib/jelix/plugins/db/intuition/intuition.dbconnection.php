@@ -10,6 +10,7 @@
 * @licence    http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 include(LIB_PATH . 'intuition/Intuition.inc');
+require_once(dirname(__FILE__).'/intuition.dbresultset.php');
 class intuitionDbConnection extends jDbConnection{
 	private $_iSession;
 	public function beginTransaction(){
@@ -98,5 +99,10 @@ class intuitionDbConnection extends jDbConnection{
 	}
 	protected function _quote($text,$binary){
 		return quote($text);
+	}
+	public function getAttribute($id){
+		return "";
+	}
+	public function setAttribute($id,$value){
 	}
 }

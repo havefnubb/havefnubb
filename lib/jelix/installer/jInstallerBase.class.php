@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  installer
 * @author      Laurent Jouanneau
-* @copyright   2009-2011 Laurent Jouanneau
+* @copyright   2009-2012 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -54,13 +54,10 @@ abstract class jInstallerBase{
 		if($dbProfile=='')
 			$dbProfile='default';
 		$this->dbProfile=$dbProfile;
-		$dbProfilesFile=$this->config->getValue('dbProfils');
-		if($dbProfilesFile=='')
-			$dbProfilesFile='dbprofils.ini.php';
-		if(file_exists(JELIX_APP_CONFIG_PATH.$dbProfilesFile)){
-			$dbprofiles=parse_ini_file(JELIX_APP_CONFIG_PATH.$dbProfilesFile);
-			if(isset($dbprofiles[$dbProfile])&&is_string($dbprofiles[$dbProfile]))
-				$this->dbProfile=$dbprofiles[$dbProfile];
+		if(file_exists(jApp::configPath('profiles.ini.php'))){
+			$dbprofiles=parse_ini_file(jApp::configPath('profiles.ini.php'));
+			if(isset($dbprofiles['jdb'][$dbProfile]))
+				$this->dbProfile=$dbprofiles['jdb'][$dbProfile];
 		}
 		$this->_dbConn=null;
 	}
@@ -99,7 +96,7 @@ abstract class jInstallerBase{
 	protected function getDbType($profile=null){
 		if(!$profile)
 			$profile=$this->dbProfile;
-		$p=jDb::getProfile($profile);
+		$p=jProfiles::get('jdb',$profile);
 		$driver=$p['driver'];
 		if($driver=='pdo'){
 			preg_match('/^(\w+)\:.*$/',$p['dsn'],$m);
@@ -167,68 +164,88 @@ abstract class jInstallerBase{
 	}
 	protected function expandPath($path){
 		if(strpos($path,'www:')===0)
-			$path=str_replace('www:',JELIX_APP_WWW_PATH,$path);
+			$path=str_replace('www:',jApp::wwwPath(),$path);
 		elseif(strpos($path,'jelixwww:')===0){
 			$p=$this->config->getValue('jelixWWWPath','urlengine');
 			if(substr($p,-1)!='/')
 				$p.='/';
-			$path=str_replace('jelixwww:',JELIX_APP_WWW_PATH.$p,$path);
+			$path=str_replace('jelixwww:',jApp::wwwPath($p),$path);
 		}
 		elseif(strpos($path,'config:')===0){
-			$path=str_replace('config:',JELIX_APP_CONFIG_PATH,$path);
+			$path=str_replace('config:',jApp::configPath(),$path);
 		}
 		elseif(strpos($path,'epconfig:')===0){
-			$p=dirname(JELIX_APP_CONFIG_PATH.$this->entryPoint->configFile);
+			$p=dirname(jApp::configPath($this->entryPoint->configFile));
 			$path=str_replace('epconfig:',$p.'/',$path);
 		}
 		return $path;
 	}
 	protected function declareDbProfile($name,$sectionContent=null,$force=true){
-		$dbProfilesFile=$this->config->getValue('dbProfils');
-		if($dbProfilesFile=='')
-			$dbProfilesFile='dbprofils.ini.php';
-		$dbprofiles=new jIniFileModifier(JELIX_APP_CONFIG_PATH.$dbProfilesFile);
+		$profiles=new jIniFileModifier(jApp::configPath('profiles.ini.php'));
 		if($sectionContent==null){
-			if(!$dbprofiles->isSection($name)){
-				if($dbprofiles->getValue($name)&&!$force){
+			if(!$profiles->isSection('jdb:'.$name)){
+				if($profiles->getValue($name,'jdb')&&!$force){
 					return false;
 				}
 			}
 			else if($force){
-				$dbprofiles->removeValue('',$name);
+				$profiles->removeValue('','jdb:'.$name);
 			}
 			else{
 				return false;
 			}
-			$default=$dbprofiles->getValue('default');
+			$default=$profiles->getValue('default','jdb');
 			if($default){
-				$dbprofiles->setValue($name,$default);
+				$profiles->setValue($name,$default,'jdb');
 			}
 			else
-				$dbprofiles->setValue($name,'default');
+				$profiles->setValue($name,'default','jdb');
 		}
 		else{
-			if($dbprofiles->getValue($name)!==null){
+			if($profiles->getValue($name,'jdb')!==null){
 				if(!$force)
 					return false;
-				$dbprofiles->removeValue($name);
+				$profiles->removeValue($name,'jdb');
 			}
 			if(is_array($sectionContent)){
 				foreach($sectionContent as $k=>$v){
-					$dbprofiles->setValue($k,$v,$name);
+					$profiles->setValue($k,$v,'jdb:'.$name);
 				}
 			}
 			else{
-				$profile=$dbprofiles->getValue($sectionContent);
+				$profile=$profiles->getValue($sectionContent,'jdb');
 				if($profile!==null){
-					$dbprofiles->setValue($name,$profile);
+					$profiles->setValue($name,$profile,'jdb');
 				}
 				else
-					$dbprofiles->setValue($name,$sectionContent);
+					$profiles->setValue($name,$sectionContent,'jdb');
 			}
 		}
-		$dbprofiles->save();
-		jDb::clearProfiles();
+		$profiles->save();
+		jProfiles::clear();
 		return true;
+	}
+	function declarePluginsPath($path){
+		if(preg_match('@^module:([^/]+)(/.*)?$@',$path,$m)){
+			if(!isset($m[2]))
+				$path.='/plugins';
+			else  if(strlen($m[2])==1)
+				$path.='plugins';
+		}
+		$pluginsPath=$this->config->getValue('pluginsPath');
+		$list=preg_split('/ *, */',$pluginsPath);
+		$path=rtrim($path,'/');
+		foreach($list as $p){
+			if(preg_match('@^module:([^/]+)(/.*)?$@',$p,$m)){
+				if(!isset($m[2]))
+					$p.='/plugins';
+				else  if(strlen($m[2])==1)
+					$p.='plugins';
+			}
+			if(rtrim($p,'/')==$path)
+				return;
+		}
+		$pluginsPath.=','.$path;
+		$this->config->setValue('pluginsPath',$pluginsPath);
 	}
 }

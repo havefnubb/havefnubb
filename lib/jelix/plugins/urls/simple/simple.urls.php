@@ -5,7 +5,7 @@
 * @subpackage  urls_engine
 * @author      Laurent Jouanneau
 * @contributor GeekBay
-* @copyright   2005-2011 Laurent Jouanneau, 2010 Geekbay
+* @copyright   2005-2012 Laurent Jouanneau, 2010 Geekbay
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -19,13 +19,12 @@ class simpleUrlEngine implements jIUrlEngine{
 		return new jUrlAction($params);
 	}
 	public function create($urlact){
-		global $gJConfig;
 		$m=$urlact->getParam('module');
 		$a=$urlact->getParam('action');
 		$scriptName=$this->getBasePath($urlact->requestType,$m,$a);
 		$scriptName.=$this->getScript($urlact->requestType,$m,$a);
-		if(!$gJConfig->urlengine['multiview']){
-			$scriptName.=$gJConfig->urlengine['entrypointExtension'];
+		if(!jApp::config()->urlengine['multiview']){
+			$scriptName.=jApp::config()->urlengine['entrypointExtension'];
 		}
 		$url=new jUrl($scriptName,$urlact->params,'');
 		if(in_array($urlact->requestType,array('xmlrpc','jsonrpc','soap')))
@@ -33,10 +32,9 @@ class simpleUrlEngine implements jIUrlEngine{
 		return $url;
 	}
 	protected function getBasePath($requestType,$module=null,$action=null){
-		global $gJConfig;
 		if($this->urlhttps==null){
 			$this->urlhttps=array();
-			$selectors=preg_split("/[\s,]+/",$gJConfig->urlengine['simple_urlengine_https']);
+			$selectors=preg_split("/[\s,]+/",jApp::config()->urlengine['simple_urlengine_https']);
 			foreach($selectors as $sel2){
 				$this->urlhttps[$sel2]=true;
 			}
@@ -52,17 +50,16 @@ class simpleUrlEngine implements jIUrlEngine{
 		}
 		}
 		if($usehttps)
-		return $GLOBALS['gJCoord']->request->getServerURI(true).$gJConfig->urlengine['basePath'];
+		return jApp::coord()->request->getServerURI(true).jApp::config()->urlengine['basePath'];
 		else
-		return $gJConfig->urlengine['basePath'];
+		return jApp::config()->urlengine['basePath'];
 	}
 	protected function getScript($requestType,$module=null,$action=null){
-		global $gJConfig;
-		$script=$gJConfig->urlengine['defaultEntrypoint'];
-		if(count($gJConfig->simple_urlengine_entrypoints)){
+		$script=jApp::config()->urlengine['defaultEntrypoint'];
+		if(count(jApp::config()->simple_urlengine_entrypoints)){
 			if($this->urlspe==null){
 				$this->urlspe=array();
-				foreach($gJConfig->simple_urlengine_entrypoints as $entrypoint=>$sel){
+				foreach(jApp::config()->simple_urlengine_entrypoints as $entrypoint=>$sel){
 					$selectors=preg_split("/[\s,]+/",$sel);
 					foreach($selectors as $sel2){
 						$this->urlspe[$sel2]=str_replace('__','/',$entrypoint);

@@ -18,7 +18,7 @@
             <div class="form_value">
                 <select name="grpid" id="grpid">
                 {foreach $groups as $group}
-                    {if  $group->id_aclgrp != 0}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
+                    {if  $group->id_aclgrp != '__anonymous'}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
                 {/foreach}
                  </select>
             </div>

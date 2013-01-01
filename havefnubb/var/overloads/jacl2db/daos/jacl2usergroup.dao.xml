@@ -6,7 +6,7 @@
     </datasources>
     <record>
         <property name="login" fieldname="login" datatype="string" required="yes"/>
-        <property name="id_aclgrp" fieldname="id_aclgrp" datatype="int" required="yes"/>
+        <property name="id_aclgrp" fieldname="id_aclgrp" datatype="string" required="yes"/>
         <property name="status" fieldname="status" table="usr" datatype="integer" />
         <property name="nb_msg" fieldname="nb_msg" table="usr" datatype="integer" />
         <property name="member_created" fieldname="create_date" table="usr" datatype="datetime" />

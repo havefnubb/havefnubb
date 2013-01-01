@@ -17,8 +17,7 @@ class hfnuadmincontactmenuListener extends jEventListener{
 	* @return void
 	*/
 	 function onmasteradminGetMenuContent ($event) {
-		 global $gJConfig;
-		 $chemin = $gJConfig->urlengine['basePath'].'hfnu/admin/';
+		 $chemin = jApp::config()->urlengine['basePath'].'hfnu/admin/';
 
 		 if ( jAcl2::check('hfnu.admin.contact'))    {
 			 $event->add(new masterAdminMenuItem('hfnucontact','Contact', '', 40));

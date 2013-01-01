@@ -10,7 +10,7 @@
 * @subpackage  utils
 * @author      Laurent Jouanneau
 * @contributor Kévin Lepeltier, GeekBay, Julien Issler
-* @copyright   2006-2010 Laurent Jouanneau
+* @copyright   2006-2012 Laurent Jouanneau
 * @copyright   2008 Kévin Lepeltier, 2009 Geekbay
 * @copyright   2010 Julien Issler
 * @link        http://jelix.org
@@ -21,26 +21,28 @@ class jMailer extends PHPMailer{
 	protected $bodyTpl='';
 	protected $defaultLang;
 	public $filePath='';
+	protected $copyTofile=false;
 	function __construct(){
-		global $gJConfig;
-		$this->defaultLang=$gJConfig->locale;
-		$this->CharSet=$gJConfig->charset;
-		$this->Mailer=$gJConfig->mailer['mailerType'];
-		$this->Hostname=$gJConfig->mailer['hostname'];
-		$this->Sendmail=$gJConfig->mailer['sendmailPath'];
-		$this->Host=$gJConfig->mailer['smtpHost'];
-		$this->Port=$gJConfig->mailer['smtpPort'];
-		$this->Helo=$gJConfig->mailer['smtpHelo'];
-		$this->SMTPAuth=$gJConfig->mailer['smtpAuth'];
-		$this->SMTPSecure=$gJConfig->mailer['smtpSecure'];
-		$this->Username=$gJConfig->mailer['smtpUsername'];
-		$this->Password=$gJConfig->mailer['smtpPassword'];
-		$this->Timeout=$gJConfig->mailer['smtpTimeout'];
-		if($gJConfig->mailer['webmasterEmail']!=''){
-			$this->From=$gJConfig->mailer['webmasterEmail'];
+		$config=jApp::config();
+		$this->defaultLang=$config->locale;
+		$this->CharSet=$config->charset;
+		$this->Mailer=$config->mailer['mailerType'];
+		$this->Hostname=$config->mailer['hostname'];
+		$this->Sendmail=$config->mailer['sendmailPath'];
+		$this->Host=$config->mailer['smtpHost'];
+		$this->Port=$config->mailer['smtpPort'];
+		$this->Helo=$config->mailer['smtpHelo'];
+		$this->SMTPAuth=$config->mailer['smtpAuth'];
+		$this->SMTPSecure=$config->mailer['smtpSecure'];
+		$this->Username=$config->mailer['smtpUsername'];
+		$this->Password=$config->mailer['smtpPassword'];
+		$this->Timeout=$config->mailer['smtpTimeout'];
+		if($config->mailer['webmasterEmail']!=''){
+			$this->From=$config->mailer['webmasterEmail'];
 		}
-		$this->FromName=$gJConfig->mailer['webmasterName'];
-		$this->filePath=JELIX_APP_VAR_PATH.$gJConfig->mailer['filesDir'];
+		$this->FromName=$config->mailer['webmasterName'];
+		$this->filePath=jApp::varPath($config->mailer['filesDir']);
+		$this->copyToFiles=$config->mailer['copyToFiles'];
 		parent::__construct(true);
 	}
 	public function IsFile(){
@@ -125,7 +127,7 @@ class jMailer extends PHPMailer{
 		return jFile::write($this->getStorageFile(),$header.$body);
 	}
 	protected function getStorageFile(){
-		return rtrim($this->filePath,'/').'/mail.'.$GLOBALS['gJCoord']->request->getIP().'-'.date('Ymd-His').'-'.uniqid(mt_rand(),true);
+		return rtrim($this->filePath,'/').'/mail.'.jApp::coord()->request->getIP().'-'.date('Ymd-His').'-'.uniqid(mt_rand(),true);
 	}
 	function SetLanguage($lang_type='en',$lang_path='language/'){
 		$lang=explode('_',$lang_type);
@@ -140,5 +142,28 @@ class jMailer extends PHPMailer{
 	}else{
 		return 'Language string failed to load: ' . $key;
 	}
+	}
+	protected function SendmailSend($header,$body){
+		if($this->copyToFiles)
+			$this->copyMail($header,$body);
+		return parent::SendmailSend($header,$body);
+	}
+	protected function MailSend($header,$body){
+		if($this->copyToFiles)
+			$this->copyMail($header,$body);
+		return parent::MailSend($header,$body);
+	}
+	protected function SmtpSend($header,$body){
+		if($this->copyToFiles)
+			$this->copyMail($header,$body);
+		return parent::SmtpSend($header,$body);
+	}
+	protected function copyMail($header,$body){
+		$dir=rtrim($this->filePath,'/').'/copy-'.date('Ymd').'/';
+		if(isset(jApp::coord()->request))
+			$ip=jApp::coord()->request->getIP();
+		else $ip="no-ip";
+		$filename=$dir.'mail-'.$ip.'-'.date('Ymd-His').'-'.uniqid(mt_rand(),true);
+		jFile::write($filename,$header.$body);
 	}
 }

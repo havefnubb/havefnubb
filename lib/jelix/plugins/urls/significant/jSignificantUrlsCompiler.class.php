@@ -5,7 +5,7 @@
 * @subpackage  urls_engine
 * @author      Laurent Jouanneau
 * @contributor Thibault Piront (nuKs)
-* @copyright   2005-2010 Laurent Jouanneau
+* @copyright   2005-2012 Laurent Jouanneau
 * @copyright   2007 Thibault Piront
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
@@ -45,10 +45,12 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 	protected $parseInfos;
 	protected $createUrlInfos;
 	protected $createUrlContent;
+	protected $checkHttps=true;
 	protected $typeparam=array('string'=>'([^\/]+)','char'=>'([^\/])','letter'=>'(\w)',
 		'number'=>'(\d+)','int'=>'(\d+)','integer'=>'(\d+)','digit'=>'(\d)',
 		'date'=>'([0-2]\d{3}\-(?:0[1-9]|1[0-2])\-(?:[0-2][1-9]|3[0-1]))',
-		'year'=>'([0-2]\d{3})','month'=>'(0[1-9]|1[0-2])','day'=>'([0-2][1-9]|[1-2]0|3[0-1])'
+		'year'=>'([0-2]\d{3})','month'=>'(0[1-9]|1[0-2])','day'=>'([0-2][1-9]|[1-2]0|3[0-1])',
+		'path'=>'(.*)','locale'=>'(\w{2,3}(?:(?:\-|_)\w{2,3})?)','lang'=>'(\w{2,3})'
 		);
 	public function compile($aSelector){
 		$sourceFile=$aSelector->getPath();
@@ -60,7 +62,8 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		$this->createUrlInfos=array();
 		$this->createUrlContent="<?php \n";
 		$this->readProjectXml();
-		$this->retrieveModulePaths(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
+		$this->retrieveModulePaths(jApp::configPath('defaultconfig.ini.php'));
+		$this->checkHttps=jApp::config()->urlengine['checkHttpsOnParsing'];
 		foreach($xml->children()as $tagname=>$tag){
 			if(!preg_match("/^(.*)entrypoint$/",$tagname,$m)){
 				continue;
@@ -102,7 +105,9 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 					continue;
 				}
 				if(!$u->isDefault&&!isset($url['action'])&&!isset($url['handler'])){
-					$this->parseInfos[]=array($u->module,'','/.*/',array(),array(),array(),false);
+					$this->parseInfos[]=array($u->module,'','/.*/',array(),
+												array(),array(),false,
+												($this->checkHttps&&$u->isHttps));
 					$createUrlInfosDedicatedModules[$u->getFullSel()]=array(3,$u->entryPointUrl,$u->isHttps,true);
 					continue;
 				}
@@ -143,9 +148,20 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 					}
 				}
 				foreach($url->static as $var){
-					$u->statics[(string)$var['name']]=(string)$var['value'];
+					$t="";
+					if(isset($var['type'])){
+						switch((string) $var['type']){
+							case 'lang': $t='$l';break;
+							case 'locale': $t='$L';break;
+							default:
+								throw new Exception('urls definition: invalid type on a <static> element');
+						}
+					}
+					$u->statics[(string)$var['name']]=$t . (string)$var['value'];
 				}
-				$this->parseInfos[]=array($u->module,$u->action,'!^'.$regexppath.'$!',$u->params,$u->escapes,$u->statics,$u->actionOverride);
+				$this->parseInfos[]=array($u->module,$u->action,'!^'.$regexppath.'$!',
+											$u->params,$u->escapes,$u->statics,
+											$u->actionOverride,($this->checkHttps&&$u->isHttps));
 				$this->appendUrlInfo($u,$path,false);
 				if($u->actionOverride){
 					foreach($u->actionOverride as $ao){
@@ -162,14 +178,14 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 			}
 			$parseContent.='$GLOBALS[\'SIGNIFICANT_PARSEURL\'][\''.rawurlencode($this->defaultUrl->entryPoint).'\'] = '
 							.var_export($this->parseInfos,true).";\n?>";
-			jFile::write(JELIX_APP_TEMP_PATH.'compiled/urlsig/'.$aSelector->file.'.'.rawurlencode($this->defaultUrl->entryPoint).'.entrypoint.php',$parseContent);
+			jFile::write(jApp::tempPath('compiled/urlsig/'.$aSelector->file.'.'.rawurlencode($this->defaultUrl->entryPoint).'.entrypoint.php'),$parseContent);
 		}
 		$this->createUrlContent.='$GLOBALS[\'SIGNIFICANT_CREATEURL\'] ='.var_export($this->createUrlInfos,true).";\n?>";
-		jFile::write(JELIX_APP_TEMP_PATH.'compiled/urlsig/'.$aSelector->file.'.creationinfos.php',$this->createUrlContent);
+		jFile::write(jApp::tempPath('compiled/urlsig/'.$aSelector->file.'.creationinfos.php'),$this->createUrlContent);
 		return true;
 	}
 	protected function readProjectXml(){
-		$xml=simplexml_load_file(JELIX_APP_PATH.'project.xml');
+		$xml=simplexml_load_file(jApp::appPath('project.xml'));
 		foreach($xml->entrypoints->entry as $entrypoint){
 			$file=(string)$entrypoint['file'];
 			if(substr($file,-4)!='.php')
@@ -183,7 +199,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 			$entrypoint.='.php';
 		if(!isset($this->entryPoints[$entrypoint]))
 			throw new Exception('The entry point "'.$entrypoint.'" is not declared into project.xml');
-		return JELIX_APP_CONFIG_PATH.$this->entryPoints[$entrypoint];
+		return jApp::configPath($this->entryPoints[$entrypoint]);
 	}
 	protected $entryPoints=array();
 	protected $modulesRepositories=array();
@@ -196,7 +212,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		array_unshift($list,JELIX_LIB_PATH.'core-modules/');
 		foreach($list as $k=>$path){
 			if(trim($path)=='')continue;
-			$p=str_replace(array('lib:','app:'),array(LIB_PATH,JELIX_APP_PATH),$path);
+			$p=str_replace(array('lib:','app:'),array(LIB_PATH,jApp::appPath()),$path);
 			if(!file_exists($p)){
 				continue;
 			}
@@ -236,7 +252,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 			$regexp='!^'.preg_quote($pathinfo,'!').'(/.*)?$!';
 		}
 		$this->createUrlContent.="include_once('".$s->getPath()."');\n";
-		$this->parseInfos[]=array($u->module,$u->action,$regexp,$selclass,$u->actionOverride);
+		$this->parseInfos[]=array($u->module,$u->action,$regexp,$selclass,$u->actionOverride,($this->checkHttps&&$u->isHttps));
 		$this->createUrlInfos[$u->getFullSel()]=array(0,$u->entryPointUrl,$u->isHttps,$selclass,$pathinfo);
 		if($u->actionOverride){
 			foreach($u->actionOverride as $ao){
@@ -247,7 +263,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 	}
 	protected function extractDynamicParams($url,$regexppath,$u){
 		$regexppath=preg_quote($regexppath,'!');
-		if(preg_match_all("/\\\:([a-zA-Z_]+)/",$regexppath,$m,PREG_PATTERN_ORDER)){
+		if(preg_match_all("/\\\:([a-zA-Z_0-9]+)/",$regexppath,$m,PREG_PATTERN_ORDER)){
 			$u->params=$m[1];
 			foreach($url->param as $var){
 				$name=(string) $var['name'];
@@ -255,15 +271,11 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 				if($k===false){
 					continue;
 				}
-				if(isset($var['escape'])){
-					$u->escapes[$k]=(((string)$var['escape'])=='true');
-				}
-				else{
-					$u->escapes[$k]=false;
-				}
+				$type='';
 				if(isset($var['type'])){
-					if(isset($this->typeparam[(string)$var['type']]))
-						$regexp=$this->typeparam[(string)$var['type']];
+					$type=(string)$var['type'];
+					if(isset($this->typeparam[$type]))
+						$regexp=$this->typeparam[$type];
 					else
 						$regexp='([^\/]+)';
 				}
@@ -273,13 +285,26 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 				else{
 					$regexp='([^\/]+)';
 				}
+				$u->escapes[$k]=0;
+				if($type=='path'){
+					$u->escapes[$k]=1;
+				}
+				else if(isset($var['escape'])){
+					$u->escapes[$k]=(((string)$var['escape'])=='true'?2:0);
+				}
+				if($type=='lang'){
+					$u->escapes[$k]|=4;
+				}
+				else if($type=='locale'){
+					$u->escapes[$k]|=8;
+				}
 				$regexppath=str_replace('\:'.$name,$regexp,$regexppath);
 			}
 			foreach($u->params as $k=>$name){
 				if(isset($u->escapes[$k])){
 					continue;
 				}
-				$u->escapes[$k]=false;
+				$u->escapes[$k]=0;
 				$regexppath=str_replace('\:'.$name,'([^\/]+)',$regexppath);
 			}
 		}
@@ -352,9 +377,20 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 				}
 			}
 			foreach($url->static as $var){
-				$u->statics[(string)$var['name']]=(string)$var['value'];
+				$t="";
+				if(isset($var['type'])){
+					switch((string) $var['type']){
+						case 'lang': $t='$l';break;
+						case 'locale': $t='$L';break;
+						default:
+							throw new Exception('urls definition: invalid type on a <static> element');
+					}
+				}
+				$u->statics[(string)$var['name']]=$t . (string)$var['value'];
 			}
-			$this->parseInfos[]=array($u->module,$u->action,'!^'.$regexppath.'$!',$u->params,$u->escapes,$u->statics,$u->actionOverride);
+			$this->parseInfos[]=array($u->module,$u->action,'!^'.$regexppath.'$!',
+										$u->params,$u->escapes,$u->statics,
+										$u->actionOverride,($this->checkHttps&&$u->isHttps));
 			$this->appendUrlInfo($u,$path,false);
 			if($u->actionOverride){
 				foreach($u->actionOverride as $ao){

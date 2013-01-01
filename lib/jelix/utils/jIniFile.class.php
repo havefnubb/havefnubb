@@ -5,7 +5,7 @@
 * @subpackage utils
 * @author     Loic Mathaud
 * @contributor Laurent Jouanneau
-* @copyright  2006 Loic Mathaud, 2008 Laurent Jouanneau
+* @copyright  2006 Loic Mathaud, 2008-2012 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -33,7 +33,7 @@ class jIniFile{
 			fwrite($f,$header.$result);
 			fclose($f);
 		}else{
-			if(isset($GLOBALS['gJConfig'])){
+			if(jApp::config()){
 				throw new jException('jelix~errors.inifile.write.error',array($filename));
 			}else{
 				throw new Exception('(24)Error while writing ini file '.$filename);

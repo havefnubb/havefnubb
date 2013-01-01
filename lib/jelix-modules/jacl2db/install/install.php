@@ -39,17 +39,19 @@ class jacl2dbModuleInstaller extends jInstallerModule {
             if ($this->firstExec('jacl2:'.$aclconfig)) {
                 // no configuration, let's install the plugin for the entry point
                 $this->config->setValue('jacl2', $aclconfig,'coordplugins');
-                if (!file_exists(JELIX_APP_CONFIG_PATH.$aclconfig)) {
-                    $this->copyFile('var/config/'.$pluginIni , JELIX_APP_CONFIG_PATH.$aclconfig);
+                if (!file_exists(jApp::configPath($aclconfig))) {
+                    $this->copyFile('var/config/'.$pluginIni , jApp::configPath($aclconfig));
                 }
             }
         }
 
         if ($forWS && $ownConfig && $this->firstExec('jacl2:'.$aclconfig)) {
-            $cf = new jIniFileModifier(JELIX_APP_CONFIG_PATH.$aclconfig);
+            $cf = new jIniFileModifier(jApp::configPath($aclconfig));
             $cf->setValue('on_error', 1);
             $cf->save();
         }
+
+        $this->declarePluginsPath('module:jacl2db');
 
         if (!$this->firstDbExec())
             return;
@@ -65,18 +67,6 @@ class jacl2dbModuleInstaller extends jInstallerModule {
         if ($this->getParameter('defaultuser') || $this->getParameter('defaultgroups')) {
             // declare some groups
             $this->execSQLScript('groups.sql');
-            $cn = $this->dbConnection();
-            // mysql ignore the value 0 and replace it by the next value of auto increment
-            // so let's change it to 0
-            try {
-                $cn->exec("UPDATE ".$cn->prefixTable('jacl2_group')." SET id_aclgrp = 0 WHERE  name = 'anonymous'
-                        AND code = 'anonymous' AND grouptype=0 and ownerlogin is null");
-            } catch(Exception $e) {}
-
-            if ($cn->dbms == 'pgsql') {
-                // 3, to have the same autoincrement in mysql, so user.sql will work correctly
-                $cn->exec("SELECT setval('".$cn->prefixTable('jacl2_group_id_aclgrp_seq')."', 3, true)");
-            }
         }
 
         if ($this->getParameter('defaultuser')) {

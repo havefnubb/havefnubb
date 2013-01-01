@@ -16,8 +16,7 @@
  * @param string $msg string displayed before the name of the visited page formated like jLocale expects to receive it
  */
 function jtpl_function_html_gobackto($tpl,$msg='') {
-    global $gJCoord;
-    $plugin = $gJCoord->getPlugin('history', true);
+    $plugin = jApp::coord()->getPlugin('history', true);
     if($plugin === null){
         return;
     }

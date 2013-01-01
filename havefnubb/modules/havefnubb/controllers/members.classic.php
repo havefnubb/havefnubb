@@ -26,8 +26,7 @@ class membersCtrl extends jController {
     * handle the search of specific member
     */
     function index() {
-        global $gJConfig;
-        $title = stripslashes($gJConfig->havefnubb['title']);
+        $title = stripslashes(jApp::config()->havefnubb['title']);
         $rep = $this->getResponse('html');
 
         $letter = $this->param('letter');
@@ -39,15 +38,12 @@ class membersCtrl extends jController {
         $page = (int) $this->param('page');
 
     // get the group name of the group id we request
-        $grpid = (int) $this->param('grpid');
+        $grpid = $this->param('grpid');
         $groupname = jLocale::get('havefnubb~member.memberlist.allgroups');
-        if ($grpid > 0 ) {
+        if ($grpid != '__anonymous' ) {
             $dao = jDao::get('jacl2db~jacl2group');
-            $conditions = jDao::createConditions();
-            $conditions->addCondition('id_aclgrp','=',$grpid);
-            $grpnames = $dao->findBy($conditions);
-            foreach ($grpnames as $grpname)
-                    $groupname = $grpname->name;
+            $grpname = $dao->get($grpid);
+            $groupname = $grpname->name;
         }
         $beginningBy = '';
 
@@ -55,11 +51,11 @@ class membersCtrl extends jController {
             $beginningBy = ' - ' .jLocale::get('havefnubb~member.memberlist.members.beginning.by',array($letter));
         // change the label of the breadcrumb
             if ($page == 0) {
-            $GLOBALS['gJCoord']->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list'));
+            jApp::coord()->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list'));
             $rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname . $beginningBy;
         }
         else {
-            $GLOBALS['gJCoord']->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));
+            jApp::coord()->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list') . ' ' .($page+1));
             $rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname .$beginningBy. ' ' .($page+1) ;
         }
 

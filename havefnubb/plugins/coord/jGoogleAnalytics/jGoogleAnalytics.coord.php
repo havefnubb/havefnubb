@@ -45,7 +45,7 @@ class jGoogleAnalyticsCoordPlugin implements jICoordPlugin {
 	}
 
 	public function beforeOutput() {
-		global $gJCoord;
+		$gJCoord = jApp::coord();
 
 		if ($gJCoord->response instanceof jResponseHtml && $this->displayMarker) {
 			$str_uacct = '

@@ -14,8 +14,8 @@ class jelixcacheModuleInstaller extends jInstallerModule {
     function install() {
         if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('jelixcache.access', 'jelixcache~jelixcache.acl.access');
-            jAcl2DbManager::addRight(1, 'jelixcache.access'); // for admin group
-            //jAcl2DbManager::addRight(3, 'jelixcache.access');
+            jAcl2DbManager::addRight('admins', 'jelixcache.access'); // for admin group
+            //jAcl2DbManager::addRight('moderators', 'jelixcache.access');
         }
     }
 }

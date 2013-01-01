@@ -7,20 +7,11 @@
         <license URL="%%default_license_url%%">%%default_license%%</license>
         <copyright>%%default_copyright%%</copyright>
         <creator name="%%default_creator_name%%" email="%%default_creator_email%%" active="true" />
-        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
         <homepageURL>%%default_website%%</homepageURL>
-        <!--<updateURL>%%default_website%%/update.xml</updateURL>-->
     </info>
     <dependencies>
         <jelix minversion="%%jelix_version%%" maxversion="%%jelix_version_next%%" />
     </dependencies>
-    <directories>
-        <config>%%rp_conf%%</config>
-        <log>%%rp_log%%</log>
-        <var>%%rp_var%%</var>
-        <www>%%rp_www%%</www>
-        <temp>%%rp_temp%%</temp>
-    </directories>
     <entrypoints>
         <!-- file: the path to the entry point relative to the base path
             config: the path to the config file used by the entry point, relative

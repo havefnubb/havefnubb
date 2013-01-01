@@ -8,6 +8,7 @@
 * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 require ('havefnubb/application.init.php');
+jApp::setEnv('webinstall');
 
 require('lib/installwizard/installWizard.php');
 

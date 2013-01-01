@@ -18,7 +18,7 @@ class themes  {
     static function lists() {
         $themes = array();
 
-        $dir = new DirectoryIterator(JELIX_APP_VAR_PATH.'themes/');
+        $dir = new DirectoryIterator(jApp::varPath().'themes/');
         foreach ($dir as $dirContent) {
             if ($dirContent->isDir() and !$dirContent->isDot())
                 $themes[] = self::readManifest($dirContent->getFilename());
@@ -32,7 +32,7 @@ class themes  {
      */
     static function readManifest($theme) {
         $themeInfos = array();
-        $path = JELIX_APP_VAR_PATH.'/themes/'.$theme .'/theme.php';
+        $path = jApp::varPath().'/themes/'.$theme .'/theme.php';
         if (file_exists($path))
             include $path;
         return $themeInfos;

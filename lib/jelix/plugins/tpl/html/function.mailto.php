@@ -8,7 +8,8 @@
  *          (Smarty online manual)
  * @link http://jelix.org/
  * @author   Monte Ohrt <monte at ohrt dot com>
- * @contributor Jason Sweat (added cc, bcc and subject functionality)
+ * @contributor Jason Sweat (added cc, bcc and subject functionality), Julien Issler
+ * @copyright 2011 Julien Issler
  */
 function jtpl_function_html_mailto($tpl,$params)
 {
@@ -56,19 +57,21 @@ function jtpl_function_html_mailto($tpl,$params)
 		for($x=0;$x < strlen($string);$x++){
 			$js_encode.='%' . bin2hex($string[$x]);
 		}
-		echo '<script type="text/javascript">eval(unescape(\''.$js_encode.'\'))</script>';
+		echo '<script type="text/javascript">//<![CDATA[
+eval(unescape(\''.$js_encode.'\')); //]]>
+</script>';
 	}elseif($encode=='javascript_charcode'){
 		$string='<a href="mailto:'.$address.'" '.$extra.'>'.$text.'</a>';
 		for($x=0,$y=strlen($string);$x < $y;$x++){
 			$ord[]=ord($string[$x]);
 		}
-		$_ret="<script type=\"text/javascript\" language=\"javascript\">\n";
-		$_ret.="<!--\n";
+		$_ret="<script type=\"text/javascript\">\n";
+		$_ret.="//<![CDATA[\n";
 		$_ret.="{document.write(String.fromCharCode(";
 		$_ret.=implode(',',$ord);
 		$_ret.="))";
 		$_ret.="}\n";
-		$_ret.="//-->\n";
+		$_ret.="//]]>\n";
 		$_ret.="</script>\n";
 		echo $_ret;
 	}elseif($encode=='hex'){

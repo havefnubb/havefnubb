@@ -19,7 +19,6 @@ class memberlistZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        global $gJConfig;
         $page           = (int) $this->param('page');
         $memberSearch   = (string) $this->param('memberSearch');
         // get letter  in lowercase
@@ -30,7 +29,7 @@ class memberlistZone extends jZone {
         if ($this->param('grpid'))
             $grpid =  intval($this->param('grpid'));
 
-        $nbMembersPerPage = (int) $gJConfig->havefnubb['members_per_page'];
+        $nbMembersPerPage = (int) jApp::config()->havefnubb['members_per_page'];
 
         $p = jAcl2Db::getProfile();
 

@@ -4,16 +4,16 @@
 * @package     jelix
 * @subpackage  jtpl_plugin
 * @author      Julien Jacottet
-* @contributor Dominique Papin
-* @copyright   2008 Julien Jacottet, 2008 Dominique Papin
+* @contributor Dominique Papin, Julien Issler
+* @copyright   2008 Julien Jacottet, 2008 Dominique Papin, 2011 Julien Issler
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
 function jtpl_function_html_link_to_remote($tpl,$label,$element_id,$action_selector,$action_parameters,$option){
-	global $gJCoord,$gJConfig;
+	$resp=jApp::coord()->response;
 	static $id_link_to_remote=0;
-	if($gJCoord->response->getFormatType()=='html'){
-		$gJCoord->response->addJSLink($gJConfig->urlengine['jqueryPath'].'jquery.js');
+	if($resp&&$resp->getFormatType()=='html'){
+		$resp->addJSLink(jApp::config()->urlengine['jqueryPath'].'jquery.js');
 	}
 	$id_link_to_remote++;
 	$url=jUrl::get($action_selector,$action_parameters);
@@ -24,7 +24,7 @@ function jtpl_function_html_link_to_remote($tpl,$label,$element_id,$action_selec
 	$error=((array_key_exists("error",$option))? $option['error'] : '');
 	echo '<a href="#" onclick="link_to_remote_'.$id_link_to_remote.'();">'.$label."</a>\n";
 	echo '
-    <script>
+    <script type="text/javascript">//<![CDATA[
       function link_to_remote_'.$id_link_to_remote.'() {
         $.ajax({
           type: \''.$method."',
@@ -36,6 +36,6 @@ function jtpl_function_html_link_to_remote($tpl,$label,$element_id,$action_selec
             $(\'#'.$element_id."').".$position."(msg);
           }
         });
-      };
+      }; //]]>
     </script>";
 }

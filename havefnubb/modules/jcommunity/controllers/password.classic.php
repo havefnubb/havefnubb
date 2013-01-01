@@ -37,7 +37,6 @@ class passwordCtrl extends jController {
         if(jAuth::isConnected())
             return $this->noaccess();
 
-        global $gJConfig;
         $rep= $this->getResponse("redirect");
         $rep->action="password:index";
 
@@ -66,6 +65,7 @@ class passwordCtrl extends jController {
         $user->keyactivate = $key;
         jAuth::updateUser($user);
 
+        $gJConfig = jApp::config();
         $mail = new jMailer();
         $mail->From = $gJConfig->mailer['webmasterEmail'];
         $mail->FromName = $gJConfig->mailer['webmasterName'];
