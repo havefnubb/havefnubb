@@ -18,7 +18,7 @@ class hfb_rule extends wr3_to_xhtml {
 	   */
 	  public function __construct() {
 		  global $gJConfig;
-          $p = '<img src="'.$gJConfig->urlengine["basePath"].'hfnu/images/smileys/'.$gJConfig->smileys_pack['name'];
+          $p = '<img src="'.jApp::config()->urlengine["basePath"].'hfnu/images/smileys/'.jApp::config()->smileys_pack['name'];
 		  $this->simpletags = array(
 				  '%%%'=>'<br />',
 				 '>:)'=>$p.'/emoticon_evilgrin.png" alt="evilgrin" />',

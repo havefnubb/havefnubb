@@ -15,8 +15,15 @@ if(!file_exists(jApp::configPath().'installer.ini.php')){
 else {
     require (JELIX_LIB_CORE_PATH.'request/jClassicRequest.class.php');
 
-    $config_file = 'havefnubb/config.ini.php';
+    checkAppOpened();
+    jApp::loadConfig('havefnubb/config.ini.php');
 
-    $jelix = new jCoordinator($config_file);
-    $jelix->process(new jClassicRequest());
+#    $jelix = new jCoordinator($config_file);
+#    $jelix->process(new jClassicRequest());
+
+    jApp::setCoord(new jCoordinator());
+    jApp::coord()->process(new jClassicRequest());
+
+
+
 }

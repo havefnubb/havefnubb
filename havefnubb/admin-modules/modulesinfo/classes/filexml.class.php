@@ -30,7 +30,6 @@ abstract class filexml {
 
 
     protected function parseInfo (XMLReader $xml, $object) {
-        global $gJConfig;
 
         if (XMLReader::ELEMENT == $xml->nodeType && 'info' == $xml->name) {
 
@@ -49,7 +48,7 @@ abstract class filexml {
                     $property = $xml->name;
 
                     if ('label' == $property || 'description' == $property) {
-                        if ($xml->getAttribute('lang') == $gJConfig->locale) {
+                        if ($xml->getAttribute('lang') == jApp::config()->locale) {
                             $xml->read();
                             $object->$property = $xml->value;
                         }

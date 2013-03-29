@@ -26,7 +26,6 @@ class categoryCtrl extends jController {
      * View a given Category of forum then the list of forums
      */
     function view() {
-        global $gJConfig;
         $ctitle = $this->param('ctitle');
         $id_cat = (int) $this->param('id_cat');
         if ($id_cat == 0 ) {
@@ -46,7 +45,7 @@ class categoryCtrl extends jController {
 
         if (jUrl::escape($ctitle,true) != jUrl::escape($category->cat_name,true)) {
             $rep = $this->getResponse('redirect');
-            $rep->action = $gJConfig->urlengine['notfoundAct'];
+            $rep->action = jApp::config()->urlengine['notfoundAct'];
             return $rep;
         }
 

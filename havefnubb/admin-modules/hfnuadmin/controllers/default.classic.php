@@ -32,42 +32,41 @@ class defaultCtrl extends jController {
     }
 
     protected function initform($form) {
-        global $gJConfig;
         $floodConfig = parse_ini_file(JELIX_APP_CONFIG_PATH.'havefnubb/flood.coord.ini.php');
 
         $tzId = DateTimeZone::listIdentifiers();
         for ($i = 0 ; $i < count($tzId) ; $i++) {
-            if ($gJConfig->timeZone == $tzId[$i])
+            if (jApp::config()->timeZone == $tzId[$i])
                 $selectedTimeZone = $i;
         }
 
         $form->setData('timezone'   ,$selectedTimeZone);
-        $form->setData('title',           stripslashes($gJConfig->havefnubb['title']));
-        $form->setData('description',     stripslashes($gJConfig->havefnubb['description']));
-        $form->setData('rules',           stripslashes($gJConfig->havefnubb['rules']));
-        $form->setData('webmaster_email', stripslashes($gJConfig->mailer['webmasterEmail']));
-        $form->setData('admin_email',     stripslashes($gJConfig->havefnubb['admin_email']));
-        $form->setData('posts_per_page',        (int) $gJConfig->havefnubb['posts_per_page']);
-        $form->setData('replies_per_page',      (int) $gJConfig->havefnubb['replies_per_page']);
-        $form->setData('members_per_page',      (int) $gJConfig->havefnubb['members_per_page']);
-        $form->setData('avatar_max_width',      (int) $gJConfig->havefnubb['avatar_max_width']);
-        $form->setData('avatar_max_height',     (int) $gJConfig->havefnubb['avatar_max_height']);
-        $form->setData('stats_nb_of_lastpost',  (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
-        $form->setData('anonymous_post_authorized',(int)$gJConfig->havefnubb['anonymous_post_authorized']);
+        $form->setData('title',           stripslashes(jApp::config()->havefnubb['title']));
+        $form->setData('description',     stripslashes(jApp::config()->havefnubb['description']));
+        $form->setData('rules',           stripslashes(jApp::config()->havefnubb['rules']));
+        $form->setData('webmaster_email', stripslashes(jApp::config()->mailer['webmasterEmail']));
+        $form->setData('admin_email',     stripslashes(jApp::config()->havefnubb['admin_email']));
+        $form->setData('posts_per_page',        (int) jApp::config()->havefnubb['posts_per_page']);
+        $form->setData('replies_per_page',      (int) jApp::config()->havefnubb['replies_per_page']);
+        $form->setData('members_per_page',      (int) jApp::config()->havefnubb['members_per_page']);
+        $form->setData('avatar_max_width',      (int) jApp::config()->havefnubb['avatar_max_width']);
+        $form->setData('avatar_max_height',     (int) jApp::config()->havefnubb['avatar_max_height']);
+        $form->setData('stats_nb_of_lastpost',  (int) jApp::config()->havefnubb['stats_nb_of_lastpost']);
+        $form->setData('anonymous_post_authorized',(int) jApp::config()->havefnubb['anonymous_post_authorized']);
         $form->setData('only_same_ip',          (int) (isset($floodConfig['only_same_ip'])?$floodConfig['only_same_ip']:'on'));
         $form->setData('elapsed_time_between_two_post',(int) (isset($floodConfig['elapsed_time_between_two_post'])?$floodConfig['elapsed_time_between_two_post']:'0'));
 
-        $form->setData('important_nb_replies',  (int) $gJConfig->havefnubb['important_nb_replies']);
-        $form->setData('important_nb_views',    (int) $gJConfig->havefnubb['important_nb_views']);
+        $form->setData('important_nb_replies',  (int) jApp::config()->havefnubb['important_nb_replies']);
+        $form->setData('important_nb_views',    (int) jApp::config()->havefnubb['important_nb_views']);
 
-        $form->setData('post_max_size',     (int) $gJConfig->havefnubb['post_max_size']);
+        $form->setData('post_max_size',     (int) jApp::config()->havefnubb['post_max_size']);
 
-        $form->setData('social_network_twitter',    $gJConfig->social_networks['twitter']);
-        $form->setData('social_network_digg',       $gJConfig->social_networks['digg']);
-        $form->setData('social_network_delicious',  $gJConfig->social_networks['delicious']);
-        $form->setData('social_network_facebook',   $gJConfig->social_networks['facebook']);
-        $form->setData('social_network_reddit',     $gJConfig->social_networks['reddit']);
-        $form->setData('social_network_netvibes',   $gJConfig->social_networks['netvibes']);
+        $form->setData('social_network_twitter',    jApp::config()->social_networks['twitter']);
+        $form->setData('social_network_digg',       jApp::config()->social_networks['digg']);
+        $form->setData('social_network_delicious',  jApp::config()->social_networks['delicious']);
+        $form->setData('social_network_facebook',   jApp::config()->social_networks['facebook']);
+        $form->setData('social_network_reddit',     jApp::config()->social_networks['reddit']);
+        $form->setData('social_network_netvibes',   jApp::config()->social_networks['netvibes']);
     }
 
     /*function loadconfig() {
@@ -79,7 +78,6 @@ class defaultCtrl extends jController {
     }*/
 
     function config() {
-        global $gJConfig;
 
         $resp = $this->getResponse('html');
 
@@ -105,7 +103,6 @@ class defaultCtrl extends jController {
 
 
     function saveconfig() {
-        global $gJConfig;
 
         $resp = $this->getResponse('redirect');
         $resp->action ='hfnuadmin~default:config';

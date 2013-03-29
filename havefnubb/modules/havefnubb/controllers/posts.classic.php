@@ -56,7 +56,6 @@ class postsCtrl extends jController {
      * main list of all posts of a given forum ($id_forum)
      */
     public function lists() {
-        global $gJConfig;
         $ftitle = jUrl::escape($this->param('ftitle'),true);
 
         $id_forum = (int) $this->param('id_forum');
@@ -107,7 +106,7 @@ class postsCtrl extends jController {
 
         // 2- limit per page
         $nbPostPerPage = 0;
-        $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
+        $nbPostPerPage = (int) jApp::config()->havefnubb['posts_per_page'];
 
         // get all the posts of the current Forum by its Id
         list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreads($id_forum,$page,$nbPostPerPage);
@@ -150,8 +149,8 @@ class postsCtrl extends jController {
         $tpl->assign('page',$page);
         $tpl->assign('nbPostPerPage',$nbPostPerPage);
         $tpl->assign('nbPosts',$nbPosts);
-        $tpl->assign('important_nb_replies',$gJConfig->havefnubb['important_nb_replies']);
-        $tpl->assign('important_nb_views',$gJConfig->havefnubb['important_nb_views']);
+        $tpl->assign('important_nb_replies',jApp::config()->havefnubb['important_nb_replies']);
+        $tpl->assign('important_nb_views',jApp::config()->havefnubb['important_nb_views']);
         $tpl->assign('id_forum',$id_forum);
         $tpl->assign('lvl',$forum->child_level);
         $tpl->assign('properties',$properties);
@@ -168,7 +167,6 @@ class postsCtrl extends jController {
      * display determine the page number of the post id then redirect to the view function
      */
     function viewtogo () {
-        global $gJConfig;
 
         if ($this->param('go')) {
             $gotoPostId = (int) $this->param('go');
@@ -176,7 +174,7 @@ class postsCtrl extends jController {
             $rec = jDao::get('havefnubb~posts')->findAllPostByThreadId($thread_id);
             $nbRec = 0;
             if ($rec->rowCount() > 0 ) {
-                $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
+                $nbRepliesPerPage = (int) jApp::config()->havefnubb['replies_per_page'];
                 $nbRec = $rec->rowCount();
                 for ($nbReplies = 0; $nbReplies < $nbRec; ++$nbReplies) {
 
@@ -228,7 +226,6 @@ class postsCtrl extends jController {
      * 	Method 2 : display a message from anywhere in the thread (id_post + thread_id known)
      */
     function view() {
-        global $gJConfig;
         $ftitle = jUrl::escape($this->param('ftitle'),true);
         $ptitle = jUrl::escape($this->param('ptitle'),true);
         $id_post    = (int) $this->param('id_post');
@@ -306,7 +303,7 @@ class postsCtrl extends jController {
                       'area-size'   => 5);
         // 1- get the nb of replies per page
         $nbRepliesPerPage = 0;
-        $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
+        $nbRepliesPerPage = (int) jApp::config()->havefnubb['replies_per_page'];
 
         // 2- get the post
         list($page,$posts) = jClasses::getService("havefnubb~hfnuposts")->findByThreadId($thread_id,$page,$nbRepliesPerPage);
@@ -375,7 +372,6 @@ class postsCtrl extends jController {
     * display the add 'blank' form to add a new post
     */
     function add () {
-        global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
         $id_post = 0;
 
@@ -521,7 +517,6 @@ class postsCtrl extends jController {
     * Save the data submitted from add/edit form
     */
     function save() {
-        global $gJConfig;
         $id_forum = (int) $this->param('id_forum');
         $id_post  = (int) $this->param('id_post');
 
@@ -686,7 +681,6 @@ class postsCtrl extends jController {
      * reply to a given post (from the thread_id)
      */
     function reply() {
-        global $gJConfig;
         $thread_id = (int) $this->param('thread_id');
         $id_post = (int) $this->param('id_post');
 
@@ -804,7 +798,6 @@ class postsCtrl extends jController {
      * quote message
      */
     function quote() {
-        global $gJConfig;
         $thread_id  = (int) $this->param('thread_id');
         $id_post    = (int) $this->param('id_post');
 
@@ -924,7 +917,6 @@ class postsCtrl extends jController {
     * save the datas posted from the reply form
     */
     function savereply() {
-        global $gJConfig;
         $id_forum   = (int) $this->param('id_forum');
 
         if (jAuth::isConnected()) {
@@ -1123,7 +1115,6 @@ class postsCtrl extends jController {
      * provide a rss feeds for each forum
      */
     function rss() {
-        global $gJConfig;
         $ftitle = jUrl::escape($this->param('ftitle'),true);
         $id_forum = (int) $this->param('id_forum');
 
@@ -1150,10 +1141,10 @@ class postsCtrl extends jController {
         $rep = $this->getResponse('rss2.0');
 
         // entete du flux rss
-        $rep->infos->title = $gJConfig->havefnubb['title'];
+        $rep->infos->title = jApp::config()->havefnubb['title'];
         $rep->infos->webSiteUrl= (empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER['HTTP_HOST'];
-        $rep->infos->copyright = $gJConfig->havefnubb['title'];
-        $rep->infos->description = $gJConfig->havefnubb['description'];
+        $rep->infos->copyright = jApp::config()->havefnubb['title'];
+        $rep->infos->description = jApp::config()->havefnubb['description'];
         $rep->infos->updated = date('Y-m-d H:i:s');
         $rep->infos->published = date('Y-m-d H:i:s');
         $rep->infos->ttl=60;
@@ -1173,7 +1164,7 @@ class postsCtrl extends jController {
 
         // 1- limit of posts
         $nbPostPerPage = 0;
-        $nbPostPerPage = (int)  $gJConfig->havefnubb['posts_per_page'];
+        $nbPostPerPage = (int)  jApp::config()->havefnubb['posts_per_page'];
 
         // 2- get the posts of the current forum, limited by point 1
         // get all the posts of the current Forum by its Id
@@ -1217,7 +1208,6 @@ class postsCtrl extends jController {
      * provide a atom feeds for each forum
      */
     function atom() {
-        global $gJConfig;
         $ftitle = jUrl::unescape($this->param('ftitle'),true);
         $id_forum = $this->intParam('id_forum');
 
@@ -1244,10 +1234,10 @@ class postsCtrl extends jController {
         $rep = $this->getResponse('atom1.0');
 
         // entete du flux atom
-        $rep->infos->title = $gJConfig->havefnubb['title'];
+        $rep->infos->title = jApp::config()->havefnubb['title'];
         $rep->infos->webSiteUrl= (empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER['HTTP_HOST'];
-        $rep->infos->copyright = $gJConfig->havefnubb['title'];
-        $rep->infos->description = $gJConfig->havefnubb['description'];
+        $rep->infos->copyright = jApp::config()->havefnubb['title'];
+        $rep->infos->description = jApp::config()->havefnubb['description'];
         $rep->infos->updated = date('Y-m-d H:i:s');
         $rep->infos->published = date('Y-m-d H:i:s');
         $rep->infos->selfLink= jUrl::get('havefnubb~posts:atom', array('ftitle'=>$ftitle,
@@ -1269,7 +1259,7 @@ class postsCtrl extends jController {
 
         // 1- limit of posts
         $nbPostPerPage = 0;
-        $nbPostPerPage = (int)  $gJConfig->havefnubb['posts_per_page'];
+        $nbPostPerPage = (int)  jApp::config()->havefnubb['posts_per_page'];
 
         // 2- get the posts of the current forum, limited by point 1
         // get all the posts of the current Forum by its Id
@@ -1313,7 +1303,6 @@ class postsCtrl extends jController {
      * Show all new posts not read by the current user
      */
     public function shownew() {
-        global $gJConfig;
         // let's build the pagelink var
         // A Preparing / Collecting datas
         // 0- the properties of the pager
@@ -1331,7 +1320,7 @@ class postsCtrl extends jController {
 
         // 2- limit per page
         $nbPostPerPage = 0;
-        $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
+        $nbPostPerPage = (int) jApp::config()->havefnubb['posts_per_page'];
         list($posts, $nbPosts) = jClasses::getService('havefnubb~hfnuposts')->findUnreadThread($page,$nbPostPerPage);
 
         $tpl = new jTpl();

@@ -62,7 +62,6 @@ class hfnusub {
      * @return void
      */
     public static function sendMail($id) {
-        global $gJConfig;
 
         if (!jAuth::isConnected())
             return;
@@ -84,9 +83,9 @@ class hfnusub {
             $subject = jLocale::get('havefnubb~post.new.comment.received') . " : " .$post->subject ;
 
             $mail = new jMailer();
-            $mail->From       = $gJConfig->mailer['webmasterEmail'];
-            $mail->FromName   = $gJConfig->mailer['webmasterName'];
-            $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+            $mail->From       = jApp::config()->mailer['webmasterEmail'];
+            $mail->FromName   = jApp::config()->mailer['webmasterName'];
+            $mail->Sender     = jApp::config()->mailer['webmasterEmail'];
             $mail->Subject    = $subject;
 
             $tpl = new jTpl();

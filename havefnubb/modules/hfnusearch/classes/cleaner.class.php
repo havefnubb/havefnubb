@@ -17,9 +17,7 @@ class Cleaner {
      * @return array without the stopwords
      */
     public static function removeStopwords($words) {
-        global $gJConfig;
-
-        $stopwords = (array) @file(dirname(__FILE__).'/'.$gJConfig->locale.'/'.'stopwords.txt');
+        $stopwords = (array) @file(dirname(__FILE__).'/'.jApp::config()->locale.'/'.'stopwords.txt');
         $stopwords = array_map('trim', $stopwords);
 
         return array_diff($words, $stopwords);

@@ -27,14 +27,13 @@ class lastpostsZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        global $gJConfig;
         $dao = jDao::get('havefnubb~threads_stats');
         $admin = (boolean) $this->param('admin');
         //last 'x' posts
         if ( $admin )
-            $lastPost  = $dao->findLastPosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
+            $lastPost  = $dao->findLastPosts( (int) jApp::config()->havefnubb['stats_nb_of_lastpost']);
         else
-            $lastPost  = $dao->findLastVisiblePosts( (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
+            $lastPost  = $dao->findLastVisiblePosts( (int) jApp::config()->havefnubb['stats_nb_of_lastpost']);
 
         $this->_tpl->assign('lastPost',$lastPost);
     }

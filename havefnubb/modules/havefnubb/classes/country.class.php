@@ -16,14 +16,12 @@ class country {
      * @return array $data return an array of ISO country code
      */
     public static function getCountries() {
-        global $gJConfig;
-
         $supportedLanguage = array('fr','en');
         //get the member language
         if ( array_key_exists('JX_LANG',$_SESSION))
             $language = preg_split('/_/',$_SESSION['JX_LANG']);
         else
-            $language = preg_split('/_/',$gJConfig->locale);
+            $language = preg_split('/_/',jApp::config()->locale);
 
         $data = array();
 

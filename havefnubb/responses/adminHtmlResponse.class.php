@@ -23,10 +23,10 @@ class adminHtmlResponse extends jResponseHtml {
         parent::__construct();
 
         // Include your common CSS and JS files here
-        $this->addCSSLink($GLOBALS['gJConfig']->urlengine['jelixWWWPath'].'design/master_admin.css');
+        $this->addCSSLink(jApp::config()->urlengine['jelixWWWPath'].'design/master_admin.css');
 
-        $this->addCssLink($GLOBALS['gJConfig']->urlengine['basePath'].'hfnu/admin/css/havefnuboard_admin.css');
-        $chemin = $GLOBALS['gJConfig']->urlengine['basePath'].'themes/'.$GLOBALS['gJConfig']->theme.'/';
+        $this->addCssLink(jApp::config()->urlengine['basePath'].'hfnu/admin/css/havefnuboard_admin.css');
+        $chemin = jApp::config()->urlengine['basePath'].'themes/'.jApp::config()->theme.'/';
     }
     /**
      * method which manages 'globales' behavior/var

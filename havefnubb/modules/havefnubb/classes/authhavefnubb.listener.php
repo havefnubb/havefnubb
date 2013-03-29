@@ -17,11 +17,10 @@ class authhavefnubbListener extends jEventListener{
     * @param object $event the given event to answer to
     */
     function onAuthLogin ($event) {
-        global $gJConfig;
         $user = jAuth::getUserSession();
 
         $_SESSION['JX_LANG'] = $user->member_language;
-        $gJConfig->locale = $user->member_language;
+        jApp::config()->locale = $user->member_language;
     }
 
     /**
@@ -44,18 +43,17 @@ class authhavefnubbListener extends jEventListener{
     * @param object $event the given event to answer to
     */
     function onjcommunity_save_account ($event) {
-        global $gJConfig;
         $form = $event->getParam('form');
         $form->check();
         if ( $form->getData('member_language') != '') {
             $_SESSION['JX_LANG'] = $form->getData('member_language');
-            $gJConfig->locale = $form->getData('member_language');
+            jApp::config()->locale = $form->getData('member_language');
         }
         $ext = '';
         $id = jAuth::getUserSession()->id;
         if ($form->getData('member_avatar') != '' ) {
-            $max_width = $gJConfig->havefnubb['avatar_max_width'];
-            $max_height = $gJConfig->havefnubb['avatar_max_height'];
+            $max_width = jApp::config()->havefnubb['avatar_max_width'];
+            $max_height = jApp::config()->havefnubb['avatar_max_height'];
             @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.png');
             @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpg');
             @unlink (JELIX_APP_WWW_PATH.'images/avatars/'.$id.'.jpeg');
@@ -91,9 +89,8 @@ class authhavefnubbListener extends jEventListener{
      * @param object $event the given event to answer to
      */
     function onAuthNewUser ($event) {
-        global $gJConfig;
 
-        $toEmail = ($gJConfig->havefnubb['admin_email'] != '') ? $gJConfig->havefnubb['admin_email'] : $gJConfig->mailer['webmasterEmail'];
+        $toEmail = (jApp::config()->havefnubb['admin_email'] != '') ? jApp::config()->havefnubb['admin_email'] : jApp::config()->mailer['webmasterEmail'];
 
         if ($toEmail == '') {
             throw new jException('havefnubb~main.email.config.not.done.properly');
@@ -113,9 +110,9 @@ class authhavefnubbListener extends jEventListener{
         $dao->update($user);
 
         $mail = new jMailer();
-        $mail->From       = $gJConfig->mailer['webmasterEmail'];
-        $mail->FromName   = $gJConfig->mailer['webmasterName'];
-        $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+        $mail->From       = jApp::config()->mailer['webmasterEmail'];
+        $mail->FromName   = jApp::config()->mailer['webmasterName'];
+        $mail->Sender     = jApp::config()->mailer['webmasterEmail'];
         $mail->Subject    = jLocale::get('havefnubb~member.registration.new.member.registered',array($user->login));
 
         $tpl = new jTpl();

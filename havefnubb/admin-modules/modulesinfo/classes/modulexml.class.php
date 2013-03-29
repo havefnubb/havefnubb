@@ -39,9 +39,8 @@ class moduleInfo {
  */
 class modulexml extends filexml {
     public function getList() {
-        global $gJConfig;
         $list = array();
-        foreach ($gJConfig->_modulesPathList as $name=>$path) {
+        foreach (jApp::config()->_modulesPathList as $name=>$path) {
             $info = $this->getModule($name);
             if ($info)
                 $list[$name] = $info;
@@ -50,11 +49,10 @@ class modulexml extends filexml {
     }
 
     public function getModule($name) {
-        global $gJConfig;
 
-        if (! array_key_exists($name,$gJConfig->_modulesPathList) ) return false;
+        if (! array_key_exists($name,jApp::config()->_modulesPathList) ) return false;
 
-        $file = $gJConfig->_modulesPathList[$name] . '/module.xml';
+        $file = jApp::config()->_modulesPathList[$name] . '/module.xml';
 
         if (!file_exists($file)) {
             return null;

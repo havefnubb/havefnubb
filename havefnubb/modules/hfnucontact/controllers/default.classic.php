@@ -24,7 +24,6 @@ class defaultCtrl extends jController {
      * Send a message to the contact defined in the defautconfig.ini.php file
      */
     public function send_a_message() {
-        global $gJConfig;
         $form = jForms::fill('hfnucontact~contact');
         if (! $form ) {
             $rep = $this->getResponse('redirect');
@@ -37,8 +36,8 @@ class defaultCtrl extends jController {
             return $rep;
         }
 
-        $toContact = $gJConfig->hfnucontact['to_contact'];
-        $emailTo = $gJConfig->hfnucontact['email_contact'];
+        $toContact = jApp::config()->hfnucontact['to_contact'];
+        $emailTo = jApp::config()->hfnucontact['email_contact'];
 
         // the sender is  not connected and use contact form to send a message
         // to the contact defined in hfnucontact.ini.php
@@ -122,7 +121,6 @@ class defaultCtrl extends jController {
      * Send a message to a friend
      */
     public function send_a_message_to_friend() {
-        global $gJConfig;
         $form = jForms::fill('hfnucontact~send_to_friend');
         $rep = $this->getResponse('redirect');
         if (! $form ) {
@@ -138,8 +136,8 @@ class defaultCtrl extends jController {
         // the sender is  not connected and use contact form to send a message
         // to the contact defined in hfnucontact.ini.php
         if (! jAuth::isConnected()) {
-            $email = $gJConfig->mailer['webmasterEmail'];
-            $login = $gJConfig->mailer['webmasterName'];
+            $email = jApp::config()->mailer['webmasterEmail'];
+            $login = jApp::config()->mailer['webmasterName'];
         }
         else {
             $email = jAuth::getUserSession ()->email ;

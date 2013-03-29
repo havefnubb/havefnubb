@@ -197,8 +197,7 @@ class hfnuforum {
      * @param int $id_post id of the new post
      */
     public function checkSubscribedForumAndSendMail($id_forum,$thread_id) {
-        global $gJConfig;
-        
+
         //check if this forum is already subscribe
         $recs = jDao::get('havefnubb~forum_sub')->getByIdForum($id_forum);
         foreach ($recs as $rec) {
@@ -207,16 +206,16 @@ class hfnuforum {
                 $post = jDao::get('havefnubb~posts')->get($thread->id_last_msg);
                 // let's mail the new post to the user
                 $mail = new jMailer();
-                $mail->From       = $gJConfig->mailer['webmasterEmail'];
-                $mail->FromName   = $gJConfig->mailer['webmasterName'];
-                $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+                $mail->From       = jApp::config()->mailer['webmasterEmail'];
+                $mail->FromName   = jApp::config()->mailer['webmasterName'];
+                $mail->Sender     = jApp::config()->mailer['webmasterEmail'];
                 $mail->Subject    = jLocale::get('havefnubb~forum.new.post.in.forum');
 
                 $tpl = new jTpl();
                 $tpl->assign('post',$post);
                 $tpl->assign('server',$_SERVER['SERVER_NAME']);
                 $mail->Body = $tpl->fetch('havefnubb~forum_new_message', 'text');
-                $mail->AddAddress(jDao::get('havefnubb~member')->getById($rec->id_user)->email);                
+                $mail->AddAddress(jDao::get('havefnubb~member')->getById($rec->id_user)->email);
                 $mail->Send();
             }
         }

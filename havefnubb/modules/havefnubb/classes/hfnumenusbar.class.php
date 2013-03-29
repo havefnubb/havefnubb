@@ -37,7 +37,6 @@ class hfnumenusbar {
      * @return $menus array of menus
      */
     public function getMenus() {
-        global $gJConfig;
         $menus = array();
 
         if (file_exists(JELIX_APP_CONFIG_PATH.'/havefnubb/hfnumenus.xml')) {
@@ -52,7 +51,7 @@ class hfnumenusbar {
 
             foreach ($entries as $idx => $menu) {
 
-                $queryName = '//name[@lang="'.$gJConfig->locale.'"]';
+                $queryName = '//name[@lang="'.jApp::config()->locale.'"]';
                 $items = $xpath->query($queryName);
                 $name =  $items->item($idx)->nodeValue;
 

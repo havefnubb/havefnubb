@@ -16,8 +16,6 @@ class hfnumenuListener extends jEventListener{
     * @pararm event $event Object of a listener
     */
     function onhfnuGetMenuContent ($event) {
-         global $gJConfig;
-
         $event->add(new hfnuMenuItem('home',
            jLocale::get('havefnubb~main.home'),
            jUrl::get('havefnubb~default:index'),
@@ -33,7 +31,7 @@ class hfnumenuListener extends jEventListener{
            jUrl::get('hfnusearch~default:index'),
            3,
            'main'));
-       if ($gJConfig->havefnubb['rules'] != '') {
+       if (jApp::config()->havefnubb['rules'] != '') {
            $event->add(new hfnuMenuItem('rules',
                jLocale::get('havefnubb~main.rules'),
                jUrl::get('havefnubb~default:rules'),
@@ -59,8 +57,8 @@ class hfnumenuListener extends jEventListener{
                $url = jUrl::get('hfnuadmin~default:index');
            }
            catch(Exception $e) {
-               if (isset($gJConfig->havefnubb["admin_url"]))
-                   $url = $gJConfig->havefnubb["admin_url"];
+               if (isset(jApp::config()->havefnubb["admin_url"]))
+                   $url = jApp::config()->havefnubb["admin_url"];
            }
            if ($url) {
                $event->add(new hfnuMenuItem('admin',
