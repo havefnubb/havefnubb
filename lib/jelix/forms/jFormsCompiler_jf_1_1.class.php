@@ -5,7 +5,7 @@
 * @author     Laurent Jouanneau
 * @contributor Loic Mathaud, Dominique Papin, Julien Issler
 * @contributor Uriel Corfa (Emotic SARL), Thomas, Olivier Demah
-* @copyright   2006-2010 Laurent Jouanneau
+* @copyright   2006-2012 Laurent Jouanneau
 * @copyright   2007 Loic Mathaud, 2007-2008 Dominique Papin
 * @copyright   2007 Emotic SARL
 * @copyright   2008 Julien Issler, 2009 Thomas, 2009 Olivier Demah
@@ -165,7 +165,7 @@ class jFormsCompiler_jf_1_1 extends jFormsCompiler_jf_1_0 {
 
     protected function generateHtmleditor(&$source, $control, &$attributes) {
         if (isset($attributes['xhtml'])) {
-            $source[] = '$ctrl->datatype= new jDatatypeHtml('.($attributes['xhtml'] == 'true'?'true':'').', true);';
+            $source[] = '$ctrl->datatype= new jDatatypeHtml('.($attributes['xhtml'] == 'true'?'true':'false').', true);';
             unset($attributes['xhtml']);
         }
 
@@ -200,6 +200,13 @@ class jFormsCompiler_jf_1_1 extends jFormsCompiler_jf_1_0 {
     protected function generateCaptcha(&$source, $control, &$attributes) {
         $this->readLabel($source, $control, 'captcha');
         $this->readHelpHintAlert($source, $control);
+        return false;
+    }
+
+    protected function generateButton(&$source, $control, &$attributes) {
+        $this->attrDefaultvalue($source, $attributes);
+        $this->readLabel($source, $control, 'button');
+        //$this->readHelpHintAlert($source, $control);
         return false;
     }
 
@@ -278,11 +285,11 @@ class jFormsCompiler_jf_1_1 extends jFormsCompiler_jf_1_0 {
         if($itemname != '')
             $itemname = ",'$itemname'";
         $ctrlcount = 0;
-        global $gJConfig;
+
         foreach($xml->children() as $ctrltype=>$control){
             if(in_array($ctrltype, $ignore))
                 continue;
-            if(!in_array($ctrltype, array('input','textarea', 'output','checkbox','checkboxes','radiobuttons',
+            if(!in_array($ctrltype, array('input','textarea', 'output','checkbox','checkboxes','radiobuttons','button',
                         'menulist','listbox','secret', 'upload', 'hidden','htmleditor','date','datetime','wikieditor'))) {
                 throw new jException('jelix~formserr.control.not.allowed',array($ctrltype, $controltype,$this->sourceFile));
             }

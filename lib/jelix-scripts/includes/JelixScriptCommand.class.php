@@ -219,9 +219,8 @@ abstract class JelixScriptCommand {
    abstract public function run();
 
    function loadAppConfig() {
-      global $gJConfig;
 
-      if ($gJConfig)
+      if (jApp::config())
          return;
 
       $xml = simplexml_load_file(jApp::appPath('project.xml'));
@@ -237,8 +236,9 @@ abstract class JelixScriptCommand {
 
       if ($configFile == '')
          throw new Exception("Entry point is unknown");
+
       require_once(JELIX_LIB_PATH."core/jConfigCompiler.class.php");
-      $gJConfig = jConfigCompiler::read($configFile, true, true, $this->entryPointName);
+      jApp::setConfig(jConfigCompiler::read($configFile, true, true, $this->entryPointName));
    }
 
    /**
@@ -249,13 +249,13 @@ abstract class JelixScriptCommand {
    protected function getModulePath($module) {
       $this->loadAppConfig();
 
-      global $gJConfig;
-      if (!isset($gJConfig->_modulesPathList[$module])) {
-        if (isset($gJConfig->_externalModulesPathList[$module]))
-            return $gJConfig->_externalModulesPathList[$module];
+      $config = jApp::config();
+      if (!isset($config->_modulesPathList[$module])) {
+        if (isset($config->_externalModulesPathList[$module]))
+            return $config->_externalModulesPathList[$module];
         throw new Exception("The module $module doesn't exist");
       }
-      return $gJConfig->_modulesPathList[$module];
+      return $config->_modulesPathList[$module];
    }
 
    /**
@@ -308,11 +308,16 @@ abstract class JelixScriptCommand {
          return false;
       }
       $tpl = file($tplpath);
-      $this->tplparam = $tplparam;
 
+      $callback = function ($matches) use (&$tplparam) {
+        if (isset($tplparam[$matches[1]])) {
+           return $tplparam[$matches[1]];
+        } else
+           return '';
+      };
       foreach($tpl as $k=>$line){
          $tpl[$k]= preg_replace_callback('|\%\%([a-zA-Z0-9_]+)\%\%|',
-                                         array(&$this, 'replaceCallback'),
+                                         $callback,
                                          $line);
       }
 
@@ -359,16 +364,6 @@ abstract class JelixScriptCommand {
             chgrp($dirname, $this->config->chownGroup);
          }
       }
-   }
-
-   /**
-    * @internal callback function used by createFile
-    */
-   protected function replaceCallback($matches){
-      if (isset($this->tplparam[$matches[1]])) {
-         return $this->tplparam[$matches[1]];
-      } else
-         return '';
    }
 
    /**

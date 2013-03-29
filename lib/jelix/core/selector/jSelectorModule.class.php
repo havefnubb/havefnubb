@@ -5,7 +5,7 @@
 * @package     jelix
 * @subpackage  core_selector
 * @author      Laurent Jouanneau
-* @copyright   2005-2007 Laurent Jouanneau
+* @copyright   2005-2012 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -33,14 +33,11 @@ abstract class jSelectorModule implements jISelector {
     protected $_compilerPath;
     protected $_useMultiSourceCompiler=false;
 
-    function __construct($sel){
-        if(preg_match("/^(([a-zA-Z0-9_\.]+)~)?([a-zA-Z0-9_\.]+)$/", $sel, $m)){
-            if($m[1]!='' && $m[2]!=''){
-                $this->module = $m[2];
-            }else{
-                $this->module = jContext::get ();
+    function __construct ($sel) {
+        if(jelix_scan_module_sel($sel, $this)){
+            if($this->module ==''){
+                $this->module = jApp::getCurrentModule ();
             }
-            $this->resource = $m[3];
             $this->_createPath();
             $this->_createCachePath();
         }else{
@@ -76,11 +73,11 @@ abstract class jSelectorModule implements jISelector {
     }
 
     protected function _createPath(){
-        global $gJConfig;
-        if(!isset($gJConfig->_modulesPathList[$this->module])){
+
+        if(!isset(jApp::config()->_modulesPathList[$this->module])){
             throw new jExceptionSelector('jelix~errors.selector.module.unknown', $this->toString(true));
         }
-        $this->_path = $gJConfig->_modulesPathList[$this->module].$this->_dirname.$this->resource.$this->_suffix;
+        $this->_path = jApp::config()->_modulesPathList[$this->module].$this->_dirname.$this->resource.$this->_suffix;
         if (!is_readable ($this->_path)){
             if($this->type == 'loc'){
                 throw new Exception('(202) The file of the locale key "'.$this->toString().'" (charset '.$this->charset.', lang '.$this->locale.') does not exist');

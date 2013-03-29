@@ -3,21 +3,13 @@
 * @package     jelix
 * @subpackage  jtpl
 * @author      Laurent Jouanneau
-* @contributor Loic Mathaud (standalone version), Dominique Papin, DSDenes, Christophe Thiriot, Julien Issler
-* @copyright   2005-2011 Laurent Jouanneau
+* @contributor Loic Mathaud (standalone version), Dominique Papin, DSDenes, Christophe Thiriot, Julien Issler, Brice Tence
+* @copyright   2005-2012 Laurent Jouanneau
 * @copyright   2006 Loic Mathaud, 2007 Dominique Papin, 2009 DSDenes, 2010 Christophe Thiriot
-* @copyright   2010 Julien Issler
+* @copyright   2010 Julien Issler, 2010 Brice Tence
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-
-if (!defined('T_GOTO'))
-    define('T_GOTO',333);
-if (!defined('T_NAMESPACE'))
-    define('T_NAMESPACE',377);
-if (!defined('T_USE'))
-    define('T_USE',340);
-
 
 /**
  * This is the compiler of templates: it converts a template into a php file.
@@ -99,7 +91,7 @@ class jTplCompiler
      */
     private $_pluginPath = array();
 
-    private $_metaBody = '';
+    protected $_metaBody = '';
 
     /**
      * native modifiers
@@ -142,8 +134,6 @@ class jTplCompiler
      */
     protected $_userFunctions = array ();
 
-    protected $escapePI = false;
-
     protected $removeASPtags = true;
 
     /**
@@ -155,7 +145,6 @@ class jTplCompiler
         $this->_allowedAssign = array_merge($this->_vartype, $this->_assignOp, $this->_op);
         $this->_allowedInForeach = array_merge($this->_vartype, array(T_AS, T_DOUBLE_ARROW));
 
-        $this->escapePI = (ini_get("short_open_tag") == "1");
         $this->removeASPtags = (ini_get("asp_tags") == "1");
 
         require_once(jTplConfig::$localizedMessagesPath.jTplConfig::$lang.'.php');
@@ -175,30 +164,35 @@ class jTplCompiler
         $this->outputType = $outputtype;
         $cachefile = jTplConfig::$cachePath .dirname($tplName).'/'.$this->outputType.($trusted?'_t':'').'_'. basename($tplName);
         $this->trusted = $trusted;
-        $this->_modifier = array_merge($this->_modifier, $userModifiers);
-        $this->_userFunctions = $userFunctions;
-
+        $md5 = md5($tplFile.'_'.$this->outputType.($this->trusted?'_t':''));
 
         if (!file_exists($this->_sourceFile)) {
             $this->doError0('errors.tpl.not.found');
         }
 
-        $result = $this->compileContent(file_get_contents($this->_sourceFile));
+        $this->compileString(file_get_contents($this->_sourceFile), $cachefile,
+            $userModifiers, $userFunctions, $md5);
+        return true;
+    }
 
-        $header = "<?php \n";
+
+    public function compileString($templatecontent, $cachefile, $userModifiers, $userFunctions, $md5, $header='', $footer='') {
+        $this->_modifier = array_merge($this->_modifier, $userModifiers);
+        $this->_userFunctions = $userFunctions;
+
+        $result = $this->compileContent($templatecontent);
+
+        $header = "<?php \n".$header;
         foreach ($this->_pluginPath as $path=>$ok) {
             $header.=' require_once(\''.$path."');\n";
         }
-        $header.='function template_meta_'.md5($tplFile.'_'.$this->outputType.($this->trusted?'_t':'')).'($t){';
+        $header.='function template_meta_'.$md5.'($t){';
         $header .="\n".$this->_metaBody."\n}\n";
 
-        $header.='function template_'.md5($tplFile.'_'.$this->outputType.($this->trusted?'_t':'')).'($t){'."\n?>";
-        $result = $header.$result."<?php \n}\n?>";
+        $header.='function template_'.$md5.'($t){'."\n?>";
+        $result = $header.$result."<?php \n}\n".$footer;
 
-        $_dirname = dirname($tplName).'/';
-        if ($_dirname == './')
-            $_dirname = '';
-        $_dirname = jTplConfig::$cachePath.$_dirname;
+        $_dirname = dirname($cachefile).'/';
 
         if (!is_dir($_dirname)) {
             umask(jTplConfig::$umask);
@@ -233,20 +227,19 @@ class jTplCompiler
         return true;
     }
 
-    protected function _piCallback($matches) {
-        return '<?php echo \''.str_replace("'","\\'",$matches[1]).'\'?>';
-    }
-
-
     protected function compileContent ($tplcontent) {
+        $this->_metaBody = '';
+        $this->_blockStack = array();
+
         // we remove all php tags
         $tplcontent = preg_replace("!<\?((?:php|=|\s).*)\?>!s", '', $tplcontent);
         // we remove all template comments
         $tplcontent = preg_replace("!{\*(.*?)\*}!s", '', $tplcontent);
 
-        if ($this->escapePI) {
-            $tplcontent = preg_replace_callback("!(<\?.*\?>)!sm", array($this,'_piCallback'), $tplcontent);
-        }
+        $tplcontent = preg_replace_callback("!(<\?.*\?>)!sm", function ($matches) {
+            return '<?php echo \''.str_replace("'","\\'",$matches[1]).'\'?>';
+        }, $tplcontent);
+
         if ($this->removeASPtags) {
           // we remove all asp tags
           $tplcontent = preg_replace("!<%.*%>!s", '', $tplcontent);
@@ -258,7 +251,13 @@ class jTplCompiler
 
         $tplcontent = preg_replace("!{literal}(.*?){/literal}!s", '{literal}', $tplcontent);
 
-        $tplcontent = preg_replace_callback("/{((.).*?)}(\n)/sm", array($this,'_callbackLineFeed'), $tplcontent);
+        $tplcontent = preg_replace_callback("/{((.).*?)}(\n)/sm", function ($matches){
+                list($full, , $firstcar, $lastcar) = $matches;
+                if ($firstcar == '=' || $firstcar == '$' || $firstcar == '@') {
+                    return "$full\n";
+                }
+                else return $full;
+            }, $tplcontent);
         $tplcontent = preg_replace_callback("/{((.).*?)}/sm", array($this,'_callback'), $tplcontent);
 
         /*$tplcontent = preg_replace('/\?>\n?<\?php/', '', $tplcontent);*/
@@ -268,20 +267,6 @@ class jTplCompiler
             $this->doError1('errors.tpl.tag.block.end.missing', end($this->_blockStack));
 
         return $tplcontent;
-    }
-
-    /**
-     * function called during the parsing of the template by a preg_replace_callback function
-     * It is called to add line feeds where needed
-     * @param array $matches a matched item
-     * @return string the same tag with one more line feed
-     */
-    public function _callbackLineFeed($matches){
-        list($full, , $firstcar, $lastcar) = $matches;
-        if ($firstcar == '=' || $firstcar == '$' || $firstcar == '@') {
-            return "$full\n";
-        }
-        else return $full;
     }
 
     /**
@@ -446,7 +431,39 @@ class jTplCompiler
 
             case 'meta':
                 $this->_parseMeta($args);
-                $res='';
+                break;
+
+            case 'meta_if':
+                $metaIfArgs = $this->_parseFinal($args,$this->_allowedInExpr);
+                $this->_metaBody .= 'if('.$metaIfArgs.'):'."\n";
+                array_push($this->_blockStack,'meta_if');
+                break;
+
+            case 'meta_else':
+                if (substr(end($this->_blockStack),0,7) !='meta_if') {
+                    $this->doError1('errors.tpl.tag.block.end.missing', end($this->_blockStack));
+                } else {
+                    $this->_metaBody .= "else:\n";
+                }
+                break;
+
+            case 'meta_elseif':
+                if (end($this->_blockStack) !='meta_if') {
+                    $this->doError1('errors.tpl.tag.block.end.missing', end($this->_blockStack));
+                } else {
+                    $elseIfArgs = $this->_parseFinal($args,$this->_allowedInExpr);
+                    $this->_metaBody .= 'elseif('.$elseIfArgs."):\n";
+                }
+                break;
+
+            case '/meta_if':
+                $short = substr($name,1);
+                if (end($this->_blockStack) != $short) {
+                    $this->doError1('errors.tpl.tag.block.end.missing', end($this->_blockStack));
+                } else {
+                    array_pop($this->_blockStack);
+                    $this->_metaBody .= "endif;\n";
+                }
                 break;
 
             default:

@@ -4,7 +4,7 @@
  * @subpackage  junittests
  * @author      Laurent Jouanneau
  * @contributor Christophe Thiriot, Rahal Aboulfeth
- * @copyright   2008 Laurent Jouanneau
+ * @copyright   2008-2012 Laurent Jouanneau
  * @copyright   2008 Christophe Thiriot, 2011 Rahal Aboulfeth
  * @link        http://www.jelix.org
  * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
@@ -178,14 +178,14 @@ Unit Tests        php version: '.phpversion().'   Jelix version: '.JELIX_VERSION
         if (count($this->testsList)){
             $reporter->paintSuiteStart();
             foreach($this->testsList as $module=>$tests){
-                jContext::push($module);
+                jApp::pushCurrentModule($module);
                 $group = new TestSuite('Tests'.$category.' on module '.$module);
                 foreach($this->testsList[$module] as $test){
-                    $group->addFile($GLOBALS['gJConfig']->_modulesPathList[$module].'tests/'.$test[0]);
+                    $group->addFile(jApp::config()->_modulesPathList[$module].'tests/'.$test[0]);
                 }
                 $result = $group->run($reporter);
                 if (!$result) $rep->setExitCode(jResponseCmdline::EXIT_CODE_ERROR);
-                jContext::pop();
+                jApp::popCurrentModule();
             }
             $reporter->paintSuiteEnd();
         } else {
@@ -209,12 +209,12 @@ Unit Tests        php version: '.phpversion().'   Jelix version: '.JELIX_VERSION
 
             $group = new TestSuite('All'.$category.' tests in "'.$module. '" module');
             foreach($this->testsList[$module] as $test){
-                $group->addFile($GLOBALS['gJConfig']->_modulesPathList[$module].'tests/'.$test[0]);
+                $group->addFile(jApp::config()->_modulesPathList[$module].'tests/'.$test[0]);
             }
-            jContext::push($module);
+            jApp::pushCurrentModule($module);
             $result = $group->run($reporter);
             if (!$result) $rep->setExitCode(jResponseCmdline::EXIT_CODE_ERROR);
-            jContext::pop();
+            jApp::popCurrentModule();
         } else {
             $this->output('No available'.$category.' tests for module '.$module);
         }
@@ -237,11 +237,11 @@ Unit Tests        php version: '.phpversion().'   Jelix version: '.JELIX_VERSION
             foreach($this->testsList[$module] as $test){
                 if($test[1] == $testname){
                     $group = new TestSuite('"'.$module. '" module , '.$test[2]);
-                    $group->addFile($GLOBALS['gJConfig']->_modulesPathList[$module].'tests/'.$test[0]);
-                    jContext::push($module);
+                    $group->addFile(jApp::config()->_modulesPathList[$module].'tests/'.$test[0]);
+                    jApp::pushCurrentModule($module);
                     $result = $group->run($reporter);
                     if (!$result) $rep->setExitCode(jResponseCmdline::EXIT_CODE_ERROR);
-                    jContext::pop();
+                    jApp::popCurrentModule();
                     break;
                 }
             }

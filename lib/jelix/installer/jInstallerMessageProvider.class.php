@@ -45,11 +45,10 @@ class jInstallerMessageProvider {
         'extension.optional.installed'=>'L\'extension %s optionnelle est disponible',
         'extension.required.installed'=>'L\'extension %s obligatoire est disponible',
         'extensions.required.ok'=>'Toutes les extensions PHP obligatoires sont disponibles',
-        'extension.opcode.cache'=>'Cette édition de Jelix a besoin d\'une extension de cache d\'opcode (apc, eaccelerator...)',
-        'extension.database.ok'=>'L\'application utilisera une base de donnée SQL',
-        'extension.database.ok2'=>'L\'application pourra utiliser une base de donnée SQL',
-        'extension.database.missing'=>'L\'application a besoin d\'une base de donnée SQL',
-        'extension.database.missing2'=>'L\'application ne pourra pas utiliser de base de donnée SQL',
+        'extension.database.ok'=>'L\'application utilisera une base de données SQL',
+        'extension.database.ok2'=>'L\'application pourra utiliser une base de données SQL',
+        'extension.database.missing'=>'L\'application a besoin d\'une base de données SQL',
+        'extension.database.missing2'=>'L\'application ne pourra pas utiliser de base de données SQL',
         'path.core'             =>'Le fichier init.php  de jelix ou le fichier application.ini.php de votre application n\'est pas chargé',
         'path.temp'             =>'Le repertoire temporaire n\'est pas accessible en écriture ou alors le chemin du répertoire temp n\'est pas configurée comme il faut',
         'path.log'              =>'Le repertoire var/log dans votre application n\'est pas accessible en écriture ou alors le chemin du répertoire de log n\'est pas configurée comme il faut',
@@ -70,15 +69,12 @@ class jInstallerMessageProvider {
         'too.critical.error'    =>'Trop d\'erreurs critiques sont apparues. Corrigez les.',
         'config.file'           =>'La variable $config_file n\'existe pas ou le fichier qu\'elle indique n\'existe pas',
         'paths.ok'              =>'Les répertoires temp, log, var, config et www sont ok',
-        'ini.magic_quotes_gpc_with_plugin'=>'php.ini : le plugin magicquotes est activé mais vous devriez mettre magic_quotes_gpc à off',
-        'ini.magicquotes_plugin_without_php'=>'php.ini : le plugin magicquotes est activé alors que magic_quotes_gpc est déjà à off, désactivez le plugin',
-        'ini.magic_quotes_gpc'  =>'php.ini : l\'activation des magicquotes n\'est pas recommandée pour jelix. Vous devez les désactiver ou activer le plugin magicquotes si ce n\'est pas fait',
+        'ini.magic_quotes_gpc'  =>'php.ini : l\'activation des magic quotes n\'est pas prise en charge par jelix. Vous devez les désactiver',
         'ini.magic_quotes_runtime'=>'php.ini : magic_quotes_runtime doit être à off',
         'ini.session.auto_start'=>'php.ini : session.auto_start doit être à off',
-        'ini.safe_mode'         =>'php.ini : le safe_mode n\'est pas recommandé.',
+        'ini.safe_mode'         =>'php.ini : le safe_mode est obsolète et n\'est pas recommandé.',
         'ini.register_globals'  =>'php.ini : il faut désactiver register_globals, pour des raisons de sécurité et parce que cette option n\'est pas nécessaire.',
         'ini.asp_tags'          =>'php.ini : il est conseillé de désactiver asp_tags. Cette option n\'est pas nécessaire.',
-        'ini.short_open_tag'    =>'php.ini : il est conseillé de désactiver short_open_tag. Cette option n\'est pas nécessaire.',
         'ini.ok'                =>'Les paramètres de php sont ok',
 
         'module.unknown'        =>'Module inconnu',
@@ -130,7 +126,6 @@ class jInstallerMessageProvider {
         'extension.optional.installed'=>'the optional extension %s is available',
         'extension.required.installed'=>'the required extension %s is available',
         'extensions.required.ok'=>'All needed PHP extensions are available',
-        'extension.opcode.cache'=>'The application requires an extension for opcode cache (apc, eaccelerator...)',
         'extension.database.ok'=>'The application will use a SQL database',
         'extension.database.ok2'=>'The application can use SQL databases',
         'extension.database.missing'=>'The application needs a SQL database',
@@ -155,15 +150,12 @@ class jInstallerMessageProvider {
         'too.critical.error'    =>'Too much critical errors. Fix them.',
         'config.file'           =>'$config_file variable does not exist or doesn\'t contain a correct application config file name',
         'paths.ok'              =>'temp, log, var, config and www directory are ok',
-        'ini.magic_quotes_gpc_with_plugin'=>'php.ini: the magicquotes plugin is actived but you should set magic_quotes_gpc to off',
-        'ini.magicquotes_plugin_without_php'=>'php.ini: the magicquotes plugin is actived whereas magic_quotes_gpc is already off, you should disable the plugin',
-        'ini.magic_quotes_gpc'  =>'php.ini: magicquotes are not recommended for Jelix. You should deactivate it or activate the magicquote jelix plugin',
+        'ini.magic_quotes_gpc'  =>'php.ini: magic quotes are not supported by Jelix. You must deactivate it into PHP',
         'ini.magic_quotes_runtime'=>'php.ini: magic_quotes_runtime must be off',
         'ini.session.auto_start'=>'php.ini: session.auto_start must be off',
-        'ini.safe_mode'         =>'php.ini: safe_mode is not recommended.',
+        'ini.safe_mode'         =>'php.ini: safe_mode is deprecated and is not recommended.',
         'ini.register_globals'  =>'php.ini: you must deactivate register_globals, for security reasons, and because this option is not needed.',
         'ini.asp_tags'          =>'php.ini: you should deactivate asp_tags. No need to have this option.',
-        'ini.short_open_tag'    =>'php.ini: you should deactivate short_open_tag. No need to have this option.',
         'ini.ok'                =>'php settings are ok',
 
         'module.unknown'        =>'Unknown module %s',
@@ -198,12 +190,12 @@ class jInstallerMessageProvider {
             $languages = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
             foreach($languages as $bl){
                 // pour les user-agents qui livrent un code internationnal
-                if(preg_match("/^([a-zA-Z]{2})(?:[-_]([a-zA-Z]{2}))?(;q=[0-9]\\.[0-9])?$/",$bl,$match)){
+                if(preg_match("/^([a-zA-Z]{2,3})(?:[-_]([a-zA-Z]{2,3}))?(;q=[0-9]\\.[0-9])?$/",$bl,$match)){
                     $lang = strtolower($match[1]);
                     break;
                 }
             }
-        }elseif(preg_match("/^([a-zA-Z]{2})(?:[-_]([a-zA-Z]{2}))?$/",$lang,$match)){
+        }elseif(preg_match("/^([a-zA-Z]{2,3})(?:[-_]([a-zA-Z]{2,3}))?$/",$lang,$match)){
             $lang = strtolower($match[1]);
         }
         if($lang == '' || !isset($this->messages[$lang])){

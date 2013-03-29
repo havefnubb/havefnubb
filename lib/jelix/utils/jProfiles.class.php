@@ -4,7 +4,7 @@
 * @subpackage  utils
 * @author      Laurent Jouanneau
 * @contributor Yannick Le Guédart, Julien Issler
-* @copyright   2011 Laurent Jouanneau, 2007 Yannick Le Guédart, 2011 Julien Issler
+* @copyright   2011-2012 Laurent Jouanneau, 2007 Yannick Le Guédart, 2011 Julien Issler
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -82,9 +82,6 @@ class jProfiles {
         }
         // if the profile doesn't exist, we take the default one
         elseif (!$noDefault) {
-#ifnot ENABLE_OPTIMIZED_SOURCE
-            //trigger_error(jLocale::get('jelix~errors.profile.use.default', $name), E_USER_NOTICE);
-#endif
             if (isset(self::$_profiles[$category.':default'])) {
                 self::$_profiles[$category.':default']['_name'] = 'default';
                 if ($common)
@@ -165,7 +162,6 @@ class jProfiles {
      *                      we can also indicate a name of an other profile, to create an alias
      */
     public static function createVirtualProfile ($category, $name, $params) {
-        global $gJConfig;
         if ($name == '') {
            throw new jException('jelix~errors.profile.virtual.no.name', $category);
         }
@@ -181,6 +177,8 @@ class jProfiles {
             self::$_profiles[$category.':'.$name] = $params;
         }
         unset (self::$_objectPool[$category][$name]); // close existing connection with the same pool name
+        if (gc_enabled())
+            gc_collect_cycles();
     }
 
     /**
@@ -190,5 +188,7 @@ class jProfiles {
     public static function clear() {
         self::$_profiles = null;
         self::$_objectPool = array();
+        if (gc_enabled())
+            gc_collect_cycles();
     }
 }

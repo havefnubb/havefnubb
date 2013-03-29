@@ -90,6 +90,11 @@
     public $minValue = null;
     
     public $maxValue = null;
+
+    /**
+     * dao and form use this feature
+     */
+     public $comment;
 }
 
 /**
@@ -299,7 +304,7 @@ abstract class jDbTools {
                     // Cleanup the command from the ending ";" and execute it
                     $cmdSQL = preg_replace($style[1],'',$cmdSQL);
                     $cmdSQL = str_replace('%%PREFIX%%', $prefix, $cmdSQL);
-                    $this->_conn->query ($cmdSQL);
+                    $this->_conn->exec ($cmdSQL);
                     $nbCmd++;
                     $cmdSQL = '';
                 }

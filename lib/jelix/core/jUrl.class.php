@@ -6,7 +6,7 @@
 * @contributor Thibault Piront (nuKs)
 * @contributor Loic Mathaud
 * @contributor Hadrien Lanneau
-* @copyright   2005-2011 Laurent Jouanneau
+* @copyright   2005-2013 Laurent Jouanneau
 * @copyright   2007 Thibault Piront
 * @copyright   2006 Loic Mathaud, 2010 Hadrien Lanneau
 * Some parts of this file are took from an experimental branch of the Copix project (CopixUrl.class.php, Copix 2.3dev20050901, http://www.copix.org),
@@ -108,22 +108,22 @@ class jUrl extends jUrlBase {
     //============================== static helper methods
 
     /**
-    * get current Url
+    * returns the current Url.
+    *
+    * The URL is the URL for the frontend HTTP server, if your app is behind a proxy.
     * @param boolean $forxml if true, escape some characters to include the url into an html/xml document
     * @return string the url
     */
-    static function getCurrentUrl ($forxml = false) {
-        if(isset($_SERVER["REQUEST_URI"])){
-           return $_SERVER["REQUEST_URI"];
-        }
-        static $url = false;
-        if ($url === false){
-            $req = $GLOBALS['gJCoord']->request;
-            $url = $req->getServerURI().$req->urlScript.$req->urlPathInfo.'?';
-            $q = http_build_query($_GET, '', ($forxml?'&amp;':'&'));
-            if(strpos($q, '%3A')!==false)
-                $q = str_replace( '%3A', ':', $q);
-            $url .=$q;
+    static function getCurrentUrl ($forxml = false, $full = false) {
+        // we don't take $_SERVER["REQUEST_URI"] because it doesn't correspond to the real URI
+        // if the app is behind a proxy with a different basePath than the frontend
+        $req = jApp::coord()->request;
+        $sel = $req->module.'~'.$req->action;
+        if ($full) {
+            $url = self::getFull($sel, $req->params, ($forxml?self::XMLSTRING:self::STRING));
+         }
+        else {
+            $url = self::get($sel, $req->params, ($forxml?self::XMLSTRING:self::STRING));
         }
         return $url;
     }
@@ -182,19 +182,18 @@ class jUrl extends jUrlBase {
     * @return string the url string
     */
     static function getFull ($actSel, $params = array (), $what=0, $domainName = null) {
-        global $gJCoord;
 
         $domain = '';
-
+        $req = jApp::coord()->request;
         $url = self::get($actSel, $params, ($what != self::XMLSTRING?self::STRING:$what));
         if (!preg_match('/^http/', $url)) {
             if ($domainName) {
                 $domain = $domainName;
                 if (!preg_match('/^http/', $domainName))
-                    $domain = $gJCoord->request->getProtocol() . $domain;
+                    $domain = $req->getProtocol() . $domain;
             }
             else {
-                $domain = $gJCoord->request->getServerURI();
+                $domain = $req->getServerURI();
             }
 
             if ($domain == '') {
@@ -202,7 +201,7 @@ class jUrl extends jUrlBase {
             }
         }
         else if ($domainName != '') {
-            $url = str_replace($gJCoord->request->getDomainName(), $domainName, $url);
+            $url = str_replace($req->getDomainName(), $domainName, $url);
         }
 
         return $domain.$url;
@@ -271,12 +270,52 @@ class jUrl extends jUrlBase {
         static $engine = null;
 
         if($engine === null || $reset){
-            global $gJConfig;
-            $name = $gJConfig->urlengine['engine'];
+            $name = jApp::config()->urlengine['engine'];
             $engine = jApp::loadPlugin($name, 'urls', '.urls.php', $name.'UrlEngine');
             if(is_null($engine))
                 throw new jException('jelix~errors.urls.engine.notfound', $name);
         }
         return $engine;
     }
+
+
+
+
+    /**
+    * get the root url for a given ressource type. Root URLs are stored in config file.
+    * @param string $ressourceType Name of the ressource
+    * @return string the root URL corresponding to this ressource, or basePath if unknown
+    */
+    public static function getRootUrl($ressourceType){
+
+        $rootUrl = jUrl::getRootUrlRessourceValue($ressourceType);
+        if( $rootUrl !== null ) {
+            if( substr($rootUrl, 0, 7) !== 'http://' && substr($rootUrl, 0, 8) !== 'https://' // url is not absolute.
+                && substr($rootUrl, 0, 1) !== '/' ) { //and is not relative to root
+                   // so let's prepend basePath :
+                    $rootUrl = jApp::config()->urlengine['basePath'] . $rootUrl;
+            }
+        } else {
+            // basePath by default :
+            $rootUrl = jApp::config()->urlengine['basePath'];
+        }
+
+        return $rootUrl;
+    }
+
+
+    /**
+    * get the config value of an item in [rootUrls] section of config
+    * @param string $ressourceType Name of the ressource
+    * @return string the config value of this value, null if it does not exist
+    */
+    public static function getRootUrlRessourceValue($ressourceType) {
+
+        if( ! isset(jApp::config()->rootUrls[$ressourceType]) ) {
+            return null;
+        } else {
+            return jApp::config()->rootUrls[$ressourceType];
+        }
+    }
+
 }
