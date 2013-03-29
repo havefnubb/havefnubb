@@ -45,9 +45,8 @@ class jGoogleAnalyticsCoordPlugin implements jICoordPlugin {
 	}
 
 	public function beforeOutput() {
-		global $gJCoord;
 
-		if ($gJCoord->response instanceof jResponseHtml && $this->displayMarker) {
+		if (jApp::coord()->response instanceof jResponseHtml && $this->displayMarker) {
 			$str_uacct = '
 			<script type="text/javascript">
 			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

@@ -27,7 +27,6 @@ class statsZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        global $gJCoord;
         $daoThreads = jDao::get('havefnubb~threads_alone');
         //posts and thread
         //last posts
@@ -74,7 +73,7 @@ class statsZone extends jZone {
         $dt = new jDateTime();
         $dt->setFromString($lastPost->date_created, jDateTime::TIMESTAMP_FORMAT);
         $meta = '<meta name="dc.date" content="'.$dt->toString(jDateTime::ISO8601_FORMAT).'" />';
-        $gJCoord->response->addHeadContent($meta);
+        jApp::coord()->response->addHeadContent($meta);
         
         $this->_tpl->assign('posts',$msgs);
         $this->_tpl->assign('threads',$threads);

@@ -25,7 +25,7 @@ class connectedusers {
         if ($record) {
             $record->login = $login; // perhaps the record exist, but with an anonymous user
             $record->name = $name;
-            $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
+            $record->member_ip = jApp::coord()->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $record->disconnection_date = null;
             $dao->update($record);
@@ -35,7 +35,7 @@ class connectedusers {
             $record->sessionid = session_id();
             $record->login = $login;
             $record->name = $name;
-            $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
+            $record->member_ip = jApp::coord()->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $record->disconnection_date = null;
             $dao->insert($record);
@@ -77,18 +77,16 @@ class connectedusers {
         if ($timeoutVisit !== null)
             return $timeoutVisit;
 
-        global $gJCoord;
-        $plugin = $gJCoord->getPlugin('activeusers', false);
+        $plugin = jApp::coord()->getPlugin('activeusers', false);
         $timeoutVisit = 1200;
         if ($plugin) {
             $timeoutVisit = ($plugin->config['timeout_visit'] > 0 ) ? $plugin->config['timeout_visit'] : 1200;
         }
         else {
             // for activeusers_admin
-            global $gJConfig;
-            if (isset($gJConfig->activeusers_admin['pluginconf'])
-                && $gJConfig->activeusers_admin['pluginconf']) {
-                $conffile = $gJConfig->activeusers_admin['pluginconf'];
+            if (isset(jApp::config()->activeusers_admin['pluginconf'])
+                && jApp::config()->activeusers_admin['pluginconf']) {
+                $conffile = jApp::config()->activeusers_admin['pluginconf'];
                 if (in_array(substr($conffile, 0,4), array('app:','lib:','var:'))) {
                     $conffile = str_replace(array('app:','lib:','var:'), array(JELIX_APP_PATH, LIB_PATH, JELIX_APP_VAR_PATH), $conffile);
                 }
@@ -108,10 +106,9 @@ class connectedusers {
      * @return boolean true if it has been saved correctly
      */
     public function saveVisitTimeout($timeout) {
-        global $gJConfig;
-        if (isset($gJConfig->activeusers_admin['pluginconf'])
-            && $gJConfig->activeusers_admin['pluginconf']) {
-            $conffile = $gJConfig->activeusers_admin['pluginconf'];
+        if (isset(jApp::config()->activeusers_admin['pluginconf'])
+            && jApp::config()->activeusers_admin['pluginconf']) {
+            $conffile = jApp::config()->activeusers_admin['pluginconf'];
             if (in_array(substr($conffile, 0,4), array('app:','lib:','var:'))) {
                 $conffile = str_replace(array('app:','lib:','var:'), array(JELIX_APP_PATH, LIB_PATH, JELIX_APP_VAR_PATH), $conffile);
             }
@@ -167,7 +164,7 @@ class connectedusers {
                 $record->login = '';
                 $record->name = $this->getBots();
             }
-            $record->member_ip = $GLOBALS['gJCoord']->request->getIP();
+            $record->member_ip = jApp::coord()->request->getIP();
             $record->connection_date = $record->last_request_date = time();
             $dao->insert($record);
         }

@@ -16,8 +16,8 @@ class banuserCtrl extends jController {
     */
     function index() {
         $title = stripslashes(jApp::config()->havefnubb['title']);
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities( $title,ENT_COMPAT,'UTF-8') ) );
-        $GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
+        jApp::coord()->getPlugin('history')->change('label', ucfirst ( htmlentities( $title,ENT_COMPAT,'UTF-8') ) );
+        jApp::coord()->getPlugin('history')->change('title', jLocale::get('havefnubb~main.goto_homepage'));
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('message',jLocale::get('havefnubb~ban.you.are.banned'));

@@ -32,11 +32,10 @@ class defaultCtrl extends jController {
      * Main page
      */
     function index() {
-        global $gJCoord;
         $title = stripslashes(jApp::config()->havefnubb['title']);
         $rep = $this->getResponse('html');
 
-        $historyPlugin = $gJCoord->getPlugin('history');
+        $historyPlugin = jApp::coord()->getPlugin('history');
 
         $historyPlugin->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
         $historyPlugin->change('title', jLocale::get('havefnubb~main.goto_homepage'));
@@ -73,8 +72,8 @@ class defaultCtrl extends jController {
         $title = stripslashes(jApp::config()->havefnubb['title']);
         $rep = $this->getResponse('html');
 
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . jLocale::get('havefnubb~main.cloud'));
-        $GLOBALS['gJCoord']->getPlugin('history')->change('title', jLocale::get('havefnubb~main.cloud'));
+        jApp::coord()->getPlugin('history')->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . jLocale::get('havefnubb~main.cloud'));
+        jApp::coord()->getPlugin('history')->change('title', jLocale::get('havefnubb~main.cloud'));
 
         $rep->title = jLocale::get('havefnubb~main.cloud.posts.by.tag',$tag);
         $rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));

@@ -36,7 +36,7 @@ class defaultCtrl extends jController {
      */
     public function index() {
         $rep = $this->getResponse('html');
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label',jLocale::get('hfnusearch~search.search.perform'));
+        jApp::coord()->getPlugin('history')->change('label',jLocale::get('hfnusearch~search.search.perform'));
         $rep->title = jLocale::get('hfnusearch~search.search.perform');
         $rep->body->assignZone('MAIN', 'hfnusearch~hfnusearch');
         return $rep;

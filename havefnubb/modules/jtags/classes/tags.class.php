@@ -137,18 +137,17 @@ class tags {
     }
 
     function setResponsesHeaders() {
-        global $gJCoord;
-        $gJCoord->response->addCSSLink('/js/jquery-autocomplete/jquery.autocomplete.css');
+        jApp::coord()->response->addCSSLink('/js/jquery-autocomplete/jquery.autocomplete.css');
 
-        $gJCoord->response->addJSLink("/js/jquery-autocomplete/jquery.autocomplete.pack.js");
-        $gJCoord->response->addJSLink('/js/jquery-autocomplete/jquery.autocomplete.pack.js');
-        $gJCoord->response->addJSLink('/js/jquery-autocomplete/lib/jquery.bgiframe.min.js');
-        $gJCoord->response->addJSLink('/js/jquery-autocomplete/lib/jquery.ajaxQueue.js');
-        $gJCoord->response->addJSLink('/js/jquery-autocomplete/lib/jquery.dimensions.js');
+        jApp::coord()->response->addJSLink("/js/jquery-autocomplete/jquery.autocomplete.pack.js");
+        jApp::coord()->response->addJSLink('/js/jquery-autocomplete/jquery.autocomplete.pack.js');
+        jApp::coord()->response->addJSLink('/js/jquery-autocomplete/lib/jquery.bgiframe.min.js');
+        jApp::coord()->response->addJSLink('/js/jquery-autocomplete/lib/jquery.ajaxQueue.js');
+        jApp::coord()->response->addJSLink('/js/jquery-autocomplete/lib/jquery.dimensions.js');
 
         $newtags = $this->getJsonAll();
 
-        $gJCoord->response->addJSCode('
+        jApp::coord()->response->addJSCode('
             var tags = '.$newtags.';
             JQ = jQuery.noConflict(true);
             JQ(document).ready(function(){

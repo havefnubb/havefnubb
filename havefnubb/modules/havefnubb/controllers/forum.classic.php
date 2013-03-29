@@ -59,7 +59,7 @@ class forumCtrl extends jController {
             return $rep;
         }
 
-        $GLOBALS['gJCoord']->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8'));
+        jApp::coord()->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8'));
 
         $feed_reader = new jFeedReader;
         $feed_reader->setCacheDir(JELIX_APP_VAR_PATH.'feeds');

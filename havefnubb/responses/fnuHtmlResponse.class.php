@@ -54,15 +54,15 @@ class fnuHtmlResponse extends jResponseHtml {
         else
             $this->title = $title;
 
-        if (empty($GLOBALS['gJCoord']->request->params)) {
+        if (empty(jApp::coord()->request->params)) {
             $this->body->assign('home',0);
             $this->body->assign('selectedMenuItem','members');
             $this->body->assign('currentIdForum',0);
         }
         else {
-            list($ctrl,$method) = preg_split('/:/',$GLOBALS['gJCoord']->request->params['action']);
+            list($ctrl,$method) = preg_split('/:/',jApp::coord()->request->params['action']);
 
-            switch ($GLOBALS['gJCoord']->request->params['module']) {
+            switch (jApp::coord()->request->params['module']) {
                 case 'havefnubb' :
                     switch ($ctrl) {
                         case 'members':
@@ -82,7 +82,7 @@ class fnuHtmlResponse extends jResponseHtml {
                             $this->body->assign('home',0);
                             $this->body->assign('selectedMenuItem','community');
                             if ($method == 'view' or $method == 'lists')
-                                $this->body->assign('currentIdForum',$GLOBALS['gJCoord']->request->params['id_forum']);
+                                $this->body->assign('currentIdForum',jApp::coord()->request->params['id_forum']);
                             else
                                 $this->body->assign('currentIdForum',0);
                             break;

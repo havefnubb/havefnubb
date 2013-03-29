@@ -28,7 +28,7 @@ class loginCtrl extends jController {
     */
     function in() {
         $rep = $this->getResponse('redirectUrl');
-        $conf = $GLOBALS['gJCoord']->getPlugin('auth')->config;
+        $conf = jApp::coord()->getPlugin('auth')->config;
         $url_return = '/';
 
         if ($conf['after_login'] == '')
@@ -68,7 +68,7 @@ class loginCtrl extends jController {
     function out() {
         $rep = $this->getResponse('redirectUrl');
         jAuth::logout();
-        $conf = $GLOBALS['gJCoord']->getPlugin ('auth')->config;
+        $conf = jApp::coord()->getPlugin ('auth')->config;
 
         if ($conf['after_logout'] == '')
             throw new jException ('jcommunity~login.error.no.auth_logout');
