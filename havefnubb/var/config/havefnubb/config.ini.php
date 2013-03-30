@@ -6,6 +6,7 @@ startAction="default:index"
 
 modulesPath="lib:jelix-modules/,app:admin-modules/,app:modules/,app:../modules-hook/"
 
+pluginsPath="app:plugins/,module:jacl2db/plugins"
 [coordplugins]
 autolocale=autolocale.coord.ini.php
 auth="havefnubb/auth.coord.ini.php"
@@ -57,3 +58,4 @@ jelixcache.access=0
 
 activeusers.access=2
 activeusers_admin.access=0
+
