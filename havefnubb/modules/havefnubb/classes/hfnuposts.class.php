@@ -237,7 +237,6 @@ class hfnuposts {
      * @return array of id_post, DaoRecord of Post, Paginator
      */
     public function view($id_post,$thread_id) {
-        global $gJConfig;
         if ( ! jAcl2::check('hfnu.admin.post') ) {
             $post = $this->getPostVisible($id_post);
         }
@@ -257,7 +256,7 @@ class hfnuposts {
             // the number of post between the current post_id and the thread_id
             $nbReplies = (int) jDao::get('havefnubb~threads_alone')->get($thread_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
 
-            $nbRepliesPerPage = (int) $gJConfig->havefnubb['replies_per_page'];
+            $nbRepliesPerPage = (int) jApp::config()->havefnubb['replies_per_page'];
             // calculate the offset of this id_post
             $goto = (ceil ($nbReplies/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
 
@@ -320,12 +319,11 @@ class hfnuposts {
      * @return mixed boolean or $id_post id post of the editing post or the id of the post created
      */
     public function save($id_forum,$id_post=0) {
-        global $gJConfig;
         if (jAuth::isConnected()) {
             $form = jForms::fill('havefnubb~posts',$id_post);
             $id_user= jAuth::getUserSession ()->id;
         }
-        elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
+        elseif (jApp::config()->havefnubb['anonymous_post_authorized'] == 1) {
             $form = jForms::fill('havefnubb~posts_anonym',$id_post);
             $id_user = 0;
         }
@@ -337,10 +335,10 @@ class hfnuposts {
         $subject = $form->getData('subject');
         $message = $form->getData('message');
 
-        if (count($message) > $gJConfig->havefnubb['post_max_size'] and
-                $gJConfig->havefnubb['post_max_size'] > 0) {
+        if (count($message) > jApp::config()->havefnubb['post_max_size'] and
+                jApp::config()->havefnubb['post_max_size'] > 0) {
             jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
-                        array($gJConfig->havefnubb['post_max_size'])),'error');
+                        array(jApp::config()->havefnubb['post_max_size'])),'error');
             return false;
         }
 
@@ -466,7 +464,6 @@ class hfnuposts {
      * @return mixed boolean / DaoRecord $record of the reply
      */
     public function savereply($thread_id,$id_post) {
-        global $gJConfig;
         $form = false;
         if (jAuth::isConnected()) {
             $form = jForms::fill('havefnubb~posts',$thread_id);
@@ -483,11 +480,11 @@ class hfnuposts {
 
         $message = $form->getData('message');
         //is the size of the message limited ?
-        if ( strlen($message) > $gJConfig->havefnubb['post_max_size']
-                and  $gJConfig->havefnubb['post_max_size'] > 0)
+        if ( strlen($message) > jApp::config()->havefnubb['post_max_size']
+                and  jApp::config()->havefnubb['post_max_size'] > 0)
             {
             jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
-                                array($gJConfig->havefnubb['post_max_size'])),'error');
+                                array(jApp::config()->havefnubb['post_max_size'])),'error');
             return false;
         }
 
