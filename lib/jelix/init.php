@@ -18,6 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
+define('JELIX_VERSION','1.4.7pre.2647');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
