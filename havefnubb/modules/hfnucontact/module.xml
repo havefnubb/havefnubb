@@ -2,8 +2,8 @@
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnucontact@havefnubb.org" name="HfnuContact" createdate="2009-05-01">
         <version date="2012-08-31">1.5</version>
-        <label lang="en_EN">HfnuContact</label>
-        <description lang="en_EN">Module to be able to send an e-mail to a contact</description>
+        <label lang="en_US">HfnuContact</label>
+        <description lang="en_US">Module to be able to send an e-mail to a contact</description>
         <label lang="fr_FR">HfnuContact</label>
         <description lang="fr_FR"><![CDATA[Module permettant d'envoyer un mail à un contact]]></description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>

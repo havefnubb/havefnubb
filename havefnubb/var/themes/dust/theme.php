@@ -11,10 +11,10 @@
 $themeInfos = array (
 	'name'=>'Dust',
 	'createddate'=>'2009-09-01',
-	'label'=>array('en_EN'=>'Dust Theme',
+	'label'=>array('en_US'=>'Dust Theme',
 				   'fr_FR'=>'Thème Dust'
 				   ),
-	'description'=>array('en_EN'=>'Dust theme base on the default theme, using the system <a href="http://960.gs" alt="960 grid system">960gs</a>',
+	'description'=>array('en_US'=>'Dust theme base on the default theme, using the system <a href="http://960.gs" alt="960 grid system">960gs</a>',
 						 'fr_FR'=>'Thème Dust basé sur le thème principal, utilisant le système <a href="http://960.gs" alt="960 grid system">960gs</a>',
 						),
 	'licence'=>array('url'=>'http://www.gnu.org/licenses/gpl.html',

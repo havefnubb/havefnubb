@@ -2,8 +2,8 @@
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="activeusers_admin@havefnubb.org" name="activeusers_admin" createdate="2010-11-05">
         <version>1.0</version>
-        <label lang="en_EN">activeusers_admin</label>
-        <description lang="en_EN" />
+        <label lang="en_US">activeusers_admin</label>
+        <description lang="en_US" />
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2010 Laurent Jouanneau</copyright>
         <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>

@@ -2,8 +2,8 @@
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="servinfo@havefnubb.org" name="servinfo" createdate="2009-02-06">
         <version date="2012-08-31">1.4</version>
-        <label lang="en_EN">ServInfo</label>
-        <description lang="en_EN">Display any data about the current server on which the module runs</description>
+        <label lang="en_US">ServInfo</label>
+        <description lang="en_US">Display any data about the current server on which the module runs</description>
         <label lang="fr_FR">ServInfo</label>
         <description lang="fr_FR">Affichage des données propres au serveur où fonctionne ce module</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>

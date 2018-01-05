@@ -17,14 +17,14 @@
 <menus>
     <menu>
         <name lang="fr_FR">Télécharger</name>
-        <name lang="en_EN">Download</name>
+        <name lang="en_US">Download</name>
         <itemName>downloads</itemName>
         <url>/downloads</url>
         <order>1</order>
     </menu>
     <menu>
         <name lang="fr_FR">Aide</name>
-        <name lang="en_EN">Help</name>
+        <name lang="en_US">Help</name>
         <itemName>help</itemName>
         <url>http://mydomain.com/help.php</url>
         <order>39</order>

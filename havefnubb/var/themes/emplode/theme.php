@@ -11,10 +11,10 @@
 $themeInfos = array (
     'name'=>'Emplode',
     'createddate'=>'2009-09-01',
-    'label'=>array('en_EN'=>'Emplode Theme',
+    'label'=>array('en_US'=>'Emplode Theme',
                    'fr_FR'=>'Thème Emplode'
                    ),
-    'description'=>array('en_EN'=>'Emplode theme  adapted from the theme Arcsin http://arcsin.se/',
+    'description'=>array('en_US'=>'Emplode theme  adapted from the theme Arcsin http://arcsin.se/',
                          'fr_FR'=>'Thème Emplode adapté du thème de Arcsin http://arcsin.se/',
                         ),
     'licence'=>array('url'=>'http://www.gnu.org/licenses/gpl.html',

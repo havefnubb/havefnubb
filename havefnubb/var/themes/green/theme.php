@@ -11,10 +11,10 @@
 $themeInfos = array (
 	'name'=>'Green',
 	'createddate'=>'2011-04-02',
-	'label'=>array('en_EN'=>'Green Theme',
+	'label'=>array('en_US'=>'Green Theme',
 				   'fr_FR'=>'Thème Vert'
 				   ),
-	'description'=>array('en_EN'=>'Green theme of HaveFnuBB!',
+	'description'=>array('en_US'=>'Green theme of HaveFnuBB!',
 						 'fr_FR'=>'Thème Vert de HaveFnuBB! ',
 						),
 	'licence'=>array('url'=>'http://www.gnu.org/licenses/gpl.html',

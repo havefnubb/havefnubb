@@ -2,8 +2,8 @@
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="havefnubb@havefnubb.org" name="havefnubb" createdate="2008-12-16">
         <version date="2012-08-31">1.6.0</version>
-        <label lang="en_EN">HaveFnuBB! The Official Module of the Bulletin Board</label>
-        <description lang="en_EN">This module can manage a complet bulletin board</description>
+        <label lang="en_US">HaveFnuBB! The Official Module of the Bulletin Board</label>
+        <description lang="en_US">This module can manage a complet bulletin board</description>
         <label lang="fr_FR">HaveFnuBB! Le module officiel de forum</label>
         <description lang="fr_FR">Ce module permet de gérer un forum entier</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
