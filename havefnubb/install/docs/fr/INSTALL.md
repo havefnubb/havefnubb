@@ -34,19 +34,19 @@ tous les autres répertoires fournissent du contenu web tels "images","themes" e
   sur la paragraphe "Si vous ne pouvez pas spécifier le document root", qui vous indiquera la marche à suivre pour que l'application puisse fonctionner.
 
 - renommer le fichier havefnubb/var/config/defaultconfig.ini.php.dist en havefnubb/var/config/defaultconfig.ini.php
-- renommer le fichier havefnubb/var/config/dbprofils.ini.php.dist en havefnubb/var/config/dbprofils.ini.php
+- renommer le fichier havefnubb/var/config/profiles.ini.php.dist en havefnubb/var/config/profiles.ini.php
 
 ### Droits d'accès
 
 N'oubliez pas de passer vos dossiers en 755 et vos fichiers en 644,
-à l'exception des 4 fichiers de configurations situés dans var/config avec le mode suivant 664 : defaultconfig.ini.php, dbprofils.ini.php, flood.coord.ini.php, activeusers.coord.ini.php.
+à l'exception des 4 fichiers de configurations situés dans var/config avec le mode suivant 664 : defaultconfig.ini.php, profiles.ini.php, flood.coord.ini.php, activeusers.coord.ini.php.
 
 executer les commandes suivantes pour appliquer les bons droits  :
 
     find . -type d -exec chmod 755 {} \;
     find . -type f -exec chmod 644 {} \;
     chmod 664 var/config/defaultconfig.ini.php
-    chmod 664 var/config/dbprofils.ini.php
+    chmod 664 var/config/profiles.ini.php
     chmod 664 var/config/havefnubb/flood.coord.ini.php
     chmod 664 var/config/havefnubb/activeusers.coord.ini.php
     chmod 770 cache/images

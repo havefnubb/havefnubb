@@ -28,7 +28,7 @@ $locales=array(
                             <br/><strong>except for these files which have to be writable:</strong><ol>
                             <li>cache/ and files/</li>
                             <li>havefnubb/var/config/defaultconfig.ini.php</li>
-                            <li>havefnubb/var/config/dbprofils.ini.php</li>
+                            <li>havefnubb/var/config/profiles.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/config.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/flood.coord.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/activeusers.coord.ini.php</li>

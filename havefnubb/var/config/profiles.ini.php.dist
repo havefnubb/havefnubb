@@ -1,10 +1,11 @@
 ;<?php die(''); ?>
 ;for security reasons, don't remove or modify the first line
 
+[jdb]
 default=havefnubb
 jacl2_profile=havefnubb
 
-[havefnubb]
+[jdb:havefnubb]
 driver=mysql
 database=havefnubb
 host=localhost

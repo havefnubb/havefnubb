@@ -1,26 +1,26 @@
 ************************************************************************************
 
-                                Mise à jour
+                                Mise ï¿½ jour
 
 ************************************************************************************
 
-Mise à jour depuis une version antérieur à 1.3.6
+Mise ï¿½ jour depuis une version antï¿½rieur ï¿½ 1.3.6
 
-mettez d'abord à jour votre forum en installant la version 1.3.6 avant de migrer à la version 1.4.
+mettez d'abord ï¿½ jour votre forum en installant la version 1.3.6 avant de migrer ï¿½ la version 1.4.
 
 
-Mise à jour depuis la 1.3.6 à 1.4
+Mise ï¿½ jour depuis la 1.3.6 ï¿½ 1.4
 
-0) sauvegarder votre base de données, cette version ajoute et modifie quelques tables.
+0) sauvegarder votre base de donnï¿½es, cette version ajoute et modifie quelques tables.
 
 1) sauvegarder vos fichiers :
-var/config/dbprofils.ini.php
+var/config/profiles.ini.php ou var/config/dbprofils.ini.php
 var/config/defaultconfig.ini.php
 var/config/havefnu.search.ini.php
 var/config/havefnubb
 var/config/hfnuadmin
 
-2) sauvergarder vos thèmes personnels dans var/themes et www/themes
+2) sauvergarder vos thï¿½mes personnels dans var/themes et www/themes
 
 3) Supprimer tous les fichiers de votre site pour les remplacer par
 ceux de cette version actuelle

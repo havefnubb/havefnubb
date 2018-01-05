@@ -56,10 +56,10 @@ class migrateWizPage extends installWizardPage {
     private function _updateConfig() {
         /**
          *
-         * DataBase CONFIG FILE : dbprofils.ini.php
+         * DataBase CONFIG FILE : profiles.ini.php
          *
          */
-        $dBini = new jIniFileModifier(jApp::configPath().'dbprofils.ini.php');
+        $dBini = new jIniFileModifier(jApp::configPath().'profiles.ini.php');
         $dBini->setValue('jacl2_profile','havefnubb');
         $dBini->save();
         /**
@@ -351,8 +351,8 @@ class migrateWizPage extends installWizardPage {
         }
         
         jApp::loadConfig('havefnubb/config.ini.php');
-        //get the dbprofils file
-        $dbProfile = jIniFile::read(jApp::configPath() . jApp::config()->dbProfils);
+        //get the profiles file
+        $dbProfile = jIniFile::read(jApp::configPath('profiles.ini.php'));
         //get the default profile
         $tools = jDb::getTools($dbProfile['default']);
         // migrate from 1.3.6 to 1.4.0

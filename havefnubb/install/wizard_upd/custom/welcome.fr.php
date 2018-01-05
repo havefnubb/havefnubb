@@ -29,7 +29,7 @@ $locales=array(
                             <ol>
                             <li>cache/ et files/</li>
                             <li>havefnubb/var/config/defaultconfig.ini.php</li>
-                            <li>havefnubb/var/config/dbprofils.ini.php</li>
+                            <li>havefnubb/var/config/profiles.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/config.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/flood.coord.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/activeusers.coord.ini.php</li>
