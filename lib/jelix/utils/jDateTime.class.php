@@ -71,6 +71,7 @@ class jDateTime{
 	const LANG_DTFORMAT=11;
 	const LANG_TFORMAT=12;
 	const LANG_SHORT_DTFORMAT=13;
+	const LANG_SHORT_TFORMAT=14;
 	const DB_DFORMAT=20;
 	const DB_DTFORMAT=21;
 	const DB_TFORMAT=22;
@@ -133,6 +134,11 @@ class jDateTime{
 			case self::LANG_SHORT_DTFORMAT:
 				$t=mktime($this->hour,$this->minute,$this->second,$this->month,$this->day,$this->year);
 				$lf=jLocale::get('jelix~format.short_datetime');
+				$str=date($lf,$t);
+				break;
+			case self::LANG_SHORT_TFORMAT:
+				$t=mktime($this->hour,$this->minute,$this->second,$this->month,$this->day,$this->year);
+				$lf=jLocale::get('jelix~format.short_time');
 				$str=date($lf,$t);
 				break;
 			case self::DB_DFORMAT:
@@ -205,6 +211,15 @@ class jDateTime{
 					$this->hour=$res['tm_hour'];
 					$this->minute=$res['tm_min'];
 					$this->second=$res['tm_sec'];
+				}
+				break;
+			case self::LANG_SHORT_TFORMAT:
+				$lf=jLocale::get('jelix~format.short_time_st');
+				if($res=strptime($str,$lf)){
+					$ok=true;
+					$this->hour=$res['tm_hour'];
+					$this->minute=$res['tm_min'];
+					$this->second=0;
 				}
 				break;
 			case self::LANG_SHORT_DTFORMAT:

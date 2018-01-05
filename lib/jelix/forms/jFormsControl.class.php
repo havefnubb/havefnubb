@@ -349,7 +349,7 @@ class jFormsControlListbox extends jFormsControlDatasource{
 	public $type="listbox";
 	public $multiple=false;
 	public $size=4;
-	public $emptyItemLabel;
+	public $emptyItemLabel=null;
 	function isContainer(){
 		return $this->multiple;
 	}
@@ -383,7 +383,7 @@ class jFormsControlRadiobuttons extends jFormsControlDatasource{
 class jFormsControlMenulist extends jFormsControlRadiobuttons{
 	public $type="menulist";
 	public $defaultValue='';
-	public $emptyItemLabel='';
+	public $emptyItemLabel=null;
 }
 class jFormsControlOutput extends jFormsControl{
 	public $type='output';

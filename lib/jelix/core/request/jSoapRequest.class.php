@@ -33,4 +33,25 @@ class jSoapRequest extends jRequest{
 	}
 	function init(){}
 	protected function _initParams(){}
+	public function getParam($name,$defaultValue=null,$useDefaultIfEmpty=false){
+		if(!isset($this->params[$name])){
+			return $defaultValue;
+		}
+		if(is_scalar($this->params[$name])){
+			if($useDefaultIfEmpty&&trim($this->params[$name])==''){
+				return $defaultValue;
+			}
+			else{
+				return $this->params[$name];
+			}
+		}
+		else{
+			if($useDefaultIfEmpty&&empty($this->params[$name])){
+				return $defaultValue;
+			}
+			else{
+				return $this->params[$name];
+			}
+		}
+	}
 }

@@ -21,7 +21,6 @@ class sessiondataDebugbarPlugin implements jIDebugbarPlugin{
 	}
 	function show($debugbar){
 		$info=new debugbarItemInfo('sessiondata','Session');
-			$info->htmlLabel='<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJaSURBVDjLpVPNi1JRFP89v2f8RHHGaqOCJFNuohki+oBxE7Sp1oFQLXPXbqDFUG1btOgvyIKBoFmUixSJqERIzbFJ05lRpHn6xoYcP0af+nrnlmKBqzlwOPe+d3/nd37n3MtJkoSjmAJHNNVokcvlIoPBYFl29Pt9iKI49l6vN/Zut0sxGggE/ITjSIIMvqzRaGJ2u50d+t8mZarVasRiMZRKJX8wGIyyCmTG+xaLBTzPQ6vVjkGTQFpXKhWYTCa4XC4iXZE/R7lMJsPYbTYbGo3GP+WSFAJyHAelUsnYjUYj9Ho9wuEwCoWCX0XsVDpppUM6nY75iL3T6eDt86c4TL3E4VDeW0/h2t1V+Hw+ZLPZFRUxtVotCILAGkTA4XAIaibFr58i6Hx5hYEkQuKUaJYTePbkAW7cuceqpATLxEQbAsmSWMkKxZ8J86kI5ubdsJmNpBtmxzHUhTzMci8IqyJW0kpOCcgpAbGTGRxO3Axch35Gh4P6LlQGG16vr0P8O2qWYAQkkNfrZZGc5HzYrWEzGceZpSWYrHPY2cojJehwUv4/TkAToASj0Y36kE6nsbVdRHRmAfG195hVA8WDWTQlLRKJBKuaC4VCb2QtVyZuGYtCrcbGxVeraLfbOHf+AuYdDqy9CLFR0kj39oRv3LTHtPHw7DZ//KrzXVmD5q86qnIiYqSLptbqcem0HYvix/7Ux2SwnYjv72RQrvyA1WqF2+1mYI/HA3EwRHnzM/QmY0o1LYFkdd7mftYfFQvfbzX3qxflSg0kLZlMDip8fWNh0f6YszjyvwFmK4mzFto0SwAAAABJRU5ErkJggg==" alt="Session data" title="Session data"/> ';
 		if(!isset($_SESSION)||count($_SESSION)==0){
 			$info->htmlLabel.='0';
 		}

@@ -103,7 +103,7 @@ class sqlite3DbTools extends jDbTools{
 			$field=new jDbFieldProperties();
 			$field->name=$line->name;
 			$field->primary=($line->pk==1);
-			$field->notNull=($line->notnull=='99'||$line->pk==1);
+			$field->notNull=($line->notnull!=0||$line->pk==1);
 			if(preg_match('/^(\w+)\s*(\((\d+)\))?.*$/',$line->type,$m)){
 				$field->type=strtolower($m[1]);
 				if(isset($m[3])){

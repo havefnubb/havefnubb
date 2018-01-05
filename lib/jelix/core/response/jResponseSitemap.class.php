@@ -63,6 +63,7 @@ class jResponseSitemap extends jResponse{
 			$url->priority=sprintf('%0.1f',$priority);
 		}
 		$this->urlList[]=$url;
+		return true;
 	}
 	public function addSitemap($loc,$lastmod=null){
 		if(isset($loc[2048])||count($this->urlSitemap)>=$this->maxSitemap){
@@ -74,6 +75,7 @@ class jResponseSitemap extends jResponse{
 			$sitemap->lastmod=date('c',$timestamp);
 		}
 		$this->urlSitemap[]=$sitemap;
+		return true;
 	}
 	public function importFromUrlsXml(){
 		$urls=$this->_parseUrlsXml();

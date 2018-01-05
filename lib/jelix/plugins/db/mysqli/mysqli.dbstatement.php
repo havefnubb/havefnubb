@@ -4,7 +4,8 @@
 * @package    jelix
 * @subpackage db_driver
 * @author      Florian Lonqueu-Brochard
-* @copyright  2012 Florian Lonqueu-Brochard
+* @contributor Laurent Jouanneau
+* @copyright  2012 Florian Lonqueu-Brochard, 2012 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @licence    http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -22,8 +23,7 @@ class mysqliDbStatement extends jDbStatement{
 				if($this->_usesMysqlnd){
 					$res=new mysqliDbResultSet($this->_stmt->get_result());
 				}else{
-					$this->_stmt->store_result();
-					$res=new mysqliDbResultSet($this->_stmt);
+					$res=new mysqliDbStmtResultSet($this->_stmt);
 				}
 			}
 			catch(Exception $e){

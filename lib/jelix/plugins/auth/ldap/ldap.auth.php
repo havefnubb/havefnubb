@@ -54,7 +54,7 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 			return false;
 		}
 		$result=ldap_add($connect,$this->_buildUserDn($user->login),$entries);
-		ldapd_close($connect);
+		ldap_close($connect);
 		return $result;
 	}
 	public function removeUser($login){
@@ -62,7 +62,7 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 		if($connect===false){
 			return false;
 		}
-		$result=ldap_delete($connect,$this->_buildUserDn($user->login));
+		$result=ldap_delete($connect,$this->_buildUserDn($login));
 		ldap_close($connect);
 		return $result;
 	}
@@ -120,7 +120,7 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 		}
 		$filter=($pattern!=''&&$pattern!='%')? "(&".$this->_params['searchFilter'] . "({$this->_params['uidProperty']}={$pattern}))" : $this->_params['searchFilter'];
 		if(($search=ldap_search($connect,$this->_params['searchBaseDN'],$filter,$this->_params['searchAttributes']))){
-			ldap_sort($connect,$search,$this->params['uidProperty']);
+			ldap_sort($connect,$search,$this->_params['uidProperty']);
 			$entry=ldap_first_entry($connect,$search);
 			while($entry){
 				$attributes=ldap_get_attributes($connect,$entry);
@@ -143,7 +143,7 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 		if($connect===false){
 			return false;
 		}
-		$result=ldap_mod_replace($connect,$this->_buildUserDn($user->login),$entries);
+		$result=ldap_mod_replace($connect,$this->_buildUserDn($login),$entries);
 		ldap_close($connect);
 		return $result;
 	}
@@ -219,6 +219,7 @@ class ldapAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 						break;
 					case $this->_params['uidProperty']:
 						$user->login=$attributes[$attribute];
+						break;
 					default:
 						$user->$attribute=$attributes[$attribute];
 						break;

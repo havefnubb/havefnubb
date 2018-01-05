@@ -84,6 +84,9 @@ jFormsJQ.declareForm(jFormsJQ.tForm);
 </script>';
 	}
 	protected function commonJs($ctrl){
+		if($ctrl->isReadOnly()){
+			$this->jsContent.="c.readOnly = true;\n";
+		}
 		if($ctrl->required){
 			$this->jsContent.="c.required = true;\n";
 			if($ctrl->alertRequired){

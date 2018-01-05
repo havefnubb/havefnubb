@@ -23,6 +23,7 @@ class mysqliDbConnection extends jDbConnection{
 			throw new jException('jelix~db.error.nofunction','mysql');
 		}
 		parent::__construct($profile);
+		$this->dbms='mysql';
 	}
 	public function encloseName($fieldName){
 		return '`'.$fieldName.'`';

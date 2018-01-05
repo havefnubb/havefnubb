@@ -42,7 +42,7 @@ class jPrefManager{
 		$prefs=array();
 		$nogroup=new jPrefItemGroup();
 		$nogroup->id='__nogroup';
-		$nogroup->locale='jpref_admin~admin.group.others';
+		$nogroup->locale='jelix~prefs.group.others';
 		foreach($preferences as $item_key=>$item){
 			if(substr($item_key,0,5)=='group'){
 				$g=new jPrefItemGroup();

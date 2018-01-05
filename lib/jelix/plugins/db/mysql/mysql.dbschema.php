@@ -161,7 +161,7 @@ class mysqlDbTable extends jDbTable{
 		foreach($ref->fColumns as $c){
 			$fcols[]=$conn->encloseName($c);
 		}
-		$sql.=impode(',',$cols).') REFERENCES '.$conn->encloseName($ref->fTable).'(';
+		$sql.=implode(',',$cols).') REFERENCES '.$conn->encloseName($ref->fTable).'(';
 		$sql.=implode(',',$fcols).')';
 		if($ref->onUpdate){
 			$sql.='ON UPDATE '.$ref->onUpdate.' ';

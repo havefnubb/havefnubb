@@ -16,6 +16,7 @@ class sqlite3DbConnection extends jDbConnection{
 			throw new jException('jelix~db.error.nofunction','sqlite3');
 		}
 		parent::__construct($profile);
+		$this->dbms='sqlite';
 	}
 	public function beginTransaction(){
 		$this->_doExec('BEGIN');

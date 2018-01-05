@@ -61,7 +61,17 @@ class dbAuthDriver extends jAuthDriverBase implements jIAuthDriver{
 		if(trim($password)=='')
 			return false;
 		$daouser=jDao::get($this->_params['dao'],$this->_params['profile']);
-		$user=$daouser->getByLoginPassword($login,$this->cryptPassword($password));
-		return($user?$user:false);
+		$user=$daouser->getByLogin($login);
+		if(!$user){
+			return false;
+		}
+		$result=$this->checkPassword($password,$user->password);
+		if($result===false)
+			return false;
+		if($result!==true){
+			$user->password=$result;
+			$daouser->updatePassword($login,$result);
+		}
+		return $user;
 	}
 }

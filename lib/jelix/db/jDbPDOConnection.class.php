@@ -17,6 +17,7 @@ class jDbPDOConnection extends PDO{
 	private $_pgsqlCharsets=array('UTF-8'=>'UNICODE','ISO-8859-1'=>'LATIN1');
 	public $profile;
 	public $dbms;
+	public $driverName='';
 	function __construct($profile){
 		$this->profile=$profile;
 		$prof=$profile;
@@ -24,14 +25,14 @@ class jDbPDOConnection extends PDO{
 		$password='';
 		$dsn='';
 		if(isset($profile['dsn'])){
-			$this->dbms=substr($profile['dsn'],0,strpos($profile['dsn'],':'));
+			$this->dbms=$this->driverName=substr($profile['dsn'],0,strpos($profile['dsn'],':'));
 			$dsn=$profile['dsn'];
 			unset($prof['dsn']);
 			if($this->dbms=='sqlite')
 				$dsn=str_replace(array('app:','lib:','var:'),array(jApp::appPath(),LIB_PATH,jApp::varPath()),$dsn);
 		}
 		else{
-			$this->dbms=$profile['driver'];
+			$this->dbms=$this->driverName=$profile['driver'];
 			$db=$profile['database'];
 			$dsn=$this->dbms.':host='.$profile['host'].';dbname='.$db;
 			if($this->dbms!='sqlite')
@@ -136,9 +137,10 @@ class jDbPDOConnection extends PDO{
 	protected $_tools=null;
 	public function tools(){
 		if(!$this->_tools){
-			$this->_tools=jApp::loadPlugin($this->dbms,'db','.dbtools.php',$this->dbms.'DbTools',$this);
+			$dbms=($this->dbms==='sqlite')? 'sqlite3' : $this->dbms;
+			$this->_tools=jApp::loadPlugin($dbms,'db','.dbtools.php',$dbms.'DbTools',$this);
 			if(is_null($this->_tools))
-				throw new jException('jelix~db.error.driver.notfound',$this->dbms);
+				throw new jException('jelix~db.error.driver.notfound',$dbms);
 		}
 		return $this->_tools;
 	}

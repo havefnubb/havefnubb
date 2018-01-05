@@ -371,8 +371,8 @@ class jConfigCompiler{
 			}
 			$urlconf['urlScript']=$_SERVER[$urlconf['scriptNameServerVariable']];
 		}
-		$lastslash=strrpos($urlconf['urlScript'],'/');
 		if($isCli){
+			$lastslash=strrpos($urlconf['urlScript'],DIRECTORY_SEPARATOR);
 			if($lastslash===false){
 				$urlconf['urlScriptPath']=($pseudoScriptName? jApp::appPath('/scripts/'): getcwd().'/');
 				$urlconf['urlScriptName']=$urlconf['urlScript'];
@@ -386,6 +386,7 @@ class jConfigCompiler{
 			$urlconf['urlScript']=$basepath.$snp;
 		}
 		else{
+			$lastslash=strrpos($urlconf['urlScript'],'/');
 			$urlconf['urlScriptPath']=substr($urlconf['urlScript'],0,$lastslash).'/';
 			$urlconf['urlScriptName']=substr($urlconf['urlScript'],$lastslash+1);
 			$basepath=$urlconf['basePath'];

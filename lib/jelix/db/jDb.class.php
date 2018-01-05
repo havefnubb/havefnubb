@@ -38,13 +38,14 @@ abstract class jDbConnection{
 	const CURSOR_SCROLL=1;
 	public $profile;
 	public $dbms;
+	public $driverName='';
 	public $msgError='';
 	public $lastQuery;
 	private $_autocommit=true;
 	protected $_connection=null;
 	function __construct($profile){
 		$this->profile=& $profile;
-		$this->dbms=$profile['driver'];
+		$this->dbms=$this->driverName=$profile['driver'];
 		$this->_connection=$this->_connect();
 	}
 	function __destruct(){
@@ -125,8 +126,8 @@ abstract class jDbConnection{
 	protected $_tools=null;
 	public function tools(){
 		if(!$this->_tools){
-			require_once(jApp::config()->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbtools.php');
-			$class=$this->dbms.'DbTools';
+			require_once(jApp::config()->_pluginsPathList_db[$this->driverName].$this->driverName.'.dbtools.php');
+			$class=$this->driverName.'DbTools';
 			$this->_tools=new $class($this);
 		}
 		return $this->_tools;
@@ -134,8 +135,8 @@ abstract class jDbConnection{
 	protected $_schema=null;
 	public function schema(){
 		if(!$this->_schema){
-			require_once(jApp::config()->_pluginsPathList_db[$this->dbms].$this->dbms.'.dbschema.php');
-			$class=$this->dbms.'DbSchema';
+			require_once(jApp::config()->_pluginsPathList_db[$this->driverName].$this->driverName.'.dbschema.php');
+			$class=$this->driverName.'DbSchema';
 			$this->_schema=new $class($this);
 		}
 		return $this->_schema;

@@ -29,7 +29,10 @@ class jPref{
 			return null;
 		}
 		$type=$result[0];
-		$value=substr($result,2);
+		if(strlen($result)> 2)
+			$value=substr($result,2);
+		else
+			$value="";
 		if($type=='i')
 			$value=(int) $value;
 		elseif($type=='b')

@@ -17,7 +17,7 @@ require_once(JELIX_LIB_PATH.'forms/jFormsCompiler_jf_1_0.class.php');
 class jFormsCompiler_jf_1_1 extends jFormsCompiler_jf_1_0{
 	const NS='http://jelix.org/ns/forms/1.1';
 	protected $allowedType=array('string','boolean','decimal','integer','hexadecimal',
-									'datetime','date','time','localedatetime','localedate','localetime',
+									'datetime','date','time','localetimeshort','localedatetime','localedate','localetime',
 									'url','email','ipv4','ipv6','html','xhtml');
 	protected function _compile($xml,&$source){
 		if(isset($xml['allowAnyOrigin'])&&$xml['allowAnyOrigin']=='true'){
@@ -148,7 +148,7 @@ class jFormsCompiler_jf_1_1 extends jFormsCompiler_jf_1_0{
 	}
 	protected function generateHtmleditor(&$source,$control,&$attributes){
 		if(isset($attributes['xhtml'])){
-			$source[]='$ctrl->datatype= new jDatatypeHtml('.($attributes['xhtml']=='true'?'true':'').', true);';
+			$source[]='$ctrl->datatype= new jDatatypeHtml('.($attributes['xhtml']=='true'?'true':'false').', true);';
 			unset($attributes['xhtml']);
 		}
 		$this->_generateTextareaHtmlEditor($source,$control,$attributes);

@@ -80,20 +80,19 @@ class jInstallerMessageProvider {
 
     protected $messages = array(
         'fr'=>array(
-     'checker.title'=>'Vérification de votre serveur pour Jelix 1.4.1pre.2422',
         'number.errors'         =>' erreurs.',
         'number.error'          =>' erreur.',
         'number.warnings'       =>' avertissements.',
         'number.warning'        =>' avertissement.',
         'number.notices'        =>' remarques.',
         'number.notice'         =>' remarque.',
-    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.4.1pre.2422.',
-    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.4.1pre.2422.',
-    'conclusion.warning'    =>'Une application Jelix 1.4.1pre.2422 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
-    'conclusion.warnings'   =>'Une application Jelix 1.4.1pre.2422 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
-    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.4.1pre.2422 malgré la remarque.',
-    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.4.1pre.2422 malgré les remarques.',
-    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.4.1pre.2422',
+
+
+
+
+
+
+
         'cannot.continue'       =>'Les vérifications ne peuvent continuer : %s',
         'extension.not.installed'=>'L\'extension %s n\'est pas disponible',
         'extension.optional.not.installed'=>'L\'extension %s optionnelle n\'est pas disponible',
@@ -135,7 +134,6 @@ class jInstallerMessageProvider {
         'ini.safe_mode'         =>'php.ini : le safe_mode n\'est pas recommandé.',
         'ini.register_globals'  =>'php.ini : il faut désactiver register_globals, pour des raisons de sécurité et parce que cette option n\'est pas nécessaire.',
         'ini.asp_tags'          =>'php.ini : il est conseillé de désactiver asp_tags. Cette option n\'est pas nécessaire.',
-        'ini.short_open_tag'    =>'php.ini : il est conseillé de désactiver short_open_tag. Cette option n\'est pas nécessaire.',
         'ini.ok'                =>'Les paramètres de php sont ok',
 
         'module.unknown'        =>'Module inconnu',
@@ -164,20 +162,19 @@ class jInstallerMessageProvider {
         ),
 
         'en'=>array(
-  'checker.title'   =>'Check your configuration server for Jelix 1.4.1pre.2422',
         'number.errors'     =>' errors.',
         'number.error'      =>' error.',
         'number.warnings'   =>' warnings.',
         'number.warning'    =>' warning.',
         'number.notices'    =>' notices.',
         'number.notice'     =>' notice.',
-      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.4.1pre.2422.',
-      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.4.1pre.2422.',
-      'conclusion.warning'  =>'Your application for Jelix 1.4.1pre.2422 may run without problems, but it is recommanded to fix the warning.',
-      'conclusion.warnings' =>'Your application for Jelix 1.4.1pre.2422 may run without problems, but it is recommanded to fix warnings.',
-      'conclusion.notice'   =>'You can install an application for Jelix 1.4.1pre.2422, although there is a notice.',
-      'conclusion.notices'  =>'You can install an application for Jelix 1.4.1pre.2422, although there are notices.',
-      'conclusion.ok'       =>'You can install an application for Jelix 1.4.1pre.2422.',
+
+
+
+
+
+
+
         'cannot.continue'       =>'Cannot continue the checking: %s',
         'extension.not.installed'=>'The extension %s is not available',
         'extension.optional.not.installed'=>'the optional extension %s is not available',
@@ -219,7 +216,6 @@ class jInstallerMessageProvider {
         'ini.safe_mode'         =>'php.ini: safe_mode is not recommended.',
         'ini.register_globals'  =>'php.ini: you must deactivate register_globals, for security reasons, and because this option is not needed.',
         'ini.asp_tags'          =>'php.ini: you should deactivate asp_tags. No need to have this option.',
-        'ini.short_open_tag'    =>'php.ini: you should deactivate short_open_tag. No need to have this option.',
         'ini.ok'                =>'php settings are ok',
 
         'module.unknown'        =>'Unknown module %s',
@@ -335,9 +331,9 @@ class jInstallCheck {
         $this->reporter = $reporter;
         $this->messages = new jInstallerMessageProvider($lang);
         $this->buildProperties = array(
-   'PHP_VERSION_TARGET'=>'5.2',
-   'ENABLE_PHP_JELIX'  =>'',
-   'WITH_BYTECODE_CACHE'=>'auto',
+
+
+
         );
     }
 
@@ -539,9 +535,6 @@ class jInstallCheck {
 
         if(ini_get('asp_tags') == 1){
             $this->notice('ini.asp_tags');
-        }
-        if(ini_get('short_open_tag') == 1){
-            $this->notice('ini.short_open_tag');
         }
         if($ok){
             $this->ok('ini.ok');

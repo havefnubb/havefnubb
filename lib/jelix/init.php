@@ -18,7 +18,6 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.4.1pre.2422');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',dirname(__FILE__).'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -172,7 +171,7 @@ class jApp{
 	}
 	public static function isModuleEnabled($moduleName,$includingExternal=false){
 		if(!self::$_config)
-			throw Exception('Configuration is not loaded');
+			throw new Exception('Configuration is not loaded');
 		if($includingExternal&&isset(self::$_config->_externalModulesPathList[$moduleName])){
 			return true;
 		}
@@ -180,7 +179,7 @@ class jApp{
 	}
 	public static function getModulePath($module,$includingExternal=false){
 		if(!self::$_config)
-			throw Exception('Configuration is not loaded');
+			throw new Exception('Configuration is not loaded');
 		if(!isset(self::$_config->_modulesPathList[$module])){
 			if($includingExternal&&isset(self::$_config->_externalModulesPathList[$module])){
 				return self::$_config->_externalModulesPathList[$module];
@@ -259,7 +258,7 @@ class jBasicErrorHandler{
 			echo 'Error during initialization: \n';
 			foreach(self::$initErrorMessages as $err){
 				@error_log($err->getFormatedMessage()."\n",3,jApp::logPath('errors.log'));
-				echo '* '.$err->getMessage().' ('.$e->getFile().' '.$e->getLine().")\n";
+				echo '* '.$err->getMessage().' ('.$err->getFile().' '.$err->getLine().")\n";
 			}
 			@error_log($errorLog->getFormatedMessage()."\n",3,jApp::logPath('errors.log'));
 			echo '* '.$message.' ('.$file.' '.$line.")\n";
@@ -282,7 +281,9 @@ class jBasicErrorHandler{
 				$HEADBOTTOM='';
 				$BODYTOP='';
 				$BODYBOTTOM=htmlspecialchars($msg);
-				$basePath='';
+				$BASEPATH='/';
+				if(jApp::config()&&isset(jApp::config()->urlengine['basePath']))
+					$BASEPATH=jApp::config()->urlengine['basePath'];
 				header("HTTP/1.1 500 Internal jelix error");
 				header('Content-type: text/html');
 				include($file);
@@ -1097,18 +1098,14 @@ class jUrl extends jUrlBase{
 		}
 		return '';
 	}
-	static function getCurrentUrl($forxml=false){
-		if(isset($_SERVER["REQUEST_URI"])){
-			return $_SERVER["REQUEST_URI"];
+	static function getCurrentUrl($forxml=false,$full=false){
+		$req=jApp::coord()->request;
+		$sel=$req->module.'~'.$req->action;
+		if($full){
+			$url=self::getFull($sel,$req->params,($forxml?self::XMLSTRING:self::STRING));
 		}
-		static $url=false;
-		if($url===false){
-			$req=jApp::coord()->request;
-			$url=$req->getServerURI().$req->urlScript.$req->urlPathInfo.'?';
-			$q=http_build_query($_GET,'',($forxml?'&amp;':'&'));
-			if(strpos($q,'%3A')!==false)
-				$q=str_replace('%3A',':',$q);
-			$url.=$q;
+		else{
+			$url=self::get($sel,$req->params,($forxml?self::XMLSTRING:self::STRING));
 		}
 		return $url;
 	}
@@ -1224,10 +1221,12 @@ class jCoordinator{
 	private function _loadPlugins(){
 		$config=jApp::config();
 		foreach($config->coordplugins as $name=>$conf){
+			if(strpos($name,'.')!==false)
+				continue;
 			if($conf=='1'){
 				$confname='coordplugin_'.$name;
-				if(isset($config->confname))
-					$conf=$config->confname;
+				if(isset($config->$confname))
+					$conf=$config->$confname;
 				else
 					$conf=array();
 			}
@@ -1236,8 +1235,10 @@ class jCoordinator{
 				if(false===($conf=parse_ini_file($conff,true)))
 					throw new Exception("Error in a plugin configuration file -- plugin: $name  file: $conff",13);
 			}
-			include($config->_pluginsPathList_coord[$name].$name.'.coord.php');
+			include_once($config->_pluginsPathList_coord[$name].$name.'.coord.php');
 			$class=$name.'CoordPlugin';
+			if(isset($config->coordplugins[$name.'.name']))
+				$name=$config->coordplugins[$name.'.name'];
 			$this->plugins[strtolower($name)]=new $class($conf);
 		}
 	}
@@ -1253,18 +1254,7 @@ class jCoordinator{
 		}
 		$this->request->init();
 		jSession::start();
-		$this->moduleName=$request->getParam('module');
-		$this->actionName=$request->getParam('action');
-		if(empty($this->moduleName)){
-			$this->moduleName=$config->startModule;
-		}
-		if(empty($this->actionName)){
-			if($this->moduleName==$config->startModule)
-				$this->actionName=$config->startAction;
-			else{
-				$this->actionName='default:index';
-			}
-		}
+		list($this->moduleName,$this->actionName)=$request->getModuleAction();
 		jContext::push($this->moduleName);
 		try{
 			$this->action=new jSelectorActFast($this->request->type,$this->moduleName,$this->actionName);
@@ -1468,6 +1458,8 @@ abstract class jRequest{
 	public $urlScriptName;
 	public $urlScript;
 	public $urlPathInfo;
+	public $module='';
+	public $action='';
 	function __construct(){}
 	public function init(){
 		$this->_initUrlData();
@@ -1499,6 +1491,26 @@ abstract class jRequest{
 			$pathinfo=substr($pathinfo,strlen($this->urlScript));
 		}
 		$this->urlPathInfo=$pathinfo;
+	}
+	public function getModuleAction(){
+		$conf=jApp::config();
+		if(isset($this->params['module'])&&trim($this->params['module'])!=''){
+			$this->module=$this->params['module'];
+		}
+		else{
+			$this->module=$conf->startModule;
+		}
+		if(isset($this->params['action'])&&trim($this->params['action'])!=''){
+			$this->action=$this->params['action'];
+		}
+		else{
+			if($this->module==$conf->startModule)
+				$this->action=$conf->startAction;
+			else{
+				$this->action='default:index';
+			}
+		}
+		return array($this->module,$this->action);
 	}
 	public function getParam($name,$defaultValue=null,$useDefaultIfEmpty=false){
 		if(isset($this->params[$name])){
@@ -1647,11 +1659,11 @@ abstract class jRequest{
 	public function readHttpBody(){
 	$input=file_get_contents("php://input");
 	$values=array();
-	if(strpos($_SERVER["CONTENT_TYPE"],"application/x-www-url-encoded")==0){
+	if(strpos($_SERVER["CONTENT_TYPE"],"application/x-www-form-urlencoded")===0){
 		parse_str($input,$values);
 		return $values;
 	}
-	else if(strpos($_SERVER["CONTENT_TYPE"],"multipart/form-data")==0){
+	else if(strpos($_SERVER["CONTENT_TYPE"],"multipart/form-data")===0){
 		if(!preg_match("/boundary=([a-zA-Z0-9]+)/",$_SERVER["CONTENT_TYPE"],$m))
 			return $input;
 		$parts=explode('--'.$m[1],$input);
@@ -1736,8 +1748,19 @@ abstract class jResponse{
 	public final function getType(){return $this->_type;}
 	public function getFormatType(){return $this->_type;}
 	public function addHttpHeader($htype,$hcontent,$overwrite=true){
-		if(!$overwrite&&isset($this->_httpHeaders[$htype]))
-			return;
+		if(isset($this->_httpHeaders[$htype])){
+			$val=$this->_httpHeaders[$htype];
+			if($overwrite===-1){
+				if(!is_array($val))
+					$this->_httpHeaders[$htype]=array($val,$hcontent);
+				else
+					$this->_httpHeaders[$htype][]=$hcontent;
+				return;
+			}
+			else if(!$overwrite){
+				return;
+			}
+		}
 		$this->_httpHeaders[$htype]=$hcontent;
 	}
 	public function clearHttpHeaders(){
@@ -1751,8 +1774,15 @@ abstract class jResponse{
 						$_SERVER['SERVER_PROTOCOL'] :
 						'HTTP/'.$this->httpVersion).
 				' '.$this->_httpStatusCode.' '.$this->_httpStatusMsg);
-		foreach($this->_httpHeaders as $ht=>$hc)
-			header($ht.': '.$hc);
+		foreach($this->_httpHeaders as $ht=>$hc){
+			if(is_array($hc)){
+				foreach($hc as $val){
+					header($ht.': '.$val);
+				}
+			}
+			else
+				header($ht.': '.$hc);
+		}
 		$this->_httpHeadersSent=true;
 	}
 	protected function _normalizeDate($date){
@@ -2213,7 +2243,7 @@ class jLog{
 	protected static function _dispatchLog($message){
 		$confLoggers=&jApp::config()->logger;
 		$category=$message->getCategory();
-		if(!isset($confLoggers->logger[$category])
+		if(!isset($confLoggers[$category])
 			||strpos($category,'option_')===0){
 			$category='default';
 		}
@@ -2489,6 +2519,9 @@ function jelix_autoload($class){
 		$f=JELIX_LIB_PATH.'acl/jAcl2.class.php';
 	}
 	elseif(preg_match('/^cDao(?:Record)?_(.+)_Jx_(.+)_Jx_(.+)$/',$class,$m)){
+		if(!isset(jApp::config()->_modulesPathList[$m[1]])){
+			return;
+		}
 		$s=new jSelectorDao($m[1].'~'.$m[2],$m[3],false);
 		if(jApp::config()->compilation['checkCacheFiletime']){
 			jIncluder::inc($s);

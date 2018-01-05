@@ -38,7 +38,9 @@ class jDaoConditions{
 		$this->condition=new jDaoCondition($glueOp);
 		$this->_currentCondition=$this->condition;
 	}
-	function addItemOrder($field_id,$way='ASC'){
+	function addItemOrder($field_id,$way='ASC',$allowAnyWay=false){
+		if(!$allowAnyWay&&strtoupper($way)!='DESC'&&strtoupper($way)!='ASC')
+			throw new jException('jelix~dao.error.bad.operator',$way);
 		$this->order[$field_id]=$way;
 	}
 	function addItemGroup($field_id){
@@ -53,6 +55,9 @@ class jDaoConditions{
 		return(count($this->condition->group)||count($this->condition->conditions));
 	}
 	function startGroup($glueOp='AND'){
+		$glueOp=strtoupper($glueOp);
+		if($glueOp!='AND'&&$glueOp!='OR')
+			throw new jException('jelix~dao.error.bad.operator',$glueOp);
 		$cond=new jDaoCondition($glueOp,$this->_currentCondition);
 		$this->_currentCondition=$cond;
 	}

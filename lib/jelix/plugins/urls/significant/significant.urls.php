@@ -148,7 +148,7 @@ class significantUrlEngine implements jIUrlEngine{
 				}
 				if($staticValues){
 					foreach($staticValues as $n=>$v){
-						if($v[0]=='$'){
+						if(!empty($v)&&$v[0]=='$'){
 							$typeStatic=$v[1];
 							$v=substr($v,2);
 							if($typeStatic=='l')
@@ -250,7 +250,7 @@ class significantUrlEngine implements jIUrlEngine{
 			for($i=1;$i < $l;$i++){
 				$ok=true;
 				foreach($urlinfo[$i][7] as $n=>$v){
-					$specialStatic=($v[0]=='$');
+					$specialStatic=(!empty($v)&&$v[0]=='$');
 					$paramStatic=$url->getParam($n,null);
 					if($specialStatic){
 						$typePS=$v[1];

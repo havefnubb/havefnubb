@@ -6,7 +6,7 @@
 * @author     Gérald Croes, Laurent Jouanneau
 * @contributor Laurent Jouanneau
 * @contributor Florian Lonqueu-Brochard
-* @copyright  2001-2005 CopixTeam, 2005-2010 Laurent Jouanneau
+* @copyright  2001-2005 CopixTeam, 2005-2012 Laurent Jouanneau
 * @copyright  2012 Florian Lonqueu-Brochard
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -43,4 +43,25 @@ class mysqliDbResultSet extends jDbResultSet{
 	{throw new jException('jelix~db.error.feature.unsupported',array('mysql','bindParam'));}
 	public function execute($parameters=null)
 	{throw new jException('jelix~db.error.feature.unsupported',array('mysql','execute'));}
+}
+class mysqliDbStmtResultSet extends mysqliDbResultSet{
+	protected $resultObject=null;
+	function __construct($result){
+		parent::__construct($result);
+		$result->store_result();
+		$meta=$result->result_metadata();
+		$this->resultObject=new stdClass();
+		while($field=$meta->fetch_field()){
+			$this->resultObject->{$field->name}=null;
+			$variables[]=& $this->resultObject->{$field->name};
+		}
+		call_user_func_array(array($result,'bind_result'),$variables);
+		$meta->close();
+	}
+	protected function  _fetch(){
+		if(!$this->_idResult->fetch())
+			return false;
+		$result=clone $this->resultObject;
+		return $result;
+	}
 }

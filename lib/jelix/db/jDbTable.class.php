@@ -157,7 +157,7 @@ abstract class jDbTable{
 		$this->references[$reference->name]=$reference;
 	}
 	public function dropReference($refName){
-		$ref=$this->getReference($reference->name);
+		$ref=$this->getReference($refName);
 		if($ref){
 			$this->_dropReference($ref);
 		}
