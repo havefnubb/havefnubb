@@ -31,13 +31,11 @@ class memberlistZone extends jZone {
 
         $nbMembersPerPage = (int) jApp::config()->havefnubb['members_per_page'];
 
-        $p = jAcl2Db::getProfile();
-
         // $memberSearch == '' means, we dont search some members by their nickname
         if($grpid == -2) {
             //all users
 
-            $dao = jDao::get('jacl2db~jacl2groupsofuser',$p);
+            $dao = jDao::get('jacl2db~jacl2groupsofuser', 'jacl2_profile');
             $cond = jDao::createConditions();
             $cond->addCondition('grouptype', '=', 2);
             $cond->addCondition('status', '=', 1);
@@ -52,7 +50,7 @@ class memberlistZone extends jZone {
 
         } else {
             //in a specific group
-            $dao = jDao::get('jacl2db~jacl2usergroup',$p);
+            $dao = jDao::get('jacl2db~jacl2usergroup', 'jacl2_profile');
             if ($letter == '')
                 $rs = $dao->getPublicUsersGroupLimit($grpid, $page, $nbMembersPerPage);
             else
@@ -62,7 +60,7 @@ class memberlistZone extends jZone {
         }
 
         $members=array();
-        $dao2 = jDao::get('jacl2db~jacl2groupsofuser',$p);
+        $dao2 = jDao::get('jacl2db~jacl2groupsofuser', 'jacl2_profile');
         foreach($rs as $u){
             $u->groups = array();
             $gl = $dao2->getGroupsUser($u->login);

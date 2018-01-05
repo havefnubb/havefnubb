@@ -354,7 +354,7 @@ class migrateWizPage extends installWizardPage {
         //get the profiles file
         $dbProfile = jIniFile::read(jApp::configPath('profiles.ini.php'));
         //get the default profile
-        $tools = jDb::getTools($dbProfile['default']);
+        $tools = jDb::getConnection($dbProfile['default'])->tools();
         // migrate from 1.3.6 to 1.4.0
         $tools->execSQLScript(dirname(__FILE__).'/../../../sql/update_to_1.4.0.mysql.sql');
     }

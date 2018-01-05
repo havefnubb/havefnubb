@@ -158,7 +158,7 @@ class forumCtrl extends jController {
         $groups=array($o);
         $grouprights=array('__anonymous'=>false);
 
-        $dao = jDao::get('jacl2db~jacl2group',jAcl2Db::getProfile())->findAllPublicGroup();
+        $dao = jDao::get('jacl2db~jacl2group', 'jacl2_profile')->findAllPublicGroup();
 
         foreach($dao as $grp) {
             $gid[]=$grp->id_aclgrp;
@@ -166,14 +166,13 @@ class forumCtrl extends jController {
             $grouprights[$grp->id_aclgrp]=false;
         }
         $rights=array();
-        $p = jAcl2Db::getProfile();
 
-        $rs = jDao::get('jacl2db~jacl2subject',$p)->findHfnuSubject();
+        $rs = jDao::get('jacl2db~jacl2subject', 'jacl2_profile')->findHfnuSubject();
         foreach($rs as $rec){
             $rights[$rec->id_aclsbj] = $grouprights;
         }
 
-        $rs = jDao::get('jacl2db~jacl2rights',$p)->getHfnuRightsByGroups($gid,'forum'.$id_forum);
+        $rs = jDao::get('jacl2db~jacl2rights', 'jacl2_profile')->getHfnuRightsByGroups($gid,'forum'.$id_forum);
         foreach($rs as $rec){
             $rights[$rec->id_aclsbj][$rec->id_aclgrp] = true;
         }

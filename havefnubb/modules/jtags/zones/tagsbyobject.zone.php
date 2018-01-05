@@ -14,8 +14,8 @@ class tagsbyobjectZone extends jZone {
     protected $_useCache = true;
     
     protected function _prepareTpl(){
-        $id = $this->getParam('id', false);
-        $scope = $this->getParam('scope', false);
+        $id = $this->param('id', false);
+        $scope = $this->param('scope', false);
  
         if (!$id || !$scope) {
             throw new Exception(jLocale::get("jtags~tags.error.parametermissing"));
