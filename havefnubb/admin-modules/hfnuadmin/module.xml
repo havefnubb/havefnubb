@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnuadmin@havefnubb.org" name="hfnuadmin" createdate="2009-01-25">
-        <version date="2012-08-31">1.4b1</version>
+        <version date="2012-08-31">1.4.0</version>
         <label lang="en_US">HfnuAdmin</label>
         <description lang="en_US">HaveFnuBB! Admin : manage the complet HaveFnu BB bulletin board</description>
         <label lang="fr_FR">HfnuAdmin</label>
@@ -14,7 +14,7 @@
     </info>
     <dependencies>
         <jelix minversion="1.4" maxversion="1.4.*"/>
-        <module name="havefnubb" minversion="1.6" maxversion="1.6.*"/>
+        <module name="havefnubb" minversion="1.5" maxversion="1.5.*"/>
         <module name="jcommunity" minversion="0.1" maxversion="0.2.*"/>
     </dependencies>
 </module>

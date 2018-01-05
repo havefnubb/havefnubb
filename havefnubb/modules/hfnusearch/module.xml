@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnusearch@havefnubb.org" name="hfnusearch" createdate="2009-02-08">
-        <version date="2012-08-31">1.6.0</version>
+        <version date="2012-08-31">1.5.1</version>
         <label lang="en_US">HfnuSearch</label>
         <description lang="en_US">Search Engine Module</description>
         <label lang="fr_FR">HfnuSearch</label>
