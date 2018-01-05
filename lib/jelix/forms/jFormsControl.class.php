@@ -147,6 +147,17 @@ abstract class jFormsControlGroups extends jFormsControl{
 		}
 	}
 }
+class jFormsControlButton extends jFormsControl{
+	public $type='button';
+	function setValueFromRequest($request){
+	}
+	public function check(){
+		return null;
+	}
+	function setDataFromDao($value,$daoDatatype){
+		$this->setData($value);
+	}
+}
 class jFormsControlCaptcha extends jFormsControl{
 	public $type='captcha';
 	public $question='';

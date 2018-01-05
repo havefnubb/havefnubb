@@ -21,8 +21,9 @@ class jResponseBasicHtml extends jResponse{
 	protected $_type='html';
 	protected $_charset;
 	protected $_lang;
-	protected $_isXhtml=true;
+	protected $_isXhtml=false;
 	public $xhtmlContentType=false;
+	protected $_headTop=array();
 	protected $_headBottom=array();
 	protected $_bodyTop=array();
 	protected $_bodyBottom=array();
@@ -49,8 +50,13 @@ class jResponseBasicHtml extends jResponse{
 			return $this->plugins[$name];
 		return null;
 	}
-	final public function addHeadContent($content){
-		$this->_headBottom[]=$content;
+	final public function addHeadContent($content,$toTop=false){
+		if($toTop){
+			$this->_headTop[]=$content;
+		}
+		else{
+			$this->_headBottom[]=$content;
+		}
 	}
 	function addContent($content,$before=false){
 		if($before){
@@ -81,6 +87,7 @@ class jResponseBasicHtml extends jResponse{
 		jLog::outputLog($this);
 		foreach($this->plugins as $name=>$plugin)
 			$plugin->beforeOutput();
+		$HEADTOP=implode("\n",$this->_headTop);
 		$HEADBOTTOM=implode("\n",$this->_headBottom);
 		$BODYTOP=implode("\n",$this->_bodyTop);
 		$BODYBOTTOM=implode("\n",$this->_bodyBottom);
@@ -100,12 +107,14 @@ class jResponseBasicHtml extends jResponse{
 			$file=jApp::appPath('responses/error.en_US.php');
 		else
 			$file=JELIX_LIB_CORE_PATH.'response/error.en_US.php';
+		$this->_headTop=array();
 		$this->_headBottom=array();
 		$this->_bodyBottom=array();
 		$this->_bodyTop=array();
 		jLog::outputLog($this);
 		foreach($this->plugins as $name=>$plugin)
 			$plugin->beforeOutputError();
+		$HEADTOP=implode("\n",$this->_headTop);
 		$HEADBOTTOM=implode("\n",$this->_headBottom);
 		$BODYTOP=implode("\n",$this->_bodyTop);
 		$BODYBOTTOM=implode("\n",$this->_bodyBottom);

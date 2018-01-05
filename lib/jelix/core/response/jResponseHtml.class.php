@@ -14,7 +14,7 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-require_once(JELIX_LIB_CORE_PATH.'response/jResponseBasicHtml.class.php');
+require_once(__DIR__.'/jResponseBasicHtml.class.php');
 require_once(JELIX_LIB_PATH.'tpl/jTpl.class.php');
 class jResponseHtml extends jResponseBasicHtml{
 	protected $_type='html';
@@ -37,7 +37,6 @@ class jResponseHtml extends jResponseBasicHtml{
 	protected $_MetaGenerator='';
 	protected $_Link=array();
 	protected $_endTag="/>\n";
-	protected $_strictDoctype=true;
 	function __construct(){
 		$this->body=new jTpl();
 		parent::__construct();
@@ -74,6 +73,9 @@ class jResponseHtml extends jResponseBasicHtml{
 			$plugin->atBottom();
 		echo '</body></html>';
 		return true;
+	}
+	public function setTitle($title){
+		$this->title=$title;
 	}
 	public function addLink($href,$rel,$type='',$title=''){
 		$this->_Link[$href]=array($rel,$type,$title);
@@ -117,6 +119,15 @@ class jResponseHtml extends jResponseBasicHtml{
 			$this->_Styles[$selector]=$def;
 		}
 	}
+	public function setBodyAttributes($attrArray){
+		if(is_array($attrArray)){
+			foreach($attrArray as $attr=>$value){
+				if(!is_numeric($attr)){
+					$this->bodyTagAttributes[$attr]=$value;
+				}
+			}
+		}
+	}
 	public function addJSCode($code,$before=false){
 		if($before)
 			$this->_JSCodeBefore[]=$code;
@@ -136,13 +147,13 @@ class jResponseHtml extends jResponseBasicHtml{
 		$this->_MetaGenerator=$content;
 	}
 	protected function outputDoctype(){
+		echo '<!DOCTYPE HTML>',"\n";
+		$lang=str_replace('_','-',$this->_lang);
 		if($this->_isXhtml){
-			echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 '.($this->_strictDoctype?'Strict':'Transitional').'//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-'.($this->_strictDoctype?'strict':'transitional').'.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="',$this->_lang,'" lang="',$this->_lang,'">
+			echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="',$lang,'" lang="',$lang,'">
 ';
 		}else{
-			echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01'.($this->_strictDoctype?'':' Transitional').'//EN" "http://www.w3.org/TR/html4/'.($this->_strictDoctype?'strict':'loose').'.dtd">',"\n";
-			echo '<html lang="',$this->_lang,'">';
+			echo '<html lang="',$lang,'">';
 		}
 	}
 	protected function outputJsScriptTag($fileUrl,$scriptParams){
@@ -167,6 +178,7 @@ class jResponseHtml extends jResponseBasicHtml{
 	}
 	protected function outputHtmlHeader(){
 		echo '<head>'."\n";
+		echo implode("\n",$this->_headTop);
 		if($this->_isXhtml&&$this->xhtmlContentType&&strstr($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml')){
 			echo '<meta content="application/xhtml+xml; charset='.$this->_charset.'" http-equiv="content-type"'.$this->_endTag;
 		}else{
@@ -264,9 +276,6 @@ class jResponseHtml extends jResponseBasicHtml{
 			$this->_endTag="/>\n";
 		else
 			$this->_endTag=">\n";
-	}
-	public function strictDoctype($val=true){
-		$this->_strictDoctype=$val;
 	}
 	public function endTag(){return $this->_endTag;}
 }

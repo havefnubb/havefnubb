@@ -12,9 +12,9 @@
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 * @since       1.0b2
 */
-include dirname(__FILE__).'/installer/jIInstallReporter.iface.php';
-include dirname(__FILE__).'/installer/jInstallerMessageProvider.class.php';
-include dirname(__FILE__).'/installer/jInstallChecker.class.php';
+include __DIR__.'/installer/jIInstallReporter.iface.php';
+include __DIR__.'/installer/jInstallerMessageProvider.class.php';
+include __DIR__.'/installer/jInstallChecker.class.php';
 class jHtmlInstallChecker implements jIInstallReporter{
 	function start(){
 		echo '<ul class="checkresults">';

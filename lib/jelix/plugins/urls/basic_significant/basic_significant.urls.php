@@ -8,7 +8,7 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-require_once(dirname(__FILE__).'/../simple/simple.urls.php');
+require_once(__DIR__.'/../simple/simple.urls.php');
 class basic_significantUrlEngine extends simpleUrlEngine{
 	function __construct(){
 		foreach(jApp::config()->basic_significant_urlengine_entrypoints as $script=>$val){
@@ -51,7 +51,7 @@ class basic_significantUrlEngine extends simpleUrlEngine{
 		if(isset(jApp::config()->basic_significant_urlengine_entrypoints[$script])
 			&&jApp::config()->basic_significant_urlengine_entrypoints[$script]){
 			if(!jApp::config()->urlengine['multiview']){
-				$script.=jApp::config()->urlengine['entrypointExtension'];
+				$script.='.php';
 			}
 			$scriptName.=$script;
 		}

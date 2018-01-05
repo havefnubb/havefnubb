@@ -18,17 +18,13 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.4.7pre.2647');
+define('JELIX_VERSION','1.5.5pre.2987');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
-define('JELIX_LIB_PATH',dirname(__FILE__).'/');
+define('JELIX_LIB_PATH',__DIR__.'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
 define('JELIX_LIB_UTILS_PATH',JELIX_LIB_PATH.'utils/');
 define('LIB_PATH',dirname(JELIX_LIB_PATH).'/');
-define('BYTECODE_CACHE_EXISTS',function_exists('apc_cache_info')||function_exists('eaccelerator_info')||function_exists('xcache_info'));
-if(!defined('E_DEPRECATED'))
-	define('E_DEPRECATED',8192);
-if(!defined('E_USER_DEPRECATED'))
-	define('E_USER_DEPRECATED',16384);
+define('BYTECODE_CACHE_EXISTS',function_exists('opcache_compile_file')||function_exists('apc_cache_info')||function_exists('eaccelerator_info')||function_exists('xcache_info'));
 error_reporting(E_ALL | E_STRICT);
 class jApp{
 	protected static $tempBasePath='';
@@ -57,34 +53,6 @@ class jApp{
 		self::$_isInit=true;
 	}
 	public static function isInit(){return self::$_isInit;}
-	public static function initLegacy(){
-		if(self::$_isInit){
-			if(!defined('JELIX_APP_PATH')){
-				define('JELIX_APP_PATH',self::$appPath);
-				define('JELIX_APP_TEMP_PATH',self::tempPath());
-				define('JELIX_APP_VAR_PATH',self::$varPath);
-				define('JELIX_APP_LOG_PATH',self::$logPath);
-				define('JELIX_APP_CONFIG_PATH',self::$configPath);
-				define('JELIX_APP_WWW_PATH',self::$wwwPath);
-				define('JELIX_APP_CMD_PATH',self::$scriptPath);
-			}
-		}
-		else if(defined('JELIX_APP_PATH')){
-			self::initPaths(JELIX_APP_PATH,
-							JELIX_APP_WWW_PATH,
-							JELIX_APP_VAR_PATH,
-							JELIX_APP_LOG_PATH,
-							JELIX_APP_CONFIG_PATH,
-							JELIX_APP_CMD_PATH);
-			self::setTempBasePath(JELIX_APP_TEMP_PATH);
-		}
-		global $gJConfig;
-		if(!$gJConfig)
-			$gJConfig=self::$_config;
-		global $gJCoord;
-		if(!$gJCoord)
-			$gJCoord=self::$_coord;
-	}
 	public static function appPath($file=''){return self::$appPath.$file;}
 	public static function varPath($file=''){return self::$varPath.$file;}
 	public static function logPath($file=''){return self::$logPath.$file;}
@@ -146,15 +114,17 @@ class jApp{
 			$coord=clone self::$_coord;
 		else
 			$coord=null;
-		self::$contextBackup[]=array(self::$appPath,self::$varPath,self::$logPath,self::$configPath,
-										self::$wwwPath,self::$scriptPath,self::$tempBasePath,self::$env,$conf,$coord);
+		self::$contextBackup[]=array(self::$appPath,self::$varPath,self::$logPath,
+										self::$configPath,self::$wwwPath,self::$scriptPath,
+										self::$tempBasePath,self::$env,$conf,$coord,
+										self::$modulesContext);
 	}
 	public static function restoreContext(){
 		if(!count(self::$contextBackup))
 			return;
 		list(self::$appPath,self::$varPath,self::$logPath,self::$configPath,
 			self::$wwwPath,self::$scriptPath,self::$tempBasePath,self::$env,
-			$conf,self::$_coord)=array_pop(self::$contextBackup);
+			$conf,self::$_coord,self::$modulesContext)=array_pop(self::$contextBackup);
 		self::setConfig($conf);
 	}
 	public static function loadPlugin($name,$type,$suffix,$classname,$args=null){
@@ -189,6 +159,108 @@ class jApp{
 		}
 		return self::$_config->_modulesPathList[$module];
 	}
+	static protected $modulesContext=array();
+	static function pushCurrentModule($module){
+		array_push(self::$modulesContext,$module);
+	}
+	static function popCurrentModule(){
+		return array_pop(self::$modulesContext);
+	}
+	static function getCurrentModule(){
+		return end(self::$modulesContext);
+	}
+}
+if(function_exists('jelix_version')){
+	return;
+}
+else{
+function jelix_read_ini($fileName,$config=null){
+	$conf=jIniFile::read($fileName);
+	if($config!==null){
+		foreach($conf as $k=>$v){
+			if(!isset($config->$k)){
+				$config->$k=$v;
+				continue;
+			}
+			if($k[1]=='_')
+				continue;
+			if(is_array($v)){
+				$config->$k=array_merge($config->$k,$v);
+			}
+			else{
+				$config->$k=$v;
+			}
+		}
+		return $config;
+	}
+	$conf=(object) $conf;
+	return $conf;
+}
+function jelix_scan_module_sel($selStr,$selObj){
+	if(preg_match("/^(([a-zA-Z0-9_\.]+)~)?([a-zA-Z0-9_\.]+)$/",$selStr,$m)){
+		if($m[1]!=''&&$m[2]!=''){
+			$selObj->module=$m[2];
+		}else{
+			$selObj->module='';
+		}
+		$selObj->resource=$m[3];
+		return true;
+	}
+	return false;
+}
+function jelix_scan_action_sel($selStr,$selObj,$actionName){
+	if(preg_match("/^(?:([a-zA-Z0-9_\.]+|\#)~)?([a-zA-Z0-9_:]+|\#)?(?:@([a-zA-Z0-9_]+))?$/",$selStr,$m)){
+		$m=array_pad($m,4,'');
+		$selObj->module=$m[1];
+		if($m[2]=='#')
+			$selObj->resource=$actionName;
+		else
+			$selObj->resource=$m[2];
+		$r=explode(':',$selObj->resource);
+		if(count($r)==1){
+			$selObj->controller='default';
+			$selObj->method=$r[0]==''?'index':$r[0];
+		}else{
+			$selObj->controller=$r[0]=='' ? 'default':$r[0];
+			$selObj->method=$r[1]==''?'index':$r[1];
+		}
+		$selObj->resource=$selObj->controller.':'.$selObj->method;
+		$selObj->request=$m[3];
+		return true;
+	}
+	return false;
+}
+function jelix_scan_class_sel($selStr,$selObj){
+	if(preg_match("/^(([a-zA-Z0-9_\.]+)~)?([a-zA-Z0-9_\.\\/]+)$/",$selStr,$m)){
+		$selObj->module=$m[2];
+		$selObj->resource=$m[3];
+		if(($p=strrpos($m[3],'/'))!==false){
+			$selObj->className=substr($m[3],$p+1);
+			$selObj->subpath=substr($m[3],0,$p+1);
+		}
+		else{
+			$selObj->className=$m[3];
+			$selObj->subpath='';
+		}
+		return true;
+	}
+	return false;
+}
+function jelix_scan_locale_sel($selStr,$selObj){
+	if(preg_match("/^(([a-zA-Z0-9_\.]+)~)?([a-zA-Z0-9_]+)\.([a-zA-Z0-9_\-\.]+)$/",$selStr,$m)){
+		if($m[1]!=''&&$m[2]!=''){
+			$selObj->module=$m[2];
+		}
+		else{
+			$selObj->module='';
+		}
+		$selObj->resource=$m[3];
+		$selObj->fileKey=$m[3];
+		$selObj->messageKey=$m[4];
+		return true;
+	}
+	return false;
+}
 }
 interface jICoordPlugin{
 	public function __construct($config);
@@ -279,6 +351,7 @@ class jBasicErrorHandler{
 					$file=jApp::appPath('responses/error.en_US.php');
 				else
 					$file=JELIX_LIB_CORE_PATH.'response/error.en_US.php';
+				$HEADTOP='';
 				$HEADBOTTOM='';
 				$BODYTOP='';
 				$BODYBOTTOM=htmlspecialchars($msg);
@@ -322,58 +395,43 @@ class jException extends Exception{
 		return $this->localeKey;
 	}
 }
-class jContext{
-	static protected $context=array();
-	static function push($module){
-		array_push(self::$context,$module);
-	}
-	static function pop(){
-		return array_pop(self::$context);
-	}
-	static function get(){
-		return end(self::$context);
-	}
-	static function clear(){
-		self::$context=array();
-	}
-}
 class jConfig{
+	public static $fromCache=true;
 	private function __construct(){}
 	static public function load($configFile){
 		$config=array();
-		$file=jApp::tempPath();
+		$file=jApp::tempPath().str_replace('/','~',$configFile);
 		if(BYTECODE_CACHE_EXISTS)
-			$file.=str_replace('/','~',$configFile).'.conf.php';
+			$file.='.conf.php';
 		else
-			$file.=str_replace('/','~',$configFile).'.resultini.php';
-		$compil=false;
+			$file.='.resultini.php';
+		self::$fromCache=true;
 		if(!file_exists($file)){
-			$compil=true;
+			self::$fromCache=false;
 		}else{
 			$t=filemtime($file);
 			$dc=jApp::configPath('defaultconfig.ini.php');
 			if((file_exists($dc)&&filemtime($dc)>$t)
 				||filemtime(jApp::configPath($configFile))>$t){
-				$compil=true;
+				self::$fromCache=false;
 			}else{
 				if(BYTECODE_CACHE_EXISTS){
 					include($file);
 					$config=(object) $config;
 				}else{
-					$config=parse_ini_file($file,true);
-					$config=(object) $config;
+					$config=jelix_read_ini($file);
 				}
 				if($config->compilation['checkCacheFiletime']){
 					foreach($config->_allBasePath as $path){
 						if(!file_exists($path)||filemtime($path)>$t){
-							$compil=true;
+							self::$fromCache=false;
 							break;
 						}
 					}
 				}
 			}
 		}
-		if($compil){
+		if(!self::$fromCache){
 			require_once(JELIX_LIB_CORE_PATH.'jConfigCompiler.class.php');
 			return jConfigCompiler::readAndCache($configFile);
 		}else
@@ -528,13 +586,10 @@ abstract class jSelectorModule implements jISelector{
 	protected $_compilerPath;
 	protected $_useMultiSourceCompiler=false;
 	function __construct($sel){
-		if(preg_match("/^(([a-zA-Z0-9_\.]+)~)?([a-zA-Z0-9_\.]+)$/",$sel,$m)){
-			if($m[1]!=''&&$m[2]!=''){
-				$this->module=$m[2];
-			}else{
-				$this->module=jContext::get();
+		if(jelix_scan_module_sel($sel,$this)){
+			if($this->module==''){
+				$this->module=jApp::getCurrentModule();
 			}
-			$this->resource=$m[3];
 			$this->_createPath();
 			$this->_createCachePath();
 		}else{
@@ -629,32 +684,16 @@ class jSelectorAct extends jSelectorActFast{
 	function __construct($sel,$enableRequestPart=false,$toRetrieveUrl=false){
 		$coord=jApp::coord();
 		$this->forUrl=$toRetrieveUrl;
-		if(preg_match("/^(?:([a-zA-Z0-9_\.]+|\#)~)?([a-zA-Z0-9_:]+|\#)?(?:@([a-zA-Z0-9_]+))?$/",$sel,$m)){
-			$m=array_pad($m,4,'');
-			if($m[1]!=''){
-				if($m[1]=='#')
-					$this->module=$coord->moduleName;
-				else
-					$this->module=$m[1];
-			}else{
-				$this->module=jContext::get();
+		if($coord->actionName===null)
+			$coord->actionName='default:index';
+		if(jelix_scan_action_sel($sel,$this,$coord->actionName)){
+			if($this->module=='#'){
+				$this->module=$coord->moduleName;
 			}
-			if($m[2]=='#')
-				$this->resource=$coord->actionName;
-			else
-				$this->resource=$m[2];
-			$r=explode(':',$this->resource);
-			if(count($r)==1){
-				$this->controller='default';
-				$this->method=$r[0]==''?'index':$r[0];
-			}else{
-				$this->controller=$r[0]=='' ? 'default':$r[0];
-				$this->method=$r[1]==''?'index':$r[1];
+			elseif($this->module==''){
+				$this->module=jApp::getCurrentModule();
 			}
-			$this->resource=$this->controller.':'.$this->method;
-			if($m[3]!=''&&$enableRequestPart)
-				$this->request=$m[3];
-			else
+			if($this->request==''||!$enableRequestPart)
 				$this->request=$coord->request->type;
 			$this->_createPath();
 		}else{
@@ -680,19 +719,9 @@ class jSelectorClass extends jSelectorModule{
 	public $subpath='';
 	public $className='';
 	function __construct($sel){
-		if(preg_match("/^(([a-zA-Z0-9_\.]+)~)?([a-zA-Z0-9_\.\\/]+)$/",$sel,$m)){
-			if($m[1]!=''&&$m[2]!=''){
-				$this->module=$m[2];
-			}else{
-				$this->module=jContext::get();
-			}
-			$this->resource=$m[3];
-			if(($p=strrpos($m[3],'/'))!==false){
-				$this->className=substr($m[3],$p+1);
-				$this->subpath=substr($m[3],0,$p+1);
-			}else{
-				$this->className=$m[3];
-				$this->subpath='';
+		if(jelix_scan_class_sel($sel,$this)){
+			if($this->module==''){
+				$this->module=jApp::getCurrentModule();
 			}
 			$this->_createPath();
 			$this->_createCachePath();
@@ -759,13 +788,21 @@ class jSelectorDao extends jSelectorModule{
 		$this->_where='modules/';
 	}
 	protected function _createCachePath(){
-		$this->_cachePath=jApp::tempPath('compiled/daos/'.$this->_where.$this->module.'~'.$this->resource.'~'.$this->driver.$this->_cacheSuffix);
+		$this->_cachePath=jApp::tempPath('compiled/daos/'.$this->_where.$this->module.'~'.$this->resource.'~'.$this->driver.'_15'.$this->_cacheSuffix);
 	}
 	public function getDaoClass(){
 		return 'cDao_'.$this->module.'_Jx_'.$this->resource.'_Jx_'.$this->driver;
 	}
 	public function getDaoRecordClass(){
 		return 'cDaoRecord_'.$this->module.'_Jx_'.$this->resource.'_Jx_'.$this->driver;
+	}
+}
+class jSelectorDaoRecord extends jSelectorModule{
+	protected $type='daorecord';
+	protected $_dirname='daos/';
+	protected $_suffix='.daorecord.php';
+	protected function _createCachePath(){
+		$this->_cachePath='';
 	}
 }
 class jSelectorForm extends jSelectorModule{
@@ -798,7 +835,7 @@ class jSelectorForm extends jSelectorModule{
 		$this->_where='modules/';
 	}
 	protected function _createCachePath(){
-		$this->_cachePath=jApp::tempPath('compiled/'.$this->_dirname.$this->_where.$this->module.'~'.$this->resource.$this->_cacheSuffix);
+		$this->_cachePath=jApp::tempPath('compiled/'.$this->_dirname.$this->_where.$this->module.'~'.$this->resource.'_15'.$this->_cacheSuffix);
 	}
 	public function getCompiledBuilderFilePath($type){
 		return jApp::tempPath('compiled/'.$this->_dirname.$this->_where.$this->module.'~'.$this->resource.'_builder_'.$type.$this->_cacheSuffix);
@@ -831,18 +868,14 @@ class jSelectorLoc extends jSelectorModule{
 		$this->charset=$charset;
 		$this->_suffix='.'.$charset.'.properties';
 		$this->_compilerPath=JELIX_LIB_CORE_PATH.'jLocalesCompiler.class.php';
-		if(preg_match("/^(([a-zA-Z0-9_\.]+)~)?([a-zA-Z0-9_]+)\.([a-zA-Z0-9_\.]+)$/",$sel,$m)){
-			if($m[1]!=''&&$m[2]!=''){
-				$this->module=$m[2];
-			}else{
-				$this->module=jContext::get();
+		if(jelix_scan_locale_sel($sel,$this)){
+			if($this->module==''){
+				$this->module=jApp::getCurrentModule();
 			}
-			$this->resource=$m[3];
-			$this->fileKey=$m[3];
-			$this->messageKey=$m[4];
 			$this->_createPath();
 			$this->_createCachePath();
-		}else{
+		}
+		else{
 			throw new jExceptionSelector('jelix~errors.selector.invalid.syntax',array($sel,$this->type));
 		}
 	}
@@ -862,6 +895,13 @@ class jSelectorLoc extends jSelectorModule{
 			if(is_readable($overloadedPath)){
 				$this->_path=$overloadedPath;
 				$this->_where='overloaded/';
+				$this->_cacheSuffix='.'.$locale.'.'.$this->charset.'.php';
+				return;
+			}
+			$localesPath=jApp::varPath('locales/'.$locale.'/'.$this->module.'/locales/'.$this->resource.$this->_suffix);
+			if(is_readable($localesPath)){
+				$this->_path=$localesPath;
+				$this->_where='locales/';
 				$this->_cacheSuffix='.'.$locale.'.'.$this->charset.'.php';
 				return;
 			}
@@ -956,7 +996,7 @@ class jSelectorTpl extends jSelectorModule{
 		throw new jExceptionSelector('jelix~errors.selector.invalid.target',array($this->toString(),"template"));
 	}
 	protected function _createCachePath(){
-		$this->_cachePath=jApp::tempPath('compiled/templates/'.$this->_where.'_'.$this->outputType.($this->trusted?'_t':'').$this->_cacheSuffix);
+		$this->_cachePath=jApp::tempPath('compiled/templates/'.$this->_where.'_'.$this->outputType.($this->trusted?'_t':'').'_15'.$this->_cacheSuffix);
 	}
 }
 class jSelectorZone extends jSelectorModule{
@@ -1216,7 +1256,6 @@ class jCoordinator{
 	function __construct($configFile='',$enableErrorHandler=true){
 		if($configFile)
 			jApp::loadConfig($configFile,$enableErrorHandler);
-		jApp::initLegacy();
 		$this->_loadPlugins();
 	}
 	private function _loadPlugins(){
@@ -1243,7 +1282,7 @@ class jCoordinator{
 			$this->plugins[strtolower($name)]=new $class($conf);
 		}
 	}
-	public function process($request){
+	protected function setRequest($request){
 		$config=jApp::config();
 		$this->request=$request;
 		if($config->enableErrorHandler){
@@ -1254,26 +1293,37 @@ class jCoordinator{
 			}
 		}
 		$this->request->init();
-		jSession::start();
 		list($this->moduleName,$this->actionName)=$request->getModuleAction();
-		jContext::push($this->moduleName);
+		jApp::pushCurrentModule($this->moduleName);
+		$this->action=new jSelectorActFast($this->request->type,$this->moduleName,$this->actionName);
+		if($config->modules[$this->moduleName.'.access'] < 2){
+			throw new jException('jelix~errors.module.untrusted',$this->moduleName);
+		}
+	}
+	public function process($request=null){
 		try{
-			$this->action=new jSelectorActFast($this->request->type,$this->moduleName,$this->actionName);
-			if($config->modules[$this->moduleName.'.access'] < 2){
-				throw new jException('jelix~errors.module.untrusted',$this->moduleName);
-			}
+			if($request)
+				$this->setRequest($request);
+			jSession::start();
 			$ctrl=$this->getController($this->action);
-		}catch(jException $e){
+		}
+		catch(jException $e){
+			$config=jApp::config();
 			if($config->urlengine['notfoundAct']==''){
 				throw $e;
+			}
+			if(!jSession::isStarted()){
+				jSession::start();
 			}
 			try{
 				$this->action=new jSelectorAct($config->urlengine['notfoundAct']);
 				$ctrl=$this->getController($this->action);
-			}catch(jException $e2){
+			}
+			catch(jException $e2){
 				throw $e;
 			}
 		}
+		jApp::pushCurrentModule($this->moduleName);
 		if(count($this->plugins)){
 			$pluginparams=array();
 			if(isset($ctrl->pluginParams['*'])){
@@ -1286,8 +1336,8 @@ class jCoordinator{
 				$result=$this->plugins[$name]->beforeAction($pluginparams);
 				if($result){
 					$this->action=$result;
-					jContext::pop();
-					jContext::push($result->module);
+					jApp::popCurrentModule();
+					jApp::pushCurrentModule($result->module);
 					$this->moduleName=$result->module;
 					$this->actionName=$result->resource;
 					$ctrl=$this->getController($this->action);
@@ -1306,7 +1356,7 @@ class jCoordinator{
 		foreach($this->plugins as $name=>$obj){
 			$this->plugins[$name]->afterProcess();
 		}
-		jContext::pop();
+		jApp::popCurrentModule();
 		jSession::end();
 	}
 	private function getController($selector){
@@ -1326,17 +1376,6 @@ class jCoordinator{
 			throw new jException('jelix~errors.ad.controller.method.unknown',array($this->actionName,$selector->method,$class,$ctrlpath));
 		}
 		return $ctrl;
-	}
-	public function initDefaultResponseOfRequest($originalResponse=false){
-		try{
-			$this->request->getResponse('',$originalResponse);
-		}
-		catch(Exception $e){
-			if(!$originalResponse)
-				$this->initDefaultResponseOfRequest(true);
-			else
-				throw $e;
-		}
 	}
 	function errorHandler($errno,$errmsg,$filename,$linenum,$errcontext){
 		if(error_reporting()==0)
@@ -1397,14 +1436,6 @@ class jCoordinator{
 	}
 	public function isPluginEnabled($pluginName){
 		return isset($this->plugins[strtolower($pluginName)]);
-	}
-	public function isModuleEnabled($moduleName,$includingExternal=false){
-		trigger_error("jCoordinator::isModuleEnabled() is deprecated. Use jApp::isModuleEnabled() instead",E_USER_NOTICE);
-		return jApp::isModuleEnabled($moduleName,$includingExternal);
-	}
-	public function getModulePath($module,$includingExternal=false){
-		trigger_error("jCoordinator::getModulePath() is deprecated. Use jApp::getModulePath() instead",E_USER_NOTICE);
-		return jApp::getModulePath($module,$includingExternal);
 	}
 }
 interface jIRestController{
@@ -2349,23 +2380,26 @@ class jIncluder{
 			return;
 		}
 		$mustCompile=jApp::config()->compilation['force']||!file_exists($cachefile);
-		if(!$mustCompile&&jApp::config()->compilation['checkCacheFiletime']){
-			if(filemtime($aSelector->getPath())> filemtime($cachefile))
-				$mustCompile=true;
-		}
-		if($mustCompile){
-			$compiler=$aSelector->getCompiler();
-			if($compiler&&$compiler->compile($aSelector)){
-				require($cachefile);
+		if(!$mustCompile){
+			$isValid=require($cachefile);
+			if($isValid===true){
 				jIncluder::$_includedFiles[$cachefile]=true;
+				return;
 			}
-			else{
-				throw new jException('jelix~errors.includer.source.compile',array($aSelector->toString(true)));
-			}
-		}else{
-			require($cachefile);
-			jIncluder::$_includedFiles[$cachefile]=true;
 		}
+		$sourcefile=$aSelector->getPath();
+		$compiler=$aSelector->getCompiler();
+		if(!$compiler||!$compiler->compile($aSelector)){
+			throw new jException('jelix~errors.includer.source.compile',array($aSelector->toString(true)));
+		}
+		if(function_exists('opcache_invalidate')){
+			opcache_invalidate($cachefile,true);
+		}
+		else if(function_exists('apc_delete_file')){
+			apc_delete_file($cachefile);
+		}
+		require($cachefile);
+		jIncluder::$_includedFiles[$cachefile]=true;
 	}
 	public static function incAll($aType){
 		$cachefile=jApp::tempPath('compiled/'.$aType[3]);
@@ -2396,6 +2430,12 @@ class jIncluder{
 			}
 			if($compileok){
 				$compiler->endCompile($cachefile);
+				if(function_exists('opcache_invalidate')){
+					opcache_invalidate($cachefile,true);
+				}
+				else if(function_exists('apc_delete_file')){
+					apc_delete_file($cachefile);
+				}
 				require($cachefile);
 				jIncluder::$_includedFiles[$cachefile]=true;
 			}
@@ -2448,6 +2488,16 @@ class jSession{
 	public static function end(){
 		session_write_close();
 		return true;
+	}
+	public static function isStarted(){
+		if(php_sapi_name()!=='cli'){
+			if(version_compare(phpversion(),'5.4.0','>=')){
+				return(session_status()===PHP_SESSION_ACTIVE);
+			}else{
+				return session_id()==='' ? false : true;
+			}
+		}
+		return false;
 	}
 	protected static function _getDao(){
 		if(isset(self::$_params['dao_db_profile'])&&self::$_params['dao_db_profile']){
@@ -2505,19 +2555,17 @@ class jSession{
 		return true;
 	}
 }
-$gJCoord=null;
-$gJConfig=null;
 $gLibPath=array('Db'=>JELIX_LIB_PATH.'db/','Dao'=>JELIX_LIB_PATH.'dao/',
 'Forms'=>JELIX_LIB_PATH.'forms/','Event'=>JELIX_LIB_PATH.'events/',
 'Tpl'=>JELIX_LIB_PATH.'tpl/','Controller'=>JELIX_LIB_PATH.'controllers/',
 'Auth'=>JELIX_LIB_PATH.'auth/','Installer'=>JELIX_LIB_PATH.'installer/',
-'KV'=>JELIX_LIB_PATH.'kvdb/','Pref'=>JELIX_LIB_PATH.'pref/');
+'KV'=>JELIX_LIB_PATH.'kvdb/');
 function jelix_autoload($class){
-	if(preg_match('/^j(Dao|Tpl|Event|Db|Controller|Forms|Auth|Installer|KV|Pref).*/i',$class,$m)){
-		$f=$GLOBALS['gLibPath'][$m[1]].$class.'.class.php';
+	if(strpos($class,'jelix\\')===0){
+		$f=LIB_PATH.str_replace('\\',DIRECTORY_SEPARATOR,$class).'.php';
 	}
-	elseif($class=='jAcl2'){
-		$f=JELIX_LIB_PATH.'acl/jAcl2.class.php';
+	else if(preg_match('/^j(Dao|Tpl|Event|Db|Controller|Forms|Auth|Installer|KV).*/i',$class,$m)){
+		$f=$GLOBALS['gLibPath'][$m[1]].$class.'.class.php';
 	}
 	elseif(preg_match('/^cDao(?:Record)?_(.+)_Jx_(.+)_Jx_(.+)$/',$class,$m)){
 		if(!isset(jApp::config()->_modulesPathList[$m[1]])){

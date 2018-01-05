@@ -11,11 +11,11 @@
 class jSelectorUrlCfgSig extends jSelectorCfg{
 	public $type='urlcfgsig';
 	public function getCompiler(){
-		require_once(dirname(__FILE__).'/jSignificantUrlsCompiler.class.php');
+		require_once(__DIR__.'/jSignificantUrlsCompiler.class.php');
 		$o=new jSignificantUrlsCompiler();
 		return $o;
 	}
-	public function getCompiledFilePath(){return jApp::tempPath('compiled/urlsig/'.$this->file.'.creationinfos.php');}
+	public function getCompiledFilePath(){return jApp::tempPath('compiled/urlsig/'.$this->file.'.creationinfos_15.php');}
 }
 class jSelectorUrlHandler extends jSelectorClass{
 	public $type='urlhandler';
@@ -72,7 +72,7 @@ class significantUrlEngine implements jIUrlEngine{
 			else{
 				$snp=$scriptNamePath;
 			}
-			$pos=strrpos($snp,$conf['entrypointExtension']);
+			$pos=strrpos($snp,'.php');
 			if($pos!==false){
 				$snp=substr($snp,0,$pos);
 			}
@@ -218,7 +218,7 @@ class significantUrlEngine implements jIUrlEngine{
 			$this->dataCreateUrl=& $GLOBALS['SIGNIFICANT_CREATEURL'];
 		}
 		$url=new jUrl('',$urlact->params,'');
-		$module=$url->getParam('module',jContext::get());
+		$module=$url->getParam('module',jApp::getCurrentModule());
 		$action=$url->getParam('action');
 		$id=$module.'~'.$action.'@'.$urlact->requestType;
 		$urlinfo=null;
@@ -291,7 +291,7 @@ class significantUrlEngine implements jIUrlEngine{
 		if($urlinfo[2])
 			$url->scriptName=jApp::coord()->request->getServerURI(true).$url->scriptName;
 		if($urlinfo[1]&&!jApp::config()->urlengine['multiview']){
-			$url->scriptName.=jApp::config()->urlengine['entrypointExtension'];
+			$url->scriptName.='.php';
 		}
 		if(in_array($urlact->requestType,array('xmlrpc','jsonrpc','soap'))){
 			$url->clearParam();

@@ -33,6 +33,7 @@ class jDbFieldProperties{
 	public $maxLength=null;
 	public $minValue=null;
 	public $maxValue=null;
+	public $comment;
 }
 abstract class jDbTools{
 	public $trueValue='1';

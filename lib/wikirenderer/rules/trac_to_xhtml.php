@@ -111,7 +111,7 @@ class tracWikiHtmlTextLine extends WikiTag {
 
             foreach($m as $match) {
                 $len = ($match[0][1])-$begin;
-                $str.= htmlspecialchars(substr($string, $begin, $len), ENT_COMPAT, $this->config->charset);
+                $str.= htmlspecialchars(substr($string, $begin, $len));
                 $begin = $match[0][1] + strlen($match[0][0]);
 
                 switch($match[1][0]) {
@@ -130,17 +130,16 @@ class tracWikiHtmlTextLine extends WikiTag {
                                 $str.= '<a href="'.$this->config->linkBaseUrl[$match[1][0]].$match[2][0].'">'.$match[1][0].' '.$match[2][0].'</a>';
                         }
                         else
-                            $str.= htmlspecialchars($match[0][0], ENT_COMPAT, $this->config->charset);
+                            $str.= htmlspecialchars($match[0][0]);
                 }
 
             }
             if($begin < strlen($string))
-                $str.= htmlspecialchars(substr($string, $begin), ENT_COMPAT, $this->config->charset);
+                $str.= htmlspecialchars(substr($string, $begin));
             return $str;
         }
-        else {
-            return htmlspecialchars($string, ENT_COMPAT, $this->config->charset);
-        }
+        else
+            return htmlspecialchars($string);
     }
 }
 
@@ -231,10 +230,9 @@ class tracxhtml_link extends WikiTagXhtml {
         if($cnt == 1 ){
             $href = $this->wikiContentArr[0];
             $label = $href;
-            if(strlen($label) > 40) {
+            if(strlen($label) > 40)
                 $label=substr($label,0,40).'(..)';
-            }
-            $label = $this->_doEscape($label);
+            $label = htmlspecialchars($label);
         }
         else {
             $href = $this->wikiContentArr[0];
@@ -246,7 +244,7 @@ class tracxhtml_link extends WikiTagXhtml {
             return $this->getWikiContent();
 
         if($m[1] == 'http' || $m[1] == 'https' || $m[1] == 'ftp' || $m[1] == 'irc' || $m[1] == 'mailto') {
-            return '<a href="'.$this->_doEscape(trim($href)).'">'.$label.'</a>';
+            return '<a href="'.htmlspecialchars(trim($href)).'">'.$label.'</a>';
         }
 
         if (isset($this->config->linkBaseUrl[$m[1]])) {
@@ -611,7 +609,7 @@ class tracxhtml_table_row extends WikiTag {
     protected $columns = array('');
 
     protected function _doEscape($string){
-        return htmlspecialchars($string, ENT_COMPAT, $this->config->charset);
+        return htmlspecialchars($string);
     }
 
     // called by the inline parser, when it found a separator
@@ -728,7 +726,7 @@ class tracxhtml_pre extends WikiRendererBloc {
    }
 
     public function getRenderedLine(){
-        return htmlspecialchars($this->_detectMatch, ENT_COMPAT, $this->engine->getConfig()->charset);
+        return htmlspecialchars($this->_detectMatch);
     }
 
     public function detect($string){
@@ -811,7 +809,7 @@ class tracxhtml_image extends WikiRendererBloc {
             }
             else if(preg_match('/^(align|border|width|height|alt|title|longdesc|class|id)=(.*)$/', $p,$m)) {
                 if($m[1]=='alt') $hasAlt = true;
-                $attrs.=' '.$m[1].'="'.htmlspecialchars($m[2], ENT_COMPAT, $this->engine->getConfig()->charset).'"';
+                $attrs.=' '.$m[1].'="'.htmlspecialchars($m[2]).'"';
             }
         }
         if(!$hasAlt)

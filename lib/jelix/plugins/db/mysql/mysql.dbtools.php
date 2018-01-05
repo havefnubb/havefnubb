@@ -116,7 +116,7 @@ class mysqlDbTools extends jDbTools{
 	public function getFieldList($tableName,$sequence=''){
 		$tableName=$this->_conn->prefixTable($tableName);
 		$results=array();
-		$rs=$this->_conn->query('SHOW FIELDS FROM `'.$tableName.'`');
+		$rs=$this->_conn->query('SHOW FULL FIELDS FROM `'.$tableName.'`');
 		while($line=$rs->fetch()){
 			$field=new jDbFieldProperties();
 			if(preg_match('/^(\w+)\s*(\((\d+)\))?.*$/',$line->Type,$m)){
@@ -140,6 +140,9 @@ class mysqlDbTools extends jDbTools{
 			$field->primary=($line->Key=='PRI');
 			$field->autoIncrement=($line->Extra=='auto_increment');
 			$field->hasDefault=($line->Default!=''||!($line->Default==null&&$field->notNull));
+			if(isset($line->Comment)&&$line->Comment!=''){
+				$field->comment=$line->Comment;
+			}
 			if($field->notNull&&$line->Default===null&&!$field->autoIncrement)
 				$field->default='';
 			else

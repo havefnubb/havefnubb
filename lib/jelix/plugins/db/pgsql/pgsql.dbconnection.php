@@ -18,7 +18,7 @@
 * @link        http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-require_once(dirname(__FILE__).'/pgsql.dbresultset.php');
+require_once(__DIR__.'/pgsql.dbresultset.php');
 class pgsqlDbConnection extends jDbConnection{
 	protected $_charsets=array('UTF-8'=>'UNICODE','ISO-8859-1'=>'LATIN1');
 	function __construct($profile){

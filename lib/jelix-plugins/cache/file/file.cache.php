@@ -150,10 +150,7 @@ class fileCacheDriver implements jICacheDriver{
 		$filePath=$this->_getCacheFilePath($key);
 		if(!file_exists($filePath))
 			return false;
-		if(version_compare(PHP_VERSION,'5.3.0')>=0)
-			clearstatcache(false,$filePath);
-		else
-			clearstatcache();
+		clearstatcache(false,$filePath);
 		return(filemtime($filePath)> time()||filemtime($filePath)==0)&&is_readable($filePath);
 	}
 	protected function _getFileContent($filePath){
@@ -232,10 +229,7 @@ class fileCacheDriver implements jICacheDriver{
 						if($all){
 							@unlink($f);
 						}else{
-							if(version_compare(PHP_VERSION,'5.3.0')>=0)
-								clearstatcache(false,$f);
-							else
-								clearstatcache();
+							clearstatcache(false,$f);
 							if(time()> filemtime($f)&&filemtime($f)!=0){
 								@unlink($dir.'/'.$file);
 							}

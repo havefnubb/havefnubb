@@ -107,13 +107,6 @@ class jInstallCheck{
 				$this->ok('extension.required.installed',$name);
 			}
 		}
-		if($this->buildProperties['WITH_BYTECODE_CACHE']!='auto'&&
-			$this->buildProperties['WITH_BYTECODE_CACHE']!=''){
-			if(!extension_loaded('apc')&&!extension_loaded('eaccelerator')&&!extension_loaded('xcache')){
-				$this->error('extension.opcode.cache');
-				$ok=false;
-			}
-		}
 		if(count($this->databases)){
 			$req=($this->dbRequired?'required':'optional');
 			$okdb=false;
@@ -250,21 +243,9 @@ class jInstallCheck{
 			$indexconfig=parse_ini_file(jApp::configPath("index/config.ini.php"),true);
 		else
 			$indexconfig=array();
-		if((isset($defaultconfig['coordplugins']['magicquotes'])&&$defaultconfig['coordplugins']['magicquotes']==1)||
-			(isset($indexconfig['coordplugins']['magicquotes'])&&$indexconfig['coordplugins']['magicquotes']==1)){
-			if(ini_get('magic_quotes_gpc')==1){
-				$this->notice('ini.magic_quotes_gpc_with_plugin');
-			}
-			else{
-				$this->error('ini.magicquotes_plugin_without_php');
-				$ok=false;
-			}
-		}
-		else{
-			if(ini_get('magic_quotes_gpc')==1){
-				$this->warning('ini.magic_quotes_gpc');
-				$ok=false;
-			}
+		if(ini_get('magic_quotes_gpc')==1){
+			$this->error('ini.magic_quotes_gpc');
+			$ok=false;
 		}
 		if(ini_get('magic_quotes_runtime')==1){
 			$this->error('ini.magic_quotes_runtime');
@@ -275,7 +256,7 @@ class jInstallCheck{
 			$ok=false;
 		}
 		if(ini_get('safe_mode')==1){
-			$this->warning('safe_mode');
+			$this->error('ini.safe_mode');
 			$ok=false;
 		}
 		if(ini_get('register_globals')==1){

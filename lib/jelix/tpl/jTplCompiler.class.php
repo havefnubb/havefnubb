@@ -11,14 +11,9 @@
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-if(!defined('T_GOTO'))
-	define('T_GOTO',333);
-if(!defined('T_NAMESPACE'))
-	define('T_NAMESPACE',377);
-if(!defined('T_USE'))
-	define('T_USE',340);
 class jTplCompiler
-	implements jISimpleCompiler{
+	implements jISimpleCompiler
+	{
 	private $_literals;
 	private  $_vartype=array(T_CHARACTER,T_CONSTANT_ENCAPSED_STRING,T_DNUMBER,
 			T_ENCAPSED_AND_WHITESPACE,T_LNUMBER,T_OBJECT_OPERATOR,T_STRING,
@@ -60,14 +55,12 @@ class jTplCompiler
 	public $outputType='';
 	public $trusted=true;
 	protected $_userFunctions=array();
-	protected $escapePI=false;
 	protected $removeASPtags=true;
 	function __construct(){
 		$this->_allowedInVar=array_merge($this->_vartype,array(T_INC,T_DEC,T_DOUBLE_ARROW));
 		$this->_allowedInExpr=array_merge($this->_vartype,$this->_op);
 		$this->_allowedAssign=array_merge($this->_vartype,$this->_assignOp,$this->_op);
 		$this->_allowedInForeach=array_merge($this->_vartype,array(T_AS,T_DOUBLE_ARROW));
-		$this->escapePI=(ini_get("short_open_tag")=="1");
 		$this->removeASPtags=(ini_get("asp_tags")=="1");
 	}
 	public function compile($selector){
@@ -75,60 +68,59 @@ class jTplCompiler
 		$this->outputType=$selector->outputType;
 		$this->trusted=$selector->trusted;
 		$md5=md5($selector->module.'_'.$selector->resource.'_'.$this->outputType.($this->trusted?'_t':''));
-		jContext::push($selector->module);
+		jApp::pushCurrentModule($selector->module);
 		if(!file_exists($this->_sourceFile)){
 			$this->doError0('errors.tpl.not.found');
 		}
+		$header="if (jApp::config()->compilation['checkCacheFiletime'] &&\n";
+		$header.="filemtime('".$this->_sourceFile.'\') > '.filemtime($this->_sourceFile)."){ return false;\n} else {\n";
+		$footer="return true;}\n";
 		$this->compileString(file_get_contents($this->_sourceFile),$selector->getCompiledFilePath(),
-			$selector->userModifiers,$selector->userFunctions,$md5);
-		jContext::pop();
+			$selector->userModifiers,$selector->userFunctions,$md5,$header,$footer);
+		jApp::popCurrentModule();
 		return true;
 	}
-	public function compileString($templatecontent,$cachefile,$userModifiers,$userFunctions,$md5){
+	public function compileString($templatecontent,$cachefile,$userModifiers,$userFunctions,$md5,$header='',$footer=''){
 		$this->_modifier=array_merge($this->_modifier,$userModifiers);
 		$this->_userFunctions=$userFunctions;
 		$result=$this->compileContent($templatecontent);
-		$header="<?php \n";
+		$header="<?php \n".$header;
 		foreach($this->_pluginPath as $path=>$ok){
 			$header.=' require_once(\''.$path."');\n";
 		}
 		$header.='function template_meta_'.$md5.'($t){';
 		$header.="\n".$this->_metaBody."\n}\n";
 		$header.='function template_'.$md5.'($t){'."\n?>";
-		$result=$header.$result."<?php \n}\n?>";
+		$result=$header.$result."<?php \n}\n".$footer;
 		jFile::write($cachefile,$result);
 		return true;
-	}
-	protected function _piCallback($matches){
-		return '<?php echo \''.str_replace("'","\\'",$matches[1]).'\'?>';
 	}
 	protected function compileContent($tplcontent){
 		$this->_metaBody='';
 		$this->_blockStack=array();
 		$tplcontent=preg_replace("!<\?((?:php|=|\s).*)\?>!s",'',$tplcontent);
 		$tplcontent=preg_replace("!{\*(.*?)\*}!s",'',$tplcontent);
-		if($this->escapePI){
-			$tplcontent=preg_replace_callback("!(<\?.*\?>)!sm",array($this,'_piCallback'),$tplcontent);
-		}
+		$tplcontent=preg_replace_callback("!(<\?.*\?>)!sm",function($matches){
+			return '<?php echo \''.str_replace("'","\\'",$matches[1]).'\'?>';
+		},$tplcontent);
 		if($this->removeASPtags){
 		$tplcontent=preg_replace("!<%.*%>!s",'',$tplcontent);
 		}
 		preg_match_all("!{literal}(.*?){/literal}!s",$tplcontent,$_match);
 		$this->_literals=$_match[1];
 		$tplcontent=preg_replace("!{literal}(.*?){/literal}!s",'{literal}',$tplcontent);
-		$tplcontent=preg_replace_callback("/{((.).*?)}(\n)/sm",array($this,'_callbackLineFeed'),$tplcontent);
+		$tplcontent=preg_replace_callback("/{((.).*?)}(\n)/sm",function($matches){
+				list($full,,$firstcar,$lastcar)=$matches;
+				if($firstcar=='='||$firstcar=='$'||$firstcar=='@'){
+					return "$full\n";
+				}
+				else return $full;
+			},$tplcontent);
 		$tplcontent=preg_replace_callback("/{((.).*?)}/sm",array($this,'_callback'),$tplcontent);
 		$tplcontent=preg_replace('/<\?php\\s+\?>/','',$tplcontent);
 		if(count($this->_blockStack))
 			$this->doError1('errors.tpl.tag.block.end.missing',end($this->_blockStack));
 		return $tplcontent;
-	}
-	public function _callbackLineFeed($matches){
-		list($full,,$firstcar,$lastcar)=$matches;
-		if($firstcar=='='||$firstcar=='$'||$firstcar=='@'){
-			return "$full\n";
-		}
-		else return $full;
 	}
 	public function _callback($matches){
 		list(,$tag,$firstcar)=$matches;

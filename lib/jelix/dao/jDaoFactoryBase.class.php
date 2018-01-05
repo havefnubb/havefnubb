@@ -53,8 +53,8 @@ abstract class jDaoFactoryBase{
 	public function getPrimaryTable(){
 		return $this->_primaryTable;
 	}
-	abstract public function getProperties();
-	abstract public function getPrimaryKeyNames();
+	public function getProperties(){return static::$_properties;}
+	public function getPrimaryKeyNames(){return static::$_pkFields;}
 	public function findAll(){
 		$rs=$this->_conn->query($this->_selectClause.$this->_fromClause.$this->_whereClause);
 		$this->finishInitResultSet($rs);
@@ -71,7 +71,7 @@ abstract class jDaoFactoryBase{
 		if(count($args)==1&&is_array($args[0])){
 			$args=$args[0];
 		}
-		$keys=@array_combine($this->getPrimaryKeyNames(),$args);
+		$keys=@array_combine(static::$_pkFields,$args);
 		if($keys===false){
 			throw new jException('jelix~dao.error.keys.missing');
 		}
@@ -87,7 +87,7 @@ abstract class jDaoFactoryBase{
 		if(count($args)==1&&is_array($args[0])){
 			$args=$args[0];
 		}
-		$keys=array_combine($this->getPrimaryKeyNames(),$args);
+		$keys=array_combine(static::$_pkFields,$args);
 		if($keys===false){
 			throw new jException('jelix~dao.error.keys.missing');
 		}
@@ -124,7 +124,7 @@ abstract class jDaoFactoryBase{
 		$count='*';
 		$sqlite=false;
 		if($distinct!==null){
-			$props=$this->getProperties();
+			$props=static::$_properties;
 			if(isset($props[$distinct]))
 				$count='DISTINCT '.$this->_tables[$props[$distinct]['table']]['name'].'.'.$props[$distinct]['fieldName'];
 			$sqlite=($this->_conn->dbms=='sqlite');
@@ -160,15 +160,13 @@ abstract class jDaoFactoryBase{
 	abstract protected function _getPkWhereClauseForSelect($pk);
 	abstract protected function _getPkWhereClauseForNonSelect($pk);
 	final protected function _createConditionsClause($daocond,$forSelect=true){
-		$props=$this->getProperties();
-		return $this->_generateCondition($daocond->condition,$props,$forSelect,true);
+		return $this->_generateCondition($daocond->condition,static::$_properties,$forSelect,true);
 	}
 	final protected function _createOrderClause($daocond){
 		$order=array();
-		$props=$this->getProperties();
 		foreach($daocond->order as $name=>$way){
-			if(isset($props[$name])){
-				$order[]=$this->_conn->encloseName($props[$name]['table']).'.'.$this->_conn->encloseName($props[$name]['fieldName']).' '.$way;
+			if(isset(static::$_properties[$name])){
+				$order[]=$this->_conn->encloseName(static::$_properties[$name]['table']).'.'.$this->_conn->encloseName(static::$_properties[$name]['fieldName']).' '.$way;
 			}
 		}
 		if(count($order)){
@@ -178,9 +176,8 @@ abstract class jDaoFactoryBase{
 	}
 	final protected function _createGroupClause($daocond){
 		$group=array();
-		$props=$this->getProperties();
 		foreach($daocond->group as $name){
-			if(isset($props[$name]))
+			if(isset(static::$_properties[$name]))
 				$group[]=$this->_conn->encloseName($name);
 		}
 		if(count($group)){

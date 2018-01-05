@@ -4,8 +4,8 @@
 * @package      jelix
 * @subpackage   core
 * @author       Christophe Thiriot
-* @contributor  Laurent Jouanneau
-* @copyright    2008 Christophe Thiriot, 2011-2012 Laurent Jouanneau
+* @contributor  Laurent Jouanneau, Gaëtan MARROT
+* @copyright    2008 Christophe Thiriot, 2011-2013 Laurent Jouanneau, 2013 Gaëtan MARROT
 * @link         http://www.jelix.org
 * @licence      GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -17,8 +17,11 @@ class jCmdlineCoordinator extends jCoordinator{
 		jApp::setEnv('cli');
 		parent::__construct($configFile,$enableErrorHandler);
 	}
-	public function process($request){
+	protected function setRequest($request){
 		$this->allErrorMessages=jBasicErrorHandler::$initErrorMessages;
+		parent::setRequest($request);
+	}
+	public function process($request=null){
 		parent::process($request);
 		exit($this->response->getExitCode());
 	}

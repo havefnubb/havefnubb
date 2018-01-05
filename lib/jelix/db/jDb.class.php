@@ -4,17 +4,18 @@
 * @package     jelix
 * @subpackage  db
 * @author      Laurent Jouanneau
-* @contributor Yannick Le Guédart, Laurent Raufaste, Christophe Thiriot, Julien Issler
-* @copyright   2005-2011 Laurent Jouanneau, 2008 Laurent Raufaste
+* @contributor Yannick Le Guédart, Laurent Raufaste, Julien Issler
+* @contributor Christophe Thiriot
+* @copyright   2005-2012 Laurent Jouanneau, 2008 Laurent Raufaste
 * @copyright   2011 Julien Issler
-*
-* Some of this classes were get originally from the Copix project
-* (CopixDbConnection, Copix 2.3dev20050901, http://www.copix.org)
+* @copyright   2001-2005 CopixTeam
+* 
+* Some of these classes were get originally from the Copix project
+* (CopixDbFactory, CopixDbConnection, Copix 2.3dev20050901, http://www.copix.org)
 * Some lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
 * Initial authors of this Copix classes are Gerald Croes and Laurent Jouanneau,
-* and this classes were adapted for Jelix by Laurent Jouanneau
 *
-* @link     http://www.jelix.org
+* @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 abstract class jDbConnection{
@@ -43,6 +44,7 @@ abstract class jDbConnection{
 	public $lastQuery;
 	private $_autocommit=true;
 	protected $_connection=null;
+	protected $_debugMode=false;
 	function __construct($profile){
 		$this->profile=& $profile;
 		$this->dbms=$this->driverName=$profile['driver'];
@@ -55,7 +57,15 @@ abstract class jDbConnection{
 	}
 	public function query($queryString,$fetchmode=self::FETCH_OBJ,$arg1=null,$ctoargs=null){
 		$this->lastQuery=$queryString;
-		$result=$this->_doQuery($queryString);
+		if($this->_debugMode){
+			$log=new jSQLLogMessage($queryString);
+			$result=$this->_doQuery($queryString);
+			$log->endQuery();
+			jLog::log($log,'sql');
+		}
+		else{
+			$result=$this->_doQuery($queryString);
+		}
 		if($fetchmode!=self::FETCH_OBJ){
 			$result->setFetchMode($fetchmode,$arg1,$ctoargs);
 		}
@@ -63,11 +73,30 @@ abstract class jDbConnection{
 	}
 	public function limitQuery($queryString,$limitOffset,$limitCount){
 		$this->lastQuery=$queryString;
-		return $this->_doLimitQuery($queryString,intval($limitOffset),intval($limitCount));
+		if($this->_debugMode){
+			$log=new jSQLLogMessage($queryString);
+			$result=$this->_doLimitQuery($queryString,intval($limitOffset),intval($limitCount));
+			$log->endQuery();
+			$log->setRealQuery($this->lastQuery);
+			jLog::log($log,'sql');
+			return $result;
+		}
+		else{
+			return $this->_doLimitQuery($queryString,intval($limitOffset),intval($limitCount));
+		}
 	}
 	public function exec($query){
 		$this->lastQuery=$query;
-		return $this->_doExec($query);
+		if($this->_debugMode){
+			$log=new jSQLLogMessage($query);
+			$result=$this->_doExec($query);
+			$log->endQuery();
+			jLog::log($log,'sql');
+			return $result;
+		}
+		else{
+			return $this->_doExec($query);
+		}
 	}
 	public function quote($text,$parameter_type=0){
 		if($parameter_type===false||$parameter_type===true)
@@ -82,9 +111,6 @@ abstract class jDbConnection{
 	}
 	public function encloseName($fieldName){
 		return $fieldName;
-	}
-	public function encloseFieldName($fieldName){
-		return $this->encloseName($fieldName);
 	}
 	public function prefixTable($table_name){
 		if(!isset($this->profile['table_prefix']))
@@ -246,13 +272,6 @@ class jDb{
 		$dbw=new jDbWidget(self::getConnection($name));
 		return $dbw;
 	}
-	public static function getTools($name=null){
-		$cnx=self::getConnection($name);
-		return $cnx->tools();
-	}
-	public static function getProfile($name='',$noDefault=false){
-		return jProfiles::get('jdb',$name,$noDefault);
-	}
 	public function testProfile($profile){
 		try{
 			self::_createConnector($profile);
@@ -274,12 +293,6 @@ class jDb{
 				throw new jException('jelix~db.error.driver.notfound',$profile['driver']);
 			return $dbh;
 		}
-	}
-	public static function createVirtualProfile($name,$params){
-		jProfiles::createVirtualProfile('jdb',$name,$params);
-	}
-	public static function clearProfiles(){
-		jProfiles::clear();
 	}
 	public static function floatToStr($value){
 		if(is_float($value))

@@ -9,7 +9,7 @@
 */
 class dbKVDriver extends jKVDriver implements jIKVttl,jIKVPersistent{
 	protected $table;
-		protected function _connect(){
+	protected function _connect(){
 		if(!isset($this->_profile['table'])||!isset($this->_profile['dbprofile'])){
 			throw new Exception("table and dbprofile is missing for the db kvdb driver");
 		}
@@ -17,7 +17,7 @@ class dbKVDriver extends jKVDriver implements jIKVttl,jIKVPersistent{
 		$cnx=jDb::getConnection($this->_profile['dbprofile']);
 		return $cnx;
 	}
-		protected function _disconnect(){
+	protected function _disconnect(){
 		$this->_connection=null;
 	}
 	public function get($key){
@@ -140,6 +140,9 @@ class dbKVDriver extends jKVDriver implements jIKVttl,jIKVPersistent{
 		return false;
 	}
 	public function increment($key,$incr=1){
+		if(!is_numeric($incr)){
+			return false;
+		}
 		$table=$this->_connection->prefixTable($this->table);
 		$key=$this->_connection->quote($key);
 		$sql='SELECT k_key, k_value FROM '.$table.' WHERE k_key = '.$key;
@@ -155,6 +158,9 @@ class dbKVDriver extends jKVDriver implements jIKVttl,jIKVPersistent{
 		return (bool)$this->_connection->exec($sql);
 	}
 	public function decrement($key,$decr=1){
+		if(!is_numeric($decr)){
+			return false;
+		}
 		$table=$this->_connection->prefixTable($this->table);
 		$key=$this->_connection->quote($key);
 		$sql='SELECT k_key, k_value FROM '.$table.' WHERE k_key = '.$key;

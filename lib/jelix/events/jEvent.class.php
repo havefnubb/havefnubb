@@ -97,4 +97,9 @@ class jEvent{
 			}
 		}
 	}
+	public static function clearCache(){
+		self::$hashListened=array();
+		self::$listenersSingleton=array();
+		unset($GLOBALS['JELIX_EVENTS']);
+	}
 }

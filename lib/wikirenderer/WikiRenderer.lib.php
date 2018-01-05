@@ -20,8 +20,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
+
 define('WIKIRENDERER_PATH', dirname(__FILE__).'/');
-define('WIKIRENDERER_VERSION', '3.1.6');
+define('WIKIRENDERER_VERSION', '3.1.5');
+
 
 
 /**
@@ -559,9 +561,6 @@ abstract class WikiRendererConfig {
 
    public $escapeChar = '\\';
 
-   // for htmlspecialchars
-   public $charset = 'UTF-8';
-
    /**
     * Called before the wiki text parsing
     * @param string $text  the wiki text
@@ -762,9 +761,6 @@ class WikiRenderer {
        return WIKIRENDERER_VERSION;
     }
 
-    /**
-     * @return WikiRendererConfig
-     */
     public function getConfig(){
         return $this->config;
     }
@@ -787,13 +783,13 @@ class WikiHtmlTextLine extends WikiTag {
     public $isTextLineTag=true;
 
     protected function _doEscape($string){
-        return htmlspecialchars($string, ENT_COMPAT, $this->config->charset);
+        return htmlspecialchars($string);
     }
 }
 
 class WikiXmlTextLine extends WikiHtmlTextLine {
     protected function _doEscape($string){
-        return htmlspecialchars($string, ENT_NOQUOTES, $this->config->charset);
+        return htmlspecialchars($string, ENT_NOQUOTES);
     }
 }
 
@@ -821,27 +817,27 @@ abstract class WikiTagXhtml extends WikiTag {
             if(in_array($this->attribute[$i] , $this->ignoreAttribute))
                 continue;
             if($this->attribute[$i] != '$$')
-                $attr.=' '.$this->attribute[$i].'="'.$this->_doEscape($this->wikiContentArr[$i]).'"';
+                $attr.=' '.$this->attribute[$i].'="'.htmlspecialchars($this->wikiContentArr[$i]).'"';
             else
                 $content = $this->contents[$i];
         }
 
         foreach($this->additionnalAttributes as $name=>$value) {
-            $attr.=' '.$name.'="'.$this->_doEscape($value).'"';
+            $attr.=' '.$name.'="'.htmlspecialchars($value).'"';
         }
 
         return '<'.$this->name.$attr.'>'.$content.'</'.$this->name.'>';
    }
 
    protected function _doEscape($string){
-       return htmlspecialchars($string, ENT_COMPAT, $this->config->charset);
+       return htmlspecialchars($string);
    }
 }
 
 
 class WikiTagXml extends WikiTagXhtml {
    protected function _doEscape($string){
-       return htmlspecialchars($string, ENT_NOQUOTES, $this->config->charset);
+       return htmlspecialchars($string, ENT_NOQUOTES);
    }
 }
 

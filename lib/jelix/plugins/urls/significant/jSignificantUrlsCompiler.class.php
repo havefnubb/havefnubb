@@ -45,6 +45,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 	protected $parseInfos;
 	protected $createUrlInfos;
 	protected $createUrlContent;
+	protected $createUrlContentInc;
 	protected $checkHttps=true;
 	protected $typeparam=array('string'=>'([^\/]+)','char'=>'([^\/])','letter'=>'(\w)',
 		'number'=>'(\d+)','int'=>'(\d+)','integer'=>'(\d+)','digit'=>'(\d)',
@@ -60,7 +61,9 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 			return false;
 		}
 		$this->createUrlInfos=array();
-		$this->createUrlContent="<?php \n";
+		$this->createUrlContent="<?php \nif (jApp::config()->compilation['checkCacheFiletime'] &&( \n";
+		$this->createUrlContent.="filemtime('".$sourceFile.'\') > '.filemtime($sourceFile);
+		$this->createUrlContentInc='';
 		$this->readProjectXml();
 		$this->retrieveModulePaths(jApp::configPath('defaultconfig.ini.php'));
 		$this->checkHttps=jApp::config()->urlengine['checkHttpsOnParsing'];
@@ -180,8 +183,11 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 							.var_export($this->parseInfos,true).";\n?>";
 			jFile::write(jApp::tempPath('compiled/urlsig/'.$aSelector->file.'.'.rawurlencode($this->defaultUrl->entryPoint).'.entrypoint.php'),$parseContent);
 		}
-		$this->createUrlContent.='$GLOBALS[\'SIGNIFICANT_CREATEURL\'] ='.var_export($this->createUrlInfos,true).";\n?>";
-		jFile::write(jApp::tempPath('compiled/urlsig/'.$aSelector->file.'.creationinfos.php'),$this->createUrlContent);
+		$this->createUrlContent.=")) { return false; } else {\n";
+		$this->createUrlContent.=$this->createUrlContentInc;
+		$this->createUrlContent.='$GLOBALS[\'SIGNIFICANT_CREATEURL\'] ='.var_export($this->createUrlInfos,true).";\nreturn true;";
+		$this->createUrlContent.="\n}\n";
+		jFile::write(jApp::tempPath('compiled/urlsig/'.$aSelector->file.'.creationinfos_15.php'),$this->createUrlContent);
 		return true;
 	}
 	protected function readProjectXml(){
@@ -251,7 +257,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		if($pathinfo!='/'){
 			$regexp='!^'.preg_quote($pathinfo,'!').'(/.*)?$!';
 		}
-		$this->createUrlContent.="include_once('".$s->getPath()."');\n";
+		$this->createUrlContentInc.="include_once('".$s->getPath()."');\n";
 		$this->parseInfos[]=array($u->module,$u->action,$regexp,$selclass,$u->actionOverride,($this->checkHttps&&$u->isHttps));
 		$this->createUrlInfos[$u->getFullSel()]=array(0,$u->entryPointUrl,$u->isHttps,$selclass,$pathinfo);
 		if($u->actionOverride){
@@ -333,6 +339,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		$path=$this->modulesPath[$uInfo->module];
 		if(!file_exists($path.$file))
 			throw new Exception('urls.xml: include file '.$file.' of the module '.$uInfo->module.' does not exist');
+		$this->createUrlContent.=" || filemtime('".$path.$file.'\') > '.filemtime($path.$file)."\n";
 		$xml=simplexml_load_file($path.$file);
 		if(!$xml){
 			throw new Exception('urls.xml: include file '.$file.' of the module '.$uInfo->module.' is not a valid xml file');

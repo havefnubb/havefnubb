@@ -153,11 +153,10 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 									$this->upgradersContexts[$class]);
 			$list[]=$upgrader;
 		}
-		usort($list,array($this,'sortUpgraderList'));
+		usort($list,function($upgA,$upgB){
+				return jVersionComparator::compareVersion($upgA->version,$upgB->version);
+		});
 		return $list;
-	}
-	function sortUpgraderList($upgA,$upgB){
-		return jVersionComparator::compareVersion($upgA->version,$upgB->version);
 	}
 	public function installFinished($ep){
 		$this->installerContexts=$this->moduleInstaller->getContexts();
