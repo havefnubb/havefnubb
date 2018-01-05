@@ -9,3 +9,5 @@ temp/havefnubb/*
 cache/*
 *.komodoproject
 nbproject
+.idea
+
