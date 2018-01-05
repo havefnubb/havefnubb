@@ -13,7 +13,7 @@
         <updateURL>http://www.havefnubb.org/update.php?module=hfnuhardware</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1.5" maxversion="1.3.*"/>
+        <jelix minversion="1.4" maxversion="1.4.*"/>
         <module name="jcommunity" minversion="0.1" maxversion="0.2.*"/>
         <module name="havefnubb" minversion="1.3.6" maxversion="1.6.*"/>
     </dependencies>
