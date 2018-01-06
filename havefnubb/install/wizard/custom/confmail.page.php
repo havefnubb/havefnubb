@@ -20,7 +20,7 @@ class confmailWizPage extends installWizardPage{
 		return true;
 	}
 	function process(){
-		$ini=new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
+		$ini=new jIniFileModifier(jApp::configPath().'localconfig.ini.php');
 		$errors=array();
 		$_SESSION['confmail']['webmasterEmail']=trim($_POST['webmasterEmail']);
 		if($_SESSION['confmail']['webmasterEmail']==''){
@@ -89,7 +89,7 @@ class confmailWizPage extends installWizardPage{
 		return 0;
 	}
 	protected function loadconf(){
-		$ini=new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
+		$ini=new jIniFileModifier(jApp::configPath().'localconfig.ini.php');
 		$emailConfig=array(
 			'webmasterEmail'=>$ini->getValue('webmasterEmail','mailer'),
 			'webmasterName'=>$ini->getValue('webmasterName','mailer'),

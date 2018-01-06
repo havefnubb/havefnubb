@@ -13,6 +13,6 @@
         <updateURL>http://www.havefnubb.org/update.php?plugin=banuser</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.4" maxversion="1.5.*"/>
+        <jelix minversion="1.4" maxversion="1.6.*"/>
     </dependencies>
 </plugin>

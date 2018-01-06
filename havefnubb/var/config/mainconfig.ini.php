@@ -2,18 +2,27 @@
 ;for security reasons , don't remove or modify the first line
 ;this file doesn't list all possible properties. See lib/jelix/core/defaultconfig.ini.php for that
 
+
+; IF YOU WANT TO MODIFY THIS FILE, PUT NEW VALUES INTO localconfig.ini.php
+
+
+
 locale=fr_FR
 charset=UTF-8
+availableLocales="fr_FR,en_US"
+fallbackLocale=en_US
 
-; see http://www.php.net/manual/en/timezones.php for supported values
-timeZone="Europe/Paris"
-
-modulesPath = "lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-modules/,app:../modules-hook/"
-pluginsPath = "app:plugins/,module:jacl2db/plugins,module:jacl2/plugins"
 
 theme=default
 ;theme=dust
 ;theme=green
+
+; see http://www.php.net/manual/en/timezones.php for supported values
+timeZone="Europe/Paris"
+
+
+modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-modules/,app:../modules-hook/"
+pluginsPath="app:plugins/,module:jacl2db/plugins,module:jacl2/plugins"
 
 [modules]
 jelix.access=2
@@ -31,14 +40,14 @@ jsoap.access=0
 
 havefnubb.access=2
 hfnucal.access=1
-hfnucal.installparam = nocopyfiles
+hfnucal.installparam=nocopyfiles
 hfnucontact.access=2
 hfnuhardware.access=1
 hfnuim.access=1
 hfnurates.access=2
-hfnurates.installparam = nocopyfiles
+hfnurates.installparam=nocopyfiles
 hfnusearch.access=2
-hfnusearch.installparam = nocopyfiles
+hfnusearch.installparam=nocopyfiles
 hfnuthemes.access=2
 jcommunity.access=2
 jmessenger.access=2
@@ -56,24 +65,22 @@ auth="havefnubb/auth.coord.ini.php"
 [tplplugins]
 defaultJformsBuilder=html
 
-[responses]
+
+[jResponseHtml]
+minifyEntryPoint=minify.php
+;concatene et compress les fichier CSS
+minifyCSS=on
+;concatene et compress les fichier JS
+minifyJS=off
+
+; check all filemtime() of original js files to check if minify's cache should be generated again.
+; Should be set to "off" on production servers (i.e. manual empty cache needed when a file is changed) :
+minifyCheckCacheFiletime=off
 
 
 [error_handling]
-messageLogFormat="%date%\t[%code%]\t%msg%\t%file%\t%line%\n"
-logFile=error.log
-email="root@localhost"
-emailHeaders="Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
-quietMessage="Une erreur technique est survenue. Désolé pour ce désagrément."
-
-; mots clés que vous pouvez utiliser : ECHO, ECHOQUIET, EXIT, LOGFILE, SYSLOG, MAIL, TRACE
-default="ECHOQUIET LOGFILE TRACE EXIT"
-error="ECHOQUIET LOGFILE TRACE EXIT"
-warning="ECHOQUIET LOGFILE TRACE"
-notice=
-strict=
-; pour les exceptions, il y a implicitement un EXIT
-exception="ECHOQUIET LOGFILE TRACE"
+messageLogFormat="%date%\t%ip%\t[%code%]\t%msg%\t%file%\t%line%\n\t%url%\n%params%\n%trace%\n\n"
+errorMessage="Une erreur technique est survenue. Désolé pour ce désagrément."
 
 [compilation]
 checkCacheFiletime=on
@@ -84,14 +91,6 @@ force=off
 ; engine=simple
 ; engine=basic_significant
 engine=significant
-
-
-; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
-; because the jelix-www directory is outside the yourapp/www/ directory, you should create a link to
-; jelix-www, or copy its content in yourapp/www/ (with a name like 'jelix' for example)
-; so you should indicate the relative path of this link/directory to the basePath, or an absolute path.
-jelixWWWPath="jelix/"
-
 
 ; enable the parsing of the url. Set it to off if the url is already parsed by another program
 ; (like mod_rewrite in apache), if the rewrite of the url corresponds to a simple url, and if
@@ -110,17 +109,27 @@ multiview=on
 ; : basePath="/aaa/" )
 basePath=
 
-defaultEntrypoint=forums
+; backendBasePath is used when the application is behind a proxy, and when the base path on the frontend
+; server doesn't correspond to the base path on the backend server.
+; you MUST define basePath when you define backendBasePath
+backendBasePath=
 
-entrypointExtension=.php
+
+; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
+; because the jelix-www directory is outside the yourapp/www/ directory, you should create a link to
+; jelix-www, or copy its content in yourapp/www/ (with a name like 'jelix' for example)
+; so you should indicate the relative path of this link/directory to the basePath, or an absolute path.
+; if you change it, change also all pathes in [htmleditors]
+; at runtime, it contains the absolute path (basePath+the value) if you give a relative path
+jelixWWWPath="jelix/"
+jqueryPath="jelix/jquery/"
+
+
+defaultEntrypoint=forums
 
 ; leave empty to have jelix error messages
 notfoundAct="havefnubb~hfnuerror:notfound"
 ;notfoundAct = "jelix~error:notfound"
-
-; list of actions which require https protocol for the simple url engine
-; syntax of the list is the same as explained in the simple_urlengine_entrypoints
-simple_urlengine_https=
 
 [simple_urlengine_entrypoints]
 ; parameters for the simple url engine. This is the list of entry points
@@ -132,7 +141,7 @@ simple_urlengine_https=
 ;   m~*@r    -> for all actions of the module "m" and for the request of type "r"
 ;   @r       -> for all actions for the request of type "r"
 
-forums = "@classic"
+forums="@classic"
 
 ; hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~admin@classic, hfnupoll~admin@classic hfnucontact~admin@classic downloads~mgr:index@classic downloads~mgr:manage@classic downloads~mgr:config@classic downloads~mgr:dls@classic"
 hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~*@classic activeusers_admin~*@classic"
@@ -143,9 +152,8 @@ hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_adm
 forums=on
 hfnuadmin=on
 install=on
+minify=on
 
-[logfiles]
-default=messages.log
 
 [mailer]
 webmasterEmail="webmaster@domain.com"
@@ -213,20 +221,20 @@ dust="jelix/js/jforms/datepickers/dust/init.js"
 emplode="jelix/js/jforms/datepickers/emplode/init.js"
 
 [wikieditors]
-default.engine.name = wr3
-default.wiki.rules = wr3_to_xhtml
+default.engine.name=wr3
+default.wiki.rules=wr3_to_xhtml
 ; path to the engine file
-default.engine.file = jelix/markitup/jquery.markitup.js
+default.engine.file="jelix/markitup/jquery.markitup.js"
 ; define the path to the "internationalized" file to translate the label of each button
-default.config.path = jelix/markitup/sets/wr3/
+default.config.path="jelix/markitup/sets/wr3/"
 ; define the path to the image of buttons of the toolbar
-default.image.path = jelix/markitup/sets/wr3/images/
-default.skin = jelix/markitup/skins/simple/style.css
+default.image.path="jelix/markitup/sets/wr3/images/"
+default.skin="jelix/markitup/skins/simple/style.css"
 
 [havefnubb]
 title="HaveFnuBB!"
 description="Where Everything is Fnu"
-version=1.5.0
+version=1.5.1
 rules=
 admin_email="admin@localhost.net"
 url_check_version="http://www.havefnubb.org/last_version"
@@ -241,7 +249,7 @@ stats_nb_of_lastpost=3
 post_max_size=0
 ; if the hfnuadmin module is in an other web site or application, set its url here
 admin_url=
-keywords=Forum, Community, PHP5, Jelix
+keywords="Forum, Community, PHP5, Jelix"
 
 [hfnucontact]
 to_contact=
@@ -271,14 +279,3 @@ name=famfamfam
 ; emoticon_wink.png
 ; so your own smileys would have to be named like them
 
-[jResponseHtml]
-
-;concatene et compress les fichier CSS
-minifyCSS = on
-
-;concatene et compress les fichier JS
-minifyJS = off
-
-; check all filemtime() of original js files to check if minify's cache should be generated again.
-; Should be set to "off" on production servers (i.e. manual empty cache needed when a file is changed) :
-minifyCheckCacheFiletime = off

@@ -12,6 +12,6 @@
         <homepageURL>http://www.havefnubb.org/</homepageURL>
     </info>
     <dependencies>
-        <jelix minversion="1.4" maxversion="1.5.*"/>
+        <jelix minversion="1.4" maxversion="1.6.*"/>
     </dependencies>
 </plugin>

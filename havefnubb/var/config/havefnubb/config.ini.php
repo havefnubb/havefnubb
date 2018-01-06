@@ -18,12 +18,6 @@ flood="havefnubb/flood.coord.ini.php"
 [responses]
 html=fnuHtmlResponse
 
-[acl2]
-driver=db
-
-[logfiles]
-DEBUG=havefnubbdebug.log
-
 [modules]
 jelix.access=2
 

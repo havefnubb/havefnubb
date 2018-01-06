@@ -40,7 +40,7 @@ class defaultCtrl extends jController {
      */
     function useit() {
         $theme = (string) $this->param('theme');
-        $mainConfig = new jIniFileModifier(jApp::configPath() . 'defaultconfig.ini.php');
+        $mainConfig = new jIniFileModifier(jApp::configPath() . 'localconfig.ini.php');
         $mainConfig->setValue('theme',strtolower($theme));
         $mainConfig->setValue('datepicker',strtolower($theme),'forms');
         $mainConfig->save();

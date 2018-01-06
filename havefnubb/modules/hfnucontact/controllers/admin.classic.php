@@ -35,7 +35,7 @@ class adminCtrl extends jController {
 				$rep->action='hfnucontact~admin:index';
 				return $rep;
 			}
-			$HfnucontactConfig = new jIniFileModifier(jApp::configPath('defaultconfig.ini.php'));
+			$HfnucontactConfig = new jIniFileModifier(jApp::configPath('localconfig.ini.php'));
 			$HfnucontactConfig->setValue('email_contact',$this->param('contact'),'hfnucontact');
 			$HfnucontactConfig->save();
 			jMessage::add(jLocale::get('hfnucontact~contact.admin.form.email.saved'),'ok');

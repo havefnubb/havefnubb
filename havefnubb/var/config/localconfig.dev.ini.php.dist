@@ -1,0 +1,9 @@
+;<?php die(''); ?>
+;for security reasons , don't remove or modify the first line
+
+[mailer]
+mailerType=file
+
+[jResponseHtml]
+minifyCSS = off
+plugins = debugbar

@@ -41,7 +41,7 @@ class migrateWizPage extends installWizardPage {
         return 0;
     }
     protected function loadconf() {
-        $ini = new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
+        $ini = new jIniFileModifier(jApp::configPath().'localconfig.ini.php');
         $config = array(
             'theme'=>$ini->getValue('theme'),
             'title'=>$ini->getValue('title','havefnubb'),
@@ -67,7 +67,7 @@ class migrateWizPage extends installWizardPage {
          * Main CONFIG FILE : defaultconfig.ini.php
          *
          */
-        $iniDef = new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
+        $iniDef = new jIniFileModifier(jApp::configPath().'localconfig.ini.php');
 
         $this->defaultModulesPath = $iniDef->getValue('modulesPath');
         //need to add app:admin-modules to the modulesPath

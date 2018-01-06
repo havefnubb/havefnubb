@@ -27,7 +27,7 @@ $locales=array(
     'rights.description'=>'Don\'t forget to change your rights access on all your folders and files to read-only for the web server,
                             <br/><strong>except for these files which have to be writable:</strong><ol>
                             <li>cache/ and files/</li>
-                            <li>havefnubb/var/config/defaultconfig.ini.php</li>
+                            <li>havefnubb/var/config/localconfig.ini.php</li>
                             <li>havefnubb/var/config/profiles.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/config.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/flood.coord.ini.php</li>

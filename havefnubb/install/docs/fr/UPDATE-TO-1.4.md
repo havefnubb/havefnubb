@@ -15,7 +15,7 @@ Mise � jour depuis la 1.3.6 � 1.4
 
 1) sauvegarder vos fichiers :
 var/config/profiles.ini.php ou var/config/dbprofils.ini.php
-var/config/defaultconfig.ini.php
+var/config/localconfig.ini.php
 var/config/havefnu.search.ini.php
 var/config/havefnubb
 var/config/hfnuadmin

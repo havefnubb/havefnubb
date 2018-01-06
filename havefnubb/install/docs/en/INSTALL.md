@@ -34,19 +34,19 @@ All others dir are use for web content such as "images", "themes" etc..
   have a look at the chapter "If you can't change the document root" on 
   http://jelix.org/articles/en/manual-1.1/application-configuration
 
-- rename the file havefnubb/var/config/defaultconfig.ini.php.dist in havefnubb/var/config/defaultconfig.ini.php
+- rename the file havefnubb/var/config/localconfig.ini.php.dist to havefnubb/var/config/localconfig.ini.php
 - rename the file havefnubb/var/config/profiles.ini.php.dist in havefnubb/var/config/profiles.ini.php
 
 ### Rights Accesss 
 
 Don't forget to change/check your rights access on all your folder to 755, and your files in 644,
-except for the 4 files located in var/config which have to be in 664 : defaultconfig.ini.php, profiles.ini.php, flood.coord.ini.php, activeusers.coord.ini.php
+except for the 4 files located in var/config which have to be in 664 : localconfig.ini.php, profiles.ini.php, flood.coord.ini.php, activeusers.coord.ini.php
 
 do the following to change them :
 
     find . -type d -exec chmod 755 {} \;
     find . -type f -exec chmod 644 {} \;    
-    chmod 664 var/config/defaultconfig.ini.php
+    chmod 664 var/config/localconfig.ini.php
     chmod 664 var/config/profiles.ini.php
     chmod 664 var/config/havefnubb/flood.coord.ini.php
     chmod 664 var/config/havefnubb/activeusers.coord.ini.php

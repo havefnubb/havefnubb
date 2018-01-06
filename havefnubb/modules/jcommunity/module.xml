@@ -11,6 +11,6 @@
         <homepageURL>http://bitbucket.org/laurentj/jcommunity/</homepageURL>
     </info>
     <dependencies>
-        <jelix minversion="1.1" maxversion="1.5.*"/>
+        <jelix minversion="1.1" maxversion="1.6.*"/>
     </dependencies>
 </module>

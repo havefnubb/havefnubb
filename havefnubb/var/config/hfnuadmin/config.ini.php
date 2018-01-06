@@ -21,11 +21,6 @@ enableAcl2DbEventListener=on
 [simple_urlengine_entrypoints]
 hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~*@classic hfnucontact~*@classic servinfo~*@classic hfnuthemes~*@classic modulesinfo~*@classic jelixcache~*@classic  activeusers_admin~*@classic"
 
-
-
-[logfiles]
-DEBUG=havefnubbdebug.log
-
 [modules]
 jelix.access=2
 
@@ -59,6 +54,7 @@ activeusers.access=1
 activeusers_admin.access=2
 
 iamhere.access=2
+
 [activeusers_admin]
 pluginconf="havefnubb/activeusers.coord.ini.php"
 
