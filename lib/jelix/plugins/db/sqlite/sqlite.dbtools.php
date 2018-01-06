@@ -26,6 +26,7 @@ class sqliteDbTools extends jDbTools{
 	'bigautoincrement'=>array('numeric','numeric','-9223372036854775808','9223372036854775807',null,null),
 	'float'=>array('float','float',null,null,null,null),
 	'money'=>array('real','float',null,null,null,null),
+	'smallmoney'=>array('float','float',null,null,null,null),
 	'double precision'=>array('double','decimal',null,null,null,null),
 	'double'=>array('double','decimal',null,null,null,null),
 	'real'=>array('real','decimal',null,null,null,null),
@@ -38,6 +39,9 @@ class sqliteDbTools extends jDbTools{
 	'date'=>array('date','date',null,null,10,10),
 	'time'=>array('time','time',null,null,8,8),
 	'datetime'=>array('datetime','datetime',null,null,19,19),
+	'datetime2'=>array('datetime','datetime',null,null,19,27),
+	'datetimeoffset'=>array('datetime','datetime',null,null,19,34),
+	'smalldatetime'=>array('datetime','datetime',null,null,19,19),
 	'timestamp'=>array('datetime','datetime',null,null,19,19),
 	'utimestamp'=>array('integer','integer',0,2147483647,null,null),
 	'year'=>array('integer','year',null,null,2,4),
@@ -54,6 +58,7 @@ class sqliteDbTools extends jDbTools{
 	'string'=>array('varchar','varchar',null,null,0,65535),
 	'tinytext'=>array('text','text',null,null,0,255),
 	'text'=>array('text','text',null,null,0,65535),
+	'ntext'=>array('text','text',null,null,0,0),
 	'mediumtext'=>array('text','text',null,null,0,16777215),
 	'longtext'=>array('text','text',null,null,0,0),
 	'long'=>array('text','text',null,null,0,0),
@@ -69,9 +74,11 @@ class sqliteDbTools extends jDbTools{
 	'varbinary'=>array('blob','varbinary',null,null,0,255),
 	'raw'=>array('blob','varbinary',null,null,0,2000),
 	'long raw'=>array('blob','varbinary',null,null,0,0),
+	'image'=>array('blob','varbinary',null,null,0,0),
 	'enum'=>array('varchar','varchar',null,null,0,65535),
 	'set'=>array('varchar','varchar',null,null,0,65535),
 	'xmltype'=>array('varchar','varchar',null,null,0,65535),
+	'xml'=>array('text','text',null,null,0,0),
 	'point'=>array('varchar','varchar',null,null,0,16),
 	'line'=>array('varchar','varchar',null,null,0,32),
 	'lsed'=>array('varchar','varchar',null,null,0,32),
@@ -86,15 +93,62 @@ class sqliteDbTools extends jDbTools{
 	'arrays'=>array('varchar','varchar',null,null,0,65535),
 	'complex types'=>array('varchar','varchar',null,null,0,65535),
 	);
-	public function getTableList(){
-		$results=array();
-		$rs=$this->_conn->query('SELECT name FROM sqlite_master WHERE type="table"');
-		while($line=$rs->fetch()){
-			$results[]=$line->name;
+	protected $keywordNameCorrespondence=array(
+		'current_timestamp'=>'datetime(\'now\', \'localtime\')',
+		'current_date'=>'date(\'now\', \'localtime\')',
+		'current_time'=>'time(\'now\', \'localtime\')',
+		'sysdate'=>'datetime(\'now\', \'localtime\')',
+		'localtime'=>'time(\'now\', \'localtime\')',
+		'localtimestamp'=>'datetime(\'now\', \'localtime\')',
+	);
+	protected $functionNameCorrespondence=array(
+		'sysdatetime'=>'datetime(\'now\', \'localtime\')',
+		'sysdatetimeoffset'=>'datetime(\'now\', \'localtime\')',
+		'sysutcdatetime'=>'datetime(\'now\')',
+		'getdate'=>'datetime(\'now\', \'localtime\')',
+		'getutcdate'=>'strftime(\'%d\', \'now\')',
+		'day'=>'strftime(\'%d\', %!p, \'localtime\')',
+		'month'=>'strftime(\'%m\', %!p, \'localtime\')',
+		'year'=>'strftime(\'%Y\', %!p, \'localtime\')',
+		'curdate'=>'date(\'now\', \'localtime\')',
+		'current_date'=>'date(\'now\', \'localtime\')',
+		'curtime'=>'time(\'now\', \'localtime\')',
+		'current_time'=>'time(\'now\', \'localtime\')',
+		'now'=>'date(\'now\', \'localtime\')',
+		'current_timestamp'=>'date(\'now\', \'localtime\')',
+		'dayofmonth'=>'strftime(\'%d\', %!p, \'localtime\')',
+		'localtime'=>'datetime(\'now\', \'localtime\')',
+		'localtimestamp'=>'datetime(\'now\', \'localtime\')',
+		'utc_date'=>'date(\'now\')',
+		'utc_time'=>'time(\'now\')',
+		'utc_timestamp'=>'datetime(\'now\')',
+		'hour'=>'strftime(\'%H\', %!p, \'localtime\')',
+		'minute'=>'strftime(\'%M\', %!p, \'localtime\')',
+		'second'=>'strftime(\'%S\', %!p, \'localtime\')',
+		'extract'=>'!extractDateConverter',
+		'date_part'=>'!extractDateConverter',
+		'datepart'=>'!extractDateConverter',
+	);
+	protected $literalFilterToSubstitions=array(
+		'year'=>'%Y',
+		'month'=>'%m',
+		'day'=>'%d',
+		'hour'=>'%H',
+		'minute'=>'%M',
+		'seconde'=>'%S',
+	);
+	protected function extractDateConverter($parametersString){
+		if(preg_match("/^'?([a-z]+)'?(?:\s*,\s*|\s+FROM(?: TIMESTAMP)?\s+|\s+)(.*)$/i",$parametersString,$p)&&
+			isset($this->literalFilterToSubstitions[strtolower($p[1])])
+		){
+			$param2=$this->parseSQLFunctionAndConvert(strtolower($p[2]));
+			return 'strftime(\''.$this->literalFilterToSubstitions[$p[1]].'\', '.$param2.', \'localtime\')';
 		}
-		return $results;
+		else{
+			return 'date_part('.$parametersString.')';
+		}
 	}
-	public function getFieldList($tableName,$sequence=''){
+	public function getFieldList($tableName,$sequence='',$schemaName=''){
 		$tableName=$this->_conn->prefixTable($tableName);
 		$results=array();
 		$query="PRAGMA table_info(". sqlite_escape_string($tableName).")";

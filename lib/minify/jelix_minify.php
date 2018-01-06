@@ -11,9 +11,8 @@ function getDocumentRoot() {
     if (isset($_SERVER['DOCUMENT_ROOT']))
         return $_SERVER['DOCUMENT_ROOT'];
 
-    require_once(JELIX_LIB_PATH."core/jConfigCompiler.class.php");
+    $config = parse_ini_file(jApp::mainConfigFile());
 
-    $config = parse_ini_file(jApp::configPath('defaultconfig.ini.php'));
     $urlengine = $config['urlengine'];
 
     if($urlengine['scriptNameServerVariable'] == '') {

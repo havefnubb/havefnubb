@@ -17,10 +17,13 @@ abstract class WidgetBase implements WidgetInterface{
 	protected $parentWidget;
 	protected $ctrl;
 	protected $attributes=array();
+	protected $valuesSeparator=' ';
+	protected $_endt='/>';
 	public function __construct($args){
 		$this->ctrl=$args[0];
 		$this->builder=$args[1];
 		$this->parentWidget=$args[2];
+		$this->_endt=$this->builder->endOfTag();
 	}
 	public function getId(){
 		return $this->builder->getName().'_'.$this->ctrl->ref;
@@ -44,19 +47,30 @@ abstract class WidgetBase implements WidgetInterface{
 		return $this->builder->getForm()->getData($this->ctrl->ref);
 	}
 	public function setAttributes($attr){
+		if(isset($attr['separator'])){
+			$this->valuesSeparator=$attr['separator'];
+			unset($attr['separator']);
+		}
 		$this->attributes=$attr;
 	}
 	public function outputMetaContent($resp){
 }
-	protected function getLabelAttributes(){
+	protected function getLabelAttributes($editMode){
 		$attr=array();
 		$attr['hint']=($this->ctrl->hint=='' ? '' : ' title="'.htmlspecialchars($this->ctrl->hint).'"');
 		$attr['idLabel']=' id="'.$this->getId().'_label"';
-		$required=($this->ctrl->required==false||$this->ctrl->isReadOnly()?'':' jforms-required');
-		$attr['reqHtml']=($required?'<span class="jforms-required-star">*</span>':'');
+		if($editMode){
+			$required=($this->ctrl->required==false||$this->ctrl->isReadOnly()?'':' jforms-required');
+			$attr['reqHtml']=($required?'<span class="jforms-required-star">*</span>':'');
+		}
+		else{
+			$attr['reqHtml']='';
+		}
 		$attr['class']='jforms-label';
 		$attr['class'].=(isset($this->builder->getForm()->getContainer()->errors[$this->ctrl->ref])?' jforms-error':'');
-		$attr['class'].=($this->ctrl->required==false||$this->ctrl->isReadOnly()?'':' jforms-required');
+		if($editMode){
+			$attr['class'].=($this->ctrl->required==false||$this->ctrl->isReadOnly()?'':' jforms-required');
+		}
 		return $attr;
 	}
 	protected function getControlAttributes(){
@@ -68,6 +82,16 @@ abstract class WidgetBase implements WidgetInterface{
 		if($this->ctrl->hint)
 			$attr['title']=$this->ctrl->hint;
 		$attr['class']=$this->getCSSClass();
+		return $attr;
+	}
+	protected function getValueAttributes(){
+		$attr=$this->attributes;
+		$attr['id']=$this->getId();
+		$class='jforms-value jforms-value-'.$this->ctrl->type;
+		if(isset($attr['class']))
+			$attr['class'].=' '.$class;
+		else
+			$attr['class']=$class;
 		return $attr;
 	}
 	protected function commonJs(){
@@ -90,8 +114,9 @@ abstract class WidgetBase implements WidgetInterface{
 		else{
 			$jsContent.="c.errInvalid=".$this->escJsStr(\jLocale::get('jelix~formserr.js.err.invalid',$this->ctrl->label)).";\n";
 		}
-		if(!$this->parentWidget->controlJsChild())
+		if(!$this->parentWidget->controlJsChild()){
 			$jsContent.=$this->builder->getJFormsJsVarName().".tForm.addControl(c);\n";
+		}
 		$this->parentWidget->addJs($jsContent);
 	}
 	protected function escJsStr($str){
@@ -104,28 +129,55 @@ abstract class WidgetBase implements WidgetInterface{
 	}
 	public function outputHelp(){
 		if($this->ctrl->help){
-			if($this->ctrl->type=='checkboxes'||($this->ctrl->type=='listbox'&&$this->ctrl->multiple)){
-				$name=$this->ctrl->ref.'[]';
-			}else{
-				$name=$this->ctrl->ref;
-			}
 			echo '<span class="jforms-help" id="'.$this->getId().'-help">&nbsp;<span>'.htmlspecialchars($this->ctrl->help).'</span></span>';
 		}
 	}
-	public function outputLabel(){
+	public function outputLabel($format='',$editMode=true){
 		$ctrl=$this->ctrl;
-		$attr=$this->getLabelAttributes();
-		if($ctrl->type=='output'||$ctrl->type=='checkboxes'||$ctrl->type=='radiobuttons'||$ctrl->type=='date'||$ctrl->type=='datetime'||$ctrl->type=='choice'){
-			echo '<span class="',$attr['class'],'"',$attr['idLabel'],$attr['hint'],'>';
-			echo htmlspecialchars($this->ctrl->label),$attr['reqHtml'];
-			echo "</span>\n";
-		}else if($ctrl->type!='submit'&&$ctrl->type!='reset'){
-			echo '<label class="',$attr['class'],'" for="',$this->getId(),'"',$attr['idLabel'],$attr['hint'],'>';
-			echo htmlspecialchars($this->ctrl->label),$attr['reqHtml'];
-			echo "</label>\n";
+		$attr=$this->getLabelAttributes($editMode);
+		if($format)
+			$label=sprintf($format,$this->ctrl->label);
+		else
+			$label=$this->ctrl->label;
+		if($ctrl->type=='output'||$ctrl->type=='checkboxes'||
+			$ctrl->type=='radiobuttons'||$ctrl->type=='date'||
+			$ctrl->type=='datetime'||$ctrl->type=='choice'){
+			$this->outputLabelAsTitle($label,$attr);
+		}
+		else if($ctrl->type!='submit'&&$ctrl->type!='reset'){
+			$this->outputLabelAsFormLabel($label,$attr);
 		}
 	}
+	protected function outputLabelAsFormLabel($label,$attr){
+		echo '<label class="',$attr['class'],'" for="',$this->getId(),'"',$attr['idLabel'],$attr['hint'],'>';
+		echo htmlspecialchars($label),$attr['reqHtml'];
+		echo "</label>\n";
+	}
+	protected function outputLabelAsTitle($label,$attr){
+		echo '<span class="',$attr['class'],'"',$attr['idLabel'],$attr['hint'],'>';
+		echo htmlspecialchars($label),$attr['reqHtml'];
+		echo "</span>\n";
+	}
 	public function outputControl(){}
+	public function outputControlValue(){
+		$attr=$this->getValueAttributes();
+		echo '<span ';
+		$this->_outputAttr($attr);
+		echo '>';
+		$value=$this->getValue();
+		$value=$this->ctrl->getDisplayValue($value);
+		if(is_array($value)){
+			$s='';
+			foreach($value as $v){
+				$s.=$this->valuesSeparator.htmlspecialchars($v);
+			}
+			echo substr($s,strlen($this->valuesSeparator));
+		}else if($this->ctrl->isHtmlContent())
+			echo $value;
+		else
+			echo htmlspecialchars($value);
+		echo '</span>';
+	}
 	protected function fillSelect($ctrl,$value){
 		$data=$ctrl->datasource->getData($this->builder->getForm());
 		if($ctrl->datasource instanceof \jIFormsDatasource2&&$ctrl->datasource->hasGroupedData()){

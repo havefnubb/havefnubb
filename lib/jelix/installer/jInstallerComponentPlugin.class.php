@@ -12,4 +12,10 @@ class jInstallerComponentPlugin extends jInstallerComponentBase{
 	protected $identityNamespace='http://jelix.org/ns/plugin/1.0';
 	protected $rootName='plugin';
 	protected $identityFile='plugin.xml';
+	function getInstaller($ep,$installWholeApp){
+		throw new Exception("Not implemented");
+	}
+	function getUpgraders($ep){
+		throw new Exception("Not implemented");
+	}
 }

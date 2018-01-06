@@ -21,7 +21,7 @@ class output_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 		}
 		else $hint='';
 		$attr['type']='hidden';
-		$attr['value']=$this->getValue($this->ctrl);
+		$attr['value']=$this->getValue();
 		echo '<input';
 		$this->_outputAttr($attr);
 		echo '/>';

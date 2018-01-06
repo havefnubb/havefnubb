@@ -138,7 +138,6 @@ class jIniFileModifier{
 		}
 	}
 	public function removeValue($name,$section=0,$key=null,$removePreviousComment=true){
-		$foundValue=false;
 		if($section===0&&$name=='')
 			return;
 		if($name==''){
@@ -220,11 +219,9 @@ class jIniFileModifier{
 					$this->content[$section][$k]=array(self::TK_WS,'--');
 					if($item[0]==self::TK_ARR_VALUE){
 						$deleteMode=true;
-						$foundValue=true;
 						continue;
 					}
 				}
-				$foundValue=true;
 				break;
 			}
 		}
@@ -300,10 +297,14 @@ class jIniFileModifier{
 		}
 		return $values;
 	}
-	public function save(){
+	public function save($chmod=null){
 		if($this->modified){
-			if(false===@file_put_contents($this->filename,$this->generateIni()))
+			if(false===@file_put_contents($this->filename,$this->generateIni())){
 				throw new Exception("Impossible to write into ".$this->filename);
+			}
+			else if($chmod){
+				chmod($this->filename,$chmod);
+			}
 			$this->modified=false;
 		}
 	}
@@ -429,7 +430,6 @@ class jIniFileModifier{
 						break;
 					}
 					if(!$found){
-						$atTheEnd=false;
 						$previousItems[]=$item;
 						if($lastNonValues > 0){
 							$previousItems=array_splice($this->content[$sectionTarget],$lastNonValues,$j,$previousItems);

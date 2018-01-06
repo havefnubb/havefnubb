@@ -21,8 +21,12 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 	public function outputAllControls(){
 		echo '<table class="jforms-table" border="0">';
 		foreach($this->_form->getRootControls()as $ctrlref=>$ctrl){
-			if($ctrl->type=='submit'||$ctrl->type=='reset'||$ctrl->type=='hidden')continue;
-			if(!$this->_form->isActivated($ctrlref))continue;
+			if($ctrl->type=='submit'||$ctrl->type=='reset'||$ctrl->type=='hidden'){
+				continue;
+			}
+			if(!$this->_form->isActivated($ctrlref)){
+				continue;
+			}
 			if($ctrl->type=='group'){
 				echo '<tr><td colspan="2">';
 				$this->outputControl($ctrl);
@@ -37,14 +41,16 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		}
 		echo '</table> <div class="jforms-submit-buttons">';
 		if($ctrl=$this->_form->getReset()){
-			if(!$this->_form->isActivated($ctrl->ref))continue;
-			$this->outputControl($ctrl);
-			echo ' ';
+			if($this->_form->isActivated($ctrl->ref)){
+				$this->outputControl($ctrl);
+				echo ' ';
+			}
 		}
 		foreach($this->_form->getSubmits()as $ctrlref=>$ctrl){
-			if(!$this->_form->isActivated($ctrlref))continue;
-			$this->outputControl($ctrl);
-			echo ' ';
+			if($this->_form->isActivated($ctrlref)){
+				$this->outputControl($ctrl);
+				echo ' ';
+			}
 		}
 		echo "</div>\n";
 	}
@@ -129,7 +135,6 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		if(count($errors)){
 			$ctrls=$this->_form->getControls();
 			echo '<ul id="'.$this->_name.'_errors" class="jforms-error-list">';
-			$errRequired='';
 			foreach($errors as $cname=>$err){
 				if(!$this->_form->isActivated($ctrls[$cname]->ref))continue;
 				if($err===jForms::ERRDATA_REQUIRED){
@@ -174,10 +179,10 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 </script>';
 		echo '</form>';
 	}
-	public function outputControlLabel($ctrl){
+	public function outputControlLabel($ctrl,$editMode=true){
 		if($ctrl->type=='hidden'||$ctrl->type=='group'||$ctrl->type=='button')return;
 		$required=($ctrl->required==false||$ctrl->isReadOnly()?'':' jforms-required');
-		$reqhtml=($required?'<span class="jforms-required-star">*</span>':'');
+		$reqhtml=($required&&$editMode?'<span class="jforms-required-star">*</span>':'');
 		$inError=(isset($this->_form->getContainer()->errors[$ctrl->ref])?' jforms-error':'');
 		$hint=($ctrl->hint==''?'':' title="'.htmlspecialchars($ctrl->hint).'"');
 		$id=$this->_name.'_'.$ctrl->ref;
@@ -212,6 +217,42 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		echo "\n";
 		$this->{'js'.$ctrl->type}($ctrl);
 		$this->outputHelp($ctrl);
+	}
+	public function outputControlValue($ctrl,$attributes=array()){
+		if($ctrl->type=='hidden'){
+			return;
+		}
+		$separator=' ';
+		if(isset($attributes['separator'])){
+			$separator=$attributes['separator'];
+			unset($attributes['separator']);
+		}
+		$attributes['id']=$this->_name.'_'.$ctrl->ref;
+		$class='jforms-value jforms-value-'.$ctrl->type;
+		if(isset($attributes['class'])){
+			$attributes['class'].=' '.$class;
+		}
+		else{
+			$attributes['class']=$class;
+		}
+		echo '<span ';
+		$this->_outputAttr($attributes);
+		echo '>';
+		$value=$this->_form->getData($ctrl->ref);
+		$value=$ctrl->getDisplayValue($value);
+		if(is_array($value)){
+			$s='';
+			foreach($value as $v){
+				$s.=$separator.htmlspecialchars($v);
+			}
+			echo substr($s,strlen($separator));
+		}else if($ctrl->isHtmlContent()){
+			echo $value;
+		}
+		else{
+			echo htmlspecialchars($value);
+		}
+		echo '</span>';
 	}
 	protected function _outputAttr(&$attributes){
 		foreach($attributes as $name=>$val){
@@ -274,6 +315,12 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		$this->jsContent.="c = new ".$this->jFormsJsVarName."Control".$dt."('".$ctrl->ref."', ".$this->escJsStr($ctrl->label).");\n";
 		if($isLocale)
 			$this->jsContent.="c.lang='".jApp::config()->locale."';\n";
+		$maxv=$ctrl->datatype->getFacet('maxValue');
+		if($maxv!==null)
+			$this->jsContent.="c.maxValue = '$maxv';\n";
+		$minv=$ctrl->datatype->getFacet('minValue');
+		if($minv!==null)
+			$this->jsContent.="c.minValue = '$minv';\n";
 		$maxl=$ctrl->datatype->getFacet('maxLength');
 		if($maxl!==null)
 			$this->jsContent.="c.maxLength = '$maxl';\n";
@@ -844,8 +891,8 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 	protected function jsReset($ctrl){
 	}
 	protected function outputCaptcha($ctrl,&$attr){
-		$ctrl->initExpectedValue();
-		echo '<span class="jforms-captcha-question">',htmlspecialchars($ctrl->question),'</span> ';
+		$data=$ctrl->initCaptcha();
+		echo '<span class="jforms-captcha-question">',htmlspecialchars($data['question']),'</span> ';
 		unset($attr['readonly']);
 		$attr['type']='text';
 		$attr['value']='';
@@ -857,7 +904,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		$this->jsTextarea($ctrl);
 	}
 	protected function outputGroup($ctrl,&$attr){
-		echo '<fieldset id="',$attr['id'],'"><legend>',htmlspecialchars($ctrl->label),"</legend>\n";
+		echo '<fieldset id="',$attr['id'],'" class="jforms-ctrl-group"><legend>',htmlspecialchars($ctrl->label),"</legend>\n";
 		echo '<table class="jforms-table-group" border="0">',"\n";
 		foreach($ctrl->getChildControls()as $ctrlref=>$c){
 			if($c->type=='submit'||$c->type=='reset'||$c->type=='hidden')continue;
@@ -893,7 +940,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		foreach($ctrl->items as $itemName=>$listctrl){
 			if(!$ctrl->isItemActivated($itemName))
 				continue;
-			echo '<li><label><input';
+			echo '<li id="'.$id.$itemName.'_item"><label><input';
 			$attr['id']=$id.$i;
 			$attr['value']=$itemName;
 			if($itemName==$value)
@@ -939,11 +986,6 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 	}
 	protected function outputHelp($ctrl){
 		if($ctrl->help){
-			if($ctrl->type=='checkboxes'||($ctrl->type=='listbox'&&$ctrl->multiple)){
-				$name=$ctrl->ref.'[]';
-			}else{
-				$name=$ctrl->ref;
-			}
 			echo '<span class="jforms-help" id="'. $this->_name.'_'.$ctrl->ref.'-help">&nbsp;<span>'.htmlspecialchars($ctrl->help).'</span></span>';
 		}
 	}

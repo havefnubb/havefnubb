@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  utils
 * @author      Laurent Jouanneau
-* @copyright   2011 Laurent Jouanneau
+* @copyright   2011-2017 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -13,6 +13,7 @@ class  jLogSoapMessage extends jLogMessage{
 	protected $request;
 	protected $response;
 	protected $duration;
+	protected $functionName;
 	public function __construct($function_name,$soapClient,$category='default',$duration=0){
 		$this->category=$category;
 		$this->headers=$soapClient->__getLastRequestHeaders();
@@ -33,6 +34,9 @@ class  jLogSoapMessage extends jLogMessage{
 	}
 	public function getDuration(){
 		return $this->duration;
+	}
+	public function getFunctionName(){
+		return $this->functionName;
 	}
 	public function getFormatedMessage(){
 		$message='Soap call: '.$this->functionName."()\n";
@@ -91,8 +95,12 @@ class jSoapClient{
 		$client='SoapClient';
 		if(isset($profile['wsdl'])){
 			$wsdl=$profile['wsdl'];
-			if($wsdl=='')
+			if($wsdl==''){
 				$wsdl=null;
+			}
+			else if(!preg_match("!^https?\\://!",$wsdl)){
+				$wsdl=jFile::parseJelixPath($wsdl);
+			}
 			unset($profile['wsdl']);
 		}
 		if(isset($profile['trace'])){
@@ -132,6 +140,19 @@ class jSoapClient{
 		}
 		if(count($classMap)){
 			$profile['classmap']=$classMap;
+		}
+		if(isset($profile['ssl_self_signed'])){
+			if($profile['ssl_self_signed']){
+				$context=stream_context_create(array(
+					'ssl'=>array(
+						'verify_peer'=>false,
+						'verify_peer_name'=>false,
+						'allow_self_signed'=>true
+					)
+				));
+				$profile['stream_context']=$context;
+			}
+			unset($profile['ssl_self_signed']);
 		}
 		unset($profile['_name']);
 		return new $client($wsdl,$profile);

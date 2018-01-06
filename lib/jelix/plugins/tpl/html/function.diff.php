@@ -37,9 +37,6 @@ function jtpl_function_html_diff($tpl,$str1,$str2,$options=array())
 		echo $nodiffmsg;
 	}else{
 		switch($type){
-			case 'unifieddiff' :
-				$fmt=new HtmlUnifiedDiffFormatter();
-				break;
 			case 'inlinetable' :
 				require_once(LIB_PATH.'diff/difftableformatter.php');
 				$fmt=new HtmlInlineTableDiffFormatter($version1,$version2);
@@ -47,6 +44,10 @@ function jtpl_function_html_diff($tpl,$str1,$str2,$options=array())
 			case 'sidebyside' :
 				require_once(LIB_PATH.'diff/difftableformatter.php');
 				$fmt=new HtmlTableDiffFormatter($version1,$version2);
+				break;
+			case 'unifieddiff' :
+			default:
+				$fmt=new HtmlUnifiedDiffFormatter();
 				break;
 		}
 		echo $fmt->format($diff);

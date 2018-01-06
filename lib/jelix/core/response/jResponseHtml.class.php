@@ -93,6 +93,20 @@ class jResponseHtml extends jResponseBasicHtml{
 			}
 		}
 	}
+	public function addJSLinkModule($module,$src,$params=array(),$forIE=false){
+		$src=jUrl::get('jelix~www:getfile',array('targetmodule'=>$module,'file'=>$src));
+		if($forIE){
+			if(!isset($this->_JSIELink[$src])){
+				if(!is_bool($forIE)&&!empty($forIE))
+					$params['_ieCondition']=$forIE;
+				$this->_JSIELink[$src]=$params;
+			}
+		}else{
+			if(!isset($this->_JSLink[$src])){
+				$this->_JSLink[$src]=$params;
+			}
+		}
+	}
 	public function getJSLinks(){return $this->_JSLink;}
 	public function setJSLinks($list){$this->_JSLink=$list;}
 	public function getJSIELinks(){return $this->_JSIELink;}
@@ -102,6 +116,34 @@ class jResponseHtml extends jResponseBasicHtml{
 	public function getCSSIELinks(){return $this->_CSSIELink;}
 	public function setCSSIELinks($list){$this->_CSSIELink=$list;}
 	public function addCSSLink($src,$params=array(),$forIE=false){
+		if($forIE){
+			if(!isset($this->_CSSIELink[$src])){
+				if(!is_bool($forIE)&&!empty($forIE))
+					$params['_ieCondition']=$forIE;
+				$this->_CSSIELink[$src]=$params;
+			}
+		}else{
+			if(!isset($this->_CSSLink[$src])){
+				$this->_CSSLink[$src]=$params;
+			}
+		}
+	}
+	public function addCSSLinkModule($module,$src,$params=array(),$forIE=false){
+		$src=jUrl::get('jelix~www:getfile',array('targetmodule'=>$module,'file'=>$src));
+		if($forIE){
+			if(!isset($this->_CSSIELink[$src])){
+				if(!is_bool($forIE)&&!empty($forIE))
+					$params['_ieCondition']=$forIE;
+				$this->_CSSIELink[$src]=$params;
+			}
+		}else{
+			if(!isset($this->_CSSLink[$src])){
+				$this->_CSSLink[$src]=$params;
+			}
+		}
+	}
+	public function addCSSThemeLinkModule($module,$src,$params=array(),$forIE=false){
+		$src=$url=jUrl::get('jelix~www:getfile',array('targetmodule'=>$module,'file'=>'themes/'.jApp::config()->theme.'/'.$src));
 		if($forIE){
 			if(!isset($this->_CSSIELink[$src])){
 				if(!is_bool($forIE)&&!empty($forIE))

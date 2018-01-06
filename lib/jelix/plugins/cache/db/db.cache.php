@@ -5,7 +5,7 @@
 * @subpackage plugins_cache_db
 * @author     Tahina Ramaroson
 * @contributor Sylvain de Vathaire, Laurent Jouanneau
-* @copyright  2009 Neov, 2009 Laurent Jouanneau
+* @copyright  2009 Neov, 2009-2017 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 class dbCacheDriver implements jICacheDriver{
@@ -15,6 +15,7 @@ class dbCacheDriver implements jICacheDriver{
 	public $enabled=true;
 	public $ttl=0;
 	public $automatic_cleaning_factor=0;
+	protected $base64encoding=false;
 	public function __construct($params){
 		$this->profil_name=$params['_name'];
 		if(isset($params['enabled'])){
@@ -32,6 +33,9 @@ class dbCacheDriver implements jICacheDriver{
 		if(isset($params['automatic_cleaning_factor'])){
 			$this->automatic_cleaning_factor=$params['automatic_cleaning_factor'];
 		}
+		if(isset($params['base64encoding'])&&$params['base64encoding']){
+			$this->base64encoding=true;
+		}
 	}
 	public function get($key){
 		$dao=jDao::get($this->_dao,$this->_dbprofile);
@@ -43,7 +47,8 @@ class dbCacheDriver implements jICacheDriver{
 			foreach($rs as $cache){
 				if(is_null($cache->date)||(strtotime($cache->date)> time())){
 					try{
-						$data[$cache->key]=unserialize($cache->data);
+						$val=$this->base64encoding?base64_decode($cache->data):$cache->data;
+						$data[$cache->key]=unserialize($val);
 					}catch(Exception $e){
 						throw new jException('jelix~cache.error.unserialize.data',array($this->profil_name,$e->getMessage()));
 					}
@@ -55,7 +60,8 @@ class dbCacheDriver implements jICacheDriver{
 			$rec=$dao->getData($key);
 			if($rec){
 				try{
-					$data=unserialize($rec->data);
+					$val=$this->base64encoding?base64_decode($rec->data):$rec->data;
+					$data=unserialize($val);
 				}catch(Exception $e){
 					throw new jException('jelix~cache.error.unserialize.data',array($this->profil_name,$e->getMessage()));
 				}
@@ -68,12 +74,14 @@ class dbCacheDriver implements jICacheDriver{
 	public function set($key,$var,$ttl=0){
 		try{
 			$var=serialize($var);
+			if($this->base64encoding){
+				$var=base64_encode($var);
+			}
 		}
 		catch(Exception $e){
 			throw new jException('jelix~cache.error.serialize.data',array($this->profil_name,$e->getMessage()));
 		}
 		$dao=jDao::get($this->_dao,$this->_dbprofile);
-		$n=0;
 		switch($ttl){
 			case -1:
 				$date=-1;
@@ -105,7 +113,7 @@ class dbCacheDriver implements jICacheDriver{
 	}
 	public function increment($key,$var=1){
 		if($oldData=$this->get($key)){
-			if(!is_numeric($oldData)){
+			if(!is_numeric($oldData)||!is_numeric($var)){
 				return false;
 			}
 			$data=$oldData + $var;
@@ -118,7 +126,7 @@ class dbCacheDriver implements jICacheDriver{
 	}
 	public function decrement($key,$var=1){
 		if(($oldData=$this->get($key))){
-			if(!is_numeric($oldData)){
+			if(!is_numeric($oldData)||!is_numeric($var)){
 				return false;
 			}
 			$data=$oldData - (int)$var;

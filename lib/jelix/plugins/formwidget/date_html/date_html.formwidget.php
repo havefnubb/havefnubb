@@ -12,10 +12,10 @@
 */
 class date_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 	public function outputMetaContent($resp){
-		$bp=jApp::config()->urlengine['basePath'];
+		$bp=jApp::urlBasePath();
 		$confDate=&jApp::config()->datepickers;
 		$datepicker_default_config=jApp::config()->forms['datepicker'];
-		$config=isset($ctrl->datepickerConfig)?$ctrl->datepickerConfig:$datepicker_default_config;
+		$config=isset($this->ctrl->datepickerConfig)? $this->ctrl->datepickerConfig : $datepicker_default_config;
 		$resp->addJSLink($bp.$confDate[$config]);
 	}
 	protected function outputJs(){
@@ -29,17 +29,17 @@ class date_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 			$js.="c.minDate = '".$minDate->toString(jDateTime::DB_DFORMAT)."';\n";
 		if($maxDate)
 			$js.="c.maxDate = '".$maxDate->toString(jDateTime::DB_DFORMAT)."';\n";
-		if($ctrl instanceof jFormsControlDate||get_class($ctrl->datatype)=='jDatatypeDate'||get_class($ctrl->datatype)=='jDatatypeLocaleDate'){
-			$config=isset($ctrl->datepickerConfig)?$ctrl->datepickerConfig:jApp::config()->forms['datepicker'];
-			$js.='jelix_datepicker_'.$config."(c, jFormsJQ.config);\n";
-		}
 		$this->parentWidget->addJs($js);
 		$this->commonJs();
+		if($ctrl instanceof jFormsControlDate||get_class($ctrl->datatype)=='jDatatypeDate'||get_class($ctrl->datatype)=='jDatatypeLocaleDate'){
+			$config=isset($ctrl->datepickerConfig)?$ctrl->datepickerConfig:jApp::config()->forms['datepicker'];
+			$this->parentWidget->addJs('jelix_datepicker_'.$config."(c, jFormsJQ.config);\n");
+		}
 	}
 	function outputControl(){
 		$formName=$this->builder->getName();
 		$attr=$this->getControlAttributes();
-		$value=$this->getValue($this->ctrl);
+		$value=$this->getValue();
 		$attr['id']=$formName.'_'.$this->ctrl->ref.'_';
 		$v=array('year'=>'','month'=>'','day'=>'');
 		if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})?$#',$value,$matches)){

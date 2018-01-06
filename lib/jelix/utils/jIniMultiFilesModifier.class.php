@@ -29,6 +29,14 @@ class jIniMultiFilesModifier{
 			$this->overrider->setValue($name,$value,$section,$key);
 		}
 	}
+	public function setValues($values,$section=0,$onMaster=false){
+		if($onMaster){
+			$this->master->setValues($values,$section);
+		}
+		else{
+			$this->overrider->setValues($values,$section);
+		}
+	}
 	public function getValue($name,$section=0,$key=null,$masterOnly=false){
 		if($masterOnly){
 			return $this->master->getValue($name,$section,$key);
@@ -40,9 +48,16 @@ class jIniMultiFilesModifier{
 			return $val;
 		}
 	}
-	public function save(){
-		$this->master->save();
-		$this->overrider->save();
+	public function removeValue($name,$section=0,$key=null,$removePreviousComment=true,$masterOnly=false){
+		$this->master->removeValue($name,$section,$key,$removePreviousComment);
+		if($masterOnly){
+			return;
+		}
+		$this->overrider->removeValue($name,$section,$key,$removePreviousComment);
+	}
+	public function save($chmod=null){
+		$this->master->save($chmod);
+		$this->overrider->save($chmod);
 	}
 	public function isModified(){
 		return $this->master->isModified()||$this->overrider->isModified();

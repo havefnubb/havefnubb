@@ -30,7 +30,7 @@ class jZone{
 		return self::_callZone($name,'getContent',$params);
 	}
 	public static function clear($name,$params=array()){
-		return self::_callZone($name,'clearCache',$params);
+		self::_callZone($name,'clearCache',$params);
 	}
 	public static function clearAll($name=''){
 		$dir=jApp::tempPath('zonecache/');
@@ -70,16 +70,14 @@ class jZone{
 						jApp::coord()->response=$response;
 						if(!$this->_cancelCache){
 							jFile::write($f,$content);
-							jFile::write($cacheFiles['meta'],(string)$sniffer);
+							jFile::write($cacheFiles['meta'],'<?'."php\n".(string)$sniffer);
 						}
 						return $content;
 					}
 				}
 				if(file_exists($cacheFiles['meta'])){
 					if(filesize($cacheFiles['meta'])> 0){
-						$metaFunct=create_function('$resp',file_get_contents($cacheFiles['meta']));
-						$metaFunct(jApp::coord()->response);
-						unset($metaFunct);
+						$this->_execMetaFunc(jApp::coord()->response,$cacheFiles['meta']);
 					}
 				}else{
 					$response=jApp::coord()->response;
@@ -88,7 +86,7 @@ class jZone{
 					$this->_createContent();
 					jApp::coord()->response=$response;
 					if(!$this->_cancelCache){
-						jFile::write($cacheFiles['meta'],(string)$sniffer);
+						jFile::write($cacheFiles['meta'],'<?'."php\n".(string)$sniffer);
 					}
 				}
 				$content=file_get_contents($f);
@@ -101,13 +99,16 @@ class jZone{
 				jApp::coord()->response=$response;
 				if(!$this->_cancelCache){
 					jFile::write($f,$content);
-					jFile::write($cacheFiles['meta'],(string)$sniffer);
+					jFile::write($cacheFiles['meta'],'<?'."php\n".(string)$sniffer);
 				}
 			}
 		}else{
 			$content=$this->_createContent();
 		}
 		return $content;
+	}
+	protected function _execMetaFunc($resp,$_file){
+		include($_file);
 	}
 	public function clearCache(){
 		if($this->_useCache){

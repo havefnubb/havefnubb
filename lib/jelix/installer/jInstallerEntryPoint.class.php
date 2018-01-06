@@ -12,17 +12,20 @@ class jInstallerEntryPoint{
 	public $config;
 	public $configFile;
 	public $configIni;
+	public $localConfigIni;
+	protected $epConfigIni;
 	public $isCliScript;
 	public $scriptName;
 	public $file;
 	public $type;
-	function __construct($defaultConfig,$configFile,$file,$type){
+	function __construct($mainConfig,$configFile,$file,$type){
 		$this->type=$type;
 		$this->isCliScript=($type=='cmdline');
 		$this->configFile=$configFile;
 		$this->scriptName=($this->isCliScript?$file:'/'.$file);
 		$this->file=$file;
-		$this->configIni=new jIniMultiFilesModifier($defaultConfig,jApp::configPath($configFile));
+		$this->epConfigIni=new jIniFileModifier(jApp::configPath($configFile));
+		$this->configIni=new jIniMultiFilesModifier($mainConfig,$this->epConfigIni);
 		$this->config=jConfigCompiler::read($configFile,true,
 											$this->isCliScript,
 											$this->scriptName);
@@ -35,5 +38,17 @@ class jInstallerEntryPoint{
 	}
 	function getModule($moduleName){
 		return new jInstallerModuleInfos($moduleName,$this->config->modules);
+	}
+	function getEpConfigIni(){
+		return $this->epConfigIni;
+	}
+	function getConfigFile(){
+		return $this->configFile;
+	}
+	function getConfigObj(){
+		return $this->config;
+	}
+	function setConfigObj($config){
+		$this->config=$config;
 	}
 }

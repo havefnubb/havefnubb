@@ -55,6 +55,11 @@ abstract class jDbConnection{
 			$this->_disconnect();
 		}
 	}
+	function disconnect(){
+		if($this->_connection!==null){
+			$this->_disconnect();
+		}
+	}
 	public function query($queryString,$fetchmode=self::FETCH_OBJ,$arg1=null,$ctoargs=null){
 		$this->lastQuery=$queryString;
 		if($this->_debugMode){
@@ -117,6 +122,16 @@ abstract class jDbConnection{
 			return $table_name;
 		return $this->profile['table_prefix'].$table_name;
 	}
+	public function unprefixTable($tableName){
+		if(!isset($this->profile['table_prefix'])||$this->profile['table_prefix']==''){
+			return $tableName;
+		}
+		$prefix=$this->profile['table_prefix'];
+		if(strpos($tableName,$prefix)!==0){
+			return $tableName;
+		}
+		return substr($tableName,strlen($prefix));
+	}
 	public function hasTablePrefix(){
 		return(isset($this->profile['table_prefix'])&&$this->profile['table_prefix']!='');
 	}
@@ -166,6 +181,64 @@ abstract class jDbConnection{
 			$this->_schema=new $class($this);
 		}
 		return $this->_schema;
+	}
+	protected function findParameters($sql,$marker){
+		$queryParts=preg_split("/([`\"'\\\\])/",$sql,-1,PREG_SPLIT_DELIM_CAPTURE);
+		$finalQuery='';
+		$ignoreNext=false;
+		$insideString=false;
+		$this->foundParameters=array();
+		$this->numericalMarker=(substr($marker,-1)=='%');
+		if($this->numericalMarker){
+			$this->parameterMarker=substr($marker,0,-1);
+		}
+		else{
+			$this->parameterMarker=$marker;
+		}
+		foreach($queryParts as $token){
+			if($token=='\\'){
+				$ignoreNext=true;
+				$finalQuery.=$token;
+			}
+			else if($token=='"'||$token=="'"||$token=='`'){
+				if($ignoreNext){
+					$ignoreNext=false;
+					$finalQuery.=$token;
+				}
+				else if($insideString==$token){
+					$insideString=false;
+					$finalQuery.=$token;
+				}
+				else if($insideString===false){
+					$insideString=$token;
+					$finalQuery.=$token;
+				}
+				else if($insideString!==false){
+					$finalQuery.=$token;
+				}
+			}
+			else if($insideString!==false){
+				$finalQuery.=$token;
+			}
+			else{
+				$finalQuery.=preg_replace_callback("/(\\:)([a-zA-Z0-9_]+)/",array($this,'_replaceParam'),$token);
+			}
+		}
+		return array($finalQuery,$this->foundParameters);
+	}
+	protected function _replaceParam($matches){
+		if($this->numericalMarker){
+			$index=array_search($matches[2],$this->foundParameters);
+			if($index===false){
+				$this->foundParameters[]=$matches[2];
+				$index=count($this->foundParameters)-1;
+			}
+			return $this->parameterMarker.($index+1);
+		}
+		else{
+			$this->foundParameters[]=$matches[2];
+			return $this->parameterMarker;
+		}
 	}
 }
 abstract class jDbResultSet implements Iterator{
@@ -295,12 +368,15 @@ class jDb{
 		}
 	}
 	public static function floatToStr($value){
-		if(is_float($value))
-			return rtrim(sprintf('%.20F',$value),'0');
-		else if(is_integer($value))
+		if(is_float($value)){
+			return rtrim(rtrim(sprintf("%.20F",$value),"0"),'.');
+		}
+		else if(is_integer($value)){
 			return sprintf('%d',$value);
-		else if(is_numeric($value))
+		}
+		else if(is_numeric($value)){
 			return $value;
+		}
 		return (string)(floatval($value));
 	}
 }

@@ -14,7 +14,7 @@ require_once(__DIR__.'/../checkboxes_html/checkboxes_html.formwidget.php');
 class radiobuttons_htmlFormWidget extends checkboxes_htmlFormWidget{
 	function outputControl(){
 		$attr=$this->getControlAttributes();
-		$value=$this->getValue($this->ctrl);
+		$value=$this->getValue();
 		$id=$this->builder->getName().'_'.$this->ctrl->ref.'_';
 		$attr['name']=$this->ctrl->ref;
 		unset($attr['title']);

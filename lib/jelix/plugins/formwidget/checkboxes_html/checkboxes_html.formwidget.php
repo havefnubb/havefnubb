@@ -18,7 +18,7 @@ class checkboxes_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 	}
 	function outputControl(){
 		$attr=$this->getControlAttributes();
-		$value=$this->getValue($this->ctrl);
+		$value=$this->getValue();
 		$attr['name']=$this->ctrl->ref.'[]';
 		unset($attr['title']);
 		if(is_array($value)&&count($value)==1)

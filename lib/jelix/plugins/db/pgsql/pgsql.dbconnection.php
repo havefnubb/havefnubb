@@ -8,6 +8,7 @@
 * @contributor Yannick Le Guédart
 * @contributor Laurent Raufaste
 * @contributor Julien Issler
+* @contributor Alexandre Zanelli
 * @copyright  2001-2005 CopixTeam, 2005-2012 Laurent Jouanneau, 2007-2008 Laurent Raufaste
 * @copyright  2009 Julien Issler
 * This class was get originally from the Copix project (CopixDBConnectionPostgreSQL, Copix 2.3dev20050901, http://www.copix.org)
@@ -33,6 +34,9 @@ class pgsqlDbConnection extends jDbConnection{
 		else
 		{
 			$this->setAutoCommit(true);
+		}
+		if(version_compare(pg_parameter_status($this->_connection,"server_version"),'9.0')> -1){
+			$this->_doExec('SET bytea_output = "escape"');
 		}
 	}
 	public function encloseName($fieldName){
@@ -72,19 +76,24 @@ class pgsqlDbConnection extends jDbConnection{
 	protected function _connect(){
 		$funcconnect=(isset($this->profile['persistent'])&&$this->profile['persistent'] ? 'pg_pconnect':'pg_connect');
 		$str='';
-		if($this->profile['host']!='')
-			$str='host=\''.$this->profile['host'].'\''.$str;
-		if(isset($this->profile['port'])){
-			$str.=' port=\''.$this->profile['port'].'\'';
+		if(isset($this->profile['service'])&&$this->profile['service']!=''){
+			$str='service=\''.$this->profile['service'].'\''.$str;
 		}
-		if($this->profile['database']!=''){
-			$str.=' dbname=\''.$this->profile['database'].'\'';
-		}
-		if(isset($this->profile['user'])){
-			$str.=' user=\''.$this->profile['user'].'\'';
-		}
-		if(isset($this->profile['password'])){
-			$str.=' password=\''.$this->profile['password'].'\'';
+		else{
+			if($this->profile['host']!='')
+				$str='host=\''.$this->profile['host'].'\''.$str;
+			if(isset($this->profile['port'])){
+				$str.=' port=\''.$this->profile['port'].'\'';
+			}
+			if($this->profile['database']!=''){
+				$str.=' dbname=\''.$this->profile['database'].'\'';
+			}
+			if(isset($this->profile['user'])){
+				$str.=' user=\''.$this->profile['user'].'\'';
+			}
+			if(isset($this->profile['password'])){
+				$str.=' password=\''.$this->profile['password'].'\'';
+			}
 		}
 		if(isset($this->profile['timeout'])&&$this->profile['timeout']!=''){
 			$str.=' connect_timeout=\''.$this->profile['timeout'].'\'';
@@ -114,7 +123,6 @@ class pgsqlDbConnection extends jDbConnection{
 			$rs=new pgsqlDbResultSet($qI);
 			$rs->_connector=$this;
 		}else{
-			$rs=false;
 			throw new jException('jelix~db.error.query.bad',pg_last_error($this->_connection).'('.$queryString.')');
 		}
 		return $rs;
@@ -151,7 +159,9 @@ class pgsqlDbConnection extends jDbConnection{
 		}
 	}
 	protected function _autoCommitNotify($state){
-		$this->_doExec('SET AUTOCOMMIT TO '.($state ? 'ON' : 'OFF'));
+		if(version_compare(pg_parameter_status($this->_connection,"server_version"),'7.4')<0){
+			$this->_doExec('SET AUTOCOMMIT TO '.($state ? 'ON' : 'OFF'));
+		}
 	}
 	protected function _quote($text,$binary){
 		if($binary)

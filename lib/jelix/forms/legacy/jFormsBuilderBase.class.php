@@ -29,16 +29,24 @@ abstract class jFormsBuilderBase{
 			$this->_endt=(jApp::coord()->response->isXhtml()?'/>':'>');
 		}
 	}
+	public function getName(){return  $this->_name;}
+	public function getForm(){return $this->_form;}
+	public function endOfTag(){return $this->_endt;}
 	public function setOptions($options){
 		$this->options=$options;
 	}
-	public function getName(){return  $this->_name;}
+	public function getOption($name){
+		if(isset($this->options[$name]))
+			return $this->options[$name];
+		return null;
+	}
 	abstract public function outputMetaContent($tpl);
 	abstract public function outputHeader();
 	abstract public function outputFooter();
 	abstract public function outputAllControls();
 	abstract public function outputControl($ctrl,$attributes=array());
-	abstract public function outputControlLabel($ctrl);
+	abstract public function outputControlLabel($ctrl,$editMode=true);
+	abstract public function outputControlValue($ctrl,$attributes=array());
 	protected static function generateFormName($sel){
 		static $forms=array();
 		$name='jforms_'.str_replace('~','_',$sel);

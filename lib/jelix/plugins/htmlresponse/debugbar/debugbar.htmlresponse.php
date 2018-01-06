@@ -127,11 +127,6 @@ class debugbarHTMLResponsePlugin implements jIHTMLResponsePlugin{
 	}
 	public function beforeOutput(){
 		$plugins=jApp::config()->debugbar['plugins'];
-		$css="
-ul.jxdb-list li h5 a {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABjSURBVCjPY/jPgB8y0FHBkb37/+/6v+X/+v8r/y/ei0XB3v+H4HDWfywKtgAl1v7/D8SH/k/ApmANUAICDv1vx6ZgMZIJ9dgUzEJyQxk2BRPWdf1vAeqt/F/yP3/dwIQk2QoAfUogHsamBmcAAAAASUVORK5CYII=');}
-ul.jxdb-list li.jxdb-opened  h5 a {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABhSURBVCjPY/jPgB8y0FHBkb37/+/6v+X/+v8r/y/ei0XB3v+H4HDWfywKtgAl1oLhof8TsClYA5SAgEP/27EpWIxkQj02BbOQ3FCGTcGEdV3/W4B6K/+X/M9fNzAhSbYCAMiTH3pTNa+FAAAAAElFTkSuQmCC');}
-";
-		$js='';
 		if($plugins){
 			$plugins=preg_split('/ *, */',$plugins);
 			foreach($plugins as $name){
@@ -141,37 +136,44 @@ ul.jxdb-list li.jxdb-opened  h5 a {background-image: url('data:image/png;base64,
 				}
 			}
 		}
+	}
+	public function atBottom(){
+		$css="";
+		$js='';
 		foreach($this->plugins as $name=>$plugin){
 			$css.=$plugin->getCSS();
 			$js.=$plugin->getJavascript();
 		}
-		$this->response->addHeadContent('
+		?>
 <style type="text/css">
-#jxdb {position:absolute;right:10px;top:0px;left:auto;margin:0;padding:0px;z-index:1000;font-size:10pt;font-family:arial;font-weight:normal;color:black;}
+#jxdb {position:absolute;right:10px;top:0;left:auto;margin:0;padding:0;z-index:1000;font-size:10pt;font-family:arial;font-weight:normal;color:black;}
 #jxdb-pjlx-a-right { display:none;}
 #jxdb-pjlx-a-left { display:inline;}
 #jxdb.jxdb-position-l {left:10px; right: auto;}
 #jxdb.jxdb-position-l #jxdb-pjlx-a-right { display:inline;}
 #jxdb.jxdb-position-l #jxdb-pjlx-a-left { display:none;}
 #jxdb-header {
-    padding:3px;background:-moz-linear-gradient(top, #EFF4F6, #87CDEF);background-color: #EFF4F6;font-size:10pt;color:#797979;float:right;z-index:1200;position:relative;
-    border-radius:0px 0px  5px 5px ;-webkit-border-bottom-right-radius: 5px;-webkit-border-bottom-left-radius: 5px;-o-border-radius:0px 0px  5px 5px ;-moz-border-radius:0px 0px  5px 5px;
-    box-shadow: #6B6F80 3px 3px 6px 0px;-moz-box-shadow: #969CB4 3px 3px 6px 0px;-webkit-box-shadow: #6B6F80 3px 3px 6px;-o-box-shadow: #6B6F80 3px 3px 6px 0px;
+    padding:3px;font-size:10pt;color:#797979;float:right;z-index:1200;position:relative;
+    background:-moz-linear-gradient(to bottom, #EFF4F6, #87CDEF);background:-webkit-linear-gradient(top, #EFF4F6, #87CDEF);background-color: #EFF4F6;background:linear-gradient(to bottom, #EFF4F6, #87CDEF);
+    -webkit-border-bottom-right-radius: 5px;-webkit-border-bottom-left-radius: 5px;-o-border-radius:0 0  5px 5px ;-moz-border-radius:0 0 5px 5px;
+    border-radius:0 0 5px 5px ;
+    -moz-box-shadow: #969CB4 3px 3px 6px 0;-webkit-box-shadow: #6B6F80 3px 3px 6px;-o-box-shadow: #6B6F80 3px 3px 6px 0;
+    box-shadow: #6B6F80 3px 3px 6px 0;
 }
 #jxdb.jxdb-position-l #jxdb-header { float:left;}
 #jxdb-header img {vertical-align: middle;}
-#jxdb-header a img {border:0px;}
+#jxdb-header a img {border:0;}
 #jxdb-header span {display:inline-block;border-right: 1px solid #93B6B8;padding: 0 0.5em;color:black;}
 #jxdb-header a {text-decoration:none;color:black;}
 #jxdb-header span a:hover {text-decoration:underline;}
 #jxdb-tabpanels {
     clear:both;color:black;background-color: #CCE4ED;z-index:1100;margin:0;padding:0;position:relative;max-height:700px;overflow: auto;resize:both;
-    border-radius:0px 0px  5px 5px ;-moz-border-radius: 0 0 5px 5px;-o-border-radius:0px 0px  5px 5px ;-webkit-border-bottom-left-radius: 5px;-webkit-border-bottom-right-radius: 5px;
-    box-shadow: #6B6F80 3px 3px 3px 0px;-moz-box-shadow: #969CB4 3px 3px 3px 0px;-webkit-box-shadow: #6B6F80 3px 3px 3px;-o-box-shadow: #6B6F80 3px 3px 3px 0px;
+    -moz-border-radius: 0 0 5px 5px;-o-border-radius:0 0 5px 5px ;-webkit-border-bottom-left-radius: 5px;-webkit-border-bottom-right-radius: 5px;border-radius:0 0  5px 5px;
+    -moz-box-shadow: #969CB4 3px 3px 3px 0;-webkit-box-shadow: #6B6F80 3px 3px 3px;-o-box-shadow: #6B6F80 3px 3px 3px 0;box-shadow: #6B6F80 3px 3px 3px 0;
 }
 #jxdb-tabpanels div.jxdb-tabpanel { padding:4px; }
 .jxdb-list {margin:10px; padding:8px 8px 8px 8px; list-style-type:none;}
-.jxdb-list li {margin:3px 0; padding:0 0 0 0px; background-color: #D0E6F4;}
+.jxdb-list li {margin:3px 0; padding:0 0 0 0; background-color: #D0E6F4;}
 .jxdb-list h5 a {color:black;text-decoration:none;display:inline-block;padding:0 0 0 18px;background-position:left center; background-repeat: no-repeat;}
 .jxdb-list h5 span {display:inline-block;padding:0 0 0 18px;background-position: left center;background-repeat:no-repeat;}
 .jxdb-list h5 {display:block;margin:0;padding:0;font-size:12pt;font-weight:normal; background-color:#FFF9C2;}
@@ -186,15 +188,15 @@ ul.jxdb-list li.jxdb-opened  h5 a {background-image: url('data:image/png;base64,
 p.jxdb-msg-error { background-color:#FFD3D3;}
 p.jxdb-msg-warning { background-color:#FFB94E;}
 
-'.$css.'
+ul.jxdb-list li h5 a {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABjSURBVCjPY/jPgB8y0FHBkb37/+/6v+X/+v8r/y/ei0XB3v+H4HDWfywKtgAl1v7/D8SH/k/ApmANUAICDv1vx6ZgMZIJ9dgUzEJyQxk2BRPWdf1vAeqt/F/yP3/dwIQk2QoAfUogHsamBmcAAAAASUVORK5CYII=');}
+ul.jxdb-list li.jxdb-opened  h5 a {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABhSURBVCjPY/jPgB8y0FHBkb37/+/6v+X/+v8r/y/ei0XB3v+H4HDWfywKtgAl1oLhof8TsClYA5SAgEP/27EpWIxkQj02BbOQ3FCGTcGEdV3/W4B6K/+X/M9fNzAhSbYCAMiTH3pTNa+FAAAAAElFTkSuQmCC');}
+<?php echo $css ?>
 </style>
 <script type="text/javascript">//<![CDATA[
-var jxdb={plugins:{},init:function(event){for(var i in jxdb.plugins)jxdb.plugins[i].init()},me:function(){return document.getElementById(\'jxdb\')},close:function(){document.getElementById(\'jxdb\').style.display="none"},selectTab:function(tabPanelId){var close=(document.getElementById(tabPanelId).style.display==\'block\');this.hideTab();if(!close){document.getElementById(\'jxdb-tabpanels\').style.display=\'block\';document.getElementById(tabPanelId).style.display=\'block\'}},hideTab:function(){var panels=document.getElementById(\'jxdb-tabpanels\').childNodes;for(var i=0;i<panels.length;i++){var elt=panels[i];if(elt.nodeType==elt.ELEMENT_NODE){elt.style.display=\'none\'}}document.getElementById(\'jxdb-tabpanels\').style.display=\'none\'},moveTo:function(side){document.getElementById(\'jxdb\').setAttribute(\'class\',\'jxdb-position-\'+side);this.createCookie(\'jxdebugbarpos\',side)},createCookie:function(name,value){var date=new Date();date.setTime(date.getTime()+(7*24*60*60*1000));document.cookie=name+"="+value+"; expires="+date.toGMTString()+"; path=/"},toggleDetails:function(anchor){var item=anchor.parentNode.parentNode;var cssclass=item.getAttribute(\'class\');if(cssclass==null)cssclass=\'\';if(cssclass.indexOf(\'jxdb-opened\')==-1){item.setAttribute(\'class\',cssclass+" jxdb-opened");item.childNodes[3].style.display=\'block\'}else{item.setAttribute(\'class\',cssclass.replace("jxdb-opened",\'\'));item.childNodes[3].style.display=\'none\'}}};if(window.addEventListener)window.addEventListener("load",jxdb.init,false);
-'.$js.' //]]>
+var jxdb={plugins:{},init:function(event){for(var i in jxdb.plugins)jxdb.plugins[i].init()},me:function(){return document.getElementById('jxdb')},close:function(){document.getElementById('jxdb').style.display="none"},selectTab:function(tabPanelId){var close=(document.getElementById(tabPanelId).style.display=='block');this.hideTab();if(!close){document.getElementById('jxdb-tabpanels').style.display='block';document.getElementById(tabPanelId).style.display='block'}},hideTab:function(){var panels=document.getElementById('jxdb-tabpanels').childNodes;for(var i=0;i<panels.length;i++){var elt=panels[i];if(elt.nodeType==elt.ELEMENT_NODE){elt.style.display='none'}}document.getElementById('jxdb-tabpanels').style.display='none'},moveTo:function(side){document.getElementById('jxdb').setAttribute('class','jxdb-position-'+side);this.createCookie('jxdebugbarpos',side)},createCookie:function(name,value){var date=new Date();date.setTime(date.getTime()+(7*24*60*60*1000));document.cookie=name+"="+value+"; expires="+date.toGMTString()+"; path=/"},toggleDetails:function(anchor){var item=anchor.parentNode.parentNode;var cssclass=item.getAttribute('class');if(cssclass==null)cssclass='';if(cssclass.indexOf('jxdb-opened')==-1){item.setAttribute('class',cssclass+" jxdb-opened");item.childNodes[3].style.display='block'}else{item.setAttribute('class',cssclass.replace("jxdb-opened",''));item.childNodes[3].style.display='none'}}};if(window.addEventListener)window.addEventListener("load",jxdb.init,false);
+<?php echo $js ?> //]]>
 </script>
-');
-	}
-	public function atBottom(){
+        <?php
 		foreach($this->plugins as $plugin){
 			$plugin->show($this);
 		}
@@ -223,6 +225,7 @@ var jxdb={plugins:{},init:function(event){for(var i in jxdb.plugins)jxdb.plugins
                 <li>Jelix version: <?php echo JELIX_VERSION?></li>
                 <li>Move the debug bar <a id="jxdb-pjlx-a-right" href="javascript:jxdb.moveTo('r')">to right</a>
                 <a href="javascript:jxdb.moveTo('l')" id="jxdb-pjlx-a-left">to left</a></li>
+                <li>To remove it definitively, deactivate the plugin "debugbar"<br/> into the configuration</li>
             </ul>
         </div>
         <?php
@@ -258,37 +261,6 @@ var jxdb={plugins:{},init:function(event){for(var i in jxdb.plugins)jxdb.plugins
 		foreach($trace as $k=>$t){
 			if(isset($t['file'])){
 				$file=$t['file'];
-				$path='';
-				$shortcut='';
-				if(strpos($file,LIB_PATH)===0){
-					$path=LIB_PATH;
-					$shortcut='lib:';
-				}
-				elseif(strpos($file,jApp::tempPath())===0){
-					$path=jApp::tempPath();
-					$shortcut='temp:';
-				}
-				elseif(strpos($file,jApp::appPath())===0){
-					$path=jApp::appPath();
-					$shortcut='app:';
-				}
-				else{
-					$path=dirname(jApp::appPath());
-					$shortcut='app:';
-					while($path!='.'&&$path!=''){
-						$shortcut.='../';
-						if(strpos($file,$path)===0){
-							break;
-						}
-						$path=dirname($path);
-					}
-					if($path=='.')
-						$path='';
-				}
-				if($path!=''){
-					$cut=($path[0]=='/'?0:1);
-					$file='<i>'.$shortcut.'</i>'.substr($file,strlen($path)+$cut);
-				}
 			}
 			else{
 				$file='[php]';

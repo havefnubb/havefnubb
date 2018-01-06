@@ -31,7 +31,6 @@ if(console){';
 			case 'error':
 				$src.='console.error("';
 				break;
-			case 'warning':
 			case 'notice':
 				$src.='console.debug("';
 				break;

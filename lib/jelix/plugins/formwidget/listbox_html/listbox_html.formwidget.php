@@ -6,7 +6,7 @@
 * @author      Claudio Bernardes
 * @contributor Laurent Jouanneau, Julien Issler, Dominique Papin
 * @copyright   2012 Claudio Bernardes
-* @copyright   2006-2012 Laurent Jouanneau, 2008-2011 Julien Issler, 2008 Dominique Papin
+* @copyright   2006-2015 Laurent Jouanneau, 2008-2015 Julien Issler, 2008 Dominique Papin
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -22,12 +22,20 @@ class listbox_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 			$js.="c = new ".$jFormsJsVarName."ControlString('".$ctrl->ref."', ".$this->escJsStr($ctrl->label).");\n";
 		}
 		$this->parentWidget->addJs($js);
+		if($ctrl instanceof jFormsControlDatasource
+			&&$ctrl->datasource instanceof jIFormsDynamicDatasource){
+			$dependentControls=$ctrl->datasource->getCriteriaControls();
+			if($dependentControls){
+				$this->parentWidget->addJs("c.dependencies = ['".implode("','",$dependentControls)."'];\n");
+				$this->parentWidget->addFinalJs("jFormsJQ.tForm.declareDynamicFill('".$ctrl->ref.($ctrl->multiple?'[]':'')."');\n");
+			}
+		}
 		$this->commonJs();
 	}
 	function outputControl(){
 		$ctrl=$this->ctrl;
 		$attr=$this->getControlAttributes();
-		$value=$this->getValue($ctrl);
+		$value=$this->getValue();
 		if(isset($attr['readonly'])){
 			$attr['disabled']='disabled';
 			unset($attr['readonly']);

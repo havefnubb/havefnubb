@@ -12,9 +12,15 @@
 */
 class submit_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 	function outputControl(){
+		if(isset($this->attributes['class'])){
+			$class=$this->attributes['class'].' ';
+		}
+		else{
+			$class='';
+		}
 		$attr=$this->getControlAttributes();
 		unset($attr['readonly']);
-		$attr['class']='jforms-submit';
+		$attr['class']=$class.'jforms-submit';
 		$attr['type']='submit';
 		if($this->ctrl->standalone){
 			$attr['value']=$this->ctrl->label;

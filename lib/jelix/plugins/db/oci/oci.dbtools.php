@@ -5,7 +5,7 @@
 * @subpackage db_driver
 * @author     Gwendal Jouannic
 * @contributor Laurent Jouanneau
-* @copyright  2008 Gwendal Jouannic, 2009-2011 Laurent Jouanneau
+* @copyright  2008 Gwendal Jouannic, 2009-2017 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -26,6 +26,7 @@ class ociDbTools extends jDbTools{
 	'bigautoincrement'=>array('bigint','numeric','-9223372036854775808','9223372036854775807',null,null),
 	'float'=>array('float','float',null,null,null,null),
 	'money'=>array('float','float',null,null,null,null),
+	'smallmoney'=>array('float','float',null,null,null,null),
 	'double precision'=>array('double precision','decimal',null,null,null,null),
 	'double'=>array('double precision','decimal',null,null,null,null),
 	'real'=>array('real','decimal',null,null,null,null),
@@ -38,6 +39,9 @@ class ociDbTools extends jDbTools{
 	'date'=>array('date','date',null,null,10,10),
 	'time'=>array('time','time',null,null,8,8),
 	'datetime'=>array('datetime','datetime',null,null,19,19),
+	'datetime2'=>array('datetime','datetime',null,null,19,27),
+	'datetimeoffset'=>array('datetime','datetime',null,null,19,34),
+	'smalldatetime'=>array('datetime','datetime',null,null,19,19),
 	'timestamp'=>array('datetime','datetime',null,null,19,19),
 	'utimestamp'=>array('timestamp','integer',0,2147483647,null,null),
 	'year'=>array('year','year',null,null,2,4),
@@ -54,6 +58,7 @@ class ociDbTools extends jDbTools{
 	'string'=>array('varchar','varchar',null,null,0,65535),
 	'tinytext'=>array('tinytext','text',null,null,0,255),
 	'text'=>array('text','text',null,null,0,65535),
+	'ntext'=>array('text','text',null,null,0,0),
 	'mediumtext'=>array('mediumtext','text',null,null,0,16777215),
 	'longtext'=>array('longtext','text',null,null,0,0),
 	'long'=>array('longtext','text',null,null,0,0),
@@ -69,9 +74,11 @@ class ociDbTools extends jDbTools{
 	'varbinary'=>array('varbinary','varbinary',null,null,0,255),
 	'raw'=>array('varbinary','varbinary',null,null,0,2000),
 	'long raw'=>array('varbinary','varbinary',null,null,0,0),
+	'image'=>array('varbinary','varbinary',null,null,0,0),
 	'enum'=>array('varchar','varchar',null,null,0,65535),
 	'set'=>array('varchar','varchar',null,null,0,65535),
 	'xmltype'=>array('varchar','varchar',null,null,0,65535),
+	'xml'=>array('text','text',null,null,0,0),
 	'point'=>array('varchar','varchar',null,null,0,16),
 	'line'=>array('varchar','varchar',null,null,0,32),
 	'lsed'=>array('varchar','varchar',null,null,0,32),
@@ -86,15 +93,43 @@ class ociDbTools extends jDbTools{
 	'arrays'=>array('varchar','varchar',null,null,0,65535),
 	'complex types'=>array('varchar','varchar',null,null,0,65535),
 	);
-	public function getTableList(){
-		$results=array();
-		$rs=$this->_conn->query('SELECT TABLE_NAME FROM USER_TABLES');
-		while($line=$rs->fetch()){
-			$results[]=$line->table_name;
-		}
-		return $results;
-	}
-	public function getFieldList($tableName,$sequence=''){
+	protected $keywordNameCorrespondence=array(
+		'current_time'=>'CURRENT_TIMESTAMP',
+		'localtime'=>'CURRENT_TIMESTAMP',
+		'localtimestamp'=>'CURRENT_TIMESTAMP',
+	);
+	protected $functionNameCorrespondence=array(
+		'sysdatetime'=>'SYSTIMESTAMP',
+		'sysdatetimeoffset'=>'SYSTIMESTAMP',
+		'sysutcdatetime'=>'SYSTIMESTAMP',
+		'getdate'=>'CURRENT_TIMESTAMP',
+		'getutcdate'=>'CURRENT_TIMESTAMP',
+		'day'=>'EXTRACT(DAY FROM %!p)',
+		'month'=>'EXTRACT(MONTH FROM %!p)',
+		'year'=>'EXTRACT(YEAR FROM %!p)',
+		'curdate'=>'CURRENT_DATE',
+		'current_date'=>'CURRENT_DATE',
+		'curtime'=>'CURRENT_TIMESTAMP',
+		'current_time'=>'CURRENT_TIMESTAMP',
+		'now'=>'CURRENT_TIMESTAMP',
+		'current_timestamp'=>'CURRENT_TIMESTAMP',
+		'date'=>'TO_DATE(%!p)',
+		'dayofmonth'=>'EXTRACT(DAY FROM %!p)',
+		'localtime'=>'CURRENT_TIMESTAMP',
+		'localtimestamp'=>'CURRENT_TIMESTAMP',
+		'utc_date'=>'CURRENT_DATE',
+		'utc_time'=>'CURRENT_TIMESTAMP',
+		'utc_timestamp'=>'CURRENT_TIMESTAMP',
+		'time'=>'TO_DATE(%!p)',
+		'hour'=>'EXTRACT(HOUR FROM %!p)',
+		'minute'=>'EXTRACT(MINUTE FROM %!p)',
+		'second'=>'EXTRACT(SECOND FROM %!p)',
+		'datetime'=>'TO_DATE(%!p)',
+		'extract'=>'!extractDateConverter',
+		'date_part'=>'!extractDateConverter',
+		'datepart'=>'!extractDateConverter',
+	);
+	public function getFieldList($tableName,$sequence='',$schemaName=''){
 		$tableName=$this->_conn->prefixTable($tableName);
 		$results=array();
 		$query='SELECT COLUMN_NAME, DATA_TYPE, DATA_LENGTH, NULLABLE, DATA_DEFAULT,  
@@ -104,7 +139,11 @@ class ociDbTools extends jDbTools{
                             AND UC.TABLE_NAME = UTC.TABLE_NAME
                             AND UCC.COLUMN_NAME = UTC.COLUMN_NAME
                             AND UC.CONSTRAINT_NAME = UCC.CONSTRAINT_NAME
-                            AND UC.CONSTRAINT_TYPE = \'P\') AS CONSTRAINT_TYPE
+                            AND UC.CONSTRAINT_TYPE = \'P\') AS CONSTRAINT_TYPE,  
+                        (SELECT COMMENTS 
+                         FROM USER_COL_COMMENTS UCCM
+                         WHERE UCCM.TABLE_NAME = UTC.TABLE_NAME
+                         AND UCCM.COLUMN_NAME = UTC.COLUMN_NAME) AS COLUMN_COMMENT
                     FROM USER_TAB_COLUMNS UTC 
                     WHERE UTC.TABLE_NAME = \''.strtoupper($tableName).'\'';
 		$rs=$this->_conn->query($query);
@@ -124,6 +163,9 @@ class ociDbTools extends jDbTools{
 			}
 			$field->notNull=($line->nullable=='N');
 			$field->primary=($line->constraint_type=='P');
+			if(isset($line->column_comment)&&!empty($line->column_comment)){
+				$field->comment=$line->column_comment;
+			}
 			if($field->primary){
 				if($sequence=='')
 					$sequence=$this->_getAISequenceName($tableName,$field->name);
@@ -131,7 +173,7 @@ class ociDbTools extends jDbTools{
 					$sqlai="SELECT 'Y' FROM USER_SEQUENCES US
                                 WHERE US.SEQUENCE_NAME = '".$sequence."'";
 					$rsai=$this->_conn->query($sqlai);
-					if($this->_conn->query($sqlai)->fetch()){
+					if($rsai->fetch()){
 						$field->autoIncrement=true;
 						$field->sequence=$sequence;
 					}

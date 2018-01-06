@@ -4,9 +4,10 @@
 * @package     jelix
 * @subpackage  urls_engine
 * @author      Laurent Jouanneau
-* @contributor Thibault Piront (nuKs)
+* @contributor Thibault Piront (nuKs), Julien Issler
 * @copyright   2005-2012 Laurent Jouanneau
 * @copyright   2007 Thibault Piront
+* @copyright   2016 Julien Issler
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -55,7 +56,6 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		);
 	public function compile($aSelector){
 		$sourceFile=$aSelector->getPath();
-		$cachefile=$aSelector->getCompiledFilePath();
 		$xml=simplexml_load_file($sourceFile);
 		if(!$xml){
 			return false;
@@ -65,7 +65,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 		$this->createUrlContent.="filemtime('".$sourceFile.'\') > '.filemtime($sourceFile);
 		$this->createUrlContentInc='';
 		$this->readProjectXml();
-		$this->retrieveModulePaths(jApp::configPath('defaultconfig.ini.php'));
+		$this->retrieveModulePaths(basename(jApp::mainConfigFile()));
 		$this->checkHttps=jApp::config()->urlengine['checkHttpsOnParsing'];
 		foreach($xml->children()as $tagname=>$tag){
 			if(!preg_match("/^(.*)entrypoint$/",$tagname,$m)){
@@ -88,13 +88,13 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 				$this->defaultUrl->entryPointUrl='';
 			$optionalTrailingSlash=(isset($tag['optionalTrailingSlash'])&&$tag['optionalTrailingSlash']=='true');
 			$this->parseInfos=array($this->defaultUrl->isDefault);
-			$this->retrieveModulePaths($this->getEntryPointConfig($this->defaultUrl->entryPoint));
+			$this->retrieveModulePaths($this->getEntryPointConfig($this->defaultUrl->entryPoint),$this->defaultUrl->entryPoint);
 			if($this->defaultUrl->isDefault){
 				$this->createUrlInfos['@'.$this->defaultUrl->requestType]=array(2,$this->defaultUrl->entryPoint,$this->defaultUrl->isHttps);
 			}
 			$createUrlInfosDedicatedModules=array();
 			$parseContent="<?php \n";
-			foreach($tag->children()as $tagname=>$url){
+			foreach($tag->children()as $tagnameChild=>$url){
 				$u=clone $this->defaultUrl;
 				$u->module=(string)$url['module'];
 				if(isset($url['https'])){
@@ -205,37 +205,14 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 			$entrypoint.='.php';
 		if(!isset($this->entryPoints[$entrypoint]))
 			throw new Exception('The entry point "'.$entrypoint.'" is not declared into project.xml');
-		return jApp::configPath($this->entryPoints[$entrypoint]);
+		return $this->entryPoints[$entrypoint];
 	}
 	protected $entryPoints=array();
-	protected $modulesRepositories=array();
 	protected $modulesPath=array();
-	protected function retrieveModulePaths($configFile){
-		$conf=parse_ini_file($configFile);
-		if(!array_key_exists('modulesPath',$conf))
-			return;
-		$list=preg_split('/ *, */',$conf['modulesPath']);
-		array_unshift($list,JELIX_LIB_PATH.'core-modules/');
-		foreach($list as $k=>$path){
-			if(trim($path)=='')continue;
-			$p=str_replace(array('lib:','app:'),array(LIB_PATH,jApp::appPath()),$path);
-			if(!file_exists($p)){
-				continue;
-			}
-			if(substr($p,-1)!='/')
-				$p.='/';
-			if(isset($this->modulesRepositories[$p]))
-				continue;
-			$this->modulesRepositories[$p]=true;
-			if($handle=opendir($p)){
-				while(false!==($f=readdir($handle))){
-					if($f[0]!='.'&&is_dir($p.$f)){
-						$this->modulesPath[$f]=$p.$f.'/';
-					}
-				}
-				closedir($handle);
-			}
-		}
+	protected function retrieveModulePaths($configFile,$entrypoint=''){
+		$conf=jConfigCompiler::read($configFile,true,false,$entrypoint);
+		$this->modulesPath=array_merge($this->modulesPath,
+			jConfigCompiler::getModulesPaths($conf));
 	}
 	protected function newHandler($u,$url,$pathinfo=''){
 		$class=(string)$url['handler'];
@@ -267,9 +244,9 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 			}
 		}
 	}
-	protected function extractDynamicParams($url,$regexppath,$u){
-		$regexppath=preg_quote($regexppath,'!');
-		if(preg_match_all("/\\\:([a-zA-Z_0-9]+)/",$regexppath,$m,PREG_PATTERN_ORDER)){
+	protected function extractDynamicParams($url,$pathinfo,$u){
+		$regexppath=preg_quote($pathinfo,'!');
+		if(preg_match_all("/(?<!\\\\)\\\:([a-zA-Z_0-9]+)/",$regexppath,$m,PREG_PATTERN_ORDER)){
 			$u->params=$m[1];
 			foreach($url->param as $var){
 				$name=(string) $var['name'];
@@ -314,6 +291,7 @@ class jSignificantUrlsCompiler implements jISimpleCompiler{
 				$regexppath=str_replace('\:'.$name,'([^\/]+)',$regexppath);
 			}
 		}
+		$regexppath=str_replace("\\\\\\:","\:",$regexppath);
 		return $regexppath;
 	}
 	protected function appendUrlInfo($u,$path,$secondaryAction){

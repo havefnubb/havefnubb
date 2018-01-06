@@ -50,6 +50,9 @@ abstract class jFormsBase{
 				throw new jException("jelix~formserr.invalid.token");
 		}
 		foreach($this->rootControls as $name=>$ctrl){
+			if($ctrl instanceof jFormsControlSecret||$ctrl instanceof jFormsControlSecretConfirm){
+				jApp::config()->error_handling['sensitiveParameters'][]=$ctrl->ref;
+			}
 			if(!$this->container->isActivated($name)||$this->container->isReadOnly($name))
 				continue;
 			$ctrl->setValueFromRequest($req);

@@ -22,7 +22,7 @@ interface jICacheDriver{
 }
 class jCache{
 	public static function get($key,$profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled){
 			return false;
 		}
@@ -37,7 +37,7 @@ class jCache{
 		return $drv->get($key);
 	}
 	public static function set($key,$value,$ttl=null,$profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled||is_resource($value)){
 			return false;
 		}
@@ -59,7 +59,7 @@ class jCache{
 		return $drv->set($key,$value,$ttl);
 	}
 	public static function call($fn,$fnargs=array(),$ttl=null,$profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if($drv->enabled){
 			$key=md5(serialize($fn).serialize($fnargs));
 			$lockKey=$key.'___jcacheLock';
@@ -109,7 +109,7 @@ class jCache{
 		}
 	}
 	public static function delete($key,$profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled){
 			return false;
 		}
@@ -117,7 +117,7 @@ class jCache{
 		return $drv->delete($key);
 	}
 	public static function increment($key,$incvalue=1,$profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled){
 			return false;
 		}
@@ -125,7 +125,7 @@ class jCache{
 		return $drv->increment($key,$incvalue);
 	}
 	public static function decrement($key,$decvalue=1,$profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled){
 			return false;
 		}
@@ -133,7 +133,7 @@ class jCache{
 		return $drv->decrement($key,$decvalue);
 	}
 	public static function replace($key,$value,$ttl=null,$profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled||is_resource($value)){
 			return false;
 		}
@@ -152,7 +152,7 @@ class jCache{
 		return $drv->replace($key,$value,$ttl);
 	}
 	public static function add($key,$value,$ttl=null,$profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled||is_resource($value)){
 			return false;
 		}
@@ -177,20 +177,20 @@ class jCache{
 		return $drv->set($key,$value,$ttl);
 	}
 	public static function garbage($profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled){
 			return false;
 		}
 		return $drv->garbage();
 	}
 	public static function flush($profile=''){
-		$drv=self::_getDriver($profile);
+		$drv=self::getDriver($profile);
 		if(!$drv->enabled){
 			return false;
 		}
 		return $drv->flush();
 	}
-	protected static function _getDriver($profile){
+	public static function getDriver($profile){
 		return jProfiles::getOrStoreInPool('jcache',$profile,array('jCache','_loadDriver'),true);
 	}
 	public static function _loadDriver($profile){
@@ -203,9 +203,16 @@ class jCache{
 		return $driver;
 	}
 	protected static function _checkKey($key){
-		if(!preg_match('/^[a-z0-9_]+$/i',$key)||strlen($key)> 255){
+		if(!preg_match('/^[\\w0-9_\\/:\\.\\-@#&]+$/iu',$key)||strlen($key)> 255){
 			throw new jException('jelix~cache.error.invalid.key',$key);
 		}
+	}
+	public static function normalizeKey($key){
+		if(preg_match('/[^\\w0-9_\\/:\\.\\-@#&]/iu',$key)){
+			$key=preg_replace('/[^\\w0-9_\\/:\\.\\-@#&]/iu','_',$key)
+				.'#'.sha1($key);
+		}
+		return $key;
 	}
 	protected static function _doFunctionCall($fn,$fnargs){
 		if(!is_callable($fn)){

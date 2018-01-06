@@ -17,6 +17,9 @@ class basic_significantUrlEngine extends simpleUrlEngine{
 				jApp::config()->basic_significant_urlengine_entrypoints[$script]=$val;
 			}
 		}
+		if(count(jApp::config()->basic_significant_urlengine_aliases)){
+			jApp::config()->basic_significant_urlengine_revaliases=array_flip(jApp::config()->basic_significant_urlengine_aliases);
+		}
 	}
 	public function parseFromRequest($request,$params){
 		return $this->parse($request->urlScript,$request->urlPathInfo,$params);
@@ -27,16 +30,20 @@ class basic_significantUrlEngine extends simpleUrlEngine{
 			if($pathinfo!=''){
 				$list=explode('/',$pathinfo);
 				$co=count($list);
+				$module=$list[0];
+				if(isset(jApp::config()->basic_significant_urlengine_aliases[$module])){
+					$module=jApp::config()->basic_significant_urlengine_aliases[$module];
+				}
 				if($co==1){
-					$params['module']=$list[0];
+					$params['module']=$module;
 					$params['action']='default:index';
 				}
 				else if($co==2){
-					$params['module']=$list[0];
+					$params['module']=$module;
 					$params['action']=$list[1].':index';
 				}
 				else{
-					$params['module']=$list[0];
+					$params['module']=$module;
 					$params['action']=$list[1].':'.$list[2];
 				}
 			}
@@ -59,6 +66,9 @@ class basic_significantUrlEngine extends simpleUrlEngine{
 		if(in_array($urlact->requestType,array('xmlrpc','jsonrpc','soap'))){
 			$url->clearParam();
 		}else{
+			if(isset(jApp::config()->basic_significant_urlengine_revaliases[$m])){
+				$m=jApp::config()->basic_significant_urlengine_revaliases[$m];
+			}
 			$pi='/'.$m.'/';
 			if($a!='default:index'){
 				list($c,$a)=explode(':',$a);

@@ -4,9 +4,10 @@
 * @package     jelix
 * @subpackage  core_response
 * @author      Laurent Jouanneau
-* @contributor Loic Mathaud
+* @contributor Loic Mathaud, Julien Issler
 * @copyright   2005-2010 Laurent Jouanneau
 * @copyright   2007 Loic Mathaud
+* @copyright   2017 Julien Issler
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -22,7 +23,6 @@ final class jResponseJsonRpc extends jResponse{
 		$req=jApp::coord()->request;
 		if($req->jsonRequestId!==null){
 			$content=jJsonRpc::encodeResponse($this->response,$req->jsonRequestId);
-			$this->_httpHeaders['Content-length']=strlen($content);
 			$this->sendHttpHeaders();
 			echo $content;
 		}
@@ -51,7 +51,6 @@ final class jResponseJsonRpc extends jResponse{
 		$this->_httpStatusMsg='Internal Server Error';
 		$this->_httpHeaders['Content-Type']="application/json";
 		$content=jJsonRpc::encodeFaultResponse($errorCode,$errorMessage,$coord->request->jsonRequestId);
-		$this->_httpHeaders['Content-length']=strlen($content);
 		$this->sendHttpHeaders();
 		echo $content;
 	}

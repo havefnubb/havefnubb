@@ -21,14 +21,22 @@ class jHttp extends netHttp{
 		}
 		return $this->doRequest();
 	}
-	public function put($path,$data,$charset=null)
+	public function put($path,$data,$charset=null,$contentType=null)
 	{
 		if($charset){
 			$this->post_charset=$charset;
 		}
+		if($contentType){
+			$this->post_content_type=$contentType;
+		}
 		$this->path=$path;
 		$this->method='PUT';
-		$this->postdata=$this->buildQueryString($data);
+		if($this->post_content_type=='application/x-www-form-urlencoded'){
+			$this->postdata=$this->buildQueryString($data);
+		}
+		else{
+			$this->postdata=$data;
+		}
 		return $this->doRequest();
 	}
 	protected function debug($msg,$object=false){

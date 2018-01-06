@@ -4,7 +4,7 @@
 * @package    jelix
 * @subpackage db
 * @author     Laurent Jouanneau
-* @copyright  2005-2010 Laurent Jouanneau
+* @copyright  2005-2017 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -12,41 +12,53 @@ class mysqlDbTable extends jDbTable{
 	public $attributes=array();
 	protected function _loadColumns(){
 		$this->columns=array();
-		$this->primaryKey=false;
 		$conn=$this->schema->getConn();
 		$tools=$conn->tools();
-		$rs=$conn->query('SHOW FIELDS FROM '.$conn->encloseName($this->name));
+		$rs=$conn->query('SHOW FULL FIELDS FROM '.$conn->encloseName($this->name));
 		while($line=$rs->fetch()){
-			$length=0;
-			if(preg_match('/^(\w+)\s*(\((\d+)\))?.*$/',$line->Type,$m)){
-				$type=strtolower($m[1]);
-				if($type=='varchar'&&isset($m[3])){
-					$length=intval($m[3]);
-				}
-			}else{
-				$type=$line->Type;
+			list($type,$length,$precision,$scale)=$tools->parseSQLType($line->Type);
+			if($type=='tinyint'&&$precision==1){
+				$type='boolean';
+				$precision=0;
 			}
+			$hasDefault=false;
+			$default=null;
 			$notNull=($line->Null=='NO');
 			$autoIncrement=($line->Extra=='auto_increment');
-			$hasDefault=($line->Default!=''||!($line->Default==null&&$notNull));
-			if($notNull&&$line->Default===null&&!$autoIncrement)
+			$isPrimary=($line->Key=='PRI');
+			if($autoIncrement){
+				$hasDefault=true;
 				$default='';
-			else
-				$default=$line->Default;
+			}
+			else if($line->Default==null){
+				if($notNull){
+					if($autoIncrement){
+						$hasDefault=true;
+						$default='';
+					}
+				}
+				else{
+					$hasDefault=true;
+				}
+			}
+			else if(!$isPrimary){
+				$hasDefault=true;
+				$default=($line->Default==='NULL'?null:$line->Default);
+			}
+			$typeinfo=$tools->getTypeInfo($type);
+			if($hasDefault&&$typeinfo[1]=='boolean'){
+				$default=($default=='1'||$default===true||strtolower($default)=='true');
+			}
 			$col=new jDbColumn($line->Field,$type,$length,$hasDefault,$default,$notNull);
 			$col->autoIncrement=$autoIncrement;
-			$typeinfo=$tools->getTypeInfo($type);
 			$col->maxValue=$typeinfo[3];
 			$col->minValue=$typeinfo[2];
 			$col->maxLength=$typeinfo[5];
 			$col->minLength=$typeinfo[4];
-			if($col->length!=0)
+			$col->precision=$precision;
+			$col->scale=$scale;
+			if($col->length!=0){
 				$col->maxLength=$col->length;
-			if($line->Key=='PRI'){
-				if(!$this->primaryKey)
-					$this->primaryKey=new jDbPrimaryKey($line->Field);
-				else
-					$this->primaryKey->columns[]=$line->Field;
 			}
 			$this->columns[$line->Field]=$col;
 		}
@@ -55,34 +67,104 @@ class mysqlDbTable extends jDbTable{
 		$conn=$this->schema->getConn();
 		$pk=$this->getPrimaryKey();
 		$isPk=($pk&&in_array($new->name,$pk->columns));
+		$isSinglePk=$isPk&&count($pk->columns)==1;
 		$sql='ALTER TABLE '.$conn->encloseName($this->name)
 				.' CHANGE COLUMN '.$conn->encloseName($old->name)
-				.' '.$this->schema->_prepareSqlColumn($new);
-		if($isPk&&$col->autoIncrement)
-			$sql.=' AUTO_INCREMENT';
+				.' '.$this->schema->_prepareSqlColumn($new,$isPk,$isSinglePk);
 		$conn->exec($sql);
 	}
 	protected function _addColumn(jDbColumn $new){
 		$conn=$this->schema->getConn();
 		$pk=$this->getPrimaryKey();
 		$isPk=($pk&&in_array($new->name,$pk->columns));
+		$isSinglePk=$isPk&&count($pk->columns)==1;
 		$sql='ALTER TABLE '.$conn->encloseName($this->name)
-				.' ADD COLUMN '.$this->schema->_prepareSqlColumn($new);
-		if($isPk&&$col->autoIncrement)
-			$sql.=' AUTO_INCREMENT';
+				.' ADD COLUMN '.$this->schema->_prepareSqlColumn($new,$isPk,$isSinglePk);
 		$conn->exec($sql);
 	}
 	protected function _loadIndexesAndKeys(){
-		$conn=$this->schema->getConn();
-		$rs=$conn->query('SHOW INDEX FROM '.$conn->encloseName($this->name));
-		$this->uniqueKeys=$this->indexes=array();
+		$this->indexes=array();
+		$this->references=array();
 		$this->primaryKey=false;
+		$this->uniqueKeys=array();
+		$conn=$this->schema->getConn();
+		$key_column_usageSupport=true;
+		try{
+			$rs=$conn->query('SELECT k.CONSTRAINT_CATALOG, k.CONSTRAINT_NAME, c.CONSTRAINT_TYPE,
+                k.COLUMN_NAME, ORDINAL_POSITION, POSITION_IN_UNIQUE_CONSTRAINT,
+                REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
+                FROM information_schema.key_column_usage  k
+                INNER JOIN information_schema.table_constraints c ON
+                    (k.CONSTRAINT_SCHEMA = c.CONSTRAINT_SCHEMA
+                AND k.CONSTRAINT_NAME = c.CONSTRAINT_NAME
+                AND k.CONSTRAINT_CATALOG = c.CONSTRAINT_CATALOG
+                AND k.table_name = c.table_name
+                AND k.table_schema = c.table_schema
+                ) WHERE k.table_name = '.$conn->quote($this->name).
+				' AND k.table_schema = '.$conn->quote($conn->profile['database']).
+				' ORDER BY ORDINAL_POSITION ASC');
+			while($constraint=$rs->fetch()){
+				if($constraint->CONSTRAINT_TYPE=='PRIMARY KEY'){
+					if(! $this->primaryKey){
+						$this->primaryKey=new jDbPrimaryKey(
+							$constraint->COLUMN_NAME,
+							$constraint->CONSTRAINT_NAME);
+					}
+					else{
+						$this->primaryKey->columns[]=$constraint->COLUMN_NAME;
+					}
+				}
+				else if($constraint->CONSTRAINT_TYPE=='UNIQUE'){
+					if(!isset($this->uniqueKeys[$constraint->CONSTRAINT_NAME])){
+						$unique=new jDbUniqueKey($constraint->CONSTRAINT_NAME,
+							$constraint->COLUMN_NAME);
+						$this->uniqueKeys[$constraint->CONSTRAINT_NAME]=$unique;
+					}
+					else{
+						$this->uniqueKeys[$constraint->CONSTRAINT_NAME]->columns[]=$constraint->COLUMN_NAME;
+					}
+				}
+				elseif($constraint->CONSTRAINT_TYPE=='FOREIGN KEY'){
+					if(!isset($this->references[$constraint->CONSTRAINT_NAME])){
+						$fk=new jDbReference(
+							$constraint->CONSTRAINT_NAME,
+							$constraint->COLUMN_NAME,
+							$constraint->REFERENCED_TABLE_NAME,
+							array($constraint->REFERENCED_COLUMN_NAME)
+						);
+						$this->references[$constraint->CONSTRAINT_NAME]=$fk;
+					}
+					else{
+						$fk=$this->references[$constraint->CONSTRAINT_NAME];
+						$fk->columns[]=$constraint->COLUMN_NAME;
+						$fk->fColumns[]=$constraint->REFERENCED_COLUMN_NAME;
+					}
+				}
+			};
+		}catch(Exception $e){
+			$key_column_usageSupport=false;
+		}
+		$rs=$conn->query('SHOW INDEX FROM '.$conn->encloseName($this->name));
 		while($idx=$rs->fetch()){
+			if($key_column_usageSupport){
+				$name=$idx->Key_name;
+				if(!isset($this->references[$name])&&
+					!isset($this->uniqueKeys[$name])&&
+					$name!='PRIMARY'
+				){
+					if(!isset($this->indexes[$name])){
+						$this->indexes[$name]=new jDbIndex($name,$idx->Index_type);
+					}
+					$this->indexes[$name]->columns[$idx->Seq_in_index-1]=$idx->Column_name;
+				}
+				continue;
+			}
 			if($idx->Key_name=='PRIMARY'){
-				if(!$this->primaryKey)
-					$this->primaryKey=new jDbPrimaryKey($idx->Column_name);
-				else
-					$this->primaryKey->columns[$idx->Seq_in_index-1]=$idx->Column_name;
+				if(!$this->primaryKey){
+					$this->primaryKey=new jDbPrimaryKey($idx->Column_name,$idx->Key_name);
+					$this->primaryKey->columns=array();
+				}
+				$this->primaryKey->columns[$idx->Seq_in_index - 1]=$idx->Column_name;
 			}
 			else if($idx->Non_unique==0){
 				if(!isset($this->uniqueKeys[$idx->Key_name])){
@@ -97,21 +179,43 @@ class mysqlDbTable extends jDbTable{
 				$this->indexes[$idx->Key_name]->columns[$idx->Seq_in_index-1]=$idx->Column_name;
 			}
 		}
+		foreach($this->indexes as $name=>$index){
+			ksort($index->columns);
+			$index->columns=array_values($index->columns);
+		}
+		if(!$key_column_usageSupport){
+			foreach($this->uniqueKeys as $name=>$index){
+				ksort($index->columns);
+				$index->columns=array_values($index->columns);
+			}
+			if($this->primaryKey){
+				ksort($this->primaryKey->columns);
+				$this->primaryKey->columns=array_values($this->primaryKey->columns);
+			}
+		}
+		else{
+			foreach($this->references as $ref){
+				if(isset($this->indexes[$ref->columns[0]])){
+					if($this->indexes[$ref->columns[0]]->columns==$ref->columns){
+						unset($this->indexes[$ref->columns[0]]);
+					}
+				}
+			}
+			foreach($this->uniqueKeys as $ref){
+				if(isset($this->indexes[$ref->columns[0]])){
+					if($this->indexes[$ref->columns[0]]->columns==$ref->columns){
+						unset($this->indexes[$ref->columns[0]]);
+					}
+				}
+			}
+		}
 	}
 	protected function _createIndex(jDbIndex $index){
 		$conn=$this->schema->getConn();
 		$sql='ALTER TABLE '.$conn->encloseName($this->name).' ADD ';
-		if($index instanceof jDbPrimaryKey){
-			$sql.='PRIMARY KEY';
-		}
-		else if($index instanceof jDbUniqueKey){
-			$sql.='CONSTRAINT UNIQUE KEY '.$conn->encloseName($index->name);
-		}
-		else{
-			$sql.='INDEX '.$conn->encloseName($index->name);
-			if($index->type!='')
-				$sql.=' USING '.$index->type;
-		}
+		$sql.='INDEX '.$conn->encloseName($index->name);
+		if($index->type!='')
+			$sql.=' USING '.$index->type;
 		$f='';
 		foreach($index->columns as $col){
 			$f.=','.$conn->encloseName($col);
@@ -121,48 +225,83 @@ class mysqlDbTable extends jDbTable{
 	protected function _dropIndex(jDbIndex $index){
 		$conn=$this->schema->getConn();
 		$sql='ALTER TABLE '.$conn->encloseName($this->name).' DROP ';
-		if($index instanceof jDbPrimaryKey){
-			$sql.='PRIMARY KEY';
-		}
-		else{
-			$sql.='INDEX '.$conn->encloseName($index->name);
-		}
+		$sql.='INDEX '.$conn->encloseName($index->name);
 		$conn->exec($sql);
 	}
 	protected function _loadReferences(){
+		$existingReferences=array();
+		foreach($this->references as $ref){
+			$cols=$ref->columns;
+			sort($cols);
+			$key=implode('_',$cols);
+			$existingReferences[$key]=$ref;
+		}
 		$conn=$this->schema->getConn();
 		$sql='SHOW CREATE TABLE '.$conn->encloseName($this->name);
 		$rs=$conn->query($sql);
 		$rec=$rs->fetch();
-		preg_match_all('/^\s*(?:CONSTRAINT(?:\s+`(.+?)`)?\s+)?FOREIGN\s+KEY(?:\s+`(.+?)`)?\s+\((.+?)\)\s+REFERENCES\s+`(.+?)`\s+\((.+?)\)(?:\s+MATCH\s+(FULL|PARTIAL|SIMPLE))?(?:\s+ON DELETE\s+(RESTRICT|CASCADE|SET NULL|NO ACTION))?(?:\s+ON UPDATE\s+(RESTRICT|CASCADE|SET NULL|NO ACTION))?,?$/msi',$s,$m);
-		foreach($m[1] as $i=>$symbol){
-			$ref=new jDbReference();
-			$ref->name=($m[2][$i]!=''?$m[2][$i]:$symbol);
-			$ref->fTable=$m[4][$i];
-			$ref->onDelete=$m[7][$i];
-			$ref->onUpdate=$m[8][$i];
-			if(preg_match_all('/`([^`]+)`/',$m[3][$i],$mc))
-				$ref->columns=$mc[1];
-			if(preg_match_all('/`([^`]+)`/',$m[5][$i],$mc))
-				$ref->fColumns=$mc[1];
-			if($ref->name&&count($ref->columns)&&count($ref->fColumns))
-				$this->references[$ref->name]=$ref;
+		if(!$rec){
+			return;
+		}
+		$createTableQuery=$rec->{'Create Table'};
+		$regexp='/^\s*(?:CONSTRAINT(?:\s+`(.+?)`)?\s+)?FOREIGN\s+KEY(?:\s+`(.+?)`)?\s+\((.+?)\)\s+REFERENCES\s+`(.+?)`\s+\((.+?)\)(?:\s+MATCH\s+(FULL|PARTIAL|SIMPLE))?(?:\s+ON DELETE\s+(RESTRICT|CASCADE|SET NULL|NO ACTION))?(?:\s+ON UPDATE\s+(RESTRICT|CASCADE|SET NULL|NO ACTION))?,?$/msi';
+		if(preg_match_all($regexp,$createTableQuery,$m,PREG_SET_ORDER)){
+			foreach($m as $constraint){
+				$columns=array();
+				if(preg_match_all('/`([^`]+)`/',$constraint[3],$mc)){
+					$columns=$mc[1];
+				}
+				if(!count($columns)){
+					continue;
+				}
+				if($constraint[1]!=''&&isset($this->references[$constraint[1]])){
+					$ref=$this->references[$constraint[1]];
+				}
+				else if($constraint[2]!=''&&isset($this->references[$constraint[2]])){
+					$ref=$this->references[$constraint[2]];
+				}
+				else{
+					$cols=$columns;
+					sort($cols);
+					$key=implode('_',$cols);
+					if(isset($existingReferences[$key])){
+						$ref=$existingReferences[$key];
+					}
+					else{
+						$ref=new jDbReference();
+						if($constraint[1]){
+							$ref->name=$constraint[1];
+						}
+						else if($constraint[2]){
+							$ref->name=$constraint[2];
+						}
+						else{
+							$ref->name=$this->name.'_'.$key.'_fk';
+						}
+						$ref->fTable=$constraint[4];
+						if(preg_match_all('/`([^`]+)`/',$constraint[5],$mc)){
+							$ref->fColumns=$mc[1];
+						}
+						$this->references[$ref->name]=$ref;
+					}
+				}
+				if(isset($constraint[7])){
+					$ref->onDelete=$constraint[7];
+				}
+				if(isset($constraint[8])){
+					$ref->onUpdate=$constraint[8];
+				}
+			}
 		}
 	}
 	protected function _createReference(jDbReference $ref){
 		$conn=$this->schema->getConn();
 		$sql='ALTER TABLE '.$conn->encloseName($this->name).' ADD CONSTRAINT ';
 		$sql.=$conn->encloseName($ref->name). ' FOREIGN KEY (';
-		$cols=array();
-		$fcols=array();
-		foreach($ref->columns as $c){
-			$cols[]=$conn->encloseName($c);
-		}
-		foreach($ref->fColumns as $c){
-			$fcols[]=$conn->encloseName($c);
-		}
-		$sql.=implode(',',$cols).') REFERENCES '.$conn->encloseName($ref->fTable).'(';
-		$sql.=implode(',',$fcols).')';
+		$cols=$conn->tools()->getSQLColumnsList($ref->columns);
+		$fcols=$conn->tools()->getSQLColumnsList($ref->fColumns);
+		$sql.=$cols.') REFERENCES '.$conn->encloseName($ref->fTable).'(';
+		$sql.=$fcols.')';
 		if($ref->onUpdate){
 			$sql.='ON UPDATE '.$ref->onUpdate.' ';
 		}
@@ -176,23 +315,41 @@ class mysqlDbTable extends jDbTable{
 		$sql='ALTER TABLE '.$conn->encloseName($this->name).' DROP FOREIGN KEY '.$conn->encloseName($ref->name);
 		$conn->exec($sql);
 	}
+	protected function _createConstraint(jDbConstraint $constraint){
+		if($constraint instanceof jDbReference){
+			$this->_createReference($constraint);
+			return;
+		}
+		$conn=$this->schema->getConn();
+		$sql='ALTER TABLE '.$conn->encloseName($this->name).' ADD ';
+		if($constraint instanceof jDbPrimaryKey){
+			$sql.='PRIMARY KEY';
+		}
+		else if($constraint instanceof jDbUniqueKey){
+			$sql.='CONSTRAINT UNIQUE KEY '.$conn->encloseName($constraint->name);
+		}
+		$sql.='('.$conn->tools()->getSQLColumnsList($constraint->columns).')';
+		$conn->exec($sql);
+	}
+	protected function _dropConstraint(jDbConstraint $constraint){
+		if($constraint instanceof jDbReference){
+			$this->_dropReference($constraint);
+			return;
+		}
+		$conn=$this->schema->getConn();
+		$sql='ALTER TABLE '.$conn->encloseName($this->name).' DROP ';
+		if($constraint instanceof jDbPrimaryKey){
+			$sql.='PRIMARY KEY';
+		}
+		else{
+			$sql.='KEY '.$conn->encloseName($constraint->name);
+		}
+		$conn->exec($sql);
+	}
 }
 class mysqlDbSchema extends jDbSchema{
-	function _createTable($name,$columns,$primaryKey,$attributes=array()){
-		$cols=array();
-		if(is_string($primaryKey))
-			$primaryKey=array($primaryKey);
-		foreach($columns as $col){
-			$colstr=$this->_prepareSqlColumn($col);
-			if(in_array($col->name,$primaryKey)&&$col->autoIncrement){
-				$colstr.='  AUTO_INCREMENT';
-			}
-			$cols[]=$colstr;
-		}
-		$sql='CREATE TABLE '.$this->conn->encloseName($name).' ('.implode(", ",$cols);
-		if(count($primaryKey))
-			$sql.=', PRIMARY KEY ('.implode(',',$primaryKey).')';
-		$sql.=')';
+	function _createTable($name,$columns,$primaryKeys,$attributes=array()){
+		$sql=$this->_createTableQuery($name,$columns,$primaryKeys,$attributes);
 		if(isset($attributes['engine'])){
 			$sql.=' ENGINE='.$attributes['engine'];
 		}
@@ -207,9 +364,16 @@ class mysqlDbSchema extends jDbSchema{
 		$table->attributes=$attributes;
 		return $table;
 	}
+	protected $supportAutoIncrement=true;
+	function _prepareSqlColumn($col,$isPrimaryKey=false,$isSinglePrimaryKey=false){
+		$colStr=parent::_prepareSqlColumn($col,$isPrimaryKey,$isSinglePrimaryKey);
+		if($col->comment){
+			$colStr.=' COMMENT '.$this->conn->quote($col->comment);
+		}
+		return $colStr;
+	}
 	protected function _getTables(){
 		$results=array();
-		$conn=$this->conn;
 		if(isset($this->conn->profile['database'])){
 			$db=$this->conn->profile['database'];
 		}
@@ -223,8 +387,12 @@ class mysqlDbSchema extends jDbSchema{
 		$rs=$this->conn->query('SHOW TABLES FROM '.$this->conn->encloseName($db));
 		$col_name='Tables_in_'.$db;
 		while($line=$rs->fetch()){
-			$results[$line->$col_name]=new mysqlDbTable($line->$col_name,$this);
+			$unpName=$this->conn->unprefixTable($line->$col_name);
+			$results[$unpName]=new mysqlDbTable($line->$col_name,$this);
 		}
 		return $results;
+	}
+	protected function _getTableInstance($name){
+		return new mysqlDbTable($name,$this);
 	}
 }

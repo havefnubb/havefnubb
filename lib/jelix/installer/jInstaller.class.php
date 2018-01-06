@@ -73,11 +73,23 @@ class jInstaller{
 	public $nbOk=0;
 	public $nbWarning=0;
 	public $nbNotice=0;
-	public $defaultConfig;
+	public $mainConfig;
+	public $localConfig;
 	function __construct($reporter,$lang=''){
 		$this->reporter=$reporter;
 		$this->messages=new jInstallerMessageProvider($lang);
-		$this->defaultConfig=new jIniFileModifier(jApp::configPath('defaultconfig.ini.php'));
+		$this->mainConfig=new jIniFileModifier(jApp::mainConfigFile());
+		$localConfig=jApp::configPath('localconfig.ini.php');
+		if(!file_exists($localConfig)){
+			$localConfigDist=jApp::configPath('localconfig.ini.php.dist');
+			if(file_exists($localConfigDist)){
+			copy($localConfigDist,$localConfig);
+			}
+			else{
+			file_put_contents($localConfig,';<'.'?php die(\'\');?'.'>');
+			}
+		}
+		$this->localConfig=new jIniMultiFilesModifier($this->mainConfig,$localConfig);
 		$this->installerIni=$this->getInstallerIni();
 		$this->readEntryPointData(simplexml_load_file(jApp::appPath('project.xml')));
 		$this->installerIni->save();
@@ -106,11 +118,13 @@ class jInstaller{
 				continue;
 			$configFileList[$configFile]=true;
 			$ep=$this->getEntryPointObject($configFile,$file,$type);
+			$ep->localConfigIni=new jIniMultiFilesModifier($this->localConfig,$ep->getEpConfigIni());
 			$epId=$ep->getEpId();
 			$this->epId[$file]=$epId;
 			$this->entryPoints[$epId]=$ep;
 			$this->modules[$epId]=array();
-			foreach($ep->getModulesList()as $name=>$path){
+			$modulesList=$ep->getModulesList();
+			foreach($modulesList as $name=>$path){
 				$module=$ep->getModule($name);
 				$this->installerIni->setValue($name.'.installed',$module->isInstalled,$epId);
 				$this->installerIni->setValue($name.'.version',$module->version,$epId);
@@ -121,10 +135,20 @@ class jInstaller{
 				$m->addModuleInfos($epId,$module);
 				$this->modules[$epId][$name]=$m;
 			}
+			$modules=$this->installerIni->getValues($epId);
+			foreach($modules as $key=>$value){
+				$l=explode('.',$key);
+				if(count($l)<=1){
+					continue;
+				}
+				if(!isset($modulesList[$l[0]])){
+					$this->installerIni->removeValue($key,$epId);
+				}
+			}
 		}
 	}
 	protected function getEntryPointObject($configFile,$file,$type){
-		return new jInstallerEntryPoint($this->defaultConfig,$configFile,$file,$type);
+		return new jInstallerEntryPoint($this->mainConfig,$configFile,$file,$type);
 	}
 	protected function getComponentModule($name,$path,$installer){
 		return new jInstallerComponentModule($name,$path,$installer);
@@ -134,7 +158,6 @@ class jInstaller{
 	}
 	public function forceModuleVersion($moduleName,$version){
 		foreach(array_keys($this->entryPoints)as $epId){
-			$modules=array();
 			if(isset($this->modules[$epId][$moduleName])){
 				$this->modules[$epId][$moduleName]->setInstalledVersion($epId,$version);
 			}
@@ -151,7 +174,6 @@ class jInstaller{
 		}
 		else{
 			foreach(array_keys($this->entryPoints)as $epId){
-				$modules=array();
 				if(isset($this->modules[$epId][$moduleName])){
 					$this->modules[$epId][$moduleName]->setInstallParameters($epId,$parameters);
 				}
@@ -159,21 +181,16 @@ class jInstaller{
 		}
 	}
 	public function installApplication($flags=false){
-		if($flags===false)
+		if($flags===false){
 			$flags=self::FLAG_ALL;
+		}
 		$this->startMessage();
 		$result=true;
 		foreach(array_keys($this->entryPoints)as $epId){
-			$modules=array();
-			foreach($this->modules[$epId] as $name=>$module){
-				$access=$module->getAccessLevel($epId);
-				if($access!=1&&$access!=2)
-					continue;
-				$modules[$name]=$module;
-			}
-			$result=$result & $this->_installModules($modules,$epId,true,$flags);
-			if(!$result)
+			$result=$result & $this->installEntryPointModules($epId,$flags);
+			if(!$result){
 				break;
+			}
 		}
 		$this->installerIni->save();
 		$this->endMessage();
@@ -185,21 +202,38 @@ class jInstaller{
 			throw new Exception("unknown entry point");
 		}
 		$epId=$this->epId[$entrypoint];
-		$modules=array();
-		foreach($this->modules[$epId] as $name=>$module){
-			$access=$module->getAccessLevel($epId);
-			if($access!=1&&$access!=2)
-				continue;
-			$modules[$name]=$module;
-		}
-		$result=$this->_installModules($modules,$epId,true);
+		$result=$this->installEntryPointModules($epId);
 		$this->installerIni->save();
 		$this->endMessage();
 		return $result;
 	}
+	protected function installEntryPointModules($epId,$flags=3){
+		$modules=array();
+		foreach($this->modules[$epId] as $name=>$module){
+			$access=$module->getAccessLevel($epId);
+			if($access!=1&&$access!=2){
+				if($module->isInstalled($epId)){
+					$this->installerIni->removeValue($name.'.installed',$epId);
+					$this->installerIni->removeValue($name.'.version',$epId);
+					$this->installerIni->removeValue($name.'.version.date',$epId);
+					$this->installerIni->removeValue($name.'.firstversion',$epId);
+					$this->installerIni->removeValue($name.'.firstversion.date',$epId);
+				}
+			}
+			else{
+				$modules[$name]=$module;
+			}
+		}
+		if(count($modules)){
+			$result=$this->_installModules($modules,$epId,true,$flags);
+			if(!$result){
+				return false;
+			}
+		}
+		return true;
+	}
 	public function installModules($modulesList,$entrypoint=null){
 		$this->startMessage();
-		$entryPointList=array();
 		if($entrypoint==null){
 			$entryPointList=array_keys($this->entryPoints);
 		}
@@ -209,6 +243,7 @@ class jInstaller{
 		else{
 			throw new Exception("unknown entry point");
 		}
+		$result=true;
 		foreach($entryPointList as $epId){
 			$allModules=&$this->modules[$epId];
 			$modules=array();
@@ -340,6 +375,7 @@ class jInstaller{
 					$installedModules[]=array($installer,$component,false);
 				}
 				$ep->configIni->save();
+				$ep->localConfigIni->save();
 				$ep->config=
 					jConfigCompiler::read($ep->configFile,true,
 										$ep->isCliScript,
@@ -373,6 +409,7 @@ class jInstaller{
 					}
 				}
 				$ep->configIni->save();
+				$ep->localConfigIni->save();
 				$ep->config=
 					jConfigCompiler::read($ep->configFile,true,
 										$ep->isCliScript,

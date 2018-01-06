@@ -62,6 +62,7 @@ eval(unescape(\''.$js_encode.'\')); //]]>
 </script>';
 	}elseif($encode=='javascript_charcode'){
 		$string='<a href="mailto:'.$address.'" '.$extra.'>'.$text.'</a>';
+		$ord=array();
 		for($x=0,$y=strlen($string);$x < $y;$x++){
 			$ord[]=ord($string[$x]);
 		}

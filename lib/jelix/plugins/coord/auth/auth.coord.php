@@ -39,8 +39,9 @@ class AuthCoordPlugin implements jICoordPlugin {
     }
 
     /**
-     * @param    array  $params   plugin parameters for the current action
+     * @param    array $params plugin parameters for the current action
      * @return null or jSelectorAct  if action should change
+     * @throws jException
      */
     public function beforeAction ($params){
         $notLogged = false;
@@ -82,27 +83,33 @@ class AuthCoordPlugin implements jICoordPlugin {
                 $_SESSION['JELIX_AUTH_LASTTIME'] = time();
             }
         }
-        $needAuth = isset($params['auth.required']) ? ($params['auth.required']==true):$this->config['auth_required'];
-        $authok = false;
 
-        if($needAuth){
-            if($notLogged){
-                if(jApp::coord()->request->isAjax() || $this->config['on_error'] == 1
-                    || !jApp::coord()->request->isAllowedResponse('jResponseRedirect')){
-                    throw new jException($this->config['error_message']);
-                }else{
-                    if(!$badip){
-                        $auth_url_return = jApp::coord()->request->getParam('auth_url_return');
-                        if($auth_url_return === null)
-                            jApp::coord()->request->params['auth_url_return'] = jUrl::getCurrentUrl();
-                        $selector= new jSelectorAct($this->config['on_error_action']);
-                    }
-                }
-            }else{
-                $authok= true;
+        $needAuth = isset($params['auth.required']) ? ($params['auth.required']==true):$this->config['auth_required'];
+
+        if ($needAuth && $notLogged){
+            if ($this->config['on_error'] == 1 ||
+                !jApp::coord()->request->isAllowedResponse('jResponseRedirect')) {
+                throw new jException($this->config['error_message']);
             }
-        }else{
-          $authok= true;
+            elseif (jApp::coord()->request->isAjax() && !$badip){
+                if (isset($this->config['on_ajax_error_action']) && $this->config['on_ajax_error_action']) {
+                    $auth_url_return = jApp::coord()->request->getParam('auth_url_return');
+                    if ($auth_url_return === null) {
+                        jApp::coord()->request->params['auth_url_return'] = jUrl::getCurrentUrl();
+                    }
+                    $selector= new jSelectorAct($this->config['on_ajax_error_action']);
+                }
+                else {
+                    throw new jException($this->config['error_message']);
+                }
+            }
+            elseif (!$badip) {
+                $auth_url_return = jApp::coord()->request->getParam('auth_url_return');
+                if ($auth_url_return === null) {
+                    jApp::coord()->request->params['auth_url_return'] = jUrl::getCurrentUrl();
+                }
+                $selector= new jSelectorAct($this->config['on_error_action']);
+            }
         }
 
         return $selector;

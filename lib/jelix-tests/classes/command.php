@@ -12,7 +12,6 @@
 require_once(__DIR__.'/JelixTestSuite.class.php');
 require_once(__DIR__.'/junittestcase.class.php');
 require_once(__DIR__.'/junittestcasedb.class.php');
-require_once(JELIX_LIB_CORE_PATH.'jConfigCompiler.class.php');
 
 
 class jelix_TextUI_Command extends PHPUnit_TextUI_Command {
@@ -48,6 +47,11 @@ class jelix_TextUI_Command extends PHPUnit_TextUI_Command {
         return $command->run($_SERVER['argv'], $exit);
     }
 
+
+    protected function showMessage($message)
+    {
+        echo $message;
+    }
 
     protected function createRunner()
     {

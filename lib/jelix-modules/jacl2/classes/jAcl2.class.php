@@ -3,7 +3,7 @@
 * @package     jelix
 * @subpackage  acl2
 * @author      Laurent Jouanneau
-* @copyright   2006-2012 Laurent Jouanneau
+* @copyright   2006-2014 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 * @since 1.1
@@ -52,6 +52,8 @@ interface jIAcl2Driver {
  */
 class jAcl2 {
 
+    static protected $driver = null;
+
     /**
      * @internal The constructor is private, because all methods are static
      */
@@ -62,19 +64,18 @@ class jAcl2 {
      * @return jIAcl2Driver
      */
     protected static function _getDriver(){
-        static $driver = null;
-        if($driver == null){
+        if (self::$driver == null) {
             $config = jApp::config();
             $db = strtolower($config->acl2['driver']);
             if ($db == '')
                 throw new jException('jacl2~errors.driver.notfound',$db);
 
-            $driver = jApp::loadPlugin($db, 'acl2', '.acl2.php', $config->acl2['driver'].'Acl2Driver', $config->acl2);
-            if (is_null($driver)) {
+            self::$driver = jApp::loadPlugin($db, 'acl2', '.acl2.php', $config->acl2['driver'].'Acl2Driver', $config->acl2);
+            if (is_null(self::$driver)) {
                 throw new jException('jacl2~errors.driver.notfound',$db);
             }
         }
-        return $driver;
+        return self::$driver;
     }
 
     /**
@@ -95,6 +96,13 @@ class jAcl2 {
     public static function clearCache(){
         $dr = self::_getDriver();
         $dr->clearCache();
+    }
+
+    /**
+     * for tests...
+     */
+    public static function unloadDriver(){
+        self::$driver = null;
     }
 }
 

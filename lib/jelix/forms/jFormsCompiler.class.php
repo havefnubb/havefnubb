@@ -16,7 +16,6 @@
 class jFormsCompiler implements jISimpleCompiler{
 	protected $sourceFile;
 	public function compile($selector){
-		$sel=clone $selector;
 		$this->sourceFile=$selector->getPath();
 		$doc=new DOMDocument();
 		if(!$doc->load($this->sourceFile)){

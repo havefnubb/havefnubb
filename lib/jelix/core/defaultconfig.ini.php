@@ -44,6 +44,9 @@ fallbackLocale =
 forceHTTPPort =
 forceHTTPSPort =
 
+; chmod for files created by Jelix
+chmodFile=0664
+chmodDir=0775
 
 ; ---  don't set the following options to on, except if you know what you do
 
@@ -53,10 +56,17 @@ disableInstallers = off
 ; if set to on, all modules have an access=2, and access values in [modules] are not readed (not recommanded)
 enableAllModules = off
 
+; set it to true if you want to parse JSON content-type in jClassicRequest
+; (as in the futur Jelix 1.7) or keep false if you want to have, as usual, JSON
+; content as a string in the __httpbody parameter.
+; this flag will be removed in Jelix 1.7
+enableRequestBodyJSONParsing = false
+
 [modules]
 ; modulename.access = x   where x : 0= unused/forbidden, 1 = private access, 2 = public access
 
 jelix.access = 2
+jelix.path = lib:jelix/core-modules/jelix
 
 ; jacldb is deprecated. keep it uninstall if possible
 jacldb.access = 0
@@ -128,10 +138,12 @@ errors_openon=error
 [error_handling]
 messageLogFormat = "%date%\t%ip%\t[%code%]\t%msg%\t%file%\t%line%\n\t%url%\n%params%\n%trace%\n\n"
 errorMessage="A technical error has occured (code: %code%). Sorry for this inconvenience."
+; HTTP parameters that should not appears in logs. See also jController::$sensitiveParameters
+sensitiveParameters = "password,passwd,pwd"
 
 [compilation]
 checkCacheFiletime  = on
-force  = off
+force = off
 
 [urlengine]
 ; name of url engine :  "basic_significant" or "significant"
@@ -178,8 +190,17 @@ basePath = ""
 ; you MUST define basePath when you define backendBasePath
 backendBasePath =
 
+; Reverse proxies often communicate with web servers with the HTTP protocol,
+; even if requests are made with HTTPS. And it may add a 'Fowarded' or a
+; 'X-Forwarded-proto' headers so the web server know what is the protocol of
+; the original request. However Jelix <=1.6 does not support these headers, so
+; you must indicate the protocol of the original requests here, if you know
+; that the web site can be reach entirely with HTTPS.
+; Possible value is 'https' or nothing (no proxy).
+forceProxyProtocol=
+
 ; for an app on a simple http server behind an https proxy, the https verification
-; should be disabled
+; should be disabled (see forceProxyProtocol).
 checkHttpsOnParsing = on
 
 ; this is the url path to the jelix-www content (you can found this content in lib/jelix-www/)
@@ -232,6 +253,10 @@ index = on
 xmlrpc = on
 jsonrpc = on
 
+[basic_significant_urlengine_aliases]
+; list of names to use for module name in url
+; urlname = modulename
+
 [logger]
 ; list of loggers for each categories of log messages
 ; available loggers : file, syslog, firebug, mail, memory. see plugins for others
@@ -275,6 +300,11 @@ soap=20
 [mailLogger]
 email = root@localhost
 emailHeaders = "Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
+
+[syslogLogger]
+facility=LOG_LOCAL7
+ident="php-%sapi%-%domain%[%pid%]"
+
 
 [mailer]
 webmasterEmail = root@localhost
@@ -363,6 +393,15 @@ controls.datetime.months.labels = "names"
 ; define the default config for datepickers in jforms
 datepicker = default
 
+; default captcha type
+captcha = simple
+
+captcha.simple.validator=\jelix\forms\Captcha\SimpleCaptchaValidator
+captcha.simple.widgettype=captcha
+
+captcha.recaptcha.validator=\jelix\forms\Captcha\ReCaptchaValidator
+captcha.recaptcha.widgettype=recaptcha
+
 [jforms_builder_html]
 ;control type = plugin name
 
@@ -375,11 +414,13 @@ default.engine.name = wymeditor
 default.engine.file[] = jelix/jquery/jquery.js
 default.engine.file[] = jelix/wymeditor/jquery.wymeditor.js
 default.config = jelix/js/jforms/htmleditors/wymeditor_default.js
+default.skin.default = jelix/wymeditor/skins/default/skin.css
 
 wymbasic.engine.name = wymeditor
 wymbasic.engine.file[] = jelix/jquery/jquery.js
 wymbasic.engine.file[] = jelix/wymeditor/jquery.wymeditor.js
 wymbasic.config = jelix/js/jforms/htmleditors/wymeditor_basic.js
+wymbasic.skin.default = jelix/wymeditor/skins/default/skin.css
 
 ckdefault.engine.name = ckeditor
 ckdefault.engine.file[] = jelix/ckeditor/ckeditor.js
@@ -441,3 +482,20 @@ jelix.cache=cache/
 [disabledListeners]
 ; list of jEvent listener to not call
 ; eventname[]="module~listenerName"
+
+[coordplugin_auth]
+; key to use to crypt the password in the cookie
+; Warning: the value of this parameter should be stored into localconfig.ini.php
+persistant_crypt_key=
+
+[recaptcha]
+; sitekey and secret should be set only into localconfig.ini.php!
+sitekey=
+secret=
+
+; see https://developers.google.com/recaptcha/docs/display to know the meaning
+; of these configuration parameters.
+theme=
+type=
+size=
+tabindex=

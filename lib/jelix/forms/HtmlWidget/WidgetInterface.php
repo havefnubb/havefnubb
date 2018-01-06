@@ -16,7 +16,8 @@ interface WidgetInterface{
 	public function getValue();
 	public function outputMetaContent($resp);
 	public function outputHelp();
-	public function outputLabel();
+	public function outputLabel($format='',$editMode=true);
 	public function outputControl();
+	public function outputControlValue();
 	public function setAttributes($attributes);
 }

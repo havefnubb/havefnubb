@@ -6,7 +6,7 @@
 * @author     Laurent Jouanneau
 * @contributor Laurent Jouanneau
 * @contributor Nicolas Jeudy (patch ticket #99)
-* @copyright  2005-2011 Laurent Jouanneau
+* @copyright  2005-2017 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -29,6 +29,7 @@ class pgsqlDbTools extends jDbTools{
 	'bigautoincrement'=>array('bigserial','numeric','-9223372036854775808','9223372036854775807',null,null),
 	'float'=>array('real','float',null,null,null,null),
 	'money'=>array('money','float',null,null,null,null),
+	'smallmoney'=>array('money','float',null,null,null,null),
 	'double precision'=>array('double precision','decimal',null,null,null,null),
 	'double'=>array('double precision','decimal',null,null,null,null),
 	'real'=>array('real','float',null,null,null,null),
@@ -40,8 +41,11 @@ class pgsqlDbTools extends jDbTools{
 	'dec'=>array('decimal','decimal',null,null,null,null),
 	'date'=>array('date','date',null,null,10,10),
 	'time'=>array('time','time',null,null,8,8),
-	'datetime'=>array('datetime','datetime',null,null,19,19),
-	'timestamp'=>array('datetime','datetime',null,null,19,19),
+	'datetime'=>array('timestamp','datetime',null,null,19,19),
+	'datetime2'=>array('timestamp','datetime',null,null,19,27),
+	'datetimeoffset'=>array('timestamp with timezone','datetime',null,null,19,34),
+	'smalldatetime'=>array('timestamp','datetime',null,null,19,19),
+	'timestamp'=>array('timestamp','datetime',null,null,19,19),
 	'utimestamp'=>array('timestamp','integer',0,2147483647,null,null),
 	'year'=>array('year','year',null,null,2,4),
 	'interval'=>array('interval','integer',null,null,19,19),
@@ -57,6 +61,7 @@ class pgsqlDbTools extends jDbTools{
 	'string'=>array('varchar','varchar',null,null,0,0),
 	'tinytext'=>array('text','text',null,null,0,255),
 	'text'=>array('text','text',null,null,0,0),
+	'ntext'=>array('text','text',null,null,0,0),
 	'mediumtext'=>array('text','text',null,null,0,0),
 	'longtext'=>array('text','text',null,null,0,0),
 	'long'=>array('text','text',null,null,0,0),
@@ -72,9 +77,11 @@ class pgsqlDbTools extends jDbTools{
 	'varbinary'=>array('bytea','varbinary',null,null,0,255),
 	'raw'=>array('bytea','varbinary',null,null,0,2000),
 	'long raw'=>array('bytea','varbinary',null,null,0,0),
+	'image'=>array('bytea','varbinary',null,null,0,0),
 	'enum'=>array('varchar','varchar',null,null,0,65535),
 	'set'=>array('varchar','varchar',null,null,0,65535),
 	'xmltype'=>array('varchar','varchar',null,null,0,65535),
+	'xml'=>array('text','text',null,null,0,0),
 	'point'=>array('point','varchar',null,null,0,16),
 	'line'=>array('line','varchar',null,null,0,32),
 	'lsed'=>array('lsed','varchar',null,null,0,32),
@@ -89,22 +96,63 @@ class pgsqlDbTools extends jDbTools{
 	'arrays'=>array('array','varchar',null,null,0,65535),
 	'complex types'=>array('complex','varchar',null,null,0,65535),
 	);
+	protected $keywordNameCorrespondence=array(
+		'systimestamp'=>'current_time',
+		'sysdate'=>'current_timestamp',
+	);
+	protected $functionNameCorrespondence=array(
+		'sysdatetime'=>'CURRENT_TIMESTAMP(0)',
+		'sysdatetimeoffset'=>'LOCALTIMESTAMP(0)',
+		'sysutcdatetime'=>'current_timestamp()',
+		'getdate'=>'current_timestamp()',
+		'getutcdate'=>'current_timestamp()',
+		'day'=>'extract(day FROM TIMESTAMP %!p)',
+		'month'=>'extract(month FROM TIMESTAMP %!p)',
+		'year'=>'extract(year FROM TIMESTAMP %!p)',
+		'curdate'=>'current_date',
+		'current_date'=>'current_date',
+		'curtime'=>'current_time',
+		'current_time'=>'current_time',
+		'now'=>'current_timestamp',
+		'current_timestamp'=>'current_timestamp',
+		'date'=>'date %!p',
+		'dayofmonth'=>'extract(day FROM TIMESTAMP %!p)',
+		'localtime'=>'current_timestamp',
+		'localtimestamp'=>'current_timestamp',
+		'utc_date'=>'current_date',
+		'utc_time'=>'current_time',
+		'utc_timestamp'=>'current_timestamp',
+		'time'=>'time %!p',
+		'hour'=>'extract(hour FROM TIMESTAMP %!p)',
+		'minute'=>'extract(minute FROM TIMESTAMP %!p)',
+		'second'=>'extract(second FROM TIMESTAMP %!p)',
+		'datetime'=>'timestamp %!p',
+		'extract'=>'!extractDateConverter',
+		'datepart'=>'!extractDateConverter',
+	);
+	protected function extractDateConverter($parametersString){
+		if(preg_match("/^'?([a-z]+)'?(?:\s*,\s*|\s+FROM(?:\s+TIMESTAMP)?\s+|\s+)(.*)$/i",$parametersString,$p)){
+			$param2=$this->parseSQLFunctionAndConvert(strtolower($p[2]));
+			return 'extract('.$p[1].' FROM TIMESTAMP '.$param2.')';
+		}
+		else{
+			return 'extract('.$parametersString.')';
+		}
+	}
 	public function encloseName($name){
 		return '"'.$name.'"';
 	}
-	public function getTableList(){
-	$results=array();
-	$sql="SELECT tablename FROM pg_tables WHERE schemaname NOT IN ('pg_catalog', 'information_schema') ORDER BY tablename";
-	$rs=$this->_conn->query($sql);
-	while($line=$rs->fetch()){
-		$results[]=$line->tablename;
-	}
-	return $results;
-	}
-	public function getFieldList($tableName,$sequence=''){
+	public function getFieldList($tableName,$sequence='',$schemaName=''){
 		$tableName=$this->_conn->prefixTable($tableName);
-		$results=array();
-		$sql='SELECT oid, relhaspkey, relhasindex FROM pg_class WHERE relname = \''.$tableName.'\'';
+		$sql='SELECT pg_class.oid, pg_class.relhaspkey, pg_class.relhasindex';
+		$sql.=' FROM pg_class';
+		if(!empty($schemaName)){
+			$sql.=' JOIN pg_catalog.pg_namespace n ON n.oid = pg_class.relnamespace';
+		}
+		$sql.=' WHERE relname = \''.$tableName.'\'';
+		if(!empty($schemaName)){
+			$sql.=' AND n.nspname = \''.$schemaName.'\'';
+		}
 		$rs=$this->_conn->query($sql);
 		if(!($table=$rs->fetch())){
 			throw new Exception('dbtools, pgsql: unknown table');

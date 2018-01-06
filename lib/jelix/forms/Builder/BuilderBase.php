@@ -31,6 +31,7 @@ abstract class BuilderBase{
 	}
 	public function getName(){return  $this->_name;}
 	public function getForm(){return $this->_form;}
+	public function endOfTag(){return $this->_endt;}
 	public function setOptions($options){
 		$this->options=$options;
 	}
@@ -44,7 +45,8 @@ abstract class BuilderBase{
 	abstract public function outputFooter();
 	abstract public function outputAllControls();
 	abstract public function outputControl($ctrl,$attributes=array());
-	abstract public function outputControlLabel($ctrl);
+	abstract public function outputControlLabel($ctrl,$format='',$editMode=true);
+	abstract public function outputControlValue($ctrl,$attributes=array());
 	protected static function generateFormName($sel){
 		static $forms=array();
 		$name='jforms_'.str_replace('~','_',$sel);

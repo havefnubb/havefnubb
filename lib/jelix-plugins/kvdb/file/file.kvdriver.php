@@ -20,7 +20,7 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 	public $automatic_cleaning_factor=0;
 	public function _connect(){
 		if(isset($this->_profile['storage_dir'])&&$this->_profile['storage_dir']!=''){
-			$this->_storage_dir=str_replace(array('var:','temp:'),array(jApp::varPath(),jApp::tempPath()),$this->_profile['storage_dir']);
+			$this->_storage_dir=jFile::parseJelixPath($this->_profile['storage_dir']);
 			$this->_storage_dir=rtrim($this->_storage_dir,'\\/'). DIRECTORY_SEPARATOR;
 		}
 		else
@@ -117,7 +117,7 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 		$oldData=$this->get($key);
 		if($oldData===null)
 			return false;
-		if(!is_numeric($oldData)){
+		if(!is_numeric($oldData)||!is_numeric($var)){
 			return false;
 		}
 		$data=$oldData + $var;
@@ -130,7 +130,7 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 		$oldData=$this->get($key);
 		if($oldData===null)
 			return false;
-		if(!is_numeric($oldData)){
+		if(!is_numeric($oldData)||!is_numeric($var)){
 			return false;
 		}
 		$data=$oldData - (int)$var;

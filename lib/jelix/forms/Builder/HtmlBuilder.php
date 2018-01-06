@@ -6,11 +6,12 @@
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Dominique Papin, Claudio Bernardes
 * @copyright   2006-2012 Laurent Jouanneau
-* @copyright   2008-2011 Julien Issler, 2008 Dominique Papin, 2012 Claudio Bernardes
+* @copyright   2008-2016 Julien Issler, 2008 Dominique Papin, 2012 Claudio Bernardes
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 namespace jelix\forms\Builder;
+use \jelix\forms\HtmlWidget\ParentWidgetInterface;
 class HtmlBuilder extends BuilderBase{
 	protected $formType='html';
 	protected $formConfig='jforms_builder_html';
@@ -62,9 +63,10 @@ class HtmlBuilder extends BuilderBase{
 		}
 		echo '</table> <div class="jforms-submit-buttons">';
 		if($ctrl=$this->_form->getReset()){
-			if(!$this->_form->isActivated($ctrl->ref))continue;
-			$this->outputControl($ctrl);
-			echo ' ';
+			if($this->_form->isActivated($ctrl->ref)){
+				$this->outputControl($ctrl);
+				echo ' ';
+			}
 		}
 		foreach($this->_form->getSubmits()as $ctrlref=>$ctrl){
 			if(!$this->_form->isActivated($ctrlref))continue;
@@ -124,18 +126,19 @@ class HtmlBuilder extends BuilderBase{
 		if($hiddens){
 			echo '<div class="jforms-hiddens">',$hiddens,'</div>';
 		}
+		$this->outputErrors();
+	}
+	protected function outputErrors(){
 		$errors=$this->_form->getContainer()->errors;
 		if(count($errors)){
 			$ctrls=$this->_form->getControls();
-			echo '<ul id="'.$this->_name.'_errors" class="jforms-error-list">';
-			$errRequired='';
+			echo '<ul id="' . $this->_name . '_errors" class="jforms-error-list">';
 			foreach($errors as $cname=>$err){
 				if(!$this->_form->isActivated($ctrls[$cname]->ref))continue;
 				if($err===\jForms::ERRDATA_REQUIRED){
 					if($ctrls[$cname]->alertRequired){
 						echo '<li>',$ctrls[$cname]->alertRequired,'</li>';
-					}
-					else{
+					}else{
 						echo '<li>',\jLocale::get('jelix~formserr.js.err.required',$ctrls[$cname]->label),'</li>';
 					}
 				}else if($err===\jForms::ERRDATA_INVALID){
@@ -144,17 +147,13 @@ class HtmlBuilder extends BuilderBase{
 					}else{
 						echo '<li>',\jLocale::get('jelix~formserr.js.err.invalid',$ctrls[$cname]->label),'</li>';
 					}
-				}
-				elseif($err===\jForms::ERRDATA_INVALID_FILE_SIZE){
+				}elseif($err===\jForms::ERRDATA_INVALID_FILE_SIZE){
 					echo '<li>',\jLocale::get('jelix~formserr.js.err.invalid.file.size',$ctrls[$cname]->label),'</li>';
-				}
-				elseif($err===\jForms::ERRDATA_INVALID_FILE_TYPE){
+				}elseif($err===\jForms::ERRDATA_INVALID_FILE_TYPE){
 					echo '<li>',\jLocale::get('jelix~formserr.js.err.invalid.file.type',$ctrls[$cname]->label),'</li>';
-				}
-				elseif($err===\jForms::ERRDATA_FILE_UPLOAD_ERROR){
+				}elseif($err===\jForms::ERRDATA_FILE_UPLOAD_ERROR){
 					echo '<li>',\jLocale::get('jelix~formserr.js.err.file.upload',$ctrls[$cname]->label),'</li>';
-				}
-				elseif($err!=''){
+				}elseif($err!=''){
 					echo '<li>',$err,'</li>';
 				}
 			}
@@ -162,20 +161,23 @@ class HtmlBuilder extends BuilderBase{
 		}
 	}
 	public function outputFooter(){
-		$this->rootWidget->outputFooter($this);
+		$this->rootWidget->outputFooter();
 		echo '</form>';
 	}
 	protected $widgets=array();
-	public function getWidget($ctrl,\jelix\forms\HtmlWidget\ParentWidgetInterface $parentWidget=null){
-		if(isset($this->widgets[$ctrl->ref]))
+	public function getWidget($ctrl,ParentWidgetInterface $parentWidget=null){
+		if(isset($this->widgets[$ctrl->ref])){
 			return $this->widgets[$ctrl->ref];
+		}
 		$config=\jApp::config()->{$this->formConfig};
 		if(isset($this->pluginsConf[$ctrl->ref])){
 			$pluginName=$this->pluginsConf[$ctrl->ref];
-		}elseif(isset($config[$ctrl->type])){
+		}
+		elseif(isset($config[$ctrl->type])){
 			$pluginName=$config[$ctrl->type];
-		}else{
-			$pluginName=$ctrl->type . '_'. $this->formType;
+		}
+		else{
+			$pluginName=$ctrl->getWidgetType(). '_'. $this->formType;
 		}
 		$className=$pluginName . 'FormWidget';
 		$plugin=\jApp::loadPlugin($pluginName,'formwidget','.formwidget.php',$className,array($ctrl,$this,$parentWidget));
@@ -184,10 +186,10 @@ class HtmlBuilder extends BuilderBase{
 		$this->widgets[$ctrl->ref]=$plugin;
 		return $plugin;
 	}
-	public function outputControlLabel($ctrl){
-		if($ctrl->type=='hidden'||$ctrl->type=='group'||$ctrl->type=='button')return;
+	public function outputControlLabel($ctrl,$format='',$editMode=true){
+		if($ctrl->type=='hidden'||$ctrl->type=='button')return;
 		$widget=$this->getWidget($ctrl,$this->rootWidget);
-		$widget->outputLabel();
+		$widget->outputLabel($format,$editMode);
 	}
 	public function outputControl($ctrl,$attributes=array()){
 		if($ctrl->type=='hidden')return;
@@ -195,6 +197,12 @@ class HtmlBuilder extends BuilderBase{
 		$widget->setAttributes($attributes);
 		$widget->outputControl();
 		$widget->outputHelp();
+	}
+	public function outputControlValue($ctrl,$attributes=array()){
+		if($ctrl->type=='hidden')return;
+		$widget=$this->getWidget($ctrl,$this->rootWidget);
+		$widget->setAttributes($attributes);
+		$widget->outputControlValue();
 	}
 	protected function _outputAttr(&$attributes){
 		foreach($attributes as $name=>$val){
