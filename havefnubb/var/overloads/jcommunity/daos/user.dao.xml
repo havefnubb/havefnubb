@@ -103,5 +103,78 @@
               <orderitem property="login" way="asc" />
           </order>
       </method>
+        <method name="findAllActivatedMember" type="select">
+            <parameter name="offset" default="0" />
+            <parameter name="count" default="200" />
+            <conditions>
+                <eq property="status" value="1" />
+            </conditions>
+            <order>
+                <orderitem property="login" way="asc" />
+            </order>
+            <limit offset="$offset" count="$count"/>
+        </method>
+        <method name="countAllActivatedMember" type="count">
+            <conditions>
+                <eq property="status" value="1" />
+            </conditions>
+        </method>
+        <method name="getById" type="selectfirst">
+            <parameter name="id" />
+
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+        </method>
+        <!-- for stats purpose -->
+        <method name="findLastActiveMember" type="selectfirst">
+            <conditions>
+                <eq property="status" value="1" />
+            </conditions>
+            <order>
+                <orderitem property="create_date" way="desc" />
+            </order>
+        </method>
+        <!-- for stats purpose -->
+        <method name="updateNbMsg" type="update">
+            <parameter name="id"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+            <values>
+                <value property="nb_msg" expr="nb_msg +1"/>
+            </values>
+        </method>
+        <method name="updateLastPostedMsg" type="update">
+            <parameter name="id"/>
+            <parameter name="time"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+            <values>
+                <value property="member_last_post" expr="$time"/>
+            </values>
+        </method>
+        <method name="updateNbMsgAfterCreatingAccount" type="update">
+            <parameter name="id"/>
+            <parameter name="request_date"/>
+            <parameter name="nbPost" default="0"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+            <values>
+                <value property="nb_msg" expr="$nbPost"/>
+                <value property="request_date" expr="$request_date"/>
+            </values>
+        </method>
+        <method name="removeOneMsg" type="update">
+            <parameter name="id"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+            <values>
+                <value property="nb_msg" expr="nb_msg -1"/>
+            </values>
+        </method>
     </factory>
 </dao>

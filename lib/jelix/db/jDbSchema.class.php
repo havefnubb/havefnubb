@@ -32,7 +32,6 @@ abstract class jDbSchema{
 		return $this->tables[$name];
 	}
 	function getTable($name){
-		$name=$this->conn->prefixTable($name);
 		if($this->tables===null){
 			$this->tables=$this->_getTables();
 		}
@@ -53,16 +52,16 @@ abstract class jDbSchema{
 			$this->tables=$this->_getTables();
 		}
 		if(is_string($table)){
-			$prefixedName=$this->conn->prefixTable($table);
-			$name=$prefixedName;
+			$name=$this->conn->prefixTable($table);
+			$unprefixedName=$table;
 		}
 		else{
 			$name=$table->getName();
-			$prefixedName=$this->conn->unprefixTable($name);
+			$unprefixedName=$this->conn->unprefixTable($name);
 		}
-		if(isset($this->tables[$prefixedName])){
+		if(isset($this->tables[$unprefixedName])){
 			$this->_dropTable($name);
-			unset($this->tables[$prefixedName]);
+			unset($this->tables[$unprefixedName]);
 		}
 	}
 	public function renameTable($oldName,$newName){

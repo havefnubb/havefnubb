@@ -67,7 +67,9 @@ abstract class jDbTable{
 			return;
 		}
 		$this->_alterColumn($oldColumn,$column);
-		unset($this->columns[$oldName]);
+		if($oldName){
+			unset($this->columns[$oldName]);
+		}
 		$this->columns[$column->name]=$column;
 	}
 	public function dropColumn($name){

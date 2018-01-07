@@ -42,7 +42,7 @@ bad_ip_action = "jcommunity~login:out"
 ;=========== Parameters for jauth module
 
 ; number of second to wait after a bad authentification
-on_error_sleep = 3
+on_error_sleep = 0
 
 ; action to redirect after the login
 after_login = "havefnubb~default:index"
@@ -61,9 +61,6 @@ enable_after_logout_override = off
 ; enable the persistance of the authentification between two sessions
 persistant_enable=on
 
-; key to use to crypt the password in the cookie. replace it by your own words !
-persistant_crypt_key=HaV3FnUw1thY0uRw3bs1t3
-
 ; the name of the cookie which is used to store data for the authentification
 persistant_cookie_name=HFNUAuthentificationCookie
 
@@ -72,6 +69,16 @@ persistant_duration = 15
 
 ; base path for the cookie. If empty, it uses the basePath value from the main configuration.
 persistant_cookie_path =
+
+;=========== parameters for password hashing
+
+; method of the hash. 0 means old hashing behavior of jAuth
+; (using password_* parameters in drivers ).
+; Prefer to choose 1 which indicates the default hash method (bcrypt).
+password_hash_method = 1
+
+; options for the hash method. list of "name:value" separated by a ";"
+password_hash_options =
 
 ;=========== Parameters for drivers
 
@@ -92,14 +99,3 @@ form = ""
 ; path of the directory where to store files uploaded by the form (jauthdb_admin module)
 ; should be related to the var directory of the application
 uploadsDirectory= ""
-
-;------- parameters for the "Class" driver
-[Class]
-; selector of the class
-class = ""
-
-; name of the php function to crypt the password in the database
-password_crypt_function = md5
-
-;------- parameters for the "LDS" driver
-[LDS]
