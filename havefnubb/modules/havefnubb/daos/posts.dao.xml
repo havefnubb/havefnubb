@@ -120,15 +120,6 @@
             </order>
         </method>
 
-        <method name="findUnreadThreadByMod" type="select" distinct="true" groupby="thread_id">
-            <conditions>
-                <eq property="read_by_mod" value="0" />
-            </conditions>
-            <order>
-                <orderitem property="date_modified" way="desc" />
-            </order>
-        </method>
-
         <!-- countXXX -->
         <method name="countAllByIdForum" type="count">
             <parameter name="id_forum" />

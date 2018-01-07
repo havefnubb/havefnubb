@@ -1,9 +1,20 @@
 ;<?php die(''); ?>
 ;for security reasons , don't remove or modify the first line
 
+; configuration for developements in a virtual machine
+
+
 [mailer]
 mailerType=file
 
 [jResponseHtml]
 minifyCSS = off
 plugins = debugbar
+
+[logger]
+default=file
+error= file
+warning=file
+notice=file
+deprecated=file
+strict=file
