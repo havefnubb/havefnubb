@@ -12,6 +12,6 @@
         <updateURL>http://www.havefnubb.org/update.php?module=activeusers_admin</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.4" maxversion="1.4.*"/>
+        <jelix minversion="1.4" maxversion="1.6.*"/>
     </dependencies>
 </module>

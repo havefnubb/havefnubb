@@ -37,7 +37,6 @@ abstract class jInstallerBase{
 		else
 			return null;
 	}
-	private $_dbTool=null;
 	private $_dbConn=null;
 	public function setEntryPoint($ep,$config,$dbProfile,$contexts){
 		$this->config=$config;
@@ -129,6 +128,29 @@ abstract class jInstallerBase{
 			throw $e;
 		}
 	}
+	final protected function insertDaoData($relativeSourcePath,$option){
+		$file=$this->path.'install/'.$relativeSourcePath;
+		$dataToInsert=json_decode(file_get_contents($file),true);
+		if(!$dataToInsert){
+			throw new Exception("Bad format for dao data file.");
+		}
+		if(is_object($dataToInsert)){
+			$dataToInsert=array($dataToInsert);
+		}
+		$daoMapper=new jDaoDbMapper($this->dbProfile);
+		$count=0;
+		foreach($dataToInsert as $daoData){
+			if(!isset($daoData['dao'])||
+				!isset($daoData['properties'])||
+				!isset($daoData['data'])
+			){
+				throw new Exception("Bad format for dao data file.");
+			}
+			$count+=$daoMapper->insertDaoData($daoData['dao'],
+				$daoData['properties'],$daoData['data'],$option);
+		}
+		return $count;
+	}
 	final protected function copyDirectoryContent($relativeSourcePath,$targetPath,$overwrite=false){
 		$targetPath=$this->expandPath($targetPath);
 		$this->_copyDirectoryContent($this->path.'install/'.$relativeSourcePath,$targetPath,$overwrite);
@@ -204,7 +226,9 @@ abstract class jInstallerBase{
 			}
 			if(is_array($sectionContent)){
 				foreach($sectionContent as $k=>$v){
-					$profiles->setValue($k,$v,'jdb:'.$name);
+					if($force||!$profiles->getValue($k,'jdb:'.$name)){
+						$profiles->setValue($k,$v,'jdb:'.$name);
+					}
 				}
 			}
 			else{

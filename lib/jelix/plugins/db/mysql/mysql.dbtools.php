@@ -5,7 +5,7 @@
 * @subpackage db_driver
 * @author     Gérald Croes, Laurent Jouanneau
 * @contributor Laurent Jouanneau
-* @copyright  2001-2005 CopixTeam, 2005-2011 Laurent Jouanneau
+* @copyright  2001-2005 CopixTeam, 2005-2017 Laurent Jouanneau
 * This class was get originally from the Copix project (CopixDbToolsMysql, Copix 2.3dev20050901, http://www.copix.org)
 * Some lines of code are copyrighted 2001-2005 CopixTeam (LGPL licence).
 * Initial authors of this Copix class are Gerald Croes and Laurent Jouanneau,
@@ -31,6 +31,7 @@ class mysqlDbTools extends jDbTools{
 	'bigautoincrement'=>array('bigint','numeric','-9223372036854775808','9223372036854775807',null,null),
 	'float'=>array('float','float',null,null,null,null),
 	'money'=>array('float','float',null,null,null,null),
+	'smallmoney'=>array('float','float',null,null,null,null),
 	'double precision'=>array('double precision','decimal',null,null,null,null),
 	'double'=>array('double precision','decimal',null,null,null,null),
 	'real'=>array('real','decimal',null,null,null,null),
@@ -43,6 +44,9 @@ class mysqlDbTools extends jDbTools{
 	'date'=>array('date','date',null,null,10,10),
 	'time'=>array('time','time',null,null,8,8),
 	'datetime'=>array('datetime','datetime',null,null,19,19),
+	'datetime2'=>array('datetime','datetime',null,null,19,27),
+	'datetimeoffset'=>array('datetime','datetime',null,null,19,34),
+	'smalldatetime'=>array('datetime','datetime',null,null,19,19),
 	'timestamp'=>array('datetime','datetime',null,null,19,19),
 	'utimestamp'=>array('timestamp','integer',0,2147483647,null,null),
 	'year'=>array('year','year',null,null,2,4),
@@ -59,6 +63,7 @@ class mysqlDbTools extends jDbTools{
 	'string'=>array('varchar','varchar',null,null,0,65535),
 	'tinytext'=>array('tinytext','text',null,null,0,255),
 	'text'=>array('text','text',null,null,0,65535),
+	'ntext'=>array('text','text',null,null,0,0),
 	'mediumtext'=>array('mediumtext','text',null,null,0,16777215),
 	'longtext'=>array('longtext','text',null,null,0,0),
 	'long'=>array('longtext','text',null,null,0,0),
@@ -74,9 +79,11 @@ class mysqlDbTools extends jDbTools{
 	'varbinary'=>array('varbinary','varbinary',null,null,0,255),
 	'raw'=>array('varbinary','varbinary',null,null,0,2000),
 	'long raw'=>array('varbinary','varbinary',null,null,0,0),
+	'image'=>array('varbinary','varbinary',null,null,0,0),
 	'enum'=>array('varchar','varchar',null,null,0,65535),
 	'set'=>array('varchar','varchar',null,null,0,65535),
 	'xmltype'=>array('varchar','varchar',null,null,0,65535),
+	'xml'=>array('text','text',null,null,0,0),
 	'point'=>array('varchar','varchar',null,null,0,16),
 	'line'=>array('varchar','varchar',null,null,0,32),
 	'lsed'=>array('varchar','varchar',null,null,0,32),
@@ -91,32 +98,29 @@ class mysqlDbTools extends jDbTools{
 	'arrays'=>array('varchar','varchar',null,null,0,65535),
 	'complex types'=>array('varchar','varchar',null,null,0,65535),
 	);
+	protected $keywordNameCorrespondence=array(
+		'systimestamp'=>'current_timestamp',
+		'sysdate'=>'current_timestamp',
+		'localtime'=>'current_time',
+	);
+	protected $functionNameCorrespondence=array(
+		'sysdatetime'=>'current_timestamp',
+		'sysdatetimeoffset'=>'current_timestamp',
+		'sysutcdatetime'=>'UTC_TIMESTAMP()',
+		'getdate'=>'current_timestamp',
+		'getutcdate'=>'UTC_TIMESTAMP()',
+		'datetime'=>'DATE_FORMAT(%1p, \'%Y-%m-%d %H:%i:%s\')',
+		'extract'=>'!extractDateConverter',
+		'date_part'=>'!extractDateConverter',
+		'datepart'=>'!extractDateConverter',
+	);
 	public function encloseName($name){
 		return '`'.$name.'`';
 	}
-	public function getTableList(){
-		$results=array();
-		if(isset($this->_conn->profile['database'])){
-			$db=$this->_conn->profile['database'];
-		}
-		else if(isset($this->_conn->profile['dsn'])
-				&&preg_match('/dbname=([a-z0-9_ ]*)/',$this->_conn->profile['dsn'],$m)){
-			$db=$m[1];
-		}
-		else{
-			throw new jException("jelix~error.no.database.name",$this->_conn->profile['name']);
-		}
-		$rs=$this->_conn->query('SHOW TABLES FROM '.$this->encloseName($db));
-		$col_name='Tables_in_'.$db;
-		while($line=$rs->fetch()){
-			$results[]=$line->$col_name;
-		}
-		return $results;
-	}
-	public function getFieldList($tableName,$sequence=''){
+	public function getFieldList($tableName,$sequence='',$schemaName=''){
 		$tableName=$this->_conn->prefixTable($tableName);
 		$results=array();
-		$rs=$this->_conn->query('SHOW FIELDS FROM `'.$tableName.'`');
+		$rs=$this->_conn->query('SHOW FULL FIELDS FROM `'.$tableName.'`');
 		while($line=$rs->fetch()){
 			$field=new jDbFieldProperties();
 			if(preg_match('/^(\w+)\s*(\((\d+)\))?.*$/',$line->Type,$m)){
@@ -140,6 +144,9 @@ class mysqlDbTools extends jDbTools{
 			$field->primary=($line->Key=='PRI');
 			$field->autoIncrement=($line->Extra=='auto_increment');
 			$field->hasDefault=($line->Default!=''||!($line->Default==null&&$field->notNull));
+			if(isset($line->Comment)&&$line->Comment!=''){
+				$field->comment=$line->Comment;
+			}
 			if($field->notNull&&$line->Default===null&&!$field->autoIncrement)
 				$field->default='';
 			else
@@ -160,7 +167,6 @@ class mysqlDbTools extends jDbTools{
 		return count($queries);
 	}
 	protected function parseSQLScript($script){
-		$delimiters=array();
 		$distinctDelimiters=array(';');
 		if(preg_match_all("/DELIMITER ([^\n]*)/i",$script,$d,PREG_SET_ORDER)){
 			$delimiters=$d[1];

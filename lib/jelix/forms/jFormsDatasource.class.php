@@ -5,9 +5,9 @@
 * @subpackage  forms
 * @author      Laurent Jouanneau
 * @contributor Dominique Papin, Julien Issler
-* @copyright   2006-2010 Laurent Jouanneau
+* @copyright   2006-2015 Laurent Jouanneau
 * @copyright   2008 Dominique Papin
-* @copyright   2010 Julien Issler
+* @copyright   2010-2015 Julien Issler
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -19,6 +19,10 @@ interface jIFormsDatasource2 extends jIFormsDatasource{
 	public function hasGroupedData();
 	public function setGroupBy($group);
 	public function getLabel2($key,$form);
+}
+interface jIFormsDynamicDatasource extends jIFormsDatasource2{
+	public function getCriteriaControls();
+	public function setCriteriaControls($criteriaFrom=null);
 }
 class jFormsStaticDatasource implements jIFormsDatasource2{
 	public $data=array();
@@ -47,7 +51,30 @@ class jFormsStaticDatasource implements jIFormsDatasource2{
 		$this->grouped=$group;
 	}
 }
-class jFormsDaoDatasource implements jIFormsDatasource2{
+abstract class jFormsDynamicDatasource implements jIFormsDynamicDatasource{
+	protected $criteriaFrom=null;
+	protected $groupeBy='';
+	public function __construct($formid){
+	}
+	abstract public function getData($form);
+	abstract public function getLabel2($key,$form);
+	public function getLabel($key){
+		throw new Exception("should not be called");
+	}
+	public function hasGroupedData(){
+		return $this->groupeBy;
+	}
+	public function setGroupBy($group){
+		$this->groupeBy=$group;
+	}
+	public function getCriteriaControls(){
+		return $this->criteriaFrom;
+	}
+	public function setCriteriaControls($criteriaFrom=null){
+		$this->criteriaFrom=$criteriaFrom;
+	}
+}
+class jFormsDaoDatasource extends jFormsDynamicDatasource{
 	protected $selector;
 	protected $method;
 	protected $labelProperty=array();
@@ -56,19 +83,19 @@ class jFormsDaoDatasource implements jIFormsDatasource2{
 	protected $keyProperty;
 	protected $profile;
 	protected $criteria=null;
-	protected $criteriaFrom=null;
 	protected $dao=null;
-	protected $groupeBy='';
 	function __construct($selector,$method,$label,$key,$profile='',$criteria=null,$criteriaFrom=null,$labelSeparator=''){
 		$this->selector=$selector;
 		$this->profile=$profile;
 		$this->method=$method;
 		$this->labelProperty=preg_split('/[\s,]+/',$label);
 		$this->labelSeparator=$labelSeparator;
-		if($criteria!==null)
+		if($criteria!==null){
 			$this->criteria=preg_split('/[\s,]+/',$criteria);
-		if($criteriaFrom!==null)
-			$this->criteriaFrom=preg_split('/[\s,]+/',$criteriaFrom);
+		}
+		if($criteriaFrom!==null){
+			$this->setCriteriaControls(preg_split('/[\s,]+/',$criteriaFrom));
+		}
 		if($key==''){
 			$rec=jDao::createRecord($this->selector,$this->profile);
 			$pfields=$rec->getPrimaryKeyNames();
@@ -106,10 +133,9 @@ class jFormsDaoDatasource implements jIFormsDatasource2{
 		}
 		return $result;
 	}
-	public function getLabel($key){
-		throw new Exception("should not be called");
-	}
 	public function getLabel2($key,$form){
+		if($key===null||$key=="")
+			return null;
 		if($this->dao===null)
 			$this->dao=jDao::get($this->selector,$this->profile);
 		$method=$this->labelMethod;
@@ -153,12 +179,6 @@ class jFormsDaoDatasource implements jIFormsDatasource2{
 		return $label;
 	}
 	public function getDependentControls(){
-		return $this->criteriaFrom;
-	}
-	public function hasGroupedData(){
-		return $this->groupeBy;
-	}
-	public function setGroupBy($group){
-		$this->groupeBy=$group;
+		return $this->getCriteriaControls();
 	}
 }

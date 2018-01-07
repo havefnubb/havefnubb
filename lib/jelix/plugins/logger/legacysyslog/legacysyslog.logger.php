@@ -1,0 +1,21 @@
+<?php
+/* comments & extra-whitespaces have been removed by jBuildTools*/
+/**
+* @package    jelix
+* @subpackage core
+* @author     Laurent Jouanneau
+* @copyright  2006-2016 Laurent Jouanneau
+* @link       http://www.jelix.org
+* @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
+*/
+class legacysyslogLogger implements jILogger{
+	function logMessage($message){
+		$type=$message->getCategory();
+		if(jApp::coord()->request)
+			$ip=jApp::coord()->request->getIP();
+		else
+			$ip=isset($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+		error_log(date("Y-m-d H:i:s")."\t".$ip."\t$type\t".$message->getFormatedMessage(),0);
+	}
+	function output($response){}
+}

@@ -2,8 +2,9 @@
 /**
 * @package     jelix-scripts
 * @author      Laurent Jouanneau
-* @contributor
+* @contributor Julien Issler
 * @copyright   2008-2011 Laurent Jouanneau
+* @copyright   2015 Julien Issler
 * @link        http://jelix.org
 * @licence     GNU General Public Licence see LICENCE file or http://www.gnu.org/licenses/gpl.html
 */
@@ -73,8 +74,8 @@ class initadminCommand extends JelixScriptCommand {
 
         $installConfig = new jIniFileModifier(jApp::configPath('installer.ini.php'));
 
-        $inifile = new jIniMultiFilesModifier(jApp::configPath('defaultconfig.ini.php'),
-                                          jApp::configPath($ep['config']));
+        $inifile = new jIniMultiFilesModifier(jApp::mainConfigFile(),
+                                              jApp::configPath($ep['config']));
 
         $params = array();
         $this->createFile(jApp::appPath('responses/adminHtmlResponse.class.php'),'responses/adminHtmlResponse.class.php.tpl',$params, "Response for admin interface");
@@ -87,7 +88,7 @@ class initadminCommand extends JelixScriptCommand {
         $inifile->setValue('startAction', 'default:index');
         $modulePath = $inifile->getValue("modulesPath",0,null,true);
         if (strpos($modulePath, 'lib:jelix-admin-modules') === false) {
-            // we set it on defaultconfig.ini.php, so if the url engine is "significant"
+            // we set it on mainconfig.ini.php, so if the url engine is "significant"
             // it could know the admin modules during the parsing of modules
             $inifile->setValue('modulesPath', 'lib:jelix-admin-modules/,'.$modulePath, 0, null, true);
         }
@@ -98,8 +99,8 @@ class initadminCommand extends JelixScriptCommand {
         $inifile->setValue('jacldb.access', '0', 'modules');
         $installConfig->setValue('junittests.installed', '0', $entrypoint);
         $inifile->setValue('junittests.access', '0', 'modules');
-        $installConfig->setValue('jWSDL.installed', '0', $entrypoint);
-        $inifile->setValue('jWSDL.access', '0', 'modules');
+        $installConfig->setValue('jsoap.installed', '0', $entrypoint);
+        $inifile->setValue('jsoap.access', '0', 'modules');
 
         $urlconf = $inifile->getValue($entrypoint, 'simple_urlengine_entrypoints', null, true);
         if ($urlconf === null || $urlconf == '') {
@@ -145,7 +146,7 @@ class initadminCommand extends JelixScriptCommand {
 
         $reporter = new textInstallReporter(($verbose? 'notice':'warning'));
         $installer = new jInstaller($reporter);
-        $installer->installModules(array('master_admin'), $entrypoint.'.php');
+        $installer->installModules(array('jauth','master_admin'), $entrypoint.'.php');
 
         $authini = new jIniFileModifier(jApp::configPath($entrypoint.'/auth.coord.ini.php'));
         $authini->setValue('after_login','master_admin~default:index');
@@ -184,7 +185,7 @@ class initadminCommand extends JelixScriptCommand {
             $inifile->setValue('jacl2db_admin.access', '0', 'modules');
             $inifile->save();
         }
-        
+
         $installer->installModules(array('jpref_admin'), $entrypoint.'.php');
     }
 }

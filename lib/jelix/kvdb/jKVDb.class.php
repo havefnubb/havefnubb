@@ -15,9 +15,6 @@ class jKVDb{
 	public static function getConnection($name=null){
 		return jProfiles::getOrStoreInPool('jkvdb',$name,array('jKVDb','_createConnector'));
 	}
-	public static function getProfile($name=null){
-		return jProfiles::get('jkvdb',$name);
-	}
 	public static function _createConnector($profile){
 		if(! isset($profile['driver'])){
 			throw new jException(

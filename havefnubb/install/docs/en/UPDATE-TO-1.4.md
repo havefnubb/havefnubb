@@ -15,7 +15,7 @@ Update from 1.3.6 to 1.4
 
 1) backup your files :
 var/config/profiles.ini.php or var/config/dbprofils.ini.php
-var/config/defaultconfig.ini.php
+var/config/localconfig.ini.php
 var/config/havefnu.search.ini.php
 var/config/havefnubb
 var/config/hfnuadmin

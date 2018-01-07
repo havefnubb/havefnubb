@@ -15,9 +15,9 @@ abstract class jResponseXMLFeed extends jResponse{
 	public $lang;
 	public $infos=null;
 	public $itemList=array();
-	private $_template=null;
-	private $_mainTpl='';
-	private $_xsl=array();
+	protected $_template=null;
+	protected $_mainTpl='';
+	protected $_xsl=array();
 	function __construct(){
 		$this->charset=jApp::config()->charset;
 		$this->lang=jLocale::getCurrentLang();

@@ -13,8 +13,8 @@
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-require_once(dirname(__FILE__).'/mysqli.dbresultset.php');
-require_once(dirname(__FILE__).'/mysqli.dbstatement.php');
+require_once(__DIR__.'/mysqli.dbresultset.php');
+require_once(__DIR__.'/mysqli.dbstatement.php');
 class mysqliDbConnection extends jDbConnection{
 	protected $_charsets=array('UTF-8'=>'utf8','ISO-8859-1'=>'latin1');
 	private $_usesMysqlnd=null;
@@ -63,7 +63,28 @@ class mysqliDbConnection extends jDbConnection{
 	}
 	protected function _connect(){
 		$host=($this->profile['persistent'])? 'p:'.$this->profile['host'] : $this->profile['host'];
-		$cnx=@new mysqli($host,$this->profile['user'],$this->profile['password'],$this->profile['database']);
+		if(isset($this->profile['ssl'])&&$this->profile['ssl'])
+		{
+			$cnx=mysqli_init();
+			if(!$cnx){
+				throw new jException('jelix~db.error.connection',$this->profile['host']);
+			}
+			mysqli_ssl_set(
+				$cnx,
+				(isset($this->profile['ssl_key_pem'])? $this->profile['ssl_key_pem'] : NULL),
+				(isset($this->profile['ssl_cert_pem'])? $this->profile['ssl_cert_pem'] : NULL),
+				(isset($this->profile['ssl_cacert_pem'])? $this->profile['ssl_cacert_pem'] : NULL),
+				NULL,
+				NULL);
+			if(!mysqli_real_connect($cnx,$host,$this->profile['user'],
+						$this->profile['password'],$this->profile['database']))
+			{
+				throw new jException('jelix~db.error.connection',$this->profile['host']);
+			}
+		}
+		else{
+			$cnx=@new mysqli($host,$this->profile['user'],$this->profile['password'],$this->profile['database']);
+		}
 		if($cnx->connect_errno){
 			throw new jException('jelix~db.error.connection',$this->profile['host']);
 		}

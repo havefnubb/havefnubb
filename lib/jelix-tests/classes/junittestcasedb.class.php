@@ -1,7 +1,7 @@
 <?php
 /**
 * @package     jelix
-* @subpackage  junittests
+* @subpackage  jelix-tests
 * @author      Laurent
 * @contributor Christophe Thiriot
 * @copyright   2007-2012 Jouanneau laurent
@@ -36,7 +36,11 @@ class jUnitTestCaseDb extends jUnitTestCase {
         foreach($records as $rec){
             $ins='';
             foreach($fields as $f){
-                $ins.= ','.$db->quote($rec[$f]);
+                if ($rec[$f] === null) {
+                    $ins.= ',NULL';
+                } else {
+                    $ins.= ','.$db->quote($rec[$f]);
+                }
             }
             $db->exec($sql.substr($ins,1).')');
         }
@@ -124,6 +128,7 @@ class jUnitTestCaseDb extends jUnitTestCase {
            $results[]=get_object_vars($r);
         }
 
+        $error = '';
         $globalok=true;
         $resultsSaved = $results;
         foreach($records as $rec){
@@ -145,23 +150,24 @@ class jUnitTestCaseDb extends jUnitTestCase {
             }
             if(!$ok){
                 $globalok = false;
-                $this->fail($message.'. No record found : '. var_export($rec,true));
+                $error .= $message.'. No record found : '. var_export($rec,true)."\n";
             }
         }
 
         if($onlyThem && count($results) != 0){
             $globalok = false;
-            $this->fail($message.'. Other unknown records exists');
+            $error.= $message.'. Other unknown records exists';
         }
 
         if($globalok){
             $this->assertTrue(true, $message);
             return true;
         }else{
-            $this->sendMessage('Results from database');
-            $this->dump($resultsSaved);
-            $this->sendMessage('Records we should find');
-            $this->dump($records);
+            echo "Results from database:\n";
+            var_export($resultsSaved);
+            echo "\n\nRecords we should find\n";
+            var_export($records);
+            $this->fail($error);
             return false;
         }
     }

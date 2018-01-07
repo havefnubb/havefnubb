@@ -4,17 +4,18 @@
 * @package     jelix
 * @subpackage  db
 * @author      Laurent Jouanneau
-* @contributor Yannick Le Guédart, Laurent Raufaste, Christophe Thiriot, Julien Issler
-* @copyright   2005-2011 Laurent Jouanneau, 2008 Laurent Raufaste
+* @contributor Yannick Le Guédart, Laurent Raufaste, Julien Issler
+* @contributor Christophe Thiriot
+* @copyright   2005-2012 Laurent Jouanneau, 2008 Laurent Raufaste
 * @copyright   2011 Julien Issler
-*
-* Some of this classes were get originally from the Copix project
-* (CopixDbConnection, Copix 2.3dev20050901, http://www.copix.org)
+* @copyright   2001-2005 CopixTeam
+* 
+* Some of these classes were get originally from the Copix project
+* (CopixDbFactory, CopixDbConnection, Copix 2.3dev20050901, http://www.copix.org)
 * Some lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
 * Initial authors of this Copix classes are Gerald Croes and Laurent Jouanneau,
-* and this classes were adapted for Jelix by Laurent Jouanneau
 *
-* @link     http://www.jelix.org
+* @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 abstract class jDbConnection{
@@ -43,6 +44,7 @@ abstract class jDbConnection{
 	public $lastQuery;
 	private $_autocommit=true;
 	protected $_connection=null;
+	protected $_debugMode=false;
 	function __construct($profile){
 		$this->profile=& $profile;
 		$this->dbms=$this->driverName=$profile['driver'];
@@ -53,9 +55,22 @@ abstract class jDbConnection{
 			$this->_disconnect();
 		}
 	}
+	function disconnect(){
+		if($this->_connection!==null){
+			$this->_disconnect();
+		}
+	}
 	public function query($queryString,$fetchmode=self::FETCH_OBJ,$arg1=null,$ctoargs=null){
 		$this->lastQuery=$queryString;
-		$result=$this->_doQuery($queryString);
+		if($this->_debugMode){
+			$log=new jSQLLogMessage($queryString);
+			$result=$this->_doQuery($queryString);
+			$log->endQuery();
+			jLog::log($log,'sql');
+		}
+		else{
+			$result=$this->_doQuery($queryString);
+		}
 		if($fetchmode!=self::FETCH_OBJ){
 			$result->setFetchMode($fetchmode,$arg1,$ctoargs);
 		}
@@ -63,11 +78,30 @@ abstract class jDbConnection{
 	}
 	public function limitQuery($queryString,$limitOffset,$limitCount){
 		$this->lastQuery=$queryString;
-		return $this->_doLimitQuery($queryString,intval($limitOffset),intval($limitCount));
+		if($this->_debugMode){
+			$log=new jSQLLogMessage($queryString);
+			$result=$this->_doLimitQuery($queryString,intval($limitOffset),intval($limitCount));
+			$log->endQuery();
+			$log->setRealQuery($this->lastQuery);
+			jLog::log($log,'sql');
+			return $result;
+		}
+		else{
+			return $this->_doLimitQuery($queryString,intval($limitOffset),intval($limitCount));
+		}
 	}
 	public function exec($query){
 		$this->lastQuery=$query;
-		return $this->_doExec($query);
+		if($this->_debugMode){
+			$log=new jSQLLogMessage($query);
+			$result=$this->_doExec($query);
+			$log->endQuery();
+			jLog::log($log,'sql');
+			return $result;
+		}
+		else{
+			return $this->_doExec($query);
+		}
 	}
 	public function quote($text,$parameter_type=0){
 		if($parameter_type===false||$parameter_type===true)
@@ -83,13 +117,20 @@ abstract class jDbConnection{
 	public function encloseName($fieldName){
 		return $fieldName;
 	}
-	public function encloseFieldName($fieldName){
-		return $this->encloseName($fieldName);
-	}
 	public function prefixTable($table_name){
 		if(!isset($this->profile['table_prefix']))
 			return $table_name;
 		return $this->profile['table_prefix'].$table_name;
+	}
+	public function unprefixTable($tableName){
+		if(!isset($this->profile['table_prefix'])||$this->profile['table_prefix']==''){
+			return $tableName;
+		}
+		$prefix=$this->profile['table_prefix'];
+		if(strpos($tableName,$prefix)!==0){
+			return $tableName;
+		}
+		return substr($tableName,strlen($prefix));
 	}
 	public function hasTablePrefix(){
 		return(isset($this->profile['table_prefix'])&&$this->profile['table_prefix']!='');
@@ -140,6 +181,64 @@ abstract class jDbConnection{
 			$this->_schema=new $class($this);
 		}
 		return $this->_schema;
+	}
+	protected function findParameters($sql,$marker){
+		$queryParts=preg_split("/([`\"'\\\\])/",$sql,-1,PREG_SPLIT_DELIM_CAPTURE);
+		$finalQuery='';
+		$ignoreNext=false;
+		$insideString=false;
+		$this->foundParameters=array();
+		$this->numericalMarker=(substr($marker,-1)=='%');
+		if($this->numericalMarker){
+			$this->parameterMarker=substr($marker,0,-1);
+		}
+		else{
+			$this->parameterMarker=$marker;
+		}
+		foreach($queryParts as $token){
+			if($token=='\\'){
+				$ignoreNext=true;
+				$finalQuery.=$token;
+			}
+			else if($token=='"'||$token=="'"||$token=='`'){
+				if($ignoreNext){
+					$ignoreNext=false;
+					$finalQuery.=$token;
+				}
+				else if($insideString==$token){
+					$insideString=false;
+					$finalQuery.=$token;
+				}
+				else if($insideString===false){
+					$insideString=$token;
+					$finalQuery.=$token;
+				}
+				else if($insideString!==false){
+					$finalQuery.=$token;
+				}
+			}
+			else if($insideString!==false){
+				$finalQuery.=$token;
+			}
+			else{
+				$finalQuery.=preg_replace_callback("/(\\:)([a-zA-Z0-9_]+)/",array($this,'_replaceParam'),$token);
+			}
+		}
+		return array($finalQuery,$this->foundParameters);
+	}
+	protected function _replaceParam($matches){
+		if($this->numericalMarker){
+			$index=array_search($matches[2],$this->foundParameters);
+			if($index===false){
+				$this->foundParameters[]=$matches[2];
+				$index=count($this->foundParameters)-1;
+			}
+			return $this->parameterMarker.($index+1);
+		}
+		else{
+			$this->foundParameters[]=$matches[2];
+			return $this->parameterMarker;
+		}
 	}
 }
 abstract class jDbResultSet implements Iterator{
@@ -246,13 +345,6 @@ class jDb{
 		$dbw=new jDbWidget(self::getConnection($name));
 		return $dbw;
 	}
-	public static function getTools($name=null){
-		$cnx=self::getConnection($name);
-		return $cnx->tools();
-	}
-	public static function getProfile($name='',$noDefault=false){
-		return jProfiles::get('jdb',$name,$noDefault);
-	}
 	public function testProfile($profile){
 		try{
 			self::_createConnector($profile);
@@ -275,19 +367,16 @@ class jDb{
 			return $dbh;
 		}
 	}
-	public static function createVirtualProfile($name,$params){
-		jProfiles::createVirtualProfile('jdb',$name,$params);
-	}
-	public static function clearProfiles(){
-		jProfiles::clear();
-	}
 	public static function floatToStr($value){
-		if(is_float($value))
-			return rtrim(sprintf('%.20F',$value),'0');
-		else if(is_integer($value))
+		if(is_float($value)){
+			return rtrim(rtrim(sprintf("%.20F",$value),"0"),'.');
+		}
+		else if(is_integer($value)){
 			return sprintf('%d',$value);
-		else if(is_numeric($value))
+		}
+		else if(is_numeric($value)){
 			return $value;
+		}
 		return (string)(floatval($value));
 	}
 }

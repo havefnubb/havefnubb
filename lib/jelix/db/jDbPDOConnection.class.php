@@ -23,29 +23,30 @@ class jDbPDOConnection extends PDO{
 		$prof=$profile;
 		$user='';
 		$password='';
-		$dsn='';
 		if(isset($profile['dsn'])){
 			$this->dbms=$this->driverName=substr($profile['dsn'],0,strpos($profile['dsn'],':'));
 			$dsn=$profile['dsn'];
 			unset($prof['dsn']);
-			if($this->dbms=='sqlite')
-				$dsn=str_replace(array('app:','lib:','var:'),array(jApp::appPath(),LIB_PATH,jApp::varPath()),$dsn);
+			if($this->dbms=='sqlite'){
+				$dsn='sqlite:'.$this->_parseSqlitePath(substr($dsn,7));
+			}
 		}
 		else{
 			$this->dbms=$this->driverName=$profile['driver'];
+			if($this->dbms=='sqlite3'){
+				$this->dbms=$this->driverName='sqlite';
+			}
 			$db=$profile['database'];
-			$dsn=$this->dbms.':host='.$profile['host'].';dbname='.$db;
-			if($this->dbms!='sqlite')
+			if($this->dbms!='sqlite'){
 				$dsn=$this->dbms.':host='.$profile['host'].';dbname='.$db;
+			}
 			else{
-				if(preg_match('/^(app|lib|var)\:/',$db,$m))
-					$dsn='sqlite:'.str_replace(array('app:','lib:','var:'),array(jApp::appPath(),LIB_PATH,jApp::varPath()),$db);
-				else
-					$dsn='sqlite:'.jApp::varPath('db/sqlite/'.$db);
+				$dsn='sqlite:'.$this->_parseSqlitePath($db);
 			}
 		}
-		if(isset($prof['usepdo']))
+		if(isset($prof['usepdo'])){
 			unset($prof['usepdo']);
+		}
 		if(isset($prof['user'])){
 			$user=$prof['user'];
 			unset($prof['user']);
@@ -58,10 +59,12 @@ class jDbPDOConnection extends PDO{
 		parent::__construct($dsn,$user,$password,$prof);
 		$this->setAttribute(PDO::ATTR_STATEMENT_CLASS,array('jDbPDOResultSet'));
 		$this->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-		if($this->dbms=='mysql')
+		if($this->dbms=='mysql'){
 			$this->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY,true);
-		if($this->dbms=='oci')
+		}
+		if($this->dbms=='oci'){
 			$this->setAttribute(PDO::ATTR_CASE,PDO::CASE_LOWER);
+		}
 		if(isset($prof['force_encoding'])&&$prof['force_encoding']==true){
 			$charset=jApp::config()->charset;
 			if($this->dbms=='mysql'&&isset($this->_mysqlCharsets[$charset])){
@@ -70,6 +73,24 @@ class jDbPDOConnection extends PDO{
 			elseif($this->dbms=='pgsql'&&isset($this->_pgsqlCharsets[$charset])){
 				$this->exec("SET client_encoding to '".$this->_pgsqlCharsets[$charset]."'");
 			}
+		}
+	}
+	protected function _parseSqlitePath($path){
+		if(preg_match('/^(app|lib|var|temp|www)\:/',$path,$m)){
+			return jFile::parseJelixPath($path);
+		}
+		else if(preg_match('!^[a-z]\\:(\\\\|/)[a-z]!i',$path)||
+				$path[0]=='/'
+				){
+			if(file_exists($path)||file_exists(dirname($path))){
+				return $path;
+			}
+			else{
+				throw new Exception('jDbPDOConnection, sqlite: unknown database path scheme');
+			}
+		}
+		else{
+			return jApp::varPath('db/sqlite/'.$path);
 		}
 	}
 	public function query(){
@@ -100,8 +121,48 @@ class jDbPDOConnection extends PDO{
 				$queryString='SELECT * FROM ( SELECT ocilimit.*, rownum rnum FROM ('.$queryString.') ocilimit WHERE
                     rownum<'.(intval($limitOffset)+intval($limitCount)).'  ) WHERE rnum >='.intval($limitOffset);
 			}
+			elseif($this->dbms=='sqlsrv'){
+		$queryString=$this->limitQuerySqlsrv($queryString,$limitOffset,$limitCount);
+		}
 		}
 		return $this->query($queryString);
+	}
+	protected function limitQuerySqlsrv($queryString,$limitOffset=null,$limitCount=null){
+		$queryString=preg_replace('/^SELECT TOP[ ]\d*\s*/i','SELECT ',trim($queryString));
+		$distinct=false;
+		list($select,$from)=preg_split('/\sFROM\s/mi',$queryString,2);
+		$fields=preg_split('/\s*,\s*/',$select);
+		$firstField=preg_replace('/^\s*SELECT\s+/','',array_shift($fields));
+		if(stripos($firstField,'DISTINCT')!==false){
+			$firstField=preg_replace('/DISTINCT/i','',$firstField);
+			$distinct=true;
+		}
+		$orderby=stristr($from,'ORDER BY');
+		if($orderby===false){
+			if(stripos($firstField,' as ')!==false){
+			list($field,$key)=preg_split('/ as /',$firstField);
+			}
+			else{
+			$key=$firstField;
+			}
+			$orderby=' ORDER BY '.strstr(strstr($key,'.'),'[').' ASC';
+			$from.=$orderby;
+		}else{
+		if(strpos($orderby,'.',8)){
+		$orderby=' ORDER BY ' . substr($orderby,strpos($orderby,'.')+ 1);
+		}
+	}
+		if(!$distinct)
+			$queryString='SELECT TOP ';
+		else
+			$queryString='SELECT DISTINCT TOP ';
+		$queryString.=($limitCount+$limitOffset). ' '.$firstField.','.implode(',',$fields).' FROM '.$from;
+		$queryString='SELECT TOP ' . $limitCount . ' * FROM (' . $queryString . ') AS inner_tbl ';
+		$order_inner=preg_replace(array('/\bASC\b/i','/\bDESC\b/i'),array('_DESC','_ASC'),$orderby);
+		$order_inner=str_replace(array('_DESC','_ASC'),array('DESC','ASC'),$order_inner);
+		$queryString.=$order_inner;
+		$queryString='SELECT TOP ' . $limitCount . ' * FROM (' . $queryString . ') AS outer_tbl '.$orderby;
+		return $queryString;
 	}
 	public function setAutoCommit($state=true){
 		$this->setAttribute(PDO::ATTR_AUTOCOMMIT,$state);
@@ -114,8 +175,9 @@ class jDbPDOConnection extends PDO{
 	return 0;
 	}
 	public function prefixTable($table_name){
-		if(!isset($this->profile['table_prefix']))
+		if(!isset($this->profile['table_prefix'])){
 			return $table_name;
+		}
 		return $this->profile['table_prefix'].$table_name;
 	}
 	public function hasTablePrefix(){
@@ -139,8 +201,9 @@ class jDbPDOConnection extends PDO{
 		if(!$this->_tools){
 			$dbms=($this->dbms==='sqlite')? 'sqlite3' : $this->dbms;
 			$this->_tools=jApp::loadPlugin($dbms,'db','.dbtools.php',$dbms.'DbTools',$this);
-			if(is_null($this->_tools))
+			if(is_null($this->_tools)){
 				throw new jException('jelix~db.error.driver.notfound',$dbms);
+			}
 		}
 		return $this->_tools;
 	}

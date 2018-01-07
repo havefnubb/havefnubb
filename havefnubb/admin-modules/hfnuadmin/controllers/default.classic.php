@@ -113,8 +113,8 @@ class defaultCtrl extends jController {
             return $resp;
         }
 
-        $defaultConfig =  new jIniFileModifier(jApp::configPath('defaultconfig.ini.php'));
-        $p = jAcl2Db::getProfile();
+        $defaultConfig =  new jIniFileModifier(jApp::configPath('localconfig.ini.php'));
+
         //if we want to allow the anonymous users on the forum :
         if ($form->getData('anonymous_post_authorized')) {
             $rights =array( 'hfnu.forum.list'=>'on',

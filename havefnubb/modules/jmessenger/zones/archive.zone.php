@@ -17,7 +17,7 @@ class archiveZone extends jZone {
     protected $_tplOuputType = "html";
 
     protected function _prepareTpl(){
-        $id = $this->getParam("id", jAuth::getUserSession()->id);
+        $id = $this->param("id", jAuth::getUserSession()->id);
         $title = jLocale::get("jmessenger~message.msg.archived");
         
         $dao = jDao::get($this->dao);

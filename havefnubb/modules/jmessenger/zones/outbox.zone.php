@@ -16,7 +16,7 @@ class outboxZone extends jZone {
     protected $dao = "jmessenger~jmessenger";
 
     protected function _prepareTpl(){
-        $id = $this->getParam("id", jAuth::getUserSession()->id);
+        $id = $this->param("id", jAuth::getUserSession()->id);
         $title = jLocale::get("jmessenger~message.msg.outbox");
 
         $dao = jDao::get($this->dao);

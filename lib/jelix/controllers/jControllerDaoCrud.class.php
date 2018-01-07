@@ -45,9 +45,6 @@ class jControllerDaoCrud extends jController{
 		return $act->module.'~'.$act->controller.':'.$method;
 	}
 	protected function _checkData($form,$calltype){
-		return $this->_checkDatas($form,$calltype);
-	}
-	protected function _checkDatas($form,$calltype){
 		return true;
 	}
 	function index(){

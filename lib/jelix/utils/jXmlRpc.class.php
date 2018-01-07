@@ -23,9 +23,9 @@ class jXmlRpc{
 		if($xml==false){
 		}
 		$methodname=(string)$xml->methodName;
+		$params=array();
 		if(isset($xml->params)){
 			if(isset($xml->params->param)){
-				$params=array();
 				foreach($xml->params->param as $param){
 					if(isset($param->value)){
 						$params[]=self::_decodeValue($param->value);
@@ -83,7 +83,7 @@ class jXmlRpc{
 	private static function _decodeValue($valuetag){
 		$children=$valuetag->children();
 		$value=null;
-		if(count($children)){
+		if($children->count()){
 			if(isset($valuetag->i4)){
 				$value=intval((string) $valuetag->i4);
 			}else if(isset($valuetag->int)){

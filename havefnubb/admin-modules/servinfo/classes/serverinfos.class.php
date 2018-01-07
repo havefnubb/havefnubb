@@ -53,23 +53,29 @@ class ServerInfos {
      * @return string the database versin
      */
     public static function dbVersion() {
-        $profile = jDb::getProfile();
-        //@TODO get the current dbLink to give it to each RDBMS function
-        /*
-        $tools = jDb::getTools();
-        $version = $tools->dbVersion();*/
-        if ($profile['driver'] == 'pgsql') $version = pg_version();
-        elseif ($profile['driver'] == 'mysql') $version = mysql_get_server_info();
-        elseif ($profile['driver'] == 'sqlite') $version = sqlite_version();
+        $profile = jProfiles::get('jdb');
+        $drv = $profile['driver'];
+        switch($drv) {
+            case 'pgsql':
+                return $drv . ' ' . pg_version();
+            case 'mysqli':
+                return $drv . ' ' . mysqli_get_server_version();
+            case 'sqlite3':
+                return $drv . ' ' . sqlite_libversion();
+            case 'mysql':
+                return $drv . ' ' . mysql_get_server_info();
+            case 'sqlite':
+                return $drv . ' ' . sqlite_version();
+        }
 
-        return $profile['driver'] . ' ' . $version;
+        return $drv;
     }
     /**
      * Size of the database
      * @return array the total size and record of the database
      */
     public static function dbSize() {
-        $profile = jDb::getProfile();
+        $profile = jProfiles::get('jdb');
         $con = jDb::getConnection();
         $totalRecords = $totalSize = 0;
 

@@ -25,11 +25,15 @@ abstract class jFormsControl{
 	public $alertRequired='';
 	public $initialReadOnly=false;
 	public $initialActivation=true;
+	public $emptyValueLabel=null;
 	protected $form;
 	protected $container;
 	function __construct($ref){
 		$this->ref=$ref;
 		$this->datatype=new jDatatypeString();
+	}
+	function getWidgetType(){
+		return $this->type;
 	}
 	function setForm($form){
 		$this->form=$form;
@@ -70,6 +74,9 @@ abstract class jFormsControl{
 		$this->setData($value);
 	}
 	function getDisplayValue($value){
+		if($value==''&&$this->emptyValueLabel!==null){
+			return $this->emptyValueLabel;
+		}
 		return $value;
 	}
 	public function isHtmlContent(){
@@ -95,10 +102,16 @@ abstract class jFormsControlDatasource extends jFormsControl{
 			foreach($value as $val){
 				$labels[$val]=$this->_getLabel($val);
 			}
+			if(count($labels)==0&&$this->emptyValueLabel!==null){
+				return $this->emptyValueLabel;
+			}
 			return $labels;
-		}else{
-			return $this->_getLabel($value);
 		}
+		$label=$this->_getLabel($value);
+		if($label==''&&$this->emptyValueLabel!==null){
+			return $this->emptyValueLabel;
+		}
+		return $label;
 	}
 	protected function _getLabel($value){
 		if($this->datasource instanceof jIFormsDatasource2)
@@ -113,6 +126,8 @@ abstract class jFormsControlGroups extends jFormsControl{
 	function check(){
 		$rv=null;
 		foreach($this->childControls as $ctrl){
+			if(!$ctrl->isActivated())
+					continue;
 			if(($rv2=$ctrl->check())!==null){
 				$rv=$rv2;
 			}
@@ -147,24 +162,70 @@ abstract class jFormsControlGroups extends jFormsControl{
 		}
 	}
 }
+class jFormsControlButton extends jFormsControl{
+	public $type='button';
+	function setValueFromRequest($request){
+	}
+	public function check(){
+		return null;
+	}
+	function setDataFromDao($value,$daoDatatype){
+		$this->setData($value);
+	}
+}
 class jFormsControlCaptcha extends jFormsControl{
 	public $type='captcha';
 	public $question='';
 	public $required=true;
+	protected $validatorName='simple';
+	function __construct($ref){
+		parent::__construct($ref);
+		$this->validatorName=jApp::config()->forms['captcha'];
+	}
+	public function setValidator($validatorName){
+		$this->validatorName=$validatorName;
+	}
+	function getWidgetType(){
+		if(isset(jApp::config()->forms['captcha.'.$this->validatorName.'.widgettype'])){
+			return jApp::config()->forms['captcha.'.$this->validatorName.'.widgettype'];
+		}
+		return $this->type;
+	}
+	protected function getCaptcha(){
+		$className='';
+		if(isset(jApp::config()->forms['captcha.'.$this->validatorName.'.validator'])){
+			$className=jApp::config()->forms['captcha.'.$this->validatorName.'.validator'];
+		}
+		if(!$className){
+			throw new \Exception("Captcha validator not set in the configuration for '".$this->validatorName."'");
+		}
+		return new $className();
+	}
 	function check(){
 		$value=$this->container->data[$this->ref];
-		if(trim($value)==''){
-			return $this->container->errors[$this->ref]=jForms::ERRDATA_REQUIRED;
-		}elseif($value!=$this->container->privateData[$this->ref]){
-			return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID;
+		if(isset($this->container->privateData[$this->ref])){
+			$internalData=$this->container->privateData[$this->ref];
 		}
-		return null;
+		else{
+			$internalData=null;
+		}
+		$result=$this->getCaptcha()->validate($value,$internalData);
+		if($result){
+			$this->container->errors[$this->ref]=$result;
+		}
+		return $result;
+	}
+	function initCaptcha(){
+		$data=$this->getCaptcha()->initOnDisplay();
+		if(is_array($data)&&isset($data['question'])){
+			$this->question=$data['question'];
+		}
+		$this->container->privateData[$this->ref]=$data;
+		return $data;
 	}
 	function initExpectedValue(){
-		$numbers=jLocale::get('jelix~captcha.number');
-		$id=rand(1,intval($numbers));
-		$this->question=jLocale::get('jelix~captcha.question.'.$id);
-		$this->container->privateData[$this->ref]=jLocale::get('jelix~captcha.response.'.$id);
+		jLog::log("captcha jforms control: initExpectedValue is deprecated, use initCaptcha instead","deprecated");
+		$this->initCaptcha();
 	}
 }
 class jFormsControlCheckbox extends jFormsControl{
@@ -172,6 +233,8 @@ class jFormsControlCheckbox extends jFormsControl{
 	public $defaultValue='0';
 	public $valueOnCheck='1';
 	public $valueOnUncheck='0';
+	public $valueLabelOnCheck='';
+	public $valueLabelOnUncheck='';
 	function __construct($ref){
 		$this->ref=$ref;
 		$this->datatype=new jDatatypeBoolean();
@@ -211,6 +274,12 @@ class jFormsControlCheckbox extends jFormsControl{
 			}
 		}
 		$this->setData($value);
+	}
+	function getDisplayValue($value){
+		if($value==$this->valueOnCheck){
+			return($this->valueLabelOnCheck!==''?$this->valueLabelOnCheck:$value);
+		}
+		return($this->valueLabelOnUncheck!==''?$this->valueLabelOnUncheck:$value);
 	}
 }
 class jFormsControlCheckboxes extends jFormsControlDatasource{
@@ -287,15 +356,95 @@ class jFormsControlChoice extends jFormsControlGroups{
 			return;
 		}
 		$this->setData($value);
-		if(isset($this->items[$this->container->data[$this->ref]])){
-			foreach($this->items[$this->container->data[$this->ref]] as $name=>$ctrl){
+		$val=$this->container->data[$this->ref];
+		if(isset($this->items[$val])){
+			foreach($this->items[$val] as $name=>$ctrl){
 				$ctrl->setValueFromRequest($request);
 			}
 		}
 	}
+	function getDisplayValue($value){
+		if(isset($this->itemsNames[$value])&&$this->isItemActivated($value)){
+			return $this->itemsNames[$value];
+		}
+		if($this->emptyValueLabel===null)
+			return $value;
+		return $this->emptyValueLabel;
+	}
 }
 class jFormsControlGroup extends jFormsControlGroups{
 	public $type="group";
+	public $hasCheckbox=false;
+	public $valueOnCheck='1';
+	public $valueOnUncheck='0';
+	public $valueLabelOnCheck='';
+	public $valueLabelOnUncheck='';
+	function check(){
+		if(!$this->hasCheckbox){
+			return parent::check();
+		}
+		$value=$this->container->data[$this->ref];
+		if($value!=$this->valueOnCheck&&$value!=$this->valueOnUncheck){
+			return $this->container->errors[$this->ref]=jForms::ERRDATA_INVALID;
+		}
+		if($value==$this->valueOnCheck){
+			return parent::check();
+		}
+		return null;
+	}
+	function setValueFromRequest($request){
+		if(!$this->hasCheckbox){
+			parent::setValueFromRequest($request);
+			return;
+		}
+		$this->setData($request->getParam($this->ref,''));
+		$value=$this->container->data[$this->ref];
+		if($value==$this->valueOnCheck){
+			foreach($this->childControls as $name=>$ctrl){
+				if(!$this->form->isActivated($name)||$this->form->isReadOnly($name)){
+					continue;
+				}
+				$ctrl->setValueFromRequest($request);
+			}
+		}
+	}
+	function setData($value){
+		if($this->hasCheckbox){
+			$value=(string) $value;
+			if($value!=$this->valueOnCheck){
+				if($value=='on'){
+					$value=$this->valueOnCheck;
+				}
+				else{
+					$value=$this->valueOnUncheck;
+				}
+			}
+		}
+		parent::setData($value);
+	}
+	function setDataFromDao($value,$daoDatatype){
+		if(!$this->hasCheckbox){
+			parent::setDataFromDao($value,$daoDatatype);
+			return;
+		}
+		if($daoDatatype=='boolean'){
+			if(strtolower($value)=='true'||$value==='t'||intval($value)==1||$value==='on'||$value===true){
+				$value=$this->valueOnCheck;
+			}else{
+				$value=$this->valueOnUncheck;
+			}
+		}
+		$this->setData($value);
+	}
+	function getDisplayValue($value){
+		if(!$this->hasCheckbox){
+			return $value;
+		}
+		if($value==$this->valueOnCheck){
+			return($this->valueLabelOnCheck!==''?$this->valueLabelOnCheck:$value);
+		}
+		return($this->valueLabelOnUncheck!==''?$this->valueLabelOnUncheck:$value);
+	}
 }
 class jFormsControlReset extends jFormsControl{
 	public $type='reset';
@@ -418,6 +567,9 @@ class jFormsControlSecret extends jFormsControl{
 	public $type='secret';
 	public $size=0;
 	function getDisplayValue($value){
+		if($value==''&&$this->emptyValueLabel!==null){
+			return $this->emptyValueLabel;
+		}
 		return str_repeat("*",strlen($value));
 	}
 }
@@ -532,6 +684,9 @@ class jFormsControlDate extends jFormsControl{
 			$dt->setFromString($value,jDateTime::DB_DFORMAT);
 			$value=$dt->toString(jDateTime::LANG_DFORMAT);
 		}
+		else if($this->emptyValueLabel!==null){
+			return $this->emptyValueLabel;
+		}
 		return $value;
 	}
 }
@@ -560,6 +715,9 @@ class jFormsControlDatetime extends jFormsControlDate{
 			$dt=new jDateTime();
 			$dt->setFromString($value,jDateTime::DB_DTFORMAT);
 			$value=$dt->toString(jDateTime::LANG_DTFORMAT);
+		}
+		else if($this->emptyValueLabel!==null){
+			return $this->emptyValueLabel;
 		}
 		return $value;
 	}

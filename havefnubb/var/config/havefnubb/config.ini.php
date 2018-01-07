@@ -6,7 +6,6 @@ startAction="default:index"
 
 modulesPath="lib:jelix-modules/,app:admin-modules/,app:modules/,app:../modules-hook/"
 
-pluginsPath="app:plugins/,module:jacl2db/plugins"
 [coordplugins]
 autolocale=autolocale.coord.ini.php
 auth="havefnubb/auth.coord.ini.php"
@@ -18,12 +17,6 @@ flood="havefnubb/flood.coord.ini.php"
 
 [responses]
 html=fnuHtmlResponse
-
-[acl2]
-driver=db
-
-[logfiles]
-DEBUG=havefnubbdebug.log
 
 [modules]
 jelix.access=2

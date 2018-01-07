@@ -3,14 +3,21 @@
     <datasources>
         <primarytable name="ug" realname="jacl2_user_group" primarykey="login,id_aclgrp" />
         <optionalforeigntable name="usr" realname="community_users" primarykey="login" onforeignkey="login"/>
+        <foreigntable name="grp" realname="jacl2_group" primarykey="id_aclgrp" onforeignkey="id_aclgrp"/>
     </datasources>
     <record>
         <property name="login" fieldname="login" datatype="string" required="yes"/>
         <property name="id_aclgrp" fieldname="id_aclgrp" datatype="string" required="yes"/>
+
         <property name="status" fieldname="status" table="usr" datatype="integer" />
         <property name="nb_msg" fieldname="nb_msg" table="usr" datatype="integer" />
         <property name="member_created" fieldname="create_date" table="usr" datatype="datetime" />
         <property name="request_date" fieldname="request_date" table="usr" datatype="datetime" />
+
+        <property name="name" fieldname="name" datatype="string" required="yes" table="grp"/>
+        <property name="grouptype" fieldname="grouptype" datatype="int" required="yes" table="grp"/>
+        <property name="ownerlogin" fieldname="ownerlogin" datatype="string"  table="grp"/>
+
     </record>
 
     <factory>
@@ -20,6 +27,16 @@
                 <eq property="login" expr="$login" />
             </conditions>
         </method>
+
+        <method name="getPrivateGroup" type="selectfirst">
+            <parameter name="login" />
+            <conditions>
+                <eq property="login" expr="$login" />
+                <eq property="ownerlogin" expr="$login" />
+                <eq property="grouptype" value="2" />
+            </conditions>
+        </method>
+
         <method name="getUsersGroup" type="select">
            <parameter name="grp" />
            <parameter name="ordre" default="asc" />

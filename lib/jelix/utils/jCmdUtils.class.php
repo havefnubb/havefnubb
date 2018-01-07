@@ -5,7 +5,7 @@
 * @subpackage utils
 * @author     Loic Mathaud
 * @contributor Laurent Jouanneau
-* @copyright  2006 Loic Mathaud, 2008 Laurent Jouanneau
+* @copyright  2006 Loic Mathaud, 2008-2017 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -17,7 +17,7 @@ class jCmdUtils{
 		while(count($argv)&&$argv[0]{0}=='-'){
 			if(isset($sws[$argv[0]])){
 				if($sws[$argv[0]]){
-					if(isset($argv[1])&&$argv[1]{0}!='-'){
+					if(isset($argv[1])&&($argv[1]{0}!='-'||!isset($sws[$argv[1]]))){
 						$sw=array_shift($argv);
 						$switches[$sw]=array_shift($argv);
 					}else{

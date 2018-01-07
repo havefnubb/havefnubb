@@ -41,7 +41,7 @@ class migrateWizPage extends installWizardPage {
         return 0;
     }
     protected function loadconf() {
-        $ini = new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
+        $ini = new jIniFileModifier(jApp::configPath().'localconfig.ini.php');
         $config = array(
             'theme'=>$ini->getValue('theme'),
             'title'=>$ini->getValue('title','havefnubb'),
@@ -67,7 +67,7 @@ class migrateWizPage extends installWizardPage {
          * Main CONFIG FILE : defaultconfig.ini.php
          *
          */
-        $iniDef = new jIniFileModifier(jApp::configPath().'defaultconfig.ini.php');
+        $iniDef = new jIniFileModifier(jApp::configPath().'localconfig.ini.php');
 
         $this->defaultModulesPath = $iniDef->getValue('modulesPath');
         //need to add app:admin-modules to the modulesPath
@@ -354,7 +354,7 @@ class migrateWizPage extends installWizardPage {
         //get the profiles file
         $dbProfile = jIniFile::read(jApp::configPath('profiles.ini.php'));
         //get the default profile
-        $tools = jDb::getTools($dbProfile['default']);
+        $tools = jDb::getConnection($dbProfile['default'])->tools();
         // migrate from 1.3.6 to 1.4.0
         $tools->execSQLScript(dirname(__FILE__).'/../../../sql/update_to_1.4.0.mysql.sql');
     }

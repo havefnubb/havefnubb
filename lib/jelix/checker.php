@@ -12,9 +12,10 @@
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 * @since       1.0b2
 */
-include dirname(__FILE__).'/installer/jIInstallReporter.iface.php';
-include dirname(__FILE__).'/installer/jInstallerMessageProvider.class.php';
-include dirname(__FILE__).'/installer/jInstallChecker.class.php';
+include __DIR__.'/installer/jIInstallReporter.iface.php';
+include __DIR__.'/installer/jInstallerMessageProvider.class.php';
+include __DIR__.'/installer/jInstallChecker.class.php';
+include __DIR__.'/db/jDbParameters.class.php';
 class jHtmlInstallChecker implements jIInstallReporter{
 	function start(){
 		echo '<ul class="checkresults">';
@@ -51,7 +52,10 @@ class jHtmlInstallChecker implements jIInstallReporter{
 }
 $reporter=new jHtmlInstallChecker();
 $check=new jInstallCheck($reporter);
-$check->addDatabaseCheck(array('mysql','sqlite','pgsql'),false);
+if(isset($_GET['verbose'])){
+	$check->verbose=true;
+}
+$check->addDatabaseCheck(array('mysqli','sqlite3','pgsql','oci','mssql'),false);
 $reporter->messageProvider=$check->messages;
 header("Content-type:text/html;charset=UTF-8");
 ?>
@@ -154,7 +158,11 @@ div#jelixpowered {
 </head><body >
     <h1 class="apptitle"><?php echo htmlspecialchars($check->messages->get('checker.title'));?></h1>
 
-<?php $check->run();?>
+<?php $check->run();
+if(!$check->verbose){
+?>
+<p><a href="?verbose"><?php echo htmlspecialchars($check->messages->get('more.details'));?></a></p>
+<?php }?>
 </body>
 </html>
 

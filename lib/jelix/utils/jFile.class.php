@@ -18,7 +18,7 @@ class jFile{
 	public static function read($filename){
 		return @file_get_contents($filename,false);
 	}
-	public static function write($file,$data){
+	public static function write($file,$data,$chmod=null){
 		$_dirname=dirname($file);
 		self::createDir($_dirname);
 		if(!@is_writable($_dirname)){
@@ -40,13 +40,19 @@ class jFile{
 			unlink($file);
 		}
 		rename($_tmp_file,$file);
-		@chmod($file,0664);
+		if($chmod){
+			chmod($file,$chmod);
+		}
+		else{
+			chmod($file,jApp::config()->chmodFile);
+		}
 		return true;
 	}
-	public static function createDir($dir){
+	public static function createDir($dir,$chmod=null){
 		if(!file_exists($dir)){
-			self::createDir(dirname($dir));
-			mkdir($dir,0775);
+			self::createDir(dirname($dir),$chmod);
+			mkdir($dir,($chmod?$chmod:jApp::config()->chmodDir));
+			chmod($dir,($chmod?$chmod:jApp::config()->chmodDir));
 		}
 	}
 	public static function removeDir($path,$deleteParent=true,$except=array()){
@@ -94,18 +100,10 @@ class jFile{
 		return $allIsDeleted;
 	}
 	public static function getMimeType($file){
-		if(function_exists('finfo_open')){
-			$finfo=finfo_open(FILEINFO_MIME_TYPE);
-			$type=finfo_file($finfo,$file);
-			finfo_close($finfo);
-			return $type;
-		}
-		else if(function_exists('mime_content_type')){
-			return mime_content_type($file);
-		}
-		else{
-			return self::getMimeTypeFromFilename($file);
-		}
+		$finfo=finfo_open(FILEINFO_MIME_TYPE);
+		$type=finfo_file($finfo,$file);
+		finfo_close($finfo);
+		return $type;
 	}
 	public static function getMimeTypeFromFilename($fileName){
 		$ext=strtolower(pathinfo($fileName,PATHINFO_EXTENSION));
@@ -114,6 +112,52 @@ class jFile{
 		}
 		else
 			return 'application/octet-stream';
+	}
+	public static function parseJelixPath($path){
+		return str_replace(
+			array('lib:','app:','var:','temp:','www:'),
+			array(LIB_PATH,jApp::appPath(),jApp::varPath(),jApp::tempPath(),jApp::wwwPath()),
+			$path);
+	}
+	public static function unparseJelixPath($path,$beforeShortcut='',$afterShortcut=''){
+		if(strpos($path,LIB_PATH)===0){
+			$shortcutPath=LIB_PATH;
+			$shortcut='lib:';
+		}
+		elseif(strpos($path,jApp::tempPath())===0){
+			$shortcutPath=jApp::tempPath();
+			$shortcut='temp:';
+		}
+		elseif(strpos($path,jApp::wwwPath())===0){
+			$shortcutPath=jApp::wwwPath();
+			$shortcut='www:';
+		}
+		elseif(strpos($path,jApp::varPath())===0){
+			$shortcutPath=jApp::varPath();
+			$shortcut='var:';
+		}
+		elseif(strpos($path,jApp::appPath())===0){
+			$shortcutPath=jApp::appPath();
+			$shortcut='app:';
+		}
+		else{
+			$shortcutPath=dirname(jApp::appPath());
+			$shortcut='app:';
+			while($shortcutPath!='.'&&$shortcutPath!=''){
+				$shortcut.='../';
+				if(strpos($path,$shortcutPath)===0){
+					break;
+				}
+				$shortcutPath=dirname($shortcutPath);
+			}
+			if($shortcutPath=='.')
+				$shortcutPath='';
+		}
+		if($shortcutPath!=''){
+			$cut=($shortcutPath[0]=='/'?0:1);
+			$path=$beforeShortcut.$shortcut.$afterShortcut.substr($path,strlen($path)+$cut);
+		}
+		return $path;
 	}
 	protected static $mimeTypes=array(
 		'txt'=>'text/plain',

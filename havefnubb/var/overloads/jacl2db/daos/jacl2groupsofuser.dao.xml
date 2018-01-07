@@ -8,9 +8,11 @@
     <record>
         <property name="login" fieldname="login" datatype="string" required="yes"/>
         <property name="id_aclgrp" fieldname="id_aclgrp" datatype="string" required="yes"/>
+
         <property name="name" fieldname="name" datatype="string" required="yes" table="grp"/>
         <property name="grouptype" fieldname="grouptype" datatype="int" required="yes" table="grp"/>
         <property name="ownerlogin" fieldname="ownerlogin" datatype="string"  table="grp"/>
+
         <property name="nickname" fieldname="nickname" table="usr" datatype="string" required="yes"/>
         <property name="status" fieldname="status" table="usr" datatype="integer" />
         <property name="nb_msg" fieldname="nb_msg" table="usr" datatype="integer" />

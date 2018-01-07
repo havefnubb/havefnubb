@@ -22,7 +22,7 @@ class jacl2dbListener extends jEventListener{
     * @param jEvent $event   the event
     */
    function onAuthNewUser($event){
-        if(jApp::config()->acl2['driver'] == 'db') {
+        if (jApp::config()->acl2['driver'] == 'db' || jApp::config()->acl2['driver'] == 'dbcache') {
             $user = $event->getParam('user');
             jAcl2DbUserGroup::createUser($user->login);
         }
@@ -34,11 +34,21 @@ class jacl2dbListener extends jEventListener{
     * @param jEvent $event   the event
     */
    function onAuthRemoveUser($event){
-        if(jApp::config()->acl2['driver'] == 'db') {
+        if(jApp::config()->acl2['driver'] == 'db' || jApp::config()->acl2['driver'] == 'dbcache') {
             $login = $event->getParam('login');
             jAcl2DbUserGroup::removeUser($login);
         }
    }
+
+    function onAuthCanRemoveUser($event){
+        if (jApp::config()->acl2['driver'] == 'db' || jApp::config()->acl2['driver'] == 'dbcache') {
+            $manager = new jAcl2DbAdminUIManager();
+            $login = $event->getParam('login');
+            if (!$manager->canRemoveUser($login)) {
+                $event->add(array('canremove'=>false));
+            }
+        }
+    }
 
    function onAuthLogout($event){
         try { jAcl2::clearCache(); jAcl2DbUserGroup::clearCache(); } catch(Exception $e) {}

@@ -16,11 +16,23 @@ class jEventCompiler implements jIMultiFileCompiler{
 	public function compileItem($sourceFile,$module){
 		if(is_readable($sourceFile)){
 			$xml=simplexml_load_file($sourceFile);
+			$config=jApp::config()->disabledListeners;
 			if(isset($xml->listener)){
 				foreach($xml->listener as $listener){
 					$listenerName=(string)$listener['name'];
+					$selector=$module.'~'.$listenerName;
 					foreach($listener->event as $eventListened){
 						$name=(string) $eventListened['name'];
+						if(isset($config[$name])){
+							if(is_array($config[$name])){
+								if(in_array($selector,$config[$name])){
+									continue;
+								}
+							}
+							else if($config[$name]==$selector){
+								continue;
+							}
+						}
 						$this->eventList[$name][]=array($module,$listenerName);
 					}
 				}

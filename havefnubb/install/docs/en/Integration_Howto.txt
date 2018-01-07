@@ -64,7 +64,10 @@ in the files
     * havefnubb-x.y.z/havefnubb/var/config/hfnuadmin/config.ini.php
     * havefnubb-x.y.z/havefnubb/var/config/install/config.ini.php 
 
-and last be not least, from the file havefnubb-x.y.z/havefnubb/var/config/defaultconfig.ini.php copy the line from the paragraph [havefnubb] to the end of the file and paste it at the end of your own var/config/defaultconfig.ini.php
+and last be not least, from the file havefnubb-x.y.z/havefnubb/var/config/mainconfig.ini.php
+copy the line from the paragraph [havefnubb] to the end of the file and paste it
+at the end of your own var/config/localconfig.ini.php
+
 part IV : Overloads
 
     * copy the '''content''' of havefnubb-x.y.z/havefnubb/var/overloads in your own var/overloads if it exists or just copy the havefnubb-x.y.z/havefnubb/var/overloads in your own var/ directory 

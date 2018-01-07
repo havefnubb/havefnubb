@@ -19,14 +19,18 @@ class jImageModifier{
 											'onmouseup','onmouseover','onmousemove','onmouseout','onkeypress',
 											'onkeydown','onkeyup','width','height');
 	static function get($src,$params=array(),$sendCachePath=true,$config=null){
-		$basePath=jApp::config()->urlengine['basePath'];
+		$basePath=jApp::urlBasePath();
 		if(strpos($src,$basePath)===0){
 			$src=substr($src,strlen($basePath));
 		}
 		if(empty($params['ext'])){
 			$path_parts=pathinfo($src);
-			if(isset($path_parts['extension']))
+			if(isset($path_parts['extension'])){
 				$ext=strtolower($path_parts['extension']);
+			}
+			else{
+				$ext='';
+			}
 		}else{
 			$ext=strtolower($params['ext']);
 		}
@@ -60,16 +64,14 @@ class jImageModifier{
 		return $att;
 	}
 	static public function computeUrlFilePath($config=null){
-		$basePath=jApp::config()->urlengine['basePath'];
+		$basePath=jApp::urlBasePath();
 		if(!$config)
 			$config=& jApp::config()->imagemodifier;
 		if($config['src_url']&&$config['src_path']){
 			$srcUri=$config['src_url'];
 			if($srcUri[0]!='/'&&strpos($srcUri,'http:')!==0)
 				$srcUri=$basePath.$srcUri;
-			$srcPath=str_replace(array('www:','app:'),
-									array(jApp::wwwPath(),jApp::appPath()),
-									$config['src_path']);
+			$srcPath=jFile::parseJelixPath($config['src_path']);
 		}
 		else{
 			$srcUri=jApp::coord()->request->getServerURI().$basePath;
@@ -79,9 +81,7 @@ class jImageModifier{
 			$cacheUri=$config['cache_url'];
 			if($cacheUri[0]!='/'&&strpos($cacheUri,'http:')!==0)
 				$cacheUri=$basePath.$cacheUri;
-			$cachePath=str_replace(array('www:','app:'),
-									array(jApp::wwwPath(),jApp::appPath()),
-									$config['cache_path']);
+			$cachePath=jFile::parseJelixPath($config['cache_path']);
 		}
 		else{
 			$cachePath=jApp::wwwPath('cache/images/');
@@ -131,8 +131,6 @@ class jImageModifier{
 			$ancienimage=$image;
 			$resampleheight=imagesy($ancienimage);
 			$resamplewidth=imagesx($ancienimage);
-			$posx=0;
-			$posy=0;
 			if(empty($params['width'])){
 				$finalheight=$params['height'];
 				$finalwidth=$finalheight*imagesx($ancienimage)/imagesy($ancienimage);
@@ -189,6 +187,7 @@ class jImageModifier{
 			case 'image/jpeg' : imagejpeg($image,$targetPath.$targetName,$quality);break;
 			default			: imagepng($image,$targetPath.$targetName);
 		}
+		chmod($targetPath.$targetName,jApp::config()->chmodFile);
 		@imagedestroy($image);
 	}
 	static protected function createShadow($image,$params){

@@ -4,8 +4,8 @@
 * @package     jelix
 * @subpackage  core_request
 * @author      Laurent Jouanneau
-* @contributor Yoan Blanc
-* @copyright   2005-2011 Laurent Jouanneau, 2008 Yoan Blanc
+* @contributor Yoan Blanc, Julien Issler
+* @copyright   2005-2017 Laurent Jouanneau, 2008 Yoan Blanc, 2016-2017 Julien Issler
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -13,16 +13,24 @@ class jClassicRequest extends jRequest{
 	public $type='classic';
 	public $defaultResponseType='html';
 	protected function _initParams(){
-		$url=jUrl::getEngine()->parseFromRequest($this,$_GET);
-		if($_SERVER['REQUEST_METHOD']=='PUT'){
-			$_PUT=$this->readHttpBody();
-			if(is_string($_PUT))
-				$this->params['__httpbody']=$_PUT;
-			else
-				$this->params=array_merge($url->params,$_PUT);
+		$this->params=jUrl::getEngine()->parseFromRequest($this,$_GET)->params;
+		if($_SERVER['REQUEST_METHOD']=='GET'){
+			return;
 		}
-		else{
-			$this->params=array_merge($url->params,$_POST);
+		if($_SERVER['REQUEST_METHOD']=='POST'){
+			if(!isset($_SERVER['CONTENT_TYPE'])||
+				strpos($_SERVER['CONTENT_TYPE'],'application/x-www-form-urlencoded')===0||
+				strpos($_SERVER['CONTENT_TYPE'],'multipart/form-data')===0
+			){
+				$this->params=array_merge($this->params,$_POST);
+				return;
+			}
+		}
+		$data=$this->readHttpBody();
+		if(is_string($data)){
+			$this->params['__httpbody']=$data;
+		}elseif(is_array($data)){
+			$this->params=array_merge($this->params,$data);
 		}
 	}
 	public function getErrorResponse($currentResponse){

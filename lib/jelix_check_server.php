@@ -80,20 +80,20 @@ class jInstallerMessageProvider {
 
     protected $messages = array(
         'fr'=>array(
-     'checker.title'=>'Vérification de votre serveur pour Jelix 1.4.7pre.2647',
+     'checker.title'=>'Vérification de votre serveur pour Jelix 1.6.16pre.3480',
         'number.errors'         =>' erreurs.',
         'number.error'          =>' erreur.',
         'number.warnings'       =>' avertissements.',
         'number.warning'        =>' avertissement.',
         'number.notices'        =>' remarques.',
         'number.notice'         =>' remarque.',
-    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.4.7pre.2647.',
-    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.4.7pre.2647.',
-    'conclusion.warning'    =>'Une application Jelix 1.4.7pre.2647 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
-    'conclusion.warnings'   =>'Une application Jelix 1.4.7pre.2647 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
-    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.4.7pre.2647 malgré la remarque.',
-    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.4.7pre.2647 malgré les remarques.',
-    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.4.7pre.2647',
+    'conclusion.error'      =>'Vous devez corriger l\'erreur pour faire fonctionner correctement une application Jelix 1.6.16pre.3480.',
+    'conclusion.errors'     =>'Vous devez corriger les erreurs pour faire fonctionner correctement une application Jelix 1.6.16pre.3480.',
+    'conclusion.warning'    =>'Une application Jelix 1.6.16pre.3480 peut à priori fonctionner, mais il est préférable de corriger l\'avertissement pour être sûr.',
+    'conclusion.warnings'   =>'Une application Jelix 1.6.16pre.3480 peut à priori fonctionner, mais il est préférable de corriger les avertissements pour être sûr.',
+    'conclusion.notice'     =>'Aucun problème pour installer une application pour Jelix  1.6.16pre.3480 malgré la remarque.',
+    'conclusion.notices'    =>'Aucun problème pour installer une application pour Jelix  1.6.16pre.3480 malgré les remarques.',
+    'conclusion.ok'         =>'Vous pouvez installer une application avec Jelix 1.6.16pre.3480',
         'cannot.continue'       =>'Les vérifications ne peuvent continuer : %s',
         'extension.not.installed'=>'L\'extension %s n\'est pas disponible',
         'extension.optional.not.installed'=>'L\'extension %s optionnelle n\'est pas disponible',
@@ -102,9 +102,8 @@ class jInstallerMessageProvider {
         'extension.optional.installed'=>'L\'extension %s optionnelle est disponible',
         'extension.required.installed'=>'L\'extension %s obligatoire est disponible',
         'extensions.required.ok'=>'Toutes les extensions PHP obligatoires sont disponibles',
-        'extension.opcode.cache'=>'Cette édition de Jelix a besoin d\'une extension de cache d\'opcode (apc, eaccelerator...)',
-        'extension.database.ok'=>'L\'application utilisera une base de données SQL',
-        'extension.database.ok2'=>'L\'application pourra utiliser une base de données SQL',
+        'extension.database.ok'=>'L\'application utilisera une base de données SQL : %s',
+        'extension.database.ok2'=>'L\'application pourra utiliser une base de données SQL : %s',
         'extension.database.missing'=>'L\'application a besoin d\'une base de données SQL',
         'extension.database.missing2'=>'L\'application ne pourra pas utiliser de base de données SQL',
         'path.core'             =>'Le fichier init.php  de jelix ou le fichier application.ini.php de votre application n\'est pas chargé',
@@ -115,7 +114,7 @@ class jInstallerMessageProvider {
         'path.www'              =>'Le chemin du répertoire www n\'est pas configuré correctement : ce répertoire n\'existe pas',
         'path.config.writable' =>'Le répertoire var/config n\'a pas les droits en écriture',
         'path.profiles.writable'=>'Le fichier profiles.ini.php n\'a pas les droits en écriture',
-        'path.defaultconfig.writable'=>'Le fichier defaultconfig.ini.php n\'a pas les droits en écriture',
+        'path.mainconfig.writable'=>'Le fichier mainconfig.ini.php n\'a pas les droits en écriture',        
         'path.installer.writable'=>'Le fichier installer.ini.php n\'a pas les droits en écriture',
         'path.custom.not.exists'=>'Le fichier %s n\'existe pas, ses droits ne peuvent être vérifiés',
         'path.custom.writable'=>'Le fichier %s n\'a pas les droits en écriture',
@@ -127,12 +126,10 @@ class jInstallerMessageProvider {
         'too.critical.error'    =>'Trop d\'erreurs critiques sont apparues. Corrigez les.',
         'config.file'           =>'La variable $config_file n\'existe pas ou le fichier qu\'elle indique n\'existe pas',
         'paths.ok'              =>'Les répertoires temp, log, var, config et www sont ok',
-        'ini.magic_quotes_gpc_with_plugin'=>'php.ini : le plugin magicquotes est activé mais vous devriez mettre magic_quotes_gpc à off',
-        'ini.magicquotes_plugin_without_php'=>'php.ini : le plugin magicquotes est activé alors que magic_quotes_gpc est déjà à off, désactivez le plugin',
-        'ini.magic_quotes_gpc'  =>'php.ini : l\'activation des magicquotes n\'est pas recommandée pour jelix. Vous devez les désactiver ou activer le plugin magicquotes si ce n\'est pas fait',
+        'ini.magic_quotes_gpc'  =>'php.ini : l\'activation des magic quotes n\'est pas prise en charge par jelix. Vous devez les désactiver',
         'ini.magic_quotes_runtime'=>'php.ini : magic_quotes_runtime doit être à off',
         'ini.session.auto_start'=>'php.ini : session.auto_start doit être à off',
-        'ini.safe_mode'         =>'php.ini : le safe_mode n\'est pas recommandé.',
+        'ini.safe_mode'         =>'php.ini : le safe_mode est obsolète et n\'est pas recommandé.',
         'ini.register_globals'  =>'php.ini : il faut désactiver register_globals, pour des raisons de sécurité et parce que cette option n\'est pas nécessaire.',
         'ini.asp_tags'          =>'php.ini : il est conseillé de désactiver asp_tags. Cette option n\'est pas nécessaire.',
         'ini.ok'                =>'Les paramètres de php sont ok',
@@ -159,24 +156,25 @@ class jInstallerMessageProvider {
         'install.module.error'              =>'Une erreur est survenue durant l\'installation du module %s: %s',
         'install.module.check.dependency'   =>'Vérifie les dépendances du module %s',
         'install.module.upgraded'           =>'Le module %s est mis à jour à la version %s',
+        'more.details'                      =>'Plus de details',
 
         ),
 
         'en'=>array(
-  'checker.title'   =>'Check your configuration server for Jelix 1.4.7pre.2647',
+  'checker.title'   =>'Check your configuration server for Jelix 1.6.16pre.3480',
         'number.errors'     =>' errors.',
         'number.error'      =>' error.',
         'number.warnings'   =>' warnings.',
         'number.warning'    =>' warning.',
         'number.notices'    =>' notices.',
         'number.notice'     =>' notice.',
-      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.4.7pre.2647.',
-      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.4.7pre.2647.',
-      'conclusion.warning'  =>'Your application for Jelix 1.4.7pre.2647 may run without problems, but it is recommanded to fix the warning.',
-      'conclusion.warnings' =>'Your application for Jelix 1.4.7pre.2647 may run without problems, but it is recommanded to fix warnings.',
-      'conclusion.notice'   =>'You can install an application for Jelix 1.4.7pre.2647, although there is a notice.',
-      'conclusion.notices'  =>'You can install an application for Jelix 1.4.7pre.2647, although there are notices.',
-      'conclusion.ok'       =>'You can install an application for Jelix 1.4.7pre.2647.',
+      'conclusion.error'    =>'You must fix the error in order to run an application correctly with Jelix 1.6.16pre.3480.',
+      'conclusion.errors'   =>'You must fix errors in order to run an application correctly with Jelix 1.6.16pre.3480.',
+      'conclusion.warning'  =>'Your application for Jelix 1.6.16pre.3480 may run without problems, but it is recommanded to fix the warning.',
+      'conclusion.warnings' =>'Your application for Jelix 1.6.16pre.3480 may run without problems, but it is recommanded to fix warnings.',
+      'conclusion.notice'   =>'You can install an application for Jelix 1.6.16pre.3480, although there is a notice.',
+      'conclusion.notices'  =>'You can install an application for Jelix 1.6.16pre.3480, although there are notices.',
+      'conclusion.ok'       =>'You can install an application for Jelix 1.6.16pre.3480.',
         'cannot.continue'       =>'Cannot continue the checking: %s',
         'extension.not.installed'=>'The extension %s is not available',
         'extension.optional.not.installed'=>'the optional extension %s is not available',
@@ -185,9 +183,8 @@ class jInstallerMessageProvider {
         'extension.optional.installed'=>'the optional extension %s is available',
         'extension.required.installed'=>'the required extension %s is available',
         'extensions.required.ok'=>'All needed PHP extensions are available',
-        'extension.opcode.cache'=>'The application requires an extension for opcode cache (apc, eaccelerator...)',
-        'extension.database.ok'=>'The application will use a SQL database',
-        'extension.database.ok2'=>'The application can use SQL databases',
+        'extension.database.ok'=>'The application will use a SQL database: %s',
+        'extension.database.ok2'=>'The application can use SQL databases: %s',
         'extension.database.missing'=>'The application needs a SQL database',
         'extension.database.missing2'=>'The application couldn\'t use a SQL database',
         'path.core'             =>'jelix init.php file or application.ini.php file is not loaded',
@@ -198,7 +195,7 @@ class jInstallerMessageProvider {
         'path.www'              =>'The application www path is not correctly set: www directory  doesn\'t exist!',
         'path.config.writable' =>'The directory var/config have not write rights',
         'path.profiles.writable'=>'The file profiles.ini.php have not write rights',
-        'path.defaultconfig.writable'=>'The file defaultconfig.ini.php have not write rights',
+        'path.mainconfig.writable'=>'The file mainconfig.ini.php have not write rights',
         'path.installer.writable'=>'The file installer.ini.php have not write rights',
         'path.custom.not.exists'=>'The file %s is not found, rights cannot be validated',
         'path.custom.writable'=>'The file %s have not write rights',
@@ -210,12 +207,10 @@ class jInstallerMessageProvider {
         'too.critical.error'    =>'Too much critical errors. Fix them.',
         'config.file'           =>'$config_file variable does not exist or doesn\'t contain a correct application config file name',
         'paths.ok'              =>'temp, log, var, config and www directory are ok',
-        'ini.magic_quotes_gpc_with_plugin'=>'php.ini: the magicquotes plugin is actived but you should set magic_quotes_gpc to off',
-        'ini.magicquotes_plugin_without_php'=>'php.ini: the magicquotes plugin is actived whereas magic_quotes_gpc is already off, you should disable the plugin',
-        'ini.magic_quotes_gpc'  =>'php.ini: magicquotes are not recommended for Jelix. You should deactivate it or activate the magicquote jelix plugin',
+        'ini.magic_quotes_gpc'  =>'php.ini: magic quotes are not supported by Jelix. You must deactivate it into PHP',
         'ini.magic_quotes_runtime'=>'php.ini: magic_quotes_runtime must be off',
         'ini.session.auto_start'=>'php.ini: session.auto_start must be off',
-        'ini.safe_mode'         =>'php.ini: safe_mode is not recommended.',
+        'ini.safe_mode'         =>'php.ini: safe_mode is deprecated and is not recommended.',
         'ini.register_globals'  =>'php.ini: you must deactivate register_globals, for security reasons, and because this option is not needed.',
         'ini.asp_tags'          =>'php.ini: you should deactivate asp_tags. No need to have this option.',
         'ini.ok'                =>'php settings are ok',
@@ -242,7 +237,7 @@ class jInstallerMessageProvider {
         'install.module.error'          =>'An error occured during the installation of the module %s: %s',
         'install.module.check.dependency'=>'Check dependencies of the module %s',
         'install.module.upgraded'       =>'Module %s upgraded to the version %s',
-
+        'more.details'                  =>'More details',
 
         ),
     );
@@ -293,7 +288,7 @@ class jInstallerMessageProvider {
 * @author   Laurent Jouanneau
 * @contributor Bastien Jaillot
 * @contributor Olivier Demah, Brice Tence, Julien Issler
-* @copyright 2007-2011 Laurent Jouanneau, 2008 Bastien Jaillot, 2009 Olivier Demah, 2010 Brice Tence, 2011 Julien Issler
+* @copyright 2007-2014 Laurent Jouanneau, 2008 Bastien Jaillot, 2009 Olivier Demah, 2010 Brice Tence, 2011 Julien Issler
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 * @since 1.0b2
@@ -333,9 +328,7 @@ class jInstallCheck {
         $this->reporter = $reporter;
         $this->messages = new jInstallerMessageProvider($lang);
         $this->buildProperties = array(
-   'PHP_VERSION_TARGET'=>'5.2',
-   'ENABLE_PHP_JELIX'  =>'',
-   'WITH_BYTECODE_CACHE'=>'auto',
+   'PHP_VERSION_TARGET'=>'5.3',
         );
     }
 
@@ -418,7 +411,7 @@ class jInstallCheck {
             $this->error('php.bad.version');
             $notice = $this->messages->get('php.version.required', $this->buildProperties['PHP_VERSION_TARGET']);
             $notice.= '. '.$this->messages->get('php.version.current',phpversion());
-            $this->reporter->showNotice($notice);
+            $this->reporter->message($notice, 'notice');
             $ok=false;
         }
         else if ($this->verbose) {
@@ -427,9 +420,6 @@ class jInstallCheck {
 
         $extensions = array( 'dom', 'SPL', 'SimpleXML', 'pcre', 'session',
             'tokenizer', 'iconv', 'filter', 'json');
-
-        if($this->buildProperties['ENABLE_PHP_JELIX'] == '1')
-            $extensions[] = 'jelix';
 
         foreach($extensions as $name){
             if(!extension_loaded($name)){
@@ -441,35 +431,61 @@ class jInstallCheck {
             }
         }
 
-        if($this->buildProperties['WITH_BYTECODE_CACHE'] != 'auto' &&
-           $this->buildProperties['WITH_BYTECODE_CACHE'] != '') {
-            if(!extension_loaded ('apc') && !extension_loaded ('eaccelerator') && !extension_loaded ('xcache')) {
-                $this->error('extension.opcode.cache');
-                $ok=false;
-            }
-        }
-
         if (count($this->databases)) {
-            $req = ($this->dbRequired?'required':'optional');
+            $driversInfos = jDbParameters::getDriversInfosList();
             $okdb = false;
-            if (class_exists('PDO'))
-                $pdodrivers = PDO::getAvailableDrivers();
-            else
-                $pdodrivers = array();
 
-            foreach($this->databases as $name){
-                if(!extension_loaded($name) && !in_array($name, $pdodrivers)){
-                    $this->notice('extension.not.installed', $name);
-                }
-                else {
-                    $okdb = true;
-                    if ($this->verbose)
-                        $this->ok('extension.installed', $name);
+            array_combine($this->databases, array_fill(0, count($this->databases), false));
+
+            $alreadyExtensionsChecked = array();
+            $okdatabases = array();
+            foreach($this->databases as $name) {
+                foreach($driversInfos as $driverInfo) {
+                    list($dbType, $nativeExt, $pdoExt, $jdbDriver, $pdoDriver) = $driverInfo;
+
+                    if ($name == $dbType || $name == $nativeExt || $name == $pdoDriver) {
+                        if (extension_loaded($nativeExt)) {
+                            if (!isset($alreadyExtensionsChecked[$nativeExt])) {
+                                if ($this->verbose) {
+                                    $this->ok('extension.installed', $nativeExt);
+                                }
+                                $alreadyExtensionsChecked[$nativeExt] = true;
+                                $okdb = true;
+                                $okdatabases[$name] = true;
+                            }
+                        }
+                        else {
+                            if (!isset($alreadyExtensionsChecked[$nativeExt])) {
+                                if ($this->verbose) {
+                                    $this->notice('extension.not.installed', $nativeExt);
+                                }
+                                $alreadyExtensionsChecked[$nativeExt] = false;
+                            }
+                        }
+                        if (extension_loaded($pdoExt)) {
+                            if (!isset($alreadyExtensionsChecked[$pdoExt])) {
+                                if ($this->verbose) {
+                                    $this->ok('extension.installed', $pdoExt);
+                                }
+                                $alreadyExtensionsChecked[$pdoExt] = true;
+                                $okdb = true;
+                                $okdatabases[$name] = true;
+                            }
+                        }
+                        else {
+                            if (!isset($alreadyExtensionsChecked[$pdoExt])) {
+                                if ($this->verbose) {
+                                    $this->notice('extension.not.installed', $pdoExt);
+                                }
+                                $alreadyExtensionsChecked[$pdoExt] = false;
+                            }
+                        }
+                    }
                 }
             }
             if ($this->dbRequired) {
                 if ($okdb) {
-                    $this->ok('extension.database.ok');
+                    $this->ok('extension.database.ok', implode(',', array_keys($okdatabases)));
                 }
                 else {
                     $this->error('extension.database.missing');
@@ -478,7 +494,7 @@ class jInstallCheck {
             }
             else {
                 if ($okdb) {
-                    $this->ok('extension.database.ok2');
+                    $this->ok('extension.database.ok2', implode(',', array_keys($okdatabases)));
                 }
                 else {
                     $this->notice('extension.database.missing2');
@@ -511,10 +527,11 @@ class jInstallCheck {
 
     function checkPhpSettings(){
         $ok = true;
-            if(ini_get('magic_quotes_gpc') == 1){
-                $this->warning('ini.magic_quotes_gpc');
-                $ok=false;
-            }
+        if(ini_get('magic_quotes_gpc') == 1){
+            $this->error('ini.magic_quotes_gpc');
+            $ok=false;
+        }
+
         if(ini_get('magic_quotes_runtime') == 1){
             $this->error('ini.magic_quotes_runtime');
             $ok=false;
@@ -526,7 +543,7 @@ class jInstallCheck {
         }
 
         if(ini_get('safe_mode') == 1){
-            $this->warning('safe_mode');
+            $this->error('ini.safe_mode');
             $ok=false;
         }
 
@@ -542,6 +559,333 @@ class jInstallCheck {
             $this->ok('ini.ok');
         }
         return $ok;
+    }
+}
+
+
+
+/**
+ * @package     jelix
+ * @subpackage  db
+ * @author      Laurent Jouanneau
+ * @copyright   2015 Laurent Jouanneau
+ *
+ * @link        http://jelix.org
+ * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+
+/**
+ * allow to normalize & analyse database parameters.
+ *
+ * supported parameters in a profile:
+ *  - driver: the jdb driver name, or "pdo" to use dbo ("pdo" value is deprecated, use usepdo instead)
+ *  - database: the name of the database (for sqlite: path to the sqlite file)
+ *  - host: the host of the database
+ *  - port: the port of the database
+ *  - user & password: credentials to connect to the database
+ *  - force_encoding: force the encoding at the connection, using the default encoding of the application
+ *  - dsn: dsn (pdo, odbc... optional)
+ *  - usepdo: true if pdo should be used
+ *  - pdodriver: name of the pdodriver to use. Guessed from dsn
+ *  - pdoext: name of the pdo extension to use. Guessed from dsn
+ *  - dbtype: type of the database (so it determines the SQL language)
+ *  - phpext: name of the php extension to use
+ *  - persistent: if true, the connection should be persistent
+ *  - extensions: some informations about extensions to load (For sqlite for example. optional)
+ *  - single_transaction: indicate to execute all queries into a single transaction (pgsql, optional)
+ *  - busytimeout: timeout for the connection (sqlite, optional)
+ *  - timeout: timeout for the connection (pgsql, optional)
+ *  - search_path: schema for pgsql (optional)
+ *  - table_prefix: prefix to add to database table. Used by jDao (optional)
+ */
+class jDbParameters
+{
+    protected $parameters = array();
+
+    /**
+     * the constructor normalizes parameters: it ensure that all parameters needed by
+     * jDb and the targeted database type are there, as some parameters can be
+     * "guessed" by jDb or needed for internal use.
+     *
+     * @param array $profileParameters profile parameters for a jdb connection
+     *                                 required keys: driver
+     *                                 optional keys: dsn, host, username, password, database,....
+     */
+    public function __construct($profileParameters)
+    {
+        $this->parameters = $profileParameters;
+
+        $this->normalizeBoolean($this->parameters, 'usepdo');
+        $this->normalizeBoolean($this->parameters, 'persistent');
+        $this->normalizeBoolean($this->parameters, 'force_encoding');
+        if (!isset($this->parameters['table_prefix'])) {
+            $this->parameters['table_prefix'] = '';
+        }
+
+        $info = $this->getDatabaseInfo($this->parameters);
+        $this->parameters = array_merge($this->parameters, $info);
+
+        if ($this->parameters['usepdo'] &&
+            (!isset($this->parameters['dsn']) ||
+                $this->parameters['dsn'] == '')) {
+            $this->parameters['dsn'] = $this->getPDODsn($this->parameters);
+        }
+        $pdooptions = array_diff(array_keys($this->parameters),
+                                 array('driver', 'dsn', 'service', 'host', 'password', 'user', 'port', 'force_encoding',
+                                       'usepdo', 'persistent', 'pdodriver', 'pdoext', 'dbtype', 'phpext',
+                                       'extensions', 'table_prefix', 'database', 'table_prefix', '_name' ));
+        $this->parameters['pdooptions'] = implode(',', $pdooptions);
+    }
+
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * indicate if the php extension corresponding to the database configuration is available in
+     * the current php configuration.
+     */
+    public function isExtensionActivated()
+    {
+        if ($this->parameters['usepdo']) {
+            return (extension_loaded('PDO') && extension_loaded($this->parameters['pdoext']));
+        } elseif (isset($this->parameters['phpext'])) {
+            return extension_loaded($this->parameters['phpext']);
+        }
+        throw new Exception('Unable to check existance of the extension corresponding to jdb driver '.$this->parameters['driver']);
+    }
+
+    /**
+     * it gives the name of the jDb driver and the database type indicated in a profile.
+     * (or corresponding to the PDO dsn indicated in the profile).
+     *
+     * @param  array $profile 'driver' key is required. It should indicates 'pdo' or a jdb driver.
+     *    if 'pdo', a 'dsn' key is required.
+     * @return array ['database type', 'native extension name', 'pdo extension name', 'jdb driver name', 'pdo driver name']
+     * @throws Exception
+     */
+    protected function getDatabaseInfo($profile)
+    {
+        $info = null;
+        if (!isset($profile['driver']) || $profile['driver'] == '') {
+            throw new Exception('jDb profile: driver is missing');
+        }
+        // driver = "pdo"
+        if ($profile['driver'] == 'pdo') {
+            $usepdo = true;
+            $pdoDriver = '';
+            if (isset($profile['dsn'])) {
+                $pdoDriver = substr($profile['dsn'], 0, strpos($profile['dsn'], ':'));
+            } elseif (isset($profile['pdodriver'])) {
+                $pdoDriver = $profile['pdodriver'];
+            }
+
+            if (!$pdoDriver) {
+                throw new Exception('PDO profile: dsn is missing or mal-formed');
+            }
+
+            if (isset(self::$PDODriverIndex[$pdoDriver])) {
+                $info = self::$driversInfos[self::$PDODriverIndex[$pdoDriver]];
+            } else {
+                throw new Exception('Unknown pdo driver ('.$pdoDriver.')');
+            }
+        }
+        // driver = jdb driver name
+        else {
+            $usepdo = $profile['usepdo'];
+            $driver = $profile['driver'];
+            if (isset(self::$JdbDriverIndex[$driver])) {
+                $info = self::$driversInfos[self::$JdbDriverIndex[$driver]];
+            } else {
+                $info = array('', '', '', $driver, '', '');
+                $info[0] = (isset($profile['dbtype']) ? $profile['dbtype'] : '');
+                $info[1] = (isset($profile['phpext']) ? $profile['phpext'] : '');
+            }
+        }
+
+        $info =  array_combine(array('dbtype', 'phpext', 'pdoext',
+                                     'driver', 'pdodriver', ), $info);
+
+        $info['usepdo'] = $usepdo;
+
+        return $info;
+    }
+
+    protected function normalizeBoolean(&$profile, $param)
+    {
+        if (!isset($profile[$param])) {
+            $profile[$param] = false;
+        } elseif (!is_bool($profile[$param])) {
+            if ($profile[$param] === '1' ||
+                $profile[$param] === 1 ||
+                $profile[$param] === 'on' ||
+                $profile[$param] === 'true') {
+                $profile[$param] = true;
+            } else {
+                $profile[$param] = false;
+            }
+        }
+    }
+
+    protected static $JdbDriverIndex = array(
+        'mysqli' => 0,
+        'mysql' => 1,
+        'pgsql' => 2,
+        'sqlite3' => 3,
+        'sqlite' => 4,
+        'oci' => 5,
+        'mssql' => 6,
+        'sqlsrv' => 7,
+        'sybase' => 9,
+        'odbc' => 10,
+    );
+
+    protected static $PDODriverIndex = array(
+        'mysql' => 0,
+        'pgsql' => 2,
+        'sqlite' => 3,
+        'sqlite2' => 4,
+        'oci' => 5,
+        'sqlsrv' => 7,
+        'odbc' => 10,
+        'mssql' => 6,
+        'sybase' => 8,
+    );
+
+    /**
+     * informations about correspondance between pdo driver and native driver, type of function etc...
+     */
+    protected static $driversInfos = array(
+        //array('database type', 'native extension name', 'pdo extension name', 'jdb driver name', 'pdo driver name')
+        0 => array('mysql',  'mysqli',    'pdo_mysql',   'mysqli',  'mysql'),
+        1 => array('mysql',  'mysql',     'pdo_mysql',   'mysql',   'mysql'),
+        2 => array('pgsql',  'pgsql',     'pdo_pgsql',   'pgsql',   'pgsql'), // pgsql:host=;port=;dbname=;user=;password=;
+        3 => array('sqlite', 'sqlite3',   'pdo_sqlite',  'sqlite3', 'sqlite'),
+        4 => array('sqlite', 'sqlite',    'pdo_sqlite2', 'sqlite',  'sqlite2'),
+        5 => array('oci',    'oci8',      'pdo_oci',     'oci',     'oci'), // experimental  oci:dbname=tnsname  oci://localhost:1521/mydb
+        6 => array('mssql',  'mssql',     'pdo_dblib',   'mssql',   'mssql'),     // deprecated since PHP 5.3
+        7 => array('mssql',  'sqlsrv',    'pdo_sqlsrv',  'sqlsrv',  'sqlsrv'), //mssql 2005+ sqlsrv:Server=localhost,port;Database=
+        8 => array('sybase', 'sybase',    'pdo_dblib',   'sybase',  'sybase'), // deprecated
+        9 => array('sybase', 'sybase_ct', 'pdo_dblib',   'sybase',  'sybase'),
+        10 => array('odbc',  'odbc',      'pdo_odbc',    'odbc',    'odbc'), // odbc:DSN
+    );
+
+    protected static $pdoNeededDsnInfo = array(
+        'mysql' => array('host', 'database'),
+        'pgsql' => array(array('host', 'database'), array('service')),
+        'sqlite' =>  array('database'),
+        'sqlite2' =>  array('database'),
+        'oci' =>  array('database'),
+        'sqlsrv' =>  array('host', 'database'),
+        'odbc' =>  array('dsn'),
+        'mssql' => array('host', 'database'),
+        'sybase' => array('host', 'database'),
+    );
+
+    public static function getDriversInfosList() {
+        return self::$driversInfos;
+    }
+    
+    protected function _checkRequirements($requirements, &$profile) {
+        foreach ($requirements as $param) {
+            if (!isset($profile[$param])) {
+                throw new Exception('Parameter '.$param.' is required for pdo driver '.$profile['pdodriver']);
+            }
+        }
+    }
+
+    protected function getPDODsn($profile)
+    {
+        if (!isset(self::$pdoNeededDsnInfo[$profile['pdodriver']])) {
+            throw new Exception('PDO does not support database '.$profile['dbtype']);
+        }
+        $requirements = self::$pdoNeededDsnInfo[$profile['pdodriver']];
+        if (is_array($requirements[0])) {
+            $error = null;
+            foreach($requirements as $requirements2) {
+                try {
+                    $this->_checkRequirements($requirements2, $profile);
+                    $error = null;
+                    break;
+                }
+                catch(Exception $e) {
+                    $error = $e;
+                }
+            }
+            if ($error) {
+                throw $error;
+            }
+        }
+        else {
+            $this->_checkRequirements($requirements, $profile);
+        }
+
+        switch ($profile['pdodriver']) {
+            case 'mysql':
+                $dsn = 'mysql:';
+                if (isset($profile['unix_socket'])) {
+                    $dsn .= 'unix_socket='.$profile['unix_socket'];
+                } else {
+                    $dsn .= 'host='.$profile['host'];
+                    if (isset($profile['port'])) {
+                        $dsn .= ';port='.$profile['port'];
+                    }
+                }
+                $dsn .= ';dbname='.$profile['database'];
+                break;
+            case 'pgsql':
+                if (isset($profile['service']) && $profile['service']) {
+                    $dsn = 'pgsql:service='.$profile['service'];
+                }
+                else {
+                    $dsn = 'pgsql:host='.$profile['host'];
+                    if (isset($profile['port'])) {
+                        $dsn .= ';port='.$profile['port'];
+                    }
+                    $dsn .= ';dbname='.$profile['database'];
+                }
+                break;
+            case 'sqlite':
+                $dsn = 'sqlite:'.$profile['database'];
+                break;
+            case 'sqlite2':
+                $dsn = 'sqlite2:'.$profile['database'];
+                break;
+            case 'oci':
+                $dsn = 'oci:dbname=';
+                if (isset($profile['host'])) {
+                    $dsn .= $profile['host'];
+                    if (isset($profile['port'])) {
+                        $dsn .= ':'.$profile['port'];
+                    }
+                    $dsn .= '/';
+                }
+                $dsn .= $profile['database'];
+                break;
+            case 'mssql':
+            case 'sybase':
+                $dsn = $profile['pdodriver'].':';
+                $dsn .= 'host='.$profile['host'];
+                $dsn .= ';dbname='.$profile['database'];
+                if (isset($profile['appname'])) {
+                    $dsn .= ';appname='.$profile['appname'];
+                }
+                break;
+            case 'sqlsrv':
+                $dsn = 'sqlsrv:Server='.$profile['host'];
+                if (isset($profile['port'])) {
+                    $dsn .= ','.$profile['port'];
+                }
+                $dsn .= ';Database='.$profile['database'];
+                break;
+            case 'odbc':
+            default:
+                throw new Exception('PDO: cannot construct the DSN string');
+                break;
+        }
+
+        return $dsn;
     }
 }
 
@@ -592,7 +936,10 @@ class jHtmlInstallChecker implements jIInstallReporter {
 
 $reporter = new jHtmlInstallChecker();
 $check = new jInstallCheck($reporter);
-$check->addDatabaseCheck(array('mysql','sqlite','pgsql'), false);
+if (isset($_GET['verbose'])) {
+    $check->verbose = true;
+}
+$check->addDatabaseCheck(array('mysqli', 'sqlite3', 'pgsql', 'oci', 'mssql'), false);
 $reporter->messageProvider = $check->messages;
 
 header("Content-type:text/html;charset=UTF-8");
@@ -697,6 +1044,11 @@ div#jelixpowered {
 </head><body >
     <h1 class="apptitle"><?php echo htmlspecialchars($check->messages->get('checker.title')); ?></h1>
 
-<?php $check->run(); ?>
+<?php $check->run();
+
+if (!$check->verbose) {
+?>
+<p><a href="?verbose"><?php echo htmlspecialchars($check->messages->get('more.details')); ?></a></p>
+<?php } ?>
 </body>
 </html>

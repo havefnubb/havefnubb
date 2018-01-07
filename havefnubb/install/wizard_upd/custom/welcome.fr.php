@@ -28,7 +28,7 @@ $locales=array(
                             lecture seule pour le serveur web, <strong>excepté ces fichiers qui doivent pouvoir être modifiés par le serveur web :</strong>
                             <ol>
                             <li>cache/ et files/</li>
-                            <li>havefnubb/var/config/defaultconfig.ini.php</li>
+                            <li>havefnubb/var/config/localconfig.ini.php</li>
                             <li>havefnubb/var/config/profiles.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/config.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/flood.coord.ini.php</li>

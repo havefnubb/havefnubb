@@ -5,11 +5,11 @@
 * @subpackage jtpl_plugin
 * @author     Laurent Jouanneau
 * @contributor Loic Mathaud
-* @copyright  2007 Laurent Jouanneau, 2009 Loic Mathaud
+* @copyright  2007-2015 Laurent Jouanneau, 2009 Loic Mathaud
 * @link        http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-function jtpl_function_html_formsubmit($tpl,$ctrlname='')
+function jtpl_function_html_formsubmit($tpl,$ctrlname='',$attributes=array())
 {
 	if($ctrlname==''){
 		if(isset($tpl->_privateVars['__submitref'])&&$tpl->_privateVars['__submitref']!=''){
@@ -35,6 +35,6 @@ function jtpl_function_html_formsubmit($tpl,$ctrlname='')
 	}
 	if($tpl->_privateVars['__form']->isActivated($ctrlname)){
 		$tpl->_privateVars['__displayed_submits'][$ctrlname]=true;
-		$tpl->_privateVars['__formbuilder']->outputControl($ctrl);
+		$tpl->_privateVars['__formbuilder']->outputControl($ctrl,$attributes);
 	}
 }

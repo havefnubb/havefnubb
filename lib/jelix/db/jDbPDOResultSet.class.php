@@ -27,7 +27,7 @@ class jDbPDOResultSet extends PDOStatement{
 		return $rec;
 	}
 	public function fetchAll($fetch_style=null,$fetch_argument=null,$ctor_arg=null){
-		$final_style=($fetch_style ? $fetch_style : $this->_fetchMode);
+		$final_style=($fetch_style ?: $this->_fetchMode);
 		if(!$final_style){
 			$records=parent::fetchAll(PDO::FETCH_OBJ);
 		}

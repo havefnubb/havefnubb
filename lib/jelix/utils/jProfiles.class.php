@@ -20,8 +20,9 @@ class jProfiles{
 		if(self::$_profiles===null){
 			self::loadProfiles();
 		}
-		if($name=='')
+		if($name==''){
 			$name='default';
+		}
 		$section=$category.':'.$name;
 		$targetName=$section;
 		if(isset(self::$_profiles[$category.':__common__'])){
@@ -31,8 +32,9 @@ class jProfiles{
 			$common=null;
 		if(isset(self::$_profiles[$section])){
 			self::$_profiles[$section]['_name']=$name;
-			if($common)
+			if($common){
 				return array_merge($common,self::$_profiles[$section]);
+			}
 			return self::$_profiles[$section];
 		}
 		else if(isset(self::$_profiles[$category][$name])){
@@ -42,8 +44,9 @@ class jProfiles{
 		elseif(!$noDefault){
 			if(isset(self::$_profiles[$category.':default'])){
 				self::$_profiles[$category.':default']['_name']='default';
-				if($common)
+				if($common){
 					return array_merge($common,self::$_profiles[$category.':default']);
+				}
 				return self::$_profiles[$category.':default'];
 			}
 			elseif(isset(self::$_profiles[$category]['default'])){
@@ -99,9 +102,13 @@ class jProfiles{
 			self::$_profiles[$category.':'.$name]=$params;
 		}
 		unset(self::$_objectPool[$category][$name]);
+		if(gc_enabled())
+			gc_collect_cycles();
 	}
 	public static function clear(){
 		self::$_profiles=null;
 		self::$_objectPool=array();
+		if(gc_enabled())
+			gc_collect_cycles();
 	}
 }

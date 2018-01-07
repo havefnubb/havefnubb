@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  utils
 * @author      Laurent Jouanneau
-* @copyright   2011 Laurent Jouanneau
+* @copyright   2011-2017 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -13,6 +13,7 @@ class  jLogSoapMessage extends jLogMessage{
 	protected $request;
 	protected $response;
 	protected $duration;
+	protected $functionName;
 	public function __construct($function_name,$soapClient,$category='default',$duration=0){
 		$this->category=$category;
 		$this->headers=$soapClient->__getLastRequestHeaders();
@@ -33,6 +34,9 @@ class  jLogSoapMessage extends jLogMessage{
 	}
 	public function getDuration(){
 		return $this->duration;
+	}
+	public function getFunctionName(){
+		return $this->functionName;
 	}
 	public function getFormatedMessage(){
 		$message='Soap call: '.$this->functionName."()\n";
@@ -82,6 +86,7 @@ class SoapClientDebug extends SoapClient{
 	}
 }
 class jSoapClient{
+	protected static $classmap=array();
 	public static function get($profile=''){
 		return jProfiles::getOrStoreInPool('jsoapclient',$profile,array('jSoapClient','_getClient'));
 	}
@@ -90,8 +95,12 @@ class jSoapClient{
 		$client='SoapClient';
 		if(isset($profile['wsdl'])){
 			$wsdl=$profile['wsdl'];
-			if($wsdl=='')
+			if($wsdl==''){
 				$wsdl=null;
+			}
+			else if(!preg_match("!^https?\\://!",$wsdl)){
+				$wsdl=jFile::parseJelixPath($wsdl);
+			}
 			unset($profile['wsdl']);
 		}
 		if(isset($profile['trace'])){
@@ -105,10 +114,47 @@ class jSoapClient{
 		if(isset($profile['connection_timeout'])){
 			$profile['connection_timeout']=intval($profile['connection_timeout']);
 		}
-		unset($profile['_name']);
-		if(isset($profile['classmap'])&&is_string($profile['classmap'])&&$profile['classmap']!=''){
-			$profile['classmap']=(array)json_decode(str_replace("'",'"',$profile['classmap']));
+		$classMap=array();
+		if(isset($profile['classmap_file'])&&($f=trim($profile['classmap_file']))!=''){
+			if(!isset(self::$classmap[$f])){
+				if(!file_exists(jApp::configPath($f))){
+					trigger_error("jSoapClient: classmap file ".$f." does not exists.",E_USER_WARNING);
+					self::$classmap[$f]=array();
+				}
+				else{
+					self::$classmap[$f]=parse_ini_file(jApp::configPath($f),true);
+				}
+			}
+			if(isset(self::$classmap[$f]['__common__'])){
+				$classMap=array_merge($classMap,self::$classmap[$f]['__common__']);
+			}
+			if(isset(self::$classmap[$f][$profile['_name']])){
+				$classMap=array_merge($classMap,self::$classmap[$f][$profile['_name']]);
+			}
+			unset($profile['classmap_file']);
 		}
+		if(isset($profile['classmap'])&&is_string($profile['classmap'])&&$profile['classmap']!=''){
+			$map=(array)json_decode(str_replace("'",'"',$profile['classmap']));
+			$classMap=array_merge($classMap,$map);
+			unset($profile['classmap']);
+		}
+		if(count($classMap)){
+			$profile['classmap']=$classMap;
+		}
+		if(isset($profile['ssl_self_signed'])){
+			if($profile['ssl_self_signed']){
+				$context=stream_context_create(array(
+					'ssl'=>array(
+						'verify_peer'=>false,
+						'verify_peer_name'=>false,
+						'allow_self_signed'=>true
+					)
+				));
+				$profile['stream_context']=$context;
+			}
+			unset($profile['ssl_self_signed']);
+		}
+		unset($profile['_name']);
 		return new $client($wsdl,$profile);
 	}
 }

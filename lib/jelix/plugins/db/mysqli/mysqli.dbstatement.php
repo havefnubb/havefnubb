@@ -9,7 +9,7 @@
 * @link      http://www.jelix.org
 * @licence    http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-require_once(dirname(__FILE__).'/mysqli.dbresultset.php');
+require_once(__DIR__.'/mysqli.dbresultset.php');
 class mysqliDbStatement extends jDbStatement{
 	private $_usesMysqlnd=true;
 	function __construct($connection,$usesMysqlnd){
@@ -45,8 +45,13 @@ class mysqliDbStatement extends jDbStatement{
 	}
 	public function bindParam(){
 		$args=func_get_args();
+		$params=array();
+		$args=array_walk($args,function($val,$key)use(&$params){
+			$params[$key]=$val;
+			$args[$key]=&$params[$key];
+		},$args);
 		$method=new ReflectionMethod('mysqli_stmt','bind_param');
-		$res=$method->invokeArgs($this->_stmt,$args);
+		$res=$method->invokeArgs($this->_stmt,$params);
 		if(!$res){
 			throw new jException('jelix~db.error.invalid.param');
 		}

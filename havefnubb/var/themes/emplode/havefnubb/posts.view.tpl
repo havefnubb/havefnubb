@@ -1,7 +1,7 @@
 {meta_html js $j_jelixwww.'jquery/jquery.js'}
 {meta_html js $j_jelixwww.'jquery/include/jquery.include.js'}
 {meta_html css $j_themepath.'css/toggleElements.css'}
-{meta_html js $j_jelixwww.'jquery/jquery.toggleElements.pack.js'}
+{meta_html js $j_jelixwww.'hfnu/js/jquery.toggleElements.pack.js'}
 {literal}
 <script type="text/javascript">
 //<![CDATA[

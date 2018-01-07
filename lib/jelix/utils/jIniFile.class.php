@@ -4,8 +4,8 @@
 * @package    jelix
 * @subpackage utils
 * @author     Loic Mathaud
-* @contributor Laurent Jouanneau
-* @copyright  2006 Loic Mathaud, 2008-2012 Laurent Jouanneau
+* @contributor Laurent Jouanneau, Erika31, Julien Issler
+* @copyright  2006 Loic Mathaud, 2008-2012 Laurent Jouanneau, 2017 Erika31, 2017 Julien Issler
 * @link        http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -17,7 +17,7 @@ class jIniFile{
 			return false;
 		}
 	}
-	public static function write($array,$filename,$header=''){
+	public static function write($array,$filename,$header='',$chmod=null){
 		$result='';
 		foreach($array as $k=>$v){
 			if(is_array($v)){
@@ -32,6 +32,9 @@ class jIniFile{
 		if($f=@fopen($filename,'wb')){
 			fwrite($f,$header.$result);
 			fclose($f);
+			if($chmod){
+				chmod($filename,$chmod);
+			}
 		}else{
 			if(jApp::config()){
 				throw new jException('jelix~errors.inifile.write.error',array($filename));

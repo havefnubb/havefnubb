@@ -20,7 +20,7 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 	public $automatic_cleaning_factor=0;
 	public function _connect(){
 		if(isset($this->_profile['storage_dir'])&&$this->_profile['storage_dir']!=''){
-			$this->_storage_dir=str_replace(array('var:','temp:'),array(jApp::varPath(),jApp::tempPath()),$this->_profile['storage_dir']);
+			$this->_storage_dir=jFile::parseJelixPath($this->_profile['storage_dir']);
 			$this->_storage_dir=rtrim($this->_storage_dir,'\\/'). DIRECTORY_SEPARATOR;
 		}
 		else
@@ -117,7 +117,7 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 		$oldData=$this->get($key);
 		if($oldData===null)
 			return false;
-		if(!is_numeric($oldData)){
+		if(!is_numeric($oldData)||!is_numeric($var)){
 			return false;
 		}
 		$data=$oldData + $var;
@@ -130,7 +130,7 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 		$oldData=$this->get($key);
 		if($oldData===null)
 			return false;
-		if(!is_numeric($oldData)){
+		if(!is_numeric($oldData)||!is_numeric($var)){
 			return false;
 		}
 		$data=$oldData - (int)$var;
@@ -160,10 +160,7 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 		$filePath=$this->_getFilePath($key);
 		if(!file_exists($filePath))
 			return false;
-		if(version_compare(PHP_VERSION,'5.3.0')>=0)
-			clearstatcache(false,$filePath);
-		else
-			clearstatcache();
+		clearstatcache(false,$filePath);
 		$mt=filemtime($filePath);
 		return($mt>=time()||$mt==0)&&is_readable($filePath);
 	}
@@ -250,10 +247,7 @@ class fileKVDriver extends jKVDriver implements jIKVPersistent,jIKVttl{
 						if($all){
 							@unlink($f);
 						}else{
-							if(version_compare(PHP_VERSION,'5.3.0')>=0)
-								clearstatcache(false,$f);
-							else
-								clearstatcache();
+							clearstatcache(false,$f);
 							if(time()> filemtime($f)&&filemtime($f)!=0){
 								@unlink($f);
 							}

@@ -25,40 +25,6 @@
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-if(!function_exists('strptime')){
-	function strptime($strdate,$format){
-		$plop=array('S'=>'tm_sec','M'=>'tm_min','H'=>'tm_hour',
-			'd'=>'tm_mday','m'=>'tm_mon','Y'=>'tm_year');
-		$regexp=preg_quote($format,'/');
-		$regexp=str_replace(
-				array('%d','%m','%Y','%H','%M','%S'),
-				array('(?P<tm_mday>\d{2})','(?P<tm_mon>\d{2})',
-					'(?P<tm_year>\d{4})','(?P<tm_hour>\d{2})',
-					'(?P<tm_min>\d{2})','(?P<tm_sec>\d{2})'),
-				$regexp);
-		if(preg_match('/^'.$regexp.'$/',$strdate,$m)){
-			$result=array('tm_sec'=>0,'tm_min'=>0,'tm_hour'=>0,'tm_mday'=>0,'tm_mon'=>0,'tm_year'=>0,'tm_wday'=>0,'tm_yday'=>0,'unparsed'=>'');
-			foreach($m as $key=>$value){
-				if(!isset($result[$key])){
-					continue;
-				}
-				$result[$key]=intval($value);
-				switch($key){
-				case 'tm_mon':
-					$result[$key]--;
-					break;
-				case 'tm_year':
-					$result[$key]-=1900;
-					break;
-				default:
-					break;
-				}
-			}
-			return $result;
-		}
-		return false;
-	}
-}
 class jDateTime{
 	public $day;
 	public $month;
@@ -107,6 +73,18 @@ class jDateTime{
 			return false;
 		}
 		return true;
+	}
+	private function _createDateFromFormat($lf,$str){
+		if($res=date_parse_from_format($lf,$str)){
+			$this->year=$res['year'];
+			$this->month=$res['month'];
+			$this->day=$res['day'];
+			$this->hour=$res['hour'];
+			$this->minute=$res['minute'];
+			$this->second=$res['second'];
+			return true;
+		}
+		return false;
 	}
 	public function isNull(){
 		return($this->year===0&&$this->month===0&&$this->day===0&&$this->hour==0&&$this->minute==0&&$this->second==0);
@@ -158,7 +136,10 @@ class jDateTime{
 				break;
 			case self::RFC822_FORMAT:
 			case self::RFC2822_FORMAT:
-				$str=date('r',mktime($this->hour,$this->minute,$this->second,$this->month,$this->day,$this->year));
+				$dt=new DateTime('now',new DateTimeZone('UTC'));
+				$dt->setDate($this->year,$this->month,$this->day);
+				$dt->setTime($this->hour,$this->minute,$this->second);
+				$str=$dt->format('r');
 				break;
 			case self::FULL_LANG_DATE:
 				$t=mktime($this->hour,$this->minute,$this->second,$this->month,$this->day,$this->year);
@@ -168,6 +149,11 @@ class jDateTime{
 				$ordinal=jLocale::get('jelix~date_time.day.'.$this->day.'.ordinal');
 				$str=sprintf($lf,$day,$this->day,$ordinal,$month,$this->year);
 				break;
+			default:
+				if(is_string($format)){
+					$t=mktime($this->hour,$this->minute,$this->second,$this->month,$this->day,$this->year);
+					$str=date($format,$t);
+				}
 		}
 		return $str;
 	}
@@ -184,81 +170,33 @@ class jDateTime{
 		$ok=false;
 		switch($format){
 			case self::LANG_DFORMAT:
-				$lf=jLocale::get('jelix~format.date_st');
-				if($res=strptime($str,$lf)){
-					$ok=true;
-					$this->year=$res['tm_year']+1900;
-					$this->month=$res['tm_mon'] +1;
-					$this->day=$res['tm_mday'];
-				}
+				$lf=jLocale::get('jelix~format.date');
+				$ok=$this->_createDateFromFormat($lf,$str);
 				break;
 			case self::LANG_DTFORMAT:
-				$lf=jLocale::get('jelix~format.datetime_st');
-				if($res=strptime($str,$lf)){
-					$ok=true;
-					$this->year=$res['tm_year'] + 1900;
-					$this->month=$res['tm_mon'] + 1;
-					$this->day=$res['tm_mday'];
-					$this->hour=$res['tm_hour'];
-					$this->minute=$res['tm_min'];
-					$this->second=$res['tm_sec'];
-				}
+				$lf=jLocale::get('jelix~format.datetime');
+				$ok=$this->_createDateFromFormat($lf,$str);
 				break;
 			case self::LANG_TFORMAT:
-				$lf=jLocale::get('jelix~format.time_st');
-				if($res=strptime($str,$lf)){
-					$ok=true;
-					$this->hour=$res['tm_hour'];
-					$this->minute=$res['tm_min'];
-					$this->second=$res['tm_sec'];
-				}
+				$lf=jLocale::get('jelix~format.time');
+				$ok=$this->_createDateFromFormat($lf,$str);
 				break;
 			case self::LANG_SHORT_TFORMAT:
-				$lf=jLocale::get('jelix~format.short_time_st');
-				if($res=strptime($str,$lf)){
-					$ok=true;
-					$this->hour=$res['tm_hour'];
-					$this->minute=$res['tm_min'];
-					$this->second=0;
-				}
+				$lf=jLocale::get('jelix~format.short_time');
+				$ok=$this->_createDateFromFormat($lf,$str);
 				break;
 			case self::LANG_SHORT_DTFORMAT:
-				$lf=jLocale::get('jelix~format.short_datetime_st');
-				if($res=strptime($str,$lf)){
-					$ok=true;
-					$this->year=$res['tm_year'] + 1900;
-					$this->month=$res['tm_mon'] + 1;
-					$this->day=$res['tm_mday'];
-					$this->hour=$res['tm_hour'];
-					$this->minute=$res['tm_min'];
-				}
+				$lf=jLocale::get('jelix~format.short_datetime');
+				$ok=$this->_createDateFromFormat($lf,$str);
 				break;
 			case self::DB_DFORMAT:
-				if($res=strptime($str,"%Y-%m-%d")){
-					$ok=true;
-					$this->year=$res['tm_year'] + 1900;
-					$this->month=$res['tm_mon'] + 1;
-					$this->day=$res['tm_mday'];
-				}
+				$ok=$this->_createDateFromFormat("Y-m-d",$str);
 				break;
 			case self::DB_DTFORMAT:
-				if($res=strptime($str,"%Y-%m-%d %H:%M:%S")){
-					$ok=true;
-					$this->year=$res['tm_year'] + 1900;
-					$this->month=$res['tm_mon'] + 1;
-					$this->day=$res['tm_mday'];
-					$this->hour=$res['tm_hour'];
-					$this->minute=$res['tm_min'];
-					$this->second=$res['tm_sec'];
-				}
+				$ok=$this->_createDateFromFormat("Y-m-d H:i:s",$str);
 				break;
 			case self::DB_TFORMAT:
-				if($res=strptime($str,"%H:%M:%S")){
-					$ok=true;
-					$this->hour=$res['tm_hour'];
-					$this->minute=$res['tm_min'];
-					$this->second=$res['tm_sec'];
-				}
+				$ok=$this->_createDateFromFormat("H:i:s",$str);
 				break;
 			case self::ISO8601_FORMAT:
 				if($ok=preg_match('/^(\d{4})(?:\-(\d{2})(?:\-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{2,3}))?)?(Z|([+\-])(\d{2}):(\d{2})))?)?)?$/',$str,$match)){
@@ -293,36 +231,19 @@ class jDateTime{
 				break;
 			case self::RFC822_FORMAT:
 			case self::RFC2822_FORMAT:
-				$regexp="/^
-                     (?: (?P<nday> Mon | Tue | Wed | Thu | Fri | Sat | Sun) , )? \s+
-                     (?P<day>\d{1,2}) \s+
-                     (?P<nmonth> Jan | Feb | Mar | Apr | May | Jun |
-                               Jul | Aug | Sep | Oct | Nov | Dec) \s+
-                     (?P<year>\d{4}) \s+
-                     (?P<hour>\d{2}) : (?P<minute>\d{2}) (?: : (?P<second>\d{2}))? \s+
-                     (?P<tzsign>[+-]) (?P<tzhour>\d{2}) (?P<tzminute>\d{2})$/x";
-				$english_months=array("Jan","Feb","Mar","Apr","May","Jun",
-					"Jul","Aug","Sep","Oct","Nov","Dec");
-				$match=array("year"=>0,"month"=>0,"day"=>0,
-					"hour"=>0,"minute"=>0,"second"=>0,"tzsign"=>"+",
-					"tzhour"=>0,"tzminute"=>0);
-				if($ok=preg_match($regexp,$str,$match)){
-					$this->year=intval($match['year']);
-					$this->month=array_search($match['nmonth'],$english_months)+ 1;
-					$this->day=intval($match['day']);
-					$this->hour=intval($match['hour']);
-					$this->minute=intval($match['minute']);
-					$this->second=intval($match['second']);
-					$tz=new jDuration(array('hour'=>intval($match['tzhour']),
-						'minute'=>intval($match['tzminute'])));
-					if($match['tzsign']=='+'){
-						$this->sub($tz);
-					}
-					else{
-						$this->add($tz);
-					}
-				}
+				$dt=new DateTime($str);
+				$dt=$dt->setTimezone(new DateTimeZone('UTC'));
+				$this->year=intval($dt->format('Y'));
+				$this->month=intval($dt->format('m'));
+				$this->day=intval($dt->format('d'));
+				$this->hour=intval($dt->format('H'));
+				$this->minute=intval($dt->format('i'));
+				$this->second=intval($dt->format('s'));
 				break;
+			default:
+				if(is_string($format)){
+					$ok=$this->_createDateFromFormat($format,$str);
+				}
 		}
 		return $ok&&$this->_check();
 	}

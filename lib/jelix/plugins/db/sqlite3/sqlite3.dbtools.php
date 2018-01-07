@@ -11,8 +11,8 @@
 */
 class sqlite3DbTools extends jDbTools{
 	protected $typesInfo=array(
-	'bool'=>array('integer','boolean',0,1,null,null),
-	'boolean'=>array('integer','boolean',0,1,null,null),
+	'bool'=>array('bool','boolean',0,1,null,null),
+	'boolean'=>array('bool','boolean',0,1,null,null),
 	'bit'=>array('integer','integer',0,1,null,null),
 	'tinyint'=>array('integer','integer',-128,127,null,null),
 	'smallint'=>array('integer','integer',-32768,32767,null,null),
@@ -20,12 +20,13 @@ class sqlite3DbTools extends jDbTools{
 	'integer'=>array('integer','integer',-2147483648,2147483647,null,null),
 	'int'=>array('integer','integer',-2147483648,2147483647,null,null),
 	'bigint'=>array('numeric','numeric','-9223372036854775808','9223372036854775807',null,null),
-	'serial'=>array('numeric','numeric','-9223372036854775808','9223372036854775807',null,null),
+	'serial'=>array('integer','integer','-9223372036854775808','9223372036854775807',null,null),
 	'bigserial'=>array('numeric','numeric','-9223372036854775808','9223372036854775807',null,null),
 	'autoincrement'=>array('integer','integer',-2147483648,2147483647,null,null),
 	'bigautoincrement'=>array('numeric','numeric','-9223372036854775808','9223372036854775807',null,null),
 	'float'=>array('float','float',null,null,null,null),
 	'money'=>array('real','float',null,null,null,null),
+	'smallmoney'=>array('float','float',null,null,null,null),
 	'double precision'=>array('double','decimal',null,null,null,null),
 	'double'=>array('double','decimal',null,null,null,null),
 	'real'=>array('real','decimal',null,null,null,null),
@@ -38,30 +39,34 @@ class sqlite3DbTools extends jDbTools{
 	'date'=>array('date','date',null,null,10,10),
 	'time'=>array('time','time',null,null,8,8),
 	'datetime'=>array('datetime','datetime',null,null,19,19),
+	'datetime2'=>array('datetime','datetime',null,null,19,27),
+	'datetimeoffset'=>array('datetime','datetime',null,null,19,34),
+	'smalldatetime'=>array('datetime','datetime',null,null,19,19),
 	'timestamp'=>array('datetime','datetime',null,null,19,19),
 	'utimestamp'=>array('integer','integer',0,2147483647,null,null),
 	'year'=>array('integer','year',null,null,2,4),
 	'interval'=>array('datetime','datetime',null,null,19,19),
-	'char'=>array('char','char',null,null,0,255),
-	'nchar'=>array('char','char',null,null,0,255),
-	'varchar'=>array('varchar','varchar',null,null,0,65535),
-	'varchar2'=>array('varchar','varchar',null,null,0,4000),
-	'nvarchar2'=>array('varchar','varchar',null,null,0,4000),
-	'character'=>array('varchar','varchar',null,null,0,65535),
-	'character varying'=>array('varchar','varchar',null,null,0,65535),
-	'name'=>array('varchar','varchar',null,null,0,64),
-	'longvarchar'=>array('varchar','varchar',null,null,0,65535),
-	'string'=>array('varchar','varchar',null,null,0,65535),
-	'tinytext'=>array('text','text',null,null,0,255),
-	'text'=>array('text','text',null,null,0,65535),
-	'mediumtext'=>array('text','text',null,null,0,16777215),
+	'char'=>array('char','char',null,null,0,0),
+	'nchar'=>array('char','char',null,null,0,0),
+	'varchar'=>array('varchar','varchar',null,null,0,0),
+	'varchar2'=>array('varchar','varchar',null,null,0,0),
+	'nvarchar2'=>array('varchar','varchar',null,null,0,0),
+	'character'=>array('varchar','varchar',null,null,0,0),
+	'character varying'=>array('varchar','varchar',null,null,0,0),
+	'name'=>array('varchar','varchar',null,null,0,0),
+	'longvarchar'=>array('varchar','varchar',null,null,0,0),
+	'string'=>array('varchar','varchar',null,null,0,0),
+	'tinytext'=>array('text','text',null,null,0,0),
+	'text'=>array('text','text',null,null,0,0),
+	'ntext'=>array('text','text',null,null,0,0),
+	'mediumtext'=>array('text','text',null,null,0,0),
 	'longtext'=>array('text','text',null,null,0,0),
 	'long'=>array('text','text',null,null,0,0),
 	'clob'=>array('text','text',null,null,0,0),
 	'nclob'=>array('text','text',null,null,0,0),
-	'tinyblob'=>array('blob','blob',null,null,0,255),
-	'blob'=>array('blob','blob',null,null,0,65535),
-	'mediumblob'=>array('blob','blob',null,null,0,16777215),
+	'tinyblob'=>array('blob','blob',null,null,0,null),
+	'blob'=>array('blob','blob',null,null,0,null),
+	'mediumblob'=>array('blob','blob',null,null,0,null),
 	'longblob'=>array('blob','blob',null,null,0,0),
 	'bfile'=>array('blob','blob',null,null,0,0),
 	'bytea'=>array('blob','varbinary',null,null,0,0),
@@ -69,9 +74,11 @@ class sqlite3DbTools extends jDbTools{
 	'varbinary'=>array('blob','varbinary',null,null,0,255),
 	'raw'=>array('blob','varbinary',null,null,0,2000),
 	'long raw'=>array('blob','varbinary',null,null,0,0),
+	'image'=>array('blob','varbinary',null,null,0,0),
 	'enum'=>array('varchar','varchar',null,null,0,65535),
 	'set'=>array('varchar','varchar',null,null,0,65535),
 	'xmltype'=>array('varchar','varchar',null,null,0,65535),
+	'xml'=>array('text','text',null,null,0,0),
 	'point'=>array('varchar','varchar',null,null,0,16),
 	'line'=>array('varchar','varchar',null,null,0,32),
 	'lsed'=>array('varchar','varchar',null,null,0,32),
@@ -86,15 +93,62 @@ class sqlite3DbTools extends jDbTools{
 	'arrays'=>array('varchar','varchar',null,null,0,65535),
 	'complex types'=>array('varchar','varchar',null,null,0,65535),
 	);
-	public function getTableList(){
-		$results=array();
-		$rs=$this->_conn->query('SELECT name FROM sqlite_master WHERE type="table"');
-		while($line=$rs->fetch()){
-			$results[]=$line->name;
+	protected $keywordNameCorrespondence=array(
+		'current_timestamp'=>'datetime(\'now\', \'localtime\')',
+		'current_date'=>'date(\'now\', \'localtime\')',
+		'current_time'=>'time(\'now\', \'localtime\')',
+		'sysdate'=>'datetime(\'now\', \'localtime\')',
+		'localtime'=>'time(\'now\', \'localtime\')',
+		'localtimestamp'=>'datetime(\'now\', \'localtime\')',
+	);
+	protected $functionNameCorrespondence=array(
+		'sysdatetime'=>'datetime(\'now\', \'localtime\')',
+		'sysdatetimeoffset'=>'datetime(\'now\', \'localtime\')',
+		'sysutcdatetime'=>'datetime(\'now\')',
+		'getdate'=>'datetime(\'now\', \'localtime\')',
+		'getutcdate'=>'strftime(\'%d\', \'now\')',
+		'day'=>'strftime(\'%d\', %!p, \'localtime\')',
+		'month'=>'strftime(\'%m\', %!p, \'localtime\')',
+		'year'=>'strftime(\'%Y\', %!p, \'localtime\')',
+		'curdate'=>'date(\'now\', \'localtime\')',
+		'current_date'=>'date(\'now\', \'localtime\')',
+		'curtime'=>'time(\'now\', \'localtime\')',
+		'current_time'=>'time(\'now\', \'localtime\')',
+		'now'=>'date(\'now\', \'localtime\')',
+		'current_timestamp'=>'date(\'now\', \'localtime\')',
+		'dayofmonth'=>'strftime(\'%d\', %!p, \'localtime\')',
+		'localtime'=>'datetime(\'now\', \'localtime\')',
+		'localtimestamp'=>'datetime(\'now\', \'localtime\')',
+		'utc_date'=>'date(\'now\')',
+		'utc_time'=>'time(\'now\')',
+		'utc_timestamp'=>'datetime(\'now\')',
+		'hour'=>'strftime(\'%H\', %!p, \'localtime\')',
+		'minute'=>'strftime(\'%M\', %!p, \'localtime\')',
+		'second'=>'strftime(\'%S\', %!p, \'localtime\')',
+		'extract'=>'!extractDateConverter',
+		'date_part'=>'!extractDateConverter',
+		'datepart'=>'!extractDateConverter',
+	);
+	protected $literalFilterToSubstitions=array(
+		'year'=>'%Y',
+		'month'=>'%m',
+		'day'=>'%d',
+		'hour'=>'%H',
+		'minute'=>'%M',
+		'seconde'=>'%S',
+	);
+	protected function extractDateConverter($parametersString){
+		if(preg_match("/^'?([a-z]+)'?(?:\s*,\s*|\s+FROM(?: TIMESTAMP)?\s+|\s+)(.*)$/i",$parametersString,$p)&&
+			isset($this->literalFilterToSubstitions[strtolower($p[1])])
+		){
+			$param2=$this->parseSQLFunctionAndConvert(strtolower($p[2]));
+			return 'strftime(\''.$this->literalFilterToSubstitions[$p[1]].'\', '.$param2.', \'localtime\')';
 		}
-		return $results;
+		else{
+			return 'date_part('.$parametersString.')';
+		}
 	}
-	public function getFieldList($tableName,$sequence=''){
+	public function getFieldList($tableName,$sequence='',$schemaName=''){
 		$tableName=$this->_conn->prefixTable($tableName);
 		$results=array();
 		$query="PRAGMA table_info(". substr($this->_conn->quote($tableName),1,-1).")";

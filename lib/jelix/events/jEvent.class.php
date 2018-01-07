@@ -29,6 +29,12 @@ class jEvent{
 		$this->_name=$name;
 		$this->_params=& $params;
 	}
+	function __get($name){
+		return $this->getParam($name);
+	}
+	function __set($name,$value){
+		return $this->_params[$name]=$value;
+	}
 	public function getName(){
 		return $this->_name;
 	}
@@ -77,8 +83,9 @@ class jEvent{
 	protected static $hashListened=array();
 	protected static function loadListenersFor($eventName){
 		if(!isset($GLOBALS['JELIX_EVENTS'])){
-			self::$compilerData[3]=jApp::config()->urlengine['urlScriptId'].'.'.self::$compilerData[3];
-			jIncluder::incAll(self::$compilerData);
+			$compilerData=self::$compilerData;
+			$compilerData[3]=jApp::config()->urlengine['urlScriptId'].'.'.$compilerData[3];
+			jIncluder::incAll($compilerData,true);
 		}
 		$inf=& $GLOBALS['JELIX_EVENTS'];
 		self::$hashListened[$eventName]=array();
@@ -96,5 +103,10 @@ class jEvent{
 				self::$hashListened[$eventName][]=self::$listenersSingleton[$module][$listenerName];
 			}
 		}
+	}
+	public static function clearCache(){
+		self::$hashListened=array();
+		self::$listenersSingleton=array();
+		unset($GLOBALS['JELIX_EVENTS']);
 	}
 }

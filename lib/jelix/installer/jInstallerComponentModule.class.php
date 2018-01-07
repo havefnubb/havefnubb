@@ -60,7 +60,12 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 												);
 		}
 		$this->moduleInstaller->setParameters($this->moduleInfos[$epId]->parameters);
-		$sparam=$ep->configIni->getValue($this->name.'.installparam','modules');
+		if($ep->localConfigIni){
+			$sparam=$ep->localConfigIni->getValue($this->name.'.installparam','modules');
+		}
+		else{
+			$sparam=$ep->configIni->getValue($this->name.'.installparam','modules');
+		}
 		if($sparam===null)
 			$sparam='';
 		$sp=$this->moduleInfos[$epId]->serializeParameters();
@@ -153,11 +158,10 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 									$this->upgradersContexts[$class]);
 			$list[]=$upgrader;
 		}
-		usort($list,array($this,'sortUpgraderList'));
+		usort($list,function($upgA,$upgB){
+				return jVersionComparator::compareVersion($upgA->version,$upgB->version);
+		});
 		return $list;
-	}
-	function sortUpgraderList($upgA,$upgB){
-		return jVersionComparator::compareVersion($upgA->version,$upgB->version);
 	}
 	public function installFinished($ep){
 		$this->installerContexts=$this->moduleInstaller->getContexts();
