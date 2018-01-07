@@ -22,6 +22,8 @@
     <property name="nickname" fieldname="nickname" datatype="string" required="yes" maxlength="50" />
     <property name="keyactivate" fieldname="keyactivate"  datatype="string" required="yes" maxlength="10" />
     <property name="request_date" fieldname="request_date" datatype="datetime" />
+    <property name="create_date" fieldname="create_date" datatype="datetime"
+                  insertpattern="now()" updatepattern=""/>
 
     <property name="member_website" fieldname="website" datatype="string" maxlength="255"/>
     <property name="member_firstname" fieldname="firstname" datatype="string" default="" maxlength="40"/>
@@ -37,7 +39,6 @@
 
     <property name="nb_msg" fieldname="nb_msg" datatype="integer" />
     <property name="member_last_post" fieldname="last_post" datatype="integer" default="0"/>
-    <property name="member_created" fieldname="create_date" datatype="datetime" insertpattern="NOW()" />
 
     <property name="member_ip"  fieldname="member_ip"   datatype="string"   table="c" />
     <property name="connection_date"  fieldname="connection_date"   datatype="integer"  table="c"/>
@@ -133,7 +134,7 @@
                 <eq property="status" value="1" />
             </conditions>
             <order>
-                <orderitem property="member_created" way="desc" />
+                <orderitem property="create_date" way="desc" />
             </order>
         </method>
        <!-- for stats purpose -->

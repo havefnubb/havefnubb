@@ -75,7 +75,7 @@
             </a>
         </td>
         <td class="listline colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>
-        <td class="listline coldate">{$member->member_created|jdatetime:'db_datetime':'lang_datetime'}</td>
+        <td class="listline coldate">{$member->create_date|jdatetime:'db_datetime':'lang_datetime'}</td>
         <td class="listline colnum">{$member->nb_msg}</td>
     </tr>
     {/foreach}

@@ -134,7 +134,7 @@ $(document).ready(function(){
                         <label><strong>{@havefnubb~member.common.registered.since@}</strong></label>
                     </div>
                     <div class="form_value">
-                        {$user->member_created|jdatetime}
+                        {$user->create_date|jdatetime}
                     </div>
                     <div class="form_property">
                         <label><strong>{@havefnubb~member.common.last.connection@}</strong></label>

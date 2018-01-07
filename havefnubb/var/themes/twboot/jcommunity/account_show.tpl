@@ -95,7 +95,7 @@ $(document).ready(function(){
             <label><strong>{@havefnubb~member.memberlist.nb.posted.msg@}</strong></label><div class="input">{$user->nb_msg}</div>
         </div>
         <div class="clearfix">
-            <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><div class="input">{$user->member_created|jdatetime}</div>
+            <label><strong>{@havefnubb~member.common.registered.since@}</strong></label><div class="input">{$user->create_date|jdatetime}</div>
         </div>
         <div class="clearfix">
             <label><strong>{@havefnubb~member.common.last.connection@}</strong></label>

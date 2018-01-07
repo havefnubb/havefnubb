@@ -11,7 +11,7 @@
 
         <property name="status" fieldname="status" table="usr" datatype="integer" />
         <property name="nb_msg" fieldname="nb_msg" table="usr" datatype="integer" />
-        <property name="member_created" fieldname="create_date" table="usr" datatype="datetime" />
+        <property name="create_date" fieldname="create_date" table="usr" datatype="datetime" />
         <property name="request_date" fieldname="request_date" table="usr" datatype="datetime" />
 
         <property name="name" fieldname="name" datatype="string" required="yes" table="grp"/>
