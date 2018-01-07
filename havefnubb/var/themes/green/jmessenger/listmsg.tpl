@@ -12,7 +12,11 @@
                     <tr>
                         <th></th>
                         <th>{@jmessenger~message.list.discussion@}</th>
-                        <th>{@jmessenger~message.list.from@}</th>
+                        {if isset($send)}
+                            <th>{@jmessenger~message.list.for@}</th>
+                        {else}
+                            <th>{@jmessenger~message.list.from@}</th>
+                        {/if}
                         <th>{@jmessenger~message.list.date@}</th>
                         <th>{@jmessenger~message.list.actions@}</th>
                     </tr>
@@ -24,9 +28,9 @@
                     <td><input class='msg_select' type='checkbox' value="{$m->id}" name='msg_select[]'/></td>
                     <td><a href="{jurl 'jmessenger~jmessenger:view', array('id'=>$m->id)}">{$m->title}</a> {if $m->isSeen == 0 && !isset($send)}({@jmessenger~message.new@} !){/if}</td>
                     <td>{if isset($send)}
-                        <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFor}</a>
+                        <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->nicknameFor}</a>
                     {else}
-                        <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFor}</a>
+                        <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->nicknameFrom}</a>
                     {/if}
                     </td>
                     <td>

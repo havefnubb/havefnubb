@@ -38,8 +38,9 @@
     {/form}
     <div class="form_row">
         <div id="loginbox-links">
-            (<a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.login.register@}</a>,
-            <a href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.login.forgotten.password@}</a>)
+            {if $canResetPassword || $canRegister}(
+                {if $canRegister}<a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.login.register@}</a>{/if}{if $canResetPassword}{if $canRegister},{/if}
+                <a href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.login.forgotten.password@}</a>{/if}){/if}
         </div>
     </div>
 </div>

@@ -7,7 +7,11 @@
         <tr>
             <th class="listcol"></th>
             <th class="listcol">{@jmessenger~message.list.discussion@}</th>
-            <th class="listcol">{@jmessenger~message.list.from@}</th>
+            {if isset($send)}
+                <th class="listcol">{@jmessenger~message.list.for@}</th>
+            {else}
+                <th class="listcol">{@jmessenger~message.list.from@}</th>
+            {/if}
             <th class="listcol">{@jmessenger~message.list.date@}</th>
             <th class="listcol">{@jmessenger~message.list.actions@}</th>
         </tr>
@@ -20,9 +24,9 @@
         <td class="coltitle linkincell"><a href="{jurl 'jmessenger~jmessenger:view', array('id'=>$m->id)}">{$m->title}</a> {if $m->isSeen == 0 && !isset($send)}({@jmessenger~message.new@} !){/if}</td>
         <td class="colposter linkincell">
         {if isset($send)}
-            <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFor}</a>
+            <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->nicknameFor}</a>
         {else}
-            <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->loginFrom}</a>
+            <a href="{jurl 'jcommunity~account:show', array('user'=>$m->loginFor)}">{$m->nicknameFrom}</a>
         {/if}
         </td>
         <td  class="colright linkincell">

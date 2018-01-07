@@ -35,8 +35,11 @@
                 <div id="login-status">
                     <ul>
                         <li>{@havefnubb~member.status.welcome.and.thanks.to@} <a href="{jurl 'jcommunity~login:index'}">{@havefnubb~member.status.connect@}</a></li>
-                        <li>{@havefnubb~member.status.or.to@} <a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.status.register@}</a></li>
-                        <li>{@havefnubb~member.status.or.maybe@} <a href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.status.forgotten.password@} ?</a></li>
+                        {if $canResetPassword || $canRegister}
+                        <li>{@havefnubb~member.status.or.to@} {if $canRegister}<a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.status.register@}</a></li>
+                        {if $canResetPassword}<li>{@havefnubb~member.status.or.maybe@}{/if}{/if}
+                            {if $canResetPassword}<a href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.status.forgotten.password@} ?</a></li>{/if}
+                        {/if}
                     </ul>
                 </div>
 {/ifuserconnected}

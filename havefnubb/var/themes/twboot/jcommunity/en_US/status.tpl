@@ -16,8 +16,8 @@
         <a href="#" class="dropdown-toggle">{@havefnubb~member.status.welcome@}</a>
         <ul class="dropdown-menu">
             <li><a href="{jurl 'jcommunity~login:index'}">Connection</a></li>
-            <li><a href="{jurl 'jcommunity~registration:index'}">Register</a></li>
-            <li><a href="{jurl 'jcommunity~password:index'}">Forgotten password</a></li>
+            {if $canRegister}<li><a href="{jurl 'jcommunity~registration:index'}">Register</a></li>{/if}
+            {if $canResetPassword}<li><a href="{jurl 'jcommunity~password:index'}">Forgotten password</a></li>{/if}
         </ul>
     {/ifuserconnected}
     </li>
