@@ -15,4 +15,5 @@ en remplissant le formulaire suivant.</p>
 et ensuite pouvoir vous identifier sur le site.</p>
 <p>{formsubmit}</p>
 {/form}
+<p><a href="{jurl 'jcommunity~login:index'}">Annuler et retourner au formulaire d'identification</a></p>
 </div>

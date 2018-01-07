@@ -12,4 +12,6 @@ et l'adresse e-mail que vous avez indiqué dans votre profil, lors de votre insc
 <p>Un email vous sera envoyé avec une clé d'activation vous permettant de choisir un nouveau mot de passe.</p>
 <p>{formsubmit}</p>
 {/form}
+
+<p><a href="{jurl 'jcommunity~login:index'}">Annuler et retourner au formulaire d'identification</a></p>
 </div>

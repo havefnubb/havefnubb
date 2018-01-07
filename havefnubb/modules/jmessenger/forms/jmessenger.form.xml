@@ -6,7 +6,7 @@
     <menulist ref="id_for" required="true">
         <label locale="message.form.dest"></label>
         <datasource dao="jcommunity~user" method="findAll"
-                    labelproperty="login" valueproperty="id"/>
+		    labelproperty="nickname" valueproperty="id"/>
     </menulist>
 
     <input ref="title" required="true" maxlength="255">

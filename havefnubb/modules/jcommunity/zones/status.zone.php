@@ -15,7 +15,9 @@ class statusZone extends jZone {
     protected $_tplname='status';
 
     protected function _prepareTpl(){
-
+        $config = new \Jelix\JCommunity\Config();
+        $this->_tpl->assign('canRegister', $config->isRegistrationEnabled());
+        $this->_tpl->assign('canResetPassword', $config->isResetPasswordEnabled());
         if(jAuth::isConnected()) {
             $this->_tpl->assign('login',jAuth::getUserSession ()->login);
         }

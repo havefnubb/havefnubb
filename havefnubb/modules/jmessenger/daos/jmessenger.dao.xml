@@ -22,7 +22,8 @@
     <!-- foreign data -->
     <property name="loginFrom" fieldname="login" datatype="string" required="true" maxlength="100" table="users"/>
     <property name="loginFor" fieldname="login" datatype="string" required="true" maxlength="100" table="users2"/>
-
+    <property name="nicknameFrom" fieldname="nickname" datatype="string" required="true" maxlength="100" table="users"/>
+    <property name="nicknameFor" fieldname="nickname" datatype="string" required="true" maxlength="100" table="users2"/>
 
     </record>
     <factory>

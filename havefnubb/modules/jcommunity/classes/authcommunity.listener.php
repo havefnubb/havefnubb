@@ -18,4 +18,3 @@ class authcommunityListener extends jEventListener{
         $event->Add(array('canlogin'=>($event->getParam('user')->status > 0))); // >0 == VALID or MODIFIED
    }
 }
-?>

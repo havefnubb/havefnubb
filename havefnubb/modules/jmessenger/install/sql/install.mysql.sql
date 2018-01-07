@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS `%%PREFIX%%jmessenger` (
   `isReceived` tinyint(4) NOT NULL,
   `isSend` tinyint(4) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

@@ -17,5 +17,5 @@ Pour cela, <strong>un email vous a été envoyé</strong>, contenant une clé (u
 </fieldset>
 <p>{formsubmit}</p>
 {/form}
-
+<p><a href="{jurl 'jcommunity~login:index'}">Annuler et retourner au formulaire d'identification</a></p>
 </div>

@@ -73,6 +73,17 @@ persistant_duration = 5
 ; base path for the cookie. If empty, it uses the basePath value from the main configuration.
 persistant_cookie_path =
 
+;=========== parameters for password hashing
+
+; method of the hash. 0 means old hashing behavior of jAuth
+; (using password_* parameters in drivers ).
+; Prefer to choose 1 which indicates the default hash method (bcrypt).
+password_hash_method = 1
+
+; options for the hash method. list of "name:value" separated by a ";"
+password_hash_options =
+
+
 ;=========== Parameters for drivers
 
 ;------- parameters for the "Db" driver
@@ -90,7 +101,7 @@ password_crypt_function = sha1
 ;password_salt = "here_your_salt"
 
 ; name of the form for the jauthdb_admin module
-form = ""
+form = "jcommunity~account_admin"
 
 ; path of the directory where to store files uploaded by the form (jauthdb_admin module)
 ; should be related to the var directory of the application

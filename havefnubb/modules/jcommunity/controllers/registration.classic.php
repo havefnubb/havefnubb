@@ -11,20 +11,24 @@
 
 include(dirname(__FILE__).'/../classes/defines.php');
 
-class registrationCtrl extends jController {
+class registrationCtrl extends \Jelix\JCommunity\AbstractController {
 
     public $pluginParams = array(
       '*'=>array('auth.required'=>false)
     );
 
+    protected $configMethodCheck = 'isRegistrationEnabled';
+
     /**
     * registration form
     */
     function index() {
-        if(jAuth::isConnected())
-            return $this->noaccess();
+        $repError = $this->_check();
+        if($repError) {
+            return $repError;
+        }
 
-        $rep = $this->getResponse('html');
+        $rep = $this->_getjCommunityResponse();
         $rep->title = jLocale::get('register.registration.title');
         $rep->body->assignZone('MAIN','registration');
         return $rep;
@@ -35,8 +39,10 @@ class registrationCtrl extends jController {
     * a key to activate the account
     */
     function save() {
-        if(jAuth::isConnected())
-            return $this->noaccess();
+        $repError = $this->_check();
+        if($repError) {
+            return $repError;
+        }
 
         $rep= $this->getResponse("redirect");
         $rep->action = "registration:index";
@@ -90,11 +96,10 @@ class registrationCtrl extends jController {
 
         jEvent::notify('jcommunity_registration_after_save', array('form'=>$form, 'user'=>$user));
 
-        $gJConfig = jApp::config();
         $mail = new jMailer();
-        $mail->From = $gJConfig->mailer['webmasterEmail'];
-        $mail->FromName = $gJConfig->mailer['webmasterName'];
-        $mail->Sender = $gJConfig->mailer['webmasterEmail'];
+        $mail->From = jApp::config()->mailer['webmasterEmail'];
+        $mail->FromName = jApp::config()->mailer['webmasterName'];
+        $mail->Sender = jApp::config()->mailer['webmasterEmail'];
         $mail->Subject = jLocale::get('register.mail.new.subject');
 
         $tpl = new jTpl();
@@ -117,10 +122,12 @@ class registrationCtrl extends jController {
     * to activate the account
     */
     function confirmform() {
-        if(jAuth::isConnected())
-            return $this->noaccess();
+        $repError = $this->_check();
+        if($repError) {
+            return $repError;
+        }
 
-        $rep = $this->getResponse('html');
+        $rep = $this->_getjCommunityResponse();
         $form = jForms::get('confirmation');
         if($form == null){
             $form = jForms::create('confirmation');
@@ -138,8 +145,10 @@ class registrationCtrl extends jController {
     * activate an account. the key should be given as a parameter
     */
     function confirm() {
-        if(jAuth::isConnected())
-            return $this->noaccess();
+        $repError = $this->_check();
+        if($repError) {
+            return $repError;
+        }
 
         $rep= $this->getResponse("redirect");
         $rep->action="registration:confirmform";
@@ -192,6 +201,9 @@ class registrationCtrl extends jController {
     * Page which confirm that the account is activated
     */
     function confirmok() {
+        // jcommunity response can be a single page without menu etc..
+        // so we retrieve the standard response to be sure that the user have links
+        // to navigate into the web site
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('already',false);
@@ -199,10 +211,5 @@ class registrationCtrl extends jController {
         return $rep;
     }
 
-    protected function noaccess() {
-        $rep = $this->getResponse('html');
-        $tpl = new jTpl();
-        $rep->body->assign('MAIN',$tpl->fetch('no_access'));
-        return $rep;
-    }
+
 }

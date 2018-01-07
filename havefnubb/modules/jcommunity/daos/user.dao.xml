@@ -10,7 +10,7 @@
           required="yes" datatype="string"  maxlength="50" />
 
       <property name="password" fieldname="password" datatype="string"
-                maxlength="50" selectpattern="%s" updatepattern="" insertpattern="%s" />
+                maxlength="120" selectpattern="%s" updatepattern="" insertpattern="%s" />
       
       <property name="status" fieldname="status" datatype="integer" />
       <!-- status :

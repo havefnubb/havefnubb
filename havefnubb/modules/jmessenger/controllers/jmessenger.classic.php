@@ -20,7 +20,7 @@ class jmessengerCtrl extends jControllerDaoCrud {
 
     function index() {
         $resp = $this->getResponse('redirect');
-        $resp->action = "jmessenger~inbox";
+        $resp->action = "jmessenger~jmessenger:inbox";
         return $resp;
     }
 
@@ -42,7 +42,7 @@ class jmessengerCtrl extends jControllerDaoCrud {
         $form_daorec->isArchived = 0;
         $form_daorec->isReceived = 1;
         $form_daorec->isSend = 1;
-        if ($form_daorec->id_for == 0) 
+        if ($form_daorec->id_for == 0)
             $form_daorec->id_for = $form->getData("answer_to");
     }
 
@@ -81,5 +81,15 @@ class jmessengerCtrl extends jControllerDaoCrud {
             $m->isSeen = 1;
             $dao->update($m);
         }
+    }
+
+    protected function _afterCreate($form, $id, $resp) {
+        $msg = array();
+        $msg['id'] = $id;
+        $msg['user_id_from'] = jAuth::getUserSession()->id;
+        $msg['user_id_to'] = $form->getData('id_for');
+        $msg['title'] = $form->getData('title');
+        $msg['content'] = $form->getData('content');
+        jEvent::notify('jmessengerMessageSent', array('message'=>$msg));
     }
 }

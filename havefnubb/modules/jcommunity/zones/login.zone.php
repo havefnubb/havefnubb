@@ -15,40 +15,39 @@ class loginZone extends jZone {
     protected $_tplname='login';
 
     protected function _prepareTpl(){
+        $config = new \Jelix\JCommunity\Config();
+        $this->_tpl->assign('canRegister', $config->isRegistrationEnabled());
+        $this->_tpl->assign('canResetPassword', $config->isResetPasswordEnabled());
+
         if(jAuth::isConnected()) {
             $this->_tpl->assign('login',jAuth::getUserSession ()->login);
         }
         else {
-            $conf = jApp::coord()->getPlugin('auth')->config;
-            $this->_tpl->assign('persistance_ok',$conf['persistant_enable']);
+            $conf = jAuth::loadConfig();
+            $this->_tpl->assign('persistance_ok', jAuth::isPersistant());
             $form = jForms::get("jcommunity~login");
-            if (!$form)
+            if (!$form) {
                 $form = jForms::create("jcommunity~login");
+            }
             $this->_tpl->assign('form',$form);
-
+            $this->_tpl->assign('url_return','');
+            
             if ($conf['enable_after_login_override']) {
                 $req = jApp::coord()->request;
                 if ($req->getParam('auth_url_return')) {
-                    $this->_tpl->assign('url_return',$req->getParam('auth_url_return'));
+                    $this->_tpl->assign('url_return', $req->getParam('auth_url_return'));
                 }
                 else if($this->param('as_main_content')) {
-                    if ($_SERVER['HTTP_REFERER']) {
+                    if (isset($_SERVER['HTTP_REFERER']) &&
+                        $_SERVER['HTTP_REFERER'] &&
+                        $_SERVER['HTTP_REFERER'] != jUrl::getCurrentUrl(false, true)) {
                         $this->_tpl->assign('url_return',$_SERVER['HTTP_REFERER']);
                     }
-                    else {
-                        $this->_tpl->assign('url_return','');
-                    }
                 }
-                else {
-                    
-                    //(empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER["HTTP_HOST"].
-                    $url = $req->urlScript.$req->urlPathInfo;
-                    if(!empty($_SERVER['QUERY_STRING']))
-                        $url.='?'.$_SERVER['QUERY_STRING'];
-                    $this->_tpl->assign('url_return',$url);
-                }                
-            }else
-                $this->_tpl->assign('url_return','');
+                else if ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD') {
+                    $this->_tpl->assign('url_return', jUrl::getCurrentUrl(false, true));
+                }
+            }
         }
     }
 }
