@@ -213,4 +213,67 @@ class redis_phpKVDriver extends jKVDriver implements jIKVSet,jIKVttl{
 	public function sPop($skey){
 		return $this->_connection->spop($this->getUsedKey($skey));
 	}
+	public function hDel($key,$hKey){
+		$key=$this->getUsedKey($key);
+		if(is_array($hKey)){
+			$count=0;
+			foreach($hKey as $hk){
+				$count+=$this->_connection->hDel($key,$hk);
+			}
+			return $count;
+		}
+		return $this->_connection->hDel($key,$hKey);
+	}
+	public function hExists($key,$hKey){
+		return !!$this->_connection->hExists($this->getUsedKey($key),$hKey);
+	}
+	public function hGet($key,$hKey){
+		return $this->_connection->hGet($this->getUsedKey($key),$hKey);
+	}
+	public function hGetAll($key){
+		$list=$this->_connection->hGetAll($this->getUsedKey($key));
+		$result=array();
+		for($i=0;$i < count($list);$i+=2){
+			$result[$list[$i]]=$list[$i+1];
+		}
+		return $result;
+	}
+	public function hKeys($key){
+		return $this->_connection->hKeys($this->getUsedKey($key));
+	}
+	public function hLen($key){
+		return $this->_connection->hLen($this->getUsedKey($key));
+	}
+	public function hMGet($key,$keys){
+		$args=$keys;
+		array_unshift($args,$this->getUsedKey($key));
+		$list=call_user_func_array(array($this->_connection,'hMGet'),$args);
+		$result=array();
+		foreach($list as $k=>$item){
+			$result[$keys[$k]]=$item;
+		}
+		return $result;
+	}
+	public function hMSet($key,$values){
+		$args=array();
+		foreach($values as $k=>$val){
+			$args[]=$k;
+			$args[]=$val;
+		}
+		array_unshift($args,$this->getUsedKey($key));
+		$ret=call_user_func_array(array($this->_connection,'hMSet'),$args);
+		return($ret=='OK');
+	}
+	public function hSet($key,$hKey,$value){
+		return $this->_connection->hSet($this->getUsedKey($key),$hKey,$value);
+	}
+	public function hSetNx($key,$hKey,$value){
+		return !! $this->_connection->hSetNx($this->getUsedKey($key),$hKey,$value);
+	}
+	public function hVals($key){
+		return $this->_connection->hVals($this->getUsedKey($key));
+	}
+	public function hStrLen($key){
+		return $this->_connection->hStrLen($this->getUsedKey($key));
+	}
 }

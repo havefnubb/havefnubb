@@ -53,7 +53,10 @@ class jEvent{
 		$founded=false;
 		$response=array();
 		foreach($this->_responses as $key=>$listenerResponse){
-			if(isset($listenerResponse[$responseName])&&$listenerResponse[$responseName]==$value){
+			if(is_array($listenerResponse[$responseName])&&
+				isset($listenerResponse[$responseName])&&
+				$listenerResponse[$responseName]==$value
+			){
 				$founded=true;
 				$response[]=& $this->_responses[$key];
 			}

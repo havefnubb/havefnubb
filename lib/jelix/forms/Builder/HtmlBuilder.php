@@ -5,7 +5,7 @@
 * @subpackage  forms
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Dominique Papin, Claudio Bernardes
-* @copyright   2006-2012 Laurent Jouanneau
+* @copyright   2006-2018 Laurent Jouanneau
 * @copyright   2008-2016 Julien Issler, 2008 Dominique Papin, 2012 Claudio Bernardes
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -34,8 +34,18 @@ class HtmlBuilder extends BuilderBase{
 			throw new \Exception('Unknown root widget plugin '.$pluginName);
 	}
 	public function setOptions($options){
-		$this->options=array_merge(array('errorDecorator'=>$this->jFormsJsVarName.'ErrorDecoratorHtml',
-			'method'=>'post'),$options);
+		if(\jApp::config()->tplplugins['defaultJformsErrorDecorator']){
+			$errorDecorator=\jApp::config()->tplplugins['defaultJformsErrorDecorator'];
+		}
+		else{
+			$errorDecorator=$this->jFormsJsVarName.'ErrorDecoratorHtml';
+		}
+		$this->options=array_merge(
+			array(
+				'errorDecorator'=>$errorDecorator,
+				'method'=>'post'
+			),
+			$options);
 		if(isset($this->options['plugins'])){
 			$this->pluginsConf=$this->options['plugins'];
 			unset($this->options['plugins']);
@@ -203,6 +213,13 @@ class HtmlBuilder extends BuilderBase{
 		$widget=$this->getWidget($ctrl,$this->rootWidget);
 		$widget->setAttributes($attributes);
 		$widget->outputControlValue();
+	}
+	public function outputControlHelp($ctrl){
+		if(!$ctrl->help){
+			return;
+		}
+		$widget=$this->getWidget($ctrl,$this->rootWidget);
+		echo '<span class="jforms-help" id="'.$widget->getId().'-help">&nbsp;<span>'.htmlspecialchars($ctrl->help).'</span></span>';
 	}
 	protected function _outputAttr(&$attributes){
 		foreach($attributes as $name=>$val){

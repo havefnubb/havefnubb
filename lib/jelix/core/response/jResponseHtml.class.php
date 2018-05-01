@@ -6,7 +6,7 @@
 * @author      Laurent Jouanneau
 * @contributor Yann, Dominique Papin
 * @contributor Warren Seine, Alexis Métaireau, Julien Issler, Olivier Demah, Brice Tence
-* @copyright   2005-2012 Laurent Jouanneau, 2006 Yann, 2007 Dominique Papin
+* @copyright   2005-2018 Laurent Jouanneau, 2006 Yann, 2007 Dominique Papin
 * @copyright   2008 Warren Seine, Alexis Métaireau
 * @copyright   2009 Julien Issler, Olivier Demah
 * @copyright   2010 Brice Tence
@@ -24,6 +24,8 @@ class jResponseHtml extends jResponseBasicHtml{
 	public $bodyTpl='';
 	public $bodyErrorTpl='';
 	public $bodyTagAttributes=array();
+	public $IECompatibilityMode='';
+	public $metaViewport='';
 	protected $_CSSLink=array();
 	protected $_CSSIELink=array();
 	protected $_Styles=array();
@@ -35,6 +37,8 @@ class jResponseHtml extends jResponseBasicHtml{
 	protected $_MetaDescription=array();
 	protected $_MetaAuthor='';
 	protected $_MetaGenerator='';
+	protected $_MetaOldContentType=true;
+	protected $_Meta=array();
 	protected $_Link=array();
 	protected $_endTag="/>\n";
 	function __construct(){
@@ -188,14 +192,16 @@ class jResponseHtml extends jResponseBasicHtml{
 	public function addMetaGenerator($content){
 		$this->_MetaGenerator=$content;
 	}
+	public function addMeta($params){
+		$this->_Meta[]=$params;
+	}
 	protected function outputDoctype(){
 		echo '<!DOCTYPE HTML>',"\n";
 		$lang=str_replace('_','-',$this->_lang);
 		if($this->_isXhtml){
-			echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="',$lang,'" lang="',$lang,'">
-';
+			echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="',$lang,'" lang="',$lang,'">'."\n";
 		}else{
-			echo '<html lang="',$lang,'">';
+			echo '<html lang="',$lang,'">'."\n";
 		}
 	}
 	protected function outputJsScriptTag($fileUrl,$scriptParams){
@@ -218,13 +224,31 @@ class jResponseHtml extends jResponseBasicHtml{
 			$params.='rel="stylesheet" ';
 		echo '<link type="text/css" href="',htmlspecialchars($fileUrl),'" ',$params,$this->_endTag,"\n";
 	}
+	protected function outputMetaTag($params){
+		$html='';
+		foreach($params as $param_name=>$param_value){
+			$html.=$param_name.'="'. htmlspecialchars($param_value).'" ';
+		}
+		echo '<meta ',$html,$this->_endTag;
+	}
 	protected function outputHtmlHeader(){
-		echo '<head>'."\n";
+		echo "<head>\n";
 		echo implode("\n",$this->_headTop);
 		if($this->_isXhtml&&$this->xhtmlContentType&&strstr($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml')){
 			echo '<meta content="application/xhtml+xml; charset='.$this->_charset.'" http-equiv="content-type"'.$this->_endTag;
+		}else if(!$this->_MetaOldContentType){
+			echo '<meta charset="'.$this->_charset.'" '.$this->_endTag;
 		}else{
 			echo '<meta content="text/html; charset='.$this->_charset.'" http-equiv="content-type"'.$this->_endTag;
+		}
+		if($this->IECompatibilityMode){
+			echo '<meta http-equiv="X-UA-Compatible" content="'.$this->IECompatibilityMode.'"'.$this->_endTag;
+		}
+		if($this->metaViewport){
+			echo '<meta name="viewport" content="'.$this->metaViewport.'"'.$this->_endTag;
+		}
+		foreach($this->_Meta as $params){
+			$this->outputMetaTag($params);
 		}
 		echo '<title>'.htmlspecialchars($this->title)."</title>\n";
 		if(!empty($this->_MetaDescription)){
@@ -233,13 +257,13 @@ class jResponseHtml extends jResponseBasicHtml{
 		}
 		if(!empty($this->_MetaKeywords)){
 			$keywords=implode(',',$this->_MetaKeywords);
-			echo '<meta name="keywords" content="'.htmlspecialchars($keywords).'" '.$this->_endTag;
+			$this->outputMetaTag(array('name'=>'keywords','content'=>$keywords));
 		}
 		if(!empty($this->_MetaGenerator)){
-			echo '<meta name="generator" content="'.htmlspecialchars($this->_MetaGenerator).'" '.$this->_endTag;
+			$this->outputMetaTag(array('name'=>'generator','content'=>$this->_MetaGenerator));
 		}
 		if(!empty($this->_MetaAuthor)){
-			echo '<meta name="author" content="'.htmlspecialchars($this->_MetaAuthor).'" '.$this->_endTag;
+			$this->outputMetaTag(array('name'=>'author','content'=>$this->_MetaAuthor));
 		}
 		foreach($this->_CSSLink as $src=>$params){
 			$this->outputCssLinkTag($src,$params);
@@ -302,7 +326,8 @@ class jResponseHtml extends jResponseBasicHtml{
 		echo implode("\n",$this->_headBottom),'</head>';
 	}
 	public function clearHtmlHeader($what=null){
-		$cleanable=array('CSSLink','CSSIELink','Styles','JSLink','JSIELink','JSCode','Others','MetaKeywords','MetaDescription');
+		$cleanable=array('CSSLink','CSSIELink','Styles','JSLink','JSIELink','JSCode',
+			'Others','MetaKeywords','MetaDescription','Meta','MetaAuthor','MetaGenerator');
 		if($what==null)
 			$what=$cleanable;
 		foreach($what as $elem){

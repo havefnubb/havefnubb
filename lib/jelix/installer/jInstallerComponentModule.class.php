@@ -83,8 +83,9 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 		if($this->moduleUpgraders===null){
 			$this->moduleUpgraders=array();
 			$p=$this->path.'install/';
-			if(!file_exists($p)||$this->moduleInfos[$epId]->skipInstaller)
+			if(!file_exists($p)||$this->moduleInfos[$epId]->skipInstaller){
 				return array();
+			}
 			$fileList=array();
 			if($handle=opendir($p)){
 				while(false!==($f=readdir($handle))){
@@ -115,8 +116,14 @@ class jInstallerComponentModule extends jInstallerComponentBase{
 				if($fileInfo[1]&&count($upgrader->targetVersions)==0){
 					$upgrader->targetVersions=array($fileInfo[1]);
 				}
+				if(count($upgrader->targetVersions)==0){
+					throw new jInstallerException("module.upgrader.missing.version",array($fileInfo[0],$this->name));
+				}
 				$this->moduleUpgraders[]=$upgrader;
 			}
+		}
+		if(count($this->moduleUpgraders)&&$this->moduleInfos[$epId]->version==''){
+			throw new jInstallerException("installer.ini.missing.version",array($this->name));
 		}
 		$list=array();
 		foreach($this->moduleUpgraders as $upgrader){

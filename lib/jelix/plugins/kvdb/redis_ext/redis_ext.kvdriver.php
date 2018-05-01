@@ -210,6 +210,46 @@ class redis_extKVDriver extends jKVDriver implements jIKVSet,jIKVttl{
 	public function sPop($skey){
 		return $this->_connection->sPop($this->getUsedKey($skey));
 	}
+	public function hDel($key,$hKey){
+		if(is_array($hKey)){
+			array_unshift($hKey,$this->getUsedKey($key));
+			return call_user_func_array(array($this->_connection,'hDel'),$hKey);
+		}
+		return $this->_connection->hDel($this->getUsedKey($key),$hKey);
+	}
+	public function hExists($key,$hKey){
+		return $this->_connection->hExists($this->getUsedKey($key),$hKey);
+	}
+	public function hGet($key,$hKey){
+		return $this->_connection->hGet($this->getUsedKey($key),$hKey);
+	}
+	public function hGetAll($key){
+		return $this->_connection->hGetAll($this->getUsedKey($key));
+	}
+	public function hKeys($key){
+		return $this->_connection->hKeys($this->getUsedKey($key));
+	}
+	public function hLen($key){
+		return $this->_connection->hLen($this->getUsedKey($key));
+	}
+	public function hMGet($key,$keys){
+		return $this->_connection->hMGet($this->getUsedKey($key),$keys);
+	}
+	public function hMSet($key,$values){
+		return $this->_connection->hMSet($this->getUsedKey($key),$values);
+	}
+	public function hSet($key,$hKey,$value){
+		return $this->_connection->hSet($this->getUsedKey($key),$hKey,$value);
+	}
+	public function hSetNx($key,$hKey,$value){
+		return $this->_connection->hSetNx($this->getUsedKey($key),$hKey,$value);
+	}
+	public function hVals($key){
+		return $this->_connection->hVals($this->getUsedKey($key));
+	}
+	public function hStrLen($key){
+		return $this->_connection->hStrLen($this->getUsedKey($key));
+	}
 	protected function esc($val){
 		if(is_numeric($val)||is_int($val))
 			return (string)$val;

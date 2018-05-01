@@ -4,7 +4,7 @@
 * @package    jelix
 * @subpackage db
 * @author     Laurent Jouanneau
-* @copyright  2010-2017 Laurent Jouanneau
+* @copyright  2010-2018 Laurent Jouanneau
 *
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -62,6 +62,7 @@ class pgsqlDbTable extends jDbTable{
 			else if(preg_match('/^NULL::/',$default)&&$hasDefault){
 				$col->default=null;
 			}
+			$col->nativeType=$typeinfo[0];
 			$col->maxValue=$typeinfo[3];
 			$col->minValue=$typeinfo[2];
 			$col->maxLength=$typeinfo[5];
@@ -110,13 +111,13 @@ class pgsqlDbTable extends jDbTable{
 				}
 				$sql.=')';
 			}
-			else if($new->length){
+			else if($new->length&&$typeInfo[0]!='text'){
 				$sql.='('.$new->length.')';
 			}
 			$conn->exec($sql);
 		}
 		if($new->hasDefault!==$old->hasDefault){
-			if($new->hasDefault){
+			if($new->hasDefault&&$new->default!==null){
 				$sql="ALTER TABLE ".$conn->encloseName($this->name).
 					" ALTER COLUMN ".$conn->encloseName($new->name).
 					" SET DEFAULT ".$new->default;
@@ -129,7 +130,7 @@ class pgsqlDbTable extends jDbTable{
 				$conn->exec($sql);
 			}
 		}
-		else if($new->hasDefault&&$new->default!=$old->default){
+		else if($new->hasDefault&&$new->default!==null&&$new->default!=$old->default){
 			$sql="ALTER TABLE ".$conn->encloseName($this->name).
 				" ALTER COLUMN ".$conn->encloseName($new->name).
 				" SET DEFAULT ".$new->default;

@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.6.16pre.3481');
+define('JELIX_VERSION','1.6.17');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',__DIR__.'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -1608,6 +1608,13 @@ abstract class jRequest{
 	else
 		return false;
 	}
+	function isPostMethod(){
+		if(isset($_SERVER['REQUEST_METHOD'])){
+			return($_SERVER['REQUEST_METHOD']==="POST");
+		}else{
+			return false;
+		}
+	}
 	function getDomainName(){
 	if(jApp::config()->domainName!=''){
 		return jApp::config()->domainName;
@@ -2193,6 +2200,7 @@ class jLogErrorMessage implements jILogMessage{
 			'%file%'=>$this->file,
 			'%line%'=>$this->line,
 			'%trace%'=>$traceLog,
+			'%http_method%'=>isset($_SERVER['REQUEST_METHOD'])?$_SERVER['REQUEST_METHOD']:'Unknown method',
 			'\t'=>"\t",
 			'\n'=>"\n"
 		));

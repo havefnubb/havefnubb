@@ -4,7 +4,7 @@
 * @package    jelix
 * @subpackage db
 * @author     Laurent Jouanneau
-* @copyright  2010 Laurent Jouanneau
+* @copyright  2010-2018 Laurent Jouanneau
 *
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -62,6 +62,10 @@ abstract class jDbTable{
 		if(!$oldColumn){
 			$this->addColumn($column);
 			return;
+		}
+		if(!$column->nativeType){
+			$type=$this->schema->getConn()->tools()->getTypeInfo($column->type);
+			$column->nativeType=$type[0];
 		}
 		if($oldColumn->isEqualTo($column)){
 			return;
