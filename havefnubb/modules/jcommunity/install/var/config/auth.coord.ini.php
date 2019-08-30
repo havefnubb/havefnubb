@@ -42,7 +42,7 @@ bad_ip_action = "jcommunity~login:out"
 ;=========== Parameters for jauth module
 
 ; number of second to wait after a bad authentification
-on_error_sleep = 3
+on_error_sleep = 0
 
 ; action to redirect after the login
 after_login = "jcommunity~account:show"

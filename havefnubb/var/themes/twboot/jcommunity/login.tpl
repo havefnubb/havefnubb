@@ -36,7 +36,7 @@
     <div class="actions">
         {formsubmit}
         {if $canRegister}- <a class="btn info" href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.login.register@}</a>{/if}
-        {if $canResetPassword}- <a class="btn danger" href="{jurl 'jcommunity~password:index'}">{@havefnubb~member.login.forgotten.password@}</a>{/if}
+        {if $canResetPassword}- <a class="btn danger" href="{jurl 'jcommunity~password_reset:index'}">{@havefnubb~member.login.forgotten.password@}</a>{/if}
     </div>
     {if $url_return}
         <input type="hidden" name="auth_url_return" value="{$url_return|eschtml}" />

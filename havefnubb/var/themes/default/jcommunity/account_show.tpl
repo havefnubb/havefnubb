@@ -163,9 +163,12 @@ $(document).ready(function(){
         </div> <!-- #container -->
     </div>
     <div class="buttons-bar">
-        {if $himself}
-        <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
-        {/if}
+        {if $changeAllowed}<a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@jcommunity~account.link.profile.edit@}</a>{/if}
+        {if $passwordChangeAllowed}<a href="{jurl 'jcommunity~password:index', array('user'=>$user->login)}">{@jcommunity~account.link.account.change.password@}</a>{/if}
+        {if $destroyAllowed}<a href="{jurl 'jcommunity~account:destroy', array('user'=>$user->login)}">{@jcommunity~account.link.account.delete@}</a>{/if}
+        {foreach $otherPrivateActions as $link=>$label}
+            <a href="{$link}">{$label|eschtml}</a>
+        {/foreach}
     </div>
     </div>
     {hook 'hfbAccountShowBefore',array($user->login)}
