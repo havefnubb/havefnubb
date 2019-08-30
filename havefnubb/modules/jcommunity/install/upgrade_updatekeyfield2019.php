@@ -7,10 +7,10 @@
  * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
  */
 
-class jcommunityModuleUpgrader_updatekeyfield extends jInstallerModule {
+class jcommunityModuleUpgrader_updatekeyfield2019 extends jInstallerModule {
 
-    public $targetVersions = array('1.2.0a2');
-    public $date = '2018-01-08 10:00';
+    public $targetVersions = array('1.3.0-beta.1');
+    public $date = '2019-07-17 17:00';
 
     function install() {
 
@@ -18,8 +18,10 @@ class jcommunityModuleUpgrader_updatekeyfield extends jInstallerModule {
 
         $dbProfile = $conf->getValue('profile', 'Db');
         $daoSelector = $conf->getValue('dao', 'Db');
-        $mapper = new jDaoDbMapper($dbProfile);
-        $mapper->createTableFromDao($daoSelector);
+        if ($daoSelector == 'jcommunity~user') {
+            $this->useDbProfile($dbProfile);
+            $this->execSQLScript('sql/upgrade_keys');
+        }
     }
 
 
