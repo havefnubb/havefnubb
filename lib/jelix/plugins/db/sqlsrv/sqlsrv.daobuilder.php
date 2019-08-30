@@ -17,18 +17,4 @@ class sqlsrvDaoBuilder extends jDaoGenerator{
 	protected function _encloseName($name){
 		return '['.$name.']';
 	}
-	protected function _getAutoIncrementPKField($using=null){
-		if($using===null){
-			$using=$this->_dataParser->getProperties();
-		}
-		foreach($using as $id=>$field){
-			if(!$field->isPK){
-				continue;
-			}
-			if($field->datatype=='autoincrement'||$field->datatype=='bigautoincrement'){
-				return $field;
-			}
-		}
-		return null;
-	}
 }

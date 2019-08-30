@@ -3,7 +3,7 @@
 /**
 * 
 * @package  jelix
-* @subpackage core
+* @subpackage installer
 * @author   Laurent Jouanneau
 * @contributor Bastien Jaillot
 * @copyright 2007-2009 Laurent Jouanneau, 2008 Bastien Jaillot

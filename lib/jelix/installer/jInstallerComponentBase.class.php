@@ -4,7 +4,7 @@
 * @package     jelix
 * @subpackage  installer
 * @author      Laurent Jouanneau
-* @copyright   2008-2010 Laurent Jouanneau
+* @copyright   2008-2018 Laurent Jouanneau
 * @link        http://www.jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -100,6 +100,9 @@ abstract class jInstallerComponentBase{
 		$this->dependencies=array();
 		if(isset($xml->dependencies)){
 			foreach($xml->dependencies->children()as $type=>$dependency){
+				if($type!='jelix'&&$type!='module'&&$type!='plugin'){
+					continue;
+				}
 				$minversion=isset($dependency['minversion'])?(string)$dependency['minversion']:'*';
 				if(trim($minversion)=='')
 					$minversion='*';

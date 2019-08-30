@@ -114,7 +114,7 @@ class sqliteDbTools extends jDbTools{
 		'current_date'=>'date(\'now\', \'localtime\')',
 		'curtime'=>'time(\'now\', \'localtime\')',
 		'current_time'=>'time(\'now\', \'localtime\')',
-		'now'=>'date(\'now\', \'localtime\')',
+		'now'=>'datetime(\'now\', \'localtime\')',
 		'current_timestamp'=>'date(\'now\', \'localtime\')',
 		'dayofmonth'=>'strftime(\'%d\', %!p, \'localtime\')',
 		'localtime'=>'datetime(\'now\', \'localtime\')',

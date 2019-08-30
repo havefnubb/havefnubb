@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  forms
+* @subpackage  forms_legacybuilder_plugin
 * @author      Laurent Jouanneau
 * @copyright   2010 Laurent Jouanneau
 * @link        http://www.jelix.org

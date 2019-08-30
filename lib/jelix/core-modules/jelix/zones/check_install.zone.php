@@ -1,8 +1,8 @@
 <?php
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
-* @package    jelix-modules
-* @subpackage jelix
+ * @package    jelix-modules
+ * @subpackage jelix-module
 * @author     Bastien Jaillot
 * @contributor Laurent Jouanneau, Julien Issler
 * @copyright  2008 Bastien Jaillot

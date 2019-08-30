@@ -12,11 +12,16 @@
 */
 namespace jelix\forms\Builder;
 use \jelix\forms\HtmlWidget\ParentWidgetInterface;
+use \jelix\forms\HtmlWidget\WidgetBase;
 class HtmlBuilder extends BuilderBase{
 	protected $formType='html';
 	protected $formConfig='jforms_builder_html';
 	protected $jFormsJsVarName='jForms';
+	protected $defaultPluginsConf=array(
+	);
 	protected $pluginsConf=array();
+	protected $htmlFormAttributes=array();
+	protected $htmlWidgetsAttributes=array();
 	protected $rootWidget;
 	public function __construct($form){
 		parent::__construct($form);
@@ -101,10 +106,11 @@ class HtmlBuilder extends BuilderBase{
 		}
 	}
 	public function outputHeader(){
-		if(isset($this->options['attributes']))
-			$attrs=$this->options['attributes'];
-		else
-			$attrs=array();
+		if(isset($this->options['attributes'])){
+			$attrs=array_merge($this->htmlFormAttributes,$this->options['attributes']);
+		}else{
+			$attrs=$this->htmlFormAttributes;
+		}
 		echo '<form';
 		if(preg_match('#^https?://#',$this->_action)){
 			$urlParams=$this->_actionParams;
@@ -144,7 +150,7 @@ class HtmlBuilder extends BuilderBase{
 			$ctrls=$this->_form->getControls();
 			echo '<ul id="' . $this->_name . '_errors" class="jforms-error-list">';
 			foreach($errors as $cname=>$err){
-				if(!$this->_form->isActivated($ctrls[$cname]->ref))continue;
+				if(!array_key_exists($cname,$ctrls)||!$this->_form->isActivated($ctrls[$cname]->ref))continue;
 				if($err===\jForms::ERRDATA_REQUIRED){
 					if($ctrls[$cname]->alertRequired){
 						echo '<li>',$ctrls[$cname]->alertRequired,'</li>';
@@ -186,6 +192,9 @@ class HtmlBuilder extends BuilderBase{
 		elseif(isset($config[$ctrl->type])){
 			$pluginName=$config[$ctrl->type];
 		}
+		elseif(isset($this->defaultPluginsConf[$ctrl->type])){
+			$pluginName=$this->defaultPluginsConf[$ctrl->type];
+		}
 		else{
 			$pluginName=$ctrl->getWidgetType(). '_'. $this->formType;
 		}
@@ -194,6 +203,9 @@ class HtmlBuilder extends BuilderBase{
 		if(!$plugin)
 			throw new \Exception('Widget '.$pluginName.' not found');
 		$this->widgets[$ctrl->ref]=$plugin;
+		if(isset($this->htmlWidgetsAttributes[$ctrl->getWidgetType()])){
+			$plugin->setDefaultAttributes($this->htmlWidgetsAttributes[$ctrl->getWidgetType()]);
+		}
 		return $plugin;
 	}
 	public function outputControlLabel($ctrl,$format='',$editMode=true){

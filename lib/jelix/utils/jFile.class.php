@@ -99,6 +99,22 @@ class jFile{
 		}
 		return $allIsDeleted;
 	}
+	public static function copyDirectoryContent($sourcePath,$targetPath,$overwrite=false){
+		self::createDir($targetPath);
+		$dir=new DirectoryIterator($sourcePath);
+		foreach($dir as $dirContent){
+			if($dirContent->isFile()){
+				$f=$targetPath.'/'.$dirContent->getFilename();
+				if($overwrite||!file_exists($f))
+					copy($dirContent->getPathName(),$f);
+			}else{
+				if(!$dirContent->isDot()&&$dirContent->isDir()){
+					$newTarget=$targetPath.'/'.$dirContent->getFilename();
+					self::copyDirectoryContent($dirContent->getPathName(),$newTarget,$overwrite);
+				}
+			}
+		}
+	}
 	public static function getMimeType($file){
 		$finfo=finfo_open(FILEINFO_MIME_TYPE);
 		$type=finfo_file($finfo,$file);

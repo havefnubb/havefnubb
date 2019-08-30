@@ -42,8 +42,9 @@ class jDao{
 			jIncluder::inc($sel);
 		}
 		$c=$sel->getDaoRecordClass();
-		$obj=new $c();
-		return $obj;
+		$rec=new $c();
+		$rec->setDbProfile($profile);
+		return $rec;
 	}
 	public static function createConditions($glueOp='AND'){
 		$obj=new jDaoConditions($glueOp);

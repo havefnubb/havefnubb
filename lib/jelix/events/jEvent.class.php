@@ -49,19 +49,64 @@ class jEvent{
 	public function add($response){
 		$this->_responses[]=& $response;
 	}
-	public function inResponse($responseName,$value,& $response){
+	public function inResponse($responseKey,$value,& $response){
 		$founded=false;
 		$response=array();
 		foreach($this->_responses as $key=>$listenerResponse){
-			if(is_array($listenerResponse[$responseName])&&
-				isset($listenerResponse[$responseName])&&
-				$listenerResponse[$responseName]==$value
+			if(is_array($listenerResponse)&&
+				isset($listenerResponse[$responseKey])&&
+				$listenerResponse[$responseKey]==$value
 			){
 				$founded=true;
 				$response[]=& $this->_responses[$key];
 			}
 		}
 		return $founded;
+	}
+	public function getResponseByKey($responseKey){
+		$response=array();
+		foreach($this->_responses as $key=>$listenerResponse){
+			if(is_array($listenerResponse)&&
+				isset($listenerResponse[$responseKey])
+			){
+				$response[]=& $listenerResponse[$responseKey];
+			}
+		}
+		if(count($response))
+			return $response;
+		return null;
+	}
+	const RESPONSE_AND_OPERATOR=0;
+	const RESPONSE_OR_OPERATOR=1;
+	protected function getBoolResponseByKey($responseKey,$operator=0){
+		$response=null;
+		foreach($this->_responses as $key=>$listenerResponse){
+			if(is_array($listenerResponse)&&
+				isset($listenerResponse[$responseKey])
+			){
+				$value=(bool) $listenerResponse[$responseKey];
+				if($response===null){
+					$response=$value;
+				}
+				else if($operator===self::RESPONSE_AND_OPERATOR){
+					$response=$response&&$value;
+				}
+				else if($operator===self::RESPONSE_OR_OPERATOR){
+					$response=$response||$value;
+				}
+			}
+		}
+		return $response;
+	}
+	public function allResponsesByKeyAreTrue($responseKey){
+		return $this->getBoolResponseByKey($responseKey,self::RESPONSE_AND_OPERATOR);
+	}
+	public function allResponsesByKeyAreFalse($responseKey){
+		$res=$this->getBoolResponseByKey($responseKey,self::RESPONSE_OR_OPERATOR);
+		if($res===null){
+			return $res;
+		}
+		return !$res;
 	}
 	public function getResponse(){
 		return $this->_responses;

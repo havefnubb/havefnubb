@@ -5,7 +5,7 @@
  * @subpackage  dao
  * @author      Laurent Jouanneau
  * @contributor Loic Mathaud, Olivier Demah, Sid-Ali Djenadi
- * @copyright   2005-2012 Laurent Jouanneau
+ * @copyright   2005-2018 Laurent Jouanneau
  * @copyright   2007 Loic Mathau, 2012 Sid-Ali Djenadid
  * @copyright   2010 Olivier Demah
  * @link        http://www.jelix.org
@@ -17,7 +17,14 @@ abstract class jDaoRecordBase{
 	const ERROR_BAD_FORMAT=3;
 	const ERROR_MAXLENGTH=4;
 	const ERROR_MINLENGTH=5;
+	protected $__dao_profile='';
 	abstract public function getSelector();
+	public function getDbProfile(){
+		return $this->__dao_profile;
+	}
+	public function setDbProfile($profile){
+		$this->__dao_profile=$profile;
+	}
 	abstract public function getProperties();
 	abstract public function getPrimaryKeyNames();
 	public function check(){
@@ -99,7 +106,7 @@ abstract class jDaoRecordBase{
 		}
 	}
 	function save(){
-		$dao=jDao::get($this->getSelector());
+		$dao=jDao::get($this->getSelector(),$this->getDbProfile());
 		$pkFields=$this->getPrimaryKeyNames();
 		if($this->{$pkFields[0]}==null)
 			return $dao->insert($this);

@@ -47,6 +47,12 @@ class jDbPDOConnection extends PDO{
 			else{
 				$dsn='sqlite:'.$this->_parseSqlitePath($db);
 			}
+			if($this->dbms=='pgsql'&&
+				isset($profile['pg_options'])&&
+				$profile['pg_options']!=''
+			){
+				$dsn.=';options='.$profile['pg_options'];
+			}
 		}
 		if(isset($prof['usepdo'])){
 			unset($prof['usepdo']);
@@ -96,6 +102,9 @@ class jDbPDOConnection extends PDO{
 		else{
 			return jApp::varPath('db/sqlite/'.$path);
 		}
+	}
+	public function getProfileName(){
+		return $this->profile['_name'];
 	}
 	public function query(){
 		$args=func_get_args();

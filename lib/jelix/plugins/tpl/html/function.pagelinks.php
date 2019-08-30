@@ -4,7 +4,7 @@
 * @package    jelix
 * @subpackage jtpl_plugin
 * @author     Laurent Jouanneau
-* @copyright  2007 Laurent Jouanneau
+* @copyright  2007-2019 Laurent Jouanneau
 * @contributor Christian Tritten (christian.tritten@laposte.net)
 * @copyright  2007 Christian Tritten
 * @link        http://www.jelix.org
@@ -77,10 +77,26 @@ function jtpl_function_html_pagelinks($tpl,$action,$actionParams,$itemsTotal,$of
 			}
 			echo '</li>',"\n";
 		}
+		$areaSize=$displayProperties['area-size'];
+		$nbPages=count($pages);
+		if($areaSize > 0&&$nbPages > $areaSize){
+			$minpage=$currentPage - floor($areaSize/2);
+			if($minpage < 1){
+				$minpage=1;
+			}
+			$maxpage=($minpage-1)+ $areaSize;
+			if($maxpage>=$nbPages){
+				$minpage=$nbPages - $areaSize +1;
+			}
+		}
+		else{
+			$minpage=1;
+			$maxpage=count($pages);
+		}
 		foreach($pages as $key=>$page){
-			if($displayProperties['area-size']==0||($currentPage - $displayProperties['area-size']<=$key)
-				&&($currentPage + $displayProperties['area-size']>=$key))
+			if($minpage<=$key&&$maxpage>=$key){
 				echo $page,"\n";
+			}
 		}
 		if(!empty($displayProperties['next-label'])){
 			echo '<li class="pagelinks-next';

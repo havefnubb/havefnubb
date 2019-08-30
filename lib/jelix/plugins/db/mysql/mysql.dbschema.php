@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
-* @subpackage db
+* @subpackage db_driver
 * @author     Laurent Jouanneau
 * @copyright  2005-2018 Laurent Jouanneau
 * @link        http://www.jelix.org

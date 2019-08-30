@@ -44,9 +44,18 @@ class jFormsCompiler_jf_1_0{
 		foreach($control->attributes()as $name=>$value){
 			$attributes[$name]=(string)$value;
 		}
+		if(isset($attributes['controlclass'])){
+			if($attributes['controlclass']!=''){
+				$class=$attributes['controlclass'];
+			}
+			unset($attributes['controlclass']);
+		}
 		$method='generate'.$controltype;
-		if(!class_exists($class,false)||!method_exists($this,$method)){
+		if(!method_exists($this,$method)){
 			throw new jException('jelix~formserr.unknown.tag',array($controltype,$this->sourceFile));
+		}
+		if(!class_exists($class,true)){
+			throw new jException('jelix~formserr.unknown.control.class',array($class,$controltype,$this->sourceFile));
 		}
 		if(!isset($attributes['ref'])||$attributes['ref']==''){
 			throw new jException('jelix~formserr.attribute.missing',array('ref',$controltype,$this->sourceFile));
@@ -276,6 +285,19 @@ class jFormsCompiler_jf_1_0{
 		if(isset($attributes['maxsize'])){
 			$source[]='$ctrl->maxsize='.intval($attributes['maxsize']).';';
 			unset($attributes['maxsize']);
+		}
+		if(isset($attributes['accept'])){
+			$source[]='$ctrl->accept=\''.str_replace("'","\\'",$attributes['accept']).'\';';
+			unset($attributes['accept']);
+		}
+		if(isset($attributes['capture'])){
+			if($attributes['capture']=="true"||$attributes['capture']=="false"){
+				$source[]='$ctrl->capture='.$attributes['capture'].';';
+			}
+			else{
+				$source[]='$ctrl->capture=\''.str_replace("'","\\'",$attributes['capture']).'\';';
+			}
+			unset($attributes['capture']);
 		}
 		if(isset($attributes['mimetype'])){
 			$mime=preg_split('/[,; ]/',$attributes['mimetype']);

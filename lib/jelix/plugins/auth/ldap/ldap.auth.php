@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
-* @subpackage ldap_driver
+* @subpackage auth_driver
 * @author     Tahina Ramaroson
 * @contributor Sylvain de Vathaire
 * @contributor Thibaud Fabre, Laurent Jouanneau

@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  formwidgets
+* @subpackage  forms_widget_plugin
 * @author      Claudio Bernardes
 * @contributor Laurent Jouanneau, Julien Issler, Dominique Papin
 * @copyright   2012 Claudio Bernardes
@@ -26,5 +26,6 @@ class output_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 		$this->_outputAttr($attr);
 		echo '/>';
 		echo '<span class="jforms-value"',$hint,'>',htmlspecialchars($attr['value']),"</span>\n";
+		$this->parentWidget->addJs('c=null;');
 	}
 }

@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  formwidgets
+* @subpackage  forms_widget_plugin
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Dominique Papin
 * @copyright   2006-2012 Laurent Jouanneau, 2008-2011 Julien Issler, 2008 Dominique Papin
@@ -18,6 +18,7 @@ jFormsJQ.selectFillUrl=\''.jUrl::get('jelix~jforms:getListData').'\';
 jFormsJQ.config = {locale:'.$builder->escJsStr(jApp::config()->locale).
 	',basePath:'.$builder->escJsStr($conf['basePath']).
 	',jqueryPath:'.$builder->escJsStr($conf['jqueryPath']).
+	',jqueryFile:'.$builder->escJsStr(jApp::config()->jquery['jquery']).
 	',jelixWWWPath:'.$builder->escJsStr($conf['jelixWWWPath']).'};
 jFormsJQ.tForm = new jFormsJQForm(\''.$builder->getName().'\',\''.$builder->getForm()->getSelector().'\',\''.$builder->getForm()->getContainer()->formId.'\');
 jFormsJQ.tForm.setErrorDecorator(new '.$builder->getOption('errorDecorator').'());

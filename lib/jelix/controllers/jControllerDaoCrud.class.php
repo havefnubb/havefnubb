@@ -245,7 +245,7 @@ class jControllerDaoCrud extends jController{
 		$tpl=new jTpl();
 		$form=$this->_createForm($id);
 		try{
-			$form->initFromDao($this->dao,$id,$this->dbProfile);
+			$rec=$form->initFromDao($this->dao,$id,$this->dbProfile);
 		}
 		catch(jExceptionForms $e){
 			if($this->viewErrorTemplate){
@@ -258,6 +258,7 @@ class jControllerDaoCrud extends jController{
 		$tpl->assign('id',$id);
 		$tpl->assign('form',$form);
 		$tpl->assign('page',$page);
+		$tpl->assign('record',$rec);
 		$tpl->assign('offsetParameterName',$this->offsetParameterName);
 		$tpl->assign('editAction',$this->_getAction('preupdate'));
 		$tpl->assign('deleteAction',$this->_getAction('delete'));

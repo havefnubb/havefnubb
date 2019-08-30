@@ -127,6 +127,9 @@ class sqlsrvDbTools extends jDbTools{
 	protected function extractDateConverter($parametersString){
 		return 'datepart('.$parametersString.')';
 	}
+	public function encloseName($fieldName){
+		return '['.$fieldName.']';
+	}
 	public function getFieldList($tableName,$sequence='',$schemaName=''){
 		$results=array();
 		$pkeys=array();

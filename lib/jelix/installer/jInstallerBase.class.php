@@ -54,7 +54,7 @@ abstract class jInstallerBase{
 			$dbProfile='default';
 		$this->dbProfile=$dbProfile;
 		if(file_exists(jApp::configPath('profiles.ini.php'))){
-			$dbprofiles=parse_ini_file(jApp::configPath('profiles.ini.php'));
+			$dbprofiles=parse_ini_file(jApp::configPath('profiles.ini.php'),true);
 			if(isset($dbprofiles['jdb'][$dbProfile]))
 				$this->dbProfile=$dbprofiles['jdb'][$dbProfile];
 		}
@@ -162,24 +162,7 @@ abstract class jInstallerBase{
 		return $count;
 	}
 	final protected function copyDirectoryContent($relativeSourcePath,$targetPath,$overwrite=false){
-		$targetPath=$this->expandPath($targetPath);
-		$this->_copyDirectoryContent($this->path.'install/'.$relativeSourcePath,$targetPath,$overwrite);
-	}
-	private function _copyDirectoryContent($sourcePath,$targetPath,$overwrite){
-		jFile::createDir($targetPath);
-		$dir=new DirectoryIterator($sourcePath);
-		foreach($dir as $dirContent){
-			if($dirContent->isFile()){
-				$p=$targetPath.substr($dirContent->getPathName(),strlen($dirContent->getPath()));
-				if($overwrite||!file_exists($p))
-					copy($dirContent->getPathName(),$p);
-			}else{
-				if(!$dirContent->isDot()&&$dirContent->isDir()){
-					$newTarget=$targetPath.substr($dirContent->getPathName(),strlen($dirContent->getPath()));
-					$this->_copyDirectoryContent($dirContent->getPathName(),$newTarget,$overwrite);
-				}
-			}
-		}
+		jFile::copyDirectoryContent($this->path.'install/'.$relativeSourcePath,$this->expandPath($targetPath),$overwrite);
 	}
 	final protected function copyFile($relativeSourcePath,$targetPath,$overwrite=false){
 		$targetPath=$this->expandPath($targetPath);

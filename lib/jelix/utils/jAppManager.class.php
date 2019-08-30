@@ -39,6 +39,6 @@ class jAppManager{
 			throw new Exception('given temp path does not exists',3);
 		if(!is_writeable($path))
 			throw new Exception('given temp path does not exists',4);
-		jFile::removeDir($path,false);
+		jFile::removeDir($path,false,array('.dummy','.empty','.svn'));
 	}
 }

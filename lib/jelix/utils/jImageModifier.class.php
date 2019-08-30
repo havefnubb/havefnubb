@@ -34,6 +34,7 @@ class jImageModifier{
 		}else{
 			$ext=strtolower($params['ext']);
 		}
+		$att=array();
 		$chaine=$src;
 		foreach($params as $key=>$value){
 			if(in_array($key,jImageModifier::$transformParams)){

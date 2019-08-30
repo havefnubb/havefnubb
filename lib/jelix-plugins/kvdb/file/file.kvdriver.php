@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
-* @subpackage  kvdb
+* @subpackage  cache_plugin
 * @author      Zend Technologies
 * @contributor Tahina Ramaroson, Sylvain de Vathaire, Laurent Jouanneau
 * @copyright  2005-2008 Zend Technologies USA Inc (http://www.zend.com), 2008 Neov, 2010-2011 Laurent Jouanneau

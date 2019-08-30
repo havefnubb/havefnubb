@@ -1,15 +1,15 @@
 <?php
 /* comments & extra-whitespaces have been removed by jBuildTools*/
-
+/**
+ * @package     jelix
+ * @subpackage  forms
+ * @author      Laurent Jouanneau
+ * @copyright   2017 Laurent Jouanneau
+ * @link        http://www.jelix.org
+ * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
 namespace jelix\forms\Captcha;
 class SimpleCaptchaValidator implements CaptchaValidatorInterface{
-	/**
-     * called by the widget to initialize some data when the form is generated
-     *
-     * It can returns some data that can be useful for the widget, and which will
-     * be passed to validate() method ($internalData)
-     * @return mixed
-     */
 	public function initOnDisplay(){
 		$numbers=\jLocale::get('jelix~captcha.number');
 		$id=rand(1,intval($numbers));

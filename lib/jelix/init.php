@@ -18,7 +18,7 @@
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
-define('JELIX_VERSION','1.6.17');
+define('JELIX_VERSION','1.6.25pre.3633');
 define('JELIX_NAMESPACE_BASE','http://jelix.org/ns/');
 define('JELIX_LIB_PATH',__DIR__.'/');
 define('JELIX_LIB_CORE_PATH',JELIX_LIB_PATH.'core/');
@@ -437,9 +437,12 @@ class jConfig{
 			$t=filemtime($file);
 			$dc=jApp::mainConfigFile();
 			$lc=jApp::configPath('localconfig.ini.php');
+			$lvc=jApp::configPath('liveconfig.ini.php');
 			if((file_exists($dc)&&filemtime($dc)>$t)
 				||filemtime(jApp::configPath($configFile))>$t
-				||(file_exists($lc)&&filemtime($lc)>$t)){
+				||(file_exists($lc)&&filemtime($lc)>$t)
+				||(file_exists($lvc)&&filemtime($lvc)>$t)
+			){
 				self::$fromCache=false;
 			}
 			else{
@@ -901,13 +904,26 @@ class jSelectorTpl extends jSelectorModule{
 		if(!isset(jApp::config()->_modulesPathList[$this->module])){
 			throw new jExceptionSelector('jelix~errors.selector.module.unknown',$this->toString());
 		}
+		$locale=jApp::config()->locale;
+		$fallbackLocale=jApp::config()->fallbackLocale;
 		$path=$this->module.'/'.$this->resource;
-		$lpath=$this->module.'/'.jApp::config()->locale.'/'.$this->resource;
+		$lpath=$this->module.'/'.$locale.'/'.$this->resource;
+		$flpath='';
+		if($locale!=$fallbackLocale&&$fallbackLocale){
+			$flpath=$this->module.'/'.$fallbackLocale.'/'.$this->resource;
+		}
 		if(($theme=jApp::config()->theme)!='default'){
 			$this->_where='themes/'.$theme.'/'.$lpath;
 			$this->_path=jApp::varPath($this->_where.'.tpl');
 			if(is_readable($this->_path)){
 				return;
+			}
+			if($flpath){
+				$this->_where='themes/'.$theme.'/'.$flpath;
+				$this->_path=jApp::varPath($this->_where.'.tpl');
+				if(is_readable($this->_path)){
+					return;
+				}
 			}
 			$this->_where='themes/'.$theme.'/'.$path;
 			$this->_path=jApp::varPath($this->_where.'.tpl');
@@ -920,17 +936,32 @@ class jSelectorTpl extends jSelectorModule{
 		if(is_readable($this->_path)){
 			return;
 		}
+		if($flpath){
+			$this->_where='themes/default/'.$flpath;
+			$this->_path=jApp::varPath($this->_where.'.tpl');
+			if(is_readable($this->_path)){
+				return;
+			}
+		}
 		$this->_where='themes/default/'.$path;
 		$this->_path=jApp::varPath($this->_where.'.tpl');
 		if(is_readable($this->_path)){
 			return;
 		}
-		$this->_path=jApp::config()->_modulesPathList[$this->module].$this->_dirname.jApp::config()->locale.'/'.$this->resource.'.tpl';
+		$mpath=jApp::config()->_modulesPathList[$this->module].$this->_dirname;
+		$this->_path=$mpath.$locale.'/'.$this->resource.'.tpl';
 		if(is_readable($this->_path)){
 			$this->_where='modules/'.$lpath;
 			return;
 		}
-		$this->_path=jApp::config()->_modulesPathList[$this->module].$this->_dirname.$this->resource.'.tpl';
+		if($flpath){
+			$this->_path=$mpath.$fallbackLocale.'/'.$this->resource.'.tpl';
+			if(is_readable($this->_path)){
+				$this->_where='modules/'.$flpath;
+				return;
+			}
+		}
+		$this->_path=$mpath.$this->resource.'.tpl';
 		if(is_readable($this->_path)){
 			$this->_where='modules/'.$path;
 			return;
@@ -1598,6 +1629,9 @@ abstract class jRequest{
 	}
 	function isHttps(){
 		if(jApp::config()->urlengine['forceProxyProtocol']=='https'){
+			if(trim(jApp::config()->forceHTTPSPort)===''){
+				jApp::config()->forceHTTPSPort=true;
+			}
 			return true;
 		}
 		return(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']&&$_SERVER['HTTPS']!='off');
@@ -1647,7 +1681,7 @@ abstract class jRequest{
 	else
 		$https=$forceHttps;
 	$forcePort=($https ? jApp::config()->forceHTTPSPort : jApp::config()->forceHTTPPort);
-	if($forcePort===true){
+	if($forcePort===true||$forcePort==='1'){
 		return '';
 	}
 	else if($forcePort){

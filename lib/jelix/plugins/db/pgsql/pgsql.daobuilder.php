@@ -4,7 +4,7 @@
 * @package    jelix
 * @subpackage db_driver
 * @author     Laurent Jouanneau
-* @copyright  2007-2010 Laurent Jouanneau
+* @copyright  2007-2018 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -35,7 +35,7 @@ class pgsqlDaoBuilder extends jDaoGenerator{
 		$fields=$this->_getPropertiesBy('BinaryField');
 		if(count($fields)){
 			$src='    protected function finishInitResultSet($rs) {
-        $rs->setFetchMode(8,$this->_DaoRecordClassName);
+        parent::finishInitResultSet($rs);
         $rs->addModifier(array($this, \'unescapeRecord\'));
     }'."\n";
 			$src.='public function unescapeRecord($record, $resultSet) {'."\n";
