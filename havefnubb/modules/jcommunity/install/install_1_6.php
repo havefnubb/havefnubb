@@ -114,16 +114,14 @@ class jcommunityModuleInstaller extends jInstallerModule {
 
             // if the dao from jcommunity is used, lets use our own sql script
             // because we need to create a unique constraint, that is not
-            // handle by jDaoMapper.
+            // handle by jDaoMapper. Then we can use jDaoMapper to create
+            // missing fields indicated into the dao (if overloaded)
             if ($daoSelector == 'jcommunity~user') {
-
                 $this->execSQLScript('sql/install');
             }
-            // for any other dao file, let's use jDaoMapper.
-            else {
-                $mapper = new jDaoDbMapper($dbProfile);
-                $mapper->createTableFromDao($daoSelector);
-            }
+
+            $mapper = new jDaoDbMapper($dbProfile);
+            $mapper->createTableFromDao($daoSelector);
 
             if ($this->getParameter('migratejauthdbusers')) {
                 $this->migrateUsers($daoSelector);
@@ -142,7 +140,7 @@ class jcommunityModuleInstaller extends jInstallerModule {
                     list(,$sourceUserDataModule,$sourceUserDataFile) = $m;
                 }
                 else if ($this->getParameter('defaultuser')) {
-                    $sourceUserDataFile = 'defaultuser.json';
+                    $sourceUserDataFile = 'defaultusers.json';
                 }
 
                 if ($sourceUserDataFile) {
@@ -161,7 +159,6 @@ class jcommunityModuleInstaller extends jInstallerModule {
                 }
             }
         }
-
 
         if ($this->firstExec('preferences') && $this->getParameter('usejpref')) {
             if ($this->firstExec('acl2') && class_exists('jAcl2DbManager')) {
@@ -257,6 +254,14 @@ class jcommunityModuleInstaller extends jInstallerModule {
         }
     }
 
+    /**
+     * @param dbAuthDriver $driver
+     * @param string $daoSelector
+     * @param string $dbProfile
+     * @param string $module
+     * @param string $relativeSourcePath
+     * @throws Exception
+     */
     protected function insertUsers($driver, $daoSelector, $dbProfile, $module, $relativeSourcePath) {
 
         if ($module) {

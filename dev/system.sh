@@ -140,7 +140,7 @@ function resetJelixMysql() {
     local pass="$3"
 
     # create a database into mysql + users
-    if [ ! -d /var/lib/mysql/$base/ ]; then
+    if [ -d /var/lib/mysql/$base/ ]; then
         mysql -u root -pjelix -e "DROP DATABASE IF EXISTS $base;DROP USER IF EXISTS $login;"
     fi
 

@@ -48,6 +48,7 @@ hfnusearch.access=2
 hfnusearch.installparam=nocopyfiles
 hfnuthemes.access=2
 jcommunity.access=2
+jcommunity.installparam="defaultuser;manualconfig"
 jmessenger.access=2
 jtags.access=2
 
@@ -273,5 +274,3 @@ name=famfamfam
 ; emoticon_waii.png
 ; emoticon_wink.png
 ; so your own smileys would have to be named like them
-
-

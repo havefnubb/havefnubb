@@ -45,8 +45,7 @@ activeusers_admin.access=2
 
 iamhere.access=2
 
+jcommunity.installparam="defaultuser;manualconfig"
+
 [activeusers_admin]
 pluginconf="havefnubb/activeusers.coord.ini.php"
-
-
-
