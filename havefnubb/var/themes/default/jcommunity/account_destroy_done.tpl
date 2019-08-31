@@ -1,4 +1,4 @@
-<h1>{@jcommunity~account.form.delete.account.title@}</h1>
+<h3>{@jcommunity~account.form.delete.account.title@}</h3>
 {if $error}
     <p class="jcommunity-error">
         {@jcommunity~account.form.delete.account.error.$error@}</p>

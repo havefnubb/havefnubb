@@ -1,16 +1,15 @@
 <div class="box">
-    <h3>{@havefnubb~member.registration.account.creation@}</h3>
+    <h3>{@jcommunity~register.form.create.title@}</h3>
     <div class="box-content">
         <div id="post-message">{jmessage}</div>
         {form $form,'jcommunity~registration:save', array()}
         <fieldset>
-            <p>{@havefnubb~member.registration.account.service.description@}</p>
+            <p>{@jcommunity~register.form.create.text.html@}</p>
             <legend>{@havefnubb~main.informations@}</legend>
-            <div>{ctrl_label 'reg_login'} :</div><div>{ctrl_control 'reg_login'}</div>
-            <div>{ctrl_label 'reg_email'} :</div><div>{ctrl_control 'reg_email'}</div>
-            <div>{ctrl_label 'reg_captcha'} :</div><div>{ctrl_control 'reg_captcha'}</div>
-            <p>{@havefnubb~member.registration.account.mail.description@}</p>
-            <div >{formsubmit}</div>
+            {formcontrols}
+            <div>{ctrl_label} :</div><div>{ctrl_control}</div>
+            {/formcontrols}
+            <div >{formsubmit} <a href="{jurl 'jcommunity~login:index'}">{@jcommunity~login.cancel.and.back.to.login@}</a></div>
         </fieldset>
         {/form}
     </div>

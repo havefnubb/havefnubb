@@ -3,8 +3,8 @@
     <h3>{@havefnubb~member.identity@}</h3>
     <div id="box-content">
         <p>{jlocale 'havefnubb~member.login.welcome', array($login)}
-        (<a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">{@havefnubb~member.login.your.account@}</a>,
-        <a href="{jurl 'jcommunity~login:out'}">{@havefnubb~member.login.logout@}</a>)
+        (<a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">{@jcommunity~login.login.account@}</a>,
+        <a href="{jurl 'jcommunity~login:out'}">{@jcommunity~login.logout@}</a>)
         </p>
     </div>
 </div>

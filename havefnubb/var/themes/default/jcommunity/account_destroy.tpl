@@ -1,10 +1,10 @@
-<h3>{@havefnubb~member.destroy.account.header@}</h3>
+<h3>{@jcommunity~account.form.delete.account.title@}</h3>
 
 <form action="{formurl 'jcommunity~account:dodestroy', array('user'=>$username)}" method="post">
 <fieldset><legend>{@jcommunity~account.form.delete.account.confirm.title@}</legend>
 {formurlparam}
 
-<p>{@havefnubb~member.destroy.account.confirm.delete@}</p>
+<p>{jcommunity~account.form.delete.account.confirm@}</p>
 
  <p>
   <label for="conf_password">{@jcommunity~account.form.password@}</label>
@@ -12,7 +12,7 @@
  </p>
 
 <div><input type="submit" value="{@jcommunity~account.form.delete.account.submit@}" />
- <a href="{jurl 'jcommunity~account:show', array('user'=>$username)}">{@havefnubb~member.destroy.account.cancel@}</a>
+ <a href="{jurl 'jcommunity~account:show', array('user'=>$username)}">{@jcommunity~account.form.cancel@}</a>
 </div>
 </fieldset>
 </form>
