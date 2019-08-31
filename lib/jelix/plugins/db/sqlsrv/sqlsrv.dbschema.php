@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
-* @subpackage db
+* @subpackage db_driver
 * @author     Laurent Jouanneau
 * @copyright  2010-2017 Laurent Jouanneau
 *
@@ -49,6 +49,7 @@ class sqlsrvDbTable extends jDbTable{
 			$col=new jDbColumn($name,$type,$length,$hasDefault,$default,$notNull);
 			$col->autoIncrement=$autoIncrement;
 			$typeinfo=$tools->getTypeInfo($type);
+			$col->nativeType=$typeinfo[0];
 			$col->maxValue=$typeinfo[3];
 			$col->minValue=$typeinfo[2];
 			$col->maxLength=$typeinfo[5];

@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
-* @subpackage plugins_cache_memcached
+* @subpackage cache_plugin
 * @author     Tahina Ramaroson
 * @contributor Sylvain de Vathaire
 * @copyright  2009 Neov, 2010 Neov

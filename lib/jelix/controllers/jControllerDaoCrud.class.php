@@ -8,7 +8,7 @@
 * @contributor  Thibault Piront (nuKs)
 * @contributor  Mickael Fradin, Brunto
 * @contributor  Vincent Morel
-* @copyright    2007-2009 Laurent Jouanneau
+* @copyright    2007-2018 Laurent Jouanneau
 * @copyright    2007 Thibault Piront
 * @copyright    2007,2008 Bastien Jaillot
 * @copyright    2009 Mickael Fradin, 2011 Brunto
@@ -25,6 +25,7 @@ class jControllerDaoCrud extends jController{
 	protected $listTemplate='jelix~crud_list';
 	protected $editTemplate='jelix~crud_edit';
 	protected $viewTemplate='jelix~crud_view';
+	protected $viewErrorTemplate='jelix~404.html';
 	protected $listPageSize=20;
 	protected $templateAssign='MAIN';
 	protected $offsetParameterName='offset';
@@ -241,12 +242,23 @@ class jControllerDaoCrud extends jController{
 			return $rep;
 		}
 		$rep=$this->_getResponse();
-		$form=$this->_createForm($id);
-		$form->initFromDao($this->dao,$id,$this->dbProfile);
 		$tpl=new jTpl();
+		$form=$this->_createForm($id);
+		try{
+			$rec=$form->initFromDao($this->dao,$id,$this->dbProfile);
+		}
+		catch(jExceptionForms $e){
+			if($this->viewErrorTemplate){
+				$rep->body->assign($this->templateAssign,$tpl->fetch($this->viewErrorTemplate));
+				$rep->setHttpStatus('404','Not Found');
+				return $rep;
+			}
+			throw $e;
+		}
 		$tpl->assign('id',$id);
 		$tpl->assign('form',$form);
 		$tpl->assign('page',$page);
+		$tpl->assign('record',$rec);
 		$tpl->assign('offsetParameterName',$this->offsetParameterName);
 		$tpl->assign('editAction',$this->_getAction('preupdate'));
 		$tpl->assign('deleteAction',$this->_getAction('delete'));

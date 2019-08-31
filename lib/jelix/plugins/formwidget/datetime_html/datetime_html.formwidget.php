@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  formwidgets
+* @subpackage  forms_widget_plugin
 * @author      Claudio Bernardes
 * @contributor Laurent Jouanneau, Julien Issler, Dominique Papin
 * @copyright   2012 Claudio Bernardes
@@ -12,11 +12,38 @@
 */
 class datetime_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 	public function outputMetaContent($resp){
-		$bp=jApp::urlBasePath();
-		$confDate=&jApp::config()->datepickers;
-		$datepicker_default_config=jApp::config()->forms['datepicker'];
-		$config=isset($this->ctrl->datepickerConfig)? $this->ctrl->datepickerConfig : $datepicker_default_config;
-		$resp->addJSLink($bp.$confDate[$config]);
+		$confDate=&jApp::config()->datetimepickers;
+		if(isset($this->ctrl->datepickerConfig)&&$this->ctrl->datepickerConfig){
+			$config=$this->ctrl->datepickerConfig;
+			if(!isset($confDate[$config])){
+				$confDate=&jApp::config()->datepickers;
+			}
+		}
+		else{
+			$config=jApp::config()->forms['datetimepicker'];
+			if(!isset($confDate[$config])){
+				$confDate=&jApp::config()->datepickers;
+				$config=jApp::config()->forms['datepicker'];
+			}
+		}
+		$resp->addJSLink($confDate[$config]);
+		if(isset($confDate[$config.'.js'])){
+			$js=$confDate[$config.'.js'];
+			foreach($js as $file){
+				$file=str_replace('$lang',jLocale::getCurrentLang(),$file);
+				if(strpos($file,'jquery.ui.datepicker-en.js')!==false){
+					continue;
+				}
+				$resp->addJSLink($file);
+			}
+		}
+		$resp->addJSLink($confDate[$config]);
+		if(isset($confDate[$config.'.css'])){
+			$css=$confDate[$config.'.css'];
+			foreach($css as $file){
+				$resp->addCSSLink($file);
+			}
+		}
 	}
 	protected function outputJs(){
 		$ctrl=$this->ctrl;
@@ -41,7 +68,7 @@ class datetime_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 		$value=$this->getValue();
 		$attr['id']=$this->builder->getName().'_'.$this->ctrl->ref.'_';
 		$v=array('year'=>'','month'=>'','day'=>'','hour'=>'','minutes'=>'','seconds'=>'');
-		if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})? (\d{2})?:(\d{2})?(:(\d{2})?)?$#',$value,$matches)){
+		if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})?(?: |T)(\d{2})?:(\d{2})?(:(\d{2})?)?(?:$|\\s|\\.)#',$value,$matches)){
 			if(isset($matches[1]))
 				$v['year']=$matches[1];
 			if(isset($matches[2]))
@@ -54,6 +81,17 @@ class datetime_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 				$v['minutes']=$matches[5];
 			if(isset($matches[7]))
 				$v['seconds']=$matches[7];
+		}
+		else if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})?($|\\s)#',$value,$matches)){
+			if(isset($matches[1]))
+				$v['year']=$matches[1];
+			if(isset($matches[2]))
+				$v['month']=$matches[2];
+			if(isset($matches[3]))
+				$v['day']=$matches[3];
+			$v['hour']="00";
+			$v['minutes']="00";
+			$v['seconds']="00";
 		}
 		$f=jLocale::get('jelix~format.datetime');
 		for($i=0;$i<strlen($f);$i++){
@@ -72,6 +110,7 @@ class datetime_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 			else
 				echo ' ';
 		}
+		echo "\n";
 		$this->outputJs();
 	}
 	protected function _outputDateControlDay($ctrl,$attr,$value){

@@ -5,7 +5,7 @@
 * @subpackage  forms
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Dominique Papin
-* @copyright   2006-2012 Laurent Jouanneau
+* @copyright   2006-2018 Laurent Jouanneau
 * @copyright   2008-2011 Julien Issler, 2008 Dominique Papin
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -136,7 +136,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 			$ctrls=$this->_form->getControls();
 			echo '<ul id="'.$this->_name.'_errors" class="jforms-error-list">';
 			foreach($errors as $cname=>$err){
-				if(!$this->_form->isActivated($ctrls[$cname]->ref))continue;
+				if(!array_key_exists($cname,$ctrls)||!$this->_form->isActivated($ctrls[$cname]->ref))continue;
 				if($err===jForms::ERRDATA_REQUIRED){
 					if($ctrls[$cname]->alertRequired){
 						echo '<li>',$ctrls[$cname]->alertRequired,'</li>';
@@ -268,12 +268,12 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		}
 		if($ctrl->required){
 			$this->jsContent.="c.required = true;\n";
-			if($ctrl->alertRequired){
-				$this->jsContent.="c.errRequired=".$this->escJsStr($ctrl->alertRequired).";\n";
-			}
-			else{
-				$this->jsContent.="c.errRequired=".$this->escJsStr(jLocale::get('jelix~formserr.js.err.required',$ctrl->label)).";\n";
-			}
+		}
+		if($ctrl->alertRequired){
+			$this->jsContent.="c.errRequired=".$this->escJsStr($ctrl->alertRequired).";\n";
+		}
+		else{
+			$this->jsContent.="c.errRequired=".$this->escJsStr(jLocale::get('jelix~formserr.js.err.required',$ctrl->label)).";\n";
 		}
 		if($ctrl->alertInvalid){
 			$this->jsContent.="c.errInvalid=".$this->escJsStr($ctrl->alertInvalid).";\n";
@@ -472,7 +472,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 	protected function outputDate($ctrl,&$attr){
 		$attr['id']=$this->_name.'_'.$ctrl->ref.'_';
 		$v=array('year'=>'','month'=>'','day'=>'');
-		if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})?$#',$this->_form->getData($ctrl->ref),$matches)){
+		if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})?($|\\s|T)#',$this->_form->getData($ctrl->ref),$matches)){
 			if(isset($matches[1]))
 				$v['year']=$matches[1];
 			if(isset($matches[2]))
@@ -506,7 +506,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 	protected function outputDatetime($ctrl,&$attr){
 		$attr['id']=$this->_name.'_'.$ctrl->ref.'_';
 		$v=array('year'=>'','month'=>'','day'=>'','hour'=>'','minutes'=>'','seconds'=>'');
-		if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})? (\d{2})?:(\d{2})?(:(\d{2})?)?$#',$this->_form->getData($ctrl->ref),$matches)){
+		if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})?(?: |T)(\d{2})?:(\d{2})?(:(\d{2})?)?(?:$|\\s|\\.)#',$this->_form->getData($ctrl->ref),$matches)){
 			if(isset($matches[1]))
 				$v['year']=$matches[1];
 			if(isset($matches[2]))
@@ -519,6 +519,17 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 				$v['minutes']=$matches[5];
 			if(isset($matches[7]))
 				$v['seconds']=$matches[7];
+		}
+		else if(preg_match('#^(\d{4})?-(\d{2})?-(\d{2})?($|\\s)#',$this->_form->getData($ctrl->ref),$matches)){
+			if(isset($matches[1]))
+				$v['year']=$matches[1];
+			if(isset($matches[2]))
+				$v['month']=$matches[2];
+			if(isset($matches[3]))
+				$v['day']=$matches[3];
+			$v['hour']="00";
+			$v['minutes']="00";
+			$v['seconds']="00";
 		}
 		$f=jLocale::get('jelix~format.datetime');
 		for($i=0;$i<strlen($f);$i++){
@@ -835,6 +846,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		echo '<span class="jforms-value"',$hint,'>',htmlspecialchars($attr['value']),'</span>';
 	}
 	protected function jsOutput($ctrl){
+		$this->jsContent.='c=null;';
 	}
 	protected function outputButton($ctrl,&$attr){
 		unset($attr['readonly']);
@@ -845,6 +857,7 @@ class jFormsBuilderHtml extends jFormsBuilderBase{
 		echo '>',htmlspecialchars($ctrl->label),'</button>';
 	}
 	protected function jsButton($ctrl){
+		$this->jsContent.='c=null;';
 	}
 	protected function outputUpload($ctrl,&$attr){
 		$attr['type']='file';

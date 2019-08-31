@@ -1,4 +1,5 @@
-<h1>{@jelix~crud.title.view@}</h1>
+
+<h1>{@jmessenger~message.title.details@}</h1>
 {formdatafull $form}
 
 

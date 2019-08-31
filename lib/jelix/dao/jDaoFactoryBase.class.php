@@ -13,7 +13,7 @@
  * @contributor Yannick Le Guédart
  * @contributor Steven Jehannet, Didier Huguet
  * @contributor Philippe Villiers
- * @copyright   2005-2011 Laurent Jouanneau
+ * @copyright   2005-2018 Laurent Jouanneau
  * @copyright   2007 Loic Mathaud
  * @copyright   2007-2009 Julien Issler
  * @copyright   2008 Thomas
@@ -321,6 +321,10 @@ abstract class jDaoFactoryBase{
 	}
 	protected function finishInitResultSet($rs){
 		$rs->setFetchMode(8,$this->_DaoRecordClassName);
+		$profile=$this->_conn->getProfileName();
+		$rs->addModifier(function($record,$rs)use($profile){
+			$record->setDbProfile($profile);
+		});
 	}
 	protected function _callbackQuote($value){
 		return $this->_conn->quote2($value);

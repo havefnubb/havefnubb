@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  formwidgets
+* @subpackage  forms_widget_plugin
 * @author      Claudio Bernardes
 * @contributor Laurent Jouanneau, Julien Issler, Dominique Papin
 * @copyright   2012 Claudio Bernardes
@@ -12,17 +12,16 @@
 */
 class wikieditor_htmlFormWidget extends \jelix\forms\HtmlWidget\WidgetBase{
 	public function outputMetaContent($resp){
-		$bp=jApp::urlBasePath();
 		$confWikiEditor=&jApp::config()->wikieditors;
 		if(isset($confWikiEditor[$this->ctrl->config.'.engine.file']))
-			$resp->addJSLink($bp.$confWikiEditor[$this->ctrl->config.'.engine.file']);
+			$resp->addJSLink($confWikiEditor[$this->ctrl->config.'.engine.file']);
 		if(isset($confWikiEditor[$this->ctrl->config.'.config.path'])){
-			$p=$bp.$confWikiEditor[$this->ctrl->config.'.config.path'];
+			$p=$confWikiEditor[$this->ctrl->config.'.config.path'];
 			$resp->addJSLink($p.jApp::config()->locale.'.js');
 			$resp->addCSSLink($p.'style.css');
 		}
 		if(isset($confWikiEditor[$this->ctrl->config.'.skin']))
-			$resp->addCSSLink($bp.$confWikiEditor[$this->ctrl->config.'.skin']);
+			$resp->addCSSLink($confWikiEditor[$this->ctrl->config.'.skin']);
 	}
 	protected function outputJs(){
 		$ctrl=$this->ctrl;

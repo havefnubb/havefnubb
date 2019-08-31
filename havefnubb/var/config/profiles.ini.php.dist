@@ -6,7 +6,7 @@ default=havefnubb
 jacl2_profile=havefnubb
 
 [jdb:havefnubb]
-driver=mysql
+driver=mysqli
 database=havefnubb
 host=localhost
 user=havefnubb

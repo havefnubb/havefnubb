@@ -75,6 +75,7 @@ class jInstaller{
 	public $nbNotice=0;
 	public $mainConfig;
 	public $localConfig;
+	public $liveConfig;
 	function __construct($reporter,$lang=''){
 		$this->reporter=$reporter;
 		$this->messages=new jInstallerMessageProvider($lang);
@@ -86,10 +87,15 @@ class jInstaller{
 			copy($localConfigDist,$localConfig);
 			}
 			else{
-			file_put_contents($localConfig,';<'.'?php die(\'\');?'.'>');
+			file_put_contents($localConfig,';<'.'?php die(\'\');?'.'> static local configuration');
 			}
 		}
+		$liveConfig=jApp::configPath('liveconfig.ini.php');
+		if(!file_exists($liveConfig)){
+			file_put_contents($liveConfig,';<'.'?php die(\'\');?'.'> live configuration');
+		}
 		$this->localConfig=new jIniMultiFilesModifier($this->mainConfig,$localConfig);
+		$this->liveConfig=new jIniFileModifier($liveConfig);
 		$this->installerIni=$this->getInstallerIni();
 		$this->readEntryPointData(simplexml_load_file(jApp::appPath('project.xml')));
 		$this->installerIni->save();
@@ -119,6 +125,7 @@ class jInstaller{
 			$configFileList[$configFile]=true;
 			$ep=$this->getEntryPointObject($configFile,$file,$type);
 			$ep->localConfigIni=new jIniMultiFilesModifier($this->localConfig,$ep->getEpConfigIni());
+			$ep->liveConfigIni=$this->liveConfig;
 			$epId=$ep->getEpId();
 			$this->epId[$file]=$epId;
 			$this->entryPoints[$epId]=$ep;
@@ -374,13 +381,19 @@ class jInstaller{
 					}
 					$installedModules[]=array($installer,$component,false);
 				}
-				$ep->configIni->save();
-				$ep->localConfigIni->save();
-				$ep->config=
-					jConfigCompiler::read($ep->configFile,true,
-										$ep->isCliScript,
-										$ep->scriptName);
-				jApp::setConfig($ep->config);
+				if($ep->configIni->isModified()||
+					$ep->localConfigIni->isModified()||
+					$ep->liveConfigIni->isModified()
+				){
+					$ep->configIni->save();
+					$ep->localConfigIni->save();
+					$ep->liveConfigIni->save();
+					$ep->config=
+						jConfigCompiler::read($ep->configFile,true,
+							$ep->isCliScript,
+							$ep->scriptName);
+					jApp::setConfig($ep->config);
+				}
 			}
 		}catch(jInstallerException $e){
 			$result=false;
@@ -408,13 +421,19 @@ class jInstaller{
 						$component->upgradeFinished($ep,$upgrader);
 					}
 				}
-				$ep->configIni->save();
-				$ep->localConfigIni->save();
-				$ep->config=
-					jConfigCompiler::read($ep->configFile,true,
-										$ep->isCliScript,
-										$ep->scriptName);
-				jApp::setConfig($ep->config);
+				if($ep->configIni->isModified()||
+					$ep->localConfigIni->isModified()||
+					$ep->liveConfigIni->isModified()
+				){
+					$ep->configIni->save();
+					$ep->localConfigIni->save();
+					$ep->liveConfigIni->save();
+					$ep->config=
+						jConfigCompiler::read($ep->configFile,true,
+							$ep->isCliScript,
+							$ep->scriptName);
+					jApp::setConfig($ep->config);
+				}
 			}catch(jInstallerException $e){
 				$result=false;
 				$this->error($e->getLocaleKey(),$e->getLocaleParameters());

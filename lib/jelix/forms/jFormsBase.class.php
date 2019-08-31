@@ -127,10 +127,18 @@ abstract class jFormsBase{
 		}
 	}
 	public function initFromDao($daoSelector,$key=null,$dbProfile=''){
-		if($key===null)
-			$key=$this->container->formId;
-		$dao=jDao::create($daoSelector,$dbProfile);
-		$daorec=$dao->get($key);
+		if(is_object($daoSelector)){
+			$daorec=$daoSelector;
+			$daoSelector=$daorec->getSelector();
+			$dao=jDao::get($daoSelector,$dbProfile);
+		}
+		else{
+			$dao=jDao::create($daoSelector,$dbProfile);
+			if($key===null){
+				$key=$this->container->formId;
+			}
+			$daorec=$dao->get($key);
+		}
 		if(!$daorec){
 			if(is_array($key))
 				$key=var_export($key,true);
@@ -353,18 +361,8 @@ abstract class jFormsBase{
 		}
 		if(!isset($this->controls[$controlName])||$this->controls[$controlName]->type!='upload')
 			throw new jExceptionForms('jelix~formserr.invalid.upload.control.name',array($controlName,$this->sel));
-		if(!isset($_FILES[$controlName])||$_FILES[$controlName]['error']!=UPLOAD_ERR_OK)
-			return false;
-		if($this->controls[$controlName]->maxsize&&$_FILES[$controlName]['size'] > $this->controls[$controlName]->maxsize){
-			return false;
-		}
 		jFile::createDir($path);
-		if($alternateName==''){
-			$path.=$_FILES[$controlName]['name'];
-		}else{
-			$path.=$alternateName;
-		}
-		return move_uploaded_file($_FILES[$controlName]['tmp_name'],$path);
+		return $this->controls[$controlName]->saveFile($path,$alternateName);
 	}
 	public function saveAllFiles($path=''){
 		if($path==''){
@@ -372,14 +370,11 @@ abstract class jFormsBase{
 		}else if(substr($path,-1,1)!='/'){
 			$path.='/';
 		}
-		if(count($this->uploads))
+		if(count($this->uploads)){
 			jFile::createDir($path);
+		}
 		foreach($this->uploads as $ref=>$ctrl){
-			if(!isset($_FILES[$ref])||$_FILES[$ref]['error']!=UPLOAD_ERR_OK)
-				continue;
-			if($ctrl->maxsize&&$_FILES[$ref]['size'] > $ctrl->maxsize)
-				continue;
-			move_uploaded_file($_FILES[$ref]['tmp_name'],$path.$_FILES[$ref]['name']);
+			$ctrl->saveFile($path);
 		}
 	}
 	public function addControl($control){

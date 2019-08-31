@@ -4,6 +4,12 @@
       <event name="AuthCanLogin" />
    </listener>
    <listener name="authadmincommunity">
-      <event name="jauthdbAdminPrepareUpdate" />
+      <event name="jauthdbAdminGetViewInfo"/>
+      <event name="jauthdbAdminPrepareUpdate"/>
+      <event name="jauthdbAdminEditUpdate"/>
+      <event name="jauthdbAdminPrepareCreate"/>
+      <event name="jauthdbAdminEditCreate"/>
+      <event name="jauthdbAdminCheckCreateForm"/>
+      <event name="jauthdbAdminAfterCreate"/>
    </listener>
 </events>

@@ -3,7 +3,7 @@
 /**
 * 
 * @package  jelix
-* @subpackage core
+* @subpackage installer
 * @author   Laurent Jouanneau
 * @contributor Bastien Jaillot
 * @copyright 2007-2009 Laurent Jouanneau, 2008 Bastien Jaillot
@@ -76,6 +76,9 @@ class jInstallerMessageProvider{
 		'module.bad.dependency.version'=>'Le module %s necessite une autre version du module %s (%s - %s)',
 		'module.installer.class.not.found'=>'La classe d\'installation %s pour le module %s n\'existe pas',
 		'module.upgrader.class.not.found'=>'La classe de mise à jour %s pour le module %s n\'existe pas',
+		'module.upgrader.missing.version'=>'La version cible est manquante pour le script de mise à jour %s du module %s',
+		'module.missing.version'=>'La version est manquante dans le fichier module.xml du module %s',
+		'installer.ini.missing.version'=>'La version précédente du module %s n\'est pas indiquée dans le fichier installer.ini.php',
 		'install.entrypoint.start'=>'Installation pour le point d\'entrée %s',
 		'install.entrypoint.end'=>'Tous les modules sont installés ou mis à jour pour le point d\'entrée %s',
 		'install.entrypoint.bad.end'=>'Installation interrompue pour cause d\'erreurs pour le point d\'entrée %s',
@@ -152,6 +155,9 @@ class jInstallerMessageProvider{
 		'module.bad.dependency.version'=>'The module %s needs another version of the module %s (%s - %s)',
 		'module.installer.class.not.found'=>'The installation class %s for the module %s doesn\'t exist',
 		'module.upgrader.class.not.found'=>'The upgrade class %s for the module %s doesn\'t exist',
+		'module.upgrader.missing.version'=>'Target version is missing for the upgrade script %s of the module %s',
+		'module.missing.version'=>'Version is missing from the module.xml file of the module %s',
+		'installer.ini.missing.version'=>'The previous version of the module %s is missing from the installer.ini.php file',
 		'install.entrypoint.start'=>'Installation starts for the entry point %s',
 		'install.entrypoint.end'=>'All modules are installed or upgraded for the entry point %s',
 		'install.entrypoint.bad.end'=>'Installation/upgrade is aborted for the entry point %s',

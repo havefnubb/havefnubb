@@ -5,7 +5,7 @@
 * @subpackage auth
 * @author     Laurent Jouanneau
 * @contributor Frédéric Guillot, Antoine Detante, Julien Issler, Dominique Papin, Tahina Ramaroson, Sylvain de Vathaire, Vincent Viaud
-* @copyright  2001-2005 CopixTeam, 2005-2016 Laurent Jouanneau, 2007 Frédéric Guillot, 2007 Antoine Detante
+* @copyright  2001-2005 CopixTeam, 2005-2019 Laurent Jouanneau, 2007 Frédéric Guillot, 2007 Antoine Detante
 * @copyright  2007-2008 Julien Issler, 2008 Dominique Papin, 2010 NEOV, 2010 BP2I
 *
 * This classes were get originally from an experimental branch of the Copix project (Copix 2.3dev, http://www.copix.org)
@@ -23,6 +23,10 @@ interface jIAuthDriver{
 	public function getUserList($pattern);
 	public function changePassword($login,$newpassword);
 	public function verifyPassword($login,$password);
+}
+interface jIAuthDriver2 extends jIAuthDriver
+{
+	public function canChangePassword($login);
 }
 class jAuthDriverBase{
 	protected $_params;
@@ -103,6 +107,9 @@ class jAuth{
 			else{
 				$config=$newconfig;
 			}
+			if(isset(jApp::config()->coordplugin_auth)&&isset(jApp::config()->coordplugin_auth['driver'])){
+				$config['driver']=trim(jApp::config()->coordplugin_auth['driver']);
+			}
 			if(!isset($config['session_name'])
 				||$config['session_name']=='')
 				$config['session_name']='JELIX_USER';
@@ -113,7 +120,7 @@ class jAuth{
 				else
 					$config['persistant_cookie_path']='/';
 			}
-			if(!isset($config['persistant_encryption_key'])){
+			if(!isset($config['persistant_crypt_key'])||$config['persistant_crypt_key']==''){
 				if(isset(jApp::config()->coordplugin_auth)&&isset(jApp::config()->coordplugin_auth['persistant_crypt_key'])){
 					$config['persistant_crypt_key']=trim(jApp::config()->coordplugin_auth['persistant_crypt_key']);
 				}
@@ -165,7 +172,8 @@ class jAuth{
 		if(self::$driver===null){
 			$config=self::loadConfig();
 			$db=strtolower($config['driver']);
-			$driver=jApp::loadPlugin($db,'auth','.auth.php',$config['driver'].'AuthDriver',$config[$config['driver']]);
+			$driver=jApp::loadPlugin($db,'auth','.auth.php',
+				$config['driver'].'AuthDriver',$config[$config['driver']]);
 			if(is_null($driver))
 				throw new jException('jelix~auth.error.driver.notfound',$db);
 			self::$driver=$driver;
@@ -190,14 +198,20 @@ class jAuth{
 	}
 	public static function saveNewUser($user){
 		$dr=self::getDriver();
-		if($dr->saveNewUser($user))
-			jEvent::notify('AuthNewUser',array('user'=>$user));
+		if($dr->saveNewUser($user)){
+			$eventResp=jEvent::notify('AuthNewUser',array('user'=>$user));
+			$allResponses=array();
+			if($eventResp->inResponse('doUpdate',true,$allResponses)){
+				$dr->updateUser($user);
+			}
+		}
 		return $user;
 	}
 	public static function updateUser($user){
 		$dr=self::getDriver();
-		if($dr->updateUser($user)===false)
+		if($dr->updateUser($user)===false){
 			return false;
+		}
 		if(self::isConnected()&&self::getUserSession()->login===$user->login){
 			$config=self::loadConfig();
 			$_SESSION[$config['session_name']]=$user;
@@ -224,10 +238,18 @@ class jAuth{
 		$dr=self::getDriver();
 		return $dr->getUserlist($pattern);
 	}
+	public static function canChangePassword($login){
+		$dr=self::getDriver();
+		if($dr instanceof jIAuthDriver2){
+			return $dr->canChangePassword($login);
+		}
+		return true;
+	}
 	public static function changePassword($login,$newpassword){
 		$dr=self::getDriver();
 		if($dr->changePassword($login,$newpassword)===false)
 			return false;
+		jEvent::notify('AuthChangePassword',array('login'=>$login,'password'=>$newpassword));
 		if(self::isConnected()&&self::getUserSession()->login===$login){
 			$config=self::loadConfig();
 			$_SESSION[$config['session_name']]=self::getUser($login);

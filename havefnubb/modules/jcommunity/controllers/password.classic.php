@@ -1,124 +1,100 @@
 <?php
 /**
-* @package      jcommunity
-* @subpackage
-* @author       Laurent Jouanneau <laurent@xulfr.org>
-* @contributor
-* @copyright    2007-2008 Laurent Jouanneau
-* @link         http://jelix.org
-* @licence      http://www.gnu.org/licenses/gpl.html GNU General Public Licence, see LICENCE file
-*/
+ * @author       Laurent Jouanneau <laurent@xulfr.org>
+ * @contributor
+ *
+ * @copyright    2007-2019 Laurent Jouanneau
+ *
+ * @link         http://jelix.org
+ * @licence      http://www.gnu.org/licenses/gpl.html GNU General Public Licence, see LICENCE file
+ */
 
-include(dirname(__FILE__).'/../classes/defines.php');
-
-class passwordCtrl extends jController {
-
+/**
+ * controller allowing the authenticated user to change his own password
+ */
+class passwordCtrl extends \Jelix\JCommunity\AbstractController
+{
     public $pluginParams = array(
-      '*'=>array('auth.required'=>false)
+        '*' => array('auth.required' => true),
     );
 
+    protected $configMethodCheck = 'isPasswordChangeEnabled';
+    protected $checkIsConnected = false;
+    protected $responseId = 'html';
+
+    protected function _check()
+    {
+        $rep = parent::_check();
+        if ($rep !== null) {
+            return $rep;
+        }
+        $user = jAuth::getUserSession();
+
+        if ($this->param('user') != $user->login) {
+            return $this->noaccess('no_access_wronguser');
+        }
+
+        if (!jAuth::canChangePassword($user->login)) {
+            return $this->notavailable();
+        }
+        return null;
+    }
+
+
     /**
-    * form to retrieve a lost password
-    */
-    function index() {
-        if(jAuth::isConnected())
-            return $this->noaccess();
+     * form to change a password.
+     */
+    public function index()
+    {
+        $repError = $this->_check();
+        if ($repError) {
+            return $repError;
+        }
 
         $rep = $this->getResponse('html');
-        $rep->title = jLocale::get('password.forgotten.password');
-        $rep->body->assignZone('MAIN','password');
-        return $rep;
-    }
-
-    /**
-    * send a new password 
-    */
-    function send() {
-        if(jAuth::isConnected())
-            return $this->noaccess();
-
-        $rep= $this->getResponse("redirect");
-        $rep->action="password:index";
-
-        $form = jForms::fill('password');
-        if(!$form->check()){
-            return $rep;
-        }
-
-        $login = $form->getData('pass_login');
-        $user = jAuth::getUser($login);
-        if(!$user){
-            $form->setErrorOn('pass_login',jLocale::get('password.login.doesnt.exist'));
-            return $rep;
-        }
-
-        if($user->email != $form->getData('pass_email')){
-            $form->setErrorOn('pass_email',jLocale::get('password.email.unknown'));
-            return $rep;
-        }
-
-        $pass = jAuth::getRandomPassword(8);
-        $key = substr(md5($login.'-'.$pass),1,10);
-
-        $user->status = JCOMMUNITY_STATUS_PWD_CHANGED;
-        $user->request_date = date('Y-m-d H:i:s');
-        $user->keyactivate = $key;
-        jAuth::updateUser($user);
-
-        $gJConfig = jApp::config();
-        $mail = new jMailer();
-        $mail->From = $gJConfig->mailer['webmasterEmail'];
-        $mail->FromName = $gJConfig->mailer['webmasterName'];
-        $mail->Sender = $gJConfig->mailer['webmasterEmail'];
-        $mail->Subject = jLocale::get('password.mail.pwd.change.subject');
+        $rep->title = jLocale::get('password.form.change.title');
 
         $tpl = new jTpl();
-        $tpl->assign(compact('login','pass','key'));
-        $tpl->assign('server',$_SERVER['SERVER_NAME']);
-        $mail->Body = $tpl->fetch('mail_password_change', 'text');
 
-        $mail->AddAddress($user->email);
-        //$mail->SMTPDebug = true;
-        $mail->Send();
-
-        jForms::destroy('password');
-        $rep->action="password:confirmform";
-        return $rep;
-    }
-
-    /**
-    * form to enter the confirmation key
-    * to activate the new password
-    */
-    function confirmform() {
-        if(jAuth::isConnected())
-            return $this->noaccess();
-
-        $rep = $this->getResponse('html');
-        $form = jForms::get('confirmation');
-        if($form == null){
-            $form = jForms::create('confirmation');
+        $form = jForms::get('password_change');
+        if ($form == null) {
+            $form = jForms::create('password_change');
         }
-        $tpl = new jTpl();
-        $tpl->assign('form',$form);
-        $rep->body->assign('MAIN',$tpl->fetch('password_confirmation'));
+
+        if (jAuth::getUserSession()->status < \Jelix\JCommunity\Account::STATUS_VALID) {
+            $tpl->assign('error_status', 'badstatus');
+        }
+        else {
+            $tpl->assign('error_status', '');
+        }
+
+        $tpl->assign('form', $form);
+        $tpl->assign('login', jAuth::getUserSession()->login);
+        $rep->body->assign('MAIN', $tpl->fetch('password_change'));
+
         return $rep;
     }
 
     /**
-    * activate a new password. the key should be given as a parameter
-    */
-    function confirm() {
-        if(jAuth::isConnected())
-            return $this->noaccess();
+     * Save a new password after a reset request
+     */
+    public function save()
+    {
+        $repError = $this->_check();
+        if ($repError) {
+            return $repError;
+        }
+        $user = jAuth::getUserSession();
 
-        $rep= $this->getResponse("redirect");
-        $rep->action="password:confirmform";
+        $rep = $this->getResponse('redirect');
+        $rep->action = 'password:index';
+        $rep->params = array('user'=> $user->login);
 
-        if($_SERVER['REQUEST_METHOD'] != 'POST')
+        if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             return $rep;
+        }
 
-        $form = jForms::fill('confirmation');
+        $form = jForms::fill('password_change');
         if ($form == null) {
             return $rep;
         }
@@ -127,61 +103,32 @@ class passwordCtrl extends jController {
             return $rep;
         }
 
-        $login = $form->getData('conf_login');
-        $user = jAuth::getUser($login);
-        if (!$user) {
-            $form->setErrorOn('conf_login',jLocale::get('password.form.confirm.login.doesnt.exist'));
+        if (!jAuth::verifyPassword($user->login, $form->getData('pchg_current_password'))) {
+            $form->setErrorOn('pchg_current_password',
+                jLocale::get('jcommunity~password.form.change.error.badcurrentpwd'));
             return $rep;
         }
 
-        if ($user->status != JCOMMUNITY_STATUS_PWD_CHANGED) {
-            jForms::destroy('confirmation');
-            $rep = $this->getResponse('html');
-            $tpl = new jTpl();
-            $tpl->assign('status',JCOMMUNITY_STATUS_VALID);
-            $rep->body->assign('MAIN',$tpl->fetch('password_ok'));
-            return $rep;
-        }
 
-        if ( strcmp($user->request_date , date('Y-m-d H:i:s', time()-(48*60*60))) < 0 ) {
-            jForms::destroy('confirmation');
-            $rep = $this->getResponse('html');
-            $tpl = new jTpl();
-            $tpl->assign('status',JCOMMUNITY_STATUS_MAIL_CHANGED);
-            $rep->body->assign('MAIN',$tpl->fetch('password_ok'));
-            return $rep;
-        }
+        $newPassword = $form->getData('pchg_password');
+        jForms::destroy('password_change');
+        \jAuth::changePassword($user->login, $newPassword);
 
-        if ($form->getData('conf_key') != $user->keyactivate) {
-            $form->setErrorOn('conf_key',jLocale::get('password.form.confirm.bad.key'));
-            return $rep;
-        }
-
-        $passwd = $form->getData('conf_password');
-        $user->status = JCOMMUNITY_STATUS_VALID;
-        jAuth::updateUser($user);
-        jAuth::changePassword($login, $passwd);
-        jAuth::login($login, $passwd);
-        jForms::destroy('confirmation');
-        $rep->action="password:confirmok";
+        $rep->action = 'password:changed';
         return $rep;
     }
 
     /**
-    * Page which confirm that the account is activated
-    */
-    function confirmok() {
+     * Page which confirm that the password has changed.
+     */
+    public function changed()
+    {
         $rep = $this->getResponse('html');
+        $rep->title = jLocale::get('password.form.change.title');
         $tpl = new jTpl();
-        $tpl->assign('status',JCOMMUNITY_STATUS_NEW);
-        $rep->body->assign('MAIN',$tpl->fetch('password_ok'));
-        return $rep;
-    }
+        $tpl->assign('login', jAuth::getUserSession()->login);
+        $rep->body->assign('MAIN', $tpl->fetch('password_change_ok'));
 
-    protected function noaccess() {
-        $rep = $this->getResponse('html');
-        $tpl = new jTpl();
-        $rep->body->assign('MAIN',$tpl->fetch('no_access'));
         return $rep;
     }
 }

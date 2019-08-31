@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
  * @package     jelix
- * @subpackage  cache
+ * @subpackage  cache_plugin
  * @author      Yannick Le Guédart
  * @contributor Laurent Jouanneau
  * @copyright   2009 Yannick Le Guédart, 2010-2017 Laurent Jouanneau

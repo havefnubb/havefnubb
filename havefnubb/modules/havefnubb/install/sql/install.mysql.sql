@@ -41,19 +41,6 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_forum (
 ) DEFAULT CHARSET=utf8;
 
 
-ALTER TABLE %%PREFIX%%community_users ADD  website varchar(255) DEFAULT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  firstname varchar(40) DEFAULT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  birth date NOT NULL DEFAULT '1980-01-01';
-ALTER TABLE %%PREFIX%%community_users ADD  country varchar(100) DEFAULT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  town varchar(100) DEFAULT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  comment varchar(255) DEFAULT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  avatar varchar(255) DEFAULT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  show_email varchar(1) DEFAULT 'N';
-ALTER TABLE %%PREFIX%%community_users ADD  `language` varchar(40) DEFAULT 'fr_FR';
-ALTER TABLE %%PREFIX%%community_users ADD  nb_msg int(12) DEFAULT '0';
-ALTER TABLE %%PREFIX%%community_users ADD  last_post int(12) NOT NULL DEFAULT '0';
-ALTER TABLE %%PREFIX%%community_users ADD  gravatar INT( 1 ) NOT NULL DEFAULT '0';
-
 CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_member_custom_fields (
   id_user int(11) NOT NULL,
   type varchar(30) NOT NULL,

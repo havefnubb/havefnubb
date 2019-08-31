@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
-* @subpackage plugins_cache_db
+* @subpackage cache_plugin
 * @author     Tahina Ramaroson
 * @contributor Sylvain de Vathaire, Laurent Jouanneau
 * @copyright  2009 Neov, 2009-2017 Laurent Jouanneau

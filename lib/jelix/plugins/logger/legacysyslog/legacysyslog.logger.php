@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package    jelix
-* @subpackage core
+* @subpackage logger_plugin
 * @author     Laurent Jouanneau
 * @copyright  2006-2016 Laurent Jouanneau
 * @link       http://www.jelix.org

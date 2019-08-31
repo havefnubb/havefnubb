@@ -1,5 +1,7 @@
 <div class="box">
-    <h5 id="user" class="user-image"><a href="{jurl 'jcommunity~account:edit' , array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a> - <a class="user-private-message user-image" href="{jurl 'havefnubb~members:mail'}" >{@havefnubb~member.internal.messenger@}</a> > <span class="user-edit-password user-image">{@havefnubb~member.pwd.change.of.password@}</span></h5>
+    <h5 id="user" class="user-image"><a href="{jurl 'jcommunity~account:edit' , array('user'=>$login)}">{@havefnubb~member.edit.account.header@}</a>
+        - <a class="user-private-message user-image" href="{jurl 'havefnubb~members:mail'}" >{@havefnubb~member.internal.messenger@}</a>
+        &gt; <span class="user-edit-password user-image">{@havefnubb~member.pwd.change.of.password@}</span></h5>
     <div class="box-content">
 {form $form,'havefnubb~members:savenewpwd', array('user'=>$login)}
     <fieldset>

@@ -18,6 +18,7 @@ final class jResponseBinary  extends jResponse{
 	public $content=null;
 	public $doDownload=true;
 	public $mimeType='application/octet-stream';
+	public $deleteFileAfterSending=false;
 	public function output(){
 		if($this->_outputOnlyHeaders){
 			$this->sendHttpHeaders();
@@ -36,9 +37,15 @@ final class jResponseBinary  extends jResponse{
 			if(is_readable($this->fileName)&&is_file($this->fileName)){
 				$this->_httpHeaders['Content-Length']=filesize($this->fileName);
 				$this->sendHttpHeaders();
+				if($this->deleteFileAfterSending){
+					ignore_user_abort(true);
+				}
 				session_write_close();
 				readfile($this->fileName);
 				flush();
+				if($this->deleteFileAfterSending){
+					unlink($this->fileName);
+				}
 			}
 			else{
 				throw new jException('jelix~errors.repbin.unknown.file',$this->fileName);

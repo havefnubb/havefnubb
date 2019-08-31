@@ -1,23 +1,23 @@
 <?php
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
-* @package    jelix
-* @subpackage utils
-* @author      Bastien Jaillot
-* @contributor Dominique Papin, Lepeltier kévin (the author of the original plugin)
-* @contributor geekbay, Brunto, Laurent Jouanneau
-* @copyright   2007-2008 Lepeltier kévin, 2008 Dominique Papin, 2008 Bastien Jaillot, 2009 geekbay, 2010 Brunto, 2011-2012 Laurent Jouanneau
-* @link       http://www.jelix.org
-* @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
-*/
+ * @package    jelix
+ * @subpackage utils
+ * @author      Bastien Jaillot
+ * @contributor Dominique Papin, Lepeltier kévin (the author of the original plugin)
+ * @contributor geekbay, Brunto, Laurent Jouanneau
+ * @copyright   2007-2008 Lepeltier kévin, 2008 Dominique Papin, 2008 Bastien Jaillot, 2009 geekbay, 2010 Brunto, 2011-2018 Laurent Jouanneau
+ * @link       http://www.jelix.org
+ * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
+ */
 class jImageModifier{
 	static protected $transformParams=array('width','height','maxwidth','maxheight','zoom','alignh',
-											'alignv','ext','quality','shadow','scolor','sopacity','sblur',
-											'soffset','sangle','background','omo');
+		'alignv','ext','quality','shadow','scolor','sopacity','sblur',
+		'soffset','sangle','background','omo');
 	static protected $attributeParams=array('alt','class','id','style','longdesc','name','ismap','usemap',
-											'title','dir','lang','onclick','ondblclick','onmousedown',
-											'onmouseup','onmouseover','onmousemove','onmouseout','onkeypress',
-											'onkeydown','onkeyup','width','height');
+		'title','dir','lang','onclick','ondblclick','onmousedown',
+		'onmouseup','onmouseover','onmousemove','onmouseout','onkeypress',
+		'onkeydown','onkeyup','width','height');
 	static function get($src,$params=array(),$sendCachePath=true,$config=null){
 		$basePath=jApp::urlBasePath();
 		if(strpos($src,$basePath)===0){
@@ -34,6 +34,7 @@ class jImageModifier{
 		}else{
 			$ext=strtolower($params['ext']);
 		}
+		$att=array();
 		$chaine=$src;
 		foreach($params as $key=>$value){
 			if(in_array($key,jImageModifier::$transformParams)){
@@ -44,7 +45,7 @@ class jImageModifier{
 			}
 		}
 		$cacheName=md5($chaine).'.'.$ext;
-		list($srcPath,$srcUri,$cachePath,$cacheUri)=self::computeUrlFilePath($config);
+		list($srcPath,$srcUri,$cachePath,$cacheUri)=self::computeUrlFilePath($config,$src);
 		$pendingTransforms=($chaine!==$src);
 		if($pendingTransforms&&is_file($srcPath.$src)&&!is_file($cachePath.$cacheName)){
 			self::transformImage($srcPath.$src,$cachePath,$cacheName,$params);
@@ -59,18 +60,20 @@ class jImageModifier{
 		}else{
 			$att['src']=$cacheUri.$cacheName;
 		}
-		if($sendCachePath)
-			$att['cache_path']=$cachePath.$cacheName;
+		if($sendCachePath){
+			$att['cache_path']=$cachePath . $cacheName;
+		}
 		return $att;
 	}
-	static public function computeUrlFilePath($config=null){
+	static public function computeUrlFilePath($config=null,$src=null){
 		$basePath=jApp::urlBasePath();
 		if(!$config)
 			$config=& jApp::config()->imagemodifier;
 		if($config['src_url']&&$config['src_path']){
 			$srcUri=$config['src_url'];
-			if($srcUri[0]!='/'&&strpos($srcUri,'http:')!==0)
-				$srcUri=$basePath.$srcUri;
+			if($srcUri[0]!='/'&&!preg_match("/^https?\\:\\/\\/$/",$srcUri)){
+				$srcUri=$basePath . $srcUri;
+			}
 			$srcPath=jFile::parseJelixPath($config['src_path']);
 		}
 		else{
@@ -79,19 +82,24 @@ class jImageModifier{
 		}
 		if($config['cache_path']&&$config['cache_url']){
 			$cacheUri=$config['cache_url'];
-			if($cacheUri[0]!='/'&&strpos($cacheUri,'http:')!==0)
-				$cacheUri=$basePath.$cacheUri;
+			if($cacheUri[0]!='/'&&!preg_match("/^https?\\:\\/\\/$/",$cacheUri)){
+				$cacheUri=$basePath . $cacheUri;
+			}
 			$cachePath=jFile::parseJelixPath($config['cache_path']);
 		}
 		else{
 			$cachePath=jApp::wwwPath('cache/images/');
 			$cacheUri=jApp::coord()->request->getServerURI().$basePath.'cache/images/';
 		}
+		if($src&&(!isset($config['use_old_cache_path'])||!$config['use_old_cache_path'])){
+			$cachePath.=$src.'.cache/';
+			$cacheUri.=$src.'.cache/';
+		}
 		return array($srcPath,$srcUri,$cachePath,$cacheUri);
 	}
 	static protected $mimes=array('gif'=>'image/gif','png'=>'image/png',
-						'jpeg'=>'image/jpeg','jpg'=>'image/jpeg','jpe'=>'image/jpeg',
-						'xpm'=>'image/x-xpixmap','xbm'=>'image/x-xbitmap','wbmp'=>'image/vnd.wap.wbmp');
+		'jpeg'=>'image/jpeg','jpg'=>'image/jpeg','jpe'=>'image/jpeg',
+		'xpm'=>'image/x-xpixmap','xbm'=>'image/x-xbitmap','wbmp'=>'image/vnd.wap.wbmp');
 	static public function transformImage($srcFs,$targetPath,$targetName,$params){
 		$path_parts=pathinfo($srcFs);
 		$mimeType=self::$mimes[strtolower($path_parts['extension'])];
@@ -103,7 +111,10 @@ class jImageModifier{
 			case 'image/vnd.wap.wbmp'	: $image=imagecreatefromwbmp($srcFs);break;
 			case 'image/image/x-xbitmap' : $image=imagecreatefromxbm($srcFs);break;
 			case 'image/x-xpixmap'		: $image=imagecreatefromxpm($srcFs);break;
-			default					: return;
+			default					: return false;
+		}
+		if($image===false){
+			return false;
 		}
 		if(!empty($params['maxwidth'])&&!empty($params['maxheight'])){
 			$origWidth=imagesx($image);
@@ -181,13 +192,14 @@ class jImageModifier{
 			imagecopy($fond,$image,0,0,0,0,imagesx($image),imagesy($image));
 			$image=$fond;
 		}
-		jFile::createDir($targetPath);
+		$filename=$targetPath.$targetName;
+		jFile::createDir(dirname($filename));
 		switch($mimeType){
-			case 'image/gif'  : imagegif($image,$targetPath.$targetName);break;
-			case 'image/jpeg' : imagejpeg($image,$targetPath.$targetName,$quality);break;
-			default			: imagepng($image,$targetPath.$targetName);
+			case 'image/gif'  : imagegif($image,$filename);break;
+			case 'image/jpeg' : imagejpeg($image,$filename,$quality);break;
+			default			: imagepng($image,$filename);
 		}
-		chmod($targetPath.$targetName,jApp::config()->chmodFile);
+		chmod($filename,jApp::config()->chmodFile);
 		@imagedestroy($image);
 	}
 	static protected function createShadow($image,$params){
@@ -205,35 +217,38 @@ class jImageModifier{
 			for($x=0;$x<3;$x++)
 				$rgb[$x]=hexdec(substr($color,(2*$x),1));
 		$coeffs=array(array(1),
-						array(1,1),
-						array(1,2,1),
-						array(1,3,3,1),
-						array(1,4,6,4,1),
-						array(1,5,10,10,5,1),
-						array(1,6,15,20,15,6,1),
-						array(1,7,21,35,35,21,7,1),
-						array(1,8,28,56,70,56,28,8,1),
-						array(1,9,36,84,126,126,84,36,9,1),
-						array(1,10,45,120,210,252,210,120,45,10,1),
-						array(1,11,55,165,330,462,462,330,165,55,11,1));
+			array(1,1),
+			array(1,2,1),
+			array(1,3,3,1),
+			array(1,4,6,4,1),
+			array(1,5,10,10,5,1),
+			array(1,6,15,20,15,6,1),
+			array(1,7,21,35,35,21,7,1),
+			array(1,8,28,56,70,56,28,8,1),
+			array(1,9,36,84,126,126,84,36,9,1),
+			array(1,10,45,120,210,252,210,120,45,10,1),
+			array(1,11,55,165,330,462,462,330,165,55,11,1));
 		$sum=pow(2,$flou);
 		$demi=$flou/2;
 		$temp1=imagecreatetruecolor(imagesx($image)+$flou,imagesy($image)+$flou);
 		imagesavealpha($temp1,true);
 		$tp=imagecolorallocatealpha($temp1,0,0,0,127);
 		imagefill($temp1,0,0,$tp);
-		for($i=0;$i < imagesx($temp1);$i++)
-		for($j=0;$j < imagesy($temp1);$j++){
-			$ig=$i-$demi;$jg=$j-$demi;$suma=0;
-			for($k=0;$k<=$flou;$k++){
-				$ik=$ig-$demi+$k;
-				if($jg<0||$jg>imagesy($temp1)-$flou-1)$alpha=127;
-				else if($ik<0||$ik>imagesx($temp1)-$flou-1)$alpha=127;
-				else $alpha=(imagecolorat($image,$ik,$jg)& 0x7F000000)>>24;
-				$suma+=$alpha*$coeffs[$flou][$k];
+		for($i=0;$i < imagesx($temp1);$i++){
+			for($j=0;$j < imagesy($temp1);$j++){
+				$ig=$i - $demi;
+				$jg=$j - $demi;
+				$suma=0;
+				for($k=0;$k<=$flou;$k++){
+					$ik=$ig - $demi + $k;
+					if($jg < 0||$jg > imagesy($temp1)- $flou - 1)$alpha=127;
+					else if($ik < 0||$ik > imagesx($temp1)- $flou - 1)$alpha=127;
+					else $alpha=(imagecolorat($image,$ik,$jg)& 0x7F000000)>>24;
+					$suma+=$alpha * $coeffs[$flou][$k];
+				}
+				$c=imagecolorallocatealpha($temp1,0,0,0,$suma / $sum);
+				imagesetpixel($temp1,$i,$j,$c);
 			}
-			$c=imagecolorallocatealpha($temp1,0,0,0,$suma/$sum);
-			imagesetpixel($temp1,$i,$j,$c);
 		}
 		$x=cos(deg2rad($angle))*$leng;
 		$y=sin(deg2rad($angle))*$leng;
@@ -243,18 +258,19 @@ class jImageModifier{
 		imagefill($temp2,0,0,$tp);
 		$x1=$x<0?0:$x;
 		$y1=$y<0?0:$y;
-		for($i=0;$i < imagesx($temp1);$i++)
-		for($j=0;$j < imagesy($temp1);$j++){
-			$suma=0;
-			for($k=0;$k<=$flou;$k++){
-				$jk=$j-$demi+$k;
-				if($jk<0||$jk>imagesy($temp1)-1)$alpha=127;
-				else $alpha=(imagecolorat($temp1,$i,$jk)& 0x7F000000)>>24;
-				$suma+=$alpha*$coeffs[$flou][$k];
+		for($i=0;$i < imagesx($temp1);$i++){
+			for($j=0;$j < imagesy($temp1);$j++){
+				$suma=0;
+				for($k=0;$k<=$flou;$k++){
+					$jk=$j - $demi + $k;
+					if($jk < 0||$jk > imagesy($temp1)- 1)$alpha=127;
+					else $alpha=(imagecolorat($temp1,$i,$jk)& 0x7F000000)>>24;
+					$suma+=$alpha * $coeffs[$flou][$k];
+				}
+				$alpha=127 -((127 -($suma / $sum))/(100 / $opac));
+				$c=imagecolorallocatealpha($temp2,$rgb[0],$rgb[1],$rgb[2],$alpha < 0 ? 0 : $alpha > 127 ? 127 : $alpha);
+				imagesetpixel($temp2,$i + $x1,$j + $y1,$c);
 			}
-			$alpha=127-((127-($suma/$sum))/(100/$opac));
-			$c=imagecolorallocatealpha($temp2,$rgb[0],$rgb[1],$rgb[2],$alpha < 0 ? 0 : $alpha > 127 ? 127 : $alpha);
-			imagesetpixel($temp2,$i+$x1,$j+$y1,$c);
 		}
 		imagedestroy($temp1);
 		$x=$x>0?0:$x;

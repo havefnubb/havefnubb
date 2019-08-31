@@ -3,6 +3,7 @@ Thumbs.db
 havefnubb/var/config/installer.ini.php
 havefnubb/var/config/profiles.ini.php
 havefnubb/var/config/localconfig.ini.php
+havefnubb/var/config/liveconfig.ini.php
 havefnubb/var/config/activeusers.coord.ini.php
 havefnubb/var/log
 temp/havefnubb/*

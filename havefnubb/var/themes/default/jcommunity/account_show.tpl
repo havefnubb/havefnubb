@@ -13,7 +13,9 @@ $(document).ready(function(){
 {hook 'hfbAccountShowBefore',array($user->login)}
 <div id="post-message">{jmessage}</div>
 <div class="box">
-    <h3>{if $himself}<a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}</a>{else}{jlocale 'havefnubb~member.memberlist.profile.of', array($user->login)}{/if}</h3>
+    <h3>{if $himself}
+            <a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'jcommunity~account.profile.of', array($user->login)}</a>
+        {else}{jlocale 'jcommunity~account.profile.of', array($user->login)}{/if}</h3>
     <div class="box-content">
         <div id="user-profile-avatar">
         {if $user->member_gravatar == 1}
@@ -128,7 +130,7 @@ $(document).ready(function(){
                         <label><strong>{@havefnubb~member.common.registered.since@}</strong></label>
                     </div>
                     <div class="form_value">
-                        {$user->member_created|jdatetime}
+                        {$user->create_date|jdatetime}
                     </div>
                 </div>
                 <div class="form_row">
@@ -163,9 +165,12 @@ $(document).ready(function(){
         </div> <!-- #container -->
     </div>
     <div class="buttons-bar">
-        {if $himself}
-        <a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@havefnubb~member.account.show.edit.your.profile@}</a>
-        {/if}
+        {if $changeAllowed}<a href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{@jcommunity~account.link.profile.edit@}</a>{/if}
+        {if $passwordChangeAllowed}<a href="{jurl 'jcommunity~password:index', array('user'=>$user->login)}">{@jcommunity~account.link.account.change.password@}</a>{/if}
+        {if $destroyAllowed}<a href="{jurl 'jcommunity~account:destroy', array('user'=>$user->login)}">{@jcommunity~account.link.account.delete@}</a>{/if}
+        {foreach $otherPrivateActions as $link=>$label}
+            <a href="{$link}">{$label|eschtml}</a>
+        {/foreach}
     </div>
     </div>
     {hook 'hfbAccountShowBefore',array($user->login)}

@@ -37,6 +37,9 @@ class jConfigCompiler{
 			if(false===@jelix_read_ini($configPath.$configFile,$config))
 				throw new Exception("Syntax error in the configuration file -- $configFile",6);
 		}
+		if(file_exists($configPath.'liveconfig.ini.php')){
+			@jelix_read_ini($configPath.'liveconfig.ini.php',$config);
+		}
 		self::prepareConfig($config,$allModuleInfo,$isCli,$pseudoScriptName);
 		self::$commonConfig=null;
 		return $config;
@@ -394,9 +397,11 @@ class jConfigCompiler{
 			if($urlconf['jelixWWWPath'][0]!='/'){
 				$urlconf['jelixWWWPath']=$basepath.$urlconf['jelixWWWPath'];
 			}
+			$urlconf['jelixWWWPath']=rtrim($urlconf['jelixWWWPath'],'/').'/';
 			if($urlconf['jqueryPath'][0]!='/'){
-				$urlconf['jqueryPath']=$basepath.$urlconf['jqueryPath'];
+				$urlconf['jqueryPath']=$basepath.rtrim($urlconf['jqueryPath'],'/').'/';
 			}
+			$urlconf['jqueryPath']=rtrim($urlconf['jqueryPath'],'/').'/';
 			$snp=substr($urlconf['urlScript'],strlen($localBasePath));
 			if($localBasePath=='/')
 				$urlconf['documentRoot']=jApp::wwwPath();

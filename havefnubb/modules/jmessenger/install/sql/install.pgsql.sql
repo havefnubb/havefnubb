@@ -8,11 +8,8 @@ CREATE TABLE %%PREFIX%%jmessenger (
     "isSeen" smallint NOT NULL,
     "isArchived" smallint NOT NULL,
     "isReceived" smallint NOT NULL,
-    "isSend" smallint NOT NULL
+    "isSend" smallint NOT NULL,
+    CONSTRAINT jmessenger_pkey PRIMARY KEY (id)
 );
-SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('%%PREFIX%%jmessenger', 'id'), 1, false);
 
 
-
-ALTER TABLE ONLY %%PREFIX%%jmessenger
-    ADD CONSTRAINT %%PREFIX%%jmessenger_pkey PRIMARY KEY (id);

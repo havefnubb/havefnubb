@@ -4,11 +4,11 @@
  * @package     jelix
  * @subpackage  dao
  * @author      Laurent Jouanneau
- * @copyright   2017 Laurent Jouanneau
+ * @copyright   2017-2018 Laurent Jouanneau
  * @link        http://www.jelix.org
  * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
-require(__DIR__.'/jDaoParser.class.php');
+require_once(__DIR__.'/jDaoParser.class.php');
 class jDaoDbMapper
 {
 	protected $connection;
@@ -91,17 +91,26 @@ class jDaoDbMapper
 		return $parser;
 	}
 	protected function createColumnFromProperty(jDaoProperty $property){
-		$hasDefault=$property->defaultValue!==null||!$property->required;
+		if($property->autoIncrement){
+			$hasDefault=true;
+			$default='';
+			$notNull=true;
+		}
+		else{
+			$hasDefault=$property->defaultValue!==null||!$property->required;
+			$default=$hasDefault?$property->defaultValue: null;
+			$notNull=$property->required;
+		}
 		$column=new jDbColumn(
 			$property->fieldName,
 			$property->datatype,
 			0,
 			$hasDefault,
-			$hasDefault?$property->defaultValue: null,
-			$property->required
+			$default,
+			$notNull
 		);
 		$column->autoIncrement=$property->autoIncrement;
-		$column->sequence=$property->sequenceName;
+		$column->sequence=$property->sequenceName ? $property->sequenceName: false;
 		if($property->maxlength!==null){
 			$column->maxLength=$column->length=$property->maxlength;
 		}

@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  formwidgets
+* @subpackage  forms_widget_plugin
 * @author      Laurent Jouanneau
 * @copyright   2017 Laurent Jouanneau
 * @link        http://www.jelix.org
@@ -13,6 +13,7 @@ class recaptcha_htmlFormWidget extends  \jelix\forms\HtmlWidget\WidgetBase{
 		$resp->addJSLink("https://www.google.com/recaptcha/api.js",array("async"=>"async","defer"=>"defer"));
 	}
 	protected function outputJs(){
+		$this->parentWidget->addJs('c=null;');
 	}
 	function outputControl(){
 		$attr=$this->getControlAttributes();

@@ -60,6 +60,9 @@ abstract class jDbConnection{
 			$this->_disconnect();
 		}
 	}
+	public function getProfileName(){
+		return $this->profile['_name'];
+	}
 	public function query($queryString,$fetchmode=self::FETCH_OBJ,$arg1=null,$ctoargs=null){
 		$this->lastQuery=$queryString;
 		if($this->_debugMode){
@@ -270,17 +273,18 @@ abstract class jDbResultSet implements Iterator{
 	}
 	public function fetch(){
 		$result=$this->_fetch();
-		if(!$result)
+		if(!$result){
 			return $result;
-		if(count($this->modifier)){
-			foreach($this->modifier as $m)
-				call_user_func_array($m,array($result,$this));
 		}
-		if($this->_fetchMode==jDbConnection::FETCH_OBJ)
+		if($this->_fetchMode==jDbConnection::FETCH_OBJ){
+			$this->applyModifiers($result);
 			return $result;
+		}
 		if($this->_fetchMode==jDbConnection::FETCH_CLASS){
-			if($result instanceof $this->_fetchModeParam)
+			if($result instanceof $this->_fetchModeParam){
+				$this->applyModifiers($result);
 				return $result;
+			}
 			$values=get_object_vars($result);
 			$o=$this->_fetchModeParam;
 			$result=new $o();
@@ -295,7 +299,15 @@ abstract class jDbResultSet implements Iterator{
 				$result->$k=$value;
 			}
 		}
+		$this->applyModifiers($result);
 		return $result;
+	}
+	protected function applyModifiers($result){
+		if(count($this->modifier)){
+			foreach($this->modifier as $m){
+				call_user_func_array($m,array($result,$this));
+			}
+		}
 	}
 	public function fetchAll(){
 		$result=array();

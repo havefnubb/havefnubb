@@ -25,10 +25,10 @@ class jmessenger {
                 $libelle = jLocale::get("jmessenger~message.count0");
                 break;
             case 1:
-                $libelle = "<strong>".jLocale::get("jmessenger~message.count1")."</strong>";
+                $libelle = jLocale::get("jmessenger~message.count1");
                 break;
             default:
-                $libelle = "<strong>".jLocale::get("jmessenger~message.countmore", array($nb))."</strong>";
+                $libelle = jLocale::get("jmessenger~message.countmore", array($nb));
                 break;
         }
         return $libelle;

@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  utils
+* @subpackage  feeds
 * @author      Yannick Le Guédart
 * @contributor Laurent Jouanneau
 * @contributor  Sebastien Romieu

@@ -5,18 +5,23 @@
 * @subpackage  forms
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Dominique Papin, Claudio Bernardes
-* @copyright   2006-2012 Laurent Jouanneau
+* @copyright   2006-2018 Laurent Jouanneau
 * @copyright   2008-2016 Julien Issler, 2008 Dominique Papin, 2012 Claudio Bernardes
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 namespace jelix\forms\Builder;
 use \jelix\forms\HtmlWidget\ParentWidgetInterface;
+use \jelix\forms\HtmlWidget\WidgetBase;
 class HtmlBuilder extends BuilderBase{
 	protected $formType='html';
 	protected $formConfig='jforms_builder_html';
 	protected $jFormsJsVarName='jForms';
+	protected $defaultPluginsConf=array(
+	);
 	protected $pluginsConf=array();
+	protected $htmlFormAttributes=array();
+	protected $htmlWidgetsAttributes=array();
 	protected $rootWidget;
 	public function __construct($form){
 		parent::__construct($form);
@@ -34,8 +39,18 @@ class HtmlBuilder extends BuilderBase{
 			throw new \Exception('Unknown root widget plugin '.$pluginName);
 	}
 	public function setOptions($options){
-		$this->options=array_merge(array('errorDecorator'=>$this->jFormsJsVarName.'ErrorDecoratorHtml',
-			'method'=>'post'),$options);
+		if(\jApp::config()->tplplugins['defaultJformsErrorDecorator']){
+			$errorDecorator=\jApp::config()->tplplugins['defaultJformsErrorDecorator'];
+		}
+		else{
+			$errorDecorator=$this->jFormsJsVarName.'ErrorDecoratorHtml';
+		}
+		$this->options=array_merge(
+			array(
+				'errorDecorator'=>$errorDecorator,
+				'method'=>'post'
+			),
+			$options);
 		if(isset($this->options['plugins'])){
 			$this->pluginsConf=$this->options['plugins'];
 			unset($this->options['plugins']);
@@ -91,10 +106,11 @@ class HtmlBuilder extends BuilderBase{
 		}
 	}
 	public function outputHeader(){
-		if(isset($this->options['attributes']))
-			$attrs=$this->options['attributes'];
-		else
-			$attrs=array();
+		if(isset($this->options['attributes'])){
+			$attrs=array_merge($this->htmlFormAttributes,$this->options['attributes']);
+		}else{
+			$attrs=$this->htmlFormAttributes;
+		}
 		echo '<form';
 		if(preg_match('#^https?://#',$this->_action)){
 			$urlParams=$this->_actionParams;
@@ -134,7 +150,7 @@ class HtmlBuilder extends BuilderBase{
 			$ctrls=$this->_form->getControls();
 			echo '<ul id="' . $this->_name . '_errors" class="jforms-error-list">';
 			foreach($errors as $cname=>$err){
-				if(!$this->_form->isActivated($ctrls[$cname]->ref))continue;
+				if(!array_key_exists($cname,$ctrls)||!$this->_form->isActivated($ctrls[$cname]->ref))continue;
 				if($err===\jForms::ERRDATA_REQUIRED){
 					if($ctrls[$cname]->alertRequired){
 						echo '<li>',$ctrls[$cname]->alertRequired,'</li>';
@@ -176,6 +192,9 @@ class HtmlBuilder extends BuilderBase{
 		elseif(isset($config[$ctrl->type])){
 			$pluginName=$config[$ctrl->type];
 		}
+		elseif(isset($this->defaultPluginsConf[$ctrl->type])){
+			$pluginName=$this->defaultPluginsConf[$ctrl->type];
+		}
 		else{
 			$pluginName=$ctrl->getWidgetType(). '_'. $this->formType;
 		}
@@ -184,6 +203,9 @@ class HtmlBuilder extends BuilderBase{
 		if(!$plugin)
 			throw new \Exception('Widget '.$pluginName.' not found');
 		$this->widgets[$ctrl->ref]=$plugin;
+		if(isset($this->htmlWidgetsAttributes[$ctrl->getWidgetType()])){
+			$plugin->setDefaultAttributes($this->htmlWidgetsAttributes[$ctrl->getWidgetType()]);
+		}
 		return $plugin;
 	}
 	public function outputControlLabel($ctrl,$format='',$editMode=true){
@@ -203,6 +225,13 @@ class HtmlBuilder extends BuilderBase{
 		$widget=$this->getWidget($ctrl,$this->rootWidget);
 		$widget->setAttributes($attributes);
 		$widget->outputControlValue();
+	}
+	public function outputControlHelp($ctrl){
+		if(!$ctrl->help){
+			return;
+		}
+		$widget=$this->getWidget($ctrl,$this->rootWidget);
+		echo '<span class="jforms-help" id="'.$widget->getId().'-help">&nbsp;<span>'.htmlspecialchars($ctrl->help).'</span></span>';
 	}
 	protected function _outputAttr(&$attributes){
 		foreach($attributes as $name=>$val){

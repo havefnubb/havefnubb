@@ -13,6 +13,7 @@ class jInstallerEntryPoint{
 	public $configFile;
 	public $configIni;
 	public $localConfigIni;
+	public $liveConfigIni;
 	protected $epConfigIni;
 	public $isCliScript;
 	public $scriptName;

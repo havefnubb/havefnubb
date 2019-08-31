@@ -5,7 +5,7 @@
 * @subpackage db
 * @author     Laurent Jouanneau
 * @contributor Aurélien Marcel
-* @copyright  2017 Laurent Jouanneau, 2011 Aurélien Marcel
+* @copyright  2017-2018 Laurent Jouanneau, 2011 Aurélien Marcel
 *
 * @link        http://jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -32,7 +32,6 @@ abstract class jDbSchema{
 		return $this->tables[$name];
 	}
 	function getTable($name){
-		$name=$this->conn->prefixTable($name);
 		if($this->tables===null){
 			$this->tables=$this->_getTables();
 		}
@@ -53,16 +52,16 @@ abstract class jDbSchema{
 			$this->tables=$this->_getTables();
 		}
 		if(is_string($table)){
-			$prefixedName=$this->conn->prefixTable($table);
-			$name=$prefixedName;
+			$name=$this->conn->prefixTable($table);
+			$unprefixedName=$table;
 		}
 		else{
 			$name=$table->getName();
-			$prefixedName=$this->conn->unprefixTable($name);
+			$unprefixedName=$this->conn->unprefixTable($name);
 		}
-		if(isset($this->tables[$prefixedName])){
+		if(isset($this->tables[$unprefixedName])){
 			$this->_dropTable($name);
-			unset($this->tables[$prefixedName]);
+			unset($this->tables[$unprefixedName]);
 		}
 	}
 	public function renameTable($oldName,$newName){
@@ -89,10 +88,14 @@ abstract class jDbSchema{
 		if(is_string($primaryKey)){
 			$primaryKey=array($primaryKey);
 		}
+		$autoIncrementUniqueKey=null;
 		foreach($columns as $col){
 			$isPk=(in_array($col->name,$primaryKey));
 			$isSinglePk=$isPk&&(count($primaryKey)==1);
 			$cols[]=$this->_prepareSqlColumn($col,$isPk,$isSinglePk);
+			if($col->autoIncrement&&!$isPk){
+				$autoIncrementUniqueKey=$col;
+			}
 		}
 		if(isset($attributes['temporary'])&&$attributes['temporary']){
 			$sql='CREATE TEMPORARY TABLE ';
@@ -108,6 +111,10 @@ abstract class jDbSchema{
 				$pkEsc[]=$this->conn->encloseName($k);
 			}
 			$sql.=', CONSTRAINT '.$pkName.' PRIMARY KEY ('.implode(',',$pkEsc).')';
+		}
+		if($autoIncrementUniqueKey){
+			$ukName=$this->conn->encloseName($name.'_'.$autoIncrementUniqueKey->name.'_ukey');
+			$sql.=', CONSTRAINT '.$ukName.' UNIQUE ('.$this->conn->encloseName($autoIncrementUniqueKey->name).')';
 		}
 		$sql.=')';
 		return $sql;

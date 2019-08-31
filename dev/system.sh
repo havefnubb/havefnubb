@@ -34,7 +34,7 @@ function initsystem () {
         apt-get install -y dirmngr
     fi
     if [ "$PHP53" != "yes" ]; then
-        apt-key adv --keyserver keyserver.ubuntu.com --recv-keys AC0E47584A7A714D
+        wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
         echo "deb https://packages.sury.org/php $DISTRO main" > /etc/apt/sources.list.d/sury_php.list
     fi
 
@@ -68,13 +68,13 @@ function initsystem () {
                             php${PHP_VERSION}-dba \
                             php${PHP_VERSION}-xml \
                             php${PHP_VERSION}-mbstring \
-                            php-memcache \
                             php-memcached \
                             php-redis
         sed -i "/^user = www-data/c\user = vagrant" /etc/php/$PHP_VERSION/fpm/pool.d/www.conf
         sed -i "/^group = www-data/c\group = vagrant" /etc/php/$PHP_VERSION/fpm/pool.d/www.conf
         sed -i "/display_errors = Off/c\display_errors = On" /etc/php/$PHP_VERSION/fpm/php.ini
         sed -i "/display_errors = Off/c\display_errors = On" /etc/php/$PHP_VERSION/cli/php.ini
+
         service php${PHP_VERSION}-fpm restart
     else
         apt-get -y install  php5-fpm \
@@ -129,6 +129,8 @@ function initsystem () {
         curl -sS https://getcomposer.org/installer | php
         mv composer.phar /usr/local/bin/composer
     fi
+
+    echo 'alias ll="ls -al"' > /home/vagrant/.bash_aliases
 }
 
 
@@ -138,8 +140,8 @@ function resetJelixMysql() {
     local pass="$3"
 
     # create a database into mysql + users
-    if [ ! -d /var/lib/mysql/$base/ ]; then
-        mysql -u root -pjelix -e "DROP DATABASE IF EXISTS $base;DROP USER $login;"
+    if [ -d /var/lib/mysql/$base/ ]; then
+        mysql -u root -pjelix -e "DROP DATABASE IF EXISTS $base;DROP USER IF EXISTS $login;"
     fi
 
     mysql -u root -pjelix -e "CREATE DATABASE IF NOT EXISTS $base CHARACTER SET utf8;CREATE USER $login IDENTIFIED BY '$pass';GRANT ALL ON $base.* TO $login;FLUSH PRIVILEGES;"

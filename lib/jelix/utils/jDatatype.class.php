@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  utils
+* @subpackage  datatypes
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Hadrien Lanneau
 * @copyright   2006-2014 Laurent Jouanneau

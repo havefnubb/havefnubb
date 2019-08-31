@@ -13,7 +13,7 @@ function jtpl_function_html_link_to_remote($tpl,$label,$element_id,$action_selec
 	$resp=jApp::coord()->response;
 	static $id_link_to_remote=0;
 	if($resp&&$resp->getFormatType()=='html'){
-		$resp->addJSLink(jApp::config()->urlengine['jqueryPath'].'jquery.js');
+		$resp->addJSLink(jApp::config()->jquery['jquery']);
 	}
 	$id_link_to_remote++;
 	$url=jUrl::get($action_selector,$action_parameters);

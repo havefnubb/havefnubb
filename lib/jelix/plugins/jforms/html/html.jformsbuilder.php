@@ -2,7 +2,7 @@
 /* comments & extra-whitespaces have been removed by jBuildTools*/
 /**
 * @package     jelix
-* @subpackage  forms
+* @subpackage  forms_legacybuilder_plugin
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Dominique Papin, Olivier Demah
 * @copyright   2006-2015 Laurent Jouanneau
@@ -25,10 +25,9 @@ class htmlJformsBuilder extends jFormsBuilderHtml{
 		$confDate=&jApp::config()->datepickers;
 		$confWikiEditor=&jApp::config()->wikieditors;
 		$www=$confUrlEngine['jelixWWWPath'];
-		$jq=$confUrlEngine['jqueryPath'];
 		$bp=$confUrlEngine['basePath'];
-		$resp->addJSLink($jq.'jquery.js');
-		$resp->addJSLink($jq.'include/jquery.include.js');
+		$resp->addJSLink(jApp::config()->jquery['jquery']);
+		$resp->addJSLink($www.'jquery/include/jquery.include.js');
 		$resp->addJSLink($www.'js/jforms_jquery.js');
 		$resp->addCSSLink($www.'design/jform.css');
 		foreach($t->_vars as $k=>$v){
@@ -77,6 +76,7 @@ jFormsJQ.selectFillUrl=\''.jUrl::get('jelix~jforms:getListData').'\';
 jFormsJQ.config = {locale:'.$this->escJsStr(jApp::config()->locale).
 	',basePath:'.$this->escJsStr($conf['basePath']).
 	',jqueryPath:'.$this->escJsStr($conf['jqueryPath']).
+	',jqueryFile:'.$this->escJsStr(jApp::config()->jquery['jquery']).
 	',jelixWWWPath:'.$this->escJsStr($conf['jelixWWWPath']).'};
 jFormsJQ.tForm = new jFormsJQForm(\''.$this->_name.'\',\''.$this->_form->getSelector().'\',\''.$this->_form->getContainer()->formId.'\');
 jFormsJQ.tForm.setErrorDecorator(new '.$this->options['errorDecorator'].'());
@@ -90,12 +90,12 @@ jFormsJQ.declareForm(jFormsJQ.tForm);
 		}
 		if($ctrl->required){
 			$this->jsContent.="c.required = true;\n";
-			if($ctrl->alertRequired){
-				$this->jsContent.="c.errRequired=".$this->escJsStr($ctrl->alertRequired).";\n";
-			}
-			else{
-				$this->jsContent.="c.errRequired=".$this->escJsStr(jLocale::get('jelix~formserr.js.err.required',$ctrl->label)).";\n";
-			}
+		}
+		if($ctrl->alertRequired){
+			$this->jsContent.="c.errRequired=".$this->escJsStr($ctrl->alertRequired).";\n";
+		}
+		else{
+			$this->jsContent.="c.errRequired=".$this->escJsStr(jLocale::get('jelix~formserr.js.err.required',$ctrl->label)).";\n";
 		}
 		if($ctrl->alertInvalid){
 			$this->jsContent.="c.errInvalid=".$this->escJsStr($ctrl->alertInvalid).";\n";
