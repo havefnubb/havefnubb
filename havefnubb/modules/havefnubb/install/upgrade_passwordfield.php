@@ -4,7 +4,7 @@
  * @subpackage havefnubb
  * @author    Laurent Jouanneau
  * @copyright 2018 Laurent Jouanneau
- * @link      http://www.havefnubb.org
+ * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
 

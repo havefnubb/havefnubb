@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
-    <info id="hfnuthemes@havefnubb.org" name="hfnuthemes" createdate="2009-11-03">
+    <info id="hfnuthemes@havefnubb.jelix.org" name="hfnuthemes" createdate="2009-11-03">
         <version date="2011-04-03">1.4</version>
         <label lang="en_US">hfnuthemes</label>
         <description lang="en_US">Themes management</description>
@@ -8,9 +8,8 @@
         <description lang="fr_FR">Gestionnaire de Thèmes</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2008-2012 FoxMaSk</copyright>
-        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
-        <homepageURL>http://www.havefnubb.org</homepageURL>
-        <updateURL>http://www.havefnubb.org/update.php?module=hfnuthemes</updateURL>
+        <creator name="FoxMaSk" email="foxmask@foxmask.net"/>
+        <homepageURL>https://havefnubb.jelix.org</homepageURL>
     </info>
     <dependencies>
         <jelix minversion="1.4" maxversion="1.6.*"/>

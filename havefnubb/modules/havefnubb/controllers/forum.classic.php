@@ -4,7 +4,7 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @copyright 2008-2011 FoxMaSk
- * @link      http://havefnubb.org
+ * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
 /**
@@ -64,7 +64,7 @@ class forumCtrl extends jController {
         $feed_reader = new jFeedReader;
         $feed_reader->setCacheDir(jApp::varPath('feeds'));
         $feed_reader->setTimeout(2);
-        $feed_reader->setUserAgent('HaveFnuBB - http://www.havefnubb.org/');
+        $feed_reader->setUserAgent('HaveFnuBB - https://havefnubb.jelix.org/');
         $feed = $feed_reader->parse($forum->forum_url);
 
         $rep = $this->getResponse('html');

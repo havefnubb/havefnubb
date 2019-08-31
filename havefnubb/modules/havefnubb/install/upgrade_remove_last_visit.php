@@ -4,7 +4,7 @@
 * @subpackage havefnubb
 * @author    Laurentj
 * @copyright 2011 Laurentj
-* @link      http://www.havefnubb.org
+* @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 

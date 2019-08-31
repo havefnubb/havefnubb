@@ -7,7 +7,7 @@
         <licence URL="http://www.gnu.org/licenses/gpl.html">GPL</licence>
         <copyright>Copyright 2008 Bastien Jaillot</copyright>
         <creator name="Bastien Jaillot" email="bastnicj@gmail.com"/>
-        <contributor name="Laurent Jouanneau" email="laurentjelix.org" active="true"/>
+        <contributor name="Laurent Jouanneau" email="laurentjelix.org"/>
     </info>
     <dependencies>
         <jelix minversion="1.1" maxversion="1.6.*"/>

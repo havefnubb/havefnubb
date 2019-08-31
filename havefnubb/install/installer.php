@@ -3,7 +3,7 @@
 * @package   havefnubb
 * @author    Laurent Jouanneau
 * @copyright 2010 Laurent Jouanneau
-* @link      http://havefnubb.org
+* @link      https://havefnubb.jelix.org
 * @license   GPL licence
 */
 require_once (dirname(__FILE__).'/../application.init.php');

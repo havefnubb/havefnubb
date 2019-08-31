@@ -8,8 +8,8 @@
         <description lang="fr_FR">Plugin Coord pour enregistrer l'activité d'un utilisateur</description>
         <licence URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence</licence>
         <copyright>2010 Laurent Jouanneau</copyright>
-        <creator name="Laurent Jouanneau" active="true" />
-        <homepageURL>http://www.havefnubb.org/</homepageURL>
+        <creator name="Laurent Jouanneau" />
+        <homepageURL>https://havefnubb.jelix.org/</homepageURL>
     </info>
     <dependencies>
         <jelix minversion="1.4" maxversion="1.6.*"/>

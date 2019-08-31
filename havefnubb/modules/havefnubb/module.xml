@@ -8,10 +8,9 @@
         <description lang="fr_FR">Ce module permet de gérer un forum entier</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2008-2012 FoxMaSk</copyright>
-        <creator name="FoxMaSk" email="foxmask@havefnubb.org" active="true"/>
-        <contributor name="Laurent Jouanneau" email="laurent@jelix.org" active="true" since="2010-09-01" role="developer"/>
-        <homepageURL>http://www.havefnubb.org/</homepageURL>
-        <updateURL>http://www.havefnubb.org/update.php?module=havefnubb</updateURL>
+        <creator name="FoxMaSk" email="foxmask@foxmask.net"/>
+        <contributor name="Laurent Jouanneau" email="laurent@jelix.org" since="2010-09-01" role="developer"/>
+        <homepageURL>https://havefnubb.jelix.org/</homepageURL>
     </info>
     <dependencies>
         <jelix minversion="1.6" maxversion="1.6.*"/>

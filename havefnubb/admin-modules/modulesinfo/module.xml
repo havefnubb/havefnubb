@@ -6,10 +6,9 @@
         <description lang="en_US">Show informations about installed modules</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence, see LICENCE file</license>
         <copyright>2010 Laurent Jouanneau</copyright>
-        <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>
-        <contributor name="Vincent Viaud" email="" active="true" since="2010-11-01" role="developer"/>
-        <homepageURL>http://www.havefnubb.org/</homepageURL>
-        <updateURL>http://www.havefnubb.org/update.php?module=modulesinfo</updateURL>
+        <creator name="Laurent Jouanneau" email="laurent@jelix.org"/>
+        <contributor name="Vincent Viaud" email="" since="2010-11-01" role="developer"/>
+        <homepageURL>http://www.havefnubb.jelix.org/</homepageURL>
     </info>
     <dependencies>
         <jelix minversion="1.4" maxversion="1.6.*"/>

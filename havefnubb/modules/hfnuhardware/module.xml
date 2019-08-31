@@ -8,9 +8,8 @@
         <description lang="fr_FR">Ajoute des propriétés liées à la configuration des ordinateurs dans les comptes utilisateurs</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2010 Laurentj</copyright>
-        <creator name="Laurentj" email="laurent@jelix.org" active="true"/>
-        <homepageURL>http://www.havefnubb.org/</homepageURL>
-        <updateURL>http://www.havefnubb.org/update.php?module=hfnuhardware</updateURL>
+        <creator name="Laurentj" email="laurent@jelix.org"/>
+        <homepageURL>https://havefnubb.jelix.org/</homepageURL>
     </info>
     <dependencies>
         <jelix minversion="1.4" maxversion="1.6.*"/>

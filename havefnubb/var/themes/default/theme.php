@@ -4,7 +4,7 @@
 * @subpackage hfnuthemes
 * @author    FoxMaSk
 * @copyright 2008-2011 FoxMaSk
-* @link      http://havefnubb.org
+* @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
@@ -21,8 +21,8 @@ $themeInfos = array (
 					 'description'=>'GNU General Public Licence'
 					 ),
 	'copyright'=>'2008-2011 FoxMaSk',
-	'creator'=>array('name'=>'FoxMaSk','email'=>'foxmask@havefnubb.org','active'=>true),
-	'homepageURL'=>'http://www.havefnubb.org/',
-	'updateURL'=>'http://www.havefnubb.org/update.php?theme=Default',
+	'creator'=>array('name'=>'FoxMaSk','email'=>'foxmask@foxmask.net','active'=>true),
+	'homepageURL'=>'http://www.havefnubb.jelix.org/',
+	'updateURL'=>'',
 	'version'=>'1.0.1'
 );

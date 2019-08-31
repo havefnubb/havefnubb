@@ -8,10 +8,9 @@
         <description lang="fr_FR">Module qui gère l'activité des membres du sites</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2010-2011 Laurent Jouanneau</copyright>
-        <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>
-        <contributor name="Olivier Demah" email="foxmask@foxmask.info" active="true" since="2011-01-01" role="developer"/>
-        <homepageURL>http://www.havefnubb.org/</homepageURL>
-        <updateURL>http://www.havefnubb.org/update.php?module=activeusers</updateURL>
+        <creator name="Laurent Jouanneau" email="laurent@jelix.org"/>
+        <contributor name="Olivier Demah" email="foxmask@foxmask.net" since="2011-01-01" role="developer"/>
+        <homepageURL>https://havefnubb.jelix.org/</homepageURL>
     </info>
     <dependencies>
         <jelix minversion="1.4" maxversion="1.6.*"/>

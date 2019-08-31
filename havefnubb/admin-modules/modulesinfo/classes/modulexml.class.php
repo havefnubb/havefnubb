@@ -5,7 +5,7 @@
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau, Vincent Viaud
  * @copyright 2008-2012 FoxMaSk, 2010 Laurent Jouanneau, 2010 Vincent Viaud
- * @link      http://havefnubb.org
+ * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
 

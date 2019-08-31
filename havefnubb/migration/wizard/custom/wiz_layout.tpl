@@ -63,7 +63,8 @@
 
     <div class="grid_16" id="site_info">
         <div class="box">
-            <p>{@powered.by@} <a href="http://www.havefnubb.org" title="HaveFnuBB!">HaveFnuBB!</a> - &copy; Copyright 2008 - 2012 <a href="http://www.foxmask.info" title="FoxMaSk - Le Grin de Sable">FoxMaSk</a> .</p>
+            <p>{@powered.by@} <a href="https://havefnubb.jelix.org" title="HaveFnuBB!">HaveFnuBB!</a>
+                - &copy; Copyright 2008 - 2012 <a href="https://foxmask.net/" title="FoxMaSk - Le Free de la Passion">FoxMaSk</a> .</p>
         </div>
     </div>
     <div class="clear"></div>

@@ -4,7 +4,7 @@
 * @subpackage responses
 * @author    FoxMaSk
 * @copyright 2008-2011 FoxMaSk
-* @link      http://havefnubb.org
+* @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 require_once (JELIX_LIB_CORE_PATH.'response/jResponseHtml.class.php');

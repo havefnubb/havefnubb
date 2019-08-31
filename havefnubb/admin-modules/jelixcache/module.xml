@@ -6,10 +6,8 @@
         <description lang="en_US" />
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence, see LICENCE file</license>
         <copyright>2010 Laurent Jouanneau</copyright>
-        <creator name="Laurent Jouanneau" email="laurent@jelix.org" active="true"/>
-        <!--<contributor name="hisname" email="hisemail@yoursite.undefined" active="true" since="" role=""/>-->
-        <homepageURL>http://www.havefnubb.org/</homepageURL>
-        <updateURL>http://www.havefnubb.org/update.php?module=jelixcache</updateURL>
+        <creator name="Laurent Jouanneau" email="laurent@jelix.org"/>
+        <homepageURL>https://havefnubb.jelix.org/</homepageURL>
     </info>
     <dependencies>
         <jelix minversion="1.4" maxversion="1.6.*"/>
