@@ -19,28 +19,18 @@ flood="havefnubb/flood.coord.ini.php"
 html=fnuHtmlResponse
 
 [modules]
-jelix.access=2
 
 master_admin.access=0
 jacl2db_admin.access=0
 jauthdb_admin.access=0
 
 jacl2db.access=2
-jauth.access=2
 jauthdb.access=1
 
-havefnubb.access=2
 hfnuadmin.access=1
 hfnucal.access=2
-hfnucontact.access=2
 hfnuhardware.access=2
 hfnuim.access=2
-hfnurates.access=2
-hfnusearch.access=2
-hfnuthemes.access=2
-jcommunity.access=2
-jmessenger.access=2
-jtags.access=2
 servinfo.access=0
 
 hook.access=1
@@ -51,4 +41,9 @@ jelixcache.access=0
 
 activeusers.access=2
 activeusers_admin.access=0
+
+
+
+
+
 

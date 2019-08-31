@@ -80,10 +80,10 @@ persistant_cookie_path=
 ; method of the hash. 0 means old hashing behavior of jAuth
 ; (using password_* parameters in drivers ).
 ; Prefer to choose 1 which indicates the default hash method (bcrypt).
-password_hash_method = 1
+password_hash_method=1
 
 ; options for the hash method. list of "name:value" separated by a ";"
-password_hash_options =
+password_hash_options=
 
 ;=========== Parameters for drivers
 
