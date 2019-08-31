@@ -14,8 +14,6 @@ fallbackLocale=en_US
 
 
 theme=default
-;theme=dust
-;theme=green
 
 ; see http://www.php.net/manual/en/timezones.php for supported values
 timeZone="Europe/Paris"
@@ -215,10 +213,7 @@ controls.datetime.months.labels=names
 datepicker=default
 
 [datepickers]
-chocolatebrown="jelix/js/jforms/datepickers/chocolatebrown/init.js"
 default="jelix/js/jforms/datepickers/default/init.js"
-dust="jelix/js/jforms/datepickers/dust/init.js"
-emplode="jelix/js/jforms/datepickers/emplode/init.js"
 
 [wikieditors]
 default.engine.name=wr3

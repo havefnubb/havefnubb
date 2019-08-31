@@ -4,8 +4,6 @@
 ; Define here options of mainconfig.ini.php you want to modify for your installation
 
 theme=default
-;theme=dust
-;theme=green
 
 
 [mailer]
