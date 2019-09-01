@@ -71,15 +71,6 @@ defaultJformsBuilder=html
 
 
 [jResponseHtml]
-minifyEntryPoint=minify.php
-;concatene et compress les fichier CSS
-minifyCSS=on
-;concatene et compress les fichier JS
-minifyJS=off
-
-; check all filemtime() of original js files to check if minify's cache should be generated again.
-; Should be set to "off" on production servers (i.e. manual empty cache needed when a file is changed) :
-minifyCheckCacheFiletime=off
 
 
 [error_handling]
