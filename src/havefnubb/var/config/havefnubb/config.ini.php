@@ -4,7 +4,7 @@
 startModule=havefnubb
 startAction="default:index"
 
-modulesPath="lib:jelix-modules/,app:admin-modules/,app:modules/,app:../modules-hook/"
+modulesPath="lib:jelix-modules/,app:admin-modules/,app:modules/,app:modules-hook/"
 
 [coordplugins]
 autolocale=autolocale.coord.ini.php

@@ -149,12 +149,12 @@ function resetJelixMysql() {
 
 function resetJelixTemp() {
     local appdir="$1"
-    if [ ! -d $appdir/../temp/$APPNAME ]; then
-        mkdir -p $appdir/../temp/$APPNAME
+    if [ ! -d $appdir/temp/$APPNAME ]; then
+        mkdir -p $appdir/temp/$APPNAME
     else
-        rm -rf $appdir/../temp/$APPNAME/*
+        rm -rf $appdir/temp/$APPNAME/*
     fi
-    touch $appdir/../temp/$APPNAME/.dummy
+    touch $appdir/temp/$APPNAME/.dummy
 }
 
 function resetJelixInstall() {
@@ -167,10 +167,8 @@ function resetJelixInstall() {
     if [ ! -d $appdir/var/log ]; then
         mkdir $appdir/var/log
     fi
-    phpv="${PHP_VERSION:0:1}"
-    echo "PHPV: "$phpv
-    if [ -f $appdir/var/config/profiles.ini.php${phpv}.dist ]; then
-        cp -a $appdir/var/config/profiles.ini.php${phpv}.dist $appdir/var/config/profiles.ini.php
+    if [ -f $appdir/var/config/profiles.ini.php.dist ]; then
+        cp -a $appdir/var/config/profiles.ini.php.dist $appdir/var/config/profiles.ini.php
     fi
     if [ -f $appdir/var/config/localconfig.ini.php.dist ]; then
         cp -a $appdir/var/config/localconfig.ini.php.dist $appdir/var/config/localconfig.ini.php

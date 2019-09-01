@@ -4,7 +4,7 @@
 startModule=master_admin
 startAction="default:index"
 
-modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:admin-modules/,app:modules/,app:../modules-hook/"
+modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:admin-modules/,app:modules/,app:modules-hook/"
 
 [coordplugins]
 autolocale=autolocale.coord.ini.php

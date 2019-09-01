@@ -9,17 +9,20 @@ Installing Havefnubb
 
 When the archive in uncompressed you have the following directories :
 
-    havefnubb/          web content + configuration
-     -> responses
-     -> var              (config)
-     -> modules/           modules of HaveFnuBB
-     -> admin-modules/      admin module of HaveFnuBB
-     -> modules-hook/      hook modules of HaveFnuBB 
-     -> plugins/           plugins of HaveFnuBB
-    lib/               Jelix librairies 
-    temp/
-    
-All others dir are use for web content such as "images", "themes" etc..
+```
+    havefnubb-X.Y/          web content + configuration
+        havefnubb/
+            install/           scripts for installation
+            var/config/         
+            modules-hook/      hook modules of HaveFnuBB 
+            plugins/           plugins of HaveFnuBB
+            lib/               Jelix librairies 
+            temp/              directory where Jelix stores some cache
+        cache/                 cache of application data
+```   
+
+ 
+Others directories into havefnubb-X.Y/ are used for web content such as "hfnu", "themes" etc..
  
  
 ### Configuration of the web environment

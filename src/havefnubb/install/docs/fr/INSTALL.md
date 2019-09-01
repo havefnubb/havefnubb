@@ -10,17 +10,19 @@ Pour Installer ; lisez les étapes ci-dessous
 
 Quand l'archive est décompressée vous obtenez les répertoires suivants :
 
-    havefnubb/          répertoire contenant la partie web et configuration 
-     -> responses
-     -> var              (la config)
-     -> modules/           les differents modules composants HaveFnuBB
-     -> admin-modules/     les differents modules d'administration des composants HaveFnuBB
-     -> modules-hook/      les modules de Hook utilisés par HaveFnuBB  
-     -> plugins/           les differents plugins composants HaveFnuBB  
-    lib/               librairies Jelix
-    temp
+```
+    havefnubb-X.Y/          répertoire contenant la partie web et configuration 
+        havefnubb/
+            install/           scripts for installation
+            var/config/         
+            modules-hook/      les modules de Hook utilisés par HaveFnuBB  
+            plugins/           les differents plugins composants HaveFnuBB  
+            lib/               librairies Jelix
+            temp/              répertoire où Jelix stockes des fichiers de cache
+        cache/                 cache des données applicatives
+```   
 
-Tous les autres répertoires fournissent du contenu web tels "images","themes" etc..
+Les autres répertoires dans havefnubb-X.Y/ fournissent du contenu web tels "hfnu","themes" etc..
 
 
 ### Configuration de l'environnement web :

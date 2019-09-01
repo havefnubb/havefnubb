@@ -1,9 +1,9 @@
 
 ; path related to the ini file. By default, the ini file is expected to be into the myapp/install/ directory.
-pagesPath = "../../lib/installwizard/pages/,wizard/pages/"
+pagesPath = "../lib/installwizard/pages/,wizard/pages/"
 customPath = "wizard/custom/"
 start = welcome
-tempPath = "../../temp/havefnubb/"
+tempPath = "../temp/havefnubb/"
 supportedLang = en,fr
 
 appname = HaveFnuBB

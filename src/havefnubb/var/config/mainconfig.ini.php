@@ -19,7 +19,7 @@ theme=default
 timeZone="Europe/Paris"
 
 
-modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-modules/,app:../modules-hook/"
+modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-modules/,app:modules-hook/"
 pluginsPath="app:plugins/,module:jacl2db/plugins,module:jacl2/plugins"
 
 [modules]

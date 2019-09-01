@@ -52,7 +52,7 @@ in part I we do
 
 So we now have to change the following line :
 
- modulesPath="lib:jelix-modules/,app:modules/,app:../modules-hook/"
+ modulesPath="lib:jelix-modules/,app:modules/,app:modules-hook/"
 
 by
 
