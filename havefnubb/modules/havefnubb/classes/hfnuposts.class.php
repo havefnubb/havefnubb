@@ -63,14 +63,15 @@ class hfnuposts {
      * @return array composed by the post datas of the current post
      */
     public function getPost($id) {
-        if (!isset($this->posts[$id]) and $id > 0)
+        if (!isset($this->posts[$id]) and $id > 0) {
             $this->posts[$id] = jDao::get('havefnubb~posts')->get($id);
-
-        if ($id > 0)
-            return $this->posts[$id];
-        else {
-            $this->posts[0] = array('id'=>0,'subject'=>'n/a');
         }
+
+        if ($id > 0) {
+            return $this->posts[$id];
+        }
+        $this->posts[0] = array('id'=>0,'subject'=>'n/a');
+        return null;
     }
     /**
      * get info of the current post that is not "hidden"
@@ -101,7 +102,7 @@ class hfnuposts {
         $daoPost = jDao::get('havefnubb~posts');
         $post = $daoPost->get($id_post);
 
-        if ($post !== false) {
+        if ($post) {
             //whatever happened to this thread, we will update the forum table
             //sooner or later so keep it's id in a corner first
             $id_forum = $post->id_forum;
@@ -115,7 +116,7 @@ class hfnuposts {
             $nb_msg_to_remove_from_forum = 0;
             
             //if so we remove the entire thread
-            if ($daoThreadsRec !== false) {
+            if ($daoThreadsRec) {
                 // B1)  need to remove the count of posts for each user
                 // so get the first and last id post
                 // then get the user id of each post between the first and last
@@ -128,12 +129,12 @@ class hfnuposts {
                     $user = jDao::get('havefnubb~posts')->getByIdAndIdThread($i,$post->thread_id);
                     //if the id_user is not false
                     //then "notify" to remove one post of his total
-                    if ($user !== false) {
+                    if ($user) {
                         $nb_msg_to_remove_from_forum++;
                         // get the user record
                         $userRec = jDao::get('havefnubb~member')->getById($user->id_user);
                         // found one
-                        if ($userRec !== false)
+                        if ($userRec)
                             //remove one post
                             if ($userRec->nb_msg > 0)
                                 jDao::get('havefnubb~member')->removeOneMsg($user->id_user);
@@ -282,13 +283,13 @@ class hfnuposts {
         if ($id_post == 0 ) return;
         $dao = jDao::get('havefnubb~posts');
         $post = $dao->get($id_post);
-        if ($post !== false)  {
+        if ($post)  {
             $post->viewed = $post->viewed +1;
             $dao->update($post);
         }
         $dao = jDao::get('havefnubb~threads');
         $thread = $dao->get($thread_id);
-        if ($thread !== false)  {
+        if ($thread)  {
             $thread->nb_viewed = $thread->nb_viewed +1;
             $dao->update($thread);
         }
@@ -821,7 +822,7 @@ class hfnuposts {
         }
         else $nb_posts = 1;
         //need to get the last comment
-        if ($dao->getUserLastCommentOnForums($id_forum_old) !== false)
+        if ($dao->getUserLastCommentOnForums($id_forum_old))
             $threadRec->id_last_msg = $dao->getUserLastCommentOnForums($id_forum_old)->id_post;
         else 
             $threadRec->id_last_msg = 0;

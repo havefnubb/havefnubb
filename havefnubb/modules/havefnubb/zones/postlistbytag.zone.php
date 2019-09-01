@@ -26,9 +26,12 @@ class postlistbytagZone extends jZone {
 
         $posts = array();
         // We check the rights access to the posts in the template
-        foreach ($tags as $tag)
-            if ( jClasses::getService('havefnubb~hfnuposts')->getPost($tag) !== false)
-                $posts[] = jClasses::getService('havefnubb~hfnuposts')->getPost($tag);
+        foreach ($tags as $tag) {
+            $post = jClasses::getService('havefnubb~hfnuposts')->getPost($tag);
+            if ($post) {
+                $posts[] = $post;
+            }
+        }
 
         $this->_tpl->assign('posts',$posts);
     }

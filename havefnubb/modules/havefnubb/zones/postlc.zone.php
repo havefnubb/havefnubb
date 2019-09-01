@@ -47,7 +47,7 @@ class postlcZone extends jZone {
             else {
                 $userPost = $dao->getUserLastVisibleCommentOnForums($id_forum);
             }
-            if ($userPost !== false) {
+            if ($userPost) {
                 $user = jDao::get('havefnubb~member')->getById($userPost->id_user);
             }
             else {

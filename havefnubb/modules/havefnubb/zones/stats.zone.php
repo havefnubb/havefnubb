@@ -53,7 +53,7 @@ class statsZone extends jZone {
             $thread = $daoThreads->get($lastPost->thread_id);
             $dao = jDao::get('havefnubb~forum');
             $forum = $dao->get($lastPost->id_forum);
-            if ($thread !== false ) {
+            if ($thread) {
                 $lastPost->id_first_msg = $thread->id_first_msg;
                 $lastPost->id_last_msg = $thread->id_last_msg;
             }

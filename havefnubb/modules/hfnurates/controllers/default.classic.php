@@ -50,7 +50,12 @@ class defaultCtrl extends jController {
         $result = jClasses::getService('hfnurates~rates')->getTotalRatesBySource($id_source,$source);
 
         $rep = $this->getResponse('htmlfragment');
-        $rep->addContent( jLocale::get('hfnurates~main.total.of.rates').':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level );
+        if ($result) {
+            $rep->addContent( jLocale::get('hfnurates~main.total.of.rates').':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level );
+        }
+        else {
+            $rep->addContent( jLocale::get('hfnurates~main.total.of.rates').': 0 ' . jLocale::get('hfnurates~main.rate') .': 0');
+        }
         return $rep;
     }
 }

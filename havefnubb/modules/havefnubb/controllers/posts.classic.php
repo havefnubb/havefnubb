@@ -137,7 +137,7 @@ class postsCtrl extends jController {
         // B- Using the collected datas
         // 1- the posts
         if (jAuth::isConnected() and 
-            jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum) !== false
+            jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum)
             )
             $tpl->assign('subcribedToThisForum',true);
         else
@@ -320,7 +320,7 @@ class postsCtrl extends jController {
         $tpl = new jTpl();
 
         if (jAuth::isConnected() and            
-            jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum) !== false
+            jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$forum->id_forum)
             ) {
             $tpl->assign('current_user',jAuth::getUserSession ()->login);
             $tpl->assign('subcribedToThisForum',true);
