@@ -33,8 +33,7 @@
 
     <div class="grid_16" id="site_info">
         <div class="box">
-            <p>Powered by <a href="https://havefnubb.jelix.org" title="HaveFnuBB!">HaveFnuBB!</a> -
-            &copy; Copyright 2008-2012 <a href="https://foxmask.net/" title="FoxMaSk - Le Free de la Passion">FoxMaSk</a> .</p>
+            <p>Powered by <a href="https://havefnubb.jelix.org" title="HaveFnuBB!">HaveFnuBB!</a>.</p>
         </div>
     </div>
     <div class="clear"></div>

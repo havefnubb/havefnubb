@@ -22,8 +22,7 @@
         {breadcrumb 8, ' > '}
     </div>
     <div id="footer">
-        <p>{@havefnubb~main.poweredby@} <a href="https://havefnubb.jelix.org" title="HaveFnuBB!">HaveFnuBB!</a> -
-            &copy; Copyright 2008-2012 <a href="https://foxmask.net/" title="FoxMaSk - Le Free de la Passion">FoxMaSk</a></p>
+        <p>{@havefnubb~main.poweredby@} <a href="https://havefnubb.jelix.org" title="HaveFnuBB!">HaveFnuBB!</a></p>
         {hook 'hfbMainInFooter'}
     </div>
 </div>

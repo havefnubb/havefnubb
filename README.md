@@ -11,7 +11,7 @@ should appeal to designers
 
 # Technicals details 
 
-HaveFnuBB is based on [Jelix PHP5 Framework](http://www.jelix.org) and can use 
+HaveFnuBB is based on [Jelix PHP Framework](https://jelix.org) and can use 
 MySQL, SQLIte or PostgreSQL.
 
 # Installation

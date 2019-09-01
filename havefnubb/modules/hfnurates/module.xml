@@ -7,8 +7,9 @@
         <label lang="fr_FR">HfnuRates</label>
         <description lang="fr_FR">Module permettant de donner une note sur un sujet/article etc...</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
-        <copyright>2008-2012 FoxMaSk</copyright>
+        <copyright>2008-2012 FoxMaSk, 2010-2019 Laurent Jouanneau</copyright>
         <creator name="FoxMaSk" email="foxmask@foxmask.net"/>
+        <contributor name="Laurent Jouanneau" email="laurent@jelix.org"/>
         <homepageURL>https://havefnubb.jelix.org</homepageURL>
     </info>
     <dependencies>
