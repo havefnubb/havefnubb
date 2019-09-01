@@ -1,5 +1,5 @@
 <?php
-include (dirname(__FILE__).'/../../version.php');
+include (__DIR__.'/../../version.php');
 
 $locales = array(
     'version'=>$newVersion,

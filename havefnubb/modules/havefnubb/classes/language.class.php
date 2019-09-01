@@ -22,7 +22,7 @@ class language implements jIFormsDatasource {
 
     function __construct($id) {
         $data = array();
-        $dir = dirname(__FILE__) . '/../locales';
+        $dir = __DIR__ . '/../locales';
         $dh = opendir($dir);
         while (($file = readdir($dh)) !== false) {
             if ( $file != '.' and $file != '..' and $file != '.svn' and $file != '.CVS' and $file != '.htaccess')

@@ -6,7 +6,7 @@
 * @link      https://havefnubb.jelix.org
 * @license   GPL licence
 */
-require_once (dirname(__FILE__).'/../application.init.php');
+require_once (__DIR__.'/../application.init.php');
 jApp::setEnv('install');
 
 jAppManager::close();

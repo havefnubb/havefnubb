@@ -15,7 +15,7 @@ class havefnubbModuleUpgrader_finale extends jInstallerModule {
 
     function install() {      
         $doc = new DOMDocument;
-        $doc->Load (dirname(__FILE__).'/../module.xml');
+        $doc->Load (__DIR__.'/../module.xml');
         $xpath = new DOMXPath($doc);
         $xpath->registerNamespace('jelix',"http://jelix.org/ns/module/1.0");
         $query = "//jelix:module/jelix:info/jelix:version/text()";

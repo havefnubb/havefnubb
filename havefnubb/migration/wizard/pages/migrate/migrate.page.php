@@ -31,7 +31,7 @@ class migrateWizPage extends installWizardPage {
          * this part handle all the config files
          */
         // upgrade all config files
-        copy(dirname(__FILE__).'/../../../plugins/coord/activeusers/activeusers.coord.ini.php.dist',
+        copy(__DIR__.'/../../../plugins/coord/activeusers/activeusers.coord.ini.php.dist',
                         jApp::configPath().'activeusers.coord.ini.php');
         $this->_updateConfig();
         // migate existing app to jelix 1.2
@@ -344,7 +344,7 @@ class migrateWizPage extends installWizardPage {
         //2) if the file exists, that means jelix 1.2 is "installed"
         // so no need to try to install jelix
         if (!file_exists(jApp::configPath().'installer.ini.php')) {
-            copy(dirname(__FILE__).'/../../../install/installer.ini.php',jApp::configPath().'installer.ini.php');
+            copy(__DIR__.'/../../../install/installer.ini.php',jApp::configPath().'installer.ini.php');
         }
         
         jApp::loadConfig('havefnubb/config.ini.php');
@@ -353,6 +353,6 @@ class migrateWizPage extends installWizardPage {
         //get the default profile
         $tools = jDb::getConnection($dbProfile['default'])->tools();
         // migrate from 1.3.6 to 1.4.0
-        $tools->execSQLScript(dirname(__FILE__).'/../../../sql/update_to_1.4.0.mysql.sql');
+        $tools->execSQLScript(__DIR__.'/../../../sql/update_to_1.4.0.mysql.sql');
     }
 }

@@ -28,7 +28,7 @@ class country {
 
         if (! in_array($language[0], $supportedLanguage)) return $data;
 
-        $fh = @fopen (dirname(__FILE__).'/iso_3166-1_list_'.$language[0].'.txt','r');
+        $fh = @fopen (__DIR__.'/iso_3166-1_list_'.$language[0].'.txt','r');
         if ($fh) {
            while (!feof($fh)) {
                 $buffer = utf8_encode(fgets($fh, 4096));
