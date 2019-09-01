@@ -3,9 +3,7 @@ Installing Havefnubb
 ### Prerequisites :
 
 - Apache RewriteEngine has to be set On
-- PHP 5.2.x minimum
-- PHP MagicQuotes has to be set Off 
-
+- PHP 5.6 minimum
 
 ### Introduction :
 
@@ -26,16 +24,11 @@ All others dir are use for web content such as "images", "themes" etc..
  
 ### Configuration of the web environment
  
-- If you can specify the document root, upload the content of the 
-  archive and point the root of your application to havefnubb/www/.
-  More infos on http://jelix.org/articles/en/manual-1.1/application-configuration
-
-- If you can't specify the document root :
-  have a look at the chapter "If you can't change the document root" on 
-  http://jelix.org/articles/en/manual-1.1/application-configuration
-
+- Specify the document root of the web server to the root directory of Havefnubb
 - rename the file havefnubb/var/config/localconfig.ini.php.dist to havefnubb/var/config/localconfig.ini.php
 - rename the file havefnubb/var/config/profiles.ini.php.dist in havefnubb/var/config/profiles.ini.php
+- More infos on https://docs.jelix.org/en/manual/installation/deployment
+
 
 ### Rights Accesss 
 
@@ -44,26 +37,18 @@ except for the 4 files located in var/config which have to be in 664 : localconf
 
 do the following to change them :
 
-    find . -type d -exec chmod 755 {} \;
-    find . -type f -exec chmod 644 {} \;    
-    chmod 664 var/config/localconfig.ini.php
-    chmod 664 var/config/profiles.ini.php
-    chmod 664 var/config/havefnubb/flood.coord.ini.php
-    chmod 664 var/config/havefnubb/activeusers.coord.ini.php
-    chmod 770 cache/images
+```
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;    
+chmod 664 var/config/localconfig.ini.php
+chmod 664 var/config/profiles.ini.php
+chmod 664 var/config/havefnubb/flood.coord.ini.php
+chmod 664 var/config/havefnubb/activeusers.coord.ini.php
+chmod 770 cache/images
+```
 
 additionnaly, you could have to change the rights on the temp directory,
 effectively it have to be writable to generate the cache
-
-### URLs settings with HaveFnuBB : 
-
-the default behavior of havefnubb is to use the URL engine significant with the 
-param multiview to on et enableParser to on.
-
-if you wish to use the URL engine basic_significant, then :
-
-- with multiview set to on the URLs will take the form http://localhost/forums.php/ but this one http://localhost/forums.php will lead to a 404 eror page
-- with multiview set to off the URLs of the form http://localhost/forums.php/ or http://localhost/forums.php will work without any 404 error
 
 ### Running the installation :
 
@@ -74,14 +59,16 @@ if you wish to use the URL engine basic_significant, then :
 * or from the command line, into the folder of havefnubb, enter 
   the command :
 
-    php lib/jelix-script/jelix.php --havefnubb installapp
-
+```
+php havefnubb/install/installer.php
+```
 
 ### Running the update
 
 * access to http://mydomain/update.php
 * the command line :
 
-    php lib/jelix-script/jelix.php --havefnubb installapp
+```
+php havefnubb/install/installer.php
+```
 
-yes it's the same for updating or installing ;) the core does everything alone ;)
