@@ -2,7 +2,7 @@
 ;for security reasons , don't remove or modify the first line
 
 [coordplugins]
-autolocale=autolocale.coord.ini.php
+autolocale=1
 auth="hfnuadmin/auth.coord.ini.php"
 jacl2=1
 
