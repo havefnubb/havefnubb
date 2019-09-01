@@ -10,7 +10,7 @@
 */
 
 $appPath = __DIR__.'/';
-require ($appPath.'lib/jelix/init.php');
+require (__DIR__.'/vendor/autoload.php');
 
 jApp::initPaths(
     $appPath,
@@ -22,3 +22,14 @@ jApp::initPaths(
 );
 
 jApp::setTempBasePath(realpath($appPath.'temp/havefnubb/').'/');
+
+jApp::declareModulesDir(array(
+    __DIR__.'/modules/',
+    __DIR__.'/admin-modules/',
+    __DIR__.'/modules-hook/'
+));
+jApp::declarePluginsDir(array(
+    __DIR__.'/plugins'
+));
+
+require (__DIR__.'/vendor/jelix_app_path.php');

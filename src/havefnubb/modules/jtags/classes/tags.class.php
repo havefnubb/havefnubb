@@ -91,12 +91,11 @@ class tags {
     function getJsonAll() {
         $factory_tags = jDao::get($this->dao_tags);
         $tags = $factory_tags->findAll();
-        $newtags = "[";
+        $newtags = [];
         foreach($tags as $t) {
-            $newtags .= '"'.$t->tag_name.'"'. ", ";
-        }
-        $newtags .= "]";
-        return $newtags;
+            $newtags[] = $t->tag_name;
+        };
+        return json_encode($newtags);
     }
 
     function getSubjectsByTags($tags, $scope) {

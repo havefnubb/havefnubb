@@ -10,6 +10,6 @@
         <contributor name="Laurent Jouanneau" email="laurentjelix.org"/>
     </info>
     <dependencies>
-        <jelix minversion="1.1" maxversion="1.6.*"/>
+        <jelix minversion="1.6" maxversion="1.7.*"/>
     </dependencies>
 </module>
