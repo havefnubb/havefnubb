@@ -13,18 +13,7 @@
         <contributor name="Vincent Viaud" email="" since="2010-11-01" role="developer"/>
         <homepageURL>https://havefnubb.jelix.org/</homepageURL>
     </info>
-    <dependencies>
-      <jelix minversion="1.4" maxversion="1.6.*"/>
-    </dependencies>
-    <directories>
-        <config>var/config/</config>
-        <log>var/log/</log>
-        <var>var/</var>
-        <www>..</www>
-        <temp>../temp/havefnubb/</temp>
-    </directories>
-    <entrypoints>
-        <entry file="forums.php" config="havefnubb/config.ini.php"/>
-        <entry file="hfnuadmin.php" config="hfnuadmin/config.ini.php"/>
-    </entrypoints>
+    
+    
+    
 </project>

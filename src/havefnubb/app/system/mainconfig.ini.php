@@ -19,45 +19,50 @@ theme=default
 timeZone="Europe/Paris"
 
 
-modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-modules/,app:modules-hook/"
-pluginsPath="app:plugins/,module:jacl2db/plugins,module:jacl2/plugins"
 
+jforms_datepicker_default.require=jquery
 [modules]
-jelix.access=2
 
-master_admin.access=1
-jacl2db_admin.access=1
-jauthdb_admin.access=1
 
-jacl2.access=1
-jacl2db.access=1
-jacldb.access=0
-jauth.access=2
-jauthdb.access=1
-jsoap.access=0
 
-havefnubb.access=2
-hfnucal.access=1
 hfnucal.installparam=nocopyfiles
-hfnucontact.access=2
-hfnuhardware.access=1
-hfnuim.access=1
-hfnurates.access=2
 hfnurates.installparam=nocopyfiles
-hfnusearch.access=2
 hfnusearch.installparam=nocopyfiles
-hfnuthemes.access=2
-jcommunity.access=2
 jcommunity.installparam="defaultuser;manualconfig"
-jmessenger.access=2
-jtags.access=2
 
-hook.access=1
 
-hfnuadmin.access=1
 
-;servinfo.access=2
 
+jelix.enabled=on
+master_admin.enabled=on
+jacl2db_admin.enabled=on
+jauthdb_admin.enabled=on
+jacl2.enabled=on
+jacl2db.enabled=on
+jacldb.enabled=off
+jauth.enabled=on
+jauthdb.enabled=on
+jsoap.enabled=off
+havefnubb.enabled=on
+hfnucal.enabled=on
+hfnucontact.enabled=on
+hfnuhardware.enabled=on
+hfnuim.enabled=on
+hfnurates.enabled=on
+hfnusearch.enabled=on
+hfnuthemes.enabled=on
+jcommunity.enabled=on
+jmessenger.enabled=on
+jtags.enabled=on
+hook.enabled=on
+hfnuadmin.enabled=on
+activeusers.enabled=on
+servinfo.enabled=on
+modulesinfo.enabled=on
+jelixcache.enabled=on
+activeusers_admin.enabled=on
+iamhere.enabled=on
+jelix.installparam[wwwfiles]=copy
 [coordplugins]
 auth="havefnubb/auth.coord.ini.php"
 
@@ -86,10 +91,6 @@ checkCacheFiletime=on
 force=off
 
 [urlengine]
-; name of url engine :  "simple" or "significant"
-; engine=simple
-; engine=basic_significant
-engine=significant
 
 ; enable the parsing of the url. Set it to off if the url is already parsed by another program
 ; (like mod_rewrite in apache), if the rewrite of the url corresponds to a simple url, and if
@@ -124,35 +125,9 @@ jelixWWWPath="jelix/"
 jqueryPath="jelix/jquery/"
 
 
-defaultEntrypoint=forums
 
 ; leave empty to have jelix error messages
 notfoundAct="havefnubb~hfnuerror:notfound"
-;notfoundAct = "jelix~error:notfound"
-
-[simple_urlengine_entrypoints]
-; parameters for the simple url engine. This is the list of entry points
-; with list of actions attached to each entry points
-
-; script_name_without_suffix = "list of action selectors separated by a space"
-; selector syntax :
-;   m~a@r    -> for the action "a" of the module "m" and for the request of type "r"
-;   m~*@r    -> for all actions of the module "m" and for the request of type "r"
-;   @r       -> for all actions for the request of type "r"
-
-forums="@classic"
-
-; hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~default@classic hfnusearch~admin@classic, hfnupoll~admin@classic hfnucontact~admin@classic downloads~mgr:index@classic downloads~mgr:manage@classic downloads~mgr:config@classic downloads~mgr:dls@classic"
-hfnuadmin="jacl2db~*@classic jauth~*@classic jacl2db_admin~*@classic jauthdb_admin~*@classic master_admin~*@classic hfnuadmin~*@classic servinfo~*@classic activeusers_admin~*@classic"
-
-[basic_significant_urlengine_entrypoints]
-; for each entry point, it indicates if the entry point name
-; should be include in the url or not
-forums=on
-hfnuadmin=on
-install=on
-minify=on
-
 
 [mailer]
 webmasterEmail="webmaster@domain.com"
@@ -213,19 +188,9 @@ controls.datetime.months.labels=names
 ; define the default config for datepickers in jforms
 datepicker=default
 
-[datepickers]
-default="jelix/js/jforms/datepickers/default/init.js"
-
 [wikieditors]
 default.engine.name=wr3
 default.wiki.rules=wr3_to_xhtml
-; path to the engine file
-default.engine.file="jelix/markitup/jquery.markitup.js"
-; define the path to the "internationalized" file to translate the label of each button
-default.config.path="jelix/markitup/sets/wr3/"
-; define the path to the image of buttons of the toolbar
-default.image.path="jelix/markitup/sets/wr3/images/"
-default.skin="jelix/markitup/skins/simple/style.css"
 
 [havefnubb]
 title="HaveFnuBB!"
@@ -274,3 +239,10 @@ name=famfamfam
 ; emoticon_waii.png
 ; emoticon_wink.png
 ; so your own smileys would have to be named like them
+
+[webassets]
+useCollection=main
+[webassets_main]
+jforms_wikieditor_default.js[]="jelix/markitup/jquery.markitup.js"
+jforms_wikieditor_default.css[]="jelix/markitup/skins/simple/style.css"
+jforms_wikieditor_default.require=
