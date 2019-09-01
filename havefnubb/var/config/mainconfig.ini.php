@@ -230,7 +230,7 @@ default.skin="jelix/markitup/skins/simple/style.css"
 [havefnubb]
 title="HaveFnuBB!"
 description="Where Everything is Fnu"
-version=1.5.1
+version=2.0.0-pre
 rules=
 admin_email="admin@localhost.net"
 url_check_version="https://havefnubb.jelix.org/last_version"
