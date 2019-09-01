@@ -24,6 +24,7 @@ src/havefnubb/var/sessions
 !src/havefnubb/var/sessions/.empty
 src/havefnubb/var/uploads
 !src/havefnubb/var/uploads/.empty
+src/havefnubb/vendor/
 *.komodoproject
 nbproject
 .idea
