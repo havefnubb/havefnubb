@@ -24,6 +24,7 @@
   },
   "keywords": ["forum", "php", "jelix"],
   "require": {
-    "jelix/jelix": "dev-jelix-1.7.x"
+    "jelix/jelix": "dev-jelix-1.7.x",
+    "jelix/sitemap-module": "^1.7.5"
   }
 }

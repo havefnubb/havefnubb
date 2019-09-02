@@ -63,6 +63,7 @@ jelixcache.enabled=on
 activeusers_admin.enabled=on
 iamhere.enabled=on
 jelix.installparam[wwwfiles]=copy
+jsitemap.enabled=on
 [coordplugins]
 auth="havefnubb/auth.coord.ini.php"
 
@@ -237,3 +238,6 @@ useCollection=main
 jforms_wikieditor_default.js[]="jelix/markitup/jquery.markitup.js"
 jforms_wikieditor_default.css[]="jelix/markitup/skins/simple/style.css"
 jforms_wikieditor_default.require=
+
+[responses]
+sitemap="jsitemap~jResponseSitemap"

@@ -8,8 +8,10 @@ src/files/*
 src/havefnubb/temp/havefnubb/*
 !src/havefnubb/temp/havefnubb/.dummy
 src/havefnubb/var/config/installer.ini.php
+src/havefnubb/var/config/installer.bak.ini.php
 src/havefnubb/var/config/profiles.ini.php
 src/havefnubb/var/config/localconfig.ini.php
+src/havefnubb/var/config/localurls.xml
 src/havefnubb/var/config/liveconfig.ini.php
 src/havefnubb/var/config/activeusers.coord.ini.php
 src/havefnubb/var/db
