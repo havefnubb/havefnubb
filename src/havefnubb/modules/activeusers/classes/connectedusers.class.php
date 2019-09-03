@@ -4,10 +4,13 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2011 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+
+use Jelix\IniFile\IniModifier;
+
 /**
 * Class that follows connections of a user
 */
@@ -72,33 +75,11 @@ class connectedusers {
      * @return int  the unix timestamp of the timeout date.
      */
     public function getVisitTimeout() {
-        static $timeoutVisit = null;
-
-        if ($timeoutVisit !== null)
-            return $timeoutVisit;
-
-        $plugin = jApp::coord()->getPlugin('activeusers', false);
-        $timeoutVisit = 1200;
-        if ($plugin) {
-            $timeoutVisit = ($plugin->config['timeout_visit'] > 0 ) ? $plugin->config['timeout_visit'] : 1200;
+        $timeoutVisit = jApp::config()->activeusers['timeout_visit'];
+        if (!$timeoutVisit) {
+            $timeoutVisit = 1200;
         }
-        else {
-            // for activeusers_admin
-            $gJConfig = jApp::config();
-            if (isset($gJConfig->activeusers_admin['pluginconf'])
-                && $gJConfig->activeusers_admin['pluginconf']) {
-                $conffile = $gJConfig->activeusers_admin['pluginconf'];
-                if (in_array(substr($conffile, 0,4), array('app:','lib:','var:'))) {
-                    $conffile = str_replace(array('app:','lib:','var:'), array(jApp::appPath(), LIB_PATH, jApp::varPath()), $conffile);
-                }
-                else
-                    $conffile = jApp::configPath().$conffile;
-                $config = @parse_ini_file($conffile);
-            }
-        }
-        if ($timeoutVisit)
-            $timeoutVisit = time() - $timeoutVisit;
-        return $timeoutVisit;
+        return time() - $timeoutVisit;
     }
 
     /**
@@ -106,22 +87,13 @@ class connectedusers {
      * @param integer $timeout  the number of second
      * @return boolean true if it has been saved correctly
      */
-    public function saveVisitTimeout($timeout) {
-        $gJConfig = jApp::config();
-        if (isset($gJConfig->activeusers_admin['pluginconf'])
-            && $gJConfig->activeusers_admin['pluginconf']) {
-            $conffile = $gJConfig->activeusers_admin['pluginconf'];
-            if (in_array(substr($conffile, 0,4), array('app:','lib:','var:'))) {
-                $conffile = str_replace(array('app:','lib:','var:'), array(jApp::appPath(), LIB_PATH, jApp::varPath()), $conffile);
-            }
-            else
-                $conffile = jApp::configPath().$conffile;
-            $ini = new jIniFileModifier($conffile);
-            $ini->setValue('timeout_visit', $timeout);
-            $ini->save();
-            return true;
-        }
-        return false;
+    public function saveVisitTimeout($timeout)
+    {
+        jApp::config()->activeusers['timeout_visit'] = $timeout;
+        $config = new IniModifier(jApp::varConfigPath('liveconfig.ini.php'));
+        $config->setValue('timeout_visit', $timeout, 'activeusers');
+        $config->save();
+        return true;
     }
 
     /**

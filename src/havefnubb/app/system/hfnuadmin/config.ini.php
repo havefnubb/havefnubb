@@ -26,9 +26,6 @@ useDefaultLanguageBrowser=on
 [acl2]
 enableAcl2DbEventListener=on
 
-[activeusers_admin]
-pluginconf="havefnubb/activeusers.coord.ini.php"
-
 [jacl2]
 ; What to do if a right is required but the user has not this right
 ; 1 = generate an error. This value should be set for web services (xmlrpc, jsonrpc...)
