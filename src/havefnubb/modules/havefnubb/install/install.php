@@ -18,6 +18,8 @@ class havefnubbModuleInstaller extends \Jelix\Installer\Module\Installer {
     public function install(InstallHelpers $helpers)
     {
         $helpers->database()->execSQLScript('sql/install');
+        $config = $helpers->getLocalConfigIni();
+        $config->setValue('version', $this->getVersion(), 'havefnubb');
     }
 
     public function postInstall(InstallHelpers $helpers)
