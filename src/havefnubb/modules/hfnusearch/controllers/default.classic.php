@@ -52,7 +52,7 @@ class defaultCtrl extends jController {
             $additionnalParam = $this->param('param');
         }
 
-        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::appSystemPath('havefnu.search.ini.php'), true);
 
         // get the list of authorized function we will find in the search_in "service" below
         $authorizedSearch = explode(',', $HfnuSearchConfig['perform_search_in']);
@@ -112,7 +112,7 @@ class defaultCtrl extends jController {
 
         $additionnalParam = '';
 
-        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::appSystemPath('havefnu.search.ini.php'), true);
 
         $perform = jClasses::getService('hfnusearch~search_in');
 

@@ -26,3 +26,7 @@
 #result .result-msg {
 	color: #666;
 }
+
+.result-line {
+    background-color: #eee;
+}

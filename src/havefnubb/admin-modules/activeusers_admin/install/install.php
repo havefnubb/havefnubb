@@ -3,21 +3,19 @@
 * @package   havefnubb
 * @subpackage activeusers_admin
 * @author    Laurent Jouanneau
-* @copyright 2010 Laurent Jouanneau
+* @copyright 2010-2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @license   http://www.gnu.org/licenses/gpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
 
-class activeusers_adminModuleInstaller extends jInstallerModule {
+use Jelix\Installer\Module\API\InstallHelpers;
 
-    function install() {
-        //if ($this->firstDbExec())
-        //    $this->execSQLScript('sql/install');
+class activeusers_adminModuleInstaller extends \Jelix\Installer\Module\Installer {
 
-        if ($this->firstExec('acl2')) {
-            jAcl2DbManager::addSubject('activeusers.configuration', 'activeusers_admin~main.acl.subject');
-            jAcl2DbManager::addRight('admins', 'activeusers.configuration'); // for admin group
-        }
+    public function postInstall(InstallHelpers $helpers)
+    {
+        jAcl2DbManager::addRole('activeusers.configuration', 'activeusers_admin~main.acl.subject');
+        jAcl2DbManager::addRight('admins', 'activeusers.configuration'); // for admin group
     }
 }

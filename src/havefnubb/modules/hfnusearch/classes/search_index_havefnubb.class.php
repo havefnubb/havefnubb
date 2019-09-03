@@ -28,7 +28,7 @@ class search_index_havefnubb extends search_index {
             return array('count'=>0,'result'=>array());
         }
         //1) open the config file
-        $HfnuSearchConfig  =  parse_ini_file(jApp::configPath().'havefnu.search.ini.php', true);
+        $HfnuSearchConfig  =  parse_ini_file(jApp::appSystemPath('havefnu.search.ini.php'), true);
         //2) get the dao we want to read
         $dataSource = $HfnuSearchConfig['dao'];
         //3) build an array with each one

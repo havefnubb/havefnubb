@@ -252,7 +252,7 @@ class connectedusers {
             return null;
         $browser = $_SERVER['HTTP_USER_AGENT'];
         // read the list of bots
-        $botsList = jIniFile::read(jApp::configPath()."botsagent.ini.php");
+        $botsList = Jelix\IniFile\Util::read(jApp::appSystemPath("botsagent.ini.php"));
 
         if ($botsList) {
 

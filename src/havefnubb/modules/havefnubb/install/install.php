@@ -3,24 +3,26 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    Laurent Jouanneau
-* @copyright 2010 Laurent Jouanneau
+* @copyright 2010-2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Jelix\Installer\Module\API\InstallHelpers;
+
 /**
  * Class that handles the installation of the database
  */
-class havefnubbModuleInstaller extends jInstallerModule {
+class havefnubbModuleInstaller extends \Jelix\Installer\Module\Installer {
 
-    function install() {
-        if ($this->firstDbExec())
-            $this->execSQLScript('sql/install');
+    public function install(InstallHelpers $helpers)
+    {
+        $helpers->database()->execSQLScript('sql/install');
     }
 
-    function postInstall() {
-        if (!$this->firstDbExec())
-            return;
-        $cn = $this->dbConnection();
+    public function postInstall(InstallHelpers $helpers)
+    {
+        $cn = $helpers->database()->dbConnection();
         //groups
         $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, grouptype, ownerlogin) VALUES ('admins', 'admins', 0, NULL)"); // 1
         $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_group')." (id_aclgrp, name, grouptype, ownerlogin) VALUES ('users', 'users', 1, NULL)"); // 2
@@ -47,6 +49,6 @@ class havefnubbModuleInstaller extends jInstallerModule {
         $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_rights')." (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.users.modify', 'admins', '')");
         $cn->exec("INSERT INTO ".$cn->prefixTable('jacl2_rights')." (id_aclsbj, id_aclgrp, id_aclres) VALUES ('auth.users.view', 'admins', '')");
 
-        $this->execSQLScript('sql/postinstall.sql');
+        $helpers->database()->execSQLScript('sql/postinstall.sql');
     }
 }

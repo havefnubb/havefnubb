@@ -3,16 +3,18 @@
 * @package     havefnubb
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2010 Laurent Jouanneau
+* @copyright   2010-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
 
-class hfnuadminModuleInstaller extends jInstallerModule {
+use Jelix\Installer\Module\API\InstallHelpers;
 
-    function postinstall() {
-        if ($this->firstDbExec())
-            $this->execSQLscript('sql/postinstall');
+class hfnuadminModuleInstaller extends \Jelix\Installer\Module\Installer {
+
+    public function postInstall(InstallHelpers $helpers)
+    {
+        $helpers->database()->execSQLScript('sql/postinstall');
     }
 }

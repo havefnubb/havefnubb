@@ -3,23 +3,18 @@
 * @package   havefnubb
 * @subpackage activeusers
 * @author    Laurent Jouanneau
-* @copyright 2010 Laurent Jouanneau
+* @copyright 2010-2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @license   http://www.gnu.org/licenses/gpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
+use Jelix\Installer\Module\API\InstallHelpers;
 
-class activeusersModuleInstaller extends jInstallerModule {
+class activeusersModuleInstaller extends \Jelix\Installer\Module\Installer {
 
-    function install() {
-        if ($this->firstDbExec())
-            $this->execSQLScript('sql/install');
-        if (!$this->getParameter('nocopyfiles') && $this->firstExec('copyfile')) {
-            $this->copyFile('../plugins/coord/activeusers/activeusers.coord.ini.php.dist',
-                            'config:activeusers.coord.ini.php');
-            $this->copyFile('botsagent.ini.php',
-                            'config:botsagent.ini.php');
-        }
+    public function install(InstallHelpers $helpers)
+    {
+        $helpers->database()->execSQLScript('sql/install');
 
         /*if ($this->firstExec('acl2')) {
             jAcl2DbManager::addSubject('my.subject', 'activeusers~acl.my.subject');

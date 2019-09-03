@@ -13,7 +13,6 @@ src/havefnubb/var/config/profiles.ini.php
 src/havefnubb/var/config/localconfig.ini.php
 src/havefnubb/var/config/localurls.xml
 src/havefnubb/var/config/liveconfig.ini.php
-src/havefnubb/var/config/activeusers.coord.ini.php
 src/havefnubb/var/db
 !src/havefnubb/var/db/sqlite/.empty
 src/havefnubb/var/feeds

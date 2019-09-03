@@ -3,23 +3,21 @@
 * @package     havefnubb
 * @author      Laurent Jouanneau
 * @contributor
-* @copyright   2010 Laurent Jouanneau
+* @copyright   2010-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
+use Jelix\Installer\Module\API\InstallHelpers;
 
-class hfnucontactModuleInstaller extends jInstallerModule {
+class hfnucontactModuleInstaller extends \Jelix\Installer\Module\Installer {
 
-    function install() {
-        if ($this->firstConfExec()) {
-            $this->config->setValue('to_contact','', 'hfnucontact', null, true);
-            $this->config->setValue('email_contact','', 'hfnucontact', null, true);
-        }
+    public function install(InstallHelpers $helpers)
+    {
     }
 
-    function postInstall() {
-        if ($this->firstDbExec())
-            $this->execSQLScript('sql/postinstall');
+    public function postInstall(InstallHelpers $helpers)
+    {
+        $helpers->database()->execSQLScript('sql/postinstall');
     }
 }
