@@ -5,33 +5,20 @@
 
 ; IF YOU WANT TO MODIFY THIS FILE, PUT NEW VALUES INTO localconfig.ini.php
 
-
-
 locale=fr_FR
 charset=UTF-8
 availableLocales="fr_FR,en_US"
 fallbackLocale=en_US
-
 
 theme=default
 
 ; see http://www.php.net/manual/en/timezones.php for supported values
 timeZone="Europe/Paris"
 
-
-
-jforms_datepicker_default.require=jquery
 [modules]
-
-
-
 hfnucal.installparam=nocopyfiles
 hfnurates.installparam=nocopyfiles
 hfnusearch.installparam=nocopyfiles
-jcommunity.installparam="defaultuser;manualconfig"
-
-
-
 
 jelix.enabled=on
 master_admin.enabled=on
@@ -40,8 +27,8 @@ jauthdb_admin.enabled=on
 jacl2.enabled=on
 jacl2db.enabled=on
 jacldb.enabled=off
-jauth.enabled=on
-jauthdb.enabled=on
+jauth.enabled=off
+jauthdb.enabled=off
 jsoap.enabled=off
 havefnubb.enabled=on
 hfnucal.enabled=on
@@ -61,9 +48,15 @@ servinfo.enabled=on
 modulesinfo.enabled=on
 jelixcache.enabled=on
 activeusers_admin.enabled=on
-iamhere.enabled=on
 jelix.installparam[wwwfiles]=copy
 jsitemap.enabled=on
+
+jcommunity.installparam[manualconfig]=on
+jcommunity.installparam[masteradmin]=on
+jcommunity.installparam[defaultuser]=on
+jcommunity.installparam[migratejauthdbusers]=off
+jcommunity.installparam[eps]="[forums]"
+
 [coordplugins]
 auth="havefnubb/auth.coord.ini.php"
 
@@ -234,10 +227,23 @@ name=famfamfam
 
 [webassets]
 useCollection=main
-[webassets_main]
-jforms_wikieditor_default.js[]="jelix/markitup/jquery.markitup.js"
-jforms_wikieditor_default.css[]="jelix/markitup/skins/simple/style.css"
-jforms_wikieditor_default.require=
 
 [responses]
 sitemap="jsitemap~jResponseSitemap"
+
+[session]
+storage=
+
+[jcommunity]
+loginResponse=html
+verifyNickname=off
+passwordChangeEnabled=on
+accountDestroyEnabled=on
+useJAuthDbAdminRights=off
+registrationEnabled=on
+resetPasswordEnabled=on
+resetPasswordAdminEnabled=on
+disableJPref=on
+publicProperties[]=login
+publicProperties[]=nickname
+publicProperties[]=create_date

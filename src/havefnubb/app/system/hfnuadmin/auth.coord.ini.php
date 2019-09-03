@@ -30,19 +30,19 @@ auth_required=on
 on_error=2
 
 ; locale key for the error message when on_error=1
-error_message="jauth~autherror.notlogged"
+error_message="jcommunity~login.error.notlogged"
 
 ; action to execute on a missing authentification when on_error=2
-on_error_action = "jauth~login:out"
+on_error_action="havefnubb~hfnuerror:badright"
 
 ; action to execute when a bad ip is checked with secure_with_ip=1 and on_error=2
-bad_ip_action = "jauth~login:out"
+bad_ip_action="jcommunity~login:out"
 
 
 ;=========== Parameters for jauth module
 
 ; number of second to wait after a bad authentification
-on_error_sleep=3
+on_error_sleep=0
 
 ; action to redirect after the login
 ; after_login="master_admin~default:index"
@@ -54,10 +54,10 @@ after_login="hfnuadmin~default:index"
 after_logout="havefnubb~default:index"
 
 ; says if after_login can be overloaded by a "auth_url_return" parameter in the url/form for the login
-enable_after_login_override=off
+enable_after_login_override=on
 
 ; says if after_logout can be overloaded by a "auth_url_return" parameter in the url/form for the login
-enable_after_logout_override=off
+enable_after_logout_override=on
 
 ;============ Parameters for the persistance of the authentification
 
@@ -69,7 +69,7 @@ persistant_enable=on
 persistant_cookie_name=HFNUAuthentificationCookie
 
 ; duration of the validity of the cookie (in days). default is 1 day.
-persistant_duration=1
+persistant_duration=15
 
 ; base path for the cookie. If empty, it uses the basePath value from the main configuration.
 persistant_cookie_path=

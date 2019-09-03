@@ -1,6 +1,6 @@
 
 -- Tags
-CREATE TABLE `%%PREFIX%%sc_tags` (
+CREATE TABLE  IF NOT EXISTS `%%PREFIX%%sc_tags` (
     `tag_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `tag_name` VARCHAR(50) NOT NULL,
     `nbuse` int(11) default '0',
@@ -10,7 +10,7 @@ CREATE TABLE `%%PREFIX%%sc_tags` (
 ) ENGINE=MyISAM;
 
 -- Tags in use
-CREATE TABLE `%%PREFIX%%sc_tags_tagged` (
+CREATE TABLE IF NOT EXISTS `%%PREFIX%%sc_tags_tagged` (
     `tt_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `tag_id` INT UNSIGNED NOT NULL,
     `tt_scope_id` VARCHAR(50) NOT NULL,    -- 'snippet' or 'application'
