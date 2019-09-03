@@ -31,8 +31,6 @@ $locales=array(
                             <li>havefnubb/var/config/localconfig.ini.php</li>
                             <li>havefnubb/var/config/profiles.ini.php</li>
                             <li>havefnubb/var/config/havefnubb/config.ini.php</li>
-                            <li>havefnubb/var/config/havefnubb/flood.coord.ini.php</li>
-                            <li>havefnubb/var/config/havefnubb/activeusers.coord.ini.php</li>
                             </ol>
                             <p>Sur une machine windows, vous n\'avez probablement pas à vous occuper de ça.</p>
                             ',

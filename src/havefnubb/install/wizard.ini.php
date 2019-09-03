@@ -17,8 +17,6 @@ databases=mysql,pgsql,sqlite
 pathcheck[]="www:cache/"
 pathcheck[]="www:files/"
 pathcheck[]="var:config/havefnubb/config.ini.php"
-pathcheck[]="var:config/havefnubb/flood.coord.ini.php"
-pathcheck[]="var:config/havefnubb/activeusers.coord.ini.php"
 
 [hfnconf.step]
 next=confmail

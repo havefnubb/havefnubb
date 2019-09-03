@@ -8,6 +8,9 @@
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Jelix\IniFile\IniModifier;
+
 /**
  * This controller manages the configuration of the forum
  */
@@ -33,8 +36,6 @@ class defaultCtrl extends jController {
 
     protected function initform($form) {
         $gJConfig = jApp::config();
-        $floodConfig = parse_ini_file(jApp::configPath('havefnubb/flood.coord.ini.php'));
-
         $tzId = DateTimeZone::listIdentifiers();
         for ($i = 0 ; $i < count($tzId) ; $i++) {
             if ($gJConfig->timeZone == $tzId[$i])
@@ -54,8 +55,8 @@ class defaultCtrl extends jController {
         $form->setData('avatar_max_height',     (int) $gJConfig->havefnubb['avatar_max_height']);
         $form->setData('stats_nb_of_lastpost',  (int) $gJConfig->havefnubb['stats_nb_of_lastpost']);
         $form->setData('anonymous_post_authorized',(int)$gJConfig->havefnubb['anonymous_post_authorized']);
-        $form->setData('only_same_ip',          (int) (isset($floodConfig['only_same_ip'])?$floodConfig['only_same_ip']:'on'));
-        $form->setData('elapsed_time_between_two_post',(int) (isset($floodConfig['elapsed_time_between_two_post'])?$floodConfig['elapsed_time_between_two_post']:'0'));
+        $form->setData('only_same_ip',          (int) (isset($gJConfig->flood['only_same_ip'])?$gJConfig->flood['only_same_ip']:'on'));
+        $form->setData('elapsed_time_between_two_post',(int) (isset($gJConfig->flood['elapsed_time_between_two_post'])?$gJConfig->flood['elapsed_time_between_two_post']:'0'));
 
         $form->setData('important_nb_replies',  (int) $gJConfig->havefnubb['important_nb_replies']);
         $form->setData('important_nb_views',    (int) $gJConfig->havefnubb['important_nb_views']);
@@ -113,7 +114,7 @@ class defaultCtrl extends jController {
             return $resp;
         }
 
-        $defaultConfig =  new jIniFileModifier(jApp::configPath('localconfig.ini.php'));
+        $defaultConfig =  new IniModifier(jApp::varConfigPath('liveconfig.ini.php'));
 
         //if we want to allow the anonymous users on the forum :
         if ($form->getData('anonymous_post_authorized')) {
@@ -160,13 +161,11 @@ class defaultCtrl extends jController {
         $tz = DateTimeZone::listIdentifiers();
 
         $defaultConfig->setValue('timeZone',    $tz[$form->getData('timezone')]);
+
+        $defaultConfig->setValue('only_same_ip',                  $form->getData('only_same_ip'), 'flood');
+        $defaultConfig->setValue('elapsed_time_between_two_post', $form->getData('elapsed_time_between_two_post'), 'flood');
+
         $defaultConfig->save();
-
-        $floodConfig    =  new jIniFileModifier(jApp::configPath('havefnubb/flood.coord.ini.php'));
-
-        $floodConfig->setValue('only_same_ip',                  $form->getData('only_same_ip'));
-        $floodConfig->setValue('elapsed_time_between_two_post', $form->getData('elapsed_time_between_two_post'));
-        $floodConfig->save();
 
         jForms::destroy('hfnuadmin~config');
         jMessage::add(jLocale::get('hfnuadmin~config.config.modified'),'ok');

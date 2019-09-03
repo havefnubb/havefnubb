@@ -36,7 +36,7 @@ Les autres répertoires dans havefnubb-X.Y/ fournissent du contenu web tels "hfn
 ### Droits d'accès
 
 N'oubliez pas de passer vos dossiers en 755 et vos fichiers en 644,
-à l'exception des 4 fichiers de configurations situés dans var/config avec le mode suivant 664 : localconfig.ini.php, profiles.ini.php, flood.coord.ini.php, activeusers.coord.ini.php.
+à l'exception des 4 fichiers de configurations situés dans var/config avec le mode suivant 664 : localconfig.ini.php, profiles.ini.php.
 
 Executer les commandes suivantes pour appliquer les bons droits  :
 
@@ -45,8 +45,6 @@ find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;    
 chmod 664 var/config/localconfig.ini.php
 chmod 664 var/config/profiles.ini.php
-chmod 664 var/config/havefnubb/flood.coord.ini.php
-chmod 664 var/config/havefnubb/activeusers.coord.ini.php
 chmod 770 cache/images
 ```
 

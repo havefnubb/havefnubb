@@ -36,7 +36,7 @@ Others directories into havefnubb-X.Y/ are used for web content such as "hfnu", 
 ### Rights Accesss 
 
 Don't forget to change/check your rights access on all your folder to 755, and your files in 644,
-except for the 4 files located in var/config which have to be in 664 : localconfig.ini.php, profiles.ini.php, flood.coord.ini.php, activeusers.coord.ini.php
+except for the 4 files located in var/config which have to be in 664 : localconfig.ini.php, profiles.ini.php
 
 do the following to change them :
 
@@ -45,8 +45,6 @@ find . -type d -exec chmod 755 {} \;
 find . -type f -exec chmod 644 {} \;    
 chmod 664 var/config/localconfig.ini.php
 chmod 664 var/config/profiles.ini.php
-chmod 664 var/config/havefnubb/flood.coord.ini.php
-chmod 664 var/config/havefnubb/activeusers.coord.ini.php
 chmod 770 cache/images
 ```
 
