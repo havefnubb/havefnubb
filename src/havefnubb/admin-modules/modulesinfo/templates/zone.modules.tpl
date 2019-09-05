@@ -6,7 +6,7 @@
     <tbody>
         <tr class="odd">
             <th>{@modulesinfo~modules.about.label@} :</th>
-            <td>{if $module->label}{$module->label|eschtml}{else}{$module->name}{/if}</td>
+            <td>{$module->getLabel()|eschtml}</td>
         </tr>
         <tr class="even">
             <th>{@modulesinfo~modules.about.version@} :</th>
@@ -20,11 +20,7 @@
         </tr>
         <tr  class="odd">
             <th>{@modulesinfo~modules.about.desc@} :</th>
-            <td> {$module->description|eschtml}</td>
-        </tr>
-        <tr class="even">
-            <th>{@modulesinfo~modules.about.notes@} :</th>
-            <td> {$module->notes}</td>
+            <td> {$module->getDescription()|eschtml}</td>
         </tr>
         <tr  class="odd">
             <th>{@modulesinfo~modules.about.license@} :</th>
@@ -35,12 +31,12 @@
             <th>{@modulesinfo~modules.about.copyright@} :</th>
             <td> {$module->copyright}</td>
         </tr>
-        {foreach $module->creators as $author}
+        {foreach $module->author as $author}
         <tr class="{cycle array('odd','even')}">
             <th>{@modulesinfo~modules.about.authors@} :</th>
             <td> {if array_key_exists('email',$author)}
-                  {if $author['email'] != ''}<a href="mailto:{$author['email']}">{$author['name']|escxml}{/if}
-                  {else}{$author['name']|escxml}{/if}</a></td>
+                  {if $author->email != ''}<a href="mailto:{$author->email}">{$author->name|escxml}{/if}
+                  {else}{$author->name|escxml}{/if}</a></td>
         </tr>
         {/foreach}
         <tr>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="modulesinfo@havefnubb.org" name="modulesinfo" createdate="2010-11-03">
-        <version>1.0</version>
+        <version date="2019-09-05">1.1</version>
         <label lang="en_US">modulesinfo</label>
         <description lang="en_US">Show informations about installed modules</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU General Public Licence, see LICENCE file</license>
-        <copyright>2010 Laurent Jouanneau</copyright>
+        <copyright>2010-2019 Laurent Jouanneau</copyright>
         <creator name="Laurent Jouanneau" email="laurent@jelix.org"/>
-        <contributor name="Vincent Viaud" email="" since="2010-11-01" role="developer"/>
+        <contributor name="Vincent Viaud" since="2010-11-01" role="developer"/>
         <homepageURL>http://www.havefnubb.jelix.org/</homepageURL>
     </info>
     <dependencies>

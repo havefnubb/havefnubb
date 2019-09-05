@@ -12,8 +12,13 @@
 class modulesZone extends jZone {
     protected $_tplname='zone.modules';
 
-    protected function _prepareTpl(){
-        $modulesList = jClasses::getService('modulesinfo~modulexml')->getList();
+    protected function _prepareTpl()
+    {
+
+        $modulesList = array();
+        foreach (jApp::getEnabledModulesPaths() as $name => $path) {
+            $modulesList[$name] = \Jelix\Core\Infos\ModuleInfos::load($path);
+        }
         $this->_tpl->assign('modulesList', $modulesList);
     }
 }
