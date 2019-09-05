@@ -17,7 +17,7 @@ class hfnuthemesadminmenuListener extends jEventListener{
     * @return void
     */
      function onmasteradminGetMenuContent ($event) {
-       $chemin = jApp::config()->urlengine['basePath'].'hfnu/admin/';
+       $chemin = jApp::urlBasePath().'hfnu/admin/';
        if ( jAcl2::check('hfnu.admin.index'))    {
           $event->add(new masterAdminMenuItem('hfnuthemes',jLocale::get('hfnuthemes~theme.themes'), '', 30));
           $item = new masterAdminMenuItem('theme',

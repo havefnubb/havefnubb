@@ -13,7 +13,7 @@ class modulesinfoListener extends jEventListener{
 
     function onmasteradminGetMenuContent ($event) {
 
-        $chemin = jApp::config()->urlengine['basePath'].'hfnu/admin/';
+        $chemin = jApp::urlBasePath().'hfnu/admin/';
         if ( jAcl2::check('modulesinfo.access')) {
             $item = new masterAdminMenuItem('modulesinfo',
                                             jLocale::get('modulesinfo~modulesinfo.masteradmin.menu.item'),
