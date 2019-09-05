@@ -16,4 +16,7 @@
         <jelix minversion="1.6.*" maxversion="1.7.*"/>
         <module name="jacl2db" />
     </dependencies>
+    <autoload>
+        <psr4 name="HavefnuBB\ServerInfos" dir="lib/"/>
+    </autoload>
 </module>

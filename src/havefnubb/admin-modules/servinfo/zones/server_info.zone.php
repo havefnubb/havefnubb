@@ -1,23 +1,12 @@
 <?php
 /**
 * @package   havefnubb
-* @subpackage havefnubb
+* @subpackage servinfo
 * @author    FoxMaSk
 * @copyright 2008-2011 FoxMaSk
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
-
-class serverinfoData {
-    public $id = '';
-    public $label = '';
-    public $content = '';
-    function __construct($id, $label, $content) {
-        $this->id = $id;
-        $this->label = $label;
-        $this->content = $content;
-    }
-}
 
 
 /**
@@ -33,7 +22,7 @@ class server_infoZone extends jZone {
      */
     protected function _prepareTpl(){
 
-        $srvinfos = jClasses::getService("servinfo~serverinfos");
+        $srvinfos = new \HavefnuBB\ServerInfos\ServerInfos();
 
         list($records,$size) = $srvinfos->dbSize();
 
@@ -45,6 +34,6 @@ class server_infoZone extends jZone {
         $this->_tpl->assign('DB_SIZE',$size);
         $this->_tpl->assign('DB_RECORDS',$records);
 
-        $this->_tpl->assign('otherInfos',jEvent::notify('servinfoGetInfo')->getResponse());
+        $this->_tpl->assign('otherInfos', jEvent::notify('servinfoGetInfo')->getResponse());
     }
 }

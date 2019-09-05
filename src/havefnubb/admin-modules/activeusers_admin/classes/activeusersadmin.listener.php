@@ -13,7 +13,7 @@ class activeusersadminListener extends jEventListener{
     function onservinfoGetInfo($event) {
         $nbMembers = jClasses::create('activeusers~connectedusers')->getCount();
         $label = jLocale::get('activeusers_admin~main.server.infos.online.users');
-        $event->add(new serverinfoData('user-online', $label, $nbMembers));
+        $event->add(new \HavefnuBB\ServerInfos\ServerInfoData('user-online', $label, $nbMembers));
     }
 
     function onmasteradminGetMenuContent ($event) {

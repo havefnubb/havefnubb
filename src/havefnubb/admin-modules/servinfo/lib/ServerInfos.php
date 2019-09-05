@@ -7,6 +7,9 @@
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+namespace HavefnuBB\ServerInfos;
+
 /**
  * Class that grabs server informations
  */
@@ -25,7 +28,7 @@ class ServerInfos {
             @fclose($fh);
 
             $loadAverages = @explode(' ', $loadAverages);
-            $serverLoad = isset($loadAverages[2]) ? $loadAverages[0].' '.$loadAverages[1].' '.$loadAverages[2] : jLocale::get('hfnuadmin~admin.server.infos.unavailable');
+            $serverLoad = isset($loadAverages[2]) ? $loadAverages[0].' '.$loadAverages[1].' '.$loadAverages[2] : \jLocale::get('hfnuadmin~admin.server.infos.unavailable');
         }
         else if (!in_array(PHP_OS, array('WINNT', 'WIN32')) &&
             preg_match('/averages?: ([0-9\.]+),[\s]+([0-9\.]+),[\s]+([0-9\.]+)/i', @exec('uptime'), $loadAverages)
@@ -33,7 +36,7 @@ class ServerInfos {
             $serverLoad = $loadAverages[1] . ' ' . $loadAverages[2] . ' ' . $loadAverages[3];
         }
         else {
-            $serverLoad = jLocale::get('servinfo~servinfo.server.infos.unavailable');
+            $serverLoad = \jLocale::get('servinfo~servinfo.server.infos.unavailable');
         }
 
         return $serverLoad;
@@ -61,8 +64,8 @@ class ServerInfos {
      */
     public function dbVersion() {
 
-        $cnt = jDb::getConnection();
-        $version = $cnt->getAttribute(jDbConnection::ATTR_SERVER_VERSION);
+        $cnt = \jDb::getConnection();
+        $version = $cnt->getAttribute(\jDbConnection::ATTR_SERVER_VERSION);
 
         return $cnt->dbms . ' ' . $version;
     }
@@ -73,7 +76,7 @@ class ServerInfos {
      */
     public static function dbSize() {
 
-        $con = jDb::getConnection();
+        $con = \jDb::getConnection();
         $totalRecords = $totalSize = 0;
 
         if ($con->dbms == 'mysql') {
