@@ -4,7 +4,7 @@
 * @subpackage jelixcache
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk, 2010 Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2010-2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -13,7 +13,7 @@
  */
 class defaultCtrl extends jController {
     /**
-     * @var plugins to manage the behavior of the controller
+     * @var array $pluginParams plugins parameters to manage the behavior of the controller
      */
     public $pluginParams = array(
         '*' => array('auth.required'=>true,
@@ -33,7 +33,7 @@ class defaultCtrl extends jController {
     function clear() {
         $confirm = $this->param('confirm');
 
-        if ($confirm == 'Y'){
+        if ($confirm == 'Y') {
             jFile::removeDir(jApp::tempPath(), false);
             jMessage::add(jLocale::get('jelixcache~jelixcache.cache.clear.done'));
         }
