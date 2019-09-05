@@ -14,7 +14,5 @@ class hfnucalModuleInstaller extends \Jelix\Installer\Module\Installer {
 
     public function install(InstallHelpers $helpers)
     {
-        //if ($this->firstDbExec())
-        //    $this->execSQLscript('sql/install');
     }
 }
