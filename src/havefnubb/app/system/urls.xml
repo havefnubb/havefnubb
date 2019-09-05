@@ -29,7 +29,6 @@
         <url pathinfo="/" module="master_admin" action="default:index" optionalTrailingSlash="true"/>
         <url pathinfo="/admin/themes" module="hfnuthemes" include="urls_admin.xml"/>
         <url pathinfo="/admin/search" module="hfnusearch" include="urls_admin.xml"/>
-        <url pathinfo="/admin/server" module="servinfo" include="urls.xml"/>
         <url pathinfo="/admin/auth" module="jauthdb_admin" include="urls.xml"/>
         <url pathinfo="/admin/acl" module="jacl2db_admin" include="urls.xml"/>
         <url pathinfo="/admin/contact" module="hfnucontact" include="urls_admin.xml"/>
