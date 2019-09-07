@@ -14,9 +14,9 @@
         <legend>{@havefnubb~post.form.title.preview.page@}</legend>
         <div class="signature-content form_value">
         {$previewsubject|eschtml}
-        {$previewtext|wiki:'hfb_rule'}
+        {$previewtext|wiki}
         {if $signature != ''}<hr/>
-        {$signature|wiki:'hfb_rule'|stripslashes}
+        {$signature|wiki|stripslashes}
         {/if}
         </div>
     </fieldset>

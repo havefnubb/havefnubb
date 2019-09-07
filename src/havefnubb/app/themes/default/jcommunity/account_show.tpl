@@ -156,7 +156,7 @@ $(document).ready(function(){
                         <label><strong>{@havefnubb~member.common.account.signature@}</strong></label>
                     </div>
                     <div class="form_value">
-                        {$user->member_comment|wiki:'hfb_rule'|stripslashes}
+                        {$user->member_comment|wiki|stripslashes}
                     </div>
                 </div>
             </fieldset>

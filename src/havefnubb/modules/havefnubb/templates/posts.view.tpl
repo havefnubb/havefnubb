@@ -103,18 +103,18 @@
         </div>
         <div class="postbody">
         {if $statusAvailable[$post->status -1] == 'censored'}
-            {@havefnubb~main.censored.reason@} {$post->censored_msg|wiki:'hfb_rule'} {censored_by $post->censored_by}
+            {@havefnubb~main.censored.reason@} {$post->censored_msg|wiki} {censored_by $post->censored_by}
             {ifacl2 'hfnu.admin.post', 'forum'.$id_forum}
             <div class="censor-warning">****{@havefnubb~main.censor.moderator.warning@}*****</div>
-            {$post->message|wiki:'hfb_rule'}
+            {$post->message|wiki}
             {/ifacl2}
         {else}
-            {$post->message|wiki:'hfb_rule'}
+            {$post->message|wiki}
         {/if}
         </div>
 
         {if $post->member_comment != ''}<hr class="postmembersig"/>
-        {$post->member_comment|wiki:'hfb_rule'}
+        {$post->member_comment|wiki}
         {/if}
     </div>
     <div class="postfoot buttons-bar">

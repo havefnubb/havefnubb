@@ -34,8 +34,9 @@ class havefnubbModuleConfigurator extends \Jelix\Installer\Module\Configurator {
         /** @var IniModifier $config */
         $config = $ep->getSingleConfigIni();
         $config->setValue('banuser', 1, 'coordplugins');
+
         $defaultConfig = new IniReader(__DIR__.'/config.ini');
-        $config->import($defaultConfig);
+        $helpers->getSingleConfigIni()->import($defaultConfig);
 
 
     }

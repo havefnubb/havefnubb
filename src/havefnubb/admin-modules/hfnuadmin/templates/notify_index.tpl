@@ -57,7 +57,7 @@ $(document).ready(function(){
         </tr>
         <tr>
             <td>{ifacl2 'hfnu.admin.notify.delete'}<a href="{jurl 'hfnuadmin~notify:delete',array('id_notify'=>$notif->id_notify)}" title="{@hfnuadmin~notify.delete.this.notify@}" onclick="return confirm('{jlocale 'hfnuadmin~notify.confirm.deletion',array('')}')">{@hfnuadmin~common.delete@}</a>{/ifacl2}</td>
-            <td colspan="3" class="td-notify-message">{$notif->message|wiki:'hfb_rule'|stripslashes}</td>
+            <td colspan="3" class="td-notify-message">{$notif->message|wiki|stripslashes}</td>
         </tr>
         {assign $line = !$line}
         {/foreach}
