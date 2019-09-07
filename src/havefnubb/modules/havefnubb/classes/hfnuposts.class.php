@@ -4,7 +4,7 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2011 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -748,8 +748,6 @@ class hfnuposts {
 
         $datas = $dao->findAllFromCurrentIdPostWithThreadId($thread_id,$id_post);
 
-        $recCount = $datas->rowCount();
-        
         $i                  = 0;
         $id_post_new        = 0;
         $id_thread_inserted = 0;
@@ -759,7 +757,6 @@ class hfnuposts {
             //the id forum where the post comes from
             $id_forum_old = $data->id_forum;
 
-            $record = jDao::createRecord('havefnubb~posts');
             $record = $data;
             $record->id_post = 0;//to create a new record !
             $record->id_forum = $id_forum; // the id forum where we want to move this post
@@ -934,6 +931,10 @@ class hfnuposts {
      */
     public function findUnreadThreadByMod() {
         return jDao::get('havefnubb~threads')->findUnreadThreadByMod();
+    }
+
+    public function getUnreadThreadByModCount() {
+        return jDao::get('havefnubb~threads')->getUnreadThreadByModCount();
     }
 
 

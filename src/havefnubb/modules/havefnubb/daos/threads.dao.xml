@@ -77,6 +77,11 @@
                 <orderitem property="date_modified" way="desc" />
             </order>
         </method>
+        <method name="getUnreadThreadByModCount" type="count">
+            <conditions>
+                <eq property="read_by_mod" value="0" />
+            </conditions>
+        </method>
         <method name="getUserLastCommentOnForums" type="selectfirst">
             <parameter name="id_forum" />
             <conditions>

@@ -4,7 +4,7 @@
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk, 2011 Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -174,14 +174,15 @@ class postsCtrl extends jController {
             $gotoPostId = (int) $this->param('go');
             $thread_id = (int) $this->param('thread_id');
             $rec = jDao::get('havefnubb~posts')->findAllPostByThreadId($thread_id);
-            $nbRec = 0;
-            if ($rec->rowCount() > 0 ) {
+            $nbRec = $rec->rowCount();
+            if ($nbRec > 0 ) {
                 $nbRepliesPerPage = (int) jApp::config()->havefnubb['replies_per_page'];
-                $nbRec = $rec->rowCount();
                 for ($nbReplies = 0; $nbReplies < $nbRec; ++$nbReplies) {
-
-                    foreach ($rec as $child)
-                        if ($gotoPostId == $child->id_post) break;
+                    foreach ($rec as $child) {
+                        if ($gotoPostId == $child->id_post) {
+                            break;
+                        }
+                    }
                 }
                 $page = (ceil ($nbReplies/$nbRepliesPerPage) * $nbRepliesPerPage) - $nbRepliesPerPage;
 
