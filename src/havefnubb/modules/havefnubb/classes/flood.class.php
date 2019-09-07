@@ -4,7 +4,7 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2010 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2010-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -39,7 +39,7 @@ class flood {
         if ($rec->member_last_post + $timeInterval > time())
             return false;
 
-        if ($onlySameIp && isset($_SERVER['REMOTE_ADDR']) && $rec->poster_ip != $_SERVER['REMOTE_ADDR']) {
+        if ($onlySameIp && jApp::coord()->request->getIP() != $rec->poster_ip) {
             return false;
         }
 

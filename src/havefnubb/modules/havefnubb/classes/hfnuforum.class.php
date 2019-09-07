@@ -4,7 +4,7 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2010 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2010-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -186,10 +186,14 @@ class hfnuforum {
      * @param int $id_forum id of the forum to unsubscribe
      */
     public function unsubscribe($id_forum) {
-        if (jAuth::isConnected())
+        if (jAuth::isConnected()) {
             //check if this forum is already subscribe
-            if (jDao::get('havefnubb~forum_sub')->get(jAuth::getUserSession()->id,$id_forum))
-                jDao::get('havefnubb~forum_sub')->delete(jAuth::getUserSession()->id,$id_forum);
+            $dao = jDao::get('havefnubb~forum_sub');
+            $userId = jAuth::getUserSession()->id;
+            if ($dao->get($userId, $id_forum)) {
+                $dao->delete($userId, $id_forum);
+            }
+        }
     }
     /**
      * let's check if a member has subcribed to this forum, then mail him the new thread
@@ -214,7 +218,6 @@ class hfnuforum {
 
                 $tpl = new jTpl();
                 $tpl->assign('post',$post);
-                $tpl->assign('server',$_SERVER['SERVER_NAME']);
                 $mail->Body = $tpl->fetch('havefnubb~forum_new_message', 'text');
                 $mail->AddAddress(jDao::get('havefnubb~member')->getById($rec->id_user)->email);                
                 $mail->Send();

@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage hfnurates
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence   http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -49,7 +50,7 @@ class rates {
             $record->id_user    = $id_user;
             $record->source     = $source;
             $record->level      = $rate;
-            $record->ip         = $_SERVER['REMOTE_ADDR'];
+            $record->ip         = jApp::coord()->request->getIP();
             $dao->insert($record);
         } else {
             $rec->level = $rate;

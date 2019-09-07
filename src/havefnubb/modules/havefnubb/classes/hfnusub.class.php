@@ -93,7 +93,6 @@ class hfnusub {
             $mail->Subject    = $subject;
 
             $tpl = new jTpl();
-            $tpl->assign('server',$_SERVER['SERVER_NAME']);
             $tpl->assign('post',$post);
             $tpl->assign('login',$member->login);
             $mail->Body = $tpl->fetch('havefnubb~new_comment_received', 'text');

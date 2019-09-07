@@ -3,12 +3,15 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
 /**
  * Class that handle the banned users
+ *
+ * TODO IPV6 support
  */
 class bans {
     /**
@@ -118,10 +121,11 @@ class bans {
      */
     public static function bannedIp($banIp) {
     //is this IP one of them ?
+        $currentIp = jApp::coord()->request->getIP();
         if (strpos($banIp,',') > 0 ) {
             $list = preg_split('/,/',$banIp);
             foreach ($list as $item) {
-                if  ($item == $_SERVER['REMOTE_ADDR']) return true;
+                if  ($item == $currentIp) return true;
             }
         }
         // is this IP in this range ?
@@ -135,12 +139,12 @@ class bans {
             // end is xxx.yyy.aaa
             $end = substr($list[0],0,$pos) . '.'.$list[1];
             // validate each of them
-            if ($start >=  $_SERVER['REMOTE_ADDR'] and $_SERVER['REMOTE_ADDR'] <= $end )
+            if ($start >=  $currentIp and $currentIp <= $end )
                 return true;
         }
         // is this IP the same ?
         else {
-            return ($banIp == $_SERVER['REMOTE_ADDR']);
+            return ($banIp == $currentIp);
         }
         //otherwise no ban by ip!
         return false;
@@ -153,7 +157,7 @@ class bans {
      */
     public static function checkIp($ip) {
         $validIp = false;
-        $newIp = '';
+
         //0) checking the content : list or range but not list AND range :
         if (strpos($ip,',') > 0 and strpos($ip,'-') > 0 ) {
             jMessage::add(jLocale::get('havefnubb~ban.list.ip.or.range'));

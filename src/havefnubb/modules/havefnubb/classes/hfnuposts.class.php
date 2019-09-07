@@ -364,7 +364,7 @@ class hfnuposts {
             $record->viewed         = 0;
             $record->ispined        = 0;
             $record->iscensored     = 0;
-            $record->poster_ip      = $_SERVER['REMOTE_ADDR'];
+            $record->poster_ip      = jApp::coord()->request->getIP();
             //if the current user is a member of a moderator group
             // we set this post as 'read by moderator'
             if (jAcl2DbUserGroup::isMemberOfGroup($this->hfAdmin) or
@@ -506,7 +506,7 @@ class hfnuposts {
         $result['daorec']->date_created = $dateReply;
         $result['daorec']->date_modified= $dateReply;
         $result['daorec']->status       = $threadRec->status;//'opened'
-        $result['daorec']->poster_ip    = $_SERVER['REMOTE_ADDR'];
+        $result['daorec']->poster_ip    = jApp::coord()->request->getIP();
         $result['daorec']->viewed       = 0;
         $result['daorec']->id_post      = 0;
         $result['daorec']->id_user      = $id_user;

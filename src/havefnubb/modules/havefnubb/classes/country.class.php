@@ -20,16 +20,12 @@ class country {
 
         $supportedLanguage = array('fr','en');
         //get the member language
-        if ( array_key_exists('JX_LANG',$_SESSION))
-            $language = preg_split('/_/',$_SESSION['JX_LANG']);
-        else
-            $language = preg_split('/_/', jApp::config()->locale);
+        $language = jLocale::getCurrentLang();
 
         $data = array();
 
-        if (! in_array($language[0], $supportedLanguage)) return $data;
-
-        $fh = @fopen (__DIR__.'/iso_3166-1_list_'.$language[0].'.txt','r');
+        if (! in_array($language, $supportedLanguage)) return $data;
+        $fh = @fopen (__DIR__.'/iso_3166-1_list_'.$language.'.txt','r');
         if ($fh) {
            while (!feof($fh)) {
                 $buffer = utf8_encode(fgets($fh, 4096));

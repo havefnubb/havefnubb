@@ -1148,7 +1148,7 @@ class postsCtrl extends jController {
         $gJConfig = jApp::config();
         // entete du flux rss
         $rep->infos->title = $gJConfig->havefnubb['title'];
-        $rep->infos->webSiteUrl= (empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER['HTTP_HOST'];
+        $rep->infos->webSiteUrl= jApp::coord()->request->getServerURI();
         $rep->infos->copyright = $gJConfig->havefnubb['title'];
         $rep->infos->description = $gJConfig->havefnubb['description'];
         $rep->infos->updated = date('Y-m-d H:i:s');
@@ -1243,13 +1243,13 @@ class postsCtrl extends jController {
         $gJConfig = jApp::config();
         // entete du flux atom
         $rep->infos->title = $gJConfig->havefnubb['title'];
-        $rep->infos->webSiteUrl= (empty($_SERVER['HTTPS'])?'http':'https').'://'.$_SERVER['HTTP_HOST'];
+        $rep->infos->webSiteUrl= jApp::coord()->request->getServerURI();
         $rep->infos->copyright = $gJConfig->havefnubb['title'];
         $rep->infos->description = $gJConfig->havefnubb['description'];
         $rep->infos->updated = date('Y-m-d H:i:s');
         $rep->infos->published = date('Y-m-d H:i:s');
         $rep->infos->selfLink= jUrl::get('havefnubb~posts:atom', array('ftitle'=>$ftitle,
-                                                    'id_forum'=>$fid_forum));
+                                                    'id_forum'=>$id_forum));
         $rep->infos->ttl=60;
 
         $dao = jDao::get('havefnubb~forum');

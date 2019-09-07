@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage hfnucontact
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -60,7 +61,7 @@ class defaultCtrl extends jController {
 
         $message  = $form->getData('message');
         if ($form->getData('url') != '') {
-                $url = 'http://'. $_SERVER['SERVER_NAME'] .'/'. $form->getData('url');
+                $url = jApp::coord()->request->getServerURI().'/'. $form->getData('url');
                 if (filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED)) {
                     $message .= "\n"."\n";
                     $message .= $url;
@@ -70,7 +71,6 @@ class defaultCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('login',$login);
         $tpl->assign('message',$message);
-        $tpl->assign('server',$_SERVER['SERVER_NAME']);
         $mail->Body = $tpl->fetch('hfnucontact~send_an_email', 'text');
         $mail->AddAddress($emailTo,$toContact);
         $mail->Send();
@@ -100,12 +100,11 @@ class defaultCtrl extends jController {
         }
         $url = $_SESSION['SENDTOFRIEND']['send_to_friend_url'];
 
+        $appUri = jApp::coord()->request->getServerURI().'/'.$url;
         $message = jLocale::get('contact.a.page.to.read.message') .
-                    "\n\n" .
-                    'http://'. $_SERVER['SERVER_NAME'] .'/'. $url;
+                    "\n\n" . $appUri;
 
-        $subject = jLocale::get('contact.a.page.to.read.subject',
-                                'http://'. $_SERVER['SERVER_NAME'] .'/'.$url);
+        $subject = jLocale::get('contact.a.page.to.read.subject', $appUri);
 
         $form = jForms::create('hfnucontact~send_to_friend');
         $form->setData('message',$message);

@@ -3,7 +3,8 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -118,7 +119,6 @@ class authhavefnubbListener extends jEventListener{
 
         $tpl = new jTpl();
         $tpl->assign('login',$user->login);
-        $tpl->assign('server',$_SERVER['SERVER_NAME']);
         $mail->Body = $tpl->fetch('havefnubb~warn_new_registration', 'text');
 
         $mail->AddAddress($toEmail);
