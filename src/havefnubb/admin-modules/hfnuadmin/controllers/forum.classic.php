@@ -3,8 +3,8 @@
 * @package   havefnubb
 * @subpackage hfnuadmin
 * @author    FoxMaSk
-* @contributor
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -167,7 +167,7 @@ class forumCtrl extends jController {
         }
         $rights=array();
 
-        $rs = jDao::get('jacl2db~jacl2subject', 'jacl2_profile')->findHfnuSubject();
+        $rs = jDao::get('jacl2db~jacl2subject', 'jacl2_profile')->findHfnuRoles();
         foreach($rs as $rec){
             $rights[$rec->id_aclsbj] = $grouprights;
         }
