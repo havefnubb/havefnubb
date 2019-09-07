@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="hfnuadmin@havefnubb.org" name="hfnuadmin" createdate="2009-01-25">
-        <version date="2012-08-31">1.4.0</version>
+        <version date="2019-09-07">1.5.0</version>
         <label lang="en_US">HfnuAdmin</label>
         <description lang="en_US">HaveFnuBB! Admin : manage the complet HaveFnu BB bulletin board</description>
         <label lang="fr_FR">HfnuAdmin</label>
         <description lang="fr_FR">HaveFnuBB! Administration : module gestion complète du forum </description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
-        <copyright>2008-2011 FoxMaSk</copyright>
+        <copyright>2008-2011 FoxMaSk, 2019 Laurent Jouanneau</copyright>
         <creator name="FoxMaSk" email="foxmask@foxmask.net"/>
         <homepageURL>http://www.havefnubb.jelix.org/</homepageURL>
     </info>
