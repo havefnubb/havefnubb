@@ -3,10 +3,14 @@
 * @package   havefnubb
 * @subpackage hfnuthemes
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Jelix\IniFile\IniModifier;
+
 /**
  * Controller that manage the Theme Manager
  */
@@ -18,7 +22,7 @@ class defaultCtrl extends jController {
         '*'	=>	array('auth.required'=>true,
                           'banuser.check'=>true,
                     ),
-        '*' => array( 'jacl2.right'=>'hfnu.admin.index'),
+        '*' => array( 'jacl2.right'=>'hfnuthemes.admin.themes'),
     );
     /**
      * Index that will display all the available theme to be used
@@ -40,7 +44,7 @@ class defaultCtrl extends jController {
      */
     function useit() {
         $theme = (string) $this->param('theme');
-        $mainConfig = new jIniFileModifier(jApp::configPath() . 'localconfig.ini.php');
+        $mainConfig = new IniModifier(jApp::varConfigPath() . 'liveconfig.ini.php');
         $mainConfig->setValue('theme',strtolower($theme));
         $mainConfig->setValue('datepicker',strtolower($theme),'forms');
         $mainConfig->save();

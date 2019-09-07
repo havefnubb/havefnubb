@@ -16,8 +16,7 @@ INSERT INTO %%PREFIX%%jacl2_subject (id_aclsbj, label_key) VALUES
 ('hfnu.admin.notify.list', 'havefnubb~acl2.admin.notify.list'),
 ('hfnu.admin.rank.create', 'havefnubb~acl2.admin.rank.create'),
 ('hfnu.admin.rank.delete', 'havefnubb~acl2.admin.rank.delete'),
-('hfnu.admin.rank.edit', 'havefnubb~acl2.admin.rank.edit'),
-('hfnu.admin.themes', 'havefnubb~acl2.admin.themes');
+('hfnu.admin.rank.edit', 'havefnubb~acl2.admin.rank.edit');
 
 INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES
 ('hfnu.admin.ban', 'admins', ''),
@@ -47,5 +46,4 @@ INSERT INTO %%PREFIX%%jacl2_rights (id_aclsbj, id_aclgrp, id_aclres) VALUES
 ('hfnu.admin.rank.delete', 'admins', ''),
 ('hfnu.admin.rank.delete', 'moderators', ''),
 ('hfnu.admin.rank.edit', 'admins', ''),
-('hfnu.admin.rank.edit', 'moderators', ''),
-('hfnu.admin.themes', 'admins', '');
+('hfnu.admin.rank.edit', 'moderators', '');

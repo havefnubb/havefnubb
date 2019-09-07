@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage hfnuthemes
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -18,7 +19,7 @@ class hfnuthemesadminmenuListener extends jEventListener{
     */
      function onmasteradminGetMenuContent ($event) {
        $chemin = jApp::urlBasePath().'hfnu/admin/';
-       if ( jAcl2::check('hfnu.admin.index'))    {
+       if ( jAcl2::check('hfnuthemes.admin.themes'))    {
           $event->add(new masterAdminMenuItem('hfnuthemes',jLocale::get('hfnuthemes~theme.themes'), '', 30));
           $item = new masterAdminMenuItem('theme',
                                                jLocale::get('hfnuthemes~theme.themes'),

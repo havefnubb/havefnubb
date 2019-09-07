@@ -14,5 +14,7 @@ class hfnuthemesModuleInstaller extends \Jelix\Installer\Module\Installer {
 
     public function install(InstallHelpers $helpers)
     {
+        jAcl2DbManager::addRole('hfnu.admin.themes', 'hfnuthemes~theme.admin.themes');
+        jAcl2DbManager::addRight('admins', 'hfnu.admin.themes'); // for admin group
     }
 }

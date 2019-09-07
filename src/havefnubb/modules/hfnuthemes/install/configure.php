@@ -22,6 +22,7 @@ class hfnuthemesModuleConfigurator extends \Jelix\Installer\Module\Configurator 
     public function configure(ConfigurationHelpers $helpers)
     {
         if (!$this->getParameter('nocopyfiles')) {
+            // FIXME
             //$helpers->copyDirectoryContent('css/', 'www:themes/default/css/');
         }
     }

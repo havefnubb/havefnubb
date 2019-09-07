@@ -8,7 +8,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 /**
- *Class that display menu item to manage the Themes
+ *Class that display menu item to manage the search
  */
 class hfnusearchadminmenuListener extends jEventListener{
     /**
