@@ -3,7 +3,8 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -15,7 +16,7 @@ class country {
      * get the list of all ISO countries code
      * @return array $data return an array of ISO country code
      */
-    public static function getCountries() {
+    public function getCountries() {
 
         $supportedLanguage = array('fr','en');
         //get the member language
@@ -45,7 +46,7 @@ class country {
      * get the name of a given country code
      * @param string $code of the country to get its name
      */
-    public static function getCountryName($code) {
+    public function getCountryName($code) {
         $data = self::getCountries();
         return $data[$code];
     }

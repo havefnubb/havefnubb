@@ -3,7 +3,9 @@
 * @package   havefnubb
 * @subpackage hfnuStemmer
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Bastion Jaillot
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau, 2008 Bastien Jaillot
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -24,7 +26,7 @@ class hfnuStemmer
     */
 
     // the rule patterns include all accented forms for a given language
-     protected static $rule_pattern = "/^([a-zàâèéêëîïôûùç]*)(\*){0,1}(\d)([a-zàâèéêëîïôûùç]*)([.|>])/";
+     const rule_pattern = "/^([a-zàâèéêëîïôûùç]*)(\*){0,1}(\d)([a-zàâèéêëîïôûùç]*)([.|>])/";
 
      protected static $PaiceHuskStemmerRules_fr = array(
      'esre1>',            // { -erse > -ers }
@@ -424,14 +426,14 @@ class hfnuStemmer
     // returns the number of the first rule from the rule number $rule_number
     // that can be applied to the given reversed form
     // returns -1 if no rule can be applied, ie the stem has been found
-    public static function getFirstRule($reversed_form, $rule_number)
+    public function getFirstRule($reversed_form, $rule_number)
     {
       $nb_rules = sizeOf(self::$PaiceHuskStemmerRules_fr);
       for ($i=$rule_number; $i<$nb_rules; $i++)
       {
       // gets the letters from the current rule
         $rule = self::$PaiceHuskStemmerRules_fr[$i];
-        $rule = preg_replace(self::$rule_pattern, "\\1", $rule);
+        $rule = preg_replace(self::rule_pattern, "\\1", $rule);
         //if (strncasecmp(utf8_decode($rule),$reversed_form,strlen(utf8_decode($rule))) == 0) return $i;
         if (strncasecmp($rule, $reversed_form, strlen($rule)) == 0) return $i;
       }
@@ -444,7 +446,7 @@ class hfnuStemmer
     *
     * $reversed_stem:    the stem to check in reverse form
     */
-     public static function checkAcceptability($reversed_stem)
+     public function checkAcceptability($reversed_stem)
      {
      //if (preg_match("/[aàâeèéêëiîïoôuûùy]$/",utf8_encode($reversed_stem))) {
        if (preg_match("/[aàâeèéêëiîïoôuûùy]$/",$reversed_stem))
@@ -472,7 +474,7 @@ class hfnuStemmer
     *
     * $form:        the word for which we want the stem
     */
-     public static function PaiceHuskStemmer($form)
+     public function PaiceHuskStemmer($form)
      {
        $intact = True;
        $stem_found = False;
@@ -481,18 +483,18 @@ class hfnuStemmer
        // that loop goes through the rules' array until it finds an ending one (ending by '.') or the last one ('end0.')
        while (True)
        {
-         $rule_number = self::getFirstRule($reversed_form, $rule_number);
+         $rule_number = $this->getFirstRule($reversed_form, $rule_number);
          if ($rule_number == -1)
          {
          // no other rule can be applied => the stem has been found
            break;
          }
          $rule = self::$PaiceHuskStemmerRules_fr[$rule_number];
-         preg_match(self::$rule_pattern, $rule, $matches);
+         preg_match(self::rule_pattern, $rule, $matches);
          if (($matches[2] != '*') || ($intact))
          {
            $reversed_stem = utf8_decode($matches[4]) . substr($reversed_form,$matches[3],strlen($reversed_form)-$matches[3]);
-           if (self::checkAcceptability($reversed_stem))
+           if ($this->checkAcceptability($reversed_stem))
            {
              $reversed_form = $reversed_stem;
              if ($matches[5] == '.') break;
@@ -514,16 +516,16 @@ class hfnuStemmer
      }
 
 
-     static function accentue()
+     function accentue()
      {
        return explode(' ', "à â ä é è ê ë ï î ô ö ù ü û À Â Ä É È Ê Ë Ï Î Ô Ö Ù Ü Û ç Ç");
      }
-     static function normal()
+     function normal()
      {
        return explode(' ', "a a a e e e e i i o o u u u A A A E E E E I I O O U U U c c");
      }
 
-     static function clean($str)
+     function clean($str)
      {
        return str_replace(self::accentue(),self::normal(),$str);
     //    return strtolower(str_replace(self::accentue(),self::normal(),$str));
@@ -535,11 +537,11 @@ class hfnuStemmer
     */
      protected static $StemCache = array();
 
-     public static function stem($word)
+     public function stem($word)
      {
        if (!isset(self::$StemCache[$word]))
        {
-         $stemmedword = self::PaiceHuskStemmer($word);
+         $stemmedword = $this->PaiceHuskStemmer($word);
     //      $stemmedword = self::PaiceHuskStemmer(self::clean($word));
          self::$StemCache[$word] = $stemmedword;
        }

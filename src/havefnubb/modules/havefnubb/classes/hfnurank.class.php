@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -15,19 +16,19 @@ class hfnurank {
      * content of the ranks
      * @var $ranks array
      */
-    public static $ranks = array() ;
+    protected $ranks = array() ;
     /**
      * get the rank from the given nb of messages
      * @param integer $nbMsg nb of messages the user has
      * @return string $ranks the rank corresponding to the nb of messages
      */
-    public static function getRank($nbMsg) {
-        if (!isset(self::$ranks[$nbMsg]))
+    public function getRank($nbMsg) {
+        if (!isset($this->ranks[$nbMsg]))
             if (jDao::get('havefnubb~ranks')->getMyRank($nbMsg) === false)
-                self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getHigherRank();
+                $this->ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getHigherRank();
             else {
-                self::$ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getMyRank($nbMsg);
+                $this->ranks[$nbMsg] = jDao::get('havefnubb~ranks')->getMyRank($nbMsg);
             }
-        return self::$ranks[$nbMsg];
+        return $this->ranks[$nbMsg];
     }
 }

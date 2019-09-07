@@ -3,7 +3,8 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -15,15 +16,16 @@ class hfnucat {
      * content of the category
      * @var $cat array
      */
-    public static $cat = array() ;
+    protected $cat = array() ;
     /**
      * get the category from the given id
      * @param integer $id current category
      * @return $cat array
      */
-    public static function getCat($id) {
-        if (!isset(self::$cat[$id]))
-            self::$cat[$id] = jDao::get('havefnubb~forum_cat')->get($id);
-        return self::$cat[$id];
+    public function getCat($id) {
+        if (!isset($this->cat[$id])) {
+            $this->cat[$id] = jDao::get('havefnubb~forum_cat')->get($id);
+        }
+        return $this->cat[$id];
     }
 }

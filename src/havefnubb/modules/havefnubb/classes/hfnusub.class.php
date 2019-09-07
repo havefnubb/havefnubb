@@ -3,7 +3,8 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -14,27 +15,29 @@ class hfnusub {
     /**
      * @var string $daoSub dao of the subscription table
      */
-    private static $daoSub = 'havefnubb~sub';
+    private $daoSub = 'havefnubb~sub';
     /**
      * Have I SubScribe to this post ?
      * @param integer $id of the subscribed post
-     * @return record
+     * @return jDaoRecordBase
      */
     public function getSubscribed($id) {
-        if (jAuth::isConnected())
-            return jDao::get(self::$daoSub)->get($id,jAuth::getUserSession ()->id);
+        if (jAuth::isConnected()) {
+            return jDao::get($this->daoSub)->get($id, jAuth::getUserSession()->id);
+        }
+        return null;
     }
     /**
      * Subscribe to a thread
      * @param integer $id of the THREAD! to subscribe
      * @return boolean
      */
-    public static function subscribe($id) {
-        $dao = jDao::get(self::$daoSub);
+    public function subscribe($id) {
+        $dao = jDao::get($this->daoSub);
         if (jAuth::isConnected()) {
             $id_user = jAuth::getUserSession ()->id;
             if (! $dao->get($id, $id_user)) {
-                $record = jDao::createRecord(self::$daoSub);
+                $record = jDao::createRecord($this->daoSub);
                 $record->id_post = $id;// thread ID
                 $record->id_user = $id_user;
                 $dao->insert($record);
@@ -48,8 +51,8 @@ class hfnusub {
      * @param integer $id of the THREAD! to unsubscribe
      * @return boolean
      */
-    public static function unsubscribe($id) {
-        $dao = jDao::get(self::$daoSub);
+    public function unsubscribe($id) {
+        $dao = jDao::get($this->daoSub);
         if ( jAuth::isConnected() && $dao->get($id,jAuth::getUserSession ()->id)) {
             $dao->delete($id,jAuth::getUserSession ()->id);
             return true;
@@ -61,12 +64,12 @@ class hfnusub {
      * @param integer $id of the subscribed post
      * @return void
      */
-    public static function sendMail($id) {
+    public function sendMail($id) {
 
         if (!jAuth::isConnected())
             return;
 
-        $dao = jDao::get(self::$daoSub);
+        $dao = jDao::get($this->daoSub);
         $memberDao = jDao::get('havefnubb~member');
 
         //get all the members that subscribe to this thread except "ME" !!!

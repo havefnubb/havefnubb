@@ -74,7 +74,7 @@ class ServerInfos {
      * Size of the database
      * @return array the total size and record of the database
      */
-    public static function dbSize() {
+    public function dbSize() {
 
         $con = \jDb::getConnection();
         $totalRecords = $totalSize = 0;

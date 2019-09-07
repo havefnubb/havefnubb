@@ -3,8 +3,8 @@
 * @package   havefnubb
 * @subpackage hfnuadmin
 * @author    FoxMaSk
-* @contributor
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -54,8 +54,8 @@ class banCtrl extends jController {
 
         $submit = $this->param('validate');
         if ($submit == jLocale::get('hfnuadmin~ban.saveBt') ) {
-
-            if ( $ip != '' and jClasses::getService('havefnubb~bans')->checkIp($ip) === false ) {
+            jClasses::inc('havefnubb~bans');
+            if ( $ip != '' && bans::checkIp($ip) === false ) {
                 $rep = $this->getResponse('redirect');
                 $rep->action='hfnuadmin~ban:index';
                 return $rep;
