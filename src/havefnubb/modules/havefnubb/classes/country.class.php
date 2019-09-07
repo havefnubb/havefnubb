@@ -47,7 +47,7 @@ class country {
      * @param string $code of the country to get its name
      */
     public function getCountryName($code) {
-        $data = self::getCountries();
+        $data = $this->getCountries();
         return $data[$code];
     }
 }
