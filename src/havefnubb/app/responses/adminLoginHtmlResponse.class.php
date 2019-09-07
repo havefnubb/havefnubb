@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage responses
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -18,7 +19,7 @@ class adminLoginHtmlResponse extends jResponseHtml {
 	function __construct() {
 		parent::__construct();
 		// Include your common CSS and JS files here
-		$this->addCSSLink(jApp::config()->urlengine['jelixWWWPath'].'design/master_admin.css');
+		$this->addCSSLink(jApp::urlJelixWWWPath().'design/master_admin.css');
 	}
 	/**
 	 * method which manages 'globales' behavior/var

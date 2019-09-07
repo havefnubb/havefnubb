@@ -3,7 +3,7 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    Laurent Jouanneau
- * @copyright 2018 Laurent Jouanneau
+ * @copyright 2018-2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -15,10 +15,10 @@ class havefnubbModuleUpgrader_passwordfield extends jInstallerModule {
 
     function install() {
         if ($this->firstDbExec()) {
-            $isJelix17 = method_exists('jApp', 'appConfigPath');
+            $isJelix17 = method_exists('jApp', 'appSystemPath');
             $authconfig = $this->config->getValue('auth','coordplugins');
             if ($isJelix17) {
-                $confPath = jApp::appConfigPath($authconfig);
+                $confPath = jApp::appSystemPath($authconfig);
                 $conf = new \Jelix\IniFile\IniModifier($confPath);
             }
             else {

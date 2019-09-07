@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage hfnuadmin
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -11,7 +12,7 @@
 class hfnuadminmenuListener extends jEventListener{
 
     function onmasteradminGetMenuContent ($event) {
-        $chemin = jApp::config()->urlengine['basePath'].'hfnu/admin/';
+        $chemin = jApp::urlBasePath().'hfnu/admin/';
         if ( jAcl2::check('hfnu.admin.index')) {
          $event->add(new masterAdminMenuItem('havefnubb','HaveFnu BB!', '', 20));
         }

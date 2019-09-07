@@ -3,7 +3,8 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
@@ -33,15 +34,15 @@
  */
 class hfnumenusbar {
     /**
-     * get the menus to be added inside the ohers menu item
+     * get the menus to be added inside the others menu item
      * @return $menus array of menus
      */
     public function getMenus() {
         $menus = array();
 
-        if (file_exists(jApp::configPath().'/havefnubb/hfnumenus.xml')) {
+        if (file_exists(jApp::appSystemPath().'/havefnubb/hfnumenus.xml')) {
             $doc = new DOMDocument();
-            $doc->load(realpath(jApp::configPath()).'/havefnubb/hfnumenus.xml');
+            $doc->load(realpath(jApp::appSystemPath()).'/havefnubb/hfnumenus.xml');
             $xpath  = new DOMXPath($doc);
 
 

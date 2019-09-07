@@ -3,8 +3,8 @@
  * @package WikiRenderer
  * @subpackage rules
 * @author     foxmask
-* @contributor
-* @copyright  2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright  2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 require_once WIKIRENDERER_PATH.'rules/wr3_to_xhtml.php';
@@ -18,7 +18,7 @@ class hfb_rule extends wr3_to_xhtml {
 	   */
 	  public function __construct() {
 
-          $p = '<img src="'.jApp::config()->urlengine["basePath"].'hfnu/images/smileys/'.jApp::config()->smileys_pack['name'];
+          $p = '<img src="'.jApp::urlBasePath().'hfnu/images/smileys/'.jApp::config()->smileys_pack['name'];
 		  $this->simpletags = array(
 				  '%%%'=>'<br />',
 				 '>:)'=>$p.'/emoticon_evilgrin.png" alt="evilgrin" />',

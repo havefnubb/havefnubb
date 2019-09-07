@@ -3,10 +3,14 @@
 * @package   havefnubb
 * @subpackage hfnucontact
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Jelix\IniFile\IniModifier;
+
 /**
 * Controller to manage the default contact email of the website
 */
@@ -35,7 +39,7 @@ class adminCtrl extends jController {
 				$rep->action='hfnucontact~admin:index';
 				return $rep;
 			}
-			$HfnucontactConfig = new jIniFileModifier(jApp::configPath('localconfig.ini.php'));
+			$HfnucontactConfig = new IniModifier(jApp::varConfigPath('liveconfig.ini.php'));
 			$HfnucontactConfig->setValue('email_contact',$this->param('contact'),'hfnucontact');
 			$HfnucontactConfig->save();
 			jMessage::add(jLocale::get('hfnucontact~contact.admin.form.email.saved'),'ok');
