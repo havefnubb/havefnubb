@@ -27,9 +27,14 @@ class memberprofileZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        $id = (int) $this->param('id');
+        $id = (int) $this->param('user_id');
         if ($id) {
-            $this->_tpl->assign('user',jDao::get('havefnubb~member')->getById($id));
+            $dao = jDao::get('havefnubb~member');
+            $user = $dao->getById($id);
         }
+        else {
+            $user = false;
+        }
+        $this->_tpl->assign('user', $user);
     }
 }

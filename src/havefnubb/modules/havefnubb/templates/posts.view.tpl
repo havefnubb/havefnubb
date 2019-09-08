@@ -92,7 +92,7 @@
         </div>
         <div class="clear"></div>
         <div class="post-sidebar">
-            {zone 'havefnubb~memberprofile',array('id'=>$post->id_user)}
+            {zone 'havefnubb~memberprofile',array('user_id'=>$post->id_user)}
             {if $post->thread_id == $post->id_post}
                 {zone 'hfnurates~rates' , array('id_source'=>$post->id_post,
                         'source'=>'post',

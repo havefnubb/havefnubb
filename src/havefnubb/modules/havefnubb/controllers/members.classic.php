@@ -34,7 +34,6 @@ class membersCtrl extends jController {
 
         $memberSearch = (string) $this->param('member_search');
 
-        $page = 0;
         $page = (int) $this->param('page');
 
     // get the group name of the group id we request
@@ -47,10 +46,11 @@ class membersCtrl extends jController {
         }
         $beginningBy = '';
 
-        if (strlen($letter) == 1 )
-            $beginningBy = ' - ' .jLocale::get('havefnubb~member.memberlist.members.beginning.by',array($letter));
+        if (strlen($letter) == 1 ) {
+            $beginningBy = ' - ' . jLocale::get('havefnubb~member.memberlist.members.beginning.by', array($letter));
+        }
         // change the label of the breadcrumb
-            if ($page == 0) {
+        if ($page == 0) {
             jApp::coord()->getPlugin('history')->change('label', jLocale::get('havefnubb~member.memberlist.members.list'));
             $rep->title = jLocale::get('havefnubb~member.memberlist.members.list') . ' - ' . $groupname . $beginningBy;
         }
@@ -75,7 +75,7 @@ class membersCtrl extends jController {
         if($login == '' || !jAuth::isConnected() || jAuth::getUserSession()->login != $login) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'jcommunity~account:show';
-            $rep->params=array('user'=>$user);
+            $rep->params=array('user'=>$login);
             return $rep;
         }
 
