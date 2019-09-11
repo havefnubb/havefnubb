@@ -226,7 +226,7 @@ name=famfamfam
 ; so your own smileys would have to be named like them
 
 [webassets]
-useCollection=main
+useCollection=common
 
 [webassets_common]
 

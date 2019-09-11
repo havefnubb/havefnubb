@@ -9,7 +9,7 @@
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2008-2011 FoxMaSk, 2019 Laurent Jouanneau</copyright>
         <creator name="FoxMaSk" email="foxmask@foxmask.net"/>
-        <contributor name="Laurent Jouanneau"
+        <contributor name="Laurent Jouanneau"/>
         <homepageURL>https://havefnubb.jelix.org/</homepageURL>
     </info>
     <dependencies>
