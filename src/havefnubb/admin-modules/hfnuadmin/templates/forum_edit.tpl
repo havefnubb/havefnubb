@@ -1,5 +1,3 @@
-{meta_html css  $j_jelixwww.'design/jacl2.css'}
-{meta_html css  $j_jelixwww.'design/jform.css'}
 
 <h1>{@hfnuadmin~forum.edit.a.forum@}</h1>
 {formfull $form,'hfnuadmin~forum:saveedit'}

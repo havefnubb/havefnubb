@@ -23,9 +23,7 @@ class adminHtmlResponse extends jResponseHtml {
     function __construct() {
         parent::__construct();
         // Include your common CSS and JS files here
-        $this->addCSSLink(jApp::urlJelixWWWPath().'design/master_admin.css');
-
-        $this->addCssLink(jApp::urlBasePath().'hfnu/admin/css/havefnuboard_admin.css');
+        $this->addAssets('hfnuadmin');
     }
     /**
      * method which manages 'globales' behavior/var

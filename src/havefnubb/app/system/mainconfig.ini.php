@@ -228,6 +228,40 @@ name=famfamfam
 [webassets]
 useCollection=main
 
+[webassets_common]
+
+havefnubb.css[] = "$theme/css/app.css"
+havefnubb.css[] = "$theme/css/hfnu.css"
+havefnubb.css[] = "$theme/css/nav.css"
+havefnubb.css[] = "$theme/css/theme.css"
+havefnubb.require = jquery
+
+hfnuadmin.css[] = "$jelix/design/master_admin.css"
+hfnuadmin.css[] = "hfnu/admin/css/havefnuboard_admin.css"
+hfnuadmin.css[] = "$jelix/design/jacl2.css"
+hfnuadmin.css[] = "$jelix/design/jform.css"
+hfnuadmin.css[] = "$jelix/design/records_list.css"
+hfnuadmin.require = jquery,jqueryui
+
+hfnuaccount.css[] = "$theme/css/tabnav.css"
+hfnuaccount.require = jqueryui
+
+hfnumessenger.require = jquery
+
+hfnucal.css[] = "$theme/css/hfnucal.css"
+
+hfnurates.css[] = "hfnu/images/star-rating/jquery.rating.css"
+hfnurates.js[] = "$jelix/jquery/include/jquery.include.js"
+hfnurates.js[] = "hfnu/js/jquery.MetaData.js"
+hfnurates.js[] = "hfnu/js/jquery.form.js"
+hfnurates.js[] = "hfnu/js/jquery.rating.pack.js"
+hfnurates.require = jquery
+
+hfnusearch.css[] = "$theme/css/hfnusearch.css"
+hfnusearch.css[] = "hfnu/js/jquery.autocomplete.css"
+hfnusearch.js[] = "hfnu/js/jquery.autocomplete.pack.js"
+hfnusearch.require = jquery
+
 [responses]
 sitemap="jsitemap~jResponseSitemap"
 

@@ -1,8 +1,4 @@
-{meta_html csstheme 'css/app.css'}
-{meta_html csstheme 'css/hfnu.css'}
-{meta_html csstheme 'css/nav.css'}
-{meta_html csstheme 'css/theme.css'}
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
+{meta_html assets 'havefnubb'}
 <div id="page">
     <div id="header">
         <div id="branding">

@@ -23,6 +23,15 @@ class hfnucalModuleConfigurator extends \Jelix\Installer\Module\Configurator {
     {
         if (!$this->getParameter('nocopyfiles')) {
             $helpers->copyFile('www/themes/default/hfnucal.css', 'www:themes/default/css/hfnucal.css');
+
+            $helpers->declareGlobalWebAssets('hfnuaccount',
+                array(
+                    'css' => array(
+                        '$theme/css/hfnucal.css',
+                    ),
+                ), 'common', false);
         }
+
+
     }
 }

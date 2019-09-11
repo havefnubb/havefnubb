@@ -23,6 +23,19 @@ class hfnuratesModuleConfigurator extends \Jelix\Installer\Module\Configurator {
     {
         if (!$this->getParameter('nocopyfiles')) {
             $helpers->copyDirectoryContent('www/', 'www:hfnu/');
+            $helpers->declareGlobalWebAssets('hfnucal',
+                array(
+                    'css' => array(
+                        'hfnu/images/star-rating/jquery.rating.css',
+                    ),
+                    'js' => array(
+                        '$jelix/jquery/include/jquery.include.js',
+                        'hfnu/js/jquery.MetaData.js',
+                        'hfnu/js/jquery.form.js',
+                        'hfnu/js/jquery.rating.pack.js',
+                    ),
+                    'require'=> 'jquery'
+                ), 'common', false);
         }
     }
 }

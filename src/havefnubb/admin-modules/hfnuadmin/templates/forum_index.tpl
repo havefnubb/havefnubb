@@ -1,7 +1,3 @@
-{meta_html css  $j_jelixwww.'design/records_list.css'}
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.core.min.js'}
-{meta_html js $j_jelixwww.'jquery/ui/jquery.ui.widget.min.js'}
 {literal}
 <script type="text/javascript">
 //<![CDATA[

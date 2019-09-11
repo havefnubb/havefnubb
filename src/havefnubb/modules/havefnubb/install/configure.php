@@ -38,6 +38,26 @@ class havefnubbModuleConfigurator extends \Jelix\Installer\Module\Configurator {
         $defaultConfig = new IniReader(__DIR__.'/config.ini');
         $helpers->getSingleConfigIni()->import($defaultConfig);
 
-
+        $helpers->declareGlobalWebAssets('havefnubb',
+            array(
+                'css' => array(
+                    '$theme/css/app.css',
+                    '$theme/css/hfnu.css',
+                    '$theme/css/nav.css',
+                    '$theme/css/theme.css',
+                ),
+                'require'=> 'jquery'
+            ), 'common', false);
+        $helpers->declareGlobalWebAssets('hfnuaccount',
+            array(
+                'css' => array(
+                    '$theme/css/tabnav.css',
+                ),
+                'require'=> 'jqueryui'
+            ), 'common', false);
+        $helpers->declareGlobalWebAssets('hfnumessenger',
+            array(
+                'require'=> 'jquery'
+            ), 'common', false);
     }
 }
