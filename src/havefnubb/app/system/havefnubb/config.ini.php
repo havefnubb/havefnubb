@@ -14,6 +14,7 @@ flood=1
 
 [responses]
 html=fnuHtmlResponse
+htmlauth=fnuHtmlResponse
 
 [autolocale]
 availableLanguageCode="fr_FR,en_US"
