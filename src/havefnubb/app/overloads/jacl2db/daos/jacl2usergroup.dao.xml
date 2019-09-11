@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dao xmlns="http://jelix.org/ns/dao/1.0">
+    <datasources>
+        <primarytable name="ug" realname="jacl2_user_group" primarykey="login,id_aclgrp" />
+        <optionalforeigntable name="usr" realname="community_users" primarykey="login" onforeignkey="login"/>
+        <foreigntable name="grp" realname="jacl2_group" primarykey="id_aclgrp" onforeignkey="id_aclgrp"/>
+    </datasources>
+    <record>
+        <property name="login" fieldname="login" datatype="string"  maxlength="50" required="yes"/>
+        <property name="id_aclgrp" fieldname="id_aclgrp" datatype="string"  maxlength="50" required="yes"/>
+
+        <property name="status" fieldname="status" table="usr" datatype="integer" />
+        <property name="nb_msg" fieldname="nb_msg" table="usr" datatype="integer" />
+        <property name="create_date" fieldname="create_date" table="usr" datatype="datetime" />
+        <property name="request_date" fieldname="request_date" table="usr" datatype="datetime" />
+
+        <property name="name" fieldname="name" datatype="string" required="yes" table="grp"/>
+        <property name="grouptype" fieldname="grouptype" datatype="int" required="yes" table="grp"/>
+        <property name="ownerlogin" fieldname="ownerlogin" datatype="string"  table="grp"/>
+
+    </record>
+
+    <factory>
+       <method name="getGroupsUser" type="select">
+            <parameter name="login" />
+            <conditions>
+                <eq property="login" expr="$login" />
+            </conditions>
+        </method>
+
+        <method name="getUsersGroup" type="select">
+           <parameter name="grp" />
+           <parameter name="ordre" default="asc" />
+           <conditions>
+              <eq property="id_aclgrp" expr="$grp" />
+           </conditions>
+           <order>
+              <orderitem property="login" way="$ordre" />
+           </order>
+        </method>
+
+        <method name="getUsersGroupLimit" type="select">
+            <parameter name="grp" />
+            <parameter name="offset" />
+            <parameter name="count" />
+            <parameter name="ordre" default="asc" />
+            <conditions>
+                <eq property="id_aclgrp" expr="$grp" />
+            </conditions>
+            <order>
+                <orderitem property="login" way="$ordre" />
+            </order>
+            <limit offset="$offset" count="$count" />
+        </method>
+        <method name="getUsersGroupCount" type="count">
+            <parameter name="grp" />
+            <conditions>
+                <eq property="id_aclgrp" expr="$grp" />
+            </conditions>
+        </method>
+        <method name="getUsersGroupLimitAndFilter" type="select">
+            <parameter name="grp" />
+            <parameter name="login" />
+            <parameter name="offset" />
+            <parameter name="count" />
+            <parameter name="ordre" default="asc" />
+            <conditions>
+                <eq property="id_aclgrp" expr="$grp" />
+                <like property="login" expr="$login"/>
+            </conditions>
+            <order>
+                <orderitem property="login" way="$ordre" />
+            </order>
+            <limit offset="$offset" count="$count" />
+        </method>
+        <method name="getUsersGroupCountAndFilter" type="count">
+            <parameter name="grp" />
+            <parameter name="login" />
+            <conditions>
+                <eq property="id_aclgrp" expr="$grp" />
+                <like property="login" expr="$login"/>
+            </conditions>
+        </method>
+        <method name="deleteByUser" type="delete">
+           <parameter name="login" />
+           <conditions>
+              <eq property="login" expr="$login" />
+           </conditions>
+        </method>
+        <method name="deleteByGroup" type="delete">
+           <parameter name="grp" />
+           <conditions>
+              <eq property="id_aclgrp" expr="$grp" />
+           </conditions>
+        </method>
+
+    <!-- additional methods -->
+        <method name="getPrivateGroup" type="selectfirst">
+            <parameter name="login" />
+            <conditions>
+                <eq property="login" expr="$login" />
+                <eq property="ownerlogin" expr="$login" />
+                <eq property="grouptype" value="2" />
+            </conditions>
+        </method>
+        <method name="getPublicUsersGroupLimit" type="select">
+            <parameter name="grp" />
+            <parameter name="offset" />
+            <parameter name="count" />
+            <parameter name="ordre" default="asc" />
+            <conditions>
+                <eq property="id_aclgrp" expr="$grp" />
+                <eq property="status" value="1"/>
+            </conditions>
+            <order>
+                <orderitem property="login" way="$ordre" />
+            </order>
+            <limit offset="$offset" count="$count" />
+        </method>
+        <method name="getPublicUsersByLetterGroupLimit" type="select">
+            <parameter name="grp" />
+            <parameter name="offset" />
+            <parameter name="count" />
+            <parameter name="letter" />
+            <parameter name="ordre" default="asc" />
+            <conditions>
+                <eq property="id_aclgrp" expr="$grp" />
+                <eq property="status" value="2"/>
+                <like property="login" expr="$letter"/>
+            </conditions>
+            <order>
+                <orderitem property="login" way="$ordre" />
+            </order>
+            <limit offset="$offset" count="$count" />
+        </method>
+    </factory>
+</dao>

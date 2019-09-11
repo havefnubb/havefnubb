@@ -1,0 +1,32 @@
+{
+  "name": "havefnubb/havefnubb",
+  "type": "project",
+  "description": "Forum made with PHP and Jelix",
+  "license": "GPL-2.0-only",
+  "authors": [
+    {
+      "name": "FoxMask",
+      "email": "foxmask@foxmask.net",
+      "homepage": "http://foxmask.net",
+      "role": "Developer"
+    },
+    {
+      "name": "Laurent Jouanneau",
+      "email": "laurent@jelix.org",
+      "homepage": "https://jelix.org",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/havefnubb/havefnubb",
+    "issues": "https://github.com/havefnubb/havefnubb/issues",
+    "irc": "irc://irc.freenode.org/jelix"
+  },
+  "keywords": ["forum", "php", "jelix"],
+  "require": {
+    "jelix/jelix": "dev-jelix-1.7.x",
+    "jelix/feeds-module": "^1.7.5",
+    "jelix/wikirenderer-plugin": "^1.7.3",
+    "jelix/sitemap-module": "^1.7.5"
+  }
+}

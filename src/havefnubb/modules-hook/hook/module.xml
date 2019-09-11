@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="hook@havefnubb.org" name="Hook" createdate="2009-11-05">
+        <version date="2011-04-03">1.4</version>
+        <label lang="en_US">Hook</label>
+        <description lang="en_US">Hook System that extends functionalities without any limit.</description>
+        <label lang="fr_FR">Hook</label>
+        <description lang="fr_FR">Système de Hook permettant d'étendre les fonctionnalités du forum à l'infini.</description>
+        <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
+        <copyright>2008-2011 FoxMaSk</copyright>
+        <creator name="FoxMaSk" email="foxmask@foxmask.net" active="true"/>
+        <homepageURL>https://havefnubb.jelix.org</homepageURL>
+    </info>
+    <dependencies>
+        <jelix minversion="1.6" maxversion="1.7.*"/>
+    </dependencies>
+</module>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="activeusers_admin@havefnubb.org" name="activeusers_admin" createdate="2010-11-05">
+        <version date="2019-09-05">1.1.0</version>
+        <label lang="en_US">activeusers_admin</label>
+        <description lang="en_US" />
+        <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
+        <copyright>2010-2019 Laurent Jouanneau</copyright>
+        <creator name="Laurent Jouanneau" email="laurent@jelix.org"/>
+        <homepageURL>https://havefnubb.jelix.org/</homepageURL>
+    </info>
+    <dependencies>
+        <jelix minversion="1.6" maxversion="1.7.*"/>
+    </dependencies>
+</module>

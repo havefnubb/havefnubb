@@ -1,0 +1,147 @@
+<?php
+/**
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
+ * @link      https://havefnubb.jelix.org
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+/**
+ * Listener to answer to Auth and 'Community' events
+ */
+class authhavefnubbListener extends jEventListener{
+
+    /**
+    * to answer to AuthLogin event
+    * @param object $event the given event to answer to
+    */
+    function onAuthLogin ($event) {
+        $user = jAuth::getUserSession();
+
+        $_SESSION['JX_LANG'] = $user->member_language;
+        jApp::config()->locale = $user->member_language;
+    }
+
+    /**
+    * to answer to AuthLogout event
+    * @param object $event the given event to answer to
+    */
+    function onAuthLogout($event) {
+        //drop the session
+        $_SESSION['JX_LANG'] = '';
+        unset($_SESSION['JX_LANG']);
+    }
+
+    function onAuthRemoveUser($event) {
+        $dao = jDao::get('havefnubb~member_custom_fields');
+        $dao->deleteByUser($event->getParam('user')->id);
+    }
+
+    /**
+    * to answer to jcommunity_save_account event
+    * @param object $event the given event to answer to
+    */
+    function onjcommunity_save_account ($event) {
+        $gJConfig = jApp::config();
+        $form = $event->getParam('form');
+        $form->check();
+        if ( $form->getData('member_language') != '') {
+            $_SESSION['JX_LANG'] = $form->getData('member_language');
+            $gJConfig->locale = $form->getData('member_language');
+        }
+        $ext = '';
+        $id = jAuth::getUserSession()->id;
+        if ($form->getData('member_avatar') != '' ) {
+            $max_width = $gJConfig->havefnubb['avatar_max_width'];
+            $max_height = $gJConfig->havefnubb['avatar_max_height'];
+            @unlink (jApp::wwwPath().'images/avatars/'.$id.'.png');
+            @unlink (jApp::wwwPath().'images/avatars/'.$id.'.jpg');
+            @unlink (jApp::wwwPath().'images/avatars/'.$id.'.jpeg');
+            @unlink (jApp::wwwPath().'images/avatars/'.$id.'.gif');
+
+            $avatar = $form->getData('member_avatar');
+
+            if (strpos($avatar,'.png') > 0 )
+                $ext = '.png';
+            elseif (strpos($avatar,'.jpg') > 0 )
+                $ext = '.jpg';
+            elseif (strpos($avatar,'.jpeg') > 0 )
+                $ext = '.jpeg';
+            elseif (strpos($avatar,'.gif') > 0 )
+                $ext = '.gif';
+
+            $form->saveFile('member_avatar', jApp::wwwPath().'hfnu/images/avatars/', $id.$ext);
+
+            list($width, $height) = getimagesize(jApp::wwwPath().'hfnu/images/avatars/'.$id.$ext);
+            if (empty($width) || empty($height) || $width > $max_width || $height > $max_height) {
+                @unlink (jApp::wwwPath().'images/avatars/'.$id.$ext);
+                jMessage::add(
+                     jLocale::get('havefnubb~member.profile.avatar.too.wide',array($max_width.' x '. $max_height))
+                     ,'error');
+                return;
+            }
+        }
+        jMessage::add(jLocale::get('havefnubb~member.profile.updated'),'ok');
+    }
+
+    /**
+     * to answer to AuthNewUser event
+     * @param object $event the given event to answer to
+     */
+    function onAuthNewUser ($event) {
+        $gJConfig = jApp::config();
+
+        $toEmail = ($gJConfig->havefnubb['admin_email'] != '') ? $gJConfig->havefnubb['admin_email'] : $gJConfig->mailer['webmasterEmail'];
+
+        if ($toEmail == '') {
+            throw new jException('havefnubb~main.email.config.not.done.properly');
+        }
+
+        $user = $event->getParam('user');
+        // update the creation date
+        $dao = jDao::get('havefnubb~member');
+
+        $user = $dao->getByLogin($login = $user->login);
+        if (!$user) {
+            throw new jException('havefnubb~member.member.does.not.exist', array($login));
+        }
+
+        $user->nickname = $user->login;
+        $dao->update($user);
+
+        $mail = new jMailer();
+        $mail->From       = $gJConfig->mailer['webmasterEmail'];
+        $mail->FromName   = $gJConfig->mailer['webmasterName'];
+        $mail->Sender     = $gJConfig->mailer['webmasterEmail'];
+        $mail->Subject    = jLocale::get('havefnubb~member.registration.new.member.registered',array($user->login));
+
+        $tpl = new jTpl();
+        $tpl->assign('login',$user->login);
+        $mail->Body = $tpl->fetch('havefnubb~warn_new_registration', 'text');
+
+        $mail->AddAddress($toEmail);
+        $mail->Send();
+    }
+    /**
+     * to answer to jcommunity_registration_prepare_save event
+     * @param object $event the given event to answer to
+     */
+    function onjcommunity_registration_prepare_save($event) {
+        $user = $event->getParam('user');
+
+        // check if the user try to register with a banned domain
+        jClasses::inc('havefnubb~bans');
+        // $return is false when the domain of the email is not banned
+        // otherwise ; $return contain the message of the ban
+        $return = bans::checkDomain($user->email);
+
+        if (is_string($return)) {
+            $event->Add(array('errorRegistration'=>$return));
+        }
+        else {
+            $event->Add(array('errorRegistration'=>''));
+        }
+    }
+}
