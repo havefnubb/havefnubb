@@ -1,5 +1,4 @@
 {meta_html assets 'hfnusearch'}
-{$javascript}
 
 <div class="breadcrumb">
 <ol>
@@ -22,7 +21,7 @@
             <input type="hidden" name="perform_search_in" value="words"/>
             <div class="form_property"><label class="jforms-label" for="hfnu_q">{@hfnusearch~search.hfnu_q.search@}</label></div>
             <div class="form_value">
-                <input type="text" id="hfnu_q" name="hfnu_q" size="31" />
+                <input type="text" id="hfnu_q" name="hfnu_q" size="31" data-autocomplete-url="{jurl 'hfnusearch~default:queryajax'}"/>
             </div>
             <div class="clearer">&nbsp;</div>
         </div>
