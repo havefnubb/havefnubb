@@ -5,6 +5,7 @@ src/cache/*
 src/files/*
 !src/files/.empty
 !src/files/.htaccess
+src/havefnubb/composer.lock
 src/havefnubb/temp/havefnubb/*
 !src/havefnubb/temp/havefnubb/.dummy
 src/havefnubb/var/config/installer.ini.php

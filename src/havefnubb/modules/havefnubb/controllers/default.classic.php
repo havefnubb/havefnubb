@@ -40,6 +40,7 @@ class defaultCtrl extends jController {
         $historyPlugin->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
         $historyPlugin->change('title', jLocale::get('havefnubb~main.goto_homepage'));
 
+        /** @var hfnuforum $forums */
         $forums = jClasses::getService('hfnuforum');
 
         $forumsList = $forums->getFullList();

@@ -8,8 +8,8 @@
 mailerType=file
 
 [jResponseHtml]
-minifyCSS = off
-plugins = debugbar
+minifyCSS=off
+plugins=debugbar
 
 [logger]
 default=file
@@ -18,3 +18,7 @@ warning=file
 notice=file
 deprecated=file
 strict=file
+
+[hfnucontact]
+email_contact="contact@jelix.org"
+to_contact=toto
