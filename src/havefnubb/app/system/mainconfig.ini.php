@@ -255,6 +255,7 @@ hfnurates.js[] = "$jelix/jquery/include/jquery.include.js"
 hfnurates.js[] = "hfnu/js/jquery.MetaData.js"
 hfnurates.js[] = "hfnu/js/jquery.form.js"
 hfnurates.js[] = "hfnu/js/jquery.rating.pack.js"
+hfnurates.js[] = "hfnu/js/rates.js"
 hfnurates.require = jquery
 
 hfnusearch.css[] = "$theme/css/hfnusearch.css"

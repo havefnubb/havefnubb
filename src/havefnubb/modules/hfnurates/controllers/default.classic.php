@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage hfnurates
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -40,16 +41,16 @@ class defaultCtrl extends jController {
         //info about the "source" from where the datas come from
         $id_source = $this->intParam('id_source');
         $source = $this->param('source');
+        $rep = $this->getResponse('htmlfragment');
 
         //check if the cancel button was selected
         if ($id_source == 0 or $source == '')
-            return $this->getResponse('htmlfragment');
+            return $rep;
 
         $rate = $this->floatParam('star1');
         jClasses::getService('hfnurates~rates')->saveRatesBySource($id_source,$source,$rate);
         $result = jClasses::getService('hfnurates~rates')->getTotalRatesBySource($id_source,$source);
 
-        $rep = $this->getResponse('htmlfragment');
         if ($result) {
             $rep->addContent( jLocale::get('hfnurates~main.total.of.rates').':'.$result->total_rates . ' ' . jLocale::get('hfnurates~main.rate') .':'. $result->avg_level );
         }

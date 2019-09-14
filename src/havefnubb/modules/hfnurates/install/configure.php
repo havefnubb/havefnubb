@@ -33,6 +33,7 @@ class hfnuratesModuleConfigurator extends \Jelix\Installer\Module\Configurator {
                         'hfnu/js/jquery.MetaData.js',
                         'hfnu/js/jquery.form.js',
                         'hfnu/js/jquery.rating.pack.js',
+                        'hfnu/js/rates.js',
                     ),
                     'require'=> 'jquery'
                 ), 'common', false);

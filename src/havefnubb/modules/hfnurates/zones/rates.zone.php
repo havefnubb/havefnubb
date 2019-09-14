@@ -3,7 +3,8 @@
 * @package   havefnubb
 * @subpackage hfnurates
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -37,42 +38,6 @@ class ratesZone extends jZone {
 		$return_url_params = $this->param('return_url_params');
 		if (! $return_url_params ) return;
 
-		$url = jUrl::get('hfnurates~default:rate_ajax_it');
-
-		$js = '
-	<script type="text/javascript">
-	//<![CDATA[
-	$(document).ready(function() {
-	var options = {
-		success:   showResponse,
-		url:       "'.$url.'",
-		type:      "post",
-		dataType:  "text",
-	};
-
-	$(\'.starsrating\').rating({
-		focus: function(value, link){
-		  var tip = $(\'#rating-hover\');
-		  tip[0].data = tip[0].data || tip.html();
-		  tip.html(link.title || \'value: \'+value);
-		},
-		blur: function(value, link){
-		  var tip = $(\'#rating-hover\');
-		  $(\'#rating-hover\').html(tip[0].data || \'\');
-		},
-		callback: function(value, link){
-			$(this.form).ajaxSubmit(options);
-		},
-	});
-
-	});
-	function showResponse(response) {
-	$(\'.rates-result\').html(response);
-	$(\'#post-rates-msg\').html(\''.jLocale::get('hfnurates~main.thanks.you.for.rating').'\');
-	}
-	//]]>
-	</script>';
-
 		$rates 	= jClasses::getService('hfnurates~rates');
 		$result =  $rates->getTotalRatesBySource($id_source,$source);
 		$resultText = '';
@@ -86,12 +51,10 @@ class ratesZone extends jZone {
 			$checked = 0;
 
 		$this->_tpl->assign('checked',$checked);
-		$this->_tpl->assign('js',$js);
 		$this->_tpl->assign('id_source',$id_source);
 		$this->_tpl->assign('source',$source);
 		$this->_tpl->assign('result',$resultText);
 		$this->_tpl->assign('return_url',$return_url);
 		$this->_tpl->assign('return_url_params',$return_url_params);
-
 	}
 }
