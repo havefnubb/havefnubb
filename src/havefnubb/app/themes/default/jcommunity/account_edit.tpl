@@ -1,13 +1,4 @@
 {meta_html assets 'hfnuaccount'}
-{literal}
-<script type="text/javascript">
-//<![CDATA[
-$(document).ready(function(){
-    $("#container").tabs();
-});
-//]]>
-</script>
-{/literal}
 {hook 'hfbAccountEditBefore',array('user'=>$username)}
 <div class="box">
     <h3>{@jcommunity~account.form.edit.profile.title@}</h3>

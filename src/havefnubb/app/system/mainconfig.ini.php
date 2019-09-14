@@ -245,6 +245,7 @@ hfnuadmin.js[] = "hfnu/admin/hfnuadmin.js"
 hfnuadmin.require = jquery,jqueryui
 
 hfnuaccount.css[] = "$theme/css/tabnav.css"
+hfnuaccount.js[] = "hfnu/js/accounts.js"
 hfnuaccount.require = jqueryui
 
 hfnumessenger.require = jquery

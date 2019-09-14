@@ -1,13 +1,4 @@
 {meta_html assets 'hfnuaccount'}
-{literal}
-<script type="text/javascript">
-//<![CDATA[
-$(document).ready(function(){
-    $("#container").tabs();
-});
-//]]>
-</script>
-{/literal}
 {hook 'hfbAccountShowBefore',array($user->login)}
 <div id="post-message">{jmessage}</div>
 <div class="box">

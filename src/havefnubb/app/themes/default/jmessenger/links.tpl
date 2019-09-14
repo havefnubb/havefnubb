@@ -1,12 +1,12 @@
 {ifuserconnected}
 <script type="text/javascript">
-var read = {urljsstring 'jmessenger~jmessenger:view'};
 {literal}
 $(document).ready(function(){
     $('div.new').click(function(){
         var id = $(this).attr("id");
+        var url = {/literal}{urljsstring 'jmessenger~jmessenger:view', array(), array('id'=>'id')}{literal}
         $(this).removeClass("new");
-        $.post( read +id );
+        $.post(url);
     });
 });
 {/literal}
