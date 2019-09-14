@@ -15,11 +15,5 @@ class activeusersModuleInstaller extends \Jelix\Installer\Module\Installer {
     public function install(InstallHelpers $helpers)
     {
         $helpers->database()->execSQLScript('sql/install');
-
-        /*if ($this->firstExec('acl2')) {
-            jAcl2DbManager::addSubject('my.subject', 'activeusers~acl.my.subject');
-            jAcl2DbManager::addRight('admins', 'my.subject'); // for admin group
-        }
-        */
     }
 }

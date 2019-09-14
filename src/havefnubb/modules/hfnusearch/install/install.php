@@ -19,6 +19,18 @@ class hfnusearchModuleInstaller extends \Jelix\Installer\Module\Installer {
 
     public function postInstall(InstallHelpers $helpers)
     {
-        $helpers->database()->execSQLScript('sql/postinstall');
+        jAcl2DbManager::addRole('hfnu.search', 'havefnubb~acl2.search');
+        jAcl2DbManager::addRole('hfnu.admin.search', 'havefnubb~acl2.admin.search');
+
+
+        jAcl2DbManager::addRight('admins', 'hfnu.search');
+        jAcl2DbManager::addRight('admins', 'hfnu.admin.search');
+        jAcl2DbManager::addRight('users', 'hfnu.search');
+        jAcl2DbManager::addRight('users', 'hfnu.admin.search');
+        jAcl2DbManager::addRight('moderators', 'hfnu.search');
+        jAcl2DbManager::addRight('moderators', 'hfnu.admin.search');
+        jAcl2DbManager::addRight('__anonymous', 'hfnu.search');
+        jAcl2DbManager::addRight('__anonymous', 'hfnu.admin.search');
+
     }
 }
