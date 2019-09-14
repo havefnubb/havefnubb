@@ -24,6 +24,7 @@ class adminHtmlResponse extends jResponseHtml {
         parent::__construct();
         // Include your common CSS and JS files here
         $this->addAssets('hfnuadmin');
+        $this->bodyTagAttributes['data-hfnu-images'] = jApp::urlBasePath().'hfnu/images/';
     }
     /**
      * method which manages 'globales' behavior/var

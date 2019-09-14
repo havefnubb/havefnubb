@@ -20,14 +20,19 @@ class hfnuadminModuleConfigurator extends \Jelix\Installer\Module\Configurator {
 
     public function configure(ConfigurationHelpers $helpers)
     {
+        $helpers->copyFile('hfnuadmin.css', 'www:themes/default/css/hfnuadmin.css', true);
+        $helpers->copyDirectoryContent('www/', 'www:hfnu/admin/');
         $helpers->declareGlobalWebAssets('hfnuadmin',
             array(
                 'css' => array(
                     '$jelix/design/master_admin.css',
-                    'hfnu/admin/css/havefnuboard_admin.css',
+                    '$theme/css/hfnuadmin.css',
                     '$jelix/design/jacl2.css',
                     '$jelix/design/jform.css',
                     '$jelix/design/records_list.css',
+                ),
+                'js' => array(
+                    'hfnu/admin/hfnuadmin.js'
                 ),
                 'require'=> 'jquery,jqueryui'
             ), 'common', false);

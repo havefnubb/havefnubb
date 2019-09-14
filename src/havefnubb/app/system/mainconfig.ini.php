@@ -237,10 +237,11 @@ havefnubb.css[] = "$theme/css/theme.css"
 havefnubb.require = jquery
 
 hfnuadmin.css[] = "$jelix/design/master_admin.css"
-hfnuadmin.css[] = "hfnu/admin/css/havefnuboard_admin.css"
+hfnuadmin.css[] = "$theme/css/hfnuadmin.css"
 hfnuadmin.css[] = "$jelix/design/jacl2.css"
 hfnuadmin.css[] = "$jelix/design/jform.css"
 hfnuadmin.css[] = "$jelix/design/records_list.css"
+hfnuadmin.js[] = "hfnu/admin/hfnuadmin.js"
 hfnuadmin.require = jquery,jqueryui
 
 hfnuaccount.css[] = "$theme/css/tabnav.css"
