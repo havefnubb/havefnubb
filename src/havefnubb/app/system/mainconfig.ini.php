@@ -265,6 +265,9 @@ hfnusearch.js[] = "hfnu/js/jquery.autocomplete.pack.js"
 hfnusearch.js[] = "hfnu/js/hfnusearch.js"
 hfnusearch.require = jquery
 
+hfnuthemes.css[] = "$theme/css/hfnuthemes.css"
+hfnuthemes.require = jqueryui
+
 [responses]
 sitemap="jsitemap~jResponseSitemap"
 

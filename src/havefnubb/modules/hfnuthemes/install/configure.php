@@ -22,8 +22,15 @@ class hfnuthemesModuleConfigurator extends \Jelix\Installer\Module\Configurator 
     public function configure(ConfigurationHelpers $helpers)
     {
         if (!$this->getParameter('nocopyfiles')) {
-            // FIXME
-            //$helpers->copyDirectoryContent('css/', 'www:themes/default/css/');
+            $helpers->copyDirectoryContent('css/', 'www:themes/default/css/');
+
+            $helpers->declareGlobalWebAssets('hfnuthemes',
+                array(
+                    'css' => array(
+                        '$theme/css/hfnuthemes.css',
+                    ),
+                    'require'=> 'jqueryui'
+                ), 'common', false);
         }
     }
 }

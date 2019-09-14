@@ -1,4 +1,4 @@
-{meta_html assets 'jquery_ui'}
+{meta_html assets 'hfnuthemes'}
 {literal}
 <script type="text/javascript">
 //<![CDATA[
