@@ -6,11 +6,9 @@ initsystem
 
 apt-get -y install redis-server
 
-if [ "$PHP53" != "yes" ]; then
-    apt-get -y install php-xdebug
-    cp $VAGRANTDIR/xdebug.ini /etc/php/$PHP_VERSION/mods-available/
-    service php${PHP_VERSION}-fpm restart
-fi
+apt-get -y install php-xdebug
+cp $VAGRANTDIR/xdebug.ini /etc/php/$PHP_VERSION/mods-available/
+service php${PHP_VERSION}-fpm restart
 
 #resetComposer $APPDIR
 

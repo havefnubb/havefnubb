@@ -79,7 +79,7 @@ CREATE TABLE %%PREFIX%%hfnu_posts (
     date_created integer NOT NULL,
     date_modified integer NOT NULL,
     viewed integer NOT NULL,
-    poster_ip character varying(15) NOT NULL,
+    poster_ip character varying(50) NOT NULL,
     censored_msg character varying(50),
     read_by_mod integer DEFAULT 0,
     CONSTRAINT id_post PRIMARY KEY (id_post)

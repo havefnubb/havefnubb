@@ -8,6 +8,10 @@ if [ -f /etc/os-release ]; then
     else
         if [ "$VERSION_ID" = "9" ]; then
             DISTRO="stretch"
+        else
+          if [ "$VERSION_ID" = "10" ]; then
+              DISTRO="buster"
+          fi
         fi
     fi
 fi
@@ -30,15 +34,13 @@ function initsystem () {
     # install all packages
     apt-get update
     apt-get install -y software-properties-common apt-transport-https
-    if [ "$DISTRO" == "stretch" ]; then
+    if [ "$DISTRO" != "jessie" ]; then
         apt-get install -y dirmngr
     fi
-    if [ "$PHP53" != "yes" ]; then
-        wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-        echo "deb https://packages.sury.org/php $DISTRO main" > /etc/apt/sources.list.d/sury_php.list
-    fi
+    wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+    echo "deb https://packages.sury.org/php $DISTRO main" > /etc/apt/sources.list.d/sury_php.list
 
-    if [ "$DISTRO" == "stretch" ]; then
+    if [ "$DISTRO" != "jessie" ]; then
         if [ ! -f "/etc/apt/sources.list.d/mysql.list" ]; then
             echo -e "deb http://repo.mysql.com/apt/debian/ stretch mysql-5.7\ndeb-src http://repo.mysql.com/apt/debian/ stretch mysql-5.7" > /etc/apt/sources.list.d/mysql.list
             wget -O /tmp/RPM-GPG-KEY-mysql https://repo.mysql.com/RPM-GPG-KEY-mysql
@@ -54,50 +56,27 @@ function initsystem () {
     echo "mysql-server-$MYSQL_VERSION mysql-server/root_password_again password jelix" | debconf-set-selections
 
     apt-get -y install nginx
-    if [ "$PHP53" != "yes" ]; then
-        apt-get -y install  php${PHP_VERSION}-fpm \
-                            php${PHP_VERSION}-cli \
-                            php${PHP_VERSION}-curl \
-                            php${PHP_VERSION}-gd \
-                            php${PHP_VERSION}-intl \
-                            php${PHP_VERSION}-ldap \
-                            php${PHP_VERSION}-mysql \
-                            php${PHP_VERSION}-pgsql \
-                            php${PHP_VERSION}-sqlite3 \
-                            php${PHP_VERSION}-soap \
-                            php${PHP_VERSION}-dba \
-                            php${PHP_VERSION}-xml \
-                            php${PHP_VERSION}-mbstring \
-                            php-memcached \
-                            php-redis
-        sed -i "/^user = www-data/c\user = vagrant" /etc/php/$PHP_VERSION/fpm/pool.d/www.conf
-        sed -i "/^group = www-data/c\group = vagrant" /etc/php/$PHP_VERSION/fpm/pool.d/www.conf
-        sed -i "/display_errors = Off/c\display_errors = On" /etc/php/$PHP_VERSION/fpm/php.ini
-        sed -i "/display_errors = Off/c\display_errors = On" /etc/php/$PHP_VERSION/cli/php.ini
+    apt-get -y install  php${PHP_VERSION}-fpm \
+                        php${PHP_VERSION}-cli \
+                        php${PHP_VERSION}-curl \
+                        php${PHP_VERSION}-gd \
+                        php${PHP_VERSION}-intl \
+                        php${PHP_VERSION}-ldap \
+                        php${PHP_VERSION}-mysql \
+                        php${PHP_VERSION}-pgsql \
+                        php${PHP_VERSION}-sqlite3 \
+                        php${PHP_VERSION}-soap \
+                        php${PHP_VERSION}-dba \
+                        php${PHP_VERSION}-xml \
+                        php${PHP_VERSION}-mbstring \
+                        php-memcached \
+                        php-redis
+    sed -i "/^user = www-data/c\user = vagrant" /etc/php/$PHP_VERSION/fpm/pool.d/www.conf
+    sed -i "/^group = www-data/c\group = vagrant" /etc/php/$PHP_VERSION/fpm/pool.d/www.conf
+    sed -i "/display_errors = Off/c\display_errors = On" /etc/php/$PHP_VERSION/fpm/php.ini
+    sed -i "/display_errors = Off/c\display_errors = On" /etc/php/$PHP_VERSION/cli/php.ini
 
-        service php${PHP_VERSION}-fpm restart
-    else
-        apt-get -y install  php5-fpm \
-                            php5-cli \
-                            php5-curl \
-                            php5-gd \
-                            php5-intl \
-                            php5-mysql \
-                            php5-pgsql \
-                            php5-sqlite \
-                            php5-mcrypt \
-                            php5-memcache \
-                            php5-memcached
-        sed -i "/listen = 127.0.0.1:9000/c\listen = \\/var\\/run\\/php5-fpm.sock" /etc/php5/fpm/pool.d/www.conf
-        sed -i "/^user = www-data/c\user = vagrant" /etc/php5/fpm/pool.d/www.conf
-        sed -i "/^group = www-data/c\group = vagrant" /etc/php5/fpm/pool.d/www.conf
-        sed -i "/^;listen.owner = www-data/c\listen.owner = www-data" /etc/php5/fpm/pool.d/www.conf
-        sed -i "/^;listen.group = www-data/c\listen.group = www-data" /etc/php5/fpm/pool.d/www.conf
-        sed -i "/^;listen.mode = 0660/c\listen.mode = 0660" /etc/php5/fpm/pool.d/www.conf
-        sed -i "/display_errors = Off/c\display_errors = On" /etc/php5/fpm/php.ini
-        sed -i "/display_errors = Off/c\display_errors = On" /etc/php5/cli/php.ini
-        service php5-fpm restart
-    fi
+    service php${PHP_VERSION}-fpm restart
     apt-get -y install mysql-server mysql-client
     apt-get -y install git vim unzip curl
     
@@ -109,10 +88,6 @@ function initsystem () {
     sed -i -- "s!__ROOTDIR__!$ROOTDIR!g" /etc/nginx/sites-available/$APPNAME.conf
     sed -i -- s/__APPNAME__/$APPNAME/g /etc/nginx/sites-available/$APPNAME.conf
     sed -i -- s/__FPM_SOCK__/$FPM_SOCK/g /etc/nginx/sites-available/$APPNAME.conf
-
-    if [ "$PHP53" == "yes" ]; then
-        sed -i -- s/fastcgi.conf/fastcgi_params/g /etc/nginx/sites-available/$APPNAME.conf
-    fi
 
     if [ ! -f /etc/nginx/sites-enabled/010-$APPNAME.conf ]; then
         ln -s /etc/nginx/sites-available/$APPNAME.conf /etc/nginx/sites-enabled/010-$APPNAME.conf

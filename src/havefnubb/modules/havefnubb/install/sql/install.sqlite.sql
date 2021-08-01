@@ -62,7 +62,7 @@ CREATE TABLE %%PREFIX%%hfnu_posts (
   date_created INTEGER NOT NULL,
   date_modified INTEGER NOT NULL,
   viewed INTEGER NOT NULL,
-  poster_ip varchar(15) NOT NULL,
+  poster_ip varchar(50) NOT NULL,
   censored_msg VARCHAR( 50 ) NULL,
   read_by_mod int(1) DEFAULT '0'
 ) ;

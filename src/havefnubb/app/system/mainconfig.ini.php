@@ -53,7 +53,6 @@ jsitemap.enabled=on
 
 jcommunity.installparam[manualconfig]=on
 jcommunity.installparam[masteradmin]=on
-jcommunity.installparam[defaultuser]=on
 jcommunity.installparam[migratejauthdbusers]=off
 jcommunity.installparam[eps]="[forums]"
 
