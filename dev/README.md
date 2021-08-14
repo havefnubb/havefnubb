@@ -1,72 +1,87 @@
 
-This directory contains all things needed to run Havefnubb and execute
-tests in a virtual machine with Vagrant.
+A Vagrant configuration and a Docker configuration are available to execute
+havefnubb on your computer to develop and test it.
 
+You have to install Docker or VirtualBox and Vagrant on your computer.
 
-First installation
-==================
+With Docker
+===================
 
-- First install [Virtual box](https://www.virtualbox.org/) and [Vagrant](http://www.vagrantup.com/downloads.html)
-- open a terminal, go into the dev/ directory 
-- then fo into one of its sub-directory, depending on which PHP version you want 
-  to launch tests : php7.0, php7.1, php5.6 or php5.3.
+A docker configuration is provided to launch the application into a container.
 
-```
-cd dev/php5.3/
-```
- 
-- Then you can launch the vagrant virtual machine
+build
+-----
+Before launching containers, you have to run these commands:
 
 ```
-vagrant up
+./run-docker build
 ```
 
-It can take time the first time. It depends of your internet connection.
 
-When the "Done" message appears, and if there are no errors, Havefnubb is
-ready. Go on http://10.12.1.5/ to see the app.
+launch
+-------
 
-To shutdown the virtual machine, type
+To launch containers, just run `./run-docker`. Then you can launch some other
+commands.
 
-```
-vagrant halt
-```
-
-You can also add in your hosts file a declaration of the havefnubb.local domain
+The first time you run the containers, you have to initialize databases and
+application configuration by executing these commands:
 
 ```
-10.12.1.5  havefnubb.local
+./app-ctl reset
 ```
 
-And then use http://havefnubb.local/ instead of http://10.12.1.5/
+If you made changes into Havefnubb like database changes, you can rerun this command.
 
-To reinstall havefnubb
-======================
-
-During development, it may appears that the app is completely broken. You can 
-reinstall it without recreating the whole vm.
-
-Follow these instructions:
+You can execute some commands into containers, by using this script:
 
 ```
-cd dev/php5.3/
-# connection into the vm
-vagrant ssh
-# in the vm, go into the right directory and lanch the script which reset all things
-cd /vagrantscripts/
-./reset_app.sh
+./app-ctl <command>
 ```
 
-Full Reinstall
---------------
+Available commands:
 
-You should destroy the vm. Example:
+* `reset`: to reinitialize the application (It reinstall the configuration files,
+  remove temp files, create tables in databases, and it launches the jelix installer...) 
+* `composer-update` and `composer-install`: to install update PHP packages 
+* `clean-temp`: to delete temp files 
+* `install`: to launch the Havefnubb installer, if you changed the version of a module,
+   or after you reset all things by hand.
+
+browsing the application
+------------------------
+
+You can view the application at `http://localhost:8998` in your browser. 
+Or, if you set `127.0.0.1 havefnubb.hfn` into your `/etc/hosts`, you can
+view at `http://havefnubb.hfn:8998`.
+
+You can change the port by setting the environment variable `APP_WEB_PORT`
+before launching `run-docker`.
 
 ```
-cd dev/php5.3
-vagrant destroy
+export APP_WEB_PORT=12345
+./run-docker
 ```
 
-Then you can follow instruction to install havefnubb. See above.
+Using a specific php version
+-----------------------------
 
+By default, PHP 7.4 is installed. If you want to use an other PHP version,
+set the environment variable `PHP_VERSION`, and rebuild the containers:
+
+```
+export PHP_VERSION=7.3
+
+./run-docker stop # if containers are running
+./run-docker build
+./run-docker
+```
+
+
+With Vagrant
+====================
+
+See dev/vagrantscripts/README.md.
+
+Note that this way to test Havefnubb is deprecated and will be removed in future branches.
 

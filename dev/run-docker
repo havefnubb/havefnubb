@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -e
+
+export JELIX_USER_ID=${JELIX_USER_ID:-$(id -u)}
+export JELIX_GROUP_ID=${JELIX_GROUP_ID:-$(id -g)}
+
+CMD=$1
+
+if [ "$APPBRANCH" == "" ]; then
+  #export APPBRANCH=$(git rev-parse --abbrev-ref HEAD)
+  export APPBRANCH=master
+fi
+
+if [ "$APP_WEB_PORT" == "" ]; then
+  export APP_WEB_PORT=8998
+fi
+
+if [ "$PHP_VERSION" == "" ]; then
+  export PHP_VERSION=7.4
+fi
+
+if [ "$CMD" == "build" ]; then
+  if [ ! -f docker-conf/certs/havefnubb.hfn.crt ]; then
+    (
+    cd docker-conf;
+    ./setup.sh
+    )
+  fi
+fi
+
+if [ "$CMD" == "reset" ]; then
+    # Stop/Remove containers
+    docker-compose -p hfn-${APPBRANCH}-tests rm -sf || true
+    # Clean db volumes
+    docker volume rm "hfn_${APPBRANCH}_mysql_data" || true
+    exit 0
+elif [ -z "$CMD" ]; then
+    CMD="up"
+else
+    shift
+fi
+
+
+docker-compose -p hfn-${APPBRANCH}-tests $CMD
