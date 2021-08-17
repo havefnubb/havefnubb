@@ -1,7 +1,9 @@
     <h3>{@jcommunity~login.access.title@}</h3>
     {if $error == 'no_access_wronguser'}
         <p class="jcommunity-error">{@jcommunity~login.access.forbidden.wrong.user@}</p>
+        {if $canViewProfile}
         <p><a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">{@jcommunity~account.back.to.account@}</a></p>
+        {/if}
     {elseif $error == 'no_access_auth'}
         <p class="jcommunity-error">{@jcommunity~login.access.forbidden.authenticated@}</p>
         <p><a href="{jurl 'jcommunity~login:index'}">{@jcommunity~login.back.to.login@}</a></p>

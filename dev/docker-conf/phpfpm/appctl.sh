@@ -153,7 +153,7 @@ case $COMMAND in
         resetJelixTemp $APPDIR
         ;;
     reset)
-        resetMysql testapp test_user jelix
+        resetMysql havefnubb havefnubb hfnu
         resetJelixTemp $APPDIR
         composerInstall $APPDIR
         resetApp $APPDIR

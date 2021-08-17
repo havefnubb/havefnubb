@@ -27,6 +27,7 @@
     "jelix/jelix": "~1.7.8",
     "jelix/feeds-module": "^1.7.5",
     "jelix/wikirenderer-plugin": "^1.7.3",
-    "jelix/sitemap-module": "^1.7.5"
+    "jelix/sitemap-module": "^1.7.5",
+    "jelix/jcommunity-module": "^1.3.12"
   }
 }
