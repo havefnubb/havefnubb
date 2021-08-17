@@ -35,8 +35,9 @@ Les autres répertoires dans havefnubb-X.Y/ fournissent du contenu web tels "hfn
 
 ### Droits d'accès
 
-N'oubliez pas de passer vos dossiers en 755 et vos fichiers en 644,
-à l'exception des 4 fichiers de configurations situés dans var/config avec le mode suivant 664 : localconfig.ini.php, profiles.ini.php.
+N'oubliez pas de passer vos dossiers en `755` et vos fichiers en `644`,
+à l'exception des 2 fichiers de configurations situés dans `var/config` avec le 
+mode suivant `664` : `localconfig.ini.php` et `profiles.ini.php`.
 
 Executer les commandes suivantes pour appliquer les bons droits  :
 
