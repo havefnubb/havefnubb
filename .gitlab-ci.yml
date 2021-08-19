@@ -1,0 +1,26 @@
+stages:
+  - build
+  - deploy
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - src/havefnubb/vendor/
+    - src/havefnubb/composer.lock
+
+build:
+  stage: build
+  script:
+    - make clean build package
+  artifacts:
+    name: "hfnu-${CI_COMMIT_SHA}"
+    paths:
+      - _dist
+
+deploy_package:
+  stage: deploy
+  script:
+    - make deploy_package
+  dependencies:
+    - build
+

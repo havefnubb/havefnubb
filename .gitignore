@@ -30,4 +30,4 @@ src/havefnubb/vendor/
 *.komodoproject
 nbproject
 .idea
-
+_dist
