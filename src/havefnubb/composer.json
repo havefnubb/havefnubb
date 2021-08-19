@@ -20,7 +20,7 @@
   "support": {
     "source": "https://github.com/havefnubb/havefnubb",
     "issues": "https://github.com/havefnubb/havefnubb/issues",
-    "irc": "irc://irc.freenode.org/jelix"
+    "irc": "irc://irc.libera.chat/jelix"
   },
   "keywords": ["forum", "php", "jelix"],
   "require": {
@@ -28,6 +28,7 @@
     "jelix/feeds-module": "^1.7.5",
     "jelix/wikirenderer-plugin": "^1.7.3",
     "jelix/sitemap-module": "^1.7.5",
-    "jelix/jcommunity-module": "^1.3.12"
+    "jelix/jcommunity-module": "^1.3.12",
+    "havefnubb/servinfo-module": "^2.0.0"
   }
 }
