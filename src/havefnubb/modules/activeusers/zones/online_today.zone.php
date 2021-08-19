@@ -4,7 +4,7 @@
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk
+* @copyright 2008-2011 FoxMaSk, 2021 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -21,7 +21,7 @@ class online_todayZone extends jZone {
      */
     protected function _prepareTpl(){
         $today  = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
-        list($nbAnonymous, $members, $bots) = jClasses::create('activeusers~connectedusers')->getConnectedList($today, true);
+        list($nbAnonymous, $members, $bots) = jClasses::getService('activeusers~connectedusers')->getConnectedList($today, true);
 
         $this->_tpl->assign('nbAnonymous',$nbAnonymous);
         $this->_tpl->assign('members',$members);

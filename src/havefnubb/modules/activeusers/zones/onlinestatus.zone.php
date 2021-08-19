@@ -4,7 +4,7 @@
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk, 2010 Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2010-2021 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -24,7 +24,7 @@ class onlinestatusZone extends jZone {
         $login = $this->param('login');
         $status = 'offline';
         if ($login) {
-            if ( jClasses::create('connectedusers')->isConnected($login))
+            if ( jClasses::getService('activeusers~connectedusers')->isConnected($login))
                 $status = 'online';
             else
                 $status = 'offline';

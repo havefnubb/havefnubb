@@ -3,17 +3,19 @@
 * @package   havefnubb
 * @subpackage activeusers_admin
 * @author    Laurent Jouanneau
-* @copyright 2010 Laurent Jouanneau
+* @copyright 2010-2021 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
 class activeusersadminListener extends jEventListener{
   
-    function onservinfoGetInfo($event) {
-        $nbMembers = jClasses::create('activeusers~connectedusers')->getCount();
-        $label = jLocale::get('activeusers_admin~main.server.infos.online.users');
-        $event->add(new \HavefnuBB\ServerInfos\ServerInfoData('user-online', $label, $nbMembers));
+    function onmasterAdminGetDashboardWidget ($event)
+    {
+        $box = new masterAdminDashboardWidget();
+        $box->title = jLocale::get('activeusers_admin~main.server.infos.online.users');
+        $box->content = jZone::get('activeusers_admin~activeusers_dashboard');
+        $event->add($box);
     }
 
     function onmasteradminGetMenuContent ($event) {

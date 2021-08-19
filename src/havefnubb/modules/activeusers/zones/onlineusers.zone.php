@@ -4,7 +4,7 @@
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk
+* @copyright 2008-2011 FoxMaSk, 2021 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
@@ -20,7 +20,7 @@ class onlineusersZone extends jZone {
      * function to manage data before assigning to the template of its zone
      */
     protected function _prepareTpl(){
-        list($nbAnonymous, $members, $bots)  = jClasses::create('activeusers~connectedusers')->getConnectedList();
+        list($nbAnonymous, $members, $bots)  = jClasses::getService('activeusers~connectedusers')->getConnectedList();
 
         $this->_tpl->assign('nbAnonymous',$nbAnonymous);
         $this->_tpl->assign('members',$members);
