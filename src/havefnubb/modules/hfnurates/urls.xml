@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<suburls xmlns="http://jelix.org/ns/suburls/1.0">
-    <url pathinfo="/it"  action="default:rate_it"/>
-    <url pathinfo="/ait" action="default:rate_ajax_it"/>
-</suburls>

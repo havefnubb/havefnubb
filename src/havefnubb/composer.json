@@ -33,6 +33,7 @@
     "havefnubb/modulesinfo-module": "^1.1.0",
     "havefnubb/jelixcache-module": "^1.0.0",
     "havefnubb/activeusers-module": "^1.2.0",
+    "havefnubb/hfnurates-module": "^1.5.0",
     "jelix/jtags-module": "^1.0.0"
   }
 }
