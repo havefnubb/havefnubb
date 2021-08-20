@@ -36,7 +36,7 @@
     <fieldset>
         <legend>{ctrl_label 'tags'}</legend>
         {@havefnubb~post.form.tags.description@}<br/>
-        {ctrl_control 'tags'}
+        {ctrl_control 'tags', ["class"=>"jtags-autocomplete"]}
     </fieldset>
             {/if}
         {/ifctrl}

@@ -413,7 +413,7 @@ class postsCtrl extends jController {
             $form->setData('id_user',0);
         }
 
-
+        $srvTags = jClasses::getService("jtags~tags");
         // crumbs infos
         $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
         if (! $forum) {
@@ -430,7 +430,7 @@ class postsCtrl extends jController {
 
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get("havefnubb~post.form.new.message");
-
+        $srvTags->setResponsesHeaders($rep);
         //set the needed parameters to the template
         $tpl = new jTpl();
         $tpl->assign('id_post',     $id_post);
@@ -504,6 +504,9 @@ class postsCtrl extends jController {
 
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get("havefnubb~post.form.edit.message");
+
+        $srvTags->setResponsesHeaders($rep);
+
         //set the needed parameters to the template
         $tpl = new jTpl();
         $tpl->assign('id_post', $id_post);
