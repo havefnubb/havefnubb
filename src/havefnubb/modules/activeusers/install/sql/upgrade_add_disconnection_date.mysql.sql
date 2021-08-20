@@ -1,1 +1,0 @@
-ALTER TABLE %%PREFIX%%connectedusers ADD COLUMN disconnection_date INT(10) UNSIGNED NULL;
