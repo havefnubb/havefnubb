@@ -15,21 +15,24 @@ class defaultCtrl extends jController {
      * @var plugins to manage the behavior of the controller
      */
     public $pluginParams = array(
-        'index' => array( 'jacl2.right' =>'hfnu.search'),
-        'query' => array( 'jacl2.right' =>'hfnu.search'),
 
-        'index' => array('auth.required'=>false,
-                          'banuser.check'=>true,
-                          'history.add'=>true,
-                    ),
-        'query' => array('auth.required'=>false,
-                          'banuser.check'=>true,
-                          'history.add'=>true,
-                    ),
-        'queryajax' =>array('auth.required'=>false,
-                          'banuser.check'=>true,
-                          'history.add'=>false,
-                    ),
+        'index' => array(
+            'auth.required'=>false,
+            'banuser.check'=>true,
+            'history.add'=>true,
+            //'jacl2.right' =>'hfnu.search'
+        ),
+        'query' => array(
+            'auth.required'=>false,
+            'banuser.check'=>true,
+            'history.add'=>true,
+            //'jacl2.right' =>'hfnu.search'
+        ),
+        'queryajax' =>array(
+            'auth.required'=>false,
+            'banuser.check'=>true,
+            'history.add'=>false,
+        ),
     );
     /**
      * Main page of search

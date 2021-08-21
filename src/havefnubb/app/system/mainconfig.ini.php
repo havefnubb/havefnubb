@@ -266,6 +266,7 @@ hfnusearch.js[] = "hfnu/js/hfnusearch.js"
 hfnusearch.require = jquery
 
 hfnuthemes.css[] = "$theme/css/hfnuthemes.css"
+hfnuthemes.js[] = "hfnuthemes:themes.js"
 hfnuthemes.require = jquery_ui
 
 [responses]

@@ -1,8 +1,0 @@
-INTRODUCTION :
-this module will manage the themes of your web site by reading the tree of the var/themes and
-modifing the defaultcofig.ini.php file to store the choosen theme
-
-PREREQUISITES :
-module master_admin
-
-the module will respond to the Events of the master_module to display itself
