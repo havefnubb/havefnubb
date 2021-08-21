@@ -236,16 +236,16 @@ havefnubb.css[] = "$theme/css/theme.css"
 havefnubb.require = jquery
 
 hfnuadmin.css[] = "$jelix/design/master_admin.css"
-hfnuadmin.css[] = "$theme/css/hfnuadmin.css"
+hfnuadmin.css[] = "$theme/css/hfnadmin.css"
 hfnuadmin.css[] = "$jelix/design/jacl2.css"
 hfnuadmin.css[] = "$jelix/design/jform.css"
 hfnuadmin.css[] = "$jelix/design/records_list.css"
 hfnuadmin.js[] = "hfnu/admin/hfnuadmin.js"
-hfnuadmin.require = jquery,jqueryui
+hfnuadmin.require = jquery_ui
 
 hfnuaccount.css[] = "$theme/css/tabnav.css"
 hfnuaccount.js[] = "hfnu/js/accounts.js"
-hfnuaccount.require = jqueryui
+hfnuaccount.require = jquery_ui
 
 hfnumessenger.require = jquery
 
@@ -266,7 +266,7 @@ hfnusearch.js[] = "hfnu/js/hfnusearch.js"
 hfnusearch.require = jquery
 
 hfnuthemes.css[] = "$theme/css/hfnuthemes.css"
-hfnuthemes.require = jqueryui
+hfnuthemes.require = jquery_ui
 
 [responses]
 sitemap="jsitemap~jResponseSitemap"

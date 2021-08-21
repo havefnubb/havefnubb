@@ -56,7 +56,7 @@ class havefnubbModuleConfigurator extends \Jelix\Installer\Module\Configurator {
                 'js' => array(
                     'hfnu/js/accounts.js'
                 ),
-                'require'=> 'jqueryui'
+                'require'=> 'jquery_ui'
             ), 'common', false);
         $helpers->declareGlobalWebAssets('hfnumessenger',
             array(

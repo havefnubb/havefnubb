@@ -5,16 +5,14 @@ $(document).ready(function(){
     // show help
     $("#hfnuadmin-help").click(function () {
         $(this).toggleClass("active").next().slideToggle("slow");
-    });
-    //toggle Image
-    $("#hfnuadmin-help").toggle(
-        function () {
+        if ($(this).hasClass("active")) {
             $(this).find("img").attr({src:imagePath+"delete.png"});
-        },
-        function () {
+        }
+        else {
             $(this).find("img").attr({src:imagePath+"add.png"});
         }
-    );
+    });
+
     //manage tabs
     $("#hfnuadmin-config").tabs();
 });
