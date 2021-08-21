@@ -43,7 +43,9 @@
                 <td class="{post_status 'forum',$f->id_forum}"></td>
                 <td>
                     <h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$f->id_forum,'ftitle'=>$f->forum_name)}" title="{$f->forum_name|eschtml}">{$f->forum_name|eschtml}</a>
-                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$f->id_forum,'ftitle'=>$f->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$f->forum_name|eschtml}">{image 'hfnu/images/rss.png',array('alt'=>$f->forum_name)}</a>
+                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$f->id_forum,'ftitle'=>$f->forum_name)}"
+                           title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$f->forum_name|eschtml}"
+                        ><img src="{$j_basepath}hfnu/images/rss.png" alt="{$f->forum_name|eschtml}" /></a>
                     </h4>
                     <span class="forumdesc">{$f->forum_desc|eschtml}</span>
 
@@ -162,7 +164,9 @@
                 <td class="{post_status 'forum',$category->id_forum}"></td>
                 <td>
                     <h4><a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{$category->forum_name|eschtml}">{$category->forum_name|eschtml}</a>
-                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}">{image 'hfnu/images/rss.png',array('alt'=>$category->forum_name)}</a>
+                        <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$category->id_forum,'ftitle'=>$category->forum_name)}"
+                           title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$category->forum_name|eschtml}"
+                        ><img src="{$j_basepath}hfnu/images/rss.png" alt="{$category->forum_name|eschtml}" /></a>
                     </h4>{$category->forum_desc|eschtml}
                 {zone 'havefnubb~forumchild',array('id_forum'=>$category->id_forum,'lvl'=>1,'calledFrom'=>'home')}</td>
                 <td><span class="smalltext">{$category->nb_msg} {@havefnubb~forum.postandmsg.messages@}<br/>{$category->nb_thread} {@havefnubb~forum.postandmsg.threads@}</span></td>

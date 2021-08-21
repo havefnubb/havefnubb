@@ -1,4 +1,4 @@
-<div id="hfnuadmin-help"><h3>{image 'hfnu/images/add.png', array('alt'=>'click to view the help')}Help</h3></div>
+<div id="hfnuadmin-help"><h3><img src="{$j_basepath}hfnu/images/add.png" alt="click to view the help" /> Help</h3></div>
 <div class="hfnuadmin-help">
     <ul><li>
     This page allow you to manage the categories of your forum.<br/>

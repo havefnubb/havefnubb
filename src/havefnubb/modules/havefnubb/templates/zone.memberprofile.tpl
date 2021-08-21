@@ -19,20 +19,22 @@
             <li>{gravatar $user->email,array('username'=>$user->login)}</li>
         {else}
             {if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
-            <li>{image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->nickname)}</li>
+                <img src="{$j_basepath}hfnu/images/avatars/{$user->id}.png" alt="{$user->login}" />
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
-            <li>{image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->nickname)}</li>
+                <img src="{$j_basepath}hfnu/images/avatars/{$user->id}.jpg" alt="{$user->login}" />
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
-            <li>{image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->nickname)}</li>
+                <img src="{$j_basepath}hfnu/images/avatars/{$user->id}.jpeg" alt="{$user->login}" />
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
-            <li>{image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->nickname)}</li>
+                <img src="{$j_basepath}hfnu/images/avatars/{$user->id}.gif" alt="{$user->login}" />
             {/if}
         {/if}
         {if $user->member_town != ''}
         <li class="user-town user-image">{@havefnubb~member.common.town@} : {$user->member_town|eschtml}</li>
         {/if}
         {if $user->member_country != ''}
-        <li class="user-country user-image">{image 'hfnu/images/flags/'.strtolower($user->member_country).'.gif',array('alt'=>$user->member_country)}  {country $user->member_country}</li>
+        <li class="user-country user-image">
+            <img src="{$j_basepath}hfnu/images/flags/{$user->member_country|strtolower}" alt="{$user->member_country|eschtml}" />
+            {country $user->member_country}</li>
         {/if}
         <li class="user-rank user-image"><span>{@havefnubb~rank.rank_name@} : {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}</span></li>
     </ul>

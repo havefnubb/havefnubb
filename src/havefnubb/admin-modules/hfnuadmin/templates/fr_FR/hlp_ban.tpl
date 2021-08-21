@@ -1,4 +1,4 @@
-<div id="hfnuadmin-help"><h3>{image 'hfnu/images/add.png', array('alt'=>'cliquer pour consulter l\'aide')}Aide</h3></div >
+<div id="hfnuadmin-help"><h3><img src="{$j_basepath}hfnu/images/add.png" alt="cliquer pour consulter l'aide" />Aide</h3></div >
 <div class="hfnuadmin-help">
     <p>
     Cette page vous permet de gérer l'exclusion de membres. Vous pouvez par la suite supprimer les exclusions dans la liste ci dessous.

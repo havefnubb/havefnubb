@@ -11,13 +11,13 @@
             {gravatar $user->email,array('username'=>$user->login)}
         {else}
             {if file_exists('hfnu/images/avatars/'. $user->id.'.png') }
-            {image 'hfnu/images/avatars/'. $user->id.'.png', array('alt'=>$user->login)}
+            <img src="{$j_basepath}hfnu/images/avatars/{$user->id}.png" alt="{$user->login}" />
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpg')}
-            {image 'hfnu/images/avatars/'. $user->id.'.jpg', array('alt'=>$user->login)}
+            <img src="{$j_basepath}hfnu/images/avatars/{$user->id}.jpg" alt="{$user->login}" />
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.jpeg')}
-            {image 'hfnu/images/avatars/'. $user->id.'.jpeg', array('alt'=>$user->login)}
+            <img src="{$j_basepath}hfnu/images/avatars/{$user->id}.jpeg" alt="{$user->login}" />
             {elseif file_exists('hfnu/images/avatars/'. $user->id.'.gif')}
-            {image 'hfnu/images/avatars/'. $user->id.'.gif', array('alt'=>$user->login)}
+            <img src="{$j_basepath}hfnu/images/avatars/{$user->id}.gif" alt="{$user->login}" />
             {/if}
         {/if}
         </div>
@@ -81,7 +81,8 @@
                     </div>
                     <div class="form_value">
                         {if $user->member_country != ''}
-                        {image 'hfnu/images/flags/'.strtolower($user->member_country).'.gif', array('alt'=>$user->member_country)} {country $user->member_country}
+                            <img src="{$j_basepath}hfnu/flags/avatars/{$user->member_country|strtolower}.gif" alt="{$user->member_country}" />
+                            {country $user->member_country}
                         {/if}
                     </div>
                 </div>

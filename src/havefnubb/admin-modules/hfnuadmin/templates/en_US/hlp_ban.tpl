@@ -1,4 +1,4 @@
-<div id="hfnuadmin-help"><h3>{image 'hfnu/images/add.png', array('alt'=>'cliquer pour consulter l\'aide')}Aide</h3></div >
+<div id="hfnuadmin-help"><h3><img src="{$j_basepath}hfnu/images/add.png" alt="cliquer pour consulter l'aide" />Aide</h3></div >
 <div class="hfnuadmin-help">
     <p>
     This page allow to manage the ban of the members. You can delete them if neeeded, from the list below.

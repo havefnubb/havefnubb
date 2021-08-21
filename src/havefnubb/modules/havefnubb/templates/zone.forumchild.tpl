@@ -22,7 +22,9 @@
         <td>
             <h4 class="forumtitle">
                 <a href="{jurl 'havefnubb~posts:lists',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{$forum->forum_name|eschtml}">{$forum->forum_name|eschtml}</a>
-                <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}" title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$forum->forum_name|eschtml}">{image 'hfnu/images/rss.png',array('alt'=>$forum->forum_name)}</a>
+                <a href="{jurl 'havefnubb~posts:rss',array('id_forum'=>$forum->id_forum,'ftitle'=>$forum->forum_name)}"
+                   title="{@havefnubb~forum.feeds.rss.of.the.forum@}: {$forum->forum_name|eschtml}"
+                ><img src="{$j_basepath}hfnu/images/rss.png" alt="{$forum->forum_name|eschtml}" /></a>
             </h4>
             <span class="forumdesc">{$forum->forum_desc|eschtml}</span>
         </td>

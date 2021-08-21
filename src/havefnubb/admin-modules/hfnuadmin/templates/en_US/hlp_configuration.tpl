@@ -1,4 +1,4 @@
-<div id="hfnuadmin-help">{image 'hfnu/images/add.png', array('alt'=>'click to view the help')}Help</div>
+<div id="hfnuadmin-help"><img src="{$j_basepath}hfnu/images/add.png" alt="click to view the help" /> Help</div>
 <div class="hfnuadmin-help">
     <p>
     This page allow you to configure the behaviors of your forum.

@@ -1,4 +1,4 @@
-<div id="hfnuadmin-help"><h3>{image 'hfnu/images/add.png', array('alt'=>'cliquer pour consulter l\'aide')}Aide</h3></div>
+<div id="hfnuadmin-help"><h3><img src="{$j_basepath}hfnu/images/add.png" alt="cliquer pour consulter l'aide" />Aide</h3></div>
 <div class="hfnuadmin-help">
     <h4>Qui sera</h4>
     <ul><li>indique où vous souhaitez créer votre forum</li></ul>
