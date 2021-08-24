@@ -81,7 +81,7 @@
                     </div>
                     <div class="form_value">
                         {if $user->member_country != ''}
-                            <img src="{$j_basepath}hfnu/flags/avatars/{$user->member_country|strtolower}.gif" alt="{$user->member_country}" />
+                            <img src="{$j_basepath}hfnu/flags/avatars/{$user->member_country|lower}.gif" alt="{$user->member_country}" />
                             {country $user->member_country}
                         {/if}
                     </div>

@@ -33,7 +33,7 @@
         {/if}
         {if $user->member_country != ''}
         <li class="user-country user-image">
-            <img src="{$j_basepath}hfnu/images/flags/{$user->member_country|strtolower}" alt="{$user->member_country|eschtml}" />
+            <img src="{$j_basepath}hfnu/images/flags/{$user->member_country|lower}" alt="{$user->member_country|eschtml}" />
             {country $user->member_country}</li>
         {/if}
         <li class="user-rank user-image"><span>{@havefnubb~rank.rank_name@} : {zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$user->nb_msg)}</span></li>

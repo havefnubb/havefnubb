@@ -10,7 +10,7 @@
 <div class="box">
     <h3>{@havefnubb~member.memberlist.members.list@}</h3>
     <div class="box-content">
-        <form action="{formurl 'havefnubb~members:index'}" method="post">
+        <form action="{formurl 'havefnubb~members:index'}" method="get">
             <div class="hidden">{formurlparam 'havefnubb~members:index'}</div>
             <fieldset>
                 <legend>{@havefnubb~member.memberlist.filter@}</legend>
@@ -21,15 +21,16 @@
                     <label>{@havefnubb~member.memberlist.thegroups@} : </label>
                     <select name="grpid">
                         {foreach $groups as $group}
-                            {if  $group->id_aclgrp != '__anonymous'}<option value="{$group->id_aclgrp}">{$group->name}</option>{/if}
+                            {if  $group->id_aclgrp != '__anonymous'}<option value="{$group->id_aclgrp}" {if $grpid == $group->id_aclgrp}selected{/if} >{$group->name}</option>{/if}
                         {/foreach}
                     </select>
                 </p>
                 <p>
                     <label>{@havefnubb~member.memberlist.initial.nickname@} :</label>
                     <select name="letter">
-                    {foreach $letters as $letter}
-                        <option value="{$letter}">{$letter}</option>
+                        <option value="">{@havefnubb~member.memberlist.select.an.initial.nickname@}</option>
+                    {foreach $letters as $letterItem}
+                        <option value="{$letterItem}" {if $letter == $letterItem}selected{/if}>{$letterItem}</option>
                     {/foreach}
                      </select>
                 </p>
@@ -65,7 +66,7 @@
             <td class="listline linkincell">
                 <a href="{jurl 'jcommunity~account:show', array('user'=>$member->login)}"
                    title="{jlocale 'havefnubb~member.memberlist.profile.of', array($member->nickname)}">
-                {$member->nickname|eschtml}
+                {if $member->nickname}{$member->nickname|eschtml}{else}{$member->login|eschtml}{/if}
                 </a>
             </td>
             <td class="listline colrank">{zone 'havefnubb~what_is_my_rank',array('nbMsg'=>$member->nb_msg)}</td>

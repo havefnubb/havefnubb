@@ -36,14 +36,17 @@ class membersCtrl extends jController {
 
         $page = (int) $this->param('page');
 
-    // get the group name of the group id we request
+        // get the group name of the group id we request
         $grpid = $this->param('grpid');
+
         $groupname = jLocale::get('havefnubb~member.memberlist.allgroups');
-        if ($grpid != '__anonymous' ) {
+
+        if ($grpid && $grpid != '__anonymous' ) {
             $dao = jDao::get('jacl2db~jacl2group');
             $grpname = $dao->get($grpid);
             $groupname = $grpname->name;
         }
+
         $beginningBy = '';
 
         if (strlen($letter) == 1 ) {
@@ -60,10 +63,12 @@ class membersCtrl extends jController {
         }
 
         $rep->body->assignZone('MAIN',
-            'memberlist',array('page'=>$page,
+            'memberlist',
+            array('page'=>$page,
                  'grpid'=>$grpid,
                  'letter'=>$letter,
-                 'memberSearch'=>$memberSearch));
+                 'memberSearch'=>$memberSearch)
+        );
         return $rep;
     }
 

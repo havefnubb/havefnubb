@@ -9,6 +9,7 @@
         <property name="login" fieldname="login" datatype="string"  maxlength="50" required="yes"/>
         <property name="id_aclgrp" fieldname="id_aclgrp" datatype="string"  maxlength="50" required="yes"/>
 
+        <property name="nickname" fieldname="nickname" table="usr" datatype="string" required="yes"/>
         <property name="status" fieldname="status" table="usr" datatype="integer" />
         <property name="nb_msg" fieldname="nb_msg" table="usr" datatype="integer" />
         <property name="create_date" fieldname="create_date" table="usr" datatype="datetime" />

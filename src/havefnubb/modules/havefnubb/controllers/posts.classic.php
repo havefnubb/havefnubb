@@ -316,7 +316,7 @@ class postsCtrl extends jController {
         $nbReplies = jDao::get('havefnubb~threads_alone')->get($thread_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
 
         $srvTags = jClasses::getService("jtags~tags");
-        $tags = implode(',',$srvTags->getTagsBySubject('forumscope',$id_post));
+        $tags = $srvTags->getTagsBySubject('forumscope', $id_post);
 
         $tpl = new jTpl();
 

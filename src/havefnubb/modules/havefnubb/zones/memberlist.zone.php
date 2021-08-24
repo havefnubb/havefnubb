@@ -25,9 +25,10 @@ class memberlistZone extends jZone {
         $letter = $this->param('letter');
         if ($letter < chr(97) or $letter > chr(123) ) $letter = '';
 
-        $grpid = -2;
-        if ($this->param('grpid'))
-            $grpid =  intval($this->param('grpid'));
+        $grpid =  $this->param('grpid');
+        if (!$grpid) {
+            $grpid = -2;
+        }
 
         $nbMembersPerPage = (int) jApp::config()->havefnubb['members_per_page'];
 
@@ -80,7 +81,7 @@ class memberlistZone extends jZone {
         foreach(jAcl2DbUserGroup::getGroupList() as $grp) {
             $groups[]=$grp;
         }
-        $letters[] = jLocale::get('havefnubb~member.memberlist.select.an.initial.nickname');
+        $letters = array();
         for ($i = 0 ; $i < 26 ; $i ++) {
             $letters[] = chr(97 + $i);
         }
@@ -102,6 +103,8 @@ class memberlistZone extends jZone {
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('nbMembers',$nbMembers);
         $this->_tpl->assign('letters',$letters);
+        $this->_tpl->assign('letter',$letter);
         $this->_tpl->assign('ranks',$ranks);
+        $this->_tpl->assign('grpid', $grpid);
     }
 }

@@ -321,16 +321,17 @@ class hfnuposts {
      * @return mixed boolean or $id_post id post of the editing post or the id of the post created
      */
     public function save($id_forum,$id_post=0) {
-        $gJConfig = jApp::config();
+        $hfconfig = jApp::config()->havefnubb;
         if (jAuth::isConnected()) {
             $form = jForms::fill('havefnubb~posts',$id_post);
             $id_user= jAuth::getUserSession ()->id;
         }
-        elseif ($gJConfig->havefnubb['anonymous_post_authorized'] == 1) {
+        elseif ($hfconfig['anonymous_post_authorized'] == 1) {
             $form = jForms::fill('havefnubb~posts_anonym',$id_post);
             $id_user = 0;
         }
-        if (!$form or !$form->check()) {
+
+        if (!$form || !$form->check()) {
             return false;
         }
 
@@ -338,10 +339,10 @@ class hfnuposts {
         $subject = $form->getData('subject');
         $message = $form->getData('message');
 
-        if (count($message) > $gJConfig->havefnubb['post_max_size'] and
-                $gJConfig->havefnubb['post_max_size'] > 0) {
+        $maxSize = $hfconfig['post_max_size'];
+        if ($maxSize > 0 && mb_strlen($message) >$maxSize) {
             jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
-                        array($gJConfig->havefnubb['post_max_size'])),'error');
+                        array($maxSize)),'error');
             return false;
         }
 

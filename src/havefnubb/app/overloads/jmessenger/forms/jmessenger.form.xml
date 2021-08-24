@@ -4,21 +4,21 @@
     <hidden ref="answer_to" />
 
     <menulist ref="id_for" required="true">
-        <label locale="message.form.dest"></label>
+        <label locale="jmessenger~message.form.dest"></label>
         <datasource dao="jcommunity~user" method="findAll"
                     labelproperty="nickname" valueproperty="id"/>
     </menulist>
 
     <input ref="title" required="true" maxlength="255">
-        <label locale="message.form.subject"></label>
+        <label locale="jmessenger~message.form.subject"></label>
     </input>
 
     <wikieditor ref="content" required="true">
-        <label locale="message.form.content"></label>
+        <label locale="jmessenger~message.form.content"></label>
     </wikieditor>
 
     <submit ref="_submit">
-        <label locale="message.form.ok"></label>
+        <label locale="jmessenger~message.form.ok"></label>
     </submit>
 
 </form>

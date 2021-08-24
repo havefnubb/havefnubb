@@ -71,8 +71,8 @@ class hfnuread {
         if ($post->thread_id > 0 and $post->id_forum > 0 and jAuth::isConnected()) {
             $dao = jDao::get('havefnubb~read_posts');
             $id_user = jAuth::getUserSession ()->id;
-            $exist = $dao->get($id_user ,$post->id_forum, $post->thread_id);
-            if ($exist === false) {
+            $rec = $dao->get($id_user ,$post->id_forum, $post->thread_id);
+            if (!is_object($rec)) {
                 $rec = jDao::createRecord('havefnubb~read_posts');
                 $rec->id_forum = $post->id_forum;
                 $rec->thread_id = $post->thread_id;
@@ -81,8 +81,8 @@ class hfnuread {
                 $dao->insert($rec);
             }
             else {
-                $exist->date_read = $datePost;
-                $dao->update($exist);
+                $rec->date_read = $datePost;
+                $dao->update($rec);
             }
         }
     }
