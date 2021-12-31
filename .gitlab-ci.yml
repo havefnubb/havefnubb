@@ -16,6 +16,8 @@ build:
     name: "hfnu-${CI_COMMIT_SHA}"
     paths:
       - _dist
+  tags:
+    - jelix
 
 deploy_package:
   stage: deploy
@@ -23,4 +25,6 @@ deploy_package:
     - make deploy_package
   dependencies:
     - build
+  tags:
+    - jelix
 
