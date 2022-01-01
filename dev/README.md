@@ -1,8 +1,7 @@
 
-A Vagrant configuration and a Docker configuration are available to execute
-havefnubb on your computer to develop and test it.
+A Docker configuration is available to execute havefnubb on your computer to develop and test it.
 
-You have to install Docker or VirtualBox and Vagrant on your computer.
+You have to install Docker on your computer.
 
 With Docker
 ===================
@@ -76,12 +75,3 @@ export PHP_VERSION=7.3
 ./run-docker build
 ./run-docker
 ```
-
-
-With Vagrant
-====================
-
-See dev/vagrantscripts/README.md.
-
-Note that this way to test Havefnubb is deprecated and will be removed in future branches.
-

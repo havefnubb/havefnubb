@@ -1,4 +1,3 @@
-.vagrant
 _build
 docker-conf/certs/*
 !docker-conf/certs/.dummy
