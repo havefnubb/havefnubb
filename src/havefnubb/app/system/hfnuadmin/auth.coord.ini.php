@@ -102,7 +102,7 @@ password_crypt_function=md5
 
 ; name of the form for the jauthdb_admin module
 ; form="jauthdb_admin~jelixuser"
-form="hfnuadmin~user_admin"
+form="jcommunity~account_admin"
 
 ; path of the directory where to store files uploaded by the form (jauthdb_admin module)
 ; should be related to the var directory of the application
