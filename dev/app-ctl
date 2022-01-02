@@ -34,11 +34,11 @@ case $COMMAND in
     unit-tests)
         docker exec -t -i hfn_${APPBRANCH}_test_php appctl.sh unit-tests $@;;
     shell)
-       docker exec -it --user usertest hfn_${APPBRANCH}_test_php  /bin/bash -l;;
+       docker exec -it --user userphp hfn_${APPBRANCH}_test_php  /bin/bash -l;;
     shell-root)
        docker exec -it hfn_${APPBRANCH}_test_php  /bin/bash  -l;;
     mysql)
-      docker exec -it hfn_${APPBRANCH}_test_mysql mysql -u test_user -pjelix testapp
+      docker exec -it hfn_${APPBRANCH}_test_mysql mysql -u havefnubb -phfnu havefnubb
       ;;
     *)
         echo "wrong command"

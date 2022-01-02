@@ -1,8 +1,8 @@
 #!/bin/bash
-ROOTDIR="/jelixapp/src"
+ROOTDIR="/app/src"
 APPDIR="$ROOTDIR/havefnubb"
-APP_USER=usertest
-APP_GROUP=grouptest
+APP_USER=userphp
+APP_GROUP=groupphp
 
 COMMAND="$1"
 shift
@@ -107,24 +107,12 @@ function setRights() {
 
 function composerInstall() {
     echo "--- Install Composer packages"
-    local appdir="$1"
-
-    if [ -f $appdir/composer.lock ]; then
-        rm -f $appdir/composer.lock
-    fi
-    composer install --prefer-dist --no-progress --no-ansi --no-interaction --working-dir=$appdir
-    chown -R $APP_USER:$APP_GROUP $appdir/vendor $appdir/composer.lock
+    /bin/helpers.sh composer-install $1
 }
 
 function composerUpdate() {
     echo "--- Update Composer packages"
-    local appdir="$1"
-
-    if [ -f $appdir/composer.lock ]; then
-        rm -f $appdir/composer.lock
-    fi
-    composer update --prefer-dist --no-progress --no-ansi --no-interaction --working-dir=$appdir
-    chown -R $APP_USER:$APP_GROUP $appdir/vendor $appdir/composer.lock
+    /bin/helpers.sh composer-update $1
 }
 
 function launch() {

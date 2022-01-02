@@ -18,15 +18,16 @@ services:
     build:
       context: ./docker-conf/phpfpm
       args:
-        fpm_user_id: ${JELIX_USER_ID}
-        fpm_group_id: ${JELIX_GROUP_ID}
-        php_version: ${PHP_VERSION}
+        PHP_VERSION: ${PHP_VERSION}
     container_name: hfn_${APPBRANCH}_test_php
     environment:
+      APP_USER_ID: ${JELIX_USER_ID}
+      APP_GROUP_ID: ${JELIX_GROUP_ID}
       TLS_CA_CRT_FILENAME: "tests.hfn-CA.crt"
       APP_WEB_PORT: "${APP_WEB_PORT}"
+      DISPLAY_ERRORS: "on"
     volumes:
-      - "../:/jelixapp/"
+      - "../:/app/"
       - "./docker-conf/certs:/customcerts"
     networks:
       - default
@@ -38,7 +39,7 @@ services:
     hostname: havefnubb.hfn
     volumes:
       - "./docker-conf/nginx-default.conf:/etc/nginx/conf.d/default.conf"
-      - "../:/jelixapp/"
+      - "../:/app/"
     command: /bin/sh -c "nginx -g 'daemon off;'"
     ports:
       - "${APP_WEB_PORT}:80"
