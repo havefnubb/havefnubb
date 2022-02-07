@@ -47,7 +47,7 @@ class hfnuread {
 
             $dao = jDao::get('havefnubb~read_forum');
             $exist = $dao->get($id_user,$id);
-            if ($exist === false) {
+            if (!$exist) {
                 $rec = jDao::createRecord('havefnubb~read_forum');
                 $rec->id_forum = $id;
                 $rec->date_read = time();
@@ -72,7 +72,7 @@ class hfnuread {
             $dao = jDao::get('havefnubb~read_posts');
             $id_user = jAuth::getUserSession ()->id;
             $exist = $dao->get($id_user ,$post->id_forum, $post->thread_id);
-            if ($exist === false) {
+            if (!$exist) {
                 $rec = jDao::createRecord('havefnubb~read_posts');
                 $rec->id_forum = $post->id_forum;
                 $rec->thread_id = $post->thread_id;

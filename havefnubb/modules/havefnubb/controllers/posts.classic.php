@@ -315,7 +315,7 @@ class postsCtrl extends jController {
         $nbReplies = jDao::get('havefnubb~threads_alone')->get($thread_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
 
         $srvTags = jClasses::getService("jtags~tags");
-        $tags = implode(',',$srvTags->getTagsBySubject('forumscope',$id_post));
+        $tags = $srvTags->getTagsBySubject('forumscope',$id_post);
 
         $tpl = new jTpl();
 
@@ -645,7 +645,7 @@ class postsCtrl extends jController {
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
             $post = $hfnuposts->save($id_forum,$id_post);
 
-            if ($post === false) {
+            if (!$post) {
                 $rep->action = 'havefnubb~posts:lists';
                 $rep->params = array('id_forum'=>$id_forum,
                                      'ftitle'=>jDao::get('havefnubb~forum')->get($id_forum)->forum_name);
@@ -1024,7 +1024,7 @@ class postsCtrl extends jController {
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
             $record = $hfnuposts->savereply($thread_id,$id_post);
 
-            if ($record === false ) {
+            if (!$record) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
                 $record = $hfnuposts->getPost($thread_id);
                 $forum = jDao::get('havefnubb~forum')->get($id_forum);

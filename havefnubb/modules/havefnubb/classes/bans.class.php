@@ -13,7 +13,7 @@
 class bans {
     /**
      * get the Bans
-     * @return recordSet
+     * @return jDbResultSet
      */
     public static function getBans() {
         self::checkExpiry();
@@ -24,7 +24,7 @@ class bans {
 
     /**
      * get the Banned Domain
-     * @return recordSet
+     * @return jDbResultSet
      */
     public static function getBannedDomains() {
         self::checkExpiry();

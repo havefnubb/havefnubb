@@ -20,7 +20,7 @@ class memberprofileZone extends jZone {
      */
     protected $_useCache = true;
     /**
-     *@var integrer $_cacheTimeout set timeout to one h
+     *@var integer $_cacheTimeout set timeout to one h
      */
     protected $_cacheTimeout = 3600;
     /**

@@ -8,7 +8,7 @@
         'go'=>$post->id_last_msg)}#p{$post->id_last_msg}"
    title="{@havefnubb~main.goto_this_message@}">{$post->date_last_post|jdatetime:'timestamp':'lang_datetime'}</a> {@havefnubb~main.by@}
 
-{if $user === false}
+{if !$user}
    {@havefnubb~member.guest@}
 {else}
   <a href="{jurl 'jcommunity~account:show',array('user'=>$user->login)}" title="{$user->nickname|eschtml}">{$user->nickname|eschtml}</a>

@@ -60,7 +60,7 @@ class hfnuposts {
     /**
      * get info of the current post
      * @param  integer $id of the current post
-     * @return array composed by the post datas of the current post
+     * @return jDaoRecordBase|null  the post object
      */
     public function getPost($id) {
         if (!isset($this->posts[$id]) and $id > 0) {
@@ -151,7 +151,7 @@ class hfnuposts {
                 $newThreadRec = $daoThreads->getLastThreadByIdForum($id_forum);
 
                 // B4.a) no more thread in this forum, reset everything
-                if ($newThreadRec === false ) {
+                if (!$newThreadRec  ) {
                     $id_last_msg = 0;
                     $date_last_msg = 0;
                 } else {
@@ -245,7 +245,7 @@ class hfnuposts {
         else
             $post = $this->getPost($id_post);
 
-        if ($id_post == 0 or $post === false) {
+        if ($id_post == 0 || !$post) {
             return array(null,null,null);
         }
 
@@ -338,7 +338,7 @@ class hfnuposts {
         $subject = $form->getData('subject');
         $message = $form->getData('message');
 
-        if (count($message) > $gJConfig->havefnubb['post_max_size'] and
+        if (strlen($message) > $gJConfig->havefnubb['post_max_size'] and
                 $gJConfig->havefnubb['post_max_size'] > 0) {
             jMessage::add(jLocale::get('havefnubb~main.message.exceed.maximum.size',
                         array($gJConfig->havefnubb['post_max_size'])),'error');
@@ -496,7 +496,7 @@ class hfnuposts {
         //get the thread record to keep the status of the thread and apply it
         //to this new reply.
         $threadRec = jDao::get('havefnubb~threads')->get($thread_id);
-        if ($threadRec === false) {
+        if (!$threadRec) {
             return false;
         }
 
@@ -576,9 +576,9 @@ class hfnuposts {
         }
 
         jEvent::notify('HfnuPostBeforeSaveNotify',array('id'=>$id_post));
-        $dao = jDao::get('havefnubb~notify')->getNotifByUserId($id_post,$form->getData('id_user'));
+        $nbNotif = jDao::get('havefnubb~notify')->getNotifByUserId($id_post,$form->getData('id_user'));
 
-        if ($dao > 0) {
+        if ($nbNotif > 0) {
             jMessage::add(jLocale::get('havefnubb~post.notification.already.done'),'error');
             return false;
         }
@@ -609,7 +609,7 @@ class hfnuposts {
      * change the status of the current THREAD (not just one post) !
      * @param integer $thread_id id of the thread
      * @param string $status the status to switch to
-     * @return DaoRecord $record
+     * @return jDaoRecordBase|false $record
      */
     public function switchStatus($thread_id,$id_post,$status) {
 
@@ -650,6 +650,7 @@ class hfnuposts {
      * @param integer $id_post post id of the thread
      * @param string $status the status to switch to
      * @param string $censor_msg the censored message
+     * @return jDaoRecordBase|null|false
      */
     public function censor($thread_id,$id_post,$censor_msg) {
         if ( $thread_id < 0 or $id_post < 1) return false;
@@ -902,8 +903,9 @@ class hfnuposts {
         $threadRec = $daoThreads->get($thread_id);
         if ($threadRec->nb_replies > 0 )
             $threadRec->nb_replies -= $i;
-        if ($dao->getLastCreatedPostByThreadId($thread_id) === false )
+        if (!$dao->getLastCreatedPostByThreadId($thread_id)) {
             $daoThreads->delete($thread_id);
+        }
         else {
             $threadRec->id_last_msg = $dao->getLastCreatedPostByThreadId($thread_id)->id_post;
             $daoThreads->update($threadRec);

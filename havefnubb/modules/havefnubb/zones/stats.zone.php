@@ -36,7 +36,7 @@ class statsZone extends jZone {
         
         $lastPost   = jDao::get('havefnubb~posts')->getLastPost();
         // if lastPost is "false" the forum is empty !
-        if ( $lastPost === false ) {
+        if (!$lastPost) {
             $forum = new StdClass;
             $forum->forum_name = '';
             $lastPost               = new StdClass;
