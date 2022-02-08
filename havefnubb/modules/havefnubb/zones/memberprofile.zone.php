@@ -31,5 +31,8 @@ class memberprofileZone extends jZone {
         if ($id) {
             $this->_tpl->assign('user',jDao::get('havefnubb~member')->getById($id));
         }
+        else {
+            $this->_tpl->assign('user', null);
+        }
     }
 }

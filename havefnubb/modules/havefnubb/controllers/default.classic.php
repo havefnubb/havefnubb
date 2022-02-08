@@ -71,9 +71,10 @@ class defaultCtrl extends jController {
 
         $title = stripslashes(jApp::config()->havefnubb['title']);
         $rep = $this->getResponse('html');
+        $cloudLabel = jLocale::get('havefnubb~main.cloud');
         $hist = jApp::coord()->getPlugin('history');
-        $hist->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . jLocale::get('havefnubb~main.cloud'));
-        $hist->getPlugin('history')->change('title', jLocale::get('havefnubb~main.cloud'));
+        $hist->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ). ' - ' . $cloudLabel);
+        $hist->change('title', $cloudLabel);
 
         $rep->title = jLocale::get('havefnubb~main.cloud.posts.by.tag',$tag);
         $rep->body->assignZone('MAIN', 'havefnubb~postlistbytag',array('tag'=>$tag));

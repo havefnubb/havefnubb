@@ -965,6 +965,7 @@ class hfnuposts {
                     posts.viewed,
                     posts.poster_ip,
                     posts.censored_msg,
+                    posts.censored_by,
                     posts.read_by_mod,
                     usr.id,
                     usr.email,
