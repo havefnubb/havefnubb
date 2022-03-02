@@ -235,7 +235,7 @@ class hfnuposts {
      * 1) update the count of view of this thread
      * @param integer $id_post id of the current post
      * @param integer $thread_id thread id of the current post
-     * @return array of id_post, DaoRecord of Post, Paginator
+     * @return array of id_post, DaoRecord of Post, Paginator, number of replies
      */
     public function view($id_post,$thread_id) {
 
@@ -246,11 +246,11 @@ class hfnuposts {
             $post = $this->getPost($id_post);
 
         if ($id_post == 0 || !$post) {
-            return array(null,null,null);
+            return array(null,null,null,0);
         }
 
         if ( ! $this->checkPerm('hfnu.posts.view','forum'.$post->id_forum) ) {
-            return array(null,null,null);
+            return array(null,null,null,0);
         }
 
         $goto = 0;

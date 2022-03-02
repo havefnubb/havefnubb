@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%hfnu_posts (
   date_created int(12) NOT NULL,
   date_modified int(12) NOT NULL,
   viewed int(12) NOT NULL,
-  poster_ip varchar(15) NOT NULL,
+  poster_ip varchar(50) NOT NULL,
   censored_msg VARCHAR( 50 ) NULL,
   read_by_mod int(1) DEFAULT '0',
   ispined INT( 1 ) NOT NULL DEFAULT '0',
