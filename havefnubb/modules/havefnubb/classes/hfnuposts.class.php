@@ -246,11 +246,11 @@ class hfnuposts {
             $post = $this->getPost($id_post);
 
         if ($id_post == 0 || !$post) {
-            return array(null,null,null,0);
+            return array(null,null,null, 0);
         }
 
         if ( ! $this->checkPerm('hfnu.posts.view','forum'.$post->id_forum) ) {
-            return array(null,null,null,0);
+            return array(null,null,null, 0);
         }
 
         $goto = 0;
