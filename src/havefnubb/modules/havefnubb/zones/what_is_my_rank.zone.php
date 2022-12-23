@@ -20,7 +20,7 @@ class what_is_my_rankZone extends jZone {
      */
     protected $_useCache = true;
     /**
-     *@var integrer $_cacheTimeout set timeout to one hour
+     *@var integer $_cacheTimeout set timeout to one hour
      */
     protected $_cacheTimeout = 3600;
     /**

@@ -47,7 +47,7 @@ table.hfnucal td.active a {}
 /* numero jour */
 table.hfnucal td p.daynumber {}
 
-/* liste événement dans cellules */
+/* event list in cells */
 table.hfnucal td ul.eventlist {
 	font-size: 0.9em;
 }

@@ -1,4 +1,4 @@
-{if $user === false}
+{if !$user}
 <div class="post-author">
     <ul class="member-ident">
     {hook 'hfbMemberProfile',array('user'=>0)}

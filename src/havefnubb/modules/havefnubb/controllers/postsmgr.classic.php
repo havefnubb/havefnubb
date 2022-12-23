@@ -131,7 +131,7 @@ class postsmgrCtrl extends jController {
             //let's save the post
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
             $result = $hfnuposts->savenotify($id_post,$thread_id);
-            if ($result === false) {
+            if (!$result) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
                 $rep->action = 'havefnubb~default:index';
                 return $rep;
@@ -171,7 +171,7 @@ class postsmgrCtrl extends jController {
 
         $post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($thread_id,$id_post,$status);
 
-        if ($post === false ) {
+        if (!$post) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep->action = 'havefnubb~default:index';
         }
@@ -223,7 +223,7 @@ class postsmgrCtrl extends jController {
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
         $result = $hfnuposts->moveToForum($thread_id,$id_forum);
 
-        if ($result === false ) {
+        if (!$result) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~posts:lists';
@@ -366,7 +366,7 @@ class postsmgrCtrl extends jController {
 
             $rep = $this->getResponse('redirect');
 
-            if ($post === false) {
+            if (!$post) {
                 jMessage::add(jLocale::get('havefnubb~main.common.thread.cant.be.moved'),'error');
                 $rep = $this->getResponse('redirect');
                 $rep->action = 'havefnubb~default:index';
@@ -467,10 +467,9 @@ class postsmgrCtrl extends jController {
 
         //censoring an entire thread
         $result = jClasses::getService('havefnubb~hfnuposts')
-                    ->censor($thread_id,$id_post,$form->getData('censored_msg')
-                        );
+                    ->censor($thread_id,$id_post,$form->getData('censored_msg'));
 
-        if ($result === false ) {
+        if (!$result) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep->action = 'havefnubb~default:index';
             return $rep;
@@ -505,7 +504,7 @@ class postsmgrCtrl extends jController {
 
         $post = jClasses::getService('havefnubb~hfnuposts')->uncensor($thread_id,$id_post);//'uncensored'
 
-        if ($post === false) {
+        if (!$post) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';
