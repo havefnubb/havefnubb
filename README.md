@@ -20,6 +20,6 @@ The source code from the repository is not usable as is. Download an archive
 from https://download.jelix.org/havefnubb/ or from [github](https://github.com/havefnubb/havefnubb/releases)
 and follow instructions from the documentation: 
 
-- En français : voir la doc dans havefnubb/install/docs/fr/INSTALL.md
-- In English: see doc in havefnubb/install/docs/en/INSTALL.md
+- En français : voir la doc dans src/havefnubb/install/docs/fr/INSTALL.md
+- In English: see doc in src/havefnubb/install/docs/en/INSTALL.md
 

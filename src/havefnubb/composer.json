@@ -24,11 +24,11 @@
   },
   "keywords": ["forum", "php", "jelix"],
   "require": {
-    "jelix/jelix": "~1.7.9",
+    "jelix/jelix": "~1.7.12",
     "jelix/feeds-module": "^1.7.5",
     "jelix/wikirenderer-plugin": "^1.7.3",
     "jelix/sitemap-module": "^1.7.5",
-    "jelix/jcommunity-module": "^1.3.13",
+    "jelix/jcommunity-module": "^1.3.17",
     "havefnubb/servinfo-module": "^2.0.0",
     "havefnubb/modulesinfo-module": "^1.1.0",
     "havefnubb/jelixcache-module": "^1.0.0",

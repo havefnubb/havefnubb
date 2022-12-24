@@ -7,7 +7,7 @@ PACKAGE_NAME=havefnubb-$(VERSION)
 
 BUILDPATH=$(DISTPATH)/$(PACKAGE_NAME)
 
-FILES=src/cache src/files src/havefnubb src/hfnu src/jelix src/themes src/forums.php src/hfnuadmin.php src/index.php src/install.php src/migration.php src/update.php
+FILES=src/cache src/files src/havefnubb src/hfnu src/jelix src/themes src/forums.php src/hfnuadmin.php src/index.php src/install.php src/update.php
 FORBIDDEN_CONFIG_FILES := installer.ini.php installer.bak.ini.php liveconfig.ini.php localurls.xml localconfig.ini.php profiles.ini.php
 EMPTY_DIRS := cache/images/ files/ havefnubb/temp/ havefnubb/var/db havefnubb/var/feeds havefnubb/var/log havefnubb/var/mails havefnubb/var/overloads havefnubb/var/sessions havefnubb/var/themes havefnubb/var/uploads
 
