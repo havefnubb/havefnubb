@@ -3,7 +3,7 @@
 
 [coordplugins]
 autolocale=1
-auth="hfnuadmin/auth.coord.ini.php"
+auth="admin/auth.coord.ini.php"
 jacl2=1
 
 [responses]

@@ -4,6 +4,6 @@ config="havefnubb/config.ini.php"
 type=classic
 default=true
 
-[entrypoint:hfnuadmin.php]
-config="hfnuadmin/config.ini.php"
+[entrypoint:admin.php]
+config="admin/config.ini.php"
 type=classic

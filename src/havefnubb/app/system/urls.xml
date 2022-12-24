@@ -25,7 +25,7 @@
 
     </classicentrypoint>
 
-    <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
+    <classicentrypoint name="admin" default="false" noentrypoint="false">
         <url pathinfo="/" module="master_admin" action="default:index" optionalTrailingSlash="true"/>
         <url pathinfo="/admin/themes" module="hfnuthemes" include="urls_admin.xml"/>
         <url pathinfo="/admin/search" module="hfnusearch" include="urls_admin.xml"/>

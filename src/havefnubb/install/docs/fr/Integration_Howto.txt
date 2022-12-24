@@ -22,13 +22,13 @@ part II : themes and "web" files
     * copy the havefnubb-x.y.z/''hfnu'' directory in your www directory
     * copy the havefnubb-x.y.z/''forums.php'' file in your www directory
     * copy the havefnubb-x.y.z/''install.php'' file in your www directory
-    * copy the havefnubb-x.y.z/''hfnuadmin.php'' file in your www directory 
+    * copy the havefnubb-x.y.z/''admin.php'' file in your www directory
 
 part III : configuration files
 
     * copy :
     * havefnubb-x.y.z/havefnubb/var/config/havefnubb
-    * havefnubb-x.y.z/havefnubb/var/config/hfnuadmin
+    * havefnubb-x.y.z/havefnubb/var/config/admin
     * havefnubb-x.y.z/havefnubb/var/config/install
     * havefnubb-x.y.z/havefnubb/var/config/havefnu.search.ini.php
     * havefnubb-x.y.z/havefnubb/var/config/wikitoolbar.ini.php in your own var/config
@@ -42,7 +42,7 @@ part III : configuration files
  <classicentrypoint name="install" default="false" noentrypoint="false">
 ...
  </classicentrypoint>
- <classicentrypoint name="hfnuadmin" default="false" noentrypoint="false">
+ <classicentrypoint name="admin" default="false" noentrypoint="false">
 ...
  </classicentrypoint>
 
@@ -61,7 +61,7 @@ by
 in the files
 
     * havefnubb-x.y.z/havefnubb/var/config/havefnubb/config.ini.php
-    * havefnubb-x.y.z/havefnubb/var/config/hfnuadmin/config.ini.php
+    * havefnubb-x.y.z/havefnubb/var/config/admin/config.ini.php
     * havefnubb-x.y.z/havefnubb/var/config/install/config.ini.php 
 
 and last be not least, from the file havefnubb-x.y.z/havefnubb/var/config/mainconfig.ini.php
@@ -76,7 +76,7 @@ part IV : Overloads
 
 part V : Entrypoints
 
-    * in the file forums.php, install.php and hfnuadmin.php you should see this line : 
+    * in the file forums.php, install.php and admin.php you should see this line :
 
 require ('havefnubb/application.init.php');
 
