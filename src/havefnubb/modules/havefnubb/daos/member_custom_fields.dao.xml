@@ -41,5 +41,11 @@
              <like property="type" expr="$type" />
          </conditions>
      </method>
+     <method name="deleteByFamilyType" type="delete">
+       <parameter name="type" />
+       <conditions>
+           <like property="type" expr="$type" />
+       </conditions>
+     </method>
    </factory>
 </dao>
