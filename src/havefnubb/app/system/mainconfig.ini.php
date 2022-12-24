@@ -198,15 +198,6 @@ keywords="Forum, Community, PHP5, Jelix"
 to_contact=
 email_contact=
 
-[social_networks]
-twitter=1
-digg=1
-delicious=1
-facebook=1
-reddit=1
-netvibes=1
-images_path="images/social-network"
-
 ; set here the name of the directory that contains the smileys in the dir hfnu/images/smileys/
 [smileys_pack]
 name=famfamfam

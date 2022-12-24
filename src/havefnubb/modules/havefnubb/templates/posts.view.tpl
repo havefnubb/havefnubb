@@ -63,14 +63,6 @@
                 {/ifuserconnected}</h3>
     <div class="box-content">
         <div class="postheading">
-            {social_networks
-                array(  'jurl'=>'havefnubb~posts:view',
-                        'jurlparams'=>array('id_post'=>$post->thread_id,
-                            'thread_id'=>$post->thread_id,
-                            'id_forum'=>$post->id_forum,
-                            'ftitle'=>$post->forum_name,
-                            'ptitle'=>$post->subject),
-                        'title'=>$post->subject)}
             <p><a id="p{$post->id_post}"
                 href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">
                 {if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}

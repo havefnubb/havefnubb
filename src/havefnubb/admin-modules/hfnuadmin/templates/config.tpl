@@ -8,7 +8,6 @@
     <li><a href="#hfnuadmin-important"><span>{@hfnuadmin~config.important_posts@}</span></a></li>
     <li><a href="#hfnuadmin-flood"><span>{@hfnuadmin~config.flood_protection@}</span></a></li>
     <li><a href="#hfnuadmin-members"><span>{@hfnuadmin~config.members@}</span></a></li>
-    <li><a href="#hfnuadmin-social-networks"><span>{@hfnuadmin~config.social.networks@}</span></a></li>
 </ul>
 <div id="hfnuadmin-general">
 <fieldset>
@@ -99,20 +98,6 @@
     <p>{ctrl_control 'avatar_max_width'} </p>
     <p>{ctrl_label 'avatar_max_height'} </p>
     <p>{ctrl_control 'avatar_max_height'} </p>
-</fieldset>
-</div>
-
-<div id="hfnuadmin-social-networks">
-<fieldset>
-    <legend>{@hfnuadmin~config.from.which.network.you.want.to.link.to@}</legend>
-    <div class="social-network">
-        <div id="social-network-twitter"><ul><li>{ctrl_label 'social_network_twitter'}</li><li>{ctrl_control 'social_network_twitter'}</li></ul></div>
-        <div id="social-network-digg"><ul><li>{ctrl_label 'social_network_digg'}</li><li>{ctrl_control 'social_network_digg'}</li></ul></div>
-        <div id="social-network-delicious"><ul><li>{ctrl_label 'social_network_delicious'}</li><li>{ctrl_control 'social_network_delicious'}</li></ul></div>
-        <div id="social-network-facebook"><ul><li>{ctrl_label 'social_network_facebook'}</li><li>{ctrl_control 'social_network_facebook'}</li></ul></div>
-        <div id="social-network-reddit"><ul><li>{ctrl_label 'social_network_reddit'}</li><li>{ctrl_control 'social_network_reddit'}</li></ul></div>
-        <div id="social-network-netvibes"><ul><li>{ctrl_label 'social_network_netvibes'}</li><li>{ctrl_control 'social_network_netvibes'}</li></ul></div>
-    </div>
 </fieldset>
 </div>
 

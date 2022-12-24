@@ -63,12 +63,6 @@ class defaultCtrl extends jController {
 
         $form->setData('post_max_size',     (int) $gJConfig->havefnubb['post_max_size']);
 
-        $form->setData('social_network_twitter',    $gJConfig->social_networks['twitter']);
-        $form->setData('social_network_digg',       $gJConfig->social_networks['digg']);
-        $form->setData('social_network_delicious',  $gJConfig->social_networks['delicious']);
-        $form->setData('social_network_facebook',   $gJConfig->social_networks['facebook']);
-        $form->setData('social_network_reddit',     $gJConfig->social_networks['reddit']);
-        $form->setData('social_network_netvibes',   $gJConfig->social_networks['netvibes']);
     }
 
     /*function loadconfig() {
@@ -150,13 +144,6 @@ class defaultCtrl extends jController {
         $defaultConfig->setValue('important_nb_replies',$form->getData('important_nb_replies'),'havefnubb');
         $defaultConfig->setValue('important_nb_views',  $form->getData('important_nb_views'),'havefnubb');
         $defaultConfig->setValue('anonymous_post_authorized',  $form->getData('anonymous_post_authorized'),'havefnubb');
-
-        $defaultConfig->setValue('twitter',     $form->getData('social_network_twitter'),'social_networks');
-        $defaultConfig->setValue('digg',        $form->getData('social_network_digg'),'social_networks');
-        $defaultConfig->setValue('delicious',   $form->getData('social_network_delicious'),'social_networks');
-        $defaultConfig->setValue('facebook',    $form->getData('social_network_facebook'),'social_networks');
-        $defaultConfig->setValue('reddit',      $form->getData('social_network_reddit'),'social_networks');
-        $defaultConfig->setValue('netvibes',    $form->getData('social_network_netvibes'),'social_networks');
 
         $tz = DateTimeZone::listIdentifiers();
 
