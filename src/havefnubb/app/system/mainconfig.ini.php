@@ -314,3 +314,6 @@ elapsed_time_between_two_post=0
 
 [jwiki]
 defaultRules=hfb_rule
+
+[activeusers]
+timeout_visit=3600

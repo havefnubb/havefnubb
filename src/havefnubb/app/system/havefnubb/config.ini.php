@@ -43,9 +43,6 @@ error_message="jelix~errors.acl.action.right.needed"
 ; on_error_action = "jelix~error:badright"
 on_error_action="havefnubb~hfnuerror:badright"
 
-[activeusers]
-timeout_visit=3600
-
 [history]
 ; session variable name
 session_name=HFNUHISTO

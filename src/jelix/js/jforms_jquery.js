@@ -432,6 +432,7 @@ jFormsJQForm.prototype={
         }
 
         var elt = this.element.elements[ctrl.name];
+        var eltValue = elt.value;
         var me = this;
 
         jQuery.post(jFormsJQ.selectFillUrl, param,
@@ -442,16 +443,20 @@ jFormsJQForm.prototype={
                     select.empty();
                     if(emptyitem)
                         select.append(emptyitem);
-                    jQuery.each(data, function(i, item){
+                    jQuery.each(data, function(i, item) {
+                        if (emptyitem && item.value == '') {
+                            // do not add empty item if it already exists.
+                            return;
+                        }
                         if(typeof item.items == 'object'){
                             select.append('<optgroup label="'+item.label+'"/>');
                             var optgroup = select.children('optgroup[label="'+item.label+'"]').eq(0);
                             jQuery.each(item.items, function(i,item){
-                                optgroup.append('<option value="'+item.value+'">'+item.label+'</option>');
+                                optgroup.append('<option value="'+item.value+'"'+(item.value == eltValue ? ' selected="selected"' : '')+'>'+item.label+'</option>');
                             });
                         }
                         else
-                            select.append('<option value="'+item.value+'">'+item.label+'</option>');
+                            select.append('<option value="'+item.value+'"'+(item.value == eltValue ? ' selected="selected"' : '')+'>'+item.label+'</option>');
                     });
                 }
                 if (me.controlsToUpdate.length) {
