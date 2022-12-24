@@ -37,7 +37,6 @@ CREATE TABLE %%PREFIX%%hfnu_forum (
 
 ALTER TABLE %%PREFIX%%community_users ADD  website character varying(255);
 ALTER TABLE %%PREFIX%%community_users ADD  firstname character varying(40);
-ALTER TABLE %%PREFIX%%community_users ADD  birth date DEFAULT '1971-01-01'::date NOT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  country character varying(100);
 ALTER TABLE %%PREFIX%%community_users ADD  town character varying(100);
 ALTER TABLE %%PREFIX%%community_users ADD  comment character varying(255);

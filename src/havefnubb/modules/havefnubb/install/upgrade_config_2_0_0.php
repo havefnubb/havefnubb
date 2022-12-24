@@ -42,5 +42,8 @@ class havefnubbModuleUpgrader_config_2_0_0 extends \Jelix\Installer\Module\Insta
         $fields = jDao::get('havefnubb~member_custom_fields');
         $fields->deleteByFamilyType('hw:%');
         $fields->deleteByFamilyType('im:%');
+
+        $helpers->database()->execSQLScript('sql/upgrade_2_0');
+
     }
 }

@@ -30,7 +30,6 @@ CREATE INDEX %%PREFIX%%hfnu_forum_forum_type  ON %%PREFIX%%hfnu_forum  (  forum_
 
 ALTER TABLE %%PREFIX%%community_users ADD  website varchar(255) DEFAULT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  firstname varchar(40) DEFAULT NULL;
-ALTER TABLE %%PREFIX%%community_users ADD  birth date NOT NULL DEFAULT '1980-01-01';
 ALTER TABLE %%PREFIX%%community_users ADD  country varchar(100) DEFAULT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  town varchar(100) DEFAULT NULL;
 ALTER TABLE %%PREFIX%%community_users ADD  comment varchar(255) DEFAULT NULL;

@@ -17,10 +17,6 @@
         <label locale="jcommunity~account.form.email"/>
     </input>
 
-    <date ref="member_birth" mindate="1910-01-01">
-        <label locale="havefnubb~member.birthday"/>
-    </date>
-
     <input ref="member_firstname">
         <label locale="havefnubb~member.common.firstname"/>
     </input>

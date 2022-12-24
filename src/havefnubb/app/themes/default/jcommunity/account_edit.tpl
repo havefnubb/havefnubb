@@ -26,12 +26,6 @@
                     </div>
                     <div class="form_value">{ctrl_control 'email'}</div>
                 </div>
-                <div class="form_row">
-                   <div class="form_property">
-                        <span class="user-birthday user-image"><strong>{ctrl_label 'member_birth'}</strong></span>
-                    </div>
-                    <div class="form_value">{ctrl_control 'member_birth'}</div>
-                </div>
                 {ifacl2 'auth.users.change.password'}
                 <div class="form_row">
                     <div class="form_property">

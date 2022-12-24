@@ -473,7 +473,6 @@ div.menu .box-content {
 .user-status-offline { background-image: url("../images/users/offline.png"); }
 .user-status         { display:none; }
 .user-town      { background-image: url("../images/users/house.png"); }
-.user-birthday  { background-image: url("../images/users/cake.png"); }
 .user-location  { background-image: url("../images/users/world.png"); }
 .user-website   { background-image: url("../images/users/world_link.png"); }
 .user-email     { background-image: url("../images/users/email.png"); }

@@ -56,14 +56,6 @@
                     <div class="form_value"><a href="{jurl 'jmessenger~jmessenger:create'}" title="{jlocale 'havefnubb~member.common.send.an.email.to',array($user->login)}">{@havefnubb~member.common.contact.the.member.by.email@}</a></div>
                 </div>
     {/if}
-                <div class="form_row">
-                    <div class="form_property">
-                        <label class="user-birthday user-image"><strong>{@havefnubb~member.common.age@}</strong></label>
-                    </div>
-                    <div class="form_value">
-                        {age $user->member_birth}
-                    </div>
-                </div>
             </fieldset>
             <fieldset>
                 <legend><span class="user-location user-image">{@havefnubb~member.common.location@}</span></legend>

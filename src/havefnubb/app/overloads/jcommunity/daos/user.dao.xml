@@ -28,7 +28,6 @@
 
     <property name="member_website" fieldname="website" datatype="string" maxlength="255"/>
     <property name="member_firstname" fieldname="firstname" datatype="string" default="" maxlength="40"/>
-    <property name="member_birth" fieldname="birth" datatype="date" default="1980-01-01"/>
     <property name="member_country" fieldname="country" datatype="string" maxlength="100"/>
     <property name="member_town" fieldname="town" datatype="string" maxlength="100"/>
     <property name="member_comment" fieldname="comment" datatype="string" maxlength="255"/>
