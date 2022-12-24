@@ -65,8 +65,8 @@ defaultJformsBuilder=html
 
 
 [error_handling]
-messageLogFormat="%date%\t%ip%\t[%code%]\t%msg%\t%file%\t%line%\n\t%url%\n%params%\n%trace%\n\n"
-errorMessage="Une erreur technique est survenue. Désolé pour ce désagrément."
+messageLogFormat="%date%\t%ip%\t%typeerror%\t[%code%]\n\tmsg: %msg%\n\tat: %file%\t%line%\n\turl: %url%\n\t%http_method%: %params%\n\treferer: %referer%\n%trace%\n\n"
+
 
 [compilation]
 checkCacheFiletime=on
@@ -141,7 +141,7 @@ smtpTimeout=10
 
 [acl2]
 driver=db
-
+authAdapterClass= jAcl2JAuthAdapter
 
 [sessions]
 ; to disable sessions, set the following parameter to 0

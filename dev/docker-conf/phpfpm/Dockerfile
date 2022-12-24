@@ -1,12 +1,12 @@
 ARG PHP_VERSION
 FROM 3liz/liz-php-fpm:${PHP_VERSION}
 
-RUN apt-get -y install \
+RUN apt update && apt upgrade -y && apt -y install \
     php${PHP_VERSION}-xdebug \
     mariadb-client \
     unzip \
     ; \
-    apt-get clean
+    apt clean
 
 COPY profile.start /etc/profile.d/start
 COPY hfnu_entrypoint.sh /bin/entrypoint.d/

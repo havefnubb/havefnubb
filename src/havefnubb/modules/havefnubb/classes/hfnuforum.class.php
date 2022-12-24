@@ -14,7 +14,7 @@
  */
 class hfnuForumRecordIterator extends FilterIterator
 {
-    public function accept() {
+    public function accept() : bool {
         $forum = $this->getInnerIterator()->current();
         if( $forum->allowed()) {
             return true;
@@ -26,12 +26,15 @@ class hfnuForumRecordIterator extends FilterIterator
 /**
  * iterator to iterate on the forum hierarchy
  */
-class hfnuForumRecordChildIterator extends ArrayIterator implements RecursiveIterator {
-    public function getChildren ( ) {
+class hfnuForumRecordChildIterator extends ArrayIterator implements RecursiveIterator
+{
+
+    #[\ReturnTypeWillChange]
+    public function getChildren ( ) /* : ?RecursiveIterator */ {
         return new hfnuForumRecordChildIterator($this->current()->children);
     }
 
-    public function hasChildren ( ) {
+    public function hasChildren ( ) : bool {
         return (count($this->current()->children) > 0);
     }
 }

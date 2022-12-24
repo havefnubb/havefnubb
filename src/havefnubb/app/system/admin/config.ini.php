@@ -23,9 +23,6 @@ urlParamNameLanguage=lang
 ; utilisation du langage indiqué dans le navigateur
 useDefaultLanguageBrowser=on
 
-[acl2]
-enableAcl2DbEventListener=on
-
 [jacl2]
 ; What to do if a right is required but the user has not this right
 ; 1 = generate an error. This value should be set for web services (xmlrpc, jsonrpc...)
