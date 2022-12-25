@@ -249,10 +249,6 @@ hfnurates.js[] = "hfnu/js/rates.js"
 hfnurates.require = jquery
 
 hfnusearch.css[] = "$theme/css/hfnusearch.css"
-hfnusearch.css[] = "hfnu/js/jquery.autocomplete.css"
-hfnusearch.js[] = "hfnu/js/jquery.autocomplete.pack.js"
-hfnusearch.js[] = "hfnu/js/hfnusearch.js"
-hfnusearch.require = jquery
 
 hfnuthemes.css[] = "$theme/css/hfnuthemes.css"
 hfnuthemes.js[] = "hfnuthemes:themes.js"

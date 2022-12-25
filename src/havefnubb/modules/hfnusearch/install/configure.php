@@ -24,19 +24,14 @@ class hfnusearchModuleConfigurator extends \Jelix\Installer\Module\Configurator 
         if (!$this->getParameter('nocopyfiles')) {
             $helpers->copyFile('havefnu.search.ini.php.dist', 'appconfig:havefnu.search.ini.php');
             $helpers->copyFile('hfnusearch.css', 'www:themes/default/css/hfnusearch.css', true);
-            $helpers->copyFile('hfnusearch.js', 'www:hfnu/js/hfnusearch.js', true);
 
             $helpers->declareGlobalWebAssets('hfnucal',
                 array(
                     'css' => array(
                         '$theme/css/hfnusearch.css',
-                        'hfnu/js/jquery.autocomplete.css',
                     ),
                     'js' => array(
-                        'hfnu/js/jquery.autocomplete.pack.js',
-                        'hfnu/js/hfnusearch.js'
                     ),
-                    'require'=> 'jquery'
                 ), 'common', false);
         }
     }

@@ -27,12 +27,7 @@ class defaultCtrl extends jController {
             'banuser.check'=>true,
             'history.add'=>true,
             //'jacl2.right' =>'hfnu.search'
-        ),
-        'queryajax' =>array(
-            'auth.required'=>false,
-            'banuser.check'=>true,
-            'history.add'=>false,
-        ),
+        )
     );
     /**
      * Main page of search
@@ -105,30 +100,5 @@ class defaultCtrl extends jController {
         $rep->body->assign('MAIN',$tpl->fetch('hfnusearch~result'));
         return $rep;
     }
-    /**
-     * Autocomplete Query
-     */
-    public function queryajax () {
-        $string = (string) $this->param('q');
-        if ($string == '')
-            return $this->getResponse('htmlfragment');
 
-        $additionnalParam = '';
-
-        $HfnuSearchConfig  =  parse_ini_file(jApp::appSystemPath('havefnu.search.ini.php'), true);
-
-        $perform = jClasses::getService('hfnusearch~search_in');
-
-        $page = 0;
-
-        $resultsPerPage = (int) $HfnuSearchConfig['results_per_page'];
-
-        $result = $perform->searchInWords($string,$additionnalParam,$page,$resultsPerPage);
-
-        $rep = $this->getResponse('htmlfragment');
-        if ($result['total'] > 0)
-            for ($i = 0 ; $i < count($result['datas']) ; $i++ )
-                $rep->addContent( $result['datas'][$i]['subject']."\n" );
-        return $rep;
-    }
 }
