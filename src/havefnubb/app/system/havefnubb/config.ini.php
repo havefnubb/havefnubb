@@ -13,8 +13,8 @@ history=1
 flood=1
 
 [responses]
-html=fnuHtmlResponse
-htmlauth=fnuHtmlResponse
+html="\Havefnubb\Havefnubb\Response\HtmlResponse"
+htmlauth="\Havefnubb\Havefnubb\Response\HtmlResponse"
 
 [autolocale]
 availableLanguageCode="fr_FR,en_US"

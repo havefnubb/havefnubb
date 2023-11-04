@@ -14,7 +14,7 @@ require_once (JELIX_LIB_CORE_PATH.'response/jResponseHtml.class.php');
  */
 class adminHtmlResponse extends jResponseHtml {
     /**
-     * @var $bodyTpl the main template of the entire application
+     * @var string $bodyTpl the main template of the entire application
      */
     public $bodyTpl = 'master_admin~main';
     /**

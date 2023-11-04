@@ -22,4 +22,7 @@
         <module name="activeusers" minversion="1.2" maxversion="1.2.*"/>
         <module name="jacl2db"/>
     </dependencies>
+    <autoload>
+        <psr4 namespace="\Havefnubb\Havefnubb" dir="lib/"/>
+    </autoload>
 </module>
