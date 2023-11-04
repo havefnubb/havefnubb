@@ -33,7 +33,7 @@
     "jelix/feeds-module": "^1.7.5",
     "jelix/wikirenderer-plugin": "^1.7.3",
     "jelix/sitemap-module": "^1.7.5",
-    "jelix/jcommunity-module": "^1.3.17",
+    "jelix/jcommunity-module": "^1.4.0",
     "havefnubb/servinfo-module": "dev-main",
     "havefnubb/modulesinfo-module": "dev-main",
     "havefnubb/jelixcache-module": "dev-main",
