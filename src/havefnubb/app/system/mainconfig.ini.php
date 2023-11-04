@@ -192,7 +192,7 @@ stats_nb_of_lastpost=3
 post_max_size=0
 ; if the hfnuadmin module is in an other web site or application, set its url here
 admin_url=
-keywords="Forum, Community, PHP5, Jelix"
+keywords="Forum, Community, PHP, Jelix"
 
 [hfnucontact]
 to_contact=
