@@ -61,7 +61,15 @@
                 {/ifuserconnected}</h3>
     <div class="box-content">
         <div class="postheading">
-            <p>{@havefnubb~post.heading.postedby@}
+            <p>{if $i >0}<a id="p{$post->id_post}"
+                  href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">
+                    <span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>
+                    </a> {@havefnubb~post.heading.postedby.fem@}
+                {else}
+                    {@havefnubb~post.heading.postedby@}
+                {/if}
+
+
                 {if $post->nickname}
                     <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" class="user-link"
                        title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($post->nickname)}">{$post->nickname|eschtml}</a>
@@ -69,10 +77,8 @@
                     {@havefnubb~member.guest@}
                 {/if}
                 {@havefnubb~post.heading.date.on@}
-                <a id="p{$post->id_post}"
-                href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">
-                {if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
-               {$post->p_date_created|jdatetime:'timestamp':'lang_short_datetime'}</a></p>
+                {$post->p_date_created|jdatetime:'timestamp':'lang_short_datetime'}
+                </p>
 
             <div class="postheading-tags">
 		    {if $i == 1 }
@@ -109,7 +115,7 @@
         {$post->member_comment|wiki}
         {/if}
     </div>
-    <div class="postfoot buttons-bar">
+    <div class="postfoot">
         &nbsp;
         {hook 'hfbPostRepliesFooter',
                     array('action'=>'havefnubb~posts:view',
@@ -203,9 +209,6 @@
             {/ifuserconnected}
         {/ifacl2}
     {/if}
-{/ifacl2}
-{ifacl2 'hfnu.forum.goto'}
-    {zone 'havefnubb~jumpto',array('id_forum'=>$forum->id_forum)}
 {/ifacl2}
 {ifacl2 'hfnu.admin.post'}
 <div class="box" id="act_change_status">
