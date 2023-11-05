@@ -50,7 +50,14 @@
                     </div>
                 </div>
     {/if}
-    {if !$himself}
+    {if $himself}
+                <div class="form_row">
+                    <div class="form_property">
+                        <span class="user-email user-image">&nbsp;</span>
+                    </div>
+                    <div class="form_value"><a href="{jurl 'jmessenger~jmessenger:index'}">{@havefnubb~member.internal.messenger@}</a></div>
+                </div>
+        {else}
                 <div class="form_row">
                     <div class="form_property">
                         <label class="user-messenger user-image"> &nbsp;</label>

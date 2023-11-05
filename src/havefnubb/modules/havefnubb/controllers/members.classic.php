@@ -71,14 +71,4 @@ class membersCtrl extends jController {
         );
         return $rep;
     }
-
-    /**
-     * call of internal messaging
-     */
-    function mail() {
-        $rep = $this->getResponse('html');
-        $rep->body->assign('selectedMenuItem','members');
-        $rep->body->assignZone('MAIN', 'jmessenger~links');
-        return $rep;
-    }
 }

@@ -2,6 +2,7 @@
 {ifuserconnected}
     <p id="welcome">{@havefnubb~member.status.welcome@} {$login}</p>
     <a href="{jurl 'jcommunity~account:show', array('user'=>$login)}">{@havefnubb~member.status.your.account@}</a> -
+    <a href="{jurl 'jmessenger~jmessenger:index'}">{@havefnubb~member.private.messaging@}</a> -
     <a href="{jurl 'jcommunity~login:out'}">{@havefnubb~main.logout@}</a>
     {hook 'hfbJcommunityStatusConnected',array('login'=>$login)}
 {else}

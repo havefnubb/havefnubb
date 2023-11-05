@@ -26,12 +26,6 @@
                     </div>
                     <div class="form_value">{ctrl_control 'email'}</div>
                 </div>
-                <div class="form_row">
-                    <div class="form_property">
-                        <span class="user-email user-image">&nbsp;</span>
-                    </div>
-                    <div class="form_value"><a href="{jurl 'havefnubb~members:mail'}">{@havefnubb~member.internal.messenger@}</a></div>
-                </div>
             </fieldset>
             <fieldset>
                 <legend><span class="user-location user-image">{@havefnubb~member.common.location@}</span></legend>

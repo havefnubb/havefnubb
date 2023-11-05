@@ -1,6 +1,6 @@
 /* Navigation */
 ul.nav,
-ul.nav * { margin:0;padding:0;}
+ul.nav>* { margin:0;padding:0;}
 ul.nav {
   position:relative;
   max-width:100%;
