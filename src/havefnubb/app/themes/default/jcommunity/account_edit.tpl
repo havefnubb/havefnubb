@@ -26,14 +26,6 @@
                     </div>
                     <div class="form_value">{ctrl_control 'email'}</div>
                 </div>
-                {ifacl2 'auth.users.change.password'}
-                <div class="form_row">
-                    <div class="form_property">
-                        <span class="user-edit-password user-image">&nbsp;</span>
-                    </div>                    
-                    <div class="form_value"><a class="user-image"  href="{jurl 'havefnubb~members:changepwd', array('user'=>$username)}">{@havefnubb~member.pwd.change.of.password@}</a></div>
-                </div>
-                {/ifacl2}
                 <div class="form_row">
                     <div class="form_property">
                         <span class="user-email user-image">&nbsp;</span>

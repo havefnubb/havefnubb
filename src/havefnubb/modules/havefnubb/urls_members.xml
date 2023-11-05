@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <suburls xmlns="http://jelix.org/ns/suburls/1.0">
-    <url pathinfo="/:user/changepwd" action="members:changepwd">
-        <param name="user" />
-    </url>
     <url pathinfo="/pm"              action="members:mail"/>
 </suburls>

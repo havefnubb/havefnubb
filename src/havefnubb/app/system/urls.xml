@@ -13,9 +13,6 @@
         <url pathinfo="/auth" module="jcommunity" include="urls_auth.xml"/>
         <url pathinfo="/profile/pm" module="havefnubb" action="members:mail"/>
         <url pathinfo="/profile" module="jcommunity" include="urls_account.xml"/>
-        <url pathinfo="/profile/:user/changepwd" module="havefnubb" action="members:changepwd">
-            <param name="user"/>
-        </url>
 
         <url pathinfo="/registration" module="jcommunity" include="urls_registration.xml"/>
         <url pathinfo="/contact" module="hfnucontact" include="urls.xml"/>

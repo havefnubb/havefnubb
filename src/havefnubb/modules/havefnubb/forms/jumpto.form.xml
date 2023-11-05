@@ -3,7 +3,7 @@
 
 <menulist ref="id_forum">
     <datasource class="havefnubb~hfnuforumaccess"/>
-    <label locale="havefnubb~forum.jumpto.go.to.this.forum">jumpto forum :</label>
+    <label locale="havefnubb~forum.jumpto.go.to.this.forum"/>
     <emptyitem locale="havefnubb~forum.select.a.forum"/>
 </menulist>
 
