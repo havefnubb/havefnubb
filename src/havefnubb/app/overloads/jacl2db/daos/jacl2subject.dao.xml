@@ -92,6 +92,8 @@
                 <eq property="id_aclsbjgrp" expr="$old_id_aclsbjgrp" />
             </conditions>
         </method>
+
+        <!-- hfnu methods -->
         <method name="findHfnuRoles" type="select">
             <conditions logic="OR">
                 <eq property="id_aclsbj" value="hfnu.forum.view" />

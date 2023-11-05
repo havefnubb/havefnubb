@@ -5,7 +5,7 @@
         <foreigntable name="grp" realname="jacl2_group" primarykey="id_aclgrp" onforeignkey="id_aclgrp"/>
         <optionalforeigntable name="usr" realname="community_users" primarykey="login" onforeignkey="login"/>
     </datasources>
-    <record>
+    <record extends="jacl2db~jacl2GroupsOfUser">
         <property name="login" fieldname="login" datatype="string" required="yes"/>
         <property name="id_aclgrp" fieldname="id_aclgrp" datatype="string" required="yes"/>
 
@@ -33,6 +33,12 @@
                 <eq property="login" expr="$login" />
                 <eq property="ownerlogin" expr="$login" />
                 <eq property="grouptype" value="2" />
+            </conditions>
+        </method>
+        <method name="getUsersCount" type="count">
+            <parameter name="login" />
+            <conditions>
+                <eq property="login" expr="$login" />
             </conditions>
         </method>
     </factory>

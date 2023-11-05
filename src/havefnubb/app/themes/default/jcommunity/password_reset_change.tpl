@@ -6,7 +6,10 @@
 
     {@jcommunity~password.form.change.text.html@}
 
-    {formfull $form,'jcommunity~password_reset:save', array()}
+    {formfull $form,'jcommunity~password_reset:save', array(), 'html', array(
+        'plugins' => array(
+            'pchg_password' => $passwordWidget
+    ))}
 
 {/if}
 

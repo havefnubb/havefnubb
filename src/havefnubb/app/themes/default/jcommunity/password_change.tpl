@@ -6,7 +6,10 @@
 
         {@jcommunity~password.form.change.text.html@}
 
-        {formfull $form,'jcommunity~password:save', array('user'=>$login)}
+        {formfull $form,'jcommunity~password:save', array('user'=>$login), 'html', array(
+        'plugins'=> array(
+            'pchg_password'=> $passwordWidget
+        ))}
 
     {/if}
 

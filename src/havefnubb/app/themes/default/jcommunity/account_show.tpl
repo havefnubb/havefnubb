@@ -4,7 +4,9 @@
 <div class="box">
     <h3>{if $himself}
             <a id="user" href="{jurl 'jcommunity~account:prepareedit', array('user'=>$user->login)}">{jlocale 'jcommunity~account.profile.of', array($user->login)}</a>
-        {else}{jlocale 'jcommunity~account.profile.of', array($user->login)}{/if}</h3>
+        {else}
+            {jlocale 'jcommunity~account.profile.of', array($user->login)}
+        {/if}</h3>
     <div class="box-content">
         <div id="user-profile-avatar">
         {if $user->member_gravatar == 1}
@@ -81,7 +83,7 @@
                 <div class="form_row">
                     <div class="form_property">
                         <label class="user-website user-image"><strong>{@havefnubb~member.common.website@}</strong>&nbsp;</label>
-                    </div>                    
+                    </div>
                     <div class="fom_value">
                         {if $user->member_website != ''}
                         <a href="{$user->member_website|eschtml}" title="{@havefnubb~member.common.website@}">{$user->member_website|eschtml}</a>

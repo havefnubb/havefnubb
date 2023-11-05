@@ -4,7 +4,7 @@
 <fieldset><legend>{@jcommunity~account.form.delete.account.confirm.title@}</legend>
 {formurlparam}
 
-<p>{jcommunity~account.form.delete.account.confirm@}</p>
+<p>{@jcommunity~account.form.delete.account.confirm@}</p>
 
  <p>
   <label for="conf_password">{@jcommunity~account.form.password@}</label>

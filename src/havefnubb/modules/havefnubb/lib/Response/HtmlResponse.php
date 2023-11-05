@@ -48,6 +48,9 @@ class HtmlResponse extends jResponseHtml
         $language = preg_split('/_/', $conf->locale);
 
         /* Dublin Core Meta and Content */
+        $this->addHeadContent('   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+');
         $this->addHeadContent('<meta name="description" lang="' . $language[0] . '" content="' . $description . '" />');
         $this->addHeadContent('<meta name="keywords" content="' . $keywords . '"/>');
         $this->addHeadContent('<meta name="language" content="' . $language[0] . '"/>');

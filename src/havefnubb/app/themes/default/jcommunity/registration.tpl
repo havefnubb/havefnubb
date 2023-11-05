@@ -2,7 +2,10 @@
     <h3>{@jcommunity~register.form.create.title@}</h3>
     <div class="box-content">
         <div id="post-message">{jmessage}</div>
-        {form $form,'jcommunity~registration:save', array()}
+        {form $form,'jcommunity~registration:save', array(), 'html', array(
+        'plugins'=> array(
+            'reg_password'=> $passwordWidget
+        ))}
         <fieldset>
             <p>{@jcommunity~register.form.create.text.html@}</p>
             <legend>{@havefnubb~main.informations@}</legend>

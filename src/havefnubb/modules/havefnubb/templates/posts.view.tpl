@@ -50,8 +50,6 @@
     {assign $id_forum = $post->id_forum}
 
     {ifacl2 'hfnu.posts.view','forum'.$id_forum}
-
-
 <div class="box">
     <h3><span class="post-status-icon-{$statusAvailable[$post->status -1]}">&nbsp;</span>
     <span class="post-status-{$statusAvailable[$post->status -1]}">[{jlocale 'havefnubb~post.status.'.$statusAvailable[$post->status -1]}]</span>
@@ -63,10 +61,18 @@
                 {/ifuserconnected}</h3>
     <div class="box-content">
         <div class="postheading">
-            <p><a id="p{$post->id_post}"
+            <p>{@havefnubb~post.heading.postedby@}
+                {if $post->nickname}
+                    <a href="{jurl 'jcommunity~account:show',array('user'=>$post->login)}" class="user-link"
+                       title="{jlocale 'havefnubb~member.common.view.the.profile.of',array($post->nickname)}">{$post->nickname|eschtml}</a>
+                {else}
+                    {@havefnubb~member.guest@}
+                {/if}
+                {@havefnubb~post.heading.date.on@}
+                <a id="p{$post->id_post}"
                 href="{jurl 'havefnubb~posts:view',array('id_post'=>$post->id_post,'thread_id'=>$thread_id,'id_forum'=>$id_forum,'ftitle'=>$forum_name,'ptitle'=>$post->subject)}#p{$post->id_post}">
                 {if $i >0}<span class="post-reply-idx">{jlocale 'havefnubb~post.reply.number',array('#'.$i)}</span>{/if}
-               {$post->p_date_created|jdatetime:'timestamp':'lang_datetime'}</a></p>
+               {$post->p_date_created|jdatetime:'timestamp':'lang_short_datetime'}</a></p>
 
             <div class="postheading-tags">
 		    {if $i == 1 }

@@ -7,9 +7,11 @@
         <a href="{jurl 'jcommunity~login:out'}">{@jcommunity~login.logout@}</a>)
         </p>
     </div>
+    {hook 'JauthLoginFormExtraAuthenticated'}
 </div>
 {else}
 <div class="box loginbox">
+    {hook 'JauthLoginFormExtraBefore'}
     <h3>{@havefnubb~main.login.connection@}</h3>
     <div class="box-content">
     {form $form, 'jcommunity~login:in'}
@@ -36,5 +38,6 @@
         {if $canRegister}<a href="{jurl 'jcommunity~registration:index'}">{@havefnubb~member.login.register@}</a>{/if}{if $canResetPassword}{if $canRegister},{/if}
         <a href="{jurl 'jcommunity~password_reset:index'}">{@havefnubb~member.login.forgotten.password@}</a>{/if}){/if}
     </div>
+    {hook 'JauthLoginFormExtraAfter'}
 </div>
 {/ifuserconnected}
