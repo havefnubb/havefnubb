@@ -254,6 +254,7 @@ class hfnuposts {
         }
 
         $goto = 0;
+        $nbReplies = 0;
         if ($thread_id > 0) {
             // the number of post between the current post_id and the thread_id
             $nbReplies = (int) jDao::get('havefnubb~threads_alone')->get($thread_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post

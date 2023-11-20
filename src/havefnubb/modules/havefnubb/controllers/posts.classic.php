@@ -306,14 +306,19 @@ class postsCtrl extends jController {
                       'end-label'   => jLocale::get("havefnubb~main.common.pagelinks.end"),
                       'area-size'   => 5);
         // 1- get the nb of replies per page
-        $nbRepliesPerPage = 0;
         $nbRepliesPerPage = (int) jApp::config()->havefnubb['replies_per_page'];
 
         // 2- get the post
         list($page,$posts) = jClasses::getService("havefnubb~hfnuposts")->findByThreadId($thread_id,$page,$nbRepliesPerPage);
 
         // 3- total number of posts
-        $nbReplies = jDao::get('havefnubb~threads_alone')->get($thread_id)->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
+        $threadAlone = jDao::get('havefnubb~threads_alone')->get($thread_id);
+        if ($threadAlone) {
+            $nbReplies = $threadAlone->nb_replies + 1; // add 1 because nb_replies does not count the "parent" post
+        }
+        else {
+            $nbReplies = 1;
+        }
 
         $srvTags = jClasses::getService("jtags~tags");
 
