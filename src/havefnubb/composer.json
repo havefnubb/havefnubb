@@ -30,16 +30,16 @@
   },
   "require": {
     "jelix/jelix": "dev-jelix-1.8.x",
-    "jelix/feeds-module": "^1.7.5",
-    "jelix/wikirenderer-plugin": "^1.7.3",
-    "jelix/sitemap-module": "^1.7.5",
-    "jelix/jcommunity-module": "^1.4.0",
+    "jelix/feeds-module": "~1.7.5",
+    "jelix/wikirenderer-plugin": "~1.7.3",
+    "jelix/sitemap-module": "~1.7.5",
+    "jelix/jcommunity-module": "~1.4.0",
     "havefnubb/servinfo-module": "dev-main",
     "havefnubb/modulesinfo-module": "dev-main",
     "havefnubb/jelixcache-module": "dev-main",
     "havefnubb/activeusers-module": "dev-main",
     "havefnubb/hfnurates-module": "dev-main",
     "havefnubb/hfnuthemes-module": "dev-main",
-    "jelix/jtags-module": "^1.1.0"
+    "jelix/jtags-module": "~1.1.0"
   }
 }
