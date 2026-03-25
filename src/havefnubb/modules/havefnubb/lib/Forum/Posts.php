@@ -10,6 +10,7 @@
  */
 
 namespace Havefnubb\Havefnubb\Forum;
+use Havefnubb\Havefnubb\Members\Subscriptions;
 use jAcl2;
 use jAcl2DbUserGroup;
 use jApp;
@@ -481,10 +482,11 @@ class Posts
         jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
 
         //subscription management
+        $subscriptions = new Subscriptions();
         if ($form->getData('subscribe') == 1) {
-            jClasses::getService('havefnubb~hfnusub')->subscribe($thread_id);
+            $subscriptions->subscribe($thread_id);
         } else {
-            jClasses::getService('havefnubb~hfnusub')->unsubscribe($thread_id);
+            $subscriptions->unsubscribe($thread_id);
         }
 
         jForms::destroy('havefnubb~posts', $id_post);
@@ -569,12 +571,14 @@ class Posts
         //add this post as already been read
         (new ReadStatus())->insertReadPost($result['daorec'], $dateReply);
 
+        $subscriptions = new Subscriptions();
+
         if ($form->getData('subscribe') == 1) {
             //subscribe to a post
-            jClasses::getService('havefnubb~hfnusub')->subscribe($thread_id);
+            $subscriptions->subscribe($thread_id);
             //send message to anyone who subscribes to this thread
         }
-        jClasses::getService('havefnubb~hfnusub')->sendMail($thread_id);
+        $subscriptions->sendMail($thread_id);
 
         jEvent::notify('HfnuSearchEngineAddContent', array('id' => $id_post, 'datasource' => 'havefnubb~posts'));
 

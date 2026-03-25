@@ -9,8 +9,8 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
-use Havefnubb\Havefnubb\Forum\hfnuposts;
 use Havefnubb\Havefnubb\Forum\ReadStatus;
+use Havefnubb\Havefnubb\Members\Subscriptions;
 use Havefnubb\Havefnubb\Services;
 
 /**
@@ -369,7 +369,7 @@ class postsCtrl extends jController {
         $tpl->assign('thread_id',$post->thread_id);
         $tpl->assign('forum_name',$post->forum_name);
         $tpl->assign('subscribed',
-                     jClasses::getService('havefnubb~hfnusub')->getSubscribed(
+                     (new Subscriptions())->getSubscribed(
                                             //$parentPost->thread_id
                                             $post->thread_id
                                             )
