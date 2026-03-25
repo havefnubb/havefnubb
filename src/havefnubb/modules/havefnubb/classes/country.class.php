@@ -28,7 +28,7 @@ class country {
         $fh = @fopen (__DIR__.'/iso_3166-1_list_'.$language.'.txt','r');
         if ($fh) {
            while (!feof($fh)) {
-                $buffer = utf8_encode(fgets($fh, 4096));
+                $buffer = \Jelix\Utilities\utf8_encode(fgets($fh, 4096));
                 if (strpos($buffer,';') > 0) {
                     list($countryName,$countryCode) = preg_split('/;/',$buffer);
                     $data[rtrim($countryCode)] = $countryName;

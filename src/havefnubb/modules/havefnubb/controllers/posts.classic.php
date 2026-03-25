@@ -58,7 +58,7 @@ class postsCtrl extends jController {
     public function lists() {
         $ftitle = jUrl::escape($this->param('ftitle'),true);
 
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
 
         if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
@@ -100,7 +100,7 @@ class postsCtrl extends jController {
         // 1- get the offset parm if exist
         $page = 0;
         if ( $this->param('page') > 0 )
-            $page = (int) $this->param('page');
+            $page = $this->intParam('page');
 
         if ($page < 0) $page = 0;
 
@@ -171,8 +171,8 @@ class postsCtrl extends jController {
     function viewtogo () {
 
         if ($this->param('go')) {
-            $gotoPostId = (int) $this->param('go');
-            $thread_id = (int) $this->param('thread_id');
+            $gotoPostId = $this->intParam('go');
+            $thread_id = $this->intParam('thread_id');
             $rec = jDao::get('havefnubb~posts')->findAllPostByThreadId($thread_id);
             $nbRec = $rec->rowCount();
             if ($nbRec > 0 ) {
@@ -232,8 +232,8 @@ class postsCtrl extends jController {
 
         $ftitle = jUrl::escape($this->param('ftitle'),true);
         $ptitle = jUrl::escape($this->param('ptitle'),true);
-        $id_post    = (int) $this->param('id_post');
-        $thread_id  = (int) $this->param('thread_id');
+        $id_post    = $this->intParam('id_post');
+        $thread_id  = $this->intParam('thread_id');
 
         $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
 
@@ -293,7 +293,7 @@ class postsCtrl extends jController {
 
         $page = 0;
         if ( $this->param('page') )
-            $page = (integer) $this->param('page');
+            $page = $this->intParam('page');
 
         //if ($goto > 0 ) $page = $goto;
 
@@ -382,7 +382,7 @@ class postsCtrl extends jController {
     * display the add 'blank' form to add a new post
     */
     function add () {
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
         $id_post = 0;
 
         // invalid forum id
@@ -455,7 +455,7 @@ class postsCtrl extends jController {
     * display the edit form with the corresponding selected post
     */
     function edit () {
-        $id_post = (int) $this->param('id_post');
+        $id_post = $this->intParam('id_post');
 
         if ($id_post == 0 ) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_post','DEBUG');
@@ -530,8 +530,8 @@ class postsCtrl extends jController {
     * Save the data submitted from add/edit form
     */
     function save() {
-        $id_forum = (int) $this->param('id_forum');
-        $id_post  = (int) $this->param('id_post');
+        $id_forum = $this->intParam('id_forum');
+        $id_post  = $this->intParam('id_post');
 
         if (jAuth::isConnected()) {
             if ( ! jAcl2::check('hfnu.posts.create','forum'.$id_forum) ) {
@@ -584,7 +584,7 @@ class postsCtrl extends jController {
         }
         //add a post
 
-        $thread_id = (int) $this->param('thread_id');
+        $thread_id = $this->intParam('thread_id');
 
         $submit = $this->param('validate');
         // preview ?
@@ -694,8 +694,8 @@ class postsCtrl extends jController {
      * reply to a given post (from the thread_id)
      */
     function reply() {
-        $thread_id = (int) $this->param('thread_id');
-        $id_post = (int) $this->param('id_post');
+        $thread_id = $this->intParam('thread_id');
+        $id_post = $this->intParam('id_post');
 
         if ($thread_id == 0 ) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $thread_id','DEBUG');
@@ -811,8 +811,8 @@ class postsCtrl extends jController {
      * quote message
      */
     function quote() {
-        $thread_id  = (int) $this->param('thread_id');
-        $id_post    = (int) $this->param('id_post');
+        $thread_id  = $this->intParam('thread_id');
+        $id_post    = $this->intParam('id_post');
 
         if ($thread_id == 0 ) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should be not be 0 ] $thread_id','DEBUG');
@@ -930,7 +930,7 @@ class postsCtrl extends jController {
     * save the datas posted from the reply form
     */
     function savereply() {
-        $id_forum   = (int) $this->param('id_forum');
+        $id_forum   = $this->intParam('id_forum');
 
         if (jAuth::isConnected()) {
             if ( ! jAcl2::check('hfnu.posts.quote','forum'.$id_forum) and
@@ -959,8 +959,8 @@ class postsCtrl extends jController {
 
         $id_user = jAuth::isConnected() ? jAuth::getUserSession ()->id : 0;
 
-        $id_post    = (int) $this->param('id_post');
-        $thread_id  = (int) $this->param('thread_id');
+        $id_post    = $this->intParam('id_post');
+        $thread_id  = $this->intParam('thread_id');
 
         $submit = $this->param('validate');
         // preview ?
@@ -1030,30 +1030,32 @@ class postsCtrl extends jController {
                 return $rep;
             }
 
-            //let's save the reply
+            // let's save the reply
+            /** @var hfnuposts $hfnuposts */
             $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
-            $record = $hfnuposts->savereply($thread_id,$id_post);
+            $result = $hfnuposts->savereply($thread_id,$id_post);
 
-            if (!$record) {
+            if ($result === false) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
-                $record = $hfnuposts->getPost($thread_id);
+                $thread = $hfnuposts->getPost($thread_id);
                 $forum = jDao::get('havefnubb~forum')->get($id_forum);
                 $rep->action = 'havefnubb~posts:view';
-                $rep->anchor = 'p'.$record->id_post;
+                $rep->anchor = 'p'.$thread->id_post;
                 $rep->params = array('id_forum'  =>$id_forum,
                                      'ftitle'    =>$forum->forum_name,
-                                     'id_post'   =>$record->id_post,
-                                     'ptitle'    =>$record->subject,
-                                     'thread_id' =>$record->thread_id);
+                                     'id_post'   =>$thread->id_post,
+                                     'ptitle'    =>$thread->subject,
+                                     'thread_id' =>$thread->thread_id);
 
             } else {
+                list($record, $thread) = $result;
                 jMessage::add(jLocale::get('havefnubb~main.common.reply.added'),'ok');
                 $forum = jDao::get('havefnubb~forum')->get($id_forum);
                 $rep->action ='havefnubb~posts:viewtogo';
                 $rep->anchor = 'p'.$record->id_post;
                 $rep->params = array('id_forum' =>$id_forum,
                                     'ftitle'    =>$forum->forum_name,
-                                    'id_post'   =>$record->id_first_msg,
+                                    'id_post'   =>$thread->id_first_msg,
                                     'ptitle'    =>$hfnuposts->getPost(jDao::get('havefnubb~threads_alone')->get($record->thread_id)->id_first_msg)->subject,
                                     'thread_id' =>$record->thread_id,
                                     'go'        =>$record->id_post
@@ -1075,8 +1077,8 @@ class postsCtrl extends jController {
      */
     function delete() {
 
-        $id_post = (integer) $this->param('id_post');
-        $id_forum = (integer) $this->param('id_forum');
+        $id_post = $this->intParam('id_post');
+        $id_forum = $this->intParam('id_forum');
 
         if ( ! jAcl2::check('hfnu.posts.delete','forum'.$id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
@@ -1108,7 +1110,7 @@ class postsCtrl extends jController {
      * goto another forum
      */
     function goesto() {
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
         if ($id_forum == 0 ) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_forum','DEBUG');
             $rep = $this->getResponse('html');
@@ -1130,7 +1132,7 @@ class postsCtrl extends jController {
     function rss() {
 
         $ftitle = jUrl::escape($this->param('ftitle'),true);
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
 
         // if the forum is accessible by anonymous then the rss will be available
         // otherwise NO RSS will be available
@@ -1332,7 +1334,7 @@ class postsCtrl extends jController {
         // 1- get the offset parm if exist
         $page = 0;
         if ( $this->param('page') > 0 )
-            $page = (int) $this->param('page');
+            $page = $this->intParam('page');
 
         if ($page < 0) $page = 0;
 

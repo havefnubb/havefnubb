@@ -47,7 +47,7 @@ class postsmgrCtrl extends jController {
      */
     function notify() {
 
-        $id_post = (int) $this->param('id_post');
+        $id_post = $this->intParam('id_post');
         if ($id_post == 0 ) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be 0] $id_post','DEBUG');
             $rep = $this->getResponse('html');
@@ -105,9 +105,9 @@ class postsmgrCtrl extends jController {
     * save the datas posted from the notify form
     */
     function savenotify() {
-        $id_post    = (int) $this->param('id_post');
-        $thread_id  = (int) $this->param('thread_id');
-        $id_forum   = (int) $this->param('id_forum');
+        $id_post    = $this->intParam('id_post');
+        $thread_id  = $this->intParam('thread_id');
+        $id_forum   = $this->intParam('id_forum');
 
         if ( ! jAcl2::check('hfnu.posts.notify','forum'.$id_forum) ) {
             jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
@@ -150,9 +150,9 @@ class postsmgrCtrl extends jController {
      */
     function status () {
 
-        $thread_id = (int) $this->param('thread_id');
-        $id_post = (int) $this->param('id_post');
-        $status  = (int) $this->param('status');
+        $thread_id = $this->intParam('thread_id');
+        $id_post = $this->intParam('id_post');
+        $status  = $this->intParam('status');
 
         $rep = $this->getResponse('redirect');
 
@@ -191,9 +191,9 @@ class postsmgrCtrl extends jController {
      * this function permits to move a complet thread to another forum
      */
     public function moveToForum() {
-        $id_forum = (int) $this->param('id_forum');
-        $thread_id = (int) $this->param('thread_id');
-        $id_post = (int) $this->param('id_post');
+        $id_forum = $this->intParam('id_forum');
+        $thread_id = $this->intParam('thread_id');
+        $id_post = $this->intParam('id_post');
 
         if ( $id_forum == 0) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -256,9 +256,9 @@ class postsmgrCtrl extends jController {
             return $rep;
         }
 
-        $id_post    = (int) $this->param('id_post');
-        $thread_id  = (int) $this->param('thread_id');
-        $id_forum   = (int) $this->param('id_forum');
+        $id_post    = $this->intParam('id_post');
+        $thread_id  = $this->intParam('thread_id');
+        $id_forum   = $this->intParam('id_forum');
 
         if (($id_post == 0 or $id_forum == 0 or $thread_id == 0) or
             ($id_post == 0 and $id_forum == 0 and $thread_id == 0))
@@ -343,19 +343,19 @@ class postsmgrCtrl extends jController {
             $post = $dao->get($form->getData('id_post'));
             switch ($choice) {
                 case 'same_forum' :
-                    $id_forum = (int) $this->param('id_forum');
+                    $id_forum = $this->intParam('id_forum');
                     $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('thread_id'),$form->getData('id_post'),$id_forum);
                     if ($id_post > 0 ) $result = true; else $result = false;
                     break;
                 case 'others' :
                     // the id_forum change to the new selected one
-                    $id_forum = (int) $this->param('other_forum');
+                    $id_forum = $this->intParam('other_forum');
                     $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('thread_id'),$form->getData('id_post'),$id_forum);
                     if ($id_post > 0 ) $result = true; else $result = false;
                     break;
                 case 'existings' :
                     // the thread_id change to the new selected one
-                    $new_thread_id = (int) $this->param('existing_thread');
+                    $new_thread_id = $this->intParam('existing_thread');
                     $id_forum = $form->getData('id_forum');
                     $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToThread($form->getData('id_post'),$form->getData('thread_id'),$new_thread_id);
                     break;
@@ -405,8 +405,8 @@ class postsmgrCtrl extends jController {
 
         $rep = $this->getResponse('html');
 
-        $id_post    = (int) $this->param('id_post');
-        $thread_id  = (int) $this->param('thread_id');
+        $id_post    = $this->intParam('id_post');
+        $thread_id  = $this->intParam('thread_id');
 
         if ($id_post < 1 or $thread_id < 0) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -441,8 +441,8 @@ class postsmgrCtrl extends jController {
         }
 
         $rep = $this->getResponse('redirect');
-        $id_post    = (int) $this->param('id_post');
-        $thread_id  = (int) $this->param('thread_id');
+        $id_post    = $this->intParam('id_post');
+        $thread_id  = $this->intParam('thread_id');
 
         if ($id_post < 1 or $thread_id < 0) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -499,8 +499,8 @@ class postsmgrCtrl extends jController {
             $rep->setHttpStatus('403', 'Permission denied');
             return $rep;
         }
-        $id_post    = (int) $this->param('id_post');
-        $thread_id  = (int) $this->param('thread_id');
+        $id_post    = $this->intParam('id_post');
+        $thread_id  = $this->intParam('thread_id');
 
         $post = jClasses::getService('havefnubb~hfnuposts')->uncensor($thread_id,$id_post);//'uncensored'
 

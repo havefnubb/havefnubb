@@ -478,7 +478,7 @@ class hfnuStemmer
      {
        $intact = True;
        $stem_found = False;
-       $reversed_form = strrev(utf8_decode($form));
+       $reversed_form = strrev(\Jelix\Utilities\utf8_decode($form));
        $rule_number = 0;
        // that loop goes through the rules' array until it finds an ending one (ending by '.') or the last one ('end0.')
        while (True)
@@ -493,7 +493,7 @@ class hfnuStemmer
          preg_match(self::rule_pattern, $rule, $matches);
          if (($matches[2] != '*') || ($intact))
          {
-           $reversed_stem = utf8_decode($matches[4]) . substr($reversed_form,$matches[3],strlen($reversed_form)-$matches[3]);
+           $reversed_stem = \Jelix\Utilities\utf8_decode($matches[4]) . substr($reversed_form,$matches[3],strlen($reversed_form)-$matches[3]);
            if ($this->checkAcceptability($reversed_stem))
            {
              $reversed_form = $reversed_stem;
@@ -511,7 +511,7 @@ class hfnuStemmer
            $rule_number++;
          }
        }
-       return utf8_encode(strrev($reversed_form));
+       return \Jelix\Utilities\utf8_encode(strrev($reversed_form));
 
      }
 

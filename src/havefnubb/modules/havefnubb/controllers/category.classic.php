@@ -27,7 +27,7 @@ class categoryCtrl extends jController {
      */
     function view() {
         $ctitle = $this->param('ctitle');
-        $id_cat = (int) $this->param('id_cat');
+        $id_cat = $this->intParam('id_cat');
         if ($id_cat == 0 ) {
             $rep = $this->getResponse('redirect');
             $rep->action = 'havefnubb~default:index';

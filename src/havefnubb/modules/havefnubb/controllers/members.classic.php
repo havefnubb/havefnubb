@@ -29,12 +29,12 @@ class membersCtrl extends jController {
         $title = stripslashes(jApp::config()->havefnubb['title']);
         $rep = $this->getResponse('html');
 
-        $letter = $this->param('letter');
-        $id_rank = (int) $this->param('id_rank');
+        $letter = $this->param('letter', '');
+        $id_rank = $this->intParam('id_rank');
 
         $memberSearch = (string) $this->param('member_search');
 
-        $page = (int) $this->param('page');
+        $page = $this->intParam('page');
 
         // get the group name of the group id we request
         $grpid = $this->param('grpid');

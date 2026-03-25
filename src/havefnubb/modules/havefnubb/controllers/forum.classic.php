@@ -37,7 +37,7 @@ class forumCtrl extends jController {
     public function read_rss() {
         $ftitle = jUrl::escape($this->param('ftitle'),true);
 
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
 
         if ( ! jAcl2::check('hfnu.posts.list','forum'.$id_forum) ) {
             $rep = $this->getResponse('redirect');
@@ -79,7 +79,7 @@ class forumCtrl extends jController {
      * Mark one given forum as read
      */
     public function mark_forum_as_read() {
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
         jClasses::getService('havefnubb~hfnuread')->markForumAsRead($id_forum);
 
         jMessage::add(jLocale::get('havefnubb~forum.forum.marked.as.read'));
@@ -104,7 +104,7 @@ class forumCtrl extends jController {
      * Subscribe to this forum
      */
     public function subscribe() {
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
         jClasses::getService('havefnubb~hfnuforum')->subscribe($id_forum);
 
         jMessage::add(jLocale::get('havefnubb~forum.subscribe.to.this.forum.done'));
@@ -118,7 +118,7 @@ class forumCtrl extends jController {
      * Unsubscribe to this forum
      */
     public function unsubscribe() {
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
         jClasses::getService('havefnubb~hfnuforum')->unsubscribe($id_forum);
 
         jMessage::add(jLocale::get('havefnubb~forum.unsubscribe.to.this.forum.done'));

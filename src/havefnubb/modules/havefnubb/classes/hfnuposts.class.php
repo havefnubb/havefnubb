@@ -122,7 +122,7 @@ class hfnuposts {
                 // then get the user id of each post between the first and last
                 // then send an Event HfnuPostBeforeDelete
                 $start = $daoThreadsRec->id_first_msg;
-                $end = $daoThreadsRec->id_last_msg;                
+                $end = $daoThreadsRec->id_last_msg;
                 for ($i=$start ; $i <= $end ; $i++ ) {
                     //get the user of this post
                     //the current cursor may not exist so we have to test
@@ -466,7 +466,7 @@ class hfnuposts {
     /**
      * save a reply to one post
      * @param integer $thread_id thread id of the current post if editing of 0 if adding
-     * @return mixed boolean / DaoRecord $record of the reply
+     * @return mixed boolean / array [DaoRecord of the reply, DaoRecord of the thread]
      */
     public function savereply($thread_id,$id_post) {
         $form = false;
@@ -537,11 +537,6 @@ class hfnuposts {
         $forumRec->nb_thread    = $forumRec->nb_thread+1;        
         $forum->update($forumRec);
 
-        //add a "fake" column just to return it to the posts controller
-        // and then being able to redirect to the correct page where this
-        // post has been added
-        $result['daorec']->id_first_msg = $threadRec->id_first_msg;
-
         jEvent::notify('HfnuPostAfterSaveReply',array('id_post'=>$id_post));
 
         //add this post as already been read
@@ -558,7 +553,7 @@ class hfnuposts {
 
         jForms::destroy('havefnubb~posts', $thread_id);
 
-        return $result['daorec'];
+        return [ $result['daorec'], $threadRec];
     }
 
     /**

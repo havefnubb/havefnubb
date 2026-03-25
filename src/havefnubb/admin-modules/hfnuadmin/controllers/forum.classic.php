@@ -56,7 +56,7 @@ class forumCtrl extends jController {
         // build the next param to check
         $put = 'put_'.$choice;
         // the id_forum is ?
-        $id_forum = (int) $this->param($put);
+        $id_forum = $this->intParam($put);
 
         //check if submitted data are ok.
         if ($id_forum == 0 or ! in_array($choice,$possibleActions) ) {
@@ -115,7 +115,7 @@ class forumCtrl extends jController {
             $record->child_level = $child_level;
             $record->forum_order = $forum_order;
             $record->post_expire = 0;
-            $record->forum_type = (int) $this->param('forum_type');
+            $record->forum_type = $this->intParam('forum_type');
             $record->forum_desc = jLocale::get('hfnuadmin~forum.new.forum');
 
             $dao->insert($record);
@@ -132,7 +132,7 @@ class forumCtrl extends jController {
     }
 
     function edit () {
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
 
         if ($id_forum == 0 ) {
             jMessage::add(jLocale::get('hfnuadmin~forum.invalid.datas'),'error');
@@ -185,7 +185,7 @@ class forumCtrl extends jController {
     }
 
     function saveedit () {
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
 
         $submit = $this->param('validate');
 
@@ -219,7 +219,7 @@ class forumCtrl extends jController {
     }
 
     function delete() {
-        $id_forum = (integer) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
 
         $dao = jDao::get('havefnubb~forum');
         $dao->delete($id_forum);
@@ -232,7 +232,7 @@ class forumCtrl extends jController {
     }
 
     function defaultrights() {
-        $id_forum = (int) $this->param('id_forum');
+        $id_forum = $this->intParam('id_forum');
         if ($id_forum == 0) {
             jMessage::add(jLocale::get('hfnuadmin~forum.unknown.forum'),'error');
             $rep = $this->getResponse('redirect');

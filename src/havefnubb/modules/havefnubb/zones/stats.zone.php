@@ -20,7 +20,7 @@ class statsZone extends jZone {
      */
     protected $_useCache = true;
     /**
-     *@var integrer $_cacheTimeout set timeout to each hour
+     *@var integer $_cacheTimeout set timeout to each hour
      */
     protected $_cacheTimeout = 3600;
     /**
@@ -33,6 +33,8 @@ class statsZone extends jZone {
         $recForum = jDao::get('havefnubb~forum')->statsForum();
         $msgs = $recForum->nb_msg;
         $threads = $recForum->nb_thread;
+        $idFirstMsg = 0;
+        $idLastMsg = 0;
         
         $lastPost   = jDao::get('havefnubb~posts')->getLastPost();
         // if lastPost is "false" the forum is empty !
@@ -46,20 +48,14 @@ class statsZone extends jZone {
             $lastPost->id_forum     = 0;
             $lastPost->date_created = 0;
             $lastPost->date_last_post = 0;
-            $lastPost->id_first_msg = 0;
-            $lastPost->id_last_msg  = 0;
         }
         else {
             $thread = $daoThreads->get($lastPost->thread_id);
             $dao = jDao::get('havefnubb~forum');
             $forum = $dao->get($lastPost->id_forum);
             if ($thread) {
-                $lastPost->id_first_msg = $thread->id_first_msg;
-                $lastPost->id_last_msg = $thread->id_last_msg;
-            }
-            else {
-                $lastPost->id_first_msg = 0;
-                $lastPost->id_last_msg = 0;
+                $idFirstMsg = $thread->id_first_msg;
+                $idLastMsg = $thread->id_last_msg;
             }
         }
 
@@ -79,6 +75,8 @@ class statsZone extends jZone {
         $this->_tpl->assign('threads',$threads);
         $this->_tpl->assign('lastPost',$lastPost);
         $this->_tpl->assign('forum',$forum);
+        $this->_tpl->assign('idLastMsg',$idLastMsg);
+        $this->_tpl->assign('idFirstMsg',$idFirstMsg);
 
         $this->_tpl->assign('members',$members);
         $this->_tpl->assign('lastMember',$lastMember);

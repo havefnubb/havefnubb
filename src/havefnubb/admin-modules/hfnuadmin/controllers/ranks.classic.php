@@ -137,7 +137,7 @@ class ranksCtrl extends jController {
     }
 
     function delete() {
-        $id_rank = (integer) $this->param('id_rank');
+        $id_rank = $this->intParam('id_rank');
         if ($id_rank == 0) {
             jMessage::add(jLocale::get('hfnuadmin~rank.invalid.datas'),'error');
         } else {

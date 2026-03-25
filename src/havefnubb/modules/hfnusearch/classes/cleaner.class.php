@@ -47,7 +47,7 @@ class Cleaner {
 
           //$stem = jClasses::getService('hfnusearch~PorterStemmer');
           $stem = jClasses::getService('hfnusearch~hfnuStemmer');
-          $stemmedWords[] = $stem->Stem($word, true);
+          $stemmedWords[] = $stem->stem($word, true);
         }
 
         return $stemmedWords;

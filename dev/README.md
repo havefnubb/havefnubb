@@ -65,7 +65,7 @@ export APP_WEB_PORT=12345
 Using a specific php version
 -----------------------------
 
-By default, PHP 8.1 is installed. If you want to use another PHP version,
+By default, PHP 8.5 is installed. If you want to use another PHP version,
 set the environment variable `PHP_VERSION`, and rebuild the containers:
 
 ```

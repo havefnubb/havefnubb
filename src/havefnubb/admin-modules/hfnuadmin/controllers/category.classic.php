@@ -127,7 +127,7 @@ class categoryCtrl extends jController {
     }
 
     function delete() {
-        $id_cat = (integer) $this->param('id_cat');
+        $id_cat = $this->intParam('id_cat');
         if ($id_cat == 0) {
             jMessage::add(jLocale::get('hfnuadmin~category.invalid.datas'),'error');
         } else {

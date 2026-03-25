@@ -17,7 +17,7 @@ if [ "$APP_WEB_PORT" == "" ]; then
 fi
 
 if [ "$PHP_VERSION" == "" ]; then
-  export PHP_VERSION=8.1
+  export PHP_VERSION=8.5
 fi
 
 if [ "$CMD" == "build" ]; then
@@ -31,7 +31,7 @@ fi
 
 if [ "$CMD" == "reset" ]; then
     # Stop/Remove containers
-    docker-compose -p hfn-${APPBRANCH}-tests rm -sf || true
+    docker compose -p hfn-${APPBRANCH}-tests rm -sf || true
     # Clean db volumes
     docker volume rm "hfn_${APPBRANCH}_mysql_data" || true
     exit 0
@@ -42,4 +42,4 @@ else
 fi
 
 
-docker-compose -p hfn-${APPBRANCH}-tests $CMD
+docker compose -p hfn-${APPBRANCH}-tests $CMD

@@ -28,7 +28,7 @@ class lastpostsZone extends jZone {
      */
     protected function _prepareTpl(){
         $dao = jDao::get('havefnubb~threads_stats');
-        $admin = (boolean) $this->param('admin');
+        $admin = (bool) $this->param('admin');
         //last 'x' posts
         if ( $admin )
             $lastPost  = $dao->findLastPosts( (int) jApp::config()->havefnubb['stats_nb_of_lastpost']);

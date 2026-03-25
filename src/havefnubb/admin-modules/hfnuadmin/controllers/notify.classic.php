@@ -35,7 +35,7 @@ class notifyCtrl extends jController {
     }
 
     function delete () {
-        $id_notify = (int) $this->param('id_notify');
+        $id_notify = $this->intParam('id_notify');
 
         $rep = $this->getResponse('redirect');
         $rep->action = 'hfnuadmin~notify:index';
