@@ -3,10 +3,13 @@
 * @package    havefnubb
 * @subpackage coord_plugin
 * @author     foxmask
-* @contributor
-* @copyright  2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright  2008-2011 FoxMaSk, 2012-2026 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Members\BansManager;
+
 /**
  * Class that checkes if a user is banned
  */
@@ -26,8 +29,7 @@ class banuserCoordPlugin implements jICoordPlugin {
         $banok = false;
 
         if(isset($params['banuser.check'])) {
-            jClasses::inc('havefnubb~bans');
-            $banok = bans::check();
+            $banok = BansManager::check();
         }
 
         if($banok){

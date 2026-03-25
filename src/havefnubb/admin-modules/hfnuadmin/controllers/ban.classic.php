@@ -4,10 +4,14 @@
 * @subpackage hfnuadmin
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Members\bans;
+use Havefnubb\Havefnubb\Members\BansManager;
+
 /**
  * This controller manages the ban of members
  */
@@ -54,8 +58,7 @@ class banCtrl extends jController {
 
         $submit = $this->param('validate');
         if ($submit == jLocale::get('hfnuadmin~ban.saveBt') ) {
-            jClasses::inc('havefnubb~bans');
-            if ( $ip != '' && bans::checkIp($ip) === false ) {
+            if ( $ip != '' && BansManager::checkIp($ip) === false ) {
                 $rep = $this->getResponse('redirect');
                 $rep->action='hfnuadmin~ban:index';
                 return $rep;
@@ -106,7 +109,6 @@ class banCtrl extends jController {
             $rep = $this->getResponse('redirect');
             $rep->action='hfnuadmin~ban:index';
 
-            $dao 	= jDao::get('havefnubb~bans');
             $form 	= jForms::fill('hfnuadmin~bans');
 
             if (!$form) {
@@ -123,6 +125,9 @@ class banCtrl extends jController {
             jMessage::add(jLocale::get('hfnuadmin~ban.added'),'ok');
             return $rep;
         }
+        $rep = $this->getResponse('redirect');
+        $rep->action='hfnuadmin~ban:index';
+        return $rep;
     }
 
     function delete () {

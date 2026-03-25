@@ -3,10 +3,14 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Members\MessagesRank;
+
 /**
  * class that displays the rank of one member
  */
@@ -30,7 +34,7 @@ class what_is_my_rankZone extends jZone {
         $nbMsg = (int) $this->param('nbMsg');
 
         $this->_tpl->assign('myRank',
-                jClasses::getService('havefnubb~hfnurank')->getRank($nbMsg)
+            (new MessagesRank())->getRank($nbMsg)
         );
     }
 }

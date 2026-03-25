@@ -1,28 +1,35 @@
 <?php
 /**
-* @package   havefnubb
-* @subpackage havefnubb
-* @author    FoxMaSk
+ * @package   havefnubb
+ * @subpackage havefnubb
+ * @author    FoxMaSk
  * @contributor Laurent Jouanneau
  * @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
-* @link      https://havefnubb.jelix.org
-* @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
-*/
+ * @link      https://havefnubb.jelix.org
+ * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
+ */
+
+namespace Havefnubb\Havefnubb\Members;
+use jDao;
+
 /**
-* main UI to have a look on ranks
-*/
-class hfnurank {
+ * main UI to have a look on ranks
+ */
+class MessagesRank
+{
     /**
      * content of the ranks
      * @var $ranks array
      */
-    protected $ranks = array() ;
+    protected $ranks = array();
+
     /**
      * get the rank from the given nb of messages
      * @param integer $nbMsg nb of messages the user has
      * @return string $ranks the rank corresponding to the nb of messages
      */
-    public function getRank($nbMsg) {
+    public function getRank($nbMsg)
+    {
         if (!isset($this->ranks[$nbMsg])) {
             $rank = jDao::get('havefnubb~ranks')->getMyRank($nbMsg);
 

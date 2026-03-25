@@ -4,21 +4,33 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2026 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+
+namespace Havefnubb\Havefnubb\Members;
+use jApp;
+use jAuth;
+use jDao;
+use jDbResultSet;
+use jFilter;
+use jLocale;
+use jMessage;
+
 /**
  * Class that handle the banned users
  *
  * TODO IPV6 support
  */
-class bans {
+class BansManager
+{
     /**
      * get the Bans
      * @return jDbResultSet
      */
-    public static function getBans() {
+    public static function getBans()
+    {
         self::checkExpiry();
         $dao = jDao::get('havefnubb~bans');
         $bans = $dao->findAll();
@@ -29,7 +41,8 @@ class bans {
      * get the Banned Domain
      * @return jDbResultSet
      */
-    public static function getBannedDomains() {
+    public static function getBannedDomains()
+    {
         self::checkExpiry();
         $dao = jDao::get('havefnubb~bans');
         $bans = $dao->findAllDomains();
@@ -39,7 +52,8 @@ class bans {
     /**
      * remove bans that are expired
      */
-    public static function checkExpiry() {
+    public static function checkExpiry()
+    {
         $dao = jDao::get('havefnubb~bans');
         $dao->deleteExpiry(time());
     }
@@ -48,17 +62,18 @@ class bans {
      * does this user banned ?
      * @return boolean
      */
-    public static function check() {
+    public static function check()
+    {
         $return = false;
         $bans = self::getBans();
         foreach ($bans as $ban) {
             if ($ban->ban_username != '') {
                 $return = self::bannedUserName($ban->ban_username);
-                if ($return === true)  return true;
+                if ($return === true) return true;
             }
             if ($ban->ban_email != '') {
                 $return = self::bannedDomain($ban->ban_email);
-                if ($return === true)  return true;
+                if ($return === true) return true;
             }
             if ($ban->ban_ip) {
                 return self::bannedIp($ban->ban_ip);
@@ -72,18 +87,19 @@ class bans {
      * @param string $email the email
      * @return mixed : true/false or message of ban
      */
-    public static function checkDomain($email) {
+    public static function checkDomain($email)
+    {
         $return = false;
         $bans = self::getBannedDomains();
         foreach ($bans as $ban) {
-            if (strpos($ban->ban_email,'@') > 0 )
-                list($bannedAddress,$bannedDomain) = preg_split('/@/',$ban->ban_email);
+            if (strpos($ban->ban_email, '@') > 0)
+                list($bannedAddress, $bannedDomain) = preg_split('/@/', $ban->ban_email);
             else
                 $bannedDomain = $ban->ban_email;
 
-            list($userAddress,$userDomain) = preg_split('/@/',$email);
+            list($userAddress, $userDomain) = preg_split('/@/', $email);
 
-            if ( $bannedDomain == $userDomain ) {
+            if ($bannedDomain == $userDomain) {
                 return $ban->ban_message;
             }
         }
@@ -95,7 +111,8 @@ class bans {
      * @param string $userName name of the member
      * @return boolean
      */
-    public static function bannedUserName($userName) {
+    public static function bannedUserName($userName)
+    {
         return ($userName == jAuth::getUserSession()->login);
     }
 
@@ -104,12 +121,12 @@ class bans {
      * @param string $email email domain of the member
      * @return boolean
      */
-    public static function bannedDomain($email) {
-        if (! jAuth::isConnected() ) return false;
-        if (strpos($email,'@') == 0 ) {
-            list($unused,$userEmail) = preg_split('/@/',jAuth::getUserSession()->email);
-        }
-        else
+    public static function bannedDomain($email)
+    {
+        if (!jAuth::isConnected()) return false;
+        if (strpos($email, '@') == 0) {
+            list($unused, $userEmail) = preg_split('/@/', jAuth::getUserSession()->email);
+        } else
             $userEmail = jAuth::getUserSession()->email;
         return ($userEmail == $email);
     }
@@ -119,30 +136,29 @@ class bans {
      * @param string $banIp IP of the member
      * @return boolean
      */
-    public static function bannedIp($banIp) {
-    //is this IP one of them ?
+    public static function bannedIp($banIp)
+    {
+        //is this IP one of them ?
         $currentIp = jApp::coord()->request->getIP();
-        if (strpos($banIp,',') > 0 ) {
-            $list = preg_split('/,/',$banIp);
+        if (strpos($banIp, ',') > 0) {
+            $list = preg_split('/,/', $banIp);
             foreach ($list as $item) {
-                if  ($item == $currentIp) return true;
+                if ($item == $currentIp) return true;
             }
-        }
-        // is this IP in this range ?
-        elseif (strpos($banIp,'-')> 0 ) {
+        } // is this IP in this range ?
+        elseif (strpos($banIp, '-') > 0) {
             // ip is xxx.yyy.zzz-aaa
-            $list = preg_split('/-/',$banIp);
+            $list = preg_split('/-/', $banIp);
             // find xxx.yyy.
-            $pos = strrpos($list[0],'.');
+            $pos = strrpos($list[0], '.');
             // start is xxx.yyy.zzz
             $start = $list[0];
             // end is xxx.yyy.aaa
-            $end = substr($list[0],0,$pos) . '.'.$list[1];
+            $end = substr($list[0], 0, $pos) . '.' . $list[1];
             // validate each of them
-            if ($start >=  $currentIp and $currentIp <= $end )
+            if ($start >= $currentIp and $currentIp <= $end)
                 return true;
-        }
-        // is this IP the same ?
+        } // is this IP the same ?
         else {
             return ($banIp == $currentIp);
         }
@@ -155,17 +171,17 @@ class bans {
      * @param string $ip IP of the member
      * @return boolean
      */
-    public static function checkIp($ip) {
+    public static function checkIp($ip)
+    {
         $validIp = false;
 
         //0) checking the content : list or range but not list AND range :
-        if (strpos($ip,',') > 0 and strpos($ip,'-') > 0 ) {
+        if (strpos($ip, ',') > 0 and strpos($ip, '-') > 0) {
             jMessage::add(jLocale::get('havefnubb~ban.list.ip.or.range'));
             return false;
-        }
-        //1) list of IP with commas
-        elseif (strpos($ip,',') > 0 ) {
-            $list = preg_split('/,/',$ip);
+        } //1) list of IP with commas
+        elseif (strpos($ip, ',') > 0) {
+            $list = preg_split('/,/', $ip);
             foreach ($list as $item) {
                 $validIp = jFilter::isIPv4($item);
                 if ($validIp === false) {
@@ -173,28 +189,25 @@ class bans {
                     return false;
                 }
             }
-        }
-        //2) range of IP with -
-        elseif (strpos($ip,'-')> 0 ) {
-        // ip is xxx.yyy.zzz-aaa
-            $list = preg_split('/-/',$ip);
+        } //2) range of IP with -
+        elseif (strpos($ip, '-') > 0) {
+            // ip is xxx.yyy.zzz-aaa
+            $list = preg_split('/-/', $ip);
             // find xxx.yyy.
-            $pos = strrpos($list[0],'.');
+            $pos = strrpos($list[0], '.');
             // start is xxx.yyy.zzz
             $start = $list[0];
             // end is xxx.yyy.aaa
-            $end = substr($list[0],0,$pos) . '.'.$list[1];
+            $end = substr($list[0], 0, $pos) . '.' . $list[1];
             // validate each of them
 
             $validIp1 = jFilter::isIPv4($start);
             $validIp2 = jFilter::isIPv4($end);
             if ($validIp1 === false or $validIp2 === false) {
-                jMessage::add(jLocale::get('havefnubb~ban.invalid.range.of.ip', array($start,$end)));
+                jMessage::add(jLocale::get('havefnubb~ban.invalid.range.of.ip', array($start, $end)));
                 return false;
-            }
-            else return true;
-        }
-        else {
+            } else return true;
+        } else {
             $validIp = jFilter::isIPv4($ip);
             if ($validIp === false) {
                 jMessage::add(jLocale::get('havefnubb~ban.invalid.ip'));

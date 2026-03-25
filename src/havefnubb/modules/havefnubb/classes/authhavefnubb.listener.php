@@ -4,10 +4,13 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2026 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+
+use Havefnubb\Havefnubb\Members\BansManager;
+
 /**
  * Listener to answer to Auth and 'Community' events
  */
@@ -132,10 +135,9 @@ class authhavefnubbListener extends jEventListener{
         $user = $event->getParam('user');
 
         // check if the user try to register with a banned domain
-        jClasses::inc('havefnubb~bans');
         // $return is false when the domain of the email is not banned
         // otherwise ; $return contain the message of the ban
-        $return = bans::checkDomain($user->email);
+        $return = BansManager::checkDomain($user->email);
 
         if (is_string($return)) {
             $event->Add(array('errorRegistration'=>$return));
