@@ -3,11 +3,14 @@
 * @package   havefnubb
 * @subpackage hfnuadmin
 * @author    FoxMaSk
-* @contributor
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2010-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\FormToken;
+
 /**
  * This controller manages the Category of the forum
  */
@@ -32,7 +35,7 @@ class categoryCtrl extends jController {
         $categories = $dao->findAll();
 
         //initializing of the Token
-        $token = jClasses::getService("havefnubb~hfnutoken");
+        $token = new FormToken();
         $token->setHfnuToken();
 
         $tpl->assign('hfnutoken',$token->getHfnuToken());
@@ -87,7 +90,7 @@ class categoryCtrl extends jController {
         $hfnutoken  = (string) $this->param('hfnutoken');
 
         //let's check if we have a valid token in our form
-        $token = jClasses::getService("havefnubb~hfnutoken");
+        $token = new FormToken();
         $token->checkHfnuToken($hfnutoken);
 
         if ($this->param('saveBt')== jLocale::get('hfnuadmin~category.saveBt')) {

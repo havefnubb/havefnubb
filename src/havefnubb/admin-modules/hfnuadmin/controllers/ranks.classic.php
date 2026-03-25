@@ -3,11 +3,14 @@
 * @package   havefnubb
 * @subpackage hfnuadmin
 * @author    FoxMaSk
-* @contributor
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2010-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\FormToken;
+
 /**
  * This controller manages the ranks of the user
  */
@@ -43,7 +46,7 @@ class ranksCtrl extends jController {
         $ranks = $dao->findAll();
 
         //initializing of the Token
-        $token = jClasses::getService("havefnubb~hfnutoken");
+        $token = new FormToken();
         $token->setHfnuToken();
 
         $tpl->assign('hfnutoken',$token->getHfnuToken());
@@ -94,10 +97,6 @@ class ranksCtrl extends jController {
         $id_rank = $this->param('id_rank');
         $rank_name = $this->param('rank_name');
         $rank_limit = $this->param('rank_limit');
-        $hfnutoken  = (string) $this->param('hfnutoken');
-
-        //let's check if we have a valid token in our form
-        $token = jClasses::getService("havefnubb~hfnutoken");
 
         if ($this->param('saveBt') == jLocale::get('hfnuadmin~rank.saveBt')) {
 
