@@ -4,10 +4,13 @@
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk, 2011-2019 Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2011-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
 * Controller to manage any specific Posts events
 */
@@ -78,7 +81,7 @@ class postsCtrl extends jController {
         }
 
         // crumbs infos
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
+        $forum = Services::forums()->getForum($id_forum);
 
         if (jUrl::escape($forum->forum_name,true) != $ftitle ) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be different ] '.$forum->forum_name . ' and ' .$ftitle ,'DEBUG');
@@ -257,7 +260,7 @@ class postsCtrl extends jController {
         jApp::coord()->getPlugin('history')->change('label', htmlentities($post->subject,ENT_COMPAT,'UTF-8'));
 
         // crumbs infos
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
+        $forum = Services::forums()->getForum($post->id_forum);
 
         if (! $forum) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
@@ -421,7 +424,7 @@ class postsCtrl extends jController {
 
         $srvTags = jClasses::getService("jtags~tags");
         // crumbs infos
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
+        $forum = Services::forums()->getForum($id_forum);
         if (! $forum) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
             $rep = $this->getResponse('html');
@@ -491,7 +494,7 @@ class postsCtrl extends jController {
         $tags = implode(',',$srvTags->getTagsBySubject('forumscope',$id_post));
 
         // crumbs infos
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
+        $forum = Services::forums()->getForum($post->id_forum);
         if (! $forum) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
             $rep = $this->getResponse('html');
@@ -592,7 +595,7 @@ class postsCtrl extends jController {
             $daoUser = jDao::get('havefnubb~member');
 
             //crumbs info
-            $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
+            $forum = Services::forums()->getForum($id_forum);
 
             if (jAuth::isConnected()) {
                 $form = jForms::fill('havefnubb~posts',$id_post);
@@ -731,7 +734,7 @@ class postsCtrl extends jController {
         $dateDiff =  ($post->date_modified == 0) ? floor( (time() - $post->date_created ) / $day_in_secondes) : floor( (time() - $post->date_modified ) / $day_in_secondes) ;
 
         // crumbs infos
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
+        $forum = Services::forums()->getForum($post->id_forum);
         if (! $forum) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
             $rep = $this->getResponse('html');
@@ -866,7 +869,7 @@ class postsCtrl extends jController {
         }
 
         // crumbs infos
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
+        $forum = Services::forums()->getForum($post->id_forum);
         if (! $forum) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
             $rep = $this->getResponse('html');
@@ -973,7 +976,7 @@ class postsCtrl extends jController {
                 $user->member_comment = '';
             }
             //crumbs infos
-            $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
+            $forum = Services::forums()->getForum($id_forum);
 
             if (jAuth::isConnected()) {
                 $form = jForms::fill('havefnubb~posts',$thread_id);
@@ -1089,7 +1092,7 @@ class postsCtrl extends jController {
             return $rep;
         }
         //crumbs infos
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
+        $forum = Services::forums()->getForum($id_forum);
 
         jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));
 

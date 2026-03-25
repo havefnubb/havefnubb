@@ -3,10 +3,14 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2010-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
 * Member Statistic datas handling
 */
@@ -17,9 +21,9 @@ class postStuffListener extends jEventListener{
      */
     function onHfnuPostAfterInsert ($event) {
         $this->updateMember();
+        $forums = Services::forums();
         //let's check if a member has subcribed to this forum, then mail him the new thread
-        jClasses::getService('havefnubb~hfnuforum')
-                ->checkSubscribedForumAndSendMail(  $event->getParam('id_forum'),
+        $forums->checkSubscribedForumAndSendMail(  $event->getParam('id_forum'),
                                                     $event->getParam('id')
                                             );
     }

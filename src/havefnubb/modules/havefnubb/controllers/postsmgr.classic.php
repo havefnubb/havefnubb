@@ -4,10 +4,13 @@
 * @subpackage havefnubb
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk, 2011 Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2011-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
 * Controller for manage any specific Management tasks related to Posts events
 */
@@ -70,7 +73,7 @@ class postsmgrCtrl extends jController {
         }
 
         // crumbs infos
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($post->id_forum);
+        $forum = Services::forums()->getForum($post->id_forum);
         if (! $forum) {
             jLog::log(__METHOD__ . ' line : ' . __LINE__ . ' [this should not be false] $forum','DEBUG');
             $rep = $this->getResponse('html');

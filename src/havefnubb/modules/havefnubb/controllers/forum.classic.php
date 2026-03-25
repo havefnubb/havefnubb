@@ -3,16 +3,20 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2012-2026 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
 * Controller to manage any specific forum events
 */
 class forumCtrl extends jController {
     /**
-     * @var $pluginParams plugins to manage the behavior of the controller
+     * @var array $pluginParams plugins to manage the behavior of the controller
      */
     public $pluginParams = array(
         '*'     => array('auth.required'=>false,
@@ -50,7 +54,7 @@ class forumCtrl extends jController {
             $rep->action = 'default:index';
             return $rep;
         }
-        $forum = jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum);
+        $forum = Services::forums()->getForum($id_forum);
 
         if (jUrl::escape($forum->forum_name,true) != $ftitle )
         {
@@ -86,7 +90,7 @@ class forumCtrl extends jController {
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:lists';
         $rep->params = array('id_forum'=>$id_forum,
-                             'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
+                             'ftitle'=>Services::forums()->getForum($id_forum)->forum_name);
         return $rep;
     }
     /**
@@ -105,13 +109,13 @@ class forumCtrl extends jController {
      */
     public function subscribe() {
         $id_forum = $this->intParam('id_forum');
-        jClasses::getService('havefnubb~hfnuforum')->subscribe($id_forum);
+        Services::forums()->subscribe($id_forum);
 
         jMessage::add(jLocale::get('havefnubb~forum.subscribe.to.this.forum.done'));
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:lists';
         $rep->params = array('id_forum'=>$id_forum,
-                             'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
+                             'ftitle'=>Services::forums()->getForum($id_forum)->forum_name);
         return $rep;
     }
     /**
@@ -119,13 +123,13 @@ class forumCtrl extends jController {
      */
     public function unsubscribe() {
         $id_forum = $this->intParam('id_forum');
-        jClasses::getService('havefnubb~hfnuforum')->unsubscribe($id_forum);
+        Services::forums()->unsubscribe($id_forum);
 
         jMessage::add(jLocale::get('havefnubb~forum.unsubscribe.to.this.forum.done'));
         $rep = $this->getResponse('redirect');
         $rep->action = 'havefnubb~posts:lists';
         $rep->params = array('id_forum'=>$id_forum,
-                             'ftitle'=>jClasses::getService('havefnubb~hfnuforum')->getForum($id_forum)->forum_name);
+                             'ftitle'=>Services::forums()->getForum($id_forum)->forum_name);
         return $rep;
     }
 }

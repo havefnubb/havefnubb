@@ -3,16 +3,21 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2010-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
 * Controller to manage any default events
 */
-class defaultCtrl extends jController {
+class defaultCtrl extends jController
+{
     /**
-     * @var plugins to manage the behavior of the controller
+     * @var array plugins to manage the behavior of the controller
      */
     public $pluginParams = array(
         '*'     => array('auth.required'=>false,
@@ -40,8 +45,7 @@ class defaultCtrl extends jController {
         $historyPlugin->change('label', ucfirst ( htmlentities($title,ENT_COMPAT,'UTF-8') ) );
         $historyPlugin->change('title', jLocale::get('havefnubb~main.goto_homepage'));
 
-        /** @var hfnuforum $forums */
-        $forums = jClasses::getService('hfnuforum');
+        $forums = Services::forums();
 
         $forumsList = $forums->getFullList();
 

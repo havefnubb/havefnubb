@@ -3,10 +3,14 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
  * Class the displays the list of subscription on the profile page
  */
@@ -31,7 +35,7 @@ class member_subscriptions_listZone extends jZone {
                 'ptitle'    => jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg)->subject,
                 'thread_id' => $thread->id_thread,
                 'id_forum'  => $thread->id_forum_thread,
-                'ftitle'    => jClasses::getService('havefnubb~hfnuforum')->getForum($thread->id_forum_thread)->forum_name
+                'ftitle'    => Services::forums()->getForum($thread->id_forum_thread)->forum_name
                     );
         }
         $this->_tpl->assign('subs',$subs);
