@@ -9,6 +9,7 @@
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
 
+use Havefnubb\Havefnubb\Forum\ReadStatus;
 use Havefnubb\Havefnubb\Services;
 
 /**
@@ -82,9 +83,10 @@ class forumCtrl extends jController {
     /**
      * Mark one given forum as read
      */
-    public function mark_forum_as_read() {
+    public function mark_forum_as_read()
+    {
         $id_forum = $this->intParam('id_forum');
-        jClasses::getService('havefnubb~hfnuread')->markForumAsRead($id_forum);
+        (new ReadStatus())->markForumAsRead($id_forum);
 
         jMessage::add(jLocale::get('havefnubb~forum.forum.marked.as.read'));
         $rep = $this->getResponse('redirect');
@@ -96,8 +98,9 @@ class forumCtrl extends jController {
     /**
      * Mark all forum as read
      */
-    public function mark_all_as_read() {
-        jClasses::getService('havefnubb~hfnuread')->markAllAsRead();
+    public function mark_all_as_read()
+    {
+        (new ReadStatus())->markAllAsRead();
 
         jMessage::add(jLocale::get('havefnubb~forum.all.forum.marked.as.read'));
         $rep = $this->getResponse('redirect');

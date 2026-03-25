@@ -10,6 +10,7 @@
 */
 
 use Havefnubb\Havefnubb\Forum\hfnuposts;
+use Havefnubb\Havefnubb\Forum\ReadStatus;
 use Havefnubb\Havefnubb\Services;
 
 /**
@@ -164,7 +165,7 @@ class postsCtrl extends jController {
         $tpl->assign('ftitle',$ftitle);
         $tpl->assign('statusAvailable',self::$statusAvailable);
         $tpl->assign('lastMarkThreadAsRead',
-                     jClasses::getService('havefnubb~hfnuread')->getLastDateRead($forum->id_forum));
+            (new ReadStatus())->getLastDateRead($forum->id_forum));
         $rep->body->assign('currentIdForum',$forum->id_forum);
         $rep->body->assign('MAIN', $tpl->fetch('havefnubb~posts.list'));
         return $rep;
@@ -343,7 +344,7 @@ class postsCtrl extends jController {
         
         
         $tpl->assign('lastMarkThreadAsRead',
-                     jClasses::getService('havefnubb~hfnuread')->getLastDateRead($forum->id_forum,$thread_id));
+            (new ReadStatus())->getLastDateRead($forum->id_forum,$thread_id));
 
 
         if ( jAcl2::check('hfnu.admin.post') ) {

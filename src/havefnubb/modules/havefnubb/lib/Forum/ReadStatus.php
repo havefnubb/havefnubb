@@ -4,21 +4,28 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2011 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2011-2026 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+
+namespace Havefnubb\Havefnubb\Forum;
+use jAuth;
+use jDao;
+
 /**
-* main UI to manage the statement of the forums of HaveFnuBB!
-*/
-class hfnuread {
+ * main UI to manage the statement of the forums of HaveFnuBB!
+ */
+class ReadStatus
+{
 
     /**
      * this function mark all forum as read
      */
-    public function markAllAsRead() {
+    public function markAllAsRead()
+    {
         if (jAuth::isConnected()) {
-            $id_user = jAuth::getUserSession ()->id;
+            $id_user = jAuth::getUserSession()->id;
 
             // delete all previous forum the current user has read
             $dao = jDao::get('havefnubb~read_forum');
@@ -37,41 +44,44 @@ class hfnuread {
             jDao::get('havefnubb~read_posts')->deleteByUserId($id_user);
         }
     }
+
     /**
      * this function says which forum has been marked as read by which user
      * @param integer $id the forum id
      */
-    public function markForumAsRead($id) {
-        if ( jAuth::isConnected() ) {
-            $id_user = jAuth::getUserSession ()->id;
+    public function markForumAsRead($id)
+    {
+        if (jAuth::isConnected()) {
+            $id_user = jAuth::getUserSession()->id;
 
             $dao = jDao::get('havefnubb~read_forum');
-            $exist = $dao->get($id_user,$id);
+            $exist = $dao->get($id_user, $id);
             if (!$exist) {
                 $rec = jDao::createRecord('havefnubb~read_forum');
                 $rec->id_forum = $id;
                 $rec->date_read = time();
                 $rec->id_user = $id_user;
                 $dao->insert($rec);
-            }
-            else {
+            } else {
                 $exist->date_read = time();
                 $dao->update($exist);
             }
             //delete all the read posts
             $daoReadPost = jDao::get('havefnubb~read_posts');
-            $daoReadPost->deleteByUserIdAndIdForum($id_user,$id);
+            $daoReadPost->deleteByUserIdAndIdForum($id_user, $id);
         }
     }
+
     /**
      * this function save which message from which forum has been read by which user
-     * @param record $post record of the current read post
+     * @param \jDaoRecordBase $post record of the current read post
      */
-    public function insertReadPost($post, $datePost) {
+    public function insertReadPost($post, $datePost)
+    {
         if ($post->thread_id > 0 and $post->id_forum > 0 and jAuth::isConnected()) {
             $dao = jDao::get('havefnubb~read_posts');
-            $id_user = jAuth::getUserSession ()->id;
-            $rec = $dao->get($id_user ,$post->id_forum, $post->thread_id);
+            $id_user = jAuth::getUserSession()->id;
+            $rec = $dao->get($id_user, $post->id_forum, $post->thread_id);
             if (!is_object($rec)) {
                 $rec = jDao::createRecord('havefnubb~read_posts');
                 $rec->id_forum = $post->id_forum;
@@ -79,15 +89,15 @@ class hfnuread {
                 $rec->id_user = $id_user;
                 $rec->date_read = $datePost;
                 $dao->insert($rec);
-            }
-            else {
+            } else {
                 $rec->date_read = $datePost;
                 $dao->update($rec);
             }
         }
     }
 
-    public function getLastDateRead ($forum_id, $thread_id = 0) {
+    public function getLastDateRead($forum_id, $thread_id = 0)
+    {
         if (!jAuth::isConnected())
             return 0;
 

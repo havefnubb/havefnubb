@@ -299,7 +299,7 @@ class Posts
         // let's update the 'read by mod'
         $this->readByMod($thread_id);
         // let's add the user to the post_read table
-        jClasses::getService('havefnubb~hfnuread')->insertReadPost($post, time());
+        (new ReadStatus())->insertReadPost($post, time());
 
         return array($id_post, $post, $goto, $nbReplies);
     }
@@ -476,7 +476,7 @@ class Posts
         $tags = explode(",", $tagStr);
 
         //add this post as already been read
-        jClasses::getService('havefnubb~hfnuread')->insertReadPost($record, $datePost);
+        (new ReadStatus())->insertReadPost($record, $datePost);
 
         jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'forumscope', $id_post);
 
@@ -567,7 +567,7 @@ class Posts
         jEvent::notify('HfnuPostAfterSaveReply', array('id_post' => $id_post));
 
         //add this post as already been read
-        jClasses::getService('havefnubb~hfnuread')->insertReadPost($result['daorec'], $dateReply);
+        (new ReadStatus())->insertReadPost($result['daorec'], $dateReply);
 
         if ($form->getData('subscribe') == 1) {
             //subscribe to a post
