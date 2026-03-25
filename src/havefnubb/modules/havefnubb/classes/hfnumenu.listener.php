@@ -3,10 +3,14 @@
  * @package   havefnubb
  * @subpackage havefnubb
  * @author    FoxMaSk
- * @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2010-2026 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+
+use Havefnubb\Havefnubb\Menu\MenuItem;
+
 /**
  * Menu Listener to manage the nav bar
  */
@@ -18,39 +22,28 @@ class hfnumenuListener extends jEventListener{
     function onhfnuGetMenuContent ($event) {
         $gJConfig = jApp::config();
 
-        $event->add(new hfnuMenuItem('home',
+        $event->add(new MenuItem('home',
            jLocale::get('havefnubb~main.home'),
            jUrl::get('havefnubb~default:index'),
            1,
            'main'));
-        $event->add(new hfnuMenuItem('members',
+        $event->add(new MenuItem('members',
            jLocale::get('havefnubb~main.member.list'),
            jUrl::get('havefnubb~members:index'),
            2,
            'main'));
-        $event->add(new hfnuMenuItem('search',
+        $event->add(new MenuItem('search',
            jLocale::get('havefnubb~main.search'),
            jUrl::get('hfnusearch~default:index'),
            3,
            'main'));
        if ($gJConfig->havefnubb['rules'] != '') {
-           $event->add(new hfnuMenuItem('rules',
+           $event->add(new MenuItem('rules',
                jLocale::get('havefnubb~main.rules'),
                jUrl::get('havefnubb~default:rules'),
                4,
                'main'));
        }
-       // dynamic menu
-       $menus = jClasses::getService('havefnubb~hfnumenusbar')->getMenus();
-        if (!empty($menus)) {
-            foreach ($menus as $indx => $menu) {
-              $event->add(new hfnuMenuItem($menu['itemName'],
-                 $menu['name'],
-                 $menu['url'],
-                 50 + $menu['order'],
-                 'main'));
-           }
-        }
        if ( $event->getParam('admin') === true) {
            $url = '';
            try {
@@ -63,7 +56,7 @@ class hfnumenuListener extends jEventListener{
                    $url = $gJConfig->havefnubb["admin_url"];
            }
            if ($url) {
-               $event->add(new hfnuMenuItem('admin',
+               $event->add(new MenuItem('admin',
                   jLocale::get('havefnubb~main.admin.panel'),
                   $url,
                   100,
