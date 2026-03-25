@@ -3,16 +3,20 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2012-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Forum\ForumCategories;
+
 /**
 * Controller to manage any category events
 */
 class categoryCtrl extends jController {
     /**
-     * @var plugins to manage the behavior of the controller
+     * @var array plugins to manage the behavior of the controller
      */
     public $pluginParams = array(
         '*'	=> array('auth.required'=>false,
@@ -38,7 +42,7 @@ class categoryCtrl extends jController {
         // add the category name in the page title
         // so
         // 1) get the category record
-        $category = jClasses::getService('havefnubb~hfnucat')->getCat($id_cat);
+        $category = (new ForumCategories())->getCat($id_cat);
 
         // check that the title of the category exist
         // if not => error404
