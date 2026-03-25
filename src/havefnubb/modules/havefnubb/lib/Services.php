@@ -8,6 +8,7 @@
 namespace Havefnubb\Havefnubb;
 
 use Havefnubb\Havefnubb\Forum\Forums;
+use Havefnubb\Havefnubb\Forum\Posts;
 
 class Services {
 
@@ -23,4 +24,15 @@ class Services {
         }
         return self::$forums;
     }
+
+    static protected $posts = null;
+
+    static function posts()
+    {
+        if (self::$posts === null) {
+            self::$posts = new Posts();
+        }
+        return self::$posts;
+    }
+
 }

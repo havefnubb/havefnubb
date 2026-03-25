@@ -3,10 +3,14 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2010 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2010 FoxMaSk, 2010-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
 * Controller to manage the sitemap
 */
@@ -35,7 +39,7 @@ class sitemapCtrl extends jController {
         $forums = jDao::get('havefnubb~forum')->findAll();
         foreach ($forums as $forum) {
             // 2=) for each forum, get the list of posts
-            list($page,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreadsList($forum->id_forum,0,25);
+            list($page,$posts) = Services::posts()->getThreadsList($forum->id_forum,0,25);
             foreach ($posts as $post) {
                 $rep->addUrl(
                         jUrl::get('havefnubb~posts:view',

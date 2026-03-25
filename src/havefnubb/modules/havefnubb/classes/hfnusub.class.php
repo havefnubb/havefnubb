@@ -4,10 +4,13 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2019-2026 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @license  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
  * main UI to manage subscriptions of member to posts in HaveFnuBB!
 */
@@ -76,11 +79,13 @@ class hfnusub {
         $records = $dao->findSubscribedPost($id,jAuth::getUserSession ()->id);
 
         $gJConfig = jApp::config();
+        $post = Services::posts();
         // then send them a mail
         foreach ($records as $record) {
             //get all the member that subscribe to the thread id $id (called by hfnupost -> savereply )
-            $thread = jClasses::getService('havefnubb~hfnuposts')->getThread($id);
-            $post = jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg);
+
+            $thread = $post->getThread($id);
+            $post = $post->getPost($thread->id_last_msg);
             //get the email of the member that subscribes this thread
             $member = $memberDao->getById($record->id_user);
 

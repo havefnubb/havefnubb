@@ -3,11 +3,14 @@
 * @package   havefnubb
 * @subpackage hfnuadmin
 * @author    FoxMaSk
-* @contributor
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
  * This controller manages the posts that the staff of the forum has not read
  */
@@ -24,7 +27,7 @@ class postsCtrl extends jController {
     public function unread() {
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
-        $tpl->assign('posts',jClasses::getService('havefnubb~hfnuposts')->findUnreadThreadByMod());
+        $tpl->assign('posts', Services::posts()->findUnreadThreadByMod());
         $rep->body->assign('MAIN',$tpl->fetch('posts.list'));
         return $rep;
     }

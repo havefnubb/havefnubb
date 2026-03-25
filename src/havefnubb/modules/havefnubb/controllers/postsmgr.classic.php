@@ -60,7 +60,7 @@ class postsmgrCtrl extends jController {
             return $rep;
         }
 
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+        $hfnuposts = Services::posts();
         $post = $hfnuposts->getPost($id_post);
 
         if ( ! jAcl2::check('hfnu.posts.notify','forum'.$post->id_forum) ) {
@@ -132,7 +132,7 @@ class postsmgrCtrl extends jController {
             }
 
             //let's save the post
-            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+            $hfnuposts = Services::posts();
             $result = $hfnuposts->savenotify($id_post,$thread_id);
             if (!$result) {
                 jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -172,7 +172,7 @@ class postsmgrCtrl extends jController {
             return $rep;
         }
 
-        $post = jClasses::getService('havefnubb~hfnuposts')->switchStatus($thread_id,$id_post,$status);
+        $post = Services::posts()->switchStatus($thread_id,$id_post,$status);
 
         if (!$post) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');
@@ -223,7 +223,7 @@ class postsmgrCtrl extends jController {
         }
 
         //let's move the thread
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+        $hfnuposts = Services::posts();
         $result = $hfnuposts->moveToForum($thread_id,$id_forum);
 
         if (!$result) {
@@ -341,26 +341,27 @@ class postsmgrCtrl extends jController {
                 return $rep;
             }
 
+            $servicePosts = Services::posts();
             $dao = jDao::get('havefnubb~posts');
             //post record of the current post to move/spluit
             $post = $dao->get($form->getData('id_post'));
             switch ($choice) {
                 case 'same_forum' :
                     $id_forum = $this->intParam('id_forum');
-                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('thread_id'),$form->getData('id_post'),$id_forum);
+                    $id_post = $servicePosts->splitToForum($form->getData('thread_id'),$form->getData('id_post'),$id_forum);
                     if ($id_post > 0 ) $result = true; else $result = false;
                     break;
                 case 'others' :
                     // the id_forum change to the new selected one
                     $id_forum = $this->intParam('other_forum');
-                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToForum($form->getData('thread_id'),$form->getData('id_post'),$id_forum);
+                    $id_post = $servicePosts->splitToForum($form->getData('thread_id'),$form->getData('id_post'),$id_forum);
                     if ($id_post > 0 ) $result = true; else $result = false;
                     break;
                 case 'existings' :
                     // the thread_id change to the new selected one
                     $new_thread_id = $this->intParam('existing_thread');
                     $id_forum = $form->getData('id_forum');
-                    $id_post = jClasses::getService('havefnubb~hfnuposts')->splitToThread($form->getData('id_post'),$form->getData('thread_id'),$new_thread_id);
+                    $id_post = $servicePosts->splitToThread($form->getData('id_post'),$form->getData('thread_id'),$new_thread_id);
                     break;
             }
             $dao = jDao::get('havefnubb~posts');
@@ -426,7 +427,7 @@ class postsmgrCtrl extends jController {
         $tpl->assign('form',$form);
         $tpl->assign('id_post',$id_post);
         $tpl->assign('thread_id',$thread_id);
-        $tpl->assign('title',jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
+        $tpl->assign('title', Services::posts()->getPost($id_post)->subject);
         $rep->body->assign('MAIN',$tpl->fetch('havefnubb~censor'));
         return $rep;
     }
@@ -469,7 +470,7 @@ class postsmgrCtrl extends jController {
         }
 
         //censoring an entire thread
-        $result = jClasses::getService('havefnubb~hfnuposts')
+        $result = Services::posts()
                     ->censor($thread_id,$id_post,$form->getData('censored_msg'));
 
         if (!$result) {
@@ -505,7 +506,7 @@ class postsmgrCtrl extends jController {
         $id_post    = $this->intParam('id_post');
         $thread_id  = $this->intParam('thread_id');
 
-        $post = jClasses::getService('havefnubb~hfnuposts')->uncensor($thread_id,$id_post);//'uncensored'
+        $post = Services::posts()->uncensor($thread_id,$id_post);//'uncensored'
 
         if (!$post) {
             jMessage::add(jLocale::get('havefnubb~main.invalid.datas'),'error');

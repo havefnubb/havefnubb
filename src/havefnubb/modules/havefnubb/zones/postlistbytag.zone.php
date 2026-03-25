@@ -3,10 +3,14 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
  * Class the displays the posts by tag of the forum
  */
@@ -27,7 +31,7 @@ class postlistbytagZone extends jZone {
         $posts = array();
         // We check the rights access to the posts in the template
         foreach ($tags as $tag) {
-            $post = jClasses::getService('havefnubb~hfnuposts')->getPost($tag);
+            $post = Services::posts()->getPost($tag);
             if ($post) {
                 $posts[] = $post;
             }

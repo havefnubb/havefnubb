@@ -9,6 +9,7 @@
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
 
+use Havefnubb\Havefnubb\Forum\hfnuposts;
 use Havefnubb\Havefnubb\Services;
 
 /**
@@ -114,7 +115,7 @@ class postsCtrl extends jController {
         $nbPostPerPage = (int) $gJConfig->havefnubb['posts_per_page'];
 
         // get all the posts of the current Forum by its Id
-        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreads($id_forum,$page,$nbPostPerPage);
+        list($page,$nbPosts,$posts) = Services::posts()->getThreads($id_forum,$page,$nbPostPerPage);
 
         // change the label of the breadcrumb
         jApp::coord()->getPlugin('history')->change('label', htmlentities($forum->forum_name,ENT_COMPAT,'UTF-8') . ' - ' . jLocale::get('havefnubb~main.common.page') . ' ' .($page+1));
@@ -238,7 +239,7 @@ class postsCtrl extends jController {
         $id_post    = $this->intParam('id_post');
         $thread_id  = $this->intParam('thread_id');
 
-        $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+        $hfnuposts = Services::posts();
 
         // business check :
         // 1) do those id exist ?
@@ -312,7 +313,7 @@ class postsCtrl extends jController {
         $nbRepliesPerPage = (int) jApp::config()->havefnubb['replies_per_page'];
 
         // 2- get the post
-        list($page,$posts) = jClasses::getService("havefnubb~hfnuposts")->findByThreadId($thread_id,$page,$nbRepliesPerPage);
+        list($page,$posts) = $hfnuposts->findByThreadId($thread_id,$page,$nbRepliesPerPage);
 
         // 3- total number of posts
         $threadAlone = jDao::get('havefnubb~threads_alone')->get($thread_id);
@@ -469,7 +470,7 @@ class postsCtrl extends jController {
             return $rep;
         }
 
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
+        $post = Services::posts()->getPost($id_post);
         if (jAuth::getUserSession ()->id == $post->id_user) {
             if ( ! jAcl2::check('hfnu.posts.edit.own','forum'.$post->id_forum)  ) {
                 jMessage::add(jLocale::get('havefnubb~main.permissions.denied'),'error');
@@ -655,7 +656,7 @@ class postsCtrl extends jController {
 
             $rep = $this->getResponse('redirect');
             //let's save the post
-            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+            $hfnuposts = Services::posts();
             $post = $hfnuposts->save($id_forum,$id_post);
 
             if (!$post) {
@@ -708,8 +709,8 @@ class postsCtrl extends jController {
             $rep->setHttpStatus('404', 'Not found');
             return $rep;
         }
-
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
+        $postsService = Services::posts();
+        $post = $postsService->getPost($id_post);
 
         //check if this message is close and if i am an admin/mod
         if ( in_array($post->status,self::$statusClosed) ) {
@@ -788,7 +789,7 @@ class postsCtrl extends jController {
         $form->setData('id_post',$id_post);
         $form->setData('id_forum',$post->id_forum);
         $form->setData('thread_id',$post->thread_id);
-        $form->setData('subject',jLocale::get('havefnubb~post.subject.reply').' ' .jClasses::getService('havefnubb~hfnuposts')->getPost($id_post)->subject);
+        $form->setData('subject',jLocale::get('havefnubb~post.subject.reply').' ' .$postsService->getPost($id_post)->subject);
         $form->setData('message','');
 
         //set the needed parameters to the template
@@ -1034,8 +1035,7 @@ class postsCtrl extends jController {
             }
 
             // let's save the reply
-            /** @var hfnuposts $hfnuposts */
-            $hfnuposts = jClasses::getService('havefnubb~hfnuposts');
+            $hfnuposts = Services::posts();
             $result = $hfnuposts->savereply($thread_id,$id_post);
 
             if ($result === false) {
@@ -1096,7 +1096,7 @@ class postsCtrl extends jController {
 
         jEvent::notify('HfnuPostBeforeDelete',array('id'=>$id_post));
 
-        if ( jClasses::getService('havefnubb~hfnuposts')->delete($id_post) === true ) {
+        if ( Services::posts()->delete($id_post) === true ) {
 
             jEvent::notify('HfnuPostAfterDelete',array('id'=>$id_post));
 
@@ -1188,7 +1188,7 @@ class postsCtrl extends jController {
 
         // 2- get the posts of the current forum, limited by point 1
         // get all the posts of the current Forum by its Id
-        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreads($id_forum,0,$nbPostPerPage);
+        list($page,$nbPosts,$posts) = Services::posts()->getThreads($id_forum,0,$nbPostPerPage);
         $first = true;
         foreach($posts as $post){
 
@@ -1285,7 +1285,7 @@ class postsCtrl extends jController {
 
         // 2- get the posts of the current forum, limited by point 1
         // get all the posts of the current Forum by its Id
-        list($page,$nbPosts,$posts) = jClasses::getService('havefnubb~hfnuposts')->getThreads($id_forum,0,$nbPostPerPage);
+        list($page,$nbPosts,$posts) = Services::posts()->getThreads($id_forum,0,$nbPostPerPage);
         $first = true;
         foreach($posts as $post){
 
@@ -1344,7 +1344,7 @@ class postsCtrl extends jController {
         // 2- limit per page
         $nbPostPerPage = 0;
         $nbPostPerPage = (int) jApp::config()->havefnubb['posts_per_page'];
-        list($posts, $nbPosts) = jClasses::getService('havefnubb~hfnuposts')->findUnreadThread($page,$nbPostPerPage);
+        list($posts, $nbPosts) = Services::posts()->findUnreadThread($page,$nbPostPerPage);
 
         $tpl = new jTpl();
         $rep = $this->getResponse('html');

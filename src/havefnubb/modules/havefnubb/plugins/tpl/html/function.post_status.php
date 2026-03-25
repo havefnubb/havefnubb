@@ -3,10 +3,14 @@
 * @package     havefnubb
 * @subpackage  jtpl_plugin
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+* @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2011-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
  * function that display the status of one post or post in a given forum
  */
@@ -23,7 +27,7 @@ function jtpl_function_html_post_status($tpl, $source, $data,$lastMarkThreadAsRe
         $id_forum = $data;
 
         // does the user still read everything in the forum ?
-        if ( !jClasses::getService('havefnubb~hfnuposts')->getCountUnreadThreadbyForumId($id_forum) )
+        if ( !Services::posts()->getCountUnreadThreadbyForumId($id_forum) )
         //yes
             $status = 'forumicone';
         //no

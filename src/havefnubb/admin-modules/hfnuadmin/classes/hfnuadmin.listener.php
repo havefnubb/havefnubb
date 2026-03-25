@@ -4,10 +4,11 @@
 * @subpackage hfnuadmin
 * @author    FoxMaSk
 * @contributor Laurent Jouanneau
-* @copyright 2008-2011 FoxMaSk, 2019 Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2019-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+use Havefnubb\Havefnubb\Services;
 
 class hfnuadminListener extends jEventListener{
 
@@ -21,7 +22,7 @@ class hfnuadminListener extends jEventListener{
             $event->add( $link );
         }
 
-        $nbRec = jClasses::getService('havefnubb~hfnuposts')->getUnreadThreadByModCount();
+        $nbRec = Services::posts()->getUnreadThreadByModCount();
         if ($nbRec > 0 ) {
             $link = '<a href='.jUrl::get('hfnuadmin~posts:unread').'>';
             $link .= jLocale::get('hfnuadmin~task.unreadpostbymod', $nbRec);

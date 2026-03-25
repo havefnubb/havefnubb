@@ -3,10 +3,14 @@
 * @package   havefnubb
 * @subpackage havefnubb
 * @author    FoxMaSk
-* @copyright 2008-2011 FoxMaSk
+ * @contributor Laurent Jouanneau
+* @copyright 2008-2011 FoxMaSk, 2010-2026 Laurent Jouanneau
 * @link      https://havefnubb.jelix.org
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Services;
+
 /**
  * Class the displays the a form to quiclky reply to a post
  */
@@ -33,7 +37,7 @@ class quickreplyZone extends jZone {
             $user = new StdClass;
             $user->id=0;
         }
-        $post = jClasses::getService('havefnubb~hfnuposts')->getPost($id_post);
+        $post = Services::posts()->getPost($id_post);
         $subject = '';
         if ($post->subject != '') {
             $subject = $post->subject;

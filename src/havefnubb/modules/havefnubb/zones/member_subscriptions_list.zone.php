@@ -26,13 +26,14 @@ class member_subscriptions_listZone extends jZone {
         $subs = array();
         // get the threads the user subscribed
         $threads = jDao::get('havefnubb~sub')->findSubscribedPostByUser(jAuth::getUserSession()->id);
+        $servicePosts = Services::posts();
         foreach ($threads as $t) {
             // get the thread details
-            $thread = jClasses::getService('havefnubb~hfnuposts')->getThread($t->id_post);
+            $thread = $servicePosts->getThread($t->id_post);
 
             $subs[] = array(
                 'id_post'   => $thread->id_last_msg,
-                'ptitle'    => jClasses::getService('havefnubb~hfnuposts')->getPost($thread->id_last_msg)->subject,
+                'ptitle'    => $servicePosts->getPost($thread->id_last_msg)->subject,
                 'thread_id' => $thread->id_thread,
                 'id_forum'  => $thread->id_forum_thread,
                 'ftitle'    => Services::forums()->getForum($thread->id_forum_thread)->forum_name
