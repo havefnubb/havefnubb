@@ -46,7 +46,9 @@ var JelixPasswordEditor = {
         }
 
         buttonRegen.addEventListener('click',  function () {
-            inputEl.value = JelixPasswordEditor.generatePassword(minlength, Math.min(maxlength, 30));
+            let password = JelixPasswordEditor.generatePassword(minlength, Math.min(maxlength, 30));
+            inputEl.setAttribute('value', password);
+            inputEl.value = password;
             launchTimerListener();
         });
         buttonToggleVisibility.addEventListener('click', function () {
@@ -134,7 +136,7 @@ var JelixPasswordEditor = {
 
     generatePassword: function(minLength, maxLength) {
         const length = Math.floor((Math.random() * (maxLength - minLength)) + minLength);
-        const charset = "abcdefghijklmn!=()-_opqrstuvwxyz%#[]{}ABCDEFGHIJKLMNO\$*%?;PQRSTUVWXYZ0123456789:, <>";
+        const charset = "abcdefghijklmnopqrstuvwxyz!=()-_abcdefghijklmnopqrstuvwxyz%#[]{}ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\$*%?;ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789:, <>";
         let retVal = "";
         for (let i = 0, n = charset.length; i < length; ++i) {
             retVal += charset.charAt(Math.floor(Math.random() * n));

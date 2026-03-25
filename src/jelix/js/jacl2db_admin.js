@@ -494,6 +494,12 @@ $("document").ready( function () {
                         if (type === 'display') {
                             let content = tplUserLinks.cloneNode(true);
                             $(content).find('.user-rights-link').attr('href', data.rights);
+                            if (data.profile) {
+                                $(content).find('.user-profile-link').attr('href', data.profile);
+                            }
+                            else {
+                                $(content).find('.user-profile-link').remove();
+                            }
 
                             let div = document.createElement("div");
                             div.appendChild(content);
@@ -521,7 +527,7 @@ $("document").ready( function () {
             if (grpIdCreate.val().length === 0) {
                 var id = grpNameCreate.val();
                 id = id.replace(' ', '_');
-                id = id.replace(/[^a-zA-Z0-9_]/g, '');
+                id = id.replace(/[^a-zA-Z0-9_\-]/g, '');
                 grpIdCreate.val(id);
             }
         });

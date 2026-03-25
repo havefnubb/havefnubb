@@ -29,7 +29,7 @@
     }
   },
   "require": {
-    "jelix/jelix": "dev-jelix-1.8.x",
+    "jelix/jelix": "~1.8.23",
     "jelix/feeds-module": "~1.7.5",
     "jelix/wikirenderer-plugin": "~1.7.3",
     "jelix/sitemap-module": "~1.7.5",
