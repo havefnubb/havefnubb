@@ -4,9 +4,12 @@
 * @subpackage coord_plugin
 * @author     foxmask
 * @contributor Laurent Jouanneau
-* @copyright  2008-2011 FoxMaSk, 2010 Laurent Jouanneau
+* @copyright  2008-2011 FoxMaSk, 2010-2026 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
 */
+
+use Havefnubb\Havefnubb\Forum\Flood;
+
 /**
  * Class that checkes if a member is currently flooding
  */
@@ -28,9 +31,8 @@ class floodCoordPlugin implements jICoordPlugin {
         if (isset($params['check.flood'])
             && $params['check.flood']
             && $this->config['time_interval']) {
-    		jClasses::inc('havefnubb~flood');
 
-            $hasflood = flood::check($this->config['time_interval'], $this->config['only_same_ip']);
+            $hasflood = Flood::check($this->config['time_interval'], $this->config['only_same_ip']);
             if ($hasflood) {
     			if($this->config['on_error'] == 1
     				|| !jApp::coord()->request->isAllowedResponse('jResponseRedirect')){

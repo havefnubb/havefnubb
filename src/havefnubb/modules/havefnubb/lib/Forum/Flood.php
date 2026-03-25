@@ -4,23 +4,35 @@
  * @subpackage havefnubb
  * @author    FoxMaSk
  * @contributor Laurent Jouanneau
- * @copyright 2008-2011 FoxMaSk, 2010-2019 Laurent Jouanneau
+ * @copyright 2008-2011 FoxMaSk, 2010-2026 Laurent Jouanneau
  * @link      https://havefnubb.jelix.org
  * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
  */
+
+namespace Havefnubb\Havefnubb\Forum;
+use jAcl2DbUserGroup;
+use jApp;
+use jAuth;
+use jDao;
+
 /**
  * Class that handle the flood protection
  */
-class flood {
+class Flood
+{
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
+
     /**
      * check if there is a flood
      * @param integer $timeInterval time between two actions
-     * @param integer $onlySameIp  true: the flood is checked only between same ip
+     * @param integer $onlySameIp true: the flood is checked only between same ip
      * @return boolean  true if flood is detected
      */
-    public static function check($timeInterval, $onlySameIp) {
+    public static function check($timeInterval, $onlySameIp)
+    {
 
         // since we don't store data of anonymous user, and anonymous user
         // are not allowed to post, we don't check
@@ -30,12 +42,12 @@ class flood {
         // check if the user is member of Admins (groupid 0) / Moderators (groupid 3)
         // if so, no need to stop the action of this group of users
         // FIXME we should check, not the group, but the rights !
-        foreach(jAcl2DbUserGroup::getGroupList() as $grp)
-            if ( $grp->id_aclgrp == 'admins' or $grp->id_aclgrp == 'moderators')
+        foreach (jAcl2DbUserGroup::getGroupList() as $grp)
+            if ($grp->id_aclgrp == 'admins' or $grp->id_aclgrp == 'moderators')
                 return false;
 
         $dao = jDao::get('havefnubb~posts');
-        $rec = $dao->getMyLastEditedPost( jAuth::getUserSession()->id );
+        $rec = $dao->getMyLastEditedPost(jAuth::getUserSession()->id);
         if ($rec->member_last_post + $timeInterval > time())
             return false;
 
